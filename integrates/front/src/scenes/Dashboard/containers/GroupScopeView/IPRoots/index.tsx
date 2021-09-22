@@ -193,7 +193,6 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
           onClose={closeDeactivationModal}
           onUpdate={onUpdate}
           rootId={deactivationModal.rootId}
-          roots={roots}
         />
       ) : undefined}
     </React.Fragment>

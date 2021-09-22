@@ -175,12 +175,27 @@ const MOVE_ROOT: DocumentNode = gql`
   }
 `;
 
+const GET_GROUPS: DocumentNode = gql`
+  query GetGroups {
+    me {
+      organizations {
+        groups {
+          name
+        }
+        name
+      }
+      userEmail
+    }
+  }
+`;
+
 export {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
   ADD_IP_ROOT,
   ADD_URL_ROOT,
   DEACTIVATE_ROOT,
+  GET_GROUPS,
   GET_ROOTS,
   MOVE_ROOT,
   UPDATE_GIT_ENVIRONMENTS,

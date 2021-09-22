@@ -1,12 +1,12 @@
-import { useMutation } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
+import type { GraphQLError } from "graphql";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
-import { DEACTIVATE_ROOT, MOVE_ROOT } from "./queries";
-import type { Root } from "./types";
-import { isGitRoot, isIPRoot } from "./utils";
+import { DEACTIVATE_ROOT, GET_GROUPS, MOVE_ROOT } from "./queries";
 
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
@@ -27,20 +27,9 @@ import {
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
-const getRootDisplayName = (root: Root): string => {
-  if (isGitRoot(root)) {
-    return `${root.nickname} - ${root.url}`;
-  } else if (isIPRoot(root)) {
-    return `${root.nickname} - ${root.address}`;
-  }
-
-  return `${root.nickname} - ${root.host}`;
-};
-
 interface IDeactivationModalProps {
   groupName: string;
   rootId: string;
-  roots: Root[];
   onClose: () => void;
   onUpdate: () => void;
 }
@@ -48,7 +37,6 @@ interface IDeactivationModalProps {
 export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
   groupName,
   rootId,
-  roots,
   onClose,
   onUpdate,
 }: IDeactivationModalProps): JSX.Element => {
@@ -87,9 +75,27 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
     },
   });
 
-  const suggestions = roots
-    .filter((root): boolean => root.id !== rootId && root.state === "ACTIVE")
-    .map(getRootDisplayName);
+  const { data } = useQuery<{
+    me: { organizations: { groups: { name: string }[] }[] };
+  }>(GET_GROUPS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load group names", error);
+      });
+    },
+  });
+  const groups =
+    data === undefined
+      ? []
+      : data.me.organizations.reduce<string[]>(
+          (previousValue, currentValue): string[] => [
+            ...previousValue,
+            ...currentValue.groups.map((group): string => group.name),
+          ],
+          []
+        );
+
+  const suggestions = groups.filter((group): boolean => group !== groupName);
 
   const validations = object().shape({
     other: string().when("reason", {
@@ -98,7 +104,7 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
     }),
     reason: string().required(t("validations.required")),
     targetRoot: string().when("reason", {
-      is: "MOVED_TO_ANOTHER_ROOT",
+      is: "MOVED_TO_ANOTHER_GROUP",
       then: string()
         .required(t("validations.required"))
         .oneOf(suggestions, t("validations.oneOf")),
@@ -107,16 +113,12 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
 
   const handleSubmit = useCallback(
     async (values: Record<string, string>): Promise<void> => {
-      const matchingSuggestion = roots.find(
-        (root): boolean => values.targetRoot === getRootDisplayName(root)
-      ) as Root;
-
-      if (values.reason === "MOVED_TO_ANOTHER_ROOT") {
+      if (values.reason === "MOVED_TO_ANOTHER_GROUP") {
         await moveRoot({
           variables: {
             groupName,
             id: rootId,
-            targetId: matchingSuggestion.id,
+            targetId: values.targetGroup,
           },
         });
       } else {
@@ -130,7 +132,7 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
         });
       }
     },
-    [deactivateRoot, groupName, moveRoot, rootId, roots]
+    [deactivateRoot, groupName, moveRoot, rootId]
   );
 
   return (
@@ -209,14 +211,14 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                             <Field component={FormikText} name={"other"} />
                           </FormGroup>
                         ) : undefined}
-                        {values.reason === "MOVED_TO_ANOTHER_ROOT" ? (
+                        {values.reason === "MOVED_TO_ANOTHER_GROUP" ? (
                           <FormGroup>
                             <ControlLabel>
-                              {t("group.scope.common.deactivation.targetRoot")}
+                              {t("group.scope.common.deactivation.targetGroup")}
                             </ControlLabel>
                             <Field
                               component={FormikAutocompleteText}
-                              name={"targetRoot"}
+                              name={"targetGroup"}
                               placeholder={t(
                                 "group.scope.common.deactivation.targetPlaceholder"
                               )}
@@ -230,6 +232,9 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                           <Alert>
                             {t("group.scope.common.deactivation.warning")}
                           </Alert>
+                        ) : undefined}
+                        {values.reason === "MOVED_TO_ANOTHER_GROUP" ? (
+                          <Alert>{t("group.scope.common.changeWarning")}</Alert>
                         ) : undefined}
                       </Col100>
                     </Row>

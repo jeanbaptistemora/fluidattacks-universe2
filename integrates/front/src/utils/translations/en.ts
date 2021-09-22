@@ -540,8 +540,8 @@ export const enTranslations: ResourceKey = {
             other: "Other",
             scope: "Out of scope",
           },
-          targetPlaceholder: "Search by nickname or address...",
-          targetRoot: "Target root",
+          targetGroup: "Target group",
+          targetPlaceholder: "Search by group name...",
           title: "Deactivate Root",
           warning:
             "Adding this root to the scope again will count it as new. No history or other associated data will be kept.",

@@ -478,7 +478,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           onClose={closeDeactivationModal}
           onUpdate={onUpdate}
           rootId={deactivationModal.rootId}
-          roots={roots}
         />
       ) : undefined}
     </React.Fragment>
