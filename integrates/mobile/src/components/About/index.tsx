@@ -2,16 +2,16 @@ import { MaterialIcons } from "@expo/vector-icons";
 // eslint-disable-next-line import/no-named-as-default
 import Constants from "expo-constants";
 import { manifest } from "expo-updates";
-import type { Manifest } from "expo-updates";
+import type { ClassicManifest } from "expo-updates";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, Linking, View } from "react-native";
 
 import { styles } from "./styles";
 
-const manifestConst: Manifest = manifest as Manifest;
+const manifestConst: ClassicManifest = manifest as ClassicManifest;
 const manifestExtra: Record<string, string> =
-  manifestConst.extra === undefined
+  manifestConst?.extra === undefined
     ? {
         commitSha: "",
         commitShaShort: "",

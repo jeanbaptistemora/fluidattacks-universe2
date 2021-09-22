@@ -7,6 +7,10 @@ function main {
     GOOGLE_SERVICES_APP
   )
 
+  if test -z "${CI:-}"; then
+    export CI='false'
+  fi
+
   aws_login_dev 'integrates' \
     && sops_export_vars __envSecretsDev__ "${secrets[@]}" \
     && pushd integrates/mobile \
