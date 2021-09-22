@@ -6,5 +6,7 @@ from dynamodb.table import (
 )
 import json
 
+MASKED: str = "MASKED"
+
 with open(FI_DB_MODEL_PATH, mode="r") as file:
     TABLE = load_table(json.load(file))

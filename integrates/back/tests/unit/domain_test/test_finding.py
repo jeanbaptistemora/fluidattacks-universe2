@@ -17,6 +17,9 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model import (
+    MASKED,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -287,19 +290,18 @@ async def test_mask_finding_new() -> None:
     assert isinstance(success, bool)
     assert success == True
 
-    masked_msg = "Masked"
     loaders.finding_new.clear(finding_id)
     masked_finding: Finding = await loaders.finding_new.load(finding_id)
-    assert masked_finding.affected_systems == masked_msg
-    assert masked_finding.attack_vector_description == masked_msg
-    assert masked_finding.compromised_attributes == masked_msg
-    assert masked_finding.description == masked_msg
-    assert masked_finding.recommendation == masked_msg
-    assert masked_finding.threat == masked_msg
-    assert masked_finding.evidences.evidence1.description == masked_msg
-    assert masked_finding.evidences.evidence1.url == masked_msg
-    assert masked_finding.evidences.evidence2.description == masked_msg
-    assert masked_finding.evidences.evidence2.url == masked_msg
+    assert masked_finding.affected_systems == MASKED
+    assert masked_finding.attack_vector_description == MASKED
+    assert masked_finding.compromised_attributes == MASKED
+    assert masked_finding.description == MASKED
+    assert masked_finding.recommendation == MASKED
+    assert masked_finding.threat == MASKED
+    assert masked_finding.evidences.evidence1.description == MASKED
+    assert masked_finding.evidences.evidence1.url == MASKED
+    assert masked_finding.evidences.evidence2.description == MASKED
+    assert masked_finding.evidences.evidence2.url == MASKED
 
 
 async def test_validate_evidence_records() -> None:

@@ -43,6 +43,7 @@ from datetime import (
 )
 from db_model import (
     findings as findings_model,
+    MASKED,
 )
 from db_model.findings.enums import (
     FindingStateJustification,
@@ -1033,25 +1034,22 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
 ) -> bool:
     mask_finding_coroutines = []
     mask_new_finding_coroutines = []
-    masked_msg = "Masked"
     new_evidences = finding.evidences._replace(
         **{
-            evidence_name: evidence._replace(
-                description=masked_msg, url=masked_msg
-            )
+            evidence_name: evidence._replace(description=MASKED, url=MASKED)
             for evidence_name in finding.evidences._fields
             for evidence in [getattr(finding.evidences, evidence_name)]
             if evidence
         }
     )
     metadata = FindingMetadataToUpdate(
-        affected_systems=masked_msg,
-        attack_vector_description=masked_msg,
-        compromised_attributes=masked_msg,
-        description=masked_msg,
+        affected_systems=MASKED,
+        attack_vector_description=MASKED,
+        compromised_attributes=MASKED,
+        description=MASKED,
         evidences=new_evidences,
-        recommendation=masked_msg,
-        threat=masked_msg,
+        recommendation=MASKED,
+        threat=MASKED,
     )
     mask_new_finding_coroutines.append(
         findings_model.update_medatada(
@@ -1068,7 +1066,7 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
     ] = await finding_historic_verification_loader.load(finding.id)
     new_historic_verification = tuple(
         verification._replace(
-            status=FindingVerificationStatus.MASKED, modified_by=masked_msg
+            status=FindingVerificationStatus.MASKED, modified_by=MASKED
         )
         for verification in finding_historic_verification
     )
