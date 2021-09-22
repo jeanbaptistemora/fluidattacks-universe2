@@ -2877,40 +2877,25 @@
       details: __empty__
 "049":
   en:
-    title: Insecure digital certificates - APK Pinning
+    title: Inappropriate coding practices - Unused variables
     description: >
-      The application does not pin certificates
-      and therefore trusts
-      all the installed ones
-      in the device.
+      __empty__
     impact: >
-      Accept fraudulent certificates
-      from a compromised Certificate Authority (CA).
+      __empty__
     recommendation: >
-      Configure the pin-set
-      in res/xml/network_security_config.xml.
+      __empty__
     threat: >
-      Unauthorized attacker
-      from adjacent network
-      performing a MITM.
+      __empty__
   es:
-    title: Insecure digital certificates - APK Pinning
+    title: Inappropriate coding practices - Unused variables
     description: >
-      La aplicación no pinea los certificados
-      y por lo tanto confia
-      en todos los que estan instalados
-      en el dispositivo.
+      __empty__
     impact: >
-      Aceptar certificados fraudulentos
-      provenientes de una
-      Certificate Authority (CA) comprometida.
+      __empty__
     recommendation: >
-      Configurar el pin-set
-      en res/xml/network_security_config.xml.
+      __empty__
     threat: >
-      Atacante sin autorización
-      desde red adyacente
-      ejecutando un MITM.
+      __empty__
   category: Subvert Access
   score:
     base:
@@ -2926,7 +2911,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["088", "089", "090", "091", "092", "093", "150"]
+  requirements: ["266"]
   metadata:
     en:
       details: __empty__
@@ -17898,3 +17883,129 @@
   metadata:
     en:
       details: https://rules.sonarsource.com/javascript/RSPEC-1128
+"381":
+  en:
+    title: Supply Chain Attack - Docker
+    description: >
+      Docker dependencies are not pinned,
+      allowing a malicious actor to override the used components
+      with malicious components
+      without leaving a trace.
+    impact: >
+      Override depdendencies or component with malicious content
+    recommendation: >
+      Use mechanisms such as git-commits, or artifacts and hashes
+      to verify the data integrity
+    threat: >
+      Anonymous attacker from Internet
+      with write access to the provider releases
+  category: Abuse Functionality
+  es:
+    title: Supply Chain Attack - Docker
+    description: >
+      Las dependencias de Docker no están pineadas,
+      permitiendo a un actor malicioso
+      sobreescribir los componentes utilizados
+      con componentes maliciosos
+      sin dejar un rastro
+    impact: >
+      Sobreescribir dependencias o componentes con contenido malicioso
+    recommendation: >
+      Utilizar mecanismos como git-commits,
+      o utilizar artefactos y hashes
+      para verificar la integridad de los datos.
+    threat: >
+      Atacante anónimo desde internet
+      con acceso de escritura al los releasers del proveedor
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "R"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "U"
+      remediation_level: "O"
+      report_confidence: "R"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: __empty__
+"382":
+  en:
+    title: Supply Chain Attack - Terraform
+    description: >
+      Terraform dependencies are not pinned,
+      allowing a malicious actor to override the used components
+      with malicious components
+      without leaving a trace.
+    impact: >
+      Override depdendencies or component with malicious content
+    recommendation: >
+      Use mechanisms such as git-commits, or artifacts and hashes
+      to verify the data integrity
+    threat: >
+      Anonymous attacker from Internet
+      with write access to the provider releases
+  category: Abuse Functionality
+  es:
+    title: Supply Chain Attack - Terraform
+    description: >
+      Las dependencias de Terraform no están pineadas,
+      permitiendo a un actor malicioso
+      sobreescribir los componentes utilizados
+      con componentes maliciosos
+      sin dejar un rastro
+    impact: >
+      Sobreescribir dependencias o componentes con contenido malicioso
+    recommendation: >
+      Utilizar mecanismos como git-commits,
+      o utilizar artefactos y hashes
+      para verificar la integridad de los datos.
+    threat: >
+      Atacante anónimo desde internet
+      con acceso de escritura al los releasers del proveedor
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "R"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "U"
+      remediation_level: "O"
+      report_confidence: "R"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: |
+          ### Why
+
+          Terraform providers are installed as:
+          ```json {4,8}
+            required_providers {
+              aws = {
+                source  = "hashicorp/aws"
+                version = "~> 3.23.0"
+              }
+              cloudflare = {
+                source  = "cloudflare/cloudflare"
+                version = "~> 2.20.0"
+              }
+            }
+          ```
+          not only they are not pinned,
+          but also a version like 2.20.0 has no guarantees
+          because a malicious actor
+          with access to the provider release process
+          can override tags with malicious content,
+          changing the `legit 2.20.0` for `malicious 2.20.0`
+          without us noticing
