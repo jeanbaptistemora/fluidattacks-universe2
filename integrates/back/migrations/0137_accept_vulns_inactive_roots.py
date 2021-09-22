@@ -4,8 +4,8 @@ This migration indefinitely accepts vulnerabilities that belong to inactive
 root. The treatment manager is set to the user that deactivated
 the root.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-09-22 at 16:00:00 UTCUTC
+Finalization Time: 2021-09-22 at 17:50:0 UTCUTC
 """
 
 from aioextensions import (
