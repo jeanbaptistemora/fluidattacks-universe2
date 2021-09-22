@@ -173,7 +173,7 @@ const pageTexts: ResourceKey = {
   },
   service: {
     oneShotParagraph:
-      "If you want to achieve higher vulnerability remediation rates, we" +
+      "If you want to achieve higher vulnerability remediation rates, we " +
       "recommend our Continuous Hacking service",
     subTitle: "Effective Automation and Human Intelligence",
   },
