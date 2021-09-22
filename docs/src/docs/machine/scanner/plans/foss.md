@@ -70,19 +70,31 @@ in pretty-printed or CSV format:
 1. Nix v2, installed as explained in the
     [Nix's download page](https://nixos.org/download).
 
-## Installing
+1. Makes, installed like this:
 
-1. Run the following command:
+    ```bash
+    $ curl -L fluidattacks.com/install/m | sh
+    ```
 
-    `$ bash <(curl -L fluidattacks.com/install/skims)`
+## Using
 
-1. You should be able to execute the scanner now:
+```bash
+$ m gitlab:fluidattacks/product@master /skims --help
 
-    `$ skims --help`
+  Usage: skims [OPTIONS] COMMAND [ARGS]...
+
+    Deterministic vulnerability life-cycle reporting and closing tool.
+
+  ...
+```
 
 ## Running the scanner
 
-Just execute `$ skims scan /path/to/config.yaml`.
+```bash
+$ m gitlab:fluidattacks/product@master /skims scan /path/to/config.yaml
+
+  ... 🚀 !!
+```
 
 ### Configuration format
 
