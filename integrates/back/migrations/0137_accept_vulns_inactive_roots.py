@@ -18,19 +18,18 @@ from dataloaders import (
 from groups import (
     domain as groups_domain,
 )
-from itertools import (
-    chain,
-)
 from newutils import (
     datetime as datetime_utils,
-    vulnerabilities as vuln_utils,
 )
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
+from roots import (
+    dal as roots_dal,
+)
 import time
 from unreliable_indicators.enums import (
-    EntityDependency,
+    EntityDependency as EntityDep,
 )
 from unreliable_indicators.operations import (
     update_unreliable_indicators_by_deps,
@@ -50,8 +49,6 @@ async def main() -> None:
         vulns_by_finding = await dataloaders.finding_vulns.load_many(
             [finding["finding_id"] for finding in findings]
         )
-        vulns = list(chain.from_iterable(vulns_by_finding))
-        open_vulns = vuln_utils.filter_open_vulns(vulns)
 
         roots = await dataloaders.group_roots.load(group)
         active_roots_nicknames = [
@@ -64,67 +61,74 @@ async def main() -> None:
         ]
 
         sep = "\n"
-        for root in inactive_roots:
-            # There are active and inactive roots that share the same nickname
-            # Check exclusively for vulns that belong to inactive roots
-            vulns_to_accept = [
-                vuln
-                for vuln in open_vulns
-                if vuln["root_nickname"] == root.state.nickname
-                and vuln["root_nickname"] not in active_roots_nicknames
-            ]
-            if vulns_to_accept:
-                print(
-                    f"Accepting vulnerabilities root: {root.state.nickname}\n"
-                    f"{sep.join([vuln['id'] for vuln in vulns_to_accept])}"
-                )
-            new_treatment = [
-                {
-                    "acceptance_status": "APPROVED",
-                    "date": datetime_utils.get_now_as_str(),
-                    "justification": (
-                        "Automatically accepted due to belonging to an "
-                        "inactive root"
-                    ),
-                    "treatment": "ACCEPTED_UNDEFINED",
-                    "treatment_manager": root.state.modified_by,
-                    "user": root.state.modified_by,
-                }
-            ]
-            await collect(
-                vulns_dal.update(
-                    vuln["finding_id"],
-                    vuln["id"],
+        for finding, vulns in zip(findings, vulns_by_finding):
+            finding_modified = False
+            for root in inactive_roots:
+                # There are active and inactive roots that share the same
+                # nickname.
+                # Check exclusively for vulns that belong to inactive roots
+                vulns_to_accept = [
+                    vuln
+                    for vuln in vulns
+                    if roots_dal.filter_open_and_accepted_undef_vulns(vuln)
+                    and vuln["root_nickname"] == root.state.nickname
+                    and vuln["root_nickname"] not in active_roots_nicknames
+                ]
+                if vulns_to_accept:
+                    finding_modified = True
+                    print(
+                        "Accepting vulnerabilities in finding "
+                        f"{finding['finding_id']} from root: "
+                        f"{root.state.nickname}\n"
+                        f"{sep.join([vuln['id'] for vuln in vulns_to_accept])}"
+                    )
+                new_treatment = [
                     {
-                        "historic_treatment": (
-                            vuln["historic_treatment"] + new_treatment
-                        )
-                    },
+                        "acceptance_status": "APPROVED",
+                        "date": datetime_utils.get_now_as_str(),
+                        "justification": (
+                            "Automatically accepted due to belonging to an "
+                            "inactive root"
+                        ),
+                        "treatment": "ACCEPTED_UNDEFINED",
+                        "treatment_manager": root.state.modified_by,
+                        "user": root.state.modified_by,
+                    }
+                ]
+                await collect(
+                    vulns_dal.update(
+                        vuln["finding_id"],
+                        vuln["id"],
+                        {
+                            "historic_treatment": (
+                                vuln["historic_treatment"] + new_treatment
+                            )
+                        },
+                    )
+                    for vuln in vulns_to_accept
                 )
-                for vuln in vulns_to_accept
-            )
-        await collect(
-            (
-                redis_del_by_deps(
-                    "update_vulnerabilities_treatment",
-                    finding_id=finding["finding_id"],
-                    group_name=group,
-                ),
-                redis_del_by_deps(
-                    "handle_vulnerabilities_acceptation",
-                    finding_id=finding["finding_id"],
-                ),
-                update_unreliable_indicators_by_deps(
-                    EntityDependency.update_vulnerabilities_treatment,
-                    finding_id=finding["finding_id"],
-                ),
-                update_unreliable_indicators_by_deps(
-                    EntityDependency.handle_vulnerabilities_acceptation,
-                    finding_id=finding["finding_id"],
-                ),
-            )
-            for finding in findings
-        )
+            if finding_modified:
+                await collect(
+                    (
+                        redis_del_by_deps(
+                            "update_vulnerabilities_treatment",
+                            finding_id=finding["finding_id"],
+                            group_name=group,
+                        ),
+                        redis_del_by_deps(
+                            "handle_vulnerabilities_acceptation",
+                            finding_id=finding["finding_id"],
+                        ),
+                        update_unreliable_indicators_by_deps(
+                            EntityDep.update_vulnerabilities_treatment,
+                            finding_id=finding["finding_id"],
+                        ),
+                        update_unreliable_indicators_by_deps(
+                            EntityDep.handle_vulnerabilities_acceptation,
+                            finding_id=finding["finding_id"],
+                        ),
+                    )
+                )
 
 
 if __name__ == "__main__":

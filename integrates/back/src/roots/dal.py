@@ -30,15 +30,13 @@ async def get_root_vulns(*, nickname: str) -> Tuple[Dict[str, Any], ...]:
     )
 
 
-def _filter_open_and_accepted_undef_vulns(vuln: Dict[str, Any]) -> bool:
+def filter_open_and_accepted_undef_vulns(vuln: Dict[str, Any]) -> bool:
     result = (
         vuln["historic_state"][-1]["state"] == "open"
         and vuln["historic_treatment"][-1]["treatment"] != "ACCEPTED_UNDEFINED"
+        and vuln.get("historic_zero_risk", [{}])[-1].get("status")
+        != "CONFIRMED"
     )
-
-    historic_zero_risk = vuln.get("historic_zero_risk")
-    if historic_zero_risk:
-        return result and historic_zero_risk[-1]["status"] != "CONFIRMED"
 
     return result
 
@@ -56,7 +54,7 @@ async def has_open_vulns(
             (
                 vuln
                 for vuln in vulns
-                if _filter_open_and_accepted_undef_vulns(vuln)
+                if filter_open_and_accepted_undef_vulns(vuln)
                 and vuln["finding_id"] not in draft_ids
             ),
             None,
