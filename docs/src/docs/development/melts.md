@@ -25,82 +25,6 @@ the latest fingerprint for each
 of the group's repositories,
 among other functions.
 
-## Installing Melts
-
-There are two main ways
-of installing Melts:
-
-### For analysts
-
-If you are an analyst
-then surely you will need melts
-for your daily activities,
-the main way for analysts
-to install Melts
-is using the `install.sh` file
-present in the `services` repository.
-You only need to enter the root
-of the `services` repository,
-and then use this command:
-
-```bash
-./install.sh
-```
-
-This command will install for you
-not only Melts,
-but also Sorts and Skims,
-which may be of use to you as well.
-
-### For developers
-
-There is also a way to install
-the latest version of Melts by itself
-in case you don't use the `services` repository
-and don't need the other two tools,
-the command is the following:
-
-```bash
-curl -L fluidattacks.com/install/melts | sh
-```
-
-In case you are a developer
-you may want to use Melts
-to test the changes you made to it,
-in this case you can simply
-get into your local `product` repository
-and run Melts normally,
-for example, like this:
-
-```bash
-./m melts --help
-```
-
-And this will run
-your local version of Melts.
-However,
-there are cases in which
-you need to run your local Melts
-from inside your local `services` repository,
-in these cases you can use the following command:
-
-```bash
-nix-env -i melts -f . --option narinfo-cache-negative-ttl 1 \
---option narinfo-cache-positive-ttl 1 \
---option restrict-eval false \
---option sandbox false \
---option substituters 'https://fluidattacks.cachix.org https://cache.nixos.org' \
---option trusted-public-keys '
-    fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=
-    cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-  '
-```
-
-This will install Melts
-using your local `product` repository,
-and will have the changes
-you have made to it.
-
 ## Using Melts
 
 Before starting to use Melts,
@@ -140,7 +64,7 @@ to do this easily,
 just use the following command to login:
 
 ```bash
-melts resources --login
+m gitlab:fluidattacks/product@master /melts resources --login
 ```
 
 After which you will be prompted
@@ -207,7 +131,7 @@ needed to create these files:
   to log in with the admin role:
 
   ```bash
-  melts resources --login admin
+  m gitlab:fluidattacks/product@master /melts resources --login admin
   ```
 
   Enter your credentials
@@ -271,16 +195,7 @@ there are a couple of things
 you can try to fix them:
 
 - The first thing you should do
-  is update Melts,
-  in order to do this
-  as an analyst,
-  you only need to use
-  the `install.sh` file again,
-  otherwise use the command
-  `curl -L fluidattacks.com/install/melts | sh`.
-  Both will automatically
-  uninstall the current version
-  and install the most recent one.
+  is to follow the installation instructions again.
 - The next thing you can check
   is if your `INTEGRATES_API_TOKEN`
   hasn't expired,
