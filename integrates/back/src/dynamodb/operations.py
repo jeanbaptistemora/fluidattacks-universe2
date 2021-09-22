@@ -28,6 +28,9 @@ from dynamodb.types import (
     PrimaryKey,
     Table,
 )
+from itertools import (
+    chain,
+)
 from typing import (
     Any,
     Dict,
@@ -36,6 +39,10 @@ from typing import (
     Tuple,
     Union,
 )
+
+
+def _format_map_attrs(attr: str) -> str:
+    return ".".join([f"#{map_attr}" for map_attr in attr.split(".")])
 
 
 def _get_resource_options() -> Dict[str, Optional[str]]:
@@ -222,17 +229,26 @@ async def update_item(
     table: Table,
 ) -> None:
     key_structure = table.primary_key
-    attr_names = {f"#{attr}": attr for attr in item}
+    item_attrs = chain(
+        *[attr.split(".") if "." in attr else [attr] for attr in item]
+    )
+    attr_names = {f"#{attr}": attr for attr in item_attrs}
     attr_values = {
-        f":{attr}": value for attr, value in item.items() if value is not None
+        f":{attr.replace('.', '')}": value
+        for attr, value in item.items()
+        if value is not None
     }
     attrs_to_update = ",".join(
-        f"#{attr} = :{attr}"
+        f"{_format_map_attrs(attr)} = :{attr.replace('.', '')}"
+        if "." in attr
+        else f"#{attr} = :{attr}"
         for attr, value in item.items()
         if value is not None
     )
     attrs_to_remove = ",".join(
-        f"#{attr}" for attr, value in item.items() if value is None
+        f"#{_format_map_attrs(attr)}"
+        for attr, value in item.items()
+        if value is None
     )
 
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
