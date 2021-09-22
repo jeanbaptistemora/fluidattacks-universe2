@@ -24,7 +24,6 @@ const FaqIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { title } = data.asciidoc.document;
   const {
     banner,
     description,
@@ -32,7 +31,8 @@ const FaqIndex: React.FC<IQueryData> = ({
     slug,
     subtext,
     subtitle,
-  } = data.asciidoc.pageAttributes;
+    title,
+  } = data.markdownRemark.frontmatter;
 
   const hasBanner: boolean = typeof banner === "string";
 
@@ -169,7 +169,7 @@ const FaqIndex: React.FC<IQueryData> = ({
             <FaqContainer
               className={"internal faq-page"}
               dangerouslySetInnerHTML={{
-                __html: data.asciidoc.html,
+                __html: data.markdownRemark.html,
               }}
             />
           </PageArticle>
@@ -183,21 +183,17 @@ export default FaqIndex;
 
 export const query: void = graphql`
   query CareersFaqIndex($slug: String!) {
-    asciidoc(fields: { slug: { eq: $slug } }) {
-      document {
-        title
-      }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
         slug
       }
-      pageAttributes {
+      frontmatter {
         banner
         description
         keywords
         slug
-        subtext
-        subtitle
+        title
       }
     }
   }

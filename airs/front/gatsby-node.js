@@ -180,7 +180,6 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
               }
               pageAttributes {
                 slug
-                template
                 tags
                 category
                 author
