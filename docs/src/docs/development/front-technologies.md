@@ -77,7 +77,7 @@ slug: /development/front-technologies
 1. Lint your code
 
     ```bash
-    ./make integrates.front.lint
+    ./m integrates.front.lint
     ```
 
     You have the option
@@ -104,5 +104,5 @@ slug: /development/front-technologies
 1. Test your code
 
     ```bash
-    ./make integrates.front.test
+    ./m integrates.front.test
     ```

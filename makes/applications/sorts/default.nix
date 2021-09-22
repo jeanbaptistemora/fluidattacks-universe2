@@ -1,16 +1,16 @@
-{ makeEntrypoint
+{ importUtility
+, makes
 , packages
-, path
 , ...
 }:
-makeEntrypoint {
+makes.makeScript {
   name = "sorts";
   searchPaths = {
-    envSources = [ packages.sorts.config-runtime ];
-    envUtils = [
-      "/makes/utils/aws"
-      "/makes/utils/sops"
+    source = [
+      (importUtility "aws")
+      (importUtility "sops")
+      packages.sorts.config-runtime
     ];
   };
-  template = path "/makes/applications/sorts/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }
