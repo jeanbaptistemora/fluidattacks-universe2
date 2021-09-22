@@ -24,7 +24,8 @@ spec:
           command: [sh]
           args:
             - -c
-            - wget -O - fluidattacks.com/install/integrates-back | sh /dev/stdin "${CI_COMMIT_SHA}" &&
+            - nix-env -i git &&
+              wget -O - fluidattacks.com/install/integrates-back | sh /dev/stdin "${CI_COMMIT_SHA}" &&
               integrates-back eph
           resources:
             requests:
@@ -71,7 +72,8 @@ spec:
           command: [sh]
           args:
             - -c
-            - wget -O - fluidattacks.com/install/integrates-db | sh /dev/stdin "${CI_COMMIT_SHA}" &&
+            - nix-env -i git &&
+              wget -O - fluidattacks.com/install/integrates-db | sh /dev/stdin "${CI_COMMIT_SHA}" &&
               integrates-db
           resources:
             requests:
@@ -109,7 +111,8 @@ spec:
           command: [sh]
           args:
             - -c
-            - wget -O - fluidattacks.com/install/integrates-storage | sh /dev/stdin "${CI_COMMIT_SHA}" &&
+            - nix-env -i git &&
+              wget -O - fluidattacks.com/install/integrates-storage | sh /dev/stdin "${CI_COMMIT_SHA}" &&
               integrates-storage
           resources:
             requests:

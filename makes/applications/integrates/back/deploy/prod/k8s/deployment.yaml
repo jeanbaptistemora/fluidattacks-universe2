@@ -28,7 +28,8 @@ spec:
           command: [sh]
           args:
             - -c
-            - wget -O - fluidattacks.com/install/integrates-back | sh /dev/stdin master &&
+            - nix-env -i git &&
+              wget -O - fluidattacks.com/install/integrates-back | sh /dev/stdin master &&
               integrates-back prod
           resources:
             # Ensure your request and limit fits in the node:
