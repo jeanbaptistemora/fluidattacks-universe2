@@ -16,12 +16,11 @@ import React from "react";
 
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
+import { PageHeader } from "../components/PageHeader";
 import { Seo } from "../components/Seo";
 import {
   ArticleContainer,
-  BannerContainer,
-  BannerTitle,
-  FullWidthContainer,
+  ArticleTitle,
   PageArticle,
 } from "../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
@@ -35,13 +34,17 @@ const MdDefaultPage: React.FC<IQueryData> = ({
   } = pageContext;
 
   const {
+    banner,
     description,
     keywords,
     slug,
+    subtext,
+    subtitle,
     title,
   } = data.markdownRemark.frontmatter;
 
-  const { html } = data.markdownRemark;
+  const hasBanner: boolean = typeof banner === "string";
+  const isCareers: boolean = slug === "careers/";
 
   return (
     <React.Fragment>
@@ -65,15 +68,21 @@ const MdDefaultPage: React.FC<IQueryData> = ({
           />
 
           <PageArticle>
-            <BannerContainer>
-              <FullWidthContainer>
-                <BannerTitle>{title}</BannerTitle>
-              </FullWidthContainer>
-            </BannerContainer>
+            <PageHeader
+              banner={banner}
+              pageWithBanner={hasBanner}
+              slug={slug}
+              subtext={subtext}
+              subtitle={subtitle}
+              title={decode(title)}
+            />
+            {isCareers ? (
+              <ArticleTitle>{decode(title)}</ArticleTitle>
+            ) : undefined}
             <ArticleContainer
               className={"internal"}
               dangerouslySetInnerHTML={{
-                __html: html,
+                __html: data.markdownRemark.html,
               }}
             />
           </PageArticle>
@@ -93,12 +102,12 @@ export const query: void = graphql`
         slug
       }
       frontmatter {
+        banner
         description
         keywords
         slug
         title
       }
-      rawMarkdownBody
     }
   }
 `;
