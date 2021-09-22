@@ -2,6 +2,9 @@ from .create import (
     add,
     add_evidence,
 )
+from .remove import (
+    remove_evidence,
+)
 from .update import (
     update_evidence,
     update_historic_verification,
@@ -15,6 +18,8 @@ __all__ = [
     # create
     "add",
     "add_evidence",
+    # remove
+    "remove_evidence",
     # update
     "update_evidence",
     "update_historic_verification",
