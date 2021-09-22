@@ -2,20 +2,22 @@
   description = "Fluid Attacks, We hack your software!";
   inputs = {
     flakeCompat = { url = "github:edolstra/flake-compat"; flake = false; };
-    makesSource = { url = "github:fluidattacks/makes"; flake = false; };
+    makes = { url = "github:fluidattacks/makes"; };
     nixpkgsSource = { url = "https://github.com/nixos/nixpkgs/archive/932941b79c3dbbef2de9440e1631dfec43956261.tar.gz"; flake = false; };
     nixpkgsSource2 = { url = "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"; flake = false; };
     nixpkgsSource3 = { url = "https://github.com/nixos/nixpkgs/archive/a1d64d9419422ae9779ab5cada5828127a24e100.tar.gz"; flake = false; };
   };
   outputs =
     { self
-    , makesSource
+    , makes
     , nixpkgsSource
     , nixpkgsSource2
     , nixpkgsSource3
     , ...
-    }:
+    } @ inputs:
     let
+      system = "x86_64-linux";
+
       attrs = rec {
         applications = nixpkgs.lib.attrsets.mapAttrsRecursive
           (path: value: "${value}/bin/${builtins.concatStringsSep "-" (nixpkgs.lib.lists.init path)}")
@@ -54,13 +56,13 @@
           attrsByType "applications" // attrsByType "packages";
         path = path: /. + (builtins.unsafeDiscardStringContext self.sourceInfo) + path;
         revision = if (builtins.hasAttr "rev" self) then self.rev else "dirty";
-        system = "x86_64-linux";
+        inherit system;
         skimsBenchmarkOwaspRepo = fetchzip {
           url = "https://github.com/owasp/benchmark/archive/1cfe52ea6dc49bebae12e6ceb20356196f0e9ac8.tar.gz";
           sha256 = "pcNMJJJ2cRxh4Kgq0ElOIyBJemJu4qggxY3Debjbcms=";
         };
 
-        makes = import "${makesSource}/src/args/agnostic.nix" {
+        makes = import "${inputs.makes.sourceInfo}/src/args/agnostic.nix" {
           inherit system;
           __globalStateDir__ = "$HOME_IMPURE/.makes/state";
           __projectStateDir__ = "$HOME_IMPURE/.makes/state/product";
@@ -109,5 +111,13 @@
         sslCerts = importUtility "ssl-certs";
       };
     in
-    { packages.x86_64-linux = attrs.packagesFlattened; };
+    (
+      (makes.lib.flakes.evaluate {
+        inputs = {
+          inherit self;
+        };
+        inherit system;
+      }) //
+      { packages.x86_64-linux = attrs.packagesFlattened; }
+    );
 }
