@@ -105,6 +105,7 @@ def _test_crypto_js(
     elif method in complete_attrs_on_set(
         {
             "crypto-js.AES.encrypt",
+            "crypto-js.RSA.encrypt",
         }
     ):
         append_label_input(shard.graph, "1", FINDING)
@@ -115,6 +116,47 @@ def _test_crypto_js(
             {"encrypt"},
         )
         yield shard_n_id_query(graph_db, FINDING, shard, "1")
+
+
+def insecure_hash(graph_db: GraphDB) -> Vulnerabilities:
+    def find_vulns() -> Iterator[Vulnerability]:
+        for (
+            shard,
+            syntax_steps,
+            invocation_step,
+            index,
+        ) in yield_javascript_method_invocation(graph_db):
+            danger_methods = {"createHash"}
+            var, method = split_on_last_dot(invocation_step.method)
+            if method not in danger_methods and var not in danger_methods:
+                continue
+
+            dependencies = get_dependencies(index, syntax_steps)
+            algorithm = dependencies[-1]
+            if (
+                # pylint: disable=used-before-assignment
+                algorithm.type == "SyntaxStepLiteral"
+                and (algorithm_value := algorithm.value)
+                and any(
+                    alg in algorithm_value.lower()
+                    for alg in (
+                        "md2",
+                        "md4",
+                        "md5",
+                        "sha1",
+                        "sha-1",
+                    )
+                )
+            ):
+                yield get_vulnerabilities_from_n_ids(
+                    cwe=("310", "327"),
+                    desc_key=("src.lib_path.f052.insecure_cipher.description"),
+                    desc_params=dict(lang="JavaScript"),
+                    finding=FINDING,
+                    graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
+                )
+
+    return tuple(chain.from_iterable(find_vulns()))
 
 
 def insecure_cipher(

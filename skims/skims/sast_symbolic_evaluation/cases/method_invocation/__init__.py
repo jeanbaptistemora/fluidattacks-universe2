@@ -516,6 +516,14 @@ BY_TYPE_HANDLER = complete_attrs_on_dict(
         "crypto-js": {
             "AES.encrypt": {
                 insecure_crypto_js,
+            },
+            "RSA.encrypt": {
+                insecure_crypto_js,
+            },
+        },
+        "crypto-js.RSA": {
+            "encrypt": {
+                insecure_crypto_js,
             }
         },
     }

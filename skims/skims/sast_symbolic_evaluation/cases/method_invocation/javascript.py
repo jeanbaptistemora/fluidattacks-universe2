@@ -220,23 +220,28 @@ def insecure_crypto_js(args: EvaluatorArgs) -> None:
     if len(arguments) < 3:
         return None
 
+    algorithm = ""
+    if "aes" in args.syntax_step.method.lower():
+        algorithm = "aes"
+    elif "rsa" in args.syntax_step.method.lower():
+        algorithm = "rsa"
+    else:
+        return None
+
     *_, _options, _, _ = arguments
     options = _options.meta.value
-    cipher_mode = None
-    cipher_padding = None
-    if (
-        isinstance(options, dict)
-        and (cipher_mode := options.get("mode"))
-        and cipher_mode.type == "SyntaxStepMemberAccessExpression"
-    ):
-        cipher_padding = options.get("padding")
-        args.syntax_step.meta.danger = is_vulnerable_cipher(
-            "aes",
-            cipher_mode.member,
-            cipher_padding.member
-            if cipher_padding
-            and cipher_padding.type == "SyntaxStepMemberAccessExpression"
-            else None,
-        )
+    cipher_mode = options.get("mode")
+    cipher_padding = options.get("padding")
+
+    args.syntax_step.meta.danger = is_vulnerable_cipher(
+        algorithm,
+        cipher_mode.member
+        if cipher_padding.type == "SyntaxStepMemberAccessExpression"
+        else None,
+        cipher_padding.member
+        if cipher_padding
+        and cipher_padding.type == "SyntaxStepMemberAccessExpression"
+        else None,
+    )
 
     return None
