@@ -1,9 +1,0 @@
-:page-slug: about-us/certifications/
-:page-category: about-us
-:page-description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
-:page-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
-:page-banner: certifications-bg
-:page-template: about-us/cardsgen
-:page-certificationsindex: yes
-
-= Certifications

@@ -36,8 +36,6 @@ const CardsgenIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { title } = data.asciidoc.document;
-
   const {
     banner,
     clientsindex,
@@ -46,7 +44,8 @@ const CardsgenIndex: React.FC<IQueryData> = ({
     keywords,
     partnersindex,
     slug,
-  } = data.asciidoc.pageAttributes;
+    title,
+  } = data.markdownRemark.frontmatter;
 
   const metaImage: string =
     partnersindex === "yes"
@@ -83,7 +82,7 @@ const CardsgenIndex: React.FC<IQueryData> = ({
             <CardsContainer1200>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: data.asciidoc.html,
+                  __html: data.markdownRemark.html,
                 }}
               />
               {partnersindex === "yes" ? (
@@ -105,15 +104,12 @@ export default CardsgenIndex;
 
 export const query: void = graphql`
   query CardsgenPages($slug: String!) {
-    asciidoc(fields: { slug: { eq: $slug } }) {
-      document {
-        title
-      }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
         slug
       }
-      pageAttributes {
+      frontmatter {
         banner
         certificationsindex
         clientsindex
@@ -121,6 +117,7 @@ export const query: void = graphql`
         keywords
         slug
         partnersindex
+        title
       }
     }
   }

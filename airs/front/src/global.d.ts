@@ -53,6 +53,8 @@ interface IQueryData {
         advise: string;
         authors: string;
         banner: string;
+        certificationsindex: string;
+        clientsindex: string;
         codename: string;
         cveid: string;
         date: string;
@@ -61,6 +63,7 @@ interface IQueryData {
         description: string;
         image: string;
         keywords: string;
+        partnersindex: string;
         phrase: string;
         slug: string;
         solution: string;
