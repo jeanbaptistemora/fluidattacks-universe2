@@ -18009,3 +18009,83 @@
           can override tags with malicious content,
           changing the `legit 2.20.0` for `malicious 2.20.0`
           without us noticing
+"383":
+  en:
+    title: Insufficient data authenticity validation - Front bypass
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Abuse Functionality
+  es:
+    title: Insufficient data authenticity validation - Front bypass
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: __empty__
+"384":
+  en:
+    title: Insecurely generated token - OTP
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Abuse Functionality
+  es:
+    title: Insecurely generated token - OTP
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: __empty__
