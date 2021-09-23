@@ -45,6 +45,14 @@ def _build_nested_identifier_ids(
     return keys
 
 
+def node_to_str(graph: graph_model.Graph, n_id: str) -> str:
+    node = graph.nodes[n_id]
+    result_str = node["label_text"] if "label_text" in node else ""
+    for c_id in g.adj_ast(graph, n_id):
+        result_str += node_to_str(graph, c_id)
+    return result_str
+
+
 def yield_c_sharp_nested_identifiers(
     graph: graph_model.Graph,
     n_id: str,
