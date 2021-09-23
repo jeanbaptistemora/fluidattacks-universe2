@@ -378,19 +378,6 @@ type Mutation {
     rejectedVulnerabilities: [String]!
   ): SimplePayload!
 
-  "Handles acceptation and rejection of Vulnerabilities"
-  handleVulnsAcceptation(
-    "List of identifiers of the vulnerabilities to be accepted"
-    acceptedVulns: [String]!
-    "Identifier of the Finding that contains the vulnerabilities"
-    findingId: String!
-    "Justification of the acceptances and rejections"
-    justification: String!
-    "List of identifiers of the vulnerabilities to be rejected"
-    rejectedVulns: [String]!
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2022/01/19. Use `handleVulnerabilitiesAcceptation` instead.""")
-
   "Revokes the current user's API access token"
   invalidateAccessToken: SimplePayload!
 
@@ -425,17 +412,6 @@ type Mutation {
     "List of rejected Vulnerabilities"
     vulnerabilities: [String]!
   ): SimplePayload!
-
-  "Rejects the provided vulnerabilities from being considered as zero risk"
-  rejectZeroRiskVuln(
-    "Identifier of Finding containing the vulnerabilities"
-    findingId: String!
-    "Justification for the rejection"
-    justification: String!
-    "List of rejected Vulnerabilities"
-    vulnerabilities: [String]!
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2022/01/27. Use `rejectVulnerabilitiesZeroRisk` instead.""")
 
   "Removes evidence from an Event"
   removeEventEvidence(
@@ -506,17 +482,6 @@ type Mutation {
     "Email address of the stakeholder to remove"
     userEmail: String!
   ): SimplePayload!
-
-  "Removes/deletes the specified tag from the group"
-  removeTag(
-    "Deprecated. User `groupName` instead"
-    projectName: String
-    "Name of the group where the tag should be removed from"
-    groupName: String
-    "Tag to remove"
-    tag: String!
-  ): SimpleGroupPayload! @deprecated(reason: """This mutation will be removed
-    after 2022/01/28. Use `removeGroupTag` instead.""")
 
   "Removes tags from vulnerabilities"
   removeTags(

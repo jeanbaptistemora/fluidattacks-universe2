@@ -194,7 +194,6 @@ MUTATION.set_field(
 )
 
 # -------------------------Deprecated mutations--------------------------------
-MUTATION.set_field("removeTag", remove_group_tag.mutate)
 MUTATION.set_field(
     "updateTreatmentVuln", update_vulnerability_treatment.mutate
 )
@@ -250,12 +249,6 @@ if FI_API_STATUS == "migration":
         verify_vulnerabilities_request_new.mutate,
     )
     # -----------------------Deprecated mutations------------------------------
-    MUTATION.set_field(
-        "handleVulnsAcceptation", handle_vulnerabilities_acceptation_new.mutate
-    )
-    MUTATION.set_field(
-        "rejectZeroRiskVuln", reject_vulnerabilities_zero_risk_new.mutate
-    )
     MUTATION.set_field(
         "requestVerificationVuln",
         request_vulnerabilities_verification_new.mutate,
@@ -320,12 +313,6 @@ else:
         "verifyVulnerabilitiesRequest", verify_vulnerabilities_request.mutate
     )
     # -----------------------Deprecated mutations------------------------------
-    MUTATION.set_field(
-        "handleVulnsAcceptation", handle_vulnerabilities_acceptation.mutate
-    )
-    MUTATION.set_field(
-        "rejectZeroRiskVuln", reject_vulnerabilities_zero_risk.mutate
-    )
     MUTATION.set_field(
         "requestVerificationVuln", request_vulnerabilities_verification.mutate
     )
