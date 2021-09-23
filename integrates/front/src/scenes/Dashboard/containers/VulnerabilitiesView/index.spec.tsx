@@ -6,13 +6,11 @@ import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { useTranslation } from "react-i18next";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 
 import { VulnsView } from "scenes/Dashboard/containers/VulnerabilitiesView";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import store from "store";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 describe("VulnerabilitiesView", (): void => {
@@ -178,18 +176,16 @@ describe("VulnerabilitiesView", (): void => {
           "/orgs/testorg/groups/testgroup/vulns/422286126/locations",
         ]}
       >
-        <Provider store={store}>
-          <MockedProvider addTypename={true} mocks={[mocksQuery]}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={VulnsView}
-                path={
-                  "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
-                }
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={true} mocks={[mocksQuery]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={VulnsView}
+              path={
+                "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
+              }
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -221,18 +217,16 @@ describe("VulnerabilitiesView", (): void => {
           "/orgs/testorg/groups/testgroup/vulns/422286126/locations",
         ]}
       >
-        <Provider store={store}>
-          <MockedProvider addTypename={true} mocks={[mocksQuery]}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={VulnsView}
-                path={
-                  "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
-                }
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={true} mocks={[mocksQuery]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={VulnsView}
+              path={
+                "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
+              }
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -273,20 +267,18 @@ describe("VulnerabilitiesView", (): void => {
           "/orgs/testorg/groups/testgroup/vulns/422286126/locations",
         ]}
       >
-        <Provider store={store}>
-          <MockedProvider addTypename={true} mocks={[mocksQuery]}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <authzGroupContext.Provider value={mockedServices}>
-                <Route
-                  component={VulnsView}
-                  path={
-                    "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
-                  }
-                />
-              </authzGroupContext.Provider>
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={true} mocks={[mocksQuery]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <authzGroupContext.Provider value={mockedServices}>
+              <Route
+                component={VulnsView}
+                path={
+                  "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
+                }
+              />
+            </authzGroupContext.Provider>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -351,18 +343,16 @@ describe("VulnerabilitiesView", (): void => {
           "/orgs/testorg/groups/testgroup/vulns/422286126/locations",
         ]}
       >
-        <Provider store={store}>
-          <MockedProvider addTypename={true} mocks={[mocksQuery]}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={VulnsView}
-                path={
-                  "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
-                }
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={true} mocks={[mocksQuery]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={VulnsView}
+              path={
+                "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
+              }
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
 

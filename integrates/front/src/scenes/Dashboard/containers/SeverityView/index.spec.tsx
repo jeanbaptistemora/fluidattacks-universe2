@@ -7,7 +7,6 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { useTranslation } from "react-i18next";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
@@ -17,7 +16,6 @@ import type { ISeverityAttr } from "./types";
 
 import { SeverityView } from "scenes/Dashboard/containers/SeverityView";
 import { GET_SEVERITY } from "scenes/Dashboard/containers/SeverityView/queries";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("SeverityView", (): void => {
@@ -93,16 +91,14 @@ describe("SeverityView", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={SeverityView}
-                path={"/:groupName/vulns/:findingId/severity"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={SeverityView}
+              path={"/:groupName/vulns/:findingId/severity"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -153,14 +149,12 @@ describe("SeverityView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mockError}>
-            <Route
-              component={SeverityView}
-              path={"/:groupName/vulns/:findingId/severity"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mockError}>
+          <Route
+            component={SeverityView}
+            path={"/:groupName/vulns/:findingId/severity"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -179,16 +173,14 @@ describe("SeverityView", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={SeverityView}
-                path={"/:groupName/vulns/:findingId/severity"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={SeverityView}
+              path={"/:groupName/vulns/:findingId/severity"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -215,14 +207,12 @@ describe("SeverityView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mockError}>
-            <Route
-              component={SeverityView}
-              path={"/:groupName/vulns/:findingId/severity"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mockError}>
+          <Route
+            component={SeverityView}
+            path={"/:groupName/vulns/:findingId/severity"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {

@@ -5,13 +5,11 @@ import { mount } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 
 import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
 import { PORTFOLIO_GROUP_QUERY } from "scenes/Dashboard/containers/TagContent/TagGroup/queries";
-import store from "store/index";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
@@ -92,14 +90,12 @@ describe("Portfolio Groups", (): void => {
       <MemoryRouter
         initialEntries={["/orgs/okada/portfolios/test-projects/groups"]}
       >
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[portfolioQuery]}>
-            <Route
-              component={TagsGroup}
-              path={"/orgs/:organizationName/portfolios/:tagName/groups"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={[portfolioQuery]}>
+          <Route
+            component={TagsGroup}
+            path={"/orgs/:organizationName/portfolios/:tagName/groups"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -130,14 +126,12 @@ describe("Portfolio Groups", (): void => {
       <MemoryRouter
         initialEntries={["/orgs/okada/portfolios/another-tag/groups"]}
       >
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[portfolioQueryError]}>
-            <Route
-              component={TagsGroup}
-              path={"/orgs/:organizationName/portfolios/:tagName/groups"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={[portfolioQueryError]}>
+          <Route
+            component={TagsGroup}
+            path={"/orgs/:organizationName/portfolios/:tagName/groups"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
 

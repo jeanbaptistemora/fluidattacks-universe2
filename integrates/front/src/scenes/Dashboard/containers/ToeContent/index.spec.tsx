@@ -4,7 +4,6 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
@@ -12,7 +11,6 @@ import { ToeContent } from ".";
 import { GroupToeLinesView } from "../GroupToeLinesView";
 import type { IContentTabProps } from "scenes/Dashboard/components/ContentTab";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("ToeContent", (): void => {
@@ -30,13 +28,11 @@ describe("ToeContent", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting/surface"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[]}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route component={ToeContent} path={"/:groupName/surface"} />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={[]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route component={ToeContent} path={"/:groupName/surface"} />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {

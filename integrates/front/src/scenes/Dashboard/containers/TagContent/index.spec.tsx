@@ -3,12 +3,10 @@ import type { MockedResponse } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 
 import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
-import store from "store";
 
 describe("TagContent", (): void => {
   const mocks: MockedResponse = {
@@ -41,14 +39,12 @@ describe("TagContent", (): void => {
       <MemoryRouter
         initialEntries={["/orgs/testorg/portfolios/test-projects/analytics"]}
       >
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[mocks]}>
-            <Route
-              component={TagContent}
-              path={"/orgs/:organizationName/portfolios/:tagName/analytics"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={[mocks]}>
+          <Route
+            component={TagContent}
+            path={"/orgs/:organizationName/portfolios/:tagName/analytics"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
 

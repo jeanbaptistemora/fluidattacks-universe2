@@ -8,7 +8,6 @@ import { GraphQLError } from "graphql";
 import type { PropsWithChildren } from "react";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import waitForExpect from "wait-for-expect";
 
 import { JustificationField } from "./JustificationField";
@@ -26,7 +25,6 @@ import {
   REJECT_VULNERABILITIES_ZERO_RISK,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -111,17 +109,15 @@ describe("handle vulns acceptation modal", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <HandleAcceptationModal
-            findingId={"1"}
-            groupName={""}
-            handleCloseModal={handleOnClose}
-            refetchData={handleRefetchData}
-            vulns={mokedVulns}
-          />
-        </MockedProvider>
-      </Provider>,
+      <MockedProvider addTypename={false} mocks={mocksMutation}>
+        <HandleAcceptationModal
+          findingId={"1"}
+          groupName={""}
+          handleCloseModal={handleOnClose}
+          refetchData={handleRefetchData}
+          vulns={mokedVulns}
+        />
+      </MockedProvider>,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
@@ -212,17 +208,15 @@ describe("handle vulns acceptation modal", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <HandleAcceptationModal
-            findingId={"1"}
-            groupName={""}
-            handleCloseModal={jest.fn()}
-            refetchData={jest.fn()}
-            vulns={mokedVulns}
-          />
-        </MockedProvider>
-      </Provider>,
+      <MockedProvider addTypename={false} mocks={mocksMutation}>
+        <HandleAcceptationModal
+          findingId={"1"}
+          groupName={""}
+          handleCloseModal={jest.fn()}
+          refetchData={jest.fn()}
+          vulns={mokedVulns}
+        />
+      </MockedProvider>,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
@@ -354,20 +348,18 @@ describe("handle vulns acceptation modal", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
-        >
-          <HandleAcceptationModal
-            findingId={"422286126"}
-            groupName={"group name"}
-            handleCloseModal={handleCloseModal}
-            refetchData={handleRefetchData}
-            vulns={mokedVulns}
-          />
-        </MockedProvider>
-      </Provider>,
+      <MockedProvider
+        addTypename={false}
+        mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
+      >
+        <HandleAcceptationModal
+          findingId={"422286126"}
+          groupName={"group name"}
+          handleCloseModal={handleCloseModal}
+          refetchData={handleRefetchData}
+          vulns={mokedVulns}
+        />
+      </MockedProvider>,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
@@ -519,20 +511,18 @@ describe("handle vulns acceptation modal", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
-        >
-          <HandleAcceptationModal
-            findingId={"422286126"}
-            groupName={"group name"}
-            handleCloseModal={handleCloseModal}
-            refetchData={handleRefetchData}
-            vulns={mokedVulns}
-          />
-        </MockedProvider>
-      </Provider>,
+      <MockedProvider
+        addTypename={false}
+        mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
+      >
+        <HandleAcceptationModal
+          findingId={"422286126"}
+          groupName={"group name"}
+          handleCloseModal={handleCloseModal}
+          refetchData={handleRefetchData}
+          vulns={mokedVulns}
+        />
+      </MockedProvider>,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
@@ -677,20 +667,18 @@ describe("handle vulns acceptation modal", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
-        >
-          <HandleAcceptationModal
-            findingId={"422286126"}
-            groupName={"group name"}
-            handleCloseModal={handleCloseModal}
-            refetchData={handleRefetchData}
-            vulns={mokedVulns}
-          />
-        </MockedProvider>
-      </Provider>,
+      <MockedProvider
+        addTypename={false}
+        mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
+      >
+        <HandleAcceptationModal
+          findingId={"422286126"}
+          groupName={"group name"}
+          handleCloseModal={handleCloseModal}
+          refetchData={handleRefetchData}
+          vulns={mokedVulns}
+        />
+      </MockedProvider>,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
@@ -842,20 +830,18 @@ describe("handle vulns acceptation modal", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
-        >
-          <HandleAcceptationModal
-            findingId={"422286126"}
-            groupName={"group name"}
-            handleCloseModal={handleCloseModal}
-            refetchData={handleRefetchData}
-            vulns={mokedVulns}
-          />
-        </MockedProvider>
-      </Provider>,
+      <MockedProvider
+        addTypename={false}
+        mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
+      >
+        <HandleAcceptationModal
+          findingId={"422286126"}
+          groupName={"group name"}
+          handleCloseModal={handleCloseModal}
+          refetchData={handleRefetchData}
+          vulns={mokedVulns}
+        />
+      </MockedProvider>,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
@@ -936,17 +922,15 @@ describe("handle vulns acceptation modal", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false}>
-          <HandleAcceptationModal
-            findingId={"422286126"}
-            groupName={"group name"}
-            handleCloseModal={handleCloseModal}
-            refetchData={handleRefetchData}
-            vulns={mokedVulns}
-          />
-        </MockedProvider>
-      </Provider>,
+      <MockedProvider addTypename={false}>
+        <HandleAcceptationModal
+          findingId={"422286126"}
+          groupName={"group name"}
+          handleCloseModal={handleCloseModal}
+          refetchData={handleRefetchData}
+          vulns={mokedVulns}
+        />
+      </MockedProvider>,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
@@ -1030,17 +1014,15 @@ describe("handle vulns acceptation modal", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false}>
-          <HandleAcceptationModal
-            findingId={"422286126"}
-            groupName={"group name"}
-            handleCloseModal={handleCloseModal}
-            refetchData={handleRefetchData}
-            vulns={mokedVulns}
-          />
-        </MockedProvider>
-      </Provider>,
+      <MockedProvider addTypename={false}>
+        <HandleAcceptationModal
+          findingId={"422286126"}
+          groupName={"group name"}
+          handleCloseModal={handleCloseModal}
+          refetchData={handleRefetchData}
+          vulns={mokedVulns}
+        />
+      </MockedProvider>,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },

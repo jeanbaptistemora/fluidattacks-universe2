@@ -4,13 +4,11 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { TrackingView } from "scenes/Dashboard/containers/TrackingView";
 import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
-import store from "store/index";
 
 describe("TrackingView", (): void => {
   const mocks: MockedResponse = {
@@ -61,16 +59,14 @@ describe("TrackingView", (): void => {
       <MemoryRouter
         initialEntries={["/orgs/aorg/groups/agroup/vulns/422286126/tracking"]}
       >
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[mocks]}>
-            <Route
-              component={TrackingView}
-              path={
-                "/orgs/:organizationName/groups/:groupName/vulns/:findingId/tracking"
-              }
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={[mocks]}>
+          <Route
+            component={TrackingView}
+            path={
+              "/orgs/:organizationName/groups/:groupName/vulns/:findingId/tracking"
+            }
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -84,16 +80,14 @@ describe("TrackingView", (): void => {
       <MemoryRouter
         initialEntries={["/orgs/aorg/groups/agroup/vulns/422286126/tracking"]}
       >
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[mocks]}>
-            <Route
-              component={TrackingView}
-              path={
-                "/orgs/:organizationName/groups/:groupName/vulns/:findingId/tracking"
-              }
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={[mocks]}>
+          <Route
+            component={TrackingView}
+            path={
+              "/orgs/:organizationName/groups/:groupName/vulns/:findingId/tracking"
+            }
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {

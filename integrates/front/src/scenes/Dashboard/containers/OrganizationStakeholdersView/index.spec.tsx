@@ -8,7 +8,6 @@ import { GraphQLError } from "graphql";
 import moment from "moment";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
@@ -23,7 +22,6 @@ import {
   UPDATE_STAKEHOLDER_MUTATION,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/queries";
 import type { IOrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
-import store from "store";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
@@ -85,15 +83,13 @@ describe("Organization users view", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route path={"/orgs/:organizationName/stakeholders"}>
-              <OrganizationStakeholders
-                organizationId={mockProps.organizationId}
-              />
-            </Route>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route path={"/orgs/:organizationName/stakeholders"}>
+            <OrganizationStakeholders
+              organizationId={mockProps.organizationId}
+            />
+          </Route>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -255,15 +251,13 @@ describe("Organization users view", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route path={"/orgs/:organizationName/stakeholders"}>
-              <OrganizationStakeholders
-                organizationId={mockProps.organizationId}
-              />
-            </Route>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route path={"/orgs/:organizationName/stakeholders"}>
+            <OrganizationStakeholders
+              organizationId={mockProps.organizationId}
+            />
+          </Route>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -404,15 +398,13 @@ describe("Organization users view", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route path={"/orgs/:organizationName/stakeholders"}>
-              <OrganizationStakeholders
-                organizationId={mockProps.organizationId}
-              />
-            </Route>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route path={"/orgs/:organizationName/stakeholders"}>
+            <OrganizationStakeholders
+              organizationId={mockProps.organizationId}
+            />
+          </Route>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -567,15 +559,13 @@ describe("Organization users view", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route path={"/orgs/:organizationName/stakeholders"}>
-              <OrganizationStakeholders
-                organizationId={mockProps.organizationId}
-              />
-            </Route>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route path={"/orgs/:organizationName/stakeholders"}>
+            <OrganizationStakeholders
+              organizationId={mockProps.organizationId}
+            />
+          </Route>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -634,15 +624,13 @@ describe("Organization users view", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route path={"/orgs/:organizationName/stakeholders"}>
-              <OrganizationStakeholders
-                organizationId={mockProps.organizationId}
-              />
-            </Route>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route path={"/orgs/:organizationName/stakeholders"}>
+            <OrganizationStakeholders
+              organizationId={mockProps.organizationId}
+            />
+          </Route>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -783,15 +771,13 @@ describe("Organization users view", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route path={"/orgs/:organizationName/stakeholders"}>
-              <OrganizationStakeholders
-                organizationId={mockProps.organizationId}
-              />
-            </Route>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route path={"/orgs/:organizationName/stakeholders"}>
+            <OrganizationStakeholders
+              organizationId={mockProps.organizationId}
+            />
+          </Route>
+        </MockedProvider>
       </MemoryRouter>
     );
 

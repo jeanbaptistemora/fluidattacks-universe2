@@ -5,13 +5,11 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { RecordsView } from "scenes/Dashboard/containers/RecordsView";
 import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/RecordsView/queries";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("FindingRecordsView", (): void => {
@@ -81,16 +79,14 @@ describe("FindingRecordsView", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/422286126/records"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={RecordsView}
-                path={"/:groupName/vulns/:findingId/records"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={RecordsView}
+              path={"/:groupName/vulns/:findingId/records"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -138,16 +134,14 @@ describe("FindingRecordsView", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/422286126/records"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={RecordsView}
-                path={"/:groupName/vulns/:findingId/records"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={RecordsView}
+              path={"/:groupName/vulns/:findingId/records"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
