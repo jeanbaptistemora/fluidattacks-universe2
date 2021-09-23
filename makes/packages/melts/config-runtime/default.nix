@@ -17,6 +17,7 @@ makeTemplate {
   name = "melts-config-runtime";
   searchPaths = {
     envPaths = [
+      nixpkgs.bash
       nixpkgs.cloc
       nixpkgs.git
       nixpkgs.nano
