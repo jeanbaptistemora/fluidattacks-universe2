@@ -10,10 +10,9 @@ from .types import (
 from .utils import (
     format_evidence_item,
     format_evidences_item,
-    format_optional_state_item,
-    format_optional_verification_item,
     format_state_item,
     format_unreliable_indicators_item,
+    format_verification_item,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -131,39 +130,19 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         **unreliable_indicators_item,
     }
     items.append(unreliable_indicators)
-    verification, historic_verification = historics.build_historic(
-        attributes=format_optional_verification_item(finding.verification),
-        historic_facet=TABLE.facets["finding_historic_verification"],
-        key_structure=key_structure,
-        key_values={
-            "iso8601utc": finding.state.modified_date,
-            "group_name": finding.group_name,
-            "id": finding.id,
-        },
-        latest_facet=TABLE.facets["finding_verification"],
-    )
-    approval_key = keys.build_key(
-        facet=TABLE.facets["finding_approval"],
-        values={"group_name": finding.group_name, "id": finding.id},
-    )
-    approval = {
-        key_structure.partition_key: approval_key.partition_key,
-        key_structure.sort_key: approval_key.sort_key,
-        **format_optional_state_item(None),
-    }
-    items.append(approval)
-    submission_key = keys.build_key(
-        facet=TABLE.facets["finding_submission"],
-        values={"group_name": finding.group_name, "id": finding.id},
-    )
-    submission = {
-        key_structure.partition_key: submission_key.partition_key,
-        key_structure.sort_key: submission_key.sort_key,
-        **format_optional_state_item(None),
-    }
-    items.append(submission)
-    items.append(verification)
-    if finding.verification:
+    if finding.verification is not None:
+        verification, historic_verification = historics.build_historic(
+            attributes=format_verification_item(finding.verification),
+            historic_facet=TABLE.facets["finding_historic_verification"],
+            key_structure=key_structure,
+            key_values={
+                "iso8601utc": finding.state.modified_date,
+                "group_name": finding.group_name,
+                "id": finding.id,
+            },
+            latest_facet=TABLE.facets["finding_verification"],
+        )
+        items.append(verification)
         items.append(historic_verification)
     await operations.batch_write_item(items=tuple(items), table=TABLE)
 

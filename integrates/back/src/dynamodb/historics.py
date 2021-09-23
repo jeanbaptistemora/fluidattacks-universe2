@@ -8,6 +8,7 @@ from dynamodb.types import (
 )
 from typing import (
     Dict,
+    Optional,
     Tuple,
 )
 
@@ -34,6 +35,26 @@ def get_latest(
         for item in raw_items
         if item[key_structure.sort_key] == historic_sort_key
     )
+
+
+def get_optional_latest(
+    *,
+    item_id: str,
+    key_structure: PrimaryKey,
+    historic_suffix: str,
+    raw_items: Tuple[Item, ...],
+) -> Optional[Item]:
+    try:
+        latest: Optional[Item] = get_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_suffix=historic_suffix,
+            raw_items=raw_items,
+        )
+    except StopIteration:
+        latest = None
+
+    return latest
 
 
 def build_historic(

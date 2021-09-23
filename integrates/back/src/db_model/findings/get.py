@@ -83,7 +83,7 @@ def _build_finding(
         )
     )
     approval = format_optional_state(
-        historics.get_latest(
+        historics.get_optional_latest(
             item_id=item_id,
             key_structure=key_structure,
             historic_suffix="APPROVAL",
@@ -99,7 +99,7 @@ def _build_finding(
         )
     )
     submission = format_optional_state(
-        historics.get_latest(
+        historics.get_optional_latest(
             item_id=item_id,
             key_structure=key_structure,
             historic_suffix="SUBMISSION",
@@ -107,7 +107,7 @@ def _build_finding(
         )
     )
     verification = format_optional_verification(
-        historics.get_latest(
+        historics.get_optional_latest(
             item_id=item_id,
             key_structure=key_structure,
             historic_suffix="VERIFICATION",

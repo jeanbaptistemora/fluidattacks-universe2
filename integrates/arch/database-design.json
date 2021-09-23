@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 20, 2021, 02:27 PM",
+    "DateLastModified": "Sep 23, 2021, 11:05 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -4914,14 +4914,6 @@
               "sk": {
                 "S": "GROUP#asgard"
               },
-              "pk": {
-                "S": "FIN#683100860#APPROVAL"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#asgard"
-              },
               "modified_by": {
                 "S": "integratesmanager@gmail.com"
               },
@@ -4939,30 +4931,6 @@
               },
               "status": {
                 "S": "APPROVED"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#continuoustesting"
-              },
-              "pk": {
-                "S": "FIN#475041524#APPROVAL"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#continuoustesting"
-              },
-              "pk": {
-                "S": "FIN#836530833#APPROVAL"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#continuoustesting"
-              },
-              "pk": {
-                "S": "FIN#991607942#APPROVAL"
               }
             },
             {
@@ -5009,22 +4977,6 @@
               },
               "status": {
                 "S": "APPROVED"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#oneshottest"
-              },
-              "pk": {
-                "S": "FIN#475041513#APPROVAL"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#oneshottest"
-              },
-              "pk": {
-                "S": "FIN#475041535#APPROVAL"
               }
             },
             {
@@ -5140,14 +5092,6 @@
               },
               "status": {
                 "S": "APPROVED"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "pk": {
-                "S": "FIN#560175507#APPROVAL"
               }
             },
             {
@@ -5669,14 +5613,6 @@
               "sk": {
                 "S": "GROUP#continuoustesting"
               },
-              "pk": {
-                "S": "FIN#475041524#SUBMISSION"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#continuoustesting"
-              },
               "modified_by": {
                 "S": "integratesmanager@gmail.com"
               },
@@ -5694,14 +5630,6 @@
               },
               "status": {
                 "S": "SUBMITTED"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#continuoustesting"
-              },
-              "pk": {
-                "S": "FIN#991607942#SUBMISSION"
               }
             },
             {
@@ -5771,14 +5699,6 @@
               },
               "status": {
                 "S": "SUBMITTED"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#oneshottest"
-              },
-              "pk": {
-                "S": "FIN#475041535#SUBMISSION"
               }
             },
             {
@@ -5894,14 +5814,6 @@
               },
               "status": {
                 "S": "SUBMITTED"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "pk": {
-                "S": "FIN#560175507#SUBMISSION"
               }
             },
             {
@@ -6904,94 +6816,6 @@
           "TableData": [
             {
               "sk": {
-                "S": "GROUP#asgard"
-              },
-              "pk": {
-                "S": "FIN#436712859#VERIFICATION"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#asgard"
-              },
-              "pk": {
-                "S": "FIN#683100860#VERIFICATION"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#asgard"
-              },
-              "pk": {
-                "S": "FIN#997868246#VERIFICATION"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#continuoustesting"
-              },
-              "pk": {
-                "S": "FIN#475041524#VERIFICATION"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#continuoustesting"
-              },
-              "pk": {
-                "S": "FIN#836530833#VERIFICATION"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#continuoustesting"
-              },
-              "pk": {
-                "S": "FIN#991607942#VERIFICATION"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#lubbock"
-              },
-              "pk": {
-                "S": "FIN#818828206#VERIFICATION"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#oneshottest"
-              },
-              "pk": {
-                "S": "FIN#457497318#VERIFICATION"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#oneshottest"
-              },
-              "pk": {
-                "S": "FIN#475041513#VERIFICATION"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#oneshottest"
-              },
-              "pk": {
-                "S": "FIN#475041535#VERIFICATION"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "pk": {
-                "S": "FIN#422286126#VERIFICATION"
-              }
-            },
-            {
-              "sk": {
                 "S": "GROUP#unittesting"
               },
               "modified_by": {
@@ -7019,22 +6843,6 @@
               "sk": {
                 "S": "GROUP#unittesting"
               },
-              "pk": {
-                "S": "FIN#457497316#VERIFICATION"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "pk": {
-                "S": "FIN#463461507#VERIFICATION"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
               "modified_by": {
                 "S": "integratesuser@gmail.com"
               },
@@ -7055,22 +6863,6 @@
               },
               "status": {
                 "S": "REQUESTED"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "pk": {
-                "S": "FIN#560175507#VERIFICATION"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "pk": {
-                "S": "FIN#988493279#VERIFICATION"
               }
             }
           ],

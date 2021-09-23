@@ -16,9 +16,9 @@ from .types import (
 )
 from .utils import (
     format_evidences_item,
-    format_optional_verification_item,
     format_state_item,
     format_treatment_summary_item,
+    format_verification_item,
     get_latest_verification,
 )
 from aioextensions import (
@@ -108,9 +108,7 @@ async def update_historic_verification(  # pylint: disable=too-many-locals
     verification_items = []
     verification_keys = set()
     for verification in historic_verification:
-        optional_verification_item = format_optional_verification_item(
-            verification
-        )
+        verification_item = format_verification_item(verification)
         verification_key = keys.build_key(
             facet=TABLE.facets["finding_historic_verification"],
             values={
@@ -122,32 +120,26 @@ async def update_historic_verification(  # pylint: disable=too-many-locals
         verification_item = {
             key_structure.partition_key: verification_key.partition_key,
             key_structure.sort_key: verification_key.sort_key,
-            **optional_verification_item,
+            **verification_item,
         }
         verification_items.append(verification_item)
     latest_verification = get_latest_verification(historic_verification)
-    latest_key = keys.build_key(
-        facet=TABLE.facets["finding_verification"],
-        values={
-            "group_name": group_name,
-            "id": finding_id,
-        },
-    )
-    latest_optional_item = format_optional_verification_item(
-        latest_verification
-    )
-    latest_item = {
-        key_structure.partition_key: latest_key.partition_key,
-        key_structure.sort_key: latest_key.sort_key,
-        **latest_optional_item,
-    }
-    condition_expression = Attr(key_structure.partition_key).exists()
-    await operations.put_item(
-        condition_expression=condition_expression,
-        facet=TABLE.facets["finding_verification"],
-        item=latest_item,
-        table=TABLE,
-    )
+    if latest_verification:
+        latest_key = keys.build_key(
+            facet=TABLE.facets["finding_verification"],
+            values={
+                "group_name": group_name,
+                "id": finding_id,
+            },
+        )
+        latest_optional_item = format_verification_item(latest_verification)
+        latest_item = {
+            key_structure.partition_key: latest_key.partition_key,
+            key_structure.sort_key: latest_key.sort_key,
+            **latest_optional_item,
+        }
+        verification_items.append(latest_item)
+
     operation_coroutines = [
         operations.batch_write_item(
             items=tuple(verification_items), table=TABLE
@@ -292,7 +284,7 @@ async def update_verification(
 ) -> None:
     items = []
     key_structure = TABLE.primary_key
-    verification_item = format_optional_verification_item(verification)
+    verification_item = format_verification_item(verification)
     latest, historic = historics.build_historic(
         attributes=verification_item,
         historic_facet=TABLE.facets["finding_historic_verification"],
@@ -304,9 +296,7 @@ async def update_verification(
         },
         latest_facet=TABLE.facets["finding_verification"],
     )
-    condition_expression = Attr(key_structure.partition_key).exists()
     await operations.put_item(
-        condition_expression=condition_expression,
         facet=TABLE.facets["finding_verification"],
         item=latest,
         table=TABLE,
