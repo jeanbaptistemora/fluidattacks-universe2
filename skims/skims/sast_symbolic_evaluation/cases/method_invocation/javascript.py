@@ -60,10 +60,6 @@ def process_declaration(args: EvaluatorArgs) -> None:
 
         if declaration.return_type and args.syntax_step.is_destructuring:
             args.syntax_step.var_type = f"{declaration.return_type}.{step.var}"
-        elif declaration.return_type and isinstance(
-            declaration, SyntaxStepMethodInvocation
-        ):
-            args.syntax_step.var_type = declaration.return_type
         elif (
             method_var
             and not declaration.return_type

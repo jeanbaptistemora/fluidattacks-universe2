@@ -43,6 +43,14 @@ def mark_sinks(
         },
     )
     mark_methods_sink(
+        FindingEnum.F021,
+        graph,
+        syntax,
+        {
+            "select",
+        },
+    )
+    mark_methods_sink(
         FindingEnum.F063,
         graph,
         syntax,

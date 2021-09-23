@@ -296,6 +296,7 @@ BY_OBJ: Dict[str, Set[str]] = complete_attrs_on_dict(
         "System.Diagnostics.Process": {
             "Start",
         },
+        "XPath": {"select"},
     }
 )
 BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
@@ -359,6 +360,10 @@ BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
         },
         "path": {
             "join",
+        },
+        "xpath": {
+            "select",
+            "parse",
         },
     }
 )
@@ -528,12 +533,41 @@ BY_TYPE_HANDLER = complete_attrs_on_dict(
         },
     }
 )
+RETURN_TYPES = complete_attrs_on_dict(
+    {
+        "xpath": {
+            "parse": "XPath",
+        },
+        "express.Router": {
+            "Router": "xpath.Router",
+        },
+    }
+)
+
+
+def _propagate_return_type(args: EvaluatorArgs) -> None:
+    method = args.syntax_step.method
+    method_var, method_path = split_on_first_dot(method)
+
+    # pylint: disable=used-before-assignment
+    if (
+        method_var
+        and (method_var_decl := lookup_var_dcl_by_name(args, method_var))
+        and method_var_decl.var_type
+        and (
+            return_type := RETURN_TYPES.get(
+                method_var_decl.var_type, dict()
+            ).get(method_path or method_var)
+        )
+    ):
+        args.syntax_step.return_type = return_type
 
 
 def evaluate(args: EvaluatorArgs) -> None:
     language = args.shard.metadata.language
 
     if language == graph_model.GraphShardMetadataLanguage.JAVASCRIPT:
+        _propagate_return_type(args)
         javascript_process(args)
 
     if language == graph_model.GraphShardMetadataLanguage.GO:

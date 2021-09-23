@@ -113,6 +113,16 @@ def _syntax_step_declaration_values(args: EvaluatorArgs) -> None:
     elif args.dependencies:
         step.meta.value = args.dependencies[-1].meta.value
 
+    # propagate type from calls
+    if args.dependencies:
+        assing = args.dependencies[-1]
+        if (
+            assing.type == "SyntaxStepMethodInvocation"
+            and assing.return_type
+            and not step.var_type
+        ):
+            step.var_type = assing.return_type
+
     # Analyze if the case is a declaration of a previously called function
     prev_step = args.syntax_steps[args.syntax_step_index - 1]
 

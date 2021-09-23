@@ -1920,6 +1920,106 @@ F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test100.js,9,614,skims,042.
   21 | });
      ^ Col 0
 "
+F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test142.js,20,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+","
+   8 |   let userData = req.body;
+   9 |
+  10 |   let userName = userData.username;
+  11 |   let password = userData.password;
+  12 |
+  13 |   fs.readFile(""target/peopleDB.xml"", (error, data) => {
+  14 |     let authenticated = false;
+  15 |
+  16 |     var doc = new DOMParser().parseFromString(data.toString());
+  17 |
+  18 |     var findUserXPath = `//Employee[UserName/text()='${userName}' and Password/text()='${password}']`;
+  19 |
+> 20 |     let result = xpath.select(findUserXPath, doc);
+  21 |     if (result.length > 0) {
+  22 |       authenticated = true;
+  23 |     }
+  24 |     res.json({ ok: authenticated });
+  25 |   });
+  26 | });
+  27 |
+  28 | export default router;
+     ^ Col 0
+"
+F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test145.js,20,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+","
+   8 |   let userData = req.body;
+   9 |
+  10 |   let userName = userData.username;
+  11 |   let password = userData.password;
+  12 |
+  13 |   fs.readFile(""target/peopleDB.xml"", (error, data) => {
+  14 |     let authenticated = false;
+  15 |
+  16 |     var doc = new dom.DOMParser().parseFromString(data.toString());
+  17 |
+  18 |     var findUserXPath = `//Employee[UserName/text()='${userName}' and Password/text()='${password}']`;
+  19 |
+> 20 |     let result = xpath.select(findUserXPath, doc);
+  21 |     if (result.length > 0) {
+  22 |       authenticated = true;
+  23 |     }
+  24 |     res.json({ ok: authenticated });
+  25 |   });
+  26 | });
+  27 |
+  28 | export default router;
+     ^ Col 0
+"
+F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test143.js,22,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+","
+  10 |   let userName = userData.username;
+  11 |   let password = userData.password;
+  12 |
+  13 |   fs.readFile(""target/peopleDB.xml"", (error, data) => {
+  14 |     let authenticated = false;
+  15 |
+  16 |     var doc = new DOMParser().parseFromString(data.toString());
+  17 |
+  18 |     xpath.parse(""dasdasdas"");
+  19 |     var findUserXPath = `//Employee[UserName/text()='${userName}' and Password/text()='${password}']`;
+  20 |     let badXPathExpr = xpath.parse(findUserXPath);
+  21 |
+> 22 |     let result = badXPathExpr.select({ node: doc });
+  23 |     if (result.length > 0) {
+  24 |       authenticated = true;
+  25 |     }
+  26 |     res.json({ ok: authenticated });
+  27 |   });
+  28 | });
+  29 |
+  30 | export default router;
+     ^ Col 0
+"
+F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test146.js,21,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+","
+  11 |   let password = userData.password;
+  12 |
+  13 |   fs.readFile(""target/peopleDB.xml"", (error, data) => {
+  14 |     let authenticated = false;
+  15 |
+  16 |     var doc = new DOMParser().parseFromString(data.toString());
+  17 |
+  18 |     var findUserXPath = `//Employee[UserName/text()='${userName}' and Password/text()=$password]`;
+  19 |     let badXPathExpr = xpath.parse(findUserXPath);
+  20 |
+> 21 |     let result = badXPathExpr.select({
+  22 |       node: doc,
+  23 |       variables: { password: password },
+  24 |     });
+  25 |     if (result.length > 0) {
+  26 |       authenticated = true;
+  27 |     }
+  28 |     res.json({ ok: authenticated });
+  29 |   });
+  30 | });
+  31 |
+     ^ Col 0
+"
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test005.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    1 | const process = require(""child_process"");
