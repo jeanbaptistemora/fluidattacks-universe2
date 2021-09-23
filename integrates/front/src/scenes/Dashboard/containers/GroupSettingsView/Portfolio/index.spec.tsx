@@ -7,7 +7,6 @@ import { mount } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
@@ -18,7 +17,6 @@ import {
   GET_TAGS,
   REMOVE_GROUP_TAG_MUTATION,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -96,16 +94,14 @@ describe("Portfolio", (): void => {
       { action: "api_mutations_add_group_tags_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={mocksTags.concat(mocksMutation)}
-        >
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Portfolio groupName={mockProps.groupName} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider
+        addTypename={false}
+        mocks={mocksTags.concat(mocksMutation)}
+      >
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <Portfolio groupName={mockProps.groupName} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);
@@ -157,16 +153,14 @@ describe("Portfolio", (): void => {
       { action: "api_mutations_remove_group_tag_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={mocksTags.concat(mocksMutation)}
-        >
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Portfolio groupName={mockProps.groupName} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider
+        addTypename={false}
+        mocks={mocksTags.concat(mocksMutation)}
+      >
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <Portfolio groupName={mockProps.groupName} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);
@@ -203,11 +197,9 @@ describe("Portfolio", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksTags}>
-          <Portfolio groupName={mockProps.groupName} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mocksTags}>
+        <Portfolio groupName={mockProps.groupName} />
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);
@@ -254,16 +246,14 @@ describe("Portfolio", (): void => {
       { action: "api_mutations_add_group_tags_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={mocksTags.concat(mocksMutation)}
-        >
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Portfolio groupName={mockProps.groupName} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider
+        addTypename={false}
+        mocks={mocksTags.concat(mocksMutation)}
+      >
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <Portfolio groupName={mockProps.groupName} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);
@@ -315,16 +305,14 @@ describe("Portfolio", (): void => {
       { action: "api_mutations_remove_group_tag_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={mocksTags.concat(mocksMutation)}
-        >
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Portfolio groupName={mockProps.groupName} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider
+        addTypename={false}
+        mocks={mocksTags.concat(mocksMutation)}
+      >
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <Portfolio groupName={mockProps.groupName} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);
@@ -361,13 +349,11 @@ describe("Portfolio", (): void => {
       { action: "api_mutations_add_group_tags_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksTags}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Portfolio groupName={mockProps.groupName} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mocksTags}>
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <Portfolio groupName={mockProps.groupName} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);

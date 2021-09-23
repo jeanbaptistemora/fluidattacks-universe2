@@ -6,7 +6,6 @@ import { mount } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 
@@ -16,7 +15,6 @@ import {
   UPDATE_ORGANIZATION_POLICIES,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
 import type { IOrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -69,13 +67,11 @@ describe("Organization policies view", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route path={"/orgs/:organizationName/policies"}>
-              <OrganizationPolicies organizationId={mockProps.organizationId} />
-            </Route>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route path={"/orgs/:organizationName/policies"}>
+            <OrganizationPolicies organizationId={mockProps.organizationId} />
+          </Route>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -134,13 +130,11 @@ describe("Organization policies view", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route path={"/orgs/:organizationName/policies"}>
-              <OrganizationPolicies organizationId={mockProps.organizationId} />
-            </Route>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route path={"/orgs/:organizationName/policies"}>
+            <OrganizationPolicies organizationId={mockProps.organizationId} />
+          </Route>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -226,17 +220,13 @@ describe("Organization policies view", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route path={"/orgs/:organizationName/policies"}>
-              <authzPermissionsContext.Provider value={mockedPermissions}>
-                <OrganizationPolicies
-                  organizationId={mockProps.organizationId}
-                />
-              </authzPermissionsContext.Provider>
-            </Route>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route path={"/orgs/:organizationName/policies"}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <OrganizationPolicies organizationId={mockProps.organizationId} />
+            </authzPermissionsContext.Provider>
+          </Route>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -348,13 +338,11 @@ describe("Organization policies view", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route path={"/orgs/:organizationName/policies"}>
-              <OrganizationPolicies organizationId={mockProps.organizationId} />
-            </Route>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route path={"/orgs/:organizationName/policies"}>
+            <OrganizationPolicies organizationId={mockProps.organizationId} />
+          </Route>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -525,17 +513,13 @@ describe("Organization policies view", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route path={"/orgs/:organizationName/policies"}>
-              <authzPermissionsContext.Provider value={mockedPermissions}>
-                <OrganizationPolicies
-                  organizationId={mockProps.organizationId}
-                />
-              </authzPermissionsContext.Provider>
-            </Route>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route path={"/orgs/:organizationName/policies"}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <OrganizationPolicies organizationId={mockProps.organizationId} />
+            </authzPermissionsContext.Provider>
+          </Route>
+        </MockedProvider>
       </MemoryRouter>
     );
 

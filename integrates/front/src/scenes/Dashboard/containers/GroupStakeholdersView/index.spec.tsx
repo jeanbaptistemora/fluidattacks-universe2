@@ -6,7 +6,6 @@ import { mount } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
@@ -20,7 +19,6 @@ import {
   REMOVE_STAKEHOLDER_MUTATION,
   UPDATE_GROUP_STAKEHOLDER_MUTATION,
 } from "scenes/Dashboard/containers/GroupStakeholdersView/queries";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -130,14 +128,12 @@ describe("Group stakeholders view", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mockError}>
-            <Route
-              component={GroupStakeholdersView}
-              path={"/groups/:groupName/stakeholders"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mockError}>
+          <Route
+            component={GroupStakeholdersView}
+            path={"/groups/:groupName/stakeholders"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await wait(0);
@@ -152,14 +148,12 @@ describe("Group stakeholders view", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route
-              component={GroupStakeholdersView}
-              path={"/groups/:groupName/stakeholders"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route
+            component={GroupStakeholdersView}
+            path={"/groups/:groupName/stakeholders"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -199,14 +193,12 @@ describe("Group stakeholders view", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route
-              component={GroupStakeholdersView}
-              path={"/groups/:groupName/stakeholders"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route
+            component={GroupStakeholdersView}
+            path={"/groups/:groupName/stakeholders"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await wait(0);
@@ -221,14 +213,12 @@ describe("Group stakeholders view", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route
-              component={GroupStakeholdersView}
-              path={"/groups/:groupName/stakeholders"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route
+            component={GroupStakeholdersView}
+            path={"/groups/:groupName/stakeholders"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await wait(0);
@@ -246,16 +236,14 @@ describe("Group stakeholders view", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={GroupStakeholdersView}
-                path={"/groups/:groupName/stakeholders"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupStakeholdersView}
+              path={"/groups/:groupName/stakeholders"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -295,16 +283,14 @@ describe("Group stakeholders view", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={GroupStakeholdersView}
-                path={"/groups/:groupName/stakeholders"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupStakeholdersView}
+              path={"/groups/:groupName/stakeholders"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -375,19 +361,14 @@ describe("Group stakeholders view", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={mocks.concat(mocksMutation)}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={GroupStakeholdersView}
-                path={"/groups/:groupName/stakeholders"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks.concat(mocksMutation)}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupStakeholdersView}
+              path={"/groups/:groupName/stakeholders"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -479,19 +460,14 @@ describe("Group stakeholders view", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={mocks.concat(mocksMutation)}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={GroupStakeholdersView}
-                path={"/groups/:groupName/stakeholders"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks.concat(mocksMutation)}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupStakeholdersView}
+              path={"/groups/:groupName/stakeholders"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -556,19 +532,14 @@ describe("Group stakeholders view", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={mocks.concat(mocksMutation)}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={GroupStakeholdersView}
-                path={"/groups/:groupName/stakeholders"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks.concat(mocksMutation)}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupStakeholdersView}
+              path={"/groups/:groupName/stakeholders"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -673,19 +644,14 @@ describe("Group stakeholders view", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={mocks.concat(mocksMutation)}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={GroupStakeholdersView}
-                path={"/groups/:groupName/stakeholders"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks.concat(mocksMutation)}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupStakeholdersView}
+              path={"/groups/:groupName/stakeholders"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -771,19 +737,14 @@ describe("Group stakeholders view", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={mocks.concat(mocksMutation)}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={GroupStakeholdersView}
-                path={"/groups/:groupName/stakeholders"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks.concat(mocksMutation)}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupStakeholdersView}
+              path={"/groups/:groupName/stakeholders"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -853,19 +814,14 @@ describe("Group stakeholders view", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={mocks.concat(mocksMutation)}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={GroupStakeholdersView}
-                path={"/groups/:groupName/stakeholders"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks.concat(mocksMutation)}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupStakeholdersView}
+              path={"/groups/:groupName/stakeholders"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {

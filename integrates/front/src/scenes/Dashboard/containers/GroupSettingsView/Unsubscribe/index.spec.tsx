@@ -5,7 +5,6 @@ import { mount } from "enzyme";
 import { Field } from "formik";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
@@ -15,7 +14,6 @@ import { UNSUBSCRIBE_FROM_GROUP_MUTATION } from "./UnsubscribeModal/queries";
 
 import { Unsubscribe } from ".";
 import { Button } from "components/Button";
-import store from "store";
 import { msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../../utils/notifications", (): Dictionary => {
@@ -50,9 +48,7 @@ describe("Unsubscribe from group", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/test"]}>
         <MockedProvider addTypename={true} mocks={mocksMutation}>
-          <Provider store={store}>
-            <Route component={Unsubscribe} path={"/:groupName"} />
-          </Provider>
+          <Route component={Unsubscribe} path={"/:groupName"} />
         </MockedProvider>
       </MemoryRouter>
     );

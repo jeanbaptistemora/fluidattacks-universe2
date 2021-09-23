@@ -4,7 +4,6 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
@@ -13,7 +12,6 @@ import { GET_TOE_INPUTS } from "./queries";
 import { GroupToeInputsView } from ".";
 import { DataTableNext } from "components/DataTableNext";
 import type { ITableProps } from "components/DataTableNext/types";
-import store from "store";
 
 describe("GroupToeInputsView", (): void => {
   it("should return a function", (): void => {
@@ -71,14 +69,12 @@ describe("GroupToeInputsView", (): void => {
     };
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting/surface/inputs"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={true} mocks={[mockedToeInputs]}>
-            <Route
-              component={GroupToeInputsView}
-              path={"/:groupName/surface/inputs"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={true} mocks={[mockedToeInputs]}>
+          <Route
+            component={GroupToeInputsView}
+            path={"/:groupName/surface/inputs"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {

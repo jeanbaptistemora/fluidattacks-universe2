@@ -8,7 +8,6 @@ import { mount } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
@@ -21,7 +20,6 @@ import {
 import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationGroupsView";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type { IOrganizationGroupsProps } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
-import store from "store/index";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError } from "utils/notifications";
 
@@ -113,15 +111,13 @@ describe("Organization groups view", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route path={"/orgs/:organizationName/groups"}>
-              <authzPermissionsContext.Provider value={mockedPermissions}>
-                <OrganizationGroups organizationId={mockProps.organizationId} />
-              </authzPermissionsContext.Provider>
-            </Route>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route path={"/orgs/:organizationName/groups"}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <OrganizationGroups organizationId={mockProps.organizationId} />
+            </authzPermissionsContext.Provider>
+          </Route>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -213,13 +209,11 @@ describe("Organization groups view", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mockErrors}>
-            <Route path={"/orgs/:organizationName/groups"}>
-              <OrganizationGroups organizationId={mockProps.organizationId} />
-            </Route>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mockErrors}>
+          <Route path={"/orgs/:organizationName/groups"}>
+            <OrganizationGroups organizationId={mockProps.organizationId} />
+          </Route>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -355,15 +349,13 @@ describe("Organization groups view", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route path={"/orgs/:organizationName/groups"}>
-              <authzPermissionsContext.Provider value={mockedPermissions}>
-                <OrganizationGroups organizationId={mockProps.organizationId} />
-              </authzPermissionsContext.Provider>
-            </Route>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route path={"/orgs/:organizationName/groups"}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <OrganizationGroups organizationId={mockProps.organizationId} />
+            </authzPermissionsContext.Provider>
+          </Route>
+        </MockedProvider>
       </MemoryRouter>
     );
     const newGroupButton = (): ReactWrapper => wrapper.find("button").first();
