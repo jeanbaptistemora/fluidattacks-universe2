@@ -11,17 +11,14 @@ import { DropDownCard } from "../DropDownCard";
 const ClientsPage: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query ClientQuery {
-      allAsciidoc(sort: { fields: [document___title], order: ASC }) {
+      allMarkdownRemark(sort: { fields: [frontmatter___title], order: ASC }) {
         edges {
           node {
             fields {
               slug
             }
-            document {
-              title
-            }
             html
-            pageAttributes {
+            frontmatter {
               alt
               client
               clientlogo
@@ -29,6 +26,7 @@ const ClientsPage: React.FC = (): JSX.Element => {
               filter
               keywords
               slug
+              title
             }
           }
         }
@@ -36,8 +34,8 @@ const ClientsPage: React.FC = (): JSX.Element => {
     }
   `);
 
-  const partnerInfo = data.allAsciidoc.edges.filter(
-    (partnerCard): boolean => partnerCard.node.pageAttributes.client === "yes"
+  const partnerInfo = data.allMarkdownRemark.edges.filter(
+    (partnerCard): boolean => partnerCard.node.frontmatter.client === "yes"
   );
 
   return (
@@ -50,7 +48,7 @@ const ClientsPage: React.FC = (): JSX.Element => {
       <CardsContainer>
         {partnerInfo.map(
           ({ node }): JSX.Element => {
-            const { alt, clientlogo, filter, slug } = node.pageAttributes;
+            const { alt, clientlogo, filter, slug, title } = node.frontmatter;
 
             return (
               <DropDownCard
@@ -62,7 +60,7 @@ const ClientsPage: React.FC = (): JSX.Element => {
                 logo={clientlogo}
                 logoPaths={"/airs/about-us/clients"}
                 slug={slug}
-                title={node.document.title}
+                title={title}
               />
             );
           }
