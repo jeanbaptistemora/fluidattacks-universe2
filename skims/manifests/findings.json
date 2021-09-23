@@ -454,5 +454,13 @@
     "ES": {
       "title": "366. Inappropriate coding practices - Transparency Conflict"
     }
+  },
+  "F381": {
+    "EN": {
+      "title": "381. Supply Chain Attack - Docker"
+    },
+    "ES": {
+      "title": "381. Supply Chain Attack - Docker"
+    }
   }
 }
