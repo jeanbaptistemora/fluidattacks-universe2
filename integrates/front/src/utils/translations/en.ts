@@ -1113,8 +1113,8 @@ export const enTranslations: ResourceKey = {
       file: "File",
       uploadDate: "Since",
     },
-    findingDeleted: "Finding {{findingId}} was deleted",
     findingRejected: "Finding {{findingId}} was rejected",
+    findingsDeleted: "Findings were deleted",
     highSeverity: "High",
     infoTable: {
       EN: "English",

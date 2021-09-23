@@ -19,7 +19,15 @@ import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
 import { setReportType } from "./helpers";
-import { formatFindings, formatState } from "./utils";
+import {
+  formatFindings,
+  formatState,
+  getAreAllMutationValid,
+  getFindingsIndex,
+  getResults,
+  handleRemoveFindingsError,
+  onSelectVariousFindingsHelper,
+} from "./utils";
 
 import { REMOVE_FINDING_MUTATION } from "../FindingContent/queries";
 import { Button } from "components/Button";
@@ -127,13 +135,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     useStoredState<boolean>("findingsCustomFilters", false);
 
   const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
   const [currentStatusFilter, setCurrentStatusFilter] = useState("");
   const [reattackFilter, setReattackFilter] = useState("");
   const [whereFilter, setWhereFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [ageFilter, setAgeFilter] = useState("");
   const [lastReportFilter, setLastReportFilter] = useState("");
+  const [isRunning, setRunning] = useState(false);
+  const [selectedFindings, setSelectedFindings] = useState<IFindingAttr[]>([]);
   const [severityFilter, setSeverityFilter] = useState({ max: "", min: "" });
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const openDeleteModal: () => void = useCallback((): void => {
@@ -405,16 +414,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const [removeFinding, { loading: deleting }] = useMutation(
     REMOVE_FINDING_MUTATION,
     {
-      onCompleted: (result: { removeFinding: { success: boolean } }): void => {
-        if (result.removeFinding.success) {
-          const findingId = currentRow.id;
-          msgSuccess(
-            translate.t("searchFindings.findingDeleted", { findingId }),
-            translate.t("group.drafts.titleSuccess")
-          );
-          replace(`/groups/${groupName}/vulns`);
-        }
-      },
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
           msgError(translate.t("groupAlerts.errorTextsad"));
@@ -424,17 +423,64 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     }
   );
 
-  const handleDelete: (values: Record<string, unknown>) => void = useCallback(
-    (values: Record<string, unknown>): void => {
-      const findingId = currentRow.id;
-      // Exception: FP(void operator is necessary)
-      // eslint-disable-next-line
-      void removeFinding({ //NOSONAR
-        variables: { findingId, justification: values.justification },
-      });
-    },
-    [currentRow.id, removeFinding]
-  );
+  const validMutationsHelper = (
+    handleCloseModal: () => void,
+    areAllMutationValid: boolean[]
+  ): void => {
+    if (areAllMutationValid.every(Boolean)) {
+      msgSuccess(
+        translate.t("searchFindings.findingsDeleted"),
+        translate.t("group.drafts.titleSuccess")
+      );
+      replace(`/groups/${groupName}/vulns`);
+      handleCloseModal();
+    }
+  };
+
+  const handleRemoveFinding = async (justification: unknown): Promise<void> => {
+    if (selectedFindings.length === 0) {
+      msgError(translate.t("searchFindings.tabResources.noSelection"));
+    } else {
+      try {
+        const results = await getResults(
+          removeFinding,
+          selectedFindings,
+          justification
+        );
+        const areAllMutationValid = getAreAllMutationValid(results);
+        validMutationsHelper(closeDeleteModal, areAllMutationValid);
+      } catch (updateError: unknown) {
+        handleRemoveFindingsError(updateError);
+      } finally {
+        setRunning(false);
+      }
+    }
+  };
+
+  function handleDelete(values: Record<string, unknown>): void {
+    void handleRemoveFinding(values.justification);
+  }
+
+  function onSelectVariousFindings(
+    isSelect: boolean,
+    findingsSelected: IFindingAttr[]
+  ): string[] {
+    return onSelectVariousFindingsHelper(
+      isSelect,
+      findingsSelected,
+      selectedFindings,
+      setSelectedFindings
+    );
+  }
+
+  function onSelectOneFinding(
+    finding: IFindingAttr,
+    isSelect: boolean
+  ): boolean {
+    onSelectVariousFindings(isSelect, [finding]);
+
+    return true;
+  }
 
   const customFilters: IFilterProps[] = [
     {
@@ -521,7 +567,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                 message={translate.t("searchFindings.delete.btn.tooltip")}
               >
                 <Button
-                  disabled={_.isEmpty(currentRow) || deleting}
+                  disabled={selectedFindings.length === 0 || deleting}
                   onClick={openDeleteModal}
                 >
                   <FluidIcon icon={"delete"} />
@@ -580,12 +626,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           rowEvents={{ onClick: goToFinding }}
           search={false}
           selectionMode={{
-            clickToSelect: true,
+            clickToSelect: false,
             hideSelectColumn: permissions.cannot(
               "api_mutations_remove_finding_mutate"
             ),
-            mode: "radio",
-            onSelect: setCurrentRow,
+            mode: "checkbox",
+            onSelect: onSelectOneFinding,
+            onSelectAll: onSelectVariousFindings,
+            selected: getFindingsIndex(selectedFindings, resultFindings),
           }}
           striped={true}
         />
@@ -727,7 +775,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                   <Button onClick={closeDeleteModal}>
                     {translate.t("confirmmodal.cancel")}
                   </Button>
-                  <Button type={"submit"}>
+                  <Button disabled={isRunning} type={"submit"}>
                     {translate.t("confirmmodal.proceed")}
                   </Button>
                 </ButtonToolbar>

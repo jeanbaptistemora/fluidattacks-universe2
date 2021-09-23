@@ -1,4 +1,4 @@
-export interface IHeaderQueryResult {
+interface IHeaderQueryResult {
   finding: {
     closedVulns: number;
     hacker?: string;
@@ -15,3 +15,11 @@ export interface IHeaderQueryResult {
     title: string;
   };
 }
+
+interface IRemoveFindingResultAttr {
+  removeFinding?: {
+    success: boolean;
+  };
+}
+
+export { IHeaderQueryResult, IRemoveFindingResultAttr };
