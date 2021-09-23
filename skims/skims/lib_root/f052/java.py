@@ -1,9 +1,9 @@
 from contextlib import (
     suppress,
 )
-from lib_root import (
-    yield_java_method_invocation,
-    yield_java_object_creation,
+from lib_root.utilities.java import (
+    yield_method_invocation,
+    yield_object_creation,
 )
 from model.core_model import (
     FindingEnum,
@@ -50,7 +50,7 @@ def _yield_insecure_pass(
             f"{framework}.crypto.scrypt.SCryptPasswordEncoder",
         }
     )
-    for shard, object_id, type_name in yield_java_object_creation(graph_db):
+    for shard, object_id, type_name in yield_object_creation(graph_db):
         if type_name in insecure_instances:
             yield shard, object_id
 
@@ -131,7 +131,7 @@ def jvm_yield_insecure_hash(
 def _yield_insecure_key(
     graph_db: GraphDB,
 ) -> GraphShardNodes:
-    for shard, object_id, type_name in yield_java_object_creation(graph_db):
+    for shard, object_id, type_name in yield_object_creation(graph_db):
         match = g.match_ast(
             shard.graph,
             object_id,
@@ -151,9 +151,7 @@ def _yield_insecure_key(
 def _yield_insecure_hash(
     graph_db: GraphDB,
 ) -> GraphShardNodes:
-    for shard, method_id, method_name in yield_java_method_invocation(
-        graph_db
-    ):
+    for shard, method_id, method_name in yield_method_invocation(graph_db):
         match = g.match_ast_group(
             shard.graph,
             method_id,
@@ -215,9 +213,7 @@ def javax_yield_insecure_ciphers(
 def _yield_insecure_ciphers(
     graph_db: GraphDB,
 ) -> GraphShardNodes:
-    for shard, method_id, method_name in yield_java_method_invocation(
-        graph_db
-    ):
+    for shard, method_id, method_name in yield_method_invocation(graph_db):
         match = g.match_ast_group(
             shard.graph,
             method_id,

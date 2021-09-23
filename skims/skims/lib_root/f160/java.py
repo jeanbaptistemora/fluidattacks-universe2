@@ -1,5 +1,5 @@
-from lib_root import (
-    yield_java_method_invocation,
+from lib_root.utilities.java import (
+    yield_method_invocation,
 )
 from model import (
     core_model,
@@ -18,9 +18,7 @@ def file_create_temp_file(
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
         danger_methods = complete_attrs_on_set({"java.io.File.createTempFile"})
-        for shard, method_id, method_name in yield_java_method_invocation(
-            graph_db
-        ):
+        for shard, method_id, method_name in yield_method_invocation(graph_db):
             if method_name in danger_methods:
                 yield shard, method_id
 
