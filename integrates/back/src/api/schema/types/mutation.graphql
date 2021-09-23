@@ -328,36 +328,6 @@ type Mutation {
     findingId: String!
   ): DownloadFilePayload!
 
-  "Updates stakeholder info at the Group level"
-  editStakeholder(
-    "Deprecated. Use `groupName` instead"
-    projectName: String
-    "Name of the Group to which the stakeholder belongs"
-    groupName: String
-    "Email address of the stakeholder to update"
-    email: String!
-    "Responsibility of the stakeholder e.g. Product Owner, Group Manager etc.."
-    responsibility: String!
-    "Role of the stakeholder"
-    role: StakeholderRole!
-    "Phone number of the stakeholder preceded by its call sign"
-    phoneNumber: String!
-  ): UpdateStakeholderPayload! @deprecated(reason: """This mutation will be
-    removed after 2022/01/27. Use `updateGroupStakeholder` instead.""")
-
-  "Updates stakeholder info at the Organization level"
-  editStakeholderOrganization(
-    "Identifier of the Organization to which the stakeholder belongs"
-    organizationId: String!
-    "Phone number of the stakeholder preceded by its call sign"
-    phoneNumber: String
-    "Role of the stakeholder"
-    role: OrganizationRole!
-    "Email address of the stakeholder to update"
-    userEmail: String!
-  ): UpdateStakeholderPayload! @deprecated(reason: """This mutation will be
-    removed after 2022/01/28. Use `updateOrganizationStakeholder` instead.""")
-
   "Grants a stakeholder access to a Group"
   grantStakeholderAccess(
     "Deprecated. Use `groupName` instead"
@@ -385,17 +355,6 @@ type Mutation {
     "Email address of the stakeholder that will be granted access"
     userEmail: String!
   ): GrantStakeholderAccessPayload!
-
-  "Handles submission, acceptation or rejection of a Finding policy"
-  handleOrgFindingPolicyAcceptation(
-    "ID of the policy"
-    findingPolicyId: ID!
-    "Name of the organization the finding policy is associated with"
-    organizationName: String!
-    "Whether the finding policy status is submitted, approved or rejected"
-    status: OrganizationFindingPolicy!
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed after
-   2022/01/24. Use `handleOrganizationFindingPolicyAcceptation` instead.""")
 
   "Handles submission, acceptation or rejection of a Finding policy"
   handleOrganizationFindingPolicyAcceptation(

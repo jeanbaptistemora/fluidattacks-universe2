@@ -194,14 +194,6 @@ MUTATION.set_field(
 )
 
 # -------------------------Deprecated mutations--------------------------------
-MUTATION.set_field(
-    "editStakeholderOrganization", update_organization_stakeholder.mutate
-)
-MUTATION.set_field(
-    "handleOrgFindingPolicyAcceptation",
-    handle_organization_finding_policy_acceptation.mutate,
-)
-MUTATION.set_field("editStakeholder", update_group_stakeholder.mutate)
 MUTATION.set_field("removeTag", remove_group_tag.mutate)
 MUTATION.set_field(
     "updateTreatmentVuln", update_vulnerability_treatment.mutate
