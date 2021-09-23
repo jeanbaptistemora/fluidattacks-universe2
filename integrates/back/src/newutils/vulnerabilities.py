@@ -413,7 +413,8 @@ def get_treatments(
         [
             vuln["historic_treatment"][-1]["treatment"]
             for vuln in vulnerabilities
-            if vuln["historic_state"][-1]["state"] == "open"
+            if vuln["historic_treatment"]
+            and vuln["historic_state"][-1]["state"] == "open"
         ]
     )
     return Treatments(

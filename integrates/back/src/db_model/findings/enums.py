@@ -35,6 +35,7 @@ class FindingStateStatus(Enum):
     APPROVED: str = "APPROVED"
     CREATED: str = "CREATED"
     DELETED: str = "DELETED"
+    MASKED: str = "MASKED"
     REJECTED: str = "REJECTED"
     SUBMITTED: str = "SUBMITTED"
 
