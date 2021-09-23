@@ -30,7 +30,7 @@ from redis_cluster.operations import (
     redis_del_by_deps,
 )
 from typing import (
-    Any,
+    Dict,
 )
 from users import (
     domain as users_domain,
@@ -40,7 +40,7 @@ from users import (
 @convert_kwargs_to_snake_case
 @enforce_organization_level_auth_async
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, **parameters: Any
+    _parent: None, info: GraphQLResolveInfo, **parameters: Dict
 ) -> GrantStakeholderAccessPayload:
     success: bool = False
 
@@ -51,8 +51,8 @@ async def mutate(
     requester_email = requester_data["user_email"]
 
     user_email = str(parameters.get("user_email"))
-    user_phone_number = str(parameters.get("phone_number"))
-    user_role = map_roles(str(parameters.get("role")).lower())
+    user_phone_number = parameters.get("phone_number", "")
+    user_role: str = map_roles(str(parameters.get("role")).lower())
 
     user_added = await orgs_domain.add_user(
         organization_id, user_email, user_role

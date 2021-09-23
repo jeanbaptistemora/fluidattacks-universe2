@@ -194,8 +194,6 @@ MUTATION.set_field(
 )
 
 # -------------------------Deprecated mutations--------------------------------
-MUTATION.set_field("downloadVulnFile", download_vulnerability_file.mutate)
-MUTATION.set_field("editGroup", update_group.mutate)
 MUTATION.set_field(
     "editStakeholderOrganization", update_organization_stakeholder.mutate
 )

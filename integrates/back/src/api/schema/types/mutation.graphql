@@ -323,46 +323,10 @@ type Mutation {
   ): DownloadFilePayload!
 
   "Downloads a yaml file with all the vulnerabilities of this finding"
-  downloadVulnFile(
-    "Identifier of the finding associated with the vulnerabilities"
-    findingId: String!
-  ): DownloadFilePayload!
-    @deprecated(reason: """This mutation will be removed
-    after 2022/01/19. Use `downloadVulnerabilityFile` instead.""")
-
-  "Downloads a yaml file with all the vulnerabilities of this finding"
   downloadVulnerabilityFile(
     "Identifier of the finding associated with the vulnerabilities"
     findingId: String!
   ): DownloadFilePayload!
-
-  "Edit a group's services and parameters"
-  editGroup(
-    "Observations about the group edit"
-    comments: String!
-    "Name of the group to be edited"
-    groupName: String!
-    """Whether to keep using ASM services. Caution: Setting this to False
-    **will** remove the group from it!"""
-    hasAsm: Boolean
-    "Deprecated, use `hasSquad` instead"
-    hasDrills: Boolean
-    "Deprecated, use `hasAsm` instead"
-    hasIntegrates: Boolean
-    "Whether to keep the Machine plan enabled within the group"
-    hasMachine: Boolean
-    "Deprecated. Use `hasMachine` instead"
-    hasSkims: Boolean
-    "Whether to keep the Squad plan enabled within the group"
-    hasSquad: Boolean
-    "Reason for the downgrade in services if applicable"
-    reason: UpdateGroupReason!
-    "Enables either Black or White box type of hacking service"
-    service: ServiceType
-    "Enables either continuous or one-shot hacking within the group"
-    subscription: SubscriptionType!
-  ): SimplePayload! @deprecated(reason: """This mutation will be
-    removed after 2022/01/28. Use `updateGroup` instead.""")
 
   "Updates stakeholder info at the Group level"
   editStakeholder(
