@@ -1,8 +1,8 @@
 from itertools import (
     chain,
 )
-from lib_root import (
-    yield_javascript_method_invocation,
+from lib_root.utilities.javascript import (
+    yield_method_invocation,
 )
 from model.core_model import (
     FindingEnum,
@@ -125,7 +125,7 @@ def insecure_hash(graph_db: GraphDB) -> Vulnerabilities:
             syntax_steps,
             invocation_step,
             index,
-        ) in yield_javascript_method_invocation(graph_db):
+        ) in yield_method_invocation(graph_db):
             danger_methods = {"createHash"}
             var, method = split_on_last_dot(invocation_step.method)
             if method not in danger_methods and var not in danger_methods:
@@ -168,7 +168,7 @@ def insecure_cipher(
             syntax_steps,
             invocation_step,
             index,
-        ) in yield_javascript_method_invocation(graph_db):
+        ) in yield_method_invocation(graph_db):
             yield from _test_native_cipher(
                 graph_db,
                 shard,
@@ -188,7 +188,7 @@ def insecure_key(graph_db: GraphDB) -> Vulnerabilities:
             syntax_steps,
             invocation_step,
             step_index,
-        ) in yield_javascript_method_invocation(graph_db):
+        ) in yield_method_invocation(graph_db):
             _, method = split_on_last_dot(invocation_step.method)
             if method in {"createECDH"}:
                 dependencies = get_dependencies(step_index, syntax_steps)

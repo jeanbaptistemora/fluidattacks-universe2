@@ -1,5 +1,5 @@
-from lib_root import (
-    yield_javascript_method_invocation,
+from lib_root.utilities.javascript import (
+    yield_method_invocation,
 )
 from model import (
     core_model,
@@ -60,7 +60,7 @@ def client_storage(
             syntax_steps,
             invocation_step,
             step_index,
-        ) in yield_javascript_method_invocation(graph_db):
+        ) in yield_method_invocation(graph_db):
             method = invocation_step.method
             if method not in {
                 "localStorage.setItem",

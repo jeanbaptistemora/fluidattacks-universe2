@@ -41,31 +41,6 @@ def csharp_get_variable_attribute(
     return ""
 
 
-def yield_javascript_method_invocation(
-    graph_db: graph_model.GraphDB,
-) -> Iterable[
-    Tuple[
-        graph_model.GraphShard,
-        graph_model.SyntaxSteps,
-        graph_model.SyntaxStepMethodInvocation,
-        int,
-    ]
-]:
-    for shard in [
-        *graph_db.shards_by_language(
-            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
-        ),
-        *graph_db.shards_by_language(
-            graph_model.GraphShardMetadataLanguage.TSX,
-        ),
-    ]:
-        for syntax_steps in shard.syntax.values():
-            for index, invocation_step in enumerate(syntax_steps):
-                if invocation_step.type != "SyntaxStepMethodInvocation":
-                    continue
-                yield shard, syntax_steps, invocation_step, index
-
-
 def yield_c_sharp_invocation_expression(
     graph_db: graph_model.GraphDB,
 ) -> Iterable[Tuple[graph_model.GraphShard, str, str]]:
