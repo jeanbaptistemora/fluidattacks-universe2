@@ -8,9 +8,6 @@ import type {
 import { useLazyQuery, useMutation } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import type { FormAction } from "redux-form";
-import { change, reset } from "redux-form";
 
 import {
   GET_FORCES_TOKEN,
@@ -66,20 +63,12 @@ const useUpdateAPIToken: () => readonly [
   MutationResult<IUpdateForcesTokenAttr>
 ] = (): readonly [MutationFunction, MutationResult<IUpdateForcesTokenAttr>] => {
   const { t } = useTranslation();
-  const dispatch: React.Dispatch<FormAction> = useDispatch();
 
   // Handle mutation results
   const handleOnSuccess: (mtResult: IUpdateForcesTokenAttr) => void = (
     mtResult: IUpdateForcesTokenAttr
   ): void => {
     if (mtResult.updateForcesAccessToken.success) {
-      dispatch(
-        change(
-          "updateForcesAccessToken",
-          "sessionJwt",
-          mtResult.updateForcesAccessToken.sessionJwt
-        )
-      );
       msgSuccess(
         t("updateForcesToken.successfully"),
         t("updateForcesToken.success")
@@ -93,7 +82,6 @@ const useUpdateAPIToken: () => readonly [
       Logger.warning("An error occurred adding access token", error);
       msgError(t("groupAlerts.errorTextsad"));
     });
-    dispatch(reset("updateAccessToken"));
   };
 
   const [updateAPIToken, mtResponse] = useMutation(
@@ -101,6 +89,7 @@ const useUpdateAPIToken: () => readonly [
     {
       onCompleted: handleOnSuccess,
       onError: handleOnError,
+      refetchQueries: [GET_FORCES_TOKEN],
     }
   );
 

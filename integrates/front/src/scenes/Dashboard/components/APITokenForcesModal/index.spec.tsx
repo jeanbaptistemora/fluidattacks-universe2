@@ -4,7 +4,6 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
@@ -13,7 +12,6 @@ import {
   GET_FORCES_TOKEN,
   UPDATE_FORCES_TOKEN_MUTATION,
 } from "scenes/Dashboard/components/APITokenForcesModal/queries";
-import store from "store";
 
 describe("Update access token modal", (): void => {
   const handleOnClose: jest.Mock = jest.fn();
@@ -61,17 +59,31 @@ describe("Update access token modal", (): void => {
           },
         },
       },
+      {
+        request: {
+          query: GET_FORCES_TOKEN,
+          variables: {
+            groupName: "unittesting",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              forcesToken: afterValue,
+              name: "unittesting",
+            },
+          },
+        },
+      },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mockQueryFull}>
-          <APITokenForcesModal
-            groupName={"unittesting"}
-            onClose={handleOnClose}
-            open={true}
-          />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mockQueryFull}>
+        <APITokenForcesModal
+          groupName={"unittesting"}
+          onClose={handleOnClose}
+          open={true}
+        />
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);
@@ -110,7 +122,7 @@ describe("Update access token modal", (): void => {
       });
     });
 
-    const form: ReactWrapper = wrapper.find("genericForm");
+    const form: ReactWrapper = wrapper.find("Formik");
     form.simulate("submit");
 
     await act(async (): Promise<void> => {
@@ -148,15 +160,13 @@ describe("Update access token modal", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mockQueryFull}>
-          <APITokenForcesModal
-            groupName={"unnittesting"}
-            onClose={handleOnClose}
-            open={true}
-          />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mockQueryFull}>
+        <APITokenForcesModal
+          groupName={"unnittesting"}
+          onClose={handleOnClose}
+          open={true}
+        />
+      </MockedProvider>
     );
 
     await act(async (): Promise<void> => {
@@ -224,15 +234,13 @@ describe("Update access token modal", (): void => {
     ];
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mockQueryNull}>
-          <APITokenForcesModal
-            groupName={"unnittesting"}
-            onClose={handleOnClose}
-            open={true}
-          />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mockQueryNull}>
+        <APITokenForcesModal
+          groupName={"unnittesting"}
+          onClose={handleOnClose}
+          open={true}
+        />
+      </MockedProvider>
     );
 
     await act(async (): Promise<void> => {

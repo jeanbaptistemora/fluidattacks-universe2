@@ -1,6 +1,6 @@
+import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
-import { Field } from "redux-form";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
@@ -8,14 +8,13 @@ import {
   useGetAPIToken,
   useUpdateAPIToken,
 } from "scenes/Dashboard/components/APITokenForcesModal/hooks";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   Col100,
   ControlLabel,
   Row,
 } from "styles/styledComponents";
-import { TextArea } from "utils/forms/fields";
+import { FormikTextArea } from "utils/forms/fields";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
@@ -32,11 +31,9 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
 
   const [getApiToken, getTokenCalled, getTokenData, getTokenLoading] =
     useGetAPIToken(groupName);
-  const [updateApiToken, updateResponse] = useUpdateAPIToken();
+  const [updateApiToken] = useUpdateAPIToken();
 
-  const currentToken: string | undefined = updateResponse.data
-    ? updateResponse.data.updateForcesAccessToken.sessionJwt
-    : getTokenData?.group.forcesToken;
+  const currentToken: string | undefined = getTokenData?.group.forcesToken;
 
   const handleUpdateAPIToken: () => void = useCallback((): void => {
     void updateApiToken({ variables: { groupName } });
@@ -69,12 +66,13 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
 
   return (
     <Modal headerTitle={translate.t("updateForcesToken.title")} open={open}>
-      <GenericForm
+      <Formik
+        enableReinitialize={true}
         initialValues={{ sessionJwt: currentToken }}
         name={"updateForcesToken"}
         onSubmit={handleUpdateAPIToken}
       >
-        <React.Fragment>
+        <Form>
           <Row>
             <Col100>
               <ControlLabel>
@@ -82,7 +80,7 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
               </ControlLabel>
               <Field
                 className={"noresize"} // eslint-disable-line react/forbid-component-props
-                component={TextArea}
+                component={FormikTextArea}
                 disabled={true}
                 name={"sessionJwt"}
                 rows={"7"}
@@ -116,8 +114,8 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
               </ButtonToolbar>
             </Col100>
           </Row>
-        </React.Fragment>
-      </GenericForm>
+        </Form>
+      </Formik>
     </Modal>
   );
 };
