@@ -269,3 +269,22 @@ resource "aws_batch_job_definition" "default" {
     vcpus   = 1
   })
 }
+
+resource "aws_batch_job_definition" "makes" {
+  name = "makes"
+  type = "container"
+  container_properties = jsonencode({
+    image = "ghcr.io/fluidattacks/makes:21.10"
+
+    # Will be overridden on job submission
+    command = ["m"]
+    memory  = 1800
+    vcpus   = 1
+  })
+
+  tags = {
+    "Name"               = "makes"
+    "management:type"    = "production"
+    "management:product" = "common"
+  }
+}
