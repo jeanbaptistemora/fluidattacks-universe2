@@ -1,10 +1,10 @@
-from lib_root import (
-    yield_kotlin_method_invocation,
-)
 from lib_root.f052.java import (
     javax_yield_insecure_ciphers,
     jvm_yield_insecure_hash,
     security_yield_insecure_key as java_security_yield_insecure_key,
+)
+from lib_root.utilities.kotlin import (
+    yield_method_invocation,
 )
 from model.core_model import (
     FindingEnum,
@@ -35,9 +35,7 @@ from utils.string import (
 def _yield_insecure_key(
     graph_db: GraphDB,
 ) -> GraphShardNodes:
-    for shard, method_id, method_name in yield_kotlin_method_invocation(
-        graph_db
-    ):
+    for shard, method_id, method_name in yield_method_invocation(graph_db):
         match = g.match_ast_group(
             shard.graph, method_id, "value_argument", depth=3
         )
@@ -53,9 +51,7 @@ def _yield_insecure_key(
 def _yield_insecure_hash(
     graph_db: GraphDB,
 ) -> GraphShardNodes:
-    for shard, method_id, method_name in yield_kotlin_method_invocation(
-        graph_db
-    ):
+    for shard, method_id, method_name in yield_method_invocation(graph_db):
         match = g.match_ast_group(
             shard.graph, method_id, "value_argument", depth=3
         )
@@ -92,9 +88,7 @@ def _okhttp_yield_insecure_ciphers(
 def _yield_insecure_ciphers(
     graph_db: GraphDB,
 ) -> GraphShardNodes:
-    for shard, method_id, method_name in yield_kotlin_method_invocation(
-        graph_db
-    ):
+    for shard, method_id, method_name in yield_method_invocation(graph_db):
         match = g.match_ast_group(
             shard.graph, method_id, "value_argument", depth=3
         )

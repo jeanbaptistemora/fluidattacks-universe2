@@ -1,5 +1,5 @@
-from lib_root import (
-    yield_kotlin_method_invocation,
+from lib_root.utilities.kotlin import (
+    yield_method_invocation,
 )
 from model.core_model import (
     FindingEnum,
@@ -36,9 +36,7 @@ def _kotlin_yield_unencrypted_channels(graph_db: GraphDB) -> GraphShardNodes:
     )
     unsafe_methods = complete_attrs_on_set({"ConnectionSpec.Builder"})
     unsafe_protocol: Set[str] = {"CLEARTEXT"}
-    for shard, method_id, method_name in yield_kotlin_method_invocation(
-        graph_db
-    ):
+    for shard, method_id, method_name in yield_method_invocation(graph_db):
         if method_name in unencrypted_methods:
             yield shard, method_id
         if method_name in unsafe_methods:
