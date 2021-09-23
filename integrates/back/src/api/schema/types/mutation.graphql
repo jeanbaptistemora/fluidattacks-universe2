@@ -505,17 +505,6 @@ type Mutation {
   ): SimplePayload!
 
   "Requests a reattack on the provided Vulnerabilities"
-  requestVerificationVuln(
-    "Identifier of Finding containing the vulnerabilities"
-    findingId: String!
-    "Justification for the request"
-    justification: String!
-    "List of Vulnerabilities to be reattacked"
-    vulnerabilities: [String]!
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2022/01/27. Use `requestVulnerabilitiesVerification` instead.""")
-
-  "Requests a reattack on the provided Vulnerabilities"
   requestVulnerabilitiesVerification(
     "Identifier of Finding containing the vulnerabilities"
     findingId: String!
@@ -534,17 +523,6 @@ type Mutation {
     "List of Vulnerabilities to be requested for a zero risk"
     vulnerabilities: [String]!
   ): SimplePayload!
-
-  "Requests a zero risk on the provided Vulnerabilities"
-  requestZeroRiskVuln(
-    "Identifier of Finding containing the vulnerabilities"
-    findingId: String!
-    "Justification for the zero risk request"
-    justification: String!
-    "List of Vulnerabilities to be requested for a zero risk"
-    vulnerabilities: [String]!
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2022/01/26. Use `requestVulnerabilitiesZeroRisk` instead.""")
 
   "Signs an user in"
   signIn(
@@ -874,23 +852,6 @@ type Mutation {
     "Risk level of the reviewed lines assigned by Sorts"
     sortsRiskLevel: Int
   ): SimplePayload!
-
-  "Updates data related to the treatment of a Vulnerability"
-  updateTreatmentVuln(
-    "Deprecated. Use `externalBugTrackingSystem` instead."
-    externalBts: String
-    "External Bug Tracking System URL"
-    externalBugTrackingSystem: String
-    "Identifier of the Finding that contains the vulnerability to update"
-    findingId: String!
-    "CVSS 3.1 score"
-    severity: Int
-    "Tags associated with the update, each separated by commas"
-    tag: String
-    "Identifier of the Vulnerability to update"
-    vulnerabilityId: ID!
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2022/01/23. Use `updateVulnerabilityTreatment` instead.""")
 
   "Updates Vulnerability commit data"
   updateVulnCommit(
