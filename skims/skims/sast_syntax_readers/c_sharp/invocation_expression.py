@@ -13,7 +13,7 @@ from utils import (
 )
 from utils.graph.transformation import (
     build_member_access_expression_isd,
-    build_member_access_expression_key,
+    node_to_str,
 )
 from utils.string import (
     split_on_first_dot,
@@ -45,7 +45,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         )
     elif member := match["member_access_expression"]:
         identifiers = build_member_access_expression_isd(args.graph, member)
-        _method_name = build_member_access_expression_key(args.graph, member)
+        _method_name = node_to_str(args.graph, member)
         _, method_name = split_on_first_dot(_method_name)
         yield graph_model.SyntaxStepMethodInvocationChain(
             meta=graph_model.SyntaxStepMeta.default(

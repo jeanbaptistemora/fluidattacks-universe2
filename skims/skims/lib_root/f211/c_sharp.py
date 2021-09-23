@@ -17,7 +17,7 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    build_member_access_expression_key,
+    node_to_str,
 )
 
 
@@ -45,9 +45,7 @@ def vuln_regular_expression(
                     label_type="member_access_expression"
                 ),
             ):
-                expression = build_member_access_expression_key(
-                    shard.graph, member
-                ).split(".")
+                expression = node_to_str(shard.graph, member).split(".")
                 if (
                     expression[0] == name_object
                     and expression[1] in regex_methods

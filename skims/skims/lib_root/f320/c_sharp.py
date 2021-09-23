@@ -13,7 +13,7 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    build_member_access_expression_key,
+    node_to_str,
 )
 
 
@@ -36,7 +36,7 @@ def ldap_connections_authenticated(
                     shard.graph, arg, "member_access_expression"
                 )
                 if child["member_access_expression"]:
-                    test = build_member_access_expression_key(
+                    test = node_to_str(
                         shard.graph,
                         child["member_access_expression"],
                     )

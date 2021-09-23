@@ -15,7 +15,7 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    build_member_access_expression_key,
+    node_to_str,
 )
 
 
@@ -38,7 +38,7 @@ def get_variable_attribute(
                 == "invocation_expression"
             ):
                 if attribute == "label_text":
-                    return build_member_access_expression_key(
+                    return node_to_str(
                         graph, g.match_ast(graph, value_node, "__0__")["__0__"]
                     )
                 if attribute == "label_type":
@@ -89,14 +89,10 @@ def yield_invocation_expression(
     for shard in graph_db.shards_by_language(
         graph_model.GraphShardMetadataLanguage.CSHARP,
     ):
-        for method_id in g.filter_nodes(
+        for invoc_id in g.filter_nodes(
             shard.graph,
             nodes=shard.graph.nodes,
             predicate=g.pred_has_labels(label_type="invocation_expression"),
         ):
-            method_name = build_member_access_expression_key(
-                shard.graph,
-                method_id,
-            )
-
-            yield shard, method_id, method_name
+            method_id = shard.graph.nodes[invoc_id]["label_field_function"]
+            yield shard, invoc_id, node_to_str(shard.graph, method_id)

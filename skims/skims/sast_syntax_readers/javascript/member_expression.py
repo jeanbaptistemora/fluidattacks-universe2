@@ -7,21 +7,20 @@ from sast_syntax_readers.types import (
     SyntaxReaderArgs,
 )
 from utils.graph.transformation import (
-    build_member_access_expression_key,
+    node_to_str,
 )
 
 
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
     node_attrs = args.graph.nodes[args.n_id]
-    expression_str = build_member_access_expression_key(args.graph, args.n_id)
-    member_str = args.graph.nodes[node_attrs["label_field_property"]].get(
-        "label_text"
-    )
+    expression_id = node_attrs["label_field_object"]
+    member_id = node_attrs["label_field_property"]
+
     yield SyntaxStepMemberAccessExpression(
         meta=SyntaxStepMeta.default(
             args.n_id,
-            [args.generic(args.fork_n_id(node_attrs["label_field_object"]))],
+            [args.generic(args.fork_n_id(expression_id))],
         ),
-        member=member_str,
-        expression=expression_str,
+        member=node_to_str(args.graph, member_id),
+        expression=node_to_str(args.graph, expression_id),
     )

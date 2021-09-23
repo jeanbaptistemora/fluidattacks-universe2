@@ -22,7 +22,7 @@ from typing import (
 )
 import utils.graph as g
 from utils.graph.transformation import (
-    build_member_access_expression_key,
+    node_to_str,
 )
 
 
@@ -103,10 +103,7 @@ def rsa_secure_mode(
                     label_type="member_access_expression",
                 ),
             ):
-                prop = build_member_access_expression_key(
-                    shard.graph,
-                    member,
-                )
+                prop = node_to_str(shard.graph, member)
                 method = prop.split(".")
                 if method[0] in name_vars and method[1] == "Encrypt":
                     member_encrypt = g.pred(shard.graph, member)[0]
@@ -170,11 +167,7 @@ def aesmanaged_secure_mode(
         )
 
         for prop in props:
-            mode = build_member_access_expression_key(
-                graph,
-                prop,
-            )
-            if mode in unsafe_modes:
+            if node_to_str(graph, prop) in unsafe_modes:
                 insecure = True
 
         return insecure

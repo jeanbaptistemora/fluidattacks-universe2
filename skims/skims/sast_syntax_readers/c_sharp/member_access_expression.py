@@ -9,7 +9,7 @@ from utils.graph import (
 )
 from utils.graph.transformation import (
     build_member_access_expression_isd,
-    build_member_access_expression_key,
+    node_to_str,
 )
 from utils.string import (
     split_on_first_dot,
@@ -25,8 +25,9 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         "this_expression",
         ".",
     )
-    expres = build_member_access_expression_key(args.graph, args.n_id)
-    _, access_key = split_on_first_dot(expres)
+    expression_str = node_to_str(args.graph, args.n_id)
+    _, member = split_on_first_dot(expression_str)
+
     if expression := match_access["__0__"]:
         dependence = args.generic(args.fork_n_id(expression))
     else:
@@ -37,6 +38,6 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             args.n_id,
             [dependence],
         ),
-        member=access_key,
-        expression=expres,
+        member=member,
+        expression=expression_str,
     )

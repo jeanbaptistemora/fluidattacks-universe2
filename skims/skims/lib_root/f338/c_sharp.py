@@ -16,7 +16,7 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    build_member_access_expression_key,
+    node_to_str,
 )
 from utils.string import (
     build_attr_paths,
@@ -68,7 +68,7 @@ def check_hashes_salt(
                 elif (
                     shard.graph.nodes[node_param].get("label_type")
                     == "invocation_expression"
-                    and build_member_access_expression_key(
+                    and node_to_str(
                         shard.graph,
                         g.match_ast(shard.graph, node_param, "__0__")["__0__"],
                     )

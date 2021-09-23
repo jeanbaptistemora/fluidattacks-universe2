@@ -66,10 +66,8 @@ def _expression(
                     "label_text"
                 ]
             elif identifier_type == "member_access_expression":
-                var_identifier_str = (
-                    g.transformation.build_member_access_expression_key(
-                        args.graph, var_identifier_id
-                    )
+                var_identifier_str = g.transformation.node_to_str(
+                    args.graph, var_identifier_id
                 )
             else:
                 raise MissingCaseHandling(args)

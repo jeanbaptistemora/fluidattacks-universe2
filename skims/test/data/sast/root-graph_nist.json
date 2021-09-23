@@ -18465,7 +18465,7 @@
               "n_id": "282",
               "value": null
             },
-            "method": "GetAll.Skip.Take.ToList",
+            "method": "GetAll().Skip(pageSize*(page-1)).Take(pageSize).ToList",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
@@ -27408,7 +27408,7 @@
               "n_id": "363",
               "value": null
             },
-            "method": "Students.Where.FirstOrDefault<Student>",
+            "method": "Students.Where(s=>s.StudentID==student.Id).FirstOrDefault<Student>",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
@@ -27930,7 +27930,7 @@
               "n_id": "526",
               "value": null
             },
-            "method": "Students.Where.FirstOrDefault",
+            "method": "Students.Where(s=>s.StudentID==id).FirstOrDefault",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
@@ -28090,7 +28090,7 @@
               "value": null
             },
             "type": "SyntaxStepAssignment",
-            "var": "ctx.Entry.State"
+            "var": "ctx.Entry(student).State"
           }
         ],
         "586": [
@@ -28193,7 +28193,7 @@
               "n_id": "67",
               "value": null
             },
-            "method": "Students.Include.Where.Select.FirstOrDefault<StudentViewModel>",
+            "method": "Students.Include(\"StudentAddress\").Where(s=>s.StudentID==id).Select(s=>newStudentViewModel(){Id=s.StudentID,FirstName=s.FirstName,LastName=s.LastName}).FirstOrDefault<StudentViewModel>",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {

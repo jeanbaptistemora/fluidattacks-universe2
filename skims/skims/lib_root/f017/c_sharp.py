@@ -18,7 +18,7 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    build_member_access_expression_key,
+    node_to_str,
 )
 
 
@@ -36,11 +36,7 @@ def verify_decoder(
                     label_type="member_access_expression"
                 ),
             ):
-                method = build_member_access_expression_key(
-                    shard.graph,
-                    member,
-                )
-                if method == "decoder.Decode":
+                if node_to_str(shard.graph, member) == "decoder.Decode":
                     pred = g.pred(shard.graph, member)[0]
                     props = g.get_ast_childs(
                         shard.graph, pred, depth=4, label_type="argument"

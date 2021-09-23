@@ -69509,7 +69509,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
-            "expression": "",
+            "expression": "newPolygon(4,3)",
             "member": "area",
             "meta": {
               "danger": false,
