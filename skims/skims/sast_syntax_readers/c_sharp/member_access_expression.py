@@ -2,13 +2,14 @@ from model import (
     graph_model,
 )
 from sast_syntax_readers.types import (
+    MissingCaseHandling,
     SyntaxReaderArgs,
 )
 from utils.graph import (
     match_ast_group,
 )
 from utils.graph.transformation import (
-    build_member_access_expression_isd,
+    get_base_identifier_id,
     node_to_str,
 )
 from utils.string import (
@@ -31,8 +32,14 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     if expression := match_access["__0__"]:
         dependence = args.generic(args.fork_n_id(expression))
     else:
-        members = build_member_access_expression_isd(args.graph, args.n_id)
-        dependence = args.generic(args.fork_n_id(members[0]))
+        mem_acces = "member_access_expression"
+        base_ident = get_base_identifier_id(args.graph, args.n_id, mem_acces)
+
+        if not base_ident:
+            raise MissingCaseHandling(args)
+
+        dependence = args.generic(args.fork_n_id(base_ident))
+
     yield graph_model.SyntaxStepMemberAccessExpression(
         meta=graph_model.SyntaxStepMeta.default(
             args.n_id,

@@ -3,6 +3,7 @@ from model import (
 )
 from typing import (
     cast,
+    Iterable,
     List,
     Optional,
 )
@@ -11,37 +12,39 @@ from utils import (
 )
 
 
-def _build_nested_identifier_ids(
+def get_identifiers_ids(
     graph: graph_model.Graph,
     n_id: str,
     nested_key: str,
-    keys: Optional[List[str]] = None,
-) -> List[str]:
-    keys = keys or list()
+) -> Iterable[str]:
     match_access = g.match_ast_group(
         graph,
         n_id,
-        "identifier",
         nested_key,
+        "identifier",
         "this_expression",
         "invocation_expression",
         ".",
     )
-    if identifiers := match_access["identifier"]:
-        keys = [*identifiers, *keys]
+
     if (access := match_access[nested_key]) or (
         access := match_access["invocation_expression"]
     ):
-        keys = _build_nested_identifier_ids(
-            graph,
-            access.pop(),
-            nested_key=nested_key,
-            keys=keys,
-        )
-    if this := match_access["this_expression"]:
-        keys.append(this.pop())
+        yield from get_identifiers_ids(graph, access.pop(), nested_key)
 
-    return keys
+    if identifiers := match_access["identifier"]:
+        yield from identifiers
+
+    if this := match_access["this_expression"]:
+        yield this.pop()
+
+
+def get_base_identifier_id(
+    graph: graph_model.Graph,
+    n_id: str,
+    nested_key: str,
+) -> Optional[str]:
+    return next(iter(get_identifiers_ids(graph, n_id, nested_key)), None)
 
 
 def node_to_str(graph: graph_model.Graph, n_id: str) -> str:
@@ -92,20 +95,9 @@ def _build_nested_identifier_ids_js(
     return keys
 
 
-def build_member_access_expression_isd(
-    graph: graph_model.Graph,
-    n_id: str,
-) -> List[str]:
-    return _build_nested_identifier_ids(
-        graph,
-        n_id,
-        "member_access_expression",
-    )
-
-
 def build_qualified_name(graph: graph_model.Graph, qualified_id: str) -> str:
-    keys = _build_nested_identifier_ids(graph, qualified_id, "qualified_name")
-    identifiers = tuple(graph.nodes[key]["label_text"] for key in keys)
+    id_gen = get_identifiers_ids(graph, qualified_id, "qualified_name")
+    identifiers = tuple(graph.nodes[key]["label_text"] for key in id_gen)
     return ".".join(identifiers)
 
 
