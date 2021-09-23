@@ -3,7 +3,6 @@ from model import (
 )
 from typing import (
     Iterable,
-    Set,
     Tuple,
 )
 from utils import (
@@ -142,39 +141,3 @@ def yield_c_sharp_invocation_expression(
             )
 
             yield shard, method_id, method_name
-
-
-def yield_go_object_creation(
-    graph_db: graph_model.GraphDB, members: Set[str]
-) -> graph_model.GraphShardNodes:
-    for shard in graph_db.shards_by_language(
-        graph_model.GraphShardMetadataLanguage.GO,
-    ):
-        for member in g.filter_nodes(
-            shard.graph,
-            nodes=shard.graph.nodes,
-            predicate=g.pred_has_labels(label_type="selector_expression"),
-        ):
-            match = g.match_ast(shard.graph, member, "identifier")
-            if (identifier := match["identifier"]) and shard.graph.nodes[
-                identifier
-            ]["label_text"] in members:
-                yield shard, member
-
-
-def yield_go_member_access(
-    graph_db: graph_model.GraphDB, members: Set[str]
-) -> graph_model.GraphShardNodes:
-    for shard in graph_db.shards_by_language(
-        graph_model.GraphShardMetadataLanguage.GO,
-    ):
-        for member in g.filter_nodes(
-            shard.graph,
-            nodes=shard.graph.nodes,
-            predicate=g.pred_has_labels(label_type="selector_expression"),
-        ):
-            match = g.match_ast(shard.graph, member, "field_identifier")
-            if (identifier := match["field_identifier"]) and shard.graph.nodes[
-                identifier
-            ]["label_text"] in members:
-                yield shard, member
