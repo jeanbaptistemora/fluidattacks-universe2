@@ -22,4 +22,7 @@ def resolve(
             unreliable_indicators.unreliable_oldest_vulnerability_report_date
         )
         report_date = datetime_utils.get_as_str(date)
+    elif parent.creation:
+        date = datetime.fromisoformat(parent.creation.modified_date)
+        report_date = datetime_utils.get_as_str(date)
     return report_date

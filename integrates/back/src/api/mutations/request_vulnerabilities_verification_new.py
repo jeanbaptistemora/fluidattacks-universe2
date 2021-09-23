@@ -32,6 +32,12 @@ from typing import (
     Any,
     List,
 )
+from unreliable_indicators.enums import (
+    EntityDependency,
+)
+from unreliable_indicators.operations import (
+    update_unreliable_indicators_by_deps,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -60,6 +66,10 @@ async def mutate(
         )
         redis_del_by_deps_soon(
             "request_vulnerabilities_verification",
+            finding_id=finding_id,
+        )
+        await update_unreliable_indicators_by_deps(
+            EntityDependency.request_vulnerabilities_verification,
             finding_id=finding_id,
         )
         logs_utils.cloudwatch_log(

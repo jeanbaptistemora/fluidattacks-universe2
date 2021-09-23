@@ -1449,7 +1449,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             status=FindingVerificationStatus.VERIFIED,
-            vulnerability_ids=vulnerability_ids,
+            vulnerability_ids=set(vulnerability_ids),
         )
         await findings_model.update_verification(
             group_name=finding_new.group_name,
