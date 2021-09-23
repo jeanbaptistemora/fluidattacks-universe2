@@ -2,12 +2,10 @@ import { MockedProvider } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { GroupContent } from "scenes/Dashboard/containers/GroupContent";
-import store from "store";
 
 describe("GroupContent", (): void => {
   it("should return a function", (): void => {
@@ -20,14 +18,12 @@ describe("GroupContent", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/testorg/groups/test/vulns"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[]}>
-            <Route
-              component={GroupContent}
-              path={"/orgs/:organizationName/groups/:groupName/vulns"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={[]}>
+          <Route
+            component={GroupContent}
+            path={"/orgs/:organizationName/groups/:groupName/vulns"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await wait(0);
@@ -42,14 +38,12 @@ describe("GroupContent", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/testorg/groups/test/vulns"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[]}>
-            <Route
-              component={GroupContent}
-              path={"/orgs/:organizationName/groups/:groupName/vulns"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={[]}>
+          <Route
+            component={GroupContent}
+            path={"/orgs/:organizationName/groups/:groupName/vulns"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await wait(0);

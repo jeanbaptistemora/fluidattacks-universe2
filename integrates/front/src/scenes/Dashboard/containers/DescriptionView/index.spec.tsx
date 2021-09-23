@@ -7,7 +7,6 @@ import { mount } from "enzyme";
 import type { FetchMockStatic } from "fetch-mock";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
@@ -22,7 +21,6 @@ import type {
   IFindingDescriptionVars,
   ILanguageData,
 } from "scenes/Dashboard/containers/DescriptionView/types";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
 const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
@@ -162,17 +160,15 @@ describe("Finding Description", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/413372600/description"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={[languageQuery, descriptionQuery]}
-          >
-            <Route
-              component={DescriptionView}
-              path={"/:groupName/vulns/:findingId/description"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider
+          addTypename={false}
+          mocks={[languageQuery, descriptionQuery]}
+        >
+          <Route
+            component={DescriptionView}
+            path={"/:groupName/vulns/:findingId/description"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -199,19 +195,17 @@ describe("Finding Description", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/413372600/description"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={[languageQuery, descriptionQuery]}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={DescriptionView}
-                path={"/:groupName/vulns/:findingId/description"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider
+          addTypename={false}
+          mocks={[languageQuery, descriptionQuery]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={DescriptionView}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {

@@ -5,7 +5,6 @@ import { mount } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
@@ -16,7 +15,6 @@ import {
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import store from "store";
 
 describe("update verification component", (): void => {
   const mocksVulns: MockedResponse = {
@@ -65,23 +63,21 @@ describe("update verification component", (): void => {
       mocksVulns,
     ];
     const wrapperRequest: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <UpdateVerificationModal
-            clearSelected={jest.fn()}
-            findingId={""}
-            groupName={""}
-            handleCloseModal={handleOnClose}
-            isReattacking={true}
-            isVerifying={false}
-            setRequestState={handleRequestState}
-            setVerifyState={jest.fn()}
-            vulns={[
-              { currentState: "open", id: "test", specific: "", where: "" },
-            ]}
-          />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mocksMutation}>
+        <UpdateVerificationModal
+          clearSelected={jest.fn()}
+          findingId={""}
+          groupName={""}
+          handleCloseModal={handleOnClose}
+          isReattacking={true}
+          isVerifying={false}
+          setRequestState={handleRequestState}
+          setVerifyState={jest.fn()}
+          vulns={[
+            { currentState: "open", id: "test", specific: "", where: "" },
+          ]}
+        />
+      </MockedProvider>
     );
     const justification: ReactWrapper = wrapperRequest.find("textarea");
     justification.simulate("change", {
@@ -135,28 +131,26 @@ describe("update verification component", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <UpdateVerificationModal
-            clearSelected={jest.fn()}
-            findingId={""}
-            groupName={""}
-            handleCloseModal={handleOnClose}
-            isReattacking={true}
-            isVerifying={false}
-            setRequestState={handleRequestState}
-            setVerifyState={jest.fn()}
-            vulns={[
-              {
-                currentState: "open",
-                id: "test_error",
-                specific: "",
-                where: "",
-              },
-            ]}
-          />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mocksMutation}>
+        <UpdateVerificationModal
+          clearSelected={jest.fn()}
+          findingId={""}
+          groupName={""}
+          handleCloseModal={handleOnClose}
+          isReattacking={true}
+          isVerifying={false}
+          setRequestState={handleRequestState}
+          setVerifyState={jest.fn()}
+          vulns={[
+            {
+              currentState: "open",
+              id: "test_error",
+              specific: "",
+              where: "",
+            },
+          ]}
+        />
+      </MockedProvider>
     );
     const justification: ReactWrapper = wrapper.find("textarea");
     justification.simulate("change", {
@@ -225,23 +219,21 @@ describe("update verification component", (): void => {
       mocksVulns,
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <UpdateVerificationModal
-            clearSelected={jest.fn()}
-            findingId={""}
-            groupName={""}
-            handleCloseModal={handleOnClose}
-            isReattacking={false}
-            isVerifying={true}
-            setRequestState={jest.fn()}
-            setVerifyState={handleVerifyState}
-            vulns={[
-              { currentState: "open", id: "test", specific: "", where: "" },
-            ]}
-          />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mocksMutation}>
+        <UpdateVerificationModal
+          clearSelected={jest.fn()}
+          findingId={""}
+          groupName={""}
+          handleCloseModal={handleOnClose}
+          isReattacking={false}
+          isVerifying={true}
+          setRequestState={jest.fn()}
+          setVerifyState={handleVerifyState}
+          vulns={[
+            { currentState: "open", id: "test", specific: "", where: "" },
+          ]}
+        />
+      </MockedProvider>
     );
     const justification: ReactWrapper = wrapper.find("textarea");
     justification.simulate("change", {
@@ -293,28 +285,26 @@ describe("update verification component", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <UpdateVerificationModal
-            clearSelected={jest.fn()}
-            findingId={""}
-            groupName={""}
-            handleCloseModal={handleOnClose}
-            isReattacking={false}
-            isVerifying={true}
-            setRequestState={jest.fn()}
-            setVerifyState={handleVerifyState}
-            vulns={[
-              {
-                currentState: "open",
-                id: "test_error",
-                specific: "",
-                where: "",
-              },
-            ]}
-          />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mocksMutation}>
+        <UpdateVerificationModal
+          clearSelected={jest.fn()}
+          findingId={""}
+          groupName={""}
+          handleCloseModal={handleOnClose}
+          isReattacking={false}
+          isVerifying={true}
+          setRequestState={jest.fn()}
+          setVerifyState={handleVerifyState}
+          vulns={[
+            {
+              currentState: "open",
+              id: "test_error",
+              specific: "",
+              where: "",
+            },
+          ]}
+        />
+      </MockedProvider>
     );
     const justification: ReactWrapper = wrapper.find("textarea");
     justification.simulate("change", {

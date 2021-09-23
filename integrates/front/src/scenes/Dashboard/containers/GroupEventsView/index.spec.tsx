@@ -9,13 +9,11 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView";
 import { GET_EVENTS } from "scenes/Dashboard/containers/GroupEventsView/queries";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("EventsView", (): void => {
@@ -74,14 +72,12 @@ describe("EventsView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mockError}>
-            <Route
-              component={GroupEventsView}
-              path={"/groups/:groupName/events"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mockError}>
+          <Route
+            component={GroupEventsView}
+            path={"/groups/:groupName/events"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -97,14 +93,12 @@ describe("EventsView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route
-              component={GroupEventsView}
-              path={"/groups/:groupName/events"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route
+            component={GroupEventsView}
+            path={"/groups/:groupName/events"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -116,14 +110,12 @@ describe("EventsView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route
-              component={GroupEventsView}
-              path={"/groups/:groupName/events"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route
+            component={GroupEventsView}
+            path={"/groups/:groupName/events"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -156,16 +148,14 @@ describe("EventsView", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={GroupEventsView}
-                path={"/groups/:groupName/events"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupEventsView}
+              path={"/groups/:groupName/events"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {

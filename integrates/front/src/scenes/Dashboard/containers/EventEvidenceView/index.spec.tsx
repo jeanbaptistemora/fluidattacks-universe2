@@ -6,7 +6,6 @@ import { mount } from "enzyme";
 import _ from "lodash";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
@@ -15,7 +14,6 @@ import {
   DOWNLOAD_FILE_MUTATION,
   GET_EVENT_EVIDENCES,
 } from "scenes/Dashboard/containers/EventEvidenceView/queries";
-import store from "store";
 import { EvidenceDescription } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -91,12 +89,10 @@ describe("EventEvidenceView", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Provider store={store}>
-            <Route
-              component={EventEvidenceView}
-              path={"/:groupName/events/:eventId/evidence"}
-            />
-          </Provider>
+          <Route
+            component={EventEvidenceView}
+            path={"/:groupName/events/:eventId/evidence"}
+          />
         </MockedProvider>
       </MemoryRouter>
     );
@@ -134,12 +130,10 @@ describe("EventEvidenceView", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Provider store={store}>
-            <Route
-              component={EventEvidenceView}
-              path={"/:groupName/events/:eventId/evidence"}
-            />
-          </Provider>
+          <Route
+            component={EventEvidenceView}
+            path={"/:groupName/events/:eventId/evidence"}
+          />
         </MockedProvider>
       </MemoryRouter>
     );
@@ -182,12 +176,10 @@ describe("EventEvidenceView", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Provider store={store}>
-            <Route
-              component={EventEvidenceView}
-              path={"/:groupName/events/:eventId/evidence"}
-            />
-          </Provider>
+          <Route
+            component={EventEvidenceView}
+            path={"/:groupName/events/:eventId/evidence"}
+          />
         </MockedProvider>
       </MemoryRouter>
     );
@@ -233,14 +225,12 @@ describe("EventEvidenceView", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Provider store={store}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={EventEvidenceView}
-                path={"/:groupName/events/:eventId/evidence"}
-              />
-            </authzPermissionsContext.Provider>
-          </Provider>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={EventEvidenceView}
+              path={"/:groupName/events/:eventId/evidence"}
+            />
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </MemoryRouter>
     );
@@ -309,12 +299,10 @@ describe("EventEvidenceView", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Provider store={store}>
-            <Route
-              component={EventEvidenceView}
-              path={"/:groupName/events/:eventId/evidence"}
-            />
-          </Provider>
+          <Route
+            component={EventEvidenceView}
+            path={"/:groupName/events/:eventId/evidence"}
+          />
         </MockedProvider>
       </MemoryRouter>
     );

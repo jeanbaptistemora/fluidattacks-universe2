@@ -7,13 +7,11 @@ import _ from "lodash";
 import { set } from "mockdate";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { GroupAuthorsView } from "scenes/Dashboard/containers/GroupAuthorsView";
 import { GET_BILL } from "scenes/Dashboard/containers/GroupAuthorsView/queries";
-import store from "store";
 
 describe("AuthorsView", (): void => {
   const TEST_DATE = 2020;
@@ -73,11 +71,9 @@ describe("AuthorsView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mockError}>
-            <Route component={GroupAuthorsView} path={"/:groupName"} />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mockError}>
+          <Route component={GroupAuthorsView} path={"/:groupName"} />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -93,11 +89,9 @@ describe("AuthorsView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route component={GroupAuthorsView} path={"/:groupName"} />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route component={GroupAuthorsView} path={"/:groupName"} />
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -109,11 +103,9 @@ describe("AuthorsView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route component={GroupAuthorsView} path={"/:groupName"} />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route component={GroupAuthorsView} path={"/:groupName"} />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {

@@ -6,13 +6,11 @@ import { mount } from "enzyme";
 import _ from "lodash";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView";
 import { GET_EVENT_DESCRIPTION } from "scenes/Dashboard/containers/EventDescriptionView/queries";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("EventDescriptionView", (): void => {
@@ -49,14 +47,12 @@ describe("EventDescriptionView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route
-              component={EventDescriptionView}
-              path={"/:groupName/events/:eventId/description"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route
+            component={EventDescriptionView}
+            path={"/:groupName/events/:eventId/description"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -72,14 +68,12 @@ describe("EventDescriptionView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route
-              component={EventDescriptionView}
-              path={"/:groupName/events/:eventId/description"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route
+            component={EventDescriptionView}
+            path={"/:groupName/events/:eventId/description"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -98,16 +92,14 @@ describe("EventDescriptionView", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={EventDescriptionView}
-                path={"/:groupName/events/:eventId/description"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={EventDescriptionView}
+              path={"/:groupName/events/:eventId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {

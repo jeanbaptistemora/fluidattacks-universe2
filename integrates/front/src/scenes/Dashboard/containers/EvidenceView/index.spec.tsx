@@ -4,13 +4,11 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView";
 import { GET_FINDING_EVIDENCES } from "scenes/Dashboard/containers/EvidenceView/queries";
-import store from "store";
 
 describe("FindingEvidenceView", (): void => {
   const mocks: readonly MockedResponse[] = [
@@ -114,12 +112,10 @@ describe("FindingEvidenceView", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Provider store={store}>
-            <Route
-              component={EvidenceView}
-              path={"/:groupName/events/:findingId/evidence"}
-            />
-          </Provider>
+          <Route
+            component={EvidenceView}
+            path={"/:groupName/events/:findingId/evidence"}
+          />
         </MockedProvider>
       </MemoryRouter>
     );
@@ -137,12 +133,10 @@ describe("FindingEvidenceView", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Provider store={store}>
-            <Route
-              component={EvidenceView}
-              path={"/:groupName/events/:findingId/evidence"}
-            />
-          </Provider>
+          <Route
+            component={EvidenceView}
+            path={"/:groupName/events/:findingId/evidence"}
+          />
         </MockedProvider>
       </MemoryRouter>
     );

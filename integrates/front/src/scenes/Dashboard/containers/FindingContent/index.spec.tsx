@@ -6,7 +6,6 @@ import { mount, shallow } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
@@ -19,7 +18,6 @@ import {
   REMOVE_FINDING_MUTATION,
   SUBMIT_DRAFT_MUTATION,
 } from "scenes/Dashboard/containers/FindingContent/queries";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -188,16 +186,14 @@ describe("FindingContent", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[findingMock]}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={[findingMock]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={FindingContent}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -217,16 +213,14 @@ describe("FindingContent", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[draftMock]}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={[draftMock]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={FindingContent}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -253,16 +247,14 @@ describe("FindingContent", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[findingMock]}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={[findingMock]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={FindingContent}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -316,19 +308,17 @@ describe("FindingContent", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={[draftMock, submitMutationMock, submittedDraftMock]}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider
+          addTypename={false}
+          mocks={[draftMock, submitMutationMock, submittedDraftMock]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={FindingContent}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -384,19 +374,17 @@ describe("FindingContent", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={[draftMock, submitErrorMock, draftMock]}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider
+          addTypename={false}
+          mocks={[draftMock, submitErrorMock, draftMock]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={FindingContent}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -443,19 +431,17 @@ describe("FindingContent", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={[submittedDraftMock, approveMutationMock, findingMock]}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider
+          addTypename={false}
+          mocks={[submittedDraftMock, approveMutationMock, findingMock]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={FindingContent}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -526,19 +512,17 @@ describe("FindingContent", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={[submittedDraftMock, approveErrorMock, submittedDraftMock]}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider
+          addTypename={false}
+          mocks={[submittedDraftMock, approveErrorMock, submittedDraftMock]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={FindingContent}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -598,19 +582,17 @@ describe("FindingContent", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={[submittedDraftMock, rejectMutationMock, findingMock]}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider
+          addTypename={false}
+          mocks={[submittedDraftMock, rejectMutationMock, findingMock]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={FindingContent}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -680,19 +662,17 @@ describe("FindingContent", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={[submittedDraftMock, rejectErrorMock, submittedDraftMock]}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider
+          addTypename={false}
+          mocks={[submittedDraftMock, rejectErrorMock, submittedDraftMock]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={FindingContent}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -753,19 +733,17 @@ describe("FindingContent", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={[findingMock, deleteMutationMock]}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider
+          addTypename={false}
+          mocks={[findingMock, deleteMutationMock]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={FindingContent}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -811,19 +789,17 @@ describe("FindingContent", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={false}
-            mocks={[findingMock, deleteMutationMock]}
-          >
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider
+          addTypename={false}
+          mocks={[findingMock, deleteMutationMock]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={FindingContent}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
