@@ -11,36 +11,30 @@ from typing import (
 from utils import (
     graph as g,
 )
-from utils.graph.transformation import (
-    build_member_access_expression_key,
-)
 
 
 def c_sharp_check_cookie_security(
-    graph_db: graph_model.GraphDB, checks: Set[str], name_var: str
+    shard: graph_model.GraphShard, checks: Set[str], name_var: str
 ) -> int:
     count_checks = 0
-    for shard in graph_db.shards_by_language(
-        graph_model.GraphShardMetadataLanguage.CSHARP,
-    ):
-        for method_id in g.filter_nodes(
-            shard.graph,
-            nodes=shard.graph.nodes,
-            predicate=g.pred_has_labels(label_type="assignment_expression"),
-        ):
-            match = g.match_ast(shard.graph, method_id, "__0__")
-            prop = build_member_access_expression_key(
-                shard.graph,
-                method_id,
-            )
-            prop_name = prop.split(".")
-            if (
-                prop_name[0] == name_var
-                and prop_name[1] in checks
-                and shard.graph.nodes[match["__2__"]].get("label_text")
-                == "true"
-            ):
-                count_checks += 1
+    for syntax_steps in shard.syntax.values():
+        *dependencies, syntax_step = syntax_steps
+
+        if syntax_step.type != "SyntaxStepAssignment":
+            continue
+
+        # this funcion search for var.attribute = true
+        # so it should only have 1 dependency, the boolean value
+        if len(dependencies) != 1:
+            continue
+
+        dep = dependencies[0]
+        if dep.type != "SyntaxStepLiteral" or dep.value != "true":
+            continue
+
+        var, attribute = syntax_step.var.split(".", maxsplit=1)
+        if var == name_var and attribute in checks:
+            count_checks += 1
 
     return count_checks
 
@@ -80,7 +74,7 @@ def insecurely_generated_cookies(
                     == "HttpCookie"
                 ) and (
                     c_sharp_check_cookie_security(
-                        graph_db, security_props, name_var
+                        shard, security_props, name_var
                     )
                     != len(security_props)
                 ):
