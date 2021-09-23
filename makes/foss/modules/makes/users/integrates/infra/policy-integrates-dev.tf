@@ -207,7 +207,7 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     effect  = "Allow"
     actions = ["batch:SubmitJob"]
     resources = [
-      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/default",
+      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/*",
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/spot*",
     ]
   }
