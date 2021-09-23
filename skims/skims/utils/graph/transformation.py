@@ -3,7 +3,6 @@ from model import (
 )
 from typing import (
     cast,
-    Iterable,
     List,
     Optional,
 )
@@ -51,55 +50,6 @@ def node_to_str(graph: graph_model.Graph, n_id: str) -> str:
     for c_id in g.adj_ast(graph, n_id):
         result_str += node_to_str(graph, c_id)
     return result_str
-
-
-def yield_c_sharp_nested_identifiers(
-    graph: graph_model.Graph,
-    n_id: str,
-    nested_key: str,
-    keys: Optional[List[str]] = None,
-) -> Iterable[str]:
-    match_access = g.match_ast_group(
-        graph,
-        n_id,
-        nested_key,
-        "identifier",
-        "generic_name",
-        "this_expression",
-        "invocation_expression",
-        ".",
-    )
-
-    if (access := match_access[nested_key]) or (
-        access := match_access["invocation_expression"]
-    ):
-        yield from yield_c_sharp_nested_identifiers(
-            graph,
-            access.pop(),
-            nested_key=nested_key,
-            keys=keys,
-        )
-
-    if id_vals := match_access["identifier"]:
-        yield from [graph.nodes[id_val]["label_text"] for id_val in id_vals]
-
-    if this := match_access["this_expression"]:
-        yield graph.nodes[this.pop()]["label_text"]
-
-    if generics := match_access["generic_name"]:
-        generic_match = g.match_ast(
-            graph, generics.pop(), "identifier", "type_argument_list"
-        )
-
-        # this two variables always exist but the type is Optional[str]
-        identifier_id = str(generic_match["identifier"])
-        type_arg_id = str(generic_match["type_argument_list"])
-
-        ident_val = graph.nodes[identifier_id]["label_text"]
-        types = g.match_ast_group_d(graph, type_arg_id, "identifier")
-        type_list = ",".join([graph.nodes[t]["label_text"] for t in types])
-
-        yield f"{ident_val}<{type_list}>"
 
 
 def _build_nested_identifier_ids_js(
@@ -151,14 +101,6 @@ def build_member_access_expression_isd(
         n_id,
         "member_access_expression",
     )
-
-
-def build_member_access_expression_key(
-    graph: graph_model.Graph,
-    n_id: str,
-) -> str:
-    mem_acces = "member_access_expression"
-    return ".".join(yield_c_sharp_nested_identifiers(graph, n_id, mem_acces))
 
 
 def build_qualified_name(graph: graph_model.Graph, qualified_id: str) -> str:
