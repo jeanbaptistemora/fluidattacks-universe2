@@ -160,12 +160,16 @@ async def get_comments(
         ]
         comments = list(filter(None, comments))
 
+    # Temporary fix for a duplicate comments issue
+    unique_comments = list(
+        {comment["id"]: comment for comment in comments}.values()
+    )
     new_comments: List[CommentType] = []
     enforcer = await authz.get_group_level_enforcer(user_email)
     if enforcer(group_name, "handle_comment_scope"):
-        new_comments = comments
+        new_comments = unique_comments
     else:
-        new_comments = list(filter(_is_scope_comment, comments))
+        new_comments = list(filter(_is_scope_comment, unique_comments))
     return new_comments
 
 
