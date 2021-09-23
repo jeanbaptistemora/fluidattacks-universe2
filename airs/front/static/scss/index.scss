@@ -679,9 +679,9 @@ $gray-120: rgba(120, 120, 145, 1);
   padding-top: 0;
 }
 
-.down-cards > div > p,
-.down-cards > div > p > code,
-.down-cards > div + div > ul > li > p {
+.down-cards p,
+.down-cards p > code,
+.down-cards ul > li > p {
   font-size: 1rem !important;
 }
 

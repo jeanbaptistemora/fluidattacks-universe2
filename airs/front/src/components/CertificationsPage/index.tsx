@@ -8,19 +8,16 @@ import { DropDownCard } from "../DropDownCard";
 const CertificationsPage: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query CertificationQuery {
-      allAsciidoc(
-        sort: { fields: [pageAttributes___certificationid], order: ASC }
+      allMarkdownRemark(
+        sort: { fields: [frontmatter___certificationid], order: ASC }
       ) {
         edges {
           node {
             fields {
               slug
             }
-            document {
-              title
-            }
             html
-            pageAttributes {
+            frontmatter {
               alt
               description
               keywords
@@ -28,6 +25,7 @@ const CertificationsPage: React.FC = (): JSX.Element => {
               certificationid
               certificationlogo
               slug
+              title
             }
           }
         }
@@ -35,16 +33,16 @@ const CertificationsPage: React.FC = (): JSX.Element => {
     }
   `);
 
-  const certificationInfo = data.allAsciidoc.edges.filter(
+  const certificationInfo = data.allMarkdownRemark.edges.filter(
     (certificationCard): boolean =>
-      certificationCard.node.pageAttributes.certification === "yes"
+      certificationCard.node.frontmatter.certification === "yes"
   );
 
   return (
     <CardsContainer>
       {certificationInfo.map(
         ({ node }): JSX.Element => {
-          const { alt, certificationlogo, slug } = node.pageAttributes;
+          const { alt, certificationlogo, slug, title } = node.frontmatter;
 
           return (
             <DropDownCard
@@ -56,7 +54,7 @@ const CertificationsPage: React.FC = (): JSX.Element => {
               logo={certificationlogo}
               logoPaths={"/airs/about-us/certifications"}
               slug={slug}
-              title={node.document.title}
+              title={title}
             />
           );
         }
