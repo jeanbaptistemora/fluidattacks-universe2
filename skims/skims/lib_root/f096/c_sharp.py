@@ -1,11 +1,9 @@
 from itertools import (
     chain,
 )
-from lib_root import (
-    csharp_get_variable_attribute,
-)
-from lib_root.f052.c_sharp import (
-    _yield_object_creation as c_sharp_yield_object_creation,
+from lib_root.utilities.c_sharp import (
+    get_variable_attribute,
+    yield_object_creation,
 )
 from model import (
     core_model,
@@ -30,7 +28,7 @@ def insecure_deserialization(
     def n_ids() -> graph_model.GraphShardNodes:
 
         for shard, member in chain(
-            c_sharp_yield_object_creation(graph_db, danger_objects),
+            yield_object_creation(graph_db, danger_objects),
         ):
             obj_name = shard.graph.nodes[
                 g.match_ast(shard.graph, member)["__1__"]
@@ -54,7 +52,7 @@ def insecure_deserialization(
                     yield shard, member
                 elif (
                     arg_type == "identifier"
-                    and csharp_get_variable_attribute(
+                    and get_variable_attribute(
                         shard.graph,
                         shard.graph.nodes[
                             g.match_ast(shard.graph, arg_node)["__0__"]

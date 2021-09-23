@@ -1,5 +1,5 @@
-from lib_root import (
-    yield_c_sharp_invocation_expression,
+from lib_root.utilities.c_sharp import (
+    yield_invocation_expression,
 )
 from model import (
     core_model,
@@ -24,7 +24,7 @@ def file_create_temp_file(
             shard,
             method_id,
             method_name,
-        ) in yield_c_sharp_invocation_expression(graph_db):
+        ) in yield_invocation_expression(graph_db):
             if method_name in danger_methods:
                 yield shard, method_id
 

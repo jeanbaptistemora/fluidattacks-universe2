@@ -1,11 +1,9 @@
 from itertools import (
     chain,
 )
-from lib_root import (
-    csharp_get_variable_attribute,
-)
-from lib_root.f052.c_sharp import (
-    _yield_object_creation as c_sharp_yield_object_creation,
+from lib_root.utilities.c_sharp import (
+    get_variable_attribute,
+    yield_object_creation,
 )
 from model import (
     core_model,
@@ -49,7 +47,7 @@ def check_hashes_salt(
         )
 
         for shard, member in chain(
-            c_sharp_yield_object_creation(graph_db, directory_object),
+            yield_object_creation(graph_db, directory_object),
         ):
             parameters = g.get_ast_childs(
                 shard.graph, member, "argument", depth=2
@@ -59,7 +57,7 @@ def check_hashes_salt(
                 if (
                     shard.graph.nodes[node_param].get("label_type")
                     == "identifier"
-                    and csharp_get_variable_attribute(
+                    and get_variable_attribute(
                         shard.graph,
                         shard.graph.nodes[node_param].get("label_text"),
                         "label_text",

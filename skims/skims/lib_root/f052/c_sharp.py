@@ -1,4 +1,8 @@
 import itertools
+from lib_root.utilities.c_sharp import (
+    yield_member_access,
+    yield_object_creation,
+)
 from model.core_model import (
     FindingEnum,
     Vulnerabilities,
@@ -15,48 +19,11 @@ from sast.query import (
 from typing import (
     Dict,
     Optional,
-    Set,
 )
 import utils.graph as g
 from utils.graph.transformation import (
     build_member_access_expression_key,
 )
-
-
-def _yield_member_access(
-    graph_db: GraphDB, members: Set[str]
-) -> GraphShardNodes:
-    for shard in graph_db.shards_by_language(
-        GraphShardMetadataLanguage.CSHARP,
-    ):
-        for member in g.filter_nodes(
-            shard.graph,
-            nodes=shard.graph.nodes,
-            predicate=g.pred_has_labels(label_type="member_access_expression"),
-        ):
-            match = g.match_ast(shard.graph, member, "__0__")
-            if shard.graph.nodes[match["__0__"]].get("label_text") in members:
-                yield shard, member
-
-
-def _yield_object_creation(
-    graph_db: GraphDB, members: Set[str]
-) -> GraphShardNodes:
-    for shard in graph_db.shards_by_language(
-        GraphShardMetadataLanguage.CSHARP,
-    ):
-        for member in g.filter_nodes(
-            shard.graph,
-            nodes=shard.graph.nodes,
-            predicate=g.pred_has_labels(
-                label_type="object_creation_expression"
-            ),
-        ):
-            match = g.match_ast(shard.graph, member, "identifier")
-            if (identifier := match["identifier"]) and shard.graph.nodes[
-                identifier
-            ]["label_text"] in members:
-                yield shard, member
 
 
 def insecure_keys(
@@ -71,7 +38,7 @@ def insecure_keys(
 
     def n_ids() -> GraphShardNodes:
         for shard, member in itertools.chain(
-            _yield_object_creation(graph_db, ciphers),
+            yield_object_creation(graph_db, ciphers),
         ):
             args_list = g.get_ast_childs(shard.graph, member, "argument_list")
             keys = g.get_ast_childs(
@@ -238,8 +205,8 @@ def insecure_cipher(
     }
 
     def n_ids() -> GraphShardNodes:
-        yield from _yield_member_access(graph_db, insecure_ciphers)
-        yield from _yield_object_creation(graph_db, insecure_ciphers)
+        yield from yield_member_access(graph_db, insecure_ciphers)
+        yield from yield_object_creation(graph_db, insecure_ciphers)
 
     return get_vulnerabilities_from_n_ids(
         cwe=("310", "327"),
@@ -271,8 +238,8 @@ def insecure_hash(
     }
 
     def n_ids() -> GraphShardNodes:
-        yield from _yield_member_access(graph_db, insecure_ciphers)
-        yield from _yield_object_creation(graph_db, insecure_ciphers)
+        yield from yield_member_access(graph_db, insecure_ciphers)
+        yield from yield_object_creation(graph_db, insecure_ciphers)
 
     return get_vulnerabilities_from_n_ids(
         cwe=("310", "327"),

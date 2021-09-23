@@ -1,6 +1,6 @@
 import itertools
-from lib_root.f052.c_sharp import (
-    _yield_object_creation as c_sharp_yield_object_creation,
+from lib_root.utilities.c_sharp import (
+    yield_object_creation,
 )
 from model import (
     core_model,
@@ -26,7 +26,7 @@ def ldap_connections_authenticated(
 
     def n_ids() -> graph_model.GraphShardNodes:
         for shard, member in itertools.chain(
-            c_sharp_yield_object_creation(graph_db, directory_object),
+            yield_object_creation(graph_db, directory_object),
         ):
             arguments = g.get_ast_childs(
                 shard.graph, member, "argument", depth=2
