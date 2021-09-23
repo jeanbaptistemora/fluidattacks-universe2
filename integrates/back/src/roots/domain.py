@@ -747,8 +747,14 @@ async def move_root(
     target_group: str,
 ) -> None:
     root: RootItem = await loaders.root.load((group_name, root_id))
+    group = await loaders.group.load(group_name)
 
-    if root.state.status != "ACTIVE" or target_group == root.group_name:
+    if (
+        root.state.status != "ACTIVE"
+        or target_group == root.group_name
+        or target_group
+        not in await orgs_domain.get_groups(group["organization"])
+    ):
         raise InvalidParameter()
 
     target_group_roots: Tuple[RootItem, ...] = await loaders.group_roots.load(
