@@ -36,12 +36,21 @@ from users import (
 async def resolve(
     parent: GroupType, info: GraphQLResolveInfo, **kwargs: None
 ) -> List[StakeholderType]:
+    user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_email: str = user_data["user_email"]
+    exclude_fluid_staff = not users_domain.is_fluid_staff(user_email)
     response: List[StakeholderType] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
         attr="stakeholders",
         name=cast(str, parent["name"]),
     )
+    if exclude_fluid_staff:
+        response = [
+            user
+            for user in response
+            if not users_domain.is_fluid_staff(user["email"])
+        ]
     return response
 
 
@@ -49,14 +58,5 @@ async def resolve_no_cache(
     parent: GroupType, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[StakeholderType]:
     group_name: str = cast(str, parent["name"])
-
-    user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
-    user_email: str = user_data["user_email"]
-
-    if users_domain.is_fluid_staff(user_email):
-        group_stakeholders_loader = info.context.loaders.group_stakeholders
-    else:
-        group_stakeholders_loader = info.context.loaders.group_stakeholders_nf
-    return cast(
-        List[StakeholderType], await group_stakeholders_loader.load(group_name)
-    )
+    group_stakeholders_loader = info.context.loaders.group_stakeholders
+    return await group_stakeholders_loader.load(group_name)

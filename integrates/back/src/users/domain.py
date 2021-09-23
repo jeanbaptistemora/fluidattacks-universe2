@@ -269,7 +269,6 @@ async def get_data(email: str, attr: str) -> Union[str, UserType]:
 
 async def get_stakeholders(
     group_name: str,
-    exclude_fluid_staff: bool = False,
 ) -> List[StakeholderType]:
     group_stakeholders_emails = cast(
         List[str],
@@ -284,10 +283,6 @@ async def get_stakeholders(
             )
         ),
     )
-    if exclude_fluid_staff:
-        group_stakeholders_emails = await filter_non_fluid_staff(
-            group_stakeholders_emails, group_name
-        )
     group_stakeholders = cast(
         List[StakeholderType],
         await collect(

@@ -141,15 +141,6 @@ async def test_group() -> None:
             "role": "admin",
         },
         {
-            "email": "unittest2@fluidattacks.com",
-            "firstLogin": "2018-02-28 11:54:12",
-            "invitationState": "CONFIRMED",
-            "lastLogin": "2019-10-29 13:40:37",
-            "phoneNumber": "-",
-            "responsibility": "Tester",
-            "role": "system_owner",
-        },
-        {
             "email": "integratesexecutive@gmail.com",
             "firstLogin": "2018-02-28 11:54:12",
             "invitationState": "CONFIRMED",
@@ -175,15 +166,6 @@ async def test_group() -> None:
             "phoneNumber": "-",
             "responsibility": "Test",
             "role": "customeradmin",
-        },
-        {
-            "email": "system_owner@fluidattacks.com",
-            "firstLogin": "2021-08-28 11:54:12",
-            "invitationState": "CONFIRMED",
-            "lastLogin": "2021-08-30 13:40:37",
-            "phoneNumber": "-",
-            "responsibility": "Test Owner",
-            "role": "system_owner",
         },
         {
             "email": "continuoushacking@gmail.com",
