@@ -47,16 +47,16 @@ async def handle_virus_scan(*, item: BatchProcessing) -> None:
         )
         await send_mail_handled_file(
             user_email,
-            file_name,
             group_name,
+            file_name,
             uploaded=True,
         )
     else:
         await resources_utils.remove_file(file_name)
         await send_mail_handled_file(
             user_email,
-            file_name,
             group_name,
+            file_name,
             uploaded=False,
         )
 
