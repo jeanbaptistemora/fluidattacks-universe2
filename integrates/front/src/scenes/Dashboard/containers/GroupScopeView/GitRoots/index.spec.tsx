@@ -4,7 +4,6 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import wait from "waait";
 
 import { ManagementModal } from "./ManagementModal";
@@ -13,7 +12,6 @@ import { GitRoots } from ".";
 import type { IGitRootAttr } from "../types";
 import { Button } from "components/Button";
 import { SwitchButton } from "components/SwitchButton";
-import store from "store";
 import { ButtonToolbar } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -28,11 +26,9 @@ describe("GitRoots", (): void => {
 
     const refetch: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider>
-          <GitRoots groupName={"unittesting"} onUpdate={refetch} roots={[]} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider>
+        <GitRoots groupName={"unittesting"} onUpdate={refetch} roots={[]} />
+      </MockedProvider>
     );
 
     expect(wrapper).toHaveLength(1);
@@ -44,20 +40,18 @@ describe("GitRoots", (): void => {
 
     const refetch: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider>
-          <authzPermissionsContext.Provider
-            value={
-              new PureAbility([
-                { action: "api_mutations_add_git_root_mutate" },
-                { action: "api_mutations_update_git_root_mutate" },
-              ])
-            }
-          >
-            <GitRoots groupName={"unittesting"} onUpdate={refetch} roots={[]} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider>
+        <authzPermissionsContext.Provider
+          value={
+            new PureAbility([
+              { action: "api_mutations_add_git_root_mutate" },
+              { action: "api_mutations_update_git_root_mutate" },
+            ])
+          }
+        >
+          <GitRoots groupName={"unittesting"} onUpdate={refetch} roots={[]} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
 
     expect(wrapper).toHaveLength(1);
@@ -82,19 +76,17 @@ describe("GitRoots", (): void => {
     const handleClose: jest.Mock = jest.fn();
     const handleSubmit: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <authzPermissionsContext.Provider
-          value={new PureAbility([{ action: "update_git_root_filter" }])}
-        >
-          <ManagementModal
-            initialValues={undefined}
-            nicknames={[]}
-            onClose={handleClose}
-            onSubmitEnvs={handleSubmit}
-            onSubmitRepo={handleSubmit}
-          />
-        </authzPermissionsContext.Provider>
-      </Provider>
+      <authzPermissionsContext.Provider
+        value={new PureAbility([{ action: "update_git_root_filter" }])}
+      >
+        <ManagementModal
+          initialValues={undefined}
+          nicknames={[]}
+          onClose={handleClose}
+          onSubmitEnvs={handleSubmit}
+          onSubmitRepo={handleSubmit}
+        />
+      </authzPermissionsContext.Provider>
     );
 
     expect(wrapper).toHaveLength(1);
@@ -139,23 +131,21 @@ describe("GitRoots", (): void => {
       url: "https://gitlab.com/fluidattacks/product",
     };
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <authzPermissionsContext.Provider
-          value={
-            new PureAbility([
-              { action: "api_mutations_update_git_environments_mutate" },
-            ])
-          }
-        >
-          <ManagementModal
-            initialValues={initialValues}
-            nicknames={[]}
-            onClose={handleClose}
-            onSubmitEnvs={handleSubmit}
-            onSubmitRepo={handleSubmit}
-          />
-        </authzPermissionsContext.Provider>
-      </Provider>
+      <authzPermissionsContext.Provider
+        value={
+          new PureAbility([
+            { action: "api_mutations_update_git_environments_mutate" },
+          ])
+        }
+      >
+        <ManagementModal
+          initialValues={initialValues}
+          nicknames={[]}
+          onClose={handleClose}
+          onSubmitEnvs={handleSubmit}
+          onSubmitRepo={handleSubmit}
+        />
+      </authzPermissionsContext.Provider>
     );
 
     expect(wrapper).toHaveLength(1);

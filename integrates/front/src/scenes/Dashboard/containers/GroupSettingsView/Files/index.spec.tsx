@@ -8,7 +8,6 @@ import { mount } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import wait from "waait";
 
 import type { IFilesProps } from "scenes/Dashboard/containers/GroupSettingsView/Files";
@@ -19,7 +18,6 @@ import {
   GET_FILES,
   REMOVE_FILE_MUTATION,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -130,16 +128,14 @@ describe("Files", (): void => {
       { action: "api_mutations_add_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={mocksFiles.concat(mocksMutation)}
-        >
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files groupName={mockProps.groupName} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider
+        addTypename={false}
+        mocks={mocksFiles.concat(mocksMutation)}
+      >
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <Files groupName={mockProps.groupName} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);
@@ -186,11 +182,9 @@ describe("Files", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksFiles}>
-          <Files groupName={mockProps.groupName} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mocksFiles}>
+        <Files groupName={mockProps.groupName} />
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);
@@ -235,16 +229,14 @@ describe("Files", (): void => {
       { action: "api_mutations_remove_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={mocksFiles.concat(mocksMutation)}
-        >
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files groupName={mockProps.groupName} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider
+        addTypename={false}
+        mocks={mocksFiles.concat(mocksMutation)}
+      >
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <Files groupName={mockProps.groupName} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);
@@ -308,16 +300,14 @@ describe("Files", (): void => {
       { action: "api_mutations_remove_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={mocksFiles.concat(mocksMutation)}
-        >
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files groupName={mockProps.groupName} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider
+        addTypename={false}
+        mocks={mocksFiles.concat(mocksMutation)}
+      >
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <Files groupName={mockProps.groupName} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);
@@ -385,16 +375,14 @@ describe("Files", (): void => {
       { action: "api_mutations_add_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={mocksFiles.concat(mocksMutation)}
-        >
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files groupName={mockProps.groupName} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider
+        addTypename={false}
+        mocks={mocksFiles.concat(mocksMutation)}
+      >
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <Files groupName={mockProps.groupName} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);
@@ -443,13 +431,11 @@ describe("Files", (): void => {
       { action: "api_mutations_add_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksFiles}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files groupName={mockProps.groupName} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mocksFiles}>
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <Files groupName={mockProps.groupName} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);

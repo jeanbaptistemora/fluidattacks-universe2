@@ -7,13 +7,11 @@ import type { FetchMockStatic } from "fetch-mock";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { GroupDraftsView } from "scenes/Dashboard/containers/GroupDraftsView";
 import { GET_DRAFTS } from "scenes/Dashboard/containers/GroupDraftsView/queries";
-import store from "store";
 
 const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
 const baseUrl: string =
@@ -148,14 +146,12 @@ describe("GroupDraftsView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/drafts"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route
-              component={GroupDraftsView}
-              path={"/groups/:groupName/drafts"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route
+            component={GroupDraftsView}
+            path={"/groups/:groupName/drafts"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -173,14 +169,12 @@ describe("GroupDraftsView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/drafts"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mockError}>
-            <Route
-              component={GroupDraftsView}
-              path={"/groups/:groupName/drafts"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mockError}>
+          <Route
+            component={GroupDraftsView}
+            path={"/groups/:groupName/drafts"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {

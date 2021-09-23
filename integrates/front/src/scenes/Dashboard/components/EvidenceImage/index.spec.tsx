@@ -3,13 +3,11 @@ import { mount, shallow } from "enzyme";
 import { Form, Formik } from "formik";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import wait from "waait";
 
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 // Next annotation is needed in order to avoid a problem with cyclic dependencies
 // eslint-disable-next-line sort-imports
-import store from "store";
 import { EvidenceDescription } from "styles/styledComponents";
 
 describe("Evidence image", (): void => {
@@ -22,21 +20,19 @@ describe("Evidence image", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Provider store={store}>
-        <Formik initialValues={{}} onSubmit={jest.fn()}>
-          <Form>
-            <EvidenceImage
-              content={"https://fluidattacks.com/test.png"}
-              description={"Test evidence"}
-              isDescriptionEditable={false}
-              isEditing={false}
-              name={"evidence1"}
-              onClick={jest.fn()}
-            />
-            {","}
-          </Form>
-        </Formik>
-      </Provider>
+      <Formik initialValues={{}} onSubmit={jest.fn()}>
+        <Form>
+          <EvidenceImage
+            content={"https://fluidattacks.com/test.png"}
+            description={"Test evidence"}
+            isDescriptionEditable={false}
+            isEditing={false}
+            name={"evidence1"}
+            onClick={jest.fn()}
+          />
+          {","}
+        </Form>
+      </Formik>
     );
     const component: ShallowWrapper = wrapper
       .find({ name: "evidence1" })
@@ -49,21 +45,19 @@ describe("Evidence image", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Provider store={store}>
-        <Formik initialValues={{}} onSubmit={jest.fn()}>
-          <Form>
-            <EvidenceImage
-              content={"https://fluidattacks.com/test.png"}
-              description={"Test evidence"}
-              isDescriptionEditable={false}
-              isEditing={false}
-              name={"evidence1"}
-              onClick={jest.fn()}
-            />
-            {","}
-          </Form>
-        </Formik>
-      </Provider>
+      <Formik initialValues={{}} onSubmit={jest.fn()}>
+        <Form>
+          <EvidenceImage
+            content={"https://fluidattacks.com/test.png"}
+            description={"Test evidence"}
+            isDescriptionEditable={false}
+            isEditing={false}
+            name={"evidence1"}
+            onClick={jest.fn()}
+          />
+          {","}
+        </Form>
+      </Formik>
     );
 
     const component: ShallowWrapper = wrapper
@@ -81,24 +75,22 @@ describe("Evidence image", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Provider store={store}>
-        <Formik initialValues={{}} onSubmit={jest.fn()}>
-          <Form>
-            <EvidenceImage
-              content={"https://fluidattacks.com/test.png"}
-              description={"Test evidence"}
-              isDescriptionEditable={true}
-              isEditing={true}
-              name={"evidence1"}
-              onClick={jest.fn()}
-            />
-            {","}
-          </Form>
-        </Formik>
-      </Provider>
+      <Formik initialValues={{}} onSubmit={jest.fn()}>
+        <Form>
+          <EvidenceImage
+            content={"https://fluidattacks.com/test.png"}
+            description={"Test evidence"}
+            isDescriptionEditable={true}
+            isEditing={true}
+            name={"evidence1"}
+            onClick={jest.fn()}
+          />
+          {","}
+        </Form>
+      </Formik>
     );
 
-    expect(wrapper.find("Formik").find({ name: "evidence1" })).toHaveLength(1);
+    expect(wrapper.find("Form").find({ name: "evidence1" })).toHaveLength(1);
   });
 
   it("should execute callbacks", async (): Promise<void> => {
@@ -108,24 +100,22 @@ describe("Evidence image", (): void => {
     const handleUpdate: jest.Mock = jest.fn();
     const file: File[] = [new File([""], "image.png", { type: "image/png" })];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <Formik
-          initialValues={{ evidence1: { file } }}
-          name={"editEvidences"}
-          onSubmit={handleUpdate}
-        >
-          <Form>
-            <EvidenceImage
-              content={"https://fluidattacks.com/test.png"}
-              description={"Test evidence"}
-              isDescriptionEditable={true}
-              isEditing={true}
-              name={"evidence1"}
-              onClick={handleClick}
-            />
-          </Form>
-        </Formik>
-      </Provider>
+      <Formik
+        initialValues={{ evidence1: { file } }}
+        name={"editEvidences"}
+        onSubmit={handleUpdate}
+      >
+        <Form>
+          <EvidenceImage
+            content={"https://fluidattacks.com/test.png"}
+            description={"Test evidence"}
+            isDescriptionEditable={true}
+            isEditing={true}
+            name={"evidence1"}
+            onClick={handleClick}
+          />
+        </Form>
+      </Formik>
     );
     const component: ReactWrapper = wrapper.find({ name: "evidence1" });
     component.find("textarea").simulate("change", {

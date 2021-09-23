@@ -2,11 +2,9 @@ import { MockedProvider } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 
 import { DeleteGroup } from "scenes/Dashboard/containers/GroupSettingsView/DeleteGroup";
-import store from "store";
 
 describe("DeleteGroup", (): void => {
   it("should return a function", (): void => {
@@ -19,13 +17,11 @@ describe("DeleteGroup", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider>
-          <MemoryRouter initialEntries={["/TEST"]}>
-            <Route component={DeleteGroup} path={"/:groupName"} />
-          </MemoryRouter>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider>
+        <MemoryRouter initialEntries={["/TEST"]}>
+          <Route component={DeleteGroup} path={"/:groupName"} />
+        </MemoryRouter>
+      </MockedProvider>
     );
 
     expect(wrapper).toHaveLength(1);

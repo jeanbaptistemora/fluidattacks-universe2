@@ -4,7 +4,6 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import wait from "waait";
 
 import { GlobalConfigModal } from "scenes/Dashboard/components/Navbar/UserProfile/GlobalConfigModal";
@@ -12,7 +11,6 @@ import {
   SUBSCRIBE_TO_ENTITY_REPORT,
   SUBSCRIPTIONS_TO_ENTITY_REPORT,
 } from "scenes/Dashboard/components/Navbar/UserProfile/GlobalConfigModal/queries";
-import store from "store";
 
 describe("Global configuration modal", (): void => {
   const handleOnClose: jest.Mock = jest.fn();
@@ -92,11 +90,9 @@ describe("Global configuration modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={[mockQueryFalse]}>
-          <GlobalConfigModal onClose={handleOnClose} open={true} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={[mockQueryFalse]}>
+        <GlobalConfigModal onClose={handleOnClose} open={true} />
+      </MockedProvider>
     );
 
     await act(async (): Promise<void> => {
@@ -122,14 +118,12 @@ describe("Global configuration modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={[mockQueryTrue, mockMutationDigest]}
-        >
-          <GlobalConfigModal onClose={handleOnClose} open={true} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider
+        addTypename={false}
+        mocks={[mockQueryTrue, mockMutationDigest]}
+      >
+        <GlobalConfigModal onClose={handleOnClose} open={true} />
+      </MockedProvider>
     );
 
     await act(async (): Promise<void> => {
@@ -169,14 +163,12 @@ describe("Global configuration modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={[mockQueryTrue, mockMutationComments]}
-        >
-          <GlobalConfigModal onClose={handleOnClose} open={true} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider
+        addTypename={false}
+        mocks={[mockQueryTrue, mockMutationComments]}
+      >
+        <GlobalConfigModal onClose={handleOnClose} open={true} />
+      </MockedProvider>
     );
 
     await act(async (): Promise<void> => {

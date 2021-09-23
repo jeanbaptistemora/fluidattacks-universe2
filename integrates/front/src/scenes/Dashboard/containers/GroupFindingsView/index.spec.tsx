@@ -6,7 +6,6 @@ import { mount } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
@@ -16,7 +15,6 @@ import { CustomToggleList } from "components/DataTableNext/customToggleList";
 import type { ITableProps } from "components/DataTableNext/types";
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView";
 import { GET_FINDINGS } from "scenes/Dashboard/containers/GroupFindingsView/queries";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("GroupFindingsView", (): void => {
@@ -130,14 +128,12 @@ describe("GroupFindingsView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={true} mocks={apolloDataMock}>
-            <Route
-              component={GroupFindingsView}
-              path={"/groups/:groupName/vulns"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={true} mocks={apolloDataMock}>
+          <Route
+            component={GroupFindingsView}
+            path={"/groups/:groupName/vulns"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await wait(0);
@@ -153,16 +149,14 @@ describe("GroupFindingsView", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={true} mocks={mocksFindings}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={GroupFindingsView}
-                path={"/groups/:groupName/vulns"}
-              />
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={true} mocks={mocksFindings}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupFindingsView}
+              path={"/groups/:groupName/vulns"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -202,14 +196,12 @@ describe("GroupFindingsView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={true} mocks={mockError}>
-            <Route
-              component={GroupFindingsView}
-              path={"/groups/:groupName/vulns"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={true} mocks={mockError}>
+          <Route
+            component={GroupFindingsView}
+            path={"/groups/:groupName/vulns"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
     await wait(0);
@@ -222,14 +214,12 @@ describe("GroupFindingsView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={true} mocks={mocksFindings}>
-            <Route
-              component={GroupFindingsView}
-              path={"/groups/:groupName/vulns"}
-            />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={true} mocks={mocksFindings}>
+          <Route
+            component={GroupFindingsView}
+            path={"/groups/:groupName/vulns"}
+          />
+        </MockedProvider>
       </MemoryRouter>
     );
 

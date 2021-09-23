@@ -6,13 +6,11 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { GroupForcesView } from "scenes/Dashboard/containers/GroupForcesView";
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/GroupForcesView/queries";
-import store from "store";
 
 describe("ForcesView", (): void => {
   const mocks: readonly MockedResponse[] = [
@@ -100,11 +98,9 @@ describe("ForcesView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mockError}>
-            <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mockError}>
+          <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -120,11 +116,9 @@ describe("ForcesView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
+        </MockedProvider>
       </MemoryRouter>
     );
 
@@ -136,11 +130,9 @@ describe("ForcesView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
@@ -163,11 +155,9 @@ describe("ForcesView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mocks}>
-            <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
+        </MockedProvider>
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {

@@ -4,13 +4,11 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { GroupSettingsView } from "scenes/Dashboard/containers/GroupSettingsView";
 import { GET_TAGS } from "scenes/Dashboard/containers/GroupSettingsView/queries";
-import store from "store";
 
 describe("GroupSettingsView", (): void => {
   const mocksTags: Readonly<MockedResponse> = {
@@ -53,16 +51,14 @@ describe("GroupSettingsView", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={[mocksTags]}>
-          <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
-            <Route
-              component={GroupSettingsView}
-              path={"/orgs/:organizationName/groups/:groupName/scope"}
-            />
-          </MemoryRouter>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={[mocksTags]}>
+        <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
+          <Route
+            component={GroupSettingsView}
+            path={"/orgs/:organizationName/groups/:groupName/scope"}
+          />
+        </MemoryRouter>
+      </MockedProvider>
     );
     await wait(0);
 
@@ -73,16 +69,14 @@ describe("GroupSettingsView", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mockError}>
-          <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
-            <Route
-              component={GroupSettingsView}
-              path={"/orgs/:organizationName/groups/:groupName/scope"}
-            />
-          </MemoryRouter>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mockError}>
+        <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
+          <Route
+            component={GroupSettingsView}
+            path={"/orgs/:organizationName/groups/:groupName/scope"}
+          />
+        </MemoryRouter>
+      </MockedProvider>
     );
     await wait(0);
 
@@ -93,16 +87,14 @@ describe("GroupSettingsView", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={[mocksTags]}>
-          <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
-            <Route
-              component={GroupSettingsView}
-              path={"/orgs/:organizationName/groups/:groupName/scope"}
-            />
-          </MemoryRouter>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={[mocksTags]}>
+        <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
+          <Route
+            component={GroupSettingsView}
+            path={"/orgs/:organizationName/groups/:groupName/scope"}
+          />
+        </MemoryRouter>
+      </MockedProvider>
     );
     await wait(0);
 
