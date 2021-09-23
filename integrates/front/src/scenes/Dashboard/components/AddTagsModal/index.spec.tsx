@@ -1,22 +1,18 @@
 import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import { mount, shallow } from "enzyme";
 import React from "react";
-import { Provider } from "react-redux";
 
 import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
-import store from "store";
 
 const functionMock: () => void = (): void => undefined;
 
 describe("Add Tags modal", (): void => {
   const wrapper: ShallowWrapper = shallow(
-    <Provider store={store}>
-      <AddTagsModal
-        isOpen={true}
-        onClose={functionMock}
-        onSubmit={functionMock}
-      />
-    </Provider>
+    <AddTagsModal
+      isOpen={true}
+      onClose={functionMock}
+      onSubmit={functionMock}
+    />
   );
 
   it("should return a function", (): void => {
@@ -33,13 +29,11 @@ describe("Add Tags modal", (): void => {
     expect.hasAssertions();
 
     const modal: ReactWrapper = mount(
-      <Provider store={store}>
-        <AddTagsModal
-          isOpen={true}
-          onClose={functionMock}
-          onSubmit={functionMock}
-        />
-      </Provider>
+      <AddTagsModal
+        isOpen={true}
+        onClose={functionMock}
+        onSubmit={functionMock}
+      />
     );
 
     const addButton: ReactWrapper = modal
@@ -59,13 +53,11 @@ describe("Add Tags modal", (): void => {
     expect.hasAssertions();
 
     const modal: ReactWrapper = mount(
-      <Provider store={store}>
-        <AddTagsModal
-          isOpen={true}
-          onClose={functionMock}
-          onSubmit={functionMock}
-        />
-      </Provider>
+      <AddTagsModal
+        isOpen={true}
+        onClose={functionMock}
+        onSubmit={functionMock}
+      />
     );
     const addButton: ReactWrapper = modal
       .find("FormikArrayField")

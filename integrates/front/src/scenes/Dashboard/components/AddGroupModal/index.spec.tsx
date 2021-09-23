@@ -3,12 +3,10 @@ import type { MockedResponse } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
-import { Provider } from "react-redux";
 
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import { GROUPS_NAME_QUERY } from "scenes/Dashboard/components/AddGroupModal/queries";
 import type { IGroupNameProps } from "scenes/Dashboard/components/AddGroupModal/types";
-import store from "store";
 
 describe("AddGroupModal component", (): void => {
   const groupName: IGroupNameProps = { internalNames: { name: "" } };
@@ -30,15 +28,13 @@ describe("AddGroupModal component", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <AddGroupModal
-            isOpen={true}
-            onClose={handleOnClose}
-            organization={"okada"}
-          />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mocksMutation}>
+        <AddGroupModal
+          isOpen={true}
+          onClose={handleOnClose}
+          organization={"okada"}
+        />
+      </MockedProvider>
     );
 
     const cancelButton: ReactWrapper = wrapper
@@ -56,15 +52,13 @@ describe("AddGroupModal component", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <AddGroupModal
-            isOpen={true}
-            onClose={handleOnClose}
-            organization={"okada"}
-          />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mocksMutation}>
+        <AddGroupModal
+          isOpen={true}
+          onClose={handleOnClose}
+          organization={"okada"}
+        />
+      </MockedProvider>
     );
 
     const organizationField: ReactWrapper = wrapper

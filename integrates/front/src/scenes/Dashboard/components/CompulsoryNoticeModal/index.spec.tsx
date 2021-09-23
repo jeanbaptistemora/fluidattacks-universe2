@@ -2,11 +2,9 @@ import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import { mount, shallow } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import wait from "waait";
 
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
-import store from "store";
 
 describe("Compulsory notice modal", (): void => {
   it("should return a function", (): void => {
@@ -40,9 +38,7 @@ describe("Compulsory notice modal", (): void => {
 
     const handleAccept: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <CompulsoryNotice onAccept={handleAccept} open={true} />
-      </Provider>
+      <CompulsoryNotice onAccept={handleAccept} open={true} />
     );
     const form: ReactWrapper = wrapper.find("Modal").find("Formik");
     await act(async (): Promise<void> => {

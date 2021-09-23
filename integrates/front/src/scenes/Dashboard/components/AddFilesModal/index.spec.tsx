@@ -1,10 +1,8 @@
 import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import { mount, shallow } from "enzyme";
 import React from "react";
-import { Provider } from "react-redux";
 
 import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
-import store from "store";
 
 describe("Add Files modal", (): void => {
   it("should return a function", (): void => {
@@ -16,14 +14,12 @@ describe("Add Files modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Provider store={store}>
-        <AddFilesModal
-          isOpen={true}
-          isUploading={false}
-          onClose={jest.fn()}
-          onSubmit={jest.fn()}
-        />
-      </Provider>
+      <AddFilesModal
+        isOpen={true}
+        isUploading={false}
+        onClose={jest.fn()}
+        onSubmit={jest.fn()}
+      />
     );
 
     expect(wrapper).toHaveLength(1);
@@ -33,14 +29,12 @@ describe("Add Files modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <AddFilesModal
-          isOpen={true}
-          isUploading={true}
-          onClose={jest.fn()}
-          onSubmit={jest.fn()}
-        />
-      </Provider>
+      <AddFilesModal
+        isOpen={true}
+        isUploading={true}
+        onClose={jest.fn()}
+        onSubmit={jest.fn()}
+      />
     );
 
     expect(wrapper.text()).toMatch("Uploading file...");
@@ -51,14 +45,12 @@ describe("Add Files modal", (): void => {
 
     const handleClose: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <AddFilesModal
-          isOpen={true}
-          isUploading={false}
-          onClose={handleClose}
-          onSubmit={jest.fn()}
-        />
-      </Provider>
+      <AddFilesModal
+        isOpen={true}
+        isUploading={false}
+        onClose={handleClose}
+        onSubmit={jest.fn()}
+      />
     );
     const cancelButton: ReactWrapper = wrapper
       .find("button")
