@@ -895,19 +895,6 @@ type Mutation {
   ): SimplePayload!
 
   "To verify if the vulnerabilities still remain open or were closed"
-  verifyRequestVuln(
-    "Identifier of the Finding that contains the vulnerabilities to verify"
-    findingId: String!
-    "Justification for the open and closed vulnerabilities"
-    justification: String!
-    "List of vulnerabilities that still remain open"
-    openVulns: [String]!
-    "List of vulnerabilities that were confirmed closed"
-    closedVulns: [String]!
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2022/01/21. Use `verifyVulnerabilitiesRequest` instead.""")
-
-  "To verify if the vulnerabilities still remain open or were closed"
   verifyVulnerabilitiesRequest(
     "Identifier of the Finding that contains the vulnerabilities to verify"
     findingId: String!

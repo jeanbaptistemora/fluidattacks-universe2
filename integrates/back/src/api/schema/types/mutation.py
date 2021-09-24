@@ -240,11 +240,6 @@ if FI_API_STATUS == "migration":
         "verifyVulnerabilitiesRequest",
         verify_vulnerabilities_request_new.mutate,
     )
-    # -----------------------Deprecated mutations------------------------------
-    MUTATION.set_field(
-        "verifyRequestVuln", verify_vulnerabilities_request_new.mutate
-    )
-    # -------------------------------------------------------------------------
 else:
     MUTATION.set_field("addDraft", add_draft.mutate)
     MUTATION.set_field("approveDraft", approve_draft.mutate)
@@ -290,8 +285,4 @@ else:
     MUTATION.set_field("uploadFile", upload_file.mutate)
     MUTATION.set_field(
         "verifyVulnerabilitiesRequest", verify_vulnerabilities_request.mutate
-    )
-    # -----------------------Deprecated mutations------------------------------
-    MUTATION.set_field(
-        "verifyRequestVuln", verify_vulnerabilities_request.mutate
     )
