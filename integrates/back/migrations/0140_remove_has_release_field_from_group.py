@@ -2,6 +2,9 @@
 """
 This migration removes the hasRelease field from groups
 since it is not used
+
+Execution Time:    2021-09-24 at 13:34:17 UTC-5
+Finalization Time: 2021-09-24 at 13:34:38 UTC-5
 """
 
 from aioextensions import (
