@@ -25,13 +25,13 @@ As a security company,
 
 - being completely transparent with our clients,
   especially regarding their data:
-  [how we use it, and what we do to protect it](/criteria/requirements/315).
+  [how we use it and what we do to protect it](/criteria/requirements/315).
 
 These principles,
-conceived since the early days of the company,
-have allowed us to implement
-a large number of measures throughout the years.
+conceived from the early days of the company,
+have allowed us to implement a large number of measures
+throughout the years.
 On this page,
 we will mention those
-that provide the highest value
-to our customers in terms of security.
+that provide the highest value to our customers
+in terms of security.

@@ -9,14 +9,15 @@ We continuously monitor our main systems:
 
 - [Attack Surface Manager (ASM)](https://app.fluidattacks.com/).
 - [GraphQL API](https://app.fluidattacks.com/api).
-- [Our website](https://fluidattacks.com/).
+- [Website](https://fluidattacks.com/).
 
-By doing so,
-We allow all interested parties,
-including our own developers,
-to know the availability status of such systems.
-Monitoring checks run on North American
-and European servers every minute for all applications.
+In doing so,
+we let all interested parties,
+including our developers,
+know the availability status of such systems.
+Monitoring checks are run on servers
+in North America and Europe
+every minute for all applications.
 This information is real-time
 and available on our
-[Status Site](https://status.fluidattacks.com/).
+[Status Page](https://status.fluidattacks.com/).

@@ -5,24 +5,27 @@ sidebar_label: Open Source
 slug: /about/security/transparency/open-source
 ---
 
-The source code of all our applications
-is available to the entire Internet.
-The security pros of having open source code are:
+The source code of all our applications is available
+all over the Internet.
+Two security advantages
+of having open-source code
+are the following:
 
-1. **Auditability:** Public code can be audited by anyone on the internet,
-  this means that in order to keep our business secure,
-  we must be careful with the quality of the published source code.
-  Common bad practices like backdoors,
+- **Auditability:** Anyone on the Internet can audit public code.
+  This means that to keep our business secure,
+  we must be careful
+  about the quality of the source code we publish.
+  This is why we avoid common bad practices
+  such as backdoors,
   exposed secrets,
-  or using vulnerable dependencies,
-  are avoided in order to keep
-  our software as secure as possible.
-1. **Transparency:** The full history of our source code can be found
-   [here](https://gitlab.com/fluidattacks/product/-/commits/master).
-   By publishing it,
-   we allow any interested parties
-   to know exactly what we're fixing,
-   improving or adding to our software.
+  and the use of vulnerable dependencies.
 
-Our source code can be found
+- **Transparency:** The complete history of our source code appears found
+  [here](https://gitlab.com/fluidattacks/product/-/commits/master).
+  By publishing it,
+  we let interested parties know exactly
+  what we are fixing,
+  improving or adding to our software.
+
+Anyone can find our source code
 [here](https://gitlab.com/fluidattacks).

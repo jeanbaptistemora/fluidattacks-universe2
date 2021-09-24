@@ -6,10 +6,11 @@ slug: /about/security/transparency/help-channel
 ---
 
 In order to have a direct communication channel with our clients
-and keeping them informed regarding any doubt,
+and keep them informed in case of any doubt,
 we support an email ticket system (help@fluidattacks.com).
-Tickets are treated as confidential information and only
-support engineers within Fluid Attacks can see them.
+We treat tickets as confidential information,
+and only support engineers within `Fluid Attacks` can see them.
 
-Any type of concern or request can be sent and our engineers will get
-in touch within the next twenty-four hours.
+Anyone can send us any concern or request,
+and our engineers will contact them
+within the next twenty-four hours.

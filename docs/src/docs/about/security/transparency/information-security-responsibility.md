@@ -1,19 +1,14 @@
 ---
 id: information-security-responsibility
-title: Information security responsibility
-sidebar_label: Information security responsibility
+title: Information Security Responsibility
+sidebar_label: Information Security Responsibility
 slug: /about/security/transparency/information-security-responsibility
 ---
 
-The definition and enforcement
-of information security policies
-that fully protect
-both our customer's
-and Fluid Attacks's data
-is the responsibility
-of our CTO.
-The person in this position
-will work along our engineering team
-to ensure we follow
-state-of-the-art best practices
+Some of our CTO's responsibilities
+include defining and enforcing information security policies
+that fully protect our customers' and `Fluid Attacks'` data.
+The person in this position will work
+with our engineering team
+to ensure we follow state-of-the-art best practices
 regarding information security.

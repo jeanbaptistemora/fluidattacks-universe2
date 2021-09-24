@@ -5,15 +5,16 @@ sidebar_label: Public Incidents
 slug: /about/security/transparency/public-incidents
 ---
 
-In order to be transparent
-and keep interested parties informed,
-all software-related news and incidents
-are reported on our
+In an effort to be transparent
+and keep stakeholders informed,
+we report all news and incidents
+related to our software
+on our
 [News Site](https://news.fluidattacks.com/?label=15603).
 
-Every incident report contains the following items:
+Each incident report contains the following items:
 
-1. **What happened**
-1. **What we’ve done**
-1. **What’s the impact**
-1. **What we’re doing to help**
+- **What happened**
+- **What we have done**
+- **What the impact was**
+- **What we are doing to help**

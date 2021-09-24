@@ -1,19 +1,18 @@
 ---
 id: data-leakage-policy
-title: Data leakage policy
-sidebar_label: Data leakage policy
+title: Data Leakage Policy
+sidebar_label: Data Leakage Policy
 slug: /about/security/transparency/data-leakage-policy
 ---
 
 In cases where `Fluid Attacks` detects a breach,
-emails are sent to notify the involved parties.
-These emails contain information on:
+we send emails to notify the involved parties.
+These emails contain information about
 
-1. What data was leaked or compromised.
-1. When the data was leaked or compromised.
-1. For how long the data was leaked or compromised
-  (to the extent that this information is available).
+- what data was leaked or compromised;
+- when the data was leaked or compromised, and
+- how long the data was leaked or compromised
+  (to the extent this information is available).
 
-For a breach that exposes private data
-of a large number of users,
-the public will also be informed via email.
+For a breach that exposes the private data of many users,
+we take care to inform the public via email.
