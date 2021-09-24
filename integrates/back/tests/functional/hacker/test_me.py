@@ -132,7 +132,7 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
     assert '{"hasAccessToken": true' in result["data"]["me"]["accessToken"]
     assert result["data"]["me"]["callerOrigin"] == "API"
     assert result["data"]["me"]["organizations"] == [{"name": org_name}]
-    assert len(result["data"]["me"]["permissions"]) == 9
+    assert len(result["data"]["me"]["permissions"]) == 6
     assert not result["data"]["me"]["remember"]
     assert result["data"]["me"]["role"] == "hacker"
     assert result["data"]["me"]["sessionExpiration"] == str(
@@ -176,7 +176,7 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
     data = {"query": query}
     result = await get_result(data, session_jwt=session_jwt, context=context)
     assert "errors" not in result
-    assert len(result["data"]["group"]["permissions"]) == 93
+    assert len(result["data"]["group"]["permissions"]) == 80
     assert result["data"]["group"]["userRole"] == "hacker"
 
     context = get_new_context()
