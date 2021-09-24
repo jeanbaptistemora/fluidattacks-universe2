@@ -1,6 +1,23 @@
-from model import (
-    core_model,
-    graph_model,
+from model.graph_model import (
+    GraphShardMetadataLanguage,
+    SyntaxStep,
+    SyntaxStepDeclaration,
+    SyntaxStepObjectInstantiation,
+    SyntaxStepSymbolLookup,
+)
+from sast_symbolic_evaluation.cases.method_invocation.constants import (
+    BY_ARGS_PROPAGATION,
+    BY_OBJ,
+    BY_OBJ_ARGS,
+    BY_OBJ_NO_TYPE_ARGS_PROPAG,
+    BY_TYPE,
+    BY_TYPE_AND_VALUE_FINDING,
+    BY_TYPE_ARGS_PROPAG_FINDING,
+    BY_TYPE_ARGS_PROPAGATION,
+    BY_TYPE_HANDLER,
+    RETURN_TYPES,
+    STATIC_FINDING,
+    STATIC_SIDE_EFFECTS,
 )
 from sast_symbolic_evaluation.cases.method_invocation.go import (
     attempt_go_parse_float,
@@ -13,15 +30,12 @@ from sast_symbolic_evaluation.cases.method_invocation.java import (
     list_remove as java_list_remove,
 )
 from sast_symbolic_evaluation.cases.method_invocation.javascript import (
-    insecure_crypto_js,
-    insecure_key as javascript_insecure_key,
     list_concat as javascript_list_concat,
     list_get as javascript_list_get,
     list_pop as javascript_list_pop,
     list_push as javascript_list_push,
     list_shift as javascript_list_shift,
     process as javascript_process,
-    process_cookie as javascript_process_cookie,
 )
 from sast_symbolic_evaluation.lookup import (
     lookup_class,
@@ -33,515 +47,16 @@ from sast_symbolic_evaluation.types import (
     JavaClassInstance,
 )
 from sast_symbolic_evaluation.utils_generic import (
-    complete_attrs_on_dict,
     lookup_var_dcl_by_name,
     lookup_var_state_by_name,
 )
 from typing import (
-    Any,
-    Dict,
     Optional,
-    Set,
+    Union,
 )
 from utils.string import (
-    complete_attrs_on_set,
     split_on_first_dot,
     split_on_last_dot,
-)
-
-BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
-    {
-        "java.net.URLDecoder.decode",
-        "java.nio.file.Files.newInputStream",
-        "java.nio.file.Paths.get",
-        "org.apache.commons.codec.binary.Base64.decodeBase64",
-        "org.apache.commons.codec.binary.Base64.encodeBase64",
-        "org.springframework.jdbc.core.JdbcTemplate.batchUpdate",
-        "org.springframework.jdbc.core.JdbcTemplate.execute",
-        "org.springframework.jdbc.core.JdbcTemplate.query",
-        "org.springframework.jdbc.core.JdbcTemplate.queryForInt",
-        "org.springframework.jdbc.core.JdbcTemplate.queryForList",
-        "org.springframework.jdbc.core.JdbcTemplate.queryForLong",
-        "org.springframework.jdbc.core.JdbcTemplate.queryForMap",
-        "org.springframework.jdbc.core.JdbcTemplate.queryForObject",
-        "org.springframework.jdbc.core.JdbcTemplate.queryForRowSet",
-        "org.owasp.esapi.ESAPI.encoder.encodeForBase64",
-        "org.owasp.esapi.ESAPI.encoder.decodeForBase64",
-        "Double.toString",
-        "Float.toString",
-        "Integer.toString",
-        "Long.toString",
-        "System.Diagnostics.Process.Start",
-        "System.IO.File.Copy",
-        "System.IO.File.Create",
-        "System.IO.File.Delete",
-        "System.IO.File.Exists",
-        "System.IO.File.Move",
-        "System.IO.File.Open",
-        "System.IO.File.Replace",
-        "System.IO.Path.Combine",
-        "System.Xml.XPath.XPathExpression.Compile",
-        "Encoding.UTF8.GetBytes",
-        # javascript
-        "child_process.exec",
-        "child_process.execSync",
-        "decodeURI",
-        "encodeURIComponent",
-        "Object.values",
-        "fs.readFile",
-        "fs.readFileSync",
-        "fs.unlink",
-        "fs.unlinkSync",
-        "path.join",
-        "path.resolve",
-        "fs.writeFile",
-        "fs.writeFileSync",
-        "fs.readdir",
-        "fs.readdirSync",
-        "fs.exist",
-        "fs.existSync",
-        "fs.rmdir",
-        "fs.rmdir",
-        "fs.rmdirSync",
-        "fs.stat",
-        "fs.statSync",
-        "fs.appendFile",
-        "fs.appendFileSync",
-        "fs.chown",
-        "fs.chownSync",
-        "fs.chmod",
-        "fs.chmodSync",
-        "fs.copyFile",
-        "fs.copyFileSync",
-        "fs.createReadStream",
-        "fs.createWriteStream",
-        "fs.exists",
-        "fs.existsSync",
-        "crypto.createCipheriv",
-        "crypto.createDecipheriv",
-    }
-)
-STATIC_FINDING: Dict[str, Set[str]] = {
-    core_model.FindingEnum.F034.name: complete_attrs_on_set(
-        {
-            "java.lang.Math.random",
-            "java.util.Random.nextFloat",
-            "java.util.Random.nextInt",
-            "java.util.Random.nextLong",
-            "java.util.Random.nextBoolean",
-            "java.util.Random.nextDouble",
-            "java.util.Random.nextGaussian",
-        }
-    ),
-    core_model.FindingEnum.F001.name: complete_attrs_on_set(
-        {
-            "System.Console.ReadLine",
-        }
-    ),
-    core_model.FindingEnum.F107.name: complete_attrs_on_set(
-        {
-            "Environment.GetEnvironmentVariable",
-        }
-    ),
-    core_model.FindingEnum.F004.name: complete_attrs_on_set(
-        {
-            "Environment.GetEnvironmentVariable",
-        }
-    ),
-    core_model.FindingEnum.F021.name: complete_attrs_on_set(
-        {
-            "Environment.GetEnvironmentVariable",
-        }
-    ),
-    core_model.FindingEnum.F063.name: complete_attrs_on_set(
-        {
-            "Environment.GetEnvironmentVariable",
-        }
-    ),
-}
-STATIC_SIDE_EFFECTS: Dict[str, Set[str]] = {
-    core_model.FindingEnum.F034.name: complete_attrs_on_set(
-        {
-            "java.util.Random.nextBytes",
-        }
-    ),
-}
-BY_OBJ_NO_TYPE_ARGS_PROPAG: Dict[str, Set[str]] = {
-    core_model.FindingEnum.F034.name: complete_attrs_on_set(
-        {
-            "getSession.setAttribute",
-            "toString.substring",
-            "addCookie",
-        }
-    ),
-    core_model.FindingEnum.F021.name: complete_attrs_on_set(
-        {
-            "Split",
-        }
-    ),
-    core_model.FindingEnum.F089.name: complete_attrs_on_set(
-        {
-            "org.apache.commons.lang.StringEscapeUtils.escapeHtml",
-            "org.springframework.web.util.HtmlUtils.htmlEscape",
-            "org.owasp.esapi.ESAPI.encoder.encodeForHTML",
-        }
-    ),
-    core_model.FindingEnum.F127.name: complete_attrs_on_set(
-        {
-            "Exec",
-            "ExecContext",
-            "Query",
-            "QueryContext",
-            "QueryRow",
-            "QueryRowContext",
-        }
-    ),
-}
-BY_OBJ: Dict[str, Set[str]] = complete_attrs_on_dict(
-    {
-        "java.lang.String": {
-            "getBytes",
-            "split",
-            "substring",
-            "toCharArray",
-        },
-        "string": {
-            "Split",
-            "Replace",
-            "concat",
-        },
-        "java.lang.StringBuilder": {
-            "append",
-            "append.toString",
-            "toString",
-        },
-        "java.sql.CallableStatement": {
-            "executeQuery",
-        },
-        "java.sql.PreparedStatement": {
-            "execute",
-        },
-        "org.springframework.jdbc.core.JdbcTemplate": {
-            "query",
-            "queryForList",
-            "queryForMap",
-            "queryForObject",
-            "queryForRowSet",
-            "queryForStream",
-        },
-        "java.util.Enumeration": {
-            "nextElement",
-        },
-        "java.util.Map": {
-            "get",
-        },
-        "java.util.List": {
-            "get",
-        },
-        "System.Data.SqlClient.SqlCommand": {
-            "ExecuteNonQuery",
-            "ExecuteReader",
-            "ExecuteScalar",
-            "ExecuteNonQueryAsync",
-            "ExecuteScalarAsync",
-            "ExecuteReaderAsync",
-        },
-        "System.Data.SQLite.SQLite.SQLiteCommand": {
-            "ExecuteNonQuery",
-            "ExecuteReader",
-            "ExecuteScalar",
-            "ExecuteNonQueryAsync",
-            "ExecuteScalarAsync",
-            "ExecuteReaderAsync",
-        },
-        "System.Data.OracleClient.OracleCommand": {
-            "ExecuteNonQuery",
-            "ExecuteOracleNonQuery",
-            "ExecuteOracleScalar",
-            "ExecuteReader",
-            "ExecuteScalar",
-            "ExecuteNonQueryAsync",
-            "ExecuteScalarAsync",
-            "ExecuteReaderAsync",
-        },
-        "MySql.Data.MySqlClient.MySqlCommand": {
-            "ExecuteNonQuery",
-            "ExecuteReader",
-            "ExecuteScalar",
-            "ExecuteNonQueryAsync",
-            "ExecuteScalarAsync",
-            "ExecuteReaderAsync",
-        },
-        "Npgsql.NpgsqlCommand": {
-            "ExecuteNonQuery",
-            "ExecuteReader",
-            "ExecuteScalar",
-            "ExecuteNonQueryAsync",
-            "ExecuteScalarAsync",
-            "ExecuteReaderAsync",
-        },
-        "MySql.Data.MySqlClient.MySqlDataReader": {
-            "ToString",
-        },
-        "System.DirectoryServices.DirectorySearcher": {
-            "FindOne",
-        },
-        "System.IO.StreamReader": {
-            "ReadLine",
-            "ReadToEnd",
-        },
-        "System.Net.WebClient": {
-            "OpenRead",
-        },
-        "System.Diagnostics.Process": {
-            "Start",
-        },
-        "XPath": {"select"},
-    }
-)
-BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
-    {
-        "java.sql.Connection": {
-            "prepareCall",
-            "prepareStatement",
-        },
-        "java.sql.Statement": {
-            "addBatch",
-            "execute",
-            "executeBatch",
-            "executeLargeBatch",
-            "executeLargeUpdate",
-            "executeQuery",
-            "executeUpdate",
-        },
-        "javax.xml.xpath.XPath": {
-            "evaluate",
-            "compile",
-        },
-        "System.Security.Cryptography.AesCryptoServiceProvider": {
-            "CreateEncryptor",
-        },
-        # javascrip
-        "child_process": {
-            "exec",
-            "execSync",
-        },
-        "string": {
-            "concat",
-        },
-        "fs": {
-            "readFile",
-            "readFileSync",
-            "unlink",
-            "unlinkSync",
-            "writeFile",
-            "writeFileSync",
-            "readdir",
-            "readdirSync",
-            "exist",
-            "existSync",
-            "rmdir",
-            "rmdir",
-            "rmdirSync",
-            "stat",
-            "statSync",
-            "appendFile",
-            "appendFileSync",
-            "chown",
-            "chownSync",
-            "chmod",
-            "chmodSync",
-            "copyFile",
-            "copyFileSync",
-            "createReadStream",
-            "createWriteStream",
-            "exists",
-            "existsSync",
-        },
-        "path": {
-            "join",
-        },
-        "xpath": {
-            "select",
-            "parse",
-        },
-    }
-)
-BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
-    {
-        "javax.servlet.http.Cookie": {
-            "getName",
-            "getValue",
-        },
-        "javax.servlet.http.HttpServletRequest": {
-            "getHeader",
-            "getHeaderNames",
-            "getHeaders",
-            "getParameter",
-            "getParameterMap",
-            "getParameterNames",
-            "getParameterValues",
-            "getQueryString",
-        },
-        "System.Web.HttpRequest": {
-            "Params.Get",
-        },
-        "System.Net.Sockets.TcpClient": {
-            "GetStream",
-        },
-        "System.Net.Sockets.TcpListener": {
-            "AcceptTcpClient",
-        },
-        "System.Data.SqlClient.SqlDataReader": {
-            "GetString",
-        },
-    }
-)
-BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
-    core_model.FindingEnum.F008.name: complete_attrs_on_dict(
-        {
-            "javax.servlet.http.HttpServletResponse": {
-                "setHeader": {
-                    "X-XSS-Protection",
-                    "0",
-                },
-            },
-        }
-    ),
-    core_model.FindingEnum.F042.name: complete_attrs_on_dict(
-        {
-            "javax.servlet.http.Cookie": {
-                "setSecure": {
-                    False,
-                },
-            },
-        }
-    ),
-}
-BY_TYPE_ARGS_PROPAGATION: Dict[str, Set[str]] = complete_attrs_on_dict(
-    {
-        "java.io.PrintWriter": {
-            "format",
-        },
-        "java.util.List": {
-            "add",
-        },
-    }
-)
-BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
-    core_model.FindingEnum.F042.name: complete_attrs_on_dict(
-        {
-            "javax.servlet.http.HttpServletResponse": {
-                "addCookie",
-            },
-        }
-    ),
-    core_model.FindingEnum.F034.name: complete_attrs_on_dict(
-        {
-            "javax.servlet.http.HttpServletResponse": {
-                "addCookie",
-            },
-            "javax.servlet.http.HttpServletRequest": {
-                "getSession.setAttribute",
-            },
-        }
-    ),
-    core_model.FindingEnum.F004.name: complete_attrs_on_dict(
-        {
-            "ProcessBuilder": {
-                "command",
-            },
-            "Runtime": {
-                "exec",
-            },
-        }
-    ),
-    core_model.FindingEnum.F021.name: complete_attrs_on_dict(
-        {
-            "System.Xml.XPath.XPathNavigator": {
-                "Evaluate",
-                "Select",
-            },
-        }
-    ),
-    core_model.FindingEnum.F008.name: complete_attrs_on_dict(
-        {
-            "javax.servlet.http.HttpServletResponse": {
-                "getWriter.format",
-                "getWriter.print",
-                "getWriter.printf",
-                "getWriter.println",
-                "getWriter.write",
-            },
-            "System.Web.HttpResponse": {
-                "Write",
-                "AddHeader",
-            },
-            "Response": {
-                "send",
-            },
-        }
-    ),
-    core_model.FindingEnum.F089.name: complete_attrs_on_dict(
-        {
-            "javax.servlet.http.HttpServletRequest": {
-                "getSession.putValue",
-                "getSession.setAttribute",
-            },
-        }
-    ),
-    core_model.FindingEnum.F107.name: complete_attrs_on_dict(
-        {
-            "javax.naming.directory.InitialDirContext": {
-                "search",
-            },
-            "javax.naming.directory.DirContext": {
-                "search",
-            },
-        }
-    ),
-}
-BY_TYPE_HANDLER = complete_attrs_on_dict(
-    {
-        "Response": {
-            "cookie": {
-                javascript_process_cookie,
-            },
-        },
-        "crypto": {
-            "generateKeyPair": {
-                javascript_insecure_key,
-            }
-        },
-        "crypto-js.AES": {
-            "encrypt": {
-                insecure_crypto_js,
-            }
-        },
-        "crypto-js": {
-            "AES.encrypt": {
-                insecure_crypto_js,
-            },
-            "RSA.encrypt": {
-                insecure_crypto_js,
-            },
-        },
-        "crypto-js.RSA": {
-            "encrypt": {
-                insecure_crypto_js,
-            }
-        },
-    }
-)
-RETURN_TYPES = complete_attrs_on_dict(
-    {
-        "xpath": {
-            "parse": "XPath",
-        },
-        "express.Router": {
-            "Router": "xpath.Router",
-        },
-    }
 )
 
 
@@ -566,17 +81,17 @@ def _propagate_return_type(args: EvaluatorArgs) -> None:
 def evaluate(args: EvaluatorArgs) -> None:
     language = args.shard.metadata.language
 
-    if language == graph_model.GraphShardMetadataLanguage.JAVASCRIPT:
+    if language == GraphShardMetadataLanguage.JAVASCRIPT:
         _propagate_return_type(args)
         javascript_process(args)
 
-    if language == graph_model.GraphShardMetadataLanguage.GO:
+    if language == GraphShardMetadataLanguage.GO:
         evaluate_go(args)
 
     if language in (
-        graph_model.GraphShardMetadataLanguage.JAVA,
-        graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
-        graph_model.GraphShardMetadataLanguage.CSHARP,
+        GraphShardMetadataLanguage.JAVA,
+        GraphShardMetadataLanguage.JAVASCRIPT,
+        GraphShardMetadataLanguage.CSHARP,
     ):
         evaluate_many(args)
 
@@ -625,12 +140,21 @@ def attempt_by_args_propagation(args: EvaluatorArgs, method: str) -> bool:
     return False
 
 
-def attempt_by_obj(args: EvaluatorArgs, method: str) -> bool:
+def attempt_by_obj(
+    args: EvaluatorArgs,
+    method: str,
+    method_var_decl: Optional[
+        Union[
+            SyntaxStepDeclaration,
+            SyntaxStepSymbolLookup,
+        ]
+    ],
+) -> bool:
     method_var, method_path = split_on_first_dot(method)
 
     # pylint: disable=used-before-assignment
     if (
-        (method_var_decl := lookup_var_dcl_by_name(args, method_var))
+        method_var_decl
         and (
             method_var_decl.var_type_base
             and method_path in BY_OBJ.get(method_var_decl.var_type_base, {})
@@ -644,12 +168,20 @@ def attempt_by_obj(args: EvaluatorArgs, method: str) -> bool:
     return False
 
 
-def attempt_by_obj_args(args: EvaluatorArgs, method: str) -> bool:
-    method_var, method_path = split_on_first_dot(method)
+def attempt_by_obj_args(
+    args: EvaluatorArgs,
+    method: str,
+    method_var_decl: Optional[
+        Union[
+            SyntaxStepDeclaration,
+            SyntaxStepSymbolLookup,
+        ]
+    ],
+) -> bool:
+    _, method_path = split_on_first_dot(method)
 
-    # pylint: disable=used-before-assignment
     if (
-        (method_var_decl := lookup_var_dcl_by_name(args, method_var))
+        method_var_decl
         and (
             method_var_decl.var_type_base
             and method_path
@@ -663,12 +195,20 @@ def attempt_by_obj_args(args: EvaluatorArgs, method: str) -> bool:
     return False
 
 
-def attempt_by_type_args_propagation(args: EvaluatorArgs, method: str) -> bool:
+def attempt_by_type_args_propagation(
+    args: EvaluatorArgs,
+    method: str,
+    method_var_decl: Optional[
+        Union[
+            SyntaxStepDeclaration,
+            SyntaxStepSymbolLookup,
+        ]
+    ],
+) -> bool:
     # Functions that when called make the parent object vulnerable
     args_danger = any(dep.meta.danger for dep in args.dependencies)
 
-    method_var, method_path = split_on_first_dot(method)
-    method_var_decl = lookup_var_dcl_by_name(args, method_var)
+    _, method_path = split_on_first_dot(method)
 
     if args_danger and method_var_decl and method_var_decl.var_type_base:
         if method_path in (
@@ -692,10 +232,15 @@ def attempt_by_type_args_propagation(args: EvaluatorArgs, method: str) -> bool:
 def attempt_by_type_and_value_finding(
     args: EvaluatorArgs,
     method: str,
+    method_var_decl: Optional[
+        Union[
+            SyntaxStepDeclaration,
+            SyntaxStepSymbolLookup,
+        ]
+    ],
 ) -> bool:
     # function calls with parameters that make the object vulnerable
-    method_var, method_path = split_on_first_dot(method)
-    method_var_decl = lookup_var_dcl_by_name(args, method_var)
+    _, method_path = split_on_first_dot(method)
 
     if (
         method_var_decl
@@ -731,12 +276,20 @@ def attempt_static_side_effects(args: EvaluatorArgs, method: str) -> bool:
     return False
 
 
-def attempt_by_type(args: EvaluatorArgs, method: str) -> bool:
+def attempt_by_type(
+    args: EvaluatorArgs,
+    method: str,
+    method_var_decl: Optional[
+        Union[
+            SyntaxStepDeclaration,
+            SyntaxStepSymbolLookup,
+        ]
+    ],
+) -> bool:
     method_var, method_path = split_on_first_dot(method)
 
-    # pylint: disable=used-before-assignment
     if (
-        (method_var_decl := lookup_var_dcl_by_name(args, method_var))
+        method_var_decl
         and method_var_decl.var_type_base
         and (method_path in BY_TYPE.get(method_var_decl.var_type_base, {}))
     ):
@@ -752,10 +305,18 @@ def attempt_by_type(args: EvaluatorArgs, method: str) -> bool:
     return False
 
 
-def attemp_by_type_handler(args: EvaluatorArgs, method: str) -> bool:
-    method_var, method_path = split_on_first_dot(method)
+def attemp_by_type_handler(
+    args: EvaluatorArgs,
+    method: str,
+    method_var_decl: Optional[
+        Union[
+            SyntaxStepDeclaration,
+            SyntaxStepSymbolLookup,
+        ]
+    ],
+) -> bool:
+    _, method_path = split_on_first_dot(method)
 
-    method_var_decl = lookup_var_dcl_by_name(args, method_var)
     if method_var_decl and method_var_decl.var_type_base:
         var_type = method_var_decl.var_type_base
         if handlers := BY_TYPE_HANDLER.get(var_type, {}).get(method_path):
@@ -782,20 +343,22 @@ def attempt_the_old_way(args: EvaluatorArgs) -> bool:
 
 
 def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
+    method_var, _ = split_on_first_dot(method)
+    method_var_decl = lookup_var_dcl_by_name(args, method_var)
     # pylint: disable=expression-not-assigned,too-many-boolean-expressions
     (
         attempt_static(args, method)
         or attempt_static_side_effects(args, method)
         or attempt_by_args_propagation_no_type(args, method)
-        or attempt_by_type_args_propagation(args, method)
-        or attempt_by_obj(args, method)
-        or attempt_by_obj_args(args, method)
-        or attempt_by_type_and_value_finding(args, method)
+        or attempt_by_type_args_propagation(args, method, method_var_decl)
+        or attempt_by_obj(args, method, method_var_decl)
+        or attempt_by_obj_args(args, method, method_var_decl)
+        or attempt_by_type_and_value_finding(args, method, method_var_decl)
         or attempt_by_args_propagation(args, method)
-        or attempt_by_type(args, method)
+        or attempt_by_type(args, method, method_var_decl)
         or analyze_method_invocation_local(args, method)
-        or analyze_method_invocation_external(args, method)
-        or attemp_by_type_handler(args, method)
+        or analyze_method_invocation_external(args, method, method_var_decl)
+        or attemp_by_type_handler(args, method, method_var_decl)
     )
 
 
@@ -812,10 +375,10 @@ def analyze_method_invocation_local(
     else:
         return False
 
+    # pylint: disable=used-before-assignment
     if (_method := lookup_method(args, method_name)) and (
         return_step := args.eval_method(
             args,
-            # pylint: disable=used-before-assignment
             _method.metadata.n_id,
             args.dependencies,
             args.graph_db.shards_by_path_f(_method.shard_path),
@@ -831,9 +394,14 @@ def analyze_method_invocation_local(
 def analyze_method_invocation_external(
     args: EvaluatorArgs,
     method: str,
+    method_var_decl: Optional[
+        Union[
+            SyntaxStepDeclaration,
+            SyntaxStepSymbolLookup,
+        ]
+    ],
 ) -> bool:
-    method_var, method_path = split_on_first_dot(method)
-    method_var_decl = lookup_var_dcl_by_name(args, method_var)
+    _, method_path = split_on_first_dot(method)
     method_var_decl_type = None
 
     if method_var_decl:
@@ -844,7 +412,7 @@ def analyze_method_invocation_external(
         args.dependencies
         and isinstance(
             args.dependencies[-1],
-            graph_model.SyntaxStepObjectInstantiation,
+            SyntaxStepObjectInstantiation,
         )
         and lookup_class(
             args,
@@ -889,7 +457,7 @@ def analyze_method_invocation_values(
         args.dependencies
         and isinstance(
             args.dependencies[-1],
-            graph_model.SyntaxStepObjectInstantiation,
+            SyntaxStepObjectInstantiation,
         )
         and lookup_class(
             args,
@@ -938,7 +506,7 @@ def analyze_method_invocation_values(
 
 def analyze_method_invocation_values_dict(
     args: EvaluatorArgs,
-    dcl: graph_model.SyntaxStep,
+    dcl: SyntaxStep,
     method_path: str,
 ) -> None:
     if method_path == "put":
@@ -956,7 +524,7 @@ def analyze_method_invocation_values_dict(
 
 def analyze_method_invocation_values_str(
     args: EvaluatorArgs,
-    dcl: graph_model.SyntaxStep,
+    dcl: SyntaxStep,
     method_path: str,
 ) -> None:
     if method_path == "charAt":
@@ -966,7 +534,7 @@ def analyze_method_invocation_values_str(
 
 def analyze_method_invocation_values_list(
     args: EvaluatorArgs,
-    dcl: graph_model.SyntaxStep,
+    dcl: SyntaxStep,
     method_path: str,
 ) -> None:
     methods = {
