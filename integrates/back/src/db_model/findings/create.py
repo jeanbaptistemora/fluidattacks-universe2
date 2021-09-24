@@ -136,7 +136,7 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
             historic_facet=TABLE.facets["finding_historic_verification"],
             key_structure=key_structure,
             key_values={
-                "iso8601utc": finding.state.modified_date,
+                "iso8601utc": finding.verification.modified_date,
                 "group_name": finding.group_name,
                 "id": finding.id,
             },
