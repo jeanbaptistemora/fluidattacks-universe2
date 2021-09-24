@@ -84,7 +84,6 @@ from api.mutations import (
     update_organization_policies,
     update_organization_stakeholder,
     update_root_cloning_status,
-    update_root_state,
     update_severity,
     update_severity_new,
     update_toe_lines_sorts,
@@ -187,7 +186,6 @@ MUTATION.set_field(
 MUTATION.set_field(
     "updateRootCloningStatus", update_root_cloning_status.mutate
 )
-MUTATION.set_field("updateRootState", update_root_state.mutate)
 MUTATION.set_field("updateToeLinesSorts", update_toe_lines_sorts.mutate)
 MUTATION.set_field(
     "updateVulnerabilityTreatment", update_vulnerability_treatment.mutate
@@ -244,12 +242,6 @@ if FI_API_STATUS == "migration":
     )
     # -----------------------Deprecated mutations------------------------------
     MUTATION.set_field(
-        "updateVulnCommit", update_vulnerability_commit_new.mutate
-    )
-    MUTATION.set_field(
-        "updateVulnsTreatment", update_vulnerabilities_treatment_new.mutate
-    )
-    MUTATION.set_field(
         "verifyRequestVuln", verify_vulnerabilities_request_new.mutate
     )
     # -------------------------------------------------------------------------
@@ -300,10 +292,6 @@ else:
         "verifyVulnerabilitiesRequest", verify_vulnerabilities_request.mutate
     )
     # -----------------------Deprecated mutations------------------------------
-    MUTATION.set_field("updateVulnCommit", update_vulnerability_commit.mutate)
-    MUTATION.set_field(
-        "updateVulnsTreatment", update_vulnerabilities_treatment.mutate
-    )
     MUTATION.set_field(
         "verifyRequestVuln", verify_vulnerabilities_request.mutate
     )

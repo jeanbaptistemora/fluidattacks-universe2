@@ -770,18 +770,6 @@ type Mutation {
     message: String!
   ): SimplePayload!
 
-  "Deprecated. Updates the root state"
-  updateRootState(
-    "Name of the group the root is associated with"
-    groupName: String!
-    "ID of the root"
-    id: ID!
-    "Whether the root is active or not"
-    state: ResourceState!
-  ): SimplePayload!
-    @deprecated(reason: """This mutation will be removed
-    after 2022/01/19. Use `activateRoot` or `deactivateRoot` instead.""")
-
   "Updates the severity of a Finding"
   updateSeverity(
     "Identifier of the finding in which the new severity will be calculated"
@@ -853,20 +841,6 @@ type Mutation {
     sortsRiskLevel: Int
   ): SimplePayload!
 
-  "Updates Vulnerability commit data"
-  updateVulnCommit(
-    "Full SHA-1 hash of the commit where the Vulnerability was found"
-    vulnCommit: String!
-    "Identifier of the Vulnerability to update"
-    vulnId: String!
-    "General location of the Vulnerability, can be a file, an URL or an IP"
-    vulnWhere: String!
-    """Specific location of the Vulnerability, can be a line of code,
-    a field or a port"""
-    vulnSpecific: String!
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2022/01/23. Use `updateVulnerabilityCommit` instead.""")
-
   "Updates the treatment of a single Vulnerability"
   updateVulnerabilitiesTreatment(
     "Temporarily accepted until"
@@ -911,23 +885,6 @@ type Mutation {
     "Identifier of the Vulnerability to update"
     vulnerabilityId: ID!
   ): SimplePayload!
-
-  "Updates the treatment of a single Vulnerability"
-  updateVulnsTreatment(
-    "Temporarily accepted until"
-    acceptanceDate: String
-    "Identifier of the Finding that contains the vulnerability to update"
-    findingId: String!
-    "Justification for the updated treatment"
-    justification: String!
-    "New designated treatment for the Vulnerability"
-    treatment: UpdateClientDescriptionTreatment!
-    "Email address of the user who is updating the treatment"
-    treatmentManager: String
-    "Identifier of the Vulnerability to update"
-    vulnerabilityId: ID!
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2022/01/22. Use `updateVulnerabilitiesTreatment` instead.""")
 
   "Uploads a file describing a Vulnerability to a Finding"
   uploadFile(
