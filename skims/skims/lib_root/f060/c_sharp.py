@@ -12,7 +12,7 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    build_qualified_name,
+    node_to_str,
 )
 
 
@@ -47,7 +47,7 @@ def insecure_exceptions(
                 )
                 if _qualified := match_identifiers["qualified_name"]:
                     qualified = _qualified.pop()
-                    exception = build_qualified_name(graph, qualified)
+                    exception = node_to_str(graph, qualified)
                     if exception in insec_exceptions:
                         yield shard, qualified
                 else:
@@ -102,7 +102,7 @@ def throws_generic_exception(
                     "qualified_name",
                 )
                 if _qualified := type_name["qualified_name"]:
-                    exception = build_qualified_name(graph, _qualified)
+                    exception = node_to_str(graph, _qualified)
                 else:
                     exception = graph.nodes[type_name["identifier"]][
                         "label_text"

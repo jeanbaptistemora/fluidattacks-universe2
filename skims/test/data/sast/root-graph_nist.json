@@ -17763,7 +17763,7 @@
                       "attributes": [],
                       "n_id": "848",
                       "name": "houseDto",
-                      "type_name": null
+                      "type_name": "Delta<HouseDto>"
                     },
                     "id": {
                       "attributes": [],
@@ -17940,7 +17940,7 @@
                       "attributes": [],
                       "n_id": "848",
                       "name": "houseDto",
-                      "type_name": null
+                      "type_name": "Delta<HouseDto>"
                     },
                     "id": {
                       "attributes": [],
@@ -30577,13 +30577,13 @@
                       "attributes": [],
                       "n_id": "26",
                       "name": "data",
-                      "type_name": null
+                      "type_name": "byte[]"
                     },
                     "key": {
                       "attributes": [],
                       "n_id": "18",
                       "name": "key",
-                      "type_name": null
+                      "type_name": "byte[]"
                     },
                     "target": {
                       "attributes": [],

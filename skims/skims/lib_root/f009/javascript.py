@@ -9,7 +9,7 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    build_js_member_expression_key,
+    node_to_str,
 )
 from utils.string import (
     complete_attrs_on_set,
@@ -46,10 +46,7 @@ def crypto_js_credentials(
                     "arguments",
                 )
                 if member_expression_id := match["member_expression"]:
-                    method_name = build_js_member_expression_key(
-                        graph,
-                        member_expression_id,
-                    )
+                    method_name = node_to_str(graph, member_expression_id)
                     if method_name in danger_methods:
                         match_arguments = g.match_ast_group(
                             graph,

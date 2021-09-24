@@ -9,7 +9,7 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    build_qualified_name,
+    node_to_str,
 )
 
 
@@ -45,10 +45,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
                 deps_src = [args.generic(args.fork_n_id(deps_id))]
 
         if args.graph.nodes[var_type_id]["label_type"] == "qualified_name":
-            var_type = build_qualified_name(
-                args.graph,
-                var_type_id,
-            )
+            var_type = node_to_str(args.graph, var_type_id)
         elif label_text := args.graph.nodes[var_type_id].get("label_text"):
             var_type = label_text
         else:

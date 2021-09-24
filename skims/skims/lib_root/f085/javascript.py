@@ -17,7 +17,7 @@ from typing import (
     Tuple,
 )
 from utils.graph.transformation import (
-    build_js_member_expression_key,
+    node_to_str,
 )
 
 
@@ -77,9 +77,7 @@ def client_storage(
             if store_key.type == "SyntaxStepLiteral":
                 key_str = store_key.value
             elif store_key.type == "SyntaxStepMemberAccessExpression":
-                key_str = build_js_member_expression_key(
-                    shard.graph, store_key.meta.n_id
-                )
+                key_str = node_to_str(shard.graph, store_key.meta.n_id)
             elif store_key.type == "SyntaxStepSymbolLookup":
                 key_str = store_key.symbol
             key_str = key_str.lower()

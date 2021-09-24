@@ -70591,7 +70591,7 @@
               "value": null
             },
             "type": "SyntaxStepAssignment",
-            "var": "color.this"
+            "var": "this.color"
           }
         ],
         "61": [

@@ -23,7 +23,7 @@ from utils import (
 )
 from utils.graph.transformation import (
     build_js_member_expression_ids,
-    build_js_member_expression_key,
+    node_to_str,
 )
 
 
@@ -49,9 +49,7 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
     method_name: Optional[str] = None
 
     if function_attrs["label_type"] == "member_expression":
-        nested_methods_keys = build_js_member_expression_key(
-            args.graph, function_id
-        ).split(".")
+        nested_methods_keys = node_to_str(args.graph, function_id).split(".")
 
         nested_calls = _pred_calls(args, function_id)
         if len(nested_calls) > 1:
@@ -72,9 +70,7 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
                 method=nested_methods_keys[-1],
             )
         else:
-            method_name = build_js_member_expression_key(
-                args.graph, function_id
-            )
+            method_name = node_to_str(args.graph, function_id)
 
     if not method_name and function_attrs["label_type"] == "identifier":
         method_name = args.graph.nodes[function_id]["label_text"]

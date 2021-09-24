@@ -10,8 +10,7 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    build_qualified_name,
-    build_type_name,
+    node_to_str,
 )
 
 
@@ -55,7 +54,7 @@ def _get_metadata_package(graph: graph_model.Graph) -> str:
         if namespace_identifier_type == "identifier":
             namespace = graph.nodes[match["__1__"]]["label_text"]
         elif namespace_identifier_type == "qualified_name":
-            namespace = build_qualified_name(graph, match["__1__"])
+            namespace = node_to_str(graph, match["__1__"])
     return namespace
 
 
@@ -78,7 +77,7 @@ def _get_metadata_classes(
             base_type_name = None
             if _base_list := match["base_list"]:
                 _match_base = g.match_ast(graph, _base_list, "__0__", "__1__")
-                base_type_name = build_type_name(graph, _match_base["__1__"])
+                base_type_name = node_to_str(graph, _match_base["__1__"])
 
             name = graph.nodes[class_identifier_id]["label_text"]
             qualified = namespace + "." + name
@@ -214,13 +213,13 @@ def _get_method_return_type(
     )
     # pylint: disable=used-before-assignment
     if (_identifiers := match_method["identifier"]) and len(_identifiers) == 2:
-        return build_type_name(graph, _identifiers[0])
+        return node_to_str(graph, _identifiers[0])
     if _qualified_name := match_method["qualified_name"]:
-        return build_type_name(graph, _qualified_name[0])
+        return node_to_str(graph, _qualified_name[0])
     if _predefined_type := match_method["predefined_type"]:
-        return build_type_name(graph, _predefined_type[0])
+        return node_to_str(graph, _predefined_type[0])
     if _void_keyword := match_method["void_keyword"]:
-        return build_type_name(graph, _void_keyword[0])
+        return node_to_str(graph, _void_keyword[0])
     return None
 
 
@@ -253,7 +252,7 @@ def _get_metadata_attributes(
         match_attribute = g.match_ast_group(graph, attribute_list, "attribute")
         for attribute in match_attribute["attribute"]:
             match = g.match_ast(graph, attribute, "__0__")
-            name = build_type_name(graph, match["__0__"])
+            name = node_to_str(graph, match["__0__"])
             attributes.append(name)
     return attributes
 
@@ -353,7 +352,7 @@ def _get_metadata_class_attributes(
         match_attribute = g.match_ast_group(graph, attribute_list, "attribute")
         for attribute in match_attribute["attribute"]:
             match = g.match_ast(graph, attribute, "__0__")
-            name = build_type_name(graph, match["__0__"])
+            name = node_to_str(graph, match["__0__"])
             attributes.append(name)  #
     return attributes
 
@@ -381,7 +380,7 @@ def _get_metadata_method_parameters(
             and (_param_type_id := match_param["__0__"])
             and (_param_name_id := match_param["__1__"])
         ):
-            _param_type = build_type_name(graph, _param_type_id)
+            _param_type = node_to_str(graph, _param_type_id)
             _param_name = graph.nodes[_param_name_id]["label_text"]
             parameters.append(
                 graph_model.GraphShardMetadataCSharpParameter(

@@ -95,24 +95,6 @@ def _build_nested_identifier_ids_js(
     return keys
 
 
-def build_qualified_name(graph: graph_model.Graph, qualified_id: str) -> str:
-    id_gen = get_identifiers_ids(graph, qualified_id, "qualified_name")
-    identifiers = tuple(graph.nodes[key]["label_text"] for key in id_gen)
-    return ".".join(identifiers)
-
-
-def build_js_member_expression_key(
-    graph: graph_model.Graph, qualified_id: str
-) -> str:
-    keys = build_js_member_expression_ids(graph, qualified_id)
-    identifiers = tuple(
-        graph.nodes[key]["label_text"]
-        for key in keys
-        if "label_text" in graph.nodes[key]
-    )
-    return ".".join(identifiers)
-
-
 def build_js_member_expression_ids(
     graph: graph_model.Graph, qualified_id: str
 ) -> List[str]:
@@ -121,15 +103,3 @@ def build_js_member_expression_ids(
         qualified_id,
         "member_expression",
     )
-
-
-def build_type_name(
-    graph: graph_model.Graph,
-    identifier_id: str,
-) -> Optional[str]:
-    node_type = graph.nodes[identifier_id]["label_type"]
-    if node_type == "identifier":
-        return graph.nodes[identifier_id]["label_text"]
-    if node_type == "qualified_name":
-        return build_qualified_name(graph, identifier_id)
-    return graph.nodes[identifier_id].get("label_text")

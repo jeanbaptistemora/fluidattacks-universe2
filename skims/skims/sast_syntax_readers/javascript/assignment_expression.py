@@ -10,7 +10,7 @@ from typing import (
     Union,
 )
 from utils.graph.transformation import (
-    build_js_member_expression_key,
+    node_to_str,
 )
 
 
@@ -37,7 +37,7 @@ def _expression(
     if left_type == "identifier":
         identifier_name = args.graph.nodes[left_id]["label_text"]
     elif left_type == "member_expression":
-        identifier_name = build_js_member_expression_key(args.graph, left_id)
+        identifier_name = node_to_str(args.graph, left_id)
     elif left_type == "subscript_expression":
         subscript_attrs = args.graph.nodes[left_id]
         _object_attrs = args.graph.nodes[subscript_attrs["label_field_object"]]

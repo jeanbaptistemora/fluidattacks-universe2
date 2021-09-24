@@ -12,7 +12,7 @@ from sast_syntax_readers.utils_generic import (
     dependencies_from_arguments,
 )
 from utils.graph.transformation import (
-    build_js_member_expression_key,
+    node_to_str,
 )
 
 
@@ -24,7 +24,7 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
     if constructor["label_type"] == "identifier":
         type_name = args.graph.nodes[constructor_id]["label_text"]
     elif constructor["label_type"] == "member_expression":
-        type_name = build_js_member_expression_key(args.graph, constructor_id)
+        type_name = node_to_str(args.graph, constructor_id)
     else:
         raise MissingCaseHandling(args)
 
