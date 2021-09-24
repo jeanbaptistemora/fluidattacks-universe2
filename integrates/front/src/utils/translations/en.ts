@@ -17,7 +17,8 @@ export const enTranslations: ResourceKey = {
         },
       },
       topVulnerabilities: {
-        title: "Top vulnerabilities",
+        altTitle: "Top vulnerabilities",
+        title: "Open Severity per Type",
         tooltip: {
           cvssf: "Severity",
           vulnerabilities: "Vulnerabilities",

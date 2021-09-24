@@ -106,7 +106,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
   topVulnerabilitiesCvssf: {
     alt: {
       label: "Vulns",
-      title: translate.t("analytics.barChart.topVulnerabilities.title"),
+      title: translate.t("analytics.barChart.topVulnerabilities.altTitle"),
       tooltip: translate.t(
         "analytics.barChart.topVulnerabilities.tooltip.vulnerabilities"
       ),
