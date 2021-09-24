@@ -393,7 +393,7 @@ async def update_git_environments(
 
 
 async def has_open_vulns(
-    root: GitRootItem, loaders: Any, group_name: str
+    root: RootItem, loaders: Any, group_name: str
 ) -> bool:
     return await roots_dal.has_open_vulns(
         nickname=root.state.nickname, loaders=loaders, group_name=group_name
@@ -756,6 +756,9 @@ async def move_root(
         not in await orgs_domain.get_groups(group["organization"])
     ):
         raise InvalidParameter()
+
+    if await has_open_vulns(root, loaders, group_name):
+        raise HasOpenVulns()
 
     target_group_roots: Tuple[RootItem, ...] = await loaders.group_roots.load(
         target_group
