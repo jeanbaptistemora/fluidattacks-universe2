@@ -158,3 +158,10 @@ async def valid_invitation(
             "request": request,
         },
     )
+
+
+def maintenance(request: Request) -> HTMLResponse:
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name="maintenance.html",
+        context={"request": request},
+    )
