@@ -70,7 +70,7 @@ def get_vulnerability_reattacks(*, vulnerability: Vulnerability) -> int:
 def format_data(
     data: Tuple[Decimal, Decimal, Decimal],
     categories: List[str],
-    y_label: str = "Calendar days (less is better)",
+    y_label: str = "Days per severity (less is better)",
 ) -> Dict[str, Any]:
 
     return dict(
