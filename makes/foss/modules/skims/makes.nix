@@ -5,6 +5,7 @@
 }:
 {
   imports = [
+    ./compute-on-aws-batch/makes.nix
     ./pipeline/makes.nix
   ];
   deployContainerImage = {
