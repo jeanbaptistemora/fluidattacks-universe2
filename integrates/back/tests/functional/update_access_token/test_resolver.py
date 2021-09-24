@@ -27,6 +27,7 @@ from typing import (
         ["system_owner@gmail.com"],
         ["reviewer@gmail.com"],
         ["service_forces@gmail.com"],
+        ["reattacker@gmail.com"],
     ],
 )
 async def test_update_access_token(populate: bool, email: str) -> None:
