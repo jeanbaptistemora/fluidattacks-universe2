@@ -7,7 +7,7 @@ import { SwitchButton } from "components/SwitchButton/index";
 
 declare type FormikSwitchButtonProps = FieldProps & ISwitchButtonProps;
 
-// Custom SwitchButton whose state can be managed by redux-form
+// Custom SwitchButton whose state can be managed by Formik
 export const FormikSwitchButton: React.FC<FormikSwitchButtonProps> = (
   // Readonly utility type does not work on deeply nested types
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
