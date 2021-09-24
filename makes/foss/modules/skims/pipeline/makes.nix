@@ -49,6 +49,18 @@ in
       gitlabPath = "/makes/foss/modules/skims/gitlab-ci.yaml";
       jobs = [
         {
+          output = "/computeOnAwsBatch/skimsOwaspBenchmarkAndUpload";
+          gitlabExtra = {
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "skims_benchmark_on_aws")
+              (gitlabCi.rules.always)
+            ];
+            stage = "scheduler";
+            tags = [ "autoscaling" ];
+          };
+        }
+        {
           output = "/deployContainerImage/skimsProd";
           gitlabExtra = gitlabDeployApp;
         }

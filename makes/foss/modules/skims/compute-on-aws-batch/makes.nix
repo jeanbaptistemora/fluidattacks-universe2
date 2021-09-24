@@ -10,7 +10,6 @@
       definition = "makes";
       environment = [ "PRODUCT_API_TOKEN" ];
       memory = vcpus * 1800;
-      name = "skims-benchmark";
       queue = "dedicated_later";
       setup = [ outputs."/secretsForAwsFromEnv/skimsProd" ];
       vcpus = 4;

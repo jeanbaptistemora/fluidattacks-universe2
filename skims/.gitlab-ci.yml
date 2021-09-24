@@ -49,14 +49,6 @@ makes.test.skims:
   <<: *skims_in_master_branch
   stage: test-code
 
-skims.owasp-benchmark-on-aws:
-  <<: *makes
-  interruptible: false
-  only:
-    refs: [schedules]
-    variables: [$skims_benchmark_on_aws]
-  stage: scheduler
-
 skims.structure:
   <<: *makes
   <<: *skims_in_dev_branch
