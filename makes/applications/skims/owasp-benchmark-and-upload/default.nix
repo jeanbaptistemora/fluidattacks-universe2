@@ -1,20 +1,20 @@
-{ makeEntrypoint
+{ importUtility
+, makes
 , packages
-, path
 , ...
 }:
-makeEntrypoint {
+makes.makeScript {
   name = "skims-owasp-benchmark-and-upload";
   searchPaths = {
-    envPaths = [
+    bin = [
       packages.skims.owasp-benchmark
       packages.observes.tap-json
       packages.observes.target-redshift
     ];
-    envUtils = [
-      "/makes/utils/aws"
-      "/makes/utils/sops"
+    source = [
+      (importUtility "aws")
+      (importUtility "sops")
     ];
   };
-  template = path "/makes/applications/skims/owasp-benchmark-and-upload/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }
