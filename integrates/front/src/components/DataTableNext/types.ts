@@ -46,6 +46,10 @@ interface ICustomFiltersProps {
   customFiltersProps: IFilterProps[];
   isCustomFilterEnabled: boolean;
   onUpdateEnableCustomFilter: () => void;
+  resultSize?: {
+    current: number;
+    total: number;
+  };
 }
 
 interface ITableProps {

@@ -224,6 +224,8 @@ export const enTranslations: ResourceKey = {
   },
   dataTableNext: {
     allOptions: "--All options--",
+    filterRes1: "Filtered",
+    filterRes2: "of",
     filters: "Filters",
     more: "--More--",
     noDataIndication: "There is no data to display",

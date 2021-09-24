@@ -34,6 +34,7 @@ import {
   ButtonGroup,
   ButtonToolbarLeft,
   ButtonToolbarRow,
+  ControlLabel,
   Filters,
   InputNumber,
   InputRange,
@@ -83,6 +84,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     customFiltersProps,
     isCustomFilterEnabled,
     onUpdateEnableCustomFilter,
+    resultSize,
   } = customFilters ?? {};
   const { customSearchDefault, isCustomSearchEnabled, onUpdateCustomSearch } =
     customSearch ?? {};
@@ -333,6 +335,15 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           </TableOptionsColBar>
         )}
       </div>
+      {!_.isUndefined(isCustomFilterEnabled) &&
+        isCustomFilterEnabled &&
+        resultSize && (
+          <ControlLabel>
+            {`${t("dataTableNext.filterRes1")}: ${resultSize.current} ${t(
+              "dataTableNext.filterRes2"
+            )} ${resultSize.total}`}
+          </ControlLabel>
+        )}
       <BootstrapTable
         {...baseProps}
         bootstrap4={true}
