@@ -320,7 +320,11 @@ def _format_masked_evidences(old_finding: FindingType) -> FindingEvidences:
         )
         evidence = FindingEvidence(
             description=MASKED,
-            modified_date=date,
+            modified_date=datetime_utils.get_as_utc_iso_format(
+                datetime_utils.get_from_str(date)
+            )
+            if date
+            else "",
             url=MASKED,
         )
         evidences = evidences._replace(**{new_name: evidence})
@@ -366,7 +370,15 @@ def _format_evidences(old_finding: FindingType) -> FindingEvidences:
 async def _proccess_finding(
     loaders: Dataloaders,
     old_finding: FindingType,
-) -> None:
+) -> bool:
+    if "project_name" not in old_finding:
+        print(f'ERROR - "{old_finding["finding_id"]}" project_name missing')
+        return False
+
+    if "historic_state" not in old_finding:
+        print(f'ERROR - "{old_finding["finding_id"]}" historic_state missing')
+        return False
+
     try:
         await findings_model.add(
             finding=Finding(
@@ -405,7 +417,7 @@ async def _proccess_finding(
         )
     except AlreadyCreated:
         print(f'ERROR - "{old_finding["finding_id"]}" already created at vms')
-        return
+        return False
 
     await _populate_finding_historic_state(
         old_finding["project_name"],
@@ -427,18 +439,11 @@ async def _proccess_finding(
     )
 
     print(f'"{old_finding["finding_id"]}" migration OK')
+    return True
 
 
 async def main() -> None:
-    success = True
-
-    to_exclude = [
-        "381445614",
-        "puri",
-        "alsomar",
-        "daimon",
-    ]
-
+    success = False
     scan_attrs: DynamoQueryType = {}
     findings: List[FindingType] = await dynamodb_ops.scan(
         FINDING_TABLE, scan_attrs
@@ -447,13 +452,14 @@ async def main() -> None:
     print(f"old findings: len({len(findings)})")
 
     if PROD:
-        await collect(
-            _proccess_finding(
-                loaders=loaders,
-                old_finding=old_finding,
+        success = all(
+            await collect(
+                _proccess_finding(
+                    loaders=loaders,
+                    old_finding=old_finding,
+                )
+                for old_finding in findings
             )
-            for old_finding in findings
-            if old_finding["finding_id"] not in to_exclude
         )
 
     print(f"Success: {success}")
