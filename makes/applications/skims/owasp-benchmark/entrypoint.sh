@@ -7,7 +7,7 @@ function score {
   export EXPECTED_RESULTS_CSV="${benchmark_local_repo}/expectedresults-1.2.csv"
 
   echo '[INFO] Creating staging area' \
-    && copy '__envBenchmarkRepo__' "${benchmark_local_repo}" \
+    && copy '__argBenchmarkRepo__' "${benchmark_local_repo}" \
     && echo '[INFO] Analyzing repository' \
     && rm -rf 'skims/test/outputs/'* \
     && if test -n "${category}"; then

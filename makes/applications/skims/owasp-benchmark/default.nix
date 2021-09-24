@@ -1,23 +1,17 @@
-{ makeEntrypoint
+{ makes
 , packages
-, path
 , skimsBenchmarkOwaspRepo
 , nixpkgs
 , ...
 }:
-makeEntrypoint {
-  arguments = {
-    envBenchmarkRepo = skimsBenchmarkOwaspRepo;
-  };
+makes.makeScript {
   name = "skims-owasp-benchmark";
-  searchPaths = {
-    envPaths = [
-      nixpkgs.python38
-      packages.skims
-    ];
-    envSources = [
-      packages.skims.config-runtime
-    ];
+  replace = {
+    __argBenchmarkRepo__ = skimsBenchmarkOwaspRepo;
   };
-  template = path "/makes/applications/skims/owasp-benchmark/entrypoint.sh";
+  searchPaths = {
+    bin = [ nixpkgs.python38 packages.skims ];
+    source = [ packages.skims.config-runtime ];
+  };
+  entrypoint = ./entrypoint.sh;
 }
