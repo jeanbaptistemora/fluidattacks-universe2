@@ -6714,6 +6714,56 @@ F074,lines,namespace/skims/test/data/lib_root/f074/test.cs,13,615,skims,074. Com
   23 |     }
      ^ Col 0
 "
+F009,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,009. Sensitive information in source code,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
+","
+   1 | # Insecure
+   2 | FROM node
+   3 | RUN apk add --no-cache python g++ make
+   4 | WORKDIR /app
+   5 | COPY . .
+   6 | RUN yarn install --production
+   7 | CMD [""node"", ""src/index.js""]
+   8 |
+   9 | # Insecure
+> 10 | FROM node:12.2
+  11 | RUN apk add --no-cache python g++ make
+  12 | WORKDIR /app
+  13 | COPY . .
+  14 | RUN yarn install --production
+  15 | CMD [""node"", ""src/index.js""]
+  16 |
+  17 | # Secure
+  18 | FROM ubuntu@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23
+  19 | ARG DEBIAN_FRONTEND=noninteractive
+  20 | RUN apt update
+  21 | RUN apt install -y nginx php-fpm supervisor && \
+     ^ Col 0
+"
+F009,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,2,749,skims,009. Sensitive information in source code,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
+","
+   1 | # Insecure
+>  2 | FROM node
+   3 | RUN apk add --no-cache python g++ make
+   4 | WORKDIR /app
+   5 | COPY . .
+   6 | RUN yarn install --production
+   7 | CMD [""node"", ""src/index.js""]
+   8 |
+   9 | # Insecure
+  10 | FROM node:12.2
+  11 | RUN apk add --no-cache python g++ make
+  12 | WORKDIR /app
+  13 | COPY . .
+  14 | RUN yarn install --production
+  15 | CMD [""node"", ""src/index.js""]
+  16 |
+  17 | # Secure
+  18 | FROM ubuntu@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23
+  19 | ARG DEBIAN_FRONTEND=noninteractive
+  20 | RUN apt update
+  21 | RUN apt install -y nginx php-fpm supervisor && \
+     ^ Col 0
+"
 F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Inappropriate coding practices - Transparency Conflict,"Inappropriate coding practices - Transparency Conflict
 ","
    1 | using System;
