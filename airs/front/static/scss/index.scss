@@ -809,6 +809,11 @@ $gray-120: rgba(120, 120, 145, 1);
     margin: auto;
   }
 
+  .imgblock img {
+    display: block;
+    margin: auto;
+  }
+
   .imageblock .title {
     font-size: 0.875rem;
     font-weight: 400;
