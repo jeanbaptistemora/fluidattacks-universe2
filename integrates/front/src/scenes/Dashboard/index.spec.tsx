@@ -4,7 +4,6 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 
@@ -14,7 +13,6 @@ import { Dashboard } from "scenes/Dashboard";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/Breadcrumb/queries";
 import { GET_USER } from "scenes/Dashboard/queries";
 import type { IUser } from "scenes/Dashboard/types";
-import store from "store";
 
 describe("Dashboard", (): void => {
   it("should return a function", (): void => {
@@ -89,9 +87,7 @@ describe("Dashboard", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada"]}>
         <MockedProvider mocks={mocks}>
-          <Provider store={store}>
-            <Dashboard />
-          </Provider>
+          <Dashboard />
         </MockedProvider>
       </MemoryRouter>
     );

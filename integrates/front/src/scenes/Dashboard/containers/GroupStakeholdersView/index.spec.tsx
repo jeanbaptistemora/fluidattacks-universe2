@@ -32,13 +32,6 @@ jest.mock("../../../../utils/notifications", (): Dictionary => {
   return mockedNotifications;
 });
 
-/*
- * Important Notice: When going from redux-form to Formik, some of the changes to keep
- * in mind is that to simulate a change event you now must provide the name of the field
- * along with the value to let Formik know which field should be changed. As seen in
- * https://github.com/formium/formik/issues/481#issuecomment-374970940
- */
-
 describe("Group stakeholders view", (): void => {
   const mocks: readonly MockedResponse[] = [
     {

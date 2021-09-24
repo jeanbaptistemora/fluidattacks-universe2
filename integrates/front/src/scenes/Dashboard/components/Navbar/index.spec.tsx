@@ -5,7 +5,6 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { Link, MemoryRouter } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 
@@ -16,7 +15,6 @@ import {
   GET_FINDING_TITLE,
   GET_USER_ORGANIZATIONS,
 } from "scenes/Dashboard/components/Navbar/Breadcrumb/queries";
-import store from "store";
 import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -54,15 +52,13 @@ describe("Navbar", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={true} mocks={[organizationsQuery]}>
-            <authContext.Provider
-              value={{ userEmail: "test@fluidattacks.com", userName: "" }}
-            >
-              <Navbar userRole={"customer"} />
-            </authContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={true} mocks={[organizationsQuery]}>
+          <authContext.Provider
+            value={{ userEmail: "test@fluidattacks.com", userName: "" }}
+          >
+            <Navbar userRole={"customer"} />
+          </authContext.Provider>
+        </MockedProvider>
       </MemoryRouter>,
       {
         wrappingComponent: authzPermissionsContext.Provider,
@@ -126,18 +122,16 @@ describe("Navbar", (): void => {
           "/orgs/okada/groups/unittesting/drafts/F3F42d73-c1bf-47c5-954e-FFFFFFFFFFFF/locations",
         ]}
       >
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={true}
-            mocks={[findingTitleQuery, organizationsQuery]}
+        <MockedProvider
+          addTypename={true}
+          mocks={[findingTitleQuery, organizationsQuery]}
+        >
+          <authContext.Provider
+            value={{ userEmail: "test@fluidattacks.com", userName: "" }}
           >
-            <authContext.Provider
-              value={{ userEmail: "test@fluidattacks.com", userName: "" }}
-            >
-              <Navbar userRole={"customer"} />
-            </authContext.Provider>
-          </MockedProvider>
-        </Provider>
+            <Navbar userRole={"customer"} />
+          </authContext.Provider>
+        </MockedProvider>
       </MemoryRouter>,
       {
         wrappingComponent: authzPermissionsContext.Provider,
@@ -207,18 +201,16 @@ describe("Navbar", (): void => {
           "/orgs/okada/groups/unittesting/vulns/436992569/description",
         ]}
       >
-        <Provider store={store}>
-          <MockedProvider
-            addTypename={true}
-            mocks={[findingTitleQuery, organizationsQuery]}
+        <MockedProvider
+          addTypename={true}
+          mocks={[findingTitleQuery, organizationsQuery]}
+        >
+          <authContext.Provider
+            value={{ userEmail: "test@fluidattacks.com", userName: "" }}
           >
-            <authContext.Provider
-              value={{ userEmail: "test@fluidattacks.com", userName: "" }}
-            >
-              <Navbar userRole={"customer"} />
-            </authContext.Provider>
-          </MockedProvider>
-        </Provider>
+            <Navbar userRole={"customer"} />
+          </authContext.Provider>
+        </MockedProvider>
       </MemoryRouter>,
       {
         wrappingComponent: authzPermissionsContext.Provider,
