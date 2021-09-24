@@ -557,27 +557,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Row>
-        <Col100>
-          <ButtonToolbar>
-            <Can do={"api_mutations_remove_finding_mutate"}>
-              <TooltipWrapper
-                displayClass={"dib"}
-                id={"searchFindings.delete.btn.tooltip"}
-                message={translate.t("searchFindings.delete.btn.tooltip")}
-              >
-                <Button
-                  disabled={selectedFindings.length === 0 || deleting}
-                  onClick={openDeleteModal}
-                >
-                  <FluidIcon icon={"delete"} />
-                  &nbsp;{translate.t("searchFindings.delete.btn.text")}
-                </Button>
-              </TooltipWrapper>
-            </Can>
-          </ButtonToolbar>
-        </Col100>
-      </Row>
       <TooltipWrapper
         id={"group.findings.help"}
         message={translate.t("group.findings.helpLabel")}
@@ -608,16 +587,33 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           }}
           exportCsv={false}
           extraButtons={
-            <Can I={"api_resolvers_query_report__get_url_group_report"}>
-              <TooltipWrapper
-                id={"group.findings.report.btn.tooltip.id"}
-                message={translate.t("group.findings.report.btn.tooltip")}
-              >
-                <Button id={"reports"} onClick={openReportsModal}>
-                  {translate.t("group.findings.report.btn.text")}
-                </Button>
-              </TooltipWrapper>
-            </Can>
+            <Row>
+              <Can I={"api_resolvers_query_report__get_url_group_report"}>
+                <TooltipWrapper
+                  id={"group.findings.report.btn.tooltip.id"}
+                  message={translate.t("group.findings.report.btn.tooltip")}
+                >
+                  <Button id={"reports"} onClick={openReportsModal}>
+                    {translate.t("group.findings.report.btn.text")}
+                  </Button>
+                </TooltipWrapper>
+              </Can>
+              <Can do={"api_mutations_remove_finding_mutate"}>
+                <TooltipWrapper
+                  displayClass={"dib"}
+                  id={"searchFindings.delete.btn.tooltip"}
+                  message={translate.t("searchFindings.delete.btn.tooltip")}
+                >
+                  <Button
+                    disabled={selectedFindings.length === 0 || deleting}
+                    onClick={openDeleteModal}
+                  >
+                    <FluidIcon icon={"delete"} />
+                    &nbsp;{translate.t("searchFindings.delete.btn.text")}
+                  </Button>
+                </TooltipWrapper>
+              </Can>
+            </Row>
           }
           headers={tableHeaders}
           id={"tblFindings"}
