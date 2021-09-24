@@ -149,7 +149,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 <Graphic
                   bsHeight={160}
                   className={"g2"}
-                  documentName={"treatment"}
+                  documentName={"treatmentCvssf"}
                   documentType={"pieChart"}
                   entity={entity}
                   generatorName={"generic"}
@@ -164,7 +164,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 <Graphic
                   bsHeight={160}
                   className={"g2"}
-                  documentName={"vulnerabilitiesByType"}
+                  documentName={"vulnerabilitiesBySourceCvssf"}
                   documentType={"pieChart"}
                   entity={entity}
                   generatorName={"generic"}
