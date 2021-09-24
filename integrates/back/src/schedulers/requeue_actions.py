@@ -16,6 +16,7 @@ async def requeue_actions() -> None:
                 subject=action.subject,
                 time=action.time,
                 additional_info=action.additional_info,
+                queue=action.queue,
             )
             for action in pending_actions
         ],

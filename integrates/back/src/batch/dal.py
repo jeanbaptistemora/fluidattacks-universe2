@@ -234,6 +234,7 @@ async def put_action_to_dynamodb(
     subject: str,
     time: str,
     additional_info: str,
+    queue: str = "spot_soon",
 ) -> bool:
     try:
         return await dynamodb_ops.put_item(
@@ -246,6 +247,7 @@ async def put_action_to_dynamodb(
                 entity=entity,
                 subject=subject,
                 time=time,
+                queue=queue,
             ),
             table=TABLE_NAME,
         )
@@ -330,12 +332,13 @@ async def put_action(
         subject=subject,
         time=time,
         additional_info=additional_info,
+        queue=queue,
     )
 
     return all(
         await collect(
             (
-                put_action_to_batch(**action, queue=queue),
+                put_action_to_batch(**action),
                 put_action_to_dynamodb(**action),
             )
         )
