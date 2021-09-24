@@ -277,9 +277,8 @@ resource "aws_batch_job_definition" "makes" {
     image = "ghcr.io/fluidattacks/makes:21.10"
 
     # Will be overridden on job submission
-    command = ["m"]
-    memory  = 1800
-    vcpus   = 1
+    memory = 1800
+    vcpus  = 1
   })
 
   tags = {
