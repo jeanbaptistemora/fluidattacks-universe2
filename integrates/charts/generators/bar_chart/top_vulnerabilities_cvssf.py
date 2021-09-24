@@ -154,14 +154,14 @@ def format_data(counters: Counter) -> dict:
     return dict(
         data=dict(
             columns=[
-                cast(List[Union[Decimal, str]], ["# Open Cvssf"])
+                cast(List[Union[Decimal, str]], ["Open Severity (CVSSF)"])
                 + [
                     Decimal(value).quantize(Decimal("0.1"))
                     for _, value in merged_data
                 ],
             ],
             colors={
-                "# Open Cvssf": RISK.neutral,
+                "Open Severity (CVSSF)": RISK.more_agressive,
             },
             type="bar",
         ),
