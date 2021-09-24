@@ -1,13 +1,11 @@
 import type { MutationFunction } from "@apollo/client";
+import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React from "react";
-import { Field } from "redux-form";
-import type { InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   useGetAPIToken,
   useInvalidateAPIToken,
@@ -25,10 +23,11 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
-import { Date as DateField, TextArea } from "utils/forms/fields";
+import { FormikDate, FormikTextArea } from "utils/forms/fields";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import {
+  composeValidators,
   isLowerDate,
   isValidDateAccessToken,
   required,
@@ -96,89 +95,99 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
       onEsc={onClose}
       open={open}
     >
-      <GenericForm name={"updateAccessToken"} onSubmit={handleUpdateAPIToken}>
-        {({ submitSucceeded }: InjectedFormProps): JSX.Element => (
-          <React.Fragment>
-            <Row>
-              <Col100>
-                {!hasAPIToken && (
-                  <FormGroup>
-                    <ControlLabel>
-                      <b>{translate.t("updateAccessToken.expirationTime")}</b>
-                    </ControlLabel>
-                    <Field
-                      component={DateField}
-                      name={"expirationTime"}
-                      type={"date"}
-                      validate={[isLowerDate, isValidDateAccessToken, required]}
-                    />
-                  </FormGroup>
-                )}
-              </Col100>
-            </Row>
-            {submitSucceeded && (
-              <Row>
-                <Col100>
+      <Formik
+        enableReinitialize={true}
+        initialValues={{
+          expirationTime: "",
+          sessionJwt: mtResponse.data?.updateAccessToken.sessionJwt ?? "",
+        }}
+        name={"updateAccessToken"}
+        onSubmit={handleUpdateAPIToken}
+      >
+        <Form>
+          <Row>
+            <Col100>
+              {!hasAPIToken && (
+                <FormGroup>
                   <ControlLabel>
-                    <b>{translate.t("updateAccessToken.message")}</b>
-                  </ControlLabel>
-                  <ControlLabel>
-                    <b>{translate.t("updateAccessToken.accessToken")}</b>
+                    <b>{translate.t("updateAccessToken.expirationTime")}</b>
                   </ControlLabel>
                   <Field
-                    // Allow to block resizing the TextArea
-                    // eslint-disable-next-line react/forbid-component-props
-                    className={"noresize"}
-                    component={TextArea}
-                    disabled={true}
-                    name={"sessionJwt"}
-                    rows={"7"}
-                    type={"text"}
+                    component={FormikDate}
+                    name={"expirationTime"}
+                    type={"date"}
+                    validate={composeValidators([
+                      isLowerDate,
+                      isValidDateAccessToken,
+                      required,
+                    ])}
                   />
-                  <Button onClick={handleCopy}>
-                    {translate.t("updateAccessToken.copy.copy")}
-                  </Button>
-                </Col100>
-              </Row>
-            )}
-            <Row>
-              {!submitSucceeded && hasAPIToken && (
-                <Col100>
-                  <ControlLabel>
-                    <b>{translate.t("updateAccessToken.tokenCreated")}</b>
-                    &nbsp;
-                    {new Date(Number.parseInt(issuedAt, 10) * msToSec)
-                      .toISOString()
-                      .substring(0, yyyymmdd)}
-                  </ControlLabel>
-                </Col100>
+                </FormGroup>
               )}
-              <Col100>
-                <ButtonToolbarLeft>
-                  {!submitSucceeded && hasAPIToken && (
-                    <Button onClick={handleInvalidateAPIToken}>
-                      {translate.t("updateAccessToken.invalidate")}
-                    </Button>
-                  )}
-                </ButtonToolbarLeft>
-              </Col100>
-            </Row>
-            <hr />
+            </Col100>
+          </Row>
+          {!_.isUndefined(mtResponse.data) && (
             <Row>
               <Col100>
-                <ButtonToolbar>
-                  <Button onClick={onClose}>
-                    {translate.t("updateAccessToken.close")}
-                  </Button>
-                  <Button disabled={hasAPIToken} type={"submit"}>
-                    {translate.t("confirmmodal.proceed")}
-                  </Button>
-                </ButtonToolbar>
+                <ControlLabel>
+                  <b>{translate.t("updateAccessToken.message")}</b>
+                </ControlLabel>
+                <ControlLabel>
+                  <b>{translate.t("updateAccessToken.accessToken")}</b>
+                </ControlLabel>
+                <Field
+                  // Allow to block resizing the TextArea
+                  // eslint-disable-next-line react/forbid-component-props
+                  className={"noresize"}
+                  component={FormikTextArea}
+                  disabled={true}
+                  name={"sessionJwt"}
+                  rows={"7"}
+                  type={"text"}
+                />
+                <Button onClick={handleCopy}>
+                  {translate.t("updateAccessToken.copy.copy")}
+                </Button>
               </Col100>
             </Row>
-          </React.Fragment>
-        )}
-      </GenericForm>
+          )}
+          <Row>
+            {_.isUndefined(mtResponse.data) && hasAPIToken && (
+              <Col100>
+                <ControlLabel>
+                  <b>{translate.t("updateAccessToken.tokenCreated")}</b>
+                  &nbsp;
+                  {new Date(Number.parseInt(issuedAt, 10) * msToSec)
+                    .toISOString()
+                    .substring(0, yyyymmdd)}
+                </ControlLabel>
+              </Col100>
+            )}
+            <Col100>
+              <ButtonToolbarLeft>
+                {_.isUndefined(mtResponse.data) && hasAPIToken && (
+                  <Button onClick={handleInvalidateAPIToken}>
+                    {translate.t("updateAccessToken.invalidate")}
+                  </Button>
+                )}
+              </ButtonToolbarLeft>
+            </Col100>
+          </Row>
+          <hr />
+          <Row>
+            <Col100>
+              <ButtonToolbar>
+                <Button onClick={onClose}>
+                  {translate.t("updateAccessToken.close")}
+                </Button>
+                <Button disabled={hasAPIToken} type={"submit"}>
+                  {translate.t("confirmmodal.proceed")}
+                </Button>
+              </ButtonToolbar>
+            </Col100>
+          </Row>
+        </Form>
+      </Formik>
     </Modal>
   );
 };

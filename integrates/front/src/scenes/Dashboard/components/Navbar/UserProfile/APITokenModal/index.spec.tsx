@@ -2,11 +2,9 @@ import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
-import { GraphQLError } from "graphql";
 import moment from "moment";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
@@ -19,7 +17,6 @@ import type {
   IGetAccessTokenDictAttr,
   IUpdateAccessTokenAttr,
 } from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal/types";
-import store from "store";
 
 describe("Update access token modal", (): void => {
   const handleOnClose: jest.Mock = jest.fn();
@@ -56,11 +53,9 @@ describe("Update access token modal", (): void => {
     ];
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mockQueryFalse}>
-          <APITokenModal onClose={handleOnClose} open={true} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mockQueryFalse}>
+        <APITokenModal onClose={handleOnClose} open={true} />
+      </MockedProvider>
     );
 
     await act(async (): Promise<void> => {
@@ -121,11 +116,9 @@ describe("Update access token modal", (): void => {
     ];
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mockQueryTrue}>
-          <APITokenModal onClose={handleOnClose} open={true} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mockQueryTrue}>
+        <APITokenModal onClose={handleOnClose} open={true} />
+      </MockedProvider>
     );
 
     expect(wrapper).toHaveLength(1);
@@ -225,23 +218,24 @@ describe("Update access token modal", (): void => {
     ];
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mockMutation}>
-          <APITokenModal onClose={handleOnClose} open={true} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mockMutation}>
+        <APITokenModal onClose={handleOnClose} open={true} />
+      </MockedProvider>
     );
 
     const dateField: ReactWrapper = wrapper
-      .find({ type: "date" })
+      .find({ name: "expirationTime" })
       .find("input");
-    dateField.simulate("change", { target: { value: expirationTime } });
+    dateField.simulate("change", {
+      target: { name: "expirationTime", value: expirationTime },
+    });
 
-    const form: ReactWrapper = wrapper.find("genericForm");
+    const form: ReactWrapper = wrapper.find("Formik");
     form.simulate("submit");
 
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay = 200;
+      await wait(delay);
       wrapper.update();
     });
 
@@ -260,61 +254,5 @@ describe("Update access token modal", (): void => {
     expect(wrapper).toHaveLength(1);
     expect(newTokenLabel).toHaveLength(1);
     expect(copyTokenButton).toHaveLength(1);
-  });
-
-  it("should reset the GenericForm component", async (): Promise<void> => {
-    expect.hasAssertions();
-
-    const expirationTime: string = moment()
-      .add(1, "month")
-      .toISOString()
-      .substring(0, yyyymmdd);
-    const mockMutationError: readonly MockedResponse[] = [
-      {
-        request: {
-          query: UPDATE_ACCESS_TOKEN_MUTATION,
-          variables: {
-            expirationTime: Math.floor(
-              new Date(expirationTime).getTime() / msToSec
-            ),
-          },
-        },
-        result: {
-          errors: [new GraphQLError("Access denied")],
-        },
-      },
-    ];
-
-    const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mockMutationError}>
-          <APITokenModal onClose={handleOnClose} open={true} />
-        </MockedProvider>
-      </Provider>
-    );
-
-    const dateField: ReactWrapper = wrapper
-      .find({ type: "date" })
-      .find("input");
-    dateField.simulate("change", { target: { value: expirationTime } });
-
-    const form: ReactWrapper = wrapper.find("genericForm");
-    form.simulate("submit");
-
-    expect(wrapper).toHaveLength(1);
-    expect(dateField.prop("value")).toBe(expirationTime);
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        const dateFieldOnReset: ReactWrapper = wrapper
-          .find({ type: "date" })
-          .find("input");
-
-        expect(wrapper).toHaveLength(1);
-        expect(dateFieldOnReset.prop("value")).toBe("");
-      });
-    });
   });
 });

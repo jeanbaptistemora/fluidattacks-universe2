@@ -7,9 +7,6 @@ import type {
 import { useMutation, useQuery } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import type { FormAction } from "redux-form";
-import { change, reset } from "redux-form";
 
 import {
   GET_ACCESS_TOKEN,
@@ -30,7 +27,6 @@ const useUpdateAPIToken: (
   refetch: () => Promise<ApolloQueryResult<IGetAccessTokenAttr>>
 ): readonly [MutationFunction, MutationResult<IUpdateAccessTokenAttr>] => {
   const { t } = useTranslation();
-  const dispatch: React.Dispatch<FormAction> = useDispatch();
 
   // Handle mutation results
   const handleOnSuccess: (mtResult: IUpdateAccessTokenAttr) => void = (
@@ -38,13 +34,6 @@ const useUpdateAPIToken: (
   ): void => {
     if (mtResult.updateAccessToken.success) {
       void refetch();
-      dispatch(
-        change(
-          "updateAccessToken",
-          "sessionJwt",
-          mtResult.updateAccessToken.sessionJwt
-        )
-      );
       msgSuccess(
         t("updateAccessToken.successfully"),
         t("updateAccessToken.success")
@@ -62,7 +51,6 @@ const useUpdateAPIToken: (
         msgError(t("groupAlerts.errorTextsad"));
       }
     });
-    dispatch(reset("updateAccessToken"));
   };
 
   const [updateAPIToken, mtResponse] = useMutation(
@@ -111,7 +99,6 @@ const useInvalidateAPIToken: (
   onClose: () => void
 ): MutationFunction => {
   const { t } = useTranslation();
-  const dispatch: React.Dispatch<FormAction> = useDispatch();
 
   // Handle mutation results
   const handleOnSuccess: (mtResult: IInvalidateAccessTokenAttr) => void = (
@@ -133,7 +120,6 @@ const useInvalidateAPIToken: (
       Logger.warning("An error occurred invalidating access token", error);
       msgError(t("groupAlerts.errorTextsad"));
     });
-    dispatch(reset("updateAccessToken"));
   };
 
   const [invalidateAPIToken] = useMutation(INVALIDATE_ACCESS_TOKEN_MUTATION, {
