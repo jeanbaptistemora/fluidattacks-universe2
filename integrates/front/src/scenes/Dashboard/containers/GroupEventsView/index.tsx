@@ -1028,6 +1028,10 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           customFiltersProps,
           isCustomFilterEnabled,
           onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+          resultSize: {
+            current: resultDataset.length,
+            total: dataset.length,
+          },
         }}
         customSearch={{
           customSearchDefault: searchTextFilter,

@@ -423,6 +423,10 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                     customFiltersProps: customFilters,
                     isCustomFilterEnabled,
                     onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+                    resultSize: {
+                      current: resultStakeHolders.length,
+                      total: stakeholdersList.length,
+                    },
                   }}
                   customSearch={{
                     customSearchDefault: searchTextFilter,

@@ -374,6 +374,10 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   customFiltersProps,
                   isCustomFilterEnabled,
                   onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+                  resultSize: {
+                    current: resultVulnerabilities.length,
+                    total: vulnerabilities.length,
+                  },
                 }}
                 customSearch={{
                   customSearchDefault: searchTextFilter,

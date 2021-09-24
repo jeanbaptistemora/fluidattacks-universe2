@@ -360,6 +360,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   customFiltersProps,
                   isCustomFilterEnabled,
                   onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+                  resultSize: {
+                    current: resultExecutions.length,
+                    total: roots.length,
+                  },
                 }}
                 customSearch={{
                   customSearchDefault: searchTextFilter,

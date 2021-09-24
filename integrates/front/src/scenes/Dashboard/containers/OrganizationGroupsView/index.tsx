@@ -333,6 +333,10 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                     customFiltersProps,
                     isCustomFilterEnabled,
                     onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+                    resultSize: {
+                      current: resultDataset.length,
+                      total: dataset.length,
+                    },
                   }}
                   customSearch={{
                     customSearchDefault: searchTextFilter,

@@ -569,6 +569,10 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
             customFiltersProps: customFilters,
             isCustomFilterEnabled,
             onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+            resultSize: {
+              current: resultFindings.length,
+              total: findings.length,
+            },
           }}
           customSearch={{
             customSearchDefault: searchTextFilter,

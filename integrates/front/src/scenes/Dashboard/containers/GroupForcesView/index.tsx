@@ -375,6 +375,10 @@ const GroupForcesView: React.FC = (): JSX.Element => {
           customFiltersProps,
           isCustomFilterEnabled,
           onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+          resultSize: {
+            current: resultExecutions.length,
+            total: executions.length,
+          },
         }}
         customSearch={{
           customSearchDefault: searchTextFilter,
