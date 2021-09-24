@@ -115,7 +115,7 @@ function skims_scan {
 
   echo '[INFO] Running skims scan' \
     && lang="$(get_skims_language "${group}")" \
-    && python3 __envGetConfig__ --check "${check}" \
+    && python3 __argGetConfig__ --check "${check}" \
       --group "${group}" \
       --language "${lang}" \
       --namespace "${namespace}" \

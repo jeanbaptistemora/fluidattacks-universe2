@@ -1,31 +1,29 @@
-{ makeEntrypoint
+{ makes
 , packages
-, path
+, importUtility
 , nixpkgs
 , ...
 }:
-makeEntrypoint {
-  arguments = {
-    envGetConfig = path "/makes/applications/skims/process-group/src/get_config.py";
+makes.makeScript {
+  replace = {
+    __argGetConfig__ = ./src/get_config.py;
   };
   name = "skims-process-group";
   searchPaths = {
-    envPaths = [
+    bin = [
       packages.melts
       packages.skims
       nixpkgs.jq
       nixpkgs.yq
     ];
-    envSources = [
+    source = [
       packages.skims.config-runtime
-    ];
-    envUtils = [
-      "/makes/utils/aws"
-      "/makes/utils/env"
-      "/makes/utils/git"
-      "/makes/utils/sops"
-      "/makes/utils/time"
+      (importUtility "aws")
+      (importUtility "env")
+      (importUtility "git")
+      (importUtility "sops")
+      (importUtility "time")
     ];
   };
-  template = path "/makes/applications/skims/process-group/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }
