@@ -31,9 +31,6 @@ from .group_findings_non_deleted import (
 from .group_stakeholders import (
     GroupStakeholdersLoader,
 )
-from .group_stakeholders_non_fluid import (
-    GroupStakeholdersNonFluidLoader,
-)
 from .group_toe_inputs import (
     GroupToeInputsLoader,
 )
@@ -106,7 +103,6 @@ class Dataloaders(NamedTuple):
     group_findings_all_new: GroupFindingsNewLoader
     group_roots: GroupRootsLoader
     group_stakeholders: GroupStakeholdersLoader
-    group_stakeholders_nf: GroupStakeholdersNonFluidLoader
     group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
     organization: OrganizationLoader
@@ -171,9 +167,6 @@ def get_new_context() -> Dataloaders:
         group_findings_all_new=group_findings_new_loader,
         group_roots=GroupRootsLoader(),
         group_stakeholders=group_stakeholders_loader,
-        group_stakeholders_nf=GroupStakeholdersNonFluidLoader(
-            group_stakeholders_loader
-        ),
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
         organization=OrganizationLoader(),
