@@ -24,9 +24,6 @@
           "description": {
             "S": "oneshot testing"
           },
-          "hasRelease": {
-            "BOOL": true
-          },
           "last_closing_date": {
             "N": "45"
           },
@@ -654,9 +651,6 @@
                 }
               }
             ]
-          },
-          "hasRelease": {
-            "BOOL": true
           },
           "last_closing_date": {
             "N": "23"
@@ -1898,9 +1892,6 @@
               }
             ]
           },
-          "hasRelease": {
-            "BOOL": true
-          },
           "last_closing_date": {
             "N": "23"
           },
@@ -2279,9 +2270,6 @@
               }
             ]
           },
-          "hasRelease": {
-            "BOOL": true
-          },
           "last_closing_date": {
             "N": "23"
           },
@@ -2551,9 +2539,6 @@
           "files": {
             "L": []
           },
-          "hasRelease": {
-            "BOOL": true
-          },
           "last_closing_date": {
             "N": "23"
           },
@@ -2678,9 +2663,6 @@
           },
           "files": {
             "L": []
-          },
-          "hasRelease": {
-            "BOOL": true
           },
           "last_closing_date": {
             "N": "23"
@@ -2807,9 +2789,6 @@
           "files": {
             "L": []
           },
-          "hasRelease": {
-            "BOOL": true
-          },
           "last_closing_date": {
             "N": "45"
           },
@@ -2934,9 +2913,6 @@
           },
           "files": {
             "L": []
-          },
-          "hasRelease": {
-            "BOOL": true
           },
           "last_closing_date": {
             "N": "90"
@@ -3063,9 +3039,6 @@
           "files": {
             "L": []
           },
-          "hasRelease": {
-            "BOOL": true
-          },
           "last_closing_date": {
             "N": "80"
           },
@@ -3191,9 +3164,6 @@
           "files": {
             "L": []
           },
-          "hasRelease": {
-            "BOOL": true
-          },
           "last_closing_date": {
             "N": "12"
           },
@@ -3314,9 +3284,6 @@
           "files": {
             "L": []
           },
-          "hasRelease": {
-            "BOOL": true
-          },
           "last_closing_date": {
             "N": "12"
           },
@@ -3436,9 +3403,6 @@
           },
           "files": {
             "L": []
-          },
-          "hasRelease": {
-            "BOOL": true
           },
           "last_closing_date": {
             "N": "12"
@@ -3562,9 +3526,6 @@
           },
           "files": {
             "L": []
-          },
-          "hasRelease": {
-            "BOOL": true
           },
           "last_closing_date": {
             "N": "12"
