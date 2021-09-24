@@ -8,23 +8,21 @@ import { DropDownCard } from "../DropDownCard";
 const PartnerPage: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query PartnerQuery {
-      allAsciidoc(sort: { fields: [pageAttributes___alt], order: ASC }) {
+      allMarkdownRemark(sort: { fields: [frontmatter___alt], order: ASC }) {
         edges {
           node {
             fields {
               slug
             }
-            document {
-              title
-            }
             html
-            pageAttributes {
+            frontmatter {
               alt
               description
               keywords
               partner
               partnerlogo
               slug
+              title
             }
           }
         }
@@ -32,8 +30,8 @@ const PartnerPage: React.FC = (): JSX.Element => {
     }
   `);
 
-  const partnerInfo = data.allAsciidoc.edges.filter(
-    (partnerCard): boolean => partnerCard.node.pageAttributes.partner === "yes"
+  const partnerInfo = data.allMarkdownRemark.edges.filter(
+    (partnerCard): boolean => partnerCard.node.frontmatter.partner === "yes"
   );
 
   return (
@@ -41,7 +39,7 @@ const PartnerPage: React.FC = (): JSX.Element => {
       <CardsContainer>
         {partnerInfo.map(
           ({ node }): JSX.Element => {
-            const { alt, partnerlogo, slug } = node.pageAttributes;
+            const { alt, partnerlogo, slug, title } = node.frontmatter;
 
             return (
               <DropDownCard
@@ -53,7 +51,7 @@ const PartnerPage: React.FC = (): JSX.Element => {
                 logo={partnerlogo}
                 logoPaths={"/airs/partners"}
                 slug={slug}
-                title={node.document.title}
+                title={title}
               />
             );
           }
