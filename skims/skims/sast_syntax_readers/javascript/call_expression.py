@@ -22,17 +22,15 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    build_js_member_expression_ids,
+    get_identifiers_ids_js,
     node_to_str,
 )
 
 
 def _pred_calls(args: SyntaxReaderArgs, function_id: str) -> List[str]:
-    nested_methods_ids = build_js_member_expression_ids(
-        args.graph, function_id
-    )
     nested_calls: List[str] = []
-    for n_id in nested_methods_ids:
+    member_exp = "member_expression"
+    for n_id in get_identifiers_ids_js(args.graph, function_id, member_exp):
         for pred_id in g.pred_ast_lazy(args.graph, n_id, depth=2):
             if args.graph.nodes[pred_id]["label_type"] == "call_expression":
                 if pred_id not in nested_calls:
