@@ -1,7 +1,6 @@
 import _ from "lodash";
 import type { Moment } from "moment";
 import moment, { isMoment } from "moment";
-import type { Validator } from "redux-form";
 import {
   hasLengthGreaterThan,
   hasLengthLessThan,
@@ -16,10 +15,14 @@ import { translate } from "utils/translations/translate";
 
 /**
  * Groups single or multiple field-level validations and returns the first error
- * found in a similar way to redux-form's validator composing
  *
  * Example: composeValidators([val1, val2, val3])
  */
+
+// Needed for compatibility with all kind of validators
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-type-alias
+type Validator = (value: any, allValues?: any, props?: any, name?: any) => any;
+
 const composeValidators =
   (
     // Needed for compatibility with ConfigurableValidator parameters

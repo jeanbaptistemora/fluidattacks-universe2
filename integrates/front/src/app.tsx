@@ -5,14 +5,12 @@ import {
 } from "mixpanel-browser";
 import React, { createElement, useState } from "react";
 import { render } from "react-dom";
-import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { MatomoWrapper } from "components/MatomoWrapper";
 import { Dashboard } from "scenes/Dashboard";
 import { Login } from "scenes/Login";
-import store from "store";
 import { ApolloProvider } from "utils/apollo";
 import { authContext } from "utils/auth";
 import {
@@ -41,20 +39,16 @@ const App: React.FC = (): JSX.Element => {
           <BrowserRouter basename={"/"}>
             <MatomoWrapper enabled={isProduction}>
               <ApolloProvider>
-                <ReduxProvider store={store}>
-                  <authzPermissionsContext.Provider
-                    value={userLevelPermissions}
-                  >
-                    <secureStoreContext.Provider value={secureStore}>
-                      <authContext.Provider value={{ ...user, setUser }}>
-                        <Switch>
-                          <Route component={Login} exact={true} path={"/"} />
-                          <Route component={Dashboard} path={"/"} />
-                        </Switch>
-                      </authContext.Provider>
-                    </secureStoreContext.Provider>
-                  </authzPermissionsContext.Provider>
-                </ReduxProvider>
+                <authzPermissionsContext.Provider value={userLevelPermissions}>
+                  <secureStoreContext.Provider value={secureStore}>
+                    <authContext.Provider value={{ ...user, setUser }}>
+                      <Switch>
+                        <Route component={Login} exact={true} path={"/"} />
+                        <Route component={Dashboard} path={"/"} />
+                      </Switch>
+                    </authContext.Provider>
+                  </secureStoreContext.Provider>
+                </authzPermissionsContext.Provider>
               </ApolloProvider>
             </MatomoWrapper>
           </BrowserRouter>
