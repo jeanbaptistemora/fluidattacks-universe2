@@ -366,7 +366,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               <Graphic
                 bsHeight={320}
                 className={"g1"}
-                documentName={"findings"}
+                documentName={"finding"}
                 documentType={"barChart"}
                 entity={entity}
                 generatorName={"generic"}
