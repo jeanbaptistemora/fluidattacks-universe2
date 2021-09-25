@@ -144,6 +144,28 @@ def get_best_organization(
     )
 
 
+def get_worst_organization(
+    *, organizations: List[OrganizationCvssfBenchmarking]
+) -> OrganizationCvssfBenchmarking:
+    if organizations:
+        return min(
+            organizations,
+            key=lambda organization: Decimal(
+                organization.closed / organization.total
+            ).quantize(Decimal("0.0001"))
+            if organization.total > Decimal("0.0")
+            else Decimal("1.0"),
+        )
+
+    return OrganizationCvssfBenchmarking(
+        accepted=Decimal("0.0"),
+        closed=Decimal("0.0"),
+        open=Decimal("1.0"),
+        organization_id="",
+        total=Decimal("1.0"),
+    )
+
+
 def get_mean_organizations(
     *, organizations: List[OrganizationCvssfBenchmarking]
 ) -> OrganizationCvssfBenchmarking:
@@ -190,8 +212,9 @@ def get_valid_organizations(
 def format_data(
     *,
     organization: OrganizationCvssfBenchmarking,
-    mean_cvssf: OrganizationCvssfBenchmarking,
     best_cvssf: OrganizationCvssfBenchmarking,
+    mean_cvssf: OrganizationCvssfBenchmarking,
+    worst_cvssf: OrganizationCvssfBenchmarking,
 ) -> Dict[str, Any]:
     return dict(
         data=dict(
@@ -199,20 +222,23 @@ def format_data(
                 [
                     "Closed",
                     organization.closed,
-                    mean_cvssf.closed,
                     best_cvssf.closed,
+                    mean_cvssf.closed,
+                    worst_cvssf.closed,
                 ],
                 [
                     "Accepted",
                     organization.accepted,
-                    mean_cvssf.accepted,
                     best_cvssf.accepted,
+                    mean_cvssf.accepted,
+                    worst_cvssf.accepted,
                 ],
                 [
                     "Open",
                     organization.open,
-                    mean_cvssf.open,
                     best_cvssf.open,
+                    mean_cvssf.open,
+                    worst_cvssf.open,
                 ],
             ],
             colors={
@@ -250,8 +276,9 @@ def format_data(
             x=dict(
                 categories=[
                     "My organization",
-                    "Average organization",
                     "Best organization",
+                    "Average organization",
+                    "Worst organization",
                 ],
                 type="category",
                 tick=dict(multiline=False),
@@ -274,9 +301,14 @@ def format_data(
         ),
         normalizedToolTip=True,
         totalBar=[
-            organization.closed + organization.accepted + organization.open,
-            mean_cvssf.closed + mean_cvssf.accepted + mean_cvssf.open,
+            (organization.closed + organization.accepted + organization.open)
+            if organization.total > Decimal("0.0")
+            else Decimal("0.1"),
             best_cvssf.closed + best_cvssf.accepted + best_cvssf.open,
+            (mean_cvssf.closed + mean_cvssf.accepted + mean_cvssf.open)
+            if mean_cvssf.total > Decimal("0.0")
+            else Decimal("0.1"),
+            worst_cvssf.closed + worst_cvssf.accepted + worst_cvssf.open,
         ],
     )
 
@@ -303,6 +335,7 @@ async def generate_all() -> None:
     )
 
     best_cvssf = get_best_organization(organizations=all_organizations_data)
+    worst_cvssf = get_worst_organization(organizations=all_organizations_data)
 
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
@@ -314,13 +347,14 @@ async def generate_all() -> None:
                     groups=org_groups,
                     loaders=loaders,
                 ),
+                best_cvssf=best_cvssf,
                 mean_cvssf=get_mean_organizations(
                     organizations=get_valid_organizations(
                         organizations=all_organizations_data,
                         organization_id=org_id,
                     )
                 ),
-                best_cvssf=best_cvssf,
+                worst_cvssf=worst_cvssf,
             ),
             entity="organization",
             subject=org_id,
