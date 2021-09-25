@@ -8,7 +8,7 @@ import { LOGGER } from "../../utils/logger";
 const getVersionFromPlaystore: () => Promise<string> =
   async (): Promise<string> => {
     const androidManifest: AndroidManifest = Constants.manifest
-      .android as AndroidManifest;
+      ?.android as AndroidManifest;
 
     const baseURL: string = "https://play.google.com/store/apps/details";
     const response: Response = await fetch(
