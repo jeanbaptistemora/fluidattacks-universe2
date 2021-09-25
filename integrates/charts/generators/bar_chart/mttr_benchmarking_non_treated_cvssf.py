@@ -13,8 +13,10 @@ from charts.generators.bar_chart.utils import (
     format_data,
     get_best_mttr,
     get_mean_organizations,
+    get_oldest_open_age,
     get_valid_subjects,
     get_vulnerability_reattacks,
+    get_worst_mttr,
     GROUP_CATEGORIES,
     ORGANIZATION_CATEGORIES,
     PORTFOLIO_CATEGORIES,
@@ -131,6 +133,9 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
     groups: List[str] = list(
         sorted(await get_alive_group_names(), reverse=True)
     )
+    oldest_open_age: Decimal = await get_oldest_open_age(
+        groups=groups, loaders=loaders
+    )
 
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
@@ -196,6 +201,29 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
         ]
     )
 
+    worst_organazation_mttr = get_worst_mttr(
+        subjects=[
+            organization
+            for organization in all_organizations_data
+            if organization.is_valid
+        ],
+        oldest_open_age=oldest_open_age,
+    )
+
+    worst_group_mttr = get_worst_mttr(
+        subjects=[group for group in all_groups_data if group.is_valid],
+        oldest_open_age=oldest_open_age,
+    )
+
+    worst_portfolio_mttr = get_worst_mttr(
+        subjects=[
+            portfolio
+            for portfolio in all_portfolios_data
+            if portfolio.is_valid
+        ],
+        oldest_open_age=oldest_open_age,
+    )
+
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(
@@ -208,13 +236,14 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                             )
                         ).mttr
                     ).to_integral_exact(rounding=ROUND_CEILING),
+                    best_group_mttr,
                     get_mean_organizations(
                         organizations=get_valid_subjects(
                             all_subjects=all_groups_data,
                             subject=group,
                         )
                     ),
-                    best_group_mttr,
+                    worst_group_mttr,
                 ),
                 categories=GROUP_CATEGORIES,
             ),
@@ -235,13 +264,14 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                             loaders=loaders,
                         )
                     ).mttr,
+                    best_mttr,
                     get_mean_organizations(
                         organizations=get_valid_subjects(
                             all_subjects=all_organizations_data,
                             subject=org_id,
                         )
                     ),
-                    best_mttr,
+                    worst_organazation_mttr,
                 ),
                 categories=ORGANIZATION_CATEGORIES,
             ),
@@ -261,13 +291,14 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                                 loaders=loaders,
                             )
                         ).mttr,
+                        best_portfolio_mttr,
                         get_mean_organizations(
                             organizations=get_valid_subjects(
                                 all_subjects=all_portfolios_data,
                                 subject=portfolio,
                             )
                         ),
-                        best_portfolio_mttr,
+                        worst_portfolio_mttr,
                     ),
                     categories=PORTFOLIO_CATEGORIES,
                 ),
