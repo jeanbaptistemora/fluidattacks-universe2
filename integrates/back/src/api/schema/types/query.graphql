@@ -9,9 +9,7 @@ type Query {
   "List of events from a specific group"
   events(
     "Name of the group to query"
-    groupName: String,
-    "Deprecated. Use `groupName` instead"
-    projectName: String
+    groupName: String
   ): [Event]
 
   "Finding entity"
@@ -24,8 +22,6 @@ type Query {
   forcesExecution(
     "Name of the group where Forces was executed"
     groupName: String
-    "Deprecated. Use `groupName` instead"
-    projectName: String
     "ID of the forcesExecution"
     executionId: String!
   ): ForcesExecution
@@ -34,8 +30,6 @@ type Query {
   forcesExecutions(
     "Name of the group where Forces was executed"
     groupName: String
-    "Deprecated. Use `groupName` instead"
-    projectName: String
     "Start date of the query interval in yyyy-mm-ddThh:mm:ssZ format"
     fromDate: DateTime
     "End date of the query interval in yyyy-mm-ddThh:mm:ssZ format"
@@ -135,13 +129,6 @@ type Query {
   ): [Group]
     @deprecated(reason: """This query will be removed after 2022/01/22.
     Use `listUserGroups` instead.""")
-
-  "List projects a user is subscribed to"
-  userListProjects(
-    "Email address of the user to query"
-    userEmail: String!
-  ): [Group] @deprecated(reason: """This query will be removed
-    after 2022/01/22. Use `listUserGroups` instead.""")
 
   "Gets vulnerabilities pending to reattack"
   vulnerabilitiesToReattack(
