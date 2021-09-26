@@ -208,6 +208,7 @@ async def get_action(
         subject=item["subject"].lower(),
         time=item["time"],
         additional_info=item.get("additional_info", ""),
+        queue=item.get("queue", "spot_soon"),
     )
 
 
@@ -222,6 +223,7 @@ async def get_actions() -> List[BatchProcessing]:
             subject=item["subject"].lower(),
             time=item["time"],
             additional_info=item.get("additional_info", ""),
+            queue=item.get("queue", "spot_soon"),
         )
         for item in items
     ]

@@ -10,3 +10,4 @@ class BatchProcessing(NamedTuple):
     subject: str
     time: str
     additional_info: str
+    queue: str

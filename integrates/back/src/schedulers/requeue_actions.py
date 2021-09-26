@@ -4,10 +4,16 @@ from aioextensions import (
 from batch import (
     dal as batch_dal,
 )
+from batch.types import (
+    BatchProcessing,
+)
+from typing import (
+    List,
+)
 
 
 async def requeue_actions() -> None:
-    pending_actions = await batch_dal.get_actions()
+    pending_actions: List[BatchProcessing] = await batch_dal.get_actions()
     await collect(
         [
             batch_dal.put_action_to_batch(
