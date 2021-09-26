@@ -22,6 +22,24 @@ function render(dataDocument, height, width) {
     };
   }
 
+  if (dataDocument.percentageValues) {
+    const { percentageValues } = dataDocument;
+
+    dataDocument.tooltip.format.value = (_datum, _r, id, index) => {
+      const tooltipValue = `${ parseFloat(percentageValues[id][index]) } %`;
+
+      return tooltipValue;
+    };
+
+    dataDocument.data.labels.format = {
+      Closed: (_datum, id, index) => {
+        const labelValue = `${ parseFloat(percentageValues[id][index]) } %`;
+
+        return labelValue;
+      },
+    };
+  }
+
   c3.generate({
     ...dataDocument,
     bindto: 'div',

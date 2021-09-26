@@ -24,6 +24,7 @@ from db_model.findings.types import (
 )
 from decimal import (
     Decimal,
+    ROUND_FLOOR,
 )
 from findings.domain import (
     get_severity_score_new,
@@ -209,6 +210,31 @@ def get_valid_organizations(
     ]
 
 
+def round_percentage(percentages: List[Decimal], last: int) -> List[Decimal]:
+    sum_percentage = sum(percentages)
+    if sum_percentage == Decimal("100.0") or sum_percentage == Decimal("0.0"):
+        return percentages
+
+    if last < 0:
+        return percentages
+
+    new_percentages = [
+        percentage + Decimal("1.0") if index == last else percentage
+        for index, percentage in enumerate(percentages)
+    ]
+    return round_percentage(new_percentages, last - 1)
+
+
+def get_percentage(values: List[Decimal]) -> List[Decimal]:
+    percentages = [
+        Decimal(value * Decimal("100.0")).to_integral_exact(
+            rounding=ROUND_FLOOR
+        )
+        for value in values
+    ]
+    return round_percentage(percentages, len(percentages) - 1)
+
+
 def format_data(
     *,
     organization: OrganizationCvssfBenchmarking,
@@ -216,6 +242,43 @@ def format_data(
     mean_cvssf: OrganizationCvssfBenchmarking,
     worst_cvssf: OrganizationCvssfBenchmarking,
 ) -> Dict[str, Any]:
+    total_bar: List[Decimal] = [
+        (organization.closed + organization.accepted + organization.open)
+        if organization.total > Decimal("0.0")
+        else Decimal("0.1"),
+        best_cvssf.closed + best_cvssf.accepted + best_cvssf.open,
+        (mean_cvssf.closed + mean_cvssf.accepted + mean_cvssf.open)
+        if mean_cvssf.total > Decimal("0.0")
+        else Decimal("0.1"),
+        worst_cvssf.closed + worst_cvssf.accepted + worst_cvssf.open,
+    ]
+    percentage_values: List[List[Decimal]] = [
+        [
+            organization.closed / total_bar[0],
+            organization.accepted / total_bar[0],
+            organization.open / total_bar[0],
+        ],
+        [
+            best_cvssf.closed / total_bar[1],
+            best_cvssf.accepted / total_bar[1],
+            best_cvssf.open / total_bar[1],
+        ],
+        [
+            mean_cvssf.closed / total_bar[2],
+            mean_cvssf.accepted / total_bar[2],
+            mean_cvssf.open / total_bar[2],
+        ],
+        [
+            worst_cvssf.closed / total_bar[3],
+            worst_cvssf.accepted / total_bar[3],
+            worst_cvssf.open / total_bar[3],
+        ],
+    ]
+    my_organization = get_percentage(percentage_values[0])
+    best_organization = get_percentage(percentage_values[1])
+    average_organization = get_percentage(percentage_values[2])
+    worst_organization = get_percentage(percentage_values[3])
+
     return dict(
         data=dict(
             columns=[
@@ -300,16 +363,27 @@ def format_data(
             ),
         ),
         normalizedToolTip=True,
-        totalBar=[
-            (organization.closed + organization.accepted + organization.open)
-            if organization.total > Decimal("0.0")
-            else Decimal("0.1"),
-            best_cvssf.closed + best_cvssf.accepted + best_cvssf.open,
-            (mean_cvssf.closed + mean_cvssf.accepted + mean_cvssf.open)
-            if mean_cvssf.total > Decimal("0.0")
-            else Decimal("0.1"),
-            worst_cvssf.closed + worst_cvssf.accepted + worst_cvssf.open,
-        ],
+        totalBar=total_bar,
+        percentageValues=dict(
+            Closed=[
+                my_organization[0],
+                best_organization[0],
+                average_organization[0],
+                worst_organization[0],
+            ],
+            Accepted=[
+                my_organization[1],
+                best_organization[1],
+                average_organization[1],
+                worst_organization[1],
+            ],
+            Open=[
+                my_organization[2],
+                best_organization[2],
+                average_organization[2],
+                worst_organization[2],
+            ],
+        ),
     )
 
 
