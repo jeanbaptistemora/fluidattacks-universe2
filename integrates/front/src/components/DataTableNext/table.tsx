@@ -4,7 +4,11 @@
   spreading is the technique used by react-bootstrap-table2 creators to pass
   down props
   */
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMinus,
+  faSearchMinus,
+  faSearchPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React from "react";
@@ -262,9 +266,9 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                     >
                       <Button onClick={handleUpdateEnableFilter}>
                         {isFilterEnabled ? (
-                          <FontAwesomeIcon icon={faMinus} />
+                          <FontAwesomeIcon icon={faSearchMinus} />
                         ) : (
-                          <FontAwesomeIcon icon={faPlus} />
+                          <FontAwesomeIcon icon={faSearchPlus} />
                         )}
                         &nbsp;
                         {t("dataTableNext.filters")}
@@ -281,9 +285,9 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                     >
                       <Button onClick={handleUpdateEnableCustomFilter}>
                         {isCustomFilterEnabled ? (
-                          <FontAwesomeIcon icon={faMinus} />
+                          <FontAwesomeIcon icon={faSearchMinus} />
                         ) : (
-                          <FontAwesomeIcon icon={faPlus} />
+                          <FontAwesomeIcon icon={faSearchPlus} />
                         )}
                         &nbsp;
                         {t("dataTableNext.filters")}

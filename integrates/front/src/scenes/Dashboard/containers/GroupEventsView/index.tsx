@@ -50,7 +50,6 @@ import type { IEventConfig } from "scenes/Dashboard/containers/GroupEventsView/u
 import globalStyle from "styles/global.css";
 import {
   ButtonToolbar,
-  ButtonToolbarCenter,
   Col100,
   Col50,
   ControlLabel,
@@ -544,23 +543,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Row>
-        <Col100>
-          <ButtonToolbarCenter>
-            <Can do={"api_mutations_add_event_mutate"}>
-              <TooltipWrapper
-                id={"group.events.btn.tooltip.id"}
-                message={translate.t("group.events.btn.tooltip")}
-              >
-                <Button onClick={openNewEventModal}>
-                  <FontAwesomeIcon icon={faPlus} />
-                  &nbsp;{translate.t("group.events.btn.text")}
-                </Button>
-              </TooltipWrapper>
-            </Can>
-          </ButtonToolbarCenter>
-        </Col100>
-      </Row>
       <Modal
         headerTitle={translate.t("group.events.new")}
         onEsc={closeNewEventModal}
@@ -1021,32 +1003,53 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           )}
         </Formik>
       </Modal>
-      <p>{translate.t("searchFindings.tabEvents.tableAdvice")}</p>
-      <DataTableNext
-        bordered={true}
-        customFilters={{
-          customFiltersProps,
-          isCustomFilterEnabled,
-          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-          resultSize: {
-            current: resultDataset.length,
-            total: dataset.length,
-          },
-        }}
-        customSearch={{
-          customSearchDefault: searchTextFilter,
-          isCustomSearchEnabled: true,
-          onUpdateCustomSearch: onSearchTextChange,
-        }}
-        dataset={resultDataset}
-        defaultSorted={JSON.parse(_.get(sessionStorage, "eventSort", "{}"))}
-        exportCsv={true}
-        headers={tableHeaders}
-        id={"tblEvents"}
-        pageSize={10}
-        rowEvents={{ onClick: goToEvent }}
-        search={false}
-      />
+      <TooltipWrapper
+        id={"group.events.help"}
+        message={translate.t("searchFindings.tabEvents.tableAdvice")}
+      >
+        <DataTableNext
+          bordered={true}
+          customFilters={{
+            customFiltersProps,
+            isCustomFilterEnabled,
+            onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+            resultSize: {
+              current: resultDataset.length,
+              total: dataset.length,
+            },
+          }}
+          customSearch={{
+            customSearchDefault: searchTextFilter,
+            isCustomSearchEnabled: true,
+            onUpdateCustomSearch: onSearchTextChange,
+          }}
+          dataset={resultDataset}
+          defaultSorted={JSON.parse(_.get(sessionStorage, "eventSort", "{}"))}
+          exportCsv={true}
+          extraButtons={
+            <Row>
+              <ButtonToolbar>
+                <Can do={"api_mutations_add_event_mutate"}>
+                  <TooltipWrapper
+                    id={"group.events.btn.tooltip.id"}
+                    message={translate.t("group.events.btn.tooltip")}
+                  >
+                    <Button onClick={openNewEventModal}>
+                      <FontAwesomeIcon icon={faPlus} />
+                      &nbsp;{translate.t("group.events.btn.text")}
+                    </Button>
+                  </TooltipWrapper>
+                </Can>
+              </ButtonToolbar>
+            </Row>
+          }
+          headers={tableHeaders}
+          id={"tblEvents"}
+          pageSize={10}
+          rowEvents={{ onClick: goToEvent }}
+          search={false}
+        />
+      </TooltipWrapper>
     </React.StrictMode>
   );
 };

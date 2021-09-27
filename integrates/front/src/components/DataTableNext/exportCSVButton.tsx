@@ -1,10 +1,11 @@
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import type { ToolkitContextType } from "react-bootstrap-table2-toolkit";
 import { CSVExport } from "react-bootstrap-table2-toolkit";
 import { useTranslation } from "react-i18next";
 
 import style from "components/DataTableNext/index.css";
-import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 
 export const ExportCSVButtonWrapper: React.FC<ToolkitContextType> = (
@@ -26,9 +27,9 @@ export const ExportCSVButtonWrapper: React.FC<ToolkitContextType> = (
           {...csvProps}
           // We need className to override default styles
           // eslint-disable-next-line react/forbid-component-props
-          className={`${style.exportCsv} b--orgred ba btn-pa bg-bh bg-btn hover-white fw100 montserrat orgred svg-box`}
+          className={`${style.exportCsv} b--orgred ba btn-pa bg-bh bg-btn fw100 montserrat orgred svg-box`}
         >
-          <FluidIcon icon={"export"} />
+          <FontAwesomeIcon icon={faDownload} />
           &nbsp;{t("group.findings.exportCsv.text")}
         </ExportCSVButton>
       </TooltipWrapper>
