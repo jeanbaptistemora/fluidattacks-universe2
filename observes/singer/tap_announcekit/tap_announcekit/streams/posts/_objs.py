@@ -19,6 +19,7 @@ from tap_announcekit.api.gql_schema import (
 from tap_announcekit.streams.id_objs import (
     ImageId,
     PostId,
+    ProjectId,
     UserId,
 )
 from typing import (
@@ -90,4 +91,7 @@ class PostFactory(_Post):
         return Post(draft)
 
 
-__all__ = ["PostId"]
+__all__ = [
+    "PostId",
+    "ProjectId",
+]
