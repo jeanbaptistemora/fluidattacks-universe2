@@ -2,85 +2,13 @@ from model.graph_model import (
     Graph,
 )
 from typing import (
-    cast,
     Iterable,
     List,
-    Optional,
     Tuple,
 )
-from utils import (
-    graph as g,
+from utils.graph import (
+    adj_ast,
 )
-
-
-def get_identifiers_ids(
-    graph: Graph,
-    n_id: str,
-    nested_key: str,
-) -> Iterable[str]:
-    match_access = g.match_ast_group(
-        graph,
-        n_id,
-        nested_key,
-        "identifier",
-        "this_expression",
-        "invocation_expression",
-        ".",
-    )
-
-    if (access := match_access[nested_key]) or (
-        access := match_access["invocation_expression"]
-    ):
-        yield from get_identifiers_ids(graph, access.pop(), nested_key)
-
-    if identifiers := match_access["identifier"]:
-        yield from identifiers
-
-    if this := match_access["this_expression"]:
-        yield this.pop()
-
-
-def get_base_identifier_id(
-    graph: Graph,
-    n_id: str,
-    nested_key: str,
-) -> Optional[str]:
-    return next(iter(get_identifiers_ids(graph, n_id, nested_key)), None)
-
-
-def get_identifiers_ids_js(
-    graph: Graph,
-    n_id: str,
-    nested_key: str,
-) -> Iterable[str]:
-    match_access = g.match_ast_group(
-        graph,
-        n_id,
-        "identifier",
-        nested_key,
-        "this",
-        "property_identifier",
-        "call_expression",
-        ".",
-        "arguments",
-    )
-
-    if (access := match_access[nested_key]) or (
-        access := match_access["call_expression"]
-    ):
-        yield from get_identifiers_ids_js(graph, access.pop(), nested_key)
-
-    if identifiers := match_access["property_identifier"]:
-        yield from identifiers
-
-    if identifiers := match_access["identifier"]:
-        yield from identifiers
-
-    if element := match_access.get("__0__"):
-        yield cast(str, element)
-
-    if this := match_access["this"]:
-        yield this.pop()
 
 
 def get_node_text(graph: Graph, n_id: str) -> str:
@@ -88,7 +16,7 @@ def get_node_text(graph: Graph, n_id: str) -> str:
 
 
 def iter_childs(graph: Graph, n_id: str) -> Iterable[str]:
-    for c_id in g.adj_ast(graph, n_id):
+    for c_id in adj_ast(graph, n_id):
         yield from iter_childs(graph, c_id)
     yield n_id
 
