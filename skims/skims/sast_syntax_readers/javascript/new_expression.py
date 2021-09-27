@@ -11,7 +11,7 @@ from sast_syntax_readers.types import (
 from sast_syntax_readers.utils_generic import (
     dependencies_from_arguments,
 )
-from utils.graph.transformation import (
+from utils.graph.text_nodes import (
     node_to_str,
 )
 

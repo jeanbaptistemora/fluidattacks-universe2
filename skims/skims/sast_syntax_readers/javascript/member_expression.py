@@ -6,7 +6,7 @@ from model.graph_model import (
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
 )
-from utils.graph.transformation import (
+from utils.graph.text_nodes import (
     node_to_str,
 )
 

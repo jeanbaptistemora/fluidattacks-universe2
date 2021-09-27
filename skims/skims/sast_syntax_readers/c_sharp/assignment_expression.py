@@ -66,7 +66,7 @@ def _expression(
                     "label_text"
                 ]
             elif identifier_type == "member_access_expression":
-                var_identifier_str = g.transformation.node_to_str(
+                var_identifier_str = g.text_nodes.node_to_str(
                     args.graph, var_identifier_id
                 )
             else:

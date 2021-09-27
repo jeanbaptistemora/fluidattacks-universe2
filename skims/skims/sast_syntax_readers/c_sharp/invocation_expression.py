@@ -11,7 +11,7 @@ from sast_syntax_readers.utils_generic import (
 from utils import (
     graph as g,
 )
-from utils.graph.transformation import (
+from utils.graph.text_nodes import (
     get_text_childs,
     n_ids_to_str,
 )

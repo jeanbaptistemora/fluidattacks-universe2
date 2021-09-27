@@ -7,7 +7,7 @@ from sast_syntax_readers.types import (
 from utils.graph import (
     match_ast_group,
 )
-from utils.graph.transformation import (
+from utils.graph.text_nodes import (
     get_text_childs,
     n_ids_to_str,
 )

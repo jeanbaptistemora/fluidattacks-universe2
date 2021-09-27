@@ -16,7 +16,7 @@ from typing import (
     Set,
     Tuple,
 )
-from utils.graph.transformation import (
+from utils.graph.text_nodes import (
     node_to_str,
 )
 

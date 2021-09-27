@@ -16,7 +16,7 @@ from typing import (
 from utils import (
     graph as g,
 )
-from utils.graph.transformation import (
+from utils.graph.text_nodes import (
     node_to_str,
 )
 
