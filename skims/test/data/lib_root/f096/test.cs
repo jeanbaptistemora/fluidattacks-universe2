@@ -1,19 +1,15 @@
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Web.UI;
+using System.Runtime.Serialization.IFormatter;
 namespace Controllers
 {
     public class Encrypt
     {
         public static void Process(string secret)
         {
-            var mac_false = false;
-            var mac_true = true;
-            BinaryFormatter formatter_vuln1 = new BinaryFormatter();
-            LosFormatter formatter_secure1 = new LosFormatter(true, secret);
-            LosFormatter formatter_vuln2 = new LosFormatter(false, secret);
-            LosFormatter formatter_secure2 = new LosFormatter(mac_true, secret);
-            LosFormatter formatter_vuln3 = new LosFormatter(mac_false, secret);
-
+            BinaryFormatter formatter = new BinaryFormatter();
+            LosFormatter formatter2 = new LosFormatter();
+            SoapFormatter formatter3 = new SoapFormatter();
+            NetDataContractSerializer formatter4  = new NetDataContractSerializer();
         }
     }
 }
