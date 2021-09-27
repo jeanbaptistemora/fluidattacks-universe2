@@ -1619,6 +1619,9 @@ export const enTranslations: ResourceKey = {
         confirm: {
           title: "Remove File",
         },
+        fileIsPending:
+          "The uploaded file is pending for a scan, you will " +
+          "be notified once the file is available, or if there is an issue with it",
         title: "Files",
       },
       groupToRemove: "Please type: <strong>{{groupName}}</strong>, to proceed",
@@ -1629,6 +1632,7 @@ export const enTranslations: ResourceKey = {
       invalidChars: "File name has invalid characters.",
       modalEditGroupInformation: "Edit group information",
       modalEnvTitle: "Add environment information",
+      modalFileIsPending: "File Pending",
       modalFileTitle: "Add file",
       modalOptionsContent: "What do you want to do with the file ",
       modalOptionsTitle: "File options",
