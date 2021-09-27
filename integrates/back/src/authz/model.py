@@ -326,7 +326,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_query_resources_resolve",
             "api_resolvers_query_vulnerability_resolve",
             "api_resolvers_vulnerability_historic_zero_risk_resolve",
-            "update_git_root_filter",
             "valid_treatment_manager",
         },
         tags=set(),
@@ -535,7 +534,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "grant_user_level_role:customer",
             "grant_group_level_role:system_owner",
             "post_finding_observation",
-            "update_git_root_filter",
             "valid_treatment_manager",
         },
         tags=set(),
@@ -570,7 +568,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_query_group_resolve",
             "api_resolvers_query_resources_resolve",
             "api_resolvers_query_vulnerability_resolve",
-            "update_git_root_filter",
         },
         tags={
             "drills",
