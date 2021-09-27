@@ -42,6 +42,9 @@ from typing import (
     Set,
     Tuple,
 )
+from urllib.parse import (
+    unquote,
+)
 
 # Constants
 DEFAULT_FILENAMES = (
@@ -57,13 +60,20 @@ bugsnag_utils.start_scheduler_session()
 
 def _format_date(date_str: str) -> str:
     date = datetime_utils.get_from_str(date_str, date_format="%Y-%m-%d")
-    formated_date_str = date.isoformat()
+    formatted_date_str = date.isoformat()
 
-    return formated_date_str
+    return formatted_date_str
 
 
 def _format_filename(filename: str) -> str:
-    return filename.strip('"')
+    nickname, path = filename.strip('"').split("/", 1)
+    formatted_nickname = re.sub(
+        r"(?![a-zA-Z_0-9-]).",
+        "_",
+        unquote(nickname).rstrip()[:128],
+    )
+
+    return "/".join([formatted_nickname, path])
 
 
 def _get_group_toe_lines_from_cvs(
