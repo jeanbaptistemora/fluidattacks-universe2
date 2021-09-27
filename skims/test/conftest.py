@@ -24,43 +24,21 @@ from typing import (
     Dict,
     Iterator,
     List,
+    Set,
 )
-
-# Constants
-TEST_GROUPS = {
-    "_",  # Can be used while developing to test a single test
-    "benchmark_cmdi",
-    "benchmark_crypto",
-    "benchmark_hash",
-    "benchmark_ldapi",
-    "benchmark_pathtraver",
-    "benchmark_securecookie",
-    "benchmark_sqli",
-    "benchmark_trustbound",
-    "benchmark_weakrand",
-    "benchmark_xpathi",
-    "benchmark_xss",
-    "functional",
-    "instance_references",
-    "lib_apk",
-    "lib_http",
-    "lib_path",
-    "lib_ssl",
-    "nist_c_sharp",
-    "nist_c_sharp_f001",
-    "nist_c_sharp_f004",
-    "nist_c_sharp_f008",
-    "nist_c_sharp_f021",
-    "nist_c_sharp_f063",
-    "nist_c_sharp_f107",
-    "unittesting",
-    "vulnerableapp",
-    "vulnerable_js_app",
-}
 
 # Side effects
 os.chdir("..")
 create_test_context(debug=False)
+
+
+def load_test_groups() -> Set[str]:
+    with open("skims/test/test_groups.json", encoding="utf-8") as file:
+        return json.load(file)
+
+
+# Constants
+TEST_GROUPS: Set[str] = set(load_test_groups())
 
 
 def pytest_addoption(parser: Any) -> None:
