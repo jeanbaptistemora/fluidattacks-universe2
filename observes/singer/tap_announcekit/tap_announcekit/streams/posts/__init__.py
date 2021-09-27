@@ -1,8 +1,8 @@
-from returns.io import (
-    IO,
+from purity.v1 import (
+    PureIter,
 )
-from returns.unsafe import (
-    unsafe_perform_io,
+from returns.curry import (
+    partial,
 )
 from tap_announcekit.api.client import (
     ApiClient,
@@ -19,12 +19,6 @@ from tap_announcekit.streams.posts._objs import (
 from tap_announcekit.streams.posts._singer import (
     PostSingerUtils,
 )
-from tap_announcekit.utils import (
-    new_iter,
-)
-from typing import (
-    Iterator,
-)
 
 
 class PostsStreams:
@@ -34,13 +28,10 @@ class PostsStreams:
 
     def stream(
         self,
-        post_ids: IO[Iterator[PostId]],
+        post_ids: PureIter[PostId],
     ) -> Stream:
         getters = PostsGetters(self.client)
         getter = getters.stream_getter()
         posts = getter.get_iter(post_ids)
-        records = new_iter(
-            PostSingerUtils.to_singer(self.name, post)
-            for post in unsafe_perform_io(posts)
-        )
+        records = posts.map_each(partial(PostSingerUtils.to_singer, self.name))
         return Stream(PostSingerUtils.schema(self.name), records)

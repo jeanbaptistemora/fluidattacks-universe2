@@ -2,14 +2,15 @@ from datetime import (
     datetime,
 )
 import logging
+from purity.v1 import (
+    IOiter,
+    PureIter,
+)
 from returns.curry import (
     partial,
 )
 from returns.io import (
     IO,
-)
-from returns.unsafe import (
-    unsafe_perform_io,
 )
 from singer_io.singer2.json import (
     InvalidType,
@@ -34,12 +35,9 @@ from tap_announcekit.streams.project._objs import (
     Project,
     ProjectId,
 )
-from tap_announcekit.utils import (
-    new_iter,
-)
 from typing import (
     Any,
-    Iterator,
+    cast,
 )
 
 LOG = logging.getLogger(__name__)
@@ -100,18 +98,16 @@ def _proj_query(proj_id: str) -> IO[Query]:
 def _get_project(client: ApiClient, proj_id: ProjectId) -> IO[Project]:
     query = _proj_query(proj_id.proj_id)
     LOG.debug("query: %s", query)
-    raw: IO[RawProject] = client.get(query).map(lambda q: q.project)
+    raw: IO[RawProject] = client.get(query).map(
+        lambda q: cast(RawProject, q.project)
+    )
     return raw.map(_to_proj)
 
 
 def _get_projs(
-    client: ApiClient, projs: IO[Iterator[ProjectId]]
-) -> IO[Iterator[Project]]:
-    return projs.bind(
-        lambda ids: new_iter(
-            unsafe_perform_io(_get_project(client, proj)) for proj in ids
-        )
-    )
+    client: ApiClient, projs: PureIter[ProjectId]
+) -> IOiter[Project]:
+    return projs.bind_io_each(partial(_get_project, client))
 
 
 class ProjectGetters:

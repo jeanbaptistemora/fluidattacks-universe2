@@ -2,14 +2,15 @@ from dataclasses import (
     dataclass,
 )
 import logging
+from purity.v1 import (
+    IOiter,
+    PureIter,
+)
 from returns.curry import (
     partial,
 )
 from returns.io import (
     IO,
-)
-from returns.unsafe import (
-    unsafe_perform_io,
 )
 from tap_announcekit.api.client import (
     ApiClient,
@@ -26,11 +27,8 @@ from tap_announcekit.streams.posts._objs import (
     PostFactory,
     PostId,
 )
-from tap_announcekit.utils import (
-    new_iter,
-)
 from typing import (
-    Iterator,
+    cast,
 )
 
 LOG = logging.getLogger(__name__)
@@ -55,18 +53,12 @@ def post_query(post: PostId) -> IO[Query]:
 def _get_project(client: ApiClient, post_id: PostId) -> IO[Post]:
     query = post_query(post_id)
     LOG.debug("query: %s", query)
-    raw: IO[RawPost] = client.get(query).map(lambda q: q.post)
+    raw: IO[RawPost] = client.get(query).map(lambda q: cast(RawPost, q.post))
     return raw.map(PostFactory.to_post)
 
 
-def _get_projs(
-    client: ApiClient, projs: IO[Iterator[PostId]]
-) -> IO[Iterator[Post]]:
-    return projs.bind(
-        lambda ids: new_iter(
-            unsafe_perform_io(_get_project(client, proj)) for proj in ids
-        )
-    )
+def _get_projs(client: ApiClient, projs: PureIter[PostId]) -> IOiter[Post]:
+    return projs.bind_io_each(partial(_get_project, client))
 
 
 @dataclass(frozen=True)

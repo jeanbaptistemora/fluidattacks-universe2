@@ -1,8 +1,9 @@
-from returns.io import (
-    IO,
+from purity.v1 import (
+    IOiter,
+    PureIter,
 )
-from returns.unsafe import (
-    unsafe_perform_io,
+from returns.curry import (
+    partial,
 )
 from tap_announcekit.api.client import (
     ApiClient,
@@ -20,12 +21,6 @@ from tap_announcekit.streams.project._objs import (
 from tap_announcekit.streams.project._singer import (
     ProjectSingerUtils,
 )
-from tap_announcekit.utils import (
-    new_iter,
-)
-from typing import (
-    Iterator,
-)
 
 
 class ProjectStreams:
@@ -33,15 +28,12 @@ class ProjectStreams:
     @staticmethod
     def stream(
         client: ApiClient,
-        proj_ids: IO[Iterator[ProjectId]],
+        proj_ids: PureIter[ProjectId],
         name: str = "project",
     ) -> Stream:
         getter = ProjectGetters.getter(client)
-        projs = getter.get_iter(proj_ids)
-        records = new_iter(
-            ProjectSingerUtils.to_singer(name, proj)
-            for proj in unsafe_perform_io(projs)
-        )
+        projs: IOiter[Project] = proj_ids.bind_io_each(getter.get)
+        records = projs.map_each(partial(ProjectSingerUtils.to_singer, name))
         return Stream(ProjectSingerUtils.schema(name), records)
 
 

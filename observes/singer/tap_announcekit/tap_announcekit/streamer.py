@@ -5,6 +5,9 @@ from enum import (
     auto,
     Enum,
 )
+from purity.v1 import (
+    PureIter,
+)
 from returns.io import (
     IO,
 )
@@ -21,9 +24,6 @@ from tap_announcekit.stream import (
 from tap_announcekit.streams.project import (
     ProjectId,
     ProjectStreams,
-)
-from tap_announcekit.utils import (
-    new_iter,
 )
 from typing import (
     Any,
@@ -59,7 +59,9 @@ class Streamer:
         client = ApiClient(self.creds)
 
         if self.selection == SupportedStream.PROJECTS:
-            proj_stream = ProjectStreams.stream(client, new_iter([self.proj]))
+            proj_stream = ProjectStreams.stream(
+                client, PureIter(lambda: iter([self.proj]))
+            )
             emitter = StreamEmitter(
                 SingerEmitter(),
                 proj_stream,
