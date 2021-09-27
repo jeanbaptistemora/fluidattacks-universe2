@@ -7369,6 +7369,31 @@ F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,7,90,skims,320. Insec
   13 | }
      ^ Col 0
 "
+F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application’s server into making requests to an arbitrary domain.
+","
+   1 | using System.Net;
+   2 | using System;
+   3 | namespace testmod
+   4 | {
+   5 |
+   6 |     public class Controllers
+   7 |     {
+   8 |         public void ReadContentOfURL(HttpRequest url)
+   9 |         {
+  10 |             //insecure
+> 11 |             WebRequest req = WebRequest.Create(url);
+  12 |
+  13 |             if (!whiteList.Contains(url))
+  14 |             {
+  15 |                 return BadRequest();
+  16 |             }
+  17 |             //secure
+  18 |             WebRequest request = WebRequest.Create(url);
+  19 |         }
+  20 |     }
+  21 | }
+     ^ Col 0
+"
 F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,6,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in skims/test/data/lib_path/f085/react.jsx,"
   1 | localStorage.getItem('password');
   2 | localStorage.getItem('non-sensitive');

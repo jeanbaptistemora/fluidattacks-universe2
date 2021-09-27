@@ -30,6 +30,7 @@ def mark_inputs(
         findings.F008,
         findings.F021,
         findings.F063,
+        findings.F100,
         findings.F107,
     ):
         danger_args = {
@@ -197,6 +198,14 @@ def mark_sinks(
         syntax,
         {
             "FileName",
+        },
+    )
+    mark_methods_sink(
+        findings.F100,
+        graph,
+        syntax,
+        {
+            "Create",
         },
     )
 

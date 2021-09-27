@@ -107,6 +107,11 @@ STATIC_FINDING: Dict[str, Set[str]] = {
             "System.Console.ReadLine",
         }
     ),
+    FindingEnum.F100.name: complete_attrs_on_set(
+        {
+            "System.Net.WebRequest.Create",
+        }
+    ),
     FindingEnum.F107.name: complete_attrs_on_set(
         {
             "Environment.GetEnvironmentVariable",

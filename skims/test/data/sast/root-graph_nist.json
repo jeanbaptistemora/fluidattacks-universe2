@@ -4111,7 +4111,7 @@
             "label_c": 30,
             "label_field_name": "63",
             "label_field_type": "62",
-            "label_input_type": "F001,F004,F008,F021,F063,F107",
+            "label_input_type": "F001,F004,F008,F021,F063,F100,F107",
             "label_l": 30,
             "label_type": "parameter"
           },
