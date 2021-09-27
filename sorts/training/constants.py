@@ -39,7 +39,7 @@ from typing import (
 )
 
 # Threshold defining the minimum elements that our dataset must have (*1000)
-DATASET_THRESHOLD: int = 45
+DATASET_THRESHOLD: int = 55
 
 # AWS-related
 S3_BUCKET_NAME: str = "sorts"
