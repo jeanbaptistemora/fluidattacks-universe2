@@ -6576,31 +6576,6 @@ F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,8,521,skims,035. Weak
   16 | }
      ^ Col 0
 "
-F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
-","
-   2 |  System;
-   3 | pace cookies
-   4 |
-   5 |
-   6 | ublic class CookieExample
-   7 |
-   8 |    public static void Main(string[] args)
-   9 |    {
-  10 |        var secure_cookie = new HttpCookie(key , value);
-  11 |        secure_cookie.Expires = DateTime.Now.AddDays(expireDay);
-  12 |        secure_cookie.HttpOnly = true;
-  13 |        secure_cookie.Secure = true;
-  14 |
-> 15 |        var insecure_cookie = new HttpCookie(key , value);
-  16 |        insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
-  17 |        insecure_cookie.HttpOnly = true;
-  18 |
-  19 |        var insecure = new HttpCookie(key , value);
-  20 |    }
-  21 |
-  22 |
-     ^ Col 5
-"
 F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,19,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    2 | using System;
@@ -6621,6 +6596,31 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,19,614,skims,042. Ins
   17 |             insecure_cookie.HttpOnly = true;
   18 |
 > 19 |             var insecure = new HttpCookie(key , value);
+  20 |         }
+  21 |     }
+  22 | }
+     ^ Col 0
+"
+F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+","
+   2 | using System;
+   3 | namespace cookies
+   4 | {
+   5 |
+   6 |     public class CookieExample
+   7 |     {
+   8 |         public static void Main(string[] args)
+   9 |         {
+  10 |             var secure_cookie = new HttpCookie(key , value);
+  11 |             secure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+  12 |             secure_cookie.HttpOnly = true;
+  13 |             secure_cookie.Secure = true;
+  14 |
+> 15 |             var insecure_cookie = new HttpCookie(key , value);
+  16 |             insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+  17 |             insecure_cookie.HttpOnly = true;
+  18 |
+  19 |             var insecure = new HttpCookie(key , value);
   20 |         }
   21 |     }
   22 | }
