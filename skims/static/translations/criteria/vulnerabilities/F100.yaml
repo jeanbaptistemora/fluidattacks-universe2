@@ -1,0 +1,22 @@
+F100.title:
+  en: >
+    Server-side request forgery (SSRF)
+  es: >
+    Server-side request forgery (SSRF)
+F100.description:
+  en: >
+    It is possible to induce the application’s server into making requests
+    to an arbitrary domain.
+  es: >
+    El servidor recibe un URL o un request similar a través de entrada de datos
+    y consulta el contenido de este URL, pero no garantiza que la petición
+    se realice al destino esperado.
+F100.recommendation:
+  en: >
+    The system must avoid that the information query from the server be
+    controlled by users. If this is necessary, the system must restrict
+    the endpoints accepted for query.
+  es: >
+    El sistema debe impedir que la consulta de información de parte del
+    servidor sea controlada por los usuarios. Si esto es necesario, el sistema
+    debe restringir los endpoints aceptados para consulta.

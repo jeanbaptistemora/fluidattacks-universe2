@@ -311,6 +311,14 @@
       "title": "096. Insecure deserialization"
     }
   },
+  "F100": {
+    "EN": {
+      "title": "100. Server-side request forgery (SSRF)"
+    },
+    "ES": {
+      "title": "100. Server-side request forgery (SSRF)"
+    }
+  },
   "F103": {
     "EN": {
       "title": "103. Insufficient data authenticity validation - APK signing"

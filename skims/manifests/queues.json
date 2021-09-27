@@ -58,6 +58,7 @@
     "availability": "ALWAYS",
     "findings": [
       "F096",
+      "F100",
       "F109",
       "F320",
       "F338",
