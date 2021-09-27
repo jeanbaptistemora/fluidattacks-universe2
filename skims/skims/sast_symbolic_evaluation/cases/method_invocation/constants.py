@@ -100,6 +100,8 @@ STATIC_FINDING: Dict[str, Set[str]] = {
             "java.util.Random.nextBoolean",
             "java.util.Random.nextDouble",
             "java.util.Random.nextGaussian",
+            # javascrip
+            "Math.random",
         }
     ),
     FindingEnum.F001.name: complete_attrs_on_set(
@@ -146,6 +148,7 @@ BY_OBJ_NO_TYPE_ARGS_PROPAG: Dict[str, Set[str]] = {
             "getSession.setAttribute",
             "toString.substring",
             "addCookie",
+            "toString",
         }
     ),
     FindingEnum.F021.name: complete_attrs_on_set(
@@ -417,6 +420,9 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
             },
             "javax.servlet.http.HttpServletRequest": {
                 "getSession.setAttribute",
+            },
+            "Response": {
+                "cookie",
             },
         }
     ),

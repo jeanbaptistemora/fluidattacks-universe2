@@ -133,6 +133,11 @@ def attempt_as_method_invocation(args: EvaluatorArgs) -> bool:
         analyze_method_invocation_values(args, method)
         return True
 
+    if isinstance(parent, graph_model.SyntaxStepParenthesizedExpression):
+        args.syntax_step.meta.danger = parent.meta.danger
+        args.syntax_step.meta.value = parent.meta.value
+        return True
+
     return False
 
 

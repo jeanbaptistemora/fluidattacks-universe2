@@ -939,6 +939,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             syntax_reader=common_noop.reader,
         )
         for applicable_node_label_type in (
+            "else_clause",
             "block",
             "statement_block",
             "break_statement",

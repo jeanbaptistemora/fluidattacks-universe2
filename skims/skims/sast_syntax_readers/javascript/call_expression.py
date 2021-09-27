@@ -1,3 +1,6 @@
+from contextlib import (
+    suppress,
+)
 from model import (
     graph_model,
 )
@@ -47,14 +50,28 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
 
     if function_attrs["label_type"] == "member_expression":
         nested_methods_keys = node_to_str(args.graph, function_id).split(".")
+        eval_left = args.generic(args.fork_n_id(function_id))
+        parenthesized = None
+        with suppress(IndexError):
+            if (
+                eval_left
+                and eval_left[0].meta.dependencies[0][0].type
+                == "SyntaxStepParenthesizedExpression"
+            ):
+                parenthesized = eval_left[0].meta.dependencies[0]
+            elif (
+                eval_left
+                and eval_left[0].type == "SyntaxStepMemberAccessExpression"
+            ):
+                eval_left = eval_left[0][0].dependencies[0]
 
         nested_calls = _pred_calls(args, function_id)
-        if len(nested_calls) > 1:
+        if len(nested_calls) > 1 or parenthesized:
             yield SyntaxStepMethodInvocationChain(
                 meta=graph_model.SyntaxStepMeta.default(
                     args.n_id,
                     [
-                        args.generic(args.fork_n_id(nested_calls[1])),
+                        eval_left if not parenthesized else parenthesized,
                         *dependencies_from_arguments(
                             args.fork_n_id(
                                 args.graph.nodes[args.n_id][

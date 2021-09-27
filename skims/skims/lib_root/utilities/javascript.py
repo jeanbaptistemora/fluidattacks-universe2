@@ -31,6 +31,8 @@ def yield_method_invocation(
     ]:
         for syntax_steps in shard.syntax.values():
             for index, invocation_step in enumerate(syntax_steps):
-                if invocation_step.type != "SyntaxStepMethodInvocation":
-                    continue
-                yield shard, syntax_steps, invocation_step, index
+                if invocation_step.type in {
+                    "SyntaxStepMethodInvocation",
+                    "SyntaxStepMethodInvocationChain",
+                }:
+                    yield shard, syntax_steps, invocation_step, index
