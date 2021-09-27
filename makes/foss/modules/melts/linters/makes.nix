@@ -5,7 +5,7 @@
   lintPython = {
     modules = {
       melts = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.melts-config-development
           inputs.product.melts-config-runtime
         ];
@@ -13,7 +13,7 @@
         src = "/melts/toolbox";
       };
       meltsTests = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.melts-config-development
           inputs.product.melts-config-runtime
         ];

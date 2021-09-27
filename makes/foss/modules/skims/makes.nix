@@ -30,7 +30,7 @@
   lintPython = {
     dirsOfModules = {
       skims = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.skims-config-development
           inputs.product.skims-config-runtime
         ];
@@ -46,7 +46,7 @@
     };
     modules = {
       skimsTest = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.skims-config-development
           inputs.product.skims-config-runtime
         ];
@@ -54,21 +54,21 @@
         src = "/skims/test";
       };
       skimsTestMocksHttp = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.skims-test-mocks-http-env
         ];
         python = "3.8";
         src = "/makes/applications/skims/test/mocks/http/src";
       };
       skimsTestSdk = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.skims-config-sdk
         ];
         python = "3.8";
         src = "/makes/applications/skims/test/sdk/src";
       };
       skimsProcessGroup = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.skims-config-runtime
         ];
         python = "3.8";

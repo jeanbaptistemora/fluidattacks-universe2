@@ -33,14 +33,14 @@
   lintPython = {
     modules = {
       forces = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.forces-config-runtime
         ];
         python = "3.8";
         src = "/forces/forces";
       };
       forcesTests = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.forces-config-development
           inputs.product.forces-config-runtime
         ];

@@ -6,9 +6,11 @@
   config = {
     inputs = {
       legacy = {
+        path = rel:
+          /. + (builtins.unsafeDiscardStringContext (projectPath "/")) + rel;
         importUtility = utility:
           import (projectPath "/makes/utils/${utility}")
-            (path: /. + (builtins.unsafeDiscardStringContext (projectPath "/")) + path)
+            inputs.legacy.path
             inputs.nixpkgs;
       };
     };

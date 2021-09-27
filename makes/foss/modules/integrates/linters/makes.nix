@@ -6,7 +6,7 @@
   lintPython = {
     dirsOfModules = {
       integrates = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.integrates-back-pypi-runtime
           inputs.product.integrates-back-pypi-unit-tests
           inputs.product.skims-config-sdk
@@ -15,7 +15,7 @@
         src = "/integrates/back/src";
       };
       integratesBackChartsGenerators = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.integrates-back-pypi-runtime
           outputs."/integrates/back/charts/pypi"
         ];
@@ -31,21 +31,21 @@
     };
     modules = {
       integratesBackDeployPermissionsMatrix = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.integrates-back-pypi-runtime
         ];
         python = "3.7";
         src = "/integrates/deploy/permissions_matrix";
       };
       integratesBackMigrations = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.integrates-back-pypi-runtime
         ];
         python = "3.7";
         src = "/integrates/back/migrations";
       };
       integratesBackTests = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.integrates-back-pypi-unit-tests
           inputs.product.integrates-back-pypi-runtime
         ];
@@ -53,7 +53,7 @@
         src = "/integrates/back/tests";
       };
       integratesBackTestsE2e = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.integrates-web-e2e-pypi
         ];
         python = "3.7";

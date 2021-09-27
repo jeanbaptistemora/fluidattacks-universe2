@@ -5,7 +5,7 @@
   lintPython = {
     dirsOfModules = {
       sorts = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.sorts-config-development
           inputs.product.sorts-config-runtime
         ];
@@ -21,7 +21,7 @@
     };
     modules = {
       sortsTests = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.sorts-config-development
           inputs.product.sorts-config-runtime
         ];
@@ -29,7 +29,7 @@
         src = "/sorts/test";
       };
       sortsTraining = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.sorts-config-development
           inputs.product.sorts-config-runtime
         ];

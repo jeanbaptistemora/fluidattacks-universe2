@@ -8,7 +8,7 @@
     imports = {
       observesArch = {
         config = "/observes/architecture/setup.imports.cfg";
-        extraSources = [
+        searchPaths.source = [
           (makeSearchPaths {
             pythonPackage = builtins.map projectPath [
               "/observes/code_etl"
@@ -110,199 +110,199 @@
     };
     modules = {
       observesCodeEtl = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-code-etl-development
         ];
         python = "3.8";
         src = "/observes/code_etl/code_etl";
       };
       observesCodeEtlTests = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-code-etl-development
         ];
         python = "3.8";
         src = "/observes/code_etl/tests";
       };
       observesCommonPaginator = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-paginator-development
         ];
         python = "3.8";
         src = "/observes/common/paginator/paginator";
       };
       observesCommonPostgresClient = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-postgres-client-development
         ];
         python = "3.8";
         src = "/observes/common/postgres_client/postgres_client";
       };
       observesCommonPurity = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-purity-runtime
         ];
         python = "3.8";
         src = "/observes/common/purity/purity";
       };
       observesCommonPostgresClientTests = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-postgres-client-development
         ];
         python = "3.8";
         src = "/observes/common/postgres_client/postgres_client";
       };
       observesCommonSingerIo = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-singer-io-development
         ];
         python = "3.8";
         src = "/observes/common/singer_io/singer_io";
       };
       observesCommonSingerIoTests = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-singer-io-development
         ];
         python = "3.8";
         src = "/observes/common/singer_io/tests";
       };
       observesJobLastSuccess = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-job-last-success-runtime
         ];
         python = "3.8";
         src = "/observes/services/job_last_success/job_last_success";
       };
       observesJobLastSuccessTests = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-job-last-success-runtime
         ];
         python = "3.8";
         src = "/observes/services/job_last_success/tests";
       };
       observesServiceBatchStability = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-service-batch-stability-runtime
         ];
         python = "3.8";
         src = "/observes/services/batch_stability/batch_stability";
       };
       observesServiceJobsScheduler = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-service-jobs-scheduler-runtime
         ];
         python = "3.8";
         src = "/observes/services/jobs_scheduler/jobs_scheduler";
       };
       observesServiceMigrateTables = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-service-migrate-tables-runtime
         ];
         python = "3.8";
         src = "/observes/services/migrate_tables/migrate_tables";
       };
       observesStreamerZohoCrm = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-streamer-zoho-crm-runtime
         ];
         python = "3.8";
         src = "/observes/singer/streamer_zoho_crm/streamer_zoho_crm";
       };
       observesStreamerZohoCrmTests = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-streamer-zoho-crm-development
         ];
         python = "3.8";
         src = "/observes/singer/streamer_zoho_crm/tests";
       };
       observesTapAnnounceKit = {
-        extraSources = [ inputs.product.observes-env-tap-announcekit-runtime ];
+        searchPaths.source = [ inputs.product.observes-env-tap-announcekit-runtime ];
         python = "3.8";
         src = "/observes/singer/tap_announcekit/tap_announcekit";
       };
       observesTapAnnounceKitTests = {
-        extraSources = [ inputs.product.observes-env-tap-announcekit-development ];
+        searchPaths.source = [ inputs.product.observes-env-tap-announcekit-development ];
         python = "3.8";
         src = "/observes/singer/tap_announcekit/tests";
       };
       observesTapBugsnag = {
-        extraSources = [ inputs.product.observes-env-tap-bugsnag-runtime ];
+        searchPaths.source = [ inputs.product.observes-env-tap-bugsnag-runtime ];
         python = "3.8";
         src = "/observes/singer/tap_bugsnag/tap_bugsnag";
       };
       observesTapCheckly = {
-        extraSources = [ inputs.product.observes-env-tap-checkly-runtime ];
+        searchPaths.source = [ inputs.product.observes-env-tap-checkly-runtime ];
         python = "3.8";
         src = "/observes/singer/tap_checkly/tap_checkly";
       };
       observesTapCsv = {
-        extraSources = [ inputs.product.observes-env-tap-csv-development ];
+        searchPaths.source = [ inputs.product.observes-env-tap-csv-development ];
         python = "3.8";
         src = "/observes/singer/tap_csv/tap_csv";
       };
       observesTapCsvTests = {
-        extraSources = [ inputs.product.observes-env-tap-csv-development ];
+        searchPaths.source = [ inputs.product.observes-env-tap-csv-development ];
         python = "3.8";
         src = "/observes/singer/tap_csv/tests";
       };
       observesTapDelighted = {
-        extraSources = [ inputs.product.observes-env-tap-delighted-runtime ];
+        searchPaths.source = [ inputs.product.observes-env-tap-delighted-runtime ];
         python = "3.8";
         src = "/observes/singer/tap_delighted/tap_delighted";
       };
       observesTapFormstack = {
-        extraSources = [ inputs.product.observes-env-tap-formstack-runtime ];
+        searchPaths.source = [ inputs.product.observes-env-tap-formstack-runtime ];
         python = "3.8";
         src = "/observes/singer/tap_formstack/tap_formstack";
       };
       observesTapGitlab = {
-        extraSources = [ inputs.product.observes-env-tap-gitlab-development ];
+        searchPaths.source = [ inputs.product.observes-env-tap-gitlab-development ];
         python = "3.8";
         src = "/observes/singer/tap_gitlab/tap_gitlab";
       };
       observesTapGitlabTests = {
-        extraSources = [ inputs.product.observes-env-tap-gitlab-development ];
+        searchPaths.source = [ inputs.product.observes-env-tap-gitlab-development ];
         python = "3.8";
         src = "/observes/singer/tap_gitlab/tests";
       };
       observesTapJson = {
-        extraSources = [ inputs.product.observes-env-tap-json-development ];
+        searchPaths.source = [ inputs.product.observes-env-tap-json-development ];
         python = "3.8";
         src = "/observes/singer/tap_json/tap_json";
       };
       observesTapMailchimp = {
-        extraSources = [ inputs.product.observes-env-tap-mailchimp-development ];
+        searchPaths.source = [ inputs.product.observes-env-tap-mailchimp-development ];
         python = "3.8";
         src = "/observes/singer/tap_mailchimp/tap_mailchimp";
       };
       observesTapMailchimpTests = {
-        extraSources = [ inputs.product.observes-env-tap-mailchimp-development ];
+        searchPaths.source = [ inputs.product.observes-env-tap-mailchimp-development ];
         python = "3.8";
         src = "/observes/singer/tap_mailchimp/tests";
       };
       observesTapMixpanel = {
-        extraSources = [ inputs.product.observes-env-tap-mixpanel-development ];
+        searchPaths.source = [ inputs.product.observes-env-tap-mixpanel-development ];
         python = "3.8";
         src = "/observes/singer/tap_mixpanel/tap_mixpanel";
       };
       observesTapMixpanelTests = {
-        extraSources = [ inputs.product.observes-env-tap-mixpanel-development ];
+        searchPaths.source = [ inputs.product.observes-env-tap-mixpanel-development ];
         python = "3.8";
         src = "/observes/singer/tap_mixpanel/tests";
       };
       observesTapTimedoctor = {
-        extraSources = [ inputs.product.observes-env-tap-timedoctor-runtime ];
+        searchPaths.source = [ inputs.product.observes-env-tap-timedoctor-runtime ];
         python = "3.8";
         src = "/observes/singer/tap_timedoctor/tap_timedoctor";
       };
       observesTargetRedshift = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-target-redshift-runtime
         ];
         python = "3.8";
         src = "/observes/singer/target_redshift/target_redshift";
       };
       observesServiceTimedoctorTokens = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.observes-env-service-timedoctor-tokens-runtime
         ];
         python = "3.8";

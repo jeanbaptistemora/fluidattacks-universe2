@@ -5,7 +5,7 @@
   lintPython = {
     dirsOfModules = {
       reviews = {
-        extraSources = [
+        searchPaths.source = [
           inputs.product.reviews-runtime
         ];
         python = "3.8";
