@@ -12,8 +12,8 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    get_base_identifier_id,
-    node_to_str,
+    get_text_childs,
+    n_ids_to_str,
 )
 from utils.string import (
     split_on_first_dot,
@@ -21,14 +21,12 @@ from utils.string import (
 
 
 def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
-    mem_access = "member_access_expression"
-
     match = g.match_ast(
         args.graph,
         args.n_id,
         "identifier",
         "argument_list",
-        mem_access,
+        "member_access_expression",
     )
 
     args_id = match["argument_list"]
@@ -47,14 +45,13 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             method=args.graph.nodes[_identifier]["label_text"],
             current_instance=graph_model.CurrentInstance(fields={}),
         )
-    elif member := match[mem_access]:
-        base_ident = get_base_identifier_id(args.graph, member, mem_access)
+    elif member := match["member_access_expression"]:
+        n_ids = get_text_childs(args.graph, member)
+        access_expression = n_ids_to_str(args.graph, n_ids)
+        _, method_name = split_on_first_dot(access_expression)
 
-        if not base_ident:
-            raise MissingCaseHandling(args)
+        base_ident, *_ = n_ids
 
-        _method_name = node_to_str(args.graph, member)
-        _, method_name = split_on_first_dot(_method_name)
         yield graph_model.SyntaxStepMethodInvocationChain(
             meta=graph_model.SyntaxStepMeta.default(
                 args.n_id,
