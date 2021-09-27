@@ -14,6 +14,7 @@ import type { ConfigurableValidator } from "revalidate";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
+import { filterSearchText } from "components/DataTableNext/utils";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
@@ -32,7 +33,6 @@ import type {
 import { formatDrafts } from "scenes/Dashboard/containers/GroupDraftsView/utils";
 import {
   ButtonToolbar,
-  ButtonToolbarCenter,
   Col100,
   HintFieldText,
   Row,
@@ -64,6 +64,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   };
 
   const [isDraftModalOpen, setDraftModalOpen] = useState(false);
+  const [searchTextFilter, setSearchTextFilter] = useState("");
 
   const openNewDraftModal: () => void = useCallback((): void => {
     setDraftModalOpen(true);
@@ -194,6 +195,12 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     }
   }
 
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+
   const handleMutationError: (error: ApolloError) => void = ({
     graphQLErrors,
   }: ApolloError): void => {
@@ -258,23 +265,14 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   const validateFindingTypology: ConfigurableValidator =
     validFindingTypology(titleSuggestions);
 
+  const dataset: IGroupDraftsAttr["group"]["drafts"][0][] = formatDrafts(
+    data.group.drafts
+  );
+  const filterSearchtextResult: IGroupDraftsAttr["group"]["drafts"][0][] =
+    filterSearchText(dataset, searchTextFilter);
+
   return (
     <React.StrictMode>
-      <Row>
-        <Col100>
-          <ButtonToolbarCenter>
-            <TooltipWrapper
-              id={"group.drafts.btn.tooltip"}
-              message={translate.t("group.drafts.btn.tooltip")}
-            >
-              <Button onClick={openNewDraftModal}>
-                <FontAwesomeIcon icon={faPlus} />
-                &nbsp;{translate.t("group.drafts.btn.text")}
-              </Button>
-            </TooltipWrapper>
-          </ButtonToolbarCenter>
-        </Col100>
-      </Row>
       <Modal
         headerTitle={translate.t("group.drafts.new")}
         onEsc={closeNewDraftModal}
@@ -338,19 +336,43 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
           )}
         </Formik>
       </Modal>
-      <p>{translate.t("group.findings.helpLabel")}</p>
-      <DataTableNext
-        bordered={true}
-        dataset={formatDrafts(data.group.drafts)}
-        defaultSorted={JSON.parse(_.get(sessionStorage, "draftSort", "{}"))}
-        exportCsv={true}
-        headers={tableHeaders}
-        id={"tblDrafts"}
-        pageSize={10}
-        rowEvents={{ onClick: goToFinding }}
-        search={true}
-        striped={true}
-      />
+      <TooltipWrapper
+        id={"group.drafts.help"}
+        message={translate.t("group.findings.helpLabel")}
+      >
+        <DataTableNext
+          bordered={true}
+          customSearch={{
+            customSearchDefault: searchTextFilter,
+            isCustomSearchEnabled: true,
+            onUpdateCustomSearch: onSearchTextChange,
+          }}
+          dataset={filterSearchtextResult}
+          defaultSorted={JSON.parse(_.get(sessionStorage, "draftSort", "{}"))}
+          exportCsv={true}
+          extraButtons={
+            <Row>
+              <ButtonToolbar>
+                <TooltipWrapper
+                  id={"group.drafts.btn.tooltip"}
+                  message={translate.t("group.drafts.btn.tooltip")}
+                >
+                  <Button onClick={openNewDraftModal}>
+                    <FontAwesomeIcon icon={faPlus} />
+                    &nbsp;{translate.t("group.drafts.btn.text")}
+                  </Button>
+                </TooltipWrapper>
+              </ButtonToolbar>
+            </Row>
+          }
+          headers={tableHeaders}
+          id={"tblDrafts"}
+          pageSize={10}
+          rowEvents={{ onClick: goToFinding }}
+          search={false}
+          striped={true}
+        />
+      </TooltipWrapper>
     </React.StrictMode>
   );
 };
