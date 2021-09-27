@@ -5,6 +5,7 @@ from aioextensions import (
 import csv
 from custom_exceptions import (
     GroupNameNotFound,
+    InvalidField,
 )
 from data_containers.toe_inputs import (
     GitRootToeInput,
@@ -17,6 +18,9 @@ from newutils import (
     bugsnag as bugsnag_utils,
     datetime as datetime_utils,
     git as git_utils,
+)
+from newutils.validations import (
+    validate_email_address,
 )
 import re
 import tempfile
@@ -36,9 +40,19 @@ bugsnag_utils.start_scheduler_session()
 
 def _format_date(date_str: str) -> str:
     date = datetime_utils.get_from_str(date_str, date_format="%Y-%m-%d")
-    formated_date_str = date.isoformat()
+    formatted_date_str = date.isoformat()
 
-    return formated_date_str
+    return formatted_date_str
+
+
+def _format_email(email: str) -> str:
+    try:
+        validate_email_address(email)
+        formatted_email = email
+    except InvalidField:
+        formatted_email = ""
+
+    return formatted_email
 
 
 def _get_group_toe_inputs_from_cvs(
@@ -51,7 +65,7 @@ def _get_group_toe_inputs_from_cvs(
         ("component", str, ""),
         ("created_date", _format_date, default_date),
         ("entry_point", str, ""),
-        ("seen_first_time_by", str, ""),
+        ("seen_first_time_by", _format_email, ""),
         ("tested_date", _format_date, default_date),
         ("verified", str, ""),
         ("vulns", str, ""),
