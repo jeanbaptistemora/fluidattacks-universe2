@@ -149,7 +149,7 @@ locals {
     for name, _ in jsondecode(data.local_file.skims_queues.content)
     : name => {
       bid_percentage      = 100
-      instances           = 4
+      instances           = 0
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
       type                = "SPOT"
     }
