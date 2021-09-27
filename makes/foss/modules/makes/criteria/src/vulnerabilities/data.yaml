@@ -8314,23 +8314,36 @@
   en:
     title: SQL injection
     description: >
-      __empty__
+      Dynamic SQL statements are generated
+      without the required data validation
+      and without using parameterized statements
+      or stored procedures.
     impact: >
-      __empty__
+      Inject SQL statements,
+      with the possibility
+      of obtaining information about the database,
+      as well as extract information from it.
     recommendation: >
-      __empty__
-    threat: >
-      __empty__
+      Perform queries to the database
+      through sentences or parameterized procedures.
+    threat: Authenticated attacker from the Internet.
   es:
     title: SQL injection
     description: >
-      __empty__
+      Se generan sentencias SQL dinámicas
+      sin la validación requerida de datos
+      y sin utilizar sentencias parametrizadas
+      o procedimientos almacenados.
     impact: >
-      __empty__
+      Inyectar sentencias SQL,
+      con la posibilidad de obtener información
+      sobre la base de datos,
+      así como extraer información de la misma.
     recommendation: >
-      __empty__
-    threat: >
-      __empty__
+      Realizar las consultas a la base de datos
+      por medio de sentencias
+      o procedimientos parametrizados.
+    threat: Atacante autenticado desde Internet.
   category: Inject Unexpected
   score:
     base:
@@ -8340,7 +8353,7 @@
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
@@ -18063,6 +18076,126 @@
   category: Abuse Functionality
   es:
     title: Insecurely generated token - OTP
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: __empty__
+"385":
+  en:
+    title: Inappropriate coding practices - Wildcard export
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Abuse Functionality
+  es:
+    title: Inappropriate coding practices - Wildcard export
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: __empty__
+"386":
+  en:
+    title: Non-encrypted confidential information - Keys
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Collect Information
+  es:
+    title: Non-encrypted confidential information - Keys
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: __empty__
+"387":
+  en:
+    title: Cross-Site Leak - Frame Counting
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Abuse Functionality
+  es:
+    title: Cross-Site Leak - Frame Counting
     description: >
       __empty__
     impact: >
