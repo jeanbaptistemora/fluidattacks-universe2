@@ -68,8 +68,14 @@ from findings.domain.evidence import (
     EVIDENCE_NAMES,
 )
 from newutils import (
-    datetime as datetime_utils,
     findings as findings_utils,
+)
+from newutils.datetime import (
+    get_as_str,
+    get_as_utc_iso_format,
+    get_from_str,
+    get_minus_delta,
+    get_plus_delta,
 )
 from newutils.requests import (
     map_source,
@@ -190,32 +196,67 @@ def _format_source(source: str) -> Source:
     return Source[source.upper()]
 
 
-def _format_state(
-    state: HistoricType,
-    initial: bool = False,
-) -> FindingState:
+def _format_state(state: Dict[str, str]) -> FindingState:
     return FindingState(
         modified_by=state.get("analyst", ""),
-        modified_date=datetime_utils.get_as_utc_iso_format(
-            datetime_utils.get_from_str(state.get("date", ""))
-        ),
+        modified_date=get_as_utc_iso_format(get_from_str(state["date"])),
         source=_format_source(state["source"]),
-        status=FindingStateStatus.CREATED
-        if initial
-        else FindingStateStatus[str(state["state"]).upper()],
+        status=FindingStateStatus[str(state["state"]).upper()],
         justification=FindingStateJustification[state["justification"]]
         if state.get("justification")
         else FindingStateJustification.NO_JUSTIFICATION,
     )
 
 
-def _format_verification(state: HistoricType) -> FindingVerification:
+# Check if historic dates are in ascending order and fix them otherwise
+def _fix_historic_dates(
+    historic: HistoricType,
+) -> HistoricType:
+    new_historic = []
+    comparison_date = ""
+    for entry in historic:
+        if entry["date"] > comparison_date:
+            comparison_date = entry["date"]
+        else:
+            fixed_date = get_plus_delta(
+                get_from_str(comparison_date), seconds=1
+            )
+            entry["date"] = comparison_date = get_as_str(fixed_date)
+        new_historic.append(entry)
+    return new_historic
+
+
+# Validate if the first state is CREATED and fix it
+def _fix_historic_state_creation(
+    historic: HistoricType,
+    analyst: str,
+) -> HistoricType:
+    current_state = str(historic[0]["state"]).upper()
+    if current_state == "CREATED":
+        return historic
+
+    if str(historic[0]["state"]).upper() == MASKED:
+        historic[0]["state"] = "CREATED"
+        return historic
+
+    # Guess the creation date and add new historic entry
+    creation_date = get_minus_delta(
+        get_from_str(historic[0]["date"]), seconds=1
+    )
+    creation_state = {
+        "date": get_as_str(creation_date),
+        "analyst": analyst or historic[0]["analyst"],
+        "state": "CREATED",
+        "source": historic[0]["source"],
+    }
+    return [creation_state, *historic]
+
+
+def _format_verification(state: Dict[str, str]) -> FindingVerification:
     return FindingVerification(
         comment_id=str(state["comment"]),
         modified_by=state.get("user", ""),
-        modified_date=datetime_utils.get_as_utc_iso_format(
-            datetime_utils.get_from_str(state["date"])
-        ),
+        modified_date=get_as_utc_iso_format(get_from_str(state["date"])),
         status=FindingVerificationStatus[str(state["status"]).upper()],
         vulnerability_ids=set(state["vulns"]) if "vulns" in state else None,
     )
@@ -320,11 +361,9 @@ def _format_masked_evidences(old_finding: FindingType) -> FindingEvidences:
         )
         evidence = FindingEvidence(
             description=MASKED,
-            modified_date=datetime_utils.get_as_utc_iso_format(
-                datetime_utils.get_from_str(date)
-            )
+            modified_date=get_as_utc_iso_format(get_from_str(date))
             if date
-            else "",
+            else MASKED,
             url=MASKED,
         )
         evidences = evidences._replace(**{new_name: evidence})
@@ -340,8 +379,8 @@ def _format_non_masked_evidences(old_finding: FindingType) -> FindingEvidences:
         old_evidence = findings_utils.get_evidence(
             old_name, finding_files, old_finding
         )
-        date = datetime_utils.get_as_utc_iso_format(
-            datetime_utils.get_from_str(
+        date = get_as_utc_iso_format(
+            get_from_str(
                 old_evidence.get("date", "")
                 or old_evidence.get("upload_date", "")
             )
@@ -379,16 +418,22 @@ async def _proccess_finding(
         print(f'ERROR - "{old_finding["finding_id"]}" historic_state missing')
         return False
 
+    analyst = old_finding.get("analyst", "")
+    historic_state = _fix_historic_state_creation(
+        _fix_historic_dates(old_finding["historic_state"]), analyst
+    )
+    if old_finding.get("historic_verification"):
+        historic_verification = _fix_historic_dates(
+            old_finding["historic_verification"]
+        )
+
     try:
         await findings_model.add(
             finding=Finding(
-                hacker_email=old_finding.get("analyst", ""),
+                hacker_email=analyst,
                 group_name=old_finding["project_name"],
                 id=old_finding["finding_id"],
-                state=_format_state(
-                    state=old_finding["historic_state"][0],
-                    initial=True,
-                ),
+                state=_format_state(historic_state[0]),
                 title=old_finding.get("finding", ""),
                 affected_systems=old_finding.get("affected_systems", ""),
                 attack_vector_description=old_finding.get(
@@ -408,9 +453,7 @@ async def _proccess_finding(
                 requirements=old_finding.get("requirements", ""),
                 threat=old_finding.get("threat", ""),
                 unreliable_indicators=FindingUnreliableIndicators(),
-                verification=_format_verification(
-                    old_finding["historic_verification"][0]
-                )
+                verification=_format_verification(historic_verification[0])
                 if old_finding.get("historic_verification")
                 else None,
             )
@@ -422,14 +465,14 @@ async def _proccess_finding(
     await _populate_finding_historic_state(
         old_finding["project_name"],
         old_finding["finding_id"],
-        old_finding["historic_state"],
+        historic_state,
     )
 
     if old_finding.get("historic_verification"):
         await _populate_finding_historic_verification(
             old_finding["project_name"],
             old_finding["finding_id"],
-            old_finding["historic_verification"],
+            historic_verification,
         )
 
     await _populate_finding_unreliable_indicator(
