@@ -173,7 +173,21 @@ async def update_evidence(
                     cast(List[Dict[str, str]], old_records), file
                 )
 
-    evidence_id = f"{group_name}-{finding_id}-{evidence_type}"
+    mime_type = await files_utils.get_uploaded_file_mime(file)
+    try:
+        extension = {
+            "image/gif": ".gif",
+            "image/jpeg": ".jpg",
+            "image/png": ".png",
+            "application/x-empty": ".exp",
+            "text/x-python": ".exp",
+            "application/csv": ".csv",
+            "text/csv": ".csv",
+            "text/plain": ".txt",
+        }[mime_type]
+    except KeyError:
+        extension = ""
+    evidence_id = f"{group_name}-{finding_id}-{evidence_type}{extension}"
     full_name = f"{group_name}/{finding_id}/{evidence_id}"
     await findings_dal.save_evidence(file, full_name)
     evidence: Union[Dict[str, str], List[Optional[Any]]] = next(
@@ -208,7 +222,21 @@ async def update_evidence_new(
     await validate_evidence(evidence_id, file)
     finding_loader = loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
-    filename = f"{finding.group_name}-{finding.id}-{evidence_id}"
+    mime_type = await files_utils.get_uploaded_file_mime(file)
+    try:
+        extension = {
+            "image/gif": ".gif",
+            "image/jpeg": ".jpg",
+            "image/png": ".png",
+            "application/x-empty": ".exp",
+            "text/x-python": ".exp",
+            "application/csv": ".csv",
+            "text/csv": ".csv",
+            "text/plain": ".txt",
+        }[mime_type]
+    except KeyError:
+        extension = ""
+    filename = f"{finding.group_name}-{finding.id}-{evidence_id}{extension}"
     full_name = f"{finding.group_name}/{finding.id}/{filename}"
     if evidence_id == "fileRecords":
         old_filename = (
