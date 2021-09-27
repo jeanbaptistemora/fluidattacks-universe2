@@ -170,20 +170,6 @@ async def ensure_user_exists(email: str) -> bool:
     return bool(await users_dal.get(email))
 
 
-async def filter_non_fluid_staff(
-    emails: List[str],
-    group_name: str,
-) -> List[str]:
-    are_managers = await collect(
-        [is_system_owner(email, group_name) for email in emails]
-    )
-    return [
-        email
-        for email, is_system_owner in zip(emails, are_managers)
-        if not is_fluid_staff(email) or is_system_owner
-    ]
-
-
 def get_invitation_state(
     invitation: InvitationType, stakeholder: StakeholderType
 ) -> str:
@@ -313,11 +299,6 @@ async def has_valid_access_token(
 
 def is_fluid_staff(email: str) -> bool:
     return email.endswith("@fluidattacks.com")
-
-
-async def is_system_owner(email: str, group_name: str) -> bool:
-    role: str = await authz.get_group_level_role(email, group_name)
-    return role in {"system_owner", "group_manager"}
 
 
 async def is_registered(email: str) -> bool:
