@@ -7,6 +7,7 @@ from dataclasses import (
 )
 from typing import (
     Any,
+    Optional,
     Type,
     TypeVar,
     Union,
@@ -29,6 +30,7 @@ PrimitiveTypes = Union[
     Type[None],
 ]
 PrimitiveTVar = TypeVar("PrimitiveTVar", str, int, float, bool, Type[None])
+NotNonePrimTvar = TypeVar("NotNonePrimTvar", str, int, float, bool)
 
 
 @dataclass(frozen=True)
@@ -50,8 +52,8 @@ class PrimitiveFactory:
 
     @staticmethod
     def to_opt_primitive(
-        raw: Any, prim_type: Type[PrimitiveTVar]
-    ) -> PrimitiveTVar:
-        if isinstance(raw, prim_type):
+        raw: Any, prim_type: Type[NotNonePrimTvar]
+    ) -> Optional[NotNonePrimTvar]:
+        if raw is None or isinstance(raw, prim_type):
             return raw
-        raise InvalidType(f"Expected {prim_type}; got {type(raw)}")
+        raise InvalidType(f"Expected {prim_type} | None; got {type(raw)}")
