@@ -5,13 +5,13 @@ from tap_announcekit.streams.id_objs import (
 from tap_announcekit.streams.posts._encode import (
     PostEncoder,
 )
-from tap_announcekit.streams.posts._getters import (
-    post_query,
+from tap_announcekit.streams.posts._queries import (
+    PostQuery,
 )
 
 
 def test_query() -> None:
-    post_query(PostId(ProjectId("1234"), "4321"))
+    PostQuery(PostId(ProjectId("1234"), "4321")).query()
 
 
 def test_schema() -> None:

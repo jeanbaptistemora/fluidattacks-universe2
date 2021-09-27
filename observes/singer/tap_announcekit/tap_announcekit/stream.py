@@ -29,27 +29,31 @@ from typing import (
     TypeVar,
 )
 
-DataIdType = TypeVar("DataIdType")
-DataType = TypeVar("DataType")
+_DataIdType = TypeVar("_DataIdType")
+_DataType = TypeVar("_DataType")
 
 
 @dataclass(frozen=True)
-class StreamGetter(SupportsKind2["StreamGetter", DataIdType, DataType]):
-    _get: Patch[Callable[[DataIdType], IO[DataType]]]
-    _get_iter: Patch[Callable[[PureIter[DataIdType]], IOiter[DataType]]]
+class StreamGetter(
+    SupportsKind2[
+        "StreamGetter[_DataIdType, _DataType]", _DataIdType, _DataType
+    ]
+):
+    _get: Patch[Callable[[_DataIdType], IO[_DataType]]]
+    _get_iter: Patch[Callable[[PureIter[_DataIdType]], IOiter[_DataType]]]
 
     def __init__(
         self,
-        get: Callable[[DataIdType], IO[DataType]],
-        get_iter: Callable[[PureIter[DataIdType]], IOiter[DataType]],
+        get: Callable[[_DataIdType], IO[_DataType]],
+        get_iter: Callable[[PureIter[_DataIdType]], IOiter[_DataType]],
     ) -> None:
         object.__setattr__(self, "_get", Patch(get))
         object.__setattr__(self, "_get_iter", Patch(get_iter))
 
-    def get(self, item: DataIdType) -> IO[DataType]:
+    def get(self, item: _DataIdType) -> IO[_DataType]:
         return self._get.unwrap(item)
 
-    def get_iter(self, items: PureIter[DataIdType]) -> IOiter[DataType]:
+    def get_iter(self, items: PureIter[_DataIdType]) -> IOiter[_DataType]:
         return self._get_iter.unwrap(items)
 
 

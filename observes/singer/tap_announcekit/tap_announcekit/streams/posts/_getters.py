@@ -14,7 +14,6 @@ from returns.io import (
 )
 from tap_announcekit.api.client import (
     ApiClient,
-    Query,
 )
 from tap_announcekit.api.gql_schema import (
     Post as RawPost,
@@ -27,6 +26,9 @@ from tap_announcekit.streams.posts._objs import (
     PostFactory,
     PostId,
 )
+from tap_announcekit.streams.posts._queries import (
+    PostQuery,
+)
 from typing import (
     cast,
 )
@@ -35,23 +37,8 @@ LOG = logging.getLogger(__name__)
 JsonStr = str
 
 
-def _select_fields(proj_id: str, post_id: str, query: Query) -> IO[None]:
-    proj = query.raw.post(project_id=proj_id, post_id=post_id)
-    # select fields
-    for attr, _ in Post.__annotations__.items():
-        _attr = "id" if attr == "obj_id" else attr
-        getattr(proj, _attr)()
-    return IO(None)
-
-
-def post_query(post: PostId) -> IO[Query]:
-    query = ApiClient.new_query()
-    query.bind(partial(_select_fields, post.proj.proj_id, post.post_id))
-    return query
-
-
 def _get_project(client: ApiClient, post_id: PostId) -> IO[Post]:
-    query = post_query(post_id)
+    query = PostQuery(post_id).query()
     LOG.debug("query: %s", query)
     raw: IO[RawPost] = client.get(query).map(lambda q: cast(RawPost, q.post))
     return raw.map(PostFactory.to_post)
