@@ -1,17 +1,20 @@
 from aioextensions import (
     collect,
 )
-from back.tests.unit import (
-    MIGRATION,
-)
 from batch import (
     dal as batch_dal,
+)
+from batch.types import (
+    BatchProcessing,
 )
 from newutils.datetime import (
     get_as_epoch,
     get_now,
 )
 import pytest
+from typing import (
+    List,
+)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -45,7 +48,8 @@ async def test_get_action() -> None:
 
 
 async def test_requeue_actions() -> None:
-    pending_actions = await batch_dal.get_actions()
+    pending_actions: List[BatchProcessing] = await batch_dal.get_actions()
+
     assert all(
         await collect(
             [

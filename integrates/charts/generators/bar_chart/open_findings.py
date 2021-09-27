@@ -35,7 +35,7 @@ from typing import (
 async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
     context = get_new_context()
     if FI_API_STATUS == "migration":
-        open_findings = await groups_domain.get_open_finding_new(
+        open_findings = await groups_domain.get_open_findings_new(
             context, group.lower()
         )
     else:
