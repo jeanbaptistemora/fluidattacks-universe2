@@ -19,6 +19,7 @@ from purity.v1._patch import (
     Patch,
 )
 from purity.v1._pure_iter import (
+    IOiter,
     PureIter,
 )
 
@@ -35,5 +36,6 @@ __all__ = [
     "DictFactory",
     "JsonFactory",
     "Patch",
+    "IOiter",
     "PureIter",
 ]
