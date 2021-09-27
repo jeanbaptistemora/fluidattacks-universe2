@@ -2,6 +2,9 @@ from functools import (
     partial,
 )
 import git
+from os.path import (
+    join,
+)
 import pytest
 import textwrap
 from utils.repositories import (
@@ -16,7 +19,8 @@ from utils.repositories import (
 
 @pytest.mark.skims_test_group("unittesting")
 def test_get_repo_head_hash() -> None:
-    head = get_repo_head_hash(".")
+    base = "../product"
+    head = get_repo_head_hash(base)
     assert head != DEFAULT_COMMIT
 
     for path, commit_hash in (
@@ -31,12 +35,12 @@ def test_get_repo_head_hash() -> None:
         # Inside a repsitory, not exists
         ("skims/test/path-not-exists", DEFAULT_COMMIT),
     ):
-        assert get_repo_head_hash(path) == commit_hash, path
+        assert get_repo_head_hash(join(base, path)) == commit_hash, path
 
 
 @pytest.mark.skims_test_group("unittesting")
 def test_get_diff() -> None:
-    repo = get_repo(".")
+    repo = get_repo("../product")
 
     # Wrong format
     with pytest.raises(git.GitError):
@@ -68,7 +72,7 @@ def test_get_diff() -> None:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_rebase() -> None:
-    repo = get_repo(".")
+    repo = get_repo("../product")
 
     rev = "1a5763f0ea8aa867ba459c629c42919243a89521"
     rebase_ = partial(rebase, repo, rev_a=f"{rev}~1", rev_b=rev)

@@ -1,15 +1,13 @@
-{ fromJsonFile
-, inputs
+{ inputs
 , libGit
 , makeTemplate
 , outputs
-, projectPath
 , ...
 }:
 {
   testPython = builtins.listToAttrs (builtins.map
-    (marker: {
-      name = "skims@${marker}";
+    (category: {
+      name = "skims@${category}";
       value = {
         python = "3.8";
         src = "/skims";
@@ -24,8 +22,8 @@
             deepClone = true;
             leaveDotGit = true;
           };
-          "VulnerableApp" = inputs.envVulnerableApp;
-          "vulnerable_js_app" = inputs.envVulnerableJsApp;
+          "VulnerableApp" = inputs.skimsVulnerableApp;
+          "vulnerable_js_app" = inputs.skimsVulnerableJsApp;
         };
         searchPaths = {
           bin = [
@@ -47,8 +45,8 @@
             })
           ];
         };
-        extraFlags = [ "--reruns" "10" "--skims-test-group" marker ];
+        extraFlags = [ "--reruns" "10" "--skims-test-group" category ];
       };
     })
-    (fromJsonFile (projectPath "/skims/test/test_groups.json")));
+    inputs.skimsTestPythonCategories);
 }

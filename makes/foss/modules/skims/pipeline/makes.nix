@@ -1,4 +1,5 @@
 { gitlabCi
+, inputs
 , ...
 }:
 let
@@ -35,6 +36,11 @@ let
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
+    tags = [ "autoscaling" ];
+  };
+  gitlabTest = {
+    rules = gitlabOnlyDev;
+    stage = "test-code";
     tags = [ "autoscaling" ];
   };
   gitlabTestInfra = {
@@ -103,6 +109,28 @@ in
         {
           output = "/securePythonWithBandit/skims";
           gitlabExtra = gitlabLint;
+        }
+      ]
+      ++ (builtins.map
+        (category: {
+          output = "/testPython/skims@${category}";
+          gitlabExtra = gitlabTest;
+        })
+        (builtins.filter
+          (category: category != "_" && category != "all")
+          (inputs.skimsTestPythonCategories)))
+      ++ [
+        {
+          output = "/testPython/skims@functional";
+          gitlabExtra = gitlabTest // {
+            resource_group = "$CI_COMMIT_REF_NAME-$CI_JOB_NAME";
+          };
+        }
+        {
+          output = "/testPython/skims@lib_apk";
+          gitlabExtra = gitlabTest // {
+            tags = [ "autoscaling-large" ];
+          };
         }
       ];
     };

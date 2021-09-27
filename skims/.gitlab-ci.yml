@@ -60,110 +60,12 @@ skims.structure:
     when: always
   stage: test-code
 
-.skims.test: &skims_test
-  <<: *makes
-  <<: *skims_in_dev_branch
-  artifacts:
-    paths:
-      - skims/test/outputs/
-    when: always
-  script:
-    - ./m skims.test "${CI_JOB_NAME/skims.test./}"
-    - cp -r ~/.skims/debug skims/test/outputs || true
-  stage: test-code
-
-skims.test.benchmark_cmdi:
-  <<: *skims_test
-
-skims.test.benchmark_crypto:
-  <<: *skims_test
-
-skims.test.benchmark_hash:
-  <<: *skims_test
-
-skims.test.benchmark_pathtraver:
-  <<: *skims_test
-
-skims.test.benchmark_securecookie:
-  <<: *skims_test
-
-skims.test.benchmark_xss:
-  <<: *skims_test
-
-skims.test.benchmark_xpathi:
-  <<: *skims_test
-
-skims.test.benchmark_ldapi:
-  <<: *skims_test
-
-skims.test.benchmark_trustbound:
-  <<: *skims_test
-
-skims.test.benchmark_sqli:
-  <<: *skims_test
-
-skims.test.benchmark_weakrand:
-  <<: *skims_test
-
 skims.test.cli:
   <<: *makes
   <<: *skims_in_dev_branch
   stage: test-code
 
-skims.test.functional:
-  <<: *skims_test
-  # This job should only run once at a time per branch
-  resource_group: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
-
-skims.test.instance_references:
-  <<: *skims_test
-
-skims.test.lib_apk:
-  <<: *skims_test
-  tags: [autoscaling-large]
-
-skims.test.lib_http:
-  <<: *skims_test
-
-skims.test.lib_path:
-  <<: *skims_test
-
-skims.test.lib_ssl:
-  <<: *skims_test
-
 skims.test.sdk:
   <<: *makes
   <<: *skims_in_dev_branch
   stage: test-code
-
-skims.test.unittesting:
-  <<: *skims_test
-  variables:
-    GIT_DEPTH: 0
-
-skims.test.vulnerableapp:
-  <<: *skims_test
-
-skims.test.vulnerable_js_app:
-  <<: *skims_test
-
-skims.test.nist_c_sharp:
-  <<: *skims_test
-
-skims.test.nist_c_sharp_f001:
-  <<: *skims_test
-
-skims.test.nist_c_sharp_f004:
-  <<: *skims_test
-
-skims.test.nist_c_sharp_f008:
-  <<: *skims_test
-
-skims.test.nist_c_sharp_f021:
-  <<: *skims_test
-
-skims.test.nist_c_sharp_f063:
-  <<: *skims_test
-
-skims.test.nist_c_sharp_f107:
-  <<: *skims_test
