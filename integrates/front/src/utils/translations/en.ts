@@ -1621,8 +1621,8 @@ export const enTranslations: ResourceKey = {
           title: "Remove File",
         },
         fileIsPending:
-          "The uploaded file is pending for a scan, you will " +
-          "be notified once the file is available, or if there is an issue with it",
+          "The uploaded file is pending for a scan, you will be notified " +
+          "via email once the file is available, or if there is an issue with it",
         title: "Files",
       },
       groupToRemove: "Please type: <strong>{{groupName}}</strong>, to proceed",
