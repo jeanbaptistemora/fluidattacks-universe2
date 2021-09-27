@@ -19,6 +19,9 @@ from db_model.findings.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from itertools import (
+    filterfalse,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -140,37 +143,33 @@ async def get_comments(
     ]
     if verified:
         vulns = await finding_vulns_loader.load(finding_id)
-        verification_comments_ids: Set[str] = {
+        verification_comment_ids: Set[str] = {
             str(verification["comment"]) for verification in verified
         }
-        comments = [
+        reattack_comments, non_reattack_comments = filter_reattack_comments(
+            comments, verification_comment_ids
+        )
+
+        # Loop to add the «Regarding vulnerabilities...» header to comments
+        # answering a solicited reattack
+        reattack_comments = [
             _fill_vuln_info(
                 cast(Dict[str, str], comment),
                 set(cast(List[str], verification.get("vulns", []))),
                 vulns,
             )
             if str(comment["id"]) == str(verification["comment"])
-            else (
-                comment
-                if str(comment["id"]) not in verification_comments_ids
-                else {}
-            )
-            for comment in comments
+            else {}
+            for comment in reattack_comments
             for verification in verified
         ]
-        comments = list(filter(None, comments))
+        reattack_comments = list(filter(None, reattack_comments))
+        comments = reattack_comments + non_reattack_comments
 
-    # Temporary fix for a duplicate comments issue
-    unique_comments = list(
-        {comment["id"]: comment for comment in comments}.values()
-    )
-    new_comments: List[CommentType] = []
     enforcer = await authz.get_group_level_enforcer(user_email)
     if enforcer(group_name, "handle_comment_scope"):
-        new_comments = unique_comments
-    else:
-        new_comments = list(filter(_is_scope_comment, unique_comments))
-    return new_comments
+        return comments
+    return list(filter(_is_scope_comment, comments))
 
 
 async def get_comments_new(
@@ -255,3 +254,19 @@ def filter_comments_date(
         if min_date
         and datetime_utils.get_from_str(comment["created"]) >= min_date
     ]
+
+
+def filter_reattack_comments(
+    comments: List[CommentType],
+    verification_comment_ids: Set[str],
+) -> Tuple[List[CommentType], List[CommentType]]:
+    """Returns the comment list of a finding filtered on whether the comment
+    answers a solicited reattack or not. Comments that do this will be within
+    the first element of the tuple while the others will be in the second"""
+
+    def filter_func(comment: CommentType) -> bool:
+        return str(comment["id"]) in verification_comment_ids
+
+    return list(filter(filter_func, comments)), list(
+        filterfalse(filter_func, comments)
+    )
