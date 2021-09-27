@@ -52,7 +52,6 @@ QUERY.set_field(
 # --------------------------Deprecated Queries---------------------------------
 QUERY.set_field("project", group.resolve)
 QUERY.set_field("userListGroups", list_user_groups.resolve)
-QUERY.set_field("vulnsToReattack", vulnerabilities_to_reattack.resolve)
 # -----------------------------------------------------------------------------
 
 if FI_API_STATUS == "migration":

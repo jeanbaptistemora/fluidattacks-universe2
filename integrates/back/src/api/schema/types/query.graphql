@@ -141,12 +141,4 @@ type Query {
     "Identifier of the vulnerability to query"
     uuid: String!
   ): Vulnerability
-
-  "Gets vulnerabilities pending to reattack"
-  vulnsToReattack(
-    "Name of the group to which the vulnerabilities belong to"
-    group: String
-  ): [Vulnerability]
-    @deprecated(reason: """This query will be removed after 2022/02/06. Use
-    `vulnerabilitiesToReattack` instead.""")
 }
