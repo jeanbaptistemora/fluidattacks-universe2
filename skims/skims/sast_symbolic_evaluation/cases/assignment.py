@@ -153,10 +153,10 @@ def evaluate(args: EvaluatorArgs) -> None:
     if v_dcl := lookup_var_dcl_by_name(args, var):
         if isinstance(v_dcl.meta.value, JavaClassInstance):
             v_dcl.meta.value.fields[field] = args.syntax_step
-        elif isinstance(
-            dependency, SyntaxStepMemberAccessExpression
-        ) and dependency.expression in vuln_assign.get(v_dcl.var_type, set()):
-            args.syntax_step.meta.danger = True
+        elif isinstance(dependency, SyntaxStepMemberAccessExpression):
+            full_expression = f"{dependency.expression}.{dependency.member}"
+            if full_expression in vuln_assign.get(v_dcl.var_type, set()):
+                args.syntax_step.meta.danger = True
         elif (
             isinstance(dependency, SyntaxStepLiteral)
             and v_dcl.meta.danger

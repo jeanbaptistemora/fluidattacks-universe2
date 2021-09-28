@@ -4726,7 +4726,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "names.Length",
+            "expression": "names",
             "member": "Length",
             "meta": {
               "danger": false,
@@ -4986,7 +4986,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "names.Length",
+            "expression": "names",
             "member": "Length",
             "meta": {
               "danger": false,
@@ -5124,7 +5124,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "NLog.LogLevel",
+            "expression": "NLog",
             "member": "LogLevel",
             "meta": {
               "danger": false,
@@ -5135,8 +5135,8 @@
             "type": "SyntaxStepMemberAccessExpression"
           },
           {
-            "expression": "NLog.LogLevel.Warn",
-            "member": "LogLevel.Warn",
+            "expression": "NLog.LogLevel",
+            "member": "Warn",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -5355,7 +5355,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "NLog.LogLevel",
+            "expression": "NLog",
             "member": "LogLevel",
             "meta": {
               "danger": false,
@@ -5366,8 +5366,8 @@
             "type": "SyntaxStepMemberAccessExpression"
           },
           {
-            "expression": "NLog.LogLevel.Warn",
-            "member": "LogLevel.Warn",
+            "expression": "NLog.LogLevel",
+            "member": "Warn",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -18206,7 +18206,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "HttpStatusCode.NoContent",
+            "expression": "HttpStatusCode",
             "member": "NoContent",
             "meta": {
               "danger": false,
@@ -19406,7 +19406,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "houseDto.ZipCode",
+            "expression": "houseDto",
             "member": "ZipCode",
             "meta": {
               "danger": false,
@@ -19451,7 +19451,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "houseDto.Street",
+            "expression": "houseDto",
             "member": "Street",
             "meta": {
               "danger": false,
@@ -19496,7 +19496,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "houseDto.City",
+            "expression": "houseDto",
             "member": "City",
             "meta": {
               "danger": false,
@@ -27462,7 +27462,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "student.Id",
+            "expression": "student",
             "member": "Id",
             "meta": {
               "danger": false,
@@ -27483,7 +27483,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "s.StudentID",
+            "expression": "s",
             "member": "StudentID",
             "meta": {
               "danger": false,
@@ -27582,7 +27582,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "student.FirstName",
+            "expression": "student",
             "member": "FirstName",
             "meta": {
               "danger": false,
@@ -27627,7 +27627,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "student.LastName",
+            "expression": "student",
             "member": "LastName",
             "meta": {
               "danger": false,
@@ -27994,7 +27994,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "s.StudentID",
+            "expression": "s",
             "member": "StudentID",
             "meta": {
               "danger": false,
@@ -28038,7 +28038,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "System.Data",
+            "expression": "System",
             "member": "Data",
             "meta": {
               "danger": false,
@@ -28049,8 +28049,8 @@
             "type": "SyntaxStepMemberAccessExpression"
           },
           {
-            "expression": "System.Data.Entity",
-            "member": "Data.Entity",
+            "expression": "System.Data",
+            "member": "Entity",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -28060,8 +28060,8 @@
             "type": "SyntaxStepMemberAccessExpression"
           },
           {
-            "expression": "System.Data.Entity.EntityState",
-            "member": "Data.Entity.EntityState",
+            "expression": "System.Data.Entity",
+            "member": "EntityState",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -28071,8 +28071,8 @@
             "type": "SyntaxStepMemberAccessExpression"
           },
           {
-            "expression": "System.Data.Entity.EntityState.Deleted",
-            "member": "Data.Entity.EntityState.Deleted",
+            "expression": "System.Data.Entity.EntityState",
+            "member": "Deleted",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -28255,7 +28255,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "s.StudentID",
+            "expression": "s",
             "member": "StudentID",
             "meta": {
               "danger": false,
@@ -30768,7 +30768,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "aes2.IV",
+            "expression": "aes2",
             "member": "IV",
             "meta": {
               "danger": false,
@@ -30835,7 +30835,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "CryptoStreamMode.Write",
+            "expression": "CryptoStreamMode",
             "member": "Write",
             "meta": {
               "danger": false,

@@ -4,43 +4,20 @@ from model import (
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
 )
-from utils.graph import (
-    match_ast_group,
-)
 from utils.graph.text_nodes import (
-    get_text_childs,
-    n_ids_to_str,
-)
-from utils.string import (
-    split_on_first_dot,
+    node_to_str,
 )
 
 
 def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
-    match_access = match_ast_group(
-        args.graph,
-        args.n_id,
-        "identifier",
-        "this_expression",
-        ".",
-        "__0__",
-    )
-
-    n_ids = get_text_childs(args.graph, args.n_id)
-    expression_str = n_ids_to_str(args.graph, n_ids)
-    _, member = split_on_first_dot(expression_str)
-
-    if expression := match_access["__0__"]:
-        dependence = args.generic(args.fork_n_id(expression))
-    else:
-        base_ident, *_ = n_ids
-        dependence = args.generic(args.fork_n_id(base_ident))
+    expression_id = args.graph.nodes[args.n_id]["label_field_expression"]
+    member_id = args.graph.nodes[args.n_id]["label_field_name"]
 
     yield graph_model.SyntaxStepMemberAccessExpression(
         meta=graph_model.SyntaxStepMeta.default(
             args.n_id,
-            [dependence],
+            [args.generic(args.fork_n_id(expression_id))],
         ),
-        member=member,
-        expression=expression_str,
+        member=node_to_str(args.graph, member_id),
+        expression=node_to_str(args.graph, expression_id),
     )

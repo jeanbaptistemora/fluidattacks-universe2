@@ -1,6 +1,13 @@
 from model import (
     core_model,
-    graph_model,
+)
+from model.graph_model import (
+    GraphDB,
+    GraphShardMetadataLanguage,
+    GraphShardNodes,
+    SyntaxStepMemberAccessExpression,
+    SyntaxStepObjectInstantiation,
+    SyntaxSteps,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -10,37 +17,32 @@ from sast_syntax_readers.utils_generic import (
 )
 
 
-def insecure_arg(depends: graph_model.SyntaxSteps) -> bool:
-    for syntax_step in depends:
+def _insecure_arg(dependencies: SyntaxSteps) -> bool:
+    for step in dependencies:
         if (
-            isinstance(
-                syntax_step, graph_model.SyntaxStepMemberAccessExpression
-            )
-            and syntax_step.expression == "AuthenticationTypes.None"
+            isinstance(step, SyntaxStepMemberAccessExpression)
+            and step.expression == "AuthenticationTypes"
+            and step.member == "None"
         ):
             return True
     return False
 
 
 def ldap_connections_authenticated(
-    graph_db: graph_model.GraphDB,
+    graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
-    def n_ids() -> graph_model.GraphShardNodes:
+    def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(
-            graph_model.GraphShardMetadataLanguage.CSHARP,
+            GraphShardMetadataLanguage.CSHARP,
         ):
-            for syntax_steps in shard.syntax.values():
-                for index, syntax_step in enumerate(syntax_steps):
+            for steps in shard.syntax.values():
+                for index, step in enumerate(steps):
                     if (
-                        isinstance(
-                            syntax_step,
-                            graph_model.SyntaxStepObjectInstantiation,
-                        )
-                        and syntax_step.object_type == "DirectoryEntry"
-                        and len(get_dependencies(index, syntax_steps)) > 0
-                        and insecure_arg(get_dependencies(index, syntax_steps))
+                        isinstance(step, SyntaxStepObjectInstantiation)
+                        and step.object_type == "DirectoryEntry"
+                        and _insecure_arg(get_dependencies(index, steps))
                     ):
-                        yield shard, syntax_step.meta.n_id
+                        yield shard, step.meta.n_id
 
     return get_vulnerabilities_from_n_ids(
         cwe=("90",),

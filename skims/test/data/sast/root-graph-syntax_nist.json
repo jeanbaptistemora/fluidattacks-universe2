@@ -403,7 +403,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "names.Length",
+            "expression": "names",
             "member": "Length",
             "meta": {
               "danger": true,
@@ -978,7 +978,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "names.Length",
+            "expression": "names",
             "member": "Length",
             "meta": {
               "danger": true,
@@ -1397,7 +1397,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "expression": "aes2.IV",
+            "expression": "aes2",
             "member": "IV",
             "meta": {
               "danger": false,
