@@ -41,7 +41,7 @@ SCHEDULE: Dict[PartialCron, List[str]] = {
     PartialCron.new(range(0, 16, 5), AnyTime(), work_days): [
         "observes.scheduled.on-aws.dynamodb-forces-etl",
     ],
-    PartialCron.new(range(6, 19, 2), AnyTime(), work_days): [
+    PartialCron.new(range(6, 19, 3), AnyTime(), work_days): [
         "observes.scheduled.on-aws.dynamodb-integrates-etl",
     ],
 }
