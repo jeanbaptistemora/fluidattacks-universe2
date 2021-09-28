@@ -120,9 +120,13 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
   });
 
   // Render Elements
-  if (_.isUndefined(portfoliosData) || _.isEmpty(portfoliosData)) {
+  if (_.isUndefined(basicData) || _.isEmpty(basicData)) {
     return <div />;
   }
+
+  const isPortfolioData: boolean = !(
+    _.isUndefined(portfoliosData) || _.isEmpty(portfoliosData)
+  );
 
   return (
     <React.StrictMode>
@@ -145,7 +149,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   title={translate.t("organization.tabs.groups.text")}
                   tooltip={translate.t("organization.tabs.groups.tooltip")}
                 />
-                {portfoliosData.me.tags.length > 0 ? (
+                {isPortfolioData && portfoliosData.me.tags.length > 0 ? (
                   <ContentTab
                     icon={"icon pe-7s-display2"}
                     id={"portfoliosTab"}
@@ -187,7 +191,9 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   />
                 </Route>
                 <Route exact={true} path={`${path}/portfolios`}>
-                  <OrganizationPortfolios portfolios={portfoliosData.me.tags} />
+                  <OrganizationPortfolios
+                    portfolios={isPortfolioData ? portfoliosData.me.tags : []}
+                  />
                 </Route>
                 <Route exact={true} path={`${path}/stakeholders`}>
                   <OrganizationStakeholders

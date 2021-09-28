@@ -24,7 +24,7 @@ import type {
   IGroupData,
   IOrganizationGroupsProps,
 } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
-import { ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -303,24 +303,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   return (
     <React.StrictMode>
       <div className={style.container}>
-        <Row>
-          <Can do={"api_mutations_add_group_mutate"}>
-            <ButtonToolbarCenter>
-              <TooltipWrapper
-                id={"organization.tabs.groups.newGroup.new.tooltip.btn"}
-                message={translate.t(
-                  "organization.tabs.groups.newGroup.new.tooltip"
-                )}
-              >
-                <Button id={"add-group"} onClick={openNewGroupModal}>
-                  <FontAwesomeIcon icon={faPlus} />
-                  &nbsp;
-                  {translate.t("organization.tabs.groups.newGroup.new.text")}
-                </Button>
-              </TooltipWrapper>
-            </ButtonToolbarCenter>
-          </Can>
-        </Row>
         {_.isUndefined(data) || _.isEmpty(data) ? (
           <div />
         ) : (
@@ -346,6 +328,33 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                   dataset={resultDataset}
                   defaultSorted={{ dataField: "name", order: "asc" }}
                   exportCsv={false}
+                  extraButtons={
+                    <Row>
+                      <Can do={"api_mutations_add_group_mutate"}>
+                        <ButtonToolbar>
+                          <TooltipWrapper
+                            id={
+                              "organization.tabs.groups.newGroup.new.tooltip.btn"
+                            }
+                            message={translate.t(
+                              "organization.tabs.groups.newGroup.new.tooltip"
+                            )}
+                          >
+                            <Button
+                              id={"add-group"}
+                              onClick={openNewGroupModal}
+                            >
+                              <FontAwesomeIcon icon={faPlus} />
+                              &nbsp;
+                              {translate.t(
+                                "organization.tabs.groups.newGroup.new.text"
+                              )}
+                            </Button>
+                          </TooltipWrapper>
+                        </ButtonToolbar>
+                      </Can>
+                    </Row>
+                  }
                   headers={tableHeaders}
                   id={"tblGroups"}
                   pageSize={10}

@@ -358,7 +358,16 @@ describe("Organization groups view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    const newGroupButton = (): ReactWrapper => wrapper.find("button").first();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+      });
+    });
+
+    const newGroupButton = (): ReactWrapper =>
+      wrapper.find("DataTableNext").find("button").first();
     newGroupButton().simulate("click");
 
     await act(async (): Promise<void> => {
