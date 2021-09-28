@@ -4,8 +4,8 @@ from aiodataloader import (
 from custom_types import (
     Group,
 )
-from data_containers.toe_inputs import (
-    GitRootToeInput,
+from db_model.toe_inputs.types import (
+    ToeInput,
 )
 from decorators import (
     enforce_group_level_auth_async,
@@ -30,8 +30,8 @@ CACHE_TTL = 60 * 30
 @enforce_group_level_auth_async
 async def resolve(
     parent: Group, info: GraphQLResolveInfo, **kwargs: None
-) -> Tuple[GitRootToeInput, ...]:
-    response: Tuple[GitRootToeInput, ...] = await redis_get_or_set_entity_attr(
+) -> Tuple[ToeInput, ...]:
+    response: Tuple[ToeInput, ...] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
         attr="toe_inputs",
@@ -43,10 +43,10 @@ async def resolve(
 
 async def resolve_no_cache(
     parent: Group, info: GraphQLResolveInfo, **_kwargs: None
-) -> Tuple[GitRootToeInput, ...]:
+) -> Tuple[ToeInput, ...]:
     group_name: str = parent["name"]
     group_toe_inputs_loader: DataLoader = info.context.loaders.group_toe_inputs
     group_toe_inputs: Tuple[
-        GitRootToeInput, ...
+        ToeInput, ...
     ] = await group_toe_inputs_loader.load(group_name)
     return group_toe_inputs

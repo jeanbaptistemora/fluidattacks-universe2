@@ -13,3 +13,6 @@ class ToeInput(NamedTuple):
     tested_date: str
     verified: str
     vulns: str
+
+    def get_hash(self) -> int:
+        return hash((self.group_name, self.component, self.entry_point))

@@ -1,8 +1,8 @@
 from back.tests import (
     db,
 )
-from data_containers.toe_inputs import (
-    GitRootToeInput,
+from db_model.toe_inputs.types import (
+    ToeInput,
 )
 import pytest
 from typing import (
@@ -17,7 +17,7 @@ from typing import (
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
         "toe_inputs": (
-            GitRootToeInput(
+            ToeInput(
                 commit="hh66uu5",
                 component="test.com/api/Test",
                 created_date="2000-01-01T00:00:00-05:00",
@@ -28,7 +28,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 verified="Yes",
                 vulns="FIN.S.0001.Test",
             ),
-            GitRootToeInput(
+            ToeInput(
                 commit="e91320h",
                 component="test.com/test/test.aspx",
                 created_date="2020-03-14T00:00:00-05:00",
@@ -39,7 +39,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 verified="No",
                 vulns="",
             ),
-            GitRootToeInput(
+            ToeInput(
                 commit="d83027t",
                 component="test.com/test2/test.aspx",
                 created_date="2020-01-11T00:00:00-05:00",

@@ -20,6 +20,9 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.toe_inputs.types import (
+    ToeInput,
+)
 from decimal import (
     Decimal,
 )
@@ -673,9 +676,10 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
         mocked_clone_services_repository,
     )
     group_name = "unittesting"
-    group_toe_inputs = await toe_inputs_domain.get_by_group(group_name)
+    loaders = get_new_context()
+    group_toe_inputs = await loaders.group_toe_inputs.load(group_name)
     assert group_toe_inputs == (
-        GitRootToeInput(
+        ToeInput(
             commit="hh66uu5",
             component="test.com/api/Test",
             created_date="2000-01-01T00:00:00-05:00",  # NOSONAR
@@ -686,7 +690,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             verified="Yes",
             vulns="FIN.S.0001.Test",
         ),
-        GitRootToeInput(
+        ToeInput(
             commit="e91320h",
             component="test.com/test/test.aspx",  # NOSONAR
             created_date="2020-03-14T00:00:00-05:00",
@@ -697,7 +701,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             verified="No",
             vulns="",
         ),
-        GitRootToeInput(
+        ToeInput(
             commit="d83027t",
             component="test.com/test2/test.aspx",
             created_date="2020-01-11T00:00:00-05:00",
@@ -710,9 +714,10 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
         ),
     )
     await toe_inputs_etl.main()
-    group_toe_inputs = await toe_inputs_domain.get_by_group(group_name)
+    loaders = get_new_context()
+    group_toe_inputs = await loaders.group_toe_inputs.load(group_name)
     assert group_toe_inputs == (
-        GitRootToeInput(
+        ToeInput(
             commit="hh66uu5",
             component="test.com/api/Test",
             created_date="2000-01-01T00:00:00-05:00",
@@ -723,7 +728,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             verified="Yes",
             vulns="FIN.S.0001.Test",
         ),
-        GitRootToeInput(
+        ToeInput(
             commit="r44432f",
             component="test.com/test/test.aspx",
             created_date="2000-01-01T00:00:00-05:00",
@@ -734,7 +739,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             verified="Yes",
             vulns="FIN.S.0002.Test",
         ),
-        GitRootToeInput(
+        ToeInput(
             commit="e91320h",
             component="test.com/test/test.aspx",
             created_date="2020-03-14T00:00:00-05:00",

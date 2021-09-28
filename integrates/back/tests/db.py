@@ -7,19 +7,20 @@ from authz import (
 from comments import (
     dal as dal_comment,
 )
-from data_containers.toe_inputs import (
-    GitRootToeInput,
-)
 from data_containers.toe_lines import (
     GitRootToeLines,
 )
 from db_model import (
     findings,
     roots as roots_model,
+    toe_inputs as toe_inputs_model,
     vulnerabilities,
 )
 from db_model.roots.types import (
     RootItem,
+)
+from db_model.toe_inputs.types import (
+    ToeInput,
 )
 from decimal import (
     Decimal,
@@ -60,9 +61,6 @@ from organizations import (
 )
 from organizations_finding_policies import (
     dal as dal_policies,
-)
-from toe.inputs import (
-    dal as dal_toe_inputs,
 )
 from toe.lines import (
     dal as dal_toe_lines,
@@ -425,8 +423,10 @@ async def populate_toe_lines(data: Tuple[GitRootToeLines, ...]) -> bool:
     return True
 
 
-async def populate_toe_inputs(data: Tuple[GitRootToeInput, ...]) -> bool:
-    await collect([dal_toe_inputs.add(toe_input) for toe_input in data])
+async def populate_toe_inputs(data: Tuple[ToeInput, ...]) -> bool:
+    await collect(
+        [toe_inputs_model.add(toe_input=toe_input) for toe_input in data]
+    )
     return True
 
 

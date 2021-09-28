@@ -7,11 +7,11 @@ from custom_exceptions import (
     GroupNameNotFound,
     InvalidField,
 )
-from data_containers.toe_inputs import (
-    GitRootToeInput,
-)
 from dataloaders import (
     get_new_context,
+)
+from db_model.toe_inputs.types import (
+    ToeInput,
 )
 import glob
 from newutils import (
@@ -57,7 +57,7 @@ def _format_email(email: str) -> str:
 
 def _get_group_toe_inputs_from_cvs(
     inputs_csv_path: str, group_name: str
-) -> Set[GitRootToeInput]:
+) -> Set[ToeInput]:
     default_date = datetime_utils.DEFAULT_ISO_STR
     inputs_csv_fields: List[Tuple[str, Callable, Any]] = [
         # field_name, field_formater, field_default_value
@@ -86,16 +86,16 @@ def _get_group_toe_inputs_from_cvs(
                     new_toe_input[field_name] = default_value
 
             new_toe_input["group_name"] = group_name
-            group_toe_inputs.add(GitRootToeInput(**new_toe_input))
+            group_toe_inputs.add(ToeInput(**new_toe_input))
 
     return group_toe_inputs
 
 
 def _get_toe_inputs_to_add(
-    group_toe_inputs: Set[GitRootToeInput],
+    group_toe_inputs: Set[ToeInput],
     group_toe_input_hashes: Set[int],
-    cvs_group_toe_inputs: Set[GitRootToeInput],
-) -> Set[GitRootToeInput]:
+    cvs_group_toe_inputs: Set[ToeInput],
+) -> Set[ToeInput]:
     return {
         toe_input
         for toe_input in cvs_group_toe_inputs
@@ -105,10 +105,10 @@ def _get_toe_inputs_to_add(
 
 
 def _get_toe_inputs_to_update(
-    group_toe_inputs: Set[GitRootToeInput],
+    group_toe_inputs: Set[ToeInput],
     group_toe_input_hashes: Set[int],
-    cvs_group_toe_inputs: Set[GitRootToeInput],
-) -> Set[GitRootToeInput]:
+    cvs_group_toe_inputs: Set[ToeInput],
+) -> Set[ToeInput]:
     return {
         toe_input
         for toe_input in cvs_group_toe_inputs
@@ -118,9 +118,9 @@ def _get_toe_inputs_to_update(
 
 
 def _get_toe_inputs_to_remove(
-    group_toe_inputs: Set[GitRootToeInput],
+    group_toe_inputs: Set[ToeInput],
     cvs_group_toe_input_hashes: Set[int],
-) -> Set[GitRootToeInput]:
+) -> Set[ToeInput]:
     return {
         toe_input
         for toe_input in group_toe_inputs
@@ -132,7 +132,7 @@ async def update_toe_inputs_from_csv(
     loaders: Any, group_name: str, inputs_csv_path: str
 ) -> None:
     group_toe_inputs_loader = loaders.group_toe_inputs
-    group_toe_inputs: Set[GitRootToeInput] = set(
+    group_toe_inputs: Set[ToeInput] = set(
         await group_toe_inputs_loader.load(group_name)
     )
     group_toe_input_hashes = {
@@ -161,7 +161,7 @@ async def update_toe_inputs_from_csv(
     )
     await collect(
         [
-            toe_inputs_domain.delete(
+            toe_inputs_domain.remove(
                 toe_input.entry_point,
                 toe_input.component,
                 toe_input.group_name,

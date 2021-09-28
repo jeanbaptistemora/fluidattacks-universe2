@@ -1,25 +1,20 @@
-from data_containers.toe_inputs import (
-    GitRootToeInput,
+from db_model import (
+    toe_inputs as toe_inputs_model,
 )
-from toe.inputs import (
-    dal as toe_inputs_dal,
-)
-from typing import (
-    Tuple,
+from db_model.toe_inputs.types import (
+    ToeInput,
 )
 
 
-async def add(root_toe_input: GitRootToeInput) -> None:
-    await toe_inputs_dal.add(root_toe_input)
+async def add(toe_input: ToeInput) -> None:
+    await toe_inputs_model.add(toe_input=toe_input)
 
 
-async def delete(entry_point: str, component: str, group_name: str) -> None:
-    await toe_inputs_dal.remove(entry_point, component, group_name)
+async def remove(entry_point: str, component: str, group_name: str) -> None:
+    await toe_inputs_model.remove(
+        entry_point=entry_point, component=component, group_name=group_name
+    )
 
 
-async def get_by_group(group_name: str) -> Tuple[GitRootToeInput, ...]:
-    return await toe_inputs_dal.get_by_group(group_name)
-
-
-async def update(root_toe_input: GitRootToeInput) -> None:
-    await toe_inputs_dal.update(root_toe_input)
+async def update(toe_input: ToeInput) -> None:
+    await toe_inputs_model.update(toe_input=toe_input)

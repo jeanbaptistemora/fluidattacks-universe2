@@ -25,6 +25,9 @@ from db_model.findings.types import (
     FindingUnreliableIndicators,
     FindingVerification,
 )
+from db_model.toe_inputs.types import (
+    ToeInput,
+)
 import safe_pickle
 from safe_pickle import (
     _deserialize,
@@ -68,6 +71,7 @@ safe_pickle.register_namedtuple(FindingTreatmentSummary)
 safe_pickle.register_namedtuple(FindingVerification)
 safe_pickle.register_namedtuple(GitRootToeInput)
 safe_pickle.register_namedtuple(GitRootToeLines)
+safe_pickle.register_namedtuple(ToeInput)
 
 # Exported members
 __all__ = ["dump", "load"]
