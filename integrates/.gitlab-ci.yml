@@ -190,6 +190,9 @@ integrates.back.test.functional.old:
 integrates.back.test.functional.accept_legal:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.acknowledge_concurrent_session:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.activate_root:
   <<: *integrates_back_test_functional
 
