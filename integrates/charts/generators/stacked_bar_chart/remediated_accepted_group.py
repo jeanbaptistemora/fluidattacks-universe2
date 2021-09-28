@@ -120,6 +120,12 @@ def format_data(data: List[Treatment]) -> dict:
                 tick=dict(rotate=utils.TICK_ROTATION, multiline=False),
             ),
         ),
+        tooltip=dict(
+            format=dict(
+                value=None,
+            ),
+        ),
+        normalizedToolTip=True,
     )
 
 
