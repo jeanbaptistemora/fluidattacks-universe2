@@ -38,12 +38,6 @@ from custom_exceptions import (
 from decorators import (
     authenticate_session,
 )
-from graphql import (
-    GraphQLError,
-    OperationDefinitionNode,
-    OperationType,
-    ValidationRule,
-)
 from group_access import (
     domain as group_access_domain,
 )
@@ -207,29 +201,11 @@ async def server_error(request: Request, ex: Exception) -> HTMLResponse:
 exception_handlers = {404: not_found, 500: server_error}
 
 
-class MutationsDisabledRule(ValidationRule):
-    def enter_operation_definition(
-        self, node: OperationDefinitionNode, *_args
-    ) -> None:
-        if node.operation is OperationType.MUTATION:
-            self.report_error(
-                GraphQLError(
-                    f"Mutations are temporarily disabled due to maintenance",
-                    node,
-                )
-            )
-
-
 STARLETTE_APP = Starlette(
     debug=DEBUG,
     routes=[
         Route("/", templates.login),
-        Route(
-            "/api",
-            IntegratesAPI(
-                SCHEMA, debug=DEBUG, validation_rules=[MutationsDisabledRule]
-            ),
-        ),
+        Route("/api", IntegratesAPI(SCHEMA, debug=DEBUG)),
         Route("/authz_azure", auth.authz_azure),
         Route("/authz_bitbucket", auth.authz_bitbucket),
         Route("/authz_google", auth.authz_google),
@@ -257,7 +233,7 @@ STARLETTE_APP = Starlette(
             StaticFiles(directory=f"{TEMPLATES_DIR}/static"),
             name="static",
         ),
-        Route("/{full_path:path}", templates.maintenance),
+        Route("/{full_path:path}", app),
     ],
     middleware=[
         Middleware(SessionMiddleware, secret_key=FI_STARLETTE_SESSION_KEY),
