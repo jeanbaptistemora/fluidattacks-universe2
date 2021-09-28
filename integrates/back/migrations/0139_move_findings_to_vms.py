@@ -23,6 +23,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model import (
     findings as findings_model,
     MASKED,
@@ -85,6 +88,7 @@ from typing import (
     cast,
     Dict,
     List,
+    Set,
     Union,
 )
 from unreliable_indicators.enums import (
@@ -95,6 +99,8 @@ from unreliable_indicators.operations import (
     _format_unreliable_treatment_summary,
 )
 
+RESULTS_FILE: str = "0139_results.txt"
+ERROR: str = "ERROR"
 FINDING_TABLE: str = "FI_findings"
 PROD: bool = False
 
@@ -162,19 +168,57 @@ async def _populate_finding_unreliable_indicator(
     )
 
 
+async def _update_state_entry(
+    group_name: str,
+    finding_id: str,
+    old_state: FindingState,
+    historic_length: int,
+    count: int,
+) -> None:
+    state = _format_state(old_state)
+    is_latest = count == historic_length - 1
+    await findings_model.update_state(
+        group_name=group_name,
+        finding_id=finding_id,
+        state=state,
+        is_latest=is_latest,  # Temporal flag for this migration
+    )
+
+
 async def _populate_finding_historic_state(
     group_name: str,
     finding_id: str,
     historic_state: HistoricType,
 ) -> None:
-    for old_state in historic_state:
-        if "date" in old_state and old_state["date"]:
-            state = _format_state(old_state)
-            await findings_model.update_state(
+    await collect(
+        [
+            _update_state_entry(
                 group_name=group_name,
                 finding_id=finding_id,
-                state=state,
+                old_state=old_state,
+                historic_length=len(historic_state),
+                count=count,
             )
+            for count, old_state in enumerate(historic_state)
+        ]
+    )
+
+
+async def _update_verification_entry(
+    group_name: str,
+    finding_id: str,
+    old_verification: FindingVerification,
+    historic_length: int,
+    count: int,
+) -> None:
+    verification = _format_verification(old_verification)
+    is_latest = count == historic_length - 1
+    await findings_model.update_verification(
+        group_name=group_name,
+        finding_id=finding_id,
+        verification=verification,
+        is_latest=is_latest,  # Temporal flag for this migration
+    )
 
 
 async def _populate_finding_historic_verification(
@@ -182,13 +226,18 @@ async def _populate_finding_historic_verification(
     finding_id: str,
     historic_verification: HistoricType,
 ) -> None:
-    for old_verification in historic_verification:
-        verification = _format_verification(old_verification)
-        await findings_model.update_verification(
-            group_name=group_name,
-            finding_id=finding_id,
-            verification=verification,
-        )
+    await collect(
+        [
+            _update_verification_entry(
+                group_name=group_name,
+                finding_id=finding_id,
+                old_verification=old_verification,
+                historic_length=len(historic_verification),
+                count=count,
+            )
+            for count, old_verification in enumerate(historic_verification)
+        ]
+    )
 
 
 def _format_source(source: str) -> Source:
@@ -406,33 +455,51 @@ def _format_evidences(old_finding: FindingType) -> FindingEvidences:
     return _format_non_masked_evidences(old_finding)
 
 
+def _read_migration_results() -> List[str]:
+    try:
+        with open(RESULTS_FILE, mode="r") as f:
+            return f.read().splitlines()
+    except FileNotFoundError:
+        print("ERROR - file not found ")
+        return []
+
+
+def _write_migration_results(results: Set[str]) -> None:
+    results.discard(ERROR)
+    try:
+        with open(RESULTS_FILE, "a") as f:
+            for result in results:
+                f.write(f"{result}\n")
+    except IOError:
+        print("ERROR - while writing results")
+
+
 async def _proccess_finding(
     loaders: Dataloaders,
     old_finding: FindingType,
-) -> bool:
+    progress: float,
+) -> str:
+    finding_id: str = old_finding["finding_id"]
+
     if "project_name" not in old_finding:
-        print(f'ERROR - "{old_finding["finding_id"]}" project_name missing')
-        return False
+        print(f'ERROR - "{finding_id}" project_name missing')
+        return ERROR
 
     if "historic_state" not in old_finding:
-        print(f'ERROR - "{old_finding["finding_id"]}" historic_state missing')
-        return False
-
-    analyst = old_finding.get("analyst", "")
-    historic_state = _fix_historic_state_creation(
-        _fix_historic_dates(old_finding["historic_state"]), analyst
-    )
-    if old_finding.get("historic_verification"):
-        historic_verification = _fix_historic_dates(
-            old_finding["historic_verification"]
-        )
+        print(f'ERROR - "{finding_id}" historic_state missing')
+        return ERROR
 
     try:
+        analyst = old_finding.get("analyst", "")
+        historic_state = _fix_historic_state_creation(
+            _fix_historic_dates(old_finding["historic_state"]), analyst
+        )
+
         await findings_model.add(
             finding=Finding(
                 hacker_email=analyst,
                 group_name=old_finding["project_name"],
-                id=old_finding["finding_id"],
+                id=finding_id,
                 state=_format_state(historic_state[0]),
                 title=old_finding.get("finding", ""),
                 affected_systems=old_finding.get("affected_systems", ""),
@@ -453,57 +520,73 @@ async def _proccess_finding(
                 requirements=old_finding.get("requirements", ""),
                 threat=old_finding.get("threat", ""),
                 unreliable_indicators=FindingUnreliableIndicators(),
-                verification=_format_verification(historic_verification[0])
+                verification=None
                 if old_finding.get("historic_verification")
                 else None,
             )
         )
     except AlreadyCreated:
-        print(f'ERROR - "{old_finding["finding_id"]}" already created at vms')
-        return False
+        print(f'ERROR - "{finding_id}" already created at vms')
+        return ERROR
 
     await _populate_finding_historic_state(
         old_finding["project_name"],
-        old_finding["finding_id"],
+        finding_id,
         historic_state,
     )
 
     if old_finding.get("historic_verification"):
+        historic_verification = _fix_historic_dates(
+            old_finding["historic_verification"]
+        )
+    if old_finding.get("historic_verification"):
         await _populate_finding_historic_verification(
             old_finding["project_name"],
-            old_finding["finding_id"],
+            finding_id,
             historic_verification,
         )
 
     await _populate_finding_unreliable_indicator(
         loaders,
         old_finding["project_name"],
-        old_finding["finding_id"],
+        finding_id,
     )
 
-    print(f'"{old_finding["finding_id"]}" migration OK')
-    return True
+    print(f' Progress: {round(progress, 4)} - "{finding_id}" migration OK')
+    return finding_id
 
 
 async def main() -> None:
     success = False
+    already_migrated: List[str] = _read_migration_results()
+    start_time = datetime.now()
     scan_attrs: DynamoQueryType = {}
-    findings: List[FindingType] = await dynamodb_ops.scan(
-        FINDING_TABLE, scan_attrs
-    )
-    loaders = get_new_context()
+    findings = await dynamodb_ops.scan(FINDING_TABLE, scan_attrs)
     print(f"old findings: len({len(findings)})")
+    print("--- scan in %s ---" % (datetime.now() - start_time))
+
+    loaders = get_new_context()
 
     if PROD:
-        success = all(
+        start_time = datetime.now()
+        results = set(
             await collect(
-                _proccess_finding(
-                    loaders=loaders,
-                    old_finding=old_finding,
-                )
-                for old_finding in findings
+                [
+                    _proccess_finding(
+                        loaders=loaders,
+                        old_finding=old_finding,
+                        progress=count / len(findings),
+                    )
+                    for count, old_finding in enumerate(findings)
+                    if old_finding["finding_id"] not in already_migrated
+                ]
             )
         )
+        print(f"=== results: len({len(results)})")
+        if ERROR not in results:
+            success = True
+        _write_migration_results(results)
+        print("--- processing in %s ---" % (datetime.now() - start_time))
 
     print(f"Success: {success}")
 

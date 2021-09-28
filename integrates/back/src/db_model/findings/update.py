@@ -198,7 +198,11 @@ async def update_medatada(
 
 
 async def update_state(
-    *, group_name: str, finding_id: str, state: FindingState
+    *,
+    group_name: str,
+    finding_id: str,
+    state: FindingState,
+    is_latest: bool = True,  # Temporal during migration 0139
 ) -> None:
     items = []
     key_structure = TABLE.primary_key
@@ -216,12 +220,13 @@ async def update_state(
     )
     condition_expression = Attr(key_structure.partition_key).exists()
     try:
-        await operations.put_item(
-            condition_expression=condition_expression,
-            facet=TABLE.facets["finding_state"],
-            item=latest,
-            table=TABLE,
-        )
+        if is_latest:
+            await operations.put_item(
+                condition_expression=condition_expression,
+                facet=TABLE.facets["finding_state"],
+                item=latest,
+                table=TABLE,
+            )
     except ConditionalCheckFailedException:
         raise FindingNotFound()
     items.append(historic)
@@ -280,7 +285,11 @@ async def update_unreliable_indicators(
 
 
 async def update_verification(
-    *, group_name: str, finding_id: str, verification: FindingVerification
+    *,
+    group_name: str,
+    finding_id: str,
+    verification: FindingVerification,
+    is_latest: bool = True,  # Temporal during migration 0139
 ) -> None:
     items = []
     key_structure = TABLE.primary_key
@@ -296,10 +305,11 @@ async def update_verification(
         },
         latest_facet=TABLE.facets["finding_verification"],
     )
-    await operations.put_item(
-        facet=TABLE.facets["finding_verification"],
-        item=latest,
-        table=TABLE,
-    )
+    if is_latest:
+        await operations.put_item(
+            facet=TABLE.facets["finding_verification"],
+            item=latest,
+            table=TABLE,
+        )
     items.append(historic)
     await operations.batch_write_item(items=tuple(items), table=TABLE)
