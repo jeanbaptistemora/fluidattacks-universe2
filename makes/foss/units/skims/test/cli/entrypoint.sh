@@ -2,10 +2,9 @@
 
 function assert {
   if "${@}"; then
-    echo "[INFO] Successfully run: ${*}" \
-      && return 0
+    info Successfully run: "${*}"
   else
-    abort "[ERROR] While running: ${*}"
+    critical While running: "${*}"
   fi
 }
 
@@ -19,7 +18,6 @@ function main {
     && assert skims language --group continuoustest |& tee "${output}" \
     && assert grep -HnP '^EN$' "${output}" \
     && assert grep -HnP 'Success' "${output}"
-
 }
 
 main "${@}"

@@ -102,14 +102,6 @@ in
           output = "/lintTerraform/skims";
           gitlabExtra = gitlabLint;
         }
-        {
-          output = "/testTerraform/skims";
-          gitlabExtra = gitlabTestInfra;
-        }
-        {
-          output = "/securePythonWithBandit/skims";
-          gitlabExtra = gitlabLint;
-        }
       ]
       ++ (builtins.map
         (category: {
@@ -121,6 +113,10 @@ in
           (inputs.skimsTestPythonCategories)))
       ++ [
         {
+          output = "/skims/test/cli";
+          gitlabExtra = gitlabTest;
+        }
+        {
           output = "/testPython/skims@functional";
           gitlabExtra = gitlabTest // {
             resource_group = "$CI_COMMIT_REF_NAME-$CI_JOB_NAME";
@@ -131,6 +127,14 @@ in
           gitlabExtra = gitlabTest // {
             tags = [ "autoscaling-large" ];
           };
+        }
+        {
+          output = "/testTerraform/skims";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/securePythonWithBandit/skims";
+          gitlabExtra = gitlabLint;
         }
       ];
     };

@@ -60,11 +60,6 @@ skims.structure:
     when: always
   stage: test-code
 
-skims.test.cli:
-  <<: *makes
-  <<: *skims_in_dev_branch
-  stage: test-code
-
 skims.test.sdk:
   <<: *makes
   <<: *skims_in_dev_branch
