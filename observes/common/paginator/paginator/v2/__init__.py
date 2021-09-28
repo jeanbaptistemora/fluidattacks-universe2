@@ -12,6 +12,10 @@ from paginator.v2._int_index import (
     IntIndexGetter,
     PageRange,
 )
+from paginator.v2._rate_limit import (
+    LimitedFunction,
+    RateLimiter,
+)
 
 __all__ = [
     "AllPages",
@@ -24,4 +28,6 @@ __all__ = [
     "PageGetterIO",
     "PageRange",
     "IntIndexGetter",
+    "LimitedFunction",
+    "RateLimiter",
 ]
