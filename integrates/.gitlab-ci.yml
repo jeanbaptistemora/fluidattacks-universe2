@@ -388,6 +388,9 @@ integrates.back.test.functional.submit_draft_new:
 integrates.back.test.functional.submit_organization_finding_policy:
   <<: *integrates_back_test_functional_migration
 
+integrates.back.test.functional.subscribe_to_entity_report:
+  <<: *integrates_back_test_functional_migration
+
 integrates.back.test.functional.toe_inputs:
   <<: *integrates_back_test_functional
 

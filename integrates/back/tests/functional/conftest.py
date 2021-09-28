@@ -76,6 +76,7 @@ TEST_GROUPS: Set[str] = {
     "submit_draft",
     "submit_draft_new",
     "submit_organization_finding_policy",
+    "subscribe_to_entity_report",
     "toe_inputs",
     "toe_lines",
     "unsubscribe_from_group",
