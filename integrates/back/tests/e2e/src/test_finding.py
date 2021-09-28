@@ -269,7 +269,6 @@ def test_finding_reattack(
     )
     assert "Which was the applied solution?" in driver.page_source
     treatment.send_keys("test-justification")
-    cancel_reattack.click()
 
     # show closed vulnerabilities again
     cancel_reattack.click()

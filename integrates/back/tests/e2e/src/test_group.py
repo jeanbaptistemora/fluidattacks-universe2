@@ -279,7 +279,7 @@ def test_group_scope_portfolio(
         "portfolio-add-proceed",
         timeout,
     )
-    proceed.click()
+
     proceed.click()
     assert utils.wait_for_text(
         driver,
