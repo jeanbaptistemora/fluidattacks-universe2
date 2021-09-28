@@ -27,8 +27,8 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def handle_virus_scan(*, item: BatchProcessing) -> None:
-    file_name = item.entity
-    group_name = item.additional_info
+    group_name = item.entity
+    file_name = item.additional_info
     user_email = item.subject
     message = (
         f"Processing virus scan on file {file_name} requested by "

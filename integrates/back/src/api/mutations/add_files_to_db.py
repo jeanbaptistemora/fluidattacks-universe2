@@ -54,9 +54,9 @@ async def mutate(
 
     await put_action(
         action_name="handle_virus_scan",
-        entity=files_data[0]["file_name"],
+        entity=group_name,
         subject=user_email,
-        additional_info=group_name,
+        additional_info=files_data[0]["file_name"],
         queue="dedicated_soon",
     )
 
