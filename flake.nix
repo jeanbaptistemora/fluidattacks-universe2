@@ -64,8 +64,6 @@
 
         makes = import "${inputs.makes.sourceInfo}/src/args/agnostic.nix" {
           inherit system;
-          __globalStateDir__ = "$HOME_IMPURE/.makes/state";
-          __projectStateDir__ = "$HOME_IMPURE/.makes/state/product";
         };
 
         # Nix packages
