@@ -292,6 +292,9 @@ integrates.back.test.functional.handle_vulnerabilities_acceptation_new:
 integrates.back.test.functional.internal_names:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.me:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.organization:
   <<: *integrates_back_test_functional
 
