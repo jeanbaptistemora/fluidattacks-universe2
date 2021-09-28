@@ -52077,6 +52077,69 @@
             "type": "SyntaxStepMethodInvocation"
           }
         ],
+        "966": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "996",
+              "value": null
+            },
+            "symbol": "auth",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "994",
+              "value": null
+            },
+            "operator": "!",
+            "type": "SyntaxStepUnaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "992",
+              "value": null
+            },
+            "symbol": "ok",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "990",
+              "value": null
+            },
+            "operator": "!",
+            "type": "SyntaxStepUnaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "989",
+              "value": null
+            },
+            "operator": "||",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "966",
+              "value": null
+            },
+            "n_id_false": "1007",
+            "n_id_true": "997",
+            "type": "SyntaxStepIf"
+          }
+        ],
         "988": [
           {
             "meta": {

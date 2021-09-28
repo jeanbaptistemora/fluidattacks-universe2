@@ -4,13 +4,12 @@ from model import (
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
 )
-from utils import (
-    graph as g,
-)
 
 
 def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
-    l_id, op_id, r_id = g.adj_ast(args.graph, args.n_id)
+    l_id = args.graph.nodes[args.n_id]["label_field_left"]
+    op_id = args.graph.nodes[args.n_id]["label_field_operator"]
+    r_id = args.graph.nodes[args.n_id]["label_field_right"]
 
     yield graph_model.SyntaxStepBinaryExpression(
         meta=graph_model.SyntaxStepMeta.default(
