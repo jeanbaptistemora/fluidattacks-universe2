@@ -4,7 +4,11 @@
     "fresh": "xxxxwhasdflaskdjfasdf",
     "hoek": "^5.0.0",
     "lodash": "0.*",
+    "jasmine-core": "2.99.1",
     "jquery": "0.*",
+    "ng-packagr": "12.2.2",
+    "node-sass": "^5.0.0",
+    "serverless-offline": "3.3.0",
     "!@#$%^&*()_+=": "!@#$%^&*()_+="
   }
 }

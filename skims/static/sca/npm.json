@@ -277,6 +277,11 @@
   "isarray": {},
   "isobject": {},
   "istanbul-lib-coverage": {},
+  "jasmine-core": {
+    "npm:jasmine-core:20180216": [
+      "<3.1.0"
+    ]
+  },
   "jquery": {
     "CVE-2020-11022": [
       ">=1.2.0,<3.5.0"
@@ -395,9 +400,22 @@
       ">=0.7.1,<2.0.0"
     ]
   },
+  "ng-packagr": {
+    "CVE-2020-7735": [
+      "<10.1.1"
+    ]
+  },
   "node-fetch": {
     "CVE-2020-15168": [
       "<2.6.1"
+    ]
+  },
+  "node-sass": {
+    "CVE-2020-24025": [
+      ">=2.0.0,<=4.14.1"
+    ],
+    "SNYK-JS-NODESASS-540996": [
+      "<=6.0.1"
     ]
   },
   "normalize-package-data": {},
@@ -475,6 +493,14 @@
     ],
     "CVE-2019-16769": [
       "<2.1.1"
+    ]
+  },
+  "serverless-offline": {
+    "CVE-2021-38384": [
+      "==8.0.0"
+    ],
+    "SNYK-JS-SERVERLESSOFFLINE-1540299": [
+      "<=8.2.0"
     ]
   },
   "set-blocking": {},
