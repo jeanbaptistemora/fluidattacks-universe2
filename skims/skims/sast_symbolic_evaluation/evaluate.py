@@ -30,6 +30,7 @@ from sast_symbolic_evaluation.cases import (
     literal,
     loop,
     member_access_expression,
+    method_declaration,
     method_invocation,
     method_invocation_chain,
     no_op,
@@ -175,6 +176,7 @@ EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepMemberAccessExpression: (
         member_access_expression.evaluate
     ),
+    graph_model.SyntaxStepMethodDeclaration: method_declaration.evaluate,
     graph_model.SyntaxStepSwitch: switch_label.evaluate,
     graph_model.SyntaxStepSwitchLabelCase: switch_label_case.evaluate,
     graph_model.SyntaxStepSwitchLabelDefault: no_op.evaluate,

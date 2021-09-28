@@ -5465,6 +5465,16 @@
             "type": "SyntaxStepDeclaration",
             "var": "resp",
             "var_type": "HttpResponse"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "52",
+              "value": null
+            },
+            "name": "Bad",
+            "type": "SyntaxStepMethodDeclaration"
           }
         ],
         "69": [
@@ -18053,6 +18063,16 @@
             "type": "SyntaxStepDeclaration",
             "var": "id",
             "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1015",
+              "value": null
+            },
+            "name": "Delete",
+            "type": "SyntaxStepMethodDeclaration"
           }
         ],
         "1041": [
@@ -18310,6 +18330,16 @@
             "type": "SyntaxStepDeclaration",
             "var": "houseMapper",
             "var_type": "IHouseMapper"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "143",
+              "value": null
+            },
+            "name": "HouseController",
+            "type": "SyntaxStepMethodDeclaration"
           }
         ],
         "157": [
@@ -18875,6 +18905,16 @@
             "type": "SyntaxStepDeclaration",
             "var": "id",
             "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "387",
+              "value": null
+            },
+            "name": "GetSingle",
+            "type": "SyntaxStepMethodDeclaration"
           }
         ],
         "432": [
@@ -27233,7 +27273,18 @@
             "type": "SyntaxStepObjectInstantiation"
           }
         ],
-        "12": [],
+        "12": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "12",
+              "value": null
+            },
+            "name": "StudentController",
+            "type": "SyntaxStepMethodDeclaration"
+          }
+        ],
         "155": [
           {
             "meta": {
@@ -27362,6 +27413,16 @@
             "type": "SyntaxStepDeclaration",
             "var": "student",
             "var_type": "StudentViewModel"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "185",
+              "value": null
+            },
+            "name": "PostNewStudent",
+            "type": "SyntaxStepMethodDeclaration"
           }
         ],
         "19": [
@@ -27504,6 +27565,16 @@
             "type": "SyntaxStepDeclaration",
             "var": "id",
             "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "22",
+              "value": null
+            },
+            "name": "GetStudentById",
+            "type": "SyntaxStepMethodDeclaration"
           }
         ],
         "235": [
@@ -27646,6 +27717,16 @@
             "type": "SyntaxStepDeclaration",
             "var": "student",
             "var_type": "StudentViewModel"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "303",
+              "value": null
+            },
+            "name": "Put",
+            "type": "SyntaxStepMethodDeclaration"
           }
         ],
         "314": [
@@ -28253,6 +28334,16 @@
             "type": "SyntaxStepDeclaration",
             "var": "id",
             "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "468",
+              "value": null
+            },
+            "name": "Delete",
+            "type": "SyntaxStepMethodDeclaration"
           }
         ],
         "479": [
@@ -31334,6 +31425,16 @@
             "type": "SyntaxStepDeclaration",
             "var": "target",
             "var_type": "MemoryStream"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "11",
+              "value": null
+            },
+            "name": "Encrypt",
+            "type": "SyntaxStepMethodDeclaration"
           }
         ],
         "131": [

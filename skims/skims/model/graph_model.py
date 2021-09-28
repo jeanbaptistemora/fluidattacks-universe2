@@ -179,6 +179,12 @@ class SyntaxStepLiteral(NamedTuple):
     type: str = "SyntaxStepLiteral"
 
 
+class SyntaxStepMethodDeclaration(NamedTuple):
+    meta: SyntaxStepMeta
+    name: str
+    type: str = "SyntaxStepMethodDeclaration"
+
+
 @dataclass
 class SyntaxStepMethodInvocation:
     meta: SyntaxStepMeta
