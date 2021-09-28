@@ -10,6 +10,5 @@ from utils import (
 
 
 def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
-    match = g.match_ast(args.graph, args.n_id, "variable_declaration")
-
-    yield from args.generic(args.fork_n_id(match["variable_declaration"]))
+    var_decl_id = g.match_ast_d(args.graph, args.n_id, "variable_declaration")
+    yield from args.generic(args.fork_n_id(var_decl_id))
