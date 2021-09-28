@@ -8,9 +8,6 @@ from back.tests.unit import (
 from collections import (
     OrderedDict,
 )
-from data_containers.toe_inputs import (
-    GitRootToeInput,
-)
 from data_containers.toe_lines import (
     GitRootToeLines,
 )
@@ -63,9 +60,6 @@ from schedulers import (
     update_indicators_new,
 )
 import shutil
-from toe.inputs import (
-    domain as toe_inputs_domain,
-)
 from toe.lines import (
     domain as toe_lines_domain,
 )

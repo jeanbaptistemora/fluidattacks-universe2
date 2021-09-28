@@ -17,7 +17,6 @@ from dynamodb.table import (
     load_table,
 )
 from dynamodb.types import (
-    GitRootToeInputItem,
     GitRootToeLinesItem,
     GroupMetadata,
     Item,
@@ -174,120 +173,6 @@ async def update_git_root_toe_lines(
         condition_expression=condition_expression,
         facet=facet,
         item=toe_lines,
-        table=TABLE,
-    )
-
-
-async def add_git_root_toe_input(
-    *, root_toe_input: GitRootToeInputItem
-) -> None:
-    key_structure = TABLE.primary_key
-    facet = TABLE.facets["root_toe_input"]
-    toe_input_key = keys.build_key(
-        facet=facet,
-        values={
-            "component": root_toe_input.component,
-            "entry_point": root_toe_input.entry_point,
-            "group_name": root_toe_input.group_name,
-        },
-    )
-    toe_input = {
-        key_structure.partition_key: toe_input_key.partition_key,
-        key_structure.sort_key: toe_input_key.sort_key,
-        **dict(root_toe_input._asdict()),
-    }
-    condition_expression = Attr(key_structure.partition_key).not_exists()
-    await operations.put_item(
-        condition_expression=condition_expression,
-        facet=facet,
-        item=toe_input,
-        table=TABLE,
-    )
-
-
-async def remove_git_root_toe_input(
-    *,
-    entry_point: str,
-    component: str,
-    group_name: str,
-) -> None:
-    facet = TABLE.facets["root_toe_input"]
-    toe_input_key = keys.build_key(
-        facet=facet,
-        values={
-            "component": component,
-            "entry_point": entry_point,
-            "group_name": group_name,
-        },
-    )
-    await operations.delete_item(primary_key=toe_input_key, table=TABLE)
-
-
-def _build_git_root_toe_input(
-    *,
-    group_name: str,
-    item: Item,
-) -> GitRootToeInputItem:
-    return GitRootToeInputItem(
-        commit=item["commit"],
-        component=item["component"],
-        created_date=item["created_date"],
-        entry_point=item["entry_point"],
-        group_name=group_name,
-        seen_first_time_by=item["seen_first_time_by"],
-        tested_date=item["tested_date"],
-        verified=item["verified"],
-        vulns=item["vulns"],
-    )
-
-
-async def get_toe_inputs_by_group(
-    *, group_name: str
-) -> Tuple[GitRootToeInputItem, ...]:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["root_toe_input"],
-        values={"group_name": group_name},
-    )
-    key_structure = TABLE.primary_key
-    inputs_key = primary_key.sort_key.split("#")[0]
-    results = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & Key(key_structure.sort_key).begins_with(inputs_key)
-        ),
-        facets=(TABLE.facets["root_toe_input"],),
-        index=None,
-        table=TABLE,
-    )
-    return tuple(
-        _build_git_root_toe_input(group_name=group_name, item=item)
-        for item in results
-    )
-
-
-async def update_git_root_toe_input(
-    *, root_toe_input: GitRootToeInputItem
-) -> None:
-    key_structure = TABLE.primary_key
-    facet = TABLE.facets["root_toe_input"]
-    toe_input_key = keys.build_key(
-        facet=facet,
-        values={
-            "component": root_toe_input.component,
-            "entry_point": root_toe_input.entry_point,
-            "group_name": root_toe_input.group_name,
-        },
-    )
-    toe_input = {
-        key_structure.partition_key: toe_input_key.partition_key,
-        key_structure.sort_key: toe_input_key.sort_key,
-        **root_toe_input._asdict(),
-    }
-    condition_expression = Attr(key_structure.partition_key).exists()
-    await operations.put_item(
-        condition_expression=condition_expression,
-        facet=facet,
-        item=toe_input,
         table=TABLE,
     )
 

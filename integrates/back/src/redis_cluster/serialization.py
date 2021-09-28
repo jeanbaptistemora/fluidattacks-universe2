@@ -1,6 +1,3 @@
-from data_containers.toe_inputs import (
-    GitRootToeInput,
-)
 from data_containers.toe_lines import (
     GitRootToeLines,
 )
@@ -69,7 +66,6 @@ safe_pickle.register_namedtuple(FindingState)
 safe_pickle.register_namedtuple(FindingUnreliableIndicators)
 safe_pickle.register_namedtuple(FindingTreatmentSummary)
 safe_pickle.register_namedtuple(FindingVerification)
-safe_pickle.register_namedtuple(GitRootToeInput)
 safe_pickle.register_namedtuple(GitRootToeLines)
 safe_pickle.register_namedtuple(ToeInput)
 
