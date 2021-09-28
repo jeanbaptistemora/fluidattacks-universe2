@@ -1,4 +1,6 @@
 from .enums import (
+    FindingCvssVersion,
+    FindingSorts,
     FindingStateJustification,
     FindingStateStatus,
     FindingStatus,
@@ -6,6 +8,8 @@ from .enums import (
 )
 from .types import (
     Finding,
+    Finding20Severity,
+    Finding31Severity,
     FindingEvidence,
     FindingEvidences,
     FindingState,
@@ -19,13 +23,18 @@ from datetime import (
 from db_model.enums import (
     Source,
 )
+from dynamodb import (
+    historics,
+)
 from dynamodb.types import (
     Item,
+    PrimaryKey,
 )
 from typing import (
     Optional,
     Set,
     Tuple,
+    Union,
 )
 
 
@@ -51,6 +60,112 @@ def format_evidences_item(evidences: FindingEvidences) -> Item:
         for field, evidence in evidences._asdict().items()
         if evidence is not None
     }
+
+
+def format_finding(
+    *,
+    item_id: str,
+    key_structure: PrimaryKey,
+    raw_items: Tuple[Item, ...],
+) -> Finding:
+    metadata = historics.get_metadata(
+        item_id=item_id, key_structure=key_structure, raw_items=raw_items
+    )
+    state = format_state(
+        historics.get_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_suffix="STATE",
+            raw_items=raw_items,
+        )
+    )
+    unreliable_indicators = format_unreliable_indicators(
+        historics.get_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_suffix="UNRELIABLEINDICATORS",
+            raw_items=raw_items,
+        )
+    )
+    approval = format_optional_state(
+        historics.get_optional_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_suffix="APPROVAL",
+            raw_items=raw_items,
+        )
+    )
+    creation = format_state(
+        historics.get_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_suffix="CREATION",
+            raw_items=raw_items,
+        )
+    )
+    submission = format_optional_state(
+        historics.get_optional_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_suffix="SUBMISSION",
+            raw_items=raw_items,
+        )
+    )
+    verification = format_optional_verification(
+        historics.get_optional_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_suffix="VERIFICATION",
+            raw_items=raw_items,
+        )
+    )
+
+    if metadata["cvss_version"] == FindingCvssVersion.V31.value:
+        severity: Union[
+            Finding20Severity, Finding31Severity
+        ] = Finding31Severity(
+            **{
+                field: metadata["severity"][field]
+                for field in Finding31Severity._fields
+            }
+        )
+    else:
+        severity = Finding20Severity(
+            **{
+                field: metadata["severity"][field]
+                for field in Finding20Severity._fields
+            }
+        )
+    evidences = FindingEvidences(
+        **{
+            name: FindingEvidence(**evidence)
+            for name, evidence in metadata["evidences"].items()
+        }
+    )
+
+    return Finding(
+        affected_systems=metadata["affected_systems"],
+        hacker_email=metadata["analyst_email"],
+        approval=approval,
+        attack_vector_description=metadata["attack_vector_description"],
+        compromised_attributes=metadata["compromised_attributes"],
+        compromised_records=int(metadata["compromised_records"]),
+        creation=creation,
+        description=metadata["description"],
+        evidences=evidences,
+        group_name=metadata["group_name"],
+        id=metadata["id"],
+        severity=severity,
+        sorts=FindingSorts[metadata["sorts"]],
+        submission=submission,
+        recommendation=metadata["recommendation"],
+        requirements=metadata["requirements"],
+        title=metadata["title"],
+        threat=metadata["threat"],
+        state=state,
+        unreliable_indicators=unreliable_indicators,
+        verification=verification,
+    )
 
 
 def format_state(state_item: Item) -> FindingState:

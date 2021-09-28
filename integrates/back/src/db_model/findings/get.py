@@ -1,23 +1,15 @@
 from .enums import (
-    FindingCvssVersion,
-    FindingSorts,
     FindingStateStatus,
 )
 from .types import (
     Finding,
-    Finding20Severity,
-    Finding31Severity,
-    FindingEvidence,
-    FindingEvidences,
     FindingState,
     FindingVerification,
 )
 from .utils import (
     filter_non_state_status_findings,
-    format_optional_state,
-    format_optional_verification,
+    format_finding,
     format_state,
-    format_unreliable_indicators,
     format_verification,
 )
 from aiodataloader import (
@@ -43,124 +35,13 @@ from dynamodb import (
     keys,
     operations,
 )
-from dynamodb.types import (
-    Item,
-    PrimaryKey,
-)
 from itertools import (
     chain,
 )
 from typing import (
     List,
     Tuple,
-    Union,
 )
-
-
-def _build_finding(
-    *,
-    item_id: str,
-    key_structure: PrimaryKey,
-    raw_items: Tuple[Item, ...],
-) -> Finding:
-    metadata = historics.get_metadata(
-        item_id=item_id, key_structure=key_structure, raw_items=raw_items
-    )
-    state = format_state(
-        historics.get_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="STATE",
-            raw_items=raw_items,
-        )
-    )
-    unreliable_indicators = format_unreliable_indicators(
-        historics.get_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="UNRELIABLEINDICATORS",
-            raw_items=raw_items,
-        )
-    )
-    approval = format_optional_state(
-        historics.get_optional_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="APPROVAL",
-            raw_items=raw_items,
-        )
-    )
-    creation = format_state(
-        historics.get_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="CREATION",
-            raw_items=raw_items,
-        )
-    )
-    submission = format_optional_state(
-        historics.get_optional_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="SUBMISSION",
-            raw_items=raw_items,
-        )
-    )
-    verification = format_optional_verification(
-        historics.get_optional_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="VERIFICATION",
-            raw_items=raw_items,
-        )
-    )
-
-    if metadata["cvss_version"] == FindingCvssVersion.V31.value:
-        severity: Union[
-            Finding20Severity, Finding31Severity
-        ] = Finding31Severity(
-            **{
-                field: metadata["severity"][field]
-                for field in Finding31Severity._fields
-            }
-        )
-    else:
-        severity = Finding20Severity(
-            **{
-                field: metadata["severity"][field]
-                for field in Finding20Severity._fields
-            }
-        )
-    evidences = FindingEvidences(
-        **{
-            name: FindingEvidence(**evidence)
-            for name, evidence in metadata["evidences"].items()
-        }
-    )
-
-    return Finding(
-        affected_systems=metadata["affected_systems"],
-        hacker_email=metadata["analyst_email"],
-        approval=approval,
-        attack_vector_description=metadata["attack_vector_description"],
-        compromised_attributes=metadata["compromised_attributes"],
-        compromised_records=int(metadata["compromised_records"]),
-        creation=creation,
-        description=metadata["description"],
-        evidences=evidences,
-        group_name=metadata["group_name"],
-        id=metadata["id"],
-        severity=severity,
-        sorts=FindingSorts[metadata["sorts"]],
-        submission=submission,
-        recommendation=metadata["recommendation"],
-        requirements=metadata["requirements"],
-        title=metadata["title"],
-        threat=metadata["threat"],
-        state=state,
-        unreliable_indicators=unreliable_indicators,
-        verification=verification,
-    )
 
 
 async def _get_finding(*, group_name: str, finding_id: str) -> Finding:
@@ -194,7 +75,7 @@ async def _get_finding(*, group_name: str, finding_id: str) -> Finding:
     if not results:
         raise FindingNotFound()
 
-    return _build_finding(
+    return format_finding(
         item_id=primary_key.partition_key,
         key_structure=key_structure,
         raw_items=results,
@@ -233,7 +114,7 @@ async def _get_findings_by_group(*, group_name: str) -> Tuple[Finding, ...]:
         finding_items[finding_id].append(item)
 
     return tuple(
-        _build_finding(
+        format_finding(
             item_id=finding_id,
             key_structure=key_structure,
             raw_items=tuple(items),
