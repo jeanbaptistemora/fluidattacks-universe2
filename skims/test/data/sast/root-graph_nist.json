@@ -4498,7 +4498,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "names",
-            "var_type": "array_type"
+            "var_type": "string[]"
           }
         ],
         "128": [
@@ -4905,7 +4905,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "affectedRows",
-            "var_type": "implicit_type"
+            "var_type": "var"
           }
         ],
         "254": [
@@ -18479,7 +18479,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "result",
-            "var_type": "generic_name"
+            "var_type": "List<HouseEntity>"
           }
         ],
         "325": [
@@ -27122,7 +27122,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "ctx",
-            "var_type": "implicit_type"
+            "var_type": "var"
           }
         ],
         "22": [
@@ -27349,7 +27349,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "ctx",
-            "var_type": "implicit_type"
+            "var_type": "var"
           }
         ],
         "35": [
@@ -27422,7 +27422,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "existingStudent",
-            "var_type": "implicit_type"
+            "var_type": "var"
           }
         ],
         "376": [
@@ -27705,7 +27705,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "ctx",
-            "var_type": "implicit_type"
+            "var_type": "var"
           }
         ],
         "447": [
@@ -27897,7 +27897,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "ctx",
-            "var_type": "implicit_type"
+            "var_type": "var"
           }
         ],
         "516": [
@@ -27944,7 +27944,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "student",
-            "var_type": "implicit_type"
+            "var_type": "var"
           }
         ],
         "539": [
@@ -30667,7 +30667,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "encryptor",
-            "var_type": "implicit_type"
+            "var_type": "var"
           }
         ],
         "11": [
@@ -30733,7 +30733,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "aes2",
-            "var_type": "implicit_type"
+            "var_type": "var"
           }
         ],
         "147": [
@@ -30800,7 +30800,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "encryptor",
-            "var_type": "implicit_type"
+            "var_type": "var"
           }
         ],
         "172": [
@@ -30866,7 +30866,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "cryptoStream",
-            "var_type": "implicit_type"
+            "var_type": "var"
           }
         ],
         "199": [
@@ -30946,7 +30946,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "initializationVector",
-            "var_type": "array_type"
+            "var_type": "byte[]"
           }
         ],
         "93": [
@@ -30971,7 +30971,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "aes",
-            "var_type": "implicit_type"
+            "var_type": "var"
           }
         ]
       }
