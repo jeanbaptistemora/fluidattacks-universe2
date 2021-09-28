@@ -7,6 +7,7 @@ from typing import (
 
 # Constants
 TEST_GROUPS: Set[str] = {
+    "accept_legal",
     "activate_root",
     "add_draft",
     "add_draft_new",

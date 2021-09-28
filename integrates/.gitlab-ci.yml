@@ -187,6 +187,9 @@ integrates.back.test.functional.old:
   <<: *integrates_back_test_functional
   script: ./m integrates.back.test.functional old true
 
+integrates.back.test.functional.accept_legal:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.activate_root:
   <<: *integrates_back_test_functional
 

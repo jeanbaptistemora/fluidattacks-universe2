@@ -13,7 +13,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("subscribe_to_entity_report")
+@pytest.mark.resolver_test_group("accept_legal")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -29,12 +29,10 @@ from typing import (
         ["system_owner@gmail.com"],
     ],
 )
-async def test_subscribe_to_entity_report(populate: bool, email: str) -> None:
+async def test_accept_legal(populate: bool, email: str) -> None:
     assert populate
-    organization: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     result: Dict[str, Any] = await get_result(
         user=email,
-        org_id=organization,
     )
     assert "errors" not in result
-    assert result["data"]["subscribeToEntityReport"]["success"]
+    assert result["data"]["acceptLegal"]["success"]
