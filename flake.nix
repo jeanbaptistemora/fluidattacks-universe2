@@ -57,10 +57,6 @@
         path = path: /. + (builtins.unsafeDiscardStringContext self.sourceInfo) + path;
         revision = if (builtins.hasAttr "rev" self) then self.rev else "dirty";
         inherit system;
-        skimsBenchmarkOwaspRepo = fetchzip {
-          url = "https://github.com/owasp/benchmark/archive/1cfe52ea6dc49bebae12e6ceb20356196f0e9ac8.tar.gz";
-          sha256 = "pcNMJJJ2cRxh4Kgq0ElOIyBJemJu4qggxY3Debjbcms=";
-        };
 
         makes = import "${inputs.makes.sourceInfo}/src/args/agnostic.nix" {
           inherit system;
