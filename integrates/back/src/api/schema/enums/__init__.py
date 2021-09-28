@@ -94,9 +94,7 @@ ENUMS: Tuple[EnumType, ...] = (
             "NONE": "NONE",
             "OTHER": "OTHER",
             "GROUP_FINALIZATION": "GROUP_FINALIZATION",
-            "PROJECT_FINALIZATION": "PROJECT_FINALIZATION",
             "GROUP_SUSPENSION": "GROUP_SUSPENSION",
-            "PROJECT_SUSPENSION": "PROJECT_SUSPENSION",
         },
     ),
     EnumType(
@@ -188,7 +186,7 @@ ENUMS: Tuple[EnumType, ...] = (
     EnumType("Sorts", {"NO": "NO", "YES": "YES"}),
     EnumType(
         "StakeholderEntity",
-        {"ORGANIZATION": "ORGANIZATION", "PROJECT": "PROJECT"},
+        {"ORGANIZATION": "ORGANIZATION", "GROUP": "GROUP"},
     ),
     EnumType(
         "StakeholderRole",

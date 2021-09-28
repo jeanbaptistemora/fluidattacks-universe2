@@ -135,12 +135,6 @@ enum UpdateGroupReason {
   NONE
   "Another reason not covered"
   OTHER
-  "Client decided to end the security testing"
-  PROJECT_FINALIZATION @deprecated(reason: """This enum field
-    will be removed after 2022/01/13. Use `GROUP_FINALIZATION` instead.""")
-  "Client decided to put on hold the security testing"
-  PROJECT_SUSPENSION @deprecated(reason: """This enum field
-    will be removed after 2022/01/13. Use `GROUP_SUSPENSION` instead.""")
 }
 
 "Where the event was present"
@@ -356,9 +350,6 @@ enum StakeholderEntity {
   GROUP
   "Organization"
   ORGANIZATION
-  "Group"
-  PROJECT @deprecated(reason: """This enum field  will be
-    removed after 2022/01/13. Use `GROUP` instead.""")
 }
 
 "Stakeholder role enum definition"
