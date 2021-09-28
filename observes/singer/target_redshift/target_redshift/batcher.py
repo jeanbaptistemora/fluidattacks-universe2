@@ -174,6 +174,12 @@ class Batcher:
         statement = f"""
             INSERT INTO \"{self.sname}\".\"{table_name}\"({fields})
             VALUES {values}"""
+        LOG.debug(
+            "statement: fields= %s, records=%s, size=%s",
+            len(self.fields[table_name]),
+            len(self.buckets[table_name]["records"]),
+            len(statement.encode("utf-8")),
+        )
         self.ex(statement, do_print)
 
         count = self.buckets[table_name]["count"]

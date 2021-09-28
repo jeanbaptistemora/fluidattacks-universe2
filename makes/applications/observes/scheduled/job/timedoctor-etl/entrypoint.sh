@@ -3,6 +3,7 @@
 function job_timedoctor {
   local db_creds
   local timedoctor_creds
+  export OBSERVES_DEBUG="true"
 
   db_creds=$(mktemp) \
     && timedoctor_creds=$(mktemp) \

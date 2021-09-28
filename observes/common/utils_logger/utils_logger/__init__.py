@@ -41,9 +41,9 @@ def main_log(
     logger: logging.Logger = logging.getLogger(name)
     logger.setLevel(min_lvl)
     logger.addHandler(logger_handler)
-
-    bug_handler = BugsnagHandler()
-    bug_handler.setLevel(min_bug_lvl)
-    logger.addHandler(bug_handler)
+    if not debug:
+        bug_handler = BugsnagHandler()
+        bug_handler.setLevel(min_bug_lvl)
+        logger.addHandler(bug_handler)
     logger.info("%s env: %s", name, ENV)
     return logger
