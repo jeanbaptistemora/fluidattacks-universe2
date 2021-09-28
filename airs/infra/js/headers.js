@@ -17,7 +17,7 @@ let securityHeaders = {
                               + "connect.facebook.net/en_US/fbevents.js "
                               + "googleads.g.doubleclick.net/pagead/viewthroughconversion/ "
                               + "snap.licdn.com "
-                              + "widget.clutch.co/static/js/widget.js "
+                              + "static1.clutch.co/api/widget.js "
                               + "www.googleadservices.com/pagead/; "
                               + "frame-ancestors "
                               + "'self'; "
