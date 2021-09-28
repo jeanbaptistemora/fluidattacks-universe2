@@ -26,7 +26,7 @@ const setupSessionCheck: (expDate: string) => void = (expDate): void => {
 
   const startInactivityTimer: () => number = (): number => {
     const msInSec: number = 1000;
-    const timeout: number = 300;
+    const timeout: number = 1200;
 
     return window.setTimeout((): void => {
       // eslint-disable-next-line fp/no-mutation
