@@ -229,6 +229,9 @@ integrates.back.test.functional.add_group_tags:
 integrates.back.test.functional.add_organization:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.add_push_token:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.approve_draft:
   <<: *integrates_back_test_functional
 

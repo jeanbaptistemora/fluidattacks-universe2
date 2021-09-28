@@ -21,6 +21,7 @@ TEST_GROUPS: Set[str] = {
     "add_group_consult",
     "add_group_tags",
     "add_organization",
+    "add_push_token",
     "approve_draft",
     "approve_draft_new",
     "confirm_vulnerabilities_zero_risk",
