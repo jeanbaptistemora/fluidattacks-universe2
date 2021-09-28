@@ -59,8 +59,3 @@ skims.structure:
     paths: [outputs]
     when: always
   stage: test-code
-
-skims.test.sdk:
-  <<: *makes
-  <<: *skims_in_dev_branch
-  stage: test-code

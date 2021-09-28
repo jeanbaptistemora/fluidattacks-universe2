@@ -66,7 +66,7 @@
           inputs.product.skims-config-sdk
         ];
         python = "3.8";
-        src = "/makes/applications/skims/test/sdk/src";
+        src = "/makes/foss/units/skims/test/sdk/src";
       };
       skimsProcessGroup = {
         searchPaths.source = [

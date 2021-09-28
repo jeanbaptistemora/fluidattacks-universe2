@@ -128,7 +128,6 @@ skims.test.mocks.http.env
 skims.test.mocks.mobile
 skims.test.mocks.ssl.safe
 skims.test.mocks.ssl.unsafe
-skims.test.sdk
 sorts
 sorts.execute
 sorts.extract-features

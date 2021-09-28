@@ -117,6 +117,10 @@ in
           gitlabExtra = gitlabTest;
         }
         {
+          output = "/skims/test/sdk";
+          gitlabExtra = gitlabTest;
+        }
+        {
           output = "/testPython/skims@functional";
           gitlabExtra = gitlabTest // {
             resource_group = "$CI_COMMIT_REF_NAME-$CI_JOB_NAME";
