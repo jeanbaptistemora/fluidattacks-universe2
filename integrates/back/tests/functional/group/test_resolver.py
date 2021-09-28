@@ -11,20 +11,22 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("group")
 @pytest.mark.parametrize(
-    ["email"],
-    [
-        ["admin@gmail.com"],
-        ["hacker@gmail.com"],
-        ["reattacker@gmail.com"],
-        ["customer@gmail.com"],
-        ["customeradmin@gmail.com"],
-        ["executive@gmail.com"],
-        ["resourcer@gmail.com"],
-        ["reviewer@gmail.com"],
-        ["system_owner@gmail.com"],
-    ],
+    ("email", "role", "permissions"),
+    (
+        ("admin@gmail.com", "admin", 121),
+        ("customer@gmail.com", "customer", 50),
+        ("customeradmin@gmail.com", "customeradmin", 67),
+        ("executive@gmail.com", "executive", 43),
+        ("hacker@gmail.com", "hacker", 71),
+        ("reattacker@gmail.com", "reattacker", 53),
+        ("resourcer@gmail.com", "resourcer", 28),
+        ("reviewer@gmail.com", "reviewer", 54),
+        ("system_owner@gmail.com", "system_owner", 83),
+    ),
 )
-async def test_get_group(populate: bool, email: str) -> None:
+async def test_get_group(
+    populate: bool, email: str, role: str, permissions: int
+) -> None:
     assert populate
     group_name: str = "group1"
     consult: str = "This is a test comment"
@@ -79,17 +81,19 @@ async def test_get_group(populate: bool, email: str) -> None:
         event["id"] for event in result["data"]["group"]["events"]
     ]
     assert root in [root["id"] for root in result["data"]["group"]["roots"]]
+    assert len(result["data"]["group"]["permissions"]) == permissions
+    assert result["data"]["group"]["userRole"] == role
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("group")
 @pytest.mark.parametrize(
-    ["email"],
-    [
-        ["service_forces@gmail.com"],
-    ],
+    ("email", "role", "permissions"),
+    (("service_forces@gmail.com", "service_forces", 6),),
 )
-async def test_get_group_fail(populate: bool, email: str) -> None:
+async def test_get_group_fail(
+    populate: bool, email: str, role: str, permissions: int
+) -> None:
     assert populate
     group_name: str = "group1"
     finding: str = "475041521"
@@ -127,3 +131,5 @@ async def test_get_group_fail(populate: bool, email: str) -> None:
         finding["id"] for finding in result["data"]["group"]["findings"]
     ]
     assert root in [root["id"] for root in result["data"]["group"]["roots"]]
+    assert len(result["data"]["group"]["permissions"]) == permissions
+    assert result["data"]["group"]["userRole"] == role

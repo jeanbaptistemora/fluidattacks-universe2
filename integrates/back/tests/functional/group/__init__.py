@@ -44,6 +44,7 @@ async def get_result(
                 organization
                 userRole
                 maxOpenSeverity
+                permissions
                 maxOpenSeverityFinding {{
                     hacker
                 }}
