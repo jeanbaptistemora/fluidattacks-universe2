@@ -272,7 +272,9 @@ def format_verification(verification_item: Item) -> FindingVerification:
         modified_by=verification_item["modified_by"],
         modified_date=verification_item["modified_date"],
         status=FindingVerificationStatus[verification_item["status"]],
-        vulnerability_ids=verification_item["vulnerability_ids"],
+        vulnerability_ids=verification_item["vulnerability_ids"]
+        if "vulnerability_ids" in verification_item
+        else None,
     )
 
 
