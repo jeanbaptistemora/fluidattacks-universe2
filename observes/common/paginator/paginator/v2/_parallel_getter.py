@@ -6,10 +6,6 @@ from dataclasses import (
 from multiprocessing.pool import (
     Pool,
 )
-from paginator.v2._core import (
-    PageGetterIO,
-    PageResult,
-)
 from purity.v1 import (
     Flattener,
     Patch,
@@ -21,47 +17,44 @@ from returns.maybe import (
     Maybe,
 )
 from returns.primitives.hkt import (
-    SupportsKind3,
+    SupportsKind2,
 )
 from typing import (
+    Callable,
     List,
     TypeVar,
 )
 
 _PageTVar = TypeVar("_PageTVar")
 _DataTVar = TypeVar("_DataTVar")
-_MetaTVar = TypeVar("_MetaTVar")
 _thread_pool = Pool()
 
 
 @dataclass(frozen=True)
 class _ParallelGetter(
-    SupportsKind3[
-        "_ParallelGetter[_PageTVar, _DataTVar, _MetaTVar]",
+    SupportsKind2[
+        "_ParallelGetter[_PageTVar, _DataTVar]",
         _PageTVar,
         _DataTVar,
-        _MetaTVar,
     ],
 ):
-    _getter: Patch[PageGetterIO[_PageTVar, _DataTVar, _MetaTVar]]  # type: ignore
+    _getter: Patch[Callable[[_PageTVar], IO[Maybe[_DataTVar]]]]
 
 
 @dataclass(frozen=True)
 class ParallelGetter(
-    _ParallelGetter[_PageTVar, _DataTVar, _MetaTVar],
+    _ParallelGetter[_PageTVar, _DataTVar],
 ):
     def __init__(
-        self, getter: PageGetterIO[_PageTVar, _DataTVar, _MetaTVar]  # type: ignore
+        self, getter: Callable[[_PageTVar], IO[Maybe[_DataTVar]]]
     ) -> None:
         super().__init__(Patch(getter))
 
-    def getter(
-        self, page: _PageTVar
-    ) -> IO[Maybe[PageResult[_DataTVar, _MetaTVar]]]:
+    def getter(self, page: _PageTVar) -> IO[Maybe[_DataTVar]]:
         return self._getter.unwrap(page)
 
     def get_pages(
         self,
         pages: List[_PageTVar],
-    ) -> IO[List[Maybe[PageResult[_DataTVar, _MetaTVar]]]]:
+    ) -> IO[List[Maybe[_DataTVar]]]:
         return Flattener.list_io(_thread_pool.map(self.getter, pages))
