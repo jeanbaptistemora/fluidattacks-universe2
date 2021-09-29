@@ -9,8 +9,8 @@ from dynamodb.types import (
 )
 
 
-def test_load_table() -> None:
-    result = table.load_table(
+def test_load_tables() -> None:
+    result = table.load_tables(
         {
             "DataModel": [
                 {
@@ -54,7 +54,7 @@ def test_load_table() -> None:
             ]
         }
     )
-    assert result == Table(
+    assert result[0] == Table(
         facets={
             "test_facet": Facet(
                 attrs=("attr1", "attr2", "attr3"),

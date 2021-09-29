@@ -12,9 +12,7 @@ from dynamodb import (
     historics,
     keys,
     operations,
-)
-from dynamodb.table import (
-    load_table,
+    table,
 )
 from dynamodb.types import (
     GitRootToeLinesItem,
@@ -32,7 +30,7 @@ from typing import (
 )
 
 with open(FI_DB_MODEL_PATH, mode="r") as file:
-    TABLE = load_table(json.load(file))
+    TABLE = table.load_tables(json.load(file))[0]
 
 
 async def add_git_root_toe_lines(
