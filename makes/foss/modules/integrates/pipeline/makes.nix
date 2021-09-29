@@ -21,6 +21,11 @@ let
     gitlabTitleMatchingMakes
   ];
 
+  gitlabDeployAppDev = {
+    rules = gitlabOnlyDev;
+    stage = "deploy-app";
+    tags = [ "autoscaling" ];
+  };
   gitlabDeployInfra = {
     resource_group = "$CI_JOB_NAME";
     rules = gitlabOnlyMaster;
@@ -66,6 +71,10 @@ in
         {
           output = "/deployTerraform/integratesSecrets";
           gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/integrates/back/authz-matrix";
+          gitlabExtra = gitlabDeployAppDev;
         }
         {
           output = "/integrates/linters/back/schema";

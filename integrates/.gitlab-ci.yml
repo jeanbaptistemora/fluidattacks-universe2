@@ -109,16 +109,6 @@ integrates.charts.snapshots-prod:
   script: [./m integrates.charts.snapshots prod]
   stage: analytics
 
-integrates.back.authz-matrix:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: deploy-app
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - integrates/deploy/permissions_matrix
-    when: on_success
-
 integrates.back.deploy.dev:
   <<: *makes
   <<: *in_dev_branch_integrates
