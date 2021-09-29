@@ -30,9 +30,9 @@
             inputs.product.makes-wait
             inputs.product.makes-kill-port
             inputs.product.makes-kill-tree
-            inputs.product.skims-test-mocks-ssl-safe
-            inputs.product.skims-test-mocks-ssl-unsafe
             outputs."/skims/test/mocks/http"
+            outputs."/skims/test/mocks/ssl/safe"
+            outputs."/skims/test/mocks/ssl/unsafe"
           ];
           source = [
             inputs.product.skims-config-development

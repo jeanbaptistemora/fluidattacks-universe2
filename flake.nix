@@ -66,7 +66,6 @@
         nixpkgs = import nixpkgsSource {
           config.allowUnfree = true;
           config.android_sdk.accept_license = true;
-          overlays = nixpkgsOverlays;
           inherit system;
         };
         nixpkgs2 = import nixpkgsSource2 { inherit system; };
@@ -74,23 +73,6 @@
           config.allowUnfree = true;
           inherit system;
         };
-        nixpkgsOverlays = [
-          (_: supper: {
-            # Nginx by default tries to use directories owned by root
-            # We have to recompile it pointing to the user-space
-            nginxLocal = supper.nginx.overrideAttrs (attrs: {
-              configureFlags = attrs.configureFlags ++ [
-                "--error-log-path=/tmp/error.log"
-                "--http-client-body-temp-path=/tmp/nginx_client_body"
-                "--http-fastcgi-temp-path=/tmp/nginx_fastcgi"
-                "--http-log-path=/tmp/access.log"
-                "--http-proxy-temp-path=/tmp/nginx_proxy"
-                "--http-scgi-temp-path=/tmp/nginx_scgi"
-                "--http-uwsgi-temp-path=/tmp/nginx_uwsgi"
-              ];
-            });
-          })
-        ];
 
         # Makes utilities
         computeOnAws = importUtility "compute-on-aws";

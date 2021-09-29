@@ -1,20 +1,17 @@
-{ nixpkgs
-, makeEntrypoint
+{ inputs
+, makeScript
 , makeTemplate
-, path
-, sslCerts
-, packages
 , ...
 }:
-makeEntrypoint {
-  arguments = {
-    envConfig = makeTemplate {
-      arguments = {
-        envHttpServerSslCert = sslCerts {
+makeScript {
+  replace = {
+    __argConfig__ = makeTemplate {
+      replace = {
+        __argHttpServerSslCert__ = inputs.legacy.importUtility "ssl-certs" {
           name = "skims-test-mocks-ssl-safe";
           options = [ "-subj" "/CN=localhost" ];
         };
-        envHttpServerRoot = path "/makes/applications/skims/test/mocks/ssl/http/server/root";
+        __argHttpServerRoot__ = ../http/server/root;
       };
       name = "nginx-conf";
       template = ''
@@ -25,12 +22,12 @@ makeEntrypoint {
             index index.html;
             listen localhost:4445 ssl;
             location / {
-              root __envHttpServerRoot__;
+              root __argHttpServerRoot__;
             }
             server_name localhost;
             ssl_ciphers EECDH+AESGCM:EDH+AESGCM;
-            ssl_certificate __envHttpServerSslCert__/cert.crt;
-            ssl_certificate_key __envHttpServerSslCert__/cert.key;
+            ssl_certificate __argHttpServerSslCert__/cert.crt;
+            ssl_certificate_key __argHttpServerSslCert__/cert.key;
             ssl_ecdh_curve secp384r1;
             ssl_prefer_server_ciphers on;
             ssl_protocols TLSv1.3;
@@ -42,13 +39,11 @@ makeEntrypoint {
   };
   name = "skims-test-mocks-ssl-safe";
   searchPaths = {
-    envLibraries = [
-      nixpkgs.openssl.out
+    bin = [
+      inputs.product.makes-kill-port
+      inputs.nixpkgs.nginxLocal
     ];
-    envPaths = [
-      packages.makes.kill-port
-      nixpkgs.nginxLocal
-    ];
+    rpath = [ inputs.nixpkgs.openssl.out ];
   };
-  template = path "/makes/applications/skims/test/mocks/ssl/safe/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }
