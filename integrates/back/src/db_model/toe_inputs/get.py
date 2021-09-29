@@ -52,9 +52,7 @@ class GroupToeInputsLoader(DataLoader):
     async def batch_load_fn(
         self, group_names: List[str]
     ) -> Tuple[Tuple[ToeInput, ...], ...]:
-        return tuple(
-            await collect(
-                _get_toe_inputs_by_group(group_name=group_name)
-                for group_name in group_names
-            )
+        return await collect(
+            _get_toe_inputs_by_group(group_name=group_name)
+            for group_name in group_names
         )
