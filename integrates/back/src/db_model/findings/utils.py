@@ -277,7 +277,7 @@ def format_verification(verification_item: Item) -> FindingVerification:
         status=FindingVerificationStatus[verification_item["status"]],
         vulnerability_ids=verification_item["vulnerability_ids"]
         if "vulnerability_ids" in verification_item
-        else None,
+        else set(),
     )
 
 
