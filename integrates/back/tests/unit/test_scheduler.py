@@ -8,9 +8,6 @@ from back.tests.unit import (
 from collections import (
     OrderedDict,
 )
-from data_containers.toe_lines import (
-    GitRootToeLines,
-)
 from dataloaders import (
     get_new_context,
 )
@@ -19,6 +16,9 @@ from db_model.findings.types import (
 )
 from db_model.toe_inputs.types import (
     ToeInput,
+)
+from db_model.toe_lines.types import (
+    ToeLines,
 )
 from decimal import (
     Decimal,
@@ -60,9 +60,6 @@ from schedulers import (
     update_indicators_new,
 )
 import shutil
-from toe.lines import (
-    domain as toe_lines_domain,
-)
 from typing import (
     Dict,
     Tuple,
@@ -593,9 +590,10 @@ async def test_toe_lines_etl() -> None:
         shutil.copy2(filename, f"{path}/groups/unittesting/toe/lines.csv")
 
     group_name = "unittesting"
-    group_toe_lines = await toe_lines_domain.get_by_group(group_name)
+    loaders = get_new_context()
+    group_toe_lines = await loaders.group_toe_lines.load(group_name)
     assert group_toe_lines == (
-        GitRootToeLines(
+        ToeLines(
             comments="comment test",  # NOSONAR
             filename="product/test/test#.config",
             group_name="unittesting",
@@ -607,7 +605,7 @@ async def test_toe_lines_etl() -> None:
             tested_lines=4,
             sorts_risk_level=0,
         ),
-        GitRootToeLines(
+        ToeLines(
             comments="comment test",
             filename="integrates_1/test2/test.sh",
             group_name="unittesting",
@@ -627,9 +625,10 @@ async def test_toe_lines_etl() -> None:
     ):
         await toe_lines_etl.main()
 
-    group_toe_lines = await toe_lines_domain.get_by_group(group_name)
+    loaders = get_new_context()
+    group_toe_lines = await loaders.group_toe_lines.load(group_name)
     assert group_toe_lines == (
-        GitRootToeLines(
+        ToeLines(
             comments="comment test 2",
             filename="product/test/test#.config",
             group_name="unittesting",
@@ -641,7 +640,7 @@ async def test_toe_lines_etl() -> None:
             tested_lines=4,
             sorts_risk_level=0,
         ),
-        GitRootToeLines(
+        ToeLines(
             comments="comment test",
             filename="integrates_1/test3/test.sh",
             group_name="unittesting",

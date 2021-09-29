@@ -31,9 +31,6 @@ from .group_findings_non_deleted import (
 from .group_stakeholders import (
     GroupStakeholdersLoader,
 )
-from .group_toe_lines import (
-    GroupToeLinesLoader,
-)
 from .organization import (
     OrganizationLoader,
 )
@@ -42,9 +39,6 @@ from .organization_stakeholders import (
 )
 from .organization_tags import (
     OrganizationTagsLoader,
-)
-from .root_toe_lines import (
-    RootToeLinesLoader,
 )
 from .vulnerability import (
     VulnerabilityLoader,
@@ -67,6 +61,10 @@ from db_model.roots.get import (
 )
 from db_model.toe_inputs.get import (
     GroupToeInputsLoader,
+)
+from db_model.toe_lines.get import (
+    GroupToeLinesLoader,
+    RootToeLinesLoader,
 )
 from db_model.vulnerabilities.get import (
     VulnHistoricStateNewLoader,

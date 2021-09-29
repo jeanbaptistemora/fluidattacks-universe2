@@ -26,7 +26,7 @@ from typing import (
 )
 
 
-async def _get_toe_lines_by_group(*, group_name: str) -> Tuple[ToeLines, ...]:
+async def _get_toe_lines_by_group(group_name: str) -> Tuple[ToeLines, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["root_toe_lines"],
         values={"group_name": group_name},
@@ -51,7 +51,7 @@ async def _get_toe_lines_by_group(*, group_name: str) -> Tuple[ToeLines, ...]:
 
 
 async def _get_toe_lines_by_root(
-    *, group_name: str, root_id: str
+    group_name: str, root_id: str
 ) -> Tuple[ToeLines, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["root_toe_lines"],
@@ -79,10 +79,7 @@ class GroupToeLinesLoader(DataLoader):
     async def batch_load_fn(
         self, group_names: List[str]
     ) -> Tuple[Tuple[ToeLines, ...], ...]:
-        return await collect(
-            _get_toe_lines_by_group(group_name=group_name)
-            for group_name in group_names
-        )
+        return await collect(tuple(map(_get_toe_lines_by_group, group_names)))
 
 
 class RootToeLinesLoader(DataLoader):
@@ -90,7 +87,4 @@ class RootToeLinesLoader(DataLoader):
     async def batch_load_fn(
         self, roots: List[Tuple[str, str]]
     ) -> Tuple[Tuple[ToeLines, ...], ...]:
-        return await collect(
-            _get_toe_lines_by_root(group_name=group_name, root_id=root_id)
-            for group_name, root_id in roots
-        )
+        return await collect(tuple(map(_get_toe_lines_by_root, *zip(*roots))))

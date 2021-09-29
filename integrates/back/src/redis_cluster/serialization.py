@@ -1,6 +1,3 @@
-from data_containers.toe_lines import (
-    GitRootToeLines,
-)
 from db_model.enums import (
     Source,
 )
@@ -24,6 +21,9 @@ from db_model.findings.types import (
 )
 from db_model.toe_inputs.types import (
     ToeInput,
+)
+from db_model.toe_lines.types import (
+    ToeLines,
 )
 import safe_pickle
 from safe_pickle import (
@@ -66,8 +66,8 @@ safe_pickle.register_namedtuple(FindingState)
 safe_pickle.register_namedtuple(FindingUnreliableIndicators)
 safe_pickle.register_namedtuple(FindingTreatmentSummary)
 safe_pickle.register_namedtuple(FindingVerification)
-safe_pickle.register_namedtuple(GitRootToeLines)
 safe_pickle.register_namedtuple(ToeInput)
+safe_pickle.register_namedtuple(ToeLines)
 
 # Exported members
 __all__ = ["dump", "load"]

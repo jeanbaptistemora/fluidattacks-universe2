@@ -26,7 +26,7 @@ from typing import (
 )
 
 
-async def _get_toe_inputs_by_group(*, group_name: str) -> Tuple[ToeInput, ...]:
+async def _get_toe_inputs_by_group(group_name: str) -> Tuple[ToeInput, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["root_toe_input"],
         values={"group_name": group_name},
@@ -52,7 +52,4 @@ class GroupToeInputsLoader(DataLoader):
     async def batch_load_fn(
         self, group_names: List[str]
     ) -> Tuple[Tuple[ToeInput, ...], ...]:
-        return await collect(
-            _get_toe_inputs_by_group(group_name=group_name)
-            for group_name in group_names
-        )
+        return await collect(tuple(map(_get_toe_inputs_by_group, group_names)))

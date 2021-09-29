@@ -1,15 +1,15 @@
 from back.tests import (
     db,
 )
-from data_containers.toe_lines import (
-    GitRootToeLines,
-)
 from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRootCloning,
     GitRootItem,
     GitRootMetadata,
     GitRootState,
+)
+from db_model.toe_lines.types import (
+    ToeLines,
 )
 import pytest
 from typing import (
@@ -80,7 +80,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             ),
         ),
         "toe_lines": (
-            GitRootToeLines(
+            ToeLines(
                 comments="comment test",
                 filename="product/test/test#.config",
                 group_name="group1",
@@ -92,7 +92,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 tested_lines=4,
                 sorts_risk_level=0,
             ),
-            GitRootToeLines(
+            ToeLines(
                 comments="comment test",
                 filename="asm_1/test2/test.sh",
                 group_name="group1",
@@ -104,7 +104,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 tested_lines=172,
                 sorts_risk_level=0,
             ),
-            GitRootToeLines(
+            ToeLines(
                 comments="comment test",
                 filename="asm_1/test3/test.config",
                 group_name="group1",

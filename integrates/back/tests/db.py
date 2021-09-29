@@ -7,13 +7,11 @@ from authz import (
 from comments import (
     dal as dal_comment,
 )
-from data_containers.toe_lines import (
-    GitRootToeLines,
-)
 from db_model import (
     findings,
     roots as roots_model,
     toe_inputs as toe_inputs_model,
+    toe_lines as toe_lines_model,
     vulnerabilities,
 )
 from db_model.roots.types import (
@@ -21,6 +19,9 @@ from db_model.roots.types import (
 )
 from db_model.toe_inputs.types import (
     ToeInput,
+)
+from db_model.toe_lines.types import (
+    ToeLines,
 )
 from decimal import (
     Decimal,
@@ -418,8 +419,10 @@ async def populate_executions(data: List[Any]) -> bool:
     return all(await collect(coroutines))
 
 
-async def populate_toe_lines(data: Tuple[GitRootToeLines, ...]) -> bool:
-    await collect([dal_toe_lines.add(toe_lines) for toe_lines in data])
+async def populate_toe_lines(data: Tuple[ToeLines, ...]) -> bool:
+    await collect(
+        [toe_lines_model.add(toe_lines=toe_lines) for toe_lines in data]
+    )
     return True
 
 

@@ -10,8 +10,8 @@ from ariadne import (
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
-from data_containers.toe_lines import (
-    GitRootToeLines,
+from db_model.toe_lines.types import (
+    ToeLines,
 )
 from decorators import (
     concurrent_decorators,
@@ -48,14 +48,12 @@ async def mutate(
 ) -> SimplePayloadType:
     success = False
     group_toe_lines_loader = info.context.loaders.group_toe_lines
-    group_toes: Set[GitRootToeLines] = await group_toe_lines_loader.load(
-        group_name
-    )
+    group_toes: Set[ToeLines] = await group_toe_lines_loader.load(group_name)
 
     # Rare, but we can have the same filename in different roots.
     # That's why this set
     root_ids: Set[str] = set()
-    group_toes_to_update: List[GitRootToeLines] = []
+    group_toes_to_update: List[ToeLines] = []
     for toe in group_toes:
         if toe.filename == filename:
             toe = toe._replace(sorts_risk_level=sorts_risk_level)

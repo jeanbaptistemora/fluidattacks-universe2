@@ -14,8 +14,11 @@ from aioextensions import (
     collect,
     run,
 )
-from data_containers.toe_lines import (
-    GitRootToeLines,
+from dataloaders import (
+    get_new_context,
+)
+from db_model.toe_lines.types import (
+    ToeLines,
 )
 from groups.dal import (
     get_active_groups,
@@ -24,7 +27,6 @@ from itertools import (
     chain,
 )
 from toe.lines.domain import (
-    get_by_group,
     update as update_toe,
 )
 from typing import (
@@ -32,17 +34,16 @@ from typing import (
 )
 
 
-async def update_sorts_risk_level(toe: GitRootToeLines) -> None:
+async def update_sorts_risk_level(toe: ToeLines) -> None:
     toe = toe._replace(sorts_risk_level=0)
     await update_toe(toe)
 
 
 async def main() -> None:
     groups = await get_active_groups()
-    groups_toes: List[GitRootToeLines] = list(
-        chain.from_iterable(
-            await collect([get_by_group(group) for group in groups])
-        )
+    loaders = get_new_context()
+    groups_toes: List[ToeLines] = list(
+        chain.from_iterable(await loaders.group_toe_lines.load_many(groups))
     )
     print(f"We have {len(groups)} groups and {len(groups_toes)} toes in total")
 
