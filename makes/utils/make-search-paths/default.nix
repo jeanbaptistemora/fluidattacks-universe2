@@ -24,6 +24,7 @@ in
 , envPythonPaths ? [ ]
 , envPython37Paths ? [ ]
 , envPython38Paths ? [ ]
+, envPython39Paths ? [ ]
 , envSources ? [ ]
 , envUtils ? [ ]
 }:
@@ -80,6 +81,10 @@ makeTemplate {
       {
         derivations = envPython38Paths;
         generator = export "PYTHONPATH" "/lib/python3.8/site-packages";
+      }
+      {
+        derivations = envPython39Paths;
+        generator = export "PYTHONPATH" "/lib/python3.9/site-packages";
       }
       {
         derivations = [ (path "/makes/utils/common/template.sh") ];

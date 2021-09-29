@@ -164,14 +164,10 @@ def format_vulnerabilities(
             finding[vuln_type].append(
                 {
                     vuln_values[vuln_type]["where"]: (
-                        html.parser.HTMLParser().unescape(  # type: ignore
-                            vuln.get("where")
-                        )
+                        html.unescape(vuln.get("where"))  # type: ignore
                     ),
                     vuln_values[vuln_type]["specific"]: (
-                        html.parser.HTMLParser().unescape(  # type: ignore
-                            vuln.get("specific")
-                        )
+                        html.unescape(vuln.get("specific"))  # type: ignore
                     ),
                     "state": str(current_state),
                 }

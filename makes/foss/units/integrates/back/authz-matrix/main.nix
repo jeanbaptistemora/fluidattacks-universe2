@@ -5,6 +5,6 @@
 makeScript {
   name = "integrates-back-authz-matrix";
   replace.__argIntegratesEnv__ = inputs.product.integrates-back-env;
-  searchPaths.pythonPackage37 = [ inputs.nixpkgs.python37Packages.pandas ];
+  searchPaths.pythonPackage39 = [ inputs.nixpkgs.python39Packages.pandas ];
   entrypoint = ./entrypoint.sh;
 }

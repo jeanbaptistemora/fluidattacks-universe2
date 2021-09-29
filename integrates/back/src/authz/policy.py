@@ -71,7 +71,7 @@ SubjectPolicy = NamedTuple(
 
 def _cast_dict_into_subject_policy(item: Dict[str, str]) -> SubjectPolicy:
     # pylint: disable=protected-access
-    field_types: Dict[Any, Any] = SubjectPolicy._field_types
+    field_types: Dict[Any, Any] = SubjectPolicy.__annotations__
 
     # Every string as lowercase
     for field, _ in field_types.items():

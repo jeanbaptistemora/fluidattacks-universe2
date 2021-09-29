@@ -1,6 +1,6 @@
 aioboto3: 8.0.3
 aiodataloader: 0.2.0
-aioextensions: 20.8.2087641
+aioextensions: 21.7.2261349
 aiofiles: 0.5.0
 amazon-dax-client: 1.1.7
 antlr4-python3-runtime: 4.7.2
@@ -8,7 +8,7 @@ ariadne:
   version: 0.12.0
   extras:
     - asgi-file-uploads
-asgiref: 3.2.10
+asgiref: 3.4.1
 async-lru: 1.0.2
 Authlib: 0.15.1
 awscli: 1.18.32
@@ -35,13 +35,13 @@ Jinja2: 2.11.2
 jwcrypto: "0.8"
 lxml: 4.5.2
 mandrill-really-maintained: 1.2.4
-matplotlib: 3.2.1
+matplotlib: 3.4.3
 mixpanel: 4.5.0
 newrelic: 5.22.1.152
 oauth2client: 4.1.3
-Pillow: 7.2.0
+Pillow: 8.3.2
 PyExcelerate: 0.9.0
-pykwalify: 1.7.0
+pykwalify: 1.8.0
 PyPDF4: 1.27.0
 python-jose: 3.1.0
 python-magic: 0.4.18
@@ -56,7 +56,7 @@ social-auth-core: 3.3.3
 starlette: 0.13.8
 tracers: 21.8.6876
 uvicorn:
-  version: 0.12.3
+  version: 0.15.0
   extras:
     - standard
 watchtower: 0.7.3
