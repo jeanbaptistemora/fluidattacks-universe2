@@ -7,6 +7,9 @@ from paginator.v2._core import (
     PageGetterIO,
     PageResult,
 )
+from paginator.v2._parallel_getter import (
+    ParallelGetter,
+)
 from purity.v1 import (
     IOiter,
     Patch,
@@ -26,6 +29,7 @@ from returns.unsafe import (
 )
 from typing import (
     Iterator,
+    List,
     TypeVar,
 )
 
@@ -57,8 +61,11 @@ class IntIndexGetter(
     def get_pages(
         self,
         page_range: range,
-    ) -> IOiter[Maybe[PageResult[_DataTVar, _MetaTVar]]]:
-        return PureIter(lambda: iter(page_range)).bind_io_each(self.getter)
+    ) -> IO[List[Maybe[PageResult[_DataTVar, _MetaTVar]]]]:
+        getter: ParallelGetter[int, _DataTVar, _MetaTVar] = ParallelGetter(
+            self.getter
+        )
+        return getter.get_pages(list(page_range))
 
     def get_until_end(
         self,
