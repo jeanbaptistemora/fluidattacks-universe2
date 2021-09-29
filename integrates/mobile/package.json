@@ -14,7 +14,7 @@
   },
   "homepage": "https://app.fluidattacks.com",
   "dependencies": {
-    "@apollo/client": "3.3.20",
+    "@apollo/client": "3.4.15",
     "@bugsnag/core": "7.10.0",
     "@bugsnag/expo": "7.12.0",
     "@bugsnag/plugin-react": "7.10.0",
