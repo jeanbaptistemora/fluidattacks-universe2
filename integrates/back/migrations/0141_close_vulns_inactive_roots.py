@@ -1,0 +1,100 @@
+# pylint: disable=invalid-name
+"""
+This migration closes vulnerabilities that belong to inactive roots
+"""
+
+from aioextensions import (
+    collect,
+    run,
+)
+from db_model.roots.get import (
+    GroupRootsLoader,
+)
+from db_model.roots.types import (
+    RootItem,
+)
+from groups import (
+    domain as groups_domain,
+)
+from roots import (
+    dal as roots_dal,
+)
+import time
+from typing import (
+    Any,
+    Dict,
+    Tuple,
+)
+from vulnerabilities import (
+    dal as vulns_dal,
+)
+
+
+async def close_vuln(vuln: Dict[str, Any], root: RootItem) -> None:
+    print(
+        "Closing vuln",
+        f"{root.group_name}/{vuln['finding_id']}/{vuln['UUID']}",
+        "from inactive root",
+        root.id,
+    )
+    await vulns_dal.update(
+        vuln["finding_id"],
+        vuln["UUID"],
+        {
+            "historic_state": [
+                *vuln["historic_state"],
+                {
+                    **vuln["historic_state"][-1],
+                    "state": "closed",
+                    "justification": "EXCLUSION",
+                },
+            ]
+        },
+    )
+
+
+async def get_vulns(
+    root: RootItem,
+) -> Tuple[RootItem, Tuple[Dict[str, Any], ...]]:
+    vulns = await roots_dal.get_root_vulns(nickname=root.state.nickname)
+    return (root, vulns)
+
+
+async def main() -> None:
+    groups = await groups_domain.get_active_groups()
+    roots = [
+        root
+        for group_roots in await GroupRootsLoader().load_many(groups)
+        for root in group_roots
+    ]
+    active_root_nicknames = [
+        root.state.nickname for root in roots if root.state.status == "ACTIVE"
+    ]
+    inactive_roots = [
+        root
+        for root in roots
+        if root.state.status == "INACTIVE"
+        if root.state.nickname not in active_root_nicknames
+    ]
+
+    inactive_root_vulns = await collect(
+        [get_vulns(root) for root in inactive_roots]
+    )
+    await collect(
+        [
+            close_vuln(vuln, root)
+            for (root, vulns) in inactive_root_vulns
+            for vuln in vulns
+        ]
+    )
+
+
+if __name__ == "__main__":
+    execution_time = time.strftime(
+        "Execution Time:    %Y-%m-%d at %H:%M:%S UTC%Z"
+    )
+    run(main())
+    finalization_time = time.strftime(
+        "Finalization Time: %Y-%m-%d at %H:%M:%S UTC%Z"
+    )
+    print(f"{execution_time}\n{finalization_time}")
