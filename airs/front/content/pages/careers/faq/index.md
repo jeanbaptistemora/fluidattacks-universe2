@@ -499,16 +499,9 @@ than it solves.
 
 <div class="paragraph">
 
-Because we focus all our efforts on ensuring our employees receive a
-competitive and lucrative salary, we do not offer benefits that could
-reduce your upfront salary, such as gym memberships, prepaid healthcare,
-bonuses or food allowances, etc. Our commitment is to offer you a salary
-that values your knowledge, skills, and abilities; what you choose to do
-with that salary is then up to you. In addition, our contribution to
-your retirement funds is based on `100%` of your salary, which means
-your retirement savings grow at their maximum level without being
-decreased by other benefits you may not want or
-use.
+- Prepaid Healthcare.
+- Forgivable loans for hacking certifications exams.
+- Time to study for hacking certifications.
 
 </div>
 
