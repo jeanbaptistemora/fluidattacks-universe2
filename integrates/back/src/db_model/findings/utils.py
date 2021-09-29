@@ -23,6 +23,9 @@ from datetime import (
 from db_model.enums import (
     Source,
 )
+from decimal import (
+    Decimal,
+)
 from dynamodb import (
     historics,
 )
@@ -125,14 +128,14 @@ def format_finding(
             Finding20Severity, Finding31Severity
         ] = Finding31Severity(
             **{
-                field: metadata["severity"][field]
+                field: Decimal(metadata["severity"][field])
                 for field in Finding31Severity._fields
             }
         )
     else:
         severity = Finding20Severity(
             **{
-                field: metadata["severity"][field]
+                field: Decimal(metadata["severity"][field])
                 for field in Finding20Severity._fields
             }
         )
