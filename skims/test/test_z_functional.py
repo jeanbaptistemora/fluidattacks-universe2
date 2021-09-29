@@ -25,6 +25,7 @@ from itertools import (
 from model import (
     core_model,
 )
+import os
 import pytest
 from state.ephemeral import (
     EphemeralStore,
@@ -37,9 +38,6 @@ from typing import (
     Set,
     Text,
     Tuple,
-)
-from utils.ctx import (
-    SHOULD_UPDATE_TESTS,
 )
 from utils.logs import (
     configure,
@@ -103,10 +101,13 @@ def check_that_csv_results_match(
     snippet_filter: Callable[[str], str] = _default_snippet_filter,
 ) -> None:
     with open(get_suite_produced_results(suite)) as produced:
-        if SHOULD_UPDATE_TESTS:
-            with open(get_suite_expected_results(suite), "w") as expected:
-                expected.write(produced.read())
-                produced.seek(0)
+        expected_path = os.path.join(
+            os.environ["STATE"], get_suite_expected_results(suite)
+        )
+        os.makedirs(os.path.dirname(expected_path), exist_ok=True)
+        with open(expected_path, "w", encoding="utf-8") as expected:
+            expected.write(produced.read())
+            produced.seek(0)
 
         with open(get_suite_expected_results(suite)) as expected:
             for producted_item, expected_item in zip_longest(
