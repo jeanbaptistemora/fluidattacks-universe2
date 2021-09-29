@@ -2,7 +2,11 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faTrashAlt,
+  faUserEdit,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
@@ -19,7 +23,6 @@ import type {
   IHeaderConfig,
 } from "components/DataTableNext/types";
 import { filterSearchText, filterSelect } from "components/DataTableNext/utils";
-import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
@@ -355,68 +358,6 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           <Col100>
             <Row>
               <Col100>
-                <ButtonToolbar>
-                  <Can do={"api_mutations_grant_stakeholder_access_mutate"}>
-                    <TooltipWrapper
-                      displayClass={"dib"}
-                      id={"searchFindings.tabUsers.addButton.tooltip.id"}
-                      message={translate.t(
-                        "searchFindings.tabUsers.addButton.tooltip"
-                      )}
-                    >
-                      <Button id={"addUser"} onClick={openAddUserModal}>
-                        <FontAwesomeIcon icon={faPlus} />
-                        &nbsp;
-                        {translate.t("searchFindings.tabUsers.addButton.text")}
-                      </Button>
-                    </TooltipWrapper>
-                  </Can>
-                  <Can do={"api_mutations_update_group_stakeholder_mutate"}>
-                    <TooltipWrapper
-                      displayClass={"dib"}
-                      id={"searchFindings.tabUsers.editButton.tooltip.id"}
-                      message={translate.t(
-                        "searchFindings.tabUsers.editButton.tooltip"
-                      )}
-                    >
-                      <Button
-                        disabled={_.isEmpty(currentRow)}
-                        id={"editUser"}
-                        onClick={openEditUserModal}
-                      >
-                        <FluidIcon icon={"edit"} />
-                        &nbsp;
-                        {translate.t("searchFindings.tabUsers.editButton.text")}
-                      </Button>
-                    </TooltipWrapper>
-                  </Can>
-                  <Can do={"api_mutations_remove_stakeholder_access_mutate"}>
-                    <TooltipWrapper
-                      displayClass={"dib"}
-                      id={"searchFindings.tabUsers.removeUserButton.tooltip.id"}
-                      message={translate.t(
-                        "searchFindings.tabUsers.removeUserButton.tooltip"
-                      )}
-                    >
-                      <Button
-                        disabled={_.isEmpty(currentRow) || removing}
-                        id={"removeUser"}
-                        onClick={handleRemoveUser}
-                      >
-                        <FontAwesomeIcon icon={faMinus} />
-                        &nbsp;
-                        {translate.t(
-                          "searchFindings.tabUsers.removeUserButton.text"
-                        )}
-                      </Button>
-                    </TooltipWrapper>
-                  </Can>
-                </ButtonToolbar>
-              </Col100>
-            </Row>
-            <br />
-            <Row>
-              <Col100>
                 <DataTableNext
                   bordered={true}
                   customFilters={{
@@ -435,6 +376,79 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                   }}
                   dataset={resultStakeHolders}
                   exportCsv={true}
+                  extraButtons={
+                    <Row>
+                      <ButtonToolbar>
+                        <Can
+                          do={"api_mutations_grant_stakeholder_access_mutate"}
+                        >
+                          <TooltipWrapper
+                            displayClass={"dib"}
+                            id={"searchFindings.tabUsers.addButton.tooltip.id"}
+                            message={translate.t(
+                              "searchFindings.tabUsers.addButton.tooltip"
+                            )}
+                          >
+                            <Button id={"addUser"} onClick={openAddUserModal}>
+                              <FontAwesomeIcon icon={faPlus} />
+                              &nbsp;
+                              {translate.t(
+                                "searchFindings.tabUsers.addButton.text"
+                              )}
+                            </Button>
+                          </TooltipWrapper>
+                        </Can>
+                        <Can
+                          do={"api_mutations_update_group_stakeholder_mutate"}
+                        >
+                          <TooltipWrapper
+                            displayClass={"dib"}
+                            id={"searchFindings.tabUsers.editButton.tooltip.id"}
+                            message={translate.t(
+                              "searchFindings.tabUsers.editButton.tooltip"
+                            )}
+                          >
+                            <Button
+                              disabled={_.isEmpty(currentRow)}
+                              id={"editUser"}
+                              onClick={openEditUserModal}
+                            >
+                              <FontAwesomeIcon icon={faUserEdit} />
+                              &nbsp;
+                              {translate.t(
+                                "searchFindings.tabUsers.editButton.text"
+                              )}
+                            </Button>
+                          </TooltipWrapper>
+                        </Can>
+                        <Can
+                          do={"api_mutations_remove_stakeholder_access_mutate"}
+                        >
+                          <TooltipWrapper
+                            displayClass={"dib"}
+                            id={
+                              "searchFindings.tabUsers.removeUserButton.tooltip.id"
+                            }
+                            message={translate.t(
+                              "searchFindings.tabUsers.removeUserButton.tooltip"
+                            )}
+                          >
+                            <Button
+                              disabled={_.isEmpty(currentRow) || removing}
+                              id={"removeUser"}
+                              onClick={handleRemoveUser}
+                            >
+                              <FontAwesomeIcon icon={faTrashAlt} />
+                              &nbsp;
+                              {translate.t(
+                                "searchFindings.tabUsers.removeUserButton.text"
+                              )}
+                            </Button>
+                          </TooltipWrapper>
+                        </Can>
+                      </ButtonToolbar>
+                    </Row>
+                  }
                   headers={tableHeaders}
                   id={"tblUsers"}
                   pageSize={10}

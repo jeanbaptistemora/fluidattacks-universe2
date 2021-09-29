@@ -110,10 +110,9 @@ const storeIframeContent: (reference: Readonly<iFrameReferenceType>) => void = (
       storeBlob(identifier, contents, "text/html");
     }
   } else {
-    Logger.warning(
-      "Iframe with Cross-origin: Host != Iframe Host",
-      reference.current?.contentDocument?.location.hostname
-    );
+    Logger.warning("Iframe with Cross-origin: Host != Iframe Host", {
+      reference: reference.current?.contentDocument?.location.hostname,
+    });
   }
 };
 
