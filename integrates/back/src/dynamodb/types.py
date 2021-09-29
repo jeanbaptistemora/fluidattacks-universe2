@@ -33,19 +33,6 @@ class Table(NamedTuple):
     primary_key: PrimaryKey
 
 
-class GitRootToeLinesItem(NamedTuple):
-    comments: str
-    filename: str
-    group_name: str
-    loc: int
-    modified_commit: str
-    modified_date: str
-    root_id: str
-    tested_date: str
-    tested_lines: int
-    sorts_risk_level: float
-
-
 class OrgFindingPolicyMetadata(NamedTuple):
     name: str
     tags: Set[str]

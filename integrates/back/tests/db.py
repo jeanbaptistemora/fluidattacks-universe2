@@ -63,9 +63,6 @@ from organizations import (
 from organizations_finding_policies import (
     dal as dal_policies,
 )
-from toe.lines import (
-    dal as dal_toe_lines,
-)
 from typing import (
     Any,
     Awaitable,
