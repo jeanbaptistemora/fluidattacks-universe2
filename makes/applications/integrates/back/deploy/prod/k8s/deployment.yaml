@@ -26,7 +26,10 @@ spec:
           image: ghcr.io/fluidattacks/makes:21.10
           imagePullPolicy: Always
           command: [m]
-          args: [ f /integrates/back prod ]
+          args:
+          - f
+          - /integrates/back
+          - prod
           env:
           - name: K8S_COMPAT
             value: "1"

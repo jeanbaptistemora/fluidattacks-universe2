@@ -123,7 +123,7 @@ slug: /development/mobile-technologies
     > using the following command
 
     ```bash
-    ./m integrates.back dev-mobile
+    m  . /integrates/back dev-mobile
     ```
 
 1. Start the app bundler

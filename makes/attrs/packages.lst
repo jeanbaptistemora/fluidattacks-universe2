@@ -8,9 +8,6 @@ forces.config-development
 forces.config-runtime
 integrates.back.certs.development
 integrates.back.env
-integrates.back.probes.lib
-integrates.back.probes.liveness
-integrates.back.probes.readiness
 integrates.back.pypi.runtime
 integrates.back.pypi.unit-tests
 integrates.back.security
