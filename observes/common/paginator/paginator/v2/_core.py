@@ -10,44 +10,29 @@ from returns.maybe import (
     Maybe,
 )
 from returns.primitives.hkt import (
-    SupportsKind1,
     SupportsKind2,
 )
 from typing import (
     Callable,
-    NamedTuple,
+    List,
     TypeVar,
-    Union,
 )
 
-
-class AllPages(NamedTuple):
-    pass
-
-
-_IdType = TypeVar("_IdType")
-
-
-@dataclass(frozen=True)
-class PageId(
-    SupportsKind1["PageId", _IdType],
-):
-    page: _IdType
-    per_page: int
-
-
-_Data = TypeVar("_Data")
+_PageTVar = TypeVar("_PageTVar")
+_DataTVar = TypeVar("_DataTVar")
+_MetaTVar = TypeVar("_MetaTVar")
 
 
 @dataclass(frozen=True)
 class PageResult(
-    SupportsKind2["PageResult", _IdType, _Data],
+    SupportsKind2["PageResult[_DataTVar, _MetaTVar]", _DataTVar, _MetaTVar],
 ):
-    data: _Data
-    next_item: Maybe[_IdType]
-    total_items: Maybe[int]
+    data: List[_DataTVar]
+    metadata: _MetaTVar
 
 
-PageOrAll = Union[AllPages, PageId[_IdType]]
-PageGetter = Callable[[PageId[_IdType]], Maybe[_Data]]
-PageGetterIO = Callable[[PageId[_IdType]], IO[Maybe[_Data]]]
+NextPageGetter = Callable[[PageResult[_DataTVar, _MetaTVar]], Maybe[_PageTVar]]
+PageGetter = Callable[[_PageTVar], Maybe[PageResult[_DataTVar, _MetaTVar]]]
+PageGetterIO = Callable[
+    [_PageTVar], IO[Maybe[PageResult[_DataTVar, _MetaTVar]]]
+]

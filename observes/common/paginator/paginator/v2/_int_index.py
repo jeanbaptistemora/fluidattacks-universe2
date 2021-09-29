@@ -4,18 +4,25 @@ from dataclasses import (
     dataclass,
 )
 from paginator.v2._core import (
-    PageGetter,
-    PageId,
+    PageGetterIO,
+    PageResult,
 )
 from purity.v1 import (
+    IOiter,
     Patch,
     PureIter,
+)
+from returns.io import (
+    IO,
 )
 from returns.maybe import (
     Maybe,
 )
 from returns.primitives.hkt import (
-    SupportsKind1,
+    SupportsKind2,
+)
+from returns.unsafe import (
+    unsafe_perform_io,
 )
 from typing import (
     Iterator,
@@ -23,61 +30,52 @@ from typing import (
 )
 
 _DataTVar = TypeVar("_DataTVar")
+_MetaTVar = TypeVar("_MetaTVar")
 
 
 @dataclass(frozen=True)
-class PageRange:
-    page_range: range
-    per_page: int
-
-    def pages(self) -> PureIter[PageId[int]]:
-        return PureIter(
-            lambda: map(
-                lambda p_num: PageId(page=p_num, per_page=self.per_page),
-                self.page_range,
-            )
-        )
+class _IntIndexGetter(
+    SupportsKind2[
+        "_IntIndexGetter[_DataTVar, _MetaTVar]", _DataTVar, _MetaTVar
+    ],
+):
+    _getter: Patch[PageGetterIO[int, _DataTVar, _MetaTVar]]  # type: ignore
 
 
 @dataclass(frozen=True)
 class IntIndexGetter(
-    SupportsKind1["IntIndexGetter", _DataTVar],
+    _IntIndexGetter[_DataTVar, _MetaTVar],
 ):
-    _getter: Patch[PageGetter[int, _DataTVar]]  # type: ignore
+    def __init__(
+        self, getter: PageGetterIO[int, _DataTVar, _MetaTVar]  # type: ignore
+    ) -> None:
+        super().__init__(Patch(getter))
 
-    def __init__(self, getter: PageGetter[int, _DataTVar]) -> None:  # type: ignore
-        object.__setattr__(self, "_getter", Patch(getter))
-
-    def getter(self, page: PageId[int]) -> Maybe[_DataTVar]:
+    def getter(self, page: int) -> IO[Maybe[PageResult[_DataTVar, _MetaTVar]]]:
         return self._getter.unwrap(page)
 
     def get_pages(
         self,
-        page_range: PageRange,
-    ) -> PureIter[Maybe[_DataTVar]]:
-        jobs: Iterator[Maybe[_DataTVar]] = map(
-            self.getter, page_range.pages().iter_obj
-        )
-        return PureIter(lambda: jobs)
+        page_range: range,
+    ) -> IOiter[Maybe[PageResult[_DataTVar, _MetaTVar]]]:
+        return PureIter(lambda: iter(page_range)).bind_io_each(self.getter)
 
     def get_until_end(
         self,
-        start: PageId[int],
+        start: int,
         pages_chunk: int,
-    ) -> PureIter[_DataTVar]:
-        def result_iter() -> Iterator[_DataTVar]:
+    ) -> IOiter[PageResult[_DataTVar, _MetaTVar]]:
+        def result_iter() -> Iterator[PageResult[_DataTVar, _MetaTVar]]:
             empty_page_retrieved = False
-            actual_page = start.page
+            actual_page = start
             while not empty_page_retrieved:
-                pages = PageRange(
-                    range(actual_page, actual_page + pages_chunk),
-                    start.per_page,
-                )
-                for response in self.get_pages(pages).iter_obj:
-                    if response == Maybe.empty:
+                pages = range(actual_page, actual_page + pages_chunk)
+                results = unsafe_perform_io(self.get_pages(pages).io_iter_obj)
+                for item in results:
+                    if item == Maybe.empty:
                         empty_page_retrieved = True
                         break
-                    yield response.unwrap()
+                    yield item.unwrap()
                 actual_page = actual_page + pages_chunk
 
-        return PureIter(result_iter)
+        return IOiter(lambda: IO(result_iter()))
