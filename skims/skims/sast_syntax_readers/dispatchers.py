@@ -15,6 +15,7 @@ from sast_syntax_readers.c_sharp import (
     member_access_expression as c_sharp_member_access_expression,
     method_declaration as c_sharp_method_declaration,
     parameter as c_sharp_parameter,
+    prefix_expression as c_sharp_prefix_expression,
     switch_statement as c_sharp_switch_statement,
     using_statement as c_sharp_using_statement,
     variable_declaration as c_sharp_variable_declaration,
@@ -925,6 +926,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "import_statement",
         },
         syntax_reader=javascript_import_statement.reader,
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "prefix_unary_expression",
+        },
+        syntax_reader=c_sharp_prefix_expression.reader,
     ),
     *[
         Dispatcher(

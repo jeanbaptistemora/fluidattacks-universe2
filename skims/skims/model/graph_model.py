@@ -189,6 +189,13 @@ class SyntaxStepMethodInvocation:
     type: str = "SyntaxStepMethodInvocation"
 
 
+class SyntaxStepPrefixExpression(NamedTuple):
+    prefix: str
+    meta: SyntaxStepMeta
+
+    type: str = "SyntaxStepPrefixExpression"
+
+
 @dataclass
 class SyntaxStepLambdaExpression:
     meta: SyntaxStepMeta
