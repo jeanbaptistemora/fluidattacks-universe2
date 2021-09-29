@@ -9,7 +9,7 @@ import asyncio
 from asyncio.events import (
     AbstractEventLoop,
 )
-from paginator.v2._core import (
+from paginator.pages import (
     DEFAULT_LIMITS,
     Limits,
     PageGetter,
