@@ -12,6 +12,7 @@ makeEntrypoint {
   searchPaths = {
     envPaths = [
       nixpkgs.python37
+      packages.melts
     ];
   };
   template = path "/makes/applications/integrates/scheduler/entrypoint.sh";

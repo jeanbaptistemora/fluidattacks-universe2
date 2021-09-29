@@ -41,6 +41,7 @@ makeTemplate {
         name = "melts-secrets-file";
         template = ''
           export MELTS_SECRETS='__envSrcMeltsStatic__/secrets.yaml'
+          export MELTS_FLUIDCOUNTS_RULES='__envSrcMeltsStatic__/rules.def'
         '';
       })
     ];

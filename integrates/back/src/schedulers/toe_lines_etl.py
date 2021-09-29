@@ -11,16 +11,22 @@ from data_containers.toe_lines import (
     GitRootToeLines,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 import glob
+from groups import (
+    domain as groups_domain,
+)
 import logging
 import logging.config
 from newutils import (
     bugsnag as bugsnag_utils,
     datetime as datetime_utils,
     git as git_utils,
+    utils,
 )
+import os
 import re
 from roots import (
     domain as roots_domain,
@@ -242,22 +248,86 @@ def _get_group_name(tmpdirname: str, lines_csv_path: str) -> str:
     return group_match.groups("1")[0]
 
 
+async def update_toe_lines(loaders: Dataloaders, tmpdirname: str) -> None:
+    lines_csv_glob = f"{tmpdirname}/groups/*/toe/lines.csv"
+    lines_cvs_paths = glob.glob(lines_csv_glob)
+    lines_csv_group_names = [
+        _get_group_name(tmpdirname, lines_cvs_path)
+        for lines_cvs_path in lines_cvs_paths
+    ]
+    await collect(
+        [
+            update_toe_lines_from_csv(loaders, group_name, lines_csv_path)
+            for lines_csv_path, group_name in zip(
+                lines_cvs_paths, lines_csv_group_names
+            )
+        ]
+    )
+
+
+async def _get_machine_only_groups() -> List[str]:
+    active_groups = await groups_domain.get_active_groups()
+    groups_data = await collect(
+        groups_domain.get_attributes(group, ["historic_configuration"])
+        for group in active_groups
+    )
+    groups_config = [
+        data["historic_configuration"][-1] for data in groups_data
+    ]
+    return [
+        group
+        for group, config in zip(active_groups, groups_config)
+        if (
+            utils.get_key_or_fallback(
+                config, "has_machine", "has_skims", False
+            )
+            and not utils.get_key_or_fallback(
+                config, "has_squad", "has_drills", False
+            )
+        )
+    ]
+
+
+def _create_group_basic_structure(tmpdirname: str, group: str) -> None:
+    toe_dir = os.path.join(tmpdirname, "groups", group, "toe")
+    os.makedirs(toe_dir, exist_ok=True)
+    with open(os.path.join(toe_dir, "lines.csv"), mode="w") as toe:
+        columns = [
+            "filename",
+            "loc",
+            "tested-lines",
+            "modified-date",
+            "modified-commit",
+            "tested-date",
+            "comments",
+        ]
+        writer = csv.DictWriter(toe, columns)
+        writer.writeheader()
+
+
+async def update_toe_lines_machine_groups(loaders: Dataloaders) -> None:
+    groups = await _get_machine_only_groups()
+    with tempfile.TemporaryDirectory() as tmpdirname:
+        os.chdir(tmpdirname)
+        os.environ["PROD_AWS_ACCESS_KEY_ID"] = os.environ.get(
+            "SERVICES_PROD_AWS_ACCESS_KEY_ID", ""
+        )
+        os.environ["PROD_AWS_SECRET_ACCESS_KEY"] = os.environ.get(
+            "SERVICES_PROD_AWS_SECRET_ACCESS_KEY", ""
+        )
+        for group in groups:
+            _create_group_basic_structure(tmpdirname, group)
+            os.system(  # nosec
+                f"melts drills --pull-repos {group} && "
+                f"melts drills --update-lines {group}"
+            )
+        await update_toe_lines(loaders, tmpdirname)
+
+
 async def main() -> None:
     """Update the root toe lines from services repository"""
     loaders = get_new_context()
     with tempfile.TemporaryDirectory() as tmpdirname:
         git_utils.clone_services_repository(tmpdirname)
-        lines_csv_glob = f"{tmpdirname}/groups/*/toe/lines.csv"
-        lines_cvs_paths = glob.glob(lines_csv_glob)
-        lines_csv_group_names = [
-            _get_group_name(tmpdirname, lines_cvs_path)
-            for lines_cvs_path in lines_cvs_paths
-        ]
-        await collect(
-            [
-                update_toe_lines_from_csv(loaders, group_name, lines_csv_path)
-                for lines_csv_path, group_name in zip(
-                    lines_cvs_paths, lines_csv_group_names
-                )
-            ]
-        )
+        await update_toe_lines(loaders, tmpdirname)
+    await update_toe_lines_machine_groups(loaders)
