@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 This migration closes vulnerabilities that belong to inactive roots
+
+Execution Time:    2021-09-29 at 15:25:04 UTCUTC
+Finalization Time: 2021-09-29 at 15:36:18 UTCUTC
 """
 
 from aioextensions import (
