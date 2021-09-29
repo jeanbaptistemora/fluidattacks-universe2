@@ -3,6 +3,7 @@
   We need both to be able to generate and assign a secret key, every time its
   useful life expires.
 */
+import _ from "lodash";
 import type React from "react";
 import { createContext } from "react";
 import type sjcl from "sjcl";
@@ -105,11 +106,14 @@ const storeIframeContent: (reference: Readonly<iFrameReferenceType>) => void = (
     const identifier: string | undefined =
       reference.current.contentWindow?.location.href;
 
-    if (identifier !== undefined) {
+    if (identifier !== undefined && !_.isUndefined(contents)) {
       storeBlob(identifier, contents, "text/html");
     }
   } else {
-    Logger.warning("Iframe with Cross-origin: Host != Iframe Host");
+    Logger.warning(
+      "Iframe with Cross-origin: Host != Iframe Host",
+      reference.current?.contentDocument?.location.hostname
+    );
   }
 };
 

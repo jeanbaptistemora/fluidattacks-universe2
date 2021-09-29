@@ -90,7 +90,9 @@ function buildUrl(
   url.searchParams.set("subject", subjectName);
   url.searchParams.set("width", roundedWidth.toString());
 
-  return url.toString();
+  return roundedWidth.toString() === "0" && roundedHeight.toString() === "0"
+    ? ""
+    : url.toString();
 }
 
 export const Graphic: React.FC<IGraphicProps> = (
@@ -300,7 +302,11 @@ export const Graphic: React.FC<IGraphicProps> = (
                     className={"g-a"}
                     download={buildFileName(modalSize)}
                     href={buildUrl(
-                      props,
+                      {
+                        ...props,
+                        documentName: currentDocumentName,
+                        subject: subjectName,
+                      },
                       modalSize,
                       subjectName,
                       currentDocumentName
@@ -401,7 +407,11 @@ export const Graphic: React.FC<IGraphicProps> = (
                             className={"g-a"}
                             download={buildFileName(bigGraphicSize)}
                             href={buildUrl(
-                              props,
+                              {
+                                ...props,
+                                documentName: currentDocumentName,
+                                subject: subjectName,
+                              },
                               bigGraphicSize,
                               subjectName,
                               currentDocumentName
