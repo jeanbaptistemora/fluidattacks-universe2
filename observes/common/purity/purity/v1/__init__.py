@@ -1,3 +1,6 @@
+from purity.v1._flatten import (
+    Flattener,
+)
 from purity.v1._json._jobj import (
     DictFactory,
     JsonFactory,
@@ -38,4 +41,5 @@ __all__ = [
     "Patch",
     "IOiter",
     "PureIter",
+    "Flattener",
 ]
