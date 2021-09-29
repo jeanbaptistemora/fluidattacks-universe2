@@ -79,7 +79,7 @@ in pretty-printed or CSV format:
 ## Using
 
 ```bash
-$ m gitlab:fluidattacks/product@master /skims --help
+$ m f /skims --help
 
   Usage: skims [OPTIONS] COMMAND [ARGS]...
 
@@ -91,7 +91,7 @@ $ m gitlab:fluidattacks/product@master /skims --help
 ## Running the scanner
 
 ```bash
-$ m gitlab:fluidattacks/product@master /skims scan /path/to/config.yaml
+$ m f /skims scan /path/to/config.yaml
 
   ... 🚀 !!
 ```

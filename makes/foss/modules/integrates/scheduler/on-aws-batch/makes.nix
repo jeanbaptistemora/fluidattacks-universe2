@@ -9,7 +9,7 @@
       attemptDurationSeconds = 43200;
       command = [
         "m"
-        "gitlab:fluidattacks/product@master"
+        "f"
         "/legacy/integrates-scheduler-update-indicators-job"
       ];
       definition = "makes";

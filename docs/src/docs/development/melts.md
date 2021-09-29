@@ -64,7 +64,7 @@ to do this easily,
 just use the following command to login:
 
 ```bash
-m gitlab:fluidattacks/product@master /melts resources --login
+m f /melts resources --login
 ```
 
 After which you will be prompted
@@ -131,7 +131,7 @@ needed to create these files:
   to log in with the admin role:
 
   ```bash
-  m gitlab:fluidattacks/product@master /melts resources --login admin
+  m f /melts resources --login admin
   ```
 
   Enter your credentials

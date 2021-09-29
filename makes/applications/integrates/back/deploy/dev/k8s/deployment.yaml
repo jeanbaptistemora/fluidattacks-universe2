@@ -19,14 +19,16 @@ spec:
         worker_group: development
       containers:
         - name: integrates
-          image: nixos/nix@sha256:d9bb3b85b846eb0b6c5204e0d76639dff72c7871fb68f5d4edcfbb727f8a5653
+          image: ghcr.io/fluidattacks/makes:21.10
           imagePullPolicy: Always
-          command: [sh]
+          command: [m]
           args:
-            - -c
-            - nix-env -i git &&
-              wget -O - fluidattacks.com/install/integrates-back | sh /dev/stdin "${CI_COMMIT_SHA}" &&
-              integrates-back eph
+            - f@${CI_COMMIT_REF_NAME}
+            - /integrates/back
+            - eph
+          env:
+            - name: K8S_COMPAT
+              value: "1"
           resources:
             requests:
               cpu: 600m
@@ -42,11 +44,12 @@ spec:
           readinessProbe:
             exec:
               command:
-              - integrates-back-probes-readiness
-              - aws_login_dev
-              - integrates-dev
-              - FluidIntegrates
-              - http://localhost:8001
+              - sh
+              - -c
+              - K8S_COMPAT=1
+                m f@${CI_COMMIT_REF_NAME} /integrates/back/deploy/probes/readiness
+                aws_login_dev integrates-dev
+                FluidIntegrates http://localhost:8001
             initialDelaySeconds: 90
             periodSeconds: 10
             successThreshold: 1
@@ -55,12 +58,13 @@ spec:
           livenessProbe:
             exec:
               command:
-              - integrates-back-probes-liveness
-              - aws_login_dev
-              - integrates-dev
-              - FluidIntegrates
-              - http://localhost:8001
-              - https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com
+              - sh
+              - -c
+              - K8S_COMPAT=1
+                m f@${CI_COMMIT_REF_NAME} /integrates/back/deploy/probes/liveness
+                aws_login_dev integrates-dev
+                FluidIntegrates http://localhost:8001
+                https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com
             initialDelaySeconds: 90
             periodSeconds: 30
             successThreshold: 1
@@ -90,8 +94,11 @@ spec:
           imagePullPolicy: Always
           command: [m]
           args:
-            - gitlab:fluidattacks/product@${CI_COMMIT_REF_NAME}
+            - f@${CI_COMMIT_REF_NAME}
             - /legacy/integrates-cache
+          env:
+            - name: K8S_COMPAT
+              value: "1"
           resources:
             requests:
               cpu: 600m
@@ -99,9 +106,6 @@ spec:
             limits:
               cpu: 4000m
               memory: 3000Mi
-          env:
-            - name: K8S_COMPAT
-              value: sure, let's do it
           envFrom:
             - secretRef:
                 name: integrates-${CI_COMMIT_REF_NAME}
