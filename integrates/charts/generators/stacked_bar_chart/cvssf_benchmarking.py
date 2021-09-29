@@ -278,6 +278,51 @@ def format_data(
     best_organization = get_percentage(percentage_values[1])
     average_organization = get_percentage(percentage_values[2])
     worst_organization = get_percentage(percentage_values[3])
+    max_organization = max(my_organization) if max(my_organization) else ""
+    max_best = max(best_organization) if max(best_organization) else ""
+    max_average = (
+        max(average_organization) if max(average_organization) else ""
+    )
+    max_worst = max(worst_organization) if max(worst_organization) else ""
+
+    max_percentage_values = dict(
+        Closed=[
+            my_organization[0]
+            if my_organization[0] == max_organization
+            else "",
+            best_organization[0] if best_organization[0] == max_best else "",
+            average_organization[0]
+            if average_organization[0] == max_average
+            else "",
+            worst_organization[0]
+            if worst_organization[0] == max_worst
+            else "",
+        ],
+        Accepted=[
+            my_organization[1]
+            if my_organization[1] == max_organization
+            else "",
+            best_organization[1] if best_organization[1] == max_best else "",
+            average_organization[1]
+            if average_organization[1] == max_average
+            else "",
+            worst_organization[1]
+            if worst_organization[1] == max_worst
+            else "",
+        ],
+        Open=[
+            my_organization[2]
+            if my_organization[2] == max_organization
+            else "",
+            best_organization[2] if best_organization[2] == max_best else "",
+            average_organization[2]
+            if average_organization[2] == max_average
+            else "",
+            worst_organization[2]
+            if worst_organization[2] == max_worst
+            else "",
+        ],
+    )
 
     return dict(
         data=dict(
@@ -384,6 +429,7 @@ def format_data(
                 worst_organization[2],
             ],
         ),
+        maxPercentageValues=max_percentage_values,
     )
 
 

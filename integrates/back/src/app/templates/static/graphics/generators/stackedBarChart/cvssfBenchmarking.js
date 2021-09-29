@@ -40,6 +40,43 @@ function render(dataDocument, height, width) {
     };
   }
 
+  if (dataDocument.percentageValues && dataDocument.maxPercentageValues) {
+    const { percentageValues, maxPercentageValues } = dataDocument;
+
+    dataDocument.tooltip.format.value = (_datum, _r, id, index) => {
+      const tooltipValue = `${ parseFloat(percentageValues[id][index]) } %`;
+
+      return tooltipValue;
+    };
+
+    dataDocument.data.labels.format = {
+      Accepted: (_datum, id, index) => {
+        if (maxPercentageValues[id][index] === '') {
+          return '';
+        }
+        const labelValue = `${ parseFloat(maxPercentageValues[id][index]) } %`;
+
+        return labelValue;
+      },
+      Closed: (_datum, id, index) => {
+        if (maxPercentageValues[id][index] === '') {
+          return '';
+        }
+        const labelValue = `${ parseFloat(maxPercentageValues[id][index]) } %`;
+
+        return labelValue;
+      },
+      Open: (_datum, id, index) => {
+        if (maxPercentageValues[id][index] === '') {
+          return '';
+        }
+        const labelValue = `${ parseFloat(maxPercentageValues[id][index]) } %`;
+
+        return labelValue;
+      },
+    };
+  }
+
   c3.generate({
     ...dataDocument,
     bindto: 'div',
