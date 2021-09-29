@@ -316,84 +316,84 @@ def _format_severity(
 ) -> Union[Finding31Severity, Finding20Severity]:
     if str(finding.get("cvssVersion", "3.1")) == "3.1":
         return Finding31Severity(
-            attack_complexity=finding.get("attack_complexity", Decimal("0.0")),
-            attack_vector=finding.get("attack_vector", Decimal("0.0")),
-            availability_impact=finding.get(
-                "availability_impact", Decimal("0.0")
+            attack_complexity=Decimal(finding.get("attack_complexity", "0.0")),
+            attack_vector=Decimal(finding.get("attack_vector", "0.0")),
+            availability_impact=Decimal(
+                finding.get("availability_impact", "0.0")
             ),
-            availability_requirement=finding.get(
-                "availability_requirement", Decimal("0.0")
+            availability_requirement=Decimal(
+                finding.get("availability_requirement", "0.0")
             ),
-            confidentiality_impact=finding.get(
-                "confidentiality_impact", Decimal("0.0")
+            confidentiality_impact=Decimal(
+                finding.get("confidentiality_impact", "0.0")
             ),
-            confidentiality_requirement=finding.get(
-                "confidentiality_requirement", Decimal("0.0")
+            confidentiality_requirement=Decimal(
+                finding.get("confidentiality_requirement", "0.0")
             ),
-            exploitability=finding.get("exploitability", Decimal("0.0")),
-            integrity_impact=finding.get("integrity_impact", Decimal("0.0")),
-            integrity_requirement=finding.get(
-                "integrity_requirement", Decimal("0.0")
+            exploitability=Decimal(finding.get("exploitability", "0.0")),
+            integrity_impact=Decimal(finding.get("integrity_impact", "0.0")),
+            integrity_requirement=Decimal(
+                finding.get("integrity_requirement", "0.0")
             ),
-            modified_attack_complexity=finding.get(
-                "modified_attack_complexity", Decimal("0.0")
+            modified_attack_complexity=Decimal(
+                finding.get("modified_attack_complexity", "0.0")
             ),
-            modified_attack_vector=finding.get(
-                "modified_attack_vector", Decimal("0.0")
+            modified_attack_vector=Decimal(
+                finding.get("modified_attack_vector", "0.0")
             ),
-            modified_availability_impact=finding.get(
-                "modified_availability_impact", Decimal("0.0")
+            modified_availability_impact=Decimal(
+                finding.get("modified_availability_impact", "0.0")
             ),
-            modified_confidentiality_impact=finding.get(
-                "modified_confidentiality_impact", Decimal("0.0")
+            modified_confidentiality_impact=Decimal(
+                finding.get("modified_confidentiality_impact", "0.0")
             ),
-            modified_integrity_impact=finding.get(
-                "modified_integrity_impact", Decimal("0.0")
+            modified_integrity_impact=Decimal(
+                finding.get("modified_integrity_impact", "0.0")
             ),
-            modified_privileges_required=finding.get(
-                "modified_privileges_required", Decimal("0.0")
+            modified_privileges_required=Decimal(
+                finding.get("modified_privileges_required", "0.0")
             ),
-            modified_user_interaction=finding.get(
-                "modified_user_interaction", Decimal("0.0")
+            modified_user_interaction=Decimal(
+                finding.get("modified_user_interaction", "0.0")
             ),
-            modified_severity_scope=finding.get(
-                "modified_severity_scope", Decimal("0.0")
+            modified_severity_scope=Decimal(
+                finding.get("modified_severity_scope", "0.0")
             ),
-            privileges_required=finding.get(
-                "privileges_required", Decimal("0.0")
+            privileges_required=Decimal(
+                finding.get("privileges_required", "0.0")
             ),
-            remediation_level=finding.get("remediation_level", Decimal("0.0")),
-            report_confidence=finding.get("report_confidence", Decimal("0.0")),
-            severity_scope=finding.get("severity_scope", Decimal("0.0")),
-            user_interaction=finding.get("user_interaction", Decimal("0.0")),
+            remediation_level=Decimal(finding.get("remediation_level", "0.0")),
+            report_confidence=Decimal(finding.get("report_confidence", "0.0")),
+            severity_scope=Decimal(finding.get("severity_scope", "0.0")),
+            user_interaction=Decimal(finding.get("user_interaction", "0.0")),
         )
     return Finding20Severity(
-        access_complexity=finding.get("access_complexity", Decimal("0.0")),
-        access_vector=finding.get("access_vector", Decimal("0.0")),
-        authentication=finding.get("authentication", Decimal("0.0")),
-        availability_impact=finding.get("availability_impact", Decimal("0.0")),
-        availability_requirement=finding.get(
-            "availability_requirement", Decimal("0.0")
+        access_complexity=Decimal(finding.get("access_complexity", "0.0")),
+        access_vector=Decimal(finding.get("access_vector", "0.0")),
+        authentication=Decimal(finding.get("authentication", "0.0")),
+        availability_impact=Decimal(finding.get("availability_impact", "0.0")),
+        availability_requirement=Decimal(
+            finding.get("availability_requirement", "0.0")
         ),
-        collateral_damage_potential=finding.get(
-            "collateral_damage_potential", Decimal("0.0")
+        collateral_damage_potential=Decimal(
+            finding.get("collateral_damage_potential", "0.0")
         ),
-        confidence_level=finding.get("confidence_level", Decimal("0.0")),
-        confidentiality_impact=finding.get(
-            "confidentiality_impact", Decimal("0.0")
+        confidence_level=Decimal(finding.get("confidence_level", "0.0")),
+        confidentiality_impact=Decimal(
+            finding.get("confidentiality_impact", "0.0")
         ),
-        confidentiality_requirement=finding.get(
-            "confidentiality_requirement", Decimal("0.0")
+        confidentiality_requirement=Decimal(
+            finding.get("confidentiality_requirement", "0.0")
         ),
-        exploitability=finding.get("exploitability", Decimal("0.0")),
-        finding_distribution=finding.get(
-            "finding_distribution", Decimal("0.0")
+        exploitability=Decimal(finding.get("exploitability", "0.0")),
+        finding_distribution=Decimal(
+            finding.get("finding_distribution", "0.0")
         ),
-        integrity_impact=finding.get("integrity_impact", Decimal("0.0")),
-        integrity_requirement=finding.get(
-            "integrity_requirement", Decimal("0.0")
+        integrity_impact=Decimal(finding.get("integrity_impact", "0.0")),
+        integrity_requirement=Decimal(
+            finding.get("integrity_requirement", "0.0")
         ),
-        resolution_level=finding.get("resolution_level", Decimal("0.0")),
+        resolution_level=Decimal(finding.get("resolution_level", "0.0")),
     )
 
 
