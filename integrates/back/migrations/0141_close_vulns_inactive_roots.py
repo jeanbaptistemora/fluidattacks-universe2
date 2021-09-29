@@ -60,13 +60,7 @@ async def get_vulns(
     return (root, vulns)
 
 
-async def main() -> None:
-    groups = await groups_domain.get_active_groups()
-    roots = [
-        root
-        for group_roots in await GroupRootsLoader().load_many(groups)
-        for root in group_roots
-    ]
+async def process_group(roots: Tuple[RootItem, ...]) -> None:
     active_root_nicknames = [
         root.state.nickname for root in roots if root.state.status == "ACTIVE"
     ]
@@ -85,6 +79,17 @@ async def main() -> None:
             close_vuln(vuln, root)
             for (root, vulns) in inactive_root_vulns
             for vuln in vulns
+            if vuln["historic_state"][-1]["state"] not in {"closed", "DELETED"}
+        ]
+    )
+
+
+async def main() -> None:
+    groups = await groups_domain.get_active_groups()
+    await collect(
+        [
+            process_group(group_roots)
+            for group_roots in await GroupRootsLoader().load_many(groups)
         ]
     )
 
