@@ -307,6 +307,7 @@ def _create_group_basic_structure(tmpdirname: str, group: str) -> None:
 
 async def update_toe_lines_machine_groups(loaders: Dataloaders) -> None:
     groups = await _get_machine_only_groups()
+    current_dir = os.getcwd()
     with tempfile.TemporaryDirectory() as tmpdirname:
         os.chdir(tmpdirname)
         os.environ["PROD_AWS_ACCESS_KEY_ID"] = os.environ.get(
@@ -322,6 +323,7 @@ async def update_toe_lines_machine_groups(loaders: Dataloaders) -> None:
                 f"melts drills --update-lines {group}"
             )
         await update_toe_lines(loaders, tmpdirname)
+    os.chdir(current_dir)
 
 
 async def main() -> None:
