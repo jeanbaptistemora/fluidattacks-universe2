@@ -3,6 +3,8 @@
 This migration searches for evidences without extension
 and appends it to them, deleting the old file without extension
 
+Execution Time:    2021-09-28 at 16:14:02 UTC-5
+Finalization Time: 2021-09-28 at 18:51:11 UTC-5
 """
 
 from aioextensions import (
@@ -45,7 +47,7 @@ from typing import (
     Union,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def upload_file(
