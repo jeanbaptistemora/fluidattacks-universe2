@@ -1,9 +1,10 @@
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import { FluidIcon } from "components/FluidIcon";
 
 const DeleteFormatter: StyledComponent<
   "button",
@@ -40,7 +41,7 @@ export const deleteFormatter: (
 
   return (
     <DeleteFormatter onClick={handleDeleteFormatter} type={"button"}>
-      <FluidIcon icon={"delete"} />
+      <FontAwesomeIcon icon={faTrashAlt} />
     </DeleteFormatter>
   );
 };

@@ -1,6 +1,10 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import { faCloudUploadAlt, faList } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCloudUploadAlt,
+  faList,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
@@ -196,7 +200,7 @@ const RecordsView: React.FC = (): JSX.Element => {
                 disabled={removeRes.loading}
                 onClick={handleRemoveClick}
               >
-                <FluidIcon icon={"delete"} />
+                <FontAwesomeIcon icon={faTrashAlt} />
                 &nbsp;{translate.t("searchFindings.tabEvidence.remove")}
               </Button>
             </Col100>

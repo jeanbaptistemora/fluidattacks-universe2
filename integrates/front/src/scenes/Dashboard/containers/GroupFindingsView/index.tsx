@@ -6,6 +6,7 @@ import {
   faFileArchive,
   faFileExcel,
   faFilePdf,
+  faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
@@ -45,7 +46,6 @@ import {
   filterSelect,
   filterText,
 } from "components/DataTableNext/utils";
-import { FluidIcon } from "components/FluidIcon";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import AppstoreBadge from "resources/appstore_badge.svg";
@@ -88,8 +88,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   const { groupName } = useParams<{ groupName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const { replace } = useHistory();
-  const { push } = useHistory();
+  const { push, replace } = useHistory();
   const { url } = useRouteMatch();
 
   // State management
@@ -432,7 +431,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         translate.t("searchFindings.findingsDeleted"),
         translate.t("group.drafts.titleSuccess")
       );
-      replace(`/groups/${groupName}/vulns`);
+      replace(`groups/${groupName}/vulns`);
       handleCloseModal();
     }
   };
@@ -612,7 +611,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                     disabled={selectedFindings.length === 0 || deleting}
                     onClick={openDeleteModal}
                   >
-                    <FluidIcon icon={"delete"} />
+                    <FontAwesomeIcon icon={faTrashAlt} />
                     &nbsp;{translate.t("searchFindings.delete.btn.text")}
                   </Button>
                 </TooltipWrapper>

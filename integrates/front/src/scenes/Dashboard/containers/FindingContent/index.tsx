@@ -66,10 +66,11 @@ import { translate } from "utils/translations/translate";
 import { composeValidators, required } from "utils/validations";
 
 const findingContent: React.FC = (): JSX.Element => {
-  const { findingId, groupName } =
+  const { findingId, groupName, organizationName } =
     useParams<{
       findingId: string;
       groupName: string;
+      organizationName: string;
     }>();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -180,7 +181,7 @@ const findingContent: React.FC = (): JSX.Element => {
             translate.t("searchFindings.findingDeleted", { findingId }),
             translate.t("group.drafts.titleSuccess")
           );
-          replace(`/groups/${groupName}/vulns`);
+          replace(`/orgs/${organizationName}/groups/${groupName}/vulns`);
         }
       },
       onError: ({ graphQLErrors }: ApolloError): void => {

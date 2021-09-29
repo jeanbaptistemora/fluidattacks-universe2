@@ -1,9 +1,10 @@
+import { faCheck, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import type { IConfirmFn } from "components/ConfirmDialog";
-import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { ButtonToolbar } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -73,7 +74,7 @@ const findingActions: React.FC<IFindingActionsProps> = (
                       // eslint-disable-next-line react/jsx-no-bind
                       onClick={handleClick}
                     >
-                      <FluidIcon icon={"verified"} />
+                      <FontAwesomeIcon icon={faCheck} />
                       &nbsp;{translate.t("group.drafts.approve.text")}
                     </Button>
                   </TooltipWrapper>
@@ -115,7 +116,7 @@ const findingActions: React.FC<IFindingActionsProps> = (
               message={translate.t("searchFindings.delete.btn.tooltip")}
             >
               <Button onClick={onDelete}>
-                <FluidIcon icon={"delete"} />
+                <FontAwesomeIcon icon={faTrashAlt} />
                 &nbsp;{translate.t("searchFindings.delete.btn.text")}
               </Button>
             </TooltipWrapper>

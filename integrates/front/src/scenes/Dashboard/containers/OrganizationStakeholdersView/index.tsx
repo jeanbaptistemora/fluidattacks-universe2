@@ -1,6 +1,10 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faTrashAlt,
+  faUserEdit,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -12,7 +16,7 @@ import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { timeFromNow } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import { FluidIcon } from "components/FluidIcon";
+import { filterSearchText } from "components/DataTableNext/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import {
@@ -110,6 +114,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
   const [isStakeholderModalOpen, setStakeholderModalOpen] = useState(false);
   const [stakeholderModalAction, setStakeholderModalAction] =
     useState<"add" | "edit">("add");
+  const [searchTextFilter, setSearchTextFilter] = useState("");
 
   const openAddStakeholderModal: () => void = useCallback((): void => {
     setStakeholderModalAction("add");
@@ -247,10 +252,21 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
     setStakeholderModalAction("add");
   }, [currentRow.email, organizationId, removeStakeholderAccess]);
 
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+
   const stakeholdersList: IStakeholderAttrs[] =
     _.isUndefined(data) || _.isEmpty(data)
       ? []
       : data.organization.stakeholders; // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+
+  const filterSearchtextResult: IStakeholderAttrs[] = filterSearchText(
+    stakeholdersList,
+    searchTextFilter
+  );
 
   return (
     <React.StrictMode>
@@ -259,68 +275,83 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
           <Col100>
             <Row>
               <Col100>
-                <ButtonToolbar>
-                  <TooltipWrapper
-                    displayClass={"dib"}
-                    id={"organization.tabs.users.addButton.tooltip.btn"}
-                    message={translate.t(
-                      "organization.tabs.users.addButton.tooltip"
-                    )}
-                  >
-                    <Button id={"addUser"} onClick={openAddStakeholderModal}>
-                      <FontAwesomeIcon icon={faPlus} />
-                      &nbsp;
-                      {translate.t("organization.tabs.users.addButton.text")}
-                    </Button>
-                  </TooltipWrapper>
-                  <TooltipWrapper
-                    displayClass={"dib"}
-                    id={"organization.tabs.users.editButton.tooltip.btn"}
-                    message={translate.t(
-                      "organization.tabs.users.editButton.tooltip"
-                    )}
-                  >
-                    <Button
-                      disabled={_.isEmpty(currentRow)}
-                      id={"editUser"}
-                      onClick={openEditStakeholderModal}
-                    >
-                      <FluidIcon icon={"edit"} />
-                      &nbsp;
-                      {translate.t("organization.tabs.users.editButton.text")}
-                    </Button>
-                  </TooltipWrapper>
-                  <TooltipWrapper
-                    displayClass={"dib"}
-                    id={"organization.tabs.users.removeButton.tooltip.btn"}
-                    message={translate.t(
-                      "organization.tabs.users.removeButton.tooltip"
-                    )}
-                  >
-                    <Button
-                      disabled={_.isEmpty(currentRow) || removing}
-                      id={"removeUser"}
-                      onClick={handleRemoveStakeholder}
-                    >
-                      <FontAwesomeIcon icon={faMinus} />
-                      &nbsp;
-                      {translate.t("organization.tabs.users.removeButton.text")}
-                    </Button>
-                  </TooltipWrapper>
-                </ButtonToolbar>
-              </Col100>
-            </Row>
-            <br />
-            <Row>
-              <Col100>
                 <DataTableNext
                   bordered={true}
-                  dataset={stakeholdersList}
+                  customSearch={{
+                    customSearchDefault: searchTextFilter,
+                    isCustomSearchEnabled: true,
+                    onUpdateCustomSearch: onSearchTextChange,
+                  }}
+                  dataset={filterSearchtextResult}
                   exportCsv={true}
+                  extraButtons={
+                    <Row>
+                      <ButtonToolbar>
+                        <TooltipWrapper
+                          displayClass={"dib"}
+                          id={"organization.tabs.users.addButton.tooltip.btn"}
+                          message={translate.t(
+                            "organization.tabs.users.addButton.tooltip"
+                          )}
+                        >
+                          <Button
+                            id={"addUser"}
+                            onClick={openAddStakeholderModal}
+                          >
+                            <FontAwesomeIcon icon={faPlus} />
+                            &nbsp;
+                            {translate.t(
+                              "organization.tabs.users.addButton.text"
+                            )}
+                          </Button>
+                        </TooltipWrapper>
+                        <TooltipWrapper
+                          displayClass={"dib"}
+                          id={"organization.tabs.users.editButton.tooltip.btn"}
+                          message={translate.t(
+                            "organization.tabs.users.editButton.tooltip"
+                          )}
+                        >
+                          <Button
+                            disabled={_.isEmpty(currentRow)}
+                            id={"editUser"}
+                            onClick={openEditStakeholderModal}
+                          >
+                            <FontAwesomeIcon icon={faUserEdit} />
+                            &nbsp;
+                            {translate.t(
+                              "organization.tabs.users.editButton.text"
+                            )}
+                          </Button>
+                        </TooltipWrapper>
+                        <TooltipWrapper
+                          displayClass={"dib"}
+                          id={
+                            "organization.tabs.users.removeButton.tooltip.btn"
+                          }
+                          message={translate.t(
+                            "organization.tabs.users.removeButton.tooltip"
+                          )}
+                        >
+                          <Button
+                            disabled={_.isEmpty(currentRow) || removing}
+                            id={"removeUser"}
+                            onClick={handleRemoveStakeholder}
+                          >
+                            <FontAwesomeIcon icon={faTrashAlt} />
+                            &nbsp;
+                            {translate.t(
+                              "organization.tabs.users.removeButton.text"
+                            )}
+                          </Button>
+                        </TooltipWrapper>
+                      </ButtonToolbar>
+                    </Row>
+                  }
                   headers={tableHeaders}
                   id={"tblUsers"}
                   pageSize={10}
-                  search={true}
+                  search={false}
                   selectionMode={{
                     clickToSelect: true,
                     mode: "radio",

@@ -1,10 +1,11 @@
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field } from "formik";
 import type { FieldValidator } from "formik";
 import _ from "lodash";
 import React, { cloneElement, useCallback } from "react";
 
 import { Button } from "components/Button/index";
-import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import style from "scenes/Dashboard/components/EvidenceImage/index.css";
 import {
@@ -82,7 +83,7 @@ const renderForm: (props: IEvidenceImageProps) => JSX.Element = (
             message={translate.t("searchFindings.tabEvidence.removeTooltip")}
           >
             <Button onClick={onDelete}>
-              <FluidIcon icon={"delete"} />
+              <FontAwesomeIcon icon={faTrashAlt} />
               &nbsp;{translate.t("searchFindings.tabEvidence.remove")}
             </Button>
           </TooltipWrapper>
