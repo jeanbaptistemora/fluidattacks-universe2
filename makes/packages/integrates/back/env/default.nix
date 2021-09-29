@@ -1,4 +1,5 @@
 { nixpkgs
+, makes
 , makeTemplate
 , packages
 , path
@@ -31,6 +32,7 @@ makeTemplate {
       packages.integrates.back.pypi.runtime
       packages.integrates.back.tools
       packages.integrates.secrets.list
+      makes.libGit
     ];
     envUtils = [
       "/makes/utils/aws"

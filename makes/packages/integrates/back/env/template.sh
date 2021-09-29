@@ -28,11 +28,21 @@ function main {
         && return 1
     fi \
     && export API_STATUS="${api_status}" \
+    && export CI_COMMIT_REF_NAME \
+    && export CI_COMMIT_SHA \
     && export INTEGRATES_DB_MODEL_PATH='__envIntegrates__/arch/database-design.json' \
     && export INTEGRATES_CHARTS_LOGO_PATH='__envIntegrates__/back/src/reports/resources/themes/logo.png' \
     && export INTEGRATES_MAILER_TEMPLATES='__envIntegrates__/back/src/mailer/email_templates' \
     && export STARTDIR="${PWD}" \
     && export TZ=UTC \
+    && if test -z "${CI_COMMIT_REF_NAME:-}"; then
+      # Local environments specific
+      CI_COMMIT_REF_NAME="$(get_abbrev_rev . HEAD)"
+    fi \
+    && if test -z "${CI_COMMIT_SHA:-}"; then
+      # Local environments specific
+      CI_COMMIT_SHA="$(get_commit_from_rev . HEAD)"
+    fi \
     && if ! test -e 'integrates'; then
       # Kubernetes specific
       mkdir 'integrates' \

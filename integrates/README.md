@@ -84,7 +84,7 @@ Please check out the [Get development keys](https://gitlab.com/fluidattacks/prod
 Run each command in a different terminal:
 
 ```bash
-./m integrates.back
+m . integrates.back
 ./m integrates.cache
 ./m integrates.db
 ./m integrates.storage
