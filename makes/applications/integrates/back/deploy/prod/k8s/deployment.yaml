@@ -23,14 +23,17 @@ spec:
         worker_group: production
       containers:
         - name: integrates
-          image: nixos/nix@sha256:d9bb3b85b846eb0b6c5204e0d76639dff72c7871fb68f5d4edcfbb727f8a5653
+          image: ghcr.io/fluidattacks/makes:21.10
           imagePullPolicy: Always
-          command: [sh]
-          args:
-            - -c
-            - nix-env -i git &&
-              wget -O - fluidattacks.com/install/integrates-back | sh /dev/stdin master &&
-              integrates-back prod
+          command: [m]
+          args: [ f /integrates/back prod ]
+          env:
+          - name: K8S_COMPAT
+            value: "1"
+          - name: INSTANA_AGENT_HOST
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
           resources:
             # Ensure your request and limit fits in the node:
             #   kubectl get node --selector=worker_group=production
@@ -47,11 +50,6 @@ spec:
             limits:
               cpu: 2000m
               memory: 3800Mi
-          env:
-            - name: INSTANA_AGENT_HOST
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
           envFrom:
             - secretRef:
                 name: integrates-master
@@ -60,11 +58,12 @@ spec:
           readinessProbe:
             exec:
               command:
-              - integrates-back-probes-readiness
-              - aws_login_prod
-              - integrates-prod
-              - FluidIntegrates
-              - http://localhost:8001
+              - sh
+              - -c
+              - K8S_COMPAT=1
+                m f /integrates/back/deploy/probes/readiness
+                aws_login_prod integrates-prod
+                FluidIntegrates http://localhost:8001
             initialDelaySeconds: 90
             periodSeconds: 10
             successThreshold: 1
@@ -73,12 +72,13 @@ spec:
           livenessProbe:
             exec:
               command:
-              - integrates-back-probes-liveness
-              - aws_login_prod
-              - integrates-prod
-              - FluidIntegrates
-              - http://localhost:8001
-              - https://app.fluidattacks.com
+              - sh
+              - -c
+              - K8S_COMPAT=1
+                m f /integrates/back/deploy/probes/liveness
+                aws_login_prod integrates-prod
+                FluidIntegrates http://localhost:8001
+                https://app.fluidattacks.com
             initialDelaySeconds: 90
             periodSeconds: 30
             successThreshold: 1
