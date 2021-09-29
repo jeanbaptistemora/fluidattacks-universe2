@@ -48,14 +48,3 @@ makes.test.skims:
   <<: *makes
   <<: *skims_in_master_branch
   stage: test-code
-
-skims.structure:
-  <<: *makes
-  <<: *skims_in_dev_branch
-  after_script:
-    - cp -Lr out.skims-structure outputs
-  artifacts:
-    expire_in: 1 week
-    paths: [outputs]
-    when: always
-  stage: test-code

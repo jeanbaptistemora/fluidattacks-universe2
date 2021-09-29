@@ -32,8 +32,8 @@
     dirsOfModules = {
       skims = {
         searchPaths.source = [
-          inputs.product.skims-config-development
           inputs.product.skims-config-runtime
+          outputs."/skims/env/development"
         ];
         python = "3.8";
         src = "/skims/skims";
@@ -48,8 +48,8 @@
     modules = {
       skimsTest = {
         searchPaths.source = [
-          inputs.product.skims-config-development
           inputs.product.skims-config-runtime
+          outputs."/skims/env/development"
         ];
         python = "3.8";
         src = "/skims/test";

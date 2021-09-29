@@ -8,7 +8,6 @@ makeTemplate {
   name = "makes-dev-skims";
   searchPaths = {
     envSources = [
-      packages.skims.config-development
       packages.skims.config-runtime
     ];
     envPaths = [ nixpkgs.black ];

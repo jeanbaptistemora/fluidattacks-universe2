@@ -35,9 +35,9 @@
             outputs."/skims/test/mocks/ssl/unsafe"
           ];
           source = [
-            inputs.product.skims-config-development
             inputs.product.skims-config-runtime
             outputs."/secretsForAwsFromEnv/skimsDev"
+            outputs."/skims/env/development"
             (makeTemplate {
               name = "extra";
               searchPaths.source = [ libGit ];
