@@ -46,8 +46,8 @@ def _get_requirements(
     cve = finding_name[:3]
     requirements = [
         (
-            f"{requ}. "  # type: ignore
-            f'{requirements_data[requ][language]["summary"]}'
+            f"{requ}. "
+            f'{requirements_data[requ][language]["summary"]}'  # type: ignore
         )
         for requ in vulns_data[cve]["requirements"]
     ]

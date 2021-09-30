@@ -63,6 +63,7 @@ PROD: bool = True
 
 
 class Context(NamedTuple):
+    # pylint: disable=inherit-non-class, too-few-public-methods
     loaders: Any
     headers: Any
 

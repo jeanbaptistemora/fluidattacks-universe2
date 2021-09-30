@@ -71,6 +71,7 @@ PROD: bool = True
 
 # Types
 class NickName(NamedTuple):
+    # pylint: disable=inherit-non-class, too-few-public-methods
     nickname: str
     root_url: str
     group_name: str

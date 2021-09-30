@@ -113,6 +113,7 @@ async def verify_closed_vulnerabilities(
     user_fullname: str,
     closed_vulns: List[str],
 ) -> None:
+    # pylint: disable=unsubscriptable-object
     coroutines: List[Awaitable[bool]] = []
     finding = await findings_dal.get_finding(finding_id)
     vulnerabilities = await vulns_domain.get_by_ids(closed_vulns)

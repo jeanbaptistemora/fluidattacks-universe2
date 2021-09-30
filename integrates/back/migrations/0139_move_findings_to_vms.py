@@ -330,6 +330,7 @@ def _format_verification(state: Dict[str, str]) -> FindingVerification:
 def _format_severity(
     finding: FindingType,
 ) -> Union[Finding31Severity, Finding20Severity]:
+    # pylint: disable=unsubscriptable-object
     if str(finding.get("cvssVersion", "3.1")) == "3.1":
         return Finding31Severity(
             attack_complexity=Decimal(finding.get("attack_complexity", "0.0")),

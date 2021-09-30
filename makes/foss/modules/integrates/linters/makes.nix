@@ -41,7 +41,7 @@
         searchPaths.source = [
           inputs.product.integrates-back-pypi-runtime
         ];
-        python = "3.7";
+        python = "3.9";
         src = "/integrates/back/migrations";
       };
       integratesBackTests = {

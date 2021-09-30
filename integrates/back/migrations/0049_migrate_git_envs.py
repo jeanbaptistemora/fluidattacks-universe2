@@ -43,11 +43,12 @@ SERVICES_REPO_DIR: str = f"{os.getcwd()}/services"
 Application = NamedTuple(
     "Application",
     [
-        ("url", Optional[List[str]]),
+        ("url", Optional[List[str]]),  # pylint: disable=unsubscriptable-object
     ],
 )
 
 GroupConfig = NamedTuple(
+    # pylint: disable=unsubscriptable-object
     "GroupConfig",
     [
         ("application", Optional[Application]),

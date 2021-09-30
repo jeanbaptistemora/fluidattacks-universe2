@@ -55,6 +55,7 @@ async def dynamo_delete_item(
 async def dynamo_async_scan(
     table: str, scan_attrs: Dict[str, Union[Key, str]]
 ) -> List[Dict[str, str]]:
+    # pylint: disable=unsubscriptable-object
     response_items: List[Dict[str, str]] = []
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)

@@ -87,6 +87,7 @@ async def append_extensions(  # pylint: disable=too-many-locals
         mime = Magic(mime=True)
         mime_type = mime.from_file(target_name)
         if mime_type in target_extensions:
+            # pylint: disable=unsubscriptable-object
             print(f"Found evidence file without extension: {full_name}")
             # Determining finding id and index
             # that corresponds to this evidence

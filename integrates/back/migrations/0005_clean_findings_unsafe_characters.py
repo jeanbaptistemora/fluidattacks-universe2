@@ -60,6 +60,7 @@ STRING_REGEX: str = (
 
 
 def clean_unsafe_characters(finding: Dict[str, str], dry_run: bool) -> None:
+    # pylint: disable=unsubscriptable-object
     finding_id = finding["finding_id"]
     original_description = finding.get("vulnerability", "")
     original_recommendation = finding.get("effect_solution", "")
@@ -121,6 +122,7 @@ def get_all_findings() -> List[Dict[str, str]]:
 
 
 def persist_changes(finding: Dict[str, str], dry_run: bool) -> None:
+    # pylint: disable=unsubscriptable-object
     info_to_update: Dict[str, Optional[str]] = {
         "effect_solution_hash": None,
         "effect_solution_new": None,
@@ -179,6 +181,7 @@ def log(message: str, dry_run: bool) -> None:
 
 
 def update_finding(finding_id: str, data: Dict[str, Optional[str]]) -> bool:
+    # pylint: disable=unsubscriptable-object
     success = False
     primary_keys = {"finding_id": finding_id}
     attrs_to_remove = [attr for attr in data if data[attr] is None]
