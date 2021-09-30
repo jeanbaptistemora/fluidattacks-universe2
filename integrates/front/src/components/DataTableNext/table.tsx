@@ -40,6 +40,7 @@ import {
   ButtonToolbarRow,
   ControlLabel,
   Filters,
+  InputDateRange,
   InputNumber,
   InputRange,
   InputText,
@@ -196,6 +197,28 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           placeholder={t(`${placeholder}`)}
           type={"number"}
         />
+      );
+    if (type === "dateRange")
+      return (
+        <RangeContainer>
+          <InputDateRange
+            onChange={handleChangeMin}
+            style={{ maxWidth: "14rem" }}
+            type={"date"}
+          />
+          <div>
+            <FontAwesomeIcon
+              className={" h-100 mvh-auto mh2"}
+              color={"gray"}
+              icon={faMinus}
+            />
+          </div>
+          <InputDateRange
+            onChange={handleChangeMax}
+            style={{ maxWidth: "14rem" }}
+            type={"date"}
+          />
+        </RangeContainer>
       );
     if (type === "range")
       return (

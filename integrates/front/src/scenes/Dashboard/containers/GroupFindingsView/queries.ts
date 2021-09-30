@@ -15,6 +15,7 @@ const GET_FINDINGS: DocumentNode = gql`
         openVulnerabilities
         state
         isExploitable
+        releaseDate
         remediated
         treatmentSummary {
           accepted

@@ -100,8 +100,31 @@ function filterSubSelectCount<T extends Record<string, any>>(
   });
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function filterDateRange<T extends Record<string, any>>(
+  rows: T[],
+  currentRange: { min: string; max: string },
+  columnKey: string
+): T[] {
+  const selectedMinDate = new Date(currentRange.min);
+  const selectedMaxDate = new Date(currentRange.max);
+
+  return rows.filter((row: T): boolean => {
+    const releaseDate = new Date(row[columnKey]);
+    const minRange = _.isEmpty(currentRange.min)
+      ? true
+      : releaseDate >= selectedMinDate;
+    const maxRange = _.isEmpty(currentRange.max)
+      ? true
+      : releaseDate <= selectedMaxDate;
+
+    return minRange && maxRange;
+  });
+}
+
 export {
   filterDate,
+  filterDateRange,
   filterLastNumber,
   filterRange,
   filterSelect,

@@ -40,6 +40,7 @@ import type {
   IHeaderConfig,
 } from "components/DataTableNext/types";
 import {
+  filterDateRange,
   filterLastNumber,
   filterRange,
   filterSearchText,
@@ -142,6 +143,10 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const [typeFilter, setTypeFilter] = useState("");
   const [ageFilter, setAgeFilter] = useState("");
   const [lastReportFilter, setLastReportFilter] = useState("");
+  const [releaseDateFilter, setReleaseDateFilter] = useState({
+    max: "",
+    min: "",
+  });
   const [isRunning, setRunning] = useState(false);
   const [selectedFindings, setSelectedFindings] = useState<IFindingAttr[]>([]);
   const [severityFilter, setSeverityFilter] = useState({ max: "", min: "" });
@@ -336,7 +341,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     setCurrentTreatmentFilter(event.target.value);
   };
 
-  const filterCurrentTreatment: IFindingAttr[] = filterSubSelectCount(
+  const filterCurrentTreatmentFindings: IFindingAttr[] = filterSubSelectCount(
     findings,
     currentTreatmentFilter,
     "treatmentSummary"
@@ -407,11 +412,30 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     "severityScore"
   );
 
+  const onReleaseDateMinChange: (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setReleaseDateFilter({ ...releaseDateFilter, min: event.target.value });
+  };
+
+  const onReleaseDateMaxChange: (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setReleaseDateFilter({ ...releaseDateFilter, max: event.target.value });
+  };
+
+  const filterReleaseDateFindings: IFindingAttr[] = filterDateRange(
+    findings,
+    releaseDateFilter,
+    "releaseDate"
+  );
+
   const resultFindings: IFindingAttr[] = _.intersection(
     filterSearchtextFindings,
     filterCurrentStatusFindings,
-    filterCurrentTreatment,
+    filterCurrentTreatmentFindings,
     filterReattackFindings,
+    filterReleaseDateFindings,
     filterWhereFindings,
     filterTypeFindings,
     filterAgeFindings,
@@ -580,6 +604,18 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       tooltipId: "group.findings.filtersTooltips.reattack.id",
       tooltipMessage: "group.findings.filtersTooltips.reattack",
       type: "select",
+    },
+    {
+      defaultValue: "",
+      placeholder: "Release date (Range)",
+      rangeProps: {
+        defaultValue: releaseDateFilter,
+        onChangeMax: onReleaseDateMaxChange,
+        onChangeMin: onReleaseDateMinChange,
+      },
+      tooltipId: "group.findings.filtersTooltips.releaseDate.id",
+      tooltipMessage: "group.findings.filtersTooltips.releaseDate",
+      type: "dateRange",
     },
   ];
 

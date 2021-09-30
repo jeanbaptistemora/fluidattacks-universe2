@@ -496,7 +496,11 @@ const InputText = styled.input.attrs({
 })``;
 
 const InputRange = styled.input.attrs({
-  className: `${style["form-control"]} black-40 border-box mw4`,
+  className: `${style["form-control"]} black-40 center border-box mw4`,
+})``;
+
+const InputDateRange = styled.input.attrs({
+  className: `${style["form-control"]} black-40 border-box mw5`,
 })``;
 
 const InputNumber = styled.input.attrs({
@@ -653,6 +657,7 @@ export {
   Flex,
   FormGroup,
   HintFieldText,
+  InputDateRange,
   InputNumber,
   InputRange,
   InputText,

@@ -27,13 +27,13 @@ interface IFilterProps {
     defaultValue: { max: string; min: string };
     onChangeMax: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeMin: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    step: number;
+    step?: number;
   };
   selectOptions?: Record<string, number | string>;
   placeholder?: string;
   tooltipId: string;
   tooltipMessage: string;
-  type: "date" | "number" | "range" | "select" | "text";
+  type: "date" | "dateRange" | "number" | "range" | "select" | "text";
 }
 
 interface ICustomSearchProps {

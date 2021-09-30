@@ -413,6 +413,7 @@ export const enTranslations: ResourceKey = {
         age: "Filter by age",
         lastReport: "Filter by last report",
         reattack: "Filter by reattack",
+        releaseDate: "filter by Release Date",
         severity: "Filter by severity",
         status: "Filter by status",
         treatment: "Filter by Treatment",
