@@ -87,11 +87,25 @@ function filterRange<T extends Record<string, any>>(
   });
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function filterSubSelectCount<T extends Record<string, any>>(
+  rows: T[],
+  currentValue: string,
+  columnKey: string
+): T[] {
+  return rows.filter((row: T): boolean => {
+    const currentRows = row[columnKey];
+
+    return _.isEmpty(currentValue) ? true : currentRows[currentValue] > 0;
+  });
+}
+
 export {
   filterDate,
   filterLastNumber,
   filterRange,
   filterSelect,
+  filterSubSelectCount,
   filterSearchText,
   filterText,
 };

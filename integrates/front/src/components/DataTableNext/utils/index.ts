@@ -7,5 +7,6 @@ export {
   filterRange,
   filterSearchText,
   filterSelect,
+  filterSubSelectCount,
   filterText,
 } from "./filters";

@@ -415,6 +415,7 @@ export const enTranslations: ResourceKey = {
         reattack: "Filter by reattack",
         severity: "Filter by severity",
         status: "Filter by status",
+        treatment: "Filter by Treatment",
         type: "Filter by type",
         where: "Filter by text on 'Where' column",
       },

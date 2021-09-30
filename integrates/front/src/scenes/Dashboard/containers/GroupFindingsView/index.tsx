@@ -44,6 +44,7 @@ import {
   filterRange,
   filterSearchText,
   filterSelect,
+  filterSubSelectCount,
   filterText,
 } from "components/DataTableNext/utils";
 import { Modal } from "components/Modal";
@@ -135,6 +136,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [currentStatusFilter, setCurrentStatusFilter] = useState("");
+  const [currentTreatmentFilter, setCurrentTreatmentFilter] = useState("");
   const [reattackFilter, setReattackFilter] = useState("");
   const [whereFilter, setWhereFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
@@ -328,6 +330,18 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     "state"
   );
 
+  const onTreatmentChange: (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => void = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    setCurrentTreatmentFilter(event.target.value);
+  };
+
+  const filterCurrentTreatment: IFindingAttr[] = filterSubSelectCount(
+    findings,
+    currentTreatmentFilter,
+    "treatmentSummary"
+  );
+
   function onReattackChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     setReattackFilter(event.target.value);
   }
@@ -396,6 +410,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const resultFindings: IFindingAttr[] = _.intersection(
     filterSearchtextFindings,
     filterCurrentStatusFindings,
+    filterCurrentTreatment,
     filterReattackFindings,
     filterWhereFindings,
     filterTypeFindings,
@@ -509,6 +524,20 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       },
       tooltipId: "group.findings.filtersTooltips.status.id",
       tooltipMessage: "group.findings.filtersTooltips.status",
+      type: "select",
+    },
+    {
+      defaultValue: currentTreatmentFilter,
+      onChangeSelect: onTreatmentChange,
+      placeholder: "Treatment",
+      selectOptions: {
+        accepted: "Accepted",
+        acceptedUndefined: "Permanently Accepted",
+        inProgress: "In Progress",
+        new: "New",
+      },
+      tooltipId: "group.findings.filtersTooltips.treatment.id",
+      tooltipMessage: "group.findings.filtersTooltips.treatment",
       type: "select",
     },
     {
