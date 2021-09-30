@@ -137,3 +137,14 @@ def iter_ec2_instances(template: Node) -> Iterator[Node]:
             exact=True,
         )
     )
+
+
+def iter_cloudfront_distributions(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::CloudFront::Distribution",
+            exact=True,
+        )
+    )
