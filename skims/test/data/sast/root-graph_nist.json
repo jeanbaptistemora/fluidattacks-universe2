@@ -4478,7 +4478,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "data",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -4589,7 +4589,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "IO",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -4682,7 +4682,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "dbConnection",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -4888,7 +4888,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "badSqlCommand",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -5074,7 +5074,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "IO",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -5117,6 +5117,17 @@
             },
             "symbol": "IO",
             "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "expression": "IO",
+            "member": "Logger",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "301",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
           },
           {
             "meta": {
@@ -5173,14 +5184,14 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "IO.Logger",
             "meta": {
               "danger": false,
               "dependencies": -4,
               "n_id": "299",
               "value": null
             },
-            "method": "Logger.Log",
+            "method": "Log",
             "type": "SyntaxStepMethodInvocationChain"
           }
         ],
@@ -5307,7 +5318,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "badSqlCommand",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -5350,6 +5361,17 @@
             },
             "symbol": "IO",
             "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "expression": "IO",
+            "member": "Logger",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "368",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
           },
           {
             "meta": {
@@ -5406,14 +5428,14 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "IO.Logger",
             "meta": {
               "danger": false,
               "dependencies": -4,
               "n_id": "366",
               "value": null
             },
-            "method": "Logger.Log",
+            "method": "Log",
             "type": "SyntaxStepMethodInvocationChain"
           }
         ],
@@ -5494,6 +5516,17 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "expression": "req",
+            "member": "Params",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "84",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -5506,14 +5539,14 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "req.Params",
             "meta": {
               "danger": false,
               "dependencies": -2,
               "n_id": "82",
               "value": null
             },
-            "method": "Params.Get",
+            "method": "Get",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
@@ -18056,7 +18089,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseRepository",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -18194,7 +18227,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseRepository",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -18470,14 +18503,120 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseRepository",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "288",
+              "value": null
+            },
+            "method": "GetAll",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "309",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "307",
+              "value": null
+            },
+            "symbol": "page",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "306",
+              "value": null
+            },
+            "operator": "-",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "304",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "302",
+              "value": null
+            },
+            "symbol": "pageSize",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "301",
+              "value": null
+            },
+            "operator": "*",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "current_instance": null,
+            "expression": "_houseRepository.GetAll()",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "286",
+              "value": null
+            },
+            "method": "Skip",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "317",
+              "value": null
+            },
+            "symbol": "pageSize",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "expression": "_houseRepository.GetAll().Skip(pageSize*(page-1))",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "284",
+              "value": null
+            },
+            "method": "Take",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "current_instance": null,
+            "expression": "_houseRepository.GetAll().Skip(pageSize*(page-1)).Take(pageSize)",
             "meta": {
               "danger": false,
               "dependencies": -1,
               "n_id": "282",
               "value": null
             },
-            "method": "GetAll().Skip(pageSize*(page-1)).Take(pageSize).ToList",
+            "method": "ToList",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
@@ -18517,6 +18656,28 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "expression": "HttpContext",
+            "member": "Current",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "329",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
+            "expression": "HttpContext.Current",
+            "member": "Response",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "328",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -18549,7 +18710,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "JsonConvert",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -18561,14 +18722,14 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "HttpContext.Current.Response",
             "meta": {
               "danger": false,
               "dependencies": -3,
               "n_id": "326",
               "value": null
             },
-            "method": "Current.Response.AppendHeader",
+            "method": "AppendHeader",
             "type": "SyntaxStepMethodInvocationChain"
           }
         ],
@@ -18608,7 +18769,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "result",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -18690,7 +18851,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseMapper",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -18750,7 +18911,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseRepository",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -18877,7 +19038,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseMapper",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -19115,7 +19276,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseMapper",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -19173,7 +19334,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseRepository",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -19388,7 +19549,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseRepository",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -19650,7 +19811,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseRepository",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -19697,7 +19858,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseMapper",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -19935,7 +20096,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseRepository",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -20062,7 +20223,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseMapper",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -20120,7 +20281,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "houseDto",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -20164,7 +20325,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseMapper",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -20176,7 +20337,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseRepository",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -20223,7 +20384,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "_houseMapper",
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -27379,6 +27540,17 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "expression": "ctx",
+            "member": "Students",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "240",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -27390,14 +27562,14 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "ctx.Students",
             "meta": {
               "danger": false,
               "dependencies": -2,
               "n_id": "238",
               "value": null
             },
-            "method": "Students.Add",
+            "method": "Add",
             "type": "SyntaxStepMethodInvocationChain"
           }
         ],
@@ -27425,7 +27597,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "ctx",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -27652,15 +27824,61 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "expression": "ctx",
+            "member": "Students",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "367",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "377",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "s",
+            "var_type": null
+          },
+          {
+            "lambda_type": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "376",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          },
+          {
             "current_instance": null,
-            "expression": null,
+            "expression": "ctx.Students",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "365",
+              "value": null
+            },
+            "method": "Where",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "current_instance": null,
+            "expression": "ctx.Students.Where(s=>s.StudentID==student.Id)",
             "meta": {
               "danger": false,
               "dependencies": -1,
               "n_id": "363",
               "value": null
             },
-            "method": "Students.Where(s=>s.StudentID==student.Id).FirstOrDefault<Student>",
+            "method": "FirstOrDefault<Student>",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
@@ -27925,7 +28143,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "ctx",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -28176,15 +28394,61 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "expression": "ctx",
+            "member": "Students",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "530",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "540",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "s",
+            "var_type": null
+          },
+          {
+            "lambda_type": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "539",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          },
+          {
             "current_instance": null,
-            "expression": null,
+            "expression": "ctx.Students",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "528",
+              "value": null
+            },
+            "method": "Where",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "current_instance": null,
+            "expression": "ctx.Students.Where(s=>s.StudentID==id)",
             "meta": {
               "danger": false,
               "dependencies": -1,
               "n_id": "526",
               "value": null
             },
-            "method": "Students.Where(s=>s.StudentID==id).FirstOrDefault",
+            "method": "FirstOrDefault",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
@@ -28371,7 +28635,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "ctx",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -28441,15 +28705,119 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "expression": "ctx",
+            "member": "Students",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "75",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "84",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "StudentAddress",
+            "value_type": "string"
+          },
+          {
             "current_instance": null,
-            "expression": null,
+            "expression": "ctx.Students",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "73",
+              "value": null
+            },
+            "method": "Include",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "92",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "s",
+            "var_type": null
+          },
+          {
+            "lambda_type": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "91",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          },
+          {
+            "current_instance": null,
+            "expression": "ctx.Students.Include(\"StudentAddress\")",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "71",
+              "value": null
+            },
+            "method": "Where",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "108",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "s",
+            "var_type": null
+          },
+          {
+            "lambda_type": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "107",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          },
+          {
+            "current_instance": null,
+            "expression": "ctx.Students.Include(\"StudentAddress\").Where(s=>s.StudentID==id)",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "69",
+              "value": null
+            },
+            "method": "Select",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "current_instance": null,
+            "expression": "ctx.Students.Include(\"StudentAddress\").Where(s=>s.StudentID==id).Select(s=>newStudentViewModel(){Id=s.StudentID,FirstName=s.FirstName,LastName=s.LastName})",
             "meta": {
               "danger": false,
               "dependencies": -1,
               "n_id": "67",
               "value": null
             },
-            "method": "Students.Include(\"StudentAddress\").Where(s=>s.StudentID==id).Select(s=>newStudentViewModel(){Id=s.StudentID,FirstName=s.FirstName,LastName=s.LastName}).FirstOrDefault<StudentViewModel>",
+            "method": "FirstOrDefault<StudentViewModel>",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
@@ -30903,7 +31271,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "aes",
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -31037,7 +31405,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "aes2",
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -31161,7 +31529,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "cryptoStream",
             "meta": {
               "danger": false,
               "dependencies": -2,

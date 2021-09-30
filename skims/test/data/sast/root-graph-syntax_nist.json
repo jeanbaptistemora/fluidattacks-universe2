@@ -71,6 +71,17 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "expression": "req",
+            "member": "Params",
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "84",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -83,14 +94,14 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "req.Params",
             "meta": {
               "danger": true,
               "dependencies": -2,
               "n_id": "82",
               "value": null
             },
-            "method": "Params.Get",
+            "method": "Get",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
@@ -178,7 +189,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "data",
             "meta": {
               "danger": true,
               "dependencies": -2,
@@ -279,7 +290,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "IO",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -362,7 +373,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "dbConnection",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -558,7 +569,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "badSqlCommand",
             "meta": {
               "danger": true,
               "dependencies": -1,
@@ -651,6 +662,17 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "expression": "req",
+            "member": "Params",
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "84",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -663,14 +685,14 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "req.Params",
             "meta": {
               "danger": true,
               "dependencies": -2,
               "n_id": "82",
               "value": null
             },
-            "method": "Params.Get",
+            "method": "Get",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
@@ -758,7 +780,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "data",
             "meta": {
               "danger": true,
               "dependencies": -2,
@@ -859,7 +881,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "IO",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -942,7 +964,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "dbConnection",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -1038,7 +1060,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "badSqlCommand",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -1331,7 +1353,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "aes",
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -1420,7 +1442,7 @@
           },
           {
             "current_instance": null,
-            "expression": null,
+            "expression": "aes2",
             "meta": {
               "danger": false,
               "dependencies": -3,
