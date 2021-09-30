@@ -34,7 +34,7 @@ makeEntrypoint {
       nixpkgs.curl
       nixpkgs.nodejs-12_x
       nixpkgs.openjdk8_headless
-      nixpkgs.python37
+      nixpkgs.python39
       packages.makes.kill-port
       packages.makes.wait
     ];

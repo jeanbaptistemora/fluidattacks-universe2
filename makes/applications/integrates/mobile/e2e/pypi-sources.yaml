@@ -1,22 +1,21 @@
 closure:
-  appium-python-client: 1.0.2
+  appium-python-client: 1.3.0
   atomicwrites: 1.4.0
   attrs: 21.2.0
   colorama: 0.4.4
   iniconfig: 1.1.1
-  more-itertools: 8.10.0
   packaging: "21.0"
   pluggy: 0.13.1
   py: 1.10.0
   pyparsing: 2.4.7
-  pytest: 6.0.1
+  pytest: 6.2.3
   selenium: 3.141.0
   toml: 0.10.2
   urllib3: 1.26.7
 links:
-  - name: Appium-Python-Client-1.0.2.tar.gz
-    sha256: 1v58nspbc20q7xg636ccbc2z9yyx3qi6y12756nm57fw820czqj4
-    url: https://files.pythonhosted.org/packages/21/ca/3261b5da5b6851ea5297f44b2dc7f3167f00a7ce3e99907b49bf69c56360/Appium-Python-Client-1.0.2.tar.gz
+  - name: Appium-Python-Client-1.3.0.tar.gz
+    sha256: 0wi0g6c9qyhaad5bzva5w2m1h3gqlflsl4rpilvm0ngqq499iv9i
+    url: https://files.pythonhosted.org/packages/3a/52/1a055e861ebd9cb80241fc7f5690615367cea7cbbcadfba05ebc9f05cd8f/Appium-Python-Client-1.3.0.tar.gz
   - name: atomicwrites-1.4.0-py2.py3-none-any.whl
     sha256: 15z1i1xjlc71ya8kcy3dz7ywpr5n807n4v1b2yjx9j60lzg885vd
     url: https://files.pythonhosted.org/packages/2c/a0/da5f49008ec6e9a658dbf5d7310a4debd397bce0b4db03cf8a410066bb87/atomicwrites-1.4.0-py2.py3-none-any.whl
@@ -41,12 +40,6 @@ links:
   - name: iniconfig-1.1.1.tar.gz
     sha256: 0ckzngs3scaa1mcfmsi1w40a1l8cxxnncscrxzjjwjyisx8z0fmw
     url: https://files.pythonhosted.org/packages/23/a2/97899f6bd0e873fed3a7e67ae8d3a08b21799430fb4da15cfedf10d6e2c2/iniconfig-1.1.1.tar.gz
-  - name: more_itertools-8.10.0-py3-none-any.whl
-    sha256: 0hzsfvr5203fyqkzvbqi048nh1zvxd5lcpxh5lrvl60pai2srpan
-    url: https://files.pythonhosted.org/packages/e0/1f/9cd11889680dc55a3612a277c8310def3f2bfc7159f12fcb647e32350380/more_itertools-8.10.0-py3-none-any.whl
-  - name: more-itertools-8.10.0.tar.gz
-    sha256: 07zlfk269ihlyb66i4rl4i65046bswdahr4xhla3hyfzn6zcmsqx
-    url: https://files.pythonhosted.org/packages/8a/f7/93cf3c81629c95f6f40e509f7cd63985a6ddd829181a66c1c8ef101e55f2/more-itertools-8.10.0.tar.gz
   - name: packaging-21.0-py3-none-any.whl
     sha256: 057z2kyp5f66w7gz9ph0h3d4f20gfvgblsadr4ff6m8d4bwm8qn8
     url: https://files.pythonhosted.org/packages/3c/77/e2362b676dc5008d81be423070dd9577fa03be5da2ba1105811900fda546/packaging-21.0-py3-none-any.whl
@@ -71,12 +64,12 @@ links:
   - name: pyparsing-2.4.7.tar.gz
     sha256: 1hgc8qrbq1ymxbwfbjghv01fm3fbpjwpjwi0bcailxxzhf3yq0y2
     url: https://files.pythonhosted.org/packages/c1/47/dfc9c342c9842bbe0036c7f763d2d6686bcf5eb1808ba3e170afdb282210/pyparsing-2.4.7.tar.gz
-  - name: pytest-6.0.1-py3-none-any.whl
-    sha256: 1bfv8dqhzv2jw19cgn8aajhv47jk9qzj14n1lpasrzak1j00fq4b
-    url: https://files.pythonhosted.org/packages/98/db/712bee56f9ab20373508a5a1c662e1db49b407dacf03b5224c6171ed0a3d/pytest-6.0.1-py3-none-any.whl
-  - name: pytest-6.0.1.tar.gz
-    sha256: 1x76kxm8h29xssgcqhnpq33imy37j91g96zgaxpf0iczvdsqs8l5
-    url: https://files.pythonhosted.org/packages/20/4c/d7b19b8661be78461fff0392e33943784340424921578fe1bf300ef59831/pytest-6.0.1.tar.gz
+  - name: pytest-6.2.3-py3-none-any.whl
+    sha256: 1g3lal5jpq8yxizdg26hf2jk45f4cc0c52lr5cj0ia0pynywgnba
+    url: https://files.pythonhosted.org/packages/76/4d/9c00146923da9f1cabd1878209d71b1380d537ec331a1a613e8f4b9d7985/pytest-6.2.3-py3-none-any.whl
+  - name: pytest-6.2.3.tar.gz
+    sha256: 0d5nx7xqr9khagbvg6ac2cjjvcxrvvjp0chwim4z7w2ddsj3h4k7
+    url: https://files.pythonhosted.org/packages/9e/1f/226f5c2393701c87c315b6d6cdb65ec1cbc9008e7a9ccb1d31ab79e0c19b/pytest-6.2.3.tar.gz
   - name: selenium-3.141.0.tar.gz
     sha256: 039hf9knvl4s3hp21bzwsp1g5ri9gxsh504dp48lc6nr1av35byy
     url: https://files.pythonhosted.org/packages/ed/9c/9030520bf6ff0b4c98988448a93c04fcbd5b13cd9520074d8ed53569ccfe/selenium-3.141.0.tar.gz
