@@ -82,7 +82,7 @@ async def _get_finding(*, group_name: str, finding_id: str) -> Finding:
     )
 
 
-async def _get_findings_by_group(*, group_name: str) -> Tuple[Finding, ...]:
+async def _get_findings_by_group(group_name: str) -> Tuple[Finding, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
         values={"group_name": group_name},
@@ -150,7 +150,7 @@ async def _get_group(*, finding_id: str) -> str:
     return metadata["group_name"]
 
 
-async def _get_non_deleted_finding(*, finding_id: str) -> Finding:
+async def _get_non_deleted_finding(finding_id: str) -> Finding:
     group_name = await _get_group(finding_id=finding_id)
     finding = await _get_finding(group_name=group_name, finding_id=finding_id)
     if finding.state.status == FindingStateStatus.DELETED:
@@ -159,7 +159,7 @@ async def _get_non_deleted_finding(*, finding_id: str) -> Finding:
 
 
 async def _get_historic_verification(
-    *, finding_id: str
+    finding_id: str,
 ) -> Tuple[FindingVerification, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_historic_verification"],
@@ -177,7 +177,7 @@ async def _get_historic_verification(
     return tuple(map(format_verification, results))
 
 
-async def _get_historic_state(*, finding_id: str) -> Tuple[FindingState, ...]:
+async def _get_historic_state(finding_id: str) -> Tuple[FindingState, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_historic_state"],
         values={"id": finding_id},
@@ -199,10 +199,7 @@ class FindingNonDeletedNewLoader(DataLoader):
     async def batch_load_fn(
         self, finding_ids: List[str]
     ) -> Tuple[Finding, ...]:
-        return await collect(
-            _get_non_deleted_finding(finding_id=finding_id)
-            for finding_id in finding_ids
-        )
+        return await collect(tuple(map(_get_non_deleted_finding, finding_ids)))
 
 
 class FindingHistoricVerificationNewLoader(DataLoader):
@@ -211,8 +208,7 @@ class FindingHistoricVerificationNewLoader(DataLoader):
         self, finding_ids: List[str]
     ) -> Tuple[Tuple[FindingVerification], ...]:
         return await collect(
-            _get_historic_verification(finding_id=finding_id)
-            for finding_id in finding_ids
+            tuple(map(_get_historic_verification, finding_ids))
         )
 
 
@@ -221,10 +217,7 @@ class FindingHistoricStateNewLoader(DataLoader):
     async def batch_load_fn(
         self, finding_ids: List[str]
     ) -> Tuple[Tuple[FindingState], ...]:
-        return await collect(
-            _get_historic_state(finding_id=finding_id)
-            for finding_id in finding_ids
-        )
+        return await collect(tuple(map(_get_historic_state, finding_ids)))
 
 
 class GroupDraftsNewLoader(DataLoader):
@@ -233,8 +226,7 @@ class GroupDraftsNewLoader(DataLoader):
         self, group_names: List[str]
     ) -> Tuple[Tuple[Finding, ...], ...]:
         findings_by_group = await collect(
-            _get_findings_by_group(group_name=group_name)
-            for group_name in group_names
+            tuple(map(_get_findings_by_group, group_names))
         )
         return tuple(
             filter_non_state_status_findings(
@@ -254,8 +246,7 @@ class GroupFindingsNewLoader(DataLoader):
         self, group_names: List[str]
     ) -> Tuple[Tuple[Finding, ...], ...]:
         findings_by_group = await collect(
-            _get_findings_by_group(group_name=group_name)
-            for group_name in group_names
+            tuple(map(_get_findings_by_group, group_names))
         )
         return tuple(
             filter_non_state_status_findings(
