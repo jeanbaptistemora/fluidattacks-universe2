@@ -1,7 +1,7 @@
 from context import (
     FI_DB_MODEL_PATH,
 )
-from dynamodb.table import (
+from dynamodb.tables import (
     load_tables,
 )
 import json

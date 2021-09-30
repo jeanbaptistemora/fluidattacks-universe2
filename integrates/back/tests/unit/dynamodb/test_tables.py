@@ -1,5 +1,5 @@
 from dynamodb import (
-    table,
+    tables,
 )
 from dynamodb.types import (
     Facet,
@@ -10,7 +10,7 @@ from dynamodb.types import (
 
 
 def test_load_tables() -> None:
-    result = table.load_tables(
+    result = tables.load_tables(
         {
             "DataModel": [
                 {

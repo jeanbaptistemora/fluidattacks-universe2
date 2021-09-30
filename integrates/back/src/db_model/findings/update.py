@@ -159,7 +159,7 @@ async def update_historic_verification(  # pylint: disable=too-many-locals
     await collect(operation_coroutines)
 
 
-async def update_medatada(
+async def update_metadata(
     *,
     group_name: str,
     finding_id: str,

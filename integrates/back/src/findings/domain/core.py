@@ -286,7 +286,7 @@ async def remove_finding_new(
         findings_dal.remove_evidence(file_name) for file_name in file_names
     )
     metadata = FindingMetadataToUpdate(evidences=FindingEvidences())
-    await findings_model.update_medatada(
+    await findings_model.update_metadata(
         group_name=finding.group_name,
         finding_id=finding.id,
         metadata=metadata,
@@ -1052,7 +1052,7 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
         threat=MASKED,
     )
     mask_new_finding_coroutines.append(
-        findings_model.update_medatada(
+        findings_model.update_metadata(
             group_name=finding.group_name,
             finding_id=finding.id,
             metadata=metadata,
@@ -1353,7 +1353,7 @@ async def update_description_new(
         threat=description.threat,
         title=description.title,
     )
-    await findings_model.update_medatada(
+    await findings_model.update_metadata(
         group_name=finding.group_name,
         finding_id=finding.id,
         metadata=metadata,
@@ -1388,7 +1388,7 @@ async def update_severity_new(
         updated_severity = severity
 
     metadata = FindingMetadataToUpdate(severity=updated_severity)
-    await findings_model.update_medatada(
+    await findings_model.update_metadata(
         group_name=finding.group_name,
         finding_id=finding.id,
         metadata=metadata,

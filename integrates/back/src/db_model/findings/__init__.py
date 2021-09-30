@@ -8,7 +8,7 @@ from .remove import (
 from .update import (
     update_evidence,
     update_historic_verification,
-    update_medatada,
+    update_metadata,
     update_state,
     update_unreliable_indicators,
     update_verification,
@@ -23,7 +23,7 @@ __all__ = [
     # update
     "update_evidence",
     "update_historic_verification",
-    "update_medatada",
+    "update_metadata",
     "update_state",
     "update_unreliable_indicators",
     "update_verification",

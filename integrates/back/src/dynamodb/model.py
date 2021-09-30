@@ -12,7 +12,7 @@ from dynamodb import (
     historics,
     keys,
     operations,
-    table,
+    tables,
 )
 from dynamodb.types import (
     GroupMetadata,
@@ -29,7 +29,7 @@ from typing import (
 )
 
 with open(FI_DB_MODEL_PATH, mode="r") as file:
-    TABLE = table.load_tables(json.load(file))[0]
+    TABLE = tables.load_tables(json.load(file))[0]
 
 
 def _build_org_policy_finding(
