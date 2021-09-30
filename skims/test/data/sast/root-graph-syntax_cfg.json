@@ -2,9 +2,7 @@
   "F001": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
-    "skims/test/data/sast/test_cfg.js": {
-      "1": {}
-    },
+    "skims/test/data/sast/test_cfg.js": {},
     "skims/test/data/sast/test_cfg.kt": {}
   },
   "F004": {
@@ -286,7 +284,9 @@
   "F112": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
-    "skims/test/data/sast/test_cfg.js": {},
+    "skims/test/data/sast/test_cfg.js": {
+      "1": {}
+    },
     "skims/test/data/sast/test_cfg.kt": {}
   },
   "F117": {

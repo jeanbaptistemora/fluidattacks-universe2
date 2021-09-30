@@ -20,7 +20,7 @@ from sast_transformations.danger_nodes.utils import (
 )
 
 FINDINGS = {
-    FindingEnum.F001,
+    FindingEnum.F112,
     FindingEnum.F004,
     FindingEnum.F008,
     FindingEnum.F021,

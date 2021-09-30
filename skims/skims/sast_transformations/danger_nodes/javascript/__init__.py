@@ -27,6 +27,14 @@ def mark_sinks(
         },
     )
     mark_methods_sink(
+        FindingEnum.F112,
+        graph,
+        syntax,
+        {
+            "query",
+        },
+    )
+    mark_methods_sink(
         FindingEnum.F008,
         graph,
         syntax,

@@ -35,8 +35,9 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
     # Analyze the arguments involved in the assignment or the current danger
     # in case it was set in previous steps (when declaring a called function)
     args_danger = (
-        any(dep.meta.danger for dep in args.dependencies)
-        or args.syntax_step.meta.danger
+        args.dependencies[-1].meta.danger
+        if args.dependencies
+        else args.syntax_step.meta.danger
     )
 
     # Analyze if the binding itself is sensitive

@@ -1822,6 +1822,101 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test131.js,19,328,skims,052
   25 | export default router;
      ^ Col 0
 "
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test151.js,13,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 | import { randomInt } from ""crypto"";
+   4 |
+   5 | router.get(""/test151"", function (req, res) {
+   6 |   let a = false;
+   7 |   let key = """";
+   8 |   if (a) {
+   9 |     key = randomInt(0, 10000000).toString();
+  10 |   } else {
+  11 |     key = (Math.random() * 100).toString();
+  12 |   }
+> 13 |   res.cookie(""rememberKey"", key);
+  14 |   res.json({ ok: true });
+  15 | });
+  16 |
+  17 | export default router;
+     ^ Col 0
+"
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test148.js,6,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 |
+   4 | router.get(""/test148"", function (req, res) {
+   5 |   let key = Math.random().toString();
+>  6 |   res.cookie(""rememberKey"", key);
+   7 |   res.json({ ok: true });
+   8 | });
+   9 |
+  10 | export default router;
+     ^ Col 0
+"
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test152.js,13,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 |
+   4 | router.get(""/test152"", function (req, res) {
+   5 |   let key = """";
+   6 |   var map64 = {
+   7 |     keyA: ""a_Value"",
+   8 |     keyB: ""safe"",
+   9 |     keyC: ""c_value"",
+  10 |   };
+  11 |   map64[""keyB""] = Math.random().toString();
+  12 |   key = map64.keyB;
+> 13 |   res.cookie(""rememberKey"", key);
+  14 |   res.json({ ok: true });
+  15 | });
+  16 |
+  17 | export default router;
+     ^ Col 0
+"
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test154.js,16,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 |
+   4 | router.get(""/test154"", function (req, res) {
+   5 |   let key = """";
+   6 |   var data = [""safe""];
+   7 |   data.push(""safe"");
+   8 |   data.push(Math.random().toString());
+   9 |   data[3] = ""safe"";
+  10 |   data.pop();
+  11 |
+  12 |   for (var currentKey of data) {
+  13 |     key = key.concat(currentKey);
+  14 |   }
+  15 |
+> 16 |   res.cookie(""rememberKey"", key);
+  17 |   res.json({ ok: true });
+  18 | });
+  19 |
+  20 | export default router;
+     ^ Col 0
+"
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test155.js,7,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 |
+   4 | router.get(""/test155"", function (req, res) {
+   5 |   var data = [""safe"", Math.random().toString()];
+   6 |
+>  7 |   res.cookie(""rememberKey"", data[1]);
+   8 |   res.json({ ok: true });
+   9 | });
+  10 |
+  11 | export default router;
+     ^ Col 0
+"
 F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test097.js,6,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    1 | import { Router } from ""express"";
@@ -1970,8 +2065,9 @@ F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test145.js,20,643,skims,021
   28 | export default router;
      ^ Col 0
 "
-F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test143.js,22,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test143.js,21,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
+   9 |
   10 |   let userName = userData.username;
   11 |   let password = userData.password;
   12 |
@@ -1980,19 +2076,18 @@ F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test143.js,22,643,skims,021
   15 |
   16 |     var doc = new DOMParser().parseFromString(data.toString());
   17 |
-  18 |     xpath.parse(""dasdasdas"");
-  19 |     var findUserXPath = `//Employee[UserName/text()='${userName}' and Password/text()='${password}']`;
-  20 |     let badXPathExpr = xpath.parse(findUserXPath);
-  21 |
-> 22 |     let result = badXPathExpr.select({ node: doc });
-  23 |     if (result.length > 0) {
-  24 |       authenticated = true;
-  25 |     }
-  26 |     res.json({ ok: authenticated });
-  27 |   });
-  28 | });
-  29 |
-  30 | export default router;
+  18 |     var findUserXPath = `//Employee[UserName/text()='${userName}' and Password/text()='${password}']`;
+  19 |     let badXPathExpr = xpath.parse(findUserXPath);
+  20 |
+> 21 |     let result = badXPathExpr.select({ node: doc });
+  22 |     if (result.length > 0) {
+  23 |       authenticated = true;
+  24 |     }
+  25 |     res.json({ ok: authenticated });
+  26 |   });
+  27 | });
+  28 |
+  29 | export default router;
      ^ Col 0
 "
 F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test146.js,21,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
@@ -2842,5 +2937,197 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test095.js,30,79,skims,008.
   38 | `
   39 |   );
   40 | });
+     ^ Col 0
+"
+F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test167.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+  13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
+  14 |     connection.connect();
+  15 |   }
+  16 |   connection.resume();
+  17 |
+  18 |   let userData = req.body;
+  19 |
+  20 |   let userName = userData.username;
+  21 |   let password = userData.password;
+  22 |   let statement = `SELECT * FROM users WHERE user_name='${userName}' AND password='${password}'`;
+> 23 |   connection.query(
+  24 |     {
+  25 |       sql: statement,
+  26 |     },
+  27 |     function (error, results, fields) {
+  28 |       connection.pause();
+  29 |       if (error) {
+  30 |         res.status(500).json({ error: error });
+  31 |       }
+  32 |       res.json({ ok: results.length > 0 });
+  33 |     }
+     ^ Col 0
+"
+F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test157.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+  13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
+  14 |     connection.connect();
+  15 |   }
+  16 |   connection.resume();
+  17 |
+  18 |   let userData = req.body;
+  19 |
+  20 |   let userName = userData.username;
+  21 |   let password = userData.password;
+  22 |
+> 23 |   connection.query(
+  24 |     ""SELECT * FROM users WHERE user_name='"" +
+  25 |       userName +
+  26 |       ""' AND password='"" +
+  27 |       password +
+  28 |       ""'"",
+  29 |     function (error, results, fields) {
+  30 |       connection.pause();
+  31 |       if (error) {
+  32 |         res.status(500).json({ error: error });
+  33 |       }
+     ^ Col 0
+"
+F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test156.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+  13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
+  14 |     connection.connect();
+  15 |   }
+  16 |   connection.resume();
+  17 |
+  18 |   let userData = req.body;
+  19 |
+  20 |   let userName = userData.username;
+  21 |   let password = userData.password;
+  22 |
+> 23 |   connection.query(
+  24 |     `SELECT * FROM users WHERE user_name='${userName}' AND password='${password}'`,
+  25 |     function (error, results, fields) {
+  26 |       connection.pause();
+  27 |       if (error) {
+  28 |         res.status(500).json({ error: error });
+  29 |       }
+  30 |       res.json({ ok: results.length > 0 });
+  31 |     }
+  32 |   );
+  33 | });
+     ^ Col 0
+"
+F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test159.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+  13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
+  14 |     connection.connect();
+  15 |   }
+  16 |   connection.resume();
+  17 |
+  18 |   let userData = req.body;
+  19 |
+  20 |   let userName = userData.username;
+  21 |   let password = userData.password;
+  22 |
+> 23 |   connection.query(
+  24 |     `SELECT * FROM users WHERE user_name='${userName}' AND password='${password}'`,
+  25 |     function (error, results, fields) {
+  26 |       connection.pause();
+  27 |       if (error) {
+  28 |         res.status(500).json({ error: error });
+  29 |       }
+  30 |       res.json({ ok: results.length > 0 });
+  31 |     }
+  32 |   );
+  33 | });
+     ^ Col 0
+"
+F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test160.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+  13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
+  14 |     connection.connect();
+  15 |   }
+  16 |   connection.resume();
+  17 |
+  18 |   let userData = req.body;
+  19 |
+  20 |   let userName = userData.username;
+  21 |   let password = userData.password;
+  22 |
+> 23 |   connection.query(
+  24 |     `SELECT * FROM users WHERE user_name='${userName}' AND password='${password}'`,
+  25 |     function (error, results, fields) {
+  26 |       connection.pause();
+  27 |       if (error) {
+  28 |         res.status(500).json({ error: error });
+  29 |       }
+  30 |       res.json({ ok: results.length > 0 });
+  31 |     }
+  32 |   );
+  33 | });
+     ^ Col 0
+"
+F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test161.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+  13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
+  14 |     connection.connect();
+  15 |   }
+  16 |   connection.resume();
+  17 |
+  18 |   let userData = req.body;
+  19 |
+  20 |   let userName = userData.username;
+  21 |   let password = userData.password;
+  22 |
+> 23 |   connection.query(
+  24 |     `SELECT * FROM users WHERE user_name='${userName}' AND password='${password}'`,
+  25 |     function (error, results, fields) {
+  26 |       connection.pause();
+  27 |       if (error) {
+  28 |         res.status(500).json({ error: error });
+  29 |       }
+  30 |       res.json({ ok: results.length > 0 });
+  31 |     }
+  32 |   );
+  33 | });
+     ^ Col 0
+"
+F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test166.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+  13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
+  14 |     connection.connect();
+  15 |   }
+  16 |   connection.resume();
+  17 |
+  18 |   let userData = req.body;
+  19 |
+  20 |   let userName = userData.username;
+  21 |   let password = userData.password;
+  22 |
+> 23 |   connection.query(
+  24 |     {
+  25 |       sql: `SELECT * FROM users WHERE user_name='${userName}' AND password='${password}'`,
+  26 |     },
+  27 |     function (error, results, fields) {
+  28 |       connection.pause();
+  29 |       if (error) {
+  30 |         res.status(500).json({ error: error });
+  31 |       }
+  32 |       res.json({ ok: results.length > 0 });
+  33 |     }
+     ^ Col 0
+"
+F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test158.js,29,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+  18 |   let userData = req.body;
+  19 |
+  20 |   let userName = userData.username;
+  21 |   let password = userData.password;
+  22 |
+  23 |   let quey =
+  24 |     ""SELECT * FROM users WHERE user_name='"" +
+  25 |     userName +
+  26 |     ""' AND password='"" +
+  27 |     password +
+  28 |     ""'"";
+> 29 |   connection.query(quey, function (error, results, fields) {
+  30 |     connection.pause();
+  31 |     if (error) {
+  32 |       res.status(500).json({ error: error });
+  33 |     }
+  34 |     res.json({ ok: results.length > 0 });
+  35 |   });
+  36 | });
+  37 |
+  38 | export default router;
      ^ Col 0
 "

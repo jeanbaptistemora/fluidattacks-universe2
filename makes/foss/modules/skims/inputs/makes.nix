@@ -32,8 +32,8 @@
     skimsVulnerableJsApp = fetchGithub {
       owner = "fluidattacks";
       repo = "vulnerable_js_app";
-      rev = "83c469acfe5b3ac86e9479abaa490185806d9cdc";
-      sha256 = "01zc3hwnjghyirhcbc3l3nnqv3rmgiw1q41ccc57rai80k3wjhgd";
+      rev = "1282fbde196abb5a77235ba4dd5a64f46dac6e52";
+      sha256 = "0sc6zx9zf2v5m2a0hfccynyn93mcx97ks6ksdf9larha6l5r977f";
     };
     skimsTestPythonCategories = fromJsonFile
       (projectPath "/skims/test/test_groups.json");
