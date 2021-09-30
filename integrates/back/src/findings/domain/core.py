@@ -291,6 +291,9 @@ async def remove_finding_new(
         finding_id=finding.id,
         metadata=metadata,
     )
+    await findings_model.remove(
+        group_name=finding.group_name, finding_id=finding.id
+    )
 
 
 async def remove_vulnerabilities(

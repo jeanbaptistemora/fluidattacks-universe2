@@ -740,7 +740,7 @@ async def test_filter_deleted_findings_new() -> None:
     assert "success" in result["data"]["removeFinding"]
     assert result["data"]["removeFinding"]["success"]
     loaders.group_findings_new.clear(group_name)
-    loaders.group_findings_all_new.clear(group_name)
+    loaders.group_removed_findings.clear(group_name)
     assert await get_open_vulnerabilities_new(loaders, group_name) < open_vulns
 
 

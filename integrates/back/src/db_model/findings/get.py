@@ -35,9 +35,6 @@ from dynamodb import (
     keys,
     operations,
 )
-from itertools import (
-    chain,
-)
 from typing import (
     List,
     Tuple,
@@ -150,11 +147,9 @@ async def _get_group(*, finding_id: str) -> str:
     return metadata["group_name"]
 
 
-async def _get_non_deleted_finding(finding_id: str) -> Finding:
+async def _get_finding_by_id(finding_id: str) -> Finding:
     group_name = await _get_group(finding_id=finding_id)
     finding = await _get_finding(group_name=group_name, finding_id=finding_id)
-    if finding.state.status == FindingStateStatus.DELETED:
-        raise FindingNotFound
     return finding
 
 
@@ -194,12 +189,12 @@ async def _get_historic_state(finding_id: str) -> Tuple[FindingState, ...]:
     return tuple(map(format_state, results))
 
 
-class FindingNonDeletedNewLoader(DataLoader):
+class FindingNewLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, finding_ids: List[str]
     ) -> Tuple[Finding, ...]:
-        return await collect(tuple(map(_get_non_deleted_finding, finding_ids)))
+        return await collect(tuple(map(_get_finding_by_id, finding_ids)))
 
 
 class FindingHistoricVerificationNewLoader(DataLoader):
@@ -233,7 +228,6 @@ class GroupDraftsNewLoader(DataLoader):
                 findings,
                 {
                     FindingStateStatus.APPROVED,
-                    FindingStateStatus.DELETED,
                 },
             )
             for findings in findings_by_group
@@ -255,33 +249,6 @@ class GroupFindingsNewLoader(DataLoader):
                     FindingStateStatus.CREATED,
                     FindingStateStatus.REJECTED,
                     FindingStateStatus.SUBMITTED,
-                },
-            )
-            for findings in findings_by_group
-        )
-
-
-class GroupFindingsNonDeletedNewLoader(DataLoader):
-    def __init__(self, dataloader: DataLoader) -> None:
-        super(GroupFindingsNonDeletedNewLoader, self).__init__()
-        self.dataloader = dataloader
-
-    async def load_many_chained(
-        self, group_names: List[str]
-    ) -> Tuple[Finding, ...]:
-        unchained_data = await self.load_many(group_names)
-        return tuple(chain.from_iterable(unchained_data))
-
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, group_names: List[str]
-    ) -> Tuple[Tuple[Finding, ...], ...]:
-        findings_by_group = await self.dataloader.load_many(group_names)
-        return tuple(
-            filter_non_state_status_findings(
-                findings,
-                {
-                    FindingStateStatus.DELETED,
                 },
             )
             for findings in findings_by_group

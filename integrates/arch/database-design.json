@@ -2727,7 +2727,7 @@
                 "N": "0"
               },
               "pk": {
-                "S": "FIN#991607942"
+                "S": "REMOVED#FIN#991607942"
               },
               "id": {
                 "S": "991607942"
@@ -4699,7 +4699,7 @@
                 "S": "integratesmanager@gmail.com"
               },
               "pk": {
-                "S": "FIN#991607942#STATE"
+                "S": "REMOVED#FIN#991607942#STATE"
               },
               "source": {
                 "S": "ASM"
@@ -5352,7 +5352,7 @@
                 "S": "integratesmanager@gmail.com"
               },
               "pk": {
-                "S": "FIN#991607942#CREATION"
+                "S": "REMOVED#FIN#991607942#CREATION"
               },
               "justification": {
                 "S": "NO_JUSTIFICATION"
@@ -7395,7 +7395,7 @@
                 "S": ""
               },
               "pk": {
-                "S": "FIN#991607942#UNRELIABLEINDICATORS"
+                "S": "REMOVED#FIN#991607942#UNRELIABLEINDICATORS"
               },
               "unreliable_oldest_open_vulnerability_report_date": {
                 "S": ""

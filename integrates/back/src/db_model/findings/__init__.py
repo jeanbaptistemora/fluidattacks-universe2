@@ -3,6 +3,7 @@ from .add import (
     add_evidence,
 )
 from .remove import (
+    remove,
     remove_evidence,
 )
 from .update import (
@@ -19,6 +20,7 @@ __all__ = [
     "add",
     "add_evidence",
     # remove
+    "remove",
     "remove_evidence",
     # update
     "update_evidence",

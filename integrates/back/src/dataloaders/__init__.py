@@ -49,10 +49,9 @@ from collections import (
 from db_model.findings.get import (
     FindingHistoricStateNewLoader,
     FindingHistoricVerificationNewLoader,
-    FindingNonDeletedNewLoader,
+    FindingNewLoader,
     GroupDraftsNewLoader,
     GroupFindingsNewLoader,
-    GroupFindingsNonDeletedNewLoader,
     GroupRemovedFindingsLoader,
 )
 from db_model.roots.get import (
@@ -86,7 +85,7 @@ from typing import (
 class Dataloaders(NamedTuple):
     event: EventLoader
     finding: FindingLoader
-    finding_new: FindingNonDeletedNewLoader
+    finding_new: FindingNewLoader
     finding_historic_state_new: FindingHistoricStateNewLoader
     finding_historic_verification_new: FindingHistoricVerificationNewLoader
     finding_vulns: FindingVulnsLoader  # All vulns except deleted
@@ -97,9 +96,8 @@ class Dataloaders(NamedTuple):
     group_drafts: GroupDraftsLoader
     group_drafts_new: GroupDraftsNewLoader
     group_findings: GroupFindingsNonDeletedLoader  # Non deleted findings
-    group_findings_new: GroupFindingsNonDeletedNewLoader
+    group_findings_new: GroupFindingsNewLoader
     group_findings_all: GroupFindingsLoader  # All findings
-    group_findings_all_new: GroupFindingsNewLoader
     group_removed_findings: GroupRemovedFindingsLoader
     group_roots: GroupRootsLoader
     group_stakeholders: GroupStakeholdersLoader
@@ -130,7 +128,6 @@ def apply_context_attrs(
 
 def get_new_context() -> Dataloaders:
     group_findings_loader = GroupFindingsLoader()
-    group_findings_new_loader = GroupFindingsNewLoader()
     group_stakeholders_loader = GroupStakeholdersLoader()
     finding_vulns_loader = FindingVulnsLoader()
     finding_vulns_non_deleted_loader = FindingVulnsNonDeletedLoader(
@@ -151,7 +148,7 @@ def get_new_context() -> Dataloaders:
         finding_historic_verification_new=(
             FindingHistoricVerificationNewLoader()
         ),
-        finding_new=FindingNonDeletedNewLoader(),
+        finding_new=FindingNewLoader(),
         finding_vulns=finding_vulns_non_deleted_loader,
         finding_vulns_all=finding_vulns_loader,
         finding_vulns_nzr=finding_vulns_nzr_loader,
@@ -160,11 +157,8 @@ def get_new_context() -> Dataloaders:
         group_drafts=GroupDraftsLoader(),
         group_drafts_new=GroupDraftsNewLoader(),
         group_findings=GroupFindingsNonDeletedLoader(group_findings_loader),
-        group_findings_new=GroupFindingsNonDeletedNewLoader(
-            group_findings_new_loader
-        ),
+        group_findings_new=GroupFindingsNewLoader(),
         group_findings_all=group_findings_loader,
-        group_findings_all_new=group_findings_new_loader,
         group_removed_findings=GroupRemovedFindingsLoader(),
         group_roots=GroupRootsLoader(),
         group_stakeholders=group_stakeholders_loader,

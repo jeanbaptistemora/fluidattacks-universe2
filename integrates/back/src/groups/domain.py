@@ -1409,14 +1409,16 @@ async def remove_resources(  # pylint: disable=too-many-locals
         drafts: Tuple[Finding, ...] = await group_drafts_loader.load(
             group_name
         )
-        group_all_findings_loader: DataLoader = loaders.group_findings_all_new
-        all_findings: Tuple[
+        findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+            group_name
+        )
+        removed_findings: Tuple[
             Finding, ...
-        ] = await group_all_findings_loader.load(group_name)
+        ] = await loaders.group_removed_findings.load(group_name)
         are_findings_masked = all(
             await collect(
                 findings_domain.mask_finding_new(loaders, finding)
-                for finding in drafts + all_findings
+                for finding in (*drafts, *findings, *removed_findings)
             )
         )
     else:
