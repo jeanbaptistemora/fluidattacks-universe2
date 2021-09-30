@@ -1,6 +1,0 @@
-inputs:
-- field: phone
-  state: open
-  repo_nickname: product
-  url: https://example.com
-  stream: home,blog,articulo
