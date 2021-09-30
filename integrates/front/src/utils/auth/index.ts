@@ -19,54 +19,9 @@ const authContext: React.Context<IAuthContext> = createContext({
 });
 
 const setupSessionCheck: (expDate: string) => void = (expDate): void => {
-  const state: { active: boolean; timerId: number } = {
-    active: true,
-    timerId: 0,
-  };
-
-  const startInactivityTimer: () => number = (): number => {
-    const msInSec: number = 1000;
-    const timeout: number = 1200;
-
-    return window.setTimeout((): void => {
-      // eslint-disable-next-line fp/no-mutation
-      state.active = false;
-      // eslint-disable-next-line no-alert -- Deliberate usage
-      alert(translate.t("validations.inactiveSession"));
-      location.replace("/logout");
-    }, timeout * msInSec);
-  };
-
-  // eslint-disable-next-line fp/no-mutation
-  state.timerId = startInactivityTimer();
-  const events: string[] = [
-    "mousemove",
-    "mousedown",
-    "keypress",
-    "DOMMouseScroll",
-    "wheel",
-    "touchmove",
-    "MSPointerMove",
-  ];
-  events.forEach((item: string): void => {
-    window.addEventListener(
-      item,
-      (): void => {
-        // eslint-disable-next-line fp/no-mutation
-        state.active = true;
-        clearTimeout(state.timerId);
-        // eslint-disable-next-line fp/no-mutation
-        state.timerId = startInactivityTimer();
-      },
-      false
-    );
-  });
-
   setTimeout((): void => {
-    if (!state.active) {
-      // eslint-disable-next-line no-alert -- Deliberate usage
-      alert(translate.t("validations.validSessionDate"));
-    }
+    // eslint-disable-next-line no-alert -- Deliberate usage
+    alert(translate.t("validations.validSessionDate"));
     location.replace(`https://${window.location.host}`);
   }, utc(expDate).diff(utc()));
 };

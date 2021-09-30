@@ -2410,7 +2410,10 @@ export const enTranslations: ResourceKey = {
       "Groups without an active Fluid Attacks service " +
       "can not have Fluid Attacks staff",
     greaterDate: "The date must be today or before",
-    inactiveSession: "The session has expired due to inactivity",
+    inactiveSession:
+      "You will be logged out for inactivity in a minute. Click on Dismiss if you wish to stay logged in.",
+    inactiveSessionDismiss: "Dismiss",
+    inactiveSessionModal: "Inactive Session Detected",
     infectedFile: "Our system detected that the uploaded file is infected",
     invalidChar:
       "Invalid characters, use: alphanumerics, spaces and punctuations",

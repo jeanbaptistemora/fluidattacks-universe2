@@ -4,7 +4,8 @@ import Bugsnag from "@bugsnag/js";
 import type { PureAbility } from "@casl/ability";
 import type { GraphQLError } from "graphql";
 import { identify, people, register } from "mixpanel-browser";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { useIdleTimer } from "react-idle-timer";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 import {
@@ -13,6 +14,8 @@ import {
   DashboardHeader,
 } from "./styles";
 
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
@@ -47,6 +50,9 @@ export const Dashboard: React.FC = (): JSX.Element => {
   const orgRegex: string = ":organizationName([a-zA-Z0-9]+)";
   const groupRegex: string = ":groupName([a-zA-Z0-9]+)";
   const tagRegex: string = ":tagName([a-zA-Z0-9-_ ]+)";
+
+  const TIME_TO_IDLE: number = 1140000;
+  const TIME_TO_LOGOUT: number = 60000;
 
   const checkLoginReferrer = useCallback((): boolean => {
     const loginReferrers = [
@@ -149,6 +155,35 @@ export const Dashboard: React.FC = (): JSX.Element => {
     [acceptLegal]
   );
 
+  const [logoutTimer, setLogoutTimer] = useState(0);
+  const [idleWarning, setIdleWarning] = useState(false);
+
+  function handleOnIdle(): void {
+    setIdleWarning(true);
+  }
+  function handleClick(): void {
+    setIdleWarning(false);
+  }
+
+  useIdleTimer({
+    onIdle: handleOnIdle,
+    timeout: TIME_TO_IDLE,
+  });
+
+  useEffect((): void => {
+    if (idleWarning) {
+      setLogoutTimer(
+        window.setTimeout((): void => {
+          location.replace("/logout");
+        }, TIME_TO_LOGOUT)
+      );
+    }
+  }, [idleWarning]);
+
+  if (!idleWarning) {
+    clearTimeout(logoutTimer);
+  }
+
   return (
     <DashboardContainer>
       <Sidebar />
@@ -196,6 +231,17 @@ export const Dashboard: React.FC = (): JSX.Element => {
         open={isCtSessionModalOpen}
       />
       <CompulsoryNotice onAccept={handleAccept} open={isLegalModalOpen} />
+      <Modal
+        headerTitle={translate.t("validations.inactiveSessionModal")}
+        open={idleWarning}
+      >
+        <div>
+          <p>{translate.t("validations.inactiveSession")}</p>
+        </div>
+        <Button id={"inactivity-modal-dismiss"} onClick={handleClick}>
+          {translate.t("validations.inactiveSessionDismiss")}
+        </Button>
+      </Modal>
     </DashboardContainer>
   );
 };
