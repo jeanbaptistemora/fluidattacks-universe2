@@ -38,9 +38,7 @@ def get_variable_attribute(
                 == "invocation_expression"
             ):
                 if attribute == "label_text":
-                    return node_to_str(
-                        graph, g.match_ast(graph, value_node, "__0__")["__0__"]
-                    )
+                    return node_to_str(graph, value_node)
                 if attribute == "label_type":
                     return graph.nodes[value_node].get("label_type")
             return graph.nodes[value_node].get(attribute)
