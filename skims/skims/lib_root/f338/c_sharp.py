@@ -57,14 +57,17 @@ def check_hashes_salt(
                 if (
                     shard.graph.nodes[node_param].get("label_type")
                     == "identifier"
-                    and get_variable_attribute(
+                ):
+                    var_assign = get_variable_attribute(
                         shard.graph,
                         shard.graph.nodes[node_param].get("label_text"),
                         "label_text",
                     )
-                    in danger_methods
-                ):
-                    yield shard, member
+                    if (
+                        var_assign
+                        and var_assign.split("(")[0] in danger_methods
+                    ):
+                        yield shard, member
                 elif (
                     shard.graph.nodes[node_param].get("label_type")
                     == "invocation_expression"
