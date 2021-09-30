@@ -1,7 +1,13 @@
 # pylint: disable=invalid-name
 """
-This migration aims to move/copy all the findings to the single table model
-using the new finding entity
+This migration aims to move/copy all the findings to the integrates_vms table
+using the new finding entity, from the current finding dedicated table.
+
+Findings with status deleted, or that were masked, are skipped in an initial
+run for this migration as their priority is low.
+
+An initial cleaning of the integrates_vms table is possible, for removing
+previously migrated findings in an inconsistent state.
 
 Execution Time:
 Finalization Time:
@@ -11,10 +17,14 @@ from aioextensions import (
     collect,
     run,
 )
+from boto3.dynamodb.conditions import (
+    Attr,
+)
 from custom_exceptions import (
     AlreadyCreated,
 )
 from custom_types import (
+    DynamoDelete as DynamoDeleteType,
     DynamoQuery as DynamoQueryType,
     Finding as FindingType,
     Historic as HistoricType,
@@ -55,6 +65,9 @@ from decimal import (
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
+)
+from dynamodb.types import (
+    Item,
 )
 from findings.domain import (
     get_closed_vulnerabilities,
@@ -102,6 +115,9 @@ from unreliable_indicators.operations import (
 RESULTS_FILE: str = "0139_results.txt"
 ERROR: str = "ERROR"
 FINDING_TABLE: str = "FI_findings"
+SINGLE_TABLE: str = "integrates_vms"
+
+INITIAL_DELETION: bool = False
 PROD: bool = False
 
 
@@ -556,19 +572,67 @@ async def _proccess_finding(
     return finding_id
 
 
+# Delete a previously migrated item as it is no longer needed in the vms table
+# or because there is some inconsistency
+async def _delete_item(
+    table_name: str,
+    item: Item,
+    progress: float,
+) -> bool:
+    success = await dynamodb_ops.delete_item(
+        table_name,
+        DynamoDeleteType(Key={"pk": item["pk"], "sk": item["sk"]}),
+    )
+    print(
+        f"Progress: {round(progress, 4)} - "
+        f'" {item["pk"]} : {item["sk"]} " deletion OK'
+    )
+    return success
+
+
 async def main() -> None:
     success = False
-    already_migrated: List[str] = _read_migration_results()
-    start_time = datetime.now()
-    scan_attrs: DynamoQueryType = {}
-    findings = await dynamodb_ops.scan(FINDING_TABLE, scan_attrs)
-    print(f"old findings: len({len(findings)})")
-    print("--- scan in %s ---" % (datetime.now() - start_time))
 
-    loaders = get_new_context()
+    # Load list with ids
+    already_migrated: List[str] = _read_migration_results()
+    print(f"=== previously migrated: len({len(already_migrated)})")
+
+    # Deleted previous items if needed
+    if INITIAL_DELETION:
+        start_time = datetime.now()
+        scan_attrs: DynamoQueryType = {
+            "FilterExpression": Attr("pk").begins_with("FIN"),
+        }
+        filtered_items = await dynamodb_ops.scan(SINGLE_TABLE, scan_attrs)
+        print("--- scan in %s ---" % (datetime.now() - start_time))
+        print(f"items for deletion found: len({len(filtered_items)})")
+
+        if PROD:
+            start_time = datetime.now()
+            success = all(
+                await collect(
+                    [
+                        _delete_item(
+                            table_name=SINGLE_TABLE,
+                            item=item,
+                            progress=count / len(filtered_items),
+                        )
+                        for count, item in enumerate(filtered_items)
+                    ]
+                )
+            )
+            print("--- deletion in %s ---" % (datetime.now() - start_time))
+
+    # Scan old findings table
+    start_time = datetime.now()
+    scan_attrs = {}
+    findings = await dynamodb_ops.scan(FINDING_TABLE, scan_attrs)
+    print("--- scan in %s ---" % (datetime.now() - start_time))
+    print(f"scan findings: len({len(findings)})")
 
     if PROD:
         start_time = datetime.now()
+        loaders = get_new_context()
         results = set(
             await collect(
                 [
