@@ -36,6 +36,7 @@ describe("GroupToeLinesView", (): void => {
               {
                 __typename: "GitRoot",
                 id: "4039d098-ffc5-4984-8ed3-eb17bca98e19",
+                nickname: "product",
                 toeLines: [
                   {
                     __typename: "ToeLines",
@@ -53,6 +54,7 @@ describe("GroupToeLinesView", (): void => {
               {
                 __typename: "GitRoot",
                 id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+                nickname: "asm_1",
                 toeLines: [
                   {
                     __typename: "ToeLines",
@@ -97,6 +99,7 @@ describe("GroupToeLinesView", (): void => {
 
     expect(tableHeader.text()).toStrictEqual(
       [
+        "Root",
         "Filename",
         "Attacked",
         "Coverage",
@@ -111,6 +114,7 @@ describe("GroupToeLinesView", (): void => {
     );
     expect(firstRow.text()).toStrictEqual(
       [
+        "asm_1",
         "asm_1/test2/test.sh",
         "Yes",
         "100%",
@@ -125,6 +129,7 @@ describe("GroupToeLinesView", (): void => {
     );
     expect(secondRow.text()).toStrictEqual(
       [
+        "product",
         "product/test/test.config",
         "No",
         "50%",
