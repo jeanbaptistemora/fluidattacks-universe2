@@ -224,6 +224,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
             groupName,
             pendingLines: getPendingLines(toeLinesAttr),
             rootId: root.id,
+            rootNickname: root.nickname,
             ...toeLinesAttr,
             modifiedCommit: commitFormatter(toeLinesAttr.modifiedCommit),
             sortsRiskLevel: getSortsRiskLevel(toeLinesAttr),

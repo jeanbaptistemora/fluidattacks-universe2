@@ -8,6 +8,7 @@ const GET_TOE_LINES: DocumentNode = gql`
       roots {
         ... on GitRoot {
           id
+          nickname
           toeLines {
             filename
             modifiedDate

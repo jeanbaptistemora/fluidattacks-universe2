@@ -11,6 +11,7 @@ interface IToeLinesAttr {
 
 interface IGitRootAttr {
   id: string;
+  nickname: string;
   toeLines: IToeLinesAttr[];
 }
 
@@ -25,6 +26,7 @@ interface IToeLinesData {
   modifiedCommit: string;
   pendingLines: number;
   rootId: string;
+  rootNickname: string;
   sortsRiskLevel: string;
   testedDate: string;
   testedLines: number;
