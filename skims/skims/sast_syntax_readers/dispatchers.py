@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 from model import (
     graph_model,
 )
@@ -9,11 +10,13 @@ from sast_syntax_readers.c_sharp import (
     default_switch_label as c_sharp_default_switch_label,
     element_access_expression as c_sharp_element_access_expression,
     for_statement as c_sharp_for_statement,
+    initializer_expression as c_sharp_initializer_expression,
     invocation_expression as c_sharp_invocation_expression,
     lambda_expression as c_sharp_lambda_expression,
     local_declaration_statement as c_sharp_local_declaration_statement,
     member_access_expression as c_sharp_member_access_expression,
     method_declaration as c_sharp_method_declaration,
+    object_creation_expression as c_sharp_object_creation_expression,
     parameter as c_sharp_parameter,
     prefix_expression as c_sharp_prefix_expression,
     switch_statement as c_sharp_switch_statement,
@@ -632,12 +635,20 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
-            graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
             "object_creation_expression",
         },
         syntax_reader=common_object_creation_expression.reader,
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "object_creation_expression",
+        },
+        syntax_reader=c_sharp_object_creation_expression.reader,
     ),
     Dispatcher(
         applicable_languages={
@@ -936,6 +947,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "prefix_unary_expression",
         },
         syntax_reader=c_sharp_prefix_expression.reader,
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "initializer_expression",
+        },
+        syntax_reader=c_sharp_initializer_expression.reader,
     ),
     *[
         Dispatcher(
