@@ -25,10 +25,6 @@ export const onRenderBody = (
       data-blockingmode={"auto"}
       type={"text/javascript"}
     />,
-    <metadata 
-      name="facebook-domain-verification" 
-      content="8hgdyewoknahd41nv3q5miuxx6sazj" 
-    />,
     // Cloudflare Web Analytics
     <script
       defer

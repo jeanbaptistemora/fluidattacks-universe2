@@ -15,6 +15,7 @@ let securityHeaders = {
                               + "*.zohostatic.com "
                               + "cdnjs.cloudflare.com/ajax/libs/highlight.js/ "
                               + "connect.facebook.net/en_US/fbevents.js "
+                              + "connect.facebook.net/signals/config/ "
                               + "googleads.g.doubleclick.net/pagead/viewthroughconversion/ "
                               + "snap.licdn.com "
                               + "static1.clutch.co/api/widget.js "

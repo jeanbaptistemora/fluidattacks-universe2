@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 import { AboutUsSection } from "./AboutUsSection";
 import { ClientsSection } from "./ClientsSection";
@@ -11,6 +12,12 @@ import { VideoSection } from "./VideoSection";
 
 const Home: React.FC = (): JSX.Element => (
   <React.Fragment>
+    <Helmet>
+      <meta
+        content={"8hgdyewoknahd41nv3q5miuxx6sazj"}
+        name={"facebook-domain-verification"}
+      />
+    </Helmet>
     <Portrait />
     <VideoSection />
     <AboutUsSection />
