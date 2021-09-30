@@ -78,11 +78,11 @@ def check_hashes_salt(
 
     return get_vulnerabilities_from_n_ids(
         cwe=("90",),
-        desc_key="F320.title",
+        desc_key="F338.title",
         desc_params={},
         finding=FINDING,
         graph_shard_nodes=n_ids(),
     )
 
 
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F320
+FINDING: core_model.FindingEnum = core_model.FindingEnum.F338

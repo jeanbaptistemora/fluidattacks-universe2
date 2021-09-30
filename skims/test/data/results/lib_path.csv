@@ -7285,63 +7285,6 @@ F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,46,89,skims,012
    56 | /*
       ^ Col 0
 "
-F320,lines,namespace/skims/test/data/lib_root/f338/test.cs,12,90,skims,320. Insecure service configuration - LDAP,"Insecure service configuration - LDAP
-","
-   1 | amespace Controllers
-   2 |
-   3 |    public class Encrypt
-   4 |    {
-   5 |        public static void Process(string password)
-   6 |        {
-   7 |            var salt = Encoding.UTF8.GetBytes(""salt"");
-   8 |            var fromHardcoded = new Rfc2898DeriveBytes(password, salt);
-   9 |
-  10 |            var fromPassword = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes(""test""));
-  11 |
-> 12 |            var fromUnicode = new Rfc2898DeriveBytes(password, Encoding.Unicode.GetBytes(""test""));
-  13 |        }
-  14 |    }
-  15 |
-     ^ Col 1
-"
-F320,lines,namespace/skims/test/data/lib_root/f338/test.cs,8,90,skims,320. Insecure service configuration - LDAP,"Insecure service configuration - LDAP
-","
-   1 | espace Controllers
-   2 |
-   3 |  public class Encrypt
-   4 |  {
-   5 |      public static void Process(string password)
-   6 |      {
-   7 |          var salt = Encoding.UTF8.GetBytes(""salt"");
->  8 |          var fromHardcoded = new Rfc2898DeriveBytes(password, salt);
-   9 |
-  10 |          var fromPassword = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes(""test""));
-  11 |
-  12 |          var fromUnicode = new Rfc2898DeriveBytes(password, Encoding.Unicode.GetBytes(""test""));
-  13 |      }
-  14 |  }
-  15 |
-     ^ Col 3
-"
-F320,lines,namespace/skims/test/data/lib_root/f338/test.cs,10,90,skims,320. Insecure service configuration - LDAP,"Insecure service configuration - LDAP
-","
-   1 | mespace Controllers
-   2 |
-   3 |   public class Encrypt
-   4 |   {
-   5 |       public static void Process(string password)
-   6 |       {
-   7 |           var salt = Encoding.UTF8.GetBytes(""salt"");
-   8 |           var fromHardcoded = new Rfc2898DeriveBytes(password, salt);
-   9 |
-> 10 |           var fromPassword = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes(""test""));
-  11 |
-  12 |           var fromUnicode = new Rfc2898DeriveBytes(password, Encoding.Unicode.GetBytes(""test""));
-  13 |       }
-  14 |   }
-  15 |
-     ^ Col 2
-"
 F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,9,90,skims,320. Insecure service configuration - LDAP,"Insecure service configuration - LDAP
 ","
    1 | stem;
@@ -7375,6 +7318,63 @@ F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,7,90,skims,320. Insec
   12 |
   13 | }
      ^ Col 0
+"
+F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,12,90,skims,338. Insecure service configuration - Salt,"Insecure service configuration - Salt
+","
+   1 | amespace Controllers
+   2 |
+   3 |    public class Encrypt
+   4 |    {
+   5 |        public static void Process(string password)
+   6 |        {
+   7 |            var salt = Encoding.UTF8.GetBytes(""salt"");
+   8 |            var fromHardcoded = new Rfc2898DeriveBytes(password, salt);
+   9 |
+  10 |            var fromPassword = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes(""test""));
+  11 |
+> 12 |            var fromUnicode = new Rfc2898DeriveBytes(password, Encoding.Unicode.GetBytes(""test""));
+  13 |        }
+  14 |    }
+  15 |
+     ^ Col 1
+"
+F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,8,90,skims,338. Insecure service configuration - Salt,"Insecure service configuration - Salt
+","
+   1 | espace Controllers
+   2 |
+   3 |  public class Encrypt
+   4 |  {
+   5 |      public static void Process(string password)
+   6 |      {
+   7 |          var salt = Encoding.UTF8.GetBytes(""salt"");
+>  8 |          var fromHardcoded = new Rfc2898DeriveBytes(password, salt);
+   9 |
+  10 |          var fromPassword = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes(""test""));
+  11 |
+  12 |          var fromUnicode = new Rfc2898DeriveBytes(password, Encoding.Unicode.GetBytes(""test""));
+  13 |      }
+  14 |  }
+  15 |
+     ^ Col 3
+"
+F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,10,90,skims,338. Insecure service configuration - Salt,"Insecure service configuration - Salt
+","
+   1 | mespace Controllers
+   2 |
+   3 |   public class Encrypt
+   4 |   {
+   5 |       public static void Process(string password)
+   6 |       {
+   7 |           var salt = Encoding.UTF8.GetBytes(""salt"");
+   8 |           var fromHardcoded = new Rfc2898DeriveBytes(password, salt);
+   9 |
+> 10 |           var fromPassword = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes(""test""));
+  11 |
+  12 |           var fromUnicode = new Rfc2898DeriveBytes(password, Encoding.Unicode.GetBytes(""test""));
+  13 |       }
+  14 |   }
+  15 |
+     ^ Col 2
 "
 F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application’s server into making requests to an arbitrary domain.
 ","
