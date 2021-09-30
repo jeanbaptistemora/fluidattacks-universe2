@@ -53,6 +53,7 @@ from db_model.findings.get import (
     GroupDraftsNewLoader,
     GroupFindingsNewLoader,
     GroupFindingsNonDeletedNewLoader,
+    GroupRemovedFindingsLoader,
 )
 from db_model.roots.get import (
     GroupRootsLoader,
@@ -99,6 +100,7 @@ class Dataloaders(NamedTuple):
     group_findings_new: GroupFindingsNonDeletedNewLoader
     group_findings_all: GroupFindingsLoader  # All findings
     group_findings_all_new: GroupFindingsNewLoader
+    group_removed_findings: GroupRemovedFindingsLoader
     group_roots: GroupRootsLoader
     group_stakeholders: GroupStakeholdersLoader
     group_toe_inputs: GroupToeInputsLoader
@@ -163,6 +165,7 @@ def get_new_context() -> Dataloaders:
         ),
         group_findings_all=group_findings_loader,
         group_findings_all_new=group_findings_new_loader,
+        group_removed_findings=GroupRemovedFindingsLoader(),
         group_roots=GroupRootsLoader(),
         group_stakeholders=group_stakeholders_loader,
         group_toe_inputs=GroupToeInputsLoader(),
