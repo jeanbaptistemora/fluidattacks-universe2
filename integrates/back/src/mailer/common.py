@@ -20,7 +20,10 @@ from jinja2 import (
 import json
 import logging
 import logging.config
-import mandrill
+import mailchimp_transactional
+from mailchimp_transactional.api_client import (
+    ApiClientError,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -77,7 +80,7 @@ async def send_mail_async_new(
     subject: str,
     template_name: str,
 ) -> None:
-    mandrill_client = mandrill.Mandrill(FI_MANDRILL_API_KEY)
+    mandrill_client = mailchimp_transactional.Client(FI_MANDRILL_API_KEY)
     first_name = await get_recipient_first_name(email_to)
     year = datetime_utils.get_as_str(datetime_utils.get_now(), "%Y")
     context["name"] = first_name
@@ -92,7 +95,7 @@ async def send_mail_async_new(
         "to": [{"email": email_to, "name": first_name, "type": "to"}],
     }
     try:
-        mandrill_client.messages.send(message=message)
+        response = mandrill_client.messages.send({"message": message})
         await log(
             "[mailer]: mail sent",
             extra={
@@ -101,10 +104,11 @@ async def send_mail_async_new(
                     "template": template_name,
                     "subject": subject,
                     "tags": json.dumps(tags),
+                    "response": response,
                 }
             },
         )
-    except JSONDecodeError as ex:
+    except (ApiClientError, JSONDecodeError) as ex:
         LOGGER_ERRORS.exception(
             ex,
             extra={

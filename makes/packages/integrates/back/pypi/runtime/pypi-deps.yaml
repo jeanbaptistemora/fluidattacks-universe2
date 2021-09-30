@@ -34,7 +34,7 @@ itsdangerous: 1.1.0
 Jinja2: 2.11.2
 jwcrypto: "0.8"
 lxml: 4.5.2
-mandrill-really-maintained: 1.2.4
+mailchimp-transactional: 1.0.40
 matplotlib: 3.4.3
 mixpanel: 4.5.0
 newrelic: 5.22.1.152
