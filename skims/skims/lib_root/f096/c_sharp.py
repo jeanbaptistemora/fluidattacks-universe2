@@ -64,6 +64,7 @@ def check_xml_serializer(
         for shard, member in chain(
             yield_object_creation(graph_db, {"XmlSerializer"}),
         ):
+            var_value = ""
             type_node = get_ast_childs(
                 shard.graph, member, "argument", depth=2
             )
@@ -84,7 +85,7 @@ def check_xml_serializer(
                 == "invocation_expression"
             ):
                 var_value = node_to_str(shard.graph, type_var)
-            if var_value:
+            if len(var_value) > 0:
                 var_items = var_value.split("(")
                 for _class in shard.metadata.c_sharp.classes.values():
                     for _method in _class.methods.values():
