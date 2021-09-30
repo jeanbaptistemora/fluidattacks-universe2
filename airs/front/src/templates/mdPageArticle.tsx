@@ -106,7 +106,9 @@ export const query: void = graphql`
         description
         keywords
         slug
+        subtext
         title
+        subtitle
       }
     }
   }
