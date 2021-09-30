@@ -22,6 +22,14 @@ variable "runner_ami" {
   }
 }
 
+variable "worker_ami" {
+  type = map(list(string))
+  default = {
+    "name"     = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20210907"],
+    "image-id" = ["ami-03a80f322a6053f85"],
+  }
+}
+
 variable "off_peak_periods" {
   type = list(object({
     periods    = list(string)

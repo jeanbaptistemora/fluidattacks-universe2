@@ -43,6 +43,7 @@ module "fluidattacks_ci" {
 
   # Runner
   instance_type                     = "c5a.large"
+  runner_ami_filter                 = var.worker_ami
   enable_runner_ssm_access          = true
   enable_gitlab_runner_ssh_access   = false
   subnet_ids_gitlab_runner          = [var.autoscaling_ci_subnet_id]
@@ -127,6 +128,7 @@ module "fluidattacks_ci_large" {
 
   # Runner
   instance_type                     = "c5a.large"
+  runner_ami_filter                 = var.worker_ami
   enable_runner_ssm_access          = true
   enable_gitlab_runner_ssh_access   = false
   subnet_ids_gitlab_runner          = [var.autoscaling_ci_subnet_id]
