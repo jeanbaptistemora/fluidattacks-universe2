@@ -86,6 +86,7 @@ def _get_group_toe_inputs_from_cvs(
                     new_toe_input[field_name] = default_value
 
             new_toe_input["group_name"] = group_name
+            new_toe_input["unreliable_root_id"] = ""
             group_toe_inputs.add(ToeInput(**new_toe_input))
 
     return group_toe_inputs

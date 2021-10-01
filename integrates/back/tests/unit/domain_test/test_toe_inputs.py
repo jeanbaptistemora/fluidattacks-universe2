@@ -27,6 +27,7 @@ async def test_add() -> None:
         seen_first_time_by="new@test.com",
         tested_date="2021-02-12T00:00:00-05:00",
         verified="Yes",
+        unreliable_root_id="",
         vulns="New vulns",
     )
     await toe_inputs_domain.add(toe_input)
@@ -62,6 +63,7 @@ async def test_update() -> None:
         group_name=group_name,
         seen_first_time_by="edited@test.com",
         tested_date="2021-02-12T00:00:00-05:00",
+        unreliable_root_id="",
         verified="Yes",
         vulns="Edited vulns",
     )

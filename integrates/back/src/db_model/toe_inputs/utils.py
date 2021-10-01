@@ -19,6 +19,7 @@ def format_toe_input(
         group_name=group_name,
         seen_first_time_by=item["seen_first_time_by"],
         tested_date=item["tested_date"],
+        unreliable_root_id=item.get("unreliable_root_id", ""),
         verified=item["verified"],
         vulns=item["vulns"],
     )

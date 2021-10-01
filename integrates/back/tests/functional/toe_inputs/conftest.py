@@ -26,6 +26,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 seen_first_time_by="",
                 tested_date="2020-01-02T00:00:00-05:00",
                 verified="Yes",
+                unreliable_root_id="",
                 vulns="FIN.S.0001.Test",
             ),
             ToeInput(
@@ -36,6 +37,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 seen_first_time_by="test@test.com",
                 tested_date="2021-02-02T00:00:00-05:00",
+                unreliable_root_id="",
                 verified="No",
                 vulns="",
             ),
@@ -47,6 +49,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 seen_first_time_by="test2@test.com",
                 tested_date="2021-02-11T00:00:00-05:00",
+                unreliable_root_id="",
                 verified="No",
                 vulns="FIN.S.0003.Test",
             ),

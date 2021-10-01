@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 30, 2021, 12:05 PM",
+    "DateLastModified": "Oct 01, 2021, 01:47 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -420,6 +420,10 @@
         },
         {
           "AttributeName": "unreliable_oldest_vulnerability_report_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "unreliable_root_id",
           "AttributeType": "S"
         }
       ],
@@ -1675,29 +1679,29 @@
               "sk": {
                 "S": "INPUTS#COMPONENT#test.com/api/Test#ENTRYPOINT#idTest"
               },
-              "entry_point": {
-                "S": "idTest"
-              },
-              "created_date": {
-                "S": "2000-01-01T00:00:00-05:00"
-              },
               "commit": {
                 "S": "hh66uu5"
-              },
-              "component": {
-                "S": "test.com/api/Test"
-              },
-              "seen_first_time_by": {
-                "S": ""
               },
               "tested_date": {
                 "S": "2020-01-02T00:00:00-05:00"
               },
+              "vulns": {
+                "S": "FIN.S.0001.Test"
+              },
+              "created_date": {
+                "S": "2000-01-01T00:00:00-05:00"
+              },
+              "seen_first_time_by": {
+                "S": ""
+              },
               "verified": {
                 "S": "Yes"
               },
-              "vulns": {
-                "S": "FIN.S.0001.Test"
+              "component": {
+                "S": "test.com/api/Test"
+              },
+              "entry_point": {
+                "S": "idTest"
               }
             },
             {
@@ -1707,29 +1711,29 @@
               "sk": {
                 "S": "INPUTS#COMPONENT#test.com/test/test.aspx#ENTRYPOINT#btnTest"
               },
-              "entry_point": {
-                "S": "btnTest"
-              },
-              "created_date": {
-                "S": "2020-03-14T00:00:00-05:00"
-              },
               "commit": {
                 "S": "e91320h"
-              },
-              "component": {
-                "S": "test.com/test/test.aspx"
-              },
-              "seen_first_time_by": {
-                "S": "test@test.com"
               },
               "tested_date": {
                 "S": "2021-02-02T00:00:00-05:00"
               },
+              "vulns": {
+                "S": ""
+              },
+              "created_date": {
+                "S": "2020-03-14T00:00:00-05:00"
+              },
+              "seen_first_time_by": {
+                "S": "test@test.com"
+              },
               "verified": {
                 "S": "No"
               },
-              "vulns": {
-                "S": ""
+              "component": {
+                "S": "test.com/test/test.aspx"
+              },
+              "entry_point": {
+                "S": "btnTest"
               }
             },
             {
@@ -1739,29 +1743,32 @@
               "sk": {
                 "S": "INPUTS#COMPONENT#test.com/test2/test.aspx#ENTRYPOINT#-"
               },
-              "entry_point": {
-                "S": "-"
-              },
-              "created_date": {
-                "S": "2020-01-11T00:00:00-05:00"
-              },
               "commit": {
                 "S": "d83027t"
-              },
-              "component": {
-                "S": "test.com/test2/test.aspx"
-              },
-              "seen_first_time_by": {
-                "S": "test2@test.com"
               },
               "tested_date": {
                 "S": "2021-02-11T00:00:00-05:00"
               },
+              "vulns": {
+                "S": "FIN.S.0003.Test"
+              },
+              "created_date": {
+                "S": "2020-01-11T00:00:00-05:00"
+              },
+              "seen_first_time_by": {
+                "S": "test2@test.com"
+              },
               "verified": {
                 "S": "No"
               },
-              "vulns": {
-                "S": "FIN.S.0003.Test"
+              "component": {
+                "S": "test.com/test2/test.aspx"
+              },
+              "entry_point": {
+                "S": "-"
+              },
+              "unreliable_root_id": {
+                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
               }
             }
           ],
@@ -1773,7 +1780,8 @@
             "seen_first_time_by",
             "verified",
             "component",
-            "entry_point"
+            "entry_point",
+            "unreliable_root_id"
           ]
         },
         {

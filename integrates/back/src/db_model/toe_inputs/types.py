@@ -11,6 +11,7 @@ class ToeInput(NamedTuple):
     group_name: str
     seen_first_time_by: str
     tested_date: str
+    unreliable_root_id: str
     verified: str
     vulns: str
 
