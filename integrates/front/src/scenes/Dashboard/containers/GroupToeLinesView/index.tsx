@@ -32,7 +32,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       attacked: true,
       comments: true,
       coverage: true,
-      filename: true,
+      filename: false,
       loc: true,
       modifiedCommit: true,
       modifiedDate: true,

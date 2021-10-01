@@ -100,7 +100,6 @@ describe("GroupToeLinesView", (): void => {
     expect(tableHeader.text()).toStrictEqual(
       [
         "Root",
-        "Filename",
         "Attacked",
         "Coverage",
         "LOC",
@@ -115,7 +114,6 @@ describe("GroupToeLinesView", (): void => {
     expect(firstRow.text()).toStrictEqual(
       [
         "asm_1",
-        "asm_1/test2/test.sh",
         "Yes",
         "100%",
         "172",
@@ -130,7 +128,6 @@ describe("GroupToeLinesView", (): void => {
     expect(secondRow.text()).toStrictEqual(
       [
         "product",
-        "product/test/test.config",
         "No",
         "50%",
         "8",
