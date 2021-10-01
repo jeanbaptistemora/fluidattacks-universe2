@@ -270,6 +270,10 @@ in
           };
         }
         {
+          output = "/integrates/mobile/lint";
+          gitlabExtra = gitlabLint;
+        }
+        {
           args = [ "dev" ];
           output = "/integrates/mobile/ota";
           gitlabExtra = gitlabPreBuildDev;

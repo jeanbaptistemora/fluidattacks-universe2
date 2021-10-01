@@ -22,7 +22,6 @@ integrates.front.config.dev-runtime-env
 integrates.front.test
 integrates.mobile.config.dev-runtime
 integrates.mobile.config.dev-runtime-env
-integrates.mobile.lint
 integrates.mobile.test
 integrates.mobile.tools
 integrates.mobile.tools.bundler

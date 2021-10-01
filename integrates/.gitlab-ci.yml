@@ -185,11 +185,6 @@ integrates.front.test:
     - cp out/integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov
   stage: test-code
 
-integrates.mobile.lint:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: lint-code
-
 integrates.mobile.test:
   <<: *makes
   <<: *in_dev_branch_integrates
