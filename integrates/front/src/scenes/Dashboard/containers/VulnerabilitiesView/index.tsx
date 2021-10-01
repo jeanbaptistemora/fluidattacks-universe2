@@ -15,7 +15,7 @@ import { useParams } from "react-router-dom";
 
 import type { IFilterProps } from "components/DataTableNext/types";
 import {
-  filterDate,
+  filterDateRange,
   filterSearchText,
   filterSelect,
   filterText,
@@ -65,7 +65,10 @@ export const VulnsView: React.FC = (): JSX.Element => {
     useStoredState<boolean>("locationsCustomFilters", false);
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [treatmentFilter, setTreatmentFilter] = useState("");
-  const [reportDateFilter, setReportDateFilter] = useState("");
+  const [reportDateRangeFilter, setReportDateRangeFilter] = useState({
+    max: "",
+    min: "",
+  });
   const [tagFilter, setTagFilter] = useState("");
   const [currentStatusFilter, setCurrentStatusFilter] = useState("");
   const [treatmentCurrentStatusFilter, setTreatmentCurrentStatusFilter] =
@@ -160,14 +163,25 @@ export const VulnsView: React.FC = (): JSX.Element => {
     vulnerabilities,
     treatmentFilter
   );
-  function onReportDateChange(
+  function onReportDateMaxChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setReportDateFilter(event.target.value);
+    setReportDateRangeFilter({
+      ...reportDateRangeFilter,
+      max: event.target.value,
+    });
   }
-  const filterReportDateVulnerabilities: IVulnRowAttr[] = filterDate(
+  function onReportDateMinChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setReportDateRangeFilter({
+      ...reportDateRangeFilter,
+      min: event.target.value,
+    });
+  }
+  const filterReportDateRangeVulnerabilities: IVulnRowAttr[] = filterDateRange(
     vulnerabilities,
-    reportDateFilter,
+    reportDateRangeFilter,
     "reportDate"
   );
 
@@ -214,7 +228,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     filterTreatmentVulnerabilities,
     filterCurrentStatusVulnerabilities,
     filterVerificationVulnerabilities,
-    filterReportDateVulnerabilities,
+    filterReportDateRangeVulnerabilities,
     filterTagVulnerabilities
   );
 
@@ -269,14 +283,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
   }
 
   const customFiltersProps: IFilterProps[] = [
-    {
-      defaultValue: reportDateFilter,
-      onChangeInput: onReportDateChange,
-      placeholder: "Report date",
-      tooltipId: "searchFindings.tabVuln.vulnTable.dateTooltip.id",
-      tooltipMessage: "searchFindings.tabVuln.vulnTable.dateTooltip",
-      type: "date",
-    },
     {
       defaultValue: treatmentFilter,
       onChangeSelect: onTreatmentChange,
@@ -337,6 +343,18 @@ export const VulnsView: React.FC = (): JSX.Element => {
       tooltipId: "searchFindings.tabVuln.tagTooltip.id",
       tooltipMessage: "searchFindings.tabVuln.tagTooltip",
       type: "text",
+    },
+    {
+      defaultValue: "",
+      placeholder: "Report date (Range)",
+      rangeProps: {
+        defaultValue: reportDateRangeFilter,
+        onChangeMax: onReportDateMaxChange,
+        onChangeMin: onReportDateMinChange,
+      },
+      tooltipId: "searchFindings.tabVuln.vulnTable.dateTooltip.id",
+      tooltipMessage: "searchFindings.tabVuln.vulnTable.dateTooltip",
+      type: "dateRange",
     },
   ];
 

@@ -203,7 +203,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         <RangeContainer>
           <InputDateRange
             onChange={handleChangeMin}
-            style={{ maxWidth: "14rem" }}
+            style={{ maxWidth: "11rem" }}
             type={"date"}
           />
           <div>
@@ -215,7 +215,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           </div>
           <InputDateRange
             onChange={handleChangeMax}
-            style={{ maxWidth: "14rem" }}
+            style={{ maxWidth: "11rem" }}
             type={"date"}
           />
         </RangeContainer>
