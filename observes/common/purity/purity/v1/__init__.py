@@ -4,6 +4,9 @@ from purity.v1._flatten import (
 from purity.v1._frozen import (
     FrozenList,
 )
+from purity.v1._io_iter import (
+    IOiter,
+)
 from purity.v1._json._jobj import (
     DictFactory,
     JsonFactory,
@@ -25,7 +28,6 @@ from purity.v1._patch import (
     Patch,
 )
 from purity.v1._pure_iter import (
-    IOiter,
     PureIter,
     PureIterFactory,
 )

@@ -1,8 +1,10 @@
 from dataclasses import (
     dataclass,
 )
-from purity.v1._pure_iter import (
+from purity.v1._io_iter import (
     IOiter,
+)
+from purity.v1._pure_iter import (
     PureIter,
 )
 from returns.io import (
