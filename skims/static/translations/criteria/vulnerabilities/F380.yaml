@@ -1,9 +1,9 @@
-F381.title:
+F380.title:
   en: >
     Supply Chain Attack - Docker
   es: >
     Supply Chain Attack - Docker
-F381.description:
+F380.description:
   en: >
       Docker dependencies are not pinned, allowing a malicious actor to
       override the used components with malicious components without
@@ -12,15 +12,15 @@ F381.description:
       Las dependencias de Docker no están pineadas, permitiendo a un actor
       malicioso sobreescribir los componentes utilizados con componentes
       maliciosos sin dejar un rastro.
-F381.impact:
+F380.impact:
   en: Override depdendencies or component with malicious content
   es: Sobreescribir dependencias o componentes con contenido malicioso
-F381.recommendation:
+F380.recommendation:
   en: Use mechanisms such as git-commits, or artifacts and hashes to verify
       the data integrity
   es: Utilizar mecanismos como git-commits, o utilizar artefactos y hashes
       para verificar la integridad de los datos.
-F381.threat:
+F380.threat:
   en: Anonymous attacker from Internet with write access to the provider
       releases
   es: Atacante anónimo desde internet con acceso de escritura al los

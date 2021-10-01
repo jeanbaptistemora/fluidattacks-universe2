@@ -46,7 +46,7 @@ def _unpinned_docker_image(
         content=content,
         cwe={"749"},
         description=t(
-            key="F381.description",
+            key="F380.description",
             path=path,
         ),
         finding=core_model.FindingEnum.F009,
