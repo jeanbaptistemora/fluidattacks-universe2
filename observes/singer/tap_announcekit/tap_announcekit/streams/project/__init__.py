@@ -1,5 +1,4 @@
 from purity.v1 import (
-    IOiter,
     PureIter,
 )
 from returns.curry import (
@@ -32,8 +31,10 @@ class ProjectStreams:
         name: str = "project",
     ) -> Stream:
         getter = ProjectGetters.getter(client)
-        projs: IOiter[Project] = proj_ids.bind_io_each(getter.get)
-        records = projs.map_each(partial(ProjectSingerUtils.to_singer, name))
+        projs = proj_ids.map_each(getter.get)
+        records = projs.map_each(
+            lambda p: p.map(partial(ProjectSingerUtils.to_singer, name))
+        )
         return Stream(ProjectSingerUtils.schema(name), records)
 
 

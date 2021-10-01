@@ -2,7 +2,6 @@ from dataclasses import (
     dataclass,
 )
 from purity.v1 import (
-    IOiter,
     PureIter,
 )
 from returns.io import (
@@ -29,38 +28,34 @@ from typing import (
     TypeVar,
 )
 
-_DataIdType = TypeVar("_DataIdType")
-_DataType = TypeVar("_DataType")
+_ID = TypeVar("_ID")
+_D = TypeVar("_D")
 
 
 @dataclass(frozen=True)
-class StreamGetter(
-    SupportsKind2[
-        "StreamGetter[_DataIdType, _DataType]", _DataIdType, _DataType
-    ]
-):
-    _get: Patch[Callable[[_DataIdType], IO[_DataType]]]
-    _get_iter: Patch[Callable[[PureIter[_DataIdType]], IOiter[_DataType]]]
+class StreamGetter(SupportsKind2["StreamGetter[_ID, _D]", _ID, _D]):
+    _get: Patch[Callable[[_ID], IO[_D]]]
+    _get_iter: Patch[Callable[[PureIter[_ID]], PureIter[IO[_D]]]]
 
     def __init__(
         self,
-        get: Callable[[_DataIdType], IO[_DataType]],
-        get_iter: Callable[[PureIter[_DataIdType]], IOiter[_DataType]],
+        get: Callable[[_ID], IO[_D]],
+        get_iter: Callable[[PureIter[_ID]], PureIter[IO[_D]]],
     ) -> None:
         object.__setattr__(self, "_get", Patch(get))
         object.__setattr__(self, "_get_iter", Patch(get_iter))
 
-    def get(self, item: _DataIdType) -> IO[_DataType]:
+    def get(self, item: _ID) -> IO[_D]:
         return self._get.unwrap(item)
 
-    def get_iter(self, items: PureIter[_DataIdType]) -> IOiter[_DataType]:
+    def get_iter(self, items: PureIter[_ID]) -> PureIter[IO[_D]]:
         return self._get_iter.unwrap(items)
 
 
 @dataclass(frozen=True)
 class Stream:
     schema: SingerSchema
-    records: IOiter[SingerRecord]
+    records: PureIter[IO[SingerRecord]]
 
 
 @dataclass(frozen=True)
@@ -74,4 +69,6 @@ class StreamEmitter:
 
     def emit(self) -> IO[None]:
         self.emitter.emit_schema(self.stream.schema)
-        return self.stream.records.bind_each(self._emit).consume()
+        return PureIter.consume(
+            self.stream.records.map_each(lambda s: s.bind(self._emit))
+        )

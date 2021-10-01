@@ -3,7 +3,6 @@ from datetime import (
 )
 import logging
 from purity.v1 import (
-    IOiter,
     PureIter,
 )
 from returns.curry import (
@@ -106,8 +105,8 @@ def _get_project(client: ApiClient, proj_id: ProjectId) -> IO[Project]:
 
 def _get_projs(
     client: ApiClient, projs: PureIter[ProjectId]
-) -> IOiter[Project]:
-    return projs.bind_io_each(partial(_get_project, client))
+) -> PureIter[IO[Project]]:
+    return projs.map_each(partial(_get_project, client))
 
 
 class ProjectGetters:

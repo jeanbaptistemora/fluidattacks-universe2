@@ -33,5 +33,7 @@ class PostsStreams:
         getters = PostsGetters(self.client)
         getter = getters.stream_getter()
         posts = getter.get_iter(post_ids)
-        records = posts.map_each(partial(PostSingerUtils.to_singer, self.name))
+        records = posts.map_each(
+            lambda p: p.map(partial(PostSingerUtils.to_singer, self.name))
+        )
         return Stream(PostSingerUtils.schema(self.name), records)

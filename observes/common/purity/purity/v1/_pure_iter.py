@@ -2,14 +2,14 @@ from __future__ import (
     annotations,
 )
 
+from collections import (
+    deque,
+)
 from dataclasses import (
     dataclass,
 )
 from purity.v1._frozen import (
     FrozenList,
-)
-from purity.v1._io_iter import (
-    IOiter,
 )
 from purity.v1._patch import (
     Patch,
@@ -17,14 +17,8 @@ from purity.v1._patch import (
 from returns.io import (
     IO,
 )
-from returns.pipeline import (
-    pipe,
-)
 from returns.primitives.hkt import (
     SupportsKind1,
-)
-from returns.unsafe import (
-    unsafe_perform_io,
 )
 from typing import (
     Callable,
@@ -56,14 +50,10 @@ class PureIter(_PureIter[_I]):
         draft = _PureIter(Patch(lambda: map(function, self)))
         return PureIter(draft)
 
-    def bind_io_each(self, function: Callable[[_I], IO[_R]]) -> IOiter[_R]:
-        transform = pipe(function, unsafe_perform_io)
-
-        def _internal() -> IO[Iterator[_R]]:
-            items = iter(transform(item) for item in self)
-            return IO(items)
-
-        return IOiter(_internal)
+    @staticmethod
+    def consume(p_iter: PureIter[IO[None]]) -> IO[None]:
+        deque(p_iter, maxlen=0)
+        return IO(None)
 
 
 @dataclass(frozen=True)

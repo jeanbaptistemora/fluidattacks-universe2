@@ -7,8 +7,10 @@ from paginator.v2._parallel_getter import (
     ParallelGetter,
 )
 from purity.v1 import (
-    IOiter,
     Patch,
+)
+from purity.v1._io_iter import (
+    IOiter,
 )
 from returns.io import (
     IO,

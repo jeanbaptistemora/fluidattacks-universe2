@@ -3,7 +3,6 @@ from dataclasses import (
 )
 import logging
 from purity.v1 import (
-    IOiter,
     PureIter,
 )
 from returns.curry import (
@@ -44,8 +43,10 @@ def _get_project(client: ApiClient, post_id: PostId) -> IO[Post]:
     return raw.map(PostFactory.to_post)
 
 
-def _get_projs(client: ApiClient, projs: PureIter[PostId]) -> IOiter[Post]:
-    return projs.bind_io_each(partial(_get_project, client))
+def _get_projs(
+    client: ApiClient, projs: PureIter[PostId]
+) -> PureIter[IO[Post]]:
+    return projs.map_each(partial(_get_project, client))
 
 
 @dataclass(frozen=True)
