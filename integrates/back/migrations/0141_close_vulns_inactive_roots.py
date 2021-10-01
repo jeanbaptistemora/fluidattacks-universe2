@@ -83,6 +83,8 @@ async def process_group(roots: Tuple[RootItem, ...]) -> None:
             for (root, vulns) in inactive_root_vulns
             for vuln in vulns
             if vuln["historic_state"][-1]["state"] not in {"closed", "DELETED"}
+            and vuln.get("historic_zero_risk", [{"status": ""}])[-1]["status"]
+            != "CONFIRMED"
         ]
     )
 

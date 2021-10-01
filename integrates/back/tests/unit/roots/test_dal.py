@@ -29,7 +29,7 @@ from typing import (
         ("open", "NEW", None, True),
         ("closed", "IN_PROGRESS", None, False),
         ("DELETED", "NEW", None, False),
-        ("open", "ACCEPTED_UNDEFINED", None, False),
+        ("open", "ACCEPTED_UNDEFINED", None, True),
         ("open", "NEW", "CONFIRMED", False),
     ),
 )
