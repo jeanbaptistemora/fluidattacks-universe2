@@ -25,41 +25,39 @@ from returns.unsafe import (
 )
 from typing import (
     Callable,
+    Iterable,
     Iterator,
+    List,
+    Optional,
     TypeVar,
 )
 
-_DataTVar = TypeVar("_DataTVar")
-_ReturnTVar = TypeVar("_ReturnTVar")
+_D = TypeVar("_D")
+_I = TypeVar("_I")
+_R = TypeVar("_R")
 
 
 @dataclass(frozen=True)
 class IOiter(
-    SupportsKind1["IOiter", _DataTVar],
+    SupportsKind1["IOiter", _D],
 ):
-    _io_iter_obj: Patch[Callable[[], IO[Iterator[_DataTVar]]]]
+    _io_iter_obj: Patch[Callable[[], IO[Iterator[_D]]]]
 
-    def __init__(
-        self, io_iter_obj: Callable[[], IO[Iterator[_DataTVar]]]
-    ) -> None:
+    def __init__(self, io_iter_obj: Callable[[], IO[Iterator[_D]]]) -> None:
         object.__setattr__(self, "_io_iter_obj", Patch(io_iter_obj))
 
     @property
-    def io_iter_obj(self) -> IO[Iterator[_DataTVar]]:
+    def io_iter_obj(self) -> IO[Iterator[_D]]:
         return self._io_iter_obj.unwrap()
 
-    def map_each(
-        self, function: Callable[[_DataTVar], _ReturnTVar]
-    ) -> IOiter[_ReturnTVar]:
+    def map_each(self, function: Callable[[_D], _R]) -> IOiter[_R]:
         return IOiter(
             lambda: self.io_iter_obj.map(
                 lambda iter_obj: map(function, iter_obj)
             )
         )
 
-    def bind_each(
-        self, function: Callable[[_DataTVar], IO[_ReturnTVar]]
-    ) -> IOiter[_ReturnTVar]:
+    def bind_each(self, function: Callable[[_D], IO[_R]]) -> IOiter[_R]:
         transform = pipe(function, unsafe_perform_io)
         return IOiter(
             lambda: self.io_iter_obj.bind(
@@ -75,29 +73,54 @@ class IOiter(
 
 @dataclass(frozen=True)
 class PureIter(
-    SupportsKind1["PureIter", _DataTVar],
+    SupportsKind1["PureIter[_D]", _D],
 ):
-    _iter_obj: Patch[Callable[[], Iterator[_DataTVar]]]
+    _iter_obj: Patch[Callable[[], Iterator[_D]]]
 
-    def __init__(self, iter_obj: Callable[[], Iterator[_DataTVar]]) -> None:
+    def __init__(self, iter_obj: Callable[[], Iterator[_D]]) -> None:
         object.__setattr__(self, "_iter_obj", Patch(iter_obj))
 
     @property
-    def iter_obj(self) -> Iterator[_DataTVar]:
+    def iter_obj(self) -> Iterator[_D]:
         return self._iter_obj.unwrap()
 
-    def map_each(
-        self, function: Callable[[_DataTVar], _ReturnTVar]
-    ) -> PureIter[_ReturnTVar]:
+    def map_each(self, function: Callable[[_D], _R]) -> PureIter[_R]:
         return PureIter(lambda: map(function, self.iter_obj))
 
-    def bind_io_each(
-        self, function: Callable[[_DataTVar], IO[_ReturnTVar]]
-    ) -> IOiter[_ReturnTVar]:
+    def bind_io_each(self, function: Callable[[_D], IO[_R]]) -> IOiter[_R]:
         transform = pipe(function, unsafe_perform_io)
 
-        def _internal() -> IO[Iterator[_ReturnTVar]]:
+        def _internal() -> IO[Iterator[_R]]:
             items = iter(transform(item) for item in self.iter_obj)
             return IO(items)
 
         return IOiter(_internal)
+
+
+@dataclass(frozen=True)
+class PureIterFactory:
+    @staticmethod
+    def map_range(function: Callable[[int], _R], items: range) -> PureIter[_R]:
+        def gen() -> Iterable[_R]:
+            return (function(i) for i in items)
+
+        return PureIter(lambda: iter(gen()))
+
+    @staticmethod
+    def map_list(
+        function: Callable[[_I], _R], items: List[_I]
+    ) -> PureIter[_R]:
+        def gen() -> Iterable[_R]:
+            return (function(i) for i in items)
+
+        return PureIter(lambda: iter(gen()))
+
+    @staticmethod
+    def filter_range(
+        function: Callable[[int], Optional[_R]], items: range
+    ) -> PureIter[_R]:
+        def filtered() -> Iterable[_R]:
+            raw = (function(i) for i in items)
+            return (i for i in raw if i is not None)
+
+        return PureIter(lambda: iter(filtered()))
