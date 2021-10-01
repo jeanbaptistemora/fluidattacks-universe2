@@ -129,7 +129,7 @@ slug: /development/mobile-technologies
 1. Start the app bundler
 
     ```bash
-    ./m integrates.mobile
+    m . /integrates/mobile
     ```
 
     Then,

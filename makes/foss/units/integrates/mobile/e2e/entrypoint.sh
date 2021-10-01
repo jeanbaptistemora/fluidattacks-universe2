@@ -1,18 +1,18 @@
 # shellcheck shell=bash
 
 function main {
-  export ANDROID_SDK_ROOT='__envAndroidSdk__/libexec/android-sdk'
+  export ANDROID_SDK_ROOT='__argAndroidSdk__/libexec/android-sdk'
   export CI_COMMIT_REF_NAME
-  export JAVA_HOME='__envJava__'
+  export JAVA_HOME='__argJava__'
   local host='127.0.0.1'
   local port='5037'
 
   pushd integrates/mobile/e2e \
     && echo '[INFO] Making sure ports are free...' \
     && makes-kill-port "${port}" 4723 \
-    && curl -sSo expoClient.apk '__envApkUrl__' \
+    && curl -sSo expoClient.apk '__argApkUrl__' \
     && echo '[INFO] Copying dependencies...' \
-    && copy __envIntegratesMobileE2eNpm__ node_modules \
+    && copy __argIntegratesMobileE2eNpm__ node_modules \
     && echo '[INFO] Looking for available android devices...' \
     && echo '[INFO] Make sure to enable USB debugging and set' \
       'your mobile device to file transfer mode' \
