@@ -27,7 +27,7 @@ from findings.domain import (
     get_findings_by_group,
     get_severity_score_new,
 )
-from freezegun import (
+from freezegun import (  # type: ignore
     freeze_time,
 )
 from groups import (

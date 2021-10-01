@@ -14,12 +14,12 @@ async def get_result(
     *,
     user: str,
 ) -> Dict[str, Any]:
-    query: str = f"""
-        mutation {{
-            acceptLegal(remember: false) {{
+    query: str = """
+        mutation {
+            acceptLegal(remember: false) {
                 success
-            }}
-        }}
+            }
+        }
     """
     data: Dict[str, str] = {
         "query": query,

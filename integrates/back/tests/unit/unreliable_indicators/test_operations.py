@@ -12,7 +12,7 @@ from db_model.findings.types import (
     FindingTreatmentSummary,
     FindingUnreliableIndicators,
 )
-from freezegun.api import (
+from freezegun.api import (  # type: ignore
     freeze_time,
 )
 import pytest

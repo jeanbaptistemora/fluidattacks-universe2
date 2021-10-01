@@ -14,12 +14,12 @@ async def get_result(
     *,
     user: str,
 ) -> Dict[str, Any]:
-    query: str = f"""
-        mutation {{
-            addPushToken(token: "ExponentPushToken[something123]") {{
+    query: str = """
+        mutation {
+            addPushToken(token: "ExponentPushToken[something123]") {
                 success
-            }}
-        }}
+            }
+        }
     """
     data: Dict[str, str] = {
         "query": query,

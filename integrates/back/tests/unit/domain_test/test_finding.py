@@ -40,7 +40,7 @@ from findings.domain import (
     mask_finding_new,
     validate_evidence,
 )
-from freezegun import (
+from freezegun import (  # type: ignore
     freeze_time,
 )
 from graphql.type import (

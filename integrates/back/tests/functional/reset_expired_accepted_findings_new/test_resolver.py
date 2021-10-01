@@ -6,7 +6,7 @@ from db_model.findings.types import (
     Finding,
     FindingTreatmentSummary,
 )
-from freezegun import (
+from freezegun import (  # type: ignore
     freeze_time,
 )
 import pytest

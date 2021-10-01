@@ -11,7 +11,7 @@ from newutils import (
 from redis_cluster.operations import (
     redis_set_entity_attr,
 )
-import requests
+import requests  # type: ignore
 from settings import (
     JWT_COOKIE_NAME,
     SESSION_COOKIE_AGE,

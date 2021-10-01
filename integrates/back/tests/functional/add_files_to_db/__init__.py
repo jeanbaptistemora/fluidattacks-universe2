@@ -22,7 +22,7 @@ async def get_result(
     filename: str = "test-anim.gif"
     file_path: str = f"{path}/{filename}"
     result: Dict[str, Any] = {}
-    with open(file_path, "rb") as test_file:
+    with open(file_path, "rb"):
         file_data: List[Dict[str, str]] = [
             {"description": "test", "fileName": filename, "uploadDate": ""}
         ]

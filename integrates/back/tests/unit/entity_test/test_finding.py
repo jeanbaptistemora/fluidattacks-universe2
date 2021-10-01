@@ -31,7 +31,7 @@ from findings import (
 from findings.domain import (
     get_finding,
 )
-from freezegun import (
+from freezegun import (  # type: ignore
     freeze_time,
 )
 from groups.domain import (

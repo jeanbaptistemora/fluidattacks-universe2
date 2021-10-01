@@ -2,13 +2,13 @@ from datetime import (
     datetime,
     timedelta,
 )
-from freezegun import (
+from freezegun import (  # type: ignore
     freeze_time,
 )
 from newutils import (
     datetime as datetime_utils,
 )
-import pytz
+import pytz  # type: ignore
 from settings import (
     TIME_ZONE,
 )

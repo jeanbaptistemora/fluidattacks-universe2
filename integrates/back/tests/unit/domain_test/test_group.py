@@ -40,7 +40,7 @@ from findings.domain import (
     get_total_treatment,
     get_total_treatment_new,
 )
-from freezegun import (
+from freezegun import (  # type: ignore
     freeze_time,
 )
 from graphql.type import (
@@ -99,7 +99,7 @@ from newutils.vulnerabilities import (
     is_vulnerability_closed,
 )
 import pytest
-from pytz import (
+from pytz import (  # type: ignore
     timezone,
 )
 from settings import (
