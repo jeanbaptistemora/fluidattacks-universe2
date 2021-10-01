@@ -17,9 +17,12 @@ DEBUG = environ.get("OBSERVES_DEBUG", "false").lower() == "true"
 
 
 def configure(**kargs: Any) -> None:
-    bugsnag.configure(
-        api_key="13748c4b5f6807a89f327c0f54fe6c7a", release_stage=ENV, **kargs
-    )
+    if not DEBUG:
+        bugsnag.configure(
+            api_key="13748c4b5f6807a89f327c0f54fe6c7a",
+            release_stage=ENV,
+            **kargs,
+        )
 
 
 def main_log(

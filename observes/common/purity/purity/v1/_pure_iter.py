@@ -26,6 +26,7 @@ from typing import (
     Iterator,
     Optional,
     TypeVar,
+    Union,
 )
 
 _I = TypeVar("_I")
@@ -56,11 +57,22 @@ class PureIter(_PureIter[_I]):
         return IO(None)
 
 
+Mappable = Union[FrozenList[_I], PureIter[_I]]
+
+
 @dataclass(frozen=True)
 class PureIterFactory:
     @staticmethod
     def from_flist(items: FrozenList[_I]) -> PureIter[_I]:
         draft = _PureIter(Patch(lambda: items))
+        return PureIter(draft)
+
+    @staticmethod
+    def map(function: Callable[[_I], _R], items: Mappable[_I]) -> PureIter[_R]:
+        def gen() -> Iterable[_R]:
+            return (function(i) for i in items)
+
+        draft = _PureIter(Patch(lambda: iter(gen())))
         return PureIter(draft)
 
     @staticmethod
@@ -72,13 +84,14 @@ class PureIterFactory:
         return PureIter(draft)
 
     @staticmethod
-    def map_flist(
-        function: Callable[[_I], _R], items: FrozenList[_I]
+    def filter(
+        function: Callable[[_I], Optional[_R]], items: Mappable[_I]
     ) -> PureIter[_R]:
-        def gen() -> Iterable[_R]:
-            return (function(i) for i in items)
+        def filtered() -> Iterable[_R]:
+            raw = (function(i) for i in items)
+            return (i for i in raw if i is not None)
 
-        draft = _PureIter(Patch(lambda: iter(gen())))
+        draft = _PureIter(Patch(lambda: iter(filtered())))
         return PureIter(draft)
 
     @staticmethod
@@ -88,6 +101,34 @@ class PureIterFactory:
         def filtered() -> Iterable[_R]:
             raw = (function(i) for i in items)
             return (i for i in raw if i is not None)
+
+        draft = _PureIter(Patch(lambda: iter(filtered())))
+        return PureIter(draft)
+
+    @staticmethod
+    def until_empty(
+        function: Callable[[_I], Optional[_R]], items: Mappable[_I]
+    ) -> PureIter[_R]:
+        def filtered() -> Iterable[_R]:
+            raw = (function(i) for i in items)
+            for item in raw:
+                if item is None:
+                    break
+                yield item
+
+        draft = _PureIter(Patch(lambda: iter(filtered())))
+        return PureIter(draft)
+
+    @staticmethod
+    def until_empty_range(
+        function: Callable[[int], Optional[_R]], items: range
+    ) -> PureIter[_R]:
+        def filtered() -> Iterable[_R]:
+            raw = (function(i) for i in items)
+            for item in raw:
+                if item is None:
+                    break
+                yield item
 
         draft = _PureIter(Patch(lambda: iter(filtered())))
         return PureIter(draft)
