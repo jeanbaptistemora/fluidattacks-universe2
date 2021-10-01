@@ -68,12 +68,6 @@
   stage: scheduler
   tags: [autoscaling-large]
 
-.integrates_mobile_ota_deploy: &integrates_mobile_ota_deploy
-  <<: *makes
-  script:
-    - ./m integrates.mobile.ota
-  stage: pre-build
-
 integrates.charts.documents-dev:
   <<: *charts_template
   <<: *in_dev_branch_integrates
@@ -223,7 +217,7 @@ integrates.mobile.build.android:
     paths:
       - integrates/mobile/output/
     when: on_success
-  needs: [integrates.mobile.ota-production]
+  needs: [/integrates/mobile/ota__prod]
   stage: build
   tags: [autoscaling-large]
 
@@ -239,14 +233,6 @@ integrates.mobile.lint:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: lint-code
-
-integrates.mobile.ota-development:
-  <<: *in_dev_branch_integrates
-  <<: *integrates_mobile_ota_deploy
-
-integrates.mobile.ota-production:
-  <<: *in_master_branch_integrates
-  <<: *integrates_mobile_ota_deploy
 
 integrates.mobile.test:
   <<: *makes

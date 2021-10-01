@@ -42,6 +42,16 @@ let
     stage = "post-deploy";
     tags = [ "autoscaling" ];
   };
+  gitlabPreBuildDev = {
+    rules = gitlabOnlyDev;
+    stage = "pre-build";
+    tags = [ "autoscaling" ];
+  };
+  gitlabPreBuildProd = {
+    rules = gitlabOnlyMaster;
+    stage = "pre-build";
+    tags = [ "autoscaling" ];
+  };
   gitlabTest = {
     rules = gitlabOnlyDev;
     stage = "test-code";
@@ -206,6 +216,16 @@ in
         {
           output = "/integrates/linters/charts";
           gitlabExtra = gitlabLint;
+        }
+        {
+          args = [ "dev" ];
+          output = "/integrates/mobile/ota";
+          gitlabExtra = gitlabPreBuildDev;
+        }
+        {
+          args = [ "prod" ];
+          output = "/integrates/mobile/ota";
+          gitlabExtra = gitlabPreBuildProd;
         }
         {
           output = "/integrates/web/e2e";
