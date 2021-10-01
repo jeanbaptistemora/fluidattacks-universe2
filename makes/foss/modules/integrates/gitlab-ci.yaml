@@ -2336,6 +2336,30 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+/integrates/coverage:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs:
+    - integrates.back.test.unit
+    - integrates.front.test
+    - integrates.mobile.test
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/coverage
+  stage: external
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
 /integrates/front/deploy/dev:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true

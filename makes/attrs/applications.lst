@@ -13,7 +13,6 @@ integrates.batch
 integrates.cache
 integrates.charts.documents
 integrates.charts.snapshots
-integrates.coverage
 integrates.db
 integrates.db.migration
 integrates.scheduler

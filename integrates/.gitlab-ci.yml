@@ -172,15 +172,6 @@ integrates.back.structure:
     when: always
   stage: test-code
 
-integrates.coverage:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  needs:
-    - integrates.back.test.unit
-    - integrates.front.test
-    - integrates.mobile.test
-  stage: external
-
 integrates.front.lint:
   <<: *makes
   <<: *in_dev_branch_integrates

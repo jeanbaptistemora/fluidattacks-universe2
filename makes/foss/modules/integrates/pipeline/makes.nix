@@ -216,6 +216,19 @@ in
         ])
       ++ [
         {
+          output = "/integrates/coverage";
+          gitlabExtra = {
+            needs = [
+              "integrates.back.test.unit"
+              "integrates.front.test"
+              "integrates.mobile.test"
+            ];
+            rules = gitlabOnlyDev;
+            stage = "external";
+            tags = [ "autoscaling" ];
+          };
+        }
+        {
           output = "/integrates/front/deploy/dev";
           gitlabExtra = gitlabDeployAppDev;
         }
