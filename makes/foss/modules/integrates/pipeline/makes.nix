@@ -284,6 +284,10 @@ in
           gitlabExtra = gitlabPreBuildProd;
         }
         {
+          output = "/integrates/secrets/lint";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/integrates/web/e2e";
           gitlabExtra = gitlabPostDeployDev // {
             needs = [

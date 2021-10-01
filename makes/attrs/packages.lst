@@ -25,7 +25,6 @@ integrates.mobile.test
 integrates.mobile.tools
 integrates.mobile.tools.bundler
 integrates.mobile.tools.fastlane
-integrates.secrets.lint
 integrates.secrets.list
 integrates.web.e2e.pypi
 makes.commitlint

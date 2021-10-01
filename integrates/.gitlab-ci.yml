@@ -268,11 +268,6 @@ integrates.scheduler.toe_lines_etl:
     refs: [schedules]
     variables: [$integrates_scheduler_toe_lines_etl]
 
-integrates.secrets.lint:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: lint-code
-
 integrates.subscriptions.user-to-entity-dev:
   <<: *makes
   <<: *in_dev_branch_integrates
