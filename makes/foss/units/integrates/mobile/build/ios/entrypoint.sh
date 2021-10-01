@@ -16,12 +16,12 @@ function main {
 
   echo '[INFO] Logging in to AWS...' \
     && aws_login_prod integrates \
-    && sops_export_vars __envSecretsProd__ "${secrets[@]}" \
+    && sops_export_vars __argSecretsProd__ "${secrets[@]}" \
     && EXPO_APPLE_PASSWORD="${APPLE_PASSWORD}" \
     && EXPO_IOS_DIST_P12_PASSWORD="${APPLE_DIST_CERT_PASSWORD}" \
     && pushd integrates/mobile \
     && echo '[INFO] Copying dependencies...' \
-    && copy __envIntegratesMobileDevRuntime__ node_modules \
+    && copy __argIntegratesMobileDevRuntime__ node_modules \
     && echo "[INFO] Using NodeJS $(node -v)" \
     && npx --no-install expo login \
       --username "${EXPO_USER}" \
@@ -32,6 +32,9 @@ function main {
       "s3://fluidintegrates.build/mobile/certs" \
       ./certs \
     && echo '[INFO] Building iOS app...' \
+    && if test -z "${CI_COMMIT_REF_NAME:-}"; then
+      CI_COMMIT_REF_NAME="$(get_abbrev_rev . HEAD)"
+    fi \
     && npx --no-install expo-cli build:ios \
       --apple-id "${APPLE_ID}" \
       --dist-p12-path ./certs/apple_ios_distribution.p12 \
