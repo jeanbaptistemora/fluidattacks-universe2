@@ -1,7 +1,7 @@
 ---
 slug: about-us/events/
 title: Events
-:category: about-us
+category: about-us
 description: As cybersecurity experts, we offer talks related to the security information field. Fluid Attacks can help you with your next conference. Check our options.
 keywords: Fluid Attacks, Talk, Security, Experts, Cybersecurity, Conference, Events, Pentesting, Ethical Hacking
 banner: events-bg

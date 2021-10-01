@@ -1,7 +1,7 @@
 ---
 slug: about-us/reviews/
 title: Reviews
-:category: about-us
+category: about-us
 description: Fluid Attacks has recently been recognized by Clutch as one of the Top Cybersecurity Consulting Companies in the world.
 keywords: Fluid Attacks, Reviews, Clutch, Services, Products, Recognition, Clutch Recognition, Pentesting, Ethical Hacking
 banner: reviews-bg

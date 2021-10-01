@@ -1,7 +1,7 @@
 ---
 slug: careers/non-technical-challenges/
 title: Non-technical Challenges
-:category: careers
+category: careers
 description: The Non-technical Challenges stage pretends to assess the candidate's ability to analyze, sort, test, and select relevant data from raw input.
 keywords: Fluid Attacks, Careers, Selection, Process, Non-technical Challenges, Training, Test, Pentesting, Ethical Hacking
 toc: yes
