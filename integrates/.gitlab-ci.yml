@@ -363,16 +363,6 @@ integrates.subscriptions.user-to-entity-on-aws-prod:
   script: [./m integrates.subscriptions.user-to-entity-on-aws prod]
   stage: subscriptions
 
-integrates.web.e2e:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  needs:
-    - integrates.back.deploy.dev
-    - integrates.front.deploy.dev
-  stage: post-deploy
-  retry: 2
-  parallel: 5
-
 makes.test.integrates:
   <<: *makes
   <<: *in_master_branch_integrates

@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function main {
-  echo '[INFO] Firefox: __envFirefox__' \
-    && echo '[INFO] Geckodriver: __envGeckodriver__' \
+  echo '[INFO] Firefox: __argFirefox__' \
+    && echo '[INFO] Geckodriver: __argGeckodriver__' \
     && aws_login_dev integrates \
     && sops_export_vars integrates/secrets-development.yaml \
       STARLETTE_SESSION_KEY \
@@ -19,15 +19,15 @@ function main {
           --timeout="15m"
     fi \
     && pushd integrates/back/tests/e2e/src \
-    && pkgFirefox='__envFirefox__' \
-      pkgGeckoDriver='__envGeckodriver__' \
+    && pkgFirefox='__argFirefox__' \
+      pkgGeckoDriver='__argGeckodriver__' \
       PYTHONPATH="${PWD}:${PYTHONPATH:-}" \
       pytest "${args_pytest[@]}" \
       --disable-pytest-warnings \
       --exitfirst \
       --reruns 10 \
-      --test-group "${CI_NODE_INDEX:-}" \
-      --test-group-count "${CI_NODE_TOTAL:-}" \
+      --test-group "${CI_NODE_INDEX:-1}" \
+      --test-group-count "${CI_NODE_TOTAL:-1}" \
       --verbose \
     && popd \
     || return 1

@@ -37,6 +37,11 @@ let
     stage = "lint-code";
     tags = [ "autoscaling" ];
   };
+  gitlabPostDeployDev = {
+    rules = gitlabOnlyDev;
+    stage = "post-deploy";
+    tags = [ "autoscaling" ];
+  };
   gitlabTest = {
     rules = gitlabOnlyDev;
     stage = "test-code";
@@ -201,6 +206,17 @@ in
         {
           output = "/integrates/linters/charts";
           gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/integrates/web/e2e";
+          gitlabExtra = gitlabPostDeployDev // {
+            needs = [
+              "integrates.back.deploy.dev"
+              "integrates.front.deploy.dev"
+            ];
+            parallel = 5;
+            retry = 2;
+          };
         }
         {
           output = "/lintPython/dirOfModules/integrates";
