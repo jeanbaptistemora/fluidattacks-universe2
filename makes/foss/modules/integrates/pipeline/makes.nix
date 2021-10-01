@@ -26,6 +26,11 @@ let
     stage = "deploy-app";
     tags = [ "autoscaling" ];
   };
+  gitlabDeployAppMaster = {
+    rules = gitlabOnlyMaster;
+    stage = "deploy-app";
+    tags = [ "autoscaling" ];
+  };
   gitlabDeployInfra = {
     resource_group = "$CI_JOB_NAME";
     rules = gitlabOnlyMaster;
@@ -216,6 +221,13 @@ in
         {
           output = "/integrates/linters/charts";
           gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/integrates/mobile/deploy/playstore";
+          gitlabExtra = gitlabDeployAppMaster // {
+            dependencies = [ "integrates.mobile.build.android" ];
+            needs = [ "integrates.mobile.build.android" ];
+          };
         }
         {
           args = [ "dev" ];

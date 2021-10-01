@@ -2357,6 +2357,28 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+/integrates/mobile/deploy/playstore:
+  dependencies:
+    - integrates.mobile.build.android
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs:
+    - integrates.mobile.build.android
+  rules:
+    - if: $CI_COMMIT_BRANCH != "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/mobile/deploy/playstore
+  stage: deploy-app
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
 /integrates/mobile/ota__dev:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2400,7 +2422,9 @@
 /integrates/web/e2e:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
-  needs: []
+  needs:
+    - integrates.back.deploy.dev
+    - integrates.front.deploy.dev
   parallel: 5
   retry: 2
   rules:

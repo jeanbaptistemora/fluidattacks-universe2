@@ -3,14 +3,16 @@
 function main {
   export LANG=en_US.UTF-8
   local secrets=(PLAYSTORE_CREDENTIALS)
+  local files=(
+    'integrates/mobile/app.json'
+    'integrates/mobile/assets/icon.png'
+    'integrates/mobile/assets/splash.png'
+  )
 
-  if has_any_file_changed \
-    'integrates/mobile/app.json' \
-    'integrates/mobile/assets/icon.png' \
-    'integrates/mobile/assets/splash.png'; then
+  if has_any_file_changed "${files[@]}"; then
     echo '[INFO] Logging in to AWS...' \
       && aws_login_prod integrates \
-      && sops_export_vars __envSecretsProd__ "${secrets[@]}" \
+      && sops_export_vars __argSecretsProd__ "${secrets[@]}" \
       && pushd integrates/mobile \
       && echo "${PLAYSTORE_CREDENTIALS}" > playstore-credentials.json \
       && bundle exec fastlane supply \

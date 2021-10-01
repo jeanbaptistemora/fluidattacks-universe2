@@ -221,14 +221,6 @@ integrates.mobile.build.android:
   stage: build
   tags: [autoscaling-large]
 
-integrates.mobile.deploy.playstore:
-  <<: *makes
-  <<: *in_master_branch_integrates
-  dependencies:
-    - integrates.mobile.build.android
-  needs: [integrates.mobile.build.android]
-  stage: deploy-app
-
 integrates.mobile.lint:
   <<: *makes
   <<: *in_dev_branch_integrates
