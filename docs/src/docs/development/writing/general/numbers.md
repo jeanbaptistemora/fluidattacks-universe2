@@ -57,7 +57,7 @@ slug: /development/writing/general/numbers
   here, the minus sign is not separated from the *b*
   because it represents its negative value).
 
-* **GN13:** When we talk about monetary values of millions and billions,
+* **GN13:** When we talk about values of millions and billions,
   we *should* use the abbreviations M and B, respectively (e.g., $15.4M).
   We *must not* express the whole number unless strictly necessary,
   for example, for some kind of analysis.

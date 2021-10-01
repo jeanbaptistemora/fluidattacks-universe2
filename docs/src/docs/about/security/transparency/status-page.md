@@ -7,9 +7,9 @@ slug: /about/security/transparency/status-page
 
 We continuously monitor our main systems:
 
-- [Attack Surface Manager (ASM)](https://app.fluidattacks.com/).
-- [GraphQL API](https://app.fluidattacks.com/api).
-- [Website](https://fluidattacks.com/).
+- [Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
+- [GraphQL API](https://app.fluidattacks.com/api)
+- [Website](https://fluidattacks.com/)
 
 In doing so,
 we let all interested parties,
