@@ -12,9 +12,9 @@ function main {
   fi
 
   aws_login_dev 'integrates' \
-    && sops_export_vars __envSecretsDev__ "${secrets[@]}" \
+    && sops_export_vars __argSecretsDev__ "${secrets[@]}" \
     && pushd integrates/mobile \
-    && copy __envSetupIntegratesMobileDevRuntime__ node_modules \
+    && copy __argSetupIntegratesMobileDevRuntime__ node_modules \
     && echo "${GOOGLE_SERVICES_APP}" > google-services.json \
     && npx --no-install expo login \
       --username "${EXPO_USER}" \

@@ -19,7 +19,6 @@ integrates.db.migration
 integrates.front.deploy
 integrates.front.deploy.dev
 integrates.front.deploy.prod
-integrates.mobile
 integrates.mobile.build.android
 integrates.mobile.build.ios
 integrates.mobile.deploy.playstore

@@ -12,8 +12,6 @@ function loc {
 }
 
 function main {
-  local product="${1}"
-
   : && start_loc='66327' \
     && start_seconds="$(date --date=2021-09-29 +%s)" \
     && end_seconds="$(date +%s)" \
@@ -25,13 +23,14 @@ function main {
     && remaining_loc="$((total_loc - migrated_loc))" \
     && speed="$((migrated_loc / elapsed_days))" \
     && eta="$((remaining_loc * elapsed_days / migrated_loc))" \
-    && echo "
-      ${product}\\refac(build): #5408 migrate to makes
+    && msg="
+      integrates\\refac(build): #5408 migrate to makes
 
       - Speed: ${migrated_loc} loc / ${elapsed_days} days = ${speed} loc/day
       - TODO: ${remaining_loc} loc
       - ETA: ${remaining_loc} / ${speed} = ${eta} days
-    "
+    " \
+    && git commit -m "${msg//      /}"
 }
 
 main "${@}"
