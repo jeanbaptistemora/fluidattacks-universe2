@@ -17,7 +17,7 @@ function main {
     --verbose
   )
 
-  source __envIntegratesEnv__ dev "${api_status}" \
+  source __argIntegratesEnv__ dev "${api_status}" \
     && DAEMON=true integrates-cache \
     && DAEMON=true integrates-storage \
     && DAEMON=true POPULATE="${populate_db}" integrates-db \
