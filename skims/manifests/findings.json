@@ -287,6 +287,14 @@
       "title": "089. Lack of data validation - Trust boundary violation"
     }
   },
+  "F091": {
+    "EN": {
+      "title": "091. Log injection"
+    },
+    "ES": {
+      "title": "091. Log injection"
+    }
+  },
   "F092": {
     "EN": {
       "title": "092. Insecure encryption algorithm - Anonymous cipher suites"

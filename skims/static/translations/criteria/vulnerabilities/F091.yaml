@@ -1,0 +1,25 @@
+F091.title:
+  en: >
+    Log injection
+  es: >
+    Log injection
+F091.description:
+  en: >
+    The system logs entries that contain input from untrusted sources
+    without properly validating, sanitizing or escaping their content.
+  es: >
+    Se guardan entradas sin validar en los logs del sistema, permitiendo
+    la inyección de entradas maliciosas.
+F091.impact:
+  en: Inject code or fake inputs in the system's log, compromising the
+      integrity of logs, or in the worst case, the system of who is
+      viewing the logs.
+  es: Inyectar código o entradas falsas en los logs del sistema,
+      comprometiendo así la integridad de los logs o, en el peor caso,
+      el sistema de quien esté visualizando los logs
+F091.recommendation:
+  en: Sanitize inputs before storing them in the log.
+  es: Sanitizar entradas antes de guardarlas en el log.
+F091.threat:
+  en: Authenticated attacker from the Internet
+  es: Atacante autenticado desde Internet.
