@@ -18269,51 +18269,6 @@
       details: __empty__
 "388":
   en:
-    title: Insecure service configuration - Object Reutilization
-    description: >
-      The system does not validate that objects, data or information,
-      valid for one use only can be reused.
-    impact: >
-      Abuse functionalities that should be accessed once
-    recommendation: >
-      Implement validations to guarantee that One-Time data
-      cannot be reused.
-    threat: >
-      Anonymous attacker from the Internet
-  category: Abuse Functionality
-  es:
-    title: Insecure service configuration - Object Reutilization
-    description: >
-      El sistema no valida que los objetos, datos o información
-      que deberían ser válidos por un solo uso
-      sean reutilizados
-    impact: >
-      Abusar de funcionalidades que deberían ser accedidas solo una vez
-    recommendation: >
-      Implementar validaciones que garanticen que los datos de un solo uso
-      no sean reutilizados
-    threat: >
-      Atacante anónimo desde Internet
-  score:
-    base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "L"
-      availability: "N"
-    temporal:
-      exploit_code_maturity: "H"
-      remediation_level: "U"
-      report_confidence: "C"
-  requirements: ["030"]
-  metadata:
-    en:
-      details: __empty__
-"389":
-  en:
     title: Insecure authentication method - NTLM
     description: >
       The application uses the Legacy NTLM authentication protocol
