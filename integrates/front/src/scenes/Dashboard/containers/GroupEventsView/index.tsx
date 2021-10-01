@@ -31,7 +31,7 @@ import type {
   IHeaderConfig,
 } from "components/DataTableNext/types";
 import {
-  filterDate,
+  filterDateRange,
   filterSearchText,
   filterSelect,
 } from "components/DataTableNext/utils";
@@ -42,10 +42,7 @@ import {
   ADD_EVENT_MUTATION,
   GET_EVENTS,
 } from "scenes/Dashboard/containers/GroupEventsView/queries";
-import {
-  filterClosingDate,
-  formatEvents,
-} from "scenes/Dashboard/containers/GroupEventsView/utils";
+import { formatEvents } from "scenes/Dashboard/containers/GroupEventsView/utils";
 import type { IEventConfig } from "scenes/Dashboard/containers/GroupEventsView/utils";
 import globalStyle from "styles/global.css";
 import {
@@ -133,8 +130,11 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
-  const [dateFilter, setDateFilter] = useState("");
-  const [closingDateFilter, setClosingDateFilter] = useState("");
+  const [dateRangeFilter, setDateRangeFilter] = useState({ max: "", min: "" });
+  const [closingDateRangeFilter, setClosingDateRangeFilter] = useState({
+    max: "",
+    min: "",
+  });
   const [actBefBlockFilter, setActBefBlockFilter] = useState("");
   const [actAfterBlockFilter, setActAfterBlockFilter] = useState("");
   const [accessibilityFilter, setAccessibilityFilter] = useState("");
@@ -390,23 +390,32 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     "eventType"
   );
 
-  function onDateChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setDateFilter(event.target.value);
+  function onDateMaxChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setDateRangeFilter({ ...dateRangeFilter, max: event.target.value });
   }
-  const filterDateResult: IEventConfig[] = filterDate(
+  function onDateMinChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setDateRangeFilter({ ...dateRangeFilter, min: event.target.value });
+  }
+  const filterDateRangeResult: IEventConfig[] = filterDateRange(
     dataset,
-    dateFilter,
+    dateRangeFilter,
     "eventDate"
   );
 
-  function onClosingDateChange(
+  function onClosingDateMaxChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setClosingDateFilter(event.target.value);
+    setClosingDateRangeFilter({ ...dateRangeFilter, max: event.target.value });
   }
-  const filterClosingDateResult: IEventConfig[] = filterClosingDate(
+  function onClosingDateMinChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setClosingDateRangeFilter({ ...dateRangeFilter, min: event.target.value });
+  }
+  const filterClosingDateRangeResult: IEventConfig[] = filterDateRange(
     dataset,
-    closingDateFilter
+    closingDateRangeFilter,
+    "closingDate"
   );
 
   function onActBefBlockChange(
@@ -457,8 +466,8 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     filterSearchtextResult,
     filterStatusResult,
     filterTypeResult,
-    filterDateResult,
-    filterClosingDateResult,
+    filterDateRangeResult,
+    filterClosingDateRangeResult,
     filterActBefBlockResult,
     filterAccessibilityResult,
     filterAfectCompsResult,
@@ -467,12 +476,16 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
   const customFiltersProps: IFilterProps[] = [
     {
-      defaultValue: dateFilter,
-      onChangeInput: onDateChange,
-      placeholder: "Date",
+      defaultValue: "",
+      placeholder: "Date (Range)",
+      rangeProps: {
+        defaultValue: dateRangeFilter,
+        onChangeMax: onDateMaxChange,
+        onChangeMin: onDateMinChange,
+      },
       tooltipId: "group.events.filtersTooltips.date.id",
       tooltipMessage: "group.events.filtersTooltips.date",
-      type: "date",
+      type: "dateRange",
     },
     {
       defaultValue: accessibilityFilter,
@@ -532,12 +545,16 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: closingDateFilter,
-      onChangeInput: onClosingDateChange,
-      placeholder: "Closing date",
+      defaultValue: "",
+      placeholder: "Closing date (Range)",
+      rangeProps: {
+        defaultValue: closingDateRangeFilter,
+        onChangeMax: onClosingDateMaxChange,
+        onChangeMin: onClosingDateMinChange,
+      },
       tooltipId: "group.events.filtersTooltips.closingDate.id",
       tooltipMessage: "group.events.filtersTooltips.closingDate",
-      type: "date",
+      type: "dateRange",
     },
   ];
 
