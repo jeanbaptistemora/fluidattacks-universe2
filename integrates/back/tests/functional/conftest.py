@@ -67,6 +67,7 @@ TEST_GROUPS: Set[str] = {
     "remove_tags",
     "remove_vulnerability",
     "remove_vulnerability_new",
+    "report",
     "request_vulnerabilities_verification",
     "request_vulnerabilities_verification_new",
     "request_vulnerabilities_zero_risk",

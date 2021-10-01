@@ -169,6 +169,7 @@ in
           [ "remove_tags" ]
           [ "remove_vulnerability" ]
           [ "remove_vulnerability_new" "false" "migration" ]
+          [ "report" ]
           [ "request_vulnerabilities_verification" ]
           [ "request_vulnerabilities_verification_new" "false" "migration" ]
           [ "request_vulnerabilities_zero_risk" ]
