@@ -149,7 +149,6 @@ in
           [ "internal_names" ]
           [ "invalidate_access_token" ]
           [ "me" ]
-          [ "old" "true" ]
           [ "organization" ]
           [ "organization_id" ]
           [ "reject_draft" ]
