@@ -106,10 +106,22 @@
       "required": [ "title", "description", "impact", "recommendation", "threat" ],
       "properties": {
         "title": { "type": "string" },
-        "description": { "type": "string" },
-        "impact": { "type": "string" },
-        "recommendation": { "type": "string" },
-        "threat": { "type": "string" }
+        "description": {
+          "type": "string",
+          "pattern": "(?=^.{1,500})^[a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\\x0b\\x0c(),./:;%@'’~_$#*=\\?-]*$"
+        },
+        "impact": {
+          "type": "string",
+          "pattern": "(?=^.{1,300})^[a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\\x0b\\x0c(),./:;%@'’~_$#*=\\?-]*$"
+        },
+        "recommendation": {
+          "type": "string",
+          "pattern": "(?=^.{1,300})^[a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\\x0b\\x0c(),./:;%@'’~_$#*=\\?-]*$"
+        },
+        "threat": {
+          "type": "string",
+          "pattern": "(?=^.{1,300})^[a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\\x0b\\x0c(),./:;%@'’~_$#*=\\?-]*$"
+        }
       }
     }
   }
