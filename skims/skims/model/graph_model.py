@@ -207,6 +207,7 @@ class SyntaxStepLambdaExpression:
 class SyntaxStepMethodInvocationChain(NamedTuple):
     meta: SyntaxStepMeta
     method: str
+    expression: Optional[str] = None
     current_instance: Optional[CurrentInstance] = None
 
     type: str = "SyntaxStepMethodInvocationChain"
