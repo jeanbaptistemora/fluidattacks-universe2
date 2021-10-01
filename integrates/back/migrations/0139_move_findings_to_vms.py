@@ -497,10 +497,19 @@ def _write_migration_results(results: Set[str]) -> None:
         print("ERROR - while writing results")
 
 
+def _reset_migration_results() -> None:
+    try:
+        with open(RESULTS_FILE, "w") as f:
+            f.write("")
+    except IOError:
+        print("ERROR - while resetting results")
+
+
 async def _proccess_finding(
     loaders: Dataloaders,
     old_finding: FindingType,
     progress: float,
+    is_deleted: bool = False,
 ) -> str:
     finding_id: str = old_finding["finding_id"]
 
@@ -575,6 +584,12 @@ async def _proccess_finding(
         finding_id,
     )
 
+    if is_deleted:
+        await findings_model.remove(
+            group_name=old_finding["project_name"],
+            finding_id=finding_id,
+        )
+
     print(f'Progress: {round(progress, 4)} - "{finding_id}" migration OK')
     return finding_id
 
@@ -597,6 +612,19 @@ async def _delete_item(
     return success
 
 
+def _filter_deleted_findings(
+    findings: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    return [
+        finding
+        for finding in findings
+        if cast(HistoricType, finding.get("historic_state", [{}]))[-1].get(
+            "state", ""
+        )
+        == "DELETED"
+    ]
+
+
 async def main() -> None:
     success = False
     loaders: Dataloaders = get_new_context()
@@ -605,7 +633,8 @@ async def main() -> None:
         # Deleted previous items if needed
         start_time = datetime.now()
         scan_attrs: DynamoQueryType = {
-            "FilterExpression": Attr("pk").begins_with("FIN"),
+            "FilterExpression": Attr("pk").begins_with("FIN")
+            | Attr("pk").begins_with("REMOVED"),
         }
         to_delete_findings = await dynamodb_ops.scan(TABLE.name, scan_attrs)
         print("--- scan in %s ---" % (datetime.now() - start_time))
@@ -625,8 +654,8 @@ async def main() -> None:
                     ]
                 )
             )
+            _reset_migration_results()
             print("--- deletion in %s ---" % (datetime.now() - start_time))
-            _write_migration_results(set())
 
     # Scan old findings table
     start_time = datetime.now()
@@ -650,9 +679,6 @@ async def main() -> None:
         ]
         print(f"Non deleted findings: {len(non_deleted_findings)}")
 
-        already_migrated: List[str] = _read_migration_results()
-        print(f"Previously migrated findings: {len(already_migrated)}")
-
         if PROD:
             start_time = datetime.now()
             results = set(
@@ -666,11 +692,45 @@ async def main() -> None:
                         for count, old_finding in enumerate(
                             non_deleted_findings
                         )
-                        if old_finding["finding_id"] not in already_migrated
+                        if old_finding["finding_id"]
+                        not in _read_migration_results()
                     ]
                 )
             )
-            print(f"=== results: {len(results)}")
+            print(f"=== results non deleted: {len(results)}")
+            if ERROR not in results:
+                success = True
+            _write_migration_results(results)
+            print("--- processing in %s ---" % (datetime.now() - start_time))
+
+    if MIGRATE_DELETED_FINDINGS:
+        # Deleted findings from these groups are filtered out
+        excluded_groups = ["worcester"]
+        deleted_findings = [
+            finding
+            for finding in _filter_deleted_findings(findings)
+            if finding.get("project_name", "") not in excluded_groups
+        ]
+        print(f"Deleted findings: {len(deleted_findings)}")
+
+        if PROD:
+            start_time = datetime.now()
+            results = set(
+                await collect(
+                    [
+                        _proccess_finding(
+                            loaders=loaders,
+                            old_finding=old_finding,
+                            progress=count / len(deleted_findings),
+                            is_deleted=True,
+                        )
+                        for count, old_finding in enumerate(deleted_findings)
+                        if old_finding["finding_id"]
+                        not in _read_migration_results()
+                    ]
+                )
+            )
+            print(f"=== results deleted: {len(results)}")
             if ERROR not in results:
                 success = True
             _write_migration_results(results)
