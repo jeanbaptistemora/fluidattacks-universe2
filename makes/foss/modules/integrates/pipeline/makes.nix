@@ -237,6 +237,10 @@ in
           gitlabExtra = gitlabDeployAppMaster;
         }
         {
+          output = "/integrates/front/lint";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/integrates/linters/back/schema";
           gitlabExtra = gitlabLint;
         }

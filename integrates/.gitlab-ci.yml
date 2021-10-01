@@ -172,11 +172,6 @@ integrates.back.structure:
     when: always
   stage: test-code
 
-integrates.front.lint:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: lint-code
-
 integrates.front.test:
   <<: *makes
   <<: *in_dev_branch_integrates

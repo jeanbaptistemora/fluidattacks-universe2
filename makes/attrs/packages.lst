@@ -19,9 +19,6 @@ integrates.back.tools.secure-spreadsheet
 integrates.front.build
 integrates.front.config.dev-runtime
 integrates.front.config.dev-runtime-env
-integrates.front.lint
-integrates.front.lint.eslint
-integrates.front.lint.stylelint
 integrates.front.test
 integrates.mobile.config.dev-runtime
 integrates.mobile.config.dev-runtime-env
