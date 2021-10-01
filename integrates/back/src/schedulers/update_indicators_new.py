@@ -277,9 +277,11 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
     found: int = 0
     accepted: int = 0
     closed: int = 0
+    exposed_cvssf: Decimal = Decimal(0.0)
     found_cvssf = Decimal(0.0)
     all_registers = OrderedDict()
     all_registers_cvsff = OrderedDict()
+    all_registers_exposed_cvsff = OrderedDict()
 
     findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
         group
@@ -312,6 +314,13 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
                     first_day=first_day,
                     last_day=last_day,
                     min_date=None,
+                )
+            )
+            result_cvssf_by_week: CvssfExposureByTimeRange = (
+                get_exposed_cvssf_by_time_range(
+                    vulnerabilities_severity=vulnerabilities_severity,
+                    vulnerabilities_historic_states=historic_states,
+                    last_day=last_day,
                 )
             )
             found += result_vulns_by_month.found_vulnerabilities
@@ -361,6 +370,30 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
                     ).quantize(Decimal("0.1")),
                 }
 
+            if exposed_cvssf != (
+                result_cvssf_by_week.low
+                + result_cvssf_by_week.medium
+                + result_cvssf_by_week.high
+                + result_cvssf_by_week.critical
+            ):
+                all_registers_exposed_cvsff[week_dates] = {
+                    "low": result_cvssf_by_week.low.quantize(Decimal("0.1")),
+                    "medium": result_cvssf_by_week.medium.quantize(
+                        Decimal("0.1")
+                    ),
+                    "high": result_cvssf_by_week.high.quantize(Decimal("0.1")),
+                    "critical": result_cvssf_by_week.critical.quantize(
+                        Decimal("0.1")
+                    ),
+                }
+
+            exposed_cvssf = (
+                result_cvssf_by_week.low
+                + result_cvssf_by_week.medium
+                + result_cvssf_by_week.high
+                + result_cvssf_by_week.critical
+            )
+
             accepted = result_vulns_by_month.accepted_vulnerabilities
             closed = result_vulns_by_month.closed_vulnerabilities
             first_day_ = datetime_utils.get_from_str(first_day)
@@ -388,7 +421,7 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
     return RegisterByTime(
         vulnerabilities=create_data_format_chart(all_registers),
         vulnerabilities_cvssf=create_data_format_chart(all_registers_cvsff),
-        exposed_cvssf=[],
+        exposed_cvssf=format_exposed_chart(all_registers_exposed_cvsff),
     )
 
 
@@ -723,6 +756,7 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
             over_time_month.vulnerabilities_cvssf[-24:]
         ),
         "exposed_over_time_cvssf": remediated_over_time.exposed_cvssf[-24:],
+        "exposed_over_time_month_cvssf": over_time_month.exposed_cvssf[-24:],
         "remediated_over_time_30": remediated_over_thirty_days.vulnerabilities[
             -24:
         ],
