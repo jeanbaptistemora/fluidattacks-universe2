@@ -19,7 +19,7 @@
           inputs.product.integrates-back-pypi-runtime
           outputs."/integrates/back/charts/pypi"
         ];
-        python = "3.7";
+        python = "3.9";
         src = "/integrates/charts/generators";
       };
     };
@@ -56,7 +56,7 @@
         searchPaths.source = [
           inputs.product.integrates-web-e2e-pypi
         ];
-        python = "3.7";
+        python = "3.9";
         src = "/integrates/back/tests/e2e/src";
       };
     };

@@ -71,6 +71,7 @@ Remediate = NamedTuple(
 
 
 class Benchmarking(NamedTuple):
+    # pylint: disable=inherit-non-class, too-few-public-methods
     is_valid: bool
     mttr: Decimal
     subject: str
@@ -187,6 +188,7 @@ def format_vulnerabilities_by_data(
 
     return dict(
         data=dict(
+            # pylint: disable=unsubscriptable-object
             columns=[
                 cast(List[Union[int, str]], [column])
                 + [value for _, value in data],

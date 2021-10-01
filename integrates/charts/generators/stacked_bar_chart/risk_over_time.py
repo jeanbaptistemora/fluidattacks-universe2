@@ -136,6 +136,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
 async def get_many_groups_document(
     groups: Iterable[str], days: Optional[int] = None
 ) -> Dict[str, Dict[datetime, float]]:
+    # pylint: disable=unsubscriptable-object
     group_documents: Tuple[RiskOverTime, ...] = await collect(
         [get_group_document(group, days) for group in groups]
     )

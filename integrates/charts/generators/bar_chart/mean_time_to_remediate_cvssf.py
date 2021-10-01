@@ -51,6 +51,7 @@ from typing import (
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders, min_date: Optional[date] = None
 ) -> Remediate:
+    # pylint: disable=unsubscriptable-object
     if FI_API_STATUS == "migration":
         critical, high, medium, low = await collect(
             [
@@ -98,6 +99,7 @@ async def get_data_one_group(
 async def get_data_many_groups(
     *, groups: List[str], loaders: Dataloaders, min_date: Optional[date] = None
 ) -> Remediate:
+    # pylint: disable=unsubscriptable-object
     groups_data = await collect(
         [
             get_data_one_group(group=group, loaders=loaders, min_date=min_date)
@@ -146,6 +148,7 @@ def format_data(data: Remediate) -> Dict[str, Any]:
     }
     return dict(
         data=dict(
+            # pylint: disable=unsubscriptable-object
             columns=[
                 cast(List[Union[Decimal, str]], ["Mean time to remediate"])
                 + [

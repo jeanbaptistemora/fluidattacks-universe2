@@ -67,6 +67,7 @@ GroupDocumentData = NamedTuple(
 
 
 class RiskOverTime(NamedTuple):
+    # pylint: disable=inherit-non-class, too-few-public-methods
     monthly: Dict[str, Dict[datetime, float]]
     weekly: Dict[str, Dict[datetime, float]]
     should_use_monthly: bool
@@ -113,6 +114,7 @@ def format_document(
         data=dict(
             x="date",
             columns=[
+                # pylint: disable=unsubscriptable-object
                 cast(List[Union[Decimal, str]], [name])
                 + [
                     date.strftime(DATE_FMT)
@@ -184,6 +186,7 @@ def format_distribution_document(
         data=dict(
             x="date",
             columns=[
+                # pylint: disable=unsubscriptable-object
                 cast(List[Union[Decimal, str]], [name])
                 + [
                     date.strftime(DATE_FMT)

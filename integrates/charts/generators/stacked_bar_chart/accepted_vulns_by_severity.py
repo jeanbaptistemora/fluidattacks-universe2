@@ -109,6 +109,7 @@ def format_data(data: Counter[str]) -> Dict[str, Any]:
 
     return dict(
         data=dict(
+            # pylint: disable=unsubscriptable-object
             columns=[
                 cast(List[Union[int, str]], ["# Accepted Vulnerabilities"])
                 + [data[column] for column in translations],

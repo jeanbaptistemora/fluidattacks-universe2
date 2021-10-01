@@ -38,6 +38,7 @@ from typing import (
 
 
 class GroupDocumentCvssfData(NamedTuple):
+    # pylint: disable=inherit-non-class, too-few-public-methods
     data_date: datetime
     low: Decimal
     medium: Decimal
@@ -103,6 +104,7 @@ def format_document(
         data=dict(
             x="date",
             columns=[
+                # pylint: disable=unsubscriptable-object
                 cast(List[Union[Decimal, str]], [name])
                 + [
                     date.strftime(DATE_FMT)

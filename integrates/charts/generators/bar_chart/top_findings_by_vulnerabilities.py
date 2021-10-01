@@ -86,7 +86,7 @@ async def get_data_many_groups(
 
 def format_data(counters: Counter[str]) -> Dict[str, Any]:
     data: List[Tuple[str, int]] = counters.most_common()
-
+    # pylint: disable=unsubscriptable-object
     merged_data: List[List[Union[int, str]]] = []
     for axis, columns in groupby(
         sorted(data, key=lambda x: utils.get_finding_name([x[0]])),
@@ -98,6 +98,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
 
     return dict(
         data=dict(
+            # pylint: disable=unsubscriptable-object
             columns=[
                 cast(List[Union[int, str]], ["# Open Vulnerabilities"])
                 + [value for _, value in merged_data],

@@ -66,6 +66,7 @@ def format_data(data: List[Status]) -> dict:
     return dict(
         data=dict(
             columns=[
+                # pylint: disable=unsubscriptable-object
                 cast(List[Union[int, str]], ["Closed"])
                 + [group.closed_vulnerabilities for group in data],
                 cast(List[Union[int, str]], ["Open"])
