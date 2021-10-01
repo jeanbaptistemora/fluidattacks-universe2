@@ -6,7 +6,7 @@ from enum import (
     Enum,
 )
 from purity.v1 import (
-    PureIter,
+    PureIterFactory,
 )
 from returns.io import (
     IO,
@@ -60,7 +60,7 @@ class Streamer:
 
         if self.selection == SupportedStream.PROJECTS:
             proj_stream = ProjectStreams.stream(
-                client, PureIter(lambda: iter([self.proj]))
+                client, PureIterFactory.from_flist((self.proj,))
             )
             emitter = StreamEmitter(
                 SingerEmitter(),

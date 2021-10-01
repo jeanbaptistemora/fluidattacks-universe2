@@ -8,6 +8,9 @@ from collections import (
 from dataclasses import (
     dataclass,
 )
+from purity.v1._frozen import (
+    FrozenList,
+)
 from purity.v1._patch import (
     Patch,
 )
@@ -39,7 +42,7 @@ _R = TypeVar("_R")
 
 @dataclass(frozen=True)
 class IOiter(
-    SupportsKind1["IOiter", _D],
+    SupportsKind1["IOiter[_D]", _D],
 ):
     _io_iter_obj: Patch[Callable[[], IO[Iterator[_D]]]]
 
@@ -72,26 +75,28 @@ class IOiter(
 
 
 @dataclass(frozen=True)
-class PureIter(
-    SupportsKind1["PureIter[_D]", _D],
+class _PureIter(
+    SupportsKind1["_PureIter[_D]", _D],
 ):
-    _iter_obj: Patch[Callable[[], Iterator[_D]]]
+    _iter_obj: Patch[Callable[[], Iterable[_D]]]
 
-    def __init__(self, iter_obj: Callable[[], Iterator[_D]]) -> None:
-        object.__setattr__(self, "_iter_obj", Patch(iter_obj))
 
-    @property
-    def iter_obj(self) -> Iterator[_D]:
-        return self._iter_obj.unwrap()
+class PureIter(_PureIter[_D]):
+    def __init__(self, obj: _PureIter[_D]):
+        super().__init__(obj._iter_obj)
+
+    def __iter__(self) -> Iterator[_D]:
+        return iter(self._iter_obj.unwrap())
 
     def map_each(self, function: Callable[[_D], _R]) -> PureIter[_R]:
-        return PureIter(lambda: map(function, self.iter_obj))
+        draft = _PureIter(Patch(lambda: map(function, self)))
+        return PureIter(draft)
 
     def bind_io_each(self, function: Callable[[_D], IO[_R]]) -> IOiter[_R]:
         transform = pipe(function, unsafe_perform_io)
 
         def _internal() -> IO[Iterator[_R]]:
-            items = iter(transform(item) for item in self.iter_obj)
+            items = iter(transform(item) for item in self)
             return IO(items)
 
         return IOiter(_internal)
@@ -100,20 +105,27 @@ class PureIter(
 @dataclass(frozen=True)
 class PureIterFactory:
     @staticmethod
+    def from_flist(items: FrozenList[_I]) -> PureIter[_I]:
+        draft = _PureIter(Patch(lambda: items))
+        return PureIter(draft)
+
+    @staticmethod
     def map_range(function: Callable[[int], _R], items: range) -> PureIter[_R]:
         def gen() -> Iterable[_R]:
             return (function(i) for i in items)
 
-        return PureIter(lambda: iter(gen()))
+        draft = _PureIter(Patch(lambda: iter(gen())))
+        return PureIter(draft)
 
     @staticmethod
-    def map_list(
-        function: Callable[[_I], _R], items: List[_I]
+    def map_flist(
+        function: Callable[[_I], _R], items: FrozenList[_I]
     ) -> PureIter[_R]:
         def gen() -> Iterable[_R]:
             return (function(i) for i in items)
 
-        return PureIter(lambda: iter(gen()))
+        draft = _PureIter(Patch(lambda: iter(gen())))
+        return PureIter(draft)
 
     @staticmethod
     def filter_range(
@@ -123,4 +135,5 @@ class PureIterFactory:
             raw = (function(i) for i in items)
             return (i for i in raw if i is not None)
 
-        return PureIter(lambda: iter(filtered()))
+        draft = _PureIter(Patch(lambda: iter(filtered())))
+        return PureIter(draft)
