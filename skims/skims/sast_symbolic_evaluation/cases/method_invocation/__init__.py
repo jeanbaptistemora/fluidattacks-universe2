@@ -69,13 +69,19 @@ def _propagate_return_type(args: EvaluatorArgs) -> None:
         method_var
         and (method_var_decl := lookup_var_dcl_by_name(args, method_var))
         and method_var_decl.var_type
-        and (
-            return_type := RETURN_TYPES.get(
-                method_var_decl.var_type, dict()
-            ).get(method_path or method_var)
-        )
     ):
-        args.syntax_step.return_type = return_type
+        base_type, _ = split_on_last_dot(method_var_decl.var_type)
+        # can be an imported function
+        if (
+            return_type := RETURN_TYPES.get(base_type, {}).get(
+                method_path or method_var
+            )
+        ) or (
+            return_type := RETURN_TYPES.get(method_var_decl.var_type, {}).get(
+                method_path or method_var
+            )
+        ):
+            args.syntax_step.return_type = return_type
 
 
 def evaluate(args: EvaluatorArgs) -> None:

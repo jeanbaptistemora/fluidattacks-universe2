@@ -343,6 +343,7 @@ BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
             "parse",
         },
         "mysql.Connection": {"query"},
+        "mysql.PoolConnection": {"query"},
     }
 )
 BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
@@ -521,10 +522,12 @@ RETURN_TYPES = complete_attrs_on_dict(
             "useNamespaces": "xpath.XPathSelect",
         },
         "express.Router": {
-            "Router": "xpath.Router",
+            "Router": "express.Router",
         },
         "mysql": {
             "createConnection": "mysql.Connection",
+            "createPoolCluster": "mysql.PoolCluster",
+            "createPool": "mysql.Pool",
         },
     }
 )
