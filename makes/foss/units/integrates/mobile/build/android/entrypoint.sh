@@ -3,7 +3,7 @@
 function main {
   export EXPO_ANDROID_KEYSTORE_PASSWORD
   export EXPO_ANDROID_KEY_PASSWORD
-  export JAVA_HOME=__envJava__
+  export JAVA_HOME=__argJava__
   export JAVA_OPTS="
     -Xmx6G
     -XX:+HeapDumpOnOutOfMemoryError
@@ -37,10 +37,10 @@ function main {
     'integrates/mobile/assets/splash.png'; then
     echo '[INFO] Logging in to AWS...' \
       && aws_login_prod integrates \
-      && sops_export_vars __envSecretsProd__ "${secrets[@]}" \
+      && sops_export_vars __argSecretsProd__ "${secrets[@]}" \
       && pushd integrates/mobile \
       && echo '[INFO] Copying dependencies...' \
-      && copy __envSetupIntegratesMobileDevRuntime__ node_modules \
+      && copy __argSetupIntegratesMobileDevRuntime__ node_modules \
       && echo "${GOOGLE_SERVICES_APP}" > google-services.json \
       && EXPO_ANDROID_KEYSTORE_PASSWORD=${EXPO_PASS} \
       && EXPO_ANDROID_KEY_PASSWORD=${EXPO_PASS} \
@@ -57,7 +57,7 @@ function main {
       && echo '[INFO] Patching Android SDK...' \
       && mkdir -p "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
       && cp -r --no-preserve=mode,ownership \
-        __envAndroidSdk__/libexec/android-sdk/* \
+        __argAndroidSdk__/libexec/android-sdk/* \
         "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
       && touch "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/.ready" \
       && echo '[INFO] Downloading shell app...' \
@@ -77,6 +77,9 @@ function main {
       done \
       && popd \
       && echo '[INFO] Building Android app...' \
+      && if test -z "${CI_COMMIT_REF_NAME:-}"; then
+        CI_COMMIT_REF_NAME="$(get_abbrev_rev . HEAD)"
+      fi \
       && npx --no-install turtle build:android \
         --username "${EXPO_USER}" \
         --password "${EXPO_PASS}" \

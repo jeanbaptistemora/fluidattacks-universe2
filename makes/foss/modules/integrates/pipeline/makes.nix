@@ -223,10 +223,24 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/integrates/mobile/build/android";
+          gitlabExtra = {
+            artifacts = {
+              expire_in = "1 day";
+              paths = [ "integrates/mobile/output/" ];
+              when = "on_success";
+            };
+            rules = gitlabOnlyMaster;
+            stage = "build";
+            tags = [ "autoscaling-large" ];
+            needs = [ "/integrates/mobile/ota__prod" ];
+          };
+        }
+        {
           output = "/integrates/mobile/deploy/playstore";
           gitlabExtra = gitlabDeployAppMaster // {
-            dependencies = [ "integrates.mobile.build.android" ];
-            needs = [ "integrates.mobile.build.android" ];
+            dependencies = [ "/integrates/mobile/build/android" ];
+            needs = [ "/integrates/mobile/build/android" ];
           };
         }
         {

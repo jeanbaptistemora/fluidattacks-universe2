@@ -19,7 +19,6 @@ integrates.db.migration
 integrates.front.deploy
 integrates.front.deploy.dev
 integrates.front.deploy.prod
-integrates.mobile.build.android
 integrates.scheduler
 integrates.scheduler.update-indicators.job
 integrates.scheduler.update-indicators.on-aws
