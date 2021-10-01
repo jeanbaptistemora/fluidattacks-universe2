@@ -13,7 +13,7 @@ import type {
   IHeaderConfig,
 } from "components/DataTableNext/types";
 import {
-  filterDate,
+  filterDateRange,
   filterSearchText,
   filterSelect,
   filterText,
@@ -69,7 +69,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     useStoredState<boolean>("groupForcesCustomFilters", false);
 
   const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [dateFilter, setDateFilter] = useState("");
+  const [dateRangeFilter, setDateRangeFilter] = useState({ max: "", min: "" });
   const [statusFilter, setStatusFilter] = useState("");
   const [strictnessFilter, setStrictnessFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
@@ -252,12 +252,15 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     searchTextFilter
   );
 
-  function onDateChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setDateFilter(event.target.value);
+  function onDateMaxChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setDateRangeFilter({ ...dateRangeFilter, max: event.target.value });
   }
-  const filterDateExecutions: IExecution[] = filterDate(
+  function onDateMinChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setDateRangeFilter({ ...dateRangeFilter, min: event.target.value });
+  }
+  const filterDateRangeExecutions: IExecution[] = filterDateRange(
     executions,
-    dateFilter,
+    dateRangeFilter,
     "date"
   );
 
@@ -303,7 +306,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
 
   const resultExecutions: IExecution[] = _.intersection(
     filterSearchTextExecutions,
-    filterDateExecutions,
+    filterDateRangeExecutions,
     filterStatusExecutions,
     filterStrictnessExecutions,
     filterTypeExecutions,
@@ -312,12 +315,16 @@ const GroupForcesView: React.FC = (): JSX.Element => {
 
   const customFiltersProps: IFilterProps[] = [
     {
-      defaultValue: dateFilter,
-      onChangeInput: onDateChange,
-      placeholder: "Date",
+      defaultValue: "",
+      placeholder: "Date (Range)",
+      rangeProps: {
+        defaultValue: dateRangeFilter,
+        onChangeMax: onDateMaxChange,
+        onChangeMin: onDateMinChange,
+      },
       tooltipId: "group.forces.filtersTooltips.date.id",
       tooltipMessage: "group.forces.filtersTooltips.date",
-      type: "date",
+      type: "dateRange",
     },
     {
       defaultValue: statusFilter,
