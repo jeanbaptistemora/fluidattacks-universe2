@@ -181,16 +181,6 @@ integrates.coverage:
     - integrates.mobile.test
   stage: external
 
-integrates.front.deploy.dev:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: deploy-app
-
-integrates.front.deploy.prod:
-  <<: *makes
-  <<: *in_master_branch_integrates
-  stage: deploy-app
-
 integrates.front.lint:
   <<: *makes
   <<: *in_dev_branch_integrates

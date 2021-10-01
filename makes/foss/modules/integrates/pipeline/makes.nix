@@ -215,6 +215,14 @@ in
         ])
       ++ [
         {
+          output = "/integrates/front/deploy/dev";
+          gitlabExtra = gitlabDeployAppDev;
+        }
+        {
+          output = "/integrates/front/deploy/prod";
+          gitlabExtra = gitlabDeployAppMaster;
+        }
+        {
           output = "/integrates/linters/back/schema";
           gitlabExtra = gitlabLint;
         }
@@ -258,7 +266,7 @@ in
           gitlabExtra = gitlabPostDeployDev // {
             needs = [
               "integrates.back.deploy.dev"
-              "integrates.front.deploy.dev"
+              "/integrates/front/deploy/dev"
             ];
             parallel = 5;
             retry = 2;

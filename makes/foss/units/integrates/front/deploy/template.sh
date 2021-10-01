@@ -9,7 +9,7 @@ function _replace {
 }
 
 function deploy {
-  local env_short="${1}"
+  local arg_short="${1}"
   local env="${2}"
   local branch="${3}"
   local bugsnag_key='99a64555a50340cfa856f6623c6bf35d'
@@ -20,13 +20,21 @@ function deploy {
     "https://${base_url}/static/dashboard/app-bundle.min.js"
     "https://${base_url}/static/dashboard/app-style.min.css"
   )
+  export CI_COMMIT_SHA
+  export CI_COMMIT_SHORT_SHA
 
-  "aws_login_${env_short}" integrates \
+  "aws_login_${arg_short}" integrates \
     && pushd integrates \
     && sops_export_vars "secrets-${env}.yaml" \
       CLOUDFLARE_API_TOKEN \
     && mkdir -p app/static \
-    && copy "__envCompiledFront__/output/app/static" app/static \
+    && copy "__argCompiledFront__/output/app/static" app/static \
+    && if test -z "${CI_COMMIT_SHA:-}"; then
+      CI_COMMIT_SHA="$(get_commit_from_rev . HEAD)"
+    fi \
+    && if test -z "${CI_COMMIT_SHORT_SHA:-}"; then
+      CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHA:0:8}"
+    fi \
     && deployment_date="$(date -u '+%FT%H:%M:%SZ')" \
     && _replace app '__CI_COMMIT_REF_NAME__' "${branch}" \
     && _replace app '__CI_COMMIT_SHA__' "${CI_COMMIT_SHA}" \

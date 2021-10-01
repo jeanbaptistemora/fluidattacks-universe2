@@ -16,9 +16,6 @@ integrates.charts.snapshots
 integrates.coverage
 integrates.db
 integrates.db.migration
-integrates.front.deploy
-integrates.front.deploy.dev
-integrates.front.deploy.prod
 integrates.scheduler
 integrates.scheduler.update-indicators.job
 integrates.scheduler.update-indicators.on-aws
