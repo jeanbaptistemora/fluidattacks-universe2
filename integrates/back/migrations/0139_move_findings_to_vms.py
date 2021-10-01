@@ -39,6 +39,7 @@ from datetime import (
 from db_model import (
     findings as findings_model,
     MASKED,
+    TABLE,
 )
 from db_model.enums import (
     Source,
@@ -83,6 +84,9 @@ from findings.domain import (
 from findings.domain.evidence import (
     EVIDENCE_NAMES,
 )
+from groups import (
+    dal as groups_dal,
+)
 from newutils import (
     findings as findings_utils,
 )
@@ -115,9 +119,11 @@ from unreliable_indicators.operations import (
 RESULTS_FILE: str = "0139_results.txt"
 ERROR: str = "ERROR"
 FINDING_TABLE: str = "FI_findings"
-SINGLE_TABLE: str = "integrates_vms"
 
-INITIAL_DELETION: bool = False
+CLEAN_FINDINGS: bool = False
+MIGRATE_NON_DELETED_FINDINGS: bool = False
+MIGRATE_DELETED_FINDINGS: bool = False
+MIGRATE_MASKED_FINDINGS: bool = False
 PROD: bool = False
 
 
@@ -569,7 +575,7 @@ async def _proccess_finding(
         finding_id,
     )
 
-    print(f' Progress: {round(progress, 4)} - "{finding_id}" migration OK')
+    print(f'Progress: {round(progress, 4)} - "{finding_id}" migration OK')
     return finding_id
 
 
@@ -593,65 +599,82 @@ async def _delete_item(
 
 async def main() -> None:
     success = False
+    loaders: Dataloaders = get_new_context()
 
-    # Load list with ids
-    already_migrated: List[str] = _read_migration_results()
-    print(f"=== previously migrated: len({len(already_migrated)})")
-
-    # Deleted previous items if needed
-    if INITIAL_DELETION:
+    if CLEAN_FINDINGS:
+        # Deleted previous items if needed
         start_time = datetime.now()
         scan_attrs: DynamoQueryType = {
             "FilterExpression": Attr("pk").begins_with("FIN"),
         }
-        filtered_items = await dynamodb_ops.scan(SINGLE_TABLE, scan_attrs)
+        to_delete_findings = await dynamodb_ops.scan(TABLE.name, scan_attrs)
         print("--- scan in %s ---" % (datetime.now() - start_time))
-        print(f"items for deletion found: len({len(filtered_items)})")
+        print(f"Items for deletion found: {len(to_delete_findings)}")
 
-        if PROD:
+        if PROD and len(to_delete_findings) > 0:
             start_time = datetime.now()
             success = all(
                 await collect(
                     [
                         _delete_item(
-                            table_name=SINGLE_TABLE,
+                            table_name=TABLE.name,
                             item=item,
-                            progress=count / len(filtered_items),
+                            progress=count / len(to_delete_findings),
                         )
-                        for count, item in enumerate(filtered_items)
+                        for count, item in enumerate(to_delete_findings)
                     ]
                 )
             )
             print("--- deletion in %s ---" % (datetime.now() - start_time))
+            _write_migration_results(set())
 
     # Scan old findings table
     start_time = datetime.now()
     scan_attrs = {}
     findings = await dynamodb_ops.scan(FINDING_TABLE, scan_attrs)
     print("--- scan in %s ---" % (datetime.now() - start_time))
-    print(f"scan findings: len({len(findings)})")
+    print(f"scan findings: {len(findings)}")
 
-    if PROD:
-        start_time = datetime.now()
-        loaders = get_new_context()
-        results = set(
-            await collect(
-                [
-                    _proccess_finding(
-                        loaders=loaders,
-                        old_finding=old_finding,
-                        progress=count / len(findings),
-                    )
-                    for count, old_finding in enumerate(findings)
-                    if old_finding["finding_id"] not in already_migrated
-                ]
+    if MIGRATE_NON_DELETED_FINDINGS:
+        # Load findings for 'ACTIVE' and 'SUSPENDED' groups,
+        # excluding findings with 'DELETED' status
+        alive_groups = {
+            group["project_name"]
+            for group in await groups_dal.get_alive_groups()
+        }
+        print(f"Alive groups: {len(alive_groups)}")
+        non_deleted_findings = [
+            finding
+            for finding in findings_utils.filter_non_deleted_findings(findings)
+            if finding.get("project_name", "") in alive_groups
+        ]
+        print(f"Non deleted findings: {len(non_deleted_findings)}")
+
+        already_migrated: List[str] = _read_migration_results()
+        print(f"Previously migrated findings: {len(already_migrated)}")
+
+        if PROD:
+            start_time = datetime.now()
+            results = set(
+                await collect(
+                    [
+                        _proccess_finding(
+                            loaders=loaders,
+                            old_finding=old_finding,
+                            progress=count / len(non_deleted_findings),
+                        )
+                        for count, old_finding in enumerate(
+                            non_deleted_findings
+                        )
+                        if old_finding["finding_id"] not in already_migrated
+                    ]
+                )
             )
-        )
-        print(f"=== results: len({len(results)})")
-        if ERROR not in results:
-            success = True
-        _write_migration_results(results)
-        print("--- processing in %s ---" % (datetime.now() - start_time))
+            print(f"=== results: {len(results)}")
+            if ERROR not in results:
+                success = True
+            _write_migration_results(results)
+            print("--- processing in %s ---" % (datetime.now() - start_time))
 
     print(f"Success: {success}")
 
