@@ -31,17 +31,33 @@
   };
   secretsForEnvFromSops = {
     makesStatusProd = {
-      vars = [ "CHECKLY_API_KEY" ];
+      vars = [
+        "BITBUCKET_PWD"
+        "BITBUCKET_USER"
+        "CHECKLY_API_KEY"
+        "INTEGRATES_API_TOKEN"
+        "STATUS_ALERT_CHANNEL_USERS"
+      ];
       manifest = "/makes/foss/modules/makes/secrets/prod.yaml";
     };
     makesStatusDev = {
-      vars = [ "CHECKLY_API_KEY" ];
+      vars = [
+        "BITBUCKET_PWD"
+        "BITBUCKET_USER"
+        "CHECKLY_API_KEY"
+        "INTEGRATES_API_TOKEN"
+        "STATUS_ALERT_CHANNEL_USERS"
+      ];
       manifest = "/makes/foss/modules/makes/secrets/dev.yaml";
     };
   };
   secretsForTerraformFromEnv = {
     makesStatus = {
+      alertChannelUsers = "STATUS_ALERT_CHANNEL_USERS";
+      bitbucketPwd = "BITBUCKET_PWD";
+      bitbucketUser = "BITBUCKET_USER";
       checklyApiKey = "CHECKLY_API_KEY";
+      integratesApiToken = "INTEGRATES_API_TOKEN";
     };
   };
   testTerraform = {

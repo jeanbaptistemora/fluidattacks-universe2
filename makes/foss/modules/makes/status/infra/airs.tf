@@ -7,6 +7,7 @@ resource "checkly_check" "airs" {
   ssl_check                 = true
   use_global_alert_settings = false
   runtime_id                = "2021.06"
+  group_id                  = checkly_check_group.fluidattacks.id
 
   locations = ["us-east-1"]
 
