@@ -116,6 +116,26 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+/deployTerraform/makesStatus:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs: []
+  resource_group: $CI_JOB_NAME
+  rules:
+    - if: $CI_COMMIT_BRANCH != "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+  script:
+    - m . /deployTerraform/makesStatus
+  stage: deploy-infra
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
 /deployTerraform/makesUsersAirs:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -499,6 +519,27 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
     - m . /lintTerraform/makesSecrets
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/lintTerraform/makesStatus:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+  script:
+    - m . /lintTerraform/makesStatus
   stage: lint-code
   tags:
     - autoscaling
@@ -1343,6 +1384,27 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
     - m . /testTerraform/makesSecrets
+  stage: test-infra
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/testTerraform/makesStatus:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+  script:
+    - m . /testTerraform/makesStatus
   stage: test-infra
   tags:
     - autoscaling
