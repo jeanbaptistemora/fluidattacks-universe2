@@ -28,6 +28,7 @@ async def _get_result(
     data: Dict[str, Any], context: Optional[Dataloaders] = None
 ) -> Dict[str, Any]:
     """Get result."""
+    # pylint: disable=unsubscriptable-object
     request = await create_dummy_session("integratesmanager@gmail.com")
     request = apply_context_attrs(
         request, loaders=context if context else get_new_context()

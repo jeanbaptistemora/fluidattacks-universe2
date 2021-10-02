@@ -288,7 +288,7 @@ async def test_mask_finding_new() -> None:
     finding: Finding = await loaders.finding_new.load(finding_id)
     success = await mask_finding_new(loaders, finding)
     assert isinstance(success, bool)
-    assert success == True
+    assert success
 
     loaders.finding_new.clear(finding_id)
     masked_finding: Finding = await loaders.finding_new.load(finding_id)

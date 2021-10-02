@@ -1,3 +1,4 @@
+# flake8: noqa
 from back.tests.unit import (
     MIGRATION,
 )

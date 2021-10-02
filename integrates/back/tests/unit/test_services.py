@@ -1,6 +1,3 @@
-from back.tests.unit import (
-    MIGRATION,
-)
 from custom_exceptions import (
     FindingNotFound,
 )

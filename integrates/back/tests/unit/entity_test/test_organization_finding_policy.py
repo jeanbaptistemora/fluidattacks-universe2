@@ -6,9 +6,6 @@ from ariadne import (
     graphql,
 )
 import asyncio
-from back.tests.unit import (
-    MIGRATION,
-)
 from back.tests.unit.utils import (
     create_dummy_session,
 )

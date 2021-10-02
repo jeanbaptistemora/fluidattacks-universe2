@@ -59,6 +59,7 @@ async def _get_result(
     loaders: Optional[Dataloaders] = None,
 ) -> Dict[str, Any]:
     """Get result."""
+    # pylint: disable=unsubscriptable-object
     request = await create_dummy_session(username=user)
     request = apply_context_attrs(request, loaders or get_new_context())
     _, result = await graphql(SCHEMA, data, context_value=request)

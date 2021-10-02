@@ -19,6 +19,7 @@ async def get_result(
     reason: str,
     other: Optional[str],
 ) -> Dict[str, Any]:
+    # pylint: disable=unsubscriptable-object
     query: str = f"""
         mutation {{
             deactivateRoot(

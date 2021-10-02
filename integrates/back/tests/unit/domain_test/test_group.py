@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 from aioextensions import (
     collect,
 )
@@ -671,6 +672,7 @@ async def test_get_reattackers() -> None:
 async def test_get_mean_remediate_severity_low(
     min_days: Optional[int], expected_output: Decimal
 ) -> None:
+    # pylint: disable=unsubscriptable-object
     context = get_new_context()
     group_name = "unittesting"
     min_severity = 0.1
@@ -700,6 +702,7 @@ async def test_get_mean_remediate_severity_low(
 async def test_get_mean_remediate_severity_low_new(
     min_days: Optional[int], expected_output: Decimal
 ) -> None:
+    # pylint: disable=unsubscriptable-object
     loaders = get_new_context()
     group_name = "unittesting"
     min_severity = 0.1
@@ -729,6 +732,7 @@ async def test_get_mean_remediate_severity_low_new(
 async def test_get_mean_remediate_severity_medium(
     min_days: Optional[int], expected_output: Decimal
 ) -> None:
+    # pylint: disable=unsubscriptable-object
     context = get_new_context()
     group_name = "unittesting"
     min_severity = 4
@@ -758,6 +762,7 @@ async def test_get_mean_remediate_severity_medium(
 async def test_get_mean_remediate_severity_medium_new(
     min_days: Optional[int], expected_output: Decimal
 ) -> None:
+    # pylint: disable=unsubscriptable-object
     loaders = get_new_context()
     group_name = "unittesting"
     min_severity = 4

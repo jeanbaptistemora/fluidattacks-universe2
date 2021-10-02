@@ -43,6 +43,7 @@ def create_dummy_simple_session(
 async def create_dummy_session(
     username: str = "unittest", session_jwt: Optional[str] = None
 ) -> Response:
+    # pylint: disable=unsubscriptable-object
     request = create_dummy_simple_session(username)
     payload = {
         "user_email": username,
