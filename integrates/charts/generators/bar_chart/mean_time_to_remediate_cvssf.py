@@ -39,11 +39,9 @@ from statistics import (
 )
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Optional,
-    Union,
 )
 
 
@@ -148,14 +146,15 @@ def format_data(data: Remediate) -> Dict[str, Any]:
     }
     return dict(
         data=dict(
-            # pylint: disable=unsubscriptable-object
             columns=[
-                cast(List[Union[Decimal, str]], ["Mean time to remediate"])
-                + [
-                    Decimal(getattr(data, column)).to_integral_exact(
-                        rounding=ROUND_CEILING
-                    )
-                    for column in translations
+                [
+                    "Mean time to remediate",
+                    *[
+                        Decimal(getattr(data, column)).to_integral_exact(
+                            rounding=ROUND_CEILING
+                        )
+                        for column in translations
+                    ],
                 ]
             ],
             colors={
