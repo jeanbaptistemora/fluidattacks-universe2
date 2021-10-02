@@ -34,7 +34,6 @@ from itertools import (
     groupby,
 )
 from typing import (
-    cast,
     Counter,
     List,
     Tuple,
@@ -154,11 +153,12 @@ def format_data(counters: Counter) -> dict:
     return dict(
         data=dict(
             columns=[
-                # pylint: disable=unsubscriptable-object
-                cast(List[Union[Decimal, str]], ["Open Severity (CVSSF)"])
-                + [
-                    Decimal(value).quantize(Decimal("0.1"))
-                    for _, value in merged_data
+                [
+                    "Open Severity (CVSSF)",
+                    *[
+                        Decimal(value).quantize(Decimal("0.1"))
+                        for _, value in merged_data
+                    ],
                 ],
             ],
             colors={

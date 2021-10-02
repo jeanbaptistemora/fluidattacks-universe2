@@ -26,7 +26,6 @@ from itertools import (
 )
 from typing import (
     Any,
-    cast,
     Counter,
     Dict,
     List,
@@ -98,10 +97,11 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
 
     return dict(
         data=dict(
-            # pylint: disable=unsubscriptable-object
             columns=[
-                cast(List[Union[int, str]], ["# Open Vulnerabilities"])
-                + [value for _, value in merged_data],
+                [
+                    "# Open Vulnerabilities",
+                    *[value for _, value in merged_data],
+                ],
             ],
             colors={
                 "# Open Vulnerabilities": RISK.neutral,
