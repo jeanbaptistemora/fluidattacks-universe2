@@ -247,7 +247,10 @@ async def _send_analytics_report(
         report_subject_percent=quote_plus(report_subject),
     )
 
-    LOGGER_CONSOLE.info("- analytics email sent", **NOEXTRA)
+    LOGGER_CONSOLE.info(
+        "- analytics email sent to user",
+        extra={"extra": dict(user_email=user_email)},
+    )
 
 
 async def _send_digest_report(
@@ -279,15 +282,18 @@ async def _send_digest_report(
         )
     else:
         LOGGER_CONSOLE.info(
-            f"- digest email NOT sent for {user_email}", **NOEXTRA
+            "- digest email NOT sent to user",
+            extra={"extra": dict(user_email=user_email)},
         )
+
         return
 
     user_stats = groups_domain.process_user_digest_stats(mail_contents)
 
     if user_stats["groups_len"] == 0:
         LOGGER_CONSOLE.warning(
-            f"- NO available info for {user_email}", **NOEXTRA
+            "- NO available info to user",
+            extra={"extra": dict(user_email=user_email)},
         )
         return
 
@@ -499,7 +505,8 @@ async def _get_digest_stats(
         }
 
     LOGGER_CONSOLE.info(
-        f"Digest: get stats for groups: {str(digest_groups)}", **NOEXTRA
+        "Digest: get stats for groups",
+        extra={"extra": dict(digest_groups=str(digest_groups))},
     )
     return await collect(
         [
