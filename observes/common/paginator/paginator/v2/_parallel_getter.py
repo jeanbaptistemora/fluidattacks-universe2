@@ -8,6 +8,7 @@ from multiprocessing.pool import (
 )
 from purity.v1 import (
     Flattener,
+    FrozenList,
     Patch,
 )
 from returns.io import (
@@ -21,7 +22,6 @@ from returns.primitives.hkt import (
 )
 from typing import (
     Callable,
-    List,
     TypeVar,
 )
 
@@ -55,6 +55,6 @@ class ParallelGetter(
 
     def get_pages(
         self,
-        pages: List[_PageTVar],
-    ) -> IO[List[Maybe[_DataTVar]]]:
+        pages: FrozenList[_PageTVar],
+    ) -> IO[FrozenList[Maybe[_DataTVar]]]:
         return Flattener.list_io(tuple(_thread_pool.map(self.getter, pages)))

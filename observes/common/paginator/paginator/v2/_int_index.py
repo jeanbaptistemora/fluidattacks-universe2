@@ -7,6 +7,7 @@ from paginator.v2._parallel_getter import (
     ParallelGetter,
 )
 from purity.v1 import (
+    FrozenList,
     Patch,
 )
 from purity.v1._io_iter import (
@@ -27,7 +28,6 @@ from returns.unsafe import (
 from typing import (
     Callable,
     Iterator,
-    List,
     TypeVar,
 )
 
@@ -54,9 +54,9 @@ class IntIndexGetter(
     def get_pages(
         self,
         page_range: range,
-    ) -> IO[List[Maybe[_DataTVar]]]:
+    ) -> IO[FrozenList[Maybe[_DataTVar]]]:
         getter: ParallelGetter[int, _DataTVar] = ParallelGetter(self.getter)
-        return getter.get_pages(list(page_range))
+        return getter.get_pages(tuple(page_range))
 
     def get_until_end(
         self,

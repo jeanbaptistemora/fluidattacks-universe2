@@ -3,6 +3,9 @@
 from dataclasses import (
     dataclass,
 )
+from purity.v1 import (
+    FrozenList,
+)
 from returns.io import (
     IO,
 )
@@ -14,7 +17,6 @@ from returns.primitives.hkt import (
 )
 from typing import (
     Callable,
-    List,
     TypeVar,
 )
 
@@ -27,7 +29,7 @@ _MetaTVar = TypeVar("_MetaTVar")
 class PageResult(
     SupportsKind2["PageResult[_DataTVar, _MetaTVar]", _DataTVar, _MetaTVar],
 ):
-    data: List[_DataTVar]
+    data: FrozenList[_DataTVar]
     metadata: _MetaTVar
 
 
