@@ -1,3 +1,4 @@
+# pylint: disable=unsubscriptable-object
 import aioboto3
 from aioboto3.dynamodb.table import (
     CustomTableResource,

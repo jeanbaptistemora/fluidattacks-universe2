@@ -224,6 +224,7 @@ async def get_cached_subject_policies(
     with_cache: bool = True,
 ) -> Tuple[Tuple[str, str, str], ...]:
     """Cached function to get 1 user authorization policies."""
+    # pylint: disable=unsubscriptable-object
     policies: Tuple[Tuple[str, str, str], ...]
 
     if with_cache:

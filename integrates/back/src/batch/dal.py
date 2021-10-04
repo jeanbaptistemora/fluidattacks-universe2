@@ -79,6 +79,8 @@ class JobStatus(Enum):
 
 
 class Job(NamedTuple):
+    # pylint: disable=unsubscriptable-object, inherit-non-class
+    # pylint: disable=too-few-public-methods
     created_at: Optional[int]
     exit_code: Optional[int]
     exit_reason: Optional[str]
@@ -118,6 +120,7 @@ async def _list_queue_jobs(
     results: List[Job] = []
 
     async def _request(next_token: Optional[str] = None) -> Optional[str]:
+        # pylint: disable=unsubscriptable-object
         response = await in_thread(
             client.list_jobs,
             jobQueue=queue,
@@ -191,6 +194,7 @@ async def get_action(
     subject: str,
     time: str,
 ) -> Optional[BatchProcessing]:
+    # pylint: disable=unsubscriptable-object
     key: str = mapping_to_key(
         [action_name, additional_info, entity, subject, time]
     )

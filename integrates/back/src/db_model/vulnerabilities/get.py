@@ -50,6 +50,7 @@ def _build_vulnerability(
     key_structure: PrimaryKey,
     raw_items: Tuple[Item, ...],
 ) -> Vulnerability:
+    # pylint: disable=unsubscriptable-object
     metadata = historics.get_metadata(
         item_id=item_id, key_structure=key_structure, raw_items=raw_items
     )

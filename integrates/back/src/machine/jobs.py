@@ -13,6 +13,7 @@ from typing import (
 
 
 class JobArguments(NamedTuple):
+    # pylint: disable=inherit-non-class, too-few-public-methods
     group_name: str
     finding_code: str
     root_nickname: str

@@ -23,6 +23,7 @@ async def update_root_state(
     root_id: str,
     state: Union[GitRootState, IPRootState, URLRootState],
 ) -> None:
+    # pylint: disable=unsubscriptable-object
     key_structure = TABLE.primary_key
     historic = historics.build_historic(
         attributes=json.loads(json.dumps(state)),

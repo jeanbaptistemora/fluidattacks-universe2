@@ -139,6 +139,7 @@ async def handle_authz_claims(
     ],
     request: Request,
 ) -> None:
+    # pylint: disable=unsubscriptable-object
     user_info = await token_utils.get_jwt_content(request)
     email = user_info["user_email"]
     if params.subject.endswith("_30") or params.subject.endswith("_90"):

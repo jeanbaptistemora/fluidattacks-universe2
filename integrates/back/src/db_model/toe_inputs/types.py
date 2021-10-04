@@ -4,6 +4,7 @@ from typing import (
 
 
 class ToeInput(NamedTuple):
+    # pylint: disable=inherit-non-class, too-few-public-methods
     commit: str
     component: str
     created_date: str

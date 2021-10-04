@@ -1,3 +1,5 @@
+# pylint: disable=unsubscriptable-object, too-few-public-methods
+# pylint: disable=inherit-non-class
 from .enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityApprovalStatus,

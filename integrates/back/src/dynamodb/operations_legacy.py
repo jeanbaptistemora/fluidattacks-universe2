@@ -1,3 +1,4 @@
+# pylint: disable=unsubscriptable-object
 import aioboto3
 import botocore
 from botocore.exceptions import (

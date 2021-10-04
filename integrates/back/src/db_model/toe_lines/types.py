@@ -4,6 +4,7 @@ from typing import (
 
 
 class ToeLines(NamedTuple):
+    # pylint: disable=inherit-non-class, too-few-public-methods
     comments: str
     filename: str
     group_name: str

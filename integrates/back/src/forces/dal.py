@@ -102,6 +102,7 @@ async def get_log_execution(group_name: str, execution_id: str) -> str:
 
 
 async def get_secret_token(group_name: str) -> Optional[str]:
+    # pylint: disable=unsubscriptable-object
     try:
         return await get_agent_token(group_name=group_name)
     except ClientError as error:

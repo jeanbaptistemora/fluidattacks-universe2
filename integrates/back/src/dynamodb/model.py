@@ -68,6 +68,7 @@ async def get_org_finding_policy(
     org_name: str,
     finding_policy_id: str,
 ) -> Optional[OrgFindingPolicyItem]:
+    # pylint: disable=unsubscriptable-object
     primary_key = keys.build_key(
         facet=TABLE.facets["org_finding_policy_metadata"],
         values={"name": org_name, "uuid": finding_policy_id},
@@ -235,6 +236,7 @@ async def update_group_agent_token(
 
 
 async def get_agent_token(*, group_name: str) -> Optional[str]:
+    # pylint: disable=unsubscriptable-object
     primary_key = keys.build_key(
         facet=TABLE.facets["group_metadata"],
         values={"name": group_name},
