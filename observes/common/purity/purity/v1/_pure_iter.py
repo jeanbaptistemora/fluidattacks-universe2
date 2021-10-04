@@ -10,6 +10,7 @@ from dataclasses import (
 )
 from itertools import (
     chain,
+    count,
 )
 from purity.v1._frozen import (
     FrozenList,
@@ -80,6 +81,13 @@ class PureIterFactory:
 
         draft = _PureIter(Patch(lambda: iter(gen())))
         return PureIter(draft)
+
+    @classmethod
+    def infinite_map(
+        cls, function: Callable[[int], _R], start: int, step: int
+    ) -> PureIter[_R]:
+        draft = _PureIter(Patch(lambda: count(start, step)))
+        return cls.map(function, PureIter(draft))
 
     @staticmethod
     def map_range(function: Callable[[int], _R], items: range) -> PureIter[_R]:
