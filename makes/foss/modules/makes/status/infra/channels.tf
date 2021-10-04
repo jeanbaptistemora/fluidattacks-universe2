@@ -18,7 +18,7 @@ resource "checkly_alert_channel" "emails" {
 
 # SMS
 
-resource "checkly_alert_channel" "default" {
+resource "checkly_alert_channel" "sms" {
   sms {
     name   = "default"
     number = "+573207881879"

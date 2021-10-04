@@ -43,4 +43,18 @@ resource "checkly_check_group" "fluidattacks" {
       minutes_failing_threshold = 5
     }
   }
+
+  dynamic "alert_channel_subscription" {
+    for_each = {
+      for user in var.alertChannelUsers : split("@", user)[0] => user
+    }
+    content {
+      channel_id = checkly_alert_channel.emails[alert_channel_subscription.key].id
+      activated  = true
+    }
+  }
+  alert_channel_subscription {
+    channel_id = checkly_alert_channel.sms.id
+    activated  = true
+  }
 }
