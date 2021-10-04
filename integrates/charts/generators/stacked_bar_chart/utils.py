@@ -298,3 +298,83 @@ def sum_over_time_many_groups(
         }
         for name in documents_names
     }
+
+
+def get_data_risk_over_time_group(
+    *,
+    over_time_weekly: List[List[Dict[str, float]]],
+    over_time_monthly: List[List[Dict[str, float]]],
+    weekly_data_size: int,
+    limited_days: bool,
+) -> RiskOverTime:
+    data: List[GroupDocumentData] = []
+    data_monthly: List[GroupDocumentData] = []
+    if over_time_weekly:
+        group_found_over_time = over_time_weekly[0]
+        group_closed_over_time = over_time_weekly[1]
+        group_accepted_over_time = over_time_weekly[2]
+
+        for accepted, closed, found in zip(
+            group_accepted_over_time,
+            group_closed_over_time,
+            group_found_over_time,
+        ):
+            data.append(
+                GroupDocumentData(
+                    accepted=accepted["y"],
+                    closed=closed["y"],
+                    opened=found["y"] - closed["y"] - accepted["y"],
+                    date=translate_date(str(found["x"])),
+                    total=found["y"],
+                )
+            )
+
+    if over_time_monthly:
+        group_found_over_time = over_time_monthly[0]
+        group_closed_over_time = over_time_monthly[1]
+        group_accepted_over_time = over_time_monthly[2]
+
+        for accepted, closed, found in zip(
+            group_accepted_over_time,
+            group_closed_over_time,
+            group_found_over_time,
+        ):
+            data_monthly.append(
+                GroupDocumentData(
+                    accepted=accepted["y"],
+                    closed=closed["y"],
+                    opened=found["y"] - closed["y"] - accepted["y"],
+                    date=(
+                        translate_date_last(str(found["x"]))
+                        if translate_date_last(str(found["x"]))
+                        < datetime.now()
+                        else datetime.combine(
+                            datetime.now(),
+                            datetime.min.time(),
+                        )
+                    ),
+                    total=found["y"],
+                )
+            )
+
+    return RiskOverTime(
+        should_use_monthly=False if limited_days else weekly_data_size > 12,
+        monthly={
+            "date": {datum.date: 0 for datum in data_monthly},
+            "Closed": {datum.date: datum.closed for datum in data_monthly},
+            "Accepted": {datum.date: datum.accepted for datum in data_monthly},
+            "Found": {
+                datum.date: datum.closed + datum.accepted + datum.opened
+                for datum in data_monthly
+            },
+        },
+        weekly={
+            "date": {datum.date: 0 for datum in data},
+            "Closed": {datum.date: datum.closed for datum in data},
+            "Accepted": {datum.date: datum.accepted for datum in data},
+            "Found": {
+                datum.date: datum.closed + datum.accepted + datum.opened
+                for datum in data
+            },
+        },
+    )
