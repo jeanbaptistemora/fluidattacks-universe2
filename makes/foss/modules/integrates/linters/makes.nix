@@ -11,7 +11,7 @@
           inputs.product.integrates-back-pypi-unit-tests
           inputs.product.skims-config-sdk
         ];
-        python = "3.7";
+        python = "3.9";
         src = "/integrates/back/src";
       };
       integratesBackChartsGenerators = {

@@ -247,6 +247,7 @@ async def get_by_email(email: str) -> UserType:
 
 
 async def get_data(email: str, attr: str) -> Union[str, UserType]:
+    # pylint: disable=unsubscriptable-object
     data_attr = await get_attributes(email, [attr])
     if data_attr and attr in data_attr:
         return cast(UserType, data_attr[attr])

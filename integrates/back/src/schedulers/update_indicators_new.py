@@ -1,3 +1,5 @@
+# pylint: disable=too-few-public-methods, inherit-non-class
+# pylint: disable=unsubscriptable-object
 from aioextensions import (
     collect,
 )

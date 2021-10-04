@@ -1,4 +1,5 @@
-"""Domain functions for vulnerabilities."""  # pylint:disable=too-many-lines
+"""Domain functions for vulnerabilities."""
+# pylint:disable=too-many-lines, unsubscriptable-object
 
 
 import aioboto3

@@ -52,6 +52,7 @@ LOGGER = logging.getLogger(__name__)
 def calculate_tag_indicators(
     tag: str, tags_dict: Dict[str, List[GroupType]], indicator_list: List[str]
 ) -> Dict[str, Union[Decimal, List[str]]]:
+    # pylint: disable=unsubscriptable-object
     tag_info: Dict[str, Union[Decimal, List[str]]] = {}
     for indicator in indicator_list:
         if "max" in indicator:
