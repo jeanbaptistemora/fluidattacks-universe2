@@ -83,16 +83,6 @@ integrates.charts.documents-prod-schedule:
   parallel: 14
   script: [./m integrates.charts.documents prod]
 
-integrates.charts.snapshots-prod:
-  <<: *makes
-  needs: [integrates.charts.documents-prod-schedule]
-  interruptible: false
-  only:
-    refs: [schedules]
-    variables: [$charts]
-  script: [./m integrates.charts.snapshots prod]
-  stage: analytics
-
 integrates.back.security:
   <<: *makes
   <<: *in_dev_branch_integrates

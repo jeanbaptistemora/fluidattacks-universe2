@@ -2472,6 +2472,23 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+/integrates/charts/snapshots__prod:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $charts == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/charts/snapshots 'prod'
+  stage: analytics
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
 /integrates/coverage:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true

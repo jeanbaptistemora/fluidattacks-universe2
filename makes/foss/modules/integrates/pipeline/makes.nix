@@ -298,6 +298,20 @@ in
           };
         }
         {
+          args = [ "prod" ];
+          output = "/integrates/charts/snapshots";
+          gitlabExtra = {
+            interruptible = false;
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "charts")
+              (gitlabCi.rules.always)
+            ];
+            stage = "analytics";
+            tags = [ "autoscaling" ];
+          };
+        }
+        {
           output = "/integrates/coverage";
           gitlabExtra = {
             needs = [

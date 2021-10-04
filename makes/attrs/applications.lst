@@ -7,7 +7,6 @@ forces.process-groups-break
 forces.test
 integrates.cache
 integrates.charts.documents
-integrates.charts.snapshots
 integrates.db
 integrates.db.migration
 integrates.scheduler
