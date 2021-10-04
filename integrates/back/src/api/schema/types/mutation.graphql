@@ -173,7 +173,7 @@ type Mutation {
     nickname: String
     "Repository URL"
     url: String!
-  ): SimplePayload!
+  ): AddRootPayload!
 
   "Adds a new group to the specified organization"
   addGroup(

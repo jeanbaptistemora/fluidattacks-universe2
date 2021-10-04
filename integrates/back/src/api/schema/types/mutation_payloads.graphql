@@ -18,6 +18,14 @@ type AddOrganizationPayload implements Payload {
   success: Boolean!
 }
 
+"Add root Payload type definition"
+type AddRootPayload implements Payload {
+  "Newly added id root"
+  rootId: String
+  "Did the query succeed?"
+  success: Boolean!
+}
+
 "Update access token Payload type definition"
 type UpdateAccessTokenPayload implements Payload {
   "New API access token"

@@ -145,6 +145,13 @@ AddStakeholderPayload = NamedTuple(
         ("email", str),
     ],
 )
+
+
+class AddRootPayload(NamedTuple):
+    root_id: str
+    success: bool
+
+
 ApproveDraftPayload = NamedTuple(
     "ApproveDraftPayload",
     [

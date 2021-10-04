@@ -161,7 +161,7 @@ async def add_git_root(
     user_email: str,
     ensure_org_uniqueness: bool = True,
     **kwargs: Any,
-) -> None:
+) -> str:
     group_name: str = kwargs["group_name"].lower()
     url: str = _format_git_repo_url(kwargs["url"])
     branch: str = kwargs["branch"].rstrip()
@@ -170,11 +170,11 @@ async def add_git_root(
     gitignore = kwargs["gitignore"]
     enforcer = await authz.get_group_level_enforcer(user_email)
 
+    loaders.group_roots.clear(group_name)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
         nickname, await loaders.group_roots.load(group_name)
     )
-
     if gitignore and not enforcer(group_name, "update_git_root_filter"):
         raise PermissionDenied()
     if not validations.is_exclude_valid(gitignore, url):
@@ -229,6 +229,8 @@ async def add_git_root(
             user_email=user_email,
         )
 
+    return root.id
+
 
 async def add_ip_root(
     loaders: Any,
@@ -256,6 +258,7 @@ async def add_ip_root(
         raise RepeatedRoot()
 
     nickname = kwargs["nickname"]
+    loaders.group_roots.clear(group_name)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
         nickname, await loaders.group_roots.load(group_name)
@@ -315,6 +318,7 @@ async def add_url_root(
         raise RepeatedRoot()
 
     nickname = kwargs["nickname"]
+    loaders.group_roots.clear(group_name)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
         nickname, await loaders.group_roots.load(group_name)
