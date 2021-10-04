@@ -18073,7 +18073,7 @@
       __empty__
     threat: >
       __empty__
-  category: Abuse Functionality
+  category: Manipulate Data
   es:
     title: Insecurely generated token - OTP
     description: >
@@ -18316,6 +18316,54 @@
       remediation_level: "O"
       report_confidence: "C"
   requirements: ["228", "319"]
+  metadata:
+    en:
+      details: __empty__
+"389":
+  en:
+    title: Insufficient data authenticity validation - JAR signing
+    description: >
+      The JAR files that compose the application
+      are not correctly signed,
+      allowing an attacker to modify the code
+      withouth raising alerts
+      on an integrity check
+    impact: >
+      Inject malicious code in the application without raising alerts
+    recommendation: >
+      Sign the application JAR files using a trusted key
+    threat: >
+      Anonymous attacker from Internet with access to the JAR Files
+  category: Manipulate Data
+  es:
+    title: Insufficient data authenticity validation - JAR signing
+    description: >
+      Los archivos JAR que componen la aplicación
+      no han sido firmados correctamente,
+      permitiendole a un atacante realizar modificaciones
+      al código sin que éstas se vean reflejadas
+      en una verificación de integridad.
+    impact: >
+      Ingresar código malicioso en la aplicación sin levantar alertas
+    recommendation: >
+      Firmar los archivos JAR utilizando una llave de confianza
+    threat: >
+      Atacante anónimo desde Internet con acceso a los JAR
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["122", "173", "178", "320"]
   metadata:
     en:
       details: __empty__
