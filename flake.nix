@@ -9,7 +9,6 @@
   };
   outputs =
     { self
-    , makes
     , nixpkgsSource
     , nixpkgsSource2
     , nixpkgsSource3
@@ -87,13 +86,5 @@
         sslCerts = importUtility "ssl-certs";
       };
     in
-    (
-      (makes.lib.flakes.evaluate {
-        inputs = {
-          inherit self;
-        };
-        inherit system;
-      }) //
-      { packages.x86_64-linux = attrs.packagesFlattened; }
-    );
+    { packages.x86_64-linux = attrs.packagesFlattened; };
 }

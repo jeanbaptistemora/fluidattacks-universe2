@@ -67,6 +67,16 @@ let
     stage = "test-infra";
     tags = [ "autoscaling" ];
   };
+
+  chartsTemplate = {
+    artifacts = {
+      expire_in = "1 week";
+      paths = [ "integrates/charts" ];
+      when = "on_success";
+    };
+    stage = "analytics";
+    tags = [ "autoscaling" ];
+  };
 in
 {
   pipelines = {
@@ -295,6 +305,27 @@ in
               paths = [ "integrates/coverage.xml" ];
               expire_in = "1 week";
             };
+          };
+        }
+        {
+          args = [ "dev" ];
+          output = "/integrates/charts/documents";
+          gitlabExtra = chartsTemplate // {
+            parallel = 5;
+            rules = gitlabOnlyDev;
+          };
+        }
+        {
+          args = [ "prod" ];
+          output = "/integrates/charts/documents";
+          gitlabExtra = chartsTemplate // {
+            interruptible = false;
+            parallel = 14;
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "integrates_charts_make_documents_prod_schedule")
+              (gitlabCi.rules.always)
+            ];
           };
         }
         {

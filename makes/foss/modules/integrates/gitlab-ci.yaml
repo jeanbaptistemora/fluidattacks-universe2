@@ -2472,6 +2472,56 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+/integrates/charts/documents__dev:
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - integrates/charts
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs: []
+  parallel: 5
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/charts/documents 'dev'
+  stage: analytics
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/integrates/charts/documents__prod:
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - integrates/charts
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  parallel: 14
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_charts_make_documents_prod_schedule == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/charts/documents 'prod'
+  stage: analytics
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
 /integrates/charts/snapshots__prod:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
