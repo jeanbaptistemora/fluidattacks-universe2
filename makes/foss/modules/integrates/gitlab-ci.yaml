@@ -139,6 +139,23 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+/integrates/back/destroy/eph:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_nightly_build == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/back/destroy/eph
+  stage: rotation
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
 /integrates/back/test/functional__accept_legal:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true

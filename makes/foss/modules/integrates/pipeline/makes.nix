@@ -101,6 +101,18 @@ in
           output = "/integrates/back/authz-matrix";
           gitlabExtra = gitlabDeployAppDev;
         }
+        {
+          output = "/integrates/back/destroy/eph";
+          gitlabExtra = {
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "integrates_nightly_build")
+              (gitlabCi.rules.always)
+            ];
+            stage = "rotation";
+            tags = [ "autoscaling" ];
+          };
+        }
       ]
       ++ (builtins.map
         (args: {

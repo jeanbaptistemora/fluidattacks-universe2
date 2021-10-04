@@ -7,7 +7,6 @@ forces.process-groups-break
 forces.test
 integrates.back.deploy.dev
 integrates.back.deploy.prod
-integrates.back.destroy.eph
 integrates.back.test.unit
 integrates.batch
 integrates.cache

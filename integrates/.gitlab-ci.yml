@@ -135,11 +135,6 @@ integrates.back.deploy.prod.odd:
       when: never
     - when: always
 
-integrates.back.destroy.eph:
-  <<: *makes
-  <<: *in_schedule_nightly_build_integrates
-  stage: rotation
-
 integrates.back.security:
   <<: *makes
   <<: *in_dev_branch_integrates
