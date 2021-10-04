@@ -151,6 +151,11 @@ class PureIterFactory:
     def chain_lists(
         unchained: PureIter[IO[FrozenList[_I]]],
     ) -> PureIter[IO[_I]]:
-        iters = (unsafe_perform_io(piter) for piter in unchained)
-        chained = map(lambda x: IO(x), chain.from_iterable(iters))
-        return PureIter(_PureIter(Patch(lambda: chained)))
+        def iters() -> Iterable[FrozenList[_I]]:
+            for piter in unchained:
+                yield unsafe_perform_io(piter)
+
+        def chained() -> Iterable[IO[_I]]:
+            return map(lambda x: IO(x), chain.from_iterable(iters()))
+
+        return PureIter(_PureIter(Patch(lambda: chained())))
