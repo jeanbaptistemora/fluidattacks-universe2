@@ -45,7 +45,7 @@ function main {
     && B64_PRODUCT_API_TOKEN="$(b64 "${PRODUCT_API_TOKEN}")" \
     && REPLICAS="$(hpa_replicas)" \
     && UUID="$(uuidgen)" \
-    && for manifest in __envManifests__/*; do
+    && for manifest in __argManifests__/*; do
       echo "[INFO] Applying: ${manifest}" \
         && apply "${manifest}" \
         || return 1

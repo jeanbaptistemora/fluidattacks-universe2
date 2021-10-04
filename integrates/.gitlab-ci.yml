@@ -93,48 +93,6 @@ integrates.charts.snapshots-prod:
   script: [./m integrates.charts.snapshots prod]
   stage: analytics
 
-integrates.back.deploy.dev:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: deploy-app
-  environment:
-    name: development/$CI_COMMIT_REF_SLUG
-    url: https://$CI_COMMIT_REF_SLUG.app.fluidattacks.com
-
-.integrates_back_deploy_prod: &integrates_back_deploy_prod
-  <<: *makes
-  script:
-  - ./m integrates.back.deploy.prod
-  stage: deploy-app
-  retry: 1
-  environment:
-    name: production
-    url: https://app.fluidattacks.com
-
-integrates.back.deploy.prod:
-  <<: *in_master_except_periodic_jobs_integrates
-  <<: *integrates_back_deploy_prod
-
-integrates.back.deploy.prod.even:
-  <<: *integrates_back_deploy_prod
-  needs: [ /taintTerraform/makesUsersIntegratesKeys1 ]
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $makes_users_rotate_even == null
-      when: never
-    - when: always
-
-integrates.back.deploy.prod.odd:
-  <<: *integrates_back_deploy_prod
-  needs: [ /taintTerraform/makesUsersIntegratesKeys2 ]
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $makes_users_rotate_odd == null
-      when: never
-    - when: always
-
 integrates.back.security:
   <<: *makes
   <<: *in_dev_branch_integrates

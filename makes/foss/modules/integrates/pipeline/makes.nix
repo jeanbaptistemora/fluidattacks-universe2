@@ -102,6 +102,56 @@ in
           gitlabExtra = gitlabDeployAppDev;
         }
         {
+          output = "/integrates/back/deploy/dev";
+          gitlabExtra = gitlabDeployAppDev // {
+            environment = {
+              name = "development/$CI_COMMIT_REF_SLUG";
+              url = "https://$CI_COMMIT_REF_SLUG.app.fluidattacks.com";
+            };
+          };
+        }
+        {
+          output = "/integrates/back/deploy/prod";
+          gitlabExtra = gitlabDeployAppMaster // {
+            environment = {
+              name = "production";
+              url = "https://app.fluidattacks.com";
+            };
+          };
+        }
+        {
+          args = [ "even" ];
+          output = "/integrates/back/deploy/prod";
+          gitlabExtra = gitlabDeployAppMaster // {
+            environment = {
+              name = "production";
+              url = "https://app.fluidattacks.com";
+            };
+            needs = [ "/taintTerraform/makesUsersIntegratesKeys1" ];
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "makes_users_rotate_even")
+              (gitlabCi.rules.always)
+            ];
+          };
+        }
+        {
+          args = [ "odd" ];
+          output = "/integrates/back/deploy/prod";
+          gitlabExtra = gitlabDeployAppMaster // {
+            environment = {
+              name = "production";
+              url = "https://app.fluidattacks.com";
+            };
+            needs = [ "/taintTerraform/makesUsersIntegratesKeys2" ];
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "makes_users_rotate_odd")
+              (gitlabCi.rules.always)
+            ];
+          };
+        }
+        {
           output = "/integrates/back/destroy/eph";
           gitlabExtra = {
             rules = [
@@ -302,7 +352,7 @@ in
           output = "/integrates/web/e2e";
           gitlabExtra = gitlabPostDeployDev // {
             needs = [
-              "integrates.back.deploy.dev"
+              "/integrates/back/deploy/dev"
               "/integrates/front/deploy/dev"
             ];
             parallel = 5;

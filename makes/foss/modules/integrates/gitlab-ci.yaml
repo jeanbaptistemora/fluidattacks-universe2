@@ -139,6 +139,94 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+/integrates/back/deploy/dev:
+  environment:
+    name: development/$CI_COMMIT_REF_SLUG
+    url: https://$CI_COMMIT_REF_SLUG.app.fluidattacks.com
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/deploy/dev
+  stage: deploy-app
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/integrates/back/deploy/prod:
+  environment:
+    name: production
+    url: https://app.fluidattacks.com
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH != "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/deploy/prod
+  stage: deploy-app
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/integrates/back/deploy/prod__even:
+  environment:
+    name: production
+    url: https://app.fluidattacks.com
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs:
+    - /taintTerraform/makesUsersIntegratesKeys1
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $makes_users_rotate_even == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/back/deploy/prod 'even'
+  stage: deploy-app
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/integrates/back/deploy/prod__odd:
+  environment:
+    name: production
+    url: https://app.fluidattacks.com
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs:
+    - /taintTerraform/makesUsersIntegratesKeys2
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $makes_users_rotate_odd == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/back/deploy/prod 'odd'
+  stage: deploy-app
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
 /integrates/back/destroy/eph:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2592,7 +2680,7 @@
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs:
-    - integrates.back.deploy.dev
+    - /integrates/back/deploy/dev
     - /integrates/front/deploy/dev
   parallel: 5
   retry: 2

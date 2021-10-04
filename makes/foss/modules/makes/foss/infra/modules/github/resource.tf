@@ -24,19 +24,19 @@ resource "github_branch_protection" "main" {
 }
 
 resource "github_repository" "repo" {
-  allow_merge_commit     = false
+  allow_merge_commit     = true
   allow_squash_merge     = false
-  allow_rebase_merge     = true
+  allow_rebase_merge     = false
   auto_init              = true
   delete_branch_on_merge = false
   description            = var.description
   has_downloads          = false
   has_issues             = true
-  has_projects           = true
+  has_projects           = false
   has_wiki               = false
   homepage_url           = var.homepage
   is_template            = false
-  license_template       = "mpl-2.0"
+  license_template       = "mit"
   name                   = var.name
   topics                 = var.topics
   vulnerability_alerts   = false
