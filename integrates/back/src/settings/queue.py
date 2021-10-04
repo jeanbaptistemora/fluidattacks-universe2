@@ -1,3 +1,4 @@
+# pylint: disable=unsubscriptable-object
 """Queue management"""
 from asyncio.queues import (
     Queue,

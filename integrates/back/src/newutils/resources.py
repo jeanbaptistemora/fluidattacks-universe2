@@ -24,6 +24,7 @@ async def download_file(file_info: str, group_name: str) -> str:
 async def upload_file(
     file_info: str, group_name: str
 ) -> Dict[str, Union[str, str]]:
+    # pylint: disable=unsubscriptable-object
     group_name = group_name.lower()
     file_url = f"{group_name}/{file_info}"
     return await s3_ops.sing_upload_url(

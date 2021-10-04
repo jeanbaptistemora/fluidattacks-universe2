@@ -1,3 +1,4 @@
+# pylint: disable=unsubscriptable-object
 from . import (
     model as unreliable_indicators_model,
 )

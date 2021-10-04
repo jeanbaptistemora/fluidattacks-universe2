@@ -1,3 +1,4 @@
+# pylint: disable=unsubscriptable-object
 from boto3.dynamodb.conditions import (
     Key,
 )

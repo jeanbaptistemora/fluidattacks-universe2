@@ -63,6 +63,7 @@ async def download_file(bucket: str, file_name: str, file_path: str) -> None:
 
 
 async def list_files(bucket: str, name: Optional[str] = None) -> List[str]:
+    # pylint: disable=unsubscriptable-object
     async with aio_client() as client:
         resp = await client.list_objects_v2(Bucket=bucket, Prefix=name)
         return [item["Key"] for item in resp.get("Contents", [])]

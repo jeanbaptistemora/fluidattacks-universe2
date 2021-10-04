@@ -306,6 +306,7 @@ def format_finding(
     finding: Dict[str, FindingType], attrs: Optional[Set[str]] = None
 ) -> Dict[str, FindingType]:
     """Returns the data in the format expected by default resolvers"""
+    # pylint: disable=unsubscriptable-object
     formated_finding = finding.copy()
     if not attrs or "finding_id" in attrs:
         formated_finding["id"] = finding["finding_id"]

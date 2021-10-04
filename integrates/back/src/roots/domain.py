@@ -612,6 +612,7 @@ async def deactivate_root(
     root: RootItem,
     user_email: str,
 ) -> None:
+    # pylint: disable=unsubscriptable-object
     new_status = "INACTIVE"
 
     if root.state.status != new_status:

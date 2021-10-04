@@ -1,3 +1,4 @@
+# pylint: disable=unsubscriptable-object
 from . import (
     datetime as datetime_utils,
 )

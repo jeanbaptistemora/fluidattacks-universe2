@@ -69,6 +69,7 @@ async def create_session_web(request: Request) -> bool:
 
 
 async def get_session_key(email: str, attr: str) -> Optional[str]:
+    # pylint: disable=unsubscriptable-object
     session_key: Optional[str] = None
     with contextlib.suppress(RedisKeyNotFound):
         session_key = await redis_get_entity_attr(
