@@ -8,12 +8,11 @@ from decimal import (
     Decimal,
 )
 from typing import (
-    cast,
+    Any,
     Dict,
     List,
     NamedTuple,
     Tuple,
-    Union,
 )
 
 # Constants
@@ -109,17 +108,18 @@ def format_document(
     document: Dict[str, Dict[datetime, float]],
     y_label: str,
     tick_format: bool = True,
-) -> dict:
+) -> Dict[str, Any]:
     return dict(
         data=dict(
             x="date",
             columns=[
-                # pylint: disable=unsubscriptable-object
-                cast(List[Union[Decimal, str]], [name])
+                [name]
                 + [
                     date.strftime(DATE_FMT)
                     if name == "date"
-                    else Decimal(document[name][date]).quantize(Decimal("0.1"))
+                    else str(
+                        Decimal(document[name][date]).quantize(Decimal("0.1"))
+                    )
                     for date in tuple(document["date"])[-12:]
                 ]
                 for name in document
@@ -181,17 +181,18 @@ def format_document(
 def format_distribution_document(
     document: Dict[str, Dict[datetime, float]],
     y_label: str,
-) -> dict:
+) -> Dict[str, Any]:
     return dict(
         data=dict(
             x="date",
             columns=[
-                # pylint: disable=unsubscriptable-object
-                cast(List[Union[Decimal, str]], [name])
+                [name]
                 + [
                     date.strftime(DATE_FMT)
                     if name == "date"
-                    else Decimal(document[name][date]).quantize(Decimal("0.1"))
+                    else str(
+                        Decimal(document[name][date]).quantize(Decimal("0.1"))
+                    )
                     for date in tuple(document["date"])[-12:]
                 ]
                 for name in document
