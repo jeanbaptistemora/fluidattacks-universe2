@@ -1,5 +1,5 @@
 resource "checkly_check_group" "fluidattacks" {
-  name         = "Fluid Attacks test"
+  name         = "Fluid Attacks"
   activated    = true
   muted        = false
   concurrency  = 3
