@@ -57,4 +57,4 @@ class ParallelGetter(
         self,
         pages: List[_PageTVar],
     ) -> IO[List[Maybe[_DataTVar]]]:
-        return Flattener.list_io(_thread_pool.map(self.getter, pages))
+        return Flattener.list_io(tuple(_thread_pool.map(self.getter, pages)))
