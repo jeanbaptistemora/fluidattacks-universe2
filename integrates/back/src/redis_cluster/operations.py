@@ -132,6 +132,7 @@ async def redis_get_entity_attr(
     attr: str,
     **args: str,
 ) -> Any:
+    # pylint: disable=unsubscriptable-object
     # https://redis.io/commands/get
     key: str = redis_model.build_key(entity, attr, **args)
     response: Optional[bytes] = await redis_cmd("get", key)

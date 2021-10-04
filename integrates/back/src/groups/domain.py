@@ -1,4 +1,4 @@
-# pylint:disable=too-many-lines
+# pylint:disable=too-many-lines, unsubscriptable-object
 
 from aiodataloader import (
     DataLoader,

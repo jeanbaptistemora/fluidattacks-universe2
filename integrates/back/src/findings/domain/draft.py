@@ -237,6 +237,7 @@ async def get_drafts_by_group(
     attrs: Optional[Set[str]] = None,
     include_deleted: bool = False,
 ) -> List[Dict[str, FindingType]]:
+    # pylint: disable=unsubscriptable-object
     if attrs and "historic_state" not in attrs:
         attrs.add("historic_state")
     findings = await findings_dal.get_findings_by_group(group_name, attrs)

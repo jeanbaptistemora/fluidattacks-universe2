@@ -1,4 +1,4 @@
-# pylint: disable=too-many-lines
+# pylint: disable=too-many-lines, unsubscriptable-object
 
 import aioboto3
 from aiodataloader import (

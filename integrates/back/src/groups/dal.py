@@ -68,6 +68,7 @@ async def add(group: GroupType) -> bool:
 async def exists(
     group_name: str, pre_computed_group_data: Optional[GroupType] = None
 ) -> bool:
+    # pylint: disable=unsubscriptable-object
     group = group_name.lower()
     group_data = pre_computed_group_data or await get_attributes(
         group, ["project_name"]
@@ -118,6 +119,7 @@ async def get_attributes(
     attributes: Optional[List[str]] = None,
     table: aioboto3.session.Session.client = None,
 ) -> Dict[str, Union[str, List[str]]]:
+    # pylint: disable=unsubscriptable-object
     response = {}
     query_attrs = {
         "KeyConditionExpression": Key("project_name").eq(group_name),
@@ -180,6 +182,7 @@ async def is_alive(
     group_name: str, pre_computed_group_data: Optional[GroupType] = None
 ) -> bool:
     """Validate if a group exist and is not deleted."""
+    # pylint: disable=unsubscriptable-object
     group_name = group_name.lower()
     is_valid_group: bool = True
     if await exists(group_name, pre_computed_group_data):

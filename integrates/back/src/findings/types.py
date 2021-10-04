@@ -1,3 +1,5 @@
+# pylint: disable=too-few-public-methods,  inherit-non-class
+# pylint: disable=unsubscriptable-object
 from db_model.findings.enums import (
     FindingSorts,
 )

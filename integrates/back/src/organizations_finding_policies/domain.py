@@ -84,6 +84,7 @@ def validate_finding_name(name: str) -> None:
 async def get_finding_policy_by_name(
     *, org_name: str, finding_name: str
 ) -> Optional[OrgFindingPolicyItem]:
+    # pylint: disable=unsubscriptable-object
     return next(
         (
             fin_policy

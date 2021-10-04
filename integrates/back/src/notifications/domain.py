@@ -126,6 +126,7 @@ async def update_group(
     service: str,
     subscription: str,
 ) -> bool:
+    # pylint: disable=unsubscriptable-object
     translations: Dict[Union[str, bool], str] = {
         "continuous": "Continuous Hacking",
         "oneshot": "One-Shot Hacking",
@@ -177,6 +178,7 @@ async def new_group(
     service: str,
     subscription: str,
 ) -> bool:
+    # pylint: disable=unsubscriptable-object
     translations: Dict[Union[str, bool], str] = {
         "continuous": "Continuous Hacking",
         "oneshot": "One-Shot Hacking",
