@@ -1,5 +1,5 @@
 resource "checkly_check" "airs" {
-  name                      = "Airs"
+  name                      = "WEB"
   type                      = "BROWSER"
   activated                 = true
   frequency                 = 10
@@ -8,6 +8,7 @@ resource "checkly_check" "airs" {
   use_global_alert_settings = false
   runtime_id                = "2021.06"
   group_id                  = checkly_check_group.fluidattacks.id
+  group_order               = 1
 
   locations = ["us-east-1"]
 

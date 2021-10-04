@@ -1,11 +1,11 @@
 resource "checkly_check_group" "fluidattacks" {
   name         = "Fluid Attacks test"
-  activated    = false
+  activated    = true
   muted        = false
   concurrency  = 3
   double_check = true
 
-  tags = ["Production"]
+  tags = ["production"]
 
   locations = [
     "us-east-1",
