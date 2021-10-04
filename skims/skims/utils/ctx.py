@@ -30,9 +30,6 @@ def _get_artifact(env_var: str) -> str:
     raise ValueError(f"Expected environment variable: {env_var}")
 
 
-# Environment vars that change the execution
-SHOULD_UPDATE_TESTS: bool = "SKIMS_SHOULD_UPDATE_TESTS" in os.environ
-
 # Side effects
 CIPHER_SUITES_PATH: str = _get_artifact("SKIMS_CIPHER_SUITES_PATH")
 CRITERIA_REQUIREMENTS: str = _get_artifact("SKIMS_CRITERIA_REQUIREMENTS")

@@ -2,12 +2,10 @@ import json
 from model import (
     core_model,
 )
+import os
 import pytest
 from typing import (
     List,
-)
-from utils.ctx import (
-    SHOULD_UPDATE_TESTS,
 )
 from zone import (
     t,
@@ -36,9 +34,10 @@ def test_model_core_model_manifest_findings() -> None:
         + "\n"
     )
 
-    if SHOULD_UPDATE_TESTS:
-        with open(path, "w") as handle_w:
-            handle_w.write(expected)
+    expected_path = os.path.join(os.environ["STATE"], path)
+    os.makedirs(os.path.dirname(expected_path), exist_ok=True)
+    with open(expected_path, "w") as handle_w:
+        handle_w.write(expected)
 
     with open(path) as handle_r:
         assert handle_r.read() == expected
@@ -67,9 +66,10 @@ def test_model_core_model_manifest_queues() -> None:
         + "\n"
     )
 
-    if SHOULD_UPDATE_TESTS:
-        with open(path, "w") as handle_w:
-            handle_w.write(expected)
+    expected_path = os.path.join(os.environ["STATE"], path)
+    os.makedirs(os.path.dirname(expected_path), exist_ok=True)
+    with open(expected_path, "w") as handle_w:
+        handle_w.write(expected)
 
     with open(path) as handle_r:
         assert handle_r.read() == expected
