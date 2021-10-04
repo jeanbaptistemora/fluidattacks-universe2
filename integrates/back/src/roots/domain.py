@@ -7,6 +7,9 @@ from custom_exceptions import (
     RepeatedRoot,
     RootNotFound,
 )
+from custom_types import (
+    Group,
+)
 from db_model import (
     roots as roots_model,
 )
@@ -705,7 +708,7 @@ async def update_root_state(
 
 
 def get_root_id_by_filename(
-    filename: str, group_roots: Tuple[Root, ...]
+    filename: str, group_roots: Tuple[RootItem, ...]
 ) -> str:
     root_nickname = filename.split("/")[0]
     file_name_root_ids = [
@@ -736,6 +739,47 @@ async def get_last_status_update(
             if state.status != current_status
         ),
         historic_state[0].modified_date,
+    )
+
+
+def _format_input_url(url: str) -> str:
+    return (
+        url.strip()
+        .replace("https://", "")
+        .replace("http://", "")
+        .replace("www.", "")
+        .split("/")[0]
+    )
+
+
+def get_unreliable_root_id_by_component(
+    component: str, group_roots: Tuple[RootItem, ...], group: Group
+) -> str:
+    if not component:
+        return ""
+
+    formatted_component = _format_input_url(component)
+    has_black_service = group["service"] == "BLACK"
+    has_white_service = group["service"] == "WHITE"
+    return next(
+        (
+            root.id
+            for root in group_roots
+            if (
+                has_white_service
+                and isinstance(root, GitRootItem)
+                and (
+                    formatted_component
+                    in set(map(_format_input_url, root.state.environment_urls))
+                )
+            )
+            or (
+                has_black_service
+                and isinstance(root, URLRootItem)
+                and _format_input_url(root.state.host) == formatted_component
+            )
+        ),
+        "",
     )
 
 
