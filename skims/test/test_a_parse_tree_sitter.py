@@ -4,6 +4,7 @@ from aioextensions import (
 from model import (
     core_model,
 )
+import os
 import pytest
 from sast.parse import (
     get_graph_db,
@@ -13,9 +14,6 @@ from sast_symbolic_evaluation.evaluate import (
 )
 from typing import (
     Tuple,
-)
-from utils.ctx import (
-    SHOULD_UPDATE_TESTS,
 )
 from utils.encodings import (
     json_dumps,
@@ -80,12 +78,13 @@ async def test_graph_generation(
     graph_db = await get_graph_db(files_to_test)
     graph_db_as_json_str = json_dumps(graph_db, indent=2, sort_keys=True)
 
-    if SHOULD_UPDATE_TESTS:
-        with open(
-            f"skims/test/data/sast/root-graph_{suffix_out}.json",
-            "w",
-        ) as handle:
-            handle.write(graph_db_as_json_str)
+    expected_path = os.path.join(
+        os.environ["STATE"],
+        f"skims/test/data/sast/root-graph_{suffix_out}.json",
+    )
+    os.makedirs(os.path.dirname(expected_path), exist_ok=True)
+    with open(expected_path, "w") as handle:
+        handle.write(graph_db_as_json_str)
 
     with open(f"skims/test/data/sast/root-graph_{suffix_out}.json") as handle:
         expected = handle.read()
@@ -103,12 +102,13 @@ async def test_graph_generation(
         sort_keys=True,
     )
 
-    if SHOULD_UPDATE_TESTS:
-        with open(
-            f"skims/test/data/sast/root-graph-syntax_{suffix_out}.json",
-            "w",
-        ) as handle:
-            handle.write(syntax_steps_as_json_str)
+    expected_path = os.path.join(
+        os.environ["STATE"],
+        f"skims/test/data/sast/root-graph-syntax_{suffix_out}.json",
+    )
+    os.makedirs(os.path.dirname(expected_path), exist_ok=True)
+    with open(expected_path, "w") as handle:
+        handle.write(syntax_steps_as_json_str)
 
     with open(
         f"skims/test/data/sast/root-graph-syntax_{suffix_out}.json",
