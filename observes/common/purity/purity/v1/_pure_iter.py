@@ -8,6 +8,9 @@ from collections import (
 from dataclasses import (
     dataclass,
 )
+from itertools import (
+    chain,
+)
 from purity.v1._frozen import (
     FrozenList,
 )
@@ -19,6 +22,9 @@ from returns.io import (
 )
 from returns.primitives.hkt import (
     SupportsKind1,
+)
+from returns.unsafe import (
+    unsafe_perform_io,
 )
 from typing import (
     Callable,
@@ -132,3 +138,11 @@ class PureIterFactory:
 
         draft = _PureIter(Patch(lambda: iter(filtered())))
         return PureIter(draft)
+
+    @staticmethod
+    def chain_lists(
+        unchained: PureIter[IO[FrozenList[_I]]],
+    ) -> PureIter[IO[_I]]:
+        iters = (unsafe_perform_io(piter) for piter in unchained)
+        chained = map(lambda x: IO(x), chain.from_iterable(iters))
+        return PureIter(_PureIter(Patch(lambda: chained)))
