@@ -9403,39 +9403,47 @@
   en:
     title: Insecure service configuration - Keys
     description: >
-      __empty__
+      The source code repository stores cipher keys directly.
+      Allowing an attacker with access to the source code
+      to compromise the keys to impersonate the application
+      or decrypt the communications between server and client
     impact: >
-      __empty__
+      Obtain cypher keys to craft new attack vectors
     recommendation: >
-      __empty__
+      Store the cipher keys in a secured Keystore
     threat: >
-      __empty__
+      Authenticated attacker from Internet with access to the source code
   es:
     title: Insecure service configuration - Keys
     description: >
-      __empty__
+      En el repositorio de código fuente
+      se encuentran almacenadas llaves de cifrado directamente.
+      Permitiendo a un atacante que tenga acceso al código
+      comprometer las llaves para suplantar la aplicación
+      o descifrar las comunicaciones entre servidor y cliente.
     impact: >
-      __empty__
+      Obtener llaves de cifrado para generar nuevos vectores de ataque
     recommendation: >
-      __empty__
+      Almacenar las llaves de cifrado en un Keystore
+      debidamente protegido
     threat: >
-      __empty__
+      Atacante autenticado desde Internet con acceso al código fuente
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: ["266"]
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["145"]
   metadata:
     en:
       details: __empty__
