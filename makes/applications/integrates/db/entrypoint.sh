@@ -2,7 +2,6 @@
 
 function populate {
   local email="${1:-integratesmanager@gmail.com}"
-  local api_status="${2:-no-migration}"
   local db_design='__envNewDbDesign__/database-design.json'
   local TMP_ITEMS='.tmp_integrates_vms'
   local i=0
@@ -20,32 +19,20 @@ function populate {
     url_root_metadata
     url_root_state
     url_root_historic_state
+    finding_approval
+    finding_creation
+    finding_historic_state
+    finding_historic_verification
+    finding_id
+    finding_metadata
+    finding_state
+    finding_submission
+    finding_unreliable_indicators
+    finding_verification
   )
-  local excluded_data_files=()
   local facets=''
 
-  if ! { test "${api_status}" == 'migration' || test "${api_status}" == 'no-migration'; }; then
-    echo '[ERROR] Second argument must be one of: migration,  no-migration' \
-      && return 1
-  fi \
-    && if test "${api_status}" == 'migration'; then
-      included_facets+=(
-        finding_approval
-        finding_creation
-        finding_historic_state
-        finding_historic_verification
-        finding_id
-        finding_metadata
-        finding_state
-        finding_submission
-        finding_unreliable_indicators
-        finding_verification
-      ) \
-      excluded_data_files+=(
-        findings
-      )
-    fi \
-    && facets=$(echo "${included_facets[@]}" | jq -R 'split(" ")') \
+  facets=$(echo "${included_facets[@]}" | jq -R 'split(" ")') \
     && echo '[INFO] Populating from new database design...' \
     && jq -c --arg facets "${facets}" \
       '{integrates_vms: [.DataModel[].TableFacets[] | select(.FacetName as $fn | $facets | index($fn) ) | {PutRequest: {Item: .TableData[]}}]}' \
@@ -69,10 +56,6 @@ function populate {
     && for data in '__envDb__/data/'*'.json'; do
       sed "s/__adminEmail__/${email}/g" "${data}" \
         > "${STATE_PATH}/$(basename "${data}")"
-    done \
-    && for data_file in "${excluded_data_files[@]}"; do
-      echo "[INFO] Ignoring data file: ${data_file}" \
-        && rm "${STATE_PATH}/${data_file}.json"
     done \
     && for data in "${STATE_PATH}/"*'.json'; do
       echo "[INFO] Writing data from: ${data}" \
