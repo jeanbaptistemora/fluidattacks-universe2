@@ -8,6 +8,7 @@ from typing import (
 )
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("submit_draft")
 @pytest.mark.parametrize(
@@ -24,6 +25,7 @@ async def test_submit_draft(populate: bool, email: str) -> None:
     assert result["data"]["submitDraft"]["success"]
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("submit_draft")
 @pytest.mark.parametrize(

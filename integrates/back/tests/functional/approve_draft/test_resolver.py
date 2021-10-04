@@ -8,6 +8,7 @@ from typing import (
 )
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("approve_draft")
 @pytest.mark.parametrize(

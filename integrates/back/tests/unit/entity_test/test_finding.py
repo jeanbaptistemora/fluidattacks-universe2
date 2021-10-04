@@ -273,6 +273,7 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
         assert value == expected_vuln[field]
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.changes_db
 async def test_remove_evidence() -> None:
     """Check for removeEvidence mutation."""
@@ -293,6 +294,7 @@ async def test_remove_evidence() -> None:
     assert "success" in result["data"]["removeEvidence"]
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.changes_db
 async def test_update_evidence() -> None:
     """Check for updateEvidence mutation."""
@@ -324,6 +326,7 @@ async def test_update_evidence() -> None:
     assert result["data"]["updateEvidence"]["success"]
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.changes_db
 async def test_update_evidence_records_append() -> None:
     number_of_records = 4
@@ -379,6 +382,7 @@ async def test_update_evidence_records_append() -> None:
     )
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.changes_db
 async def test_update_evidence_description() -> None:
     """Check for updateEvidenceDescription mutation."""
@@ -399,6 +403,7 @@ async def test_update_evidence_description() -> None:
     assert result["data"]["updateEvidenceDescription"]
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.changes_db
 async def test_update_severity() -> None:
     """Check for updateSeverity mutation."""
@@ -482,6 +487,7 @@ async def test_add_finding_consult_parent_non_zero() -> None:
     assert result["data"]["addFindingConsult"]["success"]
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.changes_db
 async def test_update_description() -> None:
     """Check for updateDescription mutation."""
@@ -530,6 +536,7 @@ async def test_update_description() -> None:
     assert result["data"]["updateDescription"]["success"]
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.changes_db
 async def test_reject_draft() -> None:
     """Check for rejectDraft mutation."""
@@ -547,6 +554,7 @@ async def test_reject_draft() -> None:
     assert result["data"]["rejectDraft"]
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_remove_finding() -> None:
@@ -601,6 +609,7 @@ async def test_remove_finding_new() -> None:
         assert await loaders.finding_new.load(finding_id)
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_approve_draft() -> None:
@@ -620,6 +629,7 @@ async def test_approve_draft() -> None:
     )
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_approve_draft_new() -> None:
@@ -637,6 +647,7 @@ async def test_approve_draft_new() -> None:
     assert result["errors"][0]["message"] == str(NotSubmitted())
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.changes_db
 async def test_create_draft() -> None:
     """Check for addDraft mutation."""
@@ -676,6 +687,7 @@ async def test_create_draft() -> None:
     assert result["data"]["addDraft"]["success"]
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.changes_db
 async def test_submit_draft() -> None:
     """Check for submitDraft mutation."""
@@ -695,6 +707,7 @@ async def test_submit_draft() -> None:
     assert result["errors"][0]["message"] == expected_error
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_filter_deleted_findings() -> None:
