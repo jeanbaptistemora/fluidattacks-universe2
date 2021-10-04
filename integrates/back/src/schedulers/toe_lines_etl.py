@@ -1,6 +1,5 @@
 from aioextensions import (
     collect,
-    in_process,
 )
 import csv
 from custom_exceptions import (
@@ -198,14 +197,13 @@ async def update_toe_lines_from_csv(
     group_toe_lines_hashes = {
         toe_lines.get_hash() for toe_lines in group_toe_lines
     }
-    cvs_group_toe_lines = await in_process(
-        _get_group_toe_lines_from_cvs, lines_csv_path, group_name, group_roots
+    cvs_group_toe_lines = _get_group_toe_lines_from_cvs(
+        lines_csv_path, group_name, group_roots
     )
     cvs_group_toe_lines_hashes = {
         toe_lines.get_hash() for toe_lines in cvs_group_toe_lines
     }
-    toe_lines_to_update = await in_process(
-        _get_toe_lines_to_update,
+    toe_lines_to_update = _get_toe_lines_to_update(
         group_toe_lines,
         group_toe_lines_hashes,
         cvs_group_toe_lines,
@@ -216,8 +214,8 @@ async def update_toe_lines_from_csv(
             for toe_lines in toe_lines_to_update
         ]
     )
-    toe_lines_to_remove = await in_process(
-        _get_toe_lines_to_remove, group_toe_lines, cvs_group_toe_lines_hashes
+    toe_lines_to_remove = _get_toe_lines_to_remove(
+        group_toe_lines, cvs_group_toe_lines_hashes
     )
     await collect(
         [
@@ -227,8 +225,7 @@ async def update_toe_lines_from_csv(
             for toe_lines in toe_lines_to_remove
         ]
     )
-    toe_lines_to_add = await in_process(
-        _get_toe_lines_to_add,
+    toe_lines_to_add = _get_toe_lines_to_add(
         group_toe_lines,
         group_toe_lines_hashes,
         cvs_group_toe_lines,
