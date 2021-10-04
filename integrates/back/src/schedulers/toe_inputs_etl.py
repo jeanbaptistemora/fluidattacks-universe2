@@ -7,8 +7,15 @@ from custom_exceptions import (
     GroupNameNotFound,
     InvalidField,
 )
+from custom_types import (
+    Group,
+)
 from dataloaders import (
+    Dataloaders,
     get_new_context,
+)
+from db_model.roots.types import (
+    RootItem,
 )
 from db_model.toe_inputs.types import (
     ToeInput,
@@ -23,6 +30,9 @@ from newutils.validations import (
     validate_email_address,
 )
 import re
+from roots import (
+    domain as roots_domain,
+)
 import tempfile
 from toe.inputs import (
     domain as toe_inputs_domain,
@@ -56,7 +66,7 @@ def _format_email(email: str) -> str:
 
 
 def _get_group_toe_inputs_from_cvs(
-    inputs_csv_path: str, group_name: str
+    inputs_csv_path: str, group: Group, group_roots: Tuple[RootItem, ...]
 ) -> Set[ToeInput]:
     default_date = datetime_utils.DEFAULT_ISO_STR
     inputs_csv_fields: List[Tuple[str, Callable, Any]] = [
@@ -85,8 +95,12 @@ def _get_group_toe_inputs_from_cvs(
                 except ValueError:
                     new_toe_input[field_name] = default_value
 
-            new_toe_input["group_name"] = group_name
-            new_toe_input["unreliable_root_id"] = ""
+            new_toe_input[
+                "unreliable_root_id"
+            ] = roots_domain.get_unreliable_root_id_by_component(
+                new_toe_input["component"], group_roots, group
+            )
+            new_toe_input["group_name"] = group["name"]
             group_toe_inputs.add(ToeInput(**new_toe_input))
 
     return group_toe_inputs
@@ -130,17 +144,20 @@ def _get_toe_inputs_to_remove(
 
 
 async def update_toe_inputs_from_csv(
-    loaders: Any, group_name: str, inputs_csv_path: str
+    loaders: Dataloaders, group_name: str, inputs_csv_path: str
 ) -> None:
-    group_toe_inputs_loader = loaders.group_toe_inputs
-    group_toe_inputs: Set[ToeInput] = set(
-        await group_toe_inputs_loader.load(group_name)
+    group_roots: Tuple[RootItem, ...] = await loaders.group_roots.load(
+        group_name
     )
+    group_toe_inputs: Set[ToeInput] = set(
+        await loaders.group_toe_inputs.load(group_name)
+    )
+    group: Group = await loaders.group.load(group_name)
     group_toe_input_hashes = {
         toe_input.get_hash() for toe_input in group_toe_inputs
     }
     cvs_group_toe_inputs = await in_process(
-        _get_group_toe_inputs_from_cvs, inputs_csv_path, group_name
+        _get_group_toe_inputs_from_cvs, inputs_csv_path, group, group_roots
     )
     cvs_group_toe_input_hashes = {
         toe_input.get_hash() for toe_input in cvs_group_toe_inputs

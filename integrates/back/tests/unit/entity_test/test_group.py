@@ -552,7 +552,10 @@ async def test_get_roots() -> None:
             "__typename": "GitRoot",
             "branch": "master",
             "environment": "production",
-            "environmentUrls": ["https://app.fluidattacks.com"],
+            "environmentUrls": [
+                "https://app.fluidattacks.com",
+                "https://test.com",
+            ],
             "gitignore": ["bower_components/*", "node_modules/*"],
             "id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
             "includesHealthCheck": True,

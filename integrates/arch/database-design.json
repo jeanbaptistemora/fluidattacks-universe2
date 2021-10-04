@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 01, 2021, 01:47 PM",
+    "DateLastModified": "Oct 04, 2021, 01:13 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1051,6 +1051,9 @@
                 "L": [
                   {
                     "S": "https://app.fluidattacks.com"
+                  },
+                  {
+                    "S": "https://test.com"
                   }
                 ]
               },
@@ -1154,6 +1157,12 @@
               "modified_date": {
                 "S": "2020-11-19T13:37:10+00:00"
               },
+              "branch": {
+                "S": "master"
+              },
+              "url": {
+                "S": "https://gitlab.com/fluidattacks/product"
+              },
               "environment": {
                 "S": "production"
               },
@@ -1161,6 +1170,9 @@
                 "L": [
                   {
                     "S": "https://app.fluidattacks.com"
+                  },
+                  {
+                    "S": "https://test.com"
                   }
                 ]
               },
@@ -1182,12 +1194,6 @@
               },
               "nickname": {
                 "S": "product"
-              },
-              "branch": {
-                "S": "master"
-              },
-              "url": {
-                "S": "https://gitlab.com/fluidattacks/product"
               }
             },
             {
@@ -1202,6 +1208,12 @@
               },
               "modified_date": {
                 "S": "2020-11-19T13:39:56+00:00"
+              },
+              "branch": {
+                "S": "develop"
+              },
+              "url": {
+                "S": "https://gitlab.com/fluidattacks/integrates"
               },
               "environment": {
                 "S": "QA"
@@ -1227,12 +1239,6 @@
               },
               "nickname": {
                 "S": "integrates_1"
-              },
-              "branch": {
-                "S": "develop"
-              },
-              "url": {
-                "S": "https://gitlab.com/fluidattacks/integrates"
               }
             }
           ],
@@ -8317,10 +8323,7 @@
             "PartitionKeyAlias": "REMOVED#FIN#id",
             "SortKeyAlias": "GROUP#group_name"
           },
-          "TableData": [],
-          "DataAccess": {
-            "MySql": {}
-          }
+          "TableData": []
         }
       ],
       "GlobalSecondaryIndexes": [
