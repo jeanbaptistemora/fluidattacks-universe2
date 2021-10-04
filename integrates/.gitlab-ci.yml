@@ -98,22 +98,6 @@ integrates.back.security:
   <<: *in_dev_branch_integrates
   stage: test-security
 
-integrates.back.test.unit:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: test-code
-  artifacts:
-    name: "coverage_xml_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
-    paths:
-      - integrates/coverage.xml
-    expire_in: 1 week
-
-integrates.back.test.unit.migration:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: test-code
-  script: ./m integrates.back.test.unit migration
-
 integrates.front.test:
   <<: *makes
   <<: *in_dev_branch_integrates

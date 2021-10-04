@@ -15,12 +15,12 @@ function main {
     --verbose
   )
 
-  source __envIntegratesEnv__ dev "${api_status}" \
+  source __argIntegratesEnv__ dev "${api_status}" \
     && DAEMON=true integrates-cache \
     && DAEMON=true integrates-db integratesmanager@gmail.com "${api_status}" \
     && DAEMON=true integrates-storage \
     && pushd integrates \
-    && export BATCH_BIN='__envBatchBin__' \
+    && export BATCH_BIN='__argBatchBin__' \
     && pytest -m 'not changes_db' "${pytest_args[@]}" back/tests/unit \
     && pytest -m 'changes_db' "${pytest_args[@]}" back/tests/unit \
     && popd \

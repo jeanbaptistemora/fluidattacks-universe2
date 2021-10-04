@@ -5,7 +5,6 @@ forces
 forces.process-groups
 forces.process-groups-break
 forces.test
-integrates.back.test.unit
 integrates.batch
 integrates.cache
 integrates.charts.documents
