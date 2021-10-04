@@ -2,6 +2,7 @@
   "tables": [
     "FI_comments",
     "FI_findings",
+    "fi_finding_comments",
     "FI_project_access",
     "FI_projects",
     "FI_toe",
