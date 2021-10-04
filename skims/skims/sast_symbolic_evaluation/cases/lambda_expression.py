@@ -15,10 +15,34 @@ from utils.string import (
 PARAM_TYPES = complete_attrs_on_dict(
     {
         "mysql.PoolCluster": {
-            "getConnection": ("mysql.MysqlError", "mysql.PoolConnection"),
+            "getConnection": [
+                ("mysql.MysqlError", "mysql.PoolConnection"),
+            ],
         },
         "mysql.Pool": {
-            "getConnection": ("mysql.MysqlError", "mysql.PoolConnection"),
+            "getConnection": [("mysql.MysqlError", "mysql.PoolConnection")],
+        },
+        "express.Router": {
+            "get": [
+                ("Request",),
+                ("Request", "Response"),
+                ("Request", "Response", "NextFunction"),
+            ],
+            "post": [
+                ("Request",),
+                ("Request", "Response"),
+                ("Request", "Response", "NextFunction"),
+            ],
+            "put": [
+                ("Request",),
+                ("Request", "Response"),
+                ("Request", "Response", "NextFunction"),
+            ],
+            "delete": [
+                ("Request",),
+                ("Request", "Response"),
+                ("Request", "Response", "NextFunction"),
+            ],
         },
     }
 )
@@ -29,14 +53,15 @@ def evaluate(args: EvaluatorArgs) -> None:
     if isinstance(las_statement, SyntaxStepMethodInvocation):
         var, method_path = split_on_last_dot(las_statement.method)
         # pylint: disable=used-before-assignment
-        if (
-            (var_decl := lookup_var_dcl_by_name(args, var))
-            and (
-                param_types := PARAM_TYPES.get(var_decl.var_type, {}).get(
-                    method_path
-                )
+        if (var_decl := lookup_var_dcl_by_name(args, var)) and (
+            all_param_types := PARAM_TYPES.get(var_decl.var_type, {}).get(
+                method_path
             )
-            and len(param_types) == len(args.dependencies)
         ):
-            for param_type, param in zip(param_types, args.dependencies):
-                param.var_type = param_type
+            for param_types in all_param_types:
+                if len(param_types) == len(args.dependencies):
+                    for param_type, param in zip(
+                        param_types, args.dependencies
+                    ):
+                        param.var_type = param_type
+                    break

@@ -1,7 +1,6 @@
 from model.graph_model import (
     SyntaxStep,
     SyntaxStepDeclaration,
-    SyntaxStepLambdaExpression,
     SyntaxStepLiteral,
     SyntaxStepMethodInvocation,
 )
@@ -14,9 +13,6 @@ from sast_symbolic_evaluation.types import (
 from sast_symbolic_evaluation.utils_generic import (
     complete_attrs_on_dict,
     lookup_var_dcl_by_name,
-)
-from sast_syntax_readers.utils_generic import (
-    get_dependencies,
 )
 from typing import (
     Dict,
@@ -68,65 +64,8 @@ def process_declaration(args: EvaluatorArgs) -> None:
             step.var_type = f"{method_var_decl.var_type}.{method_path}"
 
 
-def _proccess_express_handler(
-    args: EvaluatorArgs, handler: SyntaxStepLambdaExpression
-) -> None:
-    # the arguments are marked here because lambda functions are preprocessed,
-    # so the arguments cannot be marked in the evaluator of the lambda function
-    index = None
-    handler.lambda_type = "RequestHandler"
-    for index, step in enumerate(reversed(args.syntax_steps)):
-        if step.meta.n_id == handler.meta.n_id:
-            index = len(args.syntax_steps) - (index + 1)
-            break
-    else:
-        return
-
-    handler_arguments = get_dependencies(
-        index,
-        args.syntax_steps,
-    )
-    req: SyntaxStepDeclaration
-    res: SyntaxStepDeclaration
-
-    if len(handler_arguments) == 1:
-        # pylint: disable=unbalanced-tuple-unpacking
-        (req,) = handler_arguments
-    elif len(handler_arguments) == 2:
-        # pylint: disable=unbalanced-tuple-unpacking
-        req, res = handler_arguments
-    elif len(handler_arguments) == 3:
-        # pylint: disable=unbalanced-tuple-unpacking
-        req, res, _ = handler_arguments
-
-    # add the type to the parameters, the type is only known
-    # at runtime
-    req.var_type = "Request"
-    res.var_type = "Response"
-
-
-@javascript_only
-def process_express_requests(args: EvaluatorArgs) -> None:
-    method_var, method_path = split_on_first_dot(args.syntax_step.method)
-    if (
-        method_var
-        and (method_var_decl := lookup_var_dcl_by_name(args, method_var))
-        # pylint: disable=used-before-assignment
-        and (var_type := method_var_decl.var_type)
-        and method_path in TYPES.get(var_type, set())
-    ):
-        handlers = [
-            dep
-            for dep in args.dependencies
-            if isinstance(dep, SyntaxStepLambdaExpression)
-        ]
-        for handler in handlers:
-            _proccess_express_handler(args, handler)
-
-
 def process(args: EvaluatorArgs) -> None:
     evaluate_required(args)
-    process_express_requests(args)
 
 
 def list_remove(args: EvaluatorArgs, dcl: SyntaxStep) -> None:
