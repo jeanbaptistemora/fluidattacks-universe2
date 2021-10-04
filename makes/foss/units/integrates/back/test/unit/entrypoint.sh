@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 function main {
+  export BATCH_BIN
   local api_status="${1:-no-migration}"
   local pytest_args=(
     --cov 'back'
@@ -20,7 +21,7 @@ function main {
     && DAEMON=true integrates-db integratesmanager@gmail.com "${api_status}" \
     && DAEMON=true integrates-storage \
     && pushd integrates \
-    && export BATCH_BIN='__argBatchBin__' \
+    && BATCH_BIN="$(command -v integrates-batch)" \
     && pytest -m 'not changes_db' "${pytest_args[@]}" back/tests/unit \
     && pytest -m 'changes_db' "${pytest_args[@]}" back/tests/unit \
     && popd \

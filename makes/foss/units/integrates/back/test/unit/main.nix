@@ -1,15 +1,16 @@
 { makeScript
 , inputs
+, outputs
 , projectPath
 , ...
 }:
 makeScript {
   replace = {
     __argIntegratesEnv__ = inputs.product.integrates-back-env;
-    __argBatchBin__ = "${inputs.product.integrates-batch}/bin/integrates-batch";
   };
   name = "integrates-back-test-unit";
   searchPaths = {
+    bin = [ outputs."/integrates/batch" ];
     source = [
       inputs.product.integrates-back-pypi-unit-tests
     ];
