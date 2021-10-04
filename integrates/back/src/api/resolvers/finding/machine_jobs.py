@@ -29,6 +29,7 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_: None,
 ) -> List[Dict[str, Any]]:
+    # pylint: disable=unsubscriptable-object
     group_name: str = get_key_or_fallback(parent)
     finding = await info.context.loaders.finding.load(parent["id"])
     finding_title: str = finding["title"]

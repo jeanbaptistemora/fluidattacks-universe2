@@ -18,6 +18,7 @@ from users import (
 async def resolve(
     parent: Me, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
+    # pylint: disable=unsubscriptable-object
     user_email: str = cast(str, parent["user_email"])
     access_token: Optional[Dict[str, str]] = cast(
         Optional[Dict[str, str]],

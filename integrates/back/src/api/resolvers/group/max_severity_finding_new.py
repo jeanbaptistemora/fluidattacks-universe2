@@ -32,6 +32,7 @@ from typing import (
 async def resolve(
     parent: Group, info: GraphQLResolveInfo, **kwargs: None
 ) -> Optional[Finding]:
+    # pylint: disable=unsubscriptable-object
     response: Optional[Finding] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
@@ -44,6 +45,7 @@ async def resolve(
 async def resolve_no_cache(
     parent: Group, info: GraphQLResolveInfo, **_kwargs: None
 ) -> Optional[Finding]:
+    # pylint: disable=unsubscriptable-object
     group_findings_loader: DataLoader = info.context.loaders.group_findings_new
     group_name: str = parent["name"]
     findings: Tuple[Finding, ...] = await group_findings_loader.load(

@@ -50,6 +50,7 @@ async def mutate(
     **kwargs: Any,
 ) -> SimplePayload:
     """Resolve add_event mutation."""
+    # pylint: disable=unsubscriptable-object
     group_name: str = get_key_or_fallback(kwargs)
     kwargs = clean_up_kwargs(kwargs)
     user_info = await token_utils.get_jwt_content(info.context)

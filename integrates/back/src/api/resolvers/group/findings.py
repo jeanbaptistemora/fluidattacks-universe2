@@ -27,6 +27,7 @@ from typing import (
 async def resolve(
     parent: Group, info: GraphQLResolveInfo, **kwargs: Any
 ) -> List[Finding]:
+    # pylint: disable=unsubscriptable-object
     group_findings_loader: DataLoader = info.context.loaders.group_findings
     finding_loader: DataLoader = info.context.loaders.finding
 

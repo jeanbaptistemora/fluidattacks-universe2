@@ -107,6 +107,7 @@ async def autoenroll_user(email: str) -> None:
 async def get_provider_user_info(
     provider: str, token: str
 ) -> Optional[Dict[str, str]]:
+    # pylint: disable=unsubscriptable-object
     if provider == "bitbucket":
         userinfo_endpoint = BITBUCKET_ARGS["userinfo_endpoint"]
     elif provider == "google":
