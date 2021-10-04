@@ -291,6 +291,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
             graph_model.GraphShardMetadataLanguage.TSX,
+            graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
             "parenthesized_expression",

@@ -35,5 +35,5 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
         else:
             raise MissingCaseHandling(args)
     else:
-        # argument is just an identifier
+        # argument is a simple expression
         yield from args.generic(args.fork_n_id(first_child))
