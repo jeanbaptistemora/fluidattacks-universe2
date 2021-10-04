@@ -3,24 +3,31 @@
 }:
 {
   computeOnAwsBatch = {
-    integratesSchedulerUpdateIndicators = {
+    integratesSchedulerUpdateIndicators = rec {
       allowDuplicates = false;
       attempts = 1;
       attemptDurationSeconds = 43200;
-      command = [
-        "m"
-        "f"
-        "/legacy/integrates-scheduler-update-indicators-job"
-      ];
+      command = [ "m" "f" "/legacy/integrates-scheduler-update-indicators-job" ];
       definition = "makes";
       includePositionalArgsInName = true;
       environment = [ "PRODUCT_API_TOKEN" ];
-      memory = 1800;
+      memory = 1800 * vcpus;
       queue = "dedicated_later";
-      setup = [
-        outputs."/secretsForAwsFromEnv/integratesProd"
-      ];
+      setup = [ outputs."/secretsForAwsFromEnv/integratesProd" ];
       vcpus = 1;
+    };
+    integratesSubscriptionsUserToEntity = rec {
+      allowDuplicates = false;
+      attempts = 2;
+      attemptDurationSeconds = 3600;
+      command = [ "m" "f" "/integrates/subscriptions/user-to-entity" ];
+      definition = "makes";
+      includePositionalArgsInName = true;
+      environment = [ "PRODUCT_API_TOKEN" ];
+      memory = 1800 * vcpus;
+      queue = "dedicated_soon";
+      setup = [ outputs."/secretsForAwsFromEnv/integratesProd" ];
+      vcpus = 4;
     };
   };
 }

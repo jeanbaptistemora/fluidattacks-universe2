@@ -12,8 +12,6 @@ integrates.scheduler
 integrates.scheduler.update-indicators.job
 integrates.scheduler.update-indicators.on-aws
 integrates.storage
-integrates.subscriptions.user-to-entity
-integrates.subscriptions.user-to-entity-on-aws
 makes.announce.bugsnag
 makes.attrs
 makes.bugsnag.source-map-uploader

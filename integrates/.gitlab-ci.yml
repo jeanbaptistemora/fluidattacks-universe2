@@ -170,22 +170,6 @@ integrates.scheduler.toe_lines_etl:
     refs: [schedules]
     variables: [$integrates_scheduler_toe_lines_etl]
 
-integrates.subscriptions.user-to-entity-dev:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  script: [./m integrates.subscriptions.user-to-entity dev]
-  stage: subscriptions
-  retry: 2
-
-integrates.subscriptions.user-to-entity-on-aws-prod:
-  <<: *makes
-  interruptible: false
-  only:
-    refs: [schedules]
-    variables: [$integrates_subscriptions_trigger_user_to_entity_report_on_aws_prod_schedule]
-  script: [./m integrates.subscriptions.user-to-entity-on-aws prod]
-  stage: subscriptions
-
 makes.test.integrates:
   <<: *makes
   <<: *in_master_branch_integrates

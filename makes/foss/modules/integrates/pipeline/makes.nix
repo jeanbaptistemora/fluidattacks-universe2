@@ -415,6 +415,32 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          args = [ "dev" ];
+          output = "/integrates/subscriptions/user-to-entity";
+          gitlabExtra = {
+            retry = 2;
+            rules = gitlabOnlyDev;
+            stage = "subscriptions";
+            tags = [ "autoscaling" ];
+          };
+        }
+        {
+          args = [ "prod" ];
+          output = "/integrates/subscriptions/user-to-entity";
+          gitlabExtra = {
+            interruptible = false;
+            retry = 2;
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined
+                "integrates_subscriptions_trigger_user_to_entity_report_on_aws_prod_schedule")
+              (gitlabCi.rules.always)
+            ];
+            stage = "subscriptions";
+            tags = [ "autoscaling" ];
+          };
+        }
+        {
           output = "/integrates/web/e2e";
           gitlabExtra = gitlabPostDeployDev // {
             needs = [
