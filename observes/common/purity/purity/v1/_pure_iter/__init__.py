@@ -1,11 +1,13 @@
-from purity.v1._pure_iter.factory import (
+from purity.v1._pure_iter._factory import (
     PureIterFactory,
 )
-from purity.v1._pure_iter.obj import (
+from purity.v1._pure_iter._obj import (
+    Mappable,
     PureIter,
 )
 
 __all__ = [
+    "Mappable",
     "PureIter",
     "PureIterFactory",
 ]

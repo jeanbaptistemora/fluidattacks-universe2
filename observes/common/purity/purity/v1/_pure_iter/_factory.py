@@ -6,7 +6,6 @@ from dataclasses import (
     dataclass,
 )
 from itertools import (
-    chain,
     count,
 )
 from purity.v1._frozen import (
@@ -15,16 +14,19 @@ from purity.v1._frozen import (
 from purity.v1._patch import (
     Patch,
 )
-from purity.v1._pure_iter.obj import (
+from purity.v1._pure_iter._iter_factory import (
+    IterableFactoryIO,
+)
+from purity.v1._pure_iter._obj import (
     _PureIter,
     Mappable,
     PureIter,
 )
+from returns.curry import (
+    partial,
+)
 from returns.io import (
     IO,
-)
-from returns.unsafe import (
-    unsafe_perform_io,
 )
 from typing import (
     Callable,
@@ -119,13 +121,7 @@ class PureIterFactory:
 
     @staticmethod
     def chain_lists(
-        unchained: PureIter[IO[FrozenList[_I]]],
+        unchained: PureIter[IO[Mappable[_I]]],
     ) -> PureIter[IO[_I]]:
-        def iters() -> Iterable[FrozenList[_I]]:
-            for piter in unchained:
-                yield unsafe_perform_io(piter)
-
-        def chained() -> Iterable[IO[_I]]:
-            return map(lambda x: IO(x), chain.from_iterable(iters()))
-
-        return PureIter(_PureIter(Patch(lambda: chained())))
+        function = partial(IterableFactoryIO.chain_io, unchained)
+        return PureIter(_PureIter(Patch(function)))

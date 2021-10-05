@@ -26,6 +26,7 @@ from purity.v1._patch import (
     Patch,
 )
 from purity.v1._pure_iter import (
+    Mappable,
     PureIter,
     PureIterFactory,
 )
@@ -43,6 +44,7 @@ __all__ = [
     "DictFactory",
     "JsonFactory",
     "Patch",
+    "Mappable",
     "PureIter",
     "PureIterFactory",
     "Flattener",

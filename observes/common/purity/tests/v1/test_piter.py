@@ -1,5 +1,7 @@
 from purity.v1 import (
     FrozenList,
+    Mappable,
+    PureIter,
     PureIterFactory,
 )
 from random import (
@@ -7,6 +9,9 @@ from random import (
 )
 from returns.io import (
     IO,
+)
+from typing import (
+    Union,
 )
 
 
@@ -25,7 +30,9 @@ def mock_get(_: int) -> IO[FrozenList[int]]:
 
 
 def test_piter_chain_mutability() -> None:
-    items = PureIterFactory.map_range(mock_get, range(10))
+    items: PureIter[IO[Mappable[int]]] = PureIterFactory.map_range(
+        mock_get, range(10)
+    )
     chained = PureIterFactory.chain_lists(items)
     assert sum(1 for _ in chained) == sum(1 for _ in chained)
 
