@@ -28,7 +28,6 @@ async def _get_vulns(finding_id: str) -> List[Dict[str, Any]]:
     )
 
 
-@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("upload_file")
 @pytest.mark.parametrize(

@@ -3,7 +3,7 @@
 function main {
   local resolver_test_group="${1}"
   local populate_db="${2:-false}"
-  local api_status="migration"
+  local api_status="${3:-no-migration}"
   local pytest_args=(
     --cov 'back'
     --cov 'backend'

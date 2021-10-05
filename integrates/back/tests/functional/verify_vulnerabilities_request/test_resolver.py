@@ -9,7 +9,6 @@ from typing import (
 )
 
 
-@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("verify_vulnerabilities_request")
 @pytest.mark.parametrize(
@@ -35,7 +34,6 @@ async def test_vulnerabilities_verify_open(
     assert result["data"]["verifyVulnerabilitiesRequest"]["success"]
 
 
-@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("verify_vulnerabilities_request")
 @pytest.mark.parametrize(

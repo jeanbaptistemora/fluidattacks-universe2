@@ -119,7 +119,6 @@ def test_model_integrity_roles(
     assert sorted(roles_common.keys()) == sorted(roles_fluid.keys())
 
 
-@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.parametrize(
     ["permission_name", "permissions"],
     [
