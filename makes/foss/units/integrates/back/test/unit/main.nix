@@ -10,7 +10,12 @@ makeScript {
   };
   name = "integrates-back-test-unit";
   searchPaths = {
-    bin = [ outputs."/integrates/batch" ];
+    bin = [
+      outputs."/integrates/batch"
+      inputs.product.integrates-cache
+      inputs.product.integrates-db
+      inputs.product.integrates-storage
+    ];
     source = [
       inputs.product.integrates-back-pypi-unit-tests
     ];
