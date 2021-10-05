@@ -28,13 +28,11 @@ from statistics import (
 )
 from typing import (
     Any,
-    cast,
     Counter,
     Dict,
     List,
     NamedTuple,
     Tuple,
-    Union,
 )
 
 ORGANIZATION_CATEGORIES: List[str] = [
@@ -188,10 +186,8 @@ def format_vulnerabilities_by_data(
 
     return dict(
         data=dict(
-            # pylint: disable=unsubscriptable-object
             columns=[
-                cast(List[Union[int, str]], [column])
-                + [value for _, value in data],
+                [column, *[value for _, value in data]],
             ],
             colors={
                 column: RISK.neutral,

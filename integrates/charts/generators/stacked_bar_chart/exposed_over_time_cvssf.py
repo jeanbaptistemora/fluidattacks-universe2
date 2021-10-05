@@ -31,12 +31,10 @@ from decimal import (
 )
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     NamedTuple,
     Tuple,
-    Union,
 )
 
 
@@ -170,12 +168,13 @@ def format_document(
         data=dict(
             x="date",
             columns=[
-                # pylint: disable=unsubscriptable-object
-                cast(List[Union[Decimal, str]], [name])
+                [name]
                 + [
                     date.strftime(DATE_FMT)
                     if name == "date"
-                    else Decimal(document[name][date]).quantize(Decimal("0.1"))
+                    else str(
+                        Decimal(document[name][date]).quantize(Decimal("0.1"))
+                    )
                     for date in tuple(document["date"])[-12:]
                 ]
                 for name in document

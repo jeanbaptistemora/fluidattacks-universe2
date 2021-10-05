@@ -29,12 +29,10 @@ from findings import (
 )
 from typing import (
     Any,
-    cast,
     Counter,
     Dict,
     List,
     Tuple,
-    Union,
 )
 
 
@@ -109,14 +107,17 @@ def format_data(data: Counter[str]) -> Dict[str, Any]:
 
     return dict(
         data=dict(
-            # pylint: disable=unsubscriptable-object
             columns=[
-                cast(List[Union[int, str]], ["# Accepted Vulnerabilities"])
-                + [data[column] for column in translations],
-                cast(List[Union[int, str]], ["# Open Vulnerabilities"])
-                + [
-                    data[f"{column}_open"] - data[column]
-                    for column in translations
+                [
+                    "# Accepted Vulnerabilities",
+                    *[data[column] for column in translations],
+                ],
+                [
+                    "# Open Vulnerabilities",
+                    *[
+                        data[f"{column}_open"] - data[column]
+                        for column in translations
+                    ],
                 ],
             ],
             colors={
