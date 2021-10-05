@@ -306,7 +306,10 @@ def format_optional_unreliable_indicators(
 ) -> FindingUnreliableIndicators:
     indicators = FindingUnreliableIndicators()
     if indicators_item is not None:
-        indicators = format_unreliable_indicators(indicators_item)
+        try:
+            indicators = format_unreliable_indicators(indicators_item)
+        except KeyError:
+            indicators = FindingUnreliableIndicators()
     return indicators
 
 
