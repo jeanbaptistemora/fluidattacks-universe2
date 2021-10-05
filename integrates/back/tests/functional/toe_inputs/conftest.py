@@ -1,6 +1,13 @@
 from back.tests import (
     db,
 )
+from db_model.roots.types import (
+    GitEnvironmentUrl,
+    GitRootCloning,
+    GitRootItem,
+    GitRootMetadata,
+    GitRootState,
+)
 from db_model.toe_inputs.types import (
     ToeInput,
 )
@@ -16,6 +23,62 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
+        "roots": (
+            GitRootItem(
+                cloning=GitRootCloning(
+                    modified_date="2020-11-19T13:37:10+00:00",
+                    reason="root creation",
+                    status="UNKNOWN",
+                ),
+                group_name="group1",
+                id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                metadata=GitRootMetadata(type="Git"),
+                state=GitRootState(
+                    branch="master",
+                    environment="production",
+                    environment_urls=["https://test.com"],
+                    git_environment_urls=[
+                        GitEnvironmentUrl(url="https://test.com")
+                    ],
+                    gitignore=["bower_components/*", "node_modules/*"],
+                    includes_health_check=True,
+                    modified_by="admin@gmail.com",
+                    modified_date="2020-11-19T13:37:10+00:00",
+                    nickname="test_nickname_1",
+                    other=None,
+                    reason=None,
+                    status="INACTIVE",
+                    url="https://gitlab.com/fluidattacks/product",
+                ),
+            ),
+            GitRootItem(
+                cloning=GitRootCloning(
+                    modified_date="2020-11-19T13:37:10+00:00",
+                    reason="root creation",
+                    status="UNKNOWN",
+                ),
+                group_name="group1",
+                id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+                metadata=GitRootMetadata(type="Git"),
+                state=GitRootState(
+                    branch="master",
+                    environment="production",
+                    environment_urls=["https://test.com"],
+                    git_environment_urls=[
+                        GitEnvironmentUrl(url="https://test.com")
+                    ],
+                    gitignore=["node_modules/*"],
+                    includes_health_check=True,
+                    modified_by="admin@gmail.com",
+                    modified_date="2020-11-19T13:37:10+00:00",
+                    nickname="test_nickname_2",
+                    other=None,
+                    reason=None,
+                    status="INACTIVE",
+                    url="https://gitlab.com/fluidattacks/asm_1",
+                ),
+            ),
+        ),
         "toe_inputs": (
             ToeInput(
                 commit="hh66uu5",
@@ -26,7 +89,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 seen_first_time_by="",
                 tested_date="2020-01-02T00:00:00-05:00",
                 verified="Yes",
-                unreliable_root_id="",
+                unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 vulns="FIN.S.0001.Test",
             ),
             ToeInput(
@@ -49,7 +112,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 seen_first_time_by="test2@test.com",
                 tested_date="2021-02-11T00:00:00-05:00",
-                unreliable_root_id="",
+                unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 verified="No",
                 vulns="FIN.S.0003.Test",
             ),

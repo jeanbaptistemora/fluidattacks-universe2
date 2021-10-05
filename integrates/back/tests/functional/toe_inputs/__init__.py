@@ -24,6 +24,7 @@ async def get_result(
                 entryPoint
                 seenFirstTimeBy
                 testedDate
+                unreliableRootNickname
                 verified
                 vulns
             }}
