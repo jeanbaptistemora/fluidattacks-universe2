@@ -3,18 +3,18 @@
 }:
 {
   computeOnAwsBatch = {
-    integratesSchedulerUpdateIndicators = rec {
+    integratesScheduler = rec {
       allowDuplicates = false;
       attempts = 1;
       attemptDurationSeconds = 43200;
-      command = [ "m" "f" "/legacy/integrates-scheduler-update-indicators-job" ];
+      command = [ "m" "f" "/integrates/scheduler" ];
       definition = "makes";
       includePositionalArgsInName = true;
       environment = [ "PRODUCT_API_TOKEN" ];
       memory = 1800 * vcpus;
       queue = "dedicated_later";
       setup = [ outputs."/secretsForAwsFromEnv/integratesProd" ];
-      vcpus = 1;
+      vcpus = 4;
     };
     integratesSubscriptionsUserToEntity = rec {
       allowDuplicates = false;

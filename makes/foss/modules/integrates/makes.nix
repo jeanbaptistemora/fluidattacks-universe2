@@ -3,8 +3,8 @@
   imports = [
     ./infra/makes.nix
     ./linters/makes.nix
+    ./on-aws-batch/makes.nix
     ./pipeline/makes.nix
-    ./scheduler/makes.nix
   ];
   secretsForAwsFromEnv = {
     integratesDev = {

@@ -77,12 +77,33 @@ let
     stage = "analytics";
     tags = [ "autoscaling" ];
   };
+  schedulerTemplate = {
+    interruptible = false;
+    stage = "scheduler";
+  };
 in
 {
   pipelines = {
     integrates = {
       gitlabPath = "/makes/foss/modules/integrates/gitlab-ci.yaml";
-      jobs = [
+      jobs = [ ]
+        ++ (builtins.map
+        (name: {
+          args = [ "prod" "schedulers.${name}.main" ];
+          output = "/computeOnAwsBatch/integratesScheduler";
+          gitlabExtra = schedulerTemplate // {
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "integrates_scheduler_${name}")
+              (gitlabCi.rules.always)
+            ];
+            tags = [ "autoscaling" ];
+          };
+        })
+        [
+          "update_indicators"
+        ])
+        ++ [
         {
           output = "/deployTerraform/integratesBackups";
           gitlabExtra = gitlabDeployInfra;
@@ -174,7 +195,7 @@ in
           };
         }
       ]
-      ++ (builtins.map
+        ++ (builtins.map
         (args: {
           inherit args;
           output = "/integrates/back/test/functional";
@@ -285,7 +306,7 @@ in
           [ "vulnerability" ]
           [ "vulnerability_new" "false" "migration" ]
         ])
-      ++ [
+        ++ [
         {
           output = "/integrates/back/test/unit";
           gitlabExtra = gitlabTest // {
@@ -410,6 +431,35 @@ in
           output = "/integrates/mobile/ota";
           gitlabExtra = gitlabPreBuildProd;
         }
+      ]
+        ++ (builtins.map
+        (name: {
+          args = [ "prod" "schedulers.${name}.main" ];
+          output = "/integrates/scheduler";
+          gitlabExtra = schedulerTemplate // {
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "integrates_scheduler_${name}")
+              (gitlabCi.rules.always)
+            ];
+            tags = [ "autoscaling-large" ];
+          };
+        })
+        [
+          "delete_imamura_stakeholders"
+          "delete_obsolete_groups"
+          "delete_obsolete_orgs"
+          "get_remediated_findings"
+          "reset_expired_accepted_findings"
+          "update_portfolios"
+          "requeue_actions"
+          "machine_queue_all"
+          "machine_queue_re_attacks"
+          "send_treatment_change"
+          "toe_inputs_etl"
+          "toe_lines_etl"
+        ])
+        ++ [
         {
           output = "/integrates/secrets/lint";
           gitlabExtra = gitlabLint;

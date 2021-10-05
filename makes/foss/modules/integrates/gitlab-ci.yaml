@@ -1,3 +1,20 @@
+/computeOnAwsBatch/integratesScheduler__prod__schedulers.update_indicators.main:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_update_indicators == null
+      when: never
+    - when: always
+  script:
+    - m . /computeOnAwsBatch/integratesScheduler 'prod' 'schedulers.update_indicators.main'
+  stage: scheduler
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
 /deployTerraform/integratesBackups:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2772,6 +2789,210 @@
   stage: pre-build
   tags:
     - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.delete_imamura_stakeholders.main:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_delete_imamura_stakeholders == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.delete_imamura_stakeholders.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.delete_obsolete_groups.main:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_delete_obsolete_groups == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.delete_obsolete_groups.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.delete_obsolete_orgs.main:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_delete_obsolete_orgs == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.delete_obsolete_orgs.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.get_remediated_findings.main:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_get_remediated_findings == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.get_remediated_findings.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.machine_queue_all.main:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_machine_queue_all == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.machine_queue_all.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.machine_queue_re_attacks.main:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_machine_queue_re_attacks == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.machine_queue_re_attacks.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.requeue_actions.main:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_requeue_actions == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.requeue_actions.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.reset_expired_accepted_findings.main:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_reset_expired_accepted_findings == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.reset_expired_accepted_findings.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.send_treatment_change.main:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_send_treatment_change == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.send_treatment_change.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.toe_inputs_etl.main:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_toe_inputs_etl == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.toe_inputs_etl.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.toe_lines_etl.main:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_toe_lines_etl == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.toe_lines_etl.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.update_portfolios.main:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_update_portfolios == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.update_portfolios.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
   variables:
     GIT_DEPTH: 1
 /integrates/secrets/lint:

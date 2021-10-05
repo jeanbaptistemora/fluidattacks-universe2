@@ -8,9 +8,6 @@ forces.test
 integrates.cache
 integrates.db
 integrates.db.migration
-integrates.scheduler
-integrates.scheduler.update-indicators.job
-integrates.scheduler.update-indicators.on-aws
 integrates.storage
 makes.announce.bugsnag
 makes.attrs

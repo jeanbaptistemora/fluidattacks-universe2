@@ -50,14 +50,6 @@
       when: never
     - when: always
 
-.integrates_schedulers: &integrates_schedulers
-  <<: *makes
-  interruptible: false
-  script:
-    - ./m integrates.scheduler prod "schedulers.${CI_JOB_NAME/integrates.scheduler./}.main"
-  stage: scheduler
-  tags: [autoscaling-large]
-
 integrates.back.security:
   <<: *makes
   <<: *in_dev_branch_integrates
@@ -88,87 +80,6 @@ integrates.mobile.test:
     - ./m "${CI_JOB_NAME}"
     - cp out/integrates-mobile-test/coverage/lcov.info integrates/mobile/coverage.lcov
   stage: test-code
-
-integrates.scheduler.delete_imamura_stakeholders:
-  <<: *integrates_schedulers
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_delete_imamura_stakeholders]
-
-integrates.scheduler.delete_obsolete_groups:
-  <<: *integrates_schedulers
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_delete_obsolete_groups]
-
-integrates.scheduler.delete_obsolete_orgs:
-  <<: *integrates_schedulers
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_delete_obsolete_orgs]
-
-integrates.scheduler.get_remediated_findings:
-  <<: *integrates_schedulers
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_get_remediated_findings]
-
-integrates.scheduler.reset_expired_accepted_findings:
-  <<: *integrates_schedulers
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_reset_expired_accepted_findings]
-
-integrates.scheduler.update_indicators:
-  <<: *makes
-  interruptible: false
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_update_indicators]
-  script: [./m integrates.scheduler.update-indicators.on-aws prod]
-  stage: scheduler
-
-integrates.scheduler.update_portfolios:
-  <<: *integrates_schedulers
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_update_portfolios]
-
-integrates.scheduler.requeue_actions:
-  <<: *integrates_schedulers
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_requeue_actions]
-
-integrates.scheduler.machine_queue_all:
-  <<: *integrates_schedulers
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_skims_queue_all]
-
-integrates.scheduler.machine_queue_re_attacks:
-  <<: *integrates_schedulers
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_skims_queue_re_attacks]
-
-integrates.scheduler.send_treatment_change:
-  <<: *integrates_schedulers
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_send_treatment_change]
-
-integrates.scheduler.toe_inputs_etl:
-  <<: *integrates_schedulers
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_toe_inputs_etl]
-
-integrates.scheduler.toe_lines_etl:
-  <<: *integrates_schedulers
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_toe_lines_etl]
 
 makes.test.integrates:
   <<: *makes
