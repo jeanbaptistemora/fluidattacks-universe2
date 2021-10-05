@@ -284,12 +284,13 @@ async def put_action_to_batch(
             await batch.submit_job(
                 jobName=f"integrates-{action_name}",
                 jobQueue=queue,
-                jobDefinition="default",
+                jobDefinition="makes",
                 containerOverrides={
                     "vcpus": 2,
                     "command": [
-                        "./m",
-                        "integrates.batch",
+                        "m",
+                        ".",
+                        "/integrates/batch",
                         "prod",
                         FI_API_STATUS,
                         action_name,
