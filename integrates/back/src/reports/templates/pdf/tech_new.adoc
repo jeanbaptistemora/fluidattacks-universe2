@@ -106,11 +106,11 @@ If you are reading this report and you are not {{user}}, you are not authorized 
         - {{req + "\n"}}
     {% endfor %}
 ==== {{where_title}}
-{% if finding.grouped_ports_vulnerablities or finding.grouped_lines_vulnerabilities or finding.grouped_inputs_vulnerabilities %}
+{% if finding.grouped_ports_vulnerabilities or finding.grouped_lines_vulnerabilities or finding.grouped_inputs_vulnerabilities %}
 ===== {{ports}}
 |===
 |{{'Host'}}|{{port}}
-{% for port in finding.grouped_ports_vulnerablities %}
+{% for port in finding.grouped_ports_vulnerabilities %}
 {{'|'+port.where+'|'+port.specific}}
 {% endfor %}
 |===
