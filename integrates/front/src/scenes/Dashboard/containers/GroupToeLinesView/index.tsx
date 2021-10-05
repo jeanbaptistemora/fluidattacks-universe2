@@ -37,7 +37,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       modifiedCommit: true,
       modifiedDate: true,
       pendingLines: true,
-      root: true,
+      rootNickname: true,
       sortsRiskLevel: false,
       testedDate: true,
       testedLines: true,
@@ -94,12 +94,12 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
 
   const headersToeLinesTable: IHeaderConfig[] = [
     {
-      align: "left",
+      align: "center",
       dataField: "rootNickname",
       header: translate.t("group.toe.lines.root"),
       onSort,
-      visible: checkedItems.root,
-      width: "15%",
+      visible: checkedItems.rootNickname,
+      width: "10%",
     },
     {
       align: "left",

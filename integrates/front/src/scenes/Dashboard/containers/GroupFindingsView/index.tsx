@@ -122,7 +122,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       age: false,
       lastVulnerability: true,
-      locations: true,
+      openVulnerabilities: true,
       remediated: false,
       severityScore: true,
       state: true,
@@ -259,7 +259,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       dataField: "openVulnerabilities",
       header: "Locations",
       onSort: onSortState,
-      visible: checkedItems.locations,
+      visible: checkedItems.openVulnerabilities,
     },
     {
       align: "center",
