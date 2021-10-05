@@ -28,6 +28,12 @@ from returns.curry import (
 from returns.io import (
     IO,
 )
+from returns.maybe import (
+    Maybe,
+)
+from returns.unsafe import (
+    unsafe_perform_io,
+)
 from typing import (
     Callable,
     Iterable,
@@ -91,37 +97,31 @@ class PureIterFactory:
         draft = _PureIter(Patch(lambda: iter(filtered())))
         return PureIter(draft)
 
+
+class PureIterIOFactory:
     @staticmethod
-    def until_empty(
-        function: Callable[[_I], Optional[_R]], items: Mappable[_I]
-    ) -> PureIter[_R]:
-        def filtered() -> Iterable[_R]:
-            raw = (function(i) for i in items)
-            for item in raw:
-                if item is None:
-                    break
-                yield item
-
-        draft = _PureIter(Patch(lambda: iter(filtered())))
-        return PureIter(draft)
-
-    @staticmethod
-    def until_empty_range(
-        function: Callable[[int], Optional[_R]], items: range
-    ) -> PureIter[_R]:
-        def filtered() -> Iterable[_R]:
-            raw = (function(i) for i in items)
-            for item in raw:
-                if item is None:
-                    break
-                yield item
-
-        draft = _PureIter(Patch(lambda: iter(filtered())))
-        return PureIter(draft)
-
-    @staticmethod
-    def chain_lists(
+    def chain(
         unchained: PureIter[IO[Mappable[_I]]],
     ) -> PureIter[IO[_I]]:
         function = partial(IterableFactoryIO.chain_io, unchained)
         return PureIter(_PureIter(Patch(function)))
+
+    @staticmethod
+    def until_none(items: PureIter[IO[Optional[_I]]]) -> PureIter[IO[_I]]:
+        def filtered() -> Iterable[IO[_I]]:
+            for item in items:
+                _item = unsafe_perform_io(item)
+                if _item is None:
+                    break
+                yield IO(_item)
+
+        draft = _PureIter(Patch(lambda: iter(filtered())))
+        return PureIter(draft)
+
+    @classmethod
+    def until_empty(cls, items: PureIter[IO[Maybe[_I]]]) -> PureIter[IO[_I]]:
+        def _to_opt(item: IO[Maybe[_I]]) -> IO[Optional[_I]]:
+            return item.map(lambda i: i.value_or(None))
+
+        opt: PureIter[IO[Optional[_I]]] = PureIterFactory.map(_to_opt, items)
+        return cls.until_none(opt)

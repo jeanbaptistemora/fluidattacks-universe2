@@ -29,6 +29,7 @@ from purity.v1._pure_iter import (
     Mappable,
     PureIter,
     PureIterFactory,
+    PureIterIOFactory,
 )
 
 __all__ = [
@@ -47,6 +48,7 @@ __all__ = [
     "Mappable",
     "PureIter",
     "PureIterFactory",
+    "PureIterIOFactory",
     "Flattener",
     "FrozenList",
     "FrozenDict",

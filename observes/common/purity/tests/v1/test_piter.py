@@ -3,6 +3,7 @@ from purity.v1 import (
     Mappable,
     PureIter,
     PureIterFactory,
+    PureIterIOFactory,
 )
 from random import (
     randint,
@@ -33,7 +34,7 @@ def test_piter_chain_mutability() -> None:
     items: PureIter[IO[Mappable[int]]] = PureIterFactory.map_range(
         mock_get, range(10)
     )
-    chained = PureIterFactory.chain_lists(items)
+    chained = PureIterIOFactory.chain(items)
     assert sum(1 for _ in chained) == sum(1 for _ in chained)
 
 

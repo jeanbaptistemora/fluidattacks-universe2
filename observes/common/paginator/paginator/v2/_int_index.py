@@ -8,9 +8,11 @@ from paginator.v2._parallel_getter import (
 )
 from purity.v1 import (
     FrozenList,
+    Mappable,
     Patch,
     PureIter,
     PureIterFactory,
+    PureIterIOFactory,
 )
 from returns.io import (
     IO,
@@ -23,7 +25,6 @@ from returns.primitives.hkt import (
 )
 from typing import (
     Callable,
-    Optional,
     TypeVar,
 )
 
@@ -59,28 +60,15 @@ class IntIndexGetter(
         start: int,
         pages_chunk: int,
     ) -> PureIter[IO[_DataTVar]]:
-        def filter_chunk(
-            pages: IO[FrozenList[Maybe[_DataTVar]]],
-        ) -> IO[FrozenList[_DataTVar]]:
-            return pages.map(
-                lambda ps: tuple(p.unwrap() for p in ps if p != Maybe.empty)
-            )
-
         def page_range(n_chunk: int) -> range:
             return range(
                 start + n_chunk * pages_chunk,
                 start + (n_chunk + 1) * pages_chunk,
             )
 
-        def is_empty(
-            element: IO[FrozenList[_DataTVar]],
-        ) -> Optional[IO[FrozenList[_DataTVar]]]:
-            return element if element.map(bool) == IO(True) else None
-
         ranges = PureIterFactory.infinite_map(page_range, 0, 1)
-        chunks = PureIterFactory.map(self.get_pages, ranges)
-        filtered = PureIterFactory.map(filter_chunk, chunks)
-        all_data: PureIter[
-            IO[FrozenList[_DataTVar]]
-        ] = PureIterFactory.until_empty(is_empty, filtered)
-        return PureIterFactory.chain_lists(all_data)
+        chunks: PureIter[IO[Mappable[Maybe[_DataTVar]]]] = PureIterFactory.map(
+            self.get_pages, ranges
+        )
+        chained = PureIterIOFactory.chain(chunks)
+        return PureIterIOFactory.until_empty(chained)
