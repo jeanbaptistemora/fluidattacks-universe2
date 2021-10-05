@@ -819,6 +819,13 @@ $gray-120: rgba(120, 120, 145, 1);
     margin: auto;
   }
 
+  .imgblock .title {
+    font-size: 0.875rem;
+    font-weight: 400;
+    padding-bottom: 4rem;
+    text-align: center;
+  }
+
   .imageblock .title {
     font-size: 0.875rem;
     font-weight: 400;
@@ -832,6 +839,46 @@ $gray-120: rgba(120, 120, 145, 1);
     font-weight: 400;
     line-height: 1.8rem;
     padding: 1.5rem;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-color: $soft-black;
+    border-spacing: 0;
+    border-style: solid;
+    border-width: 1px;
+    display: block;
+    margin: auto;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-align: left;
+    width: max-content;
+
+    thead {
+      display: none;
+
+      th {
+        padding: 2rem;
+        text-align: center;
+      }
+    }
+
+    tbody {
+      vertical-align: top;
+    }
+
+    tbody tr {
+      background-color: $soft-gray;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: $whiter-gray;
+    }
+
+    tbody td {
+      padding: 2rem;
+    }
   }
 
   table.tableblock {
