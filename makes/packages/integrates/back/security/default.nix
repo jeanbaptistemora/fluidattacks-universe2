@@ -10,6 +10,6 @@ makeDerivation {
   builder = path "/makes/packages/integrates/back/security/builder.sh";
   name = "integrates-back-security";
   searchPaths = {
-    envPaths = [ nixpkgs.python37Packages.bandit ];
+    envPaths = [ nixpkgs.python39Packages.bandit ];
   };
 }

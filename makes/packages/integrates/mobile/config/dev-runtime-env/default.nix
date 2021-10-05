@@ -12,7 +12,7 @@ makes.makeNodeJsEnvironment {
     nixpkgs.gnugrep
     nixpkgs.gnumake
     nixpkgs.gnused
-    nixpkgs.python37
+    nixpkgs.python39
   ];
   packageJson = path "/integrates/mobile/package.json";
   packageLockJson = path "/integrates/mobile/package-lock.json";

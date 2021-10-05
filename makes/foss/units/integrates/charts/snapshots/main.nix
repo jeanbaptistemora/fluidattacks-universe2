@@ -13,7 +13,7 @@ makeScript {
   name = "integrates-charts-snapshots";
   searchPaths = {
     bin = [
-      inputs.nixpkgs.python37
+      inputs.nixpkgs.python39
       inputs.product.integrates-db
       inputs.product.integrates-cache
       inputs.product.integrates-storage

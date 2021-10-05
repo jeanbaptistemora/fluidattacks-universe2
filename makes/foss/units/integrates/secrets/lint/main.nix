@@ -14,7 +14,7 @@ makeDerivation {
   builder = projectPath "/makes/foss/units/integrates/secrets/lint/builder.sh";
   name = "integrates-secrets-lint";
   searchPaths.bin = [
-    inputs.nixpkgs.python37Packages.yamllint
+    inputs.nixpkgs.python39Packages.yamllint
     inputs.nixpkgs.yq
   ];
 }

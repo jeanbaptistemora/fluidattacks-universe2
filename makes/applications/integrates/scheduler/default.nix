@@ -11,7 +11,7 @@ makeEntrypoint {
   name = "integrates-scheduler";
   searchPaths = {
     envPaths = [
-      nixpkgs.python37
+      nixpkgs.python39
       packages.melts
     ];
   };

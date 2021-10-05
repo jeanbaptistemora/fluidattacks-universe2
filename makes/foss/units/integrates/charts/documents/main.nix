@@ -11,7 +11,7 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.findutils
-      inputs.nixpkgs.python37
+      inputs.nixpkgs.python39
       inputs.product.integrates-db
       inputs.product.integrates-cache
       inputs.product.integrates-storage

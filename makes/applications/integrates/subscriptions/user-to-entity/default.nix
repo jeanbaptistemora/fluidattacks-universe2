@@ -11,7 +11,7 @@ makeEntrypoint {
   name = "integrates-subscriptions-user-to-entity";
   searchPaths = {
     envPaths = [
-      nixpkgs.python37
+      nixpkgs.python39
       packages.integrates.db
       packages.integrates.cache
       packages.integrates.storage

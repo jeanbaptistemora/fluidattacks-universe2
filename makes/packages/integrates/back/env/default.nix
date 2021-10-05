@@ -23,7 +23,7 @@ makeTemplate {
       # The binary for pypi://GitPython
       nixpkgs.git
       # The binary for the ASGI
-      nixpkgs.python37Packages.gunicorn
+      nixpkgs.python39Packages.gunicorn
       # The binary to zip the data report
       nixpkgs.p7zip
     ];

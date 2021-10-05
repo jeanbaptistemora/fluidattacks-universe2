@@ -9,7 +9,7 @@ makeScript {
     bin = [
       inputs.nixpkgs.findutils
       inputs.nixpkgs.git
-      inputs.nixpkgs.python37Packages.codecov
+      inputs.nixpkgs.python39Packages.codecov
     ];
     source = [
       (inputs.legacy.importUtility "aws")
