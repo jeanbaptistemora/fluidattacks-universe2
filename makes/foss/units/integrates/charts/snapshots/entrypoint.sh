@@ -13,8 +13,8 @@ function main {
         && DAEMON=true integrates-storage
     fi \
     && pushd integrates \
-    && envGeckoDriver='__envGeckoDriver__' \
-      envFirefox='__envFirefox__' \
+    && envGeckoDriver='__argGeckoDriver__' \
+      envFirefox='__argFirefox__' \
       RESULTS_DIR='charts/collector/reports' \
       python3 charts/collector/generate_reports.py \
     && aws_s3_sync \
