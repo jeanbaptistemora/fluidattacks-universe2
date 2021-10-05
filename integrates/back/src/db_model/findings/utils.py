@@ -75,8 +75,8 @@ def format_finding(
     metadata = historics.get_metadata(
         item_id=item_id, key_structure=key_structure, raw_items=raw_items
     )
-    state = format_state(
-        historics.get_latest(
+    state = format_optional_last_state(
+        historics.get_optional_latest(
             item_id=item_id,
             key_structure=key_structure,
             historic_suffix="STATE",
@@ -290,6 +290,20 @@ def format_verification_item(verification: FindingVerification) -> Item:
         "status": verification.status.value,
         "vulnerability_ids": verification.vulnerability_ids,
     }
+
+
+def format_optional_last_state(
+    state_item: Optional[Item],
+) -> FindingState:
+    state = FindingState(
+        modified_by="",
+        modified_date="",
+        source=Source.ASM,
+        status=FindingStateStatus.DELETED,
+    )
+    if state_item is not None:
+        state = format_state(state_item)
+    return state
 
 
 def format_optional_state(
