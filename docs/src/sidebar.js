@@ -140,12 +140,12 @@ const Development = [
   'development/products-repo-intro',
   {
     type: 'category',
-    label: 'Contributing',
+    label: 'Setup',
     items: [
-      'development/contributing/introduction',
-      'development/contributing/dependencies',
-      'development/contributing/editor',
-      'development/contributing/environment',
+      'development/setup/introduction',
+      'development/setup/dependencies',
+      'development/setup/editor',
+      'development/setup/environment',
     ]
   },
   {
