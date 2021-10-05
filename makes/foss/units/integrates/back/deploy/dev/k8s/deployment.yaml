@@ -111,14 +111,15 @@ spec:
             - secretRef:
                 name: integrates-${CI_COMMIT_REF_NAME}
         - name: storage
-          image: nixos/nix@sha256:d9bb3b85b846eb0b6c5204e0d76639dff72c7871fb68f5d4edcfbb727f8a5653
+          image: ghcr.io/fluidattacks/makes:21.10
           imagePullPolicy: Always
-          command: [sh]
+          command: [m]
           args:
-            - -c
-            - nix-env -i git &&
-              wget -O - fluidattacks.com/install/integrates-storage | sh /dev/stdin "${CI_COMMIT_SHA}" &&
-              integrates-storage
+            - f@${CI_COMMIT_REF_NAME}
+            - /integrates/storage
+          env:
+            - name: K8S_COMPAT
+              value: "1"
           resources:
             requests:
               cpu: 600m

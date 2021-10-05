@@ -14,7 +14,7 @@ makeScript {
       outputs."/integrates/batch"
       outputs."/integrates/cache"
       outputs."/integrates/db"
-      inputs.product.integrates-storage
+      outputs."/integrates/storage"
     ];
     source = [
       inputs.product.integrates-back-pypi-unit-tests

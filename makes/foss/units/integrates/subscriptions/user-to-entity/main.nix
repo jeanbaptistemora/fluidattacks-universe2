@@ -12,9 +12,9 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.python37
-      inputs.product.integrates-storage
       outputs."/integrates/cache"
       outputs."/integrates/db"
+      outputs."/integrates/storage"
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/subscriptions/user-to-entity/entrypoint.sh";

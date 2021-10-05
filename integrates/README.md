@@ -87,7 +87,7 @@ Run each command in a different terminal:
 m . /integrates/back
 m . /integrates/cache
 m . /integrates/db
-./m integrates.storage
+m . /integrates/storage
 ```
 
 ## Local web application

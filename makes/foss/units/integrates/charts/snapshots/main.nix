@@ -16,9 +16,9 @@ makeScript {
     bin = [
       inputs.nixpkgs.python39
       inputs.product.integrates-cache
-      inputs.product.integrates-storage
       outputs."/integrates/cache"
       outputs."/integrates/db"
+      outputs."/integrates/storage"
     ];
     source = [
       (makePythonPypiEnvironment {

@@ -16,8 +16,6 @@ makeEntrypoint {
         "integrates-back-probes-liveness"
         "integrates-back-probes-readiness"
       ];
-      envIntegratesDb = [ "integrates-db" ];
-      envIntegratesStorage = [ "integrates-storage" ];
       envSkims = [ "skims" ];
     };
   name = "makes-profiles";

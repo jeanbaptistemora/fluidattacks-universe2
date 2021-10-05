@@ -13,9 +13,9 @@ makeScript {
     bin = [
       inputs.nixpkgs.findutils
       inputs.nixpkgs.python39
-      inputs.product.integrates-storage
       outputs."/integrates/cache"
       outputs."/integrates/db"
+      outputs."/integrates/storage"
     ];
     source = [
       (inputs.legacy.importUtility "aws")

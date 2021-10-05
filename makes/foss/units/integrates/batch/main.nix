@@ -12,9 +12,9 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.python39
-      inputs.product.integrates-storage
       outputs."/integrates/cache"
       outputs."/integrates/db"
+      outputs."/integrates/storage"
     ];
     source = [
       (inputs.legacy.importUtility "aws")

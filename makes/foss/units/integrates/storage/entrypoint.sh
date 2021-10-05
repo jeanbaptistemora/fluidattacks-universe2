@@ -22,7 +22,7 @@ function serve {
   local state_path='.Storage'
 
   aws_login_dev integrates \
-    && sops_export_vars __envDevSecrets__ \
+    && sops_export_vars __argDevSecrets__ \
       TEST_PROJECTS \
     && mkdir -p "${state_path}" \
     && echo -e "${TEST_PROJECTS//,/\\n}" > "${state_path}/projects" \
@@ -31,15 +31,15 @@ function serve {
     && {
       MINIO_ACCESS_KEY='test' \
         MINIO_SECRET_KEY='testtest' \
-        __envMinioLocal__ server "${state_path}" --address "${host}:${port}" &
+        __argMinioLocal__ server "${state_path}" --address "${host}:${port}" &
     } \
     && makes-wait 10 "${host}:${port}" \
     && sleep 3 \
-    && __envMinioCli__ alias set storage "http://${host}:${port}" 'test' 'testtest' \
-    && __envMinioCli__ admin user add storage "${AWS_ACCESS_KEY_ID}" "${AWS_SECRET_ACCESS_KEY}" \
-    && __envMinioCli__ admin policy set storage readwrite user="${AWS_ACCESS_KEY_ID}" \
+    && __argMinioCli__ alias set storage "http://${host}:${port}" 'test' 'testtest' \
+    && __argMinioCli__ admin user add storage "${AWS_ACCESS_KEY_ID}" "${AWS_SECRET_ACCESS_KEY}" \
+    && __argMinioCli__ admin policy set storage readwrite user="${AWS_ACCESS_KEY_ID}" \
     && for bucket in "${buckets[@]}"; do
-      __envMinioCli__ mb --ignore-existing "storage/${bucket}" \
+      __argMinioCli__ mb --ignore-existing "storage/${bucket}" \
         || return 1
     done \
     && for project in "${TEST_PROJECTS[@]}"; do
