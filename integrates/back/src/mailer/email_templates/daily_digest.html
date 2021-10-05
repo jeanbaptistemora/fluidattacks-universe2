@@ -185,12 +185,22 @@
     <div class="numbers">
       {%- if groups_len > 1 %}
         <div>
-          <h3>{{ group_age['oldest_age'] }}</h3>
-          <p><strong>{{ group_age['oldest_group'] }}</strong> is the <strong>oldest</strong> group among your subscribed (days)</p>
+          {%- if group_age['oldest_age'] >= 60 %}
+            <h3>{{ (group_age['oldest_age'] * 0.032855)|round(1, 'common') }}</h3>
+            <p><strong>{{ group_age['oldest_group'] }}</strong> is the <strong>oldest</strong> group among your subscribed (months)</p>
+          {%- else %}
+            <h3>{{ group_age['oldest_age'] }}</h3>
+            <p><strong>{{ group_age['oldest_group'] }}</strong> is the <strong>oldest</strong> group among your subscribed (days)</p>
+          {%- endif %}
         </div>
         <div>
-          <h3>{{ group_age['youngest_age'] }}</h3>
-          <p><strong>{{ group_age['newest_group'] }}</strong> is the <strong>newest</strong> group among your subscribed (days)</p>
+          {%- if group_age['youngest_age'] >= 60 %}
+            <h3>{{ (group_age['youngest_age'] * 0.032855)|round(1, 'common') }}</h3>
+            <p><strong>{{ group_age['newest_group'] }}</strong> is the <strong>newest</strong> group among your subscribed (months)</p>
+          {%- else %}
+            <h3>{{ group_age['youngest_age'] }}</h3>
+            <p><strong>{{ group_age['newest_group'] }}</strong> is the <strong>newest</strong> group among your subscribed (days)</p>
+          {%- endif %}
         </div>
         <div>
           <h3>{{ remediation_rate['min'] }}%</h3>
@@ -201,12 +211,22 @@
           <p><strong>{{ remediation_rate['max_group'] }}</strong> has the <strong>maximum</strong> remediation rate</p>
         </div>
         <div>
-          <h3>{{ remediation_time['max'] }}</h3>
-          <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>maximum</strong> mean time to remediate (days)</p>
+          {%- if remediation_time['max'] >= 60 %}
+            <h3>{{ (remediation_time['max'] * 0.032855)|round(1, 'common') }}</h3>
+            <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>maximum</strong> mean time to remediate (months)</p>
+          {%- else %}
+            <h3>{{ remediation_time['max'] }}</h3>
+            <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>maximum</strong> mean time to remediate (days)</p>
+          {%- endif %}
         </div>
         <div>
-          <h3>{{ remediation_time['min'] }}</h3>
-          <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>minimum</strong> mean time to remediate (days)</p>
+          {%- if remediation_time['min'] >= 60 %}
+            <h3>{{ (remediation_time['min'] * 0.032855)|round(1, 'common') }}</h3>
+            <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>minimum</strong> mean time to remediate (months)</p>
+          {%- else %}
+            <h3>{{ remediation_time['min'] }}</h3>
+            <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>minimum</strong> mean time to remediate (days)</p>
+          {%- endif %}
         </div>
       {%- else %}
         <div>
@@ -224,7 +244,7 @@
         {%- else %}
           <h3>N/A</h3>
         {%- endif %}
-        <p>Global reattack effectiveness</p>
+        <p>Reattack effectiveness</p>
       </div>
       <div>
         <h3>{{ events['unsolved'] }}</h3>
@@ -279,8 +299,14 @@
             <span>Last request at</span>
             {%- for group in reattacks['groups_requested'] %}
                 <p style="padding: 0 1rem;">
-                  <strong>{{ group['group'] }}</strong>, {{ group['age_last_requested'] }}
-                  {%- if group['age_last_requested']  == 1 %} day{%- else %} days{%- endif %} ago
+                  <strong>{{ group['group'] }}</strong>,
+                  {%- if group['age_last_requested']  >= 60 %}
+                    {{ (group['age_last_requested'] * 0.032855)|round(1, 'common') }} months ago
+                  {%- elif group['age_last_requested']  == 1 %}
+                    {{ group['age_last_requested'] }} day ago
+                  {%- else %}
+                    {{ group['age_last_requested'] }} days ago
+                  {%- endif %}
                 </p>
               {%- endfor %}
           {%- else %}
@@ -308,8 +334,14 @@
             <span>Last execution at</span>
             {%- for group in reattacks['groups_executed'] %}
                 <p style="padding: 0 1rem;">
-                  <strong>{{ group['group'] }}</strong>, {{ group['age_last_executed'] }}
-                  {%- if group['age_last_executed']  == 1 %} day{%- else %} days{%- endif %} ago
+                  <strong>{{ group['group'] }}</strong>,
+                  {%- if group['age_last_executed'] >= 60 %}
+                    {{ (group['age_last_executed'] * 0.032855)|round(1, 'common') }} months ago
+                  {%- elif group['age_last_executed']  == 1 %}
+                    {{ group['age_last_executed'] }} day ago
+                  {%- else %}
+                    {{ group['age_last_executed'] }} days ago
+                  {%- endif %}
                 </p>
               {%- endfor %}
           {%- else %}
@@ -449,12 +481,16 @@
             </td>
             <td style="text-align: right; width: 75px; font-size: 14px;">
               <div class="content-number" style="margin-bottom: 0;">
-                {%- if finding['oldest_age'] == 0 %}
-                today
-                {%- elif finding['oldest_age'] == 1 %}
-                1 day
+                {%- if finding['oldest_age'] >= 60 %}
+                  {{ (finding['oldest_age'] * 0.032855)|round(1, 'common') }} months
                 {%- else %}
-                {{ finding['oldest_age'] }} days
+                  {%- if finding['oldest_age'] == 0 %}
+                  today
+                  {%- elif finding['oldest_age'] == 1 %}
+                  1 day
+                  {%- else %}
+                  {{ finding['oldest_age'] }} days
+                  {%- endif %}
                 {%- endif %}
               </div>
             </td>
