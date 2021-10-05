@@ -1,14 +1,16 @@
 ---
 id: formatting-data
-title: Formatting and accumulation of data
-sidebar_label: Formatting and accumulation of data
+title: Formatting and Data Accumulation
+sidebar_label: Formatting and Data Accumulation
 slug: /about/security/confidentiality/formatting-data
 ---
 
-Formatting of our computers happens often,
-and the information does not accumulate
+We format our computers often,
+and we do not accumulate the information
 in local storage.
 
-We grant this by enforcing
+We achieve this
+by applying the
 [Windows CSP](https://docs.microsoft.com/en-us/windows/client-management/mdm/configuration-service-provider-reference)
-formatting settings on all domain-joined machines.
+format settings
+on all machines joined to the domain.

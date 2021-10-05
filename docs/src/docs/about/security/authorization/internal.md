@@ -5,23 +5,25 @@ sidebar_label: Internal
 slug: /about/security/authorization/internal
 ---
 
-Every application we use must have
-user-granular authorization settings
-to grant minimum-privilege policy at all times.
-Some examples are:
+Every application we use
+must have user-granular authorization settings
+to grant a least privilege policy
+at all times.
+Some examples are the following:
 
-- **IAM and KMS:** These two tools
-  are widely used within `Fluid Attacks`.
+- **IAM and KMS:** These two tools are widely used
+  within `Fluid Attacks`.
   They allow us to ensure
   that hackers can only access the source code,
-  environments, exploits, and secrets
-  of the projects they are assigned to.
-  Access can be easily removed should the need arise,
-  with no users/passwords leaked.
-  These tools also let us
-  keep application production secrets
+  environments, exploits,
+  and secrets of their assigned projects.
+  We can easily remove access
+  if the need arises
+  without leaking users/passwords.
+  These tools
+  also let us keep application production secrets
   hidden from developers
-  (Production-Development secrets separation).
+  (separation of production-development secrets).
 
 - **Infrastructure:** Infrastructure components
   always provide minimum privileges
@@ -29,10 +31,11 @@ Some examples are:
   We never give any service full permissions
   over our entire infrastructure.
 
-- **IAM:** It is possible to give
-  application access at the user level,
+- **IAM:** It is possible to provide user-level access
+  to the application,
   which allows us to give employees access
   [only to what they need](/criteria/requirements/176)
-  to execute their tasks.
-  [Giving or removing access to applications](/criteria/requirements/034)
-  is simple, and no users/passwords are leaked.
+  to perform their tasks.
+  [Granting or removing access to applications](/criteria/requirements/034)
+  is simple,
+  and no users/passwords are leaked.
