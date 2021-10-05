@@ -67,11 +67,11 @@ spec:
                 m f /integrates/back/deploy/probes/readiness
                 aws_login_prod integrates-prod
                 FluidIntegrates http://localhost:8001
-            initialDelaySeconds: 90
-            periodSeconds: 10
+            initialDelaySeconds: 120
+            periodSeconds: 60
             successThreshold: 1
-            failureThreshold: 40
-            timeoutSeconds: 600
+            failureThreshold: 10
+            timeoutSeconds: 60
           livenessProbe:
             exec:
               command:
@@ -82,8 +82,8 @@ spec:
                 aws_login_prod integrates-prod
                 FluidIntegrates http://localhost:8001
                 https://app.fluidattacks.com
-            initialDelaySeconds: 90
-            periodSeconds: 30
+            initialDelaySeconds: 120
+            periodSeconds: 60
             successThreshold: 1
-            failureThreshold: 40
+            failureThreshold: 10
             timeoutSeconds: 60

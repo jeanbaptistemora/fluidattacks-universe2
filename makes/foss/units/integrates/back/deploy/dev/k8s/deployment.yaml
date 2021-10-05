@@ -50,11 +50,11 @@ spec:
                 m f@${CI_COMMIT_REF_NAME} /integrates/back/deploy/probes/readiness
                 aws_login_dev integrates-dev
                 FluidIntegrates http://localhost:8001
-            initialDelaySeconds: 90
-            periodSeconds: 10
+            initialDelaySeconds: 120
+            periodSeconds: 60
             successThreshold: 1
-            failureThreshold: 40
-            timeoutSeconds: 600
+            failureThreshold: 10
+            timeoutSeconds: 60
           livenessProbe:
             exec:
               command:
@@ -65,10 +65,10 @@ spec:
                 aws_login_dev integrates-dev
                 FluidIntegrates http://localhost:8001
                 https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com
-            initialDelaySeconds: 90
-            periodSeconds: 30
+            initialDelaySeconds: 120
+            periodSeconds: 60
             successThreshold: 1
-            failureThreshold: 40
+            failureThreshold: 10
             timeoutSeconds: 60
         - name: db
           image: ghcr.io/fluidattacks/makes:21.10
