@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  local api_status="${1:-no-migration}"
+  local api_status="migration"
 
   source __argIntegratesEnv__ dev "${api_status}" \
     && pushd integrates \

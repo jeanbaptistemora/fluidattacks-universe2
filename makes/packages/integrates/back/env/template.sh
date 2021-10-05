@@ -2,7 +2,7 @@
 
 function main {
   local env="${1:-}"
-  local api_status="${2:-no-migration}"
+  local api_status="migration"
 
   true \
     && case "${env}" in

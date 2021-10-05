@@ -15,7 +15,7 @@ function execute_analytics_generator {
 
 function main {
   local env="${1:-}"
-  local api_status="${2:-no-migration}"
+  local api_status="migration"
   local todo
 
   source __argIntegratesEnv__ "${env}" "${api_status}" \

@@ -2,7 +2,7 @@
 
 function main {
   export BATCH_BIN
-  local api_status="${1:-no-migration}"
+  local api_status="migration"
   local pytest_args=(
     --cov 'back'
     --cov 'backend'

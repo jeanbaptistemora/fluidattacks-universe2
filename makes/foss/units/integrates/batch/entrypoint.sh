@@ -3,7 +3,7 @@
 function main {
   local login_env
   local env="${1:-}"
-  local api_status="${2:-no-migration}"
+  local api_status="migration"
   login_env=$(case "${env}" in
     test) echo "dev" ;;
     *) echo "${env}" ;;

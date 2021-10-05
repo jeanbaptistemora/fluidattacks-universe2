@@ -3,7 +3,7 @@
 function main {
   local env="${1:-}"
   local module="${2:-}"
-  local api_status="${3:-no-migration}"
+  local api_status="migration"
 
   echo "[INFO] Waking up: ${module}" \
     && source __envIntegratesEnv__ "${env}" "${api_status}" \

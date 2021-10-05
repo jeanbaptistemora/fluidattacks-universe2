@@ -2,7 +2,7 @@
 
 function main {
   local env="${1:-}"
-  local api_status="${2:-no-migration}"
+  local api_status="migration"
   local host='0.0.0.0'
   local port='8001'
   local config=(
@@ -36,12 +36,12 @@ function main {
         # SSL key file
         --keyfile=__argCertsDevelopment__/cert.key
         # The number of worker processes for handling requests
-        --workers 3
+        --workers 1
       )
     elif test "${env}" == 'dev-mobile'; then
       config+=(
         # The number of worker processes for handling requests
-        --workers 3
+        --workers 1
       )
     elif test "${env}" == 'eph'; then
       config+=(

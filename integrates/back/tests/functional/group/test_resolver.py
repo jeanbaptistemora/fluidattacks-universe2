@@ -13,15 +13,15 @@ from typing import (
 @pytest.mark.parametrize(
     ("email", "role", "permissions"),
     (
-        ("admin@gmail.com", "admin", 104),
-        ("customer@gmail.com", "customer", 47),
-        ("customeradmin@gmail.com", "customeradmin", 62),
-        ("executive@gmail.com", "executive", 41),
-        ("hacker@gmail.com", "hacker", 58),
-        ("reattacker@gmail.com", "reattacker", 44),
-        ("resourcer@gmail.com", "resourcer", 27),
-        ("reviewer@gmail.com", "reviewer", 49),
-        ("system_owner@gmail.com", "system_owner", 78),
+        ("admin@gmail.com", "admin", 121),
+        ("customer@gmail.com", "customer", 50),
+        ("customeradmin@gmail.com", "customeradmin", 67),
+        ("executive@gmail.com", "executive", 43),
+        ("hacker@gmail.com", "hacker", 71),
+        ("reattacker@gmail.com", "reattacker", 53),
+        ("resourcer@gmail.com", "resourcer", 28),
+        ("reviewer@gmail.com", "reviewer", 54),
+        ("system_owner@gmail.com", "system_owner", 83),
     ),
 )
 async def test_get_group(
