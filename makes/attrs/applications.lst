@@ -5,7 +5,6 @@ forces
 forces.process-groups
 forces.process-groups-break
 forces.test
-integrates.cache
 integrates.db
 integrates.db.migration
 integrates.storage

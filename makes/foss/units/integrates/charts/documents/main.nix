@@ -1,5 +1,6 @@
 { inputs
 , makeScript
+, outputs
 , projectPath
 , ...
 }:
@@ -13,8 +14,8 @@ makeScript {
       inputs.nixpkgs.findutils
       inputs.nixpkgs.python39
       inputs.product.integrates-db
-      inputs.product.integrates-cache
       inputs.product.integrates-storage
+      outputs."/integrates/cache"
     ];
     source = [
       (inputs.legacy.importUtility "aws")

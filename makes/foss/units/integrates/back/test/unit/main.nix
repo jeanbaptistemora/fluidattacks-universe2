@@ -12,7 +12,7 @@ makeScript {
   searchPaths = {
     bin = [
       outputs."/integrates/batch"
-      inputs.product.integrates-cache
+      outputs."/integrates/cache"
       inputs.product.integrates-db
       inputs.product.integrates-storage
     ];

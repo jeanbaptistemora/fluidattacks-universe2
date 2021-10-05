@@ -1,6 +1,7 @@
 { inputs
 , makePythonPypiEnvironment
 , makeScript
+, outputs
 , projectPath
 , ...
 }:
@@ -17,6 +18,7 @@ makeScript {
       inputs.product.integrates-db
       inputs.product.integrates-cache
       inputs.product.integrates-storage
+      outputs."/integrates/cache"
     ];
     source = [
       (makePythonPypiEnvironment {

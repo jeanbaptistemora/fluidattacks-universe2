@@ -1,5 +1,6 @@
 { inputs
 , makeScript
+, outputs
 , projectPath
 , ...
 }:
@@ -12,8 +13,8 @@ makeScript {
     bin = [
       inputs.nixpkgs.python37
       inputs.product.integrates-db
-      inputs.product.integrates-cache
       inputs.product.integrates-storage
+      outputs."/integrates/cache"
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/subscriptions/user-to-entity/entrypoint.sh";
