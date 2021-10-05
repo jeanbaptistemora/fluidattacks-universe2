@@ -53,7 +53,9 @@ def test_get_diff() -> None:
         str(
             get_diff(
                 repo,
+                # integrates\feat(front): #4443.22 daily digest modal
                 rev_a="4db24690eb0381bb4645a2617eda2fd26d511e74",
+                # skims\feat(build): #4551.11 add unidiff library
                 rev_b="992a60f0eead2898726d02c89077afecdce68e61",
             ),
         )
@@ -74,6 +76,7 @@ def test_get_diff() -> None:
 def test_rebase() -> None:
     repo = get_repo("../product")
 
+    # skims\refac(back): #4436.1 mv code
     rev = "1a5763f0ea8aa867ba459c629c42919243a89521"
     rebase_ = partial(rebase, repo, rev_a=f"{rev}~1", rev_b=rev)
 
@@ -101,15 +104,18 @@ def test_rebase() -> None:
         # Which is the commit before the line was modified
         path=path,
         line=65,
+        # observes\feat(back): #4349.24 errors stream
         rev="5d7f7915544aa5c9fba828331ed9f200f5ac5ed1",
     )
 
     # The file was deleted, we cannot rebase
+    # docs\feat(doc): #4352.324 remove rules
     rev = "e96763322ba55cc62684303cf1589870220825fa"
     path = "airs/content/pages/products/rules/findings/hygiene/037/index.adoc"
     assert None is rebase(repo, path=path, line=1, rev_a=f"{rev}~1", rev_b=rev)
 
     # The file was renamed, path is changed, line not
+    # skims\feat(cross): #4551.7 rebase cli
     rev = "2d1a923747b0f26f41c3f23e104598fefd4de6eb"
     path_a = "skims/skims/core/entrypoint.py"
     path_b = "skims/skims/core/scan.py"

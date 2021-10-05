@@ -1,5 +1,4 @@
-{ __nixpkgs__
-, inputs
+{ inputs
 , libGit
 , makeTemplate
 , outputs
@@ -16,13 +15,12 @@
           "androguard" = inputs.skimsAndroguard;
           "owasp_benchmark" = inputs.skimsBenchmarkOwasp;
           "NIST-SARD-Test-Suites" = inputs.skimsNistTestSuites;
-          "product" = __nixpkgs__.fetchFromGitLab {
-            owner = "fluidattacks";
-            repo = "product";
-            rev = "ff231a9bf8aa3f0807f3431b402e7af08d136341";
-            sha256 = "0rf65m2sqx9aswqsqrfhsiylw8g22cgzp80k8ir3bwa7pkb1s0ix";
+          "product" = inputs.nixpkgs.fetchgit {
+            branchName = "master";
+            url = "https://gitlab.com/fluidattacks/product.git";
+            rev = "68d5397178ada18e4cf6d4676765c8f8810013ce";
+            sha256 = "066mh0zbf937yhnp827pqcl8vdi47nz7iyp7nsah1hrivbr4zdyj";
             deepClone = true;
-            leaveDotGit = true;
           };
           "VulnerableApp" = inputs.skimsVulnerableApp;
           "vulnerable_js_app" = inputs.skimsVulnerableJsApp;
