@@ -83,8 +83,8 @@ def format_finding(
             raw_items=raw_items,
         )
     )
-    unreliable_indicators = format_unreliable_indicators(
-        historics.get_latest(
+    unreliable_indicators = format_optional_unreliable_indicators(
+        historics.get_optional_latest(
             item_id=item_id,
             key_structure=key_structure,
             historic_suffix="UNRELIABLEINDICATORS",
@@ -299,6 +299,15 @@ def format_optional_state(
     if state_item is not None:
         state = format_state(state_item)
     return state
+
+
+def format_optional_unreliable_indicators(
+    indicators_item: Optional[Item],
+) -> FindingUnreliableIndicators:
+    indicators = FindingUnreliableIndicators()
+    if indicators_item is not None:
+        indicators = format_unreliable_indicators(indicators_item)
+    return indicators
 
 
 def format_optional_verification(
