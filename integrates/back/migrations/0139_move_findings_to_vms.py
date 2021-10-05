@@ -9,8 +9,8 @@ run for this migration as their priority is low.
 An initial cleaning of the integrates_vms table is possible, for removing
 previously migrated findings in an inconsistent state.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-10-05 at 01:50:11 UTCUTC
+Finalization Time: 2021-10-05 at 02:58:41 UTCUTC
 """
 
 from aioextensions import (
@@ -105,7 +105,6 @@ from typing import (
     cast,
     Dict,
     List,
-    Set,
     Union,
 )
 from unreliable_indicators.enums import (
@@ -121,10 +120,10 @@ ERROR: str = "ERROR"
 FINDING_TABLE: str = "FI_findings"
 
 CLEAN_FINDINGS: bool = False
-MIGRATE_NON_DELETED_FINDINGS: bool = False
+MIGRATE_NON_DELETED_FINDINGS: bool = True
 MIGRATE_DELETED_FINDINGS: bool = False
 MIGRATE_MASKED_FINDINGS: bool = False
-PROD: bool = False
+PROD: bool = True
 
 
 async def _populate_finding_unreliable_indicator(
@@ -478,33 +477,6 @@ def _format_evidences(old_finding: FindingType) -> FindingEvidences:
     return _format_non_masked_evidences(old_finding)
 
 
-def _read_migration_results() -> List[str]:
-    try:
-        with open(RESULTS_FILE, mode="r") as f:
-            return f.read().splitlines()
-    except FileNotFoundError:
-        print("ERROR - file not found ")
-        return []
-
-
-def _write_migration_results(results: Set[str]) -> None:
-    results.discard(ERROR)
-    try:
-        with open(RESULTS_FILE, "a") as f:
-            for result in results:
-                f.write(f"{result}\n")
-    except IOError:
-        print("ERROR - while writing results")
-
-
-def _reset_migration_results() -> None:
-    try:
-        with open(RESULTS_FILE, "w") as f:
-            f.write("")
-    except IOError:
-        print("ERROR - while resetting results")
-
-
 async def _proccess_finding(
     loaders: Dataloaders,
     old_finding: FindingType,
@@ -639,19 +611,16 @@ async def _clean_findings() -> bool:
 
     if PROD and len(to_delete_findings) > 0:
         start_time = datetime.now()
-        success = all(
-            await collect(
-                [
-                    _delete_item(
-                        table_name=TABLE.name,
-                        item=item,
-                        progress=count / len(to_delete_findings),
-                    )
-                    for count, item in enumerate(to_delete_findings)
-                ]
+        results = await collect(
+            _delete_item(
+                table_name=TABLE.name,
+                item=item,
+                progress=count / len(to_delete_findings),
             )
+            for count, item in enumerate(to_delete_findings)
         )
-        _reset_migration_results()
+        if ERROR not in results:
+            success = True
         print("--- deletion in %s ---" % (datetime.now() - start_time))
 
     return success
@@ -677,25 +646,18 @@ async def _migrate_non_deleted_findings(
 
     if PROD:
         start_time = datetime.now()
-        results = set(
-            await collect(
-                [
-                    _proccess_finding(
-                        loaders=loaders,
-                        old_finding=old_finding,
-                        progress=count / len(non_deleted_findings),
-                    )
-                    for count, old_finding in enumerate(non_deleted_findings)
-                    if old_finding["finding_id"]
-                    not in _read_migration_results()
-                ]
+        results = await collect(
+            _proccess_finding(
+                loaders=loaders,
+                old_finding=old_finding,
+                progress=count / len(non_deleted_findings),
             )
+            for count, old_finding in enumerate(non_deleted_findings)
         )
-        print(f"=== results non deleted: {len(results)}")
         if ERROR not in results:
             success = True
-        _write_migration_results(results)
         print("--- processing in %s ---" % (datetime.now() - start_time))
+
     return success
 
 
@@ -715,26 +677,19 @@ async def _migrate_deleted_findings(
 
     if PROD:
         start_time = datetime.now()
-        results = set(
-            await collect(
-                [
-                    _proccess_finding(
-                        loaders=loaders,
-                        old_finding=old_finding,
-                        progress=count / len(deleted_findings),
-                        is_deleted=True,
-                    )
-                    for count, old_finding in enumerate(deleted_findings)
-                    if old_finding["finding_id"]
-                    not in _read_migration_results()
-                ]
+        results = await collect(
+            _proccess_finding(
+                loaders=loaders,
+                old_finding=old_finding,
+                progress=count / len(deleted_findings),
+                is_deleted=True,
             )
+            for count, old_finding in enumerate(deleted_findings)
         )
-        print(f"=== results deleted: {len(results)}")
         if ERROR not in results:
             success = True
-        _write_migration_results(results)
         print("--- processing in %s ---" % (datetime.now() - start_time))
+
     return success
 
 
@@ -764,25 +719,18 @@ async def _migrate_masked_findings(
 
     if PROD:
         start_time = datetime.now()
-        results = set(
-            await collect(
-                [
-                    _proccess_finding(
-                        loaders=loaders,
-                        old_finding=old_finding,
-                        progress=count / len(masked_findings),
-                    )
-                    for count, old_finding in enumerate(masked_findings)
-                    if old_finding["finding_id"]
-                    not in _read_migration_results()
-                ]
+        results = await collect(
+            _proccess_finding(
+                loaders=loaders,
+                old_finding=old_finding,
+                progress=count / len(masked_findings),
             )
+            for count, old_finding in enumerate(masked_findings)
         )
-        print(f"=== results masked: {len(results)}")
         if ERROR not in results:
             success = True
-        _write_migration_results(results)
         print("--- processing in %s ---" % (datetime.now() - start_time))
+
     return success
 
 
@@ -800,7 +748,7 @@ async def main() -> None:
         FINDING_TABLE, scan_attrs
     )
     print("--- scan in %s ---" % (datetime.now() - start_time))
-    print(f"scan findings: {len(findings)}")
+    print(f"Scan findings: {len(findings)}")
 
     if MIGRATE_NON_DELETED_FINDINGS:
         await _migrate_non_deleted_findings(
