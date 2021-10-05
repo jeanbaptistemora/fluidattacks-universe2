@@ -10,12 +10,10 @@ from charts import (
 )
 from charts.generators.stacked_bar_chart.utils import (
     format_document,
-    GroupDocumentData,
+    get_data_risk_over_time_group,
     RISK_OVER_TIME,
     RiskOverTime,
     sum_over_time_many_groups,
-    translate_date,
-    translate_date_last,
 )
 from dataloaders import (
     get_new_context,
@@ -32,12 +30,7 @@ from typing import (
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_group_document(  # pylint: disable=too-many-locals
-    group: str,
-    days: int,
-) -> RiskOverTime:
-    data: List[GroupDocumentData] = []
-    data_monthly: List[GroupDocumentData] = []
+async def get_group_document(group: str, days: int) -> RiskOverTime:
     context = get_new_context()
     group_loader = context.group
 
@@ -54,77 +47,13 @@ async def get_group_document(  # pylint: disable=too-many-locals
         elements[-12:] for elements in group_data[data_name_monthly]
     ]
 
-    if group_over_time:
-        group_found_over_time = group_over_time[0]
-        group_closed_over_time = group_over_time[1]
-        group_accepted_over_time = group_over_time[2]
-
-        for accepted, closed, found in zip(
-            group_accepted_over_time,
-            group_closed_over_time,
-            group_found_over_time,
-        ):
-            data.append(
-                GroupDocumentData(
-                    accepted=accepted["y"],
-                    closed=closed["y"],
-                    opened=found["y"] - closed["y"] - accepted["y"],
-                    date=translate_date(found["x"]),
-                    total=found["y"],
-                )
-            )
-
-    if group_over_time_monthly:
-        group_found_over_time = group_over_time_monthly[0]
-        group_closed_over_time = group_over_time_monthly[1]
-        group_accepted_over_time = group_over_time_monthly[2]
-
-        for accepted, closed, found in zip(
-            group_accepted_over_time,
-            group_closed_over_time,
-            group_found_over_time,
-        ):
-            data_monthly.append(
-                GroupDocumentData(
-                    accepted=accepted["y"],
-                    closed=closed["y"],
-                    opened=found["y"] - closed["y"] - accepted["y"],
-                    date=(
-                        translate_date_last(found["x"])
-                        if translate_date_last(found["x"]) < datetime.now()
-                        else datetime.combine(
-                            datetime.now(),
-                            datetime.min.time(),
-                        )
-                    ),
-                    total=found["y"],
-                )
-            )
-
-    weekly_data_size: int = len(
-        group_data[data_name][0] if group_data[data_name] else []
-    )
-    should_use_monthly: bool = False if days else weekly_data_size > 12
-    return RiskOverTime(
-        should_use_monthly=should_use_monthly,
-        monthly={
-            "date": {datum.date: 0 for datum in data_monthly},
-            "Closed": {datum.date: datum.closed for datum in data_monthly},
-            "Accepted": {datum.date: datum.accepted for datum in data_monthly},
-            "Found": {
-                datum.date: datum.closed + datum.accepted + datum.opened
-                for datum in data_monthly
-            },
-        },
-        weekly={
-            "date": {datum.date: 0 for datum in data},
-            "Closed": {datum.date: datum.closed for datum in data},
-            "Accepted": {datum.date: datum.accepted for datum in data},
-            "Found": {
-                datum.date: datum.closed + datum.accepted + datum.opened
-                for datum in data
-            },
-        },
+    return get_data_risk_over_time_group(
+        over_time_weekly=group_over_time,
+        over_time_monthly=group_over_time_monthly,
+        weekly_data_size=len(group_data[data_name][0])
+        if group_data[data_name]
+        else 0,
+        limited_days=bool(days),
     )
 
 
