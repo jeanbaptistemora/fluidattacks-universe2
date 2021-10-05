@@ -72,7 +72,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
     HANDLE_ORGANIZATION_FINDING_POLICY,
     {
       onCompleted: (result: {
-        handleOrganizationFindingPolicyAcceptation: { success: boolean };
+        handleOrganizationFindingPolicyAcceptance: { success: boolean };
       }): void => {
         handleOrgFindingPolicyNotification(
           result,

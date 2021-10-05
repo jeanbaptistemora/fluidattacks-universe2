@@ -32,7 +32,7 @@ from api.mutations import (
     download_vulnerability_file,
     grant_stakeholder_access,
     grant_stakeholder_organization_access,
-    handle_organization_finding_policy_acceptation,
+    handle_organization_finding_policy_acceptance,
     handle_vulnerabilities_acceptation,
     handle_vulnerabilities_acceptation_new,
     invalidate_access_token,
@@ -144,8 +144,8 @@ MUTATION.set_field(
     grant_stakeholder_organization_access.mutate,
 )
 MUTATION.set_field(
-    "handleOrganizationFindingPolicyAcceptation",
-    handle_organization_finding_policy_acceptation.mutate,
+    "handleOrganizationFindingPolicyAcceptance",
+    handle_organization_finding_policy_acceptance.mutate,
 )
 MUTATION.set_field("invalidateAccessToken", invalidate_access_token.mutate)
 MUTATION.set_field("invalidateCache", invalidate_cache.mutate)

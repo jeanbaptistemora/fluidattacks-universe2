@@ -355,7 +355,7 @@ describe("Organization findings policies view", (): void => {
         },
         result: {
           data: {
-            handleOrganizationFindingPolicyAcceptation: {
+            handleOrganizationFindingPolicyAcceptance: {
               success: true,
             },
           },
@@ -518,7 +518,7 @@ describe("Organization findings policies view", (): void => {
         },
         result: {
           data: {
-            handleOrganizationFindingPolicyAcceptation: {
+            handleOrganizationFindingPolicyAcceptance: {
               success: true,
             },
           },

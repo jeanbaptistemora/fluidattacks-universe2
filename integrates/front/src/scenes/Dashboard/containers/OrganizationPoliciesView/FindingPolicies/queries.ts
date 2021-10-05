@@ -32,12 +32,12 @@ const DEACTIVATE_ORGANIZATION_FINDING_POLICY: DocumentNode = gql`
 `;
 
 const HANDLE_ORGANIZATION_FINDING_POLICY: DocumentNode = gql`
-  mutation HandleOrganizationFindingPolicyAcceptation(
+  mutation handleOrganizationFindingPolicyAcceptance(
     $findingPolicyId: ID!
     $organizationName: String!
     $status: OrganizationFindingPolicy!
   ) {
-    handleOrganizationFindingPolicyAcceptation(
+    handleOrganizationFindingPolicyAcceptance(
       findingPolicyId: $findingPolicyId
       organizationName: $organizationName
       status: $status

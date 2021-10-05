@@ -139,12 +139,12 @@ async def test_handle_organization_finding_policy_acceptation() -> None:
 
     approver_user = "integratesuser@gmail.com"
     handle_mutation = """
-        mutation HandleOrganizationFindingPolicyAcceptation(
+        mutation handleOrganizationFindingPolicyAcceptance(
             $findingPolicyId: ID!
             $orgName: String!
             $status: OrganizationFindingPolicy!
         ) {
-            handleOrganizationFindingPolicyAcceptation(
+            handleOrganizationFindingPolicyAcceptance(
                 findingPolicyId: $findingPolicyId
                 organizationName: $orgName
                 status: $status
@@ -171,7 +171,7 @@ async def test_handle_organization_finding_policy_acceptation() -> None:
         hande_acceptation_data, stakeholder=approver_user
     )
     assert "errors" not in result
-    assert result["data"]["handleOrganizationFindingPolicyAcceptation"][
+    assert result["data"]["handleOrganizationFindingPolicyAcceptance"][
         "success"
     ]
     assert (
@@ -253,12 +253,12 @@ async def test_deactivate_org_finding_policy() -> None:
 
     approver_user = "integratesuser@gmail.com"
     handle_mutation = """
-        mutation HandleOrganizationFindingPolicyAcceptation(
+        mutation handleOrganizationFindingPolicyAcceptance(
             $findingPolicyId: ID!
             $orgName: String!
             $status: OrganizationFindingPolicy!
         ) {
-            handleOrganizationFindingPolicyAcceptation(
+            handleOrganizationFindingPolicyAcceptance(
                 findingPolicyId: $findingPolicyId
                 organizationName: $orgName
                 status: $status
@@ -283,7 +283,7 @@ async def test_deactivate_org_finding_policy() -> None:
         hande_acceptation_data, stakeholder=approver_user
     )
     assert "errors" not in result
-    assert result["data"]["handleOrganizationFindingPolicyAcceptation"][
+    assert result["data"]["handleOrganizationFindingPolicyAcceptance"][
         "success"
     ]
     assert (
@@ -474,12 +474,12 @@ async def test_submit_organization_finding_policy() -> None:
 
     approver_user = "integratesuser@gmail.com"
     handle_mutation = """
-        mutation HandleOrganizationFindingPolicyAcceptation(
+        mutation handleOrganizationFindingPolicyAcceptance(
             $findingPolicyId: ID!
             $orgName: String!
             $status: OrganizationFindingPolicy!
         ) {
-            handleOrganizationFindingPolicyAcceptation(
+            handleOrganizationFindingPolicyAcceptance(
                 findingPolicyId: $findingPolicyId
                 organizationName: $orgName
                 status: $status
@@ -504,7 +504,7 @@ async def test_submit_organization_finding_policy() -> None:
         hande_acceptation_rejected_data, stakeholder=approver_user
     )
     assert "errors" not in result
-    assert result["data"]["handleOrganizationFindingPolicyAcceptation"][
+    assert result["data"]["handleOrganizationFindingPolicyAcceptance"][
         "success"
     ]
 

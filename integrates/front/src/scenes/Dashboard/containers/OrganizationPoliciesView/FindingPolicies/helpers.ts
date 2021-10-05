@@ -8,12 +8,12 @@ import { translate } from "utils/translations/translate";
 
 const handleOrgFindingPolicyNotification = (
   result: {
-    handleOrganizationFindingPolicyAcceptation: { success: boolean };
+    handleOrganizationFindingPolicyAcceptance: { success: boolean };
   },
   handlePolicyStatus: "APPROVED" | "REJECTED",
   organizationName: string
 ): void => {
-  if (result.handleOrganizationFindingPolicyAcceptation.success) {
+  if (result.handleOrganizationFindingPolicyAcceptance.success) {
     if (handlePolicyStatus === "APPROVED") {
       track("ApproveOrganizationFindingPolicy", {
         Organization: organizationName,

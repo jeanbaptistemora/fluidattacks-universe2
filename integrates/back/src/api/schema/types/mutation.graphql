@@ -356,8 +356,8 @@ type Mutation {
     userEmail: String!
   ): GrantStakeholderAccessPayload!
 
-  "Handles submission, acceptation or rejection of a Finding policy"
-  handleOrganizationFindingPolicyAcceptation(
+  "Handles submission, acceptance or rejection of a Finding policy"
+  handleOrganizationFindingPolicyAcceptance(
     "ID of the policy"
     findingPolicyId: ID!
     "Name of the organization the finding policy is associated with"

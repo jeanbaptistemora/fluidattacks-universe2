@@ -126,7 +126,7 @@ async def add_finding_policy(
     await add_organization_finding_policy(finding_policy=new_finding_policy)
 
 
-async def handle_finding_policy_acceptation(
+async def handle_finding_policy_acceptance(
     *,
     finding_policy_id: str,
     org_name: str,

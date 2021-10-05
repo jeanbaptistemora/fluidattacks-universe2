@@ -41,7 +41,7 @@ async def mutate(
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
 
-    await policies_domain.handle_finding_policy_acceptation(
+    await policies_domain.handle_finding_policy_acceptance(
         finding_policy_id=finding_policy_id,
         org_name=organization_name,
         status=status,
