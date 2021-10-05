@@ -21,11 +21,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1633360388,
-        "narHash": "sha256-BWqXHMB71WW4SlEYMHwiPX4DXa3C3kSWM5WMCiERexA=",
+        "lastModified": 1633472038,
+        "narHash": "sha256-C4NMnQzJbgyUEKdtH5bp04drC4R0Ko+O0L1lLOOGbRI=",
         "owner": "fluidattacks",
         "repo": "makes",
-        "rev": "3d940e9a1d0f48b2e524666c486a6c47074aa60c",
+        "rev": "2f18403a393cdebefe0a7bffb6dcb3047583ffc7",
         "type": "github"
       },
       "original": {
