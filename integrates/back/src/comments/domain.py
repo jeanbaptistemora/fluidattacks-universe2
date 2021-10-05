@@ -40,14 +40,23 @@ def _fill_vuln_info(
     vulns_ids: Set[str],
     vulns: List[Dict[str, FindingType]],
 ) -> CommentType:
+    """Adds the «Regarding vulnerabilities...» header to comments answering a
+    solicited reattack"""
     selected_vulns = [
         vuln.get("where") for vuln in vulns if vuln.get("UUID") in vulns_ids
     ]
     selected_vulns = list(set(selected_vulns))
     wheres = ", ".join(cast(List[str], selected_vulns))
-    comment[
-        "content"
-    ] = f"Regarding vulnerabilities {wheres}:\n\n" + comment.get("content", "")
+    # Avoid needless repetition of the header if the comment is answering more
+    # than one reattack
+    if not comment.get("content", "").startswith(
+        f"Regarding vulnerabilities {wheres}:"
+    ):
+        comment[
+            "content"
+        ] = f"Regarding vulnerabilities {wheres}:\n\n" + comment.get(
+            "content", ""
+        )
     return cast(CommentType, comment)
 
 
@@ -190,26 +199,33 @@ async def get_comments_new(
         if verification.vulnerability_ids
     )
     if bool(verified):
-        verification_comments_ids: Set[str] = {
+        verification_comment_ids: Set[str] = {
             verification.comment_id for verification in verified
         }
         vulns = await finding_vulns_loader.load(finding_id)
-        comments = [
+        reattack_comments, non_reattack_comments = filter_reattack_comments(
+            comments, verification_comment_ids
+        )
+        # Loop to add the «Regarding vulnerabilities...» header to comments
+        # answering a solicited reattack
+        reattack_comments = [
             _fill_vuln_info(
                 cast(Dict[str, str], comment),
                 verification.vulnerability_ids,
                 vulns,
             )
             if comment["id"] == verification.comment_id
-            else (
-                comment
-                if str(comment["id"]) not in verification_comments_ids
-                else {}
-            )
-            for comment in comments
+            else {}
+            for comment in reattack_comments
             for verification in verified
         ]
-        comments = list(filter(None, comments))
+        # Filter empty comments and remove duplicate reattack comments that can
+        # happen if there is one replying to multiple reattacks
+        reattack_comments = list(filter(None, reattack_comments))
+        unique_reattack_comments = list(
+            {comment["id"]: comment for comment in reattack_comments}.values()
+        )
+        comments = unique_reattack_comments + non_reattack_comments
 
     enforcer = await authz.get_group_level_enforcer(user_email)
     if enforcer(group_name, "handle_comment_scope"):

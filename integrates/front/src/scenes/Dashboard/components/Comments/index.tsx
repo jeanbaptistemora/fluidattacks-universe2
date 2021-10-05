@@ -64,7 +64,7 @@ const Comments: React.FC<ICommentsProps> = (
 
   const onMount: () => void = (): void => {
     onLoad((cData: ICommentStructure[]): void => {
-      setComments(_.uniqBy(cData, "id"));
+      setComments(cData);
     });
   };
   useEffect(onMount, [onLoad]);
