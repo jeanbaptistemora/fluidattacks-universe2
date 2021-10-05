@@ -4,6 +4,7 @@ from model.core_model import (
 from sast_symbolic_evaluation.cases.method_invocation.javascript import (
     insecure_crypto_js,
     insecure_key as javascript_insecure_key,
+    insecure_mysql_query,
     process_cookie as javascript_process_cookie,
 )
 from sast_symbolic_evaluation.utils_generic import (
@@ -342,8 +343,6 @@ BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
             "select",
             "parse",
         },
-        "mysql.Connection": {"query"},
-        "mysql.PoolConnection": {"query"},
     }
 )
 BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
@@ -511,6 +510,16 @@ BY_TYPE_HANDLER = complete_attrs_on_dict(
         "crypto-js.RSA": {
             "encrypt": {
                 insecure_crypto_js,
+            }
+        },
+        "mysql.Connection": {
+            "query": {
+                insecure_mysql_query,
+            }
+        },
+        "mysql.PoolConnection": {
+            "query": {
+                insecure_mysql_query,
             }
         },
     }

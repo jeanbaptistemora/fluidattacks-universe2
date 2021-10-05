@@ -68655,6 +68655,17 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "1222",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Express",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "1217",
               "value": {
                 "title": {
@@ -68674,23 +68685,12 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1222",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Express",
-            "value_type": "string"
-          },
-          {
             "current_instance": {
               "fields": {}
             },
             "meta": {
               "danger": false,
-              "dependencies": -3,
+              "dependencies": -2,
               "n_id": "1208",
               "value": null
             },
@@ -70501,6 +70501,39 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "594",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "589",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "2",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "584",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
               "n_id": "579",
               "value": {
                 "a": {
@@ -70542,50 +70575,17 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "594",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "3",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "589",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "2",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "584",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "1",
-            "value_type": "number"
-          },
-          {
             "is_destructuring": false,
             "meta": {
               "danger": false,
-              "dependencies": -4,
+              "dependencies": -1,
               "n_id": "576",
               "value": null
             },
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "triangle",
-            "var_type": "number"
+            "var_type": null
           }
         ],
         "59": [

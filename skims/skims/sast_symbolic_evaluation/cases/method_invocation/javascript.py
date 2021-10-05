@@ -3,6 +3,8 @@ from model.graph_model import (
     SyntaxStepDeclaration,
     SyntaxStepLiteral,
     SyntaxStepMethodInvocation,
+    SyntaxStepObjectInstantiation,
+    SyntaxStepSymbolLookup,
 )
 from sast_symbolic_evaluation.decorators import (
     javascript_only,
@@ -17,6 +19,7 @@ from sast_symbolic_evaluation.utils_generic import (
 from typing import (
     Dict,
     Set,
+    Union,
 )
 from utils.crypto import (
     insecure_elliptic_curve,
@@ -180,3 +183,20 @@ def insecure_crypto_js(args: EvaluatorArgs) -> None:
     )
 
     return None
+
+
+def insecure_mysql_query(args: EvaluatorArgs) -> None:
+    arguments = args.dependencies
+    query: Union[
+        SyntaxStepObjectInstantiation,
+        SyntaxStepLiteral,
+        SyntaxStepSymbolLookup,
+    ] = arguments[-1]
+    if (
+        isinstance(query, SyntaxStepObjectInstantiation)
+        and query.meta.value
+        and (sql := query.meta.value.get("sql"))
+    ):
+        args.syntax_step.meta.danger = sql.meta.danger
+    else:
+        args.syntax_step.meta.danger = query.meta.danger

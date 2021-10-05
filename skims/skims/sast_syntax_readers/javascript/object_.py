@@ -20,12 +20,14 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
             "label_text"
         ]
         value = args.generic(args.fork_n_id(pair_attrs["label_field_value"]))
-        yield value[-1]
         current_object[key_name] = value[-1]
 
     yield SyntaxStepObjectInstantiation(
         meta=SyntaxStepMeta(
-            danger=False, dependencies=[], n_id=args.n_id, value=current_object
+            danger=False,
+            dependencies=[list(current_object.values())],
+            n_id=args.n_id,
+            value=current_object,
         ),
         object_type="object",
     )
