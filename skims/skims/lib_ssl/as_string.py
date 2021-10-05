@@ -61,33 +61,31 @@ class SnippetConstructor:
         return "NONE"
 
     def construct(self, ssl_vulnerability: SSLVulnerability) -> str:
+        server = self.get_server(ssl_vulnerability)
+        versions = self.get_versions(ssl_vulnerability)
+        intention_title = self.get_intention_title()
+        intention = self.get_intention(ssl_vulnerability)
+        request_title = self.get_request_title()
+        request = self.get_request(ssl_vulnerability)
+        response_title = self.get_response_title(ssl_vulnerability)
+        response = self.get_response(ssl_vulnerability)
+        conclusion_title = self.get_conclusion_title()
+        conclusion = self.get_conclusion(ssl_vulnerability)
         return (
-            "{server}\n"
-            "{versions}\n"
-            "{intention_title}\n"
-            "{intention}\n"
-            "{request_title}\n"
-            "{request}\n"
-            "{response_title}\n"
-            "{response}\n"
-            "{conclusion_title}\n"
-            "{conclusion}\n"
-        ).format(
-            server=self.get_server(ssl_vulnerability),
-            versions=self.get_versions(ssl_vulnerability),
-            intention_title=self.get_intention_title(),
-            intention=self.get_intention(ssl_vulnerability),
-            request_title=self.get_request_title(),
-            request=self.get_request(ssl_vulnerability),
-            response_title=self.get_response_title(ssl_vulnerability),
-            response=self.get_response(ssl_vulnerability),
-            conclusion_title=self.get_conclusion_title(),
-            conclusion=self.get_conclusion(ssl_vulnerability),
+            f"{server}\n"
+            f"{versions}\n"
+            f"{intention_title}\n"
+            f"{intention}\n"
+            f"{request_title}\n"
+            f"{request}\n"
+            f"{response_title}\n"
+            f"{response}\n"
+            f"{conclusion_title}\n"
+            f"{conclusion}\n"
         )
 
 
 class SnippetConstructorEN(SnippetConstructor):
-    # pylint: disable=no-self-use
     def get_server(self, ssl_vulnerability: SSLVulnerability) -> str:
         return f"Server: {ssl_vulnerability.get_context()}"
 
@@ -116,18 +114,17 @@ class SnippetConstructorEN(SnippetConstructor):
     def get_request(self, ssl_vulnerability: SSLVulnerability) -> str:
         ssl_settings: SSLSettings = ssl_vulnerability.ssl_settings
 
+        tls_version = ssl_id2ssl_name(ssl_settings.tls_version)
+        key_exchange = ", ".join(ssl_settings.key_exchange_names)
+        authentication = ", ".join(ssl_settings.authentication_names)
+        cipher = ", ".join(ssl_settings.cipher_names)
+        ssl_hash = ", ".join(ssl_settings.hash_names)
         return (
-            "TLS version: {tls_version}\n"
-            "Key exchange: {key_exchange}\n"
-            "Authentication: {authentication}\n"
-            "Cipher: {cipher}\n"
-            "Hash: {ssl_hash}"
-        ).format(
-            tls_version=ssl_id2ssl_name(ssl_settings.tls_version),
-            key_exchange=", ".join(ssl_settings.key_exchange_names),
-            authentication=", ".join(ssl_settings.authentication_names),
-            cipher=", ".join(ssl_settings.cipher_names),
-            ssl_hash=", ".join(ssl_settings.hash_names),
+            f"TLS version: {tls_version}\n"
+            f"Key exchange: {key_exchange}\n"
+            f"Authentication: {authentication}\n"
+            f"Cipher: {cipher}\n"
+            f"Hash: {ssl_hash}"
         )
 
     def get_response_title(self, ssl_vulnerability: SSLVulnerability) -> str:
@@ -144,30 +141,28 @@ class SnippetConstructorEN(SnippetConstructor):
             return "Result: UNSUCCESSFULL_CONNECTION"
 
         if response.alert is not None:
+            level = response.alert.level.name
+            description = response.alert.description.name
             return (
                 "Result: CONNECTION_FAILED\n"
                 "Type: ALERT\n"
-                "Level: {level}\n"
-                "Description: {description}"
-            ).format(
-                level=response.alert.level.name,
-                description=response.alert.description.name,
+                f"Level: {level}\n"
+                f"Description: {description}"
             )
 
         if response.handshake is not None:
+            version = ssl_id2ssl_name(response.handshake.version_id)
+            iana = response.handshake.cipher_suite.iana_name
+            openssl = response.handshake.cipher_suite.get_openssl_name()
+            code = response.handshake.cipher_suite.get_code_str()
+            vulns = response.handshake.cipher_suite.get_vuln_str()
             return (
                 "Result: CONNECTION_SUCCESS\n"
-                "TLS version: {version}\n"
-                "Selected cipher suite: {iana}\n"
-                "    Openssl name: {openssl}\n"
-                "    Code: {code}\n"
-                "    Vulnerabilities: {vulns}"
-            ).format(
-                version=ssl_id2ssl_name(response.handshake.version_id),
-                iana=response.handshake.cipher_suite.iana_name,
-                openssl=response.handshake.cipher_suite.get_openssl_name(),
-                code=response.handshake.cipher_suite.get_code_str(),
-                vulns=response.handshake.cipher_suite.get_vuln_str(),
+                f"TLS version: {version}\n"
+                f"Selected cipher suite: {iana}\n"
+                f"    Openssl name: {openssl}\n"
+                f"    Code: {code}\n"
+                f"    Vulnerabilities: {vulns}"
             )
 
         return super().get_response(ssl_vulnerability)
@@ -184,7 +179,6 @@ class SnippetConstructorEN(SnippetConstructor):
 
 
 class SnippetConstructorES(SnippetConstructor):
-    # pylint: disable=no-self-use
     def get_server(self, ssl_vulnerability: SSLVulnerability) -> str:
         return f"Servidor: {ssl_vulnerability.get_context()}"
 
@@ -212,19 +206,18 @@ class SnippetConstructorES(SnippetConstructor):
 
     def get_request(self, ssl_vulnerability: SSLVulnerability) -> str:
         ssl_settings: SSLSettings = ssl_vulnerability.ssl_settings
+        tls_version = ssl_id2ssl_name(ssl_settings.tls_version)
+        key_exchange = ", ".join(ssl_settings.key_exchange_names)
+        authentication = ", ".join(ssl_settings.authentication_names)
+        cipher = ", ".join(ssl_settings.cipher_names)
+        ssl_hash = ", ".join(ssl_settings.hash_names)
 
         return (
-            "Versión TLS: {tls_version}\n"
-            "Intercambio de llaves: {key_exchange}\n"
-            "Autenticación: {authentication}\n"
-            "Encripción: {cipher}\n"
-            "Hash: {ssl_hash}"
-        ).format(
-            tls_version=ssl_id2ssl_name(ssl_settings.tls_version),
-            key_exchange=", ".join(ssl_settings.key_exchange_names),
-            authentication=", ".join(ssl_settings.authentication_names),
-            cipher=", ".join(ssl_settings.cipher_names),
-            ssl_hash=", ".join(ssl_settings.hash_names),
+            f"Versión TLS: {tls_version}\n"
+            f"Intercambio de llaves: {key_exchange}\n"
+            f"Autenticación: {authentication}\n"
+            f"Encripción: {cipher}\n"
+            f"Hash: {ssl_hash}"
         )
 
     def get_response_title(self, ssl_vulnerability: SSLVulnerability) -> str:
@@ -241,30 +234,28 @@ class SnippetConstructorES(SnippetConstructor):
             return "Resultado: UNSUCCESSFULL_CONNECTION"
 
         if response.alert is not None:
+            level = response.alert.level.name
+            description = response.alert.description.name
             return (
                 "Resultado: CONNECTION_FAILED\n"
                 "Tipo: ALERT\n"
-                "Nivel: {level}\n"
-                "Descripción: {description}"
-            ).format(
-                level=response.alert.level.name,
-                description=response.alert.description.name,
+                f"Nivel: {level}\n"
+                f"Descripción: {description}"
             )
 
         if response.handshake is not None:
+            version = ssl_id2ssl_name(response.handshake.version_id)
+            iana = response.handshake.cipher_suite.iana_name
+            openssl = response.handshake.cipher_suite.get_openssl_name()
+            code = response.handshake.cipher_suite.get_code_str()
+            vulns = response.handshake.cipher_suite.get_vuln_str()
             return (
                 "Resultado: CONNECTION_SUCCESS\n"
-                "Versión TLS: {version}\n"
-                "Suite de cifrado seleccionada: {iana}\n"
-                "    Nombre openssl: {openssl}\n"
-                "    Código: {code}\n"
-                "    Vulnerabilidades: {vulns}"
-            ).format(
-                version=ssl_id2ssl_name(response.handshake.version_id),
-                iana=response.handshake.cipher_suite.iana_name,
-                openssl=response.handshake.cipher_suite.get_openssl_name(),
-                code=response.handshake.cipher_suite.get_code_str(),
-                vulns=response.handshake.cipher_suite.get_vuln_str(),
+                f"Versión TLS: {version}\n"
+                f"Suite de cifrado seleccionada: {iana}\n"
+                f"    Nombre openssl: {openssl}\n"
+                f"    Código: {code}\n"
+                f"    Vulnerabilidades: {vulns}"
             )
 
         return super().get_response(ssl_vulnerability)

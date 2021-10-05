@@ -52,7 +52,7 @@ def decide_language(path: str) -> GraphShardMetadataLanguage:
     language = GraphShardMetadataLanguage.NOT_SUPPORTED
 
     for lang, extensions in language_extensions_map.items():
-        if any([path.endswith(ext) for ext in extensions]):
+        if any(path.endswith(ext) for ext in extensions):
             language = lang
             break
 
@@ -110,10 +110,7 @@ async def get_file_content(
 
 
 async def get_file_raw_content(path: str, size: int = -1) -> bytes:
-    async with aiofiles.open(
-        path,
-        mode="rb",
-    ) as file_handle:
+    async with aiofiles.open(path, mode="rb") as file_handle:
         file_contents: bytes = await file_handle.read(size)
 
         return file_contents
@@ -311,7 +308,7 @@ async def resolve_paths(
         unique_nv_paths: Set[str] = get_non_verifiable_paths(unique_paths)
         unique_paths.symmetric_difference_update(unique_nv_paths)
     except FileNotFoundError as exc:
-        raise SystemExit(f"File does not exist: {exc.filename}")
+        raise SystemExit(f"File does not exist: {exc.filename}") from exc
     else:
         await log("info", "Files to be tested: %s", len(unique_paths))
 

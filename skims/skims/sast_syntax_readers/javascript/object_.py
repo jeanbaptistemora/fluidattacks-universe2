@@ -13,7 +13,7 @@ from utils import (
 
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
     match_pairs = g.match_ast_group(args.graph, args.n_id, "pair")
-    current_object = dict()
+    current_object = {}
     for pair_id in match_pairs["pair"]:
         pair_attrs = args.graph.nodes[pair_id]
         key_name = args.graph.nodes[pair_attrs["label_field_key"]][

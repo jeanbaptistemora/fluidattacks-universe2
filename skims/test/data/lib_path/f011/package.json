@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios": "0.18.0",
     "connect": "2.8",
     "fresh": "xxxxwhasdflaskdjfasdf",
     "hoek": "^5.0.0",

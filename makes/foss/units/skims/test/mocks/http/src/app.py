@@ -59,7 +59,7 @@ def home() -> Response:
 
 def _add_contents(finding: str, paths: List[str]) -> None:
     for index, path in enumerate(paths):
-        with open(os.path.join(ROOT, path)) as handle:
+        with open(os.path.join(ROOT, path), encoding="utf-8") as handle:
             add_rule(
                 finding,
                 index,

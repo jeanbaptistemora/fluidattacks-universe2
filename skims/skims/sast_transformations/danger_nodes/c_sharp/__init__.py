@@ -59,12 +59,12 @@ def mark_inputs(
                 *build_attr_paths("System", "Net", "WebClient"),
             },
         )
-    for finding in {
+    for finding in (
         findings.F004,
         findings.F021,
         findings.F063,
         findings.F107,
-    }:
+    ):
         mark_methods_input(
             finding,
             graph,

@@ -41,7 +41,7 @@ def get_components_from_group(group: str) -> List[str]:
     if not os.path.exists(path):
         return []
 
-    with open(path) as inputs_handle:
+    with open(path, encoding="utf-8") as inputs_handle:
         components = list(
             map(
                 itemgetter("component"),
@@ -146,7 +146,7 @@ async def main() -> None:
     )
 
     print(data)
-    with open(args.out, "w") as handle:
+    with open(args.out, "w", encoding="utf-8") as handle:
         handle.write(data)
 
 

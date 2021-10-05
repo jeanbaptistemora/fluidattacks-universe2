@@ -166,9 +166,9 @@ def _get_metadata_method_parameters(
     graph: graph_model.Graph,
     formal_parameters_id: str,
 ) -> List[graph_model.GraphShardMetadataParameter]:
-    parameters = list()
+    parameters = []
     match = g.match_ast_group(graph, formal_parameters_id, "formal_parameter")
-    for _parameter in match["formal_parameter"] or list():
+    for _parameter in match["formal_parameter"] or []:
         match_parameter = g.match_ast(
             graph, _parameter, "__0__", "__1__", "modifiers"
         )

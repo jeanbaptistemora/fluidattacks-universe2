@@ -52,7 +52,6 @@ def evaluate(args: EvaluatorArgs) -> None:
     las_statement: SyntaxStepMethodInvocation = args.syntax_steps[-1]
     if isinstance(las_statement, SyntaxStepMethodInvocation):
         var, method_path = split_on_last_dot(las_statement.method)
-        # pylint: disable=used-before-assignment
         if (var_decl := lookup_var_dcl_by_name(args, var)) and (
             all_param_types := PARAM_TYPES.get(var_decl.var_type, {}).get(
                 method_path

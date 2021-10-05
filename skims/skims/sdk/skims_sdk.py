@@ -131,7 +131,7 @@ class AvailabilityEnum(Enum):
 
 
 def _json_load(path: str) -> Any:
-    with open(path) as file:
+    with open(path, encoding="utf-8") as file:
         return json.load(file)
 
 

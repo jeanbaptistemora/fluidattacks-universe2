@@ -110,14 +110,10 @@ async def notify_findings_as_snippets(
     for store in stores.values():
         async for result in store.iterate():
             if result.skims_metadata:
-                await log(
-                    "info",
-                    "{title}: {what}\n\n{snippet}\n".format(
-                        title=t(result.finding.value.title),
-                        what=result.what_on_integrates,
-                        snippet=result.skims_metadata.snippet,
-                    ),
-                )
+                title = t(result.finding.value.title)
+                what = result.what_on_integrates
+                snippet = result.skims_metadata.snippet
+                await log("info", f"{title}: {what}\n\n{snippet}\n")
 
 
 async def notify_findings_as_csv(
@@ -154,7 +150,7 @@ async def notify_findings_as_csv(
         if result.skims_metadata
     ]
 
-    with open(output, "w") as file:
+    with open(output, "w", encoding="utf-8") as file:
         writer = csv.DictWriter(file, headers, quoting=csv.QUOTE_MINIMAL)
         writer.writeheader()
         writer.writerows(sorted(rows, key=str))

@@ -49,14 +49,14 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
                 "System.Net.Sockets.TcpClient",
                 "System.Net.WebClient",
             }
-            for finding in {
+            for finding in (
                 core_model.FindingEnum.F001.name,
                 core_model.FindingEnum.F107.name,
                 core_model.FindingEnum.F004.name,
                 core_model.FindingEnum.F008.name,
                 core_model.FindingEnum.F021.name,
                 core_model.FindingEnum.F063.name,
-            }
+            )
         },
     }
     _danger_instances = {

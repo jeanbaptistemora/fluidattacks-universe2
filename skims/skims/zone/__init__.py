@@ -31,7 +31,7 @@ def load_translations() -> Dict[str, Dict[str, str]]:
     translations: Dict[str, Dict[str, str]] = {}
     translations_folder: str = f"{STATIC}/translations"
     for path in iglob(f"{translations_folder}/**/*.yaml", recursive=True):
-        with open(path) as handle:
+        with open(path, encoding="utf-8") as handle:
             for key, data in yaml.safe_load(handle).items():
                 if key in translations:
                     raise KeyError(f"Found a duplicated translation: {key}")
@@ -42,14 +42,14 @@ def load_translations() -> Dict[str, Dict[str, str]]:
                     for locale_code in [locale.value]
                 }
 
-    with open(CRITERIA_REQUIREMENTS) as handle:
+    with open(CRITERIA_REQUIREMENTS, encoding="utf-8") as handle:
         for code, data in yaml.safe_load(handle).items():
             translations[f"criteria.requirements.{code}"] = dict(
                 EN=f"{code}. {data['en']['summary']}",
                 ES=f"{code}. {data['es']['summary']}",
             )
 
-    with open(CRITERIA_VULNERABILITIES) as handle:
+    with open(CRITERIA_VULNERABILITIES, encoding="utf-8") as handle:
         for code, data in yaml.safe_load(handle).items():
             translations[f"criteria.vulns.{code}.title"] = dict(
                 EN=f"{code}. {data['en']['title']}",

@@ -13,7 +13,6 @@ def evaluate(args: EvaluatorArgs) -> None:
 
     _key, _object = args.dependencies
     if (
-        # pylint: disable=used-before-assignment
         (_value_dict := _object.meta.value)
         and isinstance(_value_dict, dict)
         and (key_str := _key.meta.value)

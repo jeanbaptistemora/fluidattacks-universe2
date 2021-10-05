@@ -31,7 +31,6 @@ def attempt_java_util_properties_methods(args: EvaluatorArgs) -> bool:
 
     if (
         dcl := lookup_var_dcl_by_name(args, method_var)
-        # pylint: disable=used-before-assignment
     ) and dcl.var_type in build_attr_paths("java", "util", "Properties"):
         if method_path == "load" and len(args.dependencies) == 1:
             dcl.meta.value = args.dependencies[0].meta.value
@@ -71,7 +70,6 @@ def attempt_java_looked_up_class(args: EvaluatorArgs) -> bool:
     method_var, method_path = split_on_first_dot(args.syntax_step.method)
 
     if (prnt := lookup_var_state_by_name(args, method_var)) and isinstance(
-        # pylint: disable=used-before-assignment
         prnt.meta.value,
         LookedUpClass,
     ):

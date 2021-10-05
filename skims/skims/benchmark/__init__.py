@@ -46,7 +46,7 @@ def cast_to_boolean(boolean: str) -> bool:
 
 
 def load_benchmark_expected_results() -> Dict[str, Result]:
-    with open(os.environ["EXPECTED_RESULTS_CSV"]) as file:
+    with open(os.environ["EXPECTED_RESULTS_CSV"], encoding="utf-8") as file:
         mapping: Dict[str, Result] = {
             row["# test name"]
             + ".java": Result(
@@ -65,7 +65,7 @@ def load_benchmark_skims_results() -> Dict[str, List[Result]]:
     mapping: Dict[str, List[Result]] = {}
 
     for path in glob.glob("skims/test/outputs/benchmark_owasp_*.csv"):
-        with open(path) as file:
+        with open(path, encoding="utf-8") as file:
             for row in csv.DictReader(file):
                 what = os.path.basename(row["what"])
                 mapping.setdefault(what, [])
@@ -164,7 +164,7 @@ def main() -> None:
         results_owasp["record"][attr] = attr_value
         log_blocking("info", "%s: %s", attr, attr_value)
 
-    with open("benchmark.json", "w") as handle:
+    with open("benchmark.json", "w", encoding="utf-8") as handle:
         json.dump(results_owasp, handle, sort_keys=True)
 
 

@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 # pylint: disable=too-many-lines
 from enum import (
     Enum,

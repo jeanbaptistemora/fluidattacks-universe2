@@ -32,7 +32,7 @@ def get_tests_cases() -> Dict[str, List[str]]:
     )
 
     for test_file in test_files:
-        with open(test_file) as handle:
+        with open(test_file, encoding="utf-8") as handle:
             content = handle.read()
 
         if match := pattern.search(content):
@@ -76,7 +76,9 @@ def main() -> None:
         suite = f"benchmark_owasp_{category}"
         suites.append(suite)
 
-        with open(f"skims/test/data/config/{suite}.yaml", "w") as handle:
+        with open(
+            f"skims/test/data/config/{suite}.yaml", "w", encoding="utf-8"
+        ) as handle:
             handle.write(
                 yaml_dumps_blocking(
                     dict(
@@ -94,7 +96,9 @@ def main() -> None:
             )
 
     suite = "benchmark_owasp"
-    with open(f"skims/test/data/config/{suite}.yaml", "w") as handle:
+    with open(
+        f"skims/test/data/config/{suite}.yaml", "w", encoding="utf-8"
+    ) as handle:
         handle.write(
             yaml_dumps_blocking(
                 dict(

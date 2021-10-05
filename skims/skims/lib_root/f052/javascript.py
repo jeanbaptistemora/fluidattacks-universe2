@@ -56,7 +56,6 @@ def _test_native_cipher(
     dependencies = get_dependencies(step_index, syntax_steps)
     algorithm = dependencies[-1]
     if (
-        # pylint: disable=used-before-assignment
         algorithm.type == "SyntaxStepLiteral"
         and (algorithm_value := algorithm.value)
         and javascript_cipher_vulnerable(algorithm_value)
@@ -134,7 +133,6 @@ def insecure_hash(graph_db: GraphDB) -> Vulnerabilities:
             dependencies = get_dependencies(index, syntax_steps)
             algorithm = dependencies[-1]
             if (
-                # pylint: disable=used-before-assignment
                 algorithm.type == "SyntaxStepLiteral"
                 and (algorithm_value := algorithm.value)
                 and any(
@@ -194,7 +192,6 @@ def insecure_key(graph_db: GraphDB) -> Vulnerabilities:
                 dependencies = get_dependencies(step_index, syntax_steps)
                 curve = dependencies[-1]
                 if (
-                    # pylint: disable=used-before-assignment
                     curve.type == "SyntaxStepLiteral"
                     and (algorithm_value := curve.value)
                     and insecure_elliptic_curve(algorithm_value)

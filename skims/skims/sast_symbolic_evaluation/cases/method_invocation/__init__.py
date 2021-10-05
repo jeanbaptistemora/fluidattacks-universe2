@@ -64,7 +64,6 @@ def _propagate_return_type(args: EvaluatorArgs) -> None:
     method = args.syntax_step.method
     method_var, method_path = split_on_first_dot(method)
 
-    # pylint: disable=used-before-assignment
     if (
         method_var
         and (method_var_decl := lookup_var_dcl_by_name(args, method_var))
@@ -158,7 +157,6 @@ def attempt_by_obj(
 ) -> bool:
     method_var, method_path = split_on_first_dot(method)
 
-    # pylint: disable=used-before-assignment
     if (
         method_var_decl
         and (
@@ -351,7 +349,7 @@ def attempt_the_old_way(args: EvaluatorArgs) -> bool:
 def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     method_var, _ = split_on_first_dot(method)
     method_var_decl = lookup_var_dcl_by_name(args, method_var)
-    # pylint: disable=expression-not-assigned,too-many-boolean-expressions
+    # pylint: disable=expression-not-assigned
     (
         attempt_static(args, method)
         or attempt_static_side_effects(args, method)
@@ -381,7 +379,6 @@ def analyze_method_invocation_local(
     else:
         return False
 
-    # pylint: disable=used-before-assignment
     if (_method := lookup_method(args, method_name)) and (
         return_step := args.eval_method(
             args,

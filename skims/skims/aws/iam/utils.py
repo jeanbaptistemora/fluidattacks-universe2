@@ -49,7 +49,7 @@ def patch_statement(stmt: Union[Any, Node]) -> Union[Any, Node]:
     elif isinstance(stmt, dict):
         stmt.setdefault("Effect", "Deny")
 
-        for key in {"Action", "NotAction", "NotResource", "Resource"}:
+        for key in ("Action", "NotAction", "NotResource", "Resource"):
             if (key in stmt) and not isinstance(stmt[key], (list, UserList)):
                 stmt[key] = [stmt[key]]
     return stmt

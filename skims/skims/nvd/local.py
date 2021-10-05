@@ -20,10 +20,10 @@ from utils.ctx import (
 )
 
 # Constants
-with open(f"{STATIC}/sca/npm.json") as _FILE:
+with open(f"{STATIC}/sca/npm.json", encoding="utf-8") as _FILE:
     DATABASE_NPM: Dict[str, Dict[str, List[str]]] = json.load(_FILE)
 
-with open(f"{STATIC}/sca/maven.json") as _FILE:
+with open(f"{STATIC}/sca/maven.json", encoding="utf-8") as _FILE:
     DATABASE_MAVEN: Dict[str, Dict[str, List[str]]] = json.load(_FILE)
 
 IGNORED_CHARS = str.maketrans("", "", "".join({"^", "~"}))

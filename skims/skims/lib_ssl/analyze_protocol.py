@@ -107,7 +107,7 @@ def _create_core_vulns(
     )
 
 
-def _create_ssl_vuln(  # pylint: disable=too-many-arguments
+def _create_ssl_vuln(
     check: str,
     ssl_settings: SSLSettings,
     server_response: Optional[SSLServerResponse],

@@ -552,7 +552,7 @@ def get_all_possible_syntax_steps(
 
     if CTX.debug:
         output = get_debug_path(f"tree-sitter-syntax-steps-{finding.name}")
-        with open(f"{output}.json", "w") as handle:
+        with open(f"{output}.json", "w", encoding="utf-8") as handle:
             json_dump(syntax_steps_map, handle, indent=2, sort_keys=True)
 
     return syntax_steps_map

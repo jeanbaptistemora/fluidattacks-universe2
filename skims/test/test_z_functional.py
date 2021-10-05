@@ -100,7 +100,7 @@ def check_that_csv_results_match(
     *,
     snippet_filter: Callable[[str], str] = _default_snippet_filter,
 ) -> None:
-    with open(get_suite_produced_results(suite)) as produced:
+    with open(get_suite_produced_results(suite), encoding="utf-8") as produced:
         expected_path = os.path.join(
             os.environ["STATE"], get_suite_expected_results(suite)
         )
@@ -109,7 +109,9 @@ def check_that_csv_results_match(
             expected.write(produced.read())
             produced.seek(0)
 
-        with open(get_suite_expected_results(suite)) as expected:
+        with open(
+            get_suite_expected_results(suite), encoding="utf-8"
+        ) as expected:
             for producted_item, expected_item in zip_longest(
                 _format_csv(produced, snippet_filter=snippet_filter),
                 _format_csv(expected, snippet_filter=snippet_filter),

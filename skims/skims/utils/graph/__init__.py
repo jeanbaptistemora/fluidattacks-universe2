@@ -415,7 +415,7 @@ def match_ast_group(
     depth: int = 1,
 ) -> Dict[str, List[str]]:
     index: int = 0
-    nodes: Dict[str, List[str]] = {label: list() for label in label_type}
+    nodes: Dict[str, List[str]] = {label: [] for label in label_type}
 
     for c_id in adj_ast(graph, n_id, depth=depth):
         c_type = graph.nodes[c_id]["label_type"]

@@ -145,7 +145,7 @@ def _get_metadata_class_fields(
         g.match_ast_group(graph, class_body_id, "field_declaration")[
             "field_declaration"
         ]
-        or list()
+        or []
     ):
         match_field = g.match_ast(
             graph,
@@ -159,7 +159,7 @@ def _get_metadata_class_fields(
             for modifier in g.match_ast_group(graph, field_id, "modifier")[
                 "modifier"
             ]
-            or list()
+            or []
         )
 
         match_declaration = g.match_ast_group(
@@ -211,7 +211,6 @@ def _get_method_return_type(
         "predefined_type",
         "void_keyword",
     )
-    # pylint: disable=used-before-assignment
     if (_identifiers := match_method["identifier"]) and len(_identifiers) == 2:
         return node_to_str(graph, _identifiers[0])
     if _qualified_name := match_method["qualified_name"]:
@@ -242,7 +241,7 @@ def _get_metadata_attributes(
     graph: graph_model.Graph,
     declaration_id: str,
 ) -> List[str]:
-    attributes = list()
+    attributes = []
     attributes_match = g.match_ast_group(
         graph,
         declaration_id,
@@ -295,7 +294,7 @@ def _get_metadata_class_methods(
             }
             is_static = any(
                 g.match_ast(graph, modifier, "static")["static"]
-                for modifier in match_method["modifier"] or list()
+                for modifier in match_method["modifier"] or []
             )
 
             methods["." + _name] = graph_model.GraphShardMetadataCSharpMethod(
@@ -342,7 +341,7 @@ def _get_metadata_class_attributes(
     graph: graph_model.Graph,
     n_id: str,
 ) -> List[str]:
-    attributes = list()
+    attributes = []
     attributes_match = g.match_ast_group(
         graph,
         n_id,
@@ -361,13 +360,13 @@ def _get_metadata_method_parameters(
     graph: graph_model.Graph,
     n_id: str,
 ) -> List[graph_model.GraphShardMetadataCSharpParameter]:
-    parameters = list()
+    parameters = []
     match = g.match_ast_group(
         graph,
         n_id,
         "parameter",
     )
-    for param_id in match.get("parameter") or list():
+    for param_id in match.get("parameter") or []:
         match_param = g.match_ast(
             graph,
             param_id,

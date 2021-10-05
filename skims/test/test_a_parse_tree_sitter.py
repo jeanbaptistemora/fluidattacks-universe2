@@ -83,10 +83,12 @@ async def test_graph_generation(
         f"skims/test/data/sast/root-graph_{suffix_out}.json",
     )
     os.makedirs(os.path.dirname(expected_path), exist_ok=True)
-    with open(expected_path, "w") as handle:
+    with open(expected_path, "w", encoding="utf-8") as handle:
         handle.write(graph_db_as_json_str)
 
-    with open(f"skims/test/data/sast/root-graph_{suffix_out}.json") as handle:
+    with open(
+        f"skims/test/data/sast/root-graph_{suffix_out}.json", encoding="utf-8"
+    ) as handle:
         expected = handle.read()
 
     assert graph_db_as_json_str == expected
@@ -107,11 +109,12 @@ async def test_graph_generation(
         f"skims/test/data/sast/root-graph-syntax_{suffix_out}.json",
     )
     os.makedirs(os.path.dirname(expected_path), exist_ok=True)
-    with open(expected_path, "w") as handle:
+    with open(expected_path, "w", encoding="utf-8") as handle:
         handle.write(syntax_steps_as_json_str)
 
     with open(
         f"skims/test/data/sast/root-graph-syntax_{suffix_out}.json",
+        encoding="utf-8",
     ) as handle:
         expected = handle.read()
 

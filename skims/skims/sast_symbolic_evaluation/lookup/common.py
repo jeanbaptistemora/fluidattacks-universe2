@@ -88,7 +88,6 @@ def lookup_class(
 
     # Now lookoup in other shards different than the current shard
     if (shard := lookup_shard_by_class(args, class_name, language)) and (
-        # pylint:disable=used-before-assignment
         data := _lookup_class_in_shard(shard, class_name, language)
     ):
         return LookedUpClass(
@@ -136,7 +135,6 @@ def lookup_field(
     if (
         field_class
         and (shard := lookup_shard_by_class(args, field_class, language))
-        # pylint:disable=used-before-assignment
         and (data := _lookup_field_in_shard(shard, field_name, language))
     ):
         return LookedUpClassField(data, shard.path)
@@ -181,7 +179,6 @@ def lookup_method(
     if (
         method_class
         and (shard := lookup_shard_by_class(args, method_class, language))
-        # pylint:disable=used-before-assignment
         and (data := _lookup_method_in_shard(shard, method_name, language))
     ):
         return LookedUpMethod(

@@ -36,7 +36,7 @@ async def get_hmac(key: bytes, stream: bytes) -> bytes:
 
 
 def _load_static_data() -> None:
-    with open(CIPHER_SUITES_PATH) as cipher_suites_file:
+    with open(CIPHER_SUITES_PATH, encoding="utf-8") as cipher_suites_file:
         for row in csv.DictReader(cipher_suites_file):
             # Parse safe column
             if row["safe"] == "yes":

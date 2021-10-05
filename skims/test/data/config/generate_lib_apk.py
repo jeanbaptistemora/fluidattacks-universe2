@@ -26,7 +26,9 @@ def main() -> None:
         working_dir=folder,
     )
 
-    with open("skims/test/data/config/lib_apk.yaml", "w") as file:
+    with open(
+        "skims/test/data/config/lib_apk.yaml", "w", encoding="utf-8"
+    ) as file:
         file.write(yaml_dumps_blocking(suite))
         file.write("\n")
 

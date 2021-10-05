@@ -49,7 +49,6 @@ def _expression(
         "__1__",
         "__2__",
     )
-    # pylint: disable=used-before-assignment
     if (
         (var_identifier_id := match["__0__"])
         and (op_id := match["__1__"])

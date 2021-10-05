@@ -24,9 +24,7 @@ from typing import (
 DATA["options"]["propagate_positions"] = True
 
 
-class HCL2Builder(  # pylint: disable=too-few-public-methods
-    lark.Transformer,
-):
+class HCL2Builder(lark.Transformer):
     def __init__(self) -> None:
         self.transformer = DictTransformer()
         super().__init__()

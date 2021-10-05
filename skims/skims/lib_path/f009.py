@@ -392,7 +392,7 @@ async def web_config_db_connection(
 
 
 @SHIELD
-async def analyze(  # pylint: disable=too-many-arguments
+async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
     file_name: str,

@@ -182,7 +182,7 @@ def _admin_policies_attached_iterate_vulnerabilities(
                 if policy.raw in elevated_policies
             )
         elif any(
-            policy in elevated_policies for policy in policies.data or list()
+            policy in elevated_policies for policy in policies.data or []
         ):
             yield policies
 

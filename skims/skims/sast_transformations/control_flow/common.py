@@ -146,10 +146,7 @@ def if_statement(
         _generic(graph, else_id, stack, edge_attrs=g.ALWAYS)
 
     # Link whatever is inside the `then` to the next statement in chain
-    elif (
-        next_id := get_next_id(stack)
-        # pylint:disable=used-before-assignment
-    ) and next_id != n_id:
+    elif (next_id := get_next_id(stack)) and next_id != n_id:
         # Link `if` to the next statement after the `if`
         for statement in g.pred_cfg_lazy(graph, n_id, depth=-1):
             if statement == next_id:

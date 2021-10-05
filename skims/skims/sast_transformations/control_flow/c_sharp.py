@@ -27,8 +27,8 @@ def switch_statement(
     # switch parenthesized_expression switch_block
     try:
         switch_block = g.adj_ast(graph, n_id, label_type="switch_body")[0]
-    except IndexError:
-        raise NotImplementedError()
+    except IndexError as exc:
+        raise NotImplementedError() from exc
 
     switch_sections = tuple(
         c_id

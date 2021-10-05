@@ -90,7 +90,7 @@ Language.build_library(
 
 
 def get_fields(source: str) -> Dict[str, Tuple[str, ...]]:
-    with open(f"{source}/src/node-types.json") as handle:
+    with open(f"{source}/src/node-types.json", encoding="utf-8") as handle:
         language_fields: Dict[str, Tuple[str, ...]] = {
             node["type"]: fields
             for node in json.load(handle)
@@ -412,7 +412,7 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
         ),
         shards=[],
         shards_by_language_class={
-            language: dict() for language in available_languages
+            language: {} for language in available_languages
         },
         shards_by_path={},
     )
@@ -422,7 +422,7 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
         graph_db.shards_by_path[shard.path] = index - 1
 
     for shard in graph_db.shards:
-        for language in {"java", "c_sharp"}:
+        for language in ("java", "c_sharp"):
             if shard.metadata.language.value == language:
                 graph_db.shards_by_language_class[language].update(
                     {
@@ -433,7 +433,7 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
 
     if CTX.debug:
         output = get_debug_path("tree-sitter")
-        with open(f"{output}.json", "w") as handle:
+        with open(f"{output}.json", "w", encoding="utf-8") as handle:
             json_dump(graph_db, handle, indent=2, sort_keys=True)
 
     return graph_db

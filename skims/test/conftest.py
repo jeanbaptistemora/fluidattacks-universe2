@@ -133,7 +133,9 @@ def test_prepare_cfn_json_data() -> None:
         iglob("skims/test/data/parse_cfn/**/*.yaml", recursive=True),
     ):
         # Take the yaml and dump it as json as is
-        with open(path) as source, open(path + ".json", "w") as target:
+        with open(path, encoding="utf-8") as source, open(
+            path + ".json", "w", encoding="utf-8"
+        ) as target:
             source_data = load_as_yaml_without_line_number(source.read())
             target.write(json.dumps(source_data, indent=2))
 

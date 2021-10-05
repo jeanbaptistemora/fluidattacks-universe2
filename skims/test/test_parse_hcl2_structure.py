@@ -13,7 +13,7 @@ import pytest
 
 @pytest.mark.skims_test_group("unittesting")
 def test_iterate_resources() -> None:
-    with open("skims/test/data/parse_hcl2/iam.tf") as file:
+    with open("skims/test/data/parse_hcl2/iam.tf", encoding="utf-8") as file:
         model = load_blocking(file.read())
 
     assert (
@@ -23,7 +23,7 @@ def test_iterate_resources() -> None:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_iterate_iam_policy_documents() -> None:
-    with open("skims/test/data/parse_hcl2/iam.tf") as file:
+    with open("skims/test/data/parse_hcl2/iam.tf", encoding="utf-8") as file:
         model = load_blocking(file.read())
 
     assert tuple(iterate_iam_policy_documents(model)) == (

@@ -16,7 +16,9 @@ import pytest
 def test_bad() -> None:
     expected = "ERROR"
 
-    with open("skims/test/data/parse_hcl2/bad.nottf") as file:
+    with open(
+        "skims/test/data/parse_hcl2/bad.nottf", encoding="utf-8"
+    ) as file:
         template = load_blocking(file.read(), default=expected)
 
     assert template == expected
@@ -26,7 +28,7 @@ def test_bad() -> None:
 def test_load_empty() -> None:
     expected = Tree("start", [Tree("body", [])])
 
-    with open("skims/test/data/parse_hcl2/empty.tf") as file:
+    with open("skims/test/data/parse_hcl2/empty.tf", encoding="utf-8") as file:
         template = load_blocking(file.read())
 
     assert template == expected
@@ -82,7 +84,7 @@ def test_load_1() -> None:
         ],
     )
 
-    with open("skims/test/data/parse_hcl2/1.tf") as file:
+    with open("skims/test/data/parse_hcl2/1.tf", encoding="utf-8") as file:
         template = load_blocking(file.read())
 
     assert template == expected
@@ -269,7 +271,7 @@ def test_load_2() -> None:
         ],
     )
 
-    with open("skims/test/data/parse_hcl2/2.tf") as file:
+    with open("skims/test/data/parse_hcl2/2.tf", encoding="utf-8") as file:
         template = load_blocking(file.read())
 
     assert template == expected

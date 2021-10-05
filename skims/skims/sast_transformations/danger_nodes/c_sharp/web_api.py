@@ -47,7 +47,7 @@ def mark_metadata(
             for _method in _class.methods.values()
             if any(_method.name.startswith(action) for action in http_actions)
             or (
-                set(getattr(_method, "attributes", list())).intersection(
+                set(getattr(_method, "attributes", [])).intersection(
                     danger_attributes
                 )
             )

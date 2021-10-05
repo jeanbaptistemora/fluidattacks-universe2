@@ -36,10 +36,10 @@ def test_model_core_model_manifest_findings() -> None:
 
     expected_path = os.path.join(os.environ["STATE"], path)
     os.makedirs(os.path.dirname(expected_path), exist_ok=True)
-    with open(expected_path, "w") as handle_w:
+    with open(expected_path, "w", encoding="utf-8") as handle_w:
         handle_w.write(expected)
 
-    with open(path) as handle_r:
+    with open(path, encoding="utf-8") as handle_r:
         assert handle_r.read() == expected
 
 
@@ -68,10 +68,10 @@ def test_model_core_model_manifest_queues() -> None:
 
     expected_path = os.path.join(os.environ["STATE"], path)
     os.makedirs(os.path.dirname(expected_path), exist_ok=True)
-    with open(expected_path, "w") as handle_w:
+    with open(expected_path, "w", encoding="utf-8") as handle_w:
         handle_w.write(expected)
 
-    with open(path) as handle_r:
+    with open(path, encoding="utf-8") as handle_r:
         assert handle_r.read() == expected
 
 

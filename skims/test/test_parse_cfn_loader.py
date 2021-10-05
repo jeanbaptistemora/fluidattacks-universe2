@@ -67,7 +67,9 @@ def test_load_as_json() -> None:
         "__line__": 2,
     }
 
-    with open("skims/test/data/parse_cfn/1.yaml.json") as file:
+    with open(
+        "skims/test/data/parse_cfn/1.yaml.json", encoding="utf-8"
+    ) as file:
         assert load_as_json(file.read()) == expected
 
 
@@ -133,5 +135,5 @@ def test_load_as_yaml() -> None:
         },
     }
 
-    with open("skims/test/data/parse_cfn/1.yaml") as file:
+    with open("skims/test/data/parse_cfn/1.yaml", encoding="utf-8") as file:
         assert load_as_yaml(file.read()) == expected

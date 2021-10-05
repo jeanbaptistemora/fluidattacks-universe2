@@ -10,7 +10,7 @@ from typing import (
 )
 
 
-class StringToken(UserString):  # pylint: disable=too-many-ancestors
+class StringToken(UserString):
     def __init__(
         self,
         value: str,
@@ -62,7 +62,7 @@ class IntToken(int):
         self.__line__ = line
 
 
-class ListToken(UserList):  # pylint: disable=too-many-ancestors
+class ListToken(UserList):
     def __init__(
         self,
         value: Iterable[Any],
@@ -94,7 +94,7 @@ class TupleToken(tuple):
         self.__line__ = line
 
 
-class DictToken(UserDict):  # pylint: disable=too-many-ancestors
+class DictToken(UserDict):
     def __init__(
         self,
         value: dict,

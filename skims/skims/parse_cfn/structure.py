@@ -88,7 +88,7 @@ def iter_ec2_ingress_egress(
                     for ingress in getattr(
                         props.inner.get("SecurityGroupIngress", object),
                         "data",
-                        list(),
+                        [],
                     )
                 )
             if egress:
@@ -97,7 +97,7 @@ def iter_ec2_ingress_egress(
                     for ingress in getattr(
                         props.inner.get("SecurityGroupEgress", object),
                         "data",
-                        list(),
+                        [],
                     )
                 )
         elif ingress and kind.raw == "AWS::EC2::SecurityGroupIngress":
