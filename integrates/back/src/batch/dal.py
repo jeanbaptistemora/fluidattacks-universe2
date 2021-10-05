@@ -289,7 +289,7 @@ async def put_action_to_batch(
                     "vcpus": 2,
                     "command": [
                         "m",
-                        ".",
+                        "f",
                         "/integrates/batch",
                         "prod",
                         FI_API_STATUS,
