@@ -29,7 +29,6 @@ integrates.secrets.list
 integrates.web.e2e.pypi
 makes.commitlint
 makes.dev.forces
-makes.dev.integrates.back
 makes.dev.melts
 makes.dev.observes.tap-mixpanel
 makes.dev.skims
