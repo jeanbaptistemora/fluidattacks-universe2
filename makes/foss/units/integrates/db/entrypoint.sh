@@ -2,7 +2,7 @@
 
 function populate {
   local email="${1:-integratesmanager@gmail.com}"
-  local db_design='__envNewDbDesign__/database-design.json'
+  local db_design='__argNewDbDesign__/database-design.json'
   local TMP_ITEMS='.tmp_integrates_vms'
   local i=0
   local included_facets=(
@@ -49,11 +49,11 @@ function populate {
     && rm "${STATE_PATH}/${TMP_ITEMS}"
   echo "[INFO] Admin email: ${email}" \
     && sed "s/2020-09-04.*/$(date -u +%Y-%m-%dT%H:%M:%S.000000%z)\"/g" \
-      < '__envDb__/data/forces.json' \
+      < '__argDatabase__/data/forces.json' \
     | sed "s/33e5d863252940edbfb144ede56d56cf/aaa/g" \
       | sed "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \
         > "${STATE_PATH}/forces.now.json" \
-    && for data in '__envDb__/data/'*'.json'; do
+    && for data in '__argDatabase__/data/'*'.json'; do
       sed "s/__adminEmail__/${email}/g" "${data}" \
         > "${STATE_PATH}/$(basename "${data}")"
     done \
@@ -71,7 +71,7 @@ function serve {
     && rm -rf "${STATE_PATH}" \
     && mkdir -p "${STATE_PATH}" \
     && pushd "${STATE_PATH}" \
-    && unzip -u '__envDynamoZip__' \
+    && unzip -u '__argDynamoZip__' \
     && popd \
     && echo '[INFO] Deleting old instance, if exists' \
     && makes-kill-port "${PORT}" 28022 \
@@ -85,7 +85,7 @@ function serve {
         -sharedDb &
     } \
     && makes-wait 10 "${HOST}:${PORT}" \
-    && copy __envDb__ "${STATE_PATH}/terraform" \
+    && copy __argDatabase__ "${STATE_PATH}/terraform" \
     && pushd "${STATE_PATH}/terraform" \
     && terraform init \
     && terraform apply -auto-approve \

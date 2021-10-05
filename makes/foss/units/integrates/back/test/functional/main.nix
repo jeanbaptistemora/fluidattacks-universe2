@@ -18,9 +18,9 @@ makeScript {
   };
   searchPaths = {
     bin = [
-      inputs.product.integrates-db
       inputs.product.integrates-storage
       outputs."/integrates/cache"
+      outputs."/integrates/db"
     ];
     source = [
       pythonRequirements

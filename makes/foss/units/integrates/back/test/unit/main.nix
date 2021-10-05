@@ -13,7 +13,7 @@ makeScript {
     bin = [
       outputs."/integrates/batch"
       outputs."/integrates/cache"
-      inputs.product.integrates-db
+      outputs."/integrates/db"
       inputs.product.integrates-storage
     ];
     source = [

@@ -86,7 +86,7 @@ Run each command in a different terminal:
 ```bash
 m . /integrates/back
 m . /integrates/cache
-./m integrates.db
+m . /integrates/db
 ./m integrates.storage
 ```
 
