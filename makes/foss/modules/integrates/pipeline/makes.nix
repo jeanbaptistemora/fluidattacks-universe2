@@ -223,7 +223,7 @@ in
           [ "approve_draft_new" "false" "migration" ]
           [ "confirm_vulnerabilities_zero_risk" ]
           [ "deactivate_root" ]
-          [ "delete_obsolete_groups_new" "false" "migration" ]
+          [ "delete_obsolete_groups" "false" "migration" ]
           [ "download_event_file" ]
           [ "download_file" ]
           [ "download_vulnerability_file" ]

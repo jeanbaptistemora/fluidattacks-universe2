@@ -1,3 +1,6 @@
+from aiodataloader import (
+    DataLoader,
+)
 from aioextensions import (
     collect,
 )
@@ -5,7 +8,11 @@ from custom_types import (
     Group as GroupType,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from groups import (
     domain as groups_domain,
@@ -23,6 +30,7 @@ from organizations import (
 from typing import (
     Any,
     List,
+    Tuple,
 )
 
 
@@ -48,7 +56,7 @@ async def _delete_groups(
             for group_to_delete in groups_to_delete
         ]
     )
-    success = all(
+    return all(
         await collect(
             [
                 groups_domain.remove_group(
@@ -60,7 +68,6 @@ async def _delete_groups(
             ]
         )
     )
-    return success
 
 
 async def _remove_group_pending_deletion_dates(
@@ -73,7 +80,7 @@ async def _remove_group_pending_deletion_dates(
             group.get("pending_deletion_date") and group not in obsolete_groups
         )
     ]
-    success = all(
+    return all(
         await collect(
             [
                 groups_domain.update_pending_deletion_date(
@@ -83,7 +90,6 @@ async def _remove_group_pending_deletion_dates(
             ]
         )
     )
-    return success
 
 
 async def _set_group_pending_deletion_dates(
@@ -113,9 +119,9 @@ async def delete_obsolete_groups() -> None:
     """
     Delete groups without users, findings nor Fluid Attacks services enabled
     """
-    loaders = get_new_context()
-    group_findings_loader = loaders.group_findings
-    group_stakeholders_loader = loaders.group_stakeholders
+    loaders: Dataloaders = get_new_context()
+    group_findings_loader: DataLoader = loaders.group_findings_new
+    group_stakeholders_loader: DataLoader = loaders.group_stakeholders
     group_attributes = {
         "project_name",
         "project_status",
@@ -129,9 +135,9 @@ async def delete_obsolete_groups() -> None:
     inactive_group_names = [
         get_key_or_fallback(group) for group in inactive_groups
     ]
-    inactive_groups_findings = await group_findings_loader.load_many(
-        inactive_group_names
-    )
+    inactive_groups_findings: Tuple[
+        Finding, ...
+    ] = await group_findings_loader.load_many(inactive_group_names)
     inactive_groups_stakeholders = await group_stakeholders_loader.load_many(
         inactive_group_names
     )

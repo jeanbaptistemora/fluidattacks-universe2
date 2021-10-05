@@ -6,12 +6,12 @@ from newutils.utils import (
 )
 import pytest
 from schedulers import (
-    delete_obsolete_groups_new,
+    delete_obsolete_groups,
 )
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("delete_obsolete_groups_new")
+@pytest.mark.resolver_test_group("delete_obsolete_groups")
 async def test_get_group(populate: bool) -> None:
     assert populate
     group_attributes = {
@@ -37,7 +37,7 @@ async def test_get_group(populate: bool) -> None:
     for expected_group in expected_groups:
         assert expected_group in alive_groups
 
-    await delete_obsolete_groups_new.main()
+    await delete_obsolete_groups.main()
 
     alive_groups = await groups_domain.get_alive_groups(group_attributes)
     assert len(alive_groups) == 2

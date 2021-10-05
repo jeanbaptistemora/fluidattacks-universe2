@@ -28,7 +28,7 @@ TEST_GROUPS: Set[str] = {
     "approve_draft_new",
     "confirm_vulnerabilities_zero_risk",
     "deactivate_root",
-    "delete_obsolete_groups_new",
+    "delete_obsolete_groups",
     "download_event_file",
     "download_vulnerability_file",
     "download_vulnerability_file_new",

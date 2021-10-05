@@ -702,7 +702,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/integrates/back/test/functional__delete_obsolete_groups_new__false__migration:
+/integrates/back/test/functional__delete_obsolete_groups__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -717,7 +717,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'delete_obsolete_groups_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'delete_obsolete_groups' 'false' 'migration'
   stage: test-code
   tags:
     - autoscaling
