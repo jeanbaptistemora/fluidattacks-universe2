@@ -27,7 +27,6 @@ from typing import (
 
 _PageTVar = TypeVar("_PageTVar")
 _DataTVar = TypeVar("_DataTVar")
-_thread_pool = Pool()
 
 
 @dataclass(frozen=True)
@@ -57,4 +56,7 @@ class ParallelGetter(
         self,
         pages: FrozenList[_PageTVar],
     ) -> IO[FrozenList[Maybe[_DataTVar]]]:
+        _thread_pool = Pool()
+        # define the map function before creating a Pool instance;
+        # otherwise the pool workers cannot find it
         return Flattener.list_io(tuple(_thread_pool.map(self.getter, pages)))

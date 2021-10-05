@@ -9,9 +9,8 @@ from paginator.v2._parallel_getter import (
 from purity.v1 import (
     FrozenList,
     Patch,
-)
-from purity.v1._io_iter import (
-    IOiter,
+    PureIter,
+    PureIterFactory,
 )
 from returns.io import (
     IO,
@@ -22,12 +21,9 @@ from returns.maybe import (
 from returns.primitives.hkt import (
     SupportsKind1,
 )
-from returns.unsafe import (
-    unsafe_perform_io,
-)
 from typing import (
     Callable,
-    Iterator,
+    Optional,
     TypeVar,
 )
 
@@ -62,18 +58,29 @@ class IntIndexGetter(
         self,
         start: int,
         pages_chunk: int,
-    ) -> IOiter[_DataTVar]:
-        def result_iter() -> Iterator[_DataTVar]:
-            empty_page_retrieved = False
-            actual_page = start
-            while not empty_page_retrieved:
-                pages = range(actual_page, actual_page + pages_chunk)
-                results = unsafe_perform_io(self.get_pages(pages))
-                for item in results:
-                    if item == Maybe.empty:
-                        empty_page_retrieved = True
-                        break
-                    yield item.unwrap()
-                actual_page = actual_page + pages_chunk
+    ) -> PureIter[IO[_DataTVar]]:
+        def filter_chunk(
+            pages: IO[FrozenList[Maybe[_DataTVar]]],
+        ) -> IO[FrozenList[_DataTVar]]:
+            return pages.map(
+                lambda ps: tuple(p.unwrap() for p in ps if p != Maybe.empty)
+            )
 
-        return IOiter(lambda: IO(result_iter()))
+        def page_range(n_chunk: int) -> range:
+            return range(
+                start + n_chunk * pages_chunk,
+                start + (n_chunk + 1) * pages_chunk,
+            )
+
+        def is_empty(
+            element: IO[FrozenList[_DataTVar]],
+        ) -> Optional[IO[FrozenList[_DataTVar]]]:
+            return element if element.map(bool) == IO(True) else None
+
+        ranges = PureIterFactory.infinite_map(page_range, 0, 1)
+        chunks = PureIterFactory.map(self.get_pages, ranges)
+        filtered = PureIterFactory.map(filter_chunk, chunks)
+        all_data: PureIter[
+            IO[FrozenList[_DataTVar]]
+        ] = PureIterFactory.until_empty(is_empty, filtered)
+        return PureIterFactory.chain_lists(all_data)
