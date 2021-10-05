@@ -5,6 +5,7 @@ interface IToeInputAttr {
   entryPoint: string;
   seenFirstTimeBy: string;
   testedDate: string;
+  unreliableRootNickname: string;
   verified: string;
   vulnerabilities: string;
 }
@@ -16,6 +17,7 @@ interface IToeInputData {
   entryPoint: string;
   seenFirstTimeBy: string;
   testedDate: string;
+  unreliableRootNickname: string;
   verified: string;
   vulnerabilities: string;
 }

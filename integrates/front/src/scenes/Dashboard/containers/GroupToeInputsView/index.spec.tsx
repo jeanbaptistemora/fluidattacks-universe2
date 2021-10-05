@@ -39,6 +39,7 @@ describe("GroupToeInputsView", (): void => {
                 entryPoint: "idTest",
                 seenFirstTimeBy: "",
                 testedDate: "2020-01-02T00:00:00-05:00",
+                unreliableRootNickname: "test_nickname",
                 verified: "Yes",
                 vulnerabilities: "001. SQL injection - C Sharp SQL API",
               },
@@ -49,6 +50,7 @@ describe("GroupToeInputsView", (): void => {
                 entryPoint: "btnTest",
                 seenFirstTimeBy: "test@test.com",
                 testedDate: "2021-02-02T00:00:00-05:00",
+                unreliableRootNickname: "test_nickname",
                 verified: "No",
                 vulnerabilities: "",
               },
@@ -59,6 +61,7 @@ describe("GroupToeInputsView", (): void => {
                 entryPoint: "-",
                 seenFirstTimeBy: "test2@test.com",
                 testedDate: "2021-02-11T00:00:00-05:00",
+                unreliableRootNickname: "",
                 verified: "No",
                 vulnerabilities: "003. Symmetric denial of service",
               },
@@ -93,6 +96,7 @@ describe("GroupToeInputsView", (): void => {
 
     expect(tableHeader.text()).toStrictEqual(
       [
+        "Root",
         "Component",
         "Entry point",
         "Attacked",
@@ -105,6 +109,7 @@ describe("GroupToeInputsView", (): void => {
     );
     expect(firstRow.text()).toStrictEqual(
       [
+        "test_nickname",
         "test.com/api/Test",
         "idTest",
         "Yes",
@@ -117,6 +122,7 @@ describe("GroupToeInputsView", (): void => {
     );
     expect(secondRow.text()).toStrictEqual(
       [
+        "test_nickname",
         "test.com/test/test.aspx",
         "btnTest",
         "No",
@@ -129,6 +135,7 @@ describe("GroupToeInputsView", (): void => {
     );
     expect(thirdRow.text()).toStrictEqual(
       [
+        "",
         "test.com/test2/test.aspx",
         "-",
         "No",

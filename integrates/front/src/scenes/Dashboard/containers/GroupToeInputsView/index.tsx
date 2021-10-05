@@ -32,6 +32,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       component: true,
       createdDate: true,
       entryPoint: true,
+      root: true,
       seenFirstTimeBy: true,
       testedDate: true,
       verified: true,
@@ -83,6 +84,14 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
     sessionStorage.setItem("toeInputsSort", JSON.stringify(newSorted));
   };
   const headersToeInputsTable: IHeaderConfig[] = [
+    {
+      align: "left",
+      dataField: "unreliableRootNickname",
+      header: translate.t("group.toe.inputs.root"),
+      onSort,
+      visible: checkedItems.root,
+      width: "15%",
+    },
     {
       align: "left",
       dataField: "component",

@@ -12,6 +12,7 @@ const GET_TOE_INPUTS: DocumentNode = gql`
         entryPoint
         seenFirstTimeBy
         testedDate
+        unreliableRootNickname
         verified
         vulnerabilities
       }
