@@ -7,6 +7,12 @@ from custom_types import (
 from db_model.findings.types import (
     Finding,
 )
+from decorators import (
+    concurrent_decorators,
+    enforce_group_level_auth_async,
+    require_asm,
+    require_squad,
+)
 from functools import (
     partial,
 )
@@ -24,6 +30,9 @@ from typing import (
 )
 
 
+@concurrent_decorators(
+    enforce_group_level_auth_async, require_asm, require_squad
+)
 async def resolve(
     parent: Finding, info: GraphQLResolveInfo, **kwargs: None
 ) -> List[Comment]:
