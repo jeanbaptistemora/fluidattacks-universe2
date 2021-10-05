@@ -14,7 +14,7 @@ class GroupedVulnerabilitiesInfo(NamedTuple):
 
 
 class FindingGroupedVulnerabilitiesInfo(NamedTuple):
-    grouped_ports_vulnerablities: Tuple[GroupedVulnerabilitiesInfo, ...]
+    grouped_ports_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
     grouped_lines_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
     grouped_inputs_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
     where: str

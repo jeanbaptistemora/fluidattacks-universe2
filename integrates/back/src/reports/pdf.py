@@ -201,8 +201,8 @@ async def format_finding(
         grouped_lines_vulnerabilities=(
             grouped_vulnerabilities_info.grouped_lines_vulnerabilities
         ),
-        grouped_ports_vulnerablities=(
-            grouped_vulnerabilities_info.grouped_ports_vulnerablities
+        grouped_ports_vulnerabilities=(
+            grouped_vulnerabilities_info.grouped_ports_vulnerabilities
         ),
         open_vulnerabilities=open_vulnerabilities,
         recommendation=finding.recommendation,

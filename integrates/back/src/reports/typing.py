@@ -136,7 +136,7 @@ class GroupVulnsReportHeader(GenericHeader):
         label="Integrity Impact", width=20
     )
     AVAILABILITY_IMPACT: ColumnConfig = ColumnConfig(
-        label="Availability Imapact", width=20
+        label="Availability Impact", width=20
     )
     EXPLOITABILITY: ColumnConfig = ColumnConfig(
         label="Exploitability", width=18
@@ -162,7 +162,7 @@ class PdfFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
     evidence_set: List[Dict[str, str]]
     grouped_inputs_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
     grouped_lines_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
-    grouped_ports_vulnerablities: Tuple[GroupedVulnerabilitiesInfo, ...]
+    grouped_ports_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
     open_vulnerabilities: int
     recommendation: str
     requirements: str

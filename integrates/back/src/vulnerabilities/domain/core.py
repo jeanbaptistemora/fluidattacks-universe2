@@ -349,7 +349,7 @@ async def get_grouped_vulnerabilities_info(
     ports_vulnerabilities = vulnerabilities_by_type["ports_vulnerabilities"]
     lines_vulnerabilities = vulnerabilities_by_type["lines_vulnerabilities"]
     inputs_vulnerabilities = vulnerabilities_by_type["inputs_vulnerabilities"]
-    grouped_ports_vulnerablities: Tuple[
+    grouped_ports_vulnerabilities: Tuple[
         GroupedVulnerabilitiesInfo, ...
     ] = tuple()
     grouped_inputs_vulnerabilities: Tuple[
@@ -360,7 +360,7 @@ async def get_grouped_vulnerabilities_info(
     ] = tuple()
     where = "-"
     if ports_vulnerabilities:
-        grouped_ports_vulnerablities = tuple(
+        grouped_ports_vulnerabilities = tuple(
             map(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
                     where=grouped_vulns_info["where"],
@@ -400,7 +400,7 @@ async def get_grouped_vulnerabilities_info(
 
     grouped_vulnerabilities_info = FindingGroupedVulnerabilitiesInfo(
         where=where,
-        grouped_ports_vulnerablities=grouped_ports_vulnerablities,
+        grouped_ports_vulnerabilities=grouped_ports_vulnerabilities,
         grouped_lines_vulnerabilities=grouped_lines_vulnerabilities,
         grouped_inputs_vulnerabilities=grouped_inputs_vulnerabilities,
     )
