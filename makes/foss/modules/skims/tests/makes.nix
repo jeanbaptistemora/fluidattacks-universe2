@@ -1,4 +1,5 @@
-{ inputs
+{ __nixpkgs__
+, inputs
 , libGit
 , makeTemplate
 , outputs
@@ -15,10 +16,11 @@
           "androguard" = inputs.skimsAndroguard;
           "owasp_benchmark" = inputs.skimsBenchmarkOwasp;
           "NIST-SARD-Test-Suites" = inputs.skimsNistTestSuites;
-          "product" = inputs.nixpkgs.fetchgit {
-            url = "https://gitlab.com/fluidattacks/product.git";
+          "product" = __nixpkgs__.fetchFromGitLab {
+            owner = "fluidattacks";
+            repo = "product";
             rev = "ff231a9bf8aa3f0807f3431b402e7af08d136341";
-            sha256 = "03ik2di2bjvn2q02rf6mvfiiy3f27dyny9k48nwipkdb9bhcdxpf";
+            sha256 = "0rf65m2sqx9aswqsqrfhsiylw8g22cgzp80k8ir3bwa7pkb1s0ix";
             deepClone = true;
             leaveDotGit = true;
           };
