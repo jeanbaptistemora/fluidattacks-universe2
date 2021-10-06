@@ -15,6 +15,25 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+/computeOnAwsBatch/integratesSubscriptionsUserToEntity__prod:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  retry: 2
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_subscriptions_trigger_user_to_entity_report_on_aws_prod_schedule
+        == null
+      when: never
+    - when: always
+  script:
+    - m . /computeOnAwsBatch/integratesSubscriptionsUserToEntity 'prod'
+  stage: subscriptions
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
 /deployTerraform/integratesBackups:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -3063,25 +3082,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/subscriptions/user-to-entity 'dev'
-  stage: subscriptions
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-/integrates/subscriptions/user-to-entity__prod:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: false
-  needs: []
-  retry: 2
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $integrates_subscriptions_trigger_user_to_entity_report_on_aws_prod_schedule
-        == null
-      when: never
-    - when: always
-  script:
-    - m . /integrates/subscriptions/user-to-entity 'prod'
   stage: subscriptions
   tags:
     - autoscaling
