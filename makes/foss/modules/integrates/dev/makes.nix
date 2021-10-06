@@ -1,14 +1,11 @@
 { inputs
+, makeSearchPaths
 , makeTemplate
 , ...
 }:
 {
   dev = {
     integratesBack = {
-      pythonPackage = [
-        "integrates"
-        "integrates/back/src"
-      ];
       source = [
         (makeTemplate {
           name = "integrates-dev";
@@ -20,6 +17,12 @@
             require_env_var INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY
             source __argIntegratesBackEnv__ dev
           '';
+        })
+        (makeSearchPaths {
+          pythonPackage = [
+            "$PWD/integrates"
+            "$PWD/integrates/back/src"
+          ];
         })
       ];
     };

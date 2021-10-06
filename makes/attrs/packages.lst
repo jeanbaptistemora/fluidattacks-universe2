@@ -28,11 +28,6 @@ integrates.mobile.tools.fastlane
 integrates.secrets.list
 integrates.web.e2e.pypi
 makes.commitlint
-makes.dev.forces
-makes.dev.melts
-makes.dev.observes.tap-mixpanel
-makes.dev.skims
-makes.dev.vscode
 makes.python.safe-pickle
 makes.test
 makes.test.airs

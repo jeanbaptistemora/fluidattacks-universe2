@@ -6,6 +6,7 @@
 {
   imports = [
     ./compute-on-aws-batch/makes.nix
+    ./dev/makes.nix
     ./inputs/makes.nix
     ./tests/makes.nix
     ./pipeline/makes.nix
