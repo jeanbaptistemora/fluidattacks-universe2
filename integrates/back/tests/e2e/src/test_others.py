@@ -1,4 +1,4 @@
-from model import (  # pylint: disable=import-error
+from model import (
     Credentials,
 )
 from selenium.webdriver.remote.webdriver import (

@@ -15,9 +15,13 @@ def create_dataframe(
 ) -> None:
     dataframe = DataFrame(dataset, columns=columns, index=rows)
     html_matrix = dataframe.to_html()
-    text_file = open("deploy/permissions_matrix/" + filename + ".html", "w")
-    text_file.write(html_matrix)
-    text_file.close()
+
+    with open(
+        "deploy/permissions_matrix/" + filename + ".html",
+        "w",
+        encoding="utf-8",
+    ) as text_file:
+        text_file.write(html_matrix)
 
 
 def fill_matrix(
