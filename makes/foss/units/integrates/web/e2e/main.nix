@@ -1,5 +1,6 @@
 { inputs
 , makeScript
+, outputs
 , ...
 }:
 makeScript {
@@ -12,7 +13,7 @@ makeScript {
       inputs.nixpkgs.kubectl
     ];
     source = [
-      inputs.product.integrates-web-e2e-pypi
+      outputs."/integrates/web/e2e/pypi"
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "sops")
     ];

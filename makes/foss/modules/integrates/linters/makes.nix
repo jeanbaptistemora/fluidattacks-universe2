@@ -54,7 +54,7 @@
       };
       integratesBackTestsE2e = {
         searchPaths.source = [
-          inputs.product.integrates-web-e2e-pypi
+          outputs."/integrates/web/e2e/pypi"
         ];
         python = "3.9";
         src = "/integrates/back/tests/e2e/src";

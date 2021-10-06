@@ -18,7 +18,6 @@ integrates.mobile.tools
 integrates.mobile.tools.bundler
 integrates.mobile.tools.fastlane
 integrates.secrets.list
-integrates.web.e2e.pypi
 makes.commitlint
 makes.python.safe-pickle
 makes.test
