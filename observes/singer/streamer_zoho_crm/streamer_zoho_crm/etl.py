@@ -113,25 +113,27 @@ def emit_bulk_data(
     id_job_map: Mapping[str, BulkJob],
 ) -> None:
     def emit(bdata: BulkData) -> None:
-        persistent_file = tempfile.NamedTemporaryFile("w+", delete=False)
-        bdata.file.seek(0)
-        persistent_file.write(bdata.file.read())
-        module_name: str = id_job_map[bdata.job_id].module.value
-        record = SingerRecord(
-            stream=module_name,
-            record={
-                "csv_path": JsonValue(persistent_file.name),
-                "options": JsonValue(
-                    {
-                        "quote_nonnum": JsonValue(True),
-                        "add_default_types": JsonValue(True),
-                        "pkeys_present": JsonValue(False),
-                        "only_records": JsonValue(True),
-                    }
-                ),
-            },
-        )
-        singer_emitter.emit(record)
+        with tempfile.NamedTemporaryFile(
+            "w+", delete=False
+        ) as persistent_file:
+            bdata.file.seek(0)
+            persistent_file.write(bdata.file.read())
+            module_name: str = id_job_map[bdata.job_id].module.value
+            record = SingerRecord(
+                stream=module_name,
+                record={
+                    "csv_path": JsonValue(persistent_file.name),
+                    "options": JsonValue(
+                        {
+                            "quote_nonnum": JsonValue(True),
+                            "add_default_types": JsonValue(True),
+                            "pkeys_present": JsonValue(False),
+                            "only_records": JsonValue(True),
+                        }
+                    ),
+                },
+            )
+            singer_emitter.emit(record)
 
     list(map(emit, data))
 

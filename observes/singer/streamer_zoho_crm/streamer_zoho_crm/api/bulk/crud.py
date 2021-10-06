@@ -82,6 +82,8 @@ def get_bulk_job(token: str, job_id: str) -> BulkJob:
 
 
 def download_result(token: str, job_id: str) -> BulkData:
+    # pylint: disable=consider-using-with
+    # need refac of BulkData for enabling the above check
     with rate_limiter:
         LOG.info("API: Download bulk job #%s", job_id)
         endpoint = f"{API_ENDPOINT}/{job_id}/result"
@@ -99,7 +101,9 @@ def download_result(token: str, job_id: str) -> BulkData:
                 raise UnexpectedResponse("Zip file with multiple files.")
             zip_obj.extract(files[0], tmp_zipdir)
         LOG.debug("Generating BulkData")
-        with open(tmp_zipdir + f"/{files[0]}", "r") as unzipped:
+        with open(
+            tmp_zipdir + f"/{files[0]}", "r", encoding="UTF-8"
+        ) as unzipped:
             file_unzip.write(unzipped.read())
         LOG.debug("Unzipped size: %s", file_unzip.tell())
         return BulkData(job_id=job_id, file=file_unzip)
