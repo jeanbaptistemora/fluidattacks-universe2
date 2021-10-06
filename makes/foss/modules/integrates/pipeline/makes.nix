@@ -31,6 +31,12 @@ let
     stage = "deploy-app";
     tags = [ "autoscaling" ];
   };
+  gitlabDeployAppMasterResourceGroup = {
+    resource_group = "$CI_JOB_NAME";
+    rules = gitlabOnlyMaster;
+    stage = "deploy-app";
+    tags = [ "autoscaling" ];
+  };
   gitlabDeployInfra = {
     resource_group = "$CI_JOB_NAME";
     rules = gitlabOnlyMaster;
@@ -143,7 +149,7 @@ in
         }
         {
           output = "/integrates/back/deploy/prod";
-          gitlabExtra = gitlabDeployAppMaster // {
+          gitlabExtra = gitlabDeployAppMasterResourceGroup // {
             environment = {
               name = "production";
               url = "https://app.fluidattacks.com";
@@ -382,7 +388,7 @@ in
         }
         {
           output = "/integrates/front/deploy/prod";
-          gitlabExtra = gitlabDeployAppMaster;
+          gitlabExtra = gitlabDeployAppMasterResourceGroup;
         }
         {
           output = "/integrates/front/lint";
