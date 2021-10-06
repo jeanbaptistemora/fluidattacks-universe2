@@ -16,7 +16,7 @@ function main {
     --verbose
   )
 
-  source __argIntegratesEnv__ dev "${api_status}" \
+  source __argIntegratesBackEnv__/template dev "${api_status}" \
     && DAEMON=true integrates-cache \
     && DAEMON=true integrates-db integratesmanager@gmail.com "${api_status}" \
     && DAEMON=true integrates-storage \

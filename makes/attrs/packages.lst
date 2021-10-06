@@ -7,7 +7,6 @@ airs.npm.runtime
 forces.config-development
 forces.config-runtime
 integrates.back.certs.development
-integrates.back.env
 integrates.back.pypi.runtime
 integrates.back.pypi.unit-tests
 integrates.back.security

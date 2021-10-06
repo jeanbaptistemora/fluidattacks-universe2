@@ -8,7 +8,7 @@
 makeScript {
   replace = {
     __argGeckoDriver__ = inputs.nixpkgs.geckodriver;
-    __argIntegratesEnv__ = inputs.product.integrates-back-env;
+    __argIntegratesBackEnv__ = outputs."/integrates/back/env";
     __argFirefox__ = inputs.nixpkgs.firefox;
   };
   name = "integrates-charts-snapshots";

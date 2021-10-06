@@ -16,7 +16,7 @@ Now install some useful extensions:
 
 ```bash
 extensions=(
-  benoist.Nix
+  bbenoist.Nix
   CoenraadS.bracket-pair-colorizer
   coolbear.systemd-unit-file
   eamodio.gitlens

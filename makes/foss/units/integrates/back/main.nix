@@ -1,11 +1,12 @@
 { inputs
 , makeScript
+, outputs
 , ...
 }:
 makeScript {
   replace = {
     __argCertsDevelopment__ = inputs.product.integrates-back-certs-development;
-    __argIntegratesEnv__ = inputs.product.integrates-back-env;
+    __argIntegratesBackEnv__ = outputs."/integrates/back/env";
   };
   name = "integrates-back";
   searchPaths.bin = [

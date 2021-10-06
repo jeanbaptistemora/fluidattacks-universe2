@@ -4,7 +4,7 @@ function main {
   local env="${1:-}"
   local path="${2:-}"
 
-  source __argIntegratesEnv__ "${env}" \
+  source __argIntegratesBackEnv__/template "${env}" \
     && if test "${path}" == ''; then
       echo '[ERROR] Second argument must be the migration file name' \
         && return 1

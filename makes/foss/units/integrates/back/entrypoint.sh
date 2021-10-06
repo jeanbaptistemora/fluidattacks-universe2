@@ -28,7 +28,7 @@ function main {
     --worker-connections '512'
   )
 
-  source __argIntegratesEnv__ "${env}" "${api_status}" \
+  source __argIntegratesBackEnv__/template "${env}" "${api_status}" \
     && if test "${env}" == 'dev'; then
       config+=(
         # SSL certificate file

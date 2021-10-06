@@ -6,7 +6,7 @@
 }:
 makeScript {
   replace = {
-    __argIntegratesEnv__ = inputs.product.integrates-back-env;
+    __argIntegratesBackEnv__ = outputs."/integrates/back/env";
   };
   name = "integrates-subscriptions-user-to-entity";
   searchPaths = {

@@ -14,11 +14,11 @@ function main {
       *) abort '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod, prod-local' ;;
     esac \
     && case "${env}" in
-      dev) sops_export_vars __envSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
-      dev-mobile) sops_export_vars __envSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
-      eph) sops_export_vars __envSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
-      prod) sops_export_vars __envSecretsProd__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
-      prod-local) sops_export_vars __envSecretsProd__ "${INTEGRATES_SECRETS_LIST[@]}" \
+      dev) sops_export_vars __argSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
+      dev-mobile) sops_export_vars __argSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
+      eph) sops_export_vars __argSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
+      prod) sops_export_vars __argSecretsProd__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
+      prod-local) sops_export_vars __argSecretsProd__ "${INTEGRATES_SECRETS_LIST[@]}" \
         && export DEBUG=True \
         && export REDIS_SERVER=localhost ;;
       *) abort '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod, prod-lcoal' ;;
@@ -30,9 +30,9 @@ function main {
     && export API_STATUS="${api_status}" \
     && export CI_COMMIT_REF_NAME \
     && export CI_COMMIT_SHA \
-    && export INTEGRATES_DB_MODEL_PATH='__envIntegrates__/arch/database-design.json' \
-    && export INTEGRATES_CHARTS_LOGO_PATH='__envIntegrates__/back/src/reports/resources/themes/logo.png' \
-    && export INTEGRATES_MAILER_TEMPLATES='__envIntegrates__/back/src/mailer/email_templates' \
+    && export INTEGRATES_DB_MODEL_PATH='__argIntegrates__/arch/database-design.json' \
+    && export INTEGRATES_CHARTS_LOGO_PATH='__argIntegrates__/back/src/reports/resources/themes/logo.png' \
+    && export INTEGRATES_MAILER_TEMPLATES='__argIntegrates__/back/src/mailer/email_templates' \
     && export STARTDIR="${PWD}" \
     && export TZ=UTC \
     && if test -z "${CI_COMMIT_REF_NAME:-}"; then
@@ -46,7 +46,7 @@ function main {
     && if ! test -e 'integrates'; then
       # Kubernetes specific
       mkdir 'integrates' \
-        && copy '__envIntegrates__' 'integrates'
+        && copy '__argIntegrates__' 'integrates'
     fi
 }
 

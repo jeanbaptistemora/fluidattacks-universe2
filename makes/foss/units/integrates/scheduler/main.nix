@@ -1,11 +1,12 @@
 { inputs
 , makeScript
 , projectPath
+, outputs
 , ...
 }:
 makeScript {
   replace = {
-    __argIntegratesEnv__ = inputs.product.integrates-back-env;
+    __argIntegratesBackEnv__ = outputs."/integrates/back/env";
   };
   name = "integrates-scheduler";
   searchPaths = {

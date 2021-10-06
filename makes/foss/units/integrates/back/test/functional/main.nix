@@ -1,5 +1,4 @@
-{ inputs
-, makePythonPypiEnvironment
+{ makePythonPypiEnvironment
 , makeScript
 , outputs
 , ...
@@ -14,7 +13,7 @@ in
 makeScript {
   inherit name;
   replace = {
-    __argIntegratesEnv__ = inputs.product.integrates-back-env;
+    __argIntegratesBackEnv__ = outputs."/integrates/back/env";
   };
   searchPaths = {
     bin = [

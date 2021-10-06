@@ -4,7 +4,7 @@ function main {
   local env="${1:-}"
   local api_status="migration"
 
-  source __argIntegratesEnv__ "${env}" "${api_status}" \
+  source __argIntegratesBackEnv__/template "${env}" "${api_status}" \
     && if test "${env}" = 'prod'; then
       DAEMON=true integrates-cache
     else

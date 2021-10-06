@@ -6,7 +6,7 @@ function main {
   local api_status="migration"
 
   echo "[INFO] Waking up: ${module}" \
-    && source __argIntegratesEnv__ "${env}" "${api_status}" \
+    && source __argIntegratesBackEnv__/template "${env}" "${api_status}" \
     && if test -z "${module:-}"; then
       echo '[ERROR] Second argument must be the module to execute' \
         && return 1

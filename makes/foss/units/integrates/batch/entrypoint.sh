@@ -9,7 +9,7 @@ function main {
     *) echo "${env}" ;;
   esac)
 
-  source __argIntegratesEnv__ "${login_env}" "${api_status}" \
+  source __argIntegratesBackEnv__/template "${login_env}" "${api_status}" \
     && if test "${env}" == 'prod'; then
       DAEMON=true integrates-cache
     elif test "${env}" == 'dev'; then
