@@ -63,7 +63,7 @@ def iter_lines(file_name: str, function: Callable) -> Iterable[Any]:
     Yields
         function(line) on every line of the file with file_name.
     """
-    with open(file_name, "r") as file:
+    with open(file_name, "r", encoding="UTF-8") as file:
         for line in file:
             yield function(line)
 
@@ -392,12 +392,12 @@ def std_date(date: Any, **kwargs: Any) -> str:
 
     try:
         date_obj = dateutil.parser.parse(str(date))
-    except (ValueError, OverflowError):
+    except (ValueError, OverflowError) as error:
         # else clause executes if the loop did not encounter a break statement
         if "default" in kwargs:
             new_date = kwargs["default"]
         else:
-            raise UnrecognizedDate
+            raise UnrecognizedDate from error
     else:
         new_date = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -436,11 +436,11 @@ def std_number(number: Any, **kwargs: Any) -> float:
     # seems ok, lets try
     try:
         number = float(number)
-    except ValueError:
+    except ValueError as error:
         if "default" in kwargs:
             number = kwargs["default"]
         else:
-            raise UnrecognizedNumber
+            raise UnrecognizedNumber from error
 
     # log the returned value
     logs.log_conversions(f"       [{number}]")
