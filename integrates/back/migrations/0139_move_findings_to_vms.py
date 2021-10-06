@@ -335,7 +335,7 @@ def _format_verification(state: Dict[str, str]) -> FindingVerification:
 def _format_severity(
     finding: FindingType,
 ) -> Union[Finding31Severity, Finding20Severity]:
-    # pylint: disable=unsubscriptable-object
+
     if str(finding.get("cvssVersion", "3.1")) == "3.1":
         return Finding31Severity(
             attack_complexity=Decimal(finding.get("attack_complexity", "0.0")),
@@ -606,7 +606,7 @@ async def _clean_findings() -> bool:
         | Attr("pk").begins_with("REMOVED"),
     }
     to_delete_findings = await dynamodb_ops.scan(TABLE.name, scan_attrs)
-    print("--- scan in %s ---" % (datetime.now() - start_time))
+    print(f"--- scan in {datetime.now() - start_time} ---")
     print(f"Items for deletion found: {len(to_delete_findings)}")
 
     if PROD and len(to_delete_findings) > 0:
@@ -621,7 +621,7 @@ async def _clean_findings() -> bool:
         )
         if ERROR not in results:
             success = True
-        print("--- deletion in %s ---" % (datetime.now() - start_time))
+        print(f"--- deletion in {datetime.now() - start_time} ---")
 
     return success
 
@@ -656,7 +656,7 @@ async def _migrate_non_deleted_findings(
         )
         if ERROR not in results:
             success = True
-        print("--- processing in %s ---" % (datetime.now() - start_time))
+        print(f"--- processing in {datetime.now() - start_time} ---")
 
     return success
 
@@ -688,7 +688,7 @@ async def _migrate_deleted_findings(
         )
         if ERROR not in results:
             success = True
-        print("--- processing in %s ---" % (datetime.now() - start_time))
+            print(f"--- processing in {datetime.now() - start_time} ---")
 
     return success
 
@@ -729,7 +729,7 @@ async def _migrate_masked_findings(
         )
         if ERROR not in results:
             success = True
-        print("--- processing in %s ---" % (datetime.now() - start_time))
+        print(f"--- processing in {datetime.now() - start_time} ---")
 
     return success
 
@@ -747,7 +747,7 @@ async def main() -> None:
     findings: List[FindingType] = await dynamodb_ops.scan(
         FINDING_TABLE, scan_attrs
     )
-    print("--- scan in %s ---" % (datetime.now() - start_time))
+    print(f"--- scan in {datetime.now() - start_time} ---")
     print(f"Scan findings: {len(findings)}")
 
     if MIGRATE_NON_DELETED_FINDINGS:

@@ -53,7 +53,7 @@ def _replace_historic_dates(
 ) -> HistoricType:
     if backup_state:
         date_to_replace = target_state[0]["date"]
-    corrected_historic = list()
+    corrected_historic = []
     for state, backup in zip_longest(target_state, backup_state):
         if backup and state["date"] == date_to_replace:
             state["date"] = backup["date"]
@@ -125,7 +125,7 @@ async def process_vuln(uuid: str) -> bool:
 
 async def main() -> None:
     # Read findings info
-    with open("0119.csv", mode="r") as f:
+    with open("0119.csv", mode="r", encoding="utf8") as f:
         reader = csv.reader(f)
         uuids = [row[3] for row in reader if "group" not in row[0]]
     print(f" = uuids({len(uuids)}): {uuids[:3]}")

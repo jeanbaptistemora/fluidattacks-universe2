@@ -47,7 +47,9 @@ async def main() -> None:
     print("[INFO] Starting migration 0036")
     user_emails: List[str] = []
     org = await orgs_dal.get_by_name("imamura", ["id"])
-    with open("back/migrations/users.csv", newline="") as csvfile:
+    with open(
+        "back/migrations/users.csv", newline="", encoding="utf8"
+    ) as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             if "imamura" in row["Organizations"]:

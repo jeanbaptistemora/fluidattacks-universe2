@@ -87,7 +87,7 @@ async def append_extensions(  # pylint: disable=too-many-locals
         mime = Magic(mime=True)
         mime_type = mime.from_file(target_name)
         if mime_type in target_extensions:
-            # pylint: disable=unsubscriptable-object
+
             print(f"Found evidence file without extension: {full_name}")
             # Determining finding id and index
             # that corresponds to this evidence
@@ -122,20 +122,23 @@ async def append_extensions(  # pylint: disable=too-many-locals
             if PROD:
                 # Upload file with extension, update its name in the db
                 # and delete the old file
-                success = await upload_file(
-                    EVIDENCES_BUCKET, open(target_name, "rb"), upload_name
-                )
-                file_url = f"{os.path.basename(full_name)}{extension}"
-                await findings_dal.update(
-                    finding_id,
-                    {
-                        f"files[{index}].file_url": file_url,
-                    },
-                )
-                print(f"{upload_name} upload successful: {success}")
-                if success:
-                    await remove_file(EVIDENCES_BUCKET, full_name)
-                    print(f"{full_name} file removed")
+                with open(
+                    target_name, mode="rb", encoding=None
+                ) as target_file:
+                    success = await upload_file(
+                        EVIDENCES_BUCKET, target_file, upload_name
+                    )
+                    file_url = f"{os.path.basename(full_name)}{extension}"
+                    await findings_dal.update(
+                        finding_id,
+                        {
+                            f"files[{index}].file_url": file_url,
+                        },
+                    )
+                    print(f"{upload_name} upload successful: {success}")
+                    if success:
+                        await remove_file(EVIDENCES_BUCKET, full_name)
+                        print(f"{full_name} file removed")
 
 
 async def process_evidences(group: str) -> None:

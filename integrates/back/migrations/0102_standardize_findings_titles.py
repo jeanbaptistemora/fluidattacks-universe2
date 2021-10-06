@@ -49,11 +49,11 @@ async def get_all_findings(
 
 async def main() -> None:
     # Read new titles alone
-    with open("0102_new_titles_only.txt") as f:
+    with open("0102_new_titles_only.txt", encoding="utf8") as f:
         new_titles = f.read().splitlines()
 
     # Read migration matchs
-    with open("0102_findings_titles.csv", mode="r") as infile:
+    with open("0102_findings_titles.csv", mode="r", encoding="utf8") as infile:
         reader = csv.reader(infile)
         typologies_migration = {rows[0]: rows[1] for rows in reader}
 
@@ -63,7 +63,7 @@ async def main() -> None:
     # Print findings whose title does not match
     findings = await get_all_findings()
     print(f"    === findings in db: {len(findings)}")
-    findings_to_update = list()
+    findings_to_update = []
     for finding in findings:
         title = str(finding.get("finding", "")).strip()
         if title in new_titles:

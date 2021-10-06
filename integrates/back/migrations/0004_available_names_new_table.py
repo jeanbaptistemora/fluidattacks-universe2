@@ -27,7 +27,7 @@ def migrate_all_names(dry_run: bool) -> None:
         print("Available groups will be added as follows:")
         for group_name in all_groups:
             print("----")
-            print("pk: AVAILABLE_GROUP\n" "sk: {}".format(group_name.upper()))
+            print(f"pk: AVAILABLE_GROUP\nsk: {group_name.upper()}")
     else:
         with INTEGRATES_TABLE.batch_writer() as batch:
             for group_name in all_groups:

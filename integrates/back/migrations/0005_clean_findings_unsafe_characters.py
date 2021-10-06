@@ -60,7 +60,6 @@ STRING_REGEX: str = (
 
 
 def clean_unsafe_characters(finding: Dict[str, str], dry_run: bool) -> None:
-    # pylint: disable=unsubscriptable-object
     finding_id = finding["finding_id"]
     original_description = finding.get("vulnerability", "")
     original_recommendation = finding.get("effect_solution", "")
@@ -92,9 +91,9 @@ def clean_unsafe_characters(finding: Dict[str, str], dry_run: bool) -> None:
         else:
             update_finding(finding_id, info_to_update)
             log(
-                "Migration 0005: fields {} were updated in finding {}".format(
-                    ", ".join(list(info_to_update.keys())), finding_id
-                ),
+                f"Migration 0005: fields "
+                f'{", ".join(list(info_to_update.keys()))} '
+                f"were updated in finding {finding_id}",
                 dry_run,
             )
 
@@ -122,7 +121,6 @@ def get_all_findings() -> List[Dict[str, str]]:
 
 
 def persist_changes(finding: Dict[str, str], dry_run: bool) -> None:
-    # pylint: disable=unsubscriptable-object
     info_to_update: Dict[str, Optional[str]] = {
         "effect_solution_hash": None,
         "effect_solution_new": None,
@@ -181,7 +179,6 @@ def log(message: str, dry_run: bool) -> None:
 
 
 def update_finding(finding_id: str, data: Dict[str, Optional[str]]) -> bool:
-    # pylint: disable=unsubscriptable-object
     success = False
     primary_keys = {"finding_id": finding_id}
     attrs_to_remove = [attr for attr in data if data[attr] is None]
@@ -200,7 +197,7 @@ def update_finding(finding_id: str, data: Dict[str, Optional[str]]) -> bool:
 
         response = FINDINGS_TABLE.update_item(
             Key=primary_keys,
-            UpdateExpression="SET {}".format(",".join(attributes)),
+            UpdateExpression=f'SET {",".join(attributes)}',
             ExpressionAttributeValues=values,
         )
         success = response["ResponseMetadata"]["HTTPStatusCode"] == 200

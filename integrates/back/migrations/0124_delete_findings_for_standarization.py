@@ -113,7 +113,7 @@ async def process_finding(context: Dataloaders, finding_id: str) -> bool:
 
 
 async def main() -> None:
-    with open("0124.csv", mode="r") as f:
+    with open("0124.csv", mode="r", encoding="utf8") as f:
         reader = csv.reader(f)
         finding_ids = {row[0] for row in reader}
     print(f"   === finding ids ({len(finding_ids)}): {finding_ids}")

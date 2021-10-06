@@ -114,7 +114,9 @@ async def _expand_info(
 async def main() -> None:
     # Read file with criteria
     with open(
-        "../../../makes/makes/criteria/src/vulnerabilities/data.yaml", mode="r"
+        "../../../makes/makes/criteria/src/vulnerabilities/data.yaml",
+        mode="r",
+        encoding="utf8",
     ) as data_yaml:
         criteria_data = yaml.safe_load(data_yaml)
 

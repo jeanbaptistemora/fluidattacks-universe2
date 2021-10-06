@@ -43,12 +43,11 @@ SERVICES_REPO_DIR: str = f"{os.getcwd()}/services"
 Application = NamedTuple(
     "Application",
     [
-        ("url", Optional[List[str]]),  # pylint: disable=unsubscriptable-object
+        ("url", Optional[List[str]]),
     ],
 )
 
 GroupConfig = NamedTuple(
-    # pylint: disable=unsubscriptable-object
     "GroupConfig",
     [
         ("application", Optional[Application]),
@@ -61,7 +60,7 @@ def get_group_config(group_name: str) -> GroupConfig:
         SERVICES_REPO_DIR, "groups", group_name, "config", "config.yml"
     )
 
-    with open(config_path, mode="r") as config_file:
+    with open(config_path, mode="r", encoding="utf8") as config_file:
         config = yaml.safe_load(config_file)
 
         return GroupConfig(

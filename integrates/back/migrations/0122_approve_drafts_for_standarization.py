@@ -63,7 +63,6 @@ PROD: bool = True
 
 
 class Context(NamedTuple):
-    # pylint: disable=inherit-non-class, too-few-public-methods
     loaders: Any
     headers: Any
 
@@ -156,7 +155,7 @@ async def process_draft(
 
 async def main() -> None:
     # Read file with new drafts info
-    with open("0120.csv", mode="r") as f:
+    with open("0120.csv", mode="r", encoding="utf8") as f:
         reader = csv.reader(f)
         new_drafts_info = [
             {

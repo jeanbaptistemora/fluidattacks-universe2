@@ -149,7 +149,7 @@ async def process_finding(
 
 async def main() -> None:
     # Read findings info
-    with open("0120.csv", mode="r") as f:
+    with open("0120.csv", mode="r", encoding="utf8") as f:
         reader = csv.reader(f)
         info = [
             {

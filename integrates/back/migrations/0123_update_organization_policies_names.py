@@ -102,7 +102,7 @@ async def main() -> None:
     async for _, org_name in iterate_organizations():
         organizations_names.append(org_name)
 
-    with open("0102_findings_titles.csv", mode="r") as infile:
+    with open("0102_findings_titles.csv", mode="r", encoding="utf8") as infile:
         reader = csv.reader(infile)
         typologies_migration = {rows[0]: rows[1] for rows in reader}
 

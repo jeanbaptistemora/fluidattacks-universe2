@@ -58,7 +58,7 @@ def main() -> None:
         org_name = user.get("company").lower()
         org = async_to_sync(orgs_dal.get)(org_name)
         if STAGE == "test":
-            log("---\nUser: {}".format(user_email))
+            log(f"---\nUser: {user_email}")
             if org:
                 log(f'Added to existing org {org["name"]} with ID {org["id"]}')
             else:

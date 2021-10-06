@@ -26,7 +26,7 @@ PROD: bool = True
 
 async def main() -> None:
     # Read file with deletion info
-    with open("0106_findings_to_delete.csv", mode="r") as f:
+    with open("0106_findings_to_delete.csv", mode="r", encoding="utf8") as f:
         reader = csv.reader(f)
         findings_to_check = [row[0] for row in reader]
     print(f"    === findings to check: {len(findings_to_check)}")

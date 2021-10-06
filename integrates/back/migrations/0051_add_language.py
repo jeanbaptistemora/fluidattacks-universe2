@@ -39,7 +39,7 @@ def get_language(group_name: str) -> str:
         "config",
         "config.yml",
     )
-    with open(config_path, mode="r") as config_file:
+    with open(config_path, mode="r", encoding="utf8") as config_file:
         config: Dict[str, str] = yaml.safe_load(config_file)
         return config["language"]
 

@@ -27,7 +27,7 @@ PROD: bool = True
 
 async def main() -> None:
     # Read file with deletion info
-    with open("0105.csv", mode="r") as f:
+    with open("0105.csv", mode="r", encoding="utf8") as f:
         reader = csv.reader(f)
         vulns_to_delete = [
             {

@@ -104,17 +104,21 @@ async def process_finding(
 async def main() -> None:
     # Read files with criteria
     with open(
-        "../../../makes/makes/criteria/src/vulnerabilities/data.yaml", mode="r"
+        "../../../makes/makes/criteria/src/vulnerabilities/data.yaml",
+        mode="r",
+        encoding="utf8",
     ) as f:
         vulns_data = yaml.safe_load(f)
 
     with open(
-        "../../../makes/makes/criteria/src/requirements/data.yaml", mode="r"
+        "../../../makes/makes/criteria/src/requirements/data.yaml",
+        mode="r",
+        encoding="utf8",
     ) as f:
         requirements_data = yaml.safe_load(f)
 
     # Read findings info
-    with open("0120.csv", mode="r") as f:
+    with open("0120.csv", mode="r", encoding="utf8") as f:
         reader = csv.reader(f)
         info = [
             {

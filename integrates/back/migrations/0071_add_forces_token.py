@@ -24,7 +24,6 @@ from typing import (
 
 
 async def get_old_forces_token(group: str) -> Optional[str]:
-    # pylint: disable=unsubscriptable-object
     client = boto3.client(  # nosec
         "secretsmanager",
         aws_access_key_id="serves_prod_key",

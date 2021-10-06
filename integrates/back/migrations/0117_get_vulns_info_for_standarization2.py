@@ -42,7 +42,7 @@ async def get_vuln_status(vuln_uuid: str) -> Dict[str, str]:
 
 async def main() -> None:
     # Read file with uuids
-    with open("0117.csv", mode="r") as f:
+    with open("0117.csv", mode="r", encoding="utf8") as f:
         reader = csv.reader(f)
         vulns_uuids = [row[0] for row in reader]
     print(f"    === vulns uuids: {len(vulns_uuids)}")
@@ -59,7 +59,7 @@ async def main() -> None:
     csv_file = "0117_results.csv"
     success = False
     try:
-        with open(csv_file, "w") as f:
+        with open(csv_file, "w", encoding="utf8") as f:
             writer = csv.DictWriter(f, fieldnames=csv_columns)
             writer.writeheader()
             for data in info:

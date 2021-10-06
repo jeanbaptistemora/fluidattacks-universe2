@@ -75,7 +75,7 @@ async def move_evidence(
         group_name, from_finding_id, file["file_url"]
     )
     # Upload evidence to target draft
-    with open(filepath, "rb") as f:
+    with open(filepath, "rb", encoding="utf8") as f:
         uploaded_file = UploadFile(f.name, f)
         success = await findings_domain.update_evidence(
             target_draft_id, file["name"], uploaded_file
@@ -149,7 +149,7 @@ async def process_draft(
 
 async def main() -> None:
     # Read file with new drafts info
-    with open("0120.csv", mode="r") as f:
+    with open("0120.csv", mode="r", encoding="utf8") as f:
         reader = csv.reader(f)
         new_drafts_info = [
             {

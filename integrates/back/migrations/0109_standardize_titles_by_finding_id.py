@@ -61,7 +61,7 @@ TABLE_NAME: str = "FI_findings"
 
 async def main() -> None:
     # Read migration matchs
-    with open("0109.csv", mode="r") as infile:
+    with open("0109.csv", mode="r", encoding="utf8") as infile:
         reader = csv.reader(infile)
         findings = [
             {

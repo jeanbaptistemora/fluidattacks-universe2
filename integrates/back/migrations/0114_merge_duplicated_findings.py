@@ -228,7 +228,7 @@ async def main() -> None:
     success = False
 
     # Read findings info
-    with open("0114.csv", mode="r") as infile:
+    with open("0114.csv", mode="r", encoding="utf8") as infile:
         reader = csv.reader(infile)
         to_merge = [[rows[0], rows[1], rows[2]] for rows in reader]
 

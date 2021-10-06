@@ -53,7 +53,7 @@ async def process_vuln(
     vuln_info: Dict[str, str],
 ) -> bool:
     group_name = vuln_info["group_name"]
-    target_finding = dict()
+    target_finding = {}
 
     group_findings_loader = context.group_findings
     group_findings = await group_findings_loader.load(group_name)
@@ -118,7 +118,7 @@ async def process_vuln(
 
 async def main() -> None:
     # Read file with deletion info
-    with open("0119.csv", mode="r") as f:
+    with open("0119.csv", mode="r", encoding="utf8") as f:
         reader = csv.reader(f)
         vulns_to_move = [
             {

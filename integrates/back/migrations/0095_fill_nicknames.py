@@ -23,7 +23,6 @@ PROD: bool = True
 
 def handle_response(table: Any, response: Any) -> None:
     for item in response["Items"]:
-        # pylint: disable=unsubscriptable-object
         finding_id: str = item["finding_id"]
         uuid: str = item["UUID"]
         where: Optional[str] = item.get("where")

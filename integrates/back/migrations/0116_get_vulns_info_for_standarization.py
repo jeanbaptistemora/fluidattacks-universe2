@@ -132,7 +132,7 @@ async def main() -> None:
     csv_file = "0116_vuln_info_aug_09.csv"
     success = False
     try:
-        with open(csv_file, "w") as f:
+        with open(csv_file, "w", encoding="utf8") as f:
             writer = csv.DictWriter(f, fieldnames=csv_columns)
             writer.writeheader()
             for data in total:

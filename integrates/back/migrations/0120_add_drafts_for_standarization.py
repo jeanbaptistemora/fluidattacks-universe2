@@ -364,7 +364,7 @@ async def process_draft(  # noqa
 
 async def main() -> None:
     # Read file with new drafts info
-    with open("0120.csv", mode="r") as f:
+    with open("0120.csv", mode="r", encoding="utf8") as f:
         reader = csv.reader(f)
         new_drafts_info = [
             {
@@ -380,7 +380,9 @@ async def main() -> None:
 
     # Read file with criteria
     with open(
-        "../../../makes/makes/criteria/src/vulnerabilities/data.yaml", mode="r"
+        "../../../makes/makes/criteria/src/vulnerabilities/data.yaml",
+        mode="r",
+        encoding="utf8",
     ) as data_yaml:
         criteria_data = yaml.safe_load(data_yaml)
 

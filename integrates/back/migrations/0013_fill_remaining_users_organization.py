@@ -54,7 +54,6 @@ USERS_TABLE: str = "FI_users"
 async def dynamo_async_scan(
     table: str, scan_attrs: Dict[str, Union[Attr, str]]
 ) -> List[Dict[str, str]]:
-    # pylint: disable=unsubscriptable-object
     response_items: List[Dict[str, str]] = []
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
@@ -70,7 +69,6 @@ async def dynamo_async_scan(
 
 
 async def get_autoenrolled_users() -> List[str]:
-    # pylint: disable=unsubscriptable-object
     users: List[str] = []
     autoenrolled_org_id: str = await get_organization_id_by_name(
         AUTOENROLLED_ORGANIZATION
@@ -86,7 +84,6 @@ async def get_autoenrolled_users() -> List[str]:
 
 
 async def get_users_without_organization() -> List[str]:
-    # pylint: disable=unsubscriptable-object
     users: List[str] = []
     scan_attrs: Dict[str, Union[Attr, str]] = {
         "FilterExpression": Not(Attr("organization").exists()),

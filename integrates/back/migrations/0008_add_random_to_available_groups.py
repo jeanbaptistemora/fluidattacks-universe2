@@ -72,9 +72,9 @@ def main() -> None:
         if STAGE == "test":
             log(
                 "pk: AVAILABLE_GROUP\n"
-                "sk: {}\n"
+                f"sk: {avail_group}\n"
                 "gsi-2-pk: RANDOM_AVAILABLE_GROUP_SORT\n"
-                "gsi-2-sk: new_uuid4".format(avail_group)
+                "gsi-2-sk: new_uuid4"
             )
 
         else:

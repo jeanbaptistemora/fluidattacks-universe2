@@ -71,7 +71,6 @@ PROD: bool = True
 
 # Types
 class NickName(NamedTuple):
-    # pylint: disable=inherit-non-class, too-few-public-methods
     nickname: str
     root_url: str
     group_name: str
@@ -247,7 +246,7 @@ async def main() -> None:
     roots_url: List[str] = []
     groups_roots: Dict[str, Set[str]] = defaultdict(set)
     groups_nicknames: Dict[str, Set[str]] = defaultdict(set)
-    with open("roots.csv", newline="") as csvfile:
+    with open("roots.csv", newline="", encoding="utf8") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             groups_name.append(row["Grupo"].lower())

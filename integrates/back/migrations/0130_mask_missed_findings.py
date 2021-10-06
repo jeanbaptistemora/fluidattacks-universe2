@@ -53,7 +53,7 @@ async def mask_finding(finding_id: str) -> bool:
 
 async def main() -> None:
     # Read findings to mask
-    with open("0130.csv", mode="r") as csv_file:
+    with open("0130.csv", mode="r", encoding="utf8") as csv_file:
         reader = csv.reader(csv_file)
         finding_ids = [row[0] for row in reader]
     print(f"The findings to mask are: {finding_ids}")

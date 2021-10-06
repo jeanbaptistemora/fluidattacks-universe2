@@ -50,22 +50,17 @@ def main() -> None:
         proj_name = proj.get("project_name")
         org_name = proj.get("companies")[0].lower()
         if STAGE == "test":
-            log("---\nGroup: {}".format(proj.get("project_name")))
+            log(f'---\nGroup: {proj.get("project_name")}')
             if org_name not in unique_orgs:
                 unique_orgs[org_name] = uuid.uuid4()
-            log(
-                "pk: ORG#{}\n" "sk: {}".format(unique_orgs[org_name], org_name)
-            )
+            log(f"pk: ORG#{unique_orgs[org_name]}\n" "sk: {org_name}")
         else:
             org_dict = orgs_domain.get_or_add(org_name)
             success: bool = groups_dal.update(
                 data={"organization": org_dict["id"]}, group_name=proj_name
             )
             if success:
-                log(
-                    "Migration 0009: Group {} "
-                    "succesfully migrated".format(proj_name)
-                )
+                log(f"Migration 0009: Group {proj_name} succesfully migrated")
 
 
 if __name__ == "__main__":
