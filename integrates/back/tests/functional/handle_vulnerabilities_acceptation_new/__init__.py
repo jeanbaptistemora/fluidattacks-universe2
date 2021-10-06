@@ -19,7 +19,7 @@ async def get_result(
 ) -> Dict[str, Any]:
     query = f"""
         mutation {{
-            handleVulnerabilitiesAcceptation(
+            handleVulnerabilitiesAcceptance(
                 acceptedVulnerabilities:
                     ["{accepted_vulnerability_id}"]
                 findingId: "{finding}",

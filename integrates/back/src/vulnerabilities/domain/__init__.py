@@ -34,7 +34,7 @@ from .core import (
 )
 from .treatment import (
     add_vulnerability_treatment,
-    handle_vulnerabilities_acceptation,
+    handle_vulnerabilities_acceptance,
     send_treatment_change_mail,
     update_vulnerabilities_treatment,
     validate_treatment_change,
@@ -86,7 +86,7 @@ __all__ = [
     "verify_vulnerability",
     # treatment
     "add_vulnerability_treatment",
-    "handle_vulnerabilities_acceptation",
+    "handle_vulnerabilities_acceptance",
     "send_treatment_change_mail",
     "update_vulnerabilities_treatment",
     "validate_treatment_change",

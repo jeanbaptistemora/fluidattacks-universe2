@@ -27,7 +27,7 @@ from typing import (
     List,
 )
 from vulnerabilities.domain import (
-    handle_vulnerabilities_acceptation,
+    handle_vulnerabilities_acceptance,
 )
 
 
@@ -52,7 +52,7 @@ async def mutate(
     )
     user_info = await token_utils.get_jwt_content(info.context)
     email: str = user_info["user_email"]
-    success: bool = await handle_vulnerabilities_acceptation(
+    success: bool = await handle_vulnerabilities_acceptance(
         context=info.context.loaders,
         accepted_vulns=accepted_vulnerabilities,
         finding_id=finding_id,

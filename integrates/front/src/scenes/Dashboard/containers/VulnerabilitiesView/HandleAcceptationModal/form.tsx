@@ -10,13 +10,13 @@ import { ZeroRiskTable } from "./ZeroRiskTable";
 import { Button } from "components/Button";
 import type {
   IFormValues,
-  IHandleVulnerabilitiesAcceptationModalFormProps,
+  IHandleVulnerabilitiesAcceptanceModalFormProps,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
 import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
-const HandleAcceptationModalForm: React.FC<IHandleVulnerabilitiesAcceptationModalFormProps> =
-  (props: IHandleVulnerabilitiesAcceptationModalFormProps): JSX.Element => {
+const HandleAcceptationModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalFormProps> =
+  (props: IHandleVulnerabilitiesAcceptanceModalFormProps): JSX.Element => {
     const {
       acceptationVulns,
       acceptedVulns,

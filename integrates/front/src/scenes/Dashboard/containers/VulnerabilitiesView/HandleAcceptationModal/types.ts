@@ -12,7 +12,7 @@ interface IFormValues {
   treatment: string;
 }
 
-interface IHandleVulnerabilitiesAcceptationModalProps {
+interface IHandleVulnerabilitiesAcceptanceModalProps {
   findingId: string;
   groupName: string;
   vulns: IVulnerabilitiesAttr[];
@@ -20,7 +20,7 @@ interface IHandleVulnerabilitiesAcceptationModalProps {
   refetchData: () => void;
 }
 
-interface IHandleVulnerabilitiesAcceptationModalFormProps {
+interface IHandleVulnerabilitiesAcceptanceModalFormProps {
   acceptationVulns: IVulnDataAttr[];
   acceptedVulns: IVulnDataAttr[];
   rejectedVulns: IVulnDataAttr[];
@@ -34,8 +34,8 @@ interface IHandleVulnerabilitiesAcceptationModalFormProps {
   vulns: IVulnerabilitiesAttr[];
 }
 
-interface IHandleVulnerabilitiesAcceptationResultAttr {
-  handleVulnerabilitiesAcceptation: {
+interface IHandleVulnerabilitiesAcceptanceResultAttr {
+  handleVulnerabilitiesAcceptance: {
     success: boolean;
   };
 }
@@ -55,9 +55,9 @@ interface IRejectZeroRiskVulnResultAttr {
 export {
   IConfirmVulnZeroRiskResultAttr,
   IFormValues,
-  IHandleVulnerabilitiesAcceptationModalFormProps,
-  IHandleVulnerabilitiesAcceptationModalProps,
-  IHandleVulnerabilitiesAcceptationResultAttr,
+  IHandleVulnerabilitiesAcceptanceModalFormProps,
+  IHandleVulnerabilitiesAcceptanceModalProps,
+  IHandleVulnerabilitiesAcceptanceResultAttr,
   IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
 };

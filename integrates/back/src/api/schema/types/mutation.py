@@ -33,8 +33,8 @@ from api.mutations import (
     grant_stakeholder_access,
     grant_stakeholder_organization_access,
     handle_organization_finding_policy_acceptance,
-    handle_vulnerabilities_acceptation,
-    handle_vulnerabilities_acceptation_new,
+    handle_vulnerabilities_acceptance,
+    handle_vulnerabilities_acceptance_new,
     invalidate_access_token,
     invalidate_cache,
     move_root,
@@ -200,8 +200,8 @@ if FI_API_STATUS == "migration":
         "downloadVulnerabilityFile", download_vulnerability_file.mutate
     )
     MUTATION.set_field(
-        "handleVulnerabilitiesAcceptation",
-        handle_vulnerabilities_acceptation_new.mutate,
+        "handleVulnerabilitiesAcceptance",
+        handle_vulnerabilities_acceptance_new.mutate,
     )
     MUTATION.set_field("rejectDraft", reject_draft_new.mutate)
     MUTATION.set_field(
@@ -249,8 +249,8 @@ else:
         "downloadVulnerabilityFile", download_vulnerability_file.mutate
     )
     MUTATION.set_field(
-        "handleVulnerabilitiesAcceptation",
-        handle_vulnerabilities_acceptation.mutate,
+        "handleVulnerabilitiesAcceptance",
+        handle_vulnerabilities_acceptance.mutate,
     )
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
     MUTATION.set_field(

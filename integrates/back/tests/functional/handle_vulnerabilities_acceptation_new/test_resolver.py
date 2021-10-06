@@ -40,7 +40,7 @@ async def test_handle_vulnerabilities_acceptation(
         rejected_vulnerability_id=rejected_vulnerability_id,
     )
     assert "errors" not in result
-    assert result["data"]["handleVulnerabilitiesAcceptation"]["success"]
+    assert result["data"]["handleVulnerabilitiesAcceptance"]["success"]
 
 
 @pytest.mark.asyncio

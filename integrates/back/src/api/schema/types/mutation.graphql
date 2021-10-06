@@ -366,8 +366,8 @@ type Mutation {
     status: OrganizationFindingPolicy!
   ): SimplePayload!
 
-  "Handles acceptation and rejection of Vulnerabilities"
-   handleVulnerabilitiesAcceptation(
+  "Handles acceptance and rejection of Vulnerabilities"
+   handleVulnerabilitiesAcceptance(
     "List of identifiers of the vulnerabilities to be accepted"
     acceptedVulnerabilities: [String]!
     "Identifier of the Finding that contains the vulnerabilities"

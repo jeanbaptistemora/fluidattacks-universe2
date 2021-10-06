@@ -22,14 +22,14 @@ import {
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
 import type {
   IFormValues,
-  IHandleVulnerabilitiesAcceptationModalProps,
+  IHandleVulnerabilitiesAcceptanceModalProps,
   IVulnDataAttr,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { translate } from "utils/translations/translate";
 
-const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalProps> =
-  (props: IHandleVulnerabilitiesAcceptationModalProps): JSX.Element => {
+const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps> =
+  (props: IHandleVulnerabilitiesAcceptanceModalProps): JSX.Element => {
     const { findingId, groupName, vulns, handleCloseModal, refetchData } =
       props;
 

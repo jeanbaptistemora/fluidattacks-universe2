@@ -63,7 +63,7 @@ describe("handle vulns acceptation modal", (): void => {
           },
         },
         result: {
-          data: { handleVulnerabilitiesAcceptation: { success: true } },
+          data: { handleVulnerabilitiesAcceptance: { success: true } },
         },
       },
       {

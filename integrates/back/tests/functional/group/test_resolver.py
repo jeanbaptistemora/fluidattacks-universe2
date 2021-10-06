@@ -15,13 +15,13 @@ from typing import (
     (
         ("admin@gmail.com", "admin", 122),
         ("customer@gmail.com", "customer", 51),
-        ("customeradmin@gmail.com", "customeradmin", 68),
+        ("customeradmin@gmail.com", "customeradmin", 69),
         ("executive@gmail.com", "executive", 44),
         ("hacker@gmail.com", "hacker", 72),
         ("reattacker@gmail.com", "reattacker", 54),
         ("resourcer@gmail.com", "resourcer", 29),
         ("reviewer@gmail.com", "reviewer", 55),
-        ("system_owner@gmail.com", "system_owner", 84),
+        ("system_owner@gmail.com", "system_owner", 85),
     ),
 )
 async def test_get_group(

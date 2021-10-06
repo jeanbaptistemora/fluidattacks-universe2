@@ -8,7 +8,7 @@ const HANDLE_VULNS_ACCEPTATION: DocumentNode = gql`
     $justification: String!
     $rejectedVulns: [String]!
   ) {
-    handleVulnerabilitiesAcceptation(
+    handleVulnerabilitiesAcceptance(
       findingId: $findingId
       justification: $justification
       acceptedVulnerabilities: $acceptedVulns
