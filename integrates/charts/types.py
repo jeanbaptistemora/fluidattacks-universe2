@@ -5,10 +5,8 @@ from typing_extensions import (
     TypedDict,
 )
 
-ForcesReport = TypedDict(  # pylint: disable=invalid-name
-    "ForcesReport", {"fontSizeRatio": float, "text": str}
-)
-RemediationReport = TypedDict(  # pylint: disable=invalid-name
+ForcesReport = TypedDict("ForcesReport", {"fontSizeRatio": float, "text": str})
+RemediationReport = TypedDict(
     "RemediationReport",
     {
         "current": Dict[str, int],
