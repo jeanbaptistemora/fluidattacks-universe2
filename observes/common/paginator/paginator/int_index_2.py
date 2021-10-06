@@ -9,6 +9,9 @@ import asyncio
 from asyncio.events import (
     AbstractEventLoop,
 )
+from deprecated import (  # type: ignore
+    deprecated,
+)
 from paginator.pages import (
     DEFAULT_LIMITS,
     Limits,
@@ -27,6 +30,10 @@ from typing import (
     Tuple,
     TypeVar,
 )
+import warnings
+
+warnings.warn("module is deprecated use v2", DeprecationWarning, stacklevel=2)
+
 
 _Data = TypeVar("_Data")
 
@@ -50,6 +57,7 @@ def _iter_over_async(
         yield cast(_Data, obj)
 
 
+@deprecated
 class PageRange(NamedTuple):
     page_range: range
     per_page: int
@@ -59,6 +67,7 @@ class PageRange(NamedTuple):
             yield PageId(page=p_num, per_page=self.per_page)
 
 
+@deprecated
 def get_pages(
     page_range: PageRange,
     getter: PageGetter[int, _Data],  # type: ignore
@@ -82,6 +91,7 @@ def get_pages(
     return _iter_over_async(pages(), loop)
 
 
+@deprecated
 def get_until_end(
     start: PageId[int],
     getter: PageGetter[int, _Data],  # type: ignore

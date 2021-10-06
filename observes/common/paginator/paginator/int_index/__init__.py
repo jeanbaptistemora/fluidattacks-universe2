@@ -31,7 +31,9 @@ from typing import (
     TypeVar,
     Union,
 )
+import warnings
 
+warnings.warn("module is deprecated use v2", DeprecationWarning, stacklevel=2)
 _Data = TypeVar("_Data")
 ResultPage = TypeVar("ResultPage")
 EPage = Union[ResultPage, EmptyPage]
@@ -57,7 +59,7 @@ def _iter_over_async(
         yield cast(_Data, obj)
 
 
-@deprecated(reason="Use int_index_2")
+@deprecated(reason="PageRange deprecated")
 def new_page_range(
     page_range: range,
     per_page: int,
@@ -69,7 +71,7 @@ def new_page_range(
     return PageRange(page_range=page_range, per_page=per_page, pages=next_page)
 
 
-@deprecated(reason="Use int_index_2")
+@deprecated(reason="Use IntIndexGetter from v2")
 def get_pages(
     page_range: PageRange,
     getter: Callable[[PageId], _Data],
@@ -94,7 +96,7 @@ def get_pages(
 
 
 # _type is necessary to correctly infer the type var
-@deprecated(reason="Use int_index_2")
+@deprecated(reason="Use IntIndexGetter from v2")
 def get_until_end(
     _type: Type[_Data],
     start: PageId,
@@ -115,7 +117,7 @@ def get_until_end(
         actual_page = actual_page + pages_chunk
 
 
-@deprecated(reason="Use int_index_2")
+@deprecated(reason="Use IntIndexGetter from v2")
 def build_getter(
     _type: Type[ResultPage],
     get_page: Callable[[PageId], ResultPage],

@@ -3,6 +3,9 @@
 from dataclasses import (
     dataclass,
 )
+from deprecated import (  # type: ignore
+    deprecated,
+)
 from returns.io import (
     IO,
 )
@@ -24,6 +27,7 @@ import warnings
 warnings.warn("use paginator.v2 instead", DeprecationWarning, stacklevel=2)
 
 
+@deprecated
 class Limits(NamedTuple):
     max_calls: int
     max_period: float
@@ -39,6 +43,7 @@ DEFAULT_LIMITS = Limits(
 )
 
 
+@deprecated
 class AllPages(NamedTuple):
     pass
 
@@ -46,6 +51,7 @@ class AllPages(NamedTuple):
 _IdType = TypeVar("_IdType")
 
 
+@deprecated
 @dataclass(frozen=True)
 class PageId(
     SupportsKind1["PageId", _IdType],
@@ -57,6 +63,7 @@ class PageId(
 _Data = TypeVar("_Data")
 
 
+@deprecated
 @dataclass(frozen=True)
 class PageResult(
     SupportsKind2["PageResult", _IdType, _Data],

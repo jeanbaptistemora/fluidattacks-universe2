@@ -8,9 +8,10 @@ closure:
   ratelimit-stubs: 2.2.1
   requests: 2.25.1
   returns: 0.16.0
+  types-deprecated: 1.2.1
   typing-extensions: 3.10.0.2
   urllib3: 1.26.7
-  wrapt: 1.12.1
+  wrapt: 1.13.1
 links:
   - name: aioextensions-20.11.1621472-py3-none-any.whl
     sha256: 07j4bmdb10kl2gfar7v6ffqzcbnahfp9vnlcbh11wzs4qlfmjfwv
@@ -63,6 +64,12 @@ links:
   - name: returns-0.16.0.tar.gz
     sha256: 1dq0z348xyjkba8whdqgplkgf1mvw1ydaz4wijc8g7783npplwdc
     url: https://files.pythonhosted.org/packages/52/ad/a312c66697e1be62dc50144ad491ec43ee08c0f4090a635c8a34c88cbd3a/returns-0.16.0.tar.gz
+  - name: types_Deprecated-1.2.1-py3-none-any.whl
+    sha256: 11glqxlgalpclk4iha98yhzv748ijhykv2bf9xwjpqax555xy6z5
+    url: https://files.pythonhosted.org/packages/a9/15/44b405cbbafed0872ce9b8cad7d3216455a787b2da1caf8b435735fba3e8/types_Deprecated-1.2.1-py3-none-any.whl
+  - name: types-Deprecated-1.2.1.tar.gz
+    sha256: 11xm8rdg6hswn5d0fh5pn0yrnsy71rmjmmh42s0kflrb692gg3bl
+    url: https://files.pythonhosted.org/packages/db/8c/1344cb72668be43695e05e8f4808c31001ceeb5796875453f4aa97448c36/types-Deprecated-1.2.1.tar.gz
   - name: typing_extensions-3.10.0.2-py3-none-any.whl
     sha256: 0d0s8knd86ldzfygnrj7mwbrhh31rjmksqfhxi3b25p5zpd5xlpi
     url: https://files.pythonhosted.org/packages/74/60/18783336cc7fcdd95dae91d73477830aa53f5d3181ae4fe20491d7fc3199/typing_extensions-3.10.0.2-py3-none-any.whl
@@ -75,7 +82,22 @@ links:
   - name: urllib3-1.26.7.tar.gz
     sha256: 1kkf6gi8a1fs0dqkf6kpmdpsy97iirvliz8q1krxp8ppaiawd1s9
     url: https://files.pythonhosted.org/packages/80/be/3ee43b6c5757cabea19e75b8f46eaf05a2f5144107d7db48c7cf3a864f73/urllib3-1.26.7.tar.gz
-  - name: wrapt-1.12.1.tar.gz
-    sha256: 1mwpkdnqxf0yxj1a0hsnl06lf287qi5ap7309wm37x45zf0zlbxn
-    url: https://files.pythonhosted.org/packages/82/f7/e43cefbe88c5fd371f4cf0cf5eb3feccd07515af9fd6cf7dbf1d1793a797/wrapt-1.12.1.tar.gz
+  - name: wrapt-1.13.1-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 1xwgwxvc0864fx6cwl5yi2b6rlhdigzh7n9j24h3gq2cdsfkr07c
+    url: https://files.pythonhosted.org/packages/15/8e/3e2fd8a894e76be8bd640d6c11db302bf97290633795d53302439e50485b/wrapt-1.13.1-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: wrapt-1.13.1-cp38-cp38-manylinux1_i686.whl
+    sha256: 142i09n1rgx1s98p4yzhck0pwn9zp2cn7bri3yq1vp40kb6ghmc0
+    url: https://files.pythonhosted.org/packages/8d/eb/d261a3201f95d46ff43ad5fa8fe0a1707366a8428dfe2ef91c340bd4f43b/wrapt-1.13.1-cp38-cp38-manylinux1_i686.whl
+  - name: wrapt-1.13.1-cp38-cp38-manylinux1_x86_64.whl
+    sha256: 1bk0hbm7ybbll4pld96ifi85blqzksmc202shsswl1j9f2fawn1n
+    url: https://files.pythonhosted.org/packages/c7/bc/507c53dc9724482861df9b182a0c7a6ac0da32dea33b3fee6a42dd2ad42c/wrapt-1.13.1-cp38-cp38-manylinux1_x86_64.whl
+  - name: wrapt-1.13.1-cp38-cp38-manylinux2010_i686.whl
+    sha256: 11p8ca633ajza3dhrljjpsp2h23dl3w22kh95iffyll0d53rr0wz
+    url: https://files.pythonhosted.org/packages/97/ae/084c9287bc37184842fc97cd8ba891a559af87e054d6a4d6c130d52cd499/wrapt-1.13.1-cp38-cp38-manylinux2010_i686.whl
+  - name: wrapt-1.13.1-cp38-cp38-manylinux2010_x86_64.whl
+    sha256: 1agrb1kq9qa5gk8ri37kz1fnk6iw54ik664ydnsd7s52c6zj0lzx
+    url: https://files.pythonhosted.org/packages/10/63/ea6cd6e6b7ddf6578b063ad20870ab843aba2352dc3b4ae87e8d9aef7407/wrapt-1.13.1-cp38-cp38-manylinux2010_x86_64.whl
+  - name: wrapt-1.13.1.tar.gz
+    sha256: 1klml7a1hn2lnc0cvp3w2wfr69b82a4abjmx06nwf8c80b7816lh
+    url: https://files.pythonhosted.org/packages/e2/30/dae34ff8afa579098e5796452c414efa4b2738afda40318fdb26e1a8edc1/wrapt-1.13.1.tar.gz
 python: "3.8"
