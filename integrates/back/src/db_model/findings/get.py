@@ -150,8 +150,6 @@ async def _get_group(*, finding_id: str) -> str:
 async def _get_finding_by_id(finding_id: str) -> Finding:
     group_name = await _get_group(finding_id=finding_id)
     finding = await _get_finding(group_name=group_name, finding_id=finding_id)
-    if finding.state.status == FindingStateStatus.DELETED:
-        raise FindingNotFound()
 
     return finding
 
@@ -231,7 +229,6 @@ class GroupDraftsNewLoader(DataLoader):
                 findings,
                 {
                     FindingStateStatus.APPROVED,
-                    FindingStateStatus.DELETED,
                 },
             )
             for findings in findings_by_group
@@ -251,7 +248,6 @@ class GroupFindingsNewLoader(DataLoader):
                 findings,
                 {
                     FindingStateStatus.CREATED,
-                    FindingStateStatus.DELETED,
                     FindingStateStatus.REJECTED,
                     FindingStateStatus.SUBMITTED,
                 },
