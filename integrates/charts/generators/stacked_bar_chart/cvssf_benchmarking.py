@@ -43,7 +43,6 @@ from typing import (
 
 
 class OrganizationCvssfBenchmarking(NamedTuple):
-    # pylint: disable=inherit-non-class, too-few-public-methods
     accepted: Decimal
     closed: Decimal
     open: Decimal

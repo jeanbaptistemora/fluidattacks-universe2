@@ -98,7 +98,7 @@ async def get_data_many_groups(groups: List[str]) -> Counter[str]:
 
 
 def format_data(data: Counter[str]) -> Dict[str, Any]:
-    translations = {
+    translations: Dict[str, str] = {
         "critical_severity": "Critical Severity",
         "high_severity": "High Severity",
         "medium_severity": "Medium Severity",
@@ -143,7 +143,7 @@ def format_data(data: Counter[str]) -> Dict[str, Any]:
         ),
         axis=dict(
             x=dict(
-                categories=[translations[column] for column in translations],
+                categories=[value for _, value in translations.items()],
                 type="category",
                 tick=dict(multiline=False),
             ),

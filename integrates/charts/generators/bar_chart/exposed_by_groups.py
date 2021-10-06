@@ -45,7 +45,7 @@ from typing import (
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
 ) -> PortfoliosGroupsInfo:
-    finding_cvssf: Dict[str, Decimal] = dict()
+    finding_cvssf: Dict[str, Decimal] = {}
     if FI_API_STATUS == "migration":
         group_findings_new: Tuple[
             Finding, ...

@@ -39,13 +39,11 @@ from typing import (
 
 
 class MaxSeverity(NamedTuple):
-    # pylint: disable=inherit-non-class, too-few-public-methods
     value: Decimal
     name: str
 
 
 class Severity(NamedTuple):
-    # pylint: disable=inherit-non-class, too-few-public-methods
     max_open_severity: MaxSeverity
     max_severity_found: MaxSeverity
 

@@ -42,7 +42,7 @@ def had_state_by_then(
             <= last_day,
             historic_state,
         ),
-        dict(),
+        {},
     )
 
     return last_state.get("state") == state
@@ -79,9 +79,7 @@ def get_totals_by_week(
     return open_vulnerabilities, closed_vulnerabilities
 
 
-async def generate_one(  # pylint: disable=too-many-locals
-    groups: Tuple[str, ...]
-) -> RemediationReport:
+async def generate_one(groups: Tuple[str, ...]) -> RemediationReport:
     context = get_new_context()
     finding_vulns_loader = context.finding_vulns_nzr
     if FI_API_STATUS == "migration":

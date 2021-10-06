@@ -15,6 +15,7 @@ from groups import (
     domain as groups_domain,
 )
 from typing import (
+    Dict,
     Iterable,
     NamedTuple,
 )
@@ -58,7 +59,7 @@ async def get_data_many_groups(groups: Iterable[str]) -> Treatment:
 
 
 def format_data(data: Treatment) -> dict:
-    translations = {
+    translations: Dict[str, str] = {
         "acceptedUndefined": "Permanently accepted",
         "accepted": "Temporarily Accepted",
         "inProgress": "In Progress",
@@ -68,8 +69,8 @@ def format_data(data: Treatment) -> dict:
     return {
         "data": {
             "columns": [
-                [translations[column], getattr(data, column)]
-                for column in translations
+                [value, str(getattr(data, key))]
+                for key, value in translations.items()
             ],
             "type": "pie",
             "colors": {

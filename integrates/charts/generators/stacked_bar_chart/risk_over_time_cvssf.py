@@ -65,7 +65,7 @@ async def get_many_groups_document(
         [get_group_document(group, days) for group in groups]
     )
     should_use_monthly: bool = any(
-        [group.should_use_monthly for group in group_documents]
+        group.should_use_monthly for group in group_documents
     )
 
     return sum_over_time_many_groups(

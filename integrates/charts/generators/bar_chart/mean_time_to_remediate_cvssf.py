@@ -49,7 +49,6 @@ from typing import (
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders, min_date: Optional[date] = None
 ) -> Remediate:
-    # pylint: disable=unsubscriptable-object
     if FI_API_STATUS == "migration":
         critical, high, medium, low = await collect(
             [
@@ -97,7 +96,6 @@ async def get_data_one_group(
 async def get_data_many_groups(
     *, groups: List[str], loaders: Dataloaders, min_date: Optional[date] = None
 ) -> Remediate:
-    # pylint: disable=unsubscriptable-object
     groups_data = await collect(
         [
             get_data_one_group(group=group, loaders=loaders, min_date=min_date)
@@ -138,7 +136,7 @@ async def get_data_many_groups(
 
 
 def format_data(data: Remediate) -> Dict[str, Any]:
-    translations = {
+    translations: Dict[str, str] = {
         "critical_severity": "Critical Severity",
         "high_severity": "High Severity",
         "medium_severity": "Medium Severity",
@@ -150,10 +148,10 @@ def format_data(data: Remediate) -> Dict[str, Any]:
                 [
                     "Mean time to remediate",
                     *[
-                        Decimal(getattr(data, column)).to_integral_exact(
+                        Decimal(getattr(data, key)).to_integral_exact(
                             rounding=ROUND_CEILING
                         )
-                        for column in translations
+                        for key, _ in translations.items()
                     ],
                 ]
             ],
@@ -164,7 +162,7 @@ def format_data(data: Remediate) -> Dict[str, Any]:
         ),
         axis=dict(
             x=dict(
-                categories=[translations[column] for column in translations],
+                categories=[value for _, value in translations.items()],
                 type="category",
             ),
             y=dict(

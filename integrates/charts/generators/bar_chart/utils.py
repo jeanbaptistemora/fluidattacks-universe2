@@ -69,7 +69,6 @@ Remediate = NamedTuple(
 
 
 class Benchmarking(NamedTuple):
-    # pylint: disable=inherit-non-class, too-few-public-methods
     is_valid: bool
     mttr: Decimal
     subject: str

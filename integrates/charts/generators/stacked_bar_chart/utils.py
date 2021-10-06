@@ -66,7 +66,6 @@ GroupDocumentData = NamedTuple(
 
 
 class RiskOverTime(NamedTuple):
-    # pylint: disable=inherit-non-class, too-few-public-methods
     monthly: Dict[str, Dict[datetime, float]]
     weekly: Dict[str, Dict[datetime, float]]
     should_use_monthly: bool

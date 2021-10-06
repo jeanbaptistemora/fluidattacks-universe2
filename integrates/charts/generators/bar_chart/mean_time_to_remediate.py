@@ -38,6 +38,7 @@ from statistics import (
     mean,
 )
 from typing import (
+    Dict,
     List,
     Optional,
 )
@@ -47,7 +48,6 @@ from typing import (
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders, min_date: Optional[date] = None
 ) -> Remediate:
-    # pylint: disable=unsubscriptable-object
     if FI_API_STATUS == "migration":
         critical, high, medium, low = await collect(
             [
@@ -94,7 +94,6 @@ async def get_data_one_group(
 async def get_data_many_groups(
     *, groups: List[str], loaders: Dataloaders, min_date: Optional[date] = None
 ) -> Remediate:
-    # pylint: disable=unsubscriptable-object
     groups_data = await collect(
         [
             get_data_one_group(group=group, loaders=loaders, min_date=min_date)
@@ -135,7 +134,7 @@ async def get_data_many_groups(
 
 
 def format_data(data: Remediate) -> dict:
-    translations = {
+    translations: Dict[str, str] = {
         "critical_severity": "Critical Severity",
         "high_severity": "High Severity",
         "medium_severity": "Medium Severity",
@@ -154,7 +153,7 @@ def format_data(data: Remediate) -> dict:
         ),
         axis=dict(
             x=dict(
-                categories=[translations[column] for column in translations],
+                categories=[value for _, value in translations.items()],
                 type="category",
             ),
             y=dict(

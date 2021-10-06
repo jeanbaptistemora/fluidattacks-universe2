@@ -48,7 +48,6 @@ def slice_groups(
 def format_data(groups_data: List[PortfoliosGroupsInfo]) -> dict:
     return dict(
         data=dict(
-            # pylint: disable=unsubscriptable-object
             columns=[
                 cast(List[Union[Decimal, str]], [group.group_name])
                 + [group.value]

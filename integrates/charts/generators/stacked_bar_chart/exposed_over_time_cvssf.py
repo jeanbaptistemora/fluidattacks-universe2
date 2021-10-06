@@ -39,7 +39,6 @@ from typing import (
 
 
 class GroupDocumentCvssfData(NamedTuple):
-    # pylint: disable=inherit-non-class, too-few-public-methods
     data_date: datetime
     low: Decimal
     medium: Decimal
@@ -150,7 +149,7 @@ async def get_many_groups_document(
         [get_group_document(group, loaders) for group in groups]
     )
     should_use_monthly: bool = any(
-        [group.should_use_monthly for group in group_documents]
+        group.should_use_monthly for group in group_documents
     )
 
     return sum_over_time_many_groups(

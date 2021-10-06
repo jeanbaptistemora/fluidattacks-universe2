@@ -37,7 +37,7 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
-    finding_cvssf: Dict[str, Decimal] = dict()
+    finding_cvssf: Dict[str, Decimal] = {}
     if FI_API_STATUS == "migration":
         group_findings_new_loader = context.group_findings_new
         group_findings_new: Tuple[
@@ -98,8 +98,7 @@ def format_data(counters: Counter[str]) -> dict:
     return {
         "data": {
             "columns": [
-                [translations[column], counters[column]]
-                for column in translations
+                [value, counters[key]] for key, value in translations.items()
             ],
             "type": "pie",
             "colors": {

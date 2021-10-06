@@ -95,7 +95,6 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
         for title, open_age in counters.most_common()
         if open_age > 0
     ]
-    # pylint: disable=unsubscriptable-object
     merged_data: List[List[Union[int, str]]] = []
 
     for axis, columns in groupby(
