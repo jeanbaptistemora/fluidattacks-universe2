@@ -68,6 +68,6 @@ def process_stdin(stdin: IO[str]) -> None:
             line = stdin.readline()
             continue
         LOG.debug("Tap input %s", tap_input)
-        with open(tap_input.csv_path, "r") as file:
+        with open(tap_input.csv_path, "r", encoding="UTF-8") as file:
             core.to_singer(file, tap_input.stream, tap_input.options)
         line = stdin.readline()

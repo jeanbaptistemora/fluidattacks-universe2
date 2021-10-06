@@ -164,7 +164,9 @@ def adjust_csv(source: IO[str], options: AdjustCsvOptions) -> IO[str]:
         raise Exception()
     LOG.debug("field names: %s", field_names)
     with tempfile.TemporaryDirectory() as temp_dir:
-        with open(temp_dir + "/data.csv", "w+") as destination:
+        with open(
+            temp_dir + "/data.csv", "w+", encoding="UTF-8"
+        ) as destination:
             dest_writer = csv.DictWriter(
                 destination,
                 field_names,
@@ -183,10 +185,10 @@ def adjust_csv(source: IO[str], options: AdjustCsvOptions) -> IO[str]:
                     row_num = row_num + 1
                 dest_writer.writerow(row)
                 row_num = row_num + 1
-        output = tempfile.NamedTemporaryFile("w+")
-        with open(temp_dir + "/data.csv", "r") as destination:
-            output.write(destination.read())
-    return output
+        with tempfile.NamedTemporaryFile("w+", delete=False) as output:
+            with open(temp_dir + "/data.csv", "r", encoding="UTF-8") as file:
+                output.write(file.read())
+            return output
 
 
 def to_singer(
