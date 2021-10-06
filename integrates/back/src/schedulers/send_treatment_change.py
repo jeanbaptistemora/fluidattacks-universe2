@@ -8,11 +8,17 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
+from db_model.findings.types import (
+    Finding,
+)
 from groups import (
     domain as groups_domain,
 )
 from newutils import (
     datetime as datetime_utils,
+)
+from typing import (
+    Tuple,
 )
 from vulnerabilities import (
     domain as vulns_domain,
@@ -20,15 +26,17 @@ from vulnerabilities import (
 
 
 async def send_group_treatment_change(
-    context: Dataloaders, group_name: str, min_date: datetime
+    loaders: Dataloaders, group_name: str, min_date: datetime
 ) -> None:
-    group_findings_loader = context.group_findings
-    group_findings = await group_findings_loader.load(group_name)
+    group_findings_loader = loaders.group_findings_new
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+        group_name
+    )
     await collect(
         vulns_domain.send_treatment_change_mail(
-            context,
-            finding["finding_id"],
-            finding["title"],
+            loaders,
+            finding.id,
+            finding.title,
             group_name,
             min_date,
         )
@@ -37,12 +45,12 @@ async def send_group_treatment_change(
 
 
 async def send_treatment_change() -> None:
-    context = get_new_context()
+    loaders: Dataloaders = get_new_context()
     groups = await groups_domain.get_active_groups()
     min_date = datetime_utils.get_now_minus_delta(days=1)
     await collect(
         [
-            send_group_treatment_change(context, group_name, min_date)
+            send_group_treatment_change(loaders, group_name, min_date)
             for group_name in groups
         ],
         workers=20,
