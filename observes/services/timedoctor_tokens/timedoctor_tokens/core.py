@@ -16,20 +16,20 @@ def run_command(
 ) -> Tuple[int, str, str]:
     """Run a command and return exit code, stdout and stderr."""
     LOG.debug("Run command: %s", cmd)
-    proc = subprocess.Popen(
+    with subprocess.Popen(
         cmd,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         shell=True,
         executable="/bin/bash",
         universal_newlines=True,
-    )
-    stdout, stderr = proc.communicate()
-    LOG.debug("stdout %s", stdout)
-    LOG.debug("stderr %s", stderr)
-    if raise_on_errors and proc.returncode:
-        raise Exception(f"CRITICAL: A command failed to run: {raise_msg}")
-    return proc.returncode, stdout, stderr
+    ) as proc:
+        stdout, stderr = proc.communicate()
+        LOG.debug("stdout %s", stdout)
+        LOG.debug("stderr %s", stderr)
+        if raise_on_errors and proc.returncode:
+            raise Exception(f"CRITICAL: A command failed to run: {raise_msg}")
+        return proc.returncode, stdout, stderr
 
 
 def get_from_url(method: str, resource: str, **kwargs: Any) -> tuple:
