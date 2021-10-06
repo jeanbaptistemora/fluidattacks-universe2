@@ -18,12 +18,12 @@ from tap_mailchimp.api.common.raw import (
 
 
 def _list_audiences(_page: PageId) -> JsonObj:
-    with open("./tests/mock_data/audience.json") as data:
+    with open("./tests/mock_data/audience.json", encoding="UTF-8") as data:
         return JsonFactory.load(data)["list_audiences"].to_json()
 
 
 def _get_audience(audience: AudienceId) -> JsonObj:
-    with open("./tests/mock_data/audience.json") as data:
+    with open("./tests/mock_data/audience.json", encoding="UTF-8") as data:
         return (
             JsonFactory.load(data)["get_audience"]
             .to_json()[audience.item_id]

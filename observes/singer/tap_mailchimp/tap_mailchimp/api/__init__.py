@@ -5,8 +5,10 @@ import logging
 from mailchimp_marketing import (
     Client,
 )
-import tap_mailchimp.api.audiences as audiences
-import tap_mailchimp.api.campaigns as campaigns
+from tap_mailchimp.api import (
+    audiences,
+    campaigns,
+)
 from tap_mailchimp.api.common import (
     raw as raw_module,
 )
