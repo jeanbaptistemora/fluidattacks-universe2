@@ -6,8 +6,8 @@ findings in alive groups in the single table vms
 Related MR:
 https://gitlab.com/fluidattacks/product/-/merge_requests/14700
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-10-06 at 18:48:38 UTCUTC
+Finalization Time: 2021-10-06 at 19:01:42 UTCUTC
 """
 
 from aioextensions import (
@@ -54,7 +54,7 @@ from unreliable_indicators.operations import (
     _format_unreliable_treatment_summary,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def _populate_finding_unreliable_indicator(
