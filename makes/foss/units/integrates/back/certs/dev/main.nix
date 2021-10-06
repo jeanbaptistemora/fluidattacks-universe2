@@ -1,7 +1,7 @@
-{ sslCerts
+{ inputs
 , ...
 }:
-sslCerts {
+inputs.legacy.importUtility "ssl-certs" {
   name = "integrates-back-certs-development";
   options = builtins.concatLists [
     [ "-subj" "/C=CO" ]

@@ -6,7 +6,6 @@ airs.npm.env
 airs.npm.runtime
 forces.config-development
 forces.config-runtime
-integrates.back.certs.development
 integrates.front.build
 integrates.front.config.dev-runtime
 integrates.front.config.dev-runtime-env
