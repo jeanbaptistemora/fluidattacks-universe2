@@ -37,8 +37,7 @@ class _Query:
 class Query(_Query):
     # pylint: disable=too-few-public-methods
     def __init__(self, obj: _Query) -> None:
-        for key, val in obj.__dict__.items():
-            object.__setattr__(self, key, val)
+        super().__init__(obj.raw)
 
 
 @dataclass(frozen=True)
@@ -49,8 +48,7 @@ class _ApiClient:
 class ApiClient(_ApiClient):
     def __init__(self, creds: Creds) -> None:
         obj = _ApiClient(HTTPEndpoint(API_ENDPOINT, creds.basic_auth_header()))
-        for key, val in obj.__dict__.items():
-            object.__setattr__(self, key, val)
+        super().__init__(obj._endpoint)
 
     @staticmethod
     def new_query() -> IO[Query]:

@@ -51,7 +51,6 @@ def _get_projs(
 
 @dataclass(frozen=True)
 class PostsGetters:
-    # pylint: disable=too-few-public-methods
     client: ApiClient
 
     def stream_getter(self) -> StreamGetter[PostId, Post]:

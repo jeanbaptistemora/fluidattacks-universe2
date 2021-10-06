@@ -45,6 +45,8 @@ class _Project:
 @dataclass(frozen=True)
 class Project(_Project):
     def __init__(self, obj: _Project) -> None:
+        # pylint: disable=super-init-not-called
+        # calling super is tedious because the number of args
         for key, val in obj.__dict__.items():
             object.__setattr__(self, key, val)
 

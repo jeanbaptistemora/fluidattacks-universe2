@@ -36,6 +36,8 @@ class AutoName(Enum):
     def _generate_next_value_(
         name: str, _start: int, _count: int, _last_values: List[Any]
     ) -> str:
+        # pylint: disable=arguments-differ
+        # pylint false positive
         return name
 
 
