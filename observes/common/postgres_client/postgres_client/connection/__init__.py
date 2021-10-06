@@ -25,7 +25,7 @@ class Credentials(NamedTuple):
     password: str
 
     def __repr__(self) -> str:
-        return "Creds(user={})".format(self.user)
+        return f"Creds(user={self.user})"
 
 
 class Options(NamedTuple):
