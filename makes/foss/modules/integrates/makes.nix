@@ -6,6 +6,7 @@
     ./linters/makes.nix
     ./on-aws-batch/makes.nix
     ./pipeline/makes.nix
+    ./security/makes.nix
   ];
   secretsForAwsFromEnv = {
     integratesDev = {

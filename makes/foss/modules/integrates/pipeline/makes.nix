@@ -565,6 +565,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/securePythonWithBandit/integratesBack";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/testTerraform/integratesBackups";
           gitlabExtra = gitlabTestInfra;
         }

@@ -50,11 +50,6 @@
       when: never
     - when: always
 
-integrates.back.security:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: test-security
-
 integrates.front.test:
   <<: *makes
   <<: *in_dev_branch_integrates

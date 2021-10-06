@@ -9,11 +9,6 @@ forces.config-runtime
 integrates.back.certs.development
 integrates.back.pypi.runtime
 integrates.back.pypi.unit-tests
-integrates.back.security
-integrates.back.tools
-integrates.back.tools.asciidoctor-pdf
-integrates.back.tools.concurrent-ruby
-integrates.back.tools.secure-spreadsheet
 integrates.front.build
 integrates.front.config.dev-runtime
 integrates.front.config.dev-runtime-env
