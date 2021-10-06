@@ -36,7 +36,6 @@ class _ProjectApi(NamedTuple):
     proj: ProjectId
 
 
-# pylint: disable=too-few-public-methods
 class ProjectApi(Immutable):
     client: PageClient
     proj: ProjectId
