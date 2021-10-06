@@ -1,11 +1,12 @@
 { inputs
 , makeScript
+, outputs
 , ...
 }:
 makeScript {
   replace = {
     __argSetupIntegratesFrontDevRuntime__ =
-      inputs.product.integrates-front-config-dev-runtime;
+      outputs."/integrates/front/config/dev-runtime";
   };
   entrypoint = ./entrypoint.sh;
   name = "integrates-front";
@@ -14,6 +15,6 @@ makeScript {
       inputs.nixpkgs.bash
       inputs.nixpkgs.nodejs
     ];
-    source = [ inputs.product.integrates-front-config-dev-runtime-env ];
+    source = [ outputs."/integrates/front/config/dev-runtime-env" ];
   };
 }

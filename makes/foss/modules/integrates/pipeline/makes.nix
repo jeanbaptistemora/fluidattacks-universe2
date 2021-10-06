@@ -374,7 +374,7 @@ in
           gitlabExtra = {
             needs = [
               "/integrates/back/test/unit"
-              "integrates.front.test"
+              "/integrates/front/test"
               "integrates.mobile.test"
             ];
             rules = gitlabOnlyDev;
@@ -436,6 +436,19 @@ in
           args = [ "prod" ];
           output = "/integrates/mobile/ota";
           gitlabExtra = gitlabPreBuildProd;
+        }
+        {
+          output = "/integrates/front/test";
+          gitlabExtra = gitlabTest // {
+            after_script = [
+              "cp ~/.makes/out-integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov"
+            ];
+            artifacts = {
+              expire_in = "1 week";
+              name = "coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA";
+              paths = [ "integrates/front/coverage.lcov" ];
+            };
+          };
         }
       ]
         ++ (builtins.map

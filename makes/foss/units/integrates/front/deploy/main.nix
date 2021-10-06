@@ -1,13 +1,14 @@
 { inputs
 , libGit
 , makeTemplate
+, outputs
 , projectPath
 , ...
 }:
 makeTemplate {
   name = "integrates-front-deploy";
   replace = {
-    __argCompiledFront__ = inputs.product.integrates-front-build;
+    __argCompiledFront__ = outputs."/integrates/front/build";
   };
   searchPaths = {
     bin = [

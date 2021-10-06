@@ -2562,7 +2562,7 @@
   interruptible: true
   needs:
     - /integrates/back/test/unit
-    - integrates.front.test
+    - /integrates/front/test
     - integrates.mobile.test
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
@@ -2639,6 +2639,34 @@
   script:
     - m . /integrates/front/lint
   stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/integrates/front/test:
+  after_script:
+    - cp ~/.makes/out-integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov
+  artifacts:
+    expire_in: 1 week
+    name: coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA
+    paths:
+      - integrates/front/coverage.lcov
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/front/test
+  stage: test-code
   tags:
     - autoscaling
   variables:
