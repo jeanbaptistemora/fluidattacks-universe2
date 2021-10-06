@@ -126,7 +126,9 @@ def create_csv_file(
     group: str,
     get_org: Callable[[str], Optional[str]],
 ) -> None:
-    with open(os.path.join(folder, f"{group}.csv"), "w") as file:
+    with open(
+        os.path.join(folder, f"{group}.csv"), "w", encoding="UTF-8"
+    ) as file:
         writer = csv.DictWriter(
             file,
             fieldnames=(

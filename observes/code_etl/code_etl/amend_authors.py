@@ -66,7 +66,7 @@ def get_mailmap_dict(mailmap_path: str) -> MailmapMapping:
         r"<(?P<email>.*?)>$",
     )
 
-    with open(mailmap_path) as file:
+    with open(mailmap_path, encoding="UTF-8") as file:
         for line in file.read().splitlines():
             match: Optional[Match] = mailmap_line.match(line)
             if match:
