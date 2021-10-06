@@ -7,7 +7,7 @@ interface IOrganizationPolicies {
 interface IPoliciesFormData {
   maxAcceptanceDays: string;
   maxAcceptanceSeverity: string;
-  maxNumberAcceptations: string;
+  maxNumberAcceptances: string;
   minAcceptanceSeverity: string;
 }
 
@@ -16,7 +16,7 @@ interface IOrganizationPoliciesData {
     findingPolicies: IFindingPoliciesData[];
     maxAcceptanceDays: string;
     maxAcceptanceSeverity: string;
-    maxNumberAcceptations: string;
+    maxNumberAcceptances: string;
     minAcceptanceSeverity: string;
     name: string;
   };

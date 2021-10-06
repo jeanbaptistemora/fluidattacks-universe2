@@ -22,7 +22,7 @@ async def get_result(
                 id
                 maxAcceptanceDays
                 maxAcceptanceSeverity
-                maxNumberAcceptations
+                maxNumberAcceptances
                 minAcceptanceSeverity
                 name
                 groups {{

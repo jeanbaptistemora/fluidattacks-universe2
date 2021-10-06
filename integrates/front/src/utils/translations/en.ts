@@ -947,7 +947,7 @@ export const enTranslations: ResourceKey = {
             "Minimum acceptance score should be lower than the maximum value",
           maxAcceptanceDays:
             "Maximum acceptance days should be a positive integer between 0 and 180",
-          maxNumberAcceptations:
+          maxNumberAcceptances:
             "Maximum number of acceptations should be a positive integer",
         },
         findings: {
@@ -999,7 +999,7 @@ export const enTranslations: ResourceKey = {
             "Temporal CVSS 3.1 score range between which a finding can be accepted",
           maxAcceptanceDays:
             "Maximum number of calendar days a finding can be temporally accepted",
-          maxNumberAcceptations:
+          maxNumberAcceptances:
             "Maximum number of times a finding can be temporally accepted",
         },
         policy: "Policy",

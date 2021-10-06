@@ -21,7 +21,7 @@ async def get_result(
             updateOrganizationPolicies(
                 maxAcceptanceDays: 5,
                 maxAcceptanceSeverity: 8.5,
-                maxNumberAcceptations: 3,
+                maxNumberAcceptances: 3,
                 minAcceptanceSeverity: 1.5,
                 organizationId: "{identifier}",
                 organizationName: "{name}"

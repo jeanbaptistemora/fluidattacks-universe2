@@ -133,7 +133,7 @@ describe("Organization findings policies view", (): void => {
           ],
           maxAcceptanceDays: null,
           maxAcceptanceSeverity: 10,
-          maxNumberAcceptations: null,
+          maxNumberAcceptances: null,
           minAcceptanceSeverity: 0,
           name: "okada",
         },

@@ -262,7 +262,7 @@ async def test_update_organization_policies() -> None:
             updateOrganizationPolicies(
                 maxAcceptanceDays: 5,
                 maxAcceptanceSeverity: 8.5,
-                maxNumberAcceptations: 3,
+                maxNumberAcceptances: 3,
                 minAcceptanceSeverity: 1.5,
                 organizationId: "{org_id}",
                 organizationName: "{org_name}"
@@ -346,7 +346,7 @@ async def test_organization() -> None:
                 id
                 maxAcceptanceDays
                 maxAcceptanceSeverity
-                maxNumberAcceptations
+                maxNumberAcceptances
                 minAcceptanceSeverity
                 name
                 groups {
@@ -375,7 +375,7 @@ async def test_organization() -> None:
     assert result["data"]["organization"]["maxAcceptanceSeverity"] == Decimal(
         "10.0"
     )
-    assert result["data"]["organization"]["maxNumberAcceptations"] == Decimal(
+    assert result["data"]["organization"]["maxNumberAcceptances"] == Decimal(
         "2"
     )
     assert result["data"]["organization"]["minAcceptanceSeverity"] == Decimal(

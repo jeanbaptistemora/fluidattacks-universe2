@@ -47,7 +47,7 @@ async def test_get_organization_ver_1(
     assert result["data"]["organization"]["id"] == org_id
     assert result["data"]["organization"]["maxAcceptanceDays"] == 90
     assert result["data"]["organization"]["maxAcceptanceSeverity"] == 7
-    assert result["data"]["organization"]["maxNumberAcceptations"] == 4
+    assert result["data"]["organization"]["maxNumberAcceptances"] == 4
     assert result["data"]["organization"]["minAcceptanceSeverity"] == 3
     assert result["data"]["organization"]["name"] == org_name.lower()
     assert sorted(groups) == []
@@ -90,7 +90,7 @@ async def test_get_organization_ver_2(
     assert result["data"]["organization"]["id"] == org_id
     assert result["data"]["organization"]["maxAcceptanceDays"] == 90
     assert result["data"]["organization"]["maxAcceptanceSeverity"] == 7
-    assert result["data"]["organization"]["maxNumberAcceptations"] == 4
+    assert result["data"]["organization"]["maxNumberAcceptances"] == 4
     assert result["data"]["organization"]["minAcceptanceSeverity"] == 3
     assert result["data"]["organization"]["name"] == org_name.lower()
     assert sorted(groups) == org_groups

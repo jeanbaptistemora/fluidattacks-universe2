@@ -465,7 +465,7 @@ class InvalidJustificationMaxLength(CustomBaseException):
         super(InvalidJustificationMaxLength, self).__init__(msg)
 
 
-class InvalidNumberAcceptations(CustomBaseException):
+class InvalidNumberAcceptances(CustomBaseException):
     def __init__(self, expr: str = "") -> None:
         if expr:
             msg = (
@@ -474,9 +474,9 @@ class InvalidNumberAcceptations(CustomBaseException):
             )
         else:
             msg = (
-                "Exception - Number of acceptations should be zero or positive"
+                "Exception - Number of acceptances should be zero or positive"
             )
-        super(InvalidNumberAcceptations, self).__init__(msg)
+        super(InvalidNumberAcceptances, self).__init__(msg)
 
 
 class InvalidOrganization(CustomBaseException):

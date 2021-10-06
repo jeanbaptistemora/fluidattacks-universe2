@@ -6,7 +6,7 @@ from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
-    InvalidNumberAcceptations,
+    InvalidNumberAcceptances,
     InvalidOrganization,
     InvalidUserProvided,
     UserNotInOrganization,
@@ -270,7 +270,7 @@ async def test_update_policies() -> None:
     new_values = {
         "max_acceptance_days": "20",
         "max_acceptance_severity": "8.3",
-        "max_number_acceptations": "3",
+        "max_number_acceptances": "3",
         "min_acceptance_severity": "2.2",
     }
     await orgs_domain.update_policies(
@@ -305,8 +305,8 @@ async def test_update_policies() -> None:
         )
     assert GraphQLError(exe.args[0]) == excinfo.value
 
-    new_values = {"max_number_acceptations": "-1"}
-    exe = InvalidNumberAcceptations()
+    new_values = {"max_number_acceptances": "-1"}
+    exe = InvalidNumberAcceptances()
     with pytest.raises(GraphQLError) as excinfo:
         await orgs_domain.update_policies(
             get_new_context(), org_id, org_name, "", new_values
@@ -343,8 +343,8 @@ async def test_validate_negative_values() -> None:
     with pytest.raises(InvalidAcceptanceDays):
         orgs_domain.validate_max_acceptance_days(-1)
 
-    with pytest.raises(InvalidNumberAcceptations):
-        orgs_domain.validate_max_number_acceptations(-1)
+    with pytest.raises(InvalidNumberAcceptances):
+        orgs_domain.validate_max_number_acceptances(-1)
 
 
 async def test_validate_severity_range() -> None:

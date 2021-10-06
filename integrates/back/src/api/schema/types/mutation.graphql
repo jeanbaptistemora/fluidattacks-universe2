@@ -737,7 +737,7 @@ type Mutation {
     "Maximum CVSS 3.1 score in which a finding can be temporally accepted"
     maxAcceptanceSeverity: Float
     "Maximum number of times a finding can be temporally accepted"
-    maxNumberAcceptations: Int
+    maxNumberAcceptances: Int
     "Minimum CVSS 3.1 score in which a finding can be temporally accepted"
     minAcceptanceSeverity: Float
     "Identifier of the Organization whose policies are to be updated"

@@ -14,7 +14,7 @@ import authz
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
-    InvalidNumberAcceptations,
+    InvalidNumberAcceptances,
     SameValues,
     VulnNotFound,
 )
@@ -123,7 +123,7 @@ async def _validate_number_acceptations(
             max_acceptations is not None
             and current_acceptations + 1 > max_acceptations
         ):
-            raise InvalidNumberAcceptations(
+            raise InvalidNumberAcceptances(
                 str(current_acceptations) if current_acceptations else "-"
             )
     return valid

@@ -7,7 +7,7 @@ from back.tests.unit.utils import (
 from custom_exceptions import (
     InvalidAcceptanceSeverity,
     InvalidFileType,
-    InvalidNumberAcceptations,
+    InvalidNumberAcceptances,
 )
 from dataloaders import (
     Dataloaders,
@@ -386,7 +386,7 @@ async def test_validate_number_acceptations() -> None:
         "treatment": "ACCEPTED",
         "acceptance_date": acceptance_date,
     }
-    with pytest.raises(InvalidNumberAcceptations):
+    with pytest.raises(InvalidNumberAcceptances):
         assert await validate_treatment_change(
             info_to_check,
             get_new_context(),

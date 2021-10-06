@@ -20,5 +20,6 @@ ORGANIZATION.set_field("groups", groups.resolve)
 ORGANIZATION.set_field("permissions", permissions.resolve)
 ORGANIZATION.set_field("stakeholders", stakeholders.resolve)
 ORGANIZATION.set_field("userRole", user_role.resolve)
+ORGANIZATION.set_alias("maxNumberAcceptances", "max_number_acceptations")
 # -------------------------Deprecated fields-----------------------------------
 ORGANIZATION.set_field("projects", groups.resolve)

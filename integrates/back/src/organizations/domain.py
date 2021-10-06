@@ -9,7 +9,7 @@ from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
-    InvalidNumberAcceptations,
+    InvalidNumberAcceptances,
     InvalidOrganization,
     OrganizationNotFound,
     UserNotInOrganization,
@@ -436,13 +436,19 @@ async def update_policies(
         InvalidAcceptanceDays,
         InvalidAcceptanceSeverity,
         InvalidAcceptanceSeverityRange,
-        InvalidNumberAcceptations,
+        InvalidNumberAcceptances,
     ) as exe:
         LOGGER.exception(exe, extra={"extra": locals()})
         raise GraphQLError(str(exe)) from exe
 
     if all(valid):
         success = True
+        # Compatibility for the old API
+        if "max_number_acceptances" in values:
+            values["max_number_acceptations"] = values[
+                "max_number_acceptances"
+            ]
+            del values["max_number_acceptances"]
         new_policies = await _get_new_policies(
             loaders, organization_id, email, values
         )
@@ -493,10 +499,10 @@ def validate_max_acceptance_severity(value: Decimal) -> bool:
     return success
 
 
-def validate_max_number_acceptations(value: int) -> bool:
+def validate_max_number_acceptances(value: int) -> bool:
     success: bool = True
     if value < 0:
-        raise InvalidNumberAcceptations()
+        raise InvalidNumberAcceptances()
     return success
 
 

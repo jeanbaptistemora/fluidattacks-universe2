@@ -57,7 +57,7 @@ describe("Organization policies view", (): void => {
               findingPolicies: [],
               maxAcceptanceDays: null,
               maxAcceptanceSeverity: 10,
-              maxNumberAcceptations: null,
+              maxNumberAcceptances: null,
               minAcceptanceSeverity: 0,
               name: "okada",
             },
@@ -98,10 +98,7 @@ describe("Organization policies view", (): void => {
     ).toBe("10.0");
 
     expect(
-      wrapper
-        .find({ name: "maxNumberAcceptations" })
-        .find("input")
-        .prop("value")
+      wrapper.find({ name: "maxNumberAcceptances" }).find("input").prop("value")
     ).toBe("");
 
     expect(
@@ -167,7 +164,7 @@ describe("Organization policies view", (): void => {
               findingPolicies: [],
               maxAcceptanceDays: 5,
               maxAcceptanceSeverity: 7.5,
-              maxNumberAcceptations: 5,
+              maxNumberAcceptances: 5,
               minAcceptanceSeverity: 3,
               name: "okada",
             },
@@ -180,7 +177,7 @@ describe("Organization policies view", (): void => {
           variables: {
             maxAcceptanceDays: 2,
             maxAcceptanceSeverity: 8.9,
-            maxNumberAcceptations: 1,
+            maxNumberAcceptances: 1,
             minAcceptanceSeverity: 0,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
@@ -207,7 +204,7 @@ describe("Organization policies view", (): void => {
               findingPolicies: [],
               maxAcceptanceDays: 2,
               maxAcceptanceSeverity: 8.9,
-              maxNumberAcceptations: 1,
+              maxNumberAcceptances: 1,
               minAcceptanceSeverity: 0,
               name: "okada",
             },
@@ -247,8 +244,8 @@ describe("Organization policies view", (): void => {
     const maxAcceptanceSeverity: ReactWrapper = wrapper
       .find({ name: "maxAcceptanceSeverity" })
       .find("input");
-    const maxNumberAcceptations: ReactWrapper = wrapper
-      .find({ name: "maxNumberAcceptations" })
+    const maxNumberAcceptances: ReactWrapper = wrapper
+      .find({ name: "maxNumberAcceptances" })
       .find("input");
     const minAcceptanceSeverity: ReactWrapper = wrapper
       .find({ name: "minAcceptanceSeverity" })
@@ -266,8 +263,8 @@ describe("Organization policies view", (): void => {
     maxAcceptanceSeverity.simulate("change", {
       target: { name: "maxAcceptanceSeverity", value: "8.9" },
     });
-    maxNumberAcceptations.simulate("change", {
-      target: { name: "maxNumberAcceptations", value: "1" },
+    maxNumberAcceptances.simulate("change", {
+      target: { name: "maxNumberAcceptances", value: "1" },
     });
     minAcceptanceSeverity.simulate("change", {
       target: { name: "minAcceptanceSeverity", value: "0" },
@@ -328,7 +325,7 @@ describe("Organization policies view", (): void => {
               findingPolicies: [],
               maxAcceptanceDays: 5,
               maxAcceptanceSeverity: 7.5,
-              maxNumberAcceptations: 2,
+              maxNumberAcceptances: 2,
               minAcceptanceSeverity: 3,
               name: "okada",
             },
@@ -404,7 +401,7 @@ describe("Organization policies view", (): void => {
               findingPolicies: [],
               maxAcceptanceDays: 5,
               maxAcceptanceSeverity: 7.5,
-              maxNumberAcceptations: 2,
+              maxNumberAcceptances: 2,
               minAcceptanceSeverity: 3,
               name: "okada",
             },
@@ -417,7 +414,7 @@ describe("Organization policies view", (): void => {
           variables: {
             maxAcceptanceDays: 1,
             maxAcceptanceSeverity: 7.5,
-            maxNumberAcceptations: 2,
+            maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
@@ -437,7 +434,7 @@ describe("Organization policies view", (): void => {
           variables: {
             maxAcceptanceDays: 1,
             maxAcceptanceSeverity: 7.5,
-            maxNumberAcceptations: 2,
+            maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
@@ -457,7 +454,7 @@ describe("Organization policies view", (): void => {
           variables: {
             maxAcceptanceDays: 1,
             maxAcceptanceSeverity: 7.5,
-            maxNumberAcceptations: 2,
+            maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
@@ -477,7 +474,7 @@ describe("Organization policies view", (): void => {
           variables: {
             maxAcceptanceDays: 1,
             maxAcceptanceSeverity: 7.5,
-            maxNumberAcceptations: 2,
+            maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
@@ -497,7 +494,7 @@ describe("Organization policies view", (): void => {
           variables: {
             maxAcceptanceDays: 1,
             maxAcceptanceSeverity: 7.5,
-            maxNumberAcceptations: 2,
+            maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
@@ -595,7 +592,7 @@ describe("Organization policies view", (): void => {
         wrapper.update();
 
         expect(msgError).toHaveBeenCalledWith(
-          translate.t("organization.tabs.policies.errors.maxNumberAcceptations")
+          translate.t("organization.tabs.policies.errors.maxNumberAcceptances")
         );
       });
     });

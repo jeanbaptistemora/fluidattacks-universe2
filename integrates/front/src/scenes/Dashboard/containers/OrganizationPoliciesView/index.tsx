@@ -93,7 +93,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
             case "Exception - Number of acceptations should be zero or positive":
               msgError(
                 translate.t(
-                  "organization.tabs.policies.errors.maxNumberAcceptations"
+                  "organization.tabs.policies.errors.maxNumberAcceptances"
                 )
               );
               break;
@@ -218,7 +218,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
       policy: (
         <p>
           {translate.t(
-            "organization.tabs.policies.policies.maxNumberAcceptations"
+            "organization.tabs.policies.policies.maxNumberAcceptances"
           )}
         </p>
       ),
@@ -238,7 +238,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
             <Field
               component={FormikText}
               disabled={!canEdit}
-              name={"maxNumberAcceptations"}
+              name={"maxNumberAcceptances"}
               type={"text"}
             />
           )}
@@ -253,7 +253,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         variables: {
           maxAcceptanceDays: parseInt(values.maxAcceptanceDays, 10),
           maxAcceptanceSeverity: parseFloat(values.maxAcceptanceSeverity),
-          maxNumberAcceptations: parseInt(values.maxNumberAcceptations, 10),
+          maxNumberAcceptances: parseInt(values.maxNumberAcceptances, 10),
           minAcceptanceSeverity: parseFloat(values.minAcceptanceSeverity),
           organizationId,
           organizationName: organizationName.toLowerCase(),
@@ -280,11 +280,9 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
           )
             .toFixed(1)
             .toString(),
-          maxNumberAcceptations: _.isNull(
-            data.organization.maxNumberAcceptations
-          )
+          maxNumberAcceptances: _.isNull(data.organization.maxNumberAcceptances)
             ? ""
-            : data.organization.maxNumberAcceptations.toString(),
+            : data.organization.maxNumberAcceptances.toString(),
           minAcceptanceSeverity: parseFloat(
             data.organization.minAcceptanceSeverity
           )

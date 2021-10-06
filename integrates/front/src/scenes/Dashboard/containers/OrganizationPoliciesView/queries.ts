@@ -13,7 +13,7 @@ const GET_ORGANIZATION_POLICIES: DocumentNode = gql`
       }
       maxAcceptanceDays
       maxAcceptanceSeverity
-      maxNumberAcceptations
+      maxNumberAcceptances
       minAcceptanceSeverity
       name
     }
@@ -24,7 +24,7 @@ const UPDATE_ORGANIZATION_POLICIES: DocumentNode = gql`
   mutation UpdateOrganizationPolicies(
     $maxAcceptanceDays: Int
     $maxAcceptanceSeverity: Float
-    $maxNumberAcceptations: Int
+    $maxNumberAcceptances: Int
     $minAcceptanceSeverity: Float
     $organizationId: String!
     $organizationName: String!
@@ -32,7 +32,7 @@ const UPDATE_ORGANIZATION_POLICIES: DocumentNode = gql`
     updateOrganizationPolicies(
       maxAcceptanceDays: $maxAcceptanceDays
       maxAcceptanceSeverity: $maxAcceptanceSeverity
-      maxNumberAcceptations: $maxNumberAcceptations
+      maxNumberAcceptances: $maxNumberAcceptances
       minAcceptanceSeverity: $minAcceptanceSeverity
       organizationId: $organizationId
       organizationName: $organizationName
