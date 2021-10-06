@@ -19,7 +19,7 @@
             branchName = "master";
             url = "https://gitlab.com/fluidattacks/product.git";
             rev = "68d5397178ada18e4cf6d4676765c8f8810013ce";
-            sha256 = "066mh0zbf937yhnp827pqcl8vdi47nz7iyp7nsah1hrivbr4zdyj";
+            sha256 = "05k9b5135xg1x0g5627mi5bsc1rvwd8n02lfv4dvdclfwkd70342";
             deepClone = true;
           };
           "VulnerableApp" = inputs.skimsVulnerableApp;
