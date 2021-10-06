@@ -63,7 +63,8 @@ class Worker:
             headers = {"Authorization": f"Bearer {self.access_token}"}
 
             request = urllib.request.Request(resource, headers=headers)
-            response = urllib.request.urlopen(request).read().decode("utf-8")
+            with urllib.request.urlopen(request) as result:
+                response = result.read().decode("utf-8")
             status_code = 200
         except urllib.error.HTTPError as error:
             status_code = error.code
