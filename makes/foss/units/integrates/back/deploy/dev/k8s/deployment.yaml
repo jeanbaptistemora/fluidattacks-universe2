@@ -47,8 +47,7 @@ spec:
               command:
               - sh
               - -c
-              - K8S_COMPAT=1
-                ~/.makes/out-integrates-back-deploy-probes-readiness/bin/*
+              - ~/.makes/out-integrates-back-deploy-probes-readiness/bin/*
                 aws_login_dev integrates-dev
                 FluidIntegrates http://localhost:8001
             initialDelaySeconds: 120
@@ -61,8 +60,7 @@ spec:
               command:
               - sh
               - -c
-              - K8S_COMPAT=1
-                ~/.makes/out-integrates-back-deploy-probes-liveness/bin/*
+              - ~/.makes/out-integrates-back-deploy-probes-liveness/bin/*
                 aws_login_dev integrates-dev
                 FluidIntegrates http://localhost:8001
                 https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com
