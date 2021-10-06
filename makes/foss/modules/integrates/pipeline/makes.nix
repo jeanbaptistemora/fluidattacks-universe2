@@ -288,7 +288,7 @@ in
           [ "request_vulnerabilities_verification_new" "false" "migration" ]
           [ "request_vulnerabilities_zero_risk" ]
           [ "request_vulnerabilities_zero_risk_new" "false" "migration" ]
-          [ "reset_expired_accepted_findings_new" "false" "migration" ]
+          [ "reset_expired_accepted_findings" "false" "migration" ]
           [ "resources" ]
           [ "sign_in" ]
           [ "solve_event" ]

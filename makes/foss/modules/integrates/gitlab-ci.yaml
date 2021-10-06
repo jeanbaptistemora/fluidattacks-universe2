@@ -1630,7 +1630,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/integrates/back/test/functional__reset_expired_accepted_findings_new__false__migration:
+/integrates/back/test/functional__reset_expired_accepted_findings__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1645,7 +1645,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'reset_expired_accepted_findings_new' 'false'
+    - m . /integrates/back/test/functional 'reset_expired_accepted_findings' 'false'
       'migration'
   stage: test-code
   tags:

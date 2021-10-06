@@ -11,7 +11,7 @@ from freezegun import (  # type: ignore
 )
 import pytest
 from schedulers import (
-    reset_expired_accepted_findings_new,
+    reset_expired_accepted_findings,
 )
 from typing import (
     cast,
@@ -24,7 +24,7 @@ from vulnerabilities import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("reset_expired_accepted_findings_new")
+@pytest.mark.resolver_test_group("reset_expired_accepted_findings")
 @freeze_time("2021-08-10")
 async def test_get_group(populate: bool) -> None:
     assert populate
@@ -66,7 +66,7 @@ async def test_get_group(populate: bool) -> None:
     assert historic_treatment[-1].get("acceptance_status") == "SUBMITTED"
     assert historic_treatment[-1].get("treatment") == "ACCEPTED_UNDEFINED"
 
-    await reset_expired_accepted_findings_new.main()
+    await reset_expired_accepted_findings.main()
 
     accepted_expired = await vulns_domain.get_by_finding(
         finding_id,
