@@ -6,12 +6,6 @@ airs.npm.env
 airs.npm.runtime
 forces.config-development
 forces.config-runtime
-integrates.mobile.config.dev-runtime
-integrates.mobile.config.dev-runtime-env
-integrates.mobile.test
-integrates.mobile.tools
-integrates.mobile.tools.bundler
-integrates.mobile.tools.fastlane
 integrates.secrets.list
 makes.commitlint
 makes.python.safe-pickle

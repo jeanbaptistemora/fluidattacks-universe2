@@ -1,8 +1,9 @@
-{ makes
-, nixpkgs
+{ __nixpkgs__
+, inputs
+, makeRubyGemsEnvironment
 , ...
 }:
-makes.makeRubyGemsEnvironment {
+makeRubyGemsEnvironment {
   name = "integrates-mobile-tools-fastlane";
   ruby = "2.6";
   rubyGems = [
@@ -444,10 +445,10 @@ makes.makeRubyGemsEnvironment {
   ];
   searchPathsBuild = {
     bin = [
-      makes.__nixpkgs__.gcc
-      nixpkgs.gnumake
-      nixpkgs.rake
+      __nixpkgs__.gcc
+      inputs.nixpkgs.gnumake
+      inputs.nixpkgs.rake
     ];
-    rpath = [ makes.__nixpkgs__.gcc.cc.lib ];
+    rpath = [ __nixpkgs__.gcc.cc.lib ];
   };
 }

@@ -1,13 +1,15 @@
 { inputs
 , libGit
 , makeScript
+, outputs
 , projectPath
 , ...
 } @ _:
 makeScript {
   replace = {
     __argSecretsProd__ = projectPath "/integrates/secrets-production.yaml";
-    __argIntegratesMobileDevRuntime__ = inputs.product.integrates-mobile-config-dev-runtime;
+    __argIntegratesMobileDevRuntime__ =
+      outputs."/integrates/mobile/config/dev-runtime";
   };
   name = "integrates-mobile-build-ios";
   searchPaths = {
@@ -17,9 +19,9 @@ makeScript {
     ];
     source = [
       libGit
-      inputs.product.integrates-mobile-config-dev-runtime-env
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "sops")
+      outputs."/integrates/mobile/config/dev-runtime-env"
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/mobile/build/ios/entrypoint.sh";

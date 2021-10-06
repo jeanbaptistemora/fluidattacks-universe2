@@ -158,13 +158,13 @@ slug: /development/mobile-technologies
 1. Lint your code
 
     ```bash
-    ./m integrates.mobile.lint
+    m . /integrates/mobile/lint
     ```
 
 1. Test your code
 
     ```bash
-    ./m integrates.mobile.test
+    m . /integrates/mobile/test
     ```
 
 1. Review the changes

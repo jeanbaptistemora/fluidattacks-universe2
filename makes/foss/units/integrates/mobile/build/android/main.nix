@@ -1,6 +1,7 @@
 { inputs
 , libGit
 , makeScript
+, outputs
 , projectPath
 , ...
 }:
@@ -12,7 +13,8 @@ makeScript {
     }).androidsdk;
     __argJava__ = inputs.nixpkgs.openjdk8_headless;
     __argSecretsProd__ = projectPath "/integrates/secrets-production.yaml";
-    __argSetupIntegratesMobileDevRuntime__ = inputs.product.integrates-mobile-config-dev-runtime;
+    __argSetupIntegratesMobileDevRuntime__ =
+      outputs."/integrates/mobile/config/dev-runtime";
   };
   name = "integrates-mobile-build-android";
   searchPaths = {
@@ -27,7 +29,7 @@ makeScript {
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "git")
       (inputs.legacy.importUtility "sops")
-      inputs.product.integrates-mobile-config-dev-runtime-env
+      outputs."/integrates/mobile/config/dev-runtime-env"
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/mobile/build/android/entrypoint.sh";

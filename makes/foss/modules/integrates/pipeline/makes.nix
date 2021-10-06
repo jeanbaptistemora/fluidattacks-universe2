@@ -391,7 +391,7 @@ in
             needs = [
               "/integrates/back/test/unit"
               "/integrates/front/test"
-              "integrates.mobile.test"
+              "/integrates/mobile/test"
             ];
             rules = gitlabOnlyDev;
             stage = "external";
@@ -409,6 +409,19 @@ in
         {
           output = "/integrates/front/lint";
           gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/integrates/front/test";
+          gitlabExtra = gitlabTest // {
+            after_script = [
+              "cp ~/.makes/out-integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov"
+            ];
+            artifacts = {
+              expire_in = "1 week";
+              name = "coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA";
+              paths = [ "integrates/front/coverage.lcov" ];
+            };
+          };
         }
         {
           output = "/integrates/linters/back/schema";
@@ -454,15 +467,15 @@ in
           gitlabExtra = gitlabPreBuildProd;
         }
         {
-          output = "/integrates/front/test";
+          output = "/integrates/mobile/test";
           gitlabExtra = gitlabTest // {
             after_script = [
-              "cp ~/.makes/out-integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov"
+              "cp ~/.makes/out-integrates-mobile-test/coverage/lcov.info integrates/mobile/coverage.lcov"
             ];
             artifacts = {
               expire_in = "1 week";
               name = "coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA";
-              paths = [ "integrates/front/coverage.lcov" ];
+              paths = [ "integrates/mobile/coverage.lcov" ];
             };
           };
         }
