@@ -21,7 +21,7 @@ data_dir = join(dirname(dirname(__file__)), "mock_data")
 
 
 def open_data_file(file_name: str) -> Dict[str, Any]:
-    with open(join(data_dir, file_name)) as file:
+    with open(join(data_dir, file_name), encoding="UTF-8") as file:
         return DictFactory.load(file)
 
 

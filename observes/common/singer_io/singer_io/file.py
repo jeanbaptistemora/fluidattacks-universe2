@@ -15,7 +15,7 @@ from typing import (
 
 
 def _read(name: str) -> Iterator[str]:
-    with open(name) as tmp:
+    with open(name, encoding="UTF-8") as tmp:
         line = tmp.readline()
         while line:
             yield line
@@ -23,7 +23,7 @@ def _read(name: str) -> Iterator[str]:
 
 
 def _print(name: str, data: str) -> None:
-    with open(name) as tmp:
+    with open(name, encoding="UTF-8") as tmp:
         print(data, file=tmp)
 
 

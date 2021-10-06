@@ -20,12 +20,12 @@ data_dir = join(dirname(__file__), "mock_data")
 
 
 def open_singer_file(file_name: str) -> List[str]:
-    with open(join(data_dir, file_name)) as file:
+    with open(join(data_dir, file_name), encoding="UTF-8") as file:
         return file.readlines()
 
 
 def test_inverse() -> None:
-    with open(join(data_dir, "test.singer")) as file:
+    with open(join(data_dir, "test.singer"), encoding="UTF-8") as file:
         singers = list(SingerDeserializer.from_file(file))
     with tempfile.TemporaryFile(mode="w+") as temp:
         emitter = SingerEmitter(JsonEmitter(temp))

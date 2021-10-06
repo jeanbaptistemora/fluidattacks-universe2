@@ -21,9 +21,8 @@ class _DateTime:
 
 @dataclass(frozen=True)
 class DateTime(_DateTime):
-    def __init__(self, date: _DateTime) -> None:
-        for key, val in date.__dict__.items():
-            object.__setattr__(self, key, val)
+    def __init__(self, obj: _DateTime) -> None:
+        super().__init__(obj.date)
 
     def to_utc_str(self) -> str:
         return generate(self.date)
