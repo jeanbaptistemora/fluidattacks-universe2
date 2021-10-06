@@ -184,7 +184,7 @@ def _process_digest_reattacks_requested(
             groups_requested_date,
             key=itemgetter("age_last_requested"),
             reverse=True,
-        )[:3]
+        )
     else:
         # Get groups with most reattacks requested
         groups_requested = [
@@ -201,7 +201,7 @@ def _process_digest_reattacks_requested(
             groups_requested,
             key=itemgetter("reattacks_requested"),
             reverse=True,
-        )[:3]
+        )
 
     return requested
 
@@ -242,7 +242,7 @@ def _process_digest_reattacks_executed(
             groups_executed_date,
             key=itemgetter("age_last_executed"),
             reverse=True,
-        )[:3]
+        )
     else:
         # Get groups with most reattacks executed
         groups_executed = [
@@ -255,7 +255,7 @@ def _process_digest_reattacks_executed(
         ]
         executed["groups_executed"] = sorted(
             groups_executed, key=itemgetter("reattacks_executed"), reverse=True
-        )[:3]
+        )
 
     # Also known as "remediation effectiveness"
     if reattacks_executed_total:
@@ -284,7 +284,7 @@ def _process_digest_reattacks_pending(
     ]
     pending["groups_pending"] = sorted(
         groups_pending, key=itemgetter("pending_attacks"), reverse=True
-    )[:3]
+    )
 
     return pending
 
@@ -346,7 +346,7 @@ def _process_digest_treatments(
     ]
     temporary["groups_temporary"] = sorted(
         groups_temporary, key=itemgetter("temporary_applied"), reverse=True
-    )[:3]
+    )
     treatments.update(temporary)
 
     # Get groups with most permanent requested
@@ -365,7 +365,7 @@ def _process_digest_treatments(
         groups_permanent_requested,
         key=itemgetter("permanent_requested"),
         reverse=True,
-    )[:3]
+    )
     treatments.update(permanent_requested)
 
     # Get groups with most permanent approved
@@ -384,7 +384,7 @@ def _process_digest_treatments(
         groups_permanent_approved,
         key=itemgetter("permanent_approved"),
         reverse=True,
-    )[:3]
+    )
     treatments.update(permanent_approved)
 
     return treatments
