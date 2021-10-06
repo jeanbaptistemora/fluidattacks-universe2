@@ -3,7 +3,7 @@ import type { ResourceKey } from "i18next";
 export const enTranslations: ResourceKey = {
   analytics: {
     barChart: {
-      exposureByGroups: "Exposure by groups",
+      exposureByGroups: "Open Severity by Groups",
       meanTimeToRemediate: {
         tooltip: {
           alt: "Mean time to remediate",
