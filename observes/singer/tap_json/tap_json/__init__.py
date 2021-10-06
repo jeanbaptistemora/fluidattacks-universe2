@@ -152,7 +152,7 @@ def write(
     func: Callable[[STRU], STRU] = lambda x: x,
 ) -> None:
     """Write func(stru) to a file."""
-    with open(f"{directory}/{table_name}", "a") as file:
+    with open(f"{directory}/{table_name}", "a", encoding="UTF-8") as file:
         file.write(func(stru))
         file.write("\n")
 
@@ -161,7 +161,7 @@ def read(
     directory: str, table_name: str, func: Callable[[STRU], STRU] = lambda x: x
 ) -> Any:
     """Yield func(line) per every line of a file."""
-    with open(f"{directory}/{table_name}", "r") as file:
+    with open(f"{directory}/{table_name}", "r", encoding="UTF-8") as file:
         for line in file:
             with contextlib.suppress(JSONDecodeError):
                 yield func(line)
@@ -169,7 +169,7 @@ def read(
 
 def json_from_file(file_path: str) -> JSON:
     """Load a JSON from a file."""
-    with open(file_path, "r") as json_file:
+    with open(file_path, "r", encoding="UTF-8") as json_file:
         json_stru = load(json_file)
     return json_stru
 
@@ -196,7 +196,7 @@ def linearize__simplify(stru: STRU) -> STRU:
     if isinstance(stru, list):
         return list(map(linearize__simplify, list(filter(is_stru, stru))))
     if isinstance(stru, dict):
-        new_stru = dict()
+        new_stru = {}
         for key, val in stru.items():
             if isinstance(val, dict):
                 for nkey, nval in val.items():
