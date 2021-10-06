@@ -223,7 +223,6 @@ def create_table(
         table_types: The table {field: type}.
         table_pkeys: The table primary keys.
     """
-    # pylint: disable=too-many-arguments
     table_fields = batcher.fields[table_name]
 
     path = f'"{schema_name}"."{table_name}"'
