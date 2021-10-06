@@ -76,23 +76,9 @@ class PureIterFactory:
         return PureIter(draft)
 
     @staticmethod
-    def filter(
-        function: Callable[[_I], Optional[_R]], items: Mappable[_I]
-    ) -> PureIter[_R]:
-        def filtered() -> Iterable[_R]:
-            raw = (function(i) for i in items)
-            return (i for i in raw if i is not None)
-
-        draft = _PureIter(Patch(lambda: iter(filtered())))
-        return PureIter(draft)
-
-    @staticmethod
-    def filter_range(
-        function: Callable[[int], Optional[_R]], items: range
-    ) -> PureIter[_R]:
-        def filtered() -> Iterable[_R]:
-            raw = (function(i) for i in items)
-            return (i for i in raw if i is not None)
+    def filter(items: Mappable[Optional[_I]]) -> PureIter[_I]:
+        def filtered() -> Iterable[_I]:
+            return (i for i in items if i is not None)
 
         draft = _PureIter(Patch(lambda: iter(filtered())))
         return PureIter(draft)
