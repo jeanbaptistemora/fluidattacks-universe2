@@ -75,6 +75,7 @@ TEST_GROUPS: Set[str] = {
     "reset_expired_accepted_findings",
     "resources",
     "sign_post_url",
+    "sign_post_url_requester",
     "sign_in",
     "solve_event",
     "stakeholder",

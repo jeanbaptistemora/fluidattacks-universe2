@@ -537,7 +537,15 @@ type Mutation {
     "A JSON with description and fileName keys"
     filesData: JSONString!
     "Name of the Group to add the File to"
-    groupName: String
+    groupName: String!
+  ): SignPostUrlsPayload!
+
+    "Signs a POST URL to upload files to a Group's resources bucket"
+  signPostUrlRequester(
+    "A JSON with description and fileName keys"
+    filesData: JSONString!
+    "Name of the Group to add the File to"
+    groupName: String!
   ): SignPostUrlsPayload!
 
   "Marks an ongoing Event within the group as solved"

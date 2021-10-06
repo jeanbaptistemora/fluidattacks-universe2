@@ -58,6 +58,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_request_vulnerabilities_zero_risk_mutate",
             "api_mutations_request_vulnerabilities_zero_risk_new_mutate",
             "api_mutations_sign_post_url_mutate",
+            "api_mutations_sign_post_url_requester_mutate",
             "api_mutations_solve_event_mutate",
             "api_mutations_submit_draft_mutate",
             "api_mutations_submit_draft_new_mutate",
@@ -305,6 +306,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_request_vulnerabilities_zero_risk_mutate",
             "api_mutations_request_vulnerabilities_zero_risk_new_mutate",
             "api_mutations_sign_post_url_mutate",
+            "api_mutations_sign_post_url_requester_mutate",
             "api_mutations_unsubscribe_from_group_mutate",
             "api_mutations_update_git_environments_mutate",
             "api_mutations_update_git_root_mutate",
@@ -370,6 +372,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_request_vulnerabilities_zero_risk_mutate",
             "api_mutations_request_vulnerabilities_zero_risk_new_mutate",
             "api_mutations_sign_post_url_mutate",
+            "api_mutations_sign_post_url_requester_mutate",
             "api_mutations_unsubscribe_from_group_mutate",
             "api_mutations_update_git_environments_mutate",
             "api_mutations_update_git_root_mutate",
@@ -431,6 +434,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_request_vulnerabilities_verification_mutate",
             "api_mutations_request_vulnerabilities_verification_new_mutate",
             "api_mutations_sign_post_url_mutate",
+            "api_mutations_sign_post_url_requester_mutate",
             "api_mutations_unsubscribe_from_group_mutate",
             "api_mutations_update_git_environments_mutate",
             "api_mutations_update_git_root_mutate",
@@ -494,6 +498,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_request_vulnerabilities_zero_risk_mutate",
             "api_mutations_request_vulnerabilities_zero_risk_new_mutate",
             "api_mutations_sign_post_url_mutate",
+            "api_mutations_sign_post_url_requester_mutate",
             "api_mutations_solve_event_mutate",
             "api_mutations_unsubscribe_from_group_mutate",
             "api_mutations_update_git_environments_mutate",
@@ -924,6 +929,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_query_groups_resolve",
             "api_resolvers_query_internal_names_resolve",
             "api_resolvers_query_list_user_groups_resolve",
+            "api_mutations_sign_post_url_requester_mutate",
             "api_resolvers_query_vulnerabilities_to_reattack_resolve",
             "api_resolvers_query_groups_with_forces_resolve",
             "front_can_use_groups_searchbar",
@@ -936,6 +942,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     hacker=dict(
         actions={
             "api_resolvers_query_internal_names_resolve",
+            "api_mutations_sign_post_url_requester_mutate",
         },
         tags={
             "drills",
@@ -944,6 +951,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     customer=dict(
         actions={
             "api_resolvers_query_internal_names_resolve",
+            "api_mutations_sign_post_url_requester_mutate",
         },
         tags=set(),
     ),

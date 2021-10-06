@@ -62,6 +62,7 @@ from api.mutations import (
     request_vulnerabilities_zero_risk_new,
     sign_in,
     sign_post_url,
+    sign_post_url_requester,
     solve_event,
     submit_draft,
     submit_draft_new,
@@ -161,6 +162,7 @@ MUTATION.set_field("removeGroupTag", remove_group_tag.mutate)
 MUTATION.set_field("removeTags", remove_vulnerability_tags.mutate)
 MUTATION.set_field("signIn", sign_in.mutate)
 MUTATION.set_field("signPostUrl", sign_post_url.mutate)
+MUTATION.set_field("signPostUrlRequester", sign_post_url_requester.mutate)
 MUTATION.set_field("solveEvent", solve_event.mutate)
 MUTATION.set_field(
     "submitOrganizationFindingPolicy",
