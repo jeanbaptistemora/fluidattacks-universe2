@@ -43,7 +43,7 @@ from typing import (
     require_asm,
 )
 @turn_args_into_kwargs
-async def mutate(  # pylint: disable=too-many-arguments
+async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
     comments: str,

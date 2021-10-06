@@ -159,7 +159,6 @@ async def get_by_id(
     """
     Use the organization ID to fetch general information about it
     """
-    # pylint: disable=unsubscriptable-object
     organization: OrganizationType = {}
     query_attrs = {
         "KeyConditionExpression": (
@@ -190,7 +189,6 @@ async def get_by_name(
     Get an organization info given its name
     Return specified attributes or all if not setted
     """
-    # pylint: disable=unsubscriptable-object
     organization: OrganizationType = {}
     query_attrs = {
         "KeyConditionExpression": (
@@ -285,7 +283,6 @@ async def get_many_by_id(
     """
     Use the organization ID to fetch general information about it
     """
-    # pylint: disable=unsubscriptable-object
     return cast(
         List[OrganizationType],
         await collect(

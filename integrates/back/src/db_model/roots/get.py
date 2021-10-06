@@ -180,7 +180,7 @@ async def _get_root(
 
 
 class RootLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, root_ids: List[Tuple[str, str]]
     ) -> Tuple[RootItem, ...]:
@@ -235,7 +235,7 @@ async def _get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
 
 
 class GroupRootsLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: List[str]
     ) -> Tuple[Tuple[RootItem, ...], ...]:
@@ -277,7 +277,7 @@ async def _get_historic_state(*, root_id: str) -> Tuple[RootState, ...]:
 
 
 class RootStatesLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, root_ids: List[str]
     ) -> Tuple[Tuple[RootState, ...], ...]:

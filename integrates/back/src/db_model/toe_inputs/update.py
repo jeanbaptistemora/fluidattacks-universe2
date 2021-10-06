@@ -43,5 +43,5 @@ async def update(*, toe_input: ToeInput) -> None:
             item=toe_input_item,
             table=TABLE,
         )
-    except ConditionalCheckFailedException:
-        raise ToeInputNotFound()
+    except ConditionalCheckFailedException as ex:
+        raise ToeInputNotFound() from ex

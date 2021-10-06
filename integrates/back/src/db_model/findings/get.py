@@ -193,7 +193,7 @@ async def _get_historic_state(finding_id: str) -> Tuple[FindingState, ...]:
 
 
 class FindingNewLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, finding_ids: List[str]
     ) -> Tuple[Finding, ...]:
@@ -201,7 +201,7 @@ class FindingNewLoader(DataLoader):
 
 
 class FindingHistoricVerificationNewLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, finding_ids: List[str]
     ) -> Tuple[Tuple[FindingVerification], ...]:
@@ -211,7 +211,7 @@ class FindingHistoricVerificationNewLoader(DataLoader):
 
 
 class FindingHistoricStateNewLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, finding_ids: List[str]
     ) -> Tuple[Tuple[FindingState], ...]:
@@ -219,7 +219,7 @@ class FindingHistoricStateNewLoader(DataLoader):
 
 
 class GroupDraftsNewLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: List[str]
     ) -> Tuple[Tuple[Finding, ...], ...]:
@@ -239,7 +239,7 @@ class GroupDraftsNewLoader(DataLoader):
 
 
 class GroupFindingsNewLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: List[str]
     ) -> Tuple[Tuple[Finding, ...], ...]:
@@ -304,7 +304,7 @@ async def _get_removed_findings_by_group(
 
 
 class GroupRemovedFindingsLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: List[str]
     ) -> Tuple[Tuple[Finding, ...], ...]:

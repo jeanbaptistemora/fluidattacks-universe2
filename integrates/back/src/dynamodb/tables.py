@@ -14,7 +14,7 @@ from typing import (
 def _load_facets(facets: Tuple[Dict[str, Any], ...]) -> Dict[str, Facet]:
     return {
         facet["FacetName"]: Facet(
-            attrs=tuple(facet.get("NonKeyAttributes", list())),
+            attrs=tuple(facet.get("NonKeyAttributes", [])),
             pk_alias=facet["KeyAttributeAlias"]["PartitionKeyAlias"],
             sk_alias=facet["KeyAttributeAlias"]["SortKeyAlias"],
         )

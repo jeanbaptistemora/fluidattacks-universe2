@@ -1,4 +1,4 @@
-# pylint: disable=too-many-lines, unsubscriptable-object
+# pylint: disable=too-many-lines
 
 import aioboto3
 from aiodataloader import (
@@ -1548,7 +1548,7 @@ async def get_oldest_no_treatment(
             ).days,
         }
 
-    return dict()
+    return {}
 
 
 async def get_oldest_no_treatment_new(

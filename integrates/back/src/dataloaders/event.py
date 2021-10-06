@@ -65,10 +65,10 @@ async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
             project_name=group_name,
             group_name=group_name,
         )
-    return [events.get(event_id, dict()) for event_id in event_ids]
+    return [events.get(event_id, {}) for event_id in event_ids]
 
 
-# pylint: disable=too-few-public-methods
 class EventLoader(DataLoader):
+    # pylint: disable=no-self-use
     async def batch_load_fn(self, event_ids: List[str]) -> List[EventType]:
         return await _batch_load_fn(event_ids)

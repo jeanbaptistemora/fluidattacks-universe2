@@ -20,7 +20,6 @@ from typing import (
 def resolve_root_type(
     result: Root, _info: GraphQLResolveInfo, _return_type: GraphQLAbstractType
 ) -> Optional[str]:
-    # pylint: disable=unsubscriptable-object
     if isinstance(result, GitRoot):
         return "GitRoot"
     if isinstance(result, IPRoot):

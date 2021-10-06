@@ -50,7 +50,6 @@ def _build_vulnerability(
     key_structure: PrimaryKey,
     raw_items: Tuple[Item, ...],
 ) -> Vulnerability:
-    # pylint: disable=unsubscriptable-object
     metadata = historics.get_metadata(
         item_id=item_id, key_structure=key_structure, raw_items=raw_items
     )
@@ -270,7 +269,7 @@ async def _get_historic_zero_risk(
 
 
 class VulnNewLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, uuids: Tuple[str, ...]
     ) -> Tuple[Vulnerability, ...]:
@@ -278,7 +277,7 @@ class VulnNewLoader(DataLoader):
 
 
 class VulnHistoricStateNewLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, uuids: Tuple[str, ...]
     ) -> Tuple[Tuple[VulnerabilityState], ...]:
@@ -286,7 +285,7 @@ class VulnHistoricStateNewLoader(DataLoader):
 
 
 class VulnHistoricTreatmentNewLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, uuids: Tuple[str, ...]
     ) -> Tuple[Tuple[VulnerabilityTreatment], ...]:
@@ -296,7 +295,7 @@ class VulnHistoricTreatmentNewLoader(DataLoader):
 
 
 class VulnHistoricVerificationNewLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, uuids: Tuple[str, ...]
     ) -> Tuple[Tuple[VulnerabilityVerification], ...]:
@@ -306,7 +305,7 @@ class VulnHistoricVerificationNewLoader(DataLoader):
 
 
 class VulnHistoricZeroRiskNewLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, uuids: Tuple[str, ...]
     ) -> Tuple[Tuple[VulnerabilityZeroRisk], ...]:

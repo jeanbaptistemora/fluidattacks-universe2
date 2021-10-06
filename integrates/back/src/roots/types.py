@@ -1,5 +1,3 @@
-# pylint: disable=too-few-public-methods, inherit-non-class
-# pylint: disable=unsubscriptable-object
 from typing import (
     List,
     NamedTuple,

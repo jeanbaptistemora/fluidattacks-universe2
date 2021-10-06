@@ -1,3 +1,4 @@
+# pylint: disable=consider-using-with
 from PyPDF4 import (
     PdfFileReader,
     PdfFileWriter,
@@ -26,7 +27,7 @@ class PDF(FPDF):
     def footer(self) -> None:
         self.set_y(-15)
         self.set_font("Times", "", 12)
-        self.cell(0, 10, "Only for %s" % self.user, 0, 0, align="L")
+        self.cell(0, 10, f"Only for {self.user}", 0, 0, align="L")
         self.cell(0, 10, f"Page {self.page_no() - 1}", 0, 0, align="R")
 
 
@@ -80,7 +81,10 @@ class SecurePDF:
         pdf_foutname = f"{self.secure_pdf_username}_{in_filename}"
         output = PdfFileWriter()
         input_file = PdfFileReader(  # noqa
-            open(os.path.join(self.result_dir, in_filename), "rb")
+            open(
+                os.path.join(self.result_dir, in_filename),
+                "rb",
+            )
         )
         for i in range(0, input_file.getNumPages()):
             output.addPage(input_file.getPage(i))

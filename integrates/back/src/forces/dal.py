@@ -87,7 +87,7 @@ async def get_execution(group_name: str, execution_id: str) -> Any:
             result["project_name"] = result.get("subscription")
             result["group_name"] = result.get("subscription")
             return result
-        return dict()
+        return {}
 
 
 async def get_log_execution(group_name: str, execution_id: str) -> str:
@@ -97,12 +97,11 @@ async def get_log_execution(group_name: str, execution_id: str) -> str:
             f"{group_name}/{execution_id}.log",
             file.name,
         )
-        with open(file.name) as reader:
+        with open(file.name, encoding="utf-8") as reader:
             return reader.read()
 
 
 async def get_secret_token(group_name: str) -> Optional[str]:
-    # pylint: disable=unsubscriptable-object
     try:
         return await get_agent_token(group_name=group_name)
     except ClientError as error:
@@ -117,7 +116,7 @@ async def get_vulns_execution(group_name: str, execution_id: str) -> Any:
             f"{group_name}/{execution_id}.json",
             file.name,
         )
-        with open(file.name) as reader:
+        with open(file.name, encoding="utf-8") as reader:
             return json.load(reader)
 
 

@@ -10,7 +10,6 @@ from typing import (
 
 
 def trace(overridden_function: Optional[Callable[..., Any]] = None) -> Any:
-    # pylint: disable=unsubscriptable-object
     return tracers.function.trace(
         enabled=DEBUG.lower() == "true",
         # Please remove this line if you want to see the traces

@@ -30,7 +30,6 @@ async def resolve(
     parent: Group,
     __: GraphQLResolveInfo,
 ) -> Optional[str]:
-    # pylint: disable=unsubscriptable-object
     group_name: str = cast(str, parent["name"])
     token: Optional[str] = await forces_domain.get_token(group_name)
     return token

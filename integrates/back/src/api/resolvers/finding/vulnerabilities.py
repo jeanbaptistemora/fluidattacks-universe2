@@ -25,7 +25,6 @@ from typing import (
 async def resolve(
     parent: Finding, info: GraphQLResolveInfo, **kwargs: str
 ) -> List[Vulnerability]:
-    # pylint: disable=unsubscriptable-object
     vulnerabilities: List[Vulnerability] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="finding",

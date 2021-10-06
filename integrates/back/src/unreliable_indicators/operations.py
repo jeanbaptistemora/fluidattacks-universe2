@@ -1,4 +1,3 @@
-# pylint: disable=unsubscriptable-object
 from . import (
     model as unreliable_indicators_model,
 )
@@ -67,7 +66,7 @@ async def update_finding_unreliable_indicators(  # noqa: C901
     attrs_to_update: Set[EntityAttr],
 ) -> None:
     finding: Finding = await loaders.finding_new.load(finding_id)
-    indicators = dict()
+    indicators = {}
 
     if EntityAttr.closed_vulnerabilities in attrs_to_update:
         indicators[

@@ -237,7 +237,6 @@ async def get_drafts_by_group(
     attrs: Optional[Set[str]] = None,
     include_deleted: bool = False,
 ) -> List[Dict[str, FindingType]]:
-    # pylint: disable=unsubscriptable-object
     if attrs and "historic_state" not in attrs:
         attrs.add("historic_state")
     findings = await findings_dal.get_findings_by_group(group_name, attrs)
@@ -354,16 +353,16 @@ async def submit_draft(  # pylint: disable=too-many-locals
                     finding_id, {"historic_state": history}
                 )
             else:
-                required_fields = {
+                required_fields: Dict[str, bool] = {
                     # 'evidence': has_evidence,
                     "severity": has_severity,
                     "vulnerabilities": has_vulns,
                 }
                 raise IncompleteDraft(
                     [
-                        field
-                        for field in required_fields
-                        if not required_fields[field]
+                        key
+                        for key, value in required_fields.items()
+                        if not value
                     ]
                 )
         else:
@@ -390,12 +389,12 @@ async def submit_draft_new(
     ) > Decimal(0)
     has_vulns = bool(await finding_vulns_loader.load(finding_id))
     if not has_severity or not has_vulns:
-        required_fields = {
+        required_fields: Dict[str, bool] = {
             "severity": has_severity,
             "vulnerabilities": has_vulns,
         }
         raise IncompleteDraft(
-            [field for field in required_fields if not required_fields[field]]
+            [key for key, value in required_fields.items() if not value]
         )
 
     new_state = FindingState(

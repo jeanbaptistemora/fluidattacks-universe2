@@ -73,8 +73,8 @@ async def mutate(
                 for key, value in kwargs.items()
                 if key not in {"cvss_version", "id"}
             }
-        except InvalidOperation:
-            raise InvalidCvssField()
+        except InvalidOperation as ex:
+            raise InvalidCvssField() from ex
         validations.validate_missing_severity_field_names(
             set(cvss_fields.keys()), cvss_version
         )

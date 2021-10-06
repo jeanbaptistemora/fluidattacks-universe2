@@ -1,4 +1,3 @@
-# pylint: disable=unsubscriptable-object
 import aioboto3
 from aioboto3.dynamodb.table import (
     CustomTableResource,
@@ -210,13 +209,13 @@ async def query(
 
         try:
             response = await table_resource.query(**query_args)
-            items: List[Item] = response.get("Items", list())
+            items: List[Item] = response.get("Items", [])
             while response.get("LastEvaluatedKey"):
                 response = await table_resource.query(
                     **query_args,
                     ExclusiveStartKey=response.get("LastEvaluatedKey"),
                 )
-                items += response.get("Items", list())
+                items += response.get("Items", [])
         except ClientError as error:
             handle_error(error=error)
     return tuple(items)

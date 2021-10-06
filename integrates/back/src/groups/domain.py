@@ -1,4 +1,4 @@
-# pylint:disable=too-many-lines, unsubscriptable-object
+# pylint:disable=too-many-lines
 
 from aiodataloader import (
     DataLoader,
@@ -156,7 +156,7 @@ def _process_digest_reattacks_requested(
 ) -> MailContentType:
     """Process digest reattacks requested sub-section"""
     requested: MailContentType = {
-        "groups_requested": list(),
+        "groups_requested": [],
     }
     if not reattacks_requested:
         # Get groups with oldest date since last request
@@ -214,7 +214,7 @@ def _process_digest_reattacks_executed(
 ) -> MailContentType:
     """Process digest reattacks executed sub-section"""
     executed: MailContentType = {
-        "groups_executed": list(),
+        "groups_executed": [],
     }
     if not reattacks_executed:
         # Get groups with oldest date since last reattack
@@ -271,7 +271,7 @@ def _process_digest_reattacks_pending(
 ) -> MailContentType:
     """Process digest pending reattacks sub-section"""
     pending: MailContentType = {
-        "groups_pending": list(),
+        "groups_pending": [],
     }
     # Get groups with most pending reattacks
     groups_pending = [
@@ -334,7 +334,7 @@ def _process_digest_treatments(
 
     # Get groups with most temporary applied
     temporary: MailContentType = {
-        "groups_temporary": list(),
+        "groups_temporary": [],
     }
     groups_temporary = [
         {
@@ -351,7 +351,7 @@ def _process_digest_treatments(
 
     # Get groups with most permanent requested
     permanent_requested: MailContentType = {
-        "groups_permanent_requested": list(),
+        "groups_permanent_requested": [],
     }
     groups_permanent_requested = [
         {
@@ -370,7 +370,7 @@ def _process_digest_treatments(
 
     # Get groups with most permanent approved
     permanent_approved: MailContentType = {
-        "groups_permanent_approved": list(),
+        "groups_permanent_approved": [],
     }
     groups_permanent_approved = [
         {
@@ -1400,9 +1400,7 @@ async def remove_all_users(loaders: Any, group: str) -> bool:
     )
 
 
-async def remove_resources(  # pylint: disable=too-many-locals
-    loaders: Any, group_name: str
-) -> bool:
+async def remove_resources(loaders: Any, group_name: str) -> bool:
     are_users_removed = await remove_all_users(loaders, group_name)
     if FI_API_STATUS == "migration":
         group_drafts_loader: DataLoader = loaders.group_drafts_new
@@ -1613,7 +1611,7 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
             "unsolved": 0,
             "new": 0,
         },
-        "findings": list(),
+        "findings": [],
         "vulns_len": 0,
     }
 
@@ -1744,7 +1742,7 @@ def process_user_digest_stats(
             "min": groups_stats[0]["main"]["remediation_time"],
             "min_group": groups_stats[0]["group"],
         },
-        "findings": list(),
+        "findings": [],
     }
 
     main: Counter = Counter()
@@ -1782,7 +1780,7 @@ def process_user_digest_stats(
     total["treatments"] = _process_digest_treatments(groups_stats)
 
     # Get top 10 findings that have oldest vulns without treatment
-    findings = list()
+    findings = []
     for stat in groups_stats:
         findings_extended = [
             {

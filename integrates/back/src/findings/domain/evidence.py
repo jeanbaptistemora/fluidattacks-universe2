@@ -1,4 +1,3 @@
-# pylint: disable=unsubscriptable-object
 from .core import (
     get_finding,
 )
@@ -113,7 +112,7 @@ async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
     files = cast(List[Dict[str, str]], finding.get("files", []))
 
     evidence: Dict[str, str] = next(
-        (item for item in files if item["name"] == evidence_name), dict()
+        (item for item in files if item["name"] == evidence_name), {}
     )
     if not evidence:
         raise EvidenceNotFound()

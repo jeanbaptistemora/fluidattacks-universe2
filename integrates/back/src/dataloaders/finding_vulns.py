@@ -114,8 +114,8 @@ async def batch_load_fn_vulns(
     return [vulnerabilities.get(finding_id, []) for finding_id in finding_ids]
 
 
-# pylint: disable=too-few-public-methods
 class FindingVulnsLoader(DataLoader):
+    # pylint: disable=no-self-use
     async def batch_load_fn(
         self, finding_ids: List[str]
     ) -> List[List[VulnerabilityType]]:

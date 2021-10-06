@@ -1,4 +1,3 @@
-# pylint: disable=unsubscriptable-object
 from .core import (
     should_send_update_treatment,
 )

@@ -43,7 +43,6 @@ async def resolve_no_cache(
 ) -> List[Dict[object, object]]:
     finding_id: str = cast(Dict[str, str], parent)["id"]
     group_name: str = get_key_or_fallback(cast(Dict[str, str], parent))
-    # pylint: disable=unsubscriptable-object
     records_url: Optional[str] = cast(
         Dict[str, Dict[str, Optional[str]]], parent
     )["records"]["url"]

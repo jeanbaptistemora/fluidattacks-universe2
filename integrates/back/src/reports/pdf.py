@@ -1,4 +1,4 @@
-# pylint: disable=too-many-lines
+# pylint: disable=too-many-lines, consider-using-f-string
 
 from .typing import (
     PdfFindingInfo,
@@ -73,7 +73,7 @@ matplotlib.use("Agg")
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-VulnTable = TypedDict(  # pylint: disable=invalid-name
+VulnTable = TypedDict(
     "VulnTable",
     {
         "resume": List[List[Union[float, int, str]]],
@@ -81,7 +81,7 @@ VulnTable = TypedDict(  # pylint: disable=invalid-name
         "num_reg": int,
     },
 )
-Context = TypedDict(  # pylint: disable=invalid-name
+Context = TypedDict(
     "Context",
     {
         "full_group": str,
@@ -673,7 +673,7 @@ class CreatorPDF:
 
     def lang_support(self) -> None:
         """Define the dictionaries of accepted languages."""
-        self.wordlist = dict()
+        self.wordlist = {}
         self.lang_support_en()
 
     def lang_support_en(self) -> None:
@@ -906,7 +906,7 @@ class CreatorPdfNew:
 
     def lang_support(self) -> None:
         """Define the dictionaries of accepted languages."""
-        self.wordlist = dict()
+        self.wordlist = {}
         self.lang_support_en()
 
     def lang_support_en(self) -> None:

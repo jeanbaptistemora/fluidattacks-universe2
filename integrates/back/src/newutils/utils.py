@@ -71,8 +71,8 @@ async def filter_findings_new(
         for attr, value in filters.items():
             try:
                 result = filter_finding_value[attr]
-            except KeyError:
-                raise InvalidFilter(attr)
+            except KeyError as ex:
+                raise InvalidFilter(attr) from ex
             if str(result) == str(value):
                 hits += 1
         return hits == len(filters)

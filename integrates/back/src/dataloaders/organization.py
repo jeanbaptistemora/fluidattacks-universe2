@@ -47,9 +47,8 @@ async def _batch_load_fn(
     ]
 
 
-# pylint: disable=too-few-public-methods
 class OrganizationLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, organization_ids: List[str]
     ) -> List[OrganizationType]:

@@ -45,7 +45,7 @@ async def get_stakeholders_by_organization(
 class OrganizationStakeholdersLoader(DataLoader):
     """Batches load calls within the same execution fragment."""
 
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, organization_names: List[str]
     ) -> Tuple[Tuple[StakeholderType, ...], ...]:

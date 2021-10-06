@@ -52,11 +52,10 @@ async def add_forces_execution(
     log: Union[UploadFile, None] = None,
     **execution_attributes: Any,
 ) -> bool:
-    # pylint: disable=unsubscriptable-object
     success = False
     vulnerabilities = execution_attributes.pop("vulnerabilities")
 
-    execution_attributes["vulnerabilities"] = dict()
+    execution_attributes["vulnerabilities"] = {}
     execution_attributes["vulnerabilities"][
         "num_of_open_vulnerabilities"
     ] = len(vulnerabilities["open"])
@@ -162,7 +161,6 @@ async def get_log_execution(group_name: str, execution_id: str) -> str:
 
 
 async def get_token(group_name: str) -> Optional[str]:
-    # pylint: disable=unsubscriptable-object
     return await forces_dal.get_secret_token(group_name)
 
 

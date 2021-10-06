@@ -35,7 +35,7 @@ from typing import (
 @concurrent_decorators(
     require_login, enforce_group_level_auth_async, require_asm
 )
-async def mutate(  # pylint: disable=too-many-arguments
+async def mutate(
     _: Any, info: GraphQLResolveInfo, tags: List[str], **kwargs: Any
 ) -> SimpleGroupPayloadType:
     success = False

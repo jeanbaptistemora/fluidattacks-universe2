@@ -1,4 +1,3 @@
-# pylint: disable=too-few-public-methods,  inherit-non-class
 from typing import (
     NamedTuple,
     Optional,
@@ -7,7 +6,6 @@ from typing import (
 
 
 class GroupedVulnerabilitiesInfo(NamedTuple):
-    # pylint: disable=unsubscriptable-object
     commit_hash: Optional[str]
     specific: str
     where: str

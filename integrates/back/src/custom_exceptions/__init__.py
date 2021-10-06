@@ -1,3 +1,4 @@
+# pylint: disable=super-with-arguments
 from __future__ import (
     annotations,
 )

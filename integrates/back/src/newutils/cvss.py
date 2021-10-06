@@ -1,4 +1,3 @@
-# pylint: disable=unsubscriptable-object
 """ ASM cvss auxiliar functions. """
 
 from . import (

@@ -1,4 +1,3 @@
-# pylint: disable=unsubscriptable-object
 """Queue management"""
 from asyncio.queues import (
     Queue,
@@ -14,7 +13,7 @@ from typing import (
 )
 
 # Constants
-TVar = TypeVar("TVar")  # pylint: disable=invalid-name
+TVar = TypeVar("TVar")
 DELAY_QUEUE: Optional[Queue] = None
 
 

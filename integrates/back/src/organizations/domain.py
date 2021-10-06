@@ -1,4 +1,3 @@
-# pylint: disable=unsubscriptable-object
 from aioextensions import (
     collect,
 )
@@ -440,7 +439,7 @@ async def update_policies(
         InvalidNumberAcceptations,
     ) as exe:
         LOGGER.exception(exe, extra={"extra": locals()})
-        raise GraphQLError(str(exe))
+        raise GraphQLError(str(exe)) from exe
 
     if all(valid):
         success = True

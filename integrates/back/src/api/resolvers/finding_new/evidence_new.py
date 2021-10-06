@@ -20,7 +20,6 @@ from typing import (
 def _format_evidence(
     finding: Finding, evidence: Optional[FindingEvidence]
 ) -> Dict[str, str]:
-    # pylint: disable=unsubscriptable-object
     return (
         {
             "description": "",

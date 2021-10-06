@@ -106,7 +106,6 @@ def _is_scope_comment(comment: CommentType) -> bool:
 async def add(
     finding_id: str, comment_data: CommentType, user_info: UserType
 ) -> Tuple[Union[str, None], bool]:
-    # pylint: disable=unsubscriptable-object
     today = datetime_utils.get_as_str(datetime_utils.get_now())
     comment_id = str(comment_data["comment_id"])
     comment_attributes = {

@@ -70,7 +70,6 @@ SubjectPolicy = NamedTuple(
 
 
 def _cast_dict_into_subject_policy(item: Dict[str, str]) -> SubjectPolicy:
-    # pylint: disable=protected-access
     field_types: Dict[Any, Any] = SubjectPolicy.__annotations__
 
     # Every string as lowercase
@@ -91,7 +90,6 @@ def _cast_dict_into_subject_policy(item: Dict[str, str]) -> SubjectPolicy:
 
 def _cast_subject_policy_into_dict(policy: SubjectPolicy) -> Dict[str, str]:
     """Cast a subject policy into a dict, valid to be put in dynamo."""
-    # pylint: disable=protected-access
     return {
         key: (value.lower() if isinstance(value, str) else value)
         for key, value in policy._asdict().items()
@@ -224,7 +222,6 @@ async def get_cached_subject_policies(
     with_cache: bool = True,
 ) -> Tuple[Tuple[str, str, str], ...]:
     """Cached function to get 1 user authorization policies."""
-    # pylint: disable=unsubscriptable-object
     policies: Tuple[Tuple[str, str, str], ...]
 
     if with_cache:

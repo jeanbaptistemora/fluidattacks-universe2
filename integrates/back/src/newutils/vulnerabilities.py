@@ -1,4 +1,3 @@
-# pylint: disable=unsubscriptable-object
 from . import (
     datetime as datetime_utils,
 )
@@ -349,7 +348,7 @@ def get_reattack_requesters(
     for verification in historic_verification:
         if verification.get("status", "") == "REQUESTED":
             vulns = cast(List[str], verification.get("vulns", []))
-            if any([vuln for vuln in vulns if vuln in vulnerabilities]):
+            if any(vuln for vuln in vulns if vuln in vulnerabilities):
                 vulnerabilities = [
                     vuln for vuln in vulnerabilities if vuln not in vulns
                 ]
@@ -652,7 +651,7 @@ async def get_total_treatment_date(
     }
 
 
-async def get_total_reattacks_stats(  # pylint: disable=too-many-locals
+async def get_total_reattacks_stats(
     vulns: List[Dict[str, FindingType]],
     min_date: datetime,
 ) -> Dict[str, Union[int, str]]:

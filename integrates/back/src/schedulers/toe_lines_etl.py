@@ -96,9 +96,11 @@ def _get_group_toe_lines_from_cvs(
         ("tested_date", _format_date, default_date, "tested-date"),
     ]
     group_toe_lines = set()
-    with open(lines_csv_path) as csv_file:
+    with open(  # pylint: disable=unspecified-encoding
+        lines_csv_path
+    ) as csv_file:
         for row in csv.DictReader(csv_file):
-            new_toe_lines = dict()
+            new_toe_lines = {}
             for (
                 field_name,
                 formater,
@@ -288,7 +290,9 @@ async def _get_machine_only_groups() -> List[str]:
 def _create_group_basic_structure(tmpdirname: str, group: str) -> None:
     toe_dir = os.path.join(tmpdirname, "groups", group, "toe")
     os.makedirs(toe_dir, exist_ok=True)
-    with open(os.path.join(toe_dir, "lines.csv"), mode="w") as toe:
+    with open(  # pylint: disable=unspecified-encoding
+        os.path.join(toe_dir, "lines.csv"), mode="w"
+    ) as toe:
         columns = [
             "filename",
             "loc",

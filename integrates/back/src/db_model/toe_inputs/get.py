@@ -48,7 +48,7 @@ async def _get_toe_inputs_by_group(group_name: str) -> Tuple[ToeInput, ...]:
 
 
 class GroupToeInputsLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: List[str]
     ) -> Tuple[Tuple[ToeInput, ...], ...]:

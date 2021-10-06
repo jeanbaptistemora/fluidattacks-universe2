@@ -1,4 +1,3 @@
-# pylint: disable=unsubscriptable-object
 from aioextensions import (
     collect,
 )

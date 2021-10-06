@@ -132,10 +132,9 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
     return [groups.get(group_name, {}) for group_name in group_names]
 
 
-# pylint: disable=too-few-public-methods
 class GroupLoader(DataLoader):
     """Batches load calls within the same execution fragment."""
 
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(self, group_names: List[str]) -> List[GroupType]:
         return await _batch_load_fn(group_names)

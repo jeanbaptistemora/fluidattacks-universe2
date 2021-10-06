@@ -57,8 +57,8 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
             item=id_item,
             table=TABLE,
         )
-    except ConditionalCheckFailedException:
-        raise AlreadyCreated()
+    except ConditionalCheckFailedException as ex:
+        raise AlreadyCreated() from ex
     items = []
     metadata_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],

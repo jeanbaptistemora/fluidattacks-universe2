@@ -46,7 +46,7 @@ LOGGER = logging.getLogger(__name__)
 @concurrent_decorators(
     require_login, enforce_group_level_auth_async, require_asm
 )
-async def mutate(  # pylint: disable=too-many-arguments
+async def mutate(
     _: Any, info: GraphQLResolveInfo, tag: str, **kwargs: Any
 ) -> SimpleGroupPayloadType:
     success = False

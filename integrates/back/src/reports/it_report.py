@@ -187,7 +187,7 @@ class ITReport:
                 "1.0": "Confirmed",
             },
         }
-        metric_descriptions = metrics.get(metric, dict())
+        metric_descriptions = metrics.get(metric, {})
         description = metric_descriptions.get(str(metric_value), EMPTY)
         return description
 
@@ -593,7 +593,7 @@ class ITReportNew:
                 "1.0": "Confirmed",
             },
         }
-        metric_descriptions = metrics.get(metric, dict())
+        metric_descriptions = metrics.get(metric, {})
         description = metric_descriptions.get(str(metric_value), EMPTY)
         return description
 

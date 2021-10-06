@@ -44,7 +44,6 @@ def get_optional_latest(
     historic_suffix: str,
     raw_items: Tuple[Item, ...],
 ) -> Optional[Item]:
-    # pylint: disable=unsubscriptable-object
     try:
         latest: Optional[Item] = get_latest(
             item_id=item_id,

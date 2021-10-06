@@ -103,20 +103,20 @@ ENTITIES = {
 def get_entities_to_update_by_dependency(
     dependency: EntityDependency, **args: str
 ) -> Dict[Entity, EntityToUpdate]:
-    entities_to_update = dict()
-    for entity_name in ENTITIES:
+    entities_to_update = {}
+    for name, value in ENTITIES.items():
         attributes_to_update = set()
-        for attr, info in cast(dict, ENTITIES[entity_name]["attrs"]).items():
+        for attr, info in cast(dict, value["attrs"]).items():
             if dependency in info["dependencies"]:
                 attributes_to_update.add(attr)
 
         if attributes_to_update:
-            entity_args = cast(set, ENTITIES[entity_name]["args"])
+            entity_args = cast(set, value["args"])
             entity_ids = {
-                base_arg: args[f"{entity_name.value}_{base_arg.value}"]
+                base_arg: args[f"{name.value}_{base_arg.value}"]
                 for base_arg in entity_args
             }
-            entities_to_update[entity_name] = EntityToUpdate(
+            entities_to_update[name] = EntityToUpdate(
                 entity_ids=entity_ids,
                 attributes_to_update=attributes_to_update,
             )

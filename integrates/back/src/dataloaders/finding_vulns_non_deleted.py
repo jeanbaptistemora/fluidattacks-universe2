@@ -15,10 +15,9 @@ from typing import (
 )
 
 
-# pylint: disable=too-few-public-methods
 class FindingVulnsNonDeletedLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
-        super(FindingVulnsNonDeletedLoader, self).__init__()
+        super().__init__()
         self.dataloader = dataloader
 
     async def load_many_chained(

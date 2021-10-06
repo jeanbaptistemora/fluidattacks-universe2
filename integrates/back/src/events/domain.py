@@ -66,7 +66,6 @@ async def add_comment(
     event_id: str,
     parent: str,
 ) -> Tuple[Union[str, None], bool]:
-    # pylint: disable=unsubscriptable-object
     parent = str(parent)
     content = str(comment_data["content"])
     event_loader = info.context.loaders.event
@@ -97,7 +96,6 @@ async def add_event(  # pylint: disable=too-many-locals
     image: Optional[UploadFile] = None,
     **kwargs: Any,
 ) -> bool:
-    # pylint: disable=unsubscriptable-object
     validations.validate_fields([kwargs["detail"]])
     validations.validate_field_length(kwargs["detail"], 300)
 

@@ -44,7 +44,7 @@ async def check_jwt_token_validity(request: Request) -> None:
             raise ExpiredToken()
     except RedisKeyNotFound:
         # User do not even has an active session
-        raise SecureAccessException()
+        raise SecureAccessException()  # pylint: disable=raise-missing-from
 
 
 async def create_session_web(request: Request) -> bool:
@@ -69,7 +69,6 @@ async def create_session_web(request: Request) -> bool:
 
 
 async def get_session_key(email: str, attr: str) -> Optional[str]:
-    # pylint: disable=unsubscriptable-object
     session_key: Optional[str] = None
     with contextlib.suppress(RedisKeyNotFound):
         session_key = await redis_get_entity_attr(

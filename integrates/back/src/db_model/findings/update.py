@@ -227,8 +227,8 @@ async def update_state(
                 item=latest,
                 table=TABLE,
             )
-    except ConditionalCheckFailedException:
-        raise FindingNotFound()
+    except ConditionalCheckFailedException as ex:
+        raise FindingNotFound() from ex
     items.append(historic)
     if state.status == FindingStateStatus.APPROVED:
         approval_key = keys.build_key(

@@ -41,8 +41,8 @@ async def get_document(key: str) -> str:
         async with aio_client() as client:
             try:
                 await client.download_fileobj(BUCKET_ANALYTICS, key, stream)
-            except ClientError:
-                raise DocumentNotFound()
+            except ClientError as ex:
+                raise DocumentNotFound() from ex
 
         # Return pointer to begin-of-file
         stream.seek(0)

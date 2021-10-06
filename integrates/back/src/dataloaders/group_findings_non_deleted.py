@@ -18,7 +18,7 @@ from typing import (
 
 class GroupFindingsNonDeletedLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
-        super(GroupFindingsNonDeletedLoader, self).__init__()
+        super().__init__()
         self.dataloader = dataloader
 
     async def load_many_chained(

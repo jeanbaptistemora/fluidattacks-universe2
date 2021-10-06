@@ -75,7 +75,7 @@ async def _get_toe_lines_by_root(
 
 
 class GroupToeLinesLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: List[str]
     ) -> Tuple[Tuple[ToeLines, ...], ...]:
@@ -83,7 +83,7 @@ class GroupToeLinesLoader(DataLoader):
 
 
 class RootToeLinesLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, roots: List[Tuple[str, str]]
     ) -> Tuple[Tuple[ToeLines, ...], ...]:

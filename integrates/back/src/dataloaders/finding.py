@@ -68,11 +68,11 @@ async def _batch_load_fn(
             group_name=group_name,
             project_name=group_name,
         )
-    return [findings.get(finding_id, dict()) for finding_id in finding_ids]
+    return [findings.get(finding_id, {}) for finding_id in finding_ids]
 
 
-# pylint: disable=too-few-public-methods
 class FindingLoader(DataLoader):
+    # pylint: disable=no-self-use
     async def batch_load_fn(
         self, finding_ids: List[str]
     ) -> List[Dict[str, FindingType]]:

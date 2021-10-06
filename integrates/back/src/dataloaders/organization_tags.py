@@ -63,9 +63,8 @@ async def _batch_load_fn(organization_names: List[str]) -> List[List[TagType]]:
     ]
 
 
-# pylint: disable=too-few-public-methods
 class OrganizationTagsLoader(DataLoader):
-    # pylint: disable=method-hidden
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, organization_names: List[str]
     ) -> List[List[TagType]]:

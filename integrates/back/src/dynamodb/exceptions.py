@@ -1,3 +1,4 @@
+# pylint: disable=super-with-arguments
 from botocore.exceptions import (
     ClientError,
 )
@@ -31,7 +32,6 @@ class UnavailabilityError(DynamoDbBaseException):
 
 
 def handle_error(*, error: ClientError) -> None:
-    # pylint: disable=unsubscriptable-object
     code: str = error.response["Error"]["Code"]
     custom_exception: Optional[Exception] = getattr(
         sys.modules[__name__], code, None

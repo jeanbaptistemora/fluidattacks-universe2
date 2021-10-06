@@ -83,7 +83,6 @@ from typing import (
 
 
 class Dataloaders(NamedTuple):
-    # pylint: disable=inherit-non-class, too-few-public-methods
     event: EventLoader
     finding: FindingLoader
     finding_new: FindingNewLoader
@@ -121,7 +120,6 @@ class Dataloaders(NamedTuple):
 def apply_context_attrs(
     context: Request, loaders: Optional[Dataloaders] = None
 ) -> Request:
-    # pylint: disable=unsubscriptable-object
     setattr(context, "loaders", loaders if loaders else get_new_context())
     setattr(context, "store", defaultdict(lambda: None))
 

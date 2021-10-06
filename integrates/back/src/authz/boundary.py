@@ -53,11 +53,9 @@ async def get_group_level_roles_a_user_can_grant(
     """Return a tuple of roles that users can grant based on their role."""
     enforcer = await get_group_level_enforcer(requester_email)
     roles_the_user_can_grant: Tuple[str, ...] = tuple(
-        [
-            role
-            for role in get_group_level_roles_model(requester_email)
-            if enforcer(group, f"grant_group_level_role:{role}")
-        ]
+        role
+        for role in get_group_level_roles_model(requester_email)
+        if enforcer(group, f"grant_group_level_role:{role}")
     )
     return roles_the_user_can_grant
 
@@ -121,10 +119,8 @@ async def get_user_level_roles_a_user_can_grant(
     """Return a tuple of roles that users can grant based on their role."""
     enforcer = await get_user_level_enforcer(requester_email)
     roles_the_user_can_grant: Tuple[str, ...] = tuple(
-        [
-            role
-            for role in get_user_level_roles_model(requester_email)
-            if enforcer("self", f"grant_user_level_role:{role}")
-        ]
+        role
+        for role in get_user_level_roles_model(requester_email)
+        if enforcer("self", f"grant_user_level_role:{role}")
     )
     return roles_the_user_can_grant

@@ -109,7 +109,7 @@ async def check_session_web_validity(request: Request) -> None:
             raise ExpiredToken()
     except RedisKeyNotFound:
         # User do not even has an active session
-        raise SecureAccessException()
+        raise SecureAccessException()  # pylint: disable=raise-missing-from
 
 
 async def create(email: str, data: UserType) -> bool:
@@ -247,7 +247,6 @@ async def get_by_email(email: str) -> UserType:
 
 
 async def get_data(email: str, attr: str) -> Union[str, UserType]:
-    # pylint: disable=unsubscriptable-object
     data_attr = await get_attributes(email, [attr])
     if data_attr and attr in data_attr:
         return cast(UserType, data_attr[attr])

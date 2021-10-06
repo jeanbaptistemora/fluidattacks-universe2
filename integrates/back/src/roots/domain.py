@@ -205,9 +205,9 @@ async def add_git_root(
         metadata=GitRootMetadata(type="Git"),
         state=GitRootState(
             branch=branch,
-            environment_urls=list(),
+            environment_urls=[],
             environment=kwargs["environment"],
-            git_environment_urls=list(),
+            git_environment_urls=[],
             gitignore=gitignore,
             includes_health_check=kwargs["includes_health_check"],
             modified_by=user_email,
@@ -292,8 +292,8 @@ async def add_url_root(
 
     try:
         url_attributes = parse_url(kwargs["url"])
-    except LocationParseError:
-        raise InvalidParameter()
+    except LocationParseError as ex:
+        raise InvalidParameter() from ex
 
     if not url_attributes.host or url_attributes.scheme not in {
         "http",
@@ -616,7 +616,6 @@ async def deactivate_root(
     root: RootItem,
     user_email: str,
 ) -> None:
-    # pylint: disable=unsubscriptable-object
     new_status = "INACTIVE"
 
     if root.state.status != new_status:

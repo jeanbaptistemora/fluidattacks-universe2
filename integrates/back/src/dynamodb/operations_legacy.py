@@ -1,4 +1,3 @@
-# pylint: disable=unsubscriptable-object
 import aioboto3
 import botocore
 from botocore.exceptions import (
@@ -46,9 +45,7 @@ RESOURCE_OPTIONS: Dict[str, Optional[str]] = {
 
 if FI_ENVIRONMENT == "development" and FI_DYNAMODB_HOST:
     # FP: the endpoint is hosted in a local environment
-    ENDPOINT_URL = "http://{}:{}".format(  # NOSONAR
-        FI_DYNAMODB_HOST, FI_DYNAMODB_PORT
-    )
+    ENDPOINT_URL = f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}"  # NOSONAR
     RESOURCE_OPTIONS["endpoint_url"] = ENDPOINT_URL
 
 

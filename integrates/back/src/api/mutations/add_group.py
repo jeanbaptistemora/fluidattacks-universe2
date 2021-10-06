@@ -36,7 +36,7 @@ from typing import (
     require_login,
     enforce_user_level_auth_async,
 )
-async def mutate(  # pylint: disable=too-many-arguments
+async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
     description: str,

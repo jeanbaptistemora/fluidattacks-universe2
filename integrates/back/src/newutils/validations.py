@@ -31,8 +31,8 @@ def validate_email_address(email: str) -> bool:
             r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$",
         )
         return True
-    except InvalidChar:
-        raise InvalidField("email address")
+    except InvalidChar as ex:
+        raise InvalidField("email address") from ex
 
 
 def validate_fields(fields: List[str]) -> None:
@@ -135,7 +135,7 @@ def validate_string_length_between(
 
 def validate_alphanumeric_field(field: str) -> bool:
     """Optional whitespace separated string, with alphanumeric characters."""
-    is_alnum = all([word.isalnum() for word in field.split()])
+    is_alnum = all(word.isalnum() for word in field.split())
     if is_alnum or field == "-" or not field:
         return True
     raise InvalidField()

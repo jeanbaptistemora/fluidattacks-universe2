@@ -1,4 +1,3 @@
-# pylint: disable=inherit-non-class, too-few-public-methods
 from typing import (
     Any,
     Dict,
@@ -53,7 +52,6 @@ class OrgFindingPolicyItem(NamedTuple):
 
 
 class GroupMetadata(NamedTuple):
-    # pylint: disable=unsubscriptable-object
     name: str
     description: str
     language: str

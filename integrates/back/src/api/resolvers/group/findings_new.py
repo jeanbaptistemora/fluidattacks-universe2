@@ -28,7 +28,6 @@ from typing import (
 async def resolve(
     parent: Group, info: GraphQLResolveInfo, **kwargs: Any
 ) -> Tuple[Finding, ...]:
-    # pylint: disable=unsubscriptable-object
     group_findings_loader: DataLoader = info.context.loaders.group_findings_new
     group_name: str = parent["name"]
     filters: Optional[Dict[str, Any]] = kwargs.get("filters")

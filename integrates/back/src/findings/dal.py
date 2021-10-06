@@ -112,7 +112,6 @@ async def get_finding(finding_id: str) -> Dict[str, FindingType]:
 async def get_findings_by_group(
     group_name: str, attrs: Optional[Set[str]] = None
 ) -> List[Dict[str, Any]]:
-    # pylint: disable=unsubscriptable-object
     key_exp: Equals = Key("project_name").eq(group_name.lower())
     query_attrs = {
         "IndexName": "project_findings",

@@ -43,5 +43,5 @@ async def add(*, toe_input: ToeInput) -> None:
             item=toe_input_item,
             table=TABLE,
         )
-    except ConditionalCheckFailedException:
-        raise RepeatedToeInput()
+    except ConditionalCheckFailedException as ex:
+        raise RepeatedToeInput() from ex

@@ -42,7 +42,7 @@ async def mutate(
 ) -> SimpleFindingPayload:
     data = parameters
     data["id"] = finding_id
-    data = {utils.snakecase_to_camelcase(k): data[k] for k in data}
+    data = {utils.snakecase_to_camelcase(k): v for k, v in data.items()}
     finding_loader = info.context.loaders.finding
     finding_data = await finding_loader.load(finding_id)
     group_name = get_key_or_fallback(finding_data)

@@ -28,7 +28,7 @@ class CustomRequestMiddleware(BaseHTTPMiddleware):
         self, request: Request, call_next: Callable[..., Any]
     ) -> Response:
         url = str(request.url)
-        traceback = url.split(BASE_URL)[-1]
+        traceback = url.split(BASE_URL)[-1]  # pylint: disable=use-maxsplit-arg
         if url != traceback:
             newrelic.agent.set_transaction_name(traceback)
         request.state.store = defaultdict(lambda: None)

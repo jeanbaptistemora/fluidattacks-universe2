@@ -9,6 +9,7 @@ class FindingCvssVersion(Enum):
 
 
 class FindingEvidenceName(Enum):
+    # pylint: disable=invalid-name
     animation: str = "animation"
     evidence1: str = "evidence1"
     evidence2: str = "evidence2"

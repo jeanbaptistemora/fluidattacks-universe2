@@ -81,9 +81,11 @@ def _get_group_toe_inputs_from_cvs(
         ("vulns", str, ""),
     ]
     group_toe_inputs = set()
-    with open(inputs_csv_path) as csv_file:
+    with open(  # pylint: disable=unspecified-encoding
+        inputs_csv_path
+    ) as csv_file:
         for row in csv.DictReader(csv_file):
-            new_toe_input = dict()
+            new_toe_input = {}
             for (field_name, formater, default_value) in inputs_csv_fields:
                 cvs_field_value = row.get(field_name)
                 try:

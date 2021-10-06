@@ -69,7 +69,7 @@ async def send_group_consult_mail(
     require_asm,
     require_squad,
 )
-async def mutate(  # pylint: disable=too-many-arguments
+async def mutate(
     _: Any, info: GraphQLResolveInfo, **parameters: Any
 ) -> AddConsultPayloadType:
     group_name: str = get_key_or_fallback(parameters, fallback="").lower()

@@ -59,7 +59,7 @@ async def get_remediated_findings() -> None:
     if findings:
         try:
             mail_to = [FI_MAIL_PROJECTS]
-            context: MailContentType = {"findings": list(), "total": 0}
+            context: MailContentType = {"findings": [], "total": 0}
             for finding in findings:
                 cast(List[Dict[str, str]], context["findings"]).append(
                     {

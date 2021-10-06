@@ -228,16 +228,16 @@ def build_key(entity: str, attr: str, **args: str) -> str:
 
 def build_keys_by_dependencies(dependency: str, **args: str) -> Set[str]:
     keys: Set[str] = set()
-    for entity in ENTITIES:
-        if dependency in ENTITIES[entity]["dependencies"]:
+    for key, value in ENTITIES.items():
+        if dependency in value["dependencies"]:
             required_args: Dict[str, str] = {
                 arg_base: arg_value
                 for arg, arg_value in args.items()
-                for arg_base in [arg.replace(f"{entity}_", "")]
-                if arg_base in ENTITIES[entity]["args"]
+                for arg_base in [arg.replace(f"{key}_", "")]
+                if arg_base in value["args"]
             }
 
-            keys.update(build_keys_for_entity(entity, **required_args))
+            keys.update(build_keys_for_entity(key, **required_args))
 
     # >>> get_keys_to_delete('delete_vulnerability_tags', finding_id=123)
     # {'finding.verified@id=123', 'finding.open_vulns@id=123',

@@ -1,5 +1,5 @@
 """Domain functions for vulnerabilities."""
-# pylint:disable=too-many-lines, unsubscriptable-object
+# pylint:disable=too-many-lines
 
 
 import aioboto3
@@ -550,7 +550,9 @@ async def get_vulnerabilities_file(
     vulnerabilities = await get_vulnerabilities_by_type(context, finding_id)
     # FP: the generated filename is unpredictable
     file_name = f"/tmp/{group_name}-{finding_id}_{str(uuid.uuid4())}.yaml"  # NOSONAR # nosec # noqa: E501
-    with open(file_name, "w") as stream:
+    with open(  # pylint: disable=unspecified-encoding
+        file_name, "w"
+    ) as stream:
         yaml.safe_dump(vulnerabilities, stream, default_flow_style=False)
 
     uploaded_file_url = ""

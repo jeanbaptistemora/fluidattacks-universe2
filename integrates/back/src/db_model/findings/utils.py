@@ -1,4 +1,3 @@
-# pylint: disable=unsubscriptable-object
 from .enums import (
     FindingCvssVersion,
     FindingSorts,

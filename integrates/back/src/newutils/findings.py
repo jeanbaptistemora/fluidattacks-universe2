@@ -199,7 +199,6 @@ def filter_non_submitted_findings(
     return non_submitted_findings
 
 
-# pylint: disable=simplifiable-if-expression
 def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     finding = {
         utils.snakecase_to_camelcase(attribute): finding.get(attribute)
@@ -306,7 +305,6 @@ def format_finding(
     finding: Dict[str, FindingType], attrs: Optional[Set[str]] = None
 ) -> Dict[str, FindingType]:
     """Returns the data in the format expected by default resolvers"""
-    # pylint: disable=unsubscriptable-object
     formated_finding = finding.copy()
     if not attrs or "finding_id" in attrs:
         formated_finding["id"] = finding["finding_id"]
@@ -352,7 +350,9 @@ def get_creation_date(finding: Dict[str, FindingType]) -> str:
 
 
 def get_date_with_format(item: Dict[str, str]) -> str:
-    return str(item.get("date", "")).split(" ")[0]
+    return str(item.get("date", "")).split(  # pylint: disable=use-maxsplit-arg
+        " "
+    )[0]
 
 
 def get_evidence(

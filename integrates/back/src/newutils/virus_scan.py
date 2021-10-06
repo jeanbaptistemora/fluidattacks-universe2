@@ -23,6 +23,7 @@ API_CLIENT = cloudmersive_virus_api_client.ScanApi(
 LOGGER = logging.getLogger(__name__)
 
 
+# pylint: disable=consider-using-with
 def scan_file(
     target_file: UploadFile, file_name: str, user_email: str, group_name: str
 ) -> bool:

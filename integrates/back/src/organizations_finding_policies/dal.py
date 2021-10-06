@@ -22,7 +22,6 @@ async def get_organization_finding_policy(
     org_name: str,
     finding_policy_id: str,
 ) -> Optional[OrgFindingPolicyItem]:
-    # pylint: disable=unsubscriptable-object
     return await model.get_org_finding_policy(
         org_name=org_name, finding_policy_id=finding_policy_id
     )

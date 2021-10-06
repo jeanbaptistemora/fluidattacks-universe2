@@ -15,10 +15,9 @@ from vulnerabilities import (
 )
 
 
-# pylint: disable=too-few-public-methods
 class FindingVulnsOnlyZeroRiskLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
-        super(FindingVulnsOnlyZeroRiskLoader, self).__init__()
+        super().__init__()
         self.dataloader = dataloader
 
     async def batch_load_fn(

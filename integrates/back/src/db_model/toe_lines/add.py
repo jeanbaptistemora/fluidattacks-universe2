@@ -43,5 +43,5 @@ async def add(*, toe_lines: ToeLines) -> None:
             item=toe_lines_item,
             table=TABLE,
         )
-    except ConditionalCheckFailedException:
-        raise RepeatedToeLines()
+    except ConditionalCheckFailedException as ex:
+        raise RepeatedToeLines() from ex

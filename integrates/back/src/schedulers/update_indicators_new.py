@@ -1,5 +1,3 @@
-# pylint: disable=too-few-public-methods, inherit-non-class
-# pylint: disable=unsubscriptable-object
 from aioextensions import (
     collect,
 )
@@ -104,10 +102,10 @@ def create_data_format_chart(
         "opened": [],
     }
     for week, dict_status in list(all_registers.items()):
-        for status in plot_points:
-            plot_points[status].append({"x": week, "y": dict_status[status]})
-    for status in plot_points:
-        result_data.append(plot_points[status])
+        for key, value in plot_points.items():
+            value.append({"x": week, "y": dict_status[key]})
+    for _, value in plot_points.items():
+        result_data.append(value)
     return result_data
 
 
@@ -122,10 +120,10 @@ def format_exposed_chart(
         "critical": [],
     }
     for week, dict_status in list(all_registers.items()):
-        for status in plot_points:
-            plot_points[status].append({"x": week, "y": dict_status[status]})
-    for status in plot_points:
-        result_data.append(plot_points[status])
+        for key, value in plot_points.items():
+            value.append({"x": week, "y": dict_status[key]})
+    for _, value in plot_points.items():
+        result_data.append(value)
     return result_data
 
 

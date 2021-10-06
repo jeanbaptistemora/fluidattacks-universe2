@@ -165,7 +165,7 @@ async def download_evidences_for_pdf(
 async def download_evidences_for_pdf_new(
     findings: Tuple[Finding, ...], tempdir: str
 ) -> Dict[str, List[Dict[str, str]]]:
-    finding_evidences_set = dict()
+    finding_evidences_set = {}
     for finding in findings:
         folder_name = f"{finding.group_name}/{finding.id}"
         evidences_s3: Set[str] = set(

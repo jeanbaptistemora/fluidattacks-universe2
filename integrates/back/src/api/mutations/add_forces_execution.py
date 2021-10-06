@@ -37,7 +37,6 @@ async def mutate(
     log: Optional[UploadFile] = None,
     **parameters: Any,
 ) -> SimplePayload:
-    # pylint: disable=unsubscriptable-object
     # Compatibility with old API
     group_name: str = get_key_or_fallback(parameters)
     parameters = clean_up_kwargs(parameters)
