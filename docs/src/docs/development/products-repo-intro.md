@@ -74,7 +74,7 @@ Updates are rolled out automatically to your machine
 with a delay of at most 1 day.
 But anyway,
 if you want to force an update right away,
-just run `$ rm -rf ~/.cache/makes`
+just run `$ rm -rf ~/.makes`
 
 ## Troubleshooting
 
@@ -103,7 +103,7 @@ If the installation failed while using `$ m gitlab:xxx /yyy` (step 3):
 
 1. Repeat step two (installing Makes) and try again.
 
-1. Refresh the cache: `$ rm -rf ~/.cache/makes` and try again.
+1. Refresh the cache: `$ rm -rf ~/.makes` and try again.
 
 1. If the problem persists,
     please let us know at help@fluidattacks.com.

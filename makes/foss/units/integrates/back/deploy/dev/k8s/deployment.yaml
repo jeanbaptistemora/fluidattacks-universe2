@@ -19,13 +19,14 @@ spec:
         worker_group: development
       containers:
         - name: integrates
-          image: ghcr.io/fluidattacks/makes:21.10
+          image: ghcr.io/fluidattacks/makes:21.11
           imagePullPolicy: Always
-          command: [m]
+          command: [sh]
           args:
-          - f@${CI_COMMIT_REF_NAME}
-          - /integrates/back
-          - eph
+          - -c
+          - m f@${CI_COMMIT_REF_NAME} /integrates/back/deploy/probes/liveness;
+            m f@${CI_COMMIT_REF_NAME} /integrates/back/deploy/probes/readiness;
+            m f@${CI_COMMIT_REF_NAME} /integrates/back eph
           env:
             - name: K8S_COMPAT
               value: "1"
@@ -47,7 +48,7 @@ spec:
               - sh
               - -c
               - K8S_COMPAT=1
-                m f@${CI_COMMIT_REF_NAME} /integrates/back/deploy/probes/readiness
+                ~/.makes/out-integrates-back-deploy-probes-readiness/bin/*
                 aws_login_dev integrates-dev
                 FluidIntegrates http://localhost:8001
             initialDelaySeconds: 120
@@ -61,7 +62,7 @@ spec:
               - sh
               - -c
               - K8S_COMPAT=1
-                m f@${CI_COMMIT_REF_NAME} /integrates/back/deploy/probes/liveness
+                ~/.makes/out-integrates-back-deploy-probes-liveness/bin/*
                 aws_login_dev integrates-dev
                 FluidIntegrates http://localhost:8001
                 https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com
@@ -71,7 +72,7 @@ spec:
             failureThreshold: 10
             timeoutSeconds: 60
         - name: db
-          image: ghcr.io/fluidattacks/makes:21.10
+          image: ghcr.io/fluidattacks/makes:21.11
           imagePullPolicy: Always
           command: [m]
           args:
@@ -91,7 +92,7 @@ spec:
             - secretRef:
                 name: integrates-${CI_COMMIT_REF_NAME}
         - name: cache
-          image: ghcr.io/fluidattacks/makes:21.10
+          image: ghcr.io/fluidattacks/makes:21.11
           imagePullPolicy: Always
           command: [m]
           args:
@@ -111,7 +112,7 @@ spec:
             - secretRef:
                 name: integrates-${CI_COMMIT_REF_NAME}
         - name: storage
-          image: ghcr.io/fluidattacks/makes:21.10
+          image: ghcr.io/fluidattacks/makes:21.11
           imagePullPolicy: Always
           command: [m]
           args:

@@ -23,13 +23,14 @@ spec:
         worker_group: production
       containers:
         - name: integrates
-          image: ghcr.io/fluidattacks/makes:21.10
+          image: ghcr.io/fluidattacks/makes:21.11
           imagePullPolicy: Always
-          command: [m]
+          command: [sh]
           args:
-          - f
-          - /integrates/back
-          - prod
+          - -c
+          - m f /integrates/back/deploy/probes/liveness;
+            m f /integrates/back/deploy/probes/readiness;
+            m f /integrates/back prod
           env:
           - name: K8S_COMPAT
             value: "1"
@@ -64,7 +65,7 @@ spec:
               - sh
               - -c
               - K8S_COMPAT=1
-                m f /integrates/back/deploy/probes/readiness
+                ~/.makes/out-integrates-back-deploy-probes-readiness/bin/*
                 aws_login_prod integrates-prod
                 FluidIntegrates http://localhost:8001
             initialDelaySeconds: 120
@@ -78,7 +79,7 @@ spec:
               - sh
               - -c
               - K8S_COMPAT=1
-                m f /integrates/back/deploy/probes/liveness
+                ~/.makes/out-integrates-back-deploy-probes-liveness/bin/*
                 aws_login_prod integrates-prod
                 FluidIntegrates http://localhost:8001
                 https://app.fluidattacks.com
