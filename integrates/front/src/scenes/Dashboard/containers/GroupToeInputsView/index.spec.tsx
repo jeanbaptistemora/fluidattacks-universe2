@@ -33,7 +33,6 @@ describe("GroupToeInputsView", (): void => {
             name: "unittesting",
             toeInputs: [
               {
-                commit: "hh66uu5",
                 component: "test.com/api/Test",
                 createdDate: "2000-01-01T00:00:00-05:00",
                 entryPoint: "idTest",
@@ -44,7 +43,6 @@ describe("GroupToeInputsView", (): void => {
                 vulnerabilities: "001. SQL injection - C Sharp SQL API",
               },
               {
-                commit: "e91320h",
                 component: "test.com/test/test.aspx",
                 createdDate: "2020-03-14T00:00:00-05:00",
                 entryPoint: "btnTest",
@@ -55,7 +53,6 @@ describe("GroupToeInputsView", (): void => {
                 vulnerabilities: "",
               },
               {
-                commit: "d83027t",
                 component: "test.com/test2/test.aspx",
                 createdDate: "2020-01-11T00:00:00-05:00",
                 entryPoint: "-",
@@ -99,7 +96,6 @@ describe("GroupToeInputsView", (): void => {
         "Root",
         "Entry point",
         "Attacked",
-        "Commit",
         "Attack moment",
         "Vulns",
         "Seen at",
@@ -111,7 +107,6 @@ describe("GroupToeInputsView", (): void => {
         "test_nickname",
         "idTest",
         "Yes",
-        "hh66uu5",
         "2020-01-02",
         "001. SQL injection - C Sharp SQL API",
         "2000-01-01",
@@ -123,7 +118,6 @@ describe("GroupToeInputsView", (): void => {
         "test_nickname",
         "btnTest",
         "No",
-        "e91320h",
         "2021-02-02",
         "",
         "2020-03-14",
@@ -135,7 +129,6 @@ describe("GroupToeInputsView", (): void => {
         "",
         "-",
         "No",
-        "d83027t",
         "2021-02-11",
         "003. Symmetric denial of service",
         "2020-01-11",

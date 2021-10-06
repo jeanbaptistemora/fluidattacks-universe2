@@ -6,7 +6,6 @@ const GET_TOE_INPUTS: DocumentNode = gql`
     group(groupName: $groupName) {
       name
       toeInputs {
-        commit
         component
         createdDate
         entryPoint

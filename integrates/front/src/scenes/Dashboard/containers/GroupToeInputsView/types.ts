@@ -1,5 +1,4 @@
 interface IToeInputAttr {
-  commit: string;
   component: string;
   createdDate: string;
   entryPoint: string;
@@ -11,7 +10,6 @@ interface IToeInputAttr {
 }
 
 interface IToeInputData {
-  commit: string;
   component: string;
   createdDate: string;
   entryPoint: string;

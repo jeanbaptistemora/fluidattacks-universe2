@@ -9,7 +9,6 @@ import { dateFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 
 import { DataTableNext } from "components/DataTableNext";
-import { commitFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { GET_TOE_INPUTS } from "scenes/Dashboard/containers/GroupToeInputsView/queries";
 import type {
@@ -28,7 +27,6 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
   >(
     "toeInputsTableSet",
     {
-      commit: true,
       component: false,
       createdDate: true,
       entryPoint: true,
@@ -118,14 +116,6 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
-      dataField: "commit",
-      header: translate.t("group.toe.inputs.commit"),
-      onSort,
-      visible: checkedItems.commit,
-      width: "15%",
-    },
-    {
-      align: "center",
       dataField: "testedDate",
       filter: dateFilter({}),
       formatter: formatDate,
@@ -179,9 +169,8 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
     data === undefined
       ? []
       : data.group.toeInputs.map(
-          (toeInput: IToeInputData): IToeInputData => ({
+          (toeInput: IToeInputAttr): IToeInputData => ({
             ...toeInput,
-            commit: commitFormatter(toeInput.commit),
           })
         );
 
