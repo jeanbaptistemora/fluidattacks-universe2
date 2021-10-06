@@ -97,7 +97,6 @@ describe("GroupToeInputsView", (): void => {
     expect(tableHeader.text()).toStrictEqual(
       [
         "Root",
-        "Component",
         "Entry point",
         "Attacked",
         "Commit",
@@ -110,7 +109,6 @@ describe("GroupToeInputsView", (): void => {
     expect(firstRow.text()).toStrictEqual(
       [
         "test_nickname",
-        "test.com/api/Test",
         "idTest",
         "Yes",
         "hh66uu5",
@@ -123,7 +121,6 @@ describe("GroupToeInputsView", (): void => {
     expect(secondRow.text()).toStrictEqual(
       [
         "test_nickname",
-        "test.com/test/test.aspx",
         "btnTest",
         "No",
         "e91320h",
@@ -136,7 +133,6 @@ describe("GroupToeInputsView", (): void => {
     expect(thirdRow.text()).toStrictEqual(
       [
         "",
-        "test.com/test2/test.aspx",
         "-",
         "No",
         "d83027t",

@@ -29,7 +29,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
     "toeInputsTableSet",
     {
       commit: true,
-      component: true,
+      component: false,
       createdDate: true,
       entryPoint: true,
       seenFirstTimeBy: true,
