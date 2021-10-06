@@ -1,6 +1,9 @@
 from dataloaders import (
     get_new_context,
 )
+from db_model.findings.types import (
+    Finding,
+)
 from groups.domain import (
     get_active_groups,
 )
@@ -12,6 +15,9 @@ from schedulers.common import (
     machine_queue,
 )
 import skims_sdk
+from typing import (
+    Tuple,
+)
 from vulnerabilities.domain.utils import (
     get_root_nicknames_for_skims,
 )
@@ -22,12 +28,14 @@ async def main() -> None:
     dataloaders = get_new_context()
 
     for group in sorted(groups):
+        findings: Tuple[
+            Finding, ...
+        ] = await dataloaders.group_findings_new.load(group)
+        for finding in findings:
+            finding_id: str = finding.id
+            finding_title: str = finding.title
 
-        for finding in await dataloaders.group_findings.load(group):
-            finding_id: str = finding["finding_id"]
-            finding_title: str = finding["finding"]
-
-            info("%s-%s", group, finding_id)
+            info(f"{group}-{finding_id}")
 
             vulns_to_reattack = [
                 vuln
