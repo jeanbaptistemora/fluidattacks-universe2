@@ -1,5 +1,4 @@
 { makeScript
-, inputs
 , outputs
 , projectPath
 , ...
@@ -17,7 +16,7 @@ makeScript {
       outputs."/integrates/storage"
     ];
     source = [
-      inputs.product.integrates-back-pypi-unit-tests
+      outputs."/integrates/back/pypi/unit-tests"
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/back/test/unit/entrypoint.sh";

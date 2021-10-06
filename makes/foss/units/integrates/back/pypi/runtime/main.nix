@@ -1,11 +1,11 @@
-{ makes
+{ inputs
 , makeTemplate
-, packages
-, path
+, makePythonPypiEnvironment
+, projectPath
 , ...
 }:
 let
-  pythonRequirements = makes.makePythonPypiEnvironment {
+  pythonRequirements = makePythonPypiEnvironment {
     name = "integrates-back-runtime";
     sourcesYaml = ./pypi-sources.yaml;
     withSetuptools_57_4_0 = true;
@@ -15,13 +15,13 @@ in
 makeTemplate {
   name = "integrates-back-pypi-runtime";
   searchPaths = {
-    envPythonPaths = [
-      (path "/integrates/back/src")
-      (path "/integrates")
+    pythonPackage = [
+      (projectPath "/integrates/back/src")
+      (projectPath "/integrates")
     ];
-    envSources = [
+    source = [
       pythonRequirements
-      packages.makes.python.safe-pickle
+      inputs.product.makes-python-safe-pickle
     ];
   };
 }

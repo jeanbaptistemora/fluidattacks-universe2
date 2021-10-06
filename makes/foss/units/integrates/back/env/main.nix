@@ -1,8 +1,8 @@
 { inputs
 , libGit
 , makeTemplate
-, outputs
 , projectPath
+, outputs
 , ...
 }:
 makeTemplate {
@@ -29,8 +29,8 @@ makeTemplate {
     ];
     source = [
       inputs.product.skims-config-sdk
-      inputs.product.integrates-back-pypi-runtime
       outputs."/integrates/back/tools"
+      outputs."/integrates/back/pypi/runtime"
       inputs.product.integrates-secrets-list
       libGit
       (inputs.legacy.importUtility "aws")

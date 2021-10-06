@@ -7,8 +7,8 @@
     dirsOfModules = {
       integrates = {
         searchPaths.source = [
-          inputs.product.integrates-back-pypi-runtime
-          inputs.product.integrates-back-pypi-unit-tests
+          outputs."/integrates/back/pypi/runtime"
+          outputs."/integrates/back/pypi/unit-tests"
           inputs.product.skims-config-sdk
         ];
         python = "3.9";
@@ -16,7 +16,7 @@
       };
       integratesBackChartsGenerators = {
         searchPaths.source = [
-          inputs.product.integrates-back-pypi-runtime
+          outputs."/integrates/back/pypi/runtime"
           outputs."/integrates/back/charts/pypi"
         ];
         python = "3.9";
@@ -32,22 +32,22 @@
     modules = {
       integratesBackDeployPermissionsMatrix = {
         searchPaths.source = [
-          inputs.product.integrates-back-pypi-runtime
+          outputs."/integrates/back/pypi/runtime"
         ];
         python = "3.9";
         src = "/integrates/deploy/permissions_matrix";
       };
       integratesBackMigrations = {
         searchPaths.source = [
-          inputs.product.integrates-back-pypi-runtime
+          outputs."/integrates/back/pypi/runtime"
         ];
         python = "3.9";
         src = "/integrates/back/migrations";
       };
       integratesBackTests = {
         searchPaths.source = [
-          inputs.product.integrates-back-pypi-unit-tests
-          inputs.product.integrates-back-pypi-runtime
+          outputs."/integrates/back/pypi/unit-tests"
+          outputs."/integrates/back/pypi/runtime"
         ];
         python = "3.9";
         src = "/integrates/back/tests";
