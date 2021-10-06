@@ -21,7 +21,9 @@ ENTITIES = {
         attrs={
             EntityAttr.closed_vulnerabilities: dict(
                 dependencies={
+                    EntityDependency.remove_vulnerability,
                     EntityDependency.upload_file,
+                    EntityDependency.verify_vulnerabilities_request,
                 }
             ),
             EntityAttr.is_verified: dict(
@@ -40,6 +42,7 @@ ENTITIES = {
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_zero_risk,
                     EntityDependency.upload_file,
+                    EntityDependency.verify_vulnerabilities_request,
                 }
             ),
             EntityAttr.oldest_open_vulnerability_report_date: dict(
@@ -48,6 +51,7 @@ ENTITIES = {
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_zero_risk,
                     EntityDependency.upload_file,
+                    EntityDependency.verify_vulnerabilities_request,
                 }
             ),
             EntityAttr.oldest_vulnerability_report_date: dict(
@@ -56,6 +60,7 @@ ENTITIES = {
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_zero_risk,
                     EntityDependency.upload_file,
+                    EntityDependency.verify_vulnerabilities_request,
                 }
             ),
             EntityAttr.open_vulnerabilities: dict(
@@ -64,6 +69,7 @@ ENTITIES = {
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_zero_risk,
                     EntityDependency.upload_file,
+                    EntityDependency.verify_vulnerabilities_request,
                 }
             ),
             EntityAttr.status: dict(
@@ -72,6 +78,7 @@ ENTITIES = {
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_zero_risk,
                     EntityDependency.upload_file,
+                    EntityDependency.verify_vulnerabilities_request,
                 }
             ),
             EntityAttr.treatment_summary: dict(
@@ -93,6 +100,7 @@ ENTITIES = {
                     EntityDependency.request_vulnerabilities_zero_risk,
                     EntityDependency.update_vulnerability_commit,
                     EntityDependency.upload_file,
+                    EntityDependency.verify_vulnerabilities_request,
                 }
             ),
         },
