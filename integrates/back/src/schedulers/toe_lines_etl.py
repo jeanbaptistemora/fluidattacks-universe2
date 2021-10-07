@@ -52,14 +52,15 @@ from urllib.parse import (
 )
 
 # Constants
-INVALID_FILENAMES = (
+INVALID_FILENAMES = {
     "",
     "Repo1/Folder1/Folder2/File.js",
     "Repo1/Folder1/Folder2/Folder3/File.html",
     "Repo2/Folder1/File.cs",
-)
+}
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
+LOGGER_CONSOLE = logging.getLogger("console")
 
 bugsnag_utils.start_scheduler_session()
 
@@ -191,6 +192,9 @@ def _get_toe_lines_to_remove(
 async def update_toe_lines_from_csv(
     loaders: Any, group_name: str, lines_csv_path: str
 ) -> None:
+    LOGGER_CONSOLE.info(
+        "Updating toe lines", extra={"extra": {"group_name": group_name}}
+    )
     group_roots_loader = loaders.group_roots
     group_roots: Tuple[Root, ...] = await group_roots_loader.load(group_name)
     group_toe_lines_loader = loaders.group_toe_lines
@@ -261,11 +265,13 @@ async def update_toe_lines(loaders: Dataloaders, tmpdirname: str) -> None:
             for lines_csv_path, group_name in zip(
                 lines_cvs_paths, lines_csv_group_names
             )
-        ]
+        ],
+        workers=10,
     )
 
 
 async def _get_machine_only_groups() -> List[str]:
+    LOGGER_CONSOLE.info("Getting machine only groups")
     active_groups = await groups_domain.get_active_groups()
     groups_data = await collect(
         groups_domain.get_attributes(group, ["historic_configuration"])
