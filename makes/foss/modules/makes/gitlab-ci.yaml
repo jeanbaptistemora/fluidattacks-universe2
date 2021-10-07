@@ -6,7 +6,7 @@
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never
-    - if: $integrates_scheduler_skims_queue_all == null
+    - if: $integrates_scheduler_machine_queue_all == null
       when: never
     - when: always
   script:
