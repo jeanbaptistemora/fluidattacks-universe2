@@ -32,13 +32,13 @@ let
     tags = [ "autoscaling" ];
   };
   gitlabDeployAppMasterResourceGroup = {
-    resource_group = "$CI_JOB_NAME";
+    resource_group = "deploy/$CI_JOB_NAME";
     rules = gitlabOnlyMaster;
     stage = "deploy-app";
     tags = [ "autoscaling" ];
   };
   gitlabDeployInfra = {
-    resource_group = "$CI_JOB_NAME";
+    resource_group = "deploy/$CI_JOB_NAME";
     rules = gitlabOnlyMaster;
     stage = "deploy-infra";
     tags = [ "autoscaling" ];
@@ -443,13 +443,22 @@ in
             stage = "build";
             tags = [ "autoscaling-large" ];
             needs = [ "/integrates/mobile/ota__prod" ];
+            variables = {
+              GIT_DEPTH = 5;
+            };
           };
         }
         {
           output = "/integrates/mobile/deploy/playstore";
-          gitlabExtra = gitlabDeployAppMaster // {
+          gitlabExtra = {
             dependencies = [ "/integrates/mobile/build/android" ];
+            rules = gitlabOnlyMaster;
+            stage = "deploy-app";
+            tags = [ "autoscaling" ];
             needs = [ "/integrates/mobile/build/android" ];
+            variables = {
+              GIT_DEPTH = 5;
+            };
           };
         }
         {

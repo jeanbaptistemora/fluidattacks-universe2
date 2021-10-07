@@ -1,5 +1,6 @@
 { inputs
 , makeScript
+, outputs
 , projectPath
 , ...
 } @ _:
@@ -15,7 +16,7 @@ makeScript {
       inputs.nixpkgs.ruby
     ];
     source = [
-      inputs.product.integrates-mobile-tools
+      outputs."/integrates/mobile/tools"
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "git")
       (inputs.legacy.importUtility "sops")
