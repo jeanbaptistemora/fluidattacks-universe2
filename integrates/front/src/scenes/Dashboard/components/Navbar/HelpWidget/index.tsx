@@ -25,7 +25,7 @@ import { msgError, msgSuccess } from "utils/notifications";
 import { toggleZendesk } from "utils/widgets";
 
 interface IAddFiles {
-  signPostUrl: {
+  signPostUrlRequester: {
     url: {
       url: string;
       fields: {
@@ -108,8 +108,8 @@ export const HelpWidget: React.FC = (): JSX.Element => {
       },
     });
 
-    const { signPostUrl }: IAddFiles = results.data;
-    const { url } = signPostUrl;
+    const { signPostUrlRequester }: IAddFiles = results.data;
+    const { url } = signPostUrlRequester;
     const { awsaccesskeyid, key, policy, signature } = url.fields;
 
     const formData = new FormData();

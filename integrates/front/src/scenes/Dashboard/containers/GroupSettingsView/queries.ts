@@ -117,7 +117,7 @@ const SIGN_POST_URL_REQUESTER_MUTATION: DocumentNode = gql`
     $filesData: JSONString!
     $groupName: String!
   ) {
-    signPostUrl(filesData: $filesData, groupName: $groupName) {
+    signPostUrlRequester(filesData: $filesData, groupName: $groupName) {
       success
       url {
         url
