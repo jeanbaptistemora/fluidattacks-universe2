@@ -11,6 +11,9 @@ previously migrated findings in an inconsistent state.
 
 Execution Time:    2021-10-05 at 01:50:11 UTCUTC
 Finalization Time: 2021-10-05 at 02:58:41 UTCUTC
+
+Execution Time:    2021-10-06 at 02:05:41 UTCUTC
+Finalization Time: 2021-10-06 at 03:55:23 UTCUTC
 """
 
 from aioextensions import (
@@ -121,7 +124,7 @@ FINDING_TABLE: str = "FI_findings"
 
 CLEAN_FINDINGS: bool = False
 MIGRATE_NON_DELETED_FINDINGS: bool = True
-MIGRATE_DELETED_FINDINGS: bool = False
+MIGRATE_DELETED_FINDINGS: bool = True
 MIGRATE_MASKED_FINDINGS: bool = False
 PROD: bool = True
 
@@ -550,11 +553,13 @@ async def _proccess_finding(
             historic_verification,
         )
 
-    await _populate_finding_unreliable_indicator(
-        loaders,
-        old_finding["project_name"],
-        finding_id,
-    )
+    # It was decided to skip the facet for this states
+    if not is_deleted:
+        await _populate_finding_unreliable_indicator(
+            loaders,
+            old_finding["project_name"],
+            finding_id,
+        )
 
     if is_deleted:
         await findings_model.remove(
@@ -667,7 +672,7 @@ async def _migrate_deleted_findings(
     findings: List[FindingType],
 ) -> bool:
     success = False
-    excluded_groups = ["worcester"]
+    excluded_groups = ["worcester"]  # Group left out from this migration
     deleted_findings = [
         finding
         for finding in _filter_deleted_findings(findings)
