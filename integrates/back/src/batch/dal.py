@@ -14,8 +14,6 @@ from botocore.exceptions import (
     ClientError,
 )
 from context import (
-    CI_COMMIT_REF_NAME,
-    CI_COMMIT_SHA,
     FI_API_STATUS,
     FI_AWS_DYNAMODB_ACCESS_KEY,
     FI_AWS_DYNAMODB_SECRET_KEY,
@@ -298,14 +296,6 @@ async def put_action_to_batch(
                     ],
                     "environment": [
                         {"name": "CI", "value": "true"},
-                        {
-                            "name": "CI_COMMIT_REF_NAME",
-                            "value": CI_COMMIT_REF_NAME,
-                        },
-                        {
-                            "name": "CI_COMMIT_SHA",
-                            "value": CI_COMMIT_SHA,
-                        },
                         {
                             "name": "PRODUCT_API_TOKEN",
                             "value": PRODUCT_API_TOKEN,
