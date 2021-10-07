@@ -51,6 +51,8 @@ import { translate } from "utils/translations/translate";
 const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const baseRolesUrl =
+    "https://docs.fluidattacks.com/machine/web/groups/roles/";
 
   // State management
   const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
@@ -79,6 +81,20 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
   }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
+  const roleToUrl = (role: string, anchor: string): JSX.Element => {
+    return (
+      <a
+        href={`${baseRolesUrl}${anchor}`}
+        rel={"noopener noreferrer"}
+        target={"_blank"}
+      >
+        {translate.t(`userModal.roles.${_.camelCase(role)}`, {
+          defaultValue: "-",
+        })}
+      </a>
+    );
+  };
+
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "email",
@@ -87,10 +103,21 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "role",
-      formatter: (value: string): string =>
-        translate.t(`userModal.roles.${_.camelCase(value)}`, {
+      formatter: (value: string): JSX.Element | string => {
+        const mappedRole = {
+          customer: roleToUrl(value, "#user-role"),
+          customeradmin: roleToUrl(value, "#user-manager-role"),
+          executive: roleToUrl(value, "#executive-role"),
+        }[value];
+
+        if (!_.isUndefined(mappedRole)) {
+          return mappedRole;
+        }
+
+        return translate.t(`userModal.roles.${_.camelCase(value)}`, {
           defaultValue: "-",
-        }),
+        });
+      },
       header: translate.t("searchFindings.usersTable.userRole"),
       width: "12%",
     },

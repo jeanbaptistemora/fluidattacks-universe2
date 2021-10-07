@@ -36,10 +36,7 @@ interface IStakeholderDataSet {
   groupName: string;
   responsibility: string;
   role: string;
-  invitationResend: React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  >;
+  invitationResend: JSX.Element;
 }
 
 interface IStakeholderAttrs {
