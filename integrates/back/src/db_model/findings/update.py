@@ -202,7 +202,6 @@ async def update_state(
     group_name: str,
     finding_id: str,
     state: FindingState,
-    is_latest: bool = True,  # Temporal during migration 0139
 ) -> None:
     items = []
     key_structure = TABLE.primary_key
@@ -220,13 +219,12 @@ async def update_state(
     )
     condition_expression = Attr(key_structure.partition_key).exists()
     try:
-        if is_latest:
-            await operations.put_item(
-                condition_expression=condition_expression,
-                facet=TABLE.facets["finding_state"],
-                item=latest,
-                table=TABLE,
-            )
+        await operations.put_item(
+            condition_expression=condition_expression,
+            facet=TABLE.facets["finding_state"],
+            item=latest,
+            table=TABLE,
+        )
     except ConditionalCheckFailedException as ex:
         raise FindingNotFound() from ex
     items.append(historic)
@@ -289,7 +287,6 @@ async def update_verification(
     group_name: str,
     finding_id: str,
     verification: FindingVerification,
-    is_latest: bool = True,  # Temporal during migration 0139
 ) -> None:
     items = []
     key_structure = TABLE.primary_key
@@ -305,11 +302,10 @@ async def update_verification(
         },
         latest_facet=TABLE.facets["finding_verification"],
     )
-    if is_latest:
-        await operations.put_item(
-            facet=TABLE.facets["finding_verification"],
-            item=latest,
-            table=TABLE,
-        )
+    await operations.put_item(
+        facet=TABLE.facets["finding_verification"],
+        item=latest,
+        table=TABLE,
+    )
     items.append(historic)
     await operations.batch_write_item(items=tuple(items), table=TABLE)

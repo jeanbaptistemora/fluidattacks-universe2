@@ -199,16 +199,12 @@ async def _update_state_entry(
     group_name: str,
     finding_id: str,
     old_state: FindingState,
-    historic_length: int,
-    count: int,
 ) -> None:
     state = _format_state(old_state)
-    is_latest = count == historic_length - 1
     await findings_model.update_state(
         group_name=group_name,
         finding_id=finding_id,
         state=state,
-        is_latest=is_latest,  # Temporal flag for this migration
     )
 
 
@@ -223,10 +219,8 @@ async def _populate_finding_historic_state(
                 group_name=group_name,
                 finding_id=finding_id,
                 old_state=old_state,
-                historic_length=len(historic_state),
-                count=count,
             )
-            for count, old_state in enumerate(historic_state)
+            for old_state in historic_state
         ]
     )
 
@@ -235,16 +229,12 @@ async def _update_verification_entry(
     group_name: str,
     finding_id: str,
     old_verification: FindingVerification,
-    historic_length: int,
-    count: int,
 ) -> None:
     verification = _format_verification(old_verification)
-    is_latest = count == historic_length - 1
     await findings_model.update_verification(
         group_name=group_name,
         finding_id=finding_id,
         verification=verification,
-        is_latest=is_latest,  # Temporal flag for this migration
     )
 
 
@@ -259,10 +249,8 @@ async def _populate_finding_historic_verification(
                 group_name=group_name,
                 finding_id=finding_id,
                 old_verification=old_verification,
-                historic_length=len(historic_verification),
-                count=count,
             )
-            for count, old_verification in enumerate(historic_verification)
+            for old_verification in historic_verification
         ]
     )
 
