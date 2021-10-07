@@ -59,8 +59,8 @@ def insecure_logging(
 ) -> core_model.Vulnerabilities:
 
     object_methods = {
-        "LogManager.GetLogger",
-        "LogManager.GetCurrentClassLogger",
+        "GetLogger",
+        "GetCurrentClassLogger",
     }
 
     object_names = {
