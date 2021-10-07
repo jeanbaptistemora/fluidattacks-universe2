@@ -17,63 +17,70 @@
 = Are You Checking Types?
 
 The dominoes game is simple,
-there are 28 tiles (in the standard version of this game),
+there are 28 tiles (standard version),
 each one with a unique combination
 of two numbers of pips between 0 and 6.
-There are usually 4 players,
-so each one randomly takes 7 tiles.
-The objective of the game is to be the first player
-to place all the own tiles on the table,
-for this, each player take turns to place a tile
-adjacent to the already-on-table tiles
-as long as the number of pips match.
-Thus, as the game evolves,
-the amount of tiles on the table increases.
-Most people believe that dominoes is more a game
-of luck than anything else,
-but what many ignore is that, it is a strategy game.
-A good player checks the tiles that are on the table,
-counting how many pieces of a certain number
-of pips are already placed
-and which are the ones the opponent have.
-By knowing this, they can choose the best tile to place
-and force the opponents to play in a certain way.
-As in poker, the movements you make while placing the tiles
-or the facial expressions reveal how good
-or how bad is your game going.
-So, if you always bites the dust in the dominoes,
+The game's objective is to be the first player
+to place all the own tiles on the table.
+For this,
+each player takes turns to place a tile
+adjacent to those already on the table
+as long as the number of pips matches.
+Most people believe
+that dominoes is more a game of luck
+than anything else.
+In fact,
+it's a game of strategy.
+A good player checks the tiles on the table,
+counting how many pieces
+of a certain number of pips
+are already placed
+and which ones the opponents have.
+By knowing this,
+they can choose the best tile to place
+and force the opponents
+to play in a certain way.
+So,
+if you always bite the dust in the dominoes,
 maybe it's because you're not checking enough.
 
 == Ludopathy
 
-In a didactic way, we can relate
-the coding in Python with a game of dominoes.
+We can relate the coding in Python
+with a game of dominoes.
 The script is the tiles on the table,
 so the players are the developers.
-The tiles would be, of course, small pieces of code.
-Again, developers take turns to place tiles.
-The goal of the coding-in-Python game is different
-from dominoes, the idea now is that all players win!
-So, they can place in a single script, all the code tiles they have.
+The tiles would be small pieces of code.
+Again,
+developers take turns to place tiles.
+However,
+the goal now is that all players win!
+So,
+they can put in a single script
+all the code tiles they have.
 The final result would be a perfectly coupled script
 specially assembled to do a certain task.
-But if everyone can win, then everyone can lose.
-And if your developers team is already
-used to constantly losing games,
-then, just like in dominoes, you are not checking enough!
+But if everyone can win,
+then everyone can lose.
+And if your developers' team is already used
+to constantly losing games,
+then,
+just like in dominoes,
+you're not checking enough!
 
 .Dominoes can be compared with the development activity.
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330662/blog/are-you-checking-types/dominoes_xtbi5m.webp["Family playing dominoes"]
 
 == Bankruptcy
 
-I lied, there are many reasons
+There are many reasons
 why you can lose in the coding-in-Python game,
 but not checking well is one of the most common.
-Specifically, I'm talking about checking the type of variables
+Specifically,
+I'm talking about checking the type of variables
 or data structures in your code.
 
-For example the following code:
+For example:
 
 .[[adding-integers]]Add integers method in Python.
 [source, Python]
@@ -84,25 +91,27 @@ def add_integers(a, b):
 add_integers(2, 3) # 5
 ----
 
-At first sight the function seems fine.
-In fact, it works as expected, but it has a huge problem
-and that can be the beginning of the end for any deployed application.
-In the following example, we will use the same
-\add_integers\ method but we will make a change.
+At first sight,
+the function seems fine.
+It works as expected,
+but it has a huge problem.
+In the following example,
+we'll use the same \add_integers\ method,
+but we'll make a change.
 
-.[[adding-strings]]Adding strings in Python.
+.[[adding-strings]]Adding strings.
 [source, Python]
 ----
 add_integers('2', '3')  #  '23'
 ----
 
-The code still works as it should be
-but it was not the result we expected,
-we managed to "cheat" the function to add strings instead of integers.
+The code still works as it should be,
+but it's not the result we expected;
+we managed to "cheat" the function
+to add strings instead of integers.
 
-I know this does not say much
-or that it is not enough to create an entire library in Python.
-But I will show you the destructive potential of this feature
+I know this doesn't say much,
+but I'll show you the destructive potential of this feature
 with another example using the same
 <<adding-integers, _add_integers_>> function:
 
@@ -127,54 +136,60 @@ sequence by non-int of type 'str'
 ----
 
 Now you can cry.
-As you can see, your apples sale business went bankrupt
+Your apple sales business went bankrupt
 by simply changing the type of input variables.
-You could have been the Apples Sheikh if you had only checked
-the type of variables before using the script.
 
 == Oh, the irony!
 
-Dear reader, if you are a pythonista who does not allow
+Dear reader,
+if you're a pythonista who doesn't allow
 yourself to be surprised so easily,
-in your head you are saying:
-_"Wait, what? Python is a program with dynamic typing,
-that's its point, I do not have to define the type of variables
-because the interpreter is able to understand what the type is."_
-Yes, that is true, but the interpreter is not guilty
-of having an entanglement of thousands
-of methods that depend on each other.
-The interpreter is not guilty that any method
-can modify the state including the variable type.
+you may be saying:
+_"Wait, what?
+Python is a program with dynamic typing;
+that's its point,
+I don't have to define the type of variables
+because the interpreter can understand what the type is."_
+Yes,
+that's true,
+but the interpreter is not guilty of having an entanglement
+of thousands of methods
+that depend on each other.
+The interpreter is not guilty
+that any method can modify the state,
+including the variable type.
 
-I will give you the solution now
-saving you the task of reading
-the conclusions of this article:
+I'll give you the solution now:
 Go functional and set the type of your variables!
-If you want to know how to do that, keep reading.
+If you want to know how to do that,
+keep reading.
 
 == Canard à l'orange
 
-Many scholars of the snakes call
-the typing in Python as “duck typing”.
-The name comes from the following premise:
+Many scholars call the typing in Python "duck typing."
+The name comes from this premise:
 "If it goes like a duck
 and it quacks like a duck,
-then it must be a duck".
-Nice, right!
-In this way we understood that Python knows
-what the type is by analyzing the behavior
+then it must be a duck."
+In this way,
+we understood that Python knows
+what the type is
+by analyzing the behavior
 and attributes of a variable.
-Honestly in `Fluid Attacks` we prefer
-the _Canard à l'orange_ (“duck with orange” in French)
+Honestly,
+in `Fluid Attacks`,
+we prefer the _Canard à l'orange_
+("duck with orange" in French)
 instead of living with it in our code.
 
 == How to pluck a duck?
 
-We already know why we should
-not let the interpreter choose what type
-of variable we are working with.
-It may sound a little laborious to have to
-type each variable but in Python 3 this task is easy:
+We already know why
+we shouldn't let the interpreter choose what type
+of variable we're working with.
+It may sound a little laborious
+to have to type each variable,
+but this task is easy in Python 3:
 
 .Add integers method with typed variables.
 [source, python]
@@ -194,38 +209,39 @@ Let's see if this solves the problem:
 add_integers('2', '3') # '23'
 ----
 
-Hahaha, I lied to you again.
-Typing variables in Python, literally does not do anything
-to the way in which the code is executed.
-Python is like a child who believes everything you tell him,
+I lied to you again.
+Typing variables in Python doesn't do anything
+to how the code is executed.
+Python is like a child
+who believes everything you tell him;
 no matter if you set the type or not,
-it will continue to obey.
+it'll continue to obey.
 
 == Mypy to the rescue
 
-Set variables types is useful
+Setting variable types is useful
 when we use a tool that has become popular
 among the pythonistas: link:http://http://mypy-lang.org/[`mypy`].
-Mypy is a static type checker,
-available in Python 2.7 and Python 3.
-Its use and purpose is similar to the linting tools.
-Mypy uses the type hints defined in the code to validate
-that those hints are met in the parts of the code
+Mypy is a static type checker.
+It uses the type hints defined in the code
+to validate that these hints are met
+in the parts of the code
 where the variables are used.
-This tool runs separate from the execution of the code
-so mypy does not interfere with the functionality.
+This tool runs separately from the execution of the code.
 
 You can use the following command to install mypy in Python 3:
 
-.Mypy installation in Python 3.
+.Mypy installation.
 [source, bash]
 ----
 $ python3 -m pip install mypy
 ----
 
-After the installation, using mypy is very simple,
-we just have to make sure that the code we want to check is saved in a script
-and  then run the following command:
+Now,
+we just have to make sure
+that the code we want to check
+is saved in a script
+and then run the following command:
 
 .Command to use mypy.
 [source, bash]
@@ -234,7 +250,8 @@ $ python3 -m mypy name_of_my_file.py
 ----
 
 Let's go back to the example of <<\adding-integers\>>
-and save it in a script called _add_integer_method.py_. Now we use mypy:
+and save it in a script called _add_integer_method.py_.
+Now we use mypy:
 
 .Using mypy in a known script.
 [source, bash]
@@ -243,12 +260,14 @@ $ python3 -m mypy  add_integer_method.py
 #... No output
 ----
 
-If there is no output when running the command,
-it means that the code is correct and can be executed.
-Now we add the <<\adding-strings, adding strings example\>> to to file
+If there's no output when running the command,
+the code is correct
+and can be executed.
+Now we add the <<\adding-strings, adding strings example\>>
+to the file
 and run mypy again:
 
-.Mypy warnings.
+.Warnings.
 [source, bash]
 ----
 $ python3 -m mypy  add_integer_method.py
@@ -259,44 +278,43 @@ has incompatible type "str"; expected "int"
 has incompatible type "str"; expected "int"
 ----
 
-Eureka! mypy was able to discover that we set a string
+Eureka!
+Mypy was able to discover that we set a string
 into a method that was defined with integer type inputs.
 Here we use a very small and maybe obvious example,
-but imagine applications of thousands of code lines,
-now, with a single command
-and a few seconds we can check the variable types.
-
-We already use mypy in our product
-Asserts and the benefits have been questionless.
-We have even found that mypy helps directly to the documentation task,
-thanks to the fact that it is no longer necessary to write
-what is the type of the variables in the documentation
-because that information is already in the code.
+but imagine applications of thousands of code lines.
+Now,
+with a single command,
+we can check the variable types.
 
 == Conclusions
 
-We demonstrate in many ways the importance
-of setting the variables types that we will use
-and we show how fatal is to not check types.
-Mypy is a useful tool in any development activity
-but it is especially powerful in projects
+We demonstrated the importance of setting the variables' types
+that we'll use
+and showed how fatal it's to not check them.
+Mypy is a useful tool in any development activity,
+but it's especially powerful in projects
 where more than one developer contributes.
-With mypy we can debug in an easier way
-or make sure that code with wrong types
-are not deployed to production.
-Of course, mypy is not a straitjacket,
-this library does not impose anything on us,
+With mypy, we can debug easier
+or ensure that code with the wrong types
+is not deployed to production.
+Of course,
+Mypy is not a straitjacket;
+this library doesn't impose anything on us;
 we decide to ignore or solve the warnings it shows us.
-Finally, we make the recommendation to implement
-functional code in your programs,
+Finally,
+we make the recommendation to implement
+functional code in your programs;
 this will make your code more durable,
 cleaner and easier to debug.
-This programming paradigm takes on a more versatility
+This programming paradigm takes on more versatility
 when merged with tools like mypy,
 which turns very tedious processes into a matter of seconds.
-If you still do not know much about functional programming
-or functional programming in Python, we invite you to read
-[button]#link:/blog/why-we-go-functional/[Why we go functional?]#
-and
-[button]#link:/blog/road-to-functional-python/[Road to functional Python]#.
-You already have the knowledge, so will you check types?
+If you still don't know much
+about functional programming in general
+or functional programming in Python,
+we invite you to read the posts
+link:../why-we-go-functional/["Why We Go Functional?"]#
+and link:../road-to-functional-python/["Road to Functional Python"]#.
+You already have the knowledge,
+so will you check types?
