@@ -18375,3 +18375,64 @@
   metadata:
     en:
       details: __empty__
+"390":
+  en:
+    title: Prototype Pollution
+    description: >
+      An application object, method or module
+      can be overwritten with malicious logic
+      due to the lack of validations
+      and the nature of the JavaScript language
+    impact: >
+     - Overwrite or pollute the behavior
+     of existing methods in the application
+
+     - Lead to dangerous vulnerabilities
+     suchs as XSS, SQLi, RCE, among others
+    recommendation: >
+      - Implement integrity validations on the vulnerable objects.
+
+      - Restrict and Discourage the use harmful properties
+      such as _proto_ in the system objects
+    threat: >
+      Authenticated attacker from the Internet
+  category: Inject Unexpected
+  es:
+    title: Prototype Pollution
+    description: >
+      Un Objeto, método o módulo de la aplicación
+      puede ser sobreescrito con lógica maliciosa,
+      debido a la ausencia de validaciones sumado a la naturaleza
+      propia del lenguaje JavaScript
+    impact: >
+      - Sobreescribir o corromper el comportamiento
+      de métodos de la aplicación
+
+      - Conducir a vulnerabilidades más peligrosas
+      como XSS, SQLi, RCE, entre otras
+    recommendation: >
+      - Implementar validaciones de integridad en los objetos vulnerables
+      para evitar que sean sobreescritos
+
+      - Restringir el uso de propiedades peligrosas como _proto_
+      en los objetos de la aplicación
+    threat: >
+      Atacante autenticado en la aplicación desde Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "R"
+  requirements: ["173"]
+  metadata:
+    en:
+      details: __empty__
