@@ -1,4 +1,5 @@
 { fetchUrl
+, libGit
 , makeDerivation
 , makeScript
 , inputs
@@ -34,6 +35,7 @@ makeScript {
       inputs.product.makes-wait
     ];
     source = [
+      libGit
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "sops")
     ];

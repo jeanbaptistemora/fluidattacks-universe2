@@ -51,6 +51,9 @@ function serve {
           || return 1
       done
     done \
+    && if test -z "${CI_COMMIT_REF_NAME:-}"; then
+      CI_COMMIT_REF_NAME="$(get_abbrev_rev . HEAD)"
+    fi \
     && for bucket in "${buckets_by_branch[@]}"; do
       aws_s3_sync \
         "s3://${bucket}/${CI_COMMIT_REF_NAME}" \

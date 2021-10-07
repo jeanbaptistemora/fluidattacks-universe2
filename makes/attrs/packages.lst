@@ -6,7 +6,6 @@ airs.npm.env
 airs.npm.runtime
 forces.config-development
 forces.config-runtime
-integrates.secrets.list
 makes.commitlint
 makes.python.safe-pickle
 makes.test

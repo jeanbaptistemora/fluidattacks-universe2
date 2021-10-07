@@ -274,7 +274,7 @@ resource "aws_batch_job_definition" "makes" {
   name = "makes"
   type = "container"
   container_properties = jsonencode({
-    image = "ghcr.io/fluidattacks/makes:21.10"
+    image = "ghcr.io/fluidattacks/makes:21.11"
 
     # Will be overridden on job submission
     memory = 1800
