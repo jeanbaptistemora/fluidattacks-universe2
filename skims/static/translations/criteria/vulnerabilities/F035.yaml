@@ -2,8 +2,8 @@ src.lib_root.f035.csharp_weak_credential_policy.description:
   en: Weak password policy
   es: Política insegura de contraseñas
 src.lib_root.f035.csharp_no_password.description:
-  en: No password used
-  es: No se utiliza contraseña
+  en: The system credential policy is not compliant with security regulations
+  es: La política de credenciales no se ajusta a las regulaciones de seguridad
 F035.description:
   en: >
     The system credential policy is not compliant with security regulations.
