@@ -106,7 +106,13 @@ in
       ++ (builtins.map
         (category: {
           output = "/testPython/skims@${category}";
-          gitlabExtra = gitlabTest;
+          gitlabExtra = gitlabTest // (
+            if category == "functional"
+            then { resource_group = "$CI_COMMIT_REF_NAME-$CI_JOB_NAME"; }
+            else if category == "unittesting"
+            then { variables.GIT_DEPTH = 0; }
+            else { }
+          );
         })
         (builtins.filter
           (category: category != "_" && category != "all")
@@ -119,18 +125,6 @@ in
         {
           output = "/skims/test/sdk";
           gitlabExtra = gitlabTest;
-        }
-        {
-          output = "/testPython/skims@functional";
-          gitlabExtra = gitlabTest // {
-            resource_group = "$CI_COMMIT_REF_NAME-$CI_JOB_NAME";
-          };
-        }
-        {
-          output = "/testPython/skims@lib_apk";
-          gitlabExtra = gitlabTest // {
-            tags = [ "autoscaling-large" ];
-          };
         }
         {
           output = "/testTerraform/skims";

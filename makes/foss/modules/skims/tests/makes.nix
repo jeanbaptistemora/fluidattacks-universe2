@@ -15,12 +15,9 @@
           "androguard" = inputs.skimsAndroguard;
           "owasp_benchmark" = inputs.skimsBenchmarkOwasp;
           "NIST-SARD-Test-Suites" = inputs.skimsNistTestSuites;
-          "product" = inputs.nixpkgs.fetchgit {
-            branchName = "master";
-            url = "https://gitlab.com/fluidattacks/product.git";
-            rev = "68d5397178ada18e4cf6d4676765c8f8810013ce";
-            sha256 = "05k9b5135xg1x0g5627mi5bsc1rvwd8n02lfv4dvdclfwkd70342";
-            deepClone = true;
+          "product" = builtins.path {
+            name = "product";
+            path = ../../../../..;
           };
           "VulnerableApp" = inputs.skimsVulnerableApp;
           "vulnerable_js_app" = inputs.skimsVulnerableJsApp;
