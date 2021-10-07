@@ -1,17 +1,17 @@
 ---
 id: unsubscribe-email
-title: Unsubscribe email
-sidebar_label: Unsubscribe email
+title: Unsubscribe Email
+sidebar_label: Unsubscribe Email
 slug: /about/security/privacy/unsubscribe-email
 ---
 
-To be respectful to users regarding
-what information they want to receive,
-for all commercial and informative emails,
-recipients can stop getting them
-by clicking on the **"unsubscribe from this list"** link.
+To be respectful to users
+regarding the information they want to receive,
+they have the option to stop receiving
+all of our commercial and informative emails
+by clicking on the **Unsubscribe from this list** link.
 
 By doing so,
 their emails are placed on a list
 of unsubscribed emails,
-and no new emails will be sent to them.
+and we do not send new messages to them.

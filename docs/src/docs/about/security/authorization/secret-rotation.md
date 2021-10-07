@@ -1,31 +1,31 @@
 ---
 id: secret-rotation
-title: Secret rotation
-sidebar_label: Secret rotation
+title: Secret Rotation
+sidebar_label: Secret Rotation
 slug: /about/security/authorization/secret-rotation
 ---
 
-[Key rotation](/criteria/requirements/130)
-is essential when dealing with sensitive data.
-The best way to prevent a key leakage
-is by changing the keys regularly.
+[Key rotation](/criteria/requirements/130) is essential
+when dealing with sensitive data.
+The best way to prevent key leakage
+is by changing keys regularly.
 Our rotation cycles are as follows:
 
-- **KMS keys:** every year or before in case it is needed.
+- **KMS keys:** every year or earlier if necessary
 
-- **JWT Tokens:** daily.
+- **JWT tokens:** daily
 
-- **Digital Certificates:** every thirty days.
+- **Digital certificates:** every thirty days.
 
 - **IAM passphrases:** [every three months](/criteria/requirements/089).
 
-Rotations are done in these two different ways:
+We make rotations in these two different ways:
 
 - **Automatic rotation:**
   Some secrets are stored in secret vaults.
   They are only accessible by administrators
   and are rotated daily.
-  These secrets include JWT Tokens,
+  These secrets include JWT tokens,
   IAM passphrases,
   and digital certificates.
 
@@ -34,8 +34,8 @@ Rotations are done in these two different ways:
   and encrypted in git repositories
   using AES256 symmetric keys.
   They are treated as code,
-  meaning that to be rotated a
+  which means that
   [manual approval](https://fluidattacks.com/about/security/#PR)
-  needs to be obtained.
+  is required to rotate them.
   These secrets include KMS keys
   and other application credentials.

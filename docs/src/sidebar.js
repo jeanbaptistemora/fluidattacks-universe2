@@ -79,7 +79,7 @@ const About = [
           'about/security/privacy/email-obfuscation',
           'about/security/privacy/secure-data-delivery',
           'about/security/privacy/unsubscribe-email',
-          'about/security/privacy/transparent-cookie-usage',
+          'about/security/privacy/transparent-use-cookies',
           'about/security/privacy/data-policies',
           'about/security/privacy/otr-messaging',
           'about/security/privacy/employee-time-tracking',

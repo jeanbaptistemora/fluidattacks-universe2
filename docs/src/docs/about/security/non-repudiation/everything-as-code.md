@@ -1,30 +1,30 @@
 ---
 id: everything-as-code
-title: Everything as code
-sidebar_label: Everything as code
+title: Everything as Code
+sidebar_label: Everything as Code
 slug: /about/security/non-repudiation/everything-as-code
 ---
 
 At `Fluid Attacks`,
-we try to keep as much as possible
+we try to keep as much material as possible
 versioned in a Git repository.
 By doing so,
-we are able to have comprehensive logs of
+we can have comprehensive logs of exactly
 
-- what exactly was changed;
+- what was changed;
 
 - who changed it;
 
-- when it was changed; and
+- when it was changed, and
 
-- who approved a change.
+- who approved the change.
 
 Currently,
 we keep all our systems as code:
 
 - [Attack Surface Manager (ASM)](https://gitlab.com/fluidattacks/product/-/commits/master)
 
-- [Continuous hacking](https://fluidattacks.com/services/continuous-hacking/)
+- [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
 
 - [Infrastructure](https://fluidattacks.com/about/security/#IAC)
 
