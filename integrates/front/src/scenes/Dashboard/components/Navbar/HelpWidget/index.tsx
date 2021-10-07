@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 
 import { DropdownButton, DropdownMenu, NavbarButton } from "../styles";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
+import { AddFilesBasicModal } from "scenes/Dashboard/components/AddFilesBasicModal";
 import { SIGN_POST_URL_REQUESTER_MUTATION } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
@@ -88,11 +88,7 @@ export const HelpWidget: React.FC = (): JSX.Element => {
     setAddModalOpen(false);
   }, []);
 
-  const handleUpload: (values: {
-    description: string;
-    file: FileList;
-  }) => void = async (values: {
-    description: string;
+  const handleUpload: (values: { file: FileList }) => void = async (values: {
     file: FileList;
   }): Promise<void> => {
     disableButton();
@@ -100,7 +96,6 @@ export const HelpWidget: React.FC = (): JSX.Element => {
       variables: {
         filesData: JSON.stringify([
           {
-            description: values.description,
             fileName: values.file[0].name,
           },
         ]),
@@ -170,7 +165,7 @@ export const HelpWidget: React.FC = (): JSX.Element => {
                   <FontAwesomeIcon icon={faUpload} />
                   {t("navbar.uploadFile.text")}
                 </DropdownButton>
-                <AddFilesModal
+                <AddFilesBasicModal
                   isOpen={isAddModalOpen}
                   isUploading={isButtonEnabled}
                   onClose={closeAddModal}

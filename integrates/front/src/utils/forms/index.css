@@ -83,12 +83,6 @@
   background-color: #8e1616;
 }
 
-@media screen and (max-width: 50em) {
-  .inputfile_evidence + label > strong {
-    display: block;
-  }
-}
-
 :local .text_center {
   text-align: center;
 }
