@@ -6,7 +6,7 @@
     skimsOwaspBenchmarkAndUpload = rec {
       attempts = 1;
       attemptDurationSeconds = 86400;
-      command = [ "m" "/skims/owasp-benchmark-and-upload" ];
+      command = [ "m" "f" "/skims/owasp-benchmark-and-upload" ];
       definition = "makes";
       environment = [ "PRODUCT_API_TOKEN" ];
       memory = vcpus * 1800;
@@ -17,7 +17,7 @@
     skimsProcessGroup = rec {
       attempts = 1;
       attemptDurationSeconds = 86400;
-      command = [ "m" "/skims/process-group" ];
+      command = [ "m" "f" "/skims/process-group" ];
       definition = "makes";
       environment = [ "PRODUCT_API_TOKEN" ];
       memory = vcpus * 1800;

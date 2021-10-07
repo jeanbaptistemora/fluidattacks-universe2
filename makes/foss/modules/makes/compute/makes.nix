@@ -15,7 +15,7 @@ let
     '';
     searchPaths = {
       bin = [ inputs.nixpkgs.python38 ];
-      source = [ inputs.product.skims-config-sdk ];
+      source = [ outputs."/skims/config-sdk" ];
     };
     builder = "python $envPrintAvailableQueues > $out";
   };

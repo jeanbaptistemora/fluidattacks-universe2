@@ -1,12 +1,12 @@
-{ inputs
-, makeSearchPaths
+{ makeSearchPaths
+, outputs
 , ...
 }:
 {
   dev = {
     skims = {
       source = [
-        inputs.product.skims-config-runtime
+        outputs."/skims/config-runtime"
         (makeSearchPaths {
           pythonPackage = [ "$PWD/skims/skims" ];
         })

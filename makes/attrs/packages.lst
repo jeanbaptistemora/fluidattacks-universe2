@@ -82,7 +82,5 @@ observes.test.tap-gitlab
 observes.test.tap-mailchimp
 observes.test.tap-mixpanel
 reviews.runtime
-skims.config-runtime
-skims.config-sdk
 sorts.config-development
 sorts.config-runtime

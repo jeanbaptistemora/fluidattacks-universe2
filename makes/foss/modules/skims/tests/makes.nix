@@ -32,8 +32,8 @@
             outputs."/skims/test/mocks/ssl/unsafe"
           ];
           source = [
-            inputs.product.skims-config-runtime
             outputs."/secretsForAwsFromEnv/skimsDev"
+            outputs."/skims/config-runtime"
             outputs."/skims/env/development"
             (makeTemplate {
               name = "extra";

@@ -134,7 +134,7 @@ function main {
     && check_cli_arg 2 check "${check}" \
     && check_cli_arg 3 namespace "${namespace}" \
     && shopt -s nullglob \
-    && ensure_gitlab_env_vars \
+    && ensure_gitlab_arg_vars \
       INTEGRATES_API_TOKEN \
       SERVICES_PROD_AWS_ACCESS_KEY_ID \
       SERVICES_PROD_AWS_SECRET_ACCESS_KEY \

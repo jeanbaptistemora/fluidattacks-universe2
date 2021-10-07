@@ -29,5 +29,5 @@ module "publish_credentials_prod" {
   key_1        = aws_iam_access_key.skims_prod_key-1
   key_2        = aws_iam_access_key.skims_prod_key-2
   prefix       = "SKIMS_PROD"
-  protected    = true
+  protected    = false
 }

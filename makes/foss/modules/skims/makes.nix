@@ -1,6 +1,5 @@
 # https://github.com/fluidattacks/makes
-{ inputs
-, outputs
+{ outputs
 , ...
 }:
 {
@@ -33,7 +32,7 @@
     dirsOfModules = {
       skims = {
         searchPaths.source = [
-          inputs.product.skims-config-runtime
+          outputs."/skims/config-runtime"
           outputs."/skims/env/development"
         ];
         python = "3.8";
@@ -49,7 +48,7 @@
     modules = {
       skimsTest = {
         searchPaths.source = [
-          inputs.product.skims-config-runtime
+          outputs."/skims/config-runtime"
           outputs."/skims/env/development"
         ];
         python = "3.8";
@@ -62,17 +61,17 @@
       };
       skimsTestSdk = {
         searchPaths.source = [
-          inputs.product.skims-config-sdk
+          outputs."/skims/config-sdk"
         ];
         python = "3.8";
         src = "/makes/foss/units/skims/test/sdk/src";
       };
       skimsProcessGroup = {
         searchPaths.source = [
-          inputs.product.skims-config-runtime
+          outputs."/skims/config-runtime"
         ];
         python = "3.8";
-        src = "/makes/applications/skims/process-group/src";
+        src = "/makes/foss/units/skims/process-group/src";
       };
     };
   };

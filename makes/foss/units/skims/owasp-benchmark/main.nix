@@ -13,9 +13,7 @@ makeScript {
       inputs.nixpkgs.python38
       outputs."/skims"
     ];
-    source = [
-      inputs.product.skims-config-runtime
-    ];
+    source = [ outputs."/skims/config-runtime" ];
   };
   entrypoint = ./entrypoint.sh;
 }

@@ -170,10 +170,13 @@ async def _run(
     stdout: Optional[int] = None,
     **env: str,
 ) -> Tuple[int, Optional[bytes], Optional[bytes]]:
+    final_env = environ.copy()
+    final_env.update(env)
+
     process: asyncio.subprocess.Process = await asyncio.create_subprocess_exec(
         cmd,
         *cmd_args,
-        env=env,
+        env=final_env,
         stderr=stderr,
         stdin=subprocess.DEVNULL,
         stdout=stdout,
@@ -223,7 +226,7 @@ async def queue(
         PRODUCT_API_TOKEN=product_api_token,
         stderr=stderr,
         stdout=stdout,
-        MAKES_COMPUTE_ON_AWS_JOB_QUEUE=get_queue_for_finding(
+        MAKES_COMPUTE_ON_AWS_BATCH_QUEUE=get_queue_for_finding(
             finding_code,
             urgent=urgent,
         ),

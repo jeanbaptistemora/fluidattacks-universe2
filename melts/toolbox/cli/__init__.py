@@ -1,7 +1,6 @@
 # pylint: disable=unused-argument
 # pylint: disable=import-outside-toplevel
 
-
 from botocore.exceptions import (
     ClientError,
 )
@@ -13,6 +12,7 @@ from git.exc import (
     InvalidGitRepositoryError,
 )
 import json
+import sys
 from toolbox import (
     constants,
     drills,
@@ -84,7 +84,7 @@ def main() -> bool:
     """Usual entrypoint."""
     utils.bugs.configure_bugsnag()
     melts(  # pylint: disable=no-value-for-parameter,unexpected-keyword-arg
-        prog_name="melts",
+        prog_name="$ m f /melts",
     )
     return True
 

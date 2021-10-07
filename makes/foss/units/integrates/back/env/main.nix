@@ -28,10 +28,10 @@ makeTemplate {
       inputs.nixpkgs.p7zip
     ];
     source = [
-      inputs.product.skims-config-sdk
       outputs."/integrates/back/tools"
       outputs."/integrates/back/pypi/runtime"
       outputs."/integrates/secrets/list"
+      outputs."/skims/config-sdk"
       libGit
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "sops")

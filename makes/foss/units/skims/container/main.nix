@@ -1,10 +1,10 @@
-{ inputs
-, makeContainerImage
+{ makeContainerImage
 , makeDerivation
+, outputs
 , ...
 }:
 makeContainerImage {
-  config.Entrypoint = [ "${inputs.product.skims}/bin/skims" ];
+  config.Entrypoint = [ "${outputs."/skims"}/bin/skims" ];
   layers = [
     (makeDerivation {
       builder = ./builder.sh;
