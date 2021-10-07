@@ -8,10 +8,17 @@ from custom_types import (
     Group as GroupType,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from decimal import (
     Decimal,
+)
+from findings.domain.core import (
+    get_severity_score_new,
 )
 from groups import (
     domain as groups_domain,
@@ -31,7 +38,6 @@ from tags import (
     domain as tags_domain,
 )
 from typing import (
-    Any,
     cast,
     Dict,
     List,
@@ -40,8 +46,6 @@ from typing import (
 )
 
 logging.config.dictConfig(LOGGING)
-
-# Constants
 LOGGER = logging.getLogger(__name__)
 
 
@@ -83,9 +87,9 @@ def calculate_tag_indicators(
 
 
 async def update_organization_indicators(
-    context: Any, organization_name: str, groups: List[str]
+    loaders: Dataloaders, org_name: str, groups: List[str]
 ) -> Tuple[bool, List[str]]:
-    group_findings_loader = context.group_findings
+    group_findings_loader = loaders.group_findings_new
     success: List[bool] = []
     updated_tags: List[str] = []
     indicator_list: List[str] = [
@@ -102,12 +106,14 @@ async def update_organization_indicators(
         groups_domain.get_attributes(group, indicator_list + ["tag"])
         for group in groups
     )
-    group_findings = await group_findings_loader.load_many(groups)
+    group_findings: Tuple[
+        Tuple[Finding, ...], ...
+    ] = await group_findings_loader.load_many(groups)
     for index, group in enumerate(groups):
         groups_attrs[index]["max_severity"] = Decimal(
             max(
                 [
-                    float(finding.get("cvss_temporal", 0.0))
+                    float(get_severity_score_new(finding.severity))
                     for finding in group_findings[index]
                 ]
                 if group_findings[index]
@@ -122,22 +128,18 @@ async def update_organization_indicators(
         tag_info = calculate_tag_indicators(
             tag, tags_dict, indicator_list + ["max_severity"]
         )
-        success.append(
-            await tags_domain.update(organization_name, tag, tag_info)
-        )
+        success.append(await tags_domain.update(org_name, tag, tag_info))
     return all(success), updated_tags
 
 
 async def update_portfolios() -> None:
-    """
-    Update portfolios metrics
-    """
-    context = get_new_context()
-    group_loader = context.group
+    """Update portfolios metrics"""
+    loaders: Dataloaders = get_new_context()
+    group_loader = loaders.group
     async for _, org_name, org_groups in (
         orgs_domain.iterate_organizations_and_groups()
     ):
-        org_tags = await context.organization_tags.load(org_name)
+        org_tags = await loaders.organization_tags.load(org_name)
         org_groups_attrs = await group_loader.load_many(list(org_groups))
         tag_groups: List[str] = [
             str(group["name"])
@@ -147,7 +149,7 @@ async def update_portfolios() -> None:
             and group["tags"]
         ]
         success, updated_tags = await update_organization_indicators(
-            context, org_name, tag_groups
+            loaders, org_name, tag_groups
         )
         if success:
             deleted_tags = [
