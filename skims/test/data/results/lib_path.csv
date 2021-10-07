@@ -7827,6 +7827,26 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [C
   17 | }
      ^ Col 0
 "
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2021-23337],9,937,skims,011. Use of software with known vulnerabilities,Use of lodash at version 0. with CVE-2021-23337 in skims/test/data/lib_path/f011/package.json,"
+   1 | {
+   2 |   ""dependencies"": {
+   3 |     ""@angular/core"": ""11.0.4"",
+   4 |     ""axios"": ""0.18.0"",
+   5 |     ""connect"": ""2.8"",
+   6 |     ""fresh"": ""xxxxwhasdflaskdjfasdf"",
+   7 |     ""hoek"": ""^5.0.0"",
+   8 |     ""html-parse-stringify"": ""2.0.0"",
+>  9 |     ""lodash"": ""0.*"",
+  10 |     ""jasmine-core"": ""2.99.1"",
+  11 |     ""jquery"": ""0.*"",
+  12 |     ""ng-packagr"": ""12.2.2"",
+  13 |     ""node-sass"": ""^5.0.0"",
+  14 |     ""serverless-offline"": ""3.3.0"",
+  15 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  16 |   }
+  17 | }
+     ^ Col 0
+"
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [SNYK-JS-LODASH-567746],9,937,skims,011. Use of software with known vulnerabilities,Use of lodash at version 0. with SNYK-JS-LODASH-567746 in skims/test/data/lib_path/f011/package.json,"
    1 | {
    2 |   ""dependencies"": {
