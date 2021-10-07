@@ -36,7 +36,7 @@ async def mutate(
     requester: str = get_key_or_fallback(parameters)
 
     signed_url = await resources_utils.upload_file(
-        files_data[0]["file_name"], requester
+        files_data[0]["file_name"], f"non_clients/{requester}"
     )
 
     if signed_url:
