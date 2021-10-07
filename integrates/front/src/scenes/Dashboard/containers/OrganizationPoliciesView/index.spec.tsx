@@ -483,7 +483,7 @@ describe("Organization policies view", (): void => {
         result: {
           errors: [
             new GraphQLError(
-              "Exception - Number of acceptations should be zero or positive"
+              "Exception - Number of acceptances should be zero or positive"
             ),
           ],
         },

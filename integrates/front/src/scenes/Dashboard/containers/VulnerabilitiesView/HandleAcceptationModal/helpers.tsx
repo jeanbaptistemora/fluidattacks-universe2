@@ -56,7 +56,7 @@ const acceptationProps = (
     onCompleted: (data: IHandleVulnerabilitiesAcceptanceResultAttr): void => {
       if (data.handleVulnerabilitiesAcceptance.success) {
         msgSuccess(
-          translate.t("searchFindings.tabVuln.alerts.acceptationSuccess"),
+          translate.t("searchFindings.tabVuln.alerts.acceptanceSuccess"),
           translate.t("groupAlerts.updatedTitle")
         );
         refetchData();
@@ -66,10 +66,10 @@ const acceptationProps = (
     onError: (errors: ApolloError): void => {
       errors.graphQLErrors.forEach((error: GraphQLError): void => {
         switch (error.message) {
-          case "Exception - It cant handle acceptation without being requested":
+          case "Exception - It cant handle acceptance without being requested":
             msgError(
               translate.t(
-                "searchFindings.tabVuln.alerts.acceptationNotRequested"
+                "searchFindings.tabVuln.alerts.acceptanceNotRequested"
               )
             );
             break;
@@ -81,7 +81,7 @@ const acceptationProps = (
             break;
           default:
             msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.warning("An error occurred handling acceptation", error);
+            Logger.warning("An error occurred handling acceptance", error);
         }
       });
     },

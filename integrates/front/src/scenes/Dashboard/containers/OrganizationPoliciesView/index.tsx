@@ -90,7 +90,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
                 )
               );
               break;
-            case "Exception - Number of acceptations should be zero or positive":
+            case "Exception - Number of acceptances should be zero or positive":
               msgError(
                 translate.t(
                   "organization.tabs.policies.errors.maxNumberAcceptances"
@@ -225,7 +225,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
       recommended: (
         <p className={style.recommended}>
           {translate.t(
-            "organization.tabs.policies.recommended.numberAcceptations"
+            "organization.tabs.policies.recommended.numberAcceptances"
           )}
         </p>
       ),

@@ -395,7 +395,7 @@ describe("Organization findings policies view", (): void => {
               new PureAbility([
                 {
                   action:
-                    "api_mutations_handle_organization_finding_policy_acceptation_mutate",
+                    "api_mutations_handle_organization_finding_policy_acceptance_mutate",
                 },
                 {
                   action:
@@ -535,7 +535,7 @@ describe("Organization findings policies view", (): void => {
               new PureAbility([
                 {
                   action:
-                    "api_mutations_handle_organization_finding_policy_acceptation_mutate",
+                    "api_mutations_handle_organization_finding_policy_acceptance_mutate",
                 },
                 {
                   action:
@@ -670,7 +670,7 @@ describe("Organization findings policies view", (): void => {
                 {
                   action:
                     "api_mutations_handle_organization_" +
-                    "finding_policy_acceptation_mutate",
+                    "finding_policy_acceptance_mutate",
                 },
               ])
             }

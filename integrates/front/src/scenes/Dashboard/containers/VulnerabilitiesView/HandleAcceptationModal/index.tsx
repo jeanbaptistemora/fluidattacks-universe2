@@ -177,7 +177,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProp
       <React.StrictMode>
         <Modal
           headerTitle={translate.t(
-            "searchFindings.tabDescription.handleAcceptationModal.title"
+            "searchFindings.tabDescription.handleAcceptanceModal.title"
           )}
           open={true}
           size={"extraLargeModal"}

@@ -60,7 +60,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
     "api_mutations_deactivate_organization_finding_policy_mutate"
   );
   const canHandleFindingPolicy: boolean = permissions.can(
-    "api_mutations_handle_organization_finding_policy_acceptation_mutate"
+    "api_mutations_handle_organization_finding_policy_acceptance_mutate"
   );
   const canResubmitFindingPolicy: boolean = permissions.can(
     "api_mutations_submit_organization_finding_policy_mutate"

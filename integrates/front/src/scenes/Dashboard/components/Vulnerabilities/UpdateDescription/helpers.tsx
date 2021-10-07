@@ -159,11 +159,11 @@ const handleUpdateVulnTreatmentError = (updateError: unknown): void => {
   } else if (
     _.includes(
       String(updateError),
-      translate.t("searchFindings.tabVuln.alerts.maximumNumberOfAcceptations")
+      translate.t("searchFindings.tabVuln.alerts.maximumNumberOfAcceptances")
     )
   ) {
     msgError(
-      translate.t("searchFindings.tabVuln.alerts.maximumNumberOfAcceptations")
+      translate.t("searchFindings.tabVuln.alerts.maximumNumberOfAcceptances")
     );
   } else if (
     _.includes(

@@ -26,9 +26,7 @@ const AcceptationUserField: React.FC<IAcceptationUserFieldProps> = (
       isLastTreatmentAcceptanceStatusApproved ? (
         <FormGroup>
           <ControlLabel>
-            <b>
-              {translate.t("searchFindings.tabDescription.acceptationUser")}
-            </b>
+            <b>{translate.t("searchFindings.tabDescription.acceptanceUser")}</b>
           </ControlLabel>
           <p>{lastTreatment.user}</p>
         </FormGroup>

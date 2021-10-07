@@ -38,8 +38,8 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
   return mockedNotifications;
 });
 
-describe("handle vulns acceptation modal", (): void => {
-  it("should handle vulns acceptation", async (): Promise<void> => {
+describe("handle vulns acceptance modal", (): void => {
+  it("should handle vulns acceptance", async (): Promise<void> => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
@@ -146,7 +146,7 @@ describe("handle vulns acceptation modal", (): void => {
         wrapper.update();
 
         expect(msgSuccess).toHaveBeenCalledWith(
-          "Indefinite acceptation has been handled",
+          "Indefinite acceptance has been handled",
           "Correct!"
         );
         expect(handleRefetchData).toHaveBeenCalledTimes(1);
@@ -155,7 +155,7 @@ describe("handle vulns acceptation modal", (): void => {
     });
   });
 
-  it("should handle vulns acceptation errors", async (): Promise<void> => {
+  it("should handle vulns acceptance errors", async (): Promise<void> => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
@@ -180,7 +180,7 @@ describe("handle vulns acceptation modal", (): void => {
         result: {
           errors: [
             new GraphQLError(
-              "Exception - It cant handle acceptation without being requested"
+              "Exception - It cant handle acceptance without being requested"
             ),
             new GraphQLError("Exception - Vulnerability not found"),
             new GraphQLError("Unexpected error"),

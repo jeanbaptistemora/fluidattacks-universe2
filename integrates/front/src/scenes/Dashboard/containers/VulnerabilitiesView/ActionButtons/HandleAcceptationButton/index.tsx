@@ -53,7 +53,7 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
             <React.Fragment>
               <FluidIcon icon={"verified"} />
               &nbsp;
-              {t("searchFindings.tabVuln.buttons.handleAcceptation")}
+              {t("searchFindings.tabVuln.buttons.handleAcceptance")}
             </React.Fragment>
           </Button>
         </TooltipWrapper>

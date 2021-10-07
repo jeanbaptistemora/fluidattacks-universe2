@@ -740,8 +740,8 @@ export const enTranslations: ResourceKey = {
     },
   },
   groupAlerts: {
-    acceptationApproved: "Indefinite acceptation has been approved",
-    acceptationRejected: "Indefinite acceptation has been rejected",
+    acceptanceApproved: "Indefinite acceptance has been approved",
+    acceptanceRejected: "Indefinite acceptance has been rejected",
     accessDenied: "Access denied",
     confirmedZeroRiskSuccess: "Zero risk vulnerability has been confirmed",
     draftAlreadyApproved: "This finding has already been approved",
@@ -953,7 +953,7 @@ export const enTranslations: ResourceKey = {
           maxAcceptanceDays:
             "Maximum acceptance days should be a positive integer between 0 and 180",
           maxNumberAcceptances:
-            "Maximum number of acceptations should be a positive integer",
+            "Maximum number of acceptances should be a positive integer",
         },
         findings: {
           addPolicies: {
@@ -1011,7 +1011,7 @@ export const enTranslations: ResourceKey = {
         recommended: {
           acceptanceDays: "0",
           acceptanceSeverity: "0.0    -    0.0",
-          numberAcceptations: "0",
+          numberAcceptances: "0",
           title: "Recommended Values",
         },
         save: "Save",
@@ -1083,9 +1083,9 @@ export const enTranslations: ResourceKey = {
     pendingToDelete: "Group pending to delete",
   },
   searchFindings: {
-    acceptationButtons: {
-      approve: "Approve Acceptation",
-      reject: "Reject Acceptation",
+    acceptanceButtons: {
+      approve: "Approve Acceptance",
+      reject: "Reject Acceptance",
     },
     agentTokenSection: {
       about: "Generate, reveal or update token for DevSecOps.",
@@ -1247,15 +1247,15 @@ export const enTranslations: ResourceKey = {
     },
     tabDescription: {
       acceptanceDate: "Temporarily accepted until",
-      acceptationJustification: "Acceptation Justification",
-      acceptationUser: "Acceptation User",
+      acceptanceJustification: "Acceptance Justification",
+      acceptanceUser: "Acceptance User",
       action: "Action",
       affectedSystems: {
         text: "Affected systems",
         tooltip: "Project or application that contains the vulnerability",
       },
       approvalMessage:
-        "Remember that the indefinite acceptation of a finding requires the approval of a user with manager role",
+        "Remember that the indefinite acceptance of a finding requires the approval of a user with manager role",
       approvalTitle: "Confirmation",
       approve: "Approve",
       approveAll: "Approve all",
@@ -1293,7 +1293,7 @@ export const enTranslations: ResourceKey = {
       errorFileVuln: "Vulnerabilities file has errors",
       field: "Field",
       hacker: "Hacker",
-      handleAcceptationModal: {
+      handleAcceptanceModal: {
         title: "Observations",
         zeroRiskJustification: {
           confirmation: {
@@ -2172,14 +2172,14 @@ export const enTranslations: ResourceKey = {
     },
     tabVuln: {
       alerts: {
-        acceptationNotRequested: "Indefinite acceptation is not requested",
-        acceptationSuccess: "Indefinite acceptation has been handled",
+        acceptanceNotRequested: "Indefinite acceptance is not requested",
+        acceptanceSuccess: "Indefinite acceptance has been handled",
         hasNewVulns:
           "The treatment is set as new, please select a treatment for the vulnerability.",
         // eslint-disable-next-line camelcase -- It is required for react-i18next
         hasNewVulns_plural:
           "The treatment on one or more vulnerabilities is set as new, please select a treatment for the vulnerabilities.",
-        maximumNumberOfAcceptations:
+        maximumNumberOfAcceptances:
           "Vulnerability has been accepted the maximum number of times allowed by the organization",
         treatmentChange: "Vulnerability treatment will be changed",
         uploadFile: {
@@ -2192,13 +2192,13 @@ export const enTranslations: ResourceKey = {
       },
       buttons: {
         edit: "Edit",
-        handleAcceptation: "Treatment Acceptation",
+        handleAcceptance: "Treatment Acceptance",
         reattack: "Reattack",
       },
       buttonsTooltip: {
         cancel: "Cancel",
         edit: "Modify the fields of the vulnerabilities",
-        handleAcceptation: "Approve/Reject treatment",
+        handleAcceptance: "Approve/Reject treatment",
       },
       close: "Close",
       closed: "Closed",
@@ -2238,7 +2238,7 @@ export const enTranslations: ResourceKey = {
       tagTooltip: "Filter vulnerabilities based on their tag",
       tooltip: "Open / Closed vulnerabilities",
       treatmentStatus:
-        "Filter vulnerabilities based on permanently accepted treatment acceptation",
+        "Filter vulnerabilities based on permanently accepted treatment acceptances",
       verified: "Verified",
       vulnTable: {
         currentTreatment: "Current",

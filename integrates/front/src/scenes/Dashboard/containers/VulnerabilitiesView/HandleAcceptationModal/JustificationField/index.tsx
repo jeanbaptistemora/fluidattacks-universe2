@@ -59,12 +59,12 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
             <React.Fragment>
               <option value={"FP"}>
                 {translate.t(
-                  "searchFindings.tabDescription.handleAcceptationModal.zeroRiskJustification.confirmation.fp"
+                  "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.confirmation.fp"
                 )}
               </option>
               <option value={"Out of the scope"}>
                 {translate.t(
-                  "searchFindings.tabDescription.handleAcceptationModal.zeroRiskJustification.confirmation.outOfTheScope"
+                  "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.confirmation.outOfTheScope"
                 )}
               </option>
             </React.Fragment>
@@ -73,12 +73,12 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
             <React.Fragment>
               <option value={"FN"}>
                 {translate.t(
-                  "searchFindings.tabDescription.handleAcceptationModal.zeroRiskJustification.rejection.fn"
+                  "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.rejection.fn"
                 )}
               </option>
               <option value={"Complementary control"}>
                 {translate.t(
-                  "searchFindings.tabDescription.handleAcceptationModal.zeroRiskJustification.rejection.complementaryControl"
+                  "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.rejection.complementaryControl"
                 )}
               </option>
             </React.Fragment>

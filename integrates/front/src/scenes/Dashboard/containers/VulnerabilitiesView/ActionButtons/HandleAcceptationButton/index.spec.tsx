@@ -59,7 +59,7 @@ describe("HandleAcceptationButtons", (): void => {
           buttons.filterWhere((button: ReactWrapper): boolean =>
             button
               .text()
-              .includes(t("searchFindings.tabVuln.buttons.handleAcceptation"))
+              .includes(t("searchFindings.tabVuln.buttons.handleAcceptance"))
           )
         ).toHaveLength(1);
 
