@@ -4,9 +4,6 @@ from api.schema import (
 from ariadne import (
     graphql,
 )
-from back.tests.unit import (
-    MIGRATION,
-)
 from back.tests.unit.utils import (
     create_dummy_session,
 )
@@ -25,17 +22,10 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     Finding,
 )
-from findings import (
-    dal as findings_dal,
-)
-from findings.domain import (
-    get_finding,
-)
 from freezegun import (  # type: ignore
     freeze_time,
 )
 from groups.domain import (
-    get_open_vulnerabilities,
     get_open_vulnerabilities_new,
 )
 import json
@@ -66,26 +56,6 @@ async def _get_result(
     return result
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@freeze_time("2020-12-01")
-async def test_finding_age() -> None:
-    """Check for finding age."""
-    query = """{
-      finding(identifier: "422286126"){
-          age
-          lastVulnerability
-          openAge
-      }
-    }"""
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert result["data"]["finding"]["age"] == 332
-    assert result["data"]["finding"]["lastVulnerability"] == 332
-    assert result["data"]["finding"]["openAge"] == 332
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @freeze_time("2020-12-01")
 async def test_finding_age_new() -> None:
     """Check for finding age."""
@@ -547,31 +517,6 @@ async def test_reject_draft() -> None:
     assert result["data"]["rejectDraft"]
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@pytest.mark.changes_db
-async def test_remove_finding() -> None:
-    """Check for removeFinding mutation."""
-    query = """
-      mutation {
-        removeFinding(findingId: "560175507", justification: NOT_REQUIRED) {
-          success
-        }
-      }
-    """
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["removeFinding"]
-    assert result["data"]["removeFinding"]["success"]
-    finding = await findings_dal.get_finding("560175507")
-    historic_state = finding["historic_state"]
-    assert historic_state[-1]["state"] == "DELETED"
-    assert historic_state[-1]["justification"] == "NOT_REQUIRED"
-    with pytest.raises(FindingNotFound):
-        assert await get_finding("560175507")
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_remove_finding_new() -> None:
     """Check for removeFinding mutation."""
@@ -601,26 +546,6 @@ async def test_remove_finding_new() -> None:
         assert await loaders.finding_new.load(finding_id)
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@pytest.mark.changes_db
-async def test_approve_draft() -> None:
-    """Check for approveDraft mutation."""
-    query = """
-      mutation {
-        approveDraft(draftId: "836530833") {
-          success
-        }
-      }
-    """
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" in result
-    assert (
-        result["errors"][0]["message"] == "CANT_APPROVE_FINDING_WITHOUT_VULNS"
-    )
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_approve_draft_new() -> None:
     """Check for approveDraft mutation."""
@@ -695,29 +620,6 @@ async def test_submit_draft() -> None:
     assert result["errors"][0]["message"] == expected_error
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@pytest.mark.changes_db
-async def test_filter_deleted_findings() -> None:
-    """Check if vuln of removed vulns are filtered out."""
-    mutation = """
-      mutation {
-        removeFinding(findingId: "988493279", justification: NOT_REQUIRED) {
-          success
-        }
-      }
-    """
-    loaders: Dataloaders = get_new_context()
-    open_vulns = await get_open_vulnerabilities(loaders, "unittesting")
-
-    data = {"query": mutation}
-    result = await _get_result(data, loaders=loaders)
-    assert "errors" not in result
-    assert "success" in result["data"]["removeFinding"]
-    assert result["data"]["removeFinding"]["success"]
-    assert await get_open_vulnerabilities(loaders, "unittesting") < open_vulns
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_filter_deleted_findings_new() -> None:
     """Check if vulns of removed findings are filtered out"""

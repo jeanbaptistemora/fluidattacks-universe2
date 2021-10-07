@@ -1,6 +1,3 @@
-from back.tests.unit import (
-    MIGRATION,
-)
 from back.tests.unit.utils import (
     create_dummy_session,
 )
@@ -23,20 +20,12 @@ from db_model import (
 from db_model.findings.types import (
     Finding,
 )
-from findings import (
-    dal as findings_dal,
-)
 from findings.domain import (
     add_comment,
-    approve_draft,
     approve_draft_new,
-    get_oldest_no_treatment,
     get_oldest_no_treatment_new,
     get_tracking_vulnerabilities,
     get_treatment_summary,
-    list_drafts,
-    list_findings,
-    mask_finding,
     mask_finding_new,
     validate_evidence,
 )
@@ -263,24 +252,6 @@ async def test_add_comment() -> None:
     )
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@pytest.mark.changes_db
-async def test_mask_finding() -> None:
-    finding_id = "475041524"
-    context = get_new_context()
-    test_data = await mask_finding(context, finding_id)
-    expected_output = True
-    assert isinstance(test_data, bool)
-    assert test_data == expected_output
-
-    finding = await findings_dal.get_finding(finding_id)
-    assert finding.get("vulnerability", "") == "Masked"
-    assert finding.get("files", [{}])[-1].get("file_url", "") == "Masked"
-    assert finding.get("effect_solution", "") == "Masked"
-    assert finding.get("affected_systems", "") == "Masked"
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_mask_finding_new() -> None:
     finding_id = "475041524"
@@ -395,35 +366,6 @@ async def test_validate_number_acceptations() -> None:
         )
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@pytest.mark.changes_db
-@freeze_time("2019-12-01")
-async def test_approve_draft() -> None:
-    finding_id = "475041513"
-    reviewer_email = "unittest@fluidattacks.com"
-    context = await create_dummy_session(reviewer_email)
-    test_success, test_date = await approve_draft(
-        context, finding_id, reviewer_email
-    )
-    release_date = "2019-11-30 19:00:00"
-    expected_output = True, release_date
-    assert isinstance(test_success, bool)
-    assert isinstance(test_date, str)
-    assert test_success, test_date == expected_output  # type: ignore
-    all_vulns = await list_vulnerabilities_async(
-        [finding_id],
-        should_list_deleted=True,
-        include_requested_zero_risk=True,
-        include_confirmed_zero_risk=True,
-    )
-    for vuln in all_vulns:
-        for state_info in vuln["historic_state"]:
-            assert state_info["date"] == release_date
-        for treatment_info in vuln["historic_treatment"]:
-            assert treatment_info["date"] == release_date
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 @freeze_time("2019-12-01")
 async def test_approve_draft_new() -> None:
@@ -450,57 +392,6 @@ async def test_approve_draft_new() -> None:
             assert treatment_info["date"] == expected_date
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-async def test_list_findings() -> None:
-    context = get_new_context()
-    group_name = "unittesting"
-    test_data = await list_findings(context, [group_name])
-    expected_output = [
-        "988493279",
-        "422286126",
-        "436992569",
-        "463461507",
-        "463558592",
-        "457497316",
-    ]
-    assert expected_output == test_data[0]
-
-
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-async def test_list_drafts() -> None:
-    group_name = "unittesting"
-    test_data = await list_drafts([group_name])
-    expected_output = ["560175507"]
-    assert expected_output == test_data[0]
-
-
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-async def test_list_drafts_deleted() -> None:
-    groups_name = ["continuoustesting"]
-    test_data = await list_drafts(groups_name)
-    expected_output = ["836530833", "475041524"]
-    assert sorted(expected_output) == sorted(test_data[0])
-    test_data = await list_drafts(groups_name, include_deleted=True)
-    expected_output = ["836530833", "475041524", "991607942"]
-    assert sorted(expected_output) == sorted(test_data[0])
-
-
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@freeze_time("2021-05-27")
-async def test_get_oldest_no_treatment_findings() -> None:
-    group_name = "oneshottest"
-    context = get_new_context()
-    group_findings_loader = context.group_findings
-    findings = await group_findings_loader.load(group_name)
-    oldest_findings = await get_oldest_no_treatment(context, findings)
-    expected_output = {
-        "oldest_name": "037. Technical information leak",
-        "oldest_age": 256,
-    }
-    assert expected_output == oldest_findings
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @freeze_time("2021-05-27")
 async def test_get_oldest_no_treatment_findings_new() -> None:
     group_name = "oneshottest"

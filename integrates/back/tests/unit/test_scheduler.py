@@ -2,9 +2,6 @@
 from _pytest.monkeypatch import (
     MonkeyPatch,
 )
-from back.tests.unit import (
-    MIGRATION,
-)
 from collections import (
     OrderedDict,
 )
@@ -79,7 +76,6 @@ pytestmark = [
 ]
 
 
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 async def test_get_status_vulns_by_time_range() -> None:
     first_day = "2019-01-01 12:00:00"
     last_day = "2019-06-30 23:59:59"
@@ -125,7 +121,6 @@ def test_create_weekly_date() -> None:
     assert test_data == expected_output
 
 
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 async def test_get_accepted_vulns() -> None:
     loaders = get_new_context()
     last_day = "2019-06-30 23:59:59"
@@ -163,7 +158,6 @@ async def test_get_accepted_vulns() -> None:
     assert test_data == expected_output
 
 
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 async def test_get_by_time_range() -> None:
     loaders = get_new_context()
     last_day = "2020-09-09 23:59:59"
@@ -181,7 +175,6 @@ async def test_get_by_time_range() -> None:
     assert test_data.vulnerabilities == expected_output
 
 
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 async def test_create_register_by_week() -> None:
     loaders = get_new_context()
     group_name = "unittesting"
@@ -243,7 +236,6 @@ async def test_get_date_last_vulns() -> None:
     assert test_data == expected_output
 
 
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 async def test_get_group_indicators() -> None:
     loaders = get_new_context()
     group_name = "unittesting"
@@ -364,7 +356,6 @@ async def test_remove_imamura_stakeholders() -> None:
     assert noremove_stakeholder_exists
 
 
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_remove_obsolete_groups() -> None:
     group_attributes = {

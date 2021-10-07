@@ -1,7 +1,4 @@
 # flake8: noqa
-from back.tests.unit import (
-    MIGRATION,
-)
 from dataloaders import (
     get_new_context,
 )
@@ -30,7 +27,6 @@ pytestmark = [
 ]
 
 
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @freeze_time("2020-12-01")
 async def test_update_unreliable_indicators_by_deps() -> None:
     loaders = get_new_context()

@@ -1,10 +1,4 @@
 # pylint: disable=too-many-lines
-from aioextensions import (
-    collect,
-)
-from back.tests.unit import (
-    MIGRATION,
-)
 from back.tests.unit.utils import (
     create_dummy_session,
 )
@@ -28,17 +22,10 @@ from decimal import (
 from events.domain import (
     list_group_events,
 )
-from findings import (
-    dal as findings_dal,
-)
 from findings.domain import (
-    get_last_closed_vulnerability_info,
     get_last_closed_vulnerability_info_new,
-    get_max_open_severity,
     get_max_open_severity_new,
-    get_pending_verification_findings,
     get_pending_verification_findings_new,
-    get_total_treatment,
     get_total_treatment_new,
 )
 from freezegun import (  # type: ignore
@@ -62,25 +49,16 @@ from groups.domain import (
     add_group,
     get_active_groups,
     get_alive_group_names,
-    get_closed_vulnerabilities,
     get_closed_vulnerabilities_new,
     get_description,
     get_group_digest_stats,
-    get_mean_remediate,
-    get_mean_remediate_cvssf,
     get_mean_remediate_cvssf_new,
     get_mean_remediate_new,
-    get_mean_remediate_non_treated,
-    get_mean_remediate_non_treated_cvssf,
     get_mean_remediate_non_treated_cvssf_new,
     get_mean_remediate_non_treated_new,
-    get_mean_remediate_severity,
-    get_mean_remediate_severity_cvssf,
     get_mean_remediate_severity_cvssf_new,
     get_mean_remediate_severity_new,
-    get_open_finding,
     get_open_findings_new,
-    get_open_vulnerabilities,
     get_open_vulnerabilities_new,
     get_vulnerabilities_with_pending_attacks,
     is_alive,
@@ -162,23 +140,6 @@ async def test_get_vulnerabilities_with_pending_attacks() -> None:
     assert test_data == expected_output
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-async def test_get_last_closing_vuln() -> None:
-    findings_to_get = ["463558592", "422286126"]
-    context = get_new_context()
-    findings = await collect(
-        findings_dal.get_finding(finding_id) for finding_id in findings_to_get
-    )
-    test_data = await get_last_closed_vulnerability_info(context, findings)
-    tzn = timezone(TIME_ZONE)
-    actual_date = datetime.now(tz=tzn).date()
-    initial_date = datetime(2019, 1, 15).date()
-    assert test_data[0] == (actual_date - initial_date).days
-    assert test_data[1]["UUID"] == "242f848c-148a-4028-8e36-c7d995502590"
-    assert test_data[1]["finding_id"] == "463558592"
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 async def test_get_last_closing_vuln_new() -> None:
     findings_to_get = ["463558592", "422286126"]
     loaders = get_new_context()
@@ -242,18 +203,6 @@ async def test_is_vulnerability_closed() -> None:
     assert not is_vulnerability_closed(open_vulnerability[0])
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-async def test_get_max_open_severity() -> None:
-    findings_to_get = ["463558592", "422286126"]
-    findings = await collect(
-        findings_dal.get_finding(finding_id) for finding_id in findings_to_get
-    )
-    test_data = await get_max_open_severity(get_new_context(), findings)
-    assert test_data[0] == Decimal(4.3).quantize(Decimal("0.1"))
-    assert test_data[1]["finding_id"] == "463558592"
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 async def test_get_max_open_severity_new() -> None:
     findings_to_get = ["463558592", "422286126"]
     loaders = get_new_context()
@@ -265,15 +214,6 @@ async def test_get_max_open_severity_new() -> None:
     assert test_data[1].id == "463558592"
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-async def test_get_open_vulnerabilities() -> None:
-    group_name = "unittesting"
-    expected_output = 29
-    open_vulns = await get_open_vulnerabilities(get_new_context(), group_name)
-    assert open_vulns == expected_output
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 async def test_get_open_vulnerabilities_new() -> None:
     group_name = "unittesting"
     expected_output = 29
@@ -283,17 +223,6 @@ async def test_get_open_vulnerabilities_new() -> None:
     assert open_vulns == expected_output
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-async def test_get_closed_vulnerabilities() -> None:
-    group_name = "unittesting"
-    expected_output = 7
-    closed_vulnerabilities = await get_closed_vulnerabilities(
-        get_new_context(), group_name
-    )
-    assert closed_vulnerabilities == expected_output
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 async def test_get_closed_vulnerabilities_new() -> None:
     group_name = "unittesting"
     expected_output = 7
@@ -303,15 +232,6 @@ async def test_get_closed_vulnerabilities_new() -> None:
     assert closed_vulnerabilities == expected_output
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-async def test_get_open_finding() -> None:
-    group_name = "unittesting"
-    expected_output = 5
-    open_findings = await get_open_finding(get_new_context(), group_name)
-    assert open_findings == expected_output
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 async def test_get_open_findings_new() -> None:
     group_name = "unittesting"
     expected_output = 5
@@ -342,34 +262,6 @@ async def test_get_open_vulnerability_date() -> None:
     assert test_data is None
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@freeze_time("2020-12-01")
-async def test_get_mean_remediate() -> None:
-    context = get_new_context()
-    group_name = "unittesting"
-    assert await get_mean_remediate(context, group_name) == Decimal("383.0")
-    assert await get_mean_remediate_non_treated(
-        context, group_name
-    ) == Decimal("385.0")
-
-    min_date = datetime_utils.get_now_minus_delta(days=30).date()
-    assert await get_mean_remediate(context, group_name, min_date) == Decimal(
-        "0.0"
-    )
-    assert await get_mean_remediate_non_treated(
-        context, group_name, min_date
-    ) == Decimal("0.0")
-
-    min_date = datetime_utils.get_now_minus_delta(days=90).date()
-    assert await get_mean_remediate(context, group_name, min_date) == Decimal(
-        "82.0"
-    )
-    assert await get_mean_remediate_non_treated(
-        context, group_name, min_date
-    ) == Decimal("0.0")
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @freeze_time("2020-12-01")
 async def test_get_mean_remediate_new() -> None:
     context = get_new_context()
@@ -398,32 +290,6 @@ async def test_get_mean_remediate_new() -> None:
     ) == Decimal("0.0")
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@freeze_time("2020-12-01")
-@pytest.mark.parametrize(
-    ("min_days", "expected_output"),
-    (
-        (0, Decimal("375.404")),
-        (30, Decimal("0")),
-        (90, Decimal("82.000")),
-    ),
-)
-async def test_get_mean_remediate_cvssf(
-    min_days: int, expected_output: Decimal
-) -> None:
-    loaders = get_new_context()
-    group_name = "unittesting"
-    mean_remediate_cvssf = await get_mean_remediate_cvssf(
-        loaders,
-        group_name,
-        (datetime.now() - timedelta(days=min_days)).date()
-        if min_days
-        else None,
-    )
-    assert mean_remediate_cvssf == expected_output
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @freeze_time("2020-12-01")
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
@@ -448,7 +314,6 @@ async def test_get_mean_remediate_cvssf_new(
     assert mean_remediate_cvssf_new == expected_output
 
 
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @freeze_time("2020-12-01")
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
@@ -473,49 +338,6 @@ async def test_get_mean_remediate_non_treated_cvssf_new(
     assert mttr_no_treated_cvssf_new == expected_output
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@freeze_time("2020-12-01")
-@pytest.mark.parametrize(
-    ("min_days", "expected_output"),
-    (
-        (0, Decimal("376.404")),
-        (30, Decimal("0")),
-        (90, Decimal("0")),
-    ),
-)
-async def test_get_mean_remediate_non_treated_cvssf(
-    min_days: int, expected_output: Decimal
-) -> None:
-    loaders = get_new_context()
-    group_name = "unittesting"
-    mttr_non_treated_cvssf = await get_mean_remediate_non_treated_cvssf(
-        loaders,
-        group_name,
-        (datetime.now() - timedelta(days=min_days)).date()
-        if min_days
-        else None,
-    )
-    assert mttr_non_treated_cvssf == expected_output
-
-
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-async def test_get_total_treatment() -> None:
-    context = get_new_context()
-    findings_to_get = ["463558592", "422286126"]
-    findings = await collect(
-        findings_dal.get_finding(finding_id) for finding_id in findings_to_get
-    )
-    test_data = await get_total_treatment(context, findings)
-    expected_output = {
-        "inProgress": 1,
-        "accepted": 1,
-        "acceptedUndefined": 0,
-        "undefined": 0,
-    }
-    assert test_data == expected_output
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 async def test_get_total_treatment_new() -> None:
     loaders = get_new_context()
     findings_to_get = ["463558592", "422286126"]
@@ -659,37 +481,6 @@ async def test_get_reattackers() -> None:
     assert reattackers == ["integrateshacker@fluidattacks.com"]
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@freeze_time("2019-10-01")
-@pytest.mark.parametrize(
-    ("min_days", "expected_output"),
-    (
-        (None, Decimal("12")),
-        (30, Decimal("11")),
-        (90, Decimal("12")),
-    ),
-)
-async def test_get_mean_remediate_severity_low(
-    min_days: Optional[int], expected_output: Decimal
-) -> None:
-    # pylint: disable=unsubscriptable-object
-    context = get_new_context()
-    group_name = "unittesting"
-    min_severity = 0.1
-    max_severity = 3.9
-    mean_remediate_low_severity = await get_mean_remediate_severity(
-        context,
-        group_name,
-        min_severity,
-        max_severity,
-        (datetime.now() - timedelta(days=min_days)).date()
-        if min_days
-        else None,
-    )
-    assert mean_remediate_low_severity == expected_output
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @freeze_time("2019-10-01")
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
@@ -719,37 +510,6 @@ async def test_get_mean_remediate_severity_low_new(
     assert mean_remediate_low_severity == expected_output
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@freeze_time("2019-11-01")
-@pytest.mark.parametrize(
-    ("min_days", "expected_output"),
-    (
-        (None, Decimal("154")),
-        (30, Decimal("0")),
-        (90, Decimal("0")),
-    ),
-)
-async def test_get_mean_remediate_severity_medium(
-    min_days: Optional[int], expected_output: Decimal
-) -> None:
-    # pylint: disable=unsubscriptable-object
-    context = get_new_context()
-    group_name = "unittesting"
-    min_severity = 4
-    max_severity = 6.9
-    mean_remediate_medium_severity = await get_mean_remediate_severity(
-        context,
-        group_name,
-        min_severity,
-        max_severity,
-        (datetime.now() - timedelta(days=min_days)).date()
-        if min_days
-        else None,
-    )
-    assert mean_remediate_medium_severity == expected_output
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @freeze_time("2019-11-01")
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
@@ -779,36 +539,6 @@ async def test_get_mean_remediate_severity_medium_new(
     assert mean_remediate_medium_severity == expected_output
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@freeze_time("2019-10-01")
-@pytest.mark.parametrize(
-    ("min_days", "expected_output"),
-    (
-        (0, Decimal("147.823")),
-        (30, Decimal("0")),
-        (90, Decimal("0")),
-    ),
-)
-async def test_get_mean_remediate_severity_medium_cvssf(
-    min_days: int, expected_output: Decimal
-) -> None:
-    context = get_new_context()
-    group_name = "unittesting"
-    min_severity = Decimal("4")
-    max_severity = Decimal("6.9")
-    mean_remediate_medium_severity = await get_mean_remediate_severity_cvssf(
-        context,
-        group_name,
-        min_severity,
-        max_severity,
-        (datetime.now() - timedelta(days=min_days)).date()
-        if min_days
-        else None,
-    )
-    assert mean_remediate_medium_severity == expected_output
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @freeze_time("2019-10-01")
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
@@ -839,36 +569,6 @@ async def test_get_mean_remediate_severity_medium_cvssf_new(
     assert mean_remediate_medium_severity == expected_output
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@freeze_time("2019-09-30")
-@pytest.mark.parametrize(
-    ("min_days", "expected_output"),
-    (
-        (0, Decimal("43.020")),
-        (30, Decimal("9.782")),
-        (90, Decimal("10.389")),
-    ),
-)
-async def test_get_mean_remediate_severity_low_cvssf(
-    min_days: int, expected_output: Decimal
-) -> None:
-    context = get_new_context()
-    group_name = "unittesting"
-    min_severity = Decimal("0.1")
-    max_severity = Decimal("3.9")
-    mean_remediate_low_severity = await get_mean_remediate_severity_cvssf(
-        context,
-        group_name,
-        min_severity,
-        max_severity,
-        (datetime.now() - timedelta(days=min_days)).date()
-        if min_days
-        else None,
-    )
-    assert mean_remediate_low_severity == expected_output
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @freeze_time("2019-09-30")
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
@@ -958,18 +658,6 @@ async def test_update_group_attrs(
     )
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-async def test_get_pending_verification_findings() -> None:
-    group_name = "unittesting"
-    context = get_new_context()
-    findings = await get_pending_verification_findings(context, group_name)
-    assert len(findings) >= 1
-    assert "finding" in findings[0]
-    assert "finding_id" in findings[0]
-    assert "project_name" in findings[0]
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 async def test_get_pending_verification_findings_new() -> None:
     group_name = "unittesting"
     loaders = get_new_context()
@@ -980,22 +668,6 @@ async def test_get_pending_verification_findings_new() -> None:
     assert findings[0].group_name == "unittesting"
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@freeze_time("2018-12-27")
-async def test_get_total_comments_date() -> None:
-    group_name = "unittesting"
-    last_day = datetime_utils.get_now_minus_delta(hours=24)
-    context = get_new_context()
-    group_findings_loader = context.group_findings
-    findings = await group_findings_loader.load(group_name)
-    findings_ids = [str(finding["finding_id"]) for finding in findings]
-    total_comments = await get_total_comments_date(
-        findings_ids, group_name, last_day
-    )
-    assert total_comments == 5
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @freeze_time("2018-12-27")
 async def test_get_total_comments_date_new() -> None:
     group_name = "unittesting"
