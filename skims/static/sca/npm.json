@@ -1,4 +1,10 @@
 {
+  "@angular/core": {
+    "SNYK-JS-ANGULARCORE-1070902": [
+      "<11.0.5",
+      ">=11.1.0-next.0,<11.1.0-next.3"
+    ]
+  },
   "@angular-devkit/core": {},
   "@babel/code-frame": {},
   "@babel/generator": {},
