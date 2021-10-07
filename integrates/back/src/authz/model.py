@@ -818,6 +818,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_deactivate_finding_policy_mutate",
             "api_mutations_deactivate_organization_finding_policy_mutate",
             "api_mutations_handle_finding_policy_acceptation_mutate",
+            "api_mutations_handle_finding_policy_acceptance_mutate",
             (
                 "api_mutations_handle_organization_finding_policy_acceptation_"
                 "mutate"
@@ -845,6 +846,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_deactivate_finding_policy_mutate",
             "api_mutations_deactivate_organization_finding_policy_mutate",
             "api_mutations_handle_finding_policy_acceptation_mutate",
+            "api_mutations_handle_finding_policy_acceptance_mutate",
             (
                 "api_mutations_handle_organization_finding_policy_acceptation_"
                 "mutate"
