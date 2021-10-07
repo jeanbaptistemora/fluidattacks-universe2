@@ -14,6 +14,9 @@ Finalization Time: 2021-10-05 at 02:58:41 UTCUTC
 
 Execution Time:    2021-10-06 at 02:05:41 UTCUTC
 Finalization Time: 2021-10-06 at 03:55:23 UTCUTC
+
+Execution Time:    2021-10-07 at 20:52:10 UTCUTC
+Finalization Time: 2021-10-07 at 21:33:07 UTCUTC
 """
 
 from aioextensions import (
@@ -125,7 +128,7 @@ FINDING_TABLE: str = "FI_findings"
 CLEAN_FINDINGS: bool = False
 MIGRATE_NON_DELETED_FINDINGS: bool = True
 MIGRATE_DELETED_FINDINGS: bool = True
-MIGRATE_MASKED_FINDINGS: bool = False
+MIGRATE_MASKED_FINDINGS: bool = True
 PROD: bool = True
 
 
@@ -485,6 +488,7 @@ async def _proccess_finding(
     old_finding: FindingType,
     progress: float,
     is_deleted: bool = False,
+    is_masked: bool = False,
 ) -> str:
     finding_id: str = old_finding["finding_id"]
 
@@ -502,6 +506,9 @@ async def _proccess_finding(
             _fix_historic_dates(old_finding["historic_state"]), analyst
         )
 
+        # This add() was modified berofe hand for not populating the initial
+        # facets state, unreliable indicators and verification, as they would
+        # be overwritten later
         await findings_model.add(
             finding=Finding(
                 hacker_email=analyst,
@@ -554,7 +561,7 @@ async def _proccess_finding(
         )
 
     # It was decided to skip the facet for this states
-    if not is_deleted:
+    if not is_deleted and not is_masked:
         await _populate_finding_unreliable_indicator(
             loaders,
             old_finding["project_name"],
@@ -729,6 +736,7 @@ async def _migrate_masked_findings(
                 loaders=loaders,
                 old_finding=old_finding,
                 progress=count / len(masked_findings),
+                is_masked=True,
             )
             for count, old_finding in enumerate(masked_findings)
         )
