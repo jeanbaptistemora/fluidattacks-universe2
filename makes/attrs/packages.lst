@@ -13,12 +13,9 @@ makes.test.airs
 makes.test.asserts
 makes.test.docs
 makes.test.forces
-makes.test.integrates
 makes.test.makes
 makes.test.melts
 makes.test.observes
-makes.test.reviews
-makes.test.skims
 makes.test.sorts
 melts.config-development
 melts.config-runtime
@@ -81,6 +78,5 @@ observes.test.tap-csv
 observes.test.tap-gitlab
 observes.test.tap-mailchimp
 observes.test.tap-mixpanel
-reviews.runtime
 sorts.config-development
 sorts.config-runtime

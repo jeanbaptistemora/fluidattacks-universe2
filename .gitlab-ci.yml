@@ -13,12 +13,8 @@ include:
   - local: asserts/.gitlab-ci.yml
   - local: docs/.gitlab-ci.yml
   - local: forces/.gitlab-ci.yml
-  - local: integrates/.gitlab-ci.yml
-  - local: makes/.gitlab-ci.yml
   - local: melts/.gitlab-ci.yml
   - local: observes/.gitlab-ci.yml
-  - local: reviews/.gitlab-ci.yml
-  - local: skims/.gitlab-ci.yml
   - local: sorts/.gitlab-ci.yml
 
 stages:
@@ -55,7 +51,7 @@ workflow:
 
 .makes4: &makes4
   tags: [autoscaling]
-  image: ghcr.io/fluidattacks/makes:21.10
+  image: ghcr.io/fluidattacks/makes:21.11
   needs: []
   interruptible: true
   script:
@@ -152,8 +148,8 @@ workflow:
   <<: *common_in_dev_branch
   stage: lint-code
 
-makes.review-mr:
-  <<: *makes
+/makes/review-mr:
+  <<: *makes4
   <<: *common_in_mrs
   stage: merge-request
   interruptible: false

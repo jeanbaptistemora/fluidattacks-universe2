@@ -42,12 +42,12 @@ def pr_under_max_deltas(*, data: TestData) -> bool:
     max_deltas: int = data.config["max_deltas"]
     try:
         repo: Any = Repository(repo_path)
-    except GitError:
+    except GitError as exc:
         log(
             err_log,
             "You must be in the repo path in order to run this test",
         )
-        raise GitError
+        raise exc
     skip_deltas: bool = "- no-deltas-test" in data.pull_request.description
     base_sha: str = str(data.pull_request.changes()["diff_refs"]["base_sha"])
     head_sha: str = str(data.pull_request.changes()["diff_refs"]["head_sha"])

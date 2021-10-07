@@ -1,4 +1,4 @@
-{ inputs
+{ outputs
 , ...
 }:
 {
@@ -6,7 +6,7 @@
     dirsOfModules = {
       reviews = {
         searchPaths.source = [
-          inputs.product.reviews-runtime
+          outputs."/reviews/runtime"
         ];
         python = "3.8";
         src = "/reviews/src";

@@ -12,7 +12,6 @@ makes.done
 makes.kill-port
 makes.kill-tree
 makes.profiles
-makes.review-mr
 makes.wait
 melts
 melts.test
@@ -88,7 +87,6 @@ observes.scheduled.on-aws.gitlab-etl.product
 observes.scheduled.on-aws.gitlab-etl.services
 observes.tap-json
 observes.target-redshift
-reviews
 sorts
 sorts.execute
 sorts.extract-features
