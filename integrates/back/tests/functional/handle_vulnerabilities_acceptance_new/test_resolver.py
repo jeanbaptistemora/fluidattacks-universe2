@@ -9,7 +9,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("handle_vulnerabilities_acceptation_new")
+@pytest.mark.resolver_test_group("handle_vulnerabilities_acceptance_new")
 @pytest.mark.parametrize(
     ("email", "accepted_vulnerability_id", "rejected_vulnerability_id"),
     (
@@ -25,7 +25,7 @@ from typing import (
         ),
     ),
 )
-async def test_handle_vulnerabilities_acceptation(
+async def test_handle_vulnerabilities_acceptance(
     populate: bool,
     email: str,
     accepted_vulnerability_id: str,
@@ -44,7 +44,7 @@ async def test_handle_vulnerabilities_acceptation(
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("handle_vulnerabilities_acceptation_new")
+@pytest.mark.resolver_test_group("handle_vulnerabilities_acceptance_new")
 @pytest.mark.parametrize(
     ("email", "accepted_vulnerability_id", "rejected_vulnerability_id"),
     (
@@ -70,7 +70,7 @@ async def test_handle_vulnerabilities_acceptation(
         ),
     ),
 )
-async def test_handle_vulnerabilities_acceptation_fail(
+async def test_handle_vulnerabilities_acceptance_fail(
     populate: bool,
     email: str,
     accepted_vulnerability_id: str,

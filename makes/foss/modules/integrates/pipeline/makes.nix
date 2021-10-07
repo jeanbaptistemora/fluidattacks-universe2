@@ -254,7 +254,7 @@ in
           [ "grant_stakeholder_organization_access" ]
           [ "group_new" "false" "migration" ]
           [ "groups_with_forces" ]
-          [ "handle_vulnerabilities_acceptation_new" "false" "migration" ]
+          [ "handle_vulnerabilities_acceptance_new" "false" "migration" ]
           [ "internal_names" ]
           [ "invalidate_access_token" ]
           [ "me" ]

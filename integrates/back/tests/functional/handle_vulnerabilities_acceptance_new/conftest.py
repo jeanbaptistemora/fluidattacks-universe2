@@ -30,7 +30,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("handle_vulnerabilities_acceptation_new")
+@pytest.mark.resolver_test_group("handle_vulnerabilities_acceptance_new")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {

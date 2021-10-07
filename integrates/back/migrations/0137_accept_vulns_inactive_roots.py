@@ -116,7 +116,7 @@ async def main() -> None:
                             group_name=group,
                         ),
                         redis_del_by_deps(
-                            "handle_vulnerabilities_acceptation",
+                            "handle_vulnerabilities_acceptance",
                             finding_id=finding["finding_id"],
                         ),
                         update_unreliable_indicators_by_deps(
@@ -124,7 +124,7 @@ async def main() -> None:
                             finding_id=finding["finding_id"],
                         ),
                         update_unreliable_indicators_by_deps(
-                            EntityDep.handle_vulnerabilities_acceptation,
+                            EntityDep.handle_vulnerabilities_acceptance,
                             finding_id=finding["finding_id"],
                         ),
                     )

@@ -81,7 +81,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             "add_finding_consult",
             "approve_draft",
             "confirm_vulnerabilities_zero_risk",
-            "handle_vulnerabilities_acceptation",
+            "handle_vulnerabilities_acceptance",
             "reject_draft",
             "reject_vulnerabilities_zero_risk",
             "request_vulnerabilities_verification",

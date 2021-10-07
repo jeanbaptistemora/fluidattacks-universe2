@@ -912,7 +912,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/integrates/back/test/functional__handle_vulnerabilities_acceptation_new__false__migration:
+/integrates/back/test/functional__handle_vulnerabilities_acceptance_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -927,7 +927,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'handle_vulnerabilities_acceptation_new'
+    - m . /integrates/back/test/functional 'handle_vulnerabilities_acceptance_new'
       'false' 'migration'
   stage: test-code
   tags:

@@ -73,11 +73,11 @@ async def mutate(
         )
         if success:
             redis_del_by_deps_soon(
-                "handle_vulnerabilities_acceptation",
+                "handle_vulnerabilities_acceptance",
                 finding_id=finding_id,
             )
             await update_unreliable_indicators_by_deps(
-                EntityDependency.handle_vulnerabilities_acceptation,
+                EntityDependency.handle_vulnerabilities_acceptance,
                 finding_id=finding_id,
             )
             logs_utils.cloudwatch_log(

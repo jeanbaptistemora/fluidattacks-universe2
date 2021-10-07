@@ -46,7 +46,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProp
       "api_resolvers_finding_zero_risk_resolve"
     );
     const canHandleVulnsAcceptation: boolean = permissions.can(
-      "api_mutations_handle_vulnerabilities_acceptation_mutate"
+      "api_mutations_handle_vulnerabilities_acceptance_mutate"
     );
     const canConfirmZeroRiskVuln: boolean = permissions.can(
       "api_mutations_confirm_vulnerabilities_zero_risk_mutate"

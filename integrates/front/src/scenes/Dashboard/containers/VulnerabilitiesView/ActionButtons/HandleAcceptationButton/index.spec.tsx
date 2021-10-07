@@ -21,7 +21,7 @@ describe("HandleAcceptationButtons", (): void => {
     const { t } = useTranslation();
     const openHandleAcceptation: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_handle_vulnerabilities_acceptation_mutate" },
+      { action: "api_mutations_handle_vulnerabilities_acceptance_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <HandleAcceptationButton

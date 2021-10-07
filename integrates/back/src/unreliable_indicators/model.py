@@ -83,7 +83,7 @@ ENTITIES = {
             ),
             EntityAttr.treatment_summary: dict(
                 dependencies={
-                    EntityDependency.handle_vulnerabilities_acceptation,
+                    EntityDependency.handle_vulnerabilities_acceptance,
                     EntityDependency.reject_vulnerabilities_zero_risk,
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_zero_risk,

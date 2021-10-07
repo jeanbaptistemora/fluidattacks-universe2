@@ -62,7 +62,7 @@ async def mutate(
     )
     if success:
         redis_del_by_deps_soon(
-            "handle_vulnerabilities_acceptation",
+            "handle_vulnerabilities_acceptance",
             finding_id=finding_id,
         )
 

@@ -38,7 +38,7 @@ TEST_GROUPS: Set[str] = {
     "finding",
     "finding_new",
     "forces_executions",
-    "handle_vulnerabilities_acceptation_new",
+    "handle_vulnerabilities_acceptance_new",
     "grant_stakeholder_access",
     "grant_stakeholder_organization_access",
     "groups_with_forces",
