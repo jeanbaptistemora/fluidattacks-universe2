@@ -7,9 +7,6 @@ from db_model.findings.types import (
 from groups.domain import (
     get_active_groups,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from schedulers.common import (
     info,
     machine_queue,
@@ -49,7 +46,7 @@ async def main() -> None:
             if vulns_to_reattack:
                 for root in await get_root_nicknames_for_skims(
                     dataloaders=dataloaders,
-                    group=get_key_or_fallback(finding),
+                    group=group,
                     vulnerabilities=vulns_to_reattack,
                 ):
                     finding_code = skims_sdk.get_finding_code_from_title(
