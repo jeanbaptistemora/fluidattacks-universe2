@@ -20,6 +20,7 @@ from sast_syntax_readers.c_sharp import (
     parameter as c_sharp_parameter,
     prefix_expression as c_sharp_prefix_expression,
     switch_statement as c_sharp_switch_statement,
+    type_of_expression as c_sharp_type_of_expression,
     using_statement as c_sharp_using_statement,
     variable_declaration as c_sharp_variable_declaration,
     while_statement as c_sharp_while_statement,
@@ -956,6 +957,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "initializer_expression",
         },
         syntax_reader=c_sharp_initializer_expression.reader,
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "type_of_expression",
+        },
+        syntax_reader=c_sharp_type_of_expression.reader,
     ),
     *[
         Dispatcher(
