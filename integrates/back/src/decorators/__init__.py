@@ -480,9 +480,7 @@ def require_login(func: TVar) -> TVar:
                     user_data["jti"],
                 )
         except InvalidAuthorization:
-            raise GraphQLError(  # pylint: disable=raise-missing-from
-                "Login required"
-            )
+            raise GraphQLError("Login required") from None
         else:
             store[context_store_key] = True
             return await _func(*args, **kwargs)

@@ -128,9 +128,7 @@ async def _add_finding_consult(  # pylint: disable=too-many-locals
             info.context,
             "Security: Unauthorized role attempted to add observation",
         )
-        raise GraphQLError(  # pylint: disable=raise-missing-from
-            "Access denied"
-        )
+        raise GraphQLError("Access denied") from None
 
     if success:
         redis_del_by_deps_soon("add_finding_consult", finding_id=finding_id)

@@ -170,21 +170,21 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
                         raise ExpiredToken()
                 except RedisKeyNotFound:
                     # Session expired (user logged out)
-                    raise ExpiredToken()  # pylint: disable=raise-missing-from
+                    raise ExpiredToken() from None
     except jwt.ExpiredSignatureError:
         # Session expired
-        raise InvalidAuthorization()  # pylint: disable=raise-missing-from
+        raise InvalidAuthorization() from None
     except (AttributeError, IndexError) as ex:
         LOGGER.exception(ex, extra={"extra": context})
-        raise InvalidAuthorization()  # pylint: disable=raise-missing-from
+        raise InvalidAuthorization() from None
     except jwt.JWTClaimsError as ex:
         LOGGER.exception(ex, extra={"extra": context})
-        raise InvalidAuthorization()  # pylint: disable=raise-missing-from
+        raise InvalidAuthorization() from None
     except JWTError as ex:
         LOGGER.exception(ex, extra={"extra": context})
-        raise InvalidAuthorization()  # pylint: disable=raise-missing-from
+        raise InvalidAuthorization() from None
     except InvalidJWEData:
-        raise InvalidAuthorization()  # pylint: disable=raise-missing-from
+        raise InvalidAuthorization() from None
     else:
         store[context_store_key] = content
         return content

@@ -44,7 +44,7 @@ async def check_jwt_token_validity(request: Request) -> None:
             raise ExpiredToken()
     except RedisKeyNotFound:
         # User do not even has an active session
-        raise SecureAccessException()  # pylint: disable=raise-missing-from
+        raise SecureAccessException() from None
 
 
 async def create_session_web(request: Request) -> bool:

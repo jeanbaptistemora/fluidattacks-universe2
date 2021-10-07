@@ -109,7 +109,7 @@ async def check_session_web_validity(request: Request) -> None:
             raise ExpiredToken()
     except RedisKeyNotFound:
         # User do not even has an active session
-        raise SecureAccessException()  # pylint: disable=raise-missing-from
+        raise SecureAccessException() from None
 
 
 async def create(email: str, data: UserType) -> bool:
