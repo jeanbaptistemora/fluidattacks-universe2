@@ -105,7 +105,10 @@ async def _add_updated_max_number_acceptations(
     max_number_acceptations: Optional[Decimal] = organization_data[
         "max_number_acceptations"
     ]
-    if new_max_number_acceptation != max_number_acceptations:
+    if (
+        new_max_number_acceptation
+        and new_max_number_acceptation != max_number_acceptations
+    ):
         historic_max_number_acceptation = organization_data[
             "historic_max_number_acceptations"
         ]
@@ -445,10 +448,9 @@ async def update_policies(
         success = True
         # Compatibility for the old API
         if "max_number_acceptances" in values:
-            values["max_number_acceptations"] = values[
+            values["max_number_acceptations"] = values.pop(
                 "max_number_acceptances"
-            ]
-            del values["max_number_acceptances"]
+            )
         new_policies = await _get_new_policies(
             loaders, organization_id, email, values
         )
