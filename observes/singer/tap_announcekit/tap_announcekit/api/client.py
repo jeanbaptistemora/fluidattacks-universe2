@@ -1,11 +1,15 @@
+from __future__ import (
+    annotations,
+)
+
 from dataclasses import (
     dataclass,
 )
+from purity.v1 import (
+    Patch,
+)
 from returns.io import (
     IO,
-)
-from returns.unsafe import (
-    unsafe_perform_io,
 )
 from sgqlc import (
     introspection,
@@ -24,6 +28,7 @@ from tap_announcekit.api.auth import (
 )
 from typing import (
     Any,
+    Callable,
 )
 
 API_ENDPOINT = "https://announcekit.app/gq/v2"
@@ -31,13 +36,33 @@ API_ENDPOINT = "https://announcekit.app/gq/v2"
 
 @dataclass(frozen=True)
 class _Query:
-    raw: Operation  # equivalent to Any
+    _raw: Patch[Callable[[], Operation]]
 
 
 class Query(_Query):
     # pylint: disable=too-few-public-methods
     def __init__(self, obj: _Query) -> None:
-        super().__init__(obj.raw)
+        super().__init__(obj._raw)
+
+    def operation(self) -> Operation:
+        return self._raw.unwrap()
+
+
+@dataclass(frozen=True)
+class QueryFactory:
+    @staticmethod
+    def _new_op() -> Operation:
+        return Operation(gql_schema.Query)
+
+    @staticmethod
+    def select(selections: Callable[[Operation], IO[None]]) -> Query:
+        def op_obj() -> Operation:
+            obj = QueryFactory._new_op()
+            selections(obj)
+            return obj
+
+        draft = _Query(Patch(op_obj))
+        return Query(draft)
 
 
 @dataclass(frozen=True)
@@ -50,11 +75,6 @@ class ApiClient(_ApiClient):
         obj = _ApiClient(HTTPEndpoint(API_ENDPOINT, creds.basic_auth_header()))
         super().__init__(obj._endpoint)
 
-    @staticmethod
-    def new_query() -> IO[Query]:
-        draft = _Query(Operation(gql_schema.Query))
-        return IO(Query(draft))
-
     def introspection_data(self) -> Any:
         return self._endpoint(
             introspection.query,
@@ -64,7 +84,12 @@ class ApiClient(_ApiClient):
             ),
         )
 
-    def get(self, query: IO[Query]) -> IO[Any]:
-        raw_query = unsafe_perform_io(query).raw
-        data = self._endpoint(raw_query)
-        return IO(raw_query + data)
+    def get(self, query: Query) -> IO[Any]:
+        gql_op = query.operation()
+        data = self._endpoint(gql_op)
+        return IO(gql_op + data)
+
+
+__all__ = [
+    "Operation",
+]

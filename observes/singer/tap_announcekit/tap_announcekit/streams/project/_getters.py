@@ -18,7 +18,9 @@ from singer_io.singer2.json import (
 )
 from tap_announcekit.api.client import (
     ApiClient,
+    Operation,
     Query,
+    QueryFactory,
 )
 from tap_announcekit.api.gql_schema import (
     Project as RawProject,
@@ -79,8 +81,8 @@ def _to_proj(raw: RawProject) -> Project:
     return Project(draft)
 
 
-def _select_proj_fields(proj_id: str, query: Query) -> IO[None]:
-    proj = query.raw.project(project_id=proj_id)
+def _select_proj_fields(proj_id: str, query: Operation) -> IO[None]:
+    proj = query.project(project_id=proj_id)
     # select fields
     for attr, _ in _Project.__annotations__.items():
         _attr = "id" if attr == "proj_id" else attr
@@ -88,10 +90,8 @@ def _select_proj_fields(proj_id: str, query: Query) -> IO[None]:
     return IO(None)
 
 
-def _proj_query(proj_id: str) -> IO[Query]:
-    query = ApiClient.new_query()
-    query.bind(partial(_select_proj_fields, proj_id))
-    return query
+def _proj_query(proj_id: str) -> Query:
+    return QueryFactory.select(partial(_select_proj_fields, proj_id))
 
 
 def _get_project(client: ApiClient, proj_id: ProjectId) -> IO[Project]:

@@ -6,27 +6,32 @@ from tap_announcekit.api.auth import (
 )
 from tap_announcekit.api.client import (
     ApiClient,
+    Operation,
     Query,
+    QueryFactory,
 )
 from tap_announcekit.api.gql_schema import (
     User,
 )
+from typing import (
+    cast,
+)
 
 
-def _select_active_proj(query: Query) -> IO[None]:
-    me_user = query.raw.me()
+def select_active_proj(query: Operation) -> IO[None]:
+    me_user = query.me()
     me_user.active_project().name()
     return IO(None)
 
 
 def test_expected_project() -> IO[None]:
     client = ApiClient(get_creds())
-    query = ApiClient.new_query()
-    query.bind(_select_active_proj)
-    user: IO[User] = client.get(query).map(lambda x: x.me)
+    query = QueryFactory.select(select_active_proj)
+    user: IO[User] = client.get(query).map(lambda x: cast(User, x.me))
 
-    def _check(user: User) -> None:
+    def _check(user: User) -> IO[None]:
         proj_name = "[DEMO] [Staging/test] test_project"
         assert user.active_project.name == proj_name
+        return IO(None)
 
-    user.bind(_check)
+    return user.bind(_check)
