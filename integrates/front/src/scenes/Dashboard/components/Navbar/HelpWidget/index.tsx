@@ -75,8 +75,8 @@ export const HelpWidget: React.FC = (): JSX.Element => {
       });
     },
     variables: {
-      filesData: userEmail,
-      groupName: userName,
+      filesData: userName,
+      groupName: userEmail,
     },
   });
 
@@ -104,7 +104,7 @@ export const HelpWidget: React.FC = (): JSX.Element => {
             fileName: values.file[0].name,
           },
         ]),
-        groupName: userName,
+        groupName: userEmail,
       },
     });
 
