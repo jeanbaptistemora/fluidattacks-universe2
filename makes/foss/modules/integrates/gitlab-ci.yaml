@@ -344,27 +344,6 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/integrates/back/test/functional__add_draft:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'add_draft'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
 /integrates/back/test/functional__add_draft_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -444,27 +423,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/back/test/functional 'add_files_to_db'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-/integrates/back/test/functional__add_finding_consult:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'add_finding_consult'
   stage: test-code
   tags:
     - autoscaling
@@ -638,27 +596,6 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/integrates/back/test/functional__approve_draft:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'approve_draft'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
 /integrates/back/test/functional__approve_draft_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -785,27 +722,6 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/integrates/back/test/functional__download_vulnerability_file:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'download_vulnerability_file'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
 /integrates/back/test/functional__download_vulnerability_file_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -865,27 +781,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/back/test/functional 'events'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-/integrates/back/test/functional__finding:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'finding'
   stage: test-code
   tags:
     - autoscaling
@@ -970,27 +865,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/back/test/functional 'grant_stakeholder_organization_access'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-/integrates/back/test/functional__group:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'group'
   stage: test-code
   tags:
     - autoscaling
@@ -1165,27 +1039,6 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/integrates/back/test/functional__reject_draft:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'reject_draft'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
 /integrates/back/test/functional__reject_draft_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1250,27 +1103,6 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/integrates/back/test/functional__remove_evidence:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'remove_evidence'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
 /integrates/back/test/functional__remove_evidence_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1313,27 +1145,6 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/integrates/back/test/functional__remove_finding:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'remove_finding'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
 /integrates/back/test/functional__remove_finding_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1350,27 +1161,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/back/test/functional 'remove_finding_new' 'false' 'migration'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-/integrates/back/test/functional__remove_group:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'remove_group'
   stage: test-code
   tags:
     - autoscaling
@@ -1481,27 +1271,6 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/integrates/back/test/functional__remove_vulnerability:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'remove_vulnerability'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
 /integrates/back/test/functional__remove_vulnerability_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1544,27 +1313,6 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/integrates/back/test/functional__request_vulnerabilities_verification:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'request_vulnerabilities_verification'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
 /integrates/back/test/functional__request_vulnerabilities_verification_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1582,27 +1330,6 @@
   script:
     - m . /integrates/back/test/functional 'request_vulnerabilities_verification_new'
       'false' 'migration'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-/integrates/back/test/functional__request_vulnerabilities_zero_risk:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'request_vulnerabilities_zero_risk'
   stage: test-code
   tags:
     - autoscaling
@@ -1731,27 +1458,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/back/test/functional 'stakeholder'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-/integrates/back/test/functional__submit_draft:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'submit_draft'
   stage: test-code
   tags:
     - autoscaling
@@ -1921,48 +1627,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/back/test/functional 'update_event_evidence'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-/integrates/back/test/functional__update_evidence:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'update_evidence'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-/integrates/back/test/functional__update_evidence_description:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'update_evidence_description'
   stage: test-code
   tags:
     - autoscaling
@@ -2159,27 +1823,6 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/integrates/back/test/functional__update_severity:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'update_severity'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
 /integrates/back/test/functional__update_severity_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2244,27 +1887,6 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/integrates/back/test/functional__update_vulnerability_commit:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'update_vulnerability_commit'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
 /integrates/back/test/functional__update_vulnerability_commit_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2282,27 +1904,6 @@
   script:
     - m . /integrates/back/test/functional 'update_vulnerability_commit_new' 'false'
       'migration'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-/integrates/back/test/functional__update_vulnerability_treatment:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'update_vulnerability_treatment'
   stage: test-code
   tags:
     - autoscaling
@@ -2330,27 +1931,6 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/integrates/back/test/functional__upload_file:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'upload_file'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
 /integrates/back/test/functional__upload_file_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2367,27 +1947,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/back/test/functional 'upload_file_new' 'false' 'migration'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-/integrates/back/test/functional__verify_vulnerabilities_request:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'verify_vulnerabilities_request'
   stage: test-code
   tags:
     - autoscaling
@@ -2410,27 +1969,6 @@
   script:
     - m . /integrates/back/test/functional 'verify_vulnerabilities_request_new' 'false'
       'migration'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-/integrates/back/test/functional__vulnerability:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'vulnerability'
   stage: test-code
   tags:
     - autoscaling
