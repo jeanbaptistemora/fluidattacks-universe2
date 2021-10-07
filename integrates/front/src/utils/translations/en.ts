@@ -416,6 +416,7 @@ export const enTranslations: ResourceKey = {
         releaseDate: "filter by Release Date",
         severity: "Filter by severity",
         status: "Filter by status",
+        tags: "Filter by Tags",
         treatment: "Filter by Treatment",
         type: "Filter by type",
         where: "Filter by text on 'Where' column",
@@ -862,6 +863,10 @@ export const enTranslations: ResourceKey = {
     token: {
       text: "API",
       tooltip: "Get an ASM API Token",
+    },
+    uploadFile: {
+      text: "Upload a file",
+      tooltip: "Upload a file to evaluate",
     },
     user: {
       text: "Add Stakeholder",
