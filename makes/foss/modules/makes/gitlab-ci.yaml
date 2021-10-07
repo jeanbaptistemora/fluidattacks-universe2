@@ -16,6 +16,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesDns:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -36,6 +37,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesFoss:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -56,6 +58,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesKubernetes:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -76,6 +79,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesOkta:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -96,6 +100,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesSecrets:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -116,6 +121,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesStatus:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -136,6 +142,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersAirs:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -156,6 +163,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersDocs:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -176,6 +184,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersForces:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -196,6 +205,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersIntegrates:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -216,6 +226,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersMakes:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -236,6 +247,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersMelts:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -256,6 +268,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersObserves:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -276,6 +289,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersServices:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -296,6 +310,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersSkims:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -316,6 +331,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersSorts:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -336,6 +352,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesVpc:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -356,6 +373,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /docs/generate/criteria:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -377,6 +395,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesCi:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -398,6 +417,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesCompute:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -419,6 +439,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesDns:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -440,6 +461,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesFoss:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -461,6 +483,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesKubernetes:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -482,6 +505,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesOkta:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -503,6 +527,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesSecrets:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -524,6 +549,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesStatus:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -545,6 +571,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersAirs:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -566,6 +593,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersDocs:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -587,6 +615,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersForces:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -608,6 +637,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersIntegrates:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -629,6 +659,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersMakes:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -650,6 +681,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersMelts:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -671,6 +703,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersObserves:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -692,6 +725,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersServices:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -713,6 +747,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersSkims:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -734,6 +769,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersSorts:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -755,6 +791,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesVpc:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -776,6 +813,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintWithAjv/makes/criteria/compliance:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -797,6 +835,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintWithAjv/makes/criteria/requirements:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -818,6 +857,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintWithAjv/makes/criteria/vulnerabilities:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -839,6 +879,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /makes/criteria/test:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -860,6 +901,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /makes/criteria/unreferenced:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -881,6 +923,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /pipelineOnGitlab/makes:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -902,6 +945,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersAirsKeys1:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -919,6 +963,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersAirsKeys2:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -936,6 +981,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersDocsKeys1:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -953,6 +999,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersDocsKeys2:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -970,6 +1017,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersForcesKeys1:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -987,6 +1035,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersForcesKeys2:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1004,6 +1053,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersIntegratesKeys1:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1021,6 +1071,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersIntegratesKeys2:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1038,6 +1089,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersMakesKeys1:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1055,6 +1107,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersMakesKeys2:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1072,6 +1125,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersMeltsKeys1:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1089,6 +1143,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersMeltsKeys2:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1106,6 +1161,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersObservesKeys1:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1123,6 +1179,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersObservesKeys2:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1140,6 +1197,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersServicesKeys1:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1157,6 +1215,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersServicesKeys2:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1174,6 +1233,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersSkimsKeys1:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1191,6 +1251,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersSkimsKeys2:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1208,6 +1269,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersSortsKeys1:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1225,6 +1287,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersSortsKeys2:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1242,6 +1305,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesCi:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1263,6 +1327,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesCompute:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1284,6 +1349,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesDns:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1305,6 +1371,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesFoss:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1326,6 +1393,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesKubernetes:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1347,6 +1415,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesOkta:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1368,6 +1437,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesSecrets:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1389,6 +1459,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesStatus:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1410,6 +1481,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersAirs:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1431,6 +1503,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersDocs:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1452,6 +1525,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersForces:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1473,6 +1547,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersIntegrates:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1494,6 +1569,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersMakes:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1515,6 +1591,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersMelts:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1536,6 +1613,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersObserves:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1557,6 +1635,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersServices:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1578,6 +1657,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersSkims:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1599,6 +1679,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersSorts:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1620,6 +1701,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/makesVpc:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1641,3 +1723,4 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1

@@ -15,6 +15,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /computeOnAwsBatch/integratesSubscriptionsUserToEntity__prod:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -34,6 +35,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/integratesBackups:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -54,6 +56,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/integratesCache:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -74,6 +77,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/integratesDatabase:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -94,6 +98,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/integratesFront:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -114,6 +119,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/integratesResources:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -134,6 +140,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/integratesSecrets:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -154,6 +161,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/authz-matrix:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -175,6 +183,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/deploy/dev:
   environment:
     name: development/$CI_COMMIT_REF_SLUG
@@ -199,6 +208,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/deploy/prod:
   environment:
     name: production
@@ -222,6 +232,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/deploy/prod__even:
   environment:
     name: production
@@ -243,6 +254,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/deploy/prod__odd:
   environment:
     name: production
@@ -264,6 +276,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/destroy/eph:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -281,6 +294,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__accept_legal:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -302,6 +316,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__acknowledge_concurrent_session:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -323,6 +338,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__activate_root:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -344,6 +360,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_draft_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -365,6 +382,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_event:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -386,6 +404,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_event_consult:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -407,6 +426,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_files_to_db:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -428,6 +448,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_finding_consult_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -449,6 +470,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_forces_execution:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -470,6 +492,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_git_root:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -491,6 +514,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_group:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -512,6 +536,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_group_consult:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -533,6 +558,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_group_tags:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -554,6 +580,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_organization:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -575,6 +602,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_push_token:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -596,6 +624,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__approve_draft_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -617,6 +646,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__confirm_vulnerabilities_zero_risk:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -638,6 +668,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__deactivate_root:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -659,6 +690,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__delete_obsolete_groups__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -680,6 +712,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__download_event_file:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -701,6 +734,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__download_file:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -722,6 +756,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__download_vulnerability_file_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -744,6 +779,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__event:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -765,6 +801,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__events:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -786,6 +823,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__finding_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -807,6 +845,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__forces_executions:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -828,6 +867,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__grant_stakeholder_access:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -849,6 +889,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__grant_stakeholder_organization_access:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -870,6 +911,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__group_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -891,6 +933,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__groups_with_forces:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -912,6 +955,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__handle_vulnerabilities_acceptance_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -934,6 +978,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__internal_names:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -955,6 +1000,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__invalidate_access_token:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -976,6 +1022,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__me:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -997,6 +1044,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__organization:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1018,6 +1066,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__organization_id:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1039,6 +1088,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__reject_draft_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1060,6 +1110,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__reject_vulnerabilities_zero_risk_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1082,6 +1133,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_event_evidence:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1103,6 +1155,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_evidence_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1124,6 +1177,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_files:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1145,6 +1199,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_finding_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1166,6 +1221,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_group_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1187,6 +1243,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_group_tag:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1208,6 +1265,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_stakeholder_access:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1229,6 +1287,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_stakeholder_organization_access:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1250,6 +1309,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_tags:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1271,6 +1331,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_vulnerability_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1292,6 +1353,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__report:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1313,6 +1375,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__request_vulnerabilities_verification_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1335,6 +1398,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__request_vulnerabilities_zero_risk_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1357,6 +1421,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__reset_expired_accepted_findings__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1379,6 +1444,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__resources:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1400,6 +1466,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__sign_in:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1421,6 +1488,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__solve_event:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1442,6 +1510,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__stakeholder:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1463,6 +1532,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__submit_draft_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1484,6 +1554,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__submit_organization_finding_policy__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1506,6 +1577,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__subscribe_to_entity_report__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1527,6 +1599,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__toe_inputs:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1548,6 +1621,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__toe_lines:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1569,6 +1643,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__unsubscribe_from_group:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1590,6 +1665,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_access_token:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1611,6 +1687,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_event_evidence:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1632,6 +1709,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_evidence_description_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1654,6 +1732,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_evidence_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1675,6 +1754,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_finding_description:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1696,6 +1776,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_finding_description_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1718,6 +1799,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_forces_access_token:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1739,6 +1821,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_group:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1760,6 +1843,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_group_stakeholder:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1781,6 +1865,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_organization_policies:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1802,6 +1887,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_organization_stakeholder:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1823,6 +1909,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_severity_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1844,6 +1931,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_toe_lines_sorts:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1865,6 +1953,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_vulnerabilities_treatment_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1887,6 +1976,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_vulnerability_commit_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1909,6 +1999,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_vulnerability_treatment_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1931,6 +2022,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__upload_file_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1952,6 +2044,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__verify_vulnerabilities_request_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1974,6 +2067,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__vulnerability_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1995,6 +2089,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/unit__migration:
   artifacts:
     expire_in: 1 week
@@ -2021,6 +2116,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/charts/documents__dev:
   artifacts:
     expire_in: 1 week
@@ -2048,6 +2144,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/charts/documents__prod:
   artifacts:
     expire_in: 1 week
@@ -2071,6 +2168,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/charts/snapshots__prod:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -2088,6 +2186,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/coverage:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2112,6 +2211,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/front/deploy/dev:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2133,6 +2233,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/front/deploy/prod:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2153,6 +2254,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/front/lint:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2174,6 +2276,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/front/test:
   after_script:
     - cp ~/.makes/out-integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov
@@ -2202,6 +2305,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/linters/back/schema:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2223,6 +2327,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/linters/charts:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2244,6 +2349,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/mobile/build/android:
   artifacts:
     expire_in: 1 day
@@ -2269,6 +2375,7 @@
     - autoscaling-large
   variables:
     GIT_DEPTH: 5
+    MAKES_GIT_DEPTH: 1
 /integrates/mobile/deploy/playstore:
   dependencies:
     - /integrates/mobile/build/android
@@ -2291,6 +2398,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 5
+    MAKES_GIT_DEPTH: 1
 /integrates/mobile/lint:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2312,6 +2420,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/mobile/ota__dev:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2333,6 +2442,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/mobile/ota__prod:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2352,6 +2462,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/mobile/test:
   after_script:
     - cp ~/.makes/out-integrates-mobile-test/coverage/lcov.info integrates/mobile/coverage.lcov
@@ -2380,6 +2491,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.delete_imamura_stakeholders.main:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -2397,6 +2509,7 @@
     - autoscaling-large
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.delete_obsolete_groups.main:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -2414,6 +2527,7 @@
     - autoscaling-large
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.delete_obsolete_orgs.main:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -2431,6 +2545,7 @@
     - autoscaling-large
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.get_remediated_findings.main:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -2448,6 +2563,7 @@
     - autoscaling-large
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.machine_queue_all.main:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -2465,6 +2581,7 @@
     - autoscaling-large
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.machine_queue_re_attacks.main:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -2482,6 +2599,7 @@
     - autoscaling-large
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.requeue_actions.main:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -2499,6 +2617,7 @@
     - autoscaling-large
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.reset_expired_accepted_findings.main:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -2516,6 +2635,7 @@
     - autoscaling-large
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.send_treatment_change.main:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -2533,6 +2653,7 @@
     - autoscaling-large
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.toe_inputs_etl.main:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -2550,6 +2671,7 @@
     - autoscaling-large
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.toe_lines_etl.main:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -2567,6 +2689,7 @@
     - autoscaling-large
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.update_portfolios.main:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -2584,6 +2707,7 @@
     - autoscaling-large
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/secrets/lint:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2605,6 +2729,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/user-to-entity__dev:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2627,6 +2752,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/web/e2e:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2652,6 +2778,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2673,6 +2800,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integratesBackChartsGenerators:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2694,6 +2822,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/imports/integrates:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2715,6 +2844,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackDeployPermissionsMatrix:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2736,6 +2866,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackMigrations:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2757,6 +2888,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackTestsE2e:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2778,6 +2910,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/integratesBackups:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2799,6 +2932,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/integratesCache:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2820,6 +2954,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/integratesDatabase:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2841,6 +2976,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/integratesFront:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2862,6 +2998,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/integratesResources:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2883,6 +3020,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/integratesSecrets:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2904,6 +3042,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /pipelineOnGitlab/integrates:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2925,6 +3064,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /securePythonWithBandit/integratesBack:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2946,6 +3086,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/integratesBackups:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2967,6 +3108,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/integratesCache:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -2988,6 +3130,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/integratesDatabase:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -3009,6 +3152,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/integratesFront:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -3030,6 +3174,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/integratesResources:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -3051,6 +3196,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/integratesSecrets:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -3072,3 +3218,4 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1

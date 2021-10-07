@@ -1,5 +1,5 @@
 /lintPython/module/melts:
-  image: ghcr.io/fluidattacks/makes:21.10
+  image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
   rules:
@@ -19,8 +19,9 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/module/meltsTests:
-  image: ghcr.io/fluidattacks/makes:21.10
+  image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
   rules:
@@ -40,3 +41,4 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1

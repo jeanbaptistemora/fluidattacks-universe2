@@ -1,5 +1,5 @@
 /deployTerraform/sorts:
-  image: ghcr.io/fluidattacks/makes:21.10
+  image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -18,8 +18,9 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/sorts:
-  image: ghcr.io/fluidattacks/makes:21.10
+  image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
   rules:
@@ -39,8 +40,9 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/imports/sorts:
-  image: ghcr.io/fluidattacks/makes:21.10
+  image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
   rules:
@@ -60,8 +62,9 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/module/sortsTests:
-  image: ghcr.io/fluidattacks/makes:21.10
+  image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
   rules:
@@ -81,8 +84,9 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/module/sortsTraining:
-  image: ghcr.io/fluidattacks/makes:21.10
+  image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
   rules:
@@ -102,8 +106,9 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/sorts:
-  image: ghcr.io/fluidattacks/makes:21.10
+  image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
   rules:
@@ -123,8 +128,9 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/sorts:
-  image: ghcr.io/fluidattacks/makes:21.10
+  image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
   rules:
@@ -144,3 +150,4 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1

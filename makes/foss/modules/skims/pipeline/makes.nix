@@ -106,11 +106,13 @@ in
       ++ (builtins.map
         (category: {
           output = "/testPython/skims@${category}";
+          gitDepth =
+            if category == "unittesting"
+            then 0
+            else 1;
           gitlabExtra = gitlabTest // (
             if category == "functional"
             then { resource_group = "$CI_COMMIT_REF_NAME-$CI_JOB_NAME"; }
-            else if category == "unittesting"
-            then { variables.GIT_DEPTH = 0; }
             else { }
           );
         })

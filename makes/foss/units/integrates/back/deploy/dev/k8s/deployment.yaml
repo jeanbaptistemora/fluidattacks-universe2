@@ -28,7 +28,7 @@ spec:
             m f@${CI_COMMIT_REF_NAME} /integrates/back/deploy/probes/readiness;
             m f@${CI_COMMIT_REF_NAME} /integrates/back eph
           env:
-            - name: K8S_COMPAT
+            - name: MAKES_K8S_COMPAT
               value: "1"
           resources:
             requests:
@@ -77,7 +77,7 @@ spec:
             - f@${CI_COMMIT_REF_NAME}
             - /integrates/db
           env:
-            - name: K8S_COMPAT
+            - name: MAKES_K8S_COMPAT
               value: "1"
           resources:
             requests:
@@ -97,7 +97,7 @@ spec:
             - f@${CI_COMMIT_REF_NAME}
             - /integrates/cache
           env:
-            - name: K8S_COMPAT
+            - name: MAKES_K8S_COMPAT
               value: "1"
           resources:
             requests:
@@ -117,7 +117,7 @@ spec:
             - f@${CI_COMMIT_REF_NAME}
             - /integrates/storage
           env:
-            - name: K8S_COMPAT
+            - name: MAKES_K8S_COMPAT
               value: "1"
           resources:
             requests:

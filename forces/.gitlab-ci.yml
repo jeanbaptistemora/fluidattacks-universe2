@@ -35,7 +35,7 @@
 
 .makes4: &makes4
   tags: [autoscaling]
-  image: ghcr.io/fluidattacks/makes:21.10
+  image: ghcr.io/fluidattacks/makes:21.11
   needs: []
   interruptible: true
   script:

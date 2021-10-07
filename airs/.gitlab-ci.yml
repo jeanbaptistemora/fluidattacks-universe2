@@ -45,7 +45,7 @@
 
 .makes4: &makes4
   <<: *makes
-  image: ghcr.io/fluidattacks/makes:21.10
+  image: ghcr.io/fluidattacks/makes:21.11
   script:
     - m . "${CI_JOB_NAME% *}"
 
