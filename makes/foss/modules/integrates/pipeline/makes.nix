@@ -308,16 +308,6 @@ in
         ])
         ++ [
         {
-          output = "/integrates/back/test/unit";
-          gitlabExtra = gitlabTest // {
-            artifacts = {
-              name = "coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA";
-              paths = [ "integrates/coverage.xml" ];
-              expire_in = "1 week";
-            };
-          };
-        }
-        {
           args = [ "migration" ];
           output = "/integrates/back/test/unit";
           gitlabExtra = gitlabTest // {
@@ -367,7 +357,7 @@ in
           output = "/integrates/coverage";
           gitlabExtra = {
             needs = [
-              "/integrates/back/test/unit"
+              "/integrates/back/test/unit__migration"
               "/integrates/front/test"
               "/integrates/mobile/test"
             ];
