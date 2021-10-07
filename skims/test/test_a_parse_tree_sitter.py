@@ -86,13 +86,6 @@ async def test_graph_generation(
     with open(expected_path, "w", encoding="utf-8") as handle:
         handle.write(graph_db_as_json_str)
 
-    with open(
-        f"skims/test/data/sast/root-graph_{suffix_out}.json", encoding="utf-8"
-    ) as handle:
-        expected = handle.read()
-
-    assert graph_db_as_json_str == expected
-
     # Test SymEval
     syntax_steps = {
         finding.name: get_all_possible_syntax_steps(graph_db, finding)
@@ -116,6 +109,9 @@ async def test_graph_generation(
         f"skims/test/data/sast/root-graph-syntax_{suffix_out}.json",
         encoding="utf-8",
     ) as handle:
-        expected = handle.read()
+        assert syntax_steps_as_json_str == handle.read()
 
-    assert syntax_steps_as_json_str == expected
+    with open(
+        f"skims/test/data/sast/root-graph_{suffix_out}.json", encoding="utf-8"
+    ) as handle:
+        assert graph_db_as_json_str == handle.read()
