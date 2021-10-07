@@ -24,7 +24,6 @@ from decimal import (
     Decimal,
 )
 from findings.domain import (
-    get_findings_by_group,
     get_severity_score_new,
 )
 from freezegun import (  # type: ignore
@@ -56,7 +55,6 @@ from schedulers import (
     toe_inputs_etl,
     toe_lines_etl,
     update_indicators,
-    update_indicators_new,
 )
 import shutil
 from typing import (
@@ -81,23 +79,23 @@ pytestmark = [
 ]
 
 
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 async def test_get_status_vulns_by_time_range() -> None:
     first_day = "2019-01-01 12:00:00"
     last_day = "2019-06-30 23:59:59"
-    context = get_new_context()
-    findings = await context.group_findings.load("unittesting")
-    vulns = await list_vulnerabilities_async(
-        [str(finding["finding_id"]) for finding in findings],
-        include_confirmed_zero_risk=True,
-        include_requested_zero_risk=True,
+    loaders = get_new_context()
+    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+        "unittesting"
     )
-    findings_dict = {
-        str(finding["finding_id"]): finding for finding in findings
+    vulns = await loaders.finding_vulns_nzr.load_many_chained(
+        [finding.id for finding in findings]
+    )
+    findings_severity: Dict[str, Decimal] = {
+        finding.id: get_severity_score_new(finding.severity)
+        for finding in findings
     }
     vulnerabilities_severity = [
-        update_indicators.get_severity(
-            findings_dict=findings_dict, vulnerability=vulnerability
-        )
+        findings_severity[str(vulnerability["finding_id"])]
         for vulnerability in vulns
     ]
     historic_states = [
@@ -127,47 +125,8 @@ def test_create_weekly_date() -> None:
     assert test_data == expected_output
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-async def test_get_accepted_vulns() -> None:
-    context = get_new_context()
-    last_day = "2019-06-30 23:59:59"
-    findings = await context.group_findings.load("unittesting")
-    findings_dict = {
-        str(finding["finding_id"]): finding for finding in findings
-    }
-    vulns = await list_vulnerabilities_async(
-        [str(finding["finding_id"]) for finding in findings],
-        include_confirmed_zero_risk=True,
-        include_requested_zero_risk=True,
-    )
-    vulnerabilities_severity = [
-        update_indicators.get_severity(
-            findings_dict=findings_dict, vulnerability=vulnerability
-        )
-        for vulnerability in vulns
-    ]
-    vulnerabilities_historic_states = [
-        findings_utils.sort_historic_by_date(vulnerability["historic_state"])
-        for vulnerability in vulns
-    ]
-    test_data = sum(
-        [
-            update_indicators.get_accepted_vulns(
-                vulnerability, historic_state, severity, last_day
-            ).vulnerabilities
-            for vulnerability, historic_state, severity in zip(
-                vulns,
-                vulnerabilities_historic_states,
-                vulnerabilities_severity,
-            )
-        ]
-    )
-    expected_output = 2
-    assert test_data == expected_output
-
-
 @pytest.mark.skipif(not MIGRATION, reason="Finding migration")
-async def test_get_accepted_vulns_new() -> None:
+async def test_get_accepted_vulns() -> None:
     loaders = get_new_context()
     last_day = "2019-06-30 23:59:59"
     findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
@@ -190,7 +149,7 @@ async def test_get_accepted_vulns_new() -> None:
     ]
     test_data = sum(
         [
-            update_indicators_new.get_accepted_vulns(
+            update_indicators.get_accepted_vulns(
                 vulnerability, historic_state, severity, last_day
             ).vulnerabilities
             for vulnerability, historic_state, severity in zip(
@@ -204,29 +163,8 @@ async def test_get_accepted_vulns_new() -> None:
     assert test_data == expected_output
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-async def test_get_by_time_range() -> None:
-    context = get_new_context()
-    last_day = "2020-09-09 23:59:59"
-    findings = await context.group_findings.load("unittesting")
-    findings_dict = {
-        str(finding["finding_id"]): finding for finding in findings
-    }
-    vuln = await get_vuln("80d6a69f-a376-46be-98cd-2fdedcffdcc0")
-    vulnerability_severity = update_indicators.get_severity(
-        findings_dict=findings_dict, vulnerability=vuln[0]
-    )
-    test_data = update_indicators.get_by_time_range(
-        findings_utils.sort_historic_by_date(vuln[0]["historic_state"]),
-        vulnerability_severity,
-        last_day,
-    )
-    expected_output = 1
-    assert test_data.vulnerabilities == expected_output
-
-
 @pytest.mark.skipif(not MIGRATION, reason="Finding migration")
-async def test_get_by_time_range_new() -> None:
+async def test_get_by_time_range() -> None:
     loaders = get_new_context()
     last_day = "2020-09-09 23:59:59"
     vulnerability = (await get_vuln("80d6a69f-a376-46be-98cd-2fdedcffdcc0"))[0]
@@ -234,7 +172,7 @@ async def test_get_by_time_range_new() -> None:
         vulnerability["finding_id"]
     )
     vulnerability_severity = get_severity_score_new(finding.severity)
-    test_data = update_indicators_new.get_by_time_range(
+    test_data = update_indicators.get_by_time_range(
         findings_utils.sort_historic_by_date(vulnerability["historic_state"]),
         vulnerability_severity,
         last_day,
@@ -243,25 +181,11 @@ async def test_get_by_time_range_new() -> None:
     assert test_data.vulnerabilities == expected_output
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-async def test_create_register_by_week() -> None:
-    context = get_new_context()
-    group_name = "unittesting"
-    test_data = await update_indicators.create_register_by_week(
-        context, group_name
-    )
-    assert isinstance(test_data.vulnerabilities, list)
-    for item in test_data.vulnerabilities:
-        assert isinstance(item, list)
-        assert isinstance(item[0], dict)
-        assert item[0] is not None
-
-
 @pytest.mark.skipif(not MIGRATION, reason="Finding migration")
-async def test_create_register_by_week_new() -> None:
+async def test_create_register_by_week() -> None:
     loaders = get_new_context()
     group_name = "unittesting"
-    test_data = await update_indicators_new.create_register_by_week(
+    test_data = await update_indicators.create_register_by_week(
         loaders, group_name
     )
     assert isinstance(test_data.vulnerabilities, list)
@@ -319,56 +243,8 @@ async def test_get_date_last_vulns() -> None:
     assert test_data == expected_output
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
-async def test_get_group_indicators() -> None:
-    group_name = "unittesting"
-    findings = await get_findings_by_group(group_name)
-    vulns = await list_vulnerabilities_async(
-        [finding["finding_id"] for finding in findings]
-    )
-    test_data = await update_indicators.get_group_indicators(group_name)
-    over_time = [
-        element[-12:] for element in test_data["remediated_over_time"]
-    ]
-    found = over_time[0][-1]["y"]
-    closed = over_time[1][-1]["y"]
-    accepted = over_time[2][-1]["y"]
-
-    assert isinstance(test_data, dict)
-    assert len(test_data) == 23
-    assert test_data["max_open_severity"] == Decimal(6.3).quantize(
-        Decimal("0.1")
-    )
-    assert test_data["open_findings"] == 5
-    assert found == len(
-        [
-            vuln
-            for vuln in vulns
-            if vuln["historic_state"][-1].get("state") != "DELETED"
-        ]
-    )
-    assert accepted == len(
-        [
-            vuln
-            for vuln in vulns
-            if (
-                vuln.get("historic_treatment", [{}])[-1].get("treatment")
-                in {"ACCEPTED", "ACCEPTED_UNDEFINED"}
-                and vuln["historic_state"][-1].get("state") == "open"
-            )
-        ]
-    )
-    assert closed == len(
-        [
-            vuln
-            for vuln in vulns
-            if vuln["historic_state"][-1].get("state") == "closed"
-        ]
-    )
-
-
 @pytest.mark.skipif(not MIGRATION, reason="Finding migration")
-async def test_get_group_indicators_new() -> None:
+async def test_get_group_indicators() -> None:
     loaders = get_new_context()
     group_name = "unittesting"
     findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
@@ -377,7 +253,7 @@ async def test_get_group_indicators_new() -> None:
     vulnerabilties = await loaders.finding_vulns_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
-    test_data = await update_indicators_new.get_group_indicators(group_name)
+    test_data = await update_indicators.get_group_indicators(group_name)
     over_time = [
         element[-12:] for element in test_data["remediated_over_time"]
     ]

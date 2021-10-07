@@ -11,20 +11,27 @@ from collections import (
     OrderedDict,
 )
 from custom_types import (
-    Finding as FindingType,
-    Historic,
+    Historic as HistoricType,
+    Vulnerability as VulnerabilityType,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from datetime import (
     datetime,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from decimal import (
     Decimal,
 )
 from findings import (
     domain as findings_domain,
+)
+from findings.domain.core import (
+    get_severity_score_new,
 )
 from groups import (
     domain as groups_domain,
@@ -40,7 +47,6 @@ from settings import (
     LOGGING,
 )
 from typing import (
-    Any,
     cast,
     Dict,
     List,
@@ -121,20 +127,8 @@ def format_exposed_chart(
     return result_data
 
 
-def get_severity(
-    *,
-    findings_dict: Dict[str, Dict[str, FindingType]],
-    vulnerability: Dict[str, FindingType],
-) -> Decimal:
-    return Decimal(
-        findings_dict[str(vulnerability["finding_id"])].get(
-            "cvss_temporal", 0.0
-        )
-    )
-
-
 async def create_register_by_week(  # pylint: disable=too-many-locals
-    context: Any, group: str, min_date: Optional[datetime] = None
+    loaders: Dataloaders, group: str, min_date: Optional[datetime] = None
 ) -> RegisterByTime:
     """Create weekly vulnerabilities registry by group"""
     found: int = 0
@@ -146,17 +140,18 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
     all_registers_cvsff = OrderedDict()
     all_registers_exposed_cvsff = OrderedDict()
 
-    findings: List[Dict[str, FindingType]] = await context.group_findings.load(
+    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
         group
     )
-    vulns = await context.finding_vulns_nzr.load_many_chained(
-        [finding["finding_id"] for finding in findings]
+    vulns = await loaders.finding_vulns_nzr.load_many_chained(
+        [finding.id for finding in findings]
     )
-    findings_dict: Dict[str, Dict[str, FindingType]] = {
-        str(finding["finding_id"]): finding for finding in findings
+    findings_severity: Dict[str, Decimal] = {
+        finding.id: get_severity_score_new(finding.severity)
+        for finding in findings
     }
     vulnerabilities_severity = [
-        get_severity(findings_dict=findings_dict, vulnerability=vulnerability)
+        findings_severity[str(vulnerability["finding_id"])]
         for vulnerability in vulns
     ]
     historic_states = [
@@ -277,7 +272,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
 
 
 async def create_register_by_month(  # pylint: disable=too-many-locals
-    *, context: Any, group: str
+    *, loaders: Dataloaders, group: str
 ) -> RegisterByTime:
     found: int = 0
     accepted: int = 0
@@ -288,17 +283,18 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
     all_registers_cvsff = OrderedDict()
     all_registers_exposed_cvsff = OrderedDict()
 
-    findings: List[Dict[str, FindingType]] = await context.group_findings.load(
+    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
         group
     )
-    vulnerabilties = await context.finding_vulns_nzr.load_many_chained(
-        [finding["finding_id"] for finding in findings]
+    vulnerabilties = await loaders.finding_vulns_nzr.load_many_chained(
+        [finding.id for finding in findings]
     )
-    findings_dict: Dict[str, Dict[str, FindingType]] = {
-        str(finding["finding_id"]): finding for finding in findings
+    findings_severity: Dict[str, Decimal] = {
+        finding.id: get_severity_score_new(finding.severity)
+        for finding in findings
     }
     vulnerabilities_severity = [
-        get_severity(findings_dict=findings_dict, vulnerability=vulnerability)
+        findings_severity[str(vulnerability["finding_id"])]
         for vulnerability in vulnerabilties
     ]
     historic_states = [
@@ -464,8 +460,8 @@ def create_date(first_date: str) -> str:
 
 
 def get_accepted_vulns(
-    vuln: Dict[str, FindingType],
-    historic_state: List[Dict[str, str]],
+    vuln: Dict[str, VulnerabilityType],
+    historic_state: HistoricType,
     severity: Decimal,
     last_day: str,
     min_date: Optional[str] = None,
@@ -485,7 +481,7 @@ def get_accepted_vulns(
 
 
 def get_by_time_range(
-    historic_state: List[Dict[str, str]],
+    historic_state: HistoricType,
     severity: Decimal,
     last_day: str,
     min_date: Optional[str] = None,
@@ -513,7 +509,7 @@ def get_by_time_range(
 
 
 def get_closed_vulnerabilities(
-    historic_state: List[Dict[str, str]],
+    historic_state: HistoricType,
     severity: Decimal,
     last_day: str,
     min_date: Optional[str] = None,
@@ -539,12 +535,12 @@ def get_closed_vulnerabilities(
     )
 
 
-def get_date_last_vulns(vulns: List[Dict[str, FindingType]]) -> str:
+def get_date_last_vulns(vulns: List[Dict[str, VulnerabilityType]]) -> str:
     """Get date of the last vulnerabilities"""
     last_date = max(
         [
             datetime_utils.get_from_str(
-                cast(List[Dict[str, str]], vuln["historic_state"])[-1]["date"]
+                cast(HistoricType, vuln["historic_state"])[-1]["date"]
             )
             for vuln in vulns
         ]
@@ -556,7 +552,9 @@ def get_date_last_vulns(vulns: List[Dict[str, FindingType]]) -> str:
     return first_day
 
 
-def get_last_vulnerabilities_date(vulns: List[Dict[str, FindingType]]) -> str:
+def get_last_vulnerabilities_date(
+    vulns: List[Dict[str, VulnerabilityType]]
+) -> str:
     last_date = max(
         [
             datetime_utils.get_from_str(
@@ -577,13 +575,14 @@ def get_last_vulnerabilities_date(vulns: List[Dict[str, FindingType]]) -> str:
 
 
 def get_first_week_dates(
-    vulns: List[Dict[str, FindingType]], min_date: Optional[datetime] = None
+    vulns: List[Dict[str, VulnerabilityType]],
+    min_date: Optional[datetime] = None,
 ) -> Tuple[str, str]:
     """Get first week vulnerabilities"""
     first_date = min(
         [
             datetime_utils.get_from_str(
-                cast(List[Dict[str, str]], vuln["historic_state"])[0]["date"]
+                cast(HistoricType, vuln["historic_state"])[0]["date"]
             )
             for vuln in vulns
         ]
@@ -608,7 +607,7 @@ def get_first_week_dates(
 
 
 def get_first_dates(
-    vulnerabilities: List[Dict[str, FindingType]]
+    vulnerabilities: List[Dict[str, VulnerabilityType]]
 ) -> Tuple[str, str]:
     first_date = min(
         [
@@ -645,7 +644,7 @@ def get_first_dates(
 
 
 async def _get_group_indicators(
-    group: str, context: Any, findings: List[Dict[str, FindingType]]
+    group: str, loaders: Dataloaders, findings: Tuple[Finding, ...]
 ) -> Dict[str, object]:
     (
         (last_closing_vuln_days, last_closing_vuln),
@@ -655,13 +654,13 @@ async def _get_group_indicators(
         open_findings,
     ) = await collect(
         (
-            findings_domain.get_last_closed_vulnerability_info(
-                context, findings
+            findings_domain.get_last_closed_vulnerability_info_new(
+                loaders, findings
             ),
-            findings_domain.get_max_open_severity(context, findings),
-            groups_domain.get_mean_remediate(context, group),
-            groups_domain.get_closed_vulnerabilities(context, group),
-            groups_domain.get_open_finding(context, group),
+            findings_domain.get_max_open_severity_new(loaders, findings),
+            groups_domain.get_mean_remediate_new(loaders, group),
+            groups_domain.get_closed_vulnerabilities_new(loaders, group),
+            groups_domain.get_open_findings_new(loaders, group),
         )
     )
 
@@ -669,9 +668,9 @@ async def _get_group_indicators(
         "last_closing_date": last_closing_vuln_days,
         "last_closing_vuln_finding": last_closing_vuln.get("finding_id", ""),
         "max_open_severity": max_open_severity,
-        "max_open_severity_finding": max_open_severity_finding.get(
-            "finding_id", ""
-        ),
+        "max_open_severity_finding": max_open_severity_finding.id
+        if max_open_severity_finding
+        else "",
         "closed_vulnerabilities": closed_vulnerabilities,
         "mean_remediate": mean_remediate,
         "open_findings": open_findings,
@@ -682,9 +681,11 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
     LOGGER_CONSOLE.info(
         "Getting group indicator", extra={"extra": {"group_name": group}}
     )
-    context = get_new_context()
-    findings = await context.group_findings.load(group)
-    _indicators = await _get_group_indicators(group, context, findings)
+    loaders: Dataloaders = get_new_context()
+    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+        group
+    )
+    _indicators = await _get_group_indicators(group, loaders, findings)
     (
         remediate_critical,
         remediate_high,
@@ -693,13 +694,19 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         total_treatment,
     ) = await collect(
         [
-            groups_domain.get_mean_remediate_severity(context, group, 9, 10),
-            groups_domain.get_mean_remediate_severity(context, group, 7, 8.9),
-            groups_domain.get_mean_remediate_severity(context, group, 4, 6.9),
-            groups_domain.get_mean_remediate_severity(
-                context, group, 0.1, 3.9
+            groups_domain.get_mean_remediate_severity_new(
+                loaders, group, 9, 10
             ),
-            findings_domain.get_total_treatment(context, findings),
+            groups_domain.get_mean_remediate_severity_new(
+                loaders, group, 7, 8.9
+            ),
+            groups_domain.get_mean_remediate_severity_new(
+                loaders, group, 4, 6.9
+            ),
+            groups_domain.get_mean_remediate_severity_new(
+                loaders, group, 0.1, 3.9
+            ),
+            findings_domain.get_total_treatment_new(loaders, findings),
         ]
     )
     (
@@ -708,9 +715,9 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         remediated_over_ninety_days,
     ) = await collect(
         [
-            create_register_by_week(context, group),
+            create_register_by_week(loaders, group),
             create_register_by_week(
-                context,
+                loaders,
                 group,
                 datetime.combine(
                     datetime_utils.get_now_minus_delta(days=30),
@@ -718,7 +725,7 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
                 ),
             ),
             create_register_by_week(
-                context,
+                loaders,
                 group,
                 datetime.combine(
                     datetime_utils.get_now_minus_delta(days=90),
@@ -728,7 +735,7 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         ]
     )
     over_time_month: RegisterByTime = await create_register_by_month(
-        context=context, group=group
+        loaders=loaders, group=group
     )
     indicators = {
         **_indicators,
@@ -737,7 +744,7 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         "mean_remediate_low_severity": remediate_low,
         "mean_remediate_medium_severity": remediate_medium,
         "open_vulnerabilities": (
-            await groups_domain.get_open_vulnerabilities(context, group)
+            await groups_domain.get_open_vulnerabilities_new(loaders, group)
         ),
         "total_treatment": total_treatment,
         "remediated_over_time": remediated_over_time.vulnerabilities[-40:],
@@ -745,11 +752,11 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         "remediated_over_time_cvssf": (
             remediated_over_time.vulnerabilities_cvssf[-40:]
         ),
-        "exposed_over_time_cvssf": remediated_over_time.exposed_cvssf[-40:],
-        "exposed_over_time_month_cvssf": over_time_month.exposed_cvssf[-40:],
         "remediated_over_time_month_cvssf": (
             over_time_month.vulnerabilities_cvssf[-40:]
         ),
+        "exposed_over_time_cvssf": remediated_over_time.exposed_cvssf[-40:],
+        "exposed_over_time_month_cvssf": over_time_month.exposed_cvssf[-40:],
         "remediated_over_time_30": remediated_over_thirty_days.vulnerabilities[
             -40:
         ],
@@ -768,9 +775,9 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
 
 def get_status_vulns_by_time_range(
     *,
-    vulnerabilities: List[Dict[str, FindingType]],
+    vulnerabilities: List[Dict[str, VulnerabilityType]],
     vulnerabilities_severity: List[Decimal],
-    vulnerabilities_historic_states: List[List[Historic]],
+    vulnerabilities_historic_states: List[List[HistoricType]],
     first_day: str,
     last_day: str,
     min_date: Optional[str] = None,
@@ -829,7 +836,7 @@ def get_status_vulns_by_time_range(
 def get_exposed_cvssf_by_time_range(
     *,
     vulnerabilities_severity: List[Decimal],
-    vulnerabilities_historic_states: List[List[Historic]],
+    vulnerabilities_historic_states: List[List[HistoricType]],
     last_day: str,
 ) -> CvssfExposureByTimeRange:
     exposed_cvssf: List[CvssfExposureByTimeRange] = [
@@ -848,8 +855,8 @@ def get_exposed_cvssf_by_time_range(
 
 
 def get_found_vulnerabilities(
-    vulnerability: Dict[str, FindingType],
-    historic_state: List[Dict[str, str]],
+    vulnerability: Dict[str, VulnerabilityType],
+    historic_state: HistoricType,
     severity: Decimal,
     first_day: str,
     last_day: str,
