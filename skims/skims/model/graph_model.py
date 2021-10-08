@@ -303,6 +303,14 @@ class SyntaxStepNamedArgument(NamedTuple):
     type: str = "SyntaxStepNamedArgument"
 
 
+class SyntaxStepDefaultParameter(NamedTuple):
+    meta: SyntaxStepMeta
+    var: str
+    var_type: str
+
+    type: str = "SyntaxStepDefaultParameter"
+
+
 class Graph(nx.DiGraph):
     pass
 
