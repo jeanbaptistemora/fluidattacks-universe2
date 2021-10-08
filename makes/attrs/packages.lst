@@ -12,7 +12,6 @@ makes.test
 makes.test.airs
 makes.test.asserts
 makes.test.docs
-makes.test.forces
 makes.test.makes
 makes.test.melts
 makes.test.observes

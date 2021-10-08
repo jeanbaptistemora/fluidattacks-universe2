@@ -53,6 +53,22 @@ in
           gitlabExtra = gitlabDeployInfra;
         }
         {
+          output = "/forces/process-groups";
+          gitlabExtra = {
+            only.refs = [ "schedules" ];
+            only.variables = [ "$forces_process_groups" ];
+            stage = "scheduler";
+          };
+        }
+        {
+          output = "/forces/process-groups-break";
+          gitlabExtra = {
+            only.refs = [ "schedules" ];
+            only.variables = [ "$forces_process_groups_break" ];
+            stage = "scheduler";
+          };
+        }
+        {
           output = "/forces/test";
           gitlabExtra = gitlabTest;
         }

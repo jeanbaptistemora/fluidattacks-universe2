@@ -2,8 +2,6 @@ airs.build
 airs.development
 airs.lint.code
 forces
-forces.process-groups
-forces.process-groups-break
 makes.announce.bugsnag
 makes.attrs
 makes.bugsnag.source-map-uploader

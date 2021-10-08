@@ -19,6 +19,36 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/forces/process-groups:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs: []
+  only:
+    refs:
+      - schedules
+    variables:
+      - $forces_process_groups
+  script:
+    - m . /forces/process-groups
+  stage: scheduler
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/forces/process-groups-break:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs: []
+  only:
+    refs:
+      - schedules
+    variables:
+      - $forces_process_groups_break
+  script:
+    - m . /forces/process-groups-break
+  stage: scheduler
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /forces/test:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true

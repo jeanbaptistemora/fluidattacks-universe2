@@ -58,26 +58,7 @@ forces.test-container:
   needs:
     - /deployContainerImage/forcesDev
 
-forces.process-groups:
-  <<: *makes
-  only:
-    refs: [schedules]
-    variables: [$forces_process_groups]
-  stage: scheduler
-
-forces.process-groups-break:
-  <<: *makes
-  only:
-    refs: [schedules]
-    variables: [$forces_process_groups_break]
-  stage: scheduler
-
 /deployContainerImage/forcesProd:
   <<: *makes4
   <<: *forces_in_master_branch
   stage: deploy-app
-
-makes.test.forces:
-  <<: *makes
-  <<: *forces_in_master_branch
-  stage: test-code
