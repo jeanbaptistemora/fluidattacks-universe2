@@ -66,6 +66,12 @@ class IPRootItem(NamedTuple):
     state: IPRootState
 
 
+class MachineRootExecution(NamedTuple):
+    group_name: str
+    id: str
+    queue_date: Optional[str]
+
+
 class URLRootMetadata(NamedTuple):
     type: str
 

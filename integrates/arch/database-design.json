@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 04, 2021, 01:13 PM",
+    "DateLastModified": "Oct 08, 2021, 08:20 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -424,6 +424,10 @@
         },
         {
           "AttributeName": "unreliable_root_id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "queue_date",
           "AttributeType": "S"
         }
       ],
@@ -1044,6 +1048,12 @@
               "modified_date": {
                 "S": "2020-11-19T13:37:10+00:00"
               },
+              "branch": {
+                "S": "master"
+              },
+              "url": {
+                "S": "https://gitlab.com/fluidattacks/product"
+              },
               "environment": {
                 "S": "production"
               },
@@ -1075,12 +1085,6 @@
               },
               "nickname": {
                 "S": "product"
-              },
-              "branch": {
-                "S": "master"
-              },
-              "url": {
-                "S": "https://gitlab.com/fluidattacks/product"
               }
             },
             {
@@ -1095,6 +1099,12 @@
               },
               "modified_date": {
                 "S": "2020-11-19T13:39:56+00:00"
+              },
+              "branch": {
+                "S": "develop"
+              },
+              "url": {
+                "S": "https://gitlab.com/fluidattacks/integrates"
               },
               "environment": {
                 "S": "QA"
@@ -1113,12 +1123,6 @@
               },
               "nickname": {
                 "S": "integrates_1"
-              },
-              "branch": {
-                "S": "develop"
-              },
-              "url": {
-                "S": "https://gitlab.com/fluidattacks/integrates"
               }
             }
           ],
@@ -8324,6 +8328,29 @@
             "SortKeyAlias": "GROUP#group_name"
           },
           "TableData": []
+        },
+        {
+          "FacetName": "machine_root_execution",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#uuid#QUEUE",
+            "SortKeyAlias": "GROUP#name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#QUEUE"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "queue_date": {
+                "S": "2020-11-19T13:37:10+00:00"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "queue_date"
+          ]
         }
       ],
       "GlobalSecondaryIndexes": [
