@@ -1311,7 +1311,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__remove_tags:
+/integrates/back/test/functional__remove_tags_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1326,7 +1326,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'remove_tags'
+    - m . /integrates/back/test/functional 'remove_tags_new' 'false' 'migration'
   stage: test-code
   tags:
     - autoscaling

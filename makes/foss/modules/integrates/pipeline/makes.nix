@@ -270,7 +270,7 @@ in
           [ "remove_group_tag" ]
           [ "remove_stakeholder_access" ]
           [ "remove_stakeholder_organization_access" ]
-          [ "remove_tags" ]
+          [ "remove_tags_new" "false" "migration" ]
           [ "remove_vulnerability_new" "false" "migration" ]
           [ "report" ]
           [ "request_vulnerabilities_verification_new" "false" "migration" ]
