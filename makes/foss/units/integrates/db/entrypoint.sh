@@ -49,11 +49,11 @@ function populate {
     && rm "${STATE_PATH}/${TMP_ITEMS}"
   echo "[INFO] Admin email: ${email}" \
     && sed "s/2020-09-04.*/$(date -u +%Y-%m-%dT%H:%M:%S.000000%z)\"/g" \
-      < '__argDatabase__/data/forces.json' \
+      < '__argData__/forces.json' \
     | sed "s/33e5d863252940edbfb144ede56d56cf/aaa/g" \
       | sed "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \
         > "${STATE_PATH}/forces.now.json" \
-    && for data in '__argDatabase__/data/'*'.json'; do
+    && for data in '__argData__/'*'.json'; do
       sed "s/__adminEmail__/${email}/g" "${data}" \
         > "${STATE_PATH}/$(basename "${data}")"
     done \

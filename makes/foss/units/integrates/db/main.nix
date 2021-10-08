@@ -6,6 +6,7 @@
 }:
 makeScript {
   replace = {
+    __argData__ = projectPath "/integrates/back/tests/data";
     __argDatabase__ = projectPath "/makes/foss/units/integrates/db";
     __argNewDbDesign__ = projectPath "/integrates/arch";
     __argDynamoZip__ = fetchUrl {
