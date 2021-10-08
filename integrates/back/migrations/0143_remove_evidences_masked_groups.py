@@ -4,8 +4,8 @@ This migration aims to remove evidences for deleted groups.
 When the deletion occurs, the findings should be masked and the evidences
 removed from S3.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-10-08 at 16:25:00 UTC
+Finalization Time: 2021-10-08 at 18:35:00 UTC
 """
 
 from aioextensions import (
@@ -30,7 +30,7 @@ from s3.operations import (
 )
 import time
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def _process_evidence(full_name: str) -> None:
@@ -53,7 +53,8 @@ async def main() -> None:
     groups_evidences = tuple(
         chain.from_iterable(
             await collect(
-                list_files(EVIDENCES_BUCKET, group) for group in masked_groups
+                list_files(EVIDENCES_BUCKET, f"{group}/")
+                for group in masked_groups
             )
         )
     )
