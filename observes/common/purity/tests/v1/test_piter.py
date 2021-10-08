@@ -8,9 +8,6 @@ from purity.v1 import (
 from random import (
     randint,
 )
-from returns.functions import (
-    compose,
-)
 from returns.io import (
     IO,
 )
@@ -51,12 +48,26 @@ def assert_immutability_inf(piter: PureIter[_T]) -> None:
 
 
 class TestPureIterFactory:
-    # pylint: disable=too-few-public-methods
+    @staticmethod
+    def test_chain() -> None:
+        data = ((1, 2, 3), (1, 2, 3))
+        items: PureIter[Mappable[int]] = PureIterFactory.from_flist(data)
+        piter = PureIterFactory.chain(items)
+        assert_immutability(piter)
+
     @staticmethod
     def test_from_flist() -> None:
         items = (1, 2, 3)
         piter = PureIterFactory.from_flist(items)
         assert_immutability(piter)
+
+    @staticmethod
+    def test_filter() -> None:
+        data = (1, None, 2, None, 3, None)
+        items = PureIterFactory.from_flist(data)
+        piter = PureIterFactory.filter(items)
+        assert_immutability(piter)
+        assert sum(1 for _ in piter) == 3
 
     @staticmethod
     def test_map() -> None:
@@ -76,11 +87,20 @@ class TestPureIterFactory:
         assert_immutability_inf(piter)
 
     @staticmethod
-    def test_filter() -> None:
-        items = (1, None, 2, None, 3, None)
-        piter = PureIterFactory.filter(items)
-        assert_immutability(piter)
-        assert sum(1 for _ in piter) == 3
+    def test_until_none() -> None:
+        raw: FrozenList[Optional[int]] = (1, 2, None, 5, 6)
+        items = PureIterFactory.from_flist(raw)
+        filtered = PureIterFactory.until_none(items)
+        assert_immutability(filtered)
+        assert tuple(filtered) == (1, 2)
+
+    @staticmethod
+    def test_until_empty() -> None:
+        raw: FrozenList[Optional[int]] = (1, 2, None, 5, 6)
+        items = PureIterFactory.map(lambda x: Maybe.from_optional(x), raw)
+        filtered = PureIterFactory.until_empty(items)
+        assert_immutability(filtered)
+        assert tuple(filtered) == (1, 2)
 
 
 class TestPureIterIOFactory:
