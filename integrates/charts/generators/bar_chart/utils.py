@@ -4,6 +4,12 @@ from aioextensions import (
 from charts.colors import (
     RISK,
 )
+from charts.utils import (
+    get_portfolios_groups,
+    iterate_groups,
+    iterate_organizations_and_groups,
+    json_dump,
+)
 from context import (
     FI_API_STATUS,
 )
@@ -12,6 +18,7 @@ from custom_types import (
 )
 from dataloaders import (
     Dataloaders,
+    get_new_context,
 )
 from db_model.findings.types import (
     Finding,
@@ -28,6 +35,8 @@ from statistics import (
 )
 from typing import (
     Any,
+    Awaitable,
+    Callable,
     Counter,
     Dict,
     List,
@@ -83,7 +92,7 @@ def get_vulnerability_reattacks(*, vulnerability: Vulnerability) -> int:
     )
 
 
-def format_data(
+def format_mttr_data(
     data: Tuple[Decimal, Decimal, Decimal, Decimal],
     categories: List[str],
     y_label: str = "Days per severity (less is better)",
@@ -300,3 +309,41 @@ def sum_mttr_many_groups(*, groups_data: Tuple[Remediate, ...]) -> Remediate:
         if groups_data
         else Decimal("0"),
     )
+
+
+async def generate_all_top_vulnerabilities(
+    *,
+    get_data_one_group: Callable[[str, Dataloaders], Awaitable[Counter[str]]],
+    get_data_many_groups: Callable[
+        [List[str], Dataloaders], Awaitable[Counter[str]]
+    ],
+    format_data: Callable[[Counter[str]], Dict[str, Any]],
+) -> None:
+    loaders = get_new_context()
+    async for group in iterate_groups():
+        json_dump(
+            document=format_data(
+                await get_data_one_group(group, loaders),
+            ),
+            entity="group",
+            subject=group,
+        )
+
+    async for org_id, _, org_groups in (iterate_organizations_and_groups()):
+        json_dump(
+            document=format_data(
+                await get_data_many_groups(list(org_groups), loaders),
+            ),
+            entity="organization",
+            subject=org_id,
+        )
+
+    async for org_id, org_name, _ in (iterate_organizations_and_groups()):
+        for portfolio, groups in await get_portfolios_groups(org_name):
+            json_dump(
+                document=format_data(
+                    await get_data_many_groups(list(groups), loaders),
+                ),
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
+            )
