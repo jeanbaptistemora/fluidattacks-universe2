@@ -2,7 +2,6 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from context import (
-    FI_API_STATUS,
     PRODUCT_API_TOKEN,
 )
 from custom_types import (
@@ -45,16 +44,10 @@ async def mutate(
     finding_id: str,
     root_nickname: str,
 ) -> SimplePayload:
-    if FI_API_STATUS == "migration":
-        finding_new_loader = info.context.loaders.finding_new
-        finding: Finding = await finding_new_loader.load(finding_id)
-        group_name: str = finding.group_name
-        finding_title: str = finding.title
-    else:
-        finding = await info.context.loaders.finding.load(finding_id)
-        group_name = finding["group_name"]
-        finding_title = finding["title"]
-
+    finding_new_loader = info.context.loaders.finding_new
+    finding: Finding = await finding_new_loader.load(finding_id)
+    group_name: str = finding.group_name
+    finding_title: str = finding.title
     root_nicknames: Set[str] = {
         root.state.nickname
         for root in await info.context.loaders.group_roots.load(group_name)

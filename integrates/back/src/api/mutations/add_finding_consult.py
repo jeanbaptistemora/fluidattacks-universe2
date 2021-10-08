@@ -4,9 +4,6 @@ from aioextensions import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from context import (
-    FI_API_STATUS,
-)
 from custom_exceptions import (
     PermissionDenied,
 )
@@ -38,12 +35,8 @@ from mailer import (
 )
 from newutils import (
     datetime as datetime_utils,
-    findings as findings_utils,
     logs as logs_utils,
     token as token_utils,
-)
-from newutils.utils import (
-    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -92,18 +85,11 @@ async def _add_finding_consult(  # pylint: disable=too-many-locals
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     finding_id = str(parameters.get("finding_id"))
-    if FI_API_STATUS == "migration":
-        finding_new_loader = info.context.loaders.finding_new
-        finding: Finding = await finding_new_loader.load(finding_id)
-        group_name: str = finding.group_name
-        finding_title: str = finding.title
-        is_finding_released = bool(finding.approval)
-    else:
-        finding = await info.context.loaders.finding.load(finding_id)
-        group_name = get_key_or_fallback(finding)
-        finding_title = finding["title"]
-        is_finding_released = findings_utils.is_released(finding)
-
+    finding_new_loader = info.context.loaders.finding_new
+    finding: Finding = await finding_new_loader.load(finding_id)
+    group_name: str = finding.group_name
+    finding_title: str = finding.title
+    is_finding_released = bool(finding.approval)
     content = parameters["content"]
     user_email = user_data["user_email"]
     comment_id = str(round(time() * 1000))
