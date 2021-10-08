@@ -1,55 +1,14 @@
-.makes: &makes
-  tags: [autoscaling]
-  image: "${CI_REGISTRY_IMAGE}/makes"
-  needs: []
-  interruptible: true
-  script:
-    - ./m "${CI_JOB_NAME% *}"
-  variables:
-    GIT_DEPTH: 5
-
-.forces_commit_pattern: &forces_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|forces)/'
-
-.forces_in_dev_and_master_branch: &forces_in_dev_and_master_branch
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - if: *forces_commit_pattern
-
-.forces_in_master_branch: &forces_in_master_branch
-  resource_group: "${CI_JOB_NAME}"
-  rules:
-    - if: '$CI_COMMIT_BRANCH != "master"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - if: *forces_commit_pattern
-
-.makes4: &makes4
-  tags: [autoscaling]
-  image: ghcr.io/fluidattacks/makes:21.11
-  needs: []
-  interruptible: true
-  script:
-    - m . "${CI_JOB_NAME% *}"
-  variables:
-    GIT_DEPTH: 5
-
-/deployContainerImage/forcesDev:
-  <<: *makes4
-  <<: *forces_in_dev_and_master_branch
-  stage: build
-
 forces.test-container:
-  <<: *forces_in_dev_and_master_branch
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|forces)/
   stage: test-code
   tags: [autoscaling-large]
   image: "fluidattacks/forces:${CI_COMMIT_REF_NAME}"
@@ -57,8 +16,3 @@ forces.test-container:
     - forces --token "${INTEGRATES_FORCES_API_TOKEN}" --lax
   needs:
     - /deployContainerImage/forcesDev
-
-/deployContainerImage/forcesProd:
-  <<: *makes4
-  <<: *forces_in_master_branch
-  stage: deploy-app

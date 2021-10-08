@@ -21,6 +21,16 @@ let
     gitlabTitleMatchingMakes
   ];
 
+  gitlabDeployApp = {
+    rules = gitlabOnlyMaster;
+    stage = "deploy-app";
+    tags = [ "autoscaling" ];
+  };
+  gitlabDeployAppDev = {
+    rules = gitlabOnlyDev;
+    stage = "build";
+    tags = [ "autoscaling" ];
+  };
   gitlabDeployInfra = {
     resource_group = "$CI_JOB_NAME";
     rules = gitlabOnlyMaster;
@@ -48,6 +58,14 @@ in
     forces = {
       gitlabPath = "/makes/foss/modules/forces/gitlab-ci.yaml";
       jobs = [
+        {
+          output = "/deployContainerImage/forcesDev";
+          gitlabExtra = gitlabDeployAppDev;
+        }
+        {
+          output = "/deployContainerImage/forcesProd";
+          gitlabExtra = gitlabDeployApp;
+        }
         {
           output = "/deployTerraform/forces";
           gitlabExtra = gitlabDeployInfra;
