@@ -1,7 +1,7 @@
 ---
 id: everything-backed-up
-title: Everything is backed up
-sidebar_label: Everything is backed up
+title: Everything Is Backed Up
+sidebar_label: Everything Is Backed Up
 slug: /about/security/availability/everything-backed-up
 ---
 
@@ -22,7 +22,7 @@ for example:
   giving us full traceability
   and recoverability.
 
-- [Attack Surface Manager’s (ASM)](https://app.fluidattacks.com/)
+- [Attack Surface Manager's (ASM)](https://app.fluidattacks.com/)
   database has daily, weekly, quarterly,
   and annual full backup schedules.
   The daily backups last one week,
@@ -30,8 +30,7 @@ for example:
   the quarterly ones three years,
   and the annual ones fifteen years.
 
-- [Attack Surface Manager’s (ASM)](https://app.fluidattacks.com/)
-  database has point-in-time recovery
+- ASM's database has point-in-time recovery
   with the ability to recover the database
   to the state it was in at a specific date and time
   (hours, minutes and seconds)

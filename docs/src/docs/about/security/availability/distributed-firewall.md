@@ -1,25 +1,25 @@
 ---
 id: distributed-firewall
-title: Distributed firewall
-sidebar_label: Distributed firewall
+title: Distributed Firewall
+sidebar_label: Distributed Firewall
 slug: /about/security/availability/distributed-firewall
 ---
 
-The [Fluid Attacks](https://fluidattacks.com/)
-domain is protected behind a distributed
-firewall that implements:
+The [`Fluid Attacks` domain](https://fluidattacks.com/)
+is protected behind a distributed firewall
+that implements the following:
 
 - Dynamic firewall rules
-  managed by top cybersecurity experts.
+  managed by top cybersecurity experts
 
-- [OWASP Core rules](https://owasp.org/www-project-modsecurity-core-rule-set/)
+- [OWASP core rules](https://owasp.org/www-project-modsecurity-core-rule-set/)
 
-- Rate limiting.
+- Rate limiting
 
-- Full DDoS protection.
+- Full DDoS protection
 
-- Browser integrity checking.
+- Browser integrity checking
 
-- Hotlink protection.
+- Hotlink protection
 
-- Anti-bot challenges.
+- Anti-bot challenges

@@ -59,3 +59,6 @@ you want us to check
 by adding Git Roots
 and its environments
 in the Scope section of a group.
+
+> **NOTE:**
+> This subsection of our documentation is under construction.
