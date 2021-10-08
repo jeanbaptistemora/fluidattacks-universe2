@@ -1,6 +1,12 @@
 from charts.colors import (
     RISK,
 )
+from charts.utils import (
+    get_portfolios_groups,
+    iterate_groups,
+    iterate_organizations_and_groups,
+    json_dump,
+)
 from decimal import (
     Decimal,
 )
@@ -8,10 +14,13 @@ from operator import (
     attrgetter,
 )
 from typing import (
-    cast,
+    Any,
+    Awaitable,
+    Callable,
+    Dict,
     List,
     NamedTuple,
-    Union,
+    Tuple,
 )
 
 PortfoliosGroupsInfo = NamedTuple(
@@ -48,11 +57,7 @@ def slice_groups(
 def format_data(groups_data: List[PortfoliosGroupsInfo]) -> dict:
     return dict(
         data=dict(
-            columns=[
-                cast(List[Union[Decimal, str]], [group.group_name])
-                + [group.value]
-                for group in groups_data
-            ],
+            columns=[[group.group_name, group.value] for group in groups_data],
             type="pie",
             colors=dict(
                 (group.group_name, color)
@@ -68,3 +73,38 @@ def format_data(groups_data: List[PortfoliosGroupsInfo]) -> dict:
             ),
         ),
     )
+
+
+async def generate_all(
+    *,
+    get_data_one_group: Callable[[str], Awaitable[Any]],
+    get_data_many_groups: Callable[[Tuple[str, ...]], Awaitable[Any]],
+    format_document: Callable[[Any], Dict[str, Any]],
+) -> None:
+    async for group in iterate_groups():
+        json_dump(
+            document=format_document(
+                await get_data_one_group(group),
+            ),
+            entity="group",
+            subject=group,
+        )
+
+    async for org_id, _, org_groups in (iterate_organizations_and_groups()):
+        json_dump(
+            document=format_document(
+                await get_data_many_groups(org_groups),
+            ),
+            entity="organization",
+            subject=org_id,
+        )
+
+    async for org_id, org_name, _ in (iterate_organizations_and_groups()):
+        for portfolio, groups in await get_portfolios_groups(org_name):
+            json_dump(
+                document=format_document(
+                    await get_data_many_groups(tuple(groups)),
+                ),
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
+            )
