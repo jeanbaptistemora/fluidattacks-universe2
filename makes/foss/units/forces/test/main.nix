@@ -1,5 +1,5 @@
 { makeScript
-, inputs
+, outputs
 , projectPath
 , ...
 }:
@@ -7,8 +7,8 @@ makeScript {
   name = "forces-test";
   searchPaths = {
     source = [
-      inputs.product.forces-config-development
-      inputs.product.forces-config-runtime
+      outputs."/forces/config-development"
+      outputs."/forces/config-runtime"
     ];
   };
   entrypoint = projectPath "/makes/foss/units/forces/test/entrypoint.sh";

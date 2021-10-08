@@ -4,8 +4,6 @@ airs.lint.styles
 airs.npm
 airs.npm.env
 airs.npm.runtime
-forces.config-development
-forces.config-runtime
 makes.commitlint
 makes.python.safe-pickle
 makes.test

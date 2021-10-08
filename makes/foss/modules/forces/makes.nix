@@ -1,6 +1,5 @@
 # https://github.com/fluidattacks/forces
-{ inputs
-, outputs
+{ outputs
 , ...
 }:
 {
@@ -35,15 +34,15 @@
     modules = {
       forces = {
         searchPaths.source = [
-          inputs.product.forces-config-runtime
+          outputs."/forces/config-runtime"
         ];
         python = "3.8";
         src = "/forces/forces";
       };
       forcesTests = {
         searchPaths.source = [
-          inputs.product.forces-config-development
-          inputs.product.forces-config-runtime
+          outputs."/forces/config-development"
+          outputs."/forces/config-runtime"
         ];
         python = "3.8";
         src = "/forces/test";

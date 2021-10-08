@@ -1,13 +1,13 @@
-{ inputs
-, makeSearchPaths
+{ makeSearchPaths
+, outputs
 , ...
 }:
 {
   dev = {
     forces = {
       source = [
-        inputs.product.forces-config-development
-        inputs.product.forces-config-runtime
+        outputs."/forces/config-development"
+        outputs."/forces/config-runtime"
         (makeSearchPaths {
           pythonPackage = [ "$PWD/forces" ];
         })
