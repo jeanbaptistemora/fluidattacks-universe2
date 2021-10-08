@@ -10,6 +10,9 @@ from aioextensions import (
     collect,
     run,
 )
+from dataloaders import (
+    get_new_context,
+)
 from db_model.roots.get import (
     GroupRootsLoader,
 )
@@ -59,7 +62,12 @@ async def close_vuln(vuln: Dict[str, Any], root: RootItem) -> None:
 async def get_vulns(
     root: RootItem,
 ) -> Tuple[RootItem, Tuple[Dict[str, Any], ...]]:
-    vulns = await roots_dal.get_root_vulns(nickname=root.state.nickname)
+    loaders = get_new_context()
+    vulns = await roots_dal.get_root_vulns(
+        loaders=loaders,
+        group_name=root.group_name,
+        nickname=root.state.nickname,
+    )
     return (root, vulns)
 
 

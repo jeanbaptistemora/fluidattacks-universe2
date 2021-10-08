@@ -226,8 +226,16 @@ def get_nicknames(
 async def get_vulnerabilities(
     *, nicknames: Set[NickName]
 ) -> List[Dict[str, Any]]:
+    loaders = get_new_context()
     nicknames_vulnerabilities = await collect(
-        [get_root_vulns(nickname=nickname.nickname) for nickname in nicknames],
+        [
+            get_root_vulns(
+                loaders=loaders,
+                group_name=nickname.group_name,
+                nickname=nickname.nickname,
+            )
+            for nickname in nicknames
+        ],
         workers=20,
     )
     return list(chain.from_iterable(nicknames_vulnerabilities))

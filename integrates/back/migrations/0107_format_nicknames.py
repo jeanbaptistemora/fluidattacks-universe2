@@ -11,6 +11,9 @@ from aioextensions import (
     collect,
     run,
 )
+from dataloaders import (
+    get_new_context,
+)
 from dynamodb.types import (
     GitRootState,
     RootItem,
@@ -60,8 +63,12 @@ async def update_root(root: RootItem) -> None:
             "new": new_nickname,
         },
     )
-
-    vulns = await roots_dal.get_root_vulns(nickname=root.state.nickname)
+    loaders = get_new_context()
+    vulns = await roots_dal.get_root_vulns(
+        loaders=loaders,
+        group_name=root.group_name,
+        nickname=root.state.nickname,
+    )
     await collect(
         tuple(
             vulns_dal.update(
