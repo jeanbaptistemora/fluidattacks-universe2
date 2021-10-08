@@ -15,10 +15,10 @@ from groups import (
     domain as groups_domain,
 )
 from typing import (
-    cast,
+    Any,
+    Dict,
     List,
     NamedTuple,
-    Union,
 )
 
 Status = NamedTuple(
@@ -62,14 +62,13 @@ async def get_data_many_groups(groups: List[str]) -> List[Status]:
     )
 
 
-def format_data(data: List[Status]) -> dict:
+def format_data(data: List[Status]) -> Dict[str, Any]:
     return dict(
         data=dict(
             columns=[
-                cast(List[Union[int, str]], ["Closed"])
-                + [group.closed_vulnerabilities for group in data],
-                cast(List[Union[int, str]], ["Open"])
-                + [group.open_vulnerabilities for group in data],
+                ["Closed"]
+                + [str(group.closed_vulnerabilities) for group in data],
+                ["Open"] + [str(group.open_vulnerabilities) for group in data],
             ],
             colors={
                 "Closed": RISK.more_passive,
