@@ -11,9 +11,6 @@ from charts import (
 from charts.generators.bar_chart.utils import (
     format_vulnerabilities_by_data,
 )
-from context import (
-    FI_API_STATUS,
-)
 from dataloaders import (
     get_new_context,
 )
@@ -33,18 +30,10 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
-    if FI_API_STATUS == "migration":
-        group_findings_new_loader = context.group_findings_new
-        group_findings_new: Tuple[
-            Finding, ...
-        ] = await group_findings_new_loader.load(group.lower())
-        finding_ids = [finding.id for finding in group_findings_new]
-    else:
-        group_findings_loader = context.group_findings
-        group_findings_data = await group_findings_loader.load(group.lower())
-        finding_ids = [
-            finding["finding_id"] for finding in group_findings_data
-        ]
+    group_findings_new: Tuple[
+        Finding, ...
+    ] = await context.group_findings_new.load(group.lower())
+    finding_ids = [finding.id for finding in group_findings_new]
 
     vulnerabilities = await context.finding_vulns_nzr.load_many_chained(
         finding_ids

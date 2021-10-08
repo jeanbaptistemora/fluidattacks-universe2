@@ -11,9 +11,6 @@ from charts import (
 from charts.colors import (
     RISK,
 )
-from context import (
-    FI_API_STATUS,
-)
 from dataloaders import (
     get_new_context,
 )
@@ -39,46 +36,21 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
-    if FI_API_STATUS == "migration":
-        group_findings_new_loader = context.group_findings_new
-        group_findings_new: Tuple[
-            Finding, ...
-        ] = await group_findings_new_loader.load(group.lower())
-        findings_open_age = await collect(
-            [
-                get_finding_open_age(context, finding.id)
-                for finding in group_findings_new
-            ]
-        )
-        counter: Counter[str] = Counter(
-            {
-                f"{finding.id}/{finding.title}": open_age
-                for finding, open_age in zip(
-                    group_findings_new, findings_open_age
-                )
-            }
-        )
-    else:
-        group_findings_loader = context.group_findings
-        group_findings = await group_findings_loader.load(group.lower())
-        finding_ids = [
-            str(finding["finding_id"]) for finding in group_findings
+    group_findings_new: Tuple[
+        Finding, ...
+    ] = await context.group_findings_new.load(group.lower())
+    findings_open_age = await collect(
+        [
+            get_finding_open_age(context, finding.id)
+            for finding in group_findings_new
         ]
-        findings_open_age = await collect(
-            [
-                get_finding_open_age(context, finding_id)
-                for finding_id in finding_ids
-            ]
-        )
-
-        counter = Counter(
-            {
-                f'{finding_id}/{finding["title"]}': open_age
-                for finding, finding_id, open_age in zip(
-                    group_findings, finding_ids, findings_open_age
-                )
-            }
-        )
+    )
+    counter: Counter[str] = Counter(
+        {
+            f"{finding.id}/{finding.title}": open_age
+            for finding, open_age in zip(group_findings_new, findings_open_age)
+        }
+    )
 
     return counter
 
