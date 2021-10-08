@@ -1,6 +1,7 @@
 { inputs
 , makeContainerImage
 , makeDerivation
+, outputs
 , ...
 }:
 makeContainerImage {
@@ -8,7 +9,7 @@ makeContainerImage {
   layers = [
     inputs.nixpkgs.bash
     inputs.nixpkgs.coreutils
-    inputs.product.forces
+    outputs."/forces"
     (makeDerivation {
       builder = ./builder.sh;
       name = "forces-oci-build-customization-layer";

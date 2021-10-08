@@ -1,5 +1,6 @@
 { makeScript
 , inputs
+, outputs
 , projectPath
 , ...
 }:
@@ -7,7 +8,7 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.jq
-      inputs.product.forces
+      outputs."/forces"
     ];
     source = [
       inputs.product.melts-lib
