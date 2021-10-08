@@ -83,6 +83,24 @@ class PureIterFactory:
         draft = _PureIter(Patch(lambda: iter(filtered())))
         return PureIter(draft)
 
+    @staticmethod
+    def until_none(items: PureIter[Optional[_I]]) -> PureIter[_I]:
+        def filtered() -> Iterable[_I]:
+            for item in items:
+                if item is None:
+                    break
+                yield item
+
+        draft = _PureIter(Patch(lambda: iter(filtered())))
+        return PureIter(draft)
+
+    @classmethod
+    def until_empty(cls, items: Mappable[Maybe[_I]]) -> PureIter[_I]:
+        opt: PureIter[Optional[_I]] = PureIterFactory.map(
+            lambda x: x.value_or(None), items
+        )
+        return cls.until_none(opt)
+
 
 class PureIterIOFactory:
     @staticmethod

@@ -95,16 +95,16 @@ class PostFactory:
 
 
 @dataclass(frozen=True)
-class _PostPage:
-    list: List[PostId]
+class _PostIdPage:
+    data: List[PostId]
     count: int
     page: int
     pages: int
 
 
 @dataclass(frozen=True)
-class PostPage(_PostPage):
-    def __init__(self, obj: _PostPage) -> None:
+class PostIdPage(_PostIdPage):
+    def __init__(self, obj: _PostIdPage) -> None:
         for key, val in obj.__dict__.items():
             object.__setattr__(self, key, val)
 
@@ -118,14 +118,14 @@ def _to_list(raw: Any) -> List[Any]:
 @dataclass(frozen=True)
 class PostPageFactory(_Post):
     @staticmethod
-    def to_post(raw: RawPosts) -> PostPage:
-        draft = _PostPage(
+    def to_post_page(raw: RawPosts) -> PostIdPage:
+        draft = _PostIdPage(
             [PostId.from_any(i.project_id, i.id) for i in _to_list(raw.list)],
             to_primitive(raw.count, int),
             to_primitive(raw.page, int),
             to_primitive(raw.pages, int),
         )
-        return PostPage(draft)
+        return PostIdPage(draft)
 
 
 __all__ = [

@@ -43,6 +43,7 @@ class PostIdsQuery:
         proj = query.posts(project_id=self.proj.proj_id, page=self.page)
         proj.list().id()
         proj.list().project_id()
+        proj.page()
         proj.count()
         proj.pages()
         return IO(None)
