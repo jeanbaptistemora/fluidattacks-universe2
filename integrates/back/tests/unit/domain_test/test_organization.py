@@ -259,12 +259,12 @@ async def test_update_policies() -> None:
     organization = await loaders.organization.load(org_id)
     max_acceptance_days = organization["max_acceptance_days"]
     max_acceptance_severity = organization["max_acceptance_severity"]
-    max_number_acceptations = organization["max_number_acceptations"]
+    max_number_acceptances = organization["max_number_acceptations"]
     min_acceptance_severity = organization["min_acceptance_severity"]
 
     assert max_acceptance_days is None
     assert max_acceptance_severity == Decimal("6.9")
-    assert max_number_acceptations is None
+    assert max_number_acceptances is None
     assert min_acceptance_severity == Decimal("3.4")
 
     new_values = {
@@ -281,12 +281,12 @@ async def test_update_policies() -> None:
     organization = await loaders.organization.load(org_id)
     max_acceptance_days = organization["max_acceptance_days"]
     max_acceptance_severity = organization["max_acceptance_severity"]
-    max_number_acceptations = organization["max_number_acceptations"]
+    max_number_acceptances = organization["max_number_acceptations"]
     min_acceptance_severity = organization["min_acceptance_severity"]
 
     assert max_acceptance_days == Decimal("20")
     assert max_acceptance_severity == Decimal("8.3")
-    assert max_number_acceptations == Decimal("3")
+    assert max_number_acceptances == Decimal("3")
     assert min_acceptance_severity == Decimal("2.2")
 
     new_values = {"max_acceptance_days": "-10"}

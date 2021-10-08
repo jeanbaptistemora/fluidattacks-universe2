@@ -329,7 +329,7 @@ async def test_validate_acceptance_severity() -> None:
         )
 
 
-async def test_validate_number_acceptations() -> None:
+async def test_validate_number_acceptances() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     info_to_check = {
         "historic_treatment": [

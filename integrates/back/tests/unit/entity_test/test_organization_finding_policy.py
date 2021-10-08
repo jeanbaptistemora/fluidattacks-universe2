@@ -85,7 +85,7 @@ async def _run(
 
 
 @pytest.mark.changes_db
-async def test_handle_organization_finding_policy_acceptation() -> None:
+async def test_handle_organization_finding_policy_acceptance() -> None:
     org_name = "okada"
     finding_name = "037. Technical information leak"
     finding_id = "457497318"
@@ -158,7 +158,7 @@ async def test_handle_organization_finding_policy_acceptation() -> None:
         org_name=org_name,
         finding_name=finding_name.split(".")[0].lower(),
     )
-    hande_acceptation_data = {
+    hande_acceptance_data = {
         "query": handle_mutation,
         "variables": {
             "findingPolicyId": finding_policy.id,
@@ -168,7 +168,7 @@ async def test_handle_organization_finding_policy_acceptation() -> None:
     }
 
     result = await _get_result_async(
-        hande_acceptation_data, stakeholder=approver_user
+        hande_acceptance_data, stakeholder=approver_user
     )
     assert "errors" not in result
     assert result["data"]["handleOrganizationFindingPolicyAcceptance"][
@@ -184,12 +184,12 @@ async def test_handle_organization_finding_policy_acceptation() -> None:
     )
 
     result = await _get_result_async(
-        hande_acceptation_data, stakeholder="integratescustomer@gmail.com"
+        hande_acceptance_data, stakeholder="integratescustomer@gmail.com"
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
     result = await _get_result_async(
-        hande_acceptation_data, stakeholder=approver_user
+        hande_acceptance_data, stakeholder=approver_user
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == str(PolicyAlreadyHandled())
@@ -271,7 +271,7 @@ async def test_deactivate_org_finding_policy() -> None:
         org_name=org_name,
         finding_name=finding_name.split(".")[0].lower(),
     )
-    hande_acceptation_data = {
+    hande_acceptance_data = {
         "query": handle_mutation,
         "variables": {
             "findingPolicyId": finding_policy.id,
@@ -280,7 +280,7 @@ async def test_deactivate_org_finding_policy() -> None:
         },
     }
     result = await _get_result_async(
-        hande_acceptation_data, stakeholder=approver_user
+        hande_acceptance_data, stakeholder=approver_user
     )
     assert "errors" not in result
     assert result["data"]["handleOrganizationFindingPolicyAcceptance"][
@@ -296,13 +296,13 @@ async def test_deactivate_org_finding_policy() -> None:
     )
 
     result = await _get_result_async(
-        hande_acceptation_data, stakeholder="integratescustomer@gmail.com"
+        hande_acceptance_data, stakeholder="integratescustomer@gmail.com"
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
 
     result = await _get_result_async(
-        hande_acceptation_data, stakeholder=approver_user
+        hande_acceptance_data, stakeholder=approver_user
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == str(PolicyAlreadyHandled())
@@ -492,7 +492,7 @@ async def test_submit_organization_finding_policy() -> None:
         org_name=organization_name,
         finding_name=finding_name.split(".")[0].lower(),
     )
-    hande_acceptation_rejected_data = {
+    hande_acceptance_rejected_data = {
         "query": handle_mutation,
         "variables": {
             "findingPolicyId": finding_policy.id,
@@ -501,7 +501,7 @@ async def test_submit_organization_finding_policy() -> None:
         },
     }
     result = await _get_result_async(
-        hande_acceptation_rejected_data, stakeholder=approver_user
+        hande_acceptance_rejected_data, stakeholder=approver_user
     )
     assert "errors" not in result
     assert result["data"]["handleOrganizationFindingPolicyAcceptance"][
