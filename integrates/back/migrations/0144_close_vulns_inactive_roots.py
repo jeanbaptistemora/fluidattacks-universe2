@@ -2,8 +2,8 @@
 """
 This migration closes vulnerabilities that belong to inactive roots
 
-Execution Time:    2021-09-29 at 15:25:04 UTCUTC
-Finalization Time: 2021-09-29 at 15:36:18 UTCUTC
+Execution Time:    2021-10-08 at 22:28:06 UTCUTC
+Finalization Time: 2021-10-08 at 22:33:54 UTCUTC
 """
 
 from aioextensions import (
@@ -21,6 +21,9 @@ from db_model.roots.types import (
 )
 from groups import (
     domain as groups_domain,
+)
+from newutils.vulnerabilities import (
+    is_reattack_requested,
 )
 from roots import (
     dal as roots_dal,
@@ -57,6 +60,8 @@ async def close_vuln(vuln: Dict[str, Any], root: RootItem) -> None:
             ]
         },
     )
+    if is_reattack_requested(vuln):
+        await vulns_dal.verify_vulnerability(vuln)
 
 
 async def get_vulns(
