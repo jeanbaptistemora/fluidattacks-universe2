@@ -13,6 +13,7 @@ from charts.colors import (
 )
 from charts.generators.bar_chart.utils import (
     Remediate,
+    sum_mttr_many_groups,
 )
 from dataloaders import (
     Dataloaders,
@@ -21,23 +22,17 @@ from dataloaders import (
 from datetime import (
     date,
 )
-from decimal import (
-    Decimal,
-    ROUND_CEILING,
-)
 from groups import (
     domain as groups_domain,
 )
 from newutils import (
     datetime as datetime_utils,
 )
-from statistics import (
-    mean,
-)
 from typing import (
     Dict,
     List,
     Optional,
+    Tuple,
 )
 
 
@@ -73,43 +68,14 @@ async def get_data_one_group(
 async def get_data_many_groups(
     *, groups: List[str], loaders: Dataloaders, min_date: Optional[date] = None
 ) -> Remediate:
-    groups_data = await collect(
+    groups_data: Tuple[Remediate, ...] = await collect(
         [
             get_data_one_group(group=group, loaders=loaders, min_date=min_date)
             for group in groups
         ]
     )
 
-    return Remediate(
-        critical_severity=Decimal(
-            mean([group.critical_severity for group in groups_data])
-        )
-        .quantize(Decimal("0.1"))
-        .to_integral_exact(rounding=ROUND_CEILING)
-        if groups_data
-        else Decimal("0"),
-        high_severity=Decimal(
-            mean([group.high_severity for group in groups_data])
-        )
-        .quantize(Decimal("0.1"))
-        .to_integral_exact(rounding=ROUND_CEILING)
-        if groups_data
-        else Decimal("0"),
-        medium_severity=Decimal(
-            mean([group.medium_severity for group in groups_data])
-        )
-        .quantize(Decimal("0.1"))
-        .to_integral_exact(rounding=ROUND_CEILING)
-        if groups_data
-        else Decimal("0"),
-        low_severity=Decimal(
-            mean([group.low_severity for group in groups_data])
-        )
-        .quantize(Decimal("0.1"))
-        .to_integral_exact(rounding=ROUND_CEILING)
-        if groups_data
-        else Decimal("0"),
-    )
+    return sum_mttr_many_groups(groups_data=groups_data)
 
 
 def format_data(data: Remediate) -> dict:
