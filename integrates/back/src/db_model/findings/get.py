@@ -79,7 +79,9 @@ async def _get_finding(*, group_name: str, finding_id: str) -> Finding:
     )
 
 
-async def _get_findings_by_group(group_name: str) -> Tuple[Finding, ...]:
+async def _get_drafts_and_findings_by_group(
+    group_name: str,
+) -> Tuple[Finding, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
         values={"group_name": group_name},
@@ -120,6 +122,64 @@ async def _get_findings_by_group(group_name: str) -> Tuple[Finding, ...]:
     )
 
 
+class GroupDraftsAndFindingsNewLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, group_names: List[str]
+    ) -> Tuple[Tuple[Finding, ...], ...]:
+        return await collect(
+            tuple(map(_get_drafts_and_findings_by_group, group_names))
+        )
+
+
+class GroupDraftsNewLoader(DataLoader):
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, group_names: List[str]
+    ) -> Tuple[Tuple[Finding, ...], ...]:
+        drafts_and_findings_by_groups = await self.dataloader.load_many(
+            group_names
+        )
+        return tuple(
+            filter_non_state_status_findings(
+                drafts_and_findings,
+                {
+                    FindingStateStatus.APPROVED,
+                },
+            )
+            for drafts_and_findings in drafts_and_findings_by_groups
+        )
+
+
+class GroupFindingsNewLoader(DataLoader):
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, group_names: List[str]
+    ) -> Tuple[Tuple[Finding, ...], ...]:
+        drafts_and_findings_by_groups = await self.dataloader.load_many(
+            group_names
+        )
+        return tuple(
+            filter_non_state_status_findings(
+                drafts_and_findings,
+                {
+                    FindingStateStatus.CREATED,
+                    FindingStateStatus.REJECTED,
+                    FindingStateStatus.SUBMITTED,
+                },
+            )
+            for drafts_and_findings in drafts_and_findings_by_groups
+        )
+
+
 async def _get_group(*, finding_id: str) -> str:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
@@ -154,6 +214,14 @@ async def _get_finding_by_id(finding_id: str) -> Finding:
     return finding
 
 
+class FindingNewLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, finding_ids: List[str]
+    ) -> Tuple[Finding, ...]:
+        return await collect(tuple(map(_get_finding_by_id, finding_ids)))
+
+
 async def _get_historic_verification(
     finding_id: str,
 ) -> Tuple[FindingVerification, ...]:
@@ -173,6 +241,16 @@ async def _get_historic_verification(
     return tuple(map(format_verification, results))
 
 
+class FindingHistoricVerificationNewLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, finding_ids: List[str]
+    ) -> Tuple[Tuple[FindingVerification], ...]:
+        return await collect(
+            tuple(map(_get_historic_verification, finding_ids))
+        )
+
+
 async def _get_historic_state(finding_id: str) -> Tuple[FindingState, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_historic_state"],
@@ -190,70 +268,12 @@ async def _get_historic_state(finding_id: str) -> Tuple[FindingState, ...]:
     return tuple(map(format_state, results))
 
 
-class FindingNewLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
-    async def batch_load_fn(
-        self, finding_ids: List[str]
-    ) -> Tuple[Finding, ...]:
-        return await collect(tuple(map(_get_finding_by_id, finding_ids)))
-
-
-class FindingHistoricVerificationNewLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
-    async def batch_load_fn(
-        self, finding_ids: List[str]
-    ) -> Tuple[Tuple[FindingVerification], ...]:
-        return await collect(
-            tuple(map(_get_historic_verification, finding_ids))
-        )
-
-
 class FindingHistoricStateNewLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, finding_ids: List[str]
     ) -> Tuple[Tuple[FindingState], ...]:
         return await collect(tuple(map(_get_historic_state, finding_ids)))
-
-
-class GroupDraftsNewLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
-    async def batch_load_fn(
-        self, group_names: List[str]
-    ) -> Tuple[Tuple[Finding, ...], ...]:
-        findings_by_group = await collect(
-            tuple(map(_get_findings_by_group, group_names))
-        )
-        return tuple(
-            filter_non_state_status_findings(
-                findings,
-                {
-                    FindingStateStatus.APPROVED,
-                },
-            )
-            for findings in findings_by_group
-        )
-
-
-class GroupFindingsNewLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
-    async def batch_load_fn(
-        self, group_names: List[str]
-    ) -> Tuple[Tuple[Finding, ...], ...]:
-        findings_by_group = await collect(
-            tuple(map(_get_findings_by_group, group_names))
-        )
-        return tuple(
-            filter_non_state_status_findings(
-                findings,
-                {
-                    FindingStateStatus.CREATED,
-                    FindingStateStatus.REJECTED,
-                    FindingStateStatus.SUBMITTED,
-                },
-            )
-            for findings in findings_by_group
-        )
 
 
 async def _get_removed_findings_by_group(

@@ -50,6 +50,7 @@ from db_model.findings.get import (
     FindingHistoricStateNewLoader,
     FindingHistoricVerificationNewLoader,
     FindingNewLoader,
+    GroupDraftsAndFindingsNewLoader,
     GroupDraftsNewLoader,
     GroupFindingsNewLoader,
     GroupRemovedFindingsLoader,
@@ -127,6 +128,7 @@ def apply_context_attrs(
 
 
 def get_new_context() -> Dataloaders:
+    group_drafts_and_findings_new = GroupDraftsAndFindingsNewLoader()
     group_findings_loader = GroupFindingsLoader()
     group_stakeholders_loader = GroupStakeholdersLoader()
     finding_vulns_loader = FindingVulnsLoader()
@@ -155,9 +157,11 @@ def get_new_context() -> Dataloaders:
         finding_vulns_zr=finding_vulns_zr_loader,
         group=GroupLoader(),
         group_drafts=GroupDraftsLoader(),
-        group_drafts_new=GroupDraftsNewLoader(),
+        group_drafts_new=GroupDraftsNewLoader(group_drafts_and_findings_new),
         group_findings=GroupFindingsNonDeletedLoader(group_findings_loader),
-        group_findings_new=GroupFindingsNewLoader(),
+        group_findings_new=GroupFindingsNewLoader(
+            group_drafts_and_findings_new
+        ),
         group_findings_all=group_findings_loader,
         group_removed_findings=GroupRemovedFindingsLoader(),
         group_roots=GroupRootsLoader(),
