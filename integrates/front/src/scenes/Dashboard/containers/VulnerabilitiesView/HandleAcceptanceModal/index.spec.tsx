@@ -18,7 +18,7 @@ import type { IZeroRiskTableProps } from "./ZeroRiskTable/types";
 
 import { GET_FINDING_HEADER } from "../../FindingContent/queries";
 import type { IVulnerabilitiesAttr } from "../types";
-import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/index";
+import { HandleAcceptanceModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/index";
 import {
   CONFIRM_VULNERABILITIES_ZERO_RISK,
   HANDLE_VULNS_ACCEPTANCE,
@@ -110,7 +110,7 @@ describe("handle vulns acceptance modal", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MockedProvider addTypename={false} mocks={mocksMutation}>
-        <HandleAcceptationModal
+        <HandleAcceptanceModal
           findingId={"1"}
           groupName={""}
           handleCloseModal={handleOnClose}
@@ -209,7 +209,7 @@ describe("handle vulns acceptance modal", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MockedProvider addTypename={false} mocks={mocksMutation}>
-        <HandleAcceptationModal
+        <HandleAcceptanceModal
           findingId={"1"}
           groupName={""}
           handleCloseModal={jest.fn()}
@@ -352,7 +352,7 @@ describe("handle vulns acceptance modal", (): void => {
         addTypename={false}
         mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
       >
-        <HandleAcceptationModal
+        <HandleAcceptanceModal
           findingId={"422286126"}
           groupName={"group name"}
           handleCloseModal={handleCloseModal}
@@ -515,7 +515,7 @@ describe("handle vulns acceptance modal", (): void => {
         addTypename={false}
         mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
       >
-        <HandleAcceptationModal
+        <HandleAcceptanceModal
           findingId={"422286126"}
           groupName={"group name"}
           handleCloseModal={handleCloseModal}
@@ -671,7 +671,7 @@ describe("handle vulns acceptance modal", (): void => {
         addTypename={false}
         mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
       >
-        <HandleAcceptationModal
+        <HandleAcceptanceModal
           findingId={"422286126"}
           groupName={"group name"}
           handleCloseModal={handleCloseModal}
@@ -834,7 +834,7 @@ describe("handle vulns acceptance modal", (): void => {
         addTypename={false}
         mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
       >
-        <HandleAcceptationModal
+        <HandleAcceptanceModal
           findingId={"422286126"}
           groupName={"group name"}
           handleCloseModal={handleCloseModal}
@@ -923,7 +923,7 @@ describe("handle vulns acceptance modal", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MockedProvider addTypename={false}>
-        <HandleAcceptationModal
+        <HandleAcceptanceModal
           findingId={"422286126"}
           groupName={"group name"}
           handleCloseModal={handleCloseModal}
@@ -1015,7 +1015,7 @@ describe("handle vulns acceptance modal", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MockedProvider addTypename={false}>
-        <HandleAcceptationModal
+        <HandleAcceptanceModal
           findingId={"422286126"}
           groupName={"group name"}
           handleCloseModal={handleCloseModal}

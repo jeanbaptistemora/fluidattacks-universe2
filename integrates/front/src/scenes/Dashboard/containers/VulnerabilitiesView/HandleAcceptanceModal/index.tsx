@@ -28,7 +28,7 @@ import type {
 import { authzPermissionsContext } from "utils/authz/config";
 import { translate } from "utils/translations/translate";
 
-const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps> =
+const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps> =
   (props: IHandleVulnerabilitiesAcceptanceModalProps): JSX.Element => {
     const { findingId, groupName, vulns, handleCloseModal, refetchData } =
       props;
@@ -210,4 +210,4 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProp
     );
   };
 
-export { HandleAcceptationModal };
+export { HandleAcceptanceModal };

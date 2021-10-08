@@ -46,9 +46,9 @@ const AcceptedUndefinedTable: React.FC<IAcceptedUndefinedTableProps> = (
     {
       align: "left",
       changeFunction: handleUpdateAcceptation,
-      dataField: "acceptation",
+      dataField: "acceptance",
       formatter: changeVulnTreatmentFormatter,
-      header: "Acceptation",
+      header: "Acceptance",
       width: "25%",
       wrapped: true,
     },
@@ -62,7 +62,7 @@ const AcceptedUndefinedTable: React.FC<IAcceptedUndefinedTableProps> = (
           dataset={acceptationVulns}
           exportCsv={false}
           headers={vulnsHeader}
-          id={"vulnsToHandleAcceptation"}
+          id={"vulnsToHandleAcceptance"}
           pageSize={10}
           search={false}
         />

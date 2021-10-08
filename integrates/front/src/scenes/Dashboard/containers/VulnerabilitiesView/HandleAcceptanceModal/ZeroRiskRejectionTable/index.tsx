@@ -60,7 +60,7 @@ const ZeroRiskRejectionTable: React.FC<IZeroRiskRejectionTableProps> = (
           dataset={acceptationVulns}
           exportCsv={false}
           headers={vulnsHeader}
-          id={"vulnsToHandleAcceptation"}
+          id={"vulnsToHandleAcceptance"}
           pageSize={10}
           search={false}
         />

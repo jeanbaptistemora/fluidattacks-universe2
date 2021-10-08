@@ -42,8 +42,8 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
       {shouldRenderHandleAcceptationBtn ? (
         <TooltipWrapper
           displayClass={"dib"}
-          id={"searchFindings.tabVuln.buttonsTooltip.handleAcceptation.id"}
-          message={t("searchFindings.tabVuln.buttonsTooltip.handleAcceptation")}
+          id={"searchFindings.tabVuln.buttonsTooltip.handleAcceptance.id"}
+          message={t("searchFindings.tabVuln.buttonsTooltip.handleAcceptance")}
           placement={"top"}
         >
           <Button
