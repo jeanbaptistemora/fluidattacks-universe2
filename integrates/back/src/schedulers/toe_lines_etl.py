@@ -271,7 +271,7 @@ async def update_toe_lines(loaders: Dataloaders, tmpdirname: str) -> None:
 
 
 async def _get_machine_only_groups() -> List[str]:
-    LOGGER_CONSOLE.info("Getting machine only groups", extra=dict(extra=None))
+    LOGGER_CONSOLE.info("Getting machine only groups", extra={"extra": {}})
     active_groups = await groups_domain.get_active_groups()
     groups_data = await collect(
         groups_domain.get_attributes(group, ["historic_configuration"])

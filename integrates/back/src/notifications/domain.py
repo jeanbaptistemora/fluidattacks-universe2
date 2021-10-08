@@ -7,10 +7,6 @@ from aioextensions import (
 )
 from context import (
     BASE_URL,
-    FI_API_STATUS,
-)
-from custom_types import (
-    Finding as FindingType,
 )
 from db_model.findings.types import (
     Finding,
@@ -27,9 +23,6 @@ from mailer import (
 )
 from newutils import (
     datetime as datetime_utils,
-)
-from newutils.utils import (
-    get_key_or_fallback,
 )
 from notifications import (
     dal as notifications_dal,
@@ -269,18 +262,10 @@ async def request_vulnerability_zero_risk(
     justification: str,
     requester_email: str,
 ) -> bool:
-    if FI_API_STATUS == "migration":
-        finding_new_loader: DataLoader = info.context.loaders.finding_new
-        finding_new: Finding = await finding_new_loader.load(finding_id)
-        finding_title = finding_new.title
-        finding_type = ""
-        group_name = finding_new.group_name
-    else:
-        finding_loader: DataLoader = info.context.loaders.finding
-        finding: Dict[str, FindingType] = await finding_loader.load(finding_id)
-        finding_title = cast(str, finding.get("title", ""))
-        finding_type = cast(str, finding.get("type", ""))
-        group_name = cast(str, get_key_or_fallback(finding, fallback=""))
+    finding_new_loader: DataLoader = info.context.loaders.finding_new
+    finding_new: Finding = await finding_new_loader.load(finding_id)
+    finding_title = finding_new.title
+    group_name = finding_new.group_name
 
     org_id = await orgs_domain.get_id_for_group(group_name)
     org_name = await orgs_domain.get_name_by_id(org_id)
@@ -297,7 +282,6 @@ async def request_vulnerability_zero_risk(
 
         - Finding: {finding_title}
         - ID: {finding_id}
-        - Type: {finding_type}
         - URL: {finding_url}
         - Justification: {justification}
 

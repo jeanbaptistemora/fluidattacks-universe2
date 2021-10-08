@@ -4,9 +4,6 @@ from aioextensions import (
 )
 import asyncio
 import authz
-from context import (
-    FI_API_STATUS,
-)
 from custom_exceptions import (
     FindingNotFound,
     InvalidAuthorization,
@@ -17,9 +14,6 @@ from db_model.findings.types import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-)
-from findings import (
-    domain as findings_domain,
 )
 import functools
 from graphql import (
@@ -85,15 +79,9 @@ async def _resolve_from_event_id(context: Any, identifier: str) -> str:
 
 async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
     validations.validate_finding_id(identifier)
-    if FI_API_STATUS == "migration":
-        finding_new_loader = context.loaders.finding_new
-        finding: Finding = await finding_new_loader.load(identifier)
-        group_name: str = finding.group_name
-    else:
-        finding_loader = context.loaders.finding
-        data = await finding_loader.load(identifier)
-        group_name = get_key_or_fallback(data)
-    return group_name
+    finding_new_loader = context.loaders.finding_new
+    finding: Finding = await finding_new_loader.load(identifier)
+    return finding.group_name
 
 
 async def _resolve_from_vuln_id(context: Any, identifier: str) -> str:
@@ -419,18 +407,13 @@ def require_finding_access(func: TVar) -> TVar:
             finding_id = vuln["finding_id"]
 
         validations.validate_finding_id(finding_id)
-        if FI_API_STATUS == "migration":
-            finding_new_loader = context.loaders.finding_new
-            try:
-                await finding_new_loader.load(finding_id)
-            except FindingNotFound:
-                logs_utils.cloudwatch_log(context, UNAVAILABLE_FINDING_MSG)
-                raise
-        else:
-            finding_loader = context.loaders.finding
-            finding = await finding_loader.load(finding_id)
-            if findings_domain.is_deleted(finding):
-                raise FindingNotFound()
+        finding_new_loader = context.loaders.finding_new
+        try:
+            await finding_new_loader.load(finding_id)
+        except FindingNotFound:
+            logs_utils.cloudwatch_log(context, UNAVAILABLE_FINDING_MSG)
+            raise
+
         return await _func(*args, **kwargs)
 
     return cast(TVar, verify_and_call)

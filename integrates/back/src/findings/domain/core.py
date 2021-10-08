@@ -17,9 +17,6 @@ import bugsnag
 from comments import (
     domain as comments_domain,
 )
-from context import (
-    FI_API_STATUS,
-)
 from contextlib import (
     AsyncExitStack,
 )
@@ -864,15 +861,8 @@ async def has_access_to_finding(
     loaders: Any, email: str, finding_id: str
 ) -> bool:
     """Verify if the user has access to a finding submission."""
-    has_access = False
-    if FI_API_STATUS == "migration":
-        finding: Finding = await loaders.finding_new.load(finding_id)
-        has_access = await authz.has_access_to_group(email, finding.group_name)
-    else:
-        finding = await get_finding(finding_id)
-        group = cast(str, finding.get("projectName", ""))
-        has_access = await authz.has_access_to_group(email, group)
-
+    finding: Finding = await loaders.finding_new.load(finding_id)
+    has_access = await authz.has_access_to_group(email, finding.group_name)
     return has_access
 
 
@@ -1431,41 +1421,20 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     user_email: str = user_info["user_email"]
 
     # Modify the verification state to mark the finding as verified
-    if FI_API_STATUS == "migration":
-        finding_new_loader = info.context.loaders.finding_new
-        finding_new: Finding = await finding_new_loader.load(finding_id)
-        verification = FindingVerification(
-            comment_id=comment_id,
-            modified_by=user_email,
-            modified_date=datetime_utils.get_iso_date(),
-            status=FindingVerificationStatus.VERIFIED,
-            vulnerability_ids=set(vulnerability_ids),
-        )
-        await findings_model.update_verification(
-            group_name=finding_new.group_name,
-            finding_id=finding_new.id,
-            verification=verification,
-        )
-        update_finding = True
-    else:
-        finding_loader = info.context.loaders.finding
-        finding = await finding_loader.load(finding_id)
-        historic_verification = cast(
-            List[Dict[str, Union[str, int, List[str]]]],
-            finding.get("historic_verification", []),
-        )
-        historic_verification.append(
-            {
-                "comment": comment_id,
-                "date": today,
-                "status": "VERIFIED",
-                "user": user_email,
-                "vulns": vulnerability_ids,
-            }
-        )
-        update_finding = await findings_dal.update(
-            finding_id, {"historic_verification": historic_verification}
-        )
+    finding_new_loader = info.context.loaders.finding_new
+    finding_new: Finding = await finding_new_loader.load(finding_id)
+    verification = FindingVerification(
+        comment_id=comment_id,
+        modified_by=user_email,
+        modified_date=datetime_utils.get_iso_date(),
+        status=FindingVerificationStatus.VERIFIED,
+        vulnerability_ids=set(vulnerability_ids),
+    )
+    await findings_model.update_verification(
+        group_name=finding_new.group_name,
+        finding_id=finding_new.id,
+        verification=verification,
+    )
     comment_data = {
         "comment_type": "verification",
         "content": parameters.get("justification", ""),
@@ -1478,7 +1447,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     success = await collect(
         map(vulns_domain.verify_vulnerability, vulnerabilities)
     )
-    if all(success) and update_finding:
+    if all(success):
         # Open vulns that remain open are not modified in the DB
         # Open vulns that were closed must be persisted to the DB as closed
         success = await vulns_domain.verify(

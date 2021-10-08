@@ -18,7 +18,6 @@ from collections import (
 )
 from context import (
     BASE_URL,
-    FI_API_STATUS,
     FI_DEFAULT_ORG,
 )
 from contextlib import (
@@ -65,9 +64,7 @@ from findings import (
     domain as findings_domain,
 )
 from findings.domain import (
-    get_max_open_severity,
     get_max_open_severity_new,
-    get_oldest_no_treatment,
     get_oldest_no_treatment_new,
 )
 from group_access import (
@@ -873,18 +870,12 @@ async def get_vulnerabilities_with_pending_attacks(
     loaders: Any,
     group_name: str,
 ) -> int:
-    if FI_API_STATUS == "migration":
-        findings_new: Tuple[
-            Finding, ...
-        ] = await loaders.group_findings_new.load(group_name)
-        vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
-            [finding.id for finding in findings_new]
-        )
-    else:
-        findings = await loaders.group_findings.load(group_name)
-        vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
-            [str(finding["finding_id"]) for finding in findings]
-        )
+    findings_new: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+        group_name
+    )
+    vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
+        [finding.id for finding in findings_new]
+    )
     return sum(
         vulnerability["verification"] == "Requested"
         for vulnerability in vulnerabilities
@@ -1402,37 +1393,20 @@ async def remove_all_users(loaders: Any, group: str) -> bool:
 
 async def remove_resources(loaders: Any, group_name: str) -> bool:
     are_users_removed = await remove_all_users(loaders, group_name)
-    if FI_API_STATUS == "migration":
-        group_drafts_loader: DataLoader = loaders.group_drafts_new
-        drafts: Tuple[Finding, ...] = await group_drafts_loader.load(
-            group_name
+    group_drafts_loader: DataLoader = loaders.group_drafts_new
+    drafts: Tuple[Finding, ...] = await group_drafts_loader.load(group_name)
+    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+        group_name
+    )
+    removed_findings: Tuple[
+        Finding, ...
+    ] = await loaders.group_removed_findings.load(group_name)
+    are_findings_masked = all(
+        await collect(
+            findings_domain.mask_finding_new(loaders, finding)
+            for finding in (*drafts, *findings, *removed_findings)
         )
-        findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
-            group_name
-        )
-        removed_findings: Tuple[
-            Finding, ...
-        ] = await loaders.group_removed_findings.load(group_name)
-        are_findings_masked = all(
-            await collect(
-                findings_domain.mask_finding_new(loaders, finding)
-                for finding in (*drafts, *findings, *removed_findings)
-            )
-        )
-    else:
-        group_findings = await findings_domain.list_findings(
-            loaders, [group_name], include_deleted=True
-        )
-        group_drafts = await findings_domain.list_drafts(
-            [group_name], include_deleted=True
-        )
-        findings_and_drafts = group_findings[0] + group_drafts[0]
-        are_findings_masked = all(
-            await collect(
-                findings_domain.mask_finding(loaders, finding_id)
-                for finding_id in findings_and_drafts
-            )
-        )
+    )
     events = await events_domain.list_group_events(group_name)
     are_events_masked = all(
         await collect(events_domain.mask(event_id) for event_id in events)
@@ -1615,14 +1589,9 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
         "vulns_len": 0,
     }
 
-    if FI_API_STATUS == "migration":
-        findings_loader = loaders.group_findings_new
-        findings: Tuple[Finding, ...] = await findings_loader.load(group_name)
-        findings_ids = [finding.id for finding in findings]
-    else:
-        findings_loader = loaders.group_findings
-        findings = await findings_loader.load(group_name)
-        findings_ids = [str(finding["finding_id"]) for finding in findings]
+    findings_loader = loaders.group_findings_new
+    findings: Tuple[Finding, ...] = await findings_loader.load(group_name)
+    findings_ids = [finding.id for finding in findings]
 
     finding_vulns_loader = loaders.finding_vulns_nzr
     group_vulns = await finding_vulns_loader.load_many_chained(findings_ids)
@@ -1634,46 +1603,26 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
     content["vulns_len"] = len(group_vulns)
     last_day = datetime_utils.get_now_minus_delta(hours=24)
 
-    if FI_API_STATUS == "migration":
-        oldest_finding = await get_oldest_no_treatment_new(loaders, findings)
-        if oldest_finding:
-            max_severity, severest_finding = await get_max_open_severity_new(
-                loaders, findings
-            )
-            content["findings"] = [
-                {
-                    **oldest_finding,
-                    "severest_name": severest_finding.title
-                    if severest_finding
-                    else "",
-                    "severity": str(max_severity),
-                }
-            ]
-        content["main"]["remediation_time"] = int(
-            await get_mean_remediate_non_treated_new(loaders, group_name)
+    oldest_finding = await get_oldest_no_treatment_new(loaders, findings)
+    if oldest_finding:
+        max_severity, severest_finding = await get_max_open_severity_new(
+            loaders, findings
         )
-        content["main"]["remediation_rate"] = await get_remediation_rate_new(
-            loaders, group_name
-        )
-    else:
-        oldest_finding = await get_oldest_no_treatment(loaders, findings)
-        if oldest_finding:
-            max_severity, severest_finding = await get_max_open_severity(
-                loaders, findings
-            )
-            content["findings"] = [
-                {
-                    **oldest_finding,
-                    "severest_name": severest_finding.get("finding", ""),
-                    "severity": str(max_severity),
-                }
-            ]
-        content["main"]["remediation_time"] = int(
-            await get_mean_remediate_non_treated(loaders, group_name)
-        )
-        content["main"]["remediation_rate"] = await get_remediation_rate(
-            loaders, group_name
-        )
+        content["findings"] = [
+            {
+                **oldest_finding,
+                "severest_name": severest_finding.title
+                if severest_finding
+                else "",
+                "severity": str(max_severity),
+            }
+        ]
+    content["main"]["remediation_time"] = int(
+        await get_mean_remediate_non_treated_new(loaders, group_name)
+    )
+    content["main"]["remediation_rate"] = await get_remediation_rate_new(
+        loaders, group_name
+    )
 
     historic_config = (
         await get_attributes(group_name, ["historic_configuration"])
