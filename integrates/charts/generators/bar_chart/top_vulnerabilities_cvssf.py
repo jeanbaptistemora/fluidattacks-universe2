@@ -11,9 +11,11 @@ from charts import (
 from charts.colors import (
     RISK,
 )
+from charts.generators.bar_chart.utils import (
+    generate_all_top_vulnerabilities,
+)
 from dataloaders import (
     Dataloaders,
-    get_new_context,
 )
 from db_model.findings.types import (
     Finding as FindingNew,
@@ -28,7 +30,9 @@ from itertools import (
     groupby,
 )
 from typing import (
+    Any,
     Counter,
+    Dict,
     List,
     Tuple,
     Union,
@@ -84,6 +88,7 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
 async def get_data_many_groups(
     groups: List[str], loaders: Dataloaders
 ) -> Counter[str]:
+
     groups_data = await collect(
         [get_data_one_group(group, loaders) for group in groups]
     )
@@ -91,7 +96,7 @@ async def get_data_many_groups(
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter) -> dict:
+def format_data(counters: Counter[str]) -> Dict[str, Any]:
     data: List[Tuple[str, int]] = counters.most_common()
     merged_data: List[List[Union[int, str]]] = []
     for axis, columns in groupby(
@@ -143,38 +148,11 @@ def format_data(counters: Counter) -> dict:
     )
 
 
-async def generate_all() -> None:
-    loaders = get_new_context()
-    async for group in utils.iterate_groups():
-        utils.json_dump(
-            document=format_data(
-                counters=await get_data_one_group(group, loaders)
-            ),
-            entity="group",
-            subject=group,
-        )
-
-    async for org_id, _, org_groups in (
-        utils.iterate_organizations_and_groups()
-    ):
-        utils.json_dump(
-            document=format_data(
-                counters=await get_data_many_groups(list(org_groups), loaders),
-            ),
-            entity="organization",
-            subject=org_id,
-        )
-
-    async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
-        for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            utils.json_dump(
-                document=format_data(
-                    counters=await get_data_many_groups(list(groups), loaders),
-                ),
-                entity="portfolio",
-                subject=f"{org_id}PORTFOLIO#{portfolio}",
-            )
-
-
 if __name__ == "__main__":
-    run(generate_all())
+    run(
+        generate_all_top_vulnerabilities(
+            get_data_one_group=get_data_one_group,
+            get_data_many_groups=get_data_many_groups,
+            format_data=format_data,
+        )
+    )

@@ -10,7 +10,7 @@ from charts import (
 )
 from charts.generators.bar_chart.utils import (
     Benchmarking,
-    format_data,
+    format_mttr_data,
     get_best_mttr,
     get_mean_organizations,
     get_oldest_open_age,
@@ -199,7 +199,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
 
     async for group in utils.iterate_groups():
         utils.json_dump(
-            document=format_data(
+            document=format_mttr_data(
                 data=(
                     Decimal(
                         (
@@ -228,7 +228,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
         utils.iterate_organizations_and_groups()
     ):
         utils.json_dump(
-            document=format_data(
+            document=format_mttr_data(
                 data=(
                     (
                         await get_data_one_organization(
@@ -255,7 +255,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             utils.json_dump(
-                document=format_data(
+                document=format_mttr_data(
                     data=(
                         (
                             await get_data_one_organization(
