@@ -4,7 +4,6 @@ airs.lint.code
 forces
 forces.process-groups
 forces.process-groups-break
-forces.test
 makes.announce.bugsnag
 makes.attrs
 makes.bugsnag.source-map-uploader

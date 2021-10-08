@@ -32,6 +32,11 @@ let
     stage = "lint-code";
     tags = [ "autoscaling" ];
   };
+  gitlabTest = {
+    rules = gitlabOnlyDev;
+    stage = "test-code";
+    tags = [ "autoscaling" ];
+  };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
@@ -46,6 +51,10 @@ in
         {
           output = "/deployTerraform/forces";
           gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/forces/test";
+          gitlabExtra = gitlabTest;
         }
         {
           output = "/lintPython/module/forces";

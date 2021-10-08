@@ -48,11 +48,6 @@
   <<: *forces_in_dev_and_master_branch
   stage: build
 
-forces.test:
-  <<: *makes
-  <<: *forces_in_dev_and_master_branch
-  stage: test-code
-
 forces.test-container:
   <<: *forces_in_dev_and_master_branch
   stage: test-code
