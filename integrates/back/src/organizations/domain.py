@@ -93,21 +93,21 @@ async def _add_updated_max_acceptance_severity(
     return {}
 
 
-async def _add_updated_max_number_acceptations(
+async def _add_updated_max_number_acceptances(
     loaders: Any,
     organization_id: str,
     values: Dict[str, Optional[Decimal]],
     email: str,
     date: str,
 ) -> OrganizationType:
-    new_max_number_acceptation = values.get("max_number_acceptations")
+    new_max_number_acceptances = values.get("max_number_acceptations")
     organization_data = await loaders.organization.load(organization_id)
-    max_number_acceptations: Optional[Decimal] = organization_data[
+    max_number_acceptances: Optional[Decimal] = organization_data[
         "max_number_acceptations"
     ]
     if (
-        new_max_number_acceptation
-        and new_max_number_acceptation != max_number_acceptations
+        new_max_number_acceptances
+        and new_max_number_acceptances != max_number_acceptances
     ):
         historic_max_number_acceptation = organization_data[
             "historic_max_number_acceptations"
@@ -115,7 +115,7 @@ async def _add_updated_max_number_acceptations(
         historic_max_number_acceptation.append(
             {
                 "date": date,
-                "max_number_acceptations": new_max_number_acceptation,
+                "max_number_acceptations": new_max_number_acceptances,
                 "user": email,
             }
         )
@@ -150,7 +150,7 @@ async def _get_new_policies(
     policies = await collect(
         [
             _add_updated_max_acceptance_days(loaders, organization_id, values),
-            _add_updated_max_number_acceptations(
+            _add_updated_max_number_acceptances(
                 loaders, organization_id, values, email, date
             ),
             _add_updated_max_acceptance_severity(
@@ -228,7 +228,7 @@ def format_organization(organization: OrganizationType) -> OrganizationType:
         List[Dict[str, Decimal]],
         organization.get("historic_max_number_acceptations", []),
     )
-    max_number_acceptations: Optional[Decimal] = (
+    max_number_acceptances: Optional[Decimal] = (
         historic_policies[-1]["max_number_acceptations"]
         if historic_policies
         else None
@@ -244,7 +244,7 @@ def format_organization(organization: OrganizationType) -> OrganizationType:
         "max_acceptance_severity": organization.get(
             "max_acceptance_severity", DEFAULT_MAX_SEVERITY
         ),
-        "max_number_acceptations": max_number_acceptations,
+        "max_number_acceptations": max_number_acceptances,
         "min_acceptance_severity": organization.get(
             "min_acceptance_severity", DEFAULT_MIN_SEVERITY
         ),

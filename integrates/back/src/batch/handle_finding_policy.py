@@ -45,7 +45,7 @@ async def is_allowed(
     if status == "APPROVED":
         return enforcer(
             organization_id,
-            "api_mutations_handle_finding_policy_acceptation_mutate",
+            "api_mutations_handle_finding_policy_acceptance_mutate",
         )
     if status == "INACTIVE":
         return enforcer(

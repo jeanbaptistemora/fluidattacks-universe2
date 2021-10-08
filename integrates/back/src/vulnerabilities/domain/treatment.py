@@ -3,7 +3,7 @@ from .core import (
 )
 from .utils import (
     compare_historic_treatments,
-    validate_acceptation,
+    validate_acceptance,
     validate_treatment_manager,
 )
 from aioextensions import (
@@ -100,7 +100,7 @@ async def _validate_acceptance_severity(
     return valid
 
 
-async def _validate_number_acceptations(
+async def _validate_number_acceptances(
     loaders: Any,
     values: Dict[str, str],
     historic_treatment: Historic,
@@ -108,23 +108,23 @@ async def _validate_number_acceptations(
 ) -> bool:
     """
     Check that a finding to temporarily accept does not exceed the maximum
-    number of acceptations the organization set
+    number of acceptances the organization set
     """
     valid: bool = True
     if values["treatment"] == "ACCEPTED":
         organization_data = await loaders.organization.load(organization_id)
-        max_acceptations: Optional[Decimal] = organization_data[
+        max_acceptances: Optional[Decimal] = organization_data[
             "max_number_acceptations"
         ]
-        current_acceptations: int = sum(
+        current_acceptances: int = sum(
             1 for item in historic_treatment if item["treatment"] == "ACCEPTED"
         )
         if (
-            max_acceptations is not None
-            and current_acceptations + 1 > max_acceptations
+            max_acceptances is not None
+            and current_acceptances + 1 > max_acceptances
         ):
             raise InvalidNumberAcceptances(
-                str(current_acceptations) if current_acceptations else "-"
+                str(current_acceptances) if current_acceptances else "-"
             )
     return valid
 
@@ -141,7 +141,7 @@ async def validate_treatment_change(
     validate_acceptance_severity_coroutine = _validate_acceptance_severity(
         loaders, values, cast(float, info_to_check["severity"]), organization
     )
-    validate_number_acceptations_coroutine = _validate_number_acceptations(
+    validate_number_acceptances_coroutine = _validate_number_acceptances(
         loaders,
         values,
         cast(Historic, info_to_check["historic_treatment"]),
@@ -152,7 +152,7 @@ async def validate_treatment_change(
             [
                 validate_acceptance_days_coroutine,
                 validate_acceptance_severity_coroutine,
-                validate_number_acceptations_coroutine,
+                validate_number_acceptances_coroutine,
             ]
         )
     )
@@ -221,7 +221,7 @@ def get_treatment_change(
     return None
 
 
-async def handle_vuln_acceptation(
+async def handle_vuln_acceptance(
     *,
     finding_id: str,
     new_treatments: Historic,
@@ -287,7 +287,7 @@ async def handle_vulnerabilities_acceptance(
         raise VulnNotFound()
 
     vulnerabilities = [
-        validate_acceptation(vuln)
+        validate_acceptance(vuln)
         for vuln in vulnerabilities
         if vuln["id"] in vuln_ids
     ]
@@ -302,7 +302,7 @@ async def handle_vulnerabilities_acceptance(
         treatments = [{**new_treatment, "acceptance_status": "REJECTED"}]
         coroutines.extend(
             [
-                handle_vuln_acceptation(
+                handle_vuln_acceptance(
                     finding_id=finding_id,
                     new_treatments=treatments,
                     vuln=vuln,
@@ -315,7 +315,7 @@ async def handle_vulnerabilities_acceptance(
         treatments = [{**new_treatment, "acceptance_status": "APPROVED"}]
         coroutines.extend(
             [
-                handle_vuln_acceptation(
+                handle_vuln_acceptance(
                     finding_id=finding_id,
                     new_treatments=treatments,
                     vuln=vuln,

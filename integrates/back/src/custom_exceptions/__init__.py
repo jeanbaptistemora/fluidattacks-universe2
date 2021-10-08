@@ -80,13 +80,13 @@ class UnavailabilityError(_SingleMessageException):
     msg: str = "AWS service unavailable, please retry"
 
 
-class AcceptationNotRequested(CustomBaseException):
+class AcceptanceNotRequested(CustomBaseException):
     """Exception to control if acceptance is not valid"""
 
     def __init__(self) -> None:
         """Constructor"""
         msg = "Exception - It cant handle acceptance without being requested"
-        super(AcceptationNotRequested, self).__init__(msg)
+        super(AcceptanceNotRequested, self).__init__(msg)
 
 
 class AlreadyApproved(CustomBaseException):
