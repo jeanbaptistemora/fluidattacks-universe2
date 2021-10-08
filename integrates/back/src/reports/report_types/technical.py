@@ -16,6 +16,9 @@ from findings import (
 )
 import logging
 import logging.config
+from newutils.findings import (
+    get_formatted_evidence,
+)
 from newutils.utils import (
     get_key_or_fallback,
 )
@@ -168,16 +171,20 @@ async def download_evidences_for_pdf_new(
     finding_evidences_set = {}
     for finding in findings:
         folder_name = f"{finding.group_name}/{finding.id}"
+        evidences = get_formatted_evidence(finding)
         evidences_s3: Set[str] = set(
             await findings_dal.search_evidence(folder_name)
         )
         evidence_set = [
             {
-                "id": f"{folder_name}/{evidence.url}",
-                "explanation": evidence.description.capitalize(),
+                "id": f'{folder_name}/{value["url"]}',
+                "explanation": value["description"].capitalize(),
             }
-            for evidence in finding.evidences
-            if (evidence and f"{folder_name}/{evidence.url}" in evidences_s3)
+            for _, value in evidences.items()
+            if (
+                value["url"]
+                and f'{folder_name}/{value["url"]}' in evidences_s3
+            )
         ]
         finding_evidences_set[finding.id] = evidence_set
 

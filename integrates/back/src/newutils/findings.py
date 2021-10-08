@@ -8,6 +8,13 @@ from custom_types import (
     Finding as FindingType,
     Historic as HistoricType,
 )
+from datetime import (
+    datetime,
+)
+from db_model.findings.types import (
+    Finding,
+    FindingEvidence,
+)
 import io
 import itertools
 import logging
@@ -578,3 +585,46 @@ def validate_acceptance_date(values: Dict[str, str]) -> bool:
 
 def is_valid_finding_title(title: str) -> bool:
     return bool(re.match(r"^[0-9]{3}\. .+", title))
+
+
+def get_updated_evidence_date_new(
+    finding: Finding, evidence: FindingEvidence
+) -> datetime:
+    evidence_date = datetime.fromisoformat(evidence.modified_date)
+    updated_date = evidence_date
+    if finding.approval:
+        release_date = datetime.fromisoformat(finding.approval.modified_date)
+        if release_date > evidence_date:
+            updated_date = release_date
+    return updated_date
+
+
+def format_evidence(
+    finding: Finding, evidence: Optional[FindingEvidence]
+) -> Dict[str, str]:
+    return (
+        {
+            "description": "",
+            "url": "",
+        }
+        if evidence is None
+        else {
+            "date": datetime_utils.get_as_str(
+                get_updated_evidence_date_new(finding, evidence)
+            ),
+            "description": evidence.description,
+            "url": evidence.url,
+        }
+    )
+
+
+def get_formatted_evidence(parent: Finding) -> Dict[str, Dict[str, str]]:
+    return {
+        "animation": format_evidence(parent, parent.evidences.animation),
+        "evidence1": format_evidence(parent, parent.evidences.evidence1),
+        "evidence2": format_evidence(parent, parent.evidences.evidence2),
+        "evidence3": format_evidence(parent, parent.evidences.evidence3),
+        "evidence4": format_evidence(parent, parent.evidences.evidence4),
+        "evidence5": format_evidence(parent, parent.evidences.evidence5),
+        "exploitation": format_evidence(parent, parent.evidences.exploitation),
+    }

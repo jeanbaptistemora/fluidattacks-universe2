@@ -54,7 +54,6 @@ from db_model.findings.types import (
     Finding,
     Finding20Severity,
     Finding31Severity,
-    FindingEvidence,
     FindingEvidences,
     FindingMetadataToUpdate,
     FindingState,
@@ -828,18 +827,6 @@ async def get_treatment_summary(loaders: Any, finding_id: str) -> Treatments:
         vulnerabilities
     )
     return vulns_utils.get_treatments(open_vulnerabilities)
-
-
-def get_updated_evidence_date_new(
-    finding: Finding, evidence: FindingEvidence
-) -> datetime:
-    evidence_date = datetime.fromisoformat(evidence.modified_date)
-    updated_date = evidence_date
-    if finding.approval:
-        release_date = datetime.fromisoformat(finding.approval.modified_date)
-        if release_date > evidence_date:
-            updated_date = release_date
-    return updated_date
 
 
 async def get_where(loaders: Any, finding_id: str) -> str:
