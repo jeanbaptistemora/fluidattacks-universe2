@@ -19987,6 +19987,44 @@
             "type": "SyntaxStepReturn"
           }
         ],
+        "822": [
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "844",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "id",
+            "var_type": "int"
+          },
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "848",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "houseDto",
+            "var_type": "Delta<HouseDto>"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "822",
+              "value": null
+            },
+            "name": "Patch",
+            "type": "SyntaxStepMethodDeclaration"
+          }
+        ],
         "857": [
           {
             "meta": {
@@ -31453,7 +31491,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "key",
-            "var_type": "byte"
+            "var_type": "byte[]"
           },
           {
             "is_destructuring": false,
@@ -31466,7 +31504,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "data",
-            "var_type": "byte"
+            "var_type": "byte[]"
           },
           {
             "is_destructuring": false,

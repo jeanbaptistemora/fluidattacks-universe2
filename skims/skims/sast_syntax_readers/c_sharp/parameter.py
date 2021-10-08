@@ -11,29 +11,20 @@ from sast_syntax_readers.types import (
 from utils import (
     graph as g,
 )
-
-
-def _get_var_type(args: SyntaxReaderArgs, type_id: str) -> str:
-    type_node = args.graph.nodes[type_id]
-
-    if "label_text" in type_node:
-        return type_node["label_text"]
-
-    if type_node["label_type"] == "array_type":
-        return args.graph.nodes[type_node["label_field_type"]]["label_text"]
-
-    raise MissingCaseHandling(args)
+from utils.graph.text_nodes import (
+    node_to_str,
+)
 
 
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
-    childs = g.adj_ast(args.graph, args.n_id)
     node = args.graph.nodes[args.n_id]
+    childs = g.adj_ast(args.graph, args.n_id)
 
     type_id = node.get("label_field_type")
     identifier_id = node.get("label_field_name")
 
     var = args.graph.nodes[identifier_id]["label_text"]
-    var_type = None if type_id is None else _get_var_type(args, type_id)
+    var_type = None if type_id is None else node_to_str(args.graph, type_id)
 
     if len(childs) <= 2:
         yield SyntaxStepDeclaration(
