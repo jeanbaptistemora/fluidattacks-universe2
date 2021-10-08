@@ -5,19 +5,19 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts import (
-    utils,
-)
 from charts.colors import (
     TREATMENT,
+)
+from charts.generators.pie_chart.utils import (
+    generate_all,
 )
 from groups import (
     domain as groups_domain,
 )
 from typing import (
     Dict,
-    Iterable,
     NamedTuple,
+    Tuple,
 )
 
 Treatment = NamedTuple(
@@ -45,7 +45,7 @@ async def get_data_one_group(group: str) -> Treatment:
     )
 
 
-async def get_data_many_groups(groups: Iterable[str]) -> Treatment:
+async def get_data_many_groups(groups: Tuple[str, ...]) -> Treatment:
     groups_data = await collect(map(get_data_one_group, list(groups)))
 
     return Treatment(
@@ -91,39 +91,11 @@ def format_data(data: Treatment) -> dict:
     }
 
 
-async def generate_all() -> None:
-    async for group in utils.iterate_groups():
-        utils.json_dump(
-            document=format_data(
-                data=await get_data_one_group(group),
-            ),
-            entity="group",
-            subject=group,
-        )
-
-    async for org_id, _, org_groups in (
-        utils.iterate_organizations_and_groups()
-    ):
-        utils.json_dump(
-            document=format_data(
-                data=await get_data_many_groups(org_groups),
-            ),
-            entity="organization",
-            subject=org_id,
-        )
-
-    async for org_id, org_name, _ in (
-        utils.iterate_organizations_and_groups()
-    ):
-        for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            utils.json_dump(
-                document=format_data(
-                    data=await get_data_many_groups(groups),
-                ),
-                entity="portfolio",
-                subject=f"{org_id}PORTFOLIO#{portfolio}",
-            )
-
-
 if __name__ == "__main__":
-    run(generate_all())
+    run(
+        generate_all(
+            get_data_one_group=get_data_one_group,
+            get_data_many_groups=get_data_many_groups,
+            format_document=format_data,
+        )
+    )

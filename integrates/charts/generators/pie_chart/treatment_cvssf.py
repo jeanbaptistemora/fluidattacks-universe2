@@ -11,8 +11,10 @@ from charts import (
 from charts.colors import (
     TREATMENT,
 )
+from charts.generators.pie_chart.utils import (
+    generate_all,
+)
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.findings.types import (
@@ -43,7 +45,8 @@ Treatment = NamedTuple(
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str, loaders: Dataloaders) -> Treatment:
+async def get_data_one_group(group: str) -> Treatment:
+    loaders = get_new_context()
     group_findings_new: Tuple[
         Finding, ...
     ] = await loaders.group_findings_new.load(group.lower())
@@ -79,11 +82,9 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Treatment:
     )
 
 
-async def get_data_many_groups(
-    groups: Tuple[str, ...], loaders: Dataloaders
-) -> Treatment:
+async def get_data_many_groups(groups: Tuple[str, ...]) -> Treatment:
     groups_data: Tuple[Treatment, ...] = await collect(
-        [get_data_one_group(group, loaders) for group in groups]
+        map(get_data_one_group, groups)
     )
 
     return Treatment(
@@ -129,38 +130,11 @@ def format_data(data: Treatment) -> dict:
     }
 
 
-async def generate_all() -> None:
-    loaders = get_new_context()
-    async for group in utils.iterate_groups():
-        utils.json_dump(
-            document=format_data(
-                data=await get_data_one_group(group, loaders),
-            ),
-            entity="group",
-            subject=group,
-        )
-
-    async for org_id, _, org_groups in (
-        utils.iterate_organizations_and_groups()
-    ):
-        utils.json_dump(
-            document=format_data(
-                data=await get_data_many_groups(org_groups, loaders),
-            ),
-            entity="organization",
-            subject=org_id,
-        )
-
-    async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
-        for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            utils.json_dump(
-                document=format_data(
-                    data=await get_data_many_groups(tuple(groups), loaders),
-                ),
-                entity="portfolio",
-                subject=f"{org_id}PORTFOLIO#{portfolio}",
-            )
-
-
 if __name__ == "__main__":
-    run(generate_all())
+    run(
+        generate_all(
+            get_data_one_group=get_data_one_group,
+            get_data_many_groups=get_data_many_groups,
+            format_document=format_data,
+        )
+    )
