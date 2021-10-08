@@ -11,9 +11,9 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
   props: IZeroRiskTableProps
 ): JSX.Element => {
   const {
-    acceptationVulns,
+    acceptanceVulns: acceptationVulns,
     isConfirmRejectZeroRiskSelected,
-    setAcceptationVulns,
+    setAcceptanceVulns: setAcceptationVulns,
   } = props;
 
   const handleRejectZeroRisk: (vulnInfo?: Dictionary<string>) => void = (
@@ -70,10 +70,10 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
     {
       align: "left",
       approveFunction: handleConfirmZeroRisk,
-      dataField: "acceptation",
+      dataField: "acceptance",
       deleteFunction: handleRejectZeroRisk,
       formatter: changeZeroRiskFormatter,
-      header: "Acceptation",
+      header: "Acceptance",
       width: "30%",
       wordBreak: "break-word",
       wrapped: true,
@@ -88,7 +88,7 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
           dataset={acceptationVulns}
           exportCsv={false}
           headers={vulnsHeader}
-          id={"vulnsToHandleAcceptation"}
+          id={"vulnsToHandleAcceptance"}
           pageSize={10}
           search={false}
         />

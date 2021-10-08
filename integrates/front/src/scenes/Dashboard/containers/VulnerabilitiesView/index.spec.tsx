@@ -240,7 +240,7 @@ describe("VulnerabilitiesView", (): void => {
 
         expect(
           wrapper
-            .find("div#vulnsToHandleAcceptation")
+            .find("div#vulnsToHandleAcceptance")
             .find("BootstrapTable")
             .find("RowPureContent")
         ).toHaveLength(1);

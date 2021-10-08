@@ -11,21 +11,21 @@ import { Button } from "components/Button";
 import type {
   IFormValues,
   IHandleVulnerabilitiesAcceptanceModalFormProps,
-} from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
+} from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/types";
 import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
 const HandleAcceptationModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalFormProps> =
   (props: IHandleVulnerabilitiesAcceptanceModalFormProps): JSX.Element => {
     const {
-      acceptationVulns,
-      acceptedVulns,
+      acceptanceVulnerabilities: acceptationVulns,
+      acceptedVulnerabilities: acceptedVulns,
       confirmingZeroRisk,
       handleCloseModal,
       handlingAcceptation,
       hasAcceptedVulns,
       hasRejectedVulns,
-      rejectedVulns,
+      rejectedVulnerabilities: rejectedVulns,
       rejectingZeroRisk,
       setAcceptationVulns,
       vulns,
@@ -73,9 +73,9 @@ const HandleAcceptationModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModal
         <Row>
           <Col100>
             <ZeroRiskTable
-              acceptationVulns={acceptationVulns}
+              acceptanceVulns={acceptationVulns}
               isConfirmRejectZeroRiskSelected={isConfirmRejectZeroRiskSelected}
-              setAcceptationVulns={setAcceptationVulns}
+              setAcceptanceVulns={setAcceptationVulns}
             />
           </Col100>
         </Row>

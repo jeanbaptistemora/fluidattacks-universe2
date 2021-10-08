@@ -1,18 +1,18 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
-const HANDLE_VULNS_ACCEPTATION: DocumentNode = gql`
-  mutation HandleVulnsAcceptation(
-    $acceptedVulns: [String]!
+const HANDLE_VULNS_ACCEPTANCE: DocumentNode = gql`
+  mutation HandleVulnerabilitiesAcceptance(
+    $acceptedVulnerabilities: [String]!
     $findingId: String!
     $justification: String!
-    $rejectedVulns: [String]!
+    $rejectedVulnerabilities: [String]!
   ) {
     handleVulnerabilitiesAcceptance(
       findingId: $findingId
       justification: $justification
-      acceptedVulnerabilities: $acceptedVulns
-      rejectedVulnerabilities: $rejectedVulns
+      acceptedVulnerabilities: $acceptedVulnerabilities
+      rejectedVulnerabilities: $rejectedVulnerabilities
     ) {
       success
     }
@@ -53,6 +53,6 @@ const REJECT_VULNERABILITIES_ZERO_RISK: DocumentNode = gql`
 
 export {
   CONFIRM_VULNERABILITIES_ZERO_RISK,
-  HANDLE_VULNS_ACCEPTATION,
+  HANDLE_VULNS_ACCEPTANCE,
   REJECT_VULNERABILITIES_ZERO_RISK,
 };

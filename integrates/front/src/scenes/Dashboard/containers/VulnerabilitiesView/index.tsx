@@ -35,7 +35,7 @@ import {
   getNonSelectableVulnerabilitiesOnVerifyIds,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
-import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal";
+import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import { isPendingToAcceptation } from "scenes/Dashboard/containers/VulnerabilitiesView/utils";

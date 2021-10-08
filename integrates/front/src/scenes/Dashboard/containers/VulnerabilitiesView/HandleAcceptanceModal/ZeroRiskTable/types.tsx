@@ -1,9 +1,9 @@
 import type { IVulnDataAttr } from "../types";
 
 interface IZeroRiskTableProps {
-  acceptationVulns: IVulnDataAttr[];
+  acceptanceVulns: IVulnDataAttr[];
   isConfirmRejectZeroRiskSelected: boolean;
-  setAcceptationVulns: (vulns: IVulnDataAttr[]) => void;
+  setAcceptanceVulns: (vulns: IVulnDataAttr[]) => void;
 }
 
 export { IZeroRiskTableProps };

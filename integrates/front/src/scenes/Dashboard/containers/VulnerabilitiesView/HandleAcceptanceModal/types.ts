@@ -21,9 +21,9 @@ interface IHandleVulnerabilitiesAcceptanceModalProps {
 }
 
 interface IHandleVulnerabilitiesAcceptanceModalFormProps {
-  acceptationVulns: IVulnDataAttr[];
-  acceptedVulns: IVulnDataAttr[];
-  rejectedVulns: IVulnDataAttr[];
+  acceptanceVulnerabilities: IVulnDataAttr[];
+  acceptedVulnerabilities: IVulnDataAttr[];
+  rejectedVulnerabilities: IVulnDataAttr[];
   hasAcceptedVulns: boolean;
   hasRejectedVulns: boolean;
   handlingAcceptation: boolean;

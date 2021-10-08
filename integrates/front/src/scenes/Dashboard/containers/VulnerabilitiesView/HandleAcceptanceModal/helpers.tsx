@@ -17,7 +17,7 @@ import type {
   IHandleVulnerabilitiesAcceptanceResultAttr,
   IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
-} from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
+} from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/types";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -224,10 +224,10 @@ const isAcceptedUndefinedSelectedHelper = (
     // eslint-disable-next-line
     void handleAcceptation({ //NOSONAR
       variables: {
-        acceptedVulns: acceptedVulnIds,
+        acceptedVulnerabilities: acceptedVulnIds,
         findingId,
         justification: values.justification,
-        rejectedVulns: rejectedVulnIds,
+        rejectedVulnerabilities: rejectedVulnIds,
       },
     });
   }

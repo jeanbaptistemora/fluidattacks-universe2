@@ -17,14 +17,14 @@ import {
 import { Modal } from "components/Modal";
 import {
   CONFIRM_VULNERABILITIES_ZERO_RISK,
-  HANDLE_VULNS_ACCEPTATION,
+  HANDLE_VULNS_ACCEPTANCE,
   REJECT_VULNERABILITIES_ZERO_RISK,
-} from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
+} from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/queries";
 import type {
   IFormValues,
   IHandleVulnerabilitiesAcceptanceModalProps,
   IVulnDataAttr,
-} from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
+} from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { translate } from "utils/translations/translate";
 
@@ -80,7 +80,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProp
 
     // GraphQL operations
     const [handleAcceptation, { loading: handlingAcceptation }] = useMutation(
-      HANDLE_VULNS_ACCEPTATION,
+      HANDLE_VULNS_ACCEPTANCE,
       acceptationProps(
         refetchData,
         handleCloseModal,
@@ -188,18 +188,18 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProp
               justification: "",
               treatment: initialTreatment,
             }}
-            name={"updateTreatmentAcceptation"}
+            name={"updateTreatmentAcceptance"}
             onSubmit={handleSubmit}
           >
             <HandleAcceptationModalForm
-              acceptationVulns={acceptationVulns}
-              acceptedVulns={acceptedVulns}
+              acceptanceVulnerabilities={acceptationVulns}
+              acceptedVulnerabilities={acceptedVulns}
               confirmingZeroRisk={confirmingZeroRisk}
               handleCloseModal={handleCloseModal}
               handlingAcceptation={handlingAcceptation}
               hasAcceptedVulns={hasAcceptedVulns}
               hasRejectedVulns={hasRejectedVulns}
-              rejectedVulns={rejectedVulns}
+              rejectedVulnerabilities={rejectedVulns}
               rejectingZeroRisk={rejectingZeroRisk}
               setAcceptationVulns={setAcceptationVulns}
               vulns={vulns}

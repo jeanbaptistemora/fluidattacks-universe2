@@ -18,12 +18,12 @@ import type { IZeroRiskTableProps } from "./ZeroRiskTable/types";
 
 import { GET_FINDING_HEADER } from "../../FindingContent/queries";
 import type { IVulnerabilitiesAttr } from "../types";
-import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/index";
+import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/index";
 import {
   CONFIRM_VULNERABILITIES_ZERO_RISK,
-  HANDLE_VULNS_ACCEPTATION,
+  HANDLE_VULNS_ACCEPTANCE,
   REJECT_VULNERABILITIES_ZERO_RISK,
-} from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
+} from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/queries";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -54,12 +54,12 @@ describe("handle vulns acceptance modal", (): void => {
     const mocksMutation: MockedResponse[] = [
       {
         request: {
-          query: HANDLE_VULNS_ACCEPTATION,
+          query: HANDLE_VULNS_ACCEPTANCE,
           variables: {
-            acceptedVulns: [],
+            acceptedVulnerabilities: [],
             findingId: "1",
             justification: "This is a justification test",
-            rejectedVulns: ["test"],
+            rejectedVulnerabilities: ["test"],
           },
         },
         result: {
@@ -169,12 +169,12 @@ describe("handle vulns acceptance modal", (): void => {
     const mocksMutation: MockedResponse[] = [
       {
         request: {
-          query: HANDLE_VULNS_ACCEPTATION,
+          query: HANDLE_VULNS_ACCEPTANCE,
           variables: {
-            acceptedVulns: ["test_error"],
+            acceptedVulnerabilities: ["test_error"],
             findingId: "1",
             justification: "This is a justification test error",
-            rejectedVulns: [],
+            rejectedVulnerabilities: [],
           },
         },
         result: {

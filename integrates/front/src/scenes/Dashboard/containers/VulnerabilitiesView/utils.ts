@@ -1,6 +1,6 @@
 import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
-import type { IVulnDataAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
+import type { IVulnDataAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/types";
 import type { IVulnerabilitiesAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 
 const getVulnsPendingOfAcceptation: (
