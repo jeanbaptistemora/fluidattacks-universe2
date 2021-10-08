@@ -470,7 +470,11 @@
   "pify": {},
   "pinkie-promise": {},
   "pkg-dir": {},
-  "postcss": {},
+  "postcss": {
+    "CVE-2021-23368": [
+      ">=7.0.0,<8.2.10"
+    ]
+  },
   "postcss-value-parser": {},
   "process-nextick-args": {},
   "pump": {},
