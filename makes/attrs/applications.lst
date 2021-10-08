@@ -10,7 +10,6 @@ makes.kill-tree
 makes.profiles
 makes.wait
 melts
-melts.test
 observes.bin.code-etl
 observes.bin.service.batch-stability
 observes.bin.service.job-last-success

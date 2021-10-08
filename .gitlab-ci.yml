@@ -13,7 +13,6 @@ include:
   - local: asserts/.gitlab-ci.yml
   - local: docs/.gitlab-ci.yml
   - local: forces/.gitlab-ci.yml
-  - local: melts/.gitlab-ci.yml
   - local: observes/.gitlab-ci.yml
   - local: sorts/.gitlab-ci.yml
 

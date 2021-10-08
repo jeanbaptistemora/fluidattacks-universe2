@@ -11,7 +11,6 @@ makes.test.airs
 makes.test.asserts
 makes.test.docs
 makes.test.makes
-makes.test.melts
 makes.test.observes
 makes.test.sorts
 melts.config-development

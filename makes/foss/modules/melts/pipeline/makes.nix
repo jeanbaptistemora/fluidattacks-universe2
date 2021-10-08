@@ -33,6 +33,21 @@ in
           output = "/lintPython/module/meltsTests";
           gitlabExtra = gitlabLint;
         }
+        {
+          output = "/melts/test";
+          gitlabExtra = {
+            rules = gitlabOnlyDev;
+            services = [
+              { alias = "localstack"; name = "localstack/localstack"; }
+            ];
+            stage = "test-code";
+            tags = [ "autoscaling-large" ];
+            variables = {
+              SERVICES = "s3";
+              HOSTNAME_EXTERNAL = "localstack";
+            };
+          };
+        }
       ];
     };
   };

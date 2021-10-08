@@ -20,7 +20,7 @@ makeDerivation {
             # Prevent infinite recursion
             && !(nixpkgs.lib.strings.hasPrefix "makes.test" name)
           ))
-          (packagesFlattened));
+          packagesFlattened);
   };
   builder = "echo $envBuilt > $out";
   name = "makes-test-${product}";

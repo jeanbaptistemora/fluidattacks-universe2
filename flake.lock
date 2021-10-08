@@ -17,36 +17,15 @@
       }
     },
     "makes": {
-      "inputs": {
-        "nixpkgs": "nixpkgs"
-      },
+      "flake": false,
       "locked": {
-        "lastModified": 1633633455,
-        "narHash": "sha256-0LgGI/rrP8YoQhjXnWvhJNO19tqBZaSIU0OBkvY4lWE=",
-        "owner": "fluidattacks",
-        "repo": "makes",
-        "rev": "6f2211b3e1b40b8e3daace46d844c0be85b661a5",
-        "type": "github"
+        "narHash": "sha256-bKB6dVxZb2yEeEDWGAQRw85HLUpESdwzOFAsG8AY+8I=",
+        "type": "tarball",
+        "url": "https://github.com/fluidattacks/makes/archive/7ca1823f1841714031b3a4c02a6972c7c875d1cf.tar.gz"
       },
       "original": {
-        "owner": "fluidattacks",
-        "repo": "makes",
-        "type": "github"
-      }
-    },
-    "nixpkgs": {
-      "locked": {
-        "lastModified": 1631904605,
-        "narHash": "sha256-+EButmvDYPSK1EOkiBndJHmAgfEXFrqQTkzA/amSGRE=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "cb5ca6505b964bc76aaa866634e4b8ad12da7792",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://github.com/fluidattacks/makes/archive/7ca1823f1841714031b3a4c02a6972c7c875d1cf.tar.gz"
       }
     },
     "nixpkgsSource": {

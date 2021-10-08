@@ -2,7 +2,7 @@
   description = "Fluid Attacks, We hack your software!";
   inputs = {
     flakeCompat = { url = "github:edolstra/flake-compat"; flake = false; };
-    makes = { url = "github:fluidattacks/makes"; };
+    makes = { url = "https://github.com/fluidattacks/makes/archive/7ca1823f1841714031b3a4c02a6972c7c875d1cf.tar.gz"; flake = false; };
     nixpkgsSource = { url = "https://github.com/nixos/nixpkgs/archive/932941b79c3dbbef2de9440e1631dfec43956261.tar.gz"; flake = false; };
     nixpkgsSource2 = { url = "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"; flake = false; };
     nixpkgsSource3 = { url = "https://github.com/nixos/nixpkgs/archive/a1d64d9419422ae9779ab5cada5828127a24e100.tar.gz"; flake = false; };
@@ -57,7 +57,7 @@
         revision = if (builtins.hasAttr "rev" self) then self.rev else "dirty";
         inherit system;
 
-        makes = import "${inputs.makes.sourceInfo}/src/args/agnostic.nix" {
+        makes = import "${inputs.makes}/src/args/agnostic.nix" {
           inherit system;
         };
 
