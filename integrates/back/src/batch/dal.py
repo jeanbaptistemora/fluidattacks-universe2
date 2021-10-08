@@ -296,6 +296,7 @@ async def put_action_to_batch(
                     ],
                     "environment": [
                         {"name": "CI", "value": "true"},
+                        {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
                         {
                             "name": "PRODUCT_API_TOKEN",
                             "value": PRODUCT_API_TOKEN,
