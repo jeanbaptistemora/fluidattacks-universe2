@@ -14,9 +14,6 @@ from charts.colors import (
 from charts.generators.bar_chart.utils import (
     Remediate,
 )
-from context import (
-    FI_API_STATUS,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -48,40 +45,22 @@ from typing import (
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders, min_date: Optional[date] = None
 ) -> Remediate:
-    if FI_API_STATUS == "migration":
-        critical, high, medium, low = await collect(
-            [
-                groups_domain.get_mean_remediate_severity_new(
-                    loaders, group, 9, 10, min_date
-                ),
-                groups_domain.get_mean_remediate_severity_new(
-                    loaders, group, 7, 8.9, min_date
-                ),
-                groups_domain.get_mean_remediate_severity_new(
-                    loaders, group, 4, 6.9, min_date
-                ),
-                groups_domain.get_mean_remediate_severity_new(
-                    loaders, group, 0.1, 3.9, min_date
-                ),
-            ]
-        )
-    else:
-        critical, high, medium, low = await collect(
-            [
-                groups_domain.get_mean_remediate_severity(
-                    loaders, group, 9, 10, min_date
-                ),
-                groups_domain.get_mean_remediate_severity(
-                    loaders, group, 7, 8.9, min_date
-                ),
-                groups_domain.get_mean_remediate_severity(
-                    loaders, group, 4, 6.9, min_date
-                ),
-                groups_domain.get_mean_remediate_severity(
-                    loaders, group, 0.1, 3.9, min_date
-                ),
-            ]
-        )
+    critical, high, medium, low = await collect(
+        [
+            groups_domain.get_mean_remediate_severity_new(
+                loaders, group, 9, 10, min_date
+            ),
+            groups_domain.get_mean_remediate_severity_new(
+                loaders, group, 7, 8.9, min_date
+            ),
+            groups_domain.get_mean_remediate_severity_new(
+                loaders, group, 4, 6.9, min_date
+            ),
+            groups_domain.get_mean_remediate_severity_new(
+                loaders, group, 0.1, 3.9, min_date
+            ),
+        ]
+    )
 
     return Remediate(
         critical_severity=critical,

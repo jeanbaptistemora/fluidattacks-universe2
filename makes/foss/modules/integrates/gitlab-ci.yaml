@@ -2172,7 +2172,8 @@
 /integrates/charts/snapshots__prod:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
-  needs: []
+  needs:
+    - /integrates/charts/documents__prod
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never

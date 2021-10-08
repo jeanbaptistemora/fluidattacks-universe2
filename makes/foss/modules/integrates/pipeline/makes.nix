@@ -349,6 +349,7 @@ in
               (gitlabCi.rules.varIsDefined "charts")
               (gitlabCi.rules.always)
             ];
+            needs = [ "/integrates/charts/documents__prod" ];
             stage = "analytics";
             tags = [ "autoscaling" ];
           };

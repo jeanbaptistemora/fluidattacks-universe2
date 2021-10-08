@@ -14,9 +14,6 @@ from charts.colors import (
 from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,
 )
-from context import (
-    FI_API_STATUS,
-)
 from dataloaders import (
     get_new_context,
 )
@@ -35,16 +32,10 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
     context = get_new_context()
-    if FI_API_STATUS == "migration":
-        group_findings_new_loader = context.group_findings_new
-        group_findings_new: Tuple[
-            Finding, ...
-        ] = await group_findings_new_loader.load(group.lower())
-        findings_found = len(group_findings_new)
-    else:
-        group_findings_loader = context.group_findings
-        group_findings_data = await group_findings_loader.load(group.lower())
-        findings_found = len(group_findings_data)
+    group_findings_new: Tuple[
+        Finding, ...
+    ] = await context.group_findings_new.load(group.lower())
+    findings_found = len(group_findings_new)
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),

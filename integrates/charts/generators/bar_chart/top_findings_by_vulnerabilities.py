@@ -11,9 +11,6 @@ from charts import (
 from charts.colors import (
     RISK,
 )
-from context import (
-    FI_API_STATUS,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -36,39 +33,21 @@ from typing import (
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
-    if FI_API_STATUS == "migration":
-        group_findings_new_loader = loaders.group_findings_new
-        group_findings_new: Tuple[
-            Finding, ...
-        ] = await group_findings_new_loader.load(group.lower())
-        finding_ids = [finding.id for finding in group_findings_new]
-        finding_vulns = await loaders.finding_vulns_nzr.load_many(finding_ids)
-        counter = Counter(
-            [
-                f"{finding.id}/{finding.title}"
-                for finding, vulnerabilities in zip(
-                    group_findings_new, finding_vulns
-                )
-                for vulnerability in vulnerabilities
-                if vulnerability["current_state"] == "open"
-            ]
-        )
-    else:
-        group_findings_data = await loaders.group_findings.load(group.lower())
-        finding_ids = [
-            finding["finding_id"] for finding in group_findings_data
+    group_findings_new: Tuple[
+        Finding, ...
+    ] = await loaders.group_findings_new.load(group.lower())
+    finding_ids = [finding.id for finding in group_findings_new]
+    finding_vulns = await loaders.finding_vulns_nzr.load_many(finding_ids)
+    counter = Counter(
+        [
+            f"{finding.id}/{finding.title}"
+            for finding, vulnerabilities in zip(
+                group_findings_new, finding_vulns
+            )
+            for vulnerability in vulnerabilities
+            if vulnerability["current_state"] == "open"
         ]
-        finding_vulns = await loaders.finding_vulns_nzr.load_many(finding_ids)
-        counter = Counter(
-            [
-                f'{finding["finding_id"]}/{finding["title"]}'
-                for finding, vulnerabilities in zip(
-                    group_findings_data, finding_vulns
-                )
-                for vulnerability in vulnerabilities
-                if vulnerability["current_state"] == "open"
-            ]
-        )
+    )
 
     return counter
 

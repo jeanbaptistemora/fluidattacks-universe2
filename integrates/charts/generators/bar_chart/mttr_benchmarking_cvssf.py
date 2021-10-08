@@ -21,9 +21,6 @@ from charts.generators.bar_chart.utils import (
     ORGANIZATION_CATEGORIES,
     PORTFOLIO_CATEGORIES,
 )
-from context import (
-    FI_API_STATUS,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -37,7 +34,6 @@ from decimal import (
 )
 from groups.domain import (
     get_alive_group_names,
-    get_mean_remediate_cvssf,
     get_mean_remediate_cvssf_new,
 )
 from statistics import (
@@ -53,30 +49,19 @@ from typing import (
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
 ) -> Benchmarking:
-    if FI_API_STATUS == "migration":
-        group_findings_new: Tuple[
-            Finding, ...
-        ] = await loaders.group_findings_new.load(group.lower())
-        vulnerabilities = await loaders.finding_vulns.load_many_chained(
-            [finding.id for finding in group_findings_new]
-        )
-    else:
-        group_findings = await loaders.group_findings.load(group)
-        vulnerabilities = await loaders.finding_vulns.load_many_chained(
-            [str(finding["finding_id"]) for finding in group_findings]
-        )
+    group_findings_new: Tuple[
+        Finding, ...
+    ] = await loaders.group_findings_new.load(group.lower())
+    vulnerabilities = await loaders.finding_vulns.load_many_chained(
+        [finding.id for finding in group_findings_new]
+    )
 
     number_of_reattacks: int = sum(
         get_vulnerability_reattacks(vulnerability=vulnerability)
         for vulnerability in vulnerabilities
     )
 
-    if FI_API_STATUS == "migration":
-        mttr: Decimal = await get_mean_remediate_cvssf_new(
-            loaders, group.lower()
-        )
-    else:
-        mttr = await get_mean_remediate_cvssf(loaders, group.lower())
+    mttr: Decimal = await get_mean_remediate_cvssf_new(loaders, group.lower())
 
     return Benchmarking(
         is_valid=number_of_reattacks > 10,
