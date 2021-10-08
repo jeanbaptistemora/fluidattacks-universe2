@@ -15,6 +15,7 @@ from purity.v1._patch import (
     Patch,
 )
 from purity.v1._pure_iter._iter_factory import (
+    IterableFactory,
     IterableFactoryIO,
 )
 from purity.v1._pure_iter._obj import (
@@ -31,12 +32,8 @@ from returns.io import (
 from returns.maybe import (
     Maybe,
 )
-from returns.unsafe import (
-    unsafe_perform_io,
-)
 from typing import (
     Callable,
-    Iterable,
     Optional,
     TypeVar,
 )
@@ -48,16 +45,22 @@ _R = TypeVar("_R")
 @dataclass(frozen=True)
 class PureIterFactory:
     @staticmethod
-    def from_flist(items: FrozenList[_I]) -> PureIter[_I]:
-        draft = _PureIter(Patch(lambda: items))
+    def chain(
+        unchained: PureIter[Mappable[_I]],
+    ) -> PureIter[_I]:
+        function = partial(IterableFactory.chain, unchained)
+        return PureIter(_PureIter(Patch(function)))
+
+    @staticmethod
+    def filter(items: PureIter[Optional[_I]]) -> PureIter[_I]:
+        draft = _PureIter(
+            Patch(lambda: iter(IterableFactory.filter_none(items)))
+        )
         return PureIter(draft)
 
     @staticmethod
-    def map(function: Callable[[_I], _R], items: Mappable[_I]) -> PureIter[_R]:
-        def gen() -> Iterable[_R]:
-            return (function(i) for i in items)
-
-        draft = _PureIter(Patch(lambda: iter(gen())))
+    def from_flist(items: FrozenList[_I]) -> PureIter[_I]:
+        draft = _PureIter(Patch(lambda: items))
         return PureIter(draft)
 
     @classmethod
@@ -68,37 +71,32 @@ class PureIterFactory:
         return cls.map(function, PureIter(draft))
 
     @staticmethod
-    def map_range(function: Callable[[int], _R], items: range) -> PureIter[_R]:
-        def gen() -> Iterable[_R]:
-            return (function(i) for i in items)
-
-        draft = _PureIter(Patch(lambda: iter(gen())))
+    def map(function: Callable[[_I], _R], items: Mappable[_I]) -> PureIter[_R]:
+        draft = _PureIter(
+            Patch(lambda: iter(IterableFactory.map(function, items)))
+        )
         return PureIter(draft)
 
     @staticmethod
-    def filter(items: Mappable[Optional[_I]]) -> PureIter[_I]:
-        def filtered() -> Iterable[_I]:
-            return (i for i in items if i is not None)
-
-        draft = _PureIter(Patch(lambda: iter(filtered())))
+    def map_range(function: Callable[[int], _R], items: range) -> PureIter[_R]:
+        draft = _PureIter(
+            Patch(lambda: iter(IterableFactory.map_range(function, items)))
+        )
         return PureIter(draft)
 
     @staticmethod
     def until_none(items: PureIter[Optional[_I]]) -> PureIter[_I]:
-        def filtered() -> Iterable[_I]:
-            for item in items:
-                if item is None:
-                    break
-                yield item
-
-        draft = _PureIter(Patch(lambda: iter(filtered())))
+        draft = _PureIter(
+            Patch(lambda: iter(IterableFactory.until_none(items)))
+        )
         return PureIter(draft)
 
     @classmethod
-    def until_empty(cls, items: Mappable[Maybe[_I]]) -> PureIter[_I]:
-        opt: PureIter[Optional[_I]] = PureIterFactory.map(
-            lambda x: x.value_or(None), items
-        )
+    def until_empty(cls, items: PureIter[Maybe[_I]]) -> PureIter[_I]:
+        def _to_opt(item: Maybe[_I]) -> Optional[_I]:
+            return item.value_or(None)
+
+        opt: PureIter[Optional[_I]] = cls.map(_to_opt, items)
         return cls.until_none(opt)
 
 
@@ -112,14 +110,9 @@ class PureIterIOFactory:
 
     @staticmethod
     def until_none(items: PureIter[IO[Optional[_I]]]) -> PureIter[IO[_I]]:
-        def filtered() -> Iterable[IO[_I]]:
-            for item in items:
-                _item = unsafe_perform_io(item)
-                if _item is None:
-                    break
-                yield IO(_item)
-
-        draft = _PureIter(Patch(lambda: iter(filtered())))
+        draft = _PureIter(
+            Patch(lambda: iter(IterableFactoryIO.filter_io(items)))
+        )
         return PureIter(draft)
 
     @classmethod
