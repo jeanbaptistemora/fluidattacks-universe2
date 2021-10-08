@@ -270,6 +270,11 @@
     ]
   },
   "http-errors": {},
+  "i18next": {
+    "SNYK-JS-I18NEXT-1065979": [
+      "<19.8.5"
+    ]
+  },
   "iconv-lite": {},
   "imurmurhash": {},
   "inflight": {},

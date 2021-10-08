@@ -6,6 +6,7 @@
     "fresh": "xxxxwhasdflaskdjfasdf",
     "hoek": "^5.0.0",
     "html-parse-stringify": "2.0.0",
+    "i18next": "19.8.4",
     "lodash": "0.*",
     "jasmine-core": "2.99.1",
     "jquery": "0.*",
