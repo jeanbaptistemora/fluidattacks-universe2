@@ -266,3 +266,37 @@ async def get_oldest_open_age(
         if oldest_open_age
         else Decimal("0.0")
     )
+
+
+def sum_mttr_many_groups(*, groups_data: Tuple[Remediate, ...]) -> Remediate:
+
+    return Remediate(
+        critical_severity=Decimal(
+            mean([group.critical_severity for group in groups_data])
+        )
+        .quantize(Decimal("0.1"))
+        .to_integral_exact(rounding=ROUND_CEILING)
+        if groups_data
+        else Decimal("0"),
+        high_severity=Decimal(
+            mean([group.high_severity for group in groups_data])
+        )
+        .quantize(Decimal("0.1"))
+        .to_integral_exact(rounding=ROUND_CEILING)
+        if groups_data
+        else Decimal("0"),
+        medium_severity=Decimal(
+            mean([group.medium_severity for group in groups_data])
+        )
+        .quantize(Decimal("0.1"))
+        .to_integral_exact(rounding=ROUND_CEILING)
+        if groups_data
+        else Decimal("0"),
+        low_severity=Decimal(
+            mean([group.low_severity for group in groups_data])
+        )
+        .quantize(Decimal("0.1"))
+        .to_integral_exact(rounding=ROUND_CEILING)
+        if groups_data
+        else Decimal("0"),
+    )
