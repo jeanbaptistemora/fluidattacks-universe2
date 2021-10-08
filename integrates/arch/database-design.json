@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 08, 2021, 08:20 AM",
+    "DateLastModified": "Oct 08, 2021, 10:54 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -8330,15 +8330,15 @@
           "TableData": []
         },
         {
-          "FacetName": "machine_root_execution",
+          "FacetName": "machine_git_root_execution",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid#QUEUE",
+            "PartitionKeyAlias": "ROOT#uuid#MACHINE",
             "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#QUEUE"
+                "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#MACHINE"
               },
               "sk": {
                 "S": "GROUP#unittesting"

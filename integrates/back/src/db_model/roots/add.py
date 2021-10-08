@@ -20,6 +20,14 @@ async def add(*, root: RootItem) -> None:
         facet=TABLE.facets["git_root_metadata"],
         values={"name": root.group_name, "uuid": root.id},
     )
+    machine_execution_key = keys.build_key(
+        facet=TABLE.facets["machine_git_root_execution"],
+        values={"name": root.group_name, "uuid": root.id},
+    )
+    initial_machine_exectution = {
+        key_structure.partition_key: machine_execution_key.partition_key,
+        key_structure.sort_key: machine_execution_key.sort_key,
+    }
     initial_metadata = {
         key_structure.partition_key: metadata_key.partition_key,
         key_structure.sort_key: metadata_key.sort_key,
@@ -38,7 +46,7 @@ async def add(*, root: RootItem) -> None:
         latest_facet=TABLE.facets["git_root_state"],
     )
 
-    items = (initial_metadata, *historic_state)
+    items = (initial_metadata, initial_machine_exectution, *historic_state)
 
     if isinstance(root, GitRootItem):
         historic_cloning = historics.build_historic(

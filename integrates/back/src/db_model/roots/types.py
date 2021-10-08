@@ -36,12 +36,17 @@ class GitRootState(NamedTuple):
     url: str
 
 
+class MachineGitRootExecution(NamedTuple):
+    queue_date: Optional[str]
+
+
 class GitRootItem(NamedTuple):
     cloning: GitRootCloning
     group_name: str
     id: str
     metadata: GitRootMetadata
     state: GitRootState
+    machine_execution: Optional[MachineGitRootExecution]
 
 
 class IPRootMetadata(NamedTuple):
@@ -64,12 +69,6 @@ class IPRootItem(NamedTuple):
     id: str
     metadata: IPRootMetadata
     state: IPRootState
-
-
-class MachineRootExecution(NamedTuple):
-    group_name: str
-    id: str
-    queue_date: Optional[str]
 
 
 class URLRootMetadata(NamedTuple):
