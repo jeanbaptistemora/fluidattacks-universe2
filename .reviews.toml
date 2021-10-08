@@ -68,4 +68,4 @@ platform = 'gitlab'
   [tests.all_pipelines_successful]
     fail = true
     close_pr = true
-    job_name = 'makes.review-mr'
+    job_name = '/makes/review-mr'
