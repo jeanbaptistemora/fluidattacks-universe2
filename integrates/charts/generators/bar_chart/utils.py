@@ -10,9 +10,6 @@ from charts.utils import (
     iterate_organizations_and_groups,
     json_dump,
 )
-from context import (
-    FI_API_STATUS,
-)
 from custom_types import (
     Vulnerability,
 )
@@ -226,29 +223,16 @@ def format_vulnerabilities_by_data(
 
 
 async def _get_oldest_open_age(*, group: str, loaders: Dataloaders) -> Decimal:
-    if FI_API_STATUS == "migration":
-        group_findings_new_loader = loaders.group_findings_new
-        group_findings_new: Tuple[
-            Finding, ...
-        ] = await group_findings_new_loader.load(group.lower())
-        findings_open_age = await collect(
-            [
-                get_finding_open_age(loaders, finding.id)
-                for finding in group_findings_new
-            ]
-        )
-    else:
-        group_findings_loader = loaders.group_findings
-        group_findings = await group_findings_loader.load(group.lower())
-        finding_ids = [
-            str(finding["finding_id"]) for finding in group_findings
+    group_findings_new_loader = loaders.group_findings_new
+    group_findings_new: Tuple[
+        Finding, ...
+    ] = await group_findings_new_loader.load(group.lower())
+    findings_open_age = await collect(
+        [
+            get_finding_open_age(loaders, finding.id)
+            for finding in group_findings_new
         ]
-        findings_open_age = await collect(
-            [
-                get_finding_open_age(loaders, finding_id)
-                for finding_id in finding_ids
-            ]
-        )
+    )
 
     return (
         Decimal(max(findings_open_age)).to_integral_exact(

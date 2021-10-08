@@ -4,17 +4,11 @@ from aioextensions import (
 from charts import (
     utils,
 )
-from context import (
-    FI_API_STATUS,
-)
 from dataloaders import (
     get_new_context,
 )
 from db_model.findings.types import (
     Finding,
-)
-from decimal import (
-    Decimal,
 )
 from findings import (
     domain as findings_domain,
@@ -33,32 +27,19 @@ async def generate_one(group: str) -> dict:
         "nodes": set(),
         "links": set(),
     }
-    if FI_API_STATUS == "migration":
-        group_findings_new_loader = context.group_findings_new
-        group_findings_new: Tuple[
-            Finding, ...
-        ] = await group_findings_new_loader.load(group)
-        group_findings_data = [
-            (
-                finding.id,
-                finding.title,
-                findings_domain.get_severity_score_new(finding.severity),
-            )
-            for finding in group_findings_new
-        ]
-    else:
-        group_findings_loader = context.group_findings
-        group_findings = await group_findings_loader.load(group)
-        group_findings_data = [
-            (
-                finding["finding_id"],
-                finding["title"],
-                Decimal(finding.get("cvss_temporal", 0.0)).quantize(
-                    Decimal("0.1")
-                ),
-            )
-            for finding in group_findings
-        ]
+    group_findings_new_loader = context.group_findings_new
+    group_findings_new: Tuple[
+        Finding, ...
+    ] = await group_findings_new_loader.load(group)
+    group_findings_data = [
+        (
+            finding.id,
+            finding.title,
+            findings_domain.get_severity_score_new(finding.severity),
+        )
+        for finding in group_findings_new
+    ]
+
     for finding_id, finding_title, finding_cvss in group_findings_data:
         finding_vulns = await context.finding_vulns_nzr.load(finding_id)
         for vulnerability in finding_vulns:

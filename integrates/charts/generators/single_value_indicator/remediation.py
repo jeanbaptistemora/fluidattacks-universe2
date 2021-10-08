@@ -7,9 +7,6 @@ from charts import (
 from charts.types import (
     RemediationReport,
 )
-from context import (
-    FI_API_STATUS,
-)
 from custom_types import (
     Vulnerability as VulnerabilityType,
 )
@@ -82,24 +79,15 @@ def get_totals_by_week(
 async def generate_one(groups: Tuple[str, ...]) -> RemediationReport:
     context = get_new_context()
     finding_vulns_loader = context.finding_vulns_nzr
-    if FI_API_STATUS == "migration":
-        group_findings_new_loader = context.group_findings_new
-        groups_findings_new: Tuple[
-            Tuple[Finding, ...], ...
-        ] = await group_findings_new_loader.load_many(groups)
-        finding_ids = [
-            finding.id
-            for group_findings in groups_findings_new
-            for finding in group_findings
-        ]
-    else:
-        group_findings_loader = context.group_findings
-        groups_findings_data = await group_findings_loader.load_many(groups)
-        finding_ids = [
-            finding["finding_id"]
-            for group_findings in groups_findings_data
-            for finding in group_findings
-        ]
+    group_findings_new_loader = context.group_findings_new
+    groups_findings_new: Tuple[
+        Tuple[Finding, ...], ...
+    ] = await group_findings_new_loader.load_many(groups)
+    finding_ids = [
+        finding.id
+        for group_findings in groups_findings_new
+        for finding in group_findings
+    ]
 
     current_rolling_week = datetime.now()
     previous_rolling_week = current_rolling_week - timedelta(days=7)

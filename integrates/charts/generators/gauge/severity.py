@@ -12,9 +12,6 @@ from charts.colors import (
     GRAY_JET,
     RISK,
 )
-from context import (
-    FI_API_STATUS,
-)
 from custom_types import (
     Finding,
 )
@@ -95,85 +92,43 @@ def get_max_severity_many(groups: List[Decimal]) -> Tuple[int, Decimal]:
 
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str, loaders: Dataloaders) -> Severity:
-    if FI_API_STATUS == "migration":
-        group_findings_new_loader = loaders.group_findings_new
-        group_findings_new: Tuple[
-            FindingNew, ...
-        ] = await group_findings_new_loader.load(group.lower())
-        max_found_index, max_found_value = get_max_severity_one_new(
-            group_findings_new
-        )
-        open_findings_vulnerabilities = await collect(
-            [
-                findings_domain.get_open_vulnerabilities(loaders, finding.id)
-                for finding in group_findings_new
-            ]
-        )
-        open_group_findings_new = tuple(
-            finding
-            for finding, open_vulnerabilities in zip(
-                group_findings_new, open_findings_vulnerabilities
-            )
-            if open_vulnerabilities > 0
-        )
-        max_open_index, max_open_value = get_max_severity_one_new(
-            open_group_findings_new
-        )
-        severity = Severity(
-            max_open_severity=MaxSeverity(
-                value=max_open_value,
-                name=(open_group_findings_new[max_open_index].title)
-                if max_open_index >= 0
-                else "",
-            ),
-            max_severity_found=MaxSeverity(
-                value=max_found_value,
-                name=(group_findings_new[max_found_index].title)
-                if max_found_index >= 0
-                else "",
-            ),
-        )
-    else:
-        group_findings_loader = loaders.group_findings
-        found_group_findings: List[Finding] = await group_findings_loader.load(
-            group.lower()
-        )
-        max_found_index, max_found_value = get_max_severity_one(
-            found_group_findings
-        )
-        open_findings_vulnerabilities = await collect(
-            [
-                findings_domain.get_open_vulnerabilities(
-                    loaders, str(finding["finding_id"])
-                )
-                for finding in found_group_findings
-            ]
-        )
-        open_group_findings = [
-            finding
-            for finding, open_vulnerabilities in zip(
-                found_group_findings, open_findings_vulnerabilities
-            )
-            if open_vulnerabilities > 0
+    group_findings_new_loader = loaders.group_findings_new
+    group_findings_new: Tuple[
+        FindingNew, ...
+    ] = await group_findings_new_loader.load(group.lower())
+    max_found_index, max_found_value = get_max_severity_one_new(
+        group_findings_new
+    )
+    open_findings_vulnerabilities = await collect(
+        [
+            findings_domain.get_open_vulnerabilities(loaders, finding.id)
+            for finding in group_findings_new
         ]
-        max_open_index, max_open_value = get_max_severity_one(
-            open_group_findings
+    )
+    open_group_findings_new = tuple(
+        finding
+        for finding, open_vulnerabilities in zip(
+            group_findings_new, open_findings_vulnerabilities
         )
-        severity = Severity(
-            max_open_severity=MaxSeverity(
-                value=max_open_value,
-                name=(open_group_findings[max_open_index]["title"])
-                if max_open_index >= 0
-                else "",
-            ),
-            max_severity_found=MaxSeverity(
-                value=max_found_value,
-                name=(found_group_findings[max_found_index]["title"])
-                if max_found_index >= 0
-                else "",
-            ),
-        )
-
+        if open_vulnerabilities > 0
+    )
+    max_open_index, max_open_value = get_max_severity_one_new(
+        open_group_findings_new
+    )
+    severity = Severity(
+        max_open_severity=MaxSeverity(
+            value=max_open_value,
+            name=(open_group_findings_new[max_open_index].title)
+            if max_open_index >= 0
+            else "",
+        ),
+        max_severity_found=MaxSeverity(
+            value=max_found_value,
+            name=(group_findings_new[max_found_index].title)
+            if max_found_index >= 0
+            else "",
+        ),
+    )
     return severity
 
 

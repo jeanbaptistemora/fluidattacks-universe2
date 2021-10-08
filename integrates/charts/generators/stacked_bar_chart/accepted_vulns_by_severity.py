@@ -12,9 +12,6 @@ from charts.colors import (
     RISK,
     TREATMENT,
 )
-from context import (
-    FI_API_STATUS,
-)
 from dataloaders import (
     get_new_context,
 )
@@ -50,30 +47,17 @@ def get_severity_level(severity: Decimal) -> str:
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
-    if FI_API_STATUS == "migration":
-        group_findings_new_loader = context.group_findings_new
-        group_findings_new: Tuple[
-            Finding, ...
-        ] = await group_findings_new_loader.load(group.lower())
-        finding_ids = [finding.id for finding in group_findings_new]
-        finding_severity_levels = [
-            get_severity_level(
-                findings_domain.get_severity_score_new(finding.severity)
-            )
-            for finding in group_findings_new
-        ]
-    else:
-        group_findings_loader = context.group_findings
-        group_findings = await group_findings_loader.load(group.lower())
-        finding_ids = [finding["finding_id"] for finding in group_findings]
-        finding_severity_levels = [
-            get_severity_level(
-                Decimal(finding.get("cvss_temporal", "0.0")).quantize(
-                    Decimal("0.1")
-                )
-            )
-            for finding in group_findings
-        ]
+    group_findings_new_loader = context.group_findings_new
+    group_findings_new: Tuple[
+        Finding, ...
+    ] = await group_findings_new_loader.load(group.lower())
+    finding_ids = [finding.id for finding in group_findings_new]
+    finding_severity_levels = [
+        get_severity_level(
+            findings_domain.get_severity_score_new(finding.severity)
+        )
+        for finding in group_findings_new
+    ]
 
     finding_vulns_loader = context.finding_vulns_nzr
     finding_vulns = await finding_vulns_loader.load_many(finding_ids)

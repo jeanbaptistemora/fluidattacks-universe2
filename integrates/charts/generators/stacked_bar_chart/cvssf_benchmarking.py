@@ -12,9 +12,6 @@ from charts.colors import (
     RISK,
     TREATMENT,
 )
-from context import (
-    FI_API_STATUS,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -53,32 +50,18 @@ class OrganizationCvssfBenchmarking(NamedTuple):
 @alru_cache(maxsize=None, typed=True)
 async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
     finding_severity: Dict[str, Decimal] = {}
-    if FI_API_STATUS == "migration":
-        group_findings_new: Tuple[
-            Finding, ...
-        ] = await loaders.group_findings_new.load(group.lower())
-        finding_severity.update(
-            {
-                finding.id: get_severity_score_new(finding.severity)
-                for finding in group_findings_new
-            }
-        )
-        vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
-            [finding.id for finding in group_findings_new]
-        )
-    else:
-        group_findings = await loaders.group_findings.load(group)
-        finding_severity.update(
-            {
-                str(finding["finding_id"]): Decimal(
-                    finding.get("cvss_temporal", "0.0")
-                ).quantize(Decimal("0.1"))
-                for finding in group_findings
-            }
-        )
-        vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
-            [str(finding["finding_id"]) for finding in group_findings]
-        )
+    group_findings_new: Tuple[
+        Finding, ...
+    ] = await loaders.group_findings_new.load(group.lower())
+    finding_severity.update(
+        {
+            finding.id: get_severity_score_new(finding.severity)
+            for finding in group_findings_new
+        }
+    )
+    vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
+        [finding.id for finding in group_findings_new]
+    )
 
     counter: Counter[str] = Counter()
     for vulnerability in vulnerabilities:
