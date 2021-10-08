@@ -240,7 +240,7 @@ in
           [ "add_organization" ]
           [ "add_push_token" ]
           [ "approve_draft_new" "false" "migration" ]
-          [ "confirm_vulnerabilities_zero_risk" ]
+          [ "confirm_vulnerabilities_zero_risk_new" "false" "migration" ]
           [ "deactivate_root" ]
           [ "delete_obsolete_groups" "false" "migration" ]
           [ "download_event_file" ]

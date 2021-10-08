@@ -647,7 +647,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__confirm_vulnerabilities_zero_risk:
+/integrates/back/test/functional__confirm_vulnerabilities_zero_risk_new__false__migration:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -662,7 +662,8 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'confirm_vulnerabilities_zero_risk'
+    - m . /integrates/back/test/functional 'confirm_vulnerabilities_zero_risk_new'
+      'false' 'migration'
   stage: test-code
   tags:
     - autoscaling

@@ -26,7 +26,7 @@ TEST_GROUPS: Set[str] = {
     "add_push_token",
     "approve_draft",
     "approve_draft_new",
-    "confirm_vulnerabilities_zero_risk",
+    "confirm_vulnerabilities_zero_risk_new",
     "deactivate_root",
     "delete_obsolete_groups",
     "download_event_file",
