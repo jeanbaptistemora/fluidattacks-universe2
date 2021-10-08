@@ -492,3 +492,16 @@ resource "cloudflare_certificate_pack" "main" {
     create_before_destroy = true
   }
 }
+
+resource "cloudflare_waf_rule" "default" {
+  for_each = {
+    "100005" = "disable"
+    "100173" = "simulate"
+  }
+  # The mode of the rule, can be one of:
+  # ["block", "challenge", "default", "disable", "simulate"] or ["on", "off"]
+  # depending on the WAF Rule type.
+  mode    = each.value
+  rule_id = each.key
+  zone_id = cloudflare_zone.fluidattacks_com.id
+}
