@@ -1,44 +1,45 @@
 ---
 id: asm
-title: Attack Surface Management
-sidebar_label: Attack Surface Management
+title: Attack Surface Manager
+sidebar_label: Attack Surface Manager
 slug: /machine/web
 ---
 
-Fluid Attacks ASM
-(Attack Surface Management)
+`Fluid Attacks'` Attack Surface Manager (ASM)
 comes with all functions you need
 to manage all your applications
 and vulnerabilities effectively.
 
-To access the platform
-go to https://app.fluidattacks.com.
+To access this platform
+you can click [here](https://app.fluidattacks.com).
 
 ## Login
 
 To authenticate in the ASM,
 you need a valid user
-in at least one of the these providers:
+in at least one of these providers:
 
-1. Google
-1. Azure
-1. Bitbucket
+- Google
+- Azure
+- Bitbucket
 
-For enhanced security,
+For added security,
 we do not manage users,
-credentials, or MFA's.
-We adopt our customer's policies.
+credentials
+or MFA (multi-factor authentication).
+We adopt our customers' policies.
 
 ## Organizations
 
-All customer data
-is consolidated in this section.
-Each organization is a data bucket
-where only users of that organization
-can access the information.
+All customer data is consolidated
+in this ASM's section.
+Each organization has a data bucket
+that only users of that organization
+can access.
 
 In this section,
-users will find:
+you will find the following subsections
+(see the right-hand menu):
 
 ### Analytics
 
@@ -50,21 +51,21 @@ among others,
 includes the following:
 
 - Vulnerabilities over time
-- Vulnerabilities status
-- Vulnerabilities treatment
-- Meantime to remediate
+- Vulnerability status
+- Vulnerability treatment
+- Average remediation time
 - Top vulnerabilities
 
 ### Portfolios
 
-In Organizations Analytics,
+In the Analytics subsection,
 you have the data of all your groups.
-But if you want analytics for a subset,
-you can use portfolios
-(Here we employ the same charts and indicators).
+But if you want analytics for only a subset,
+you can go to the Portfolios subsection
+(we employ the same charts and indicators).
 
 Please check the tags
-in the Scope section
+in [Scope](/machine/web/#scope)
 for more information.
 
 ### Stakeholders
@@ -117,7 +118,7 @@ all the information about your group.
 
 #### DevSecOps
 
-Fluid Attacks’ ASM
+`Fluid Attacks'` ASM
 includes an agent that
 present in the CI pipelines
 can break the build for open vulnerabilities.
@@ -148,7 +149,7 @@ to achieve the remediation goal.
 You can post any doubt,
 comment, or thought
 you want to share
-with the Fluid Attacks team
+with the `Fluid Attacks` team
 or your team in the Consulting tab.
 This section works like a forum
 where anyone can post and reply.
@@ -177,7 +178,7 @@ to checked repositories.
 
 For an ASM,
 you need to define the surface
-that the Fluid Attacks team will check.
+that the `Fluid Attacks` team will check.
 The following information
 is required to enable
 the testing service:
@@ -229,7 +230,7 @@ you can add tag
 ##### Reattack
 
 When a vulnerability is remediated,
-you need to request the Fluid Attacks team
+you need to request the `Fluid Attacks` team
 to reattack it and confirm
 if it was indeed remediated.
 
@@ -237,7 +238,7 @@ You can check in the Locations table
 which vulnerabilities were requested
 to reattack and verify their remediation.
 After verification,
-the Fluid Attacks team
+the `Fluid Attacks` team
 will inform you through the Consulting tab
 about the results.
 
