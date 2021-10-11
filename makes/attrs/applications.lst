@@ -13,7 +13,6 @@ melts
 observes.bin.code-etl
 observes.bin.service.batch-stability
 observes.bin.service.job-last-success
-observes.bin.service.jobs-scheduler
 observes.bin.service.migrate-tables
 observes.bin.service.timedoctor-tokens
 observes.bin.streamer-dynamodb
@@ -59,7 +58,6 @@ observes.scheduled.job.dynamodb-integrates-etl-vulns
 observes.scheduled.job.formstack-etl
 observes.scheduled.job.mailchimp-etl
 observes.scheduled.job.mixpanel-integrates-etl
-observes.scheduled.job.scheduler
 observes.scheduled.job.tap-zoho-analytics
 observes.scheduled.job.timedoctor-backup
 observes.scheduled.job.timedoctor-etl

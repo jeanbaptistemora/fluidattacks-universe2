@@ -25,7 +25,6 @@ observes.env.postgres-client.development
 observes.env.postgres-client.runtime
 observes.env.purity.runtime
 observes.env.service-batch-stability.runtime
-observes.env.service-jobs-scheduler.runtime
 observes.env.service-migrate-tables.runtime
 observes.env.service-timedoctor-tokens.runtime
 observes.env.singer-io.development

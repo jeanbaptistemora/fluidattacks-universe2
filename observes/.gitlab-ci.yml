@@ -80,9 +80,6 @@ observes.scheduled.job.mailchimp-etl:
 observes.scheduled.job.mixpanel-integrates-etl:
   <<: *scheduled_job
 
-observes.scheduled.job.scheduler:
-  <<: *scheduled_job
-
 observes.scheduled.job.tap-zoho-analytics:
   <<: *scheduled_job
 

@@ -1,5 +1,6 @@
-{ makeScript
-, inputs
+{ inputs
+, makeScript
+, outputs
 , ...
 }:
 makeScript {
@@ -7,7 +8,7 @@ makeScript {
   searchPaths = {
     source = [
       inputs.product.observes-generic-runner
-      inputs.product.observes-env-service-jobs-scheduler-runtime
+      outputs."/observes/env/service-jobs-scheduler/runtime"
     ];
   };
   name = "observes-bin-service-jobs-scheduler";

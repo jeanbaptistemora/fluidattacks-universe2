@@ -1053,6 +1053,22 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/observes/bin/jobs-scheduler:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $observes_scheduled_job != $CI_JOB_NAME
+      when: never
+    - when: always
+  script:
+    - m . /observes/bin/jobs-scheduler
+  stage: analytics
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/observes:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true

@@ -37,6 +37,15 @@ let
     stage = "test-infra";
     tags = [ "autoscaling" ];
   };
+  gitlabScheduled = {
+    interruptible = false;
+    rules = [
+      gitlabCi.rules.schedules
+      { "if" = "$observes_scheduled_job != $CI_JOB_NAME"; "when" = "never"; }
+      gitlabCi.rules.always
+    ];
+    stage = "analytics";
+  };
 in
 {
   pipelines = {
@@ -234,6 +243,10 @@ in
         {
           output = "/lintTerraform/observes";
           gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/observes/bin/jobs-scheduler";
+          gitlabExtra = gitlabScheduled;
         }
         {
           output = "/testTerraform/observes";

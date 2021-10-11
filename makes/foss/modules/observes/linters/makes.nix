@@ -1,5 +1,6 @@
 { inputs
 , makeSearchPaths
+, outputs
 , projectPath
 , ...
 }:
@@ -195,7 +196,7 @@
       };
       observesServiceJobsScheduler = {
         searchPaths.source = [
-          inputs.product.observes-env-service-jobs-scheduler-runtime
+          outputs."/observes/env/service-jobs-scheduler/runtime"
         ];
         python = "3.8";
         src = "/observes/services/jobs_scheduler/jobs_scheduler";
