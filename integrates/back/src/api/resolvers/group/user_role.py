@@ -9,7 +9,6 @@ from newutils import (
     token as token_utils,
 )
 from typing import (
-    cast,
     Dict,
 )
 
@@ -17,7 +16,7 @@ from typing import (
 async def resolve(
     parent: Group, info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
-    group_name: str = cast(str, parent["name"])
+    group_name: str = parent["name"]
 
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]

@@ -20,7 +20,6 @@ from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
 from typing import (
-    cast,
     Dict,
     List,
 )
@@ -43,7 +42,7 @@ async def resolve(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
         attr="stakeholders",
-        name=cast(str, parent["name"]),
+        name=parent["name"],
     )
     if exclude_fluid_staff:
         response = [
@@ -57,6 +56,6 @@ async def resolve(
 async def resolve_no_cache(
     parent: GroupType, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[StakeholderType]:
-    group_name: str = cast(str, parent["name"])
+    group_name: str = parent["name"]
     group_stakeholders_loader = info.context.loaders.group_stakeholders
     return await group_stakeholders_loader.load(group_name)

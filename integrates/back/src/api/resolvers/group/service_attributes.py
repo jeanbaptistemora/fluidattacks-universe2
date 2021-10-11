@@ -9,7 +9,6 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
-    cast,
     List,
 )
 
@@ -18,5 +17,5 @@ from typing import (
 async def resolve(
     parent: Group, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[str]:
-    group_name: str = cast(str, parent["name"])
+    group_name: str = parent["name"]
     return sorted(await authz.get_group_service_attributes(group_name))

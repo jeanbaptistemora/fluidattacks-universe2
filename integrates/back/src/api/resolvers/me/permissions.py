@@ -11,7 +11,6 @@ from settings import (
     LOGGING,
 )
 from typing import (
-    cast,
     Set,
 )
 
@@ -31,7 +30,7 @@ async def _get_user_permissions(user_email: str, with_cache: bool) -> Set[str]:
 async def resolve(
     parent: Me, _info: GraphQLResolveInfo, **_kwargs: str
 ) -> Set[str]:
-    user_email: str = cast(str, parent["user_email"])
+    user_email: str = parent["user_email"]
 
     permissions: Set[str] = await _get_user_permissions(
         user_email, with_cache=True
