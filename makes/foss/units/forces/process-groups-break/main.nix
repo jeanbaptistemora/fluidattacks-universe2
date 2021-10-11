@@ -11,7 +11,7 @@ makeScript {
       outputs."/forces"
     ];
     source = [
-      inputs.product.melts-lib
+      outputs."/melts/lib"
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "sops")
     ];

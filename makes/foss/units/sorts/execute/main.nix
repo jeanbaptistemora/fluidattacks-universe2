@@ -8,7 +8,7 @@ makeScript {
   name = "sorts-execute";
   searchPaths = {
     source = [
-      inputs.product.melts-lib
+      outputs."/melts/lib"
       outputs."/sorts/config-runtime"
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "git")
