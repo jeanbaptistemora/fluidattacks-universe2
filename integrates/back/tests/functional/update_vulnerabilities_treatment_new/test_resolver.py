@@ -26,11 +26,6 @@ from typing import (
             "be09edb7-cd5c-47ed-bee4-97c645acdce9",
             "ACCEPTED_UNDEFINED",
         ),
-        (
-            "system_owner@fluidattacks.com",
-            "be09edb7-cd5c-47ed-bee4-97c645acdc10",
-            "IN_PROGRESS",
-        ),
     ),
 )
 @freeze_time("2021-03-31")
@@ -69,6 +64,11 @@ async def test_update_vulnerabilities_treatment(
         ),
         (
             "reviewer@gmail.com",
+            "be09edb7-cd5c-47ed-bee4-97c645acdce8",
+            "ACCEPTED",
+        ),
+        (
+            "system_owner@fluidattacks.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce8",
             "ACCEPTED",
         ),
