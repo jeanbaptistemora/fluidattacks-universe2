@@ -54,15 +54,9 @@ from .core import (
     verify_vulnerabilities,
 )
 from .draft import (
-    add_draft,
     add_draft_new,
-    approve_draft,
     approve_draft_new,
-    get_drafts_by_group,
-    list_drafts,
-    reject_draft,
     reject_draft_new,
-    submit_draft,
     submit_draft_new,
 )
 from .evidence import (
@@ -134,15 +128,9 @@ __all__ = [
     "validate_finding",
     "verify_vulnerabilities",
     # drafts
-    "add_draft",
     "add_draft_new",
-    "approve_draft",
     "approve_draft_new",
-    "get_drafts_by_group",
-    "list_drafts",
-    "reject_draft",
     "reject_draft_new",
-    "submit_draft",
     "submit_draft_new",
     # evidences
     "download_evidence_file",
