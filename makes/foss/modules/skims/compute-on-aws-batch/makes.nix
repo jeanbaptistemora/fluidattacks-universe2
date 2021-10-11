@@ -22,7 +22,7 @@
       environment = [ "PRODUCT_API_TOKEN" ];
       memory = vcpus * 1800;
       queue = null;
-      setup = [ outputs."/secretsForAwsFromEnv/skimsProd" ];
+      setup = [ outputs."/secretsForAwsFromEnv/__default__" ];
       vcpus = 1;
     };
   };
