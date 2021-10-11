@@ -16,14 +16,14 @@ from groups import (
     domain as groups_domain,
 )
 from typing import (
-    cast,
+    Any,
+    Dict,
     List,
     NamedTuple,
-    Union,
 )
 
-Treatment = NamedTuple(  # type: ignore
-    "Status",
+Treatment = NamedTuple(
+    "Treatment",
     [
         ("accepted", int),
         ("accepted_undefined", int),
@@ -77,18 +77,20 @@ async def get_data_many_groups(groups: List[str]) -> List[Treatment]:
     )
 
 
-def format_data(data: List[Treatment]) -> dict:
+def format_data(data: List[Treatment]) -> Dict[str, Any]:
     return dict(
         data=dict(
             columns=[
-                cast(List[Union[int, str]], ["Closed"])
-                + [group.closed_vulnerabilities for group in data],
-                cast(List[Union[int, str]], ["Temporarily Accepted"])
-                + [group.accepted for group in data],
-                cast(List[Union[int, str]], ["Permanently accepted"])
-                + [group.accepted_undefined for group in data],
-                cast(List[Union[int, str]], ["Open"])
-                + [group.remaining_open_vulnerabilities for group in data],
+                ["Closed"]
+                + [str(group.closed_vulnerabilities) for group in data],
+                ["Temporarily Accepted"]
+                + [str(group.accepted) for group in data],
+                ["Permanently accepted"]
+                + [str(group.accepted_undefined) for group in data],
+                ["Open"]
+                + [
+                    str(group.remaining_open_vulnerabilities) for group in data
+                ],
             ],
             colors={
                 "Closed": RISK.more_passive,
