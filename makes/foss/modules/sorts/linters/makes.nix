@@ -1,4 +1,4 @@
-{ inputs
+{ outputs
 , ...
 }:
 {
@@ -6,8 +6,8 @@
     dirsOfModules = {
       sorts = {
         searchPaths.source = [
-          inputs.product.sorts-config-development
-          inputs.product.sorts-config-runtime
+          outputs."/sorts/config-development"
+          outputs."/sorts/config-runtime"
         ];
         python = "3.8";
         src = "/sorts/sorts";
@@ -22,16 +22,16 @@
     modules = {
       sortsTests = {
         searchPaths.source = [
-          inputs.product.sorts-config-development
-          inputs.product.sorts-config-runtime
+          outputs."/sorts/config-development"
+          outputs."/sorts/config-runtime"
         ];
         python = "3.8";
         src = "/sorts/test";
       };
       sortsTraining = {
         searchPaths.source = [
-          inputs.product.sorts-config-development
-          inputs.product.sorts-config-runtime
+          outputs."/sorts/config-development"
+          outputs."/sorts/config-runtime"
         ];
         python = "3.8";
         src = "/sorts/training";

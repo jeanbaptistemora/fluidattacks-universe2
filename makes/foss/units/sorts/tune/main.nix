@@ -1,5 +1,6 @@
 { makeScript
 , inputs
+, outputs
 , projectPath
 , ...
 }:
@@ -8,8 +9,8 @@ makeScript {
   searchPaths = {
     bin = [ inputs.nixpkgs.python38 ];
     source = [
-      inputs.product.sorts-config-development
-      inputs.product.sorts-config-runtime
+      outputs."/sorts/config-development"
+      outputs."/sorts/config-runtime"
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "sops")
     ];

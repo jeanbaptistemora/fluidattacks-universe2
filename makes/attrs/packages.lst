@@ -73,5 +73,3 @@ observes.test.tap-csv
 observes.test.tap-gitlab
 observes.test.tap-mailchimp
 observes.test.tap-mixpanel
-sorts.config-development
-sorts.config-runtime

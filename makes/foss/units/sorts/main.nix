@@ -1,5 +1,6 @@
 { inputs
 , makeScript
+, outputs
 , ...
 }:
 makeScript {
@@ -8,7 +9,7 @@ makeScript {
     source = [
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "sops")
-      inputs.product.sorts-config-runtime
+      outputs."/sorts/config-runtime"
     ];
   };
   entrypoint = ./entrypoint.sh;

@@ -1,5 +1,6 @@
 { makeScript
 , inputs
+, outputs
 , projectPath
 , ...
 }:
@@ -8,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       inputs.product.melts-lib
-      inputs.product.sorts-config-runtime
+      outputs."/sorts/config-runtime"
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "git")
       (inputs.legacy.importUtility "sops")
