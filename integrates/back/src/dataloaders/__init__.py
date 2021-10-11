@@ -1,9 +1,6 @@
 from .event import (
     EventLoader,
 )
-from .finding import (
-    FindingLoader,
-)
 from .finding_vulns import (
     FindingVulnsLoader,
 )
@@ -18,15 +15,6 @@ from .finding_vulns_only_zero_risk import (
 )
 from .group import (
     GroupLoader,
-)
-from .group_drafts import (
-    GroupDraftsLoader,
-)
-from .group_findings import (
-    GroupFindingsLoader,
-)
-from .group_findings_non_deleted import (
-    GroupFindingsNonDeletedLoader,
 )
 from .group_stakeholders import (
     GroupStakeholdersLoader,
@@ -85,7 +73,6 @@ from typing import (
 
 class Dataloaders(NamedTuple):
     event: EventLoader
-    finding: FindingLoader
     finding_new: FindingNewLoader
     finding_historic_state_new: FindingHistoricStateNewLoader
     finding_historic_verification_new: FindingHistoricVerificationNewLoader
@@ -94,11 +81,8 @@ class Dataloaders(NamedTuple):
     finding_vulns_nzr: FindingVulnsNonZeroRiskLoader
     finding_vulns_zr: FindingVulnsOnlyZeroRiskLoader
     group: GroupLoader
-    group_drafts: GroupDraftsLoader
     group_drafts_new: GroupDraftsNewLoader
-    group_findings: GroupFindingsNonDeletedLoader  # Non deleted findings
     group_findings_new: GroupFindingsNewLoader
-    group_findings_all: GroupFindingsLoader  # All findings
     group_removed_findings: GroupRemovedFindingsLoader
     group_roots: GroupRootsLoader
     group_stakeholders: GroupStakeholdersLoader
@@ -129,7 +113,6 @@ def apply_context_attrs(
 
 def get_new_context() -> Dataloaders:
     group_drafts_and_findings_new_loader = GroupDraftsAndFindingsNewLoader()
-    group_findings_loader = GroupFindingsLoader()
     group_stakeholders_loader = GroupStakeholdersLoader()
     finding_vulns_loader = FindingVulnsLoader()
     finding_vulns_non_deleted_loader = FindingVulnsNonDeletedLoader(
@@ -145,7 +128,6 @@ def get_new_context() -> Dataloaders:
 
     return Dataloaders(
         event=EventLoader(),
-        finding=FindingLoader(),
         finding_historic_state_new=FindingHistoricStateNewLoader(),
         finding_historic_verification_new=(
             FindingHistoricVerificationNewLoader()
@@ -156,15 +138,12 @@ def get_new_context() -> Dataloaders:
         finding_vulns_nzr=finding_vulns_nzr_loader,
         finding_vulns_zr=finding_vulns_zr_loader,
         group=GroupLoader(),
-        group_drafts=GroupDraftsLoader(),
         group_drafts_new=GroupDraftsNewLoader(
             group_drafts_and_findings_new_loader
         ),
-        group_findings=GroupFindingsNonDeletedLoader(group_findings_loader),
         group_findings_new=GroupFindingsNewLoader(
             group_drafts_and_findings_new_loader
         ),
-        group_findings_all=group_findings_loader,
         group_removed_findings=GroupRemovedFindingsLoader(),
         group_roots=GroupRootsLoader(),
         group_stakeholders=group_stakeholders_loader,

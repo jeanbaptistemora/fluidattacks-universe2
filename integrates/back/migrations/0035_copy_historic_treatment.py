@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -.- coding: utf-8 -.-
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 This migration aims to copy historic_treatment from
 finding to vulnerability

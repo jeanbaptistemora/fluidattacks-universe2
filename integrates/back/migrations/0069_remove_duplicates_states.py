@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 This migration aims to remove consecutive duplicate states in historic_state
 
