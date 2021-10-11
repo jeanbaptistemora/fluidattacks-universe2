@@ -24,6 +24,7 @@ makeTemplate {
     ];
     envSources = [
       packages.observes.env.singer-io.runtime
+      packages.observes.env.purity.runtime
     ];
   };
 }
