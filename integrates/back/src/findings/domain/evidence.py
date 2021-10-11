@@ -1,6 +1,3 @@
-from .core import (
-    get_finding,
-)
 from backports import (  # type: ignore
     csv,
 )
@@ -37,9 +34,6 @@ from newutils import (
     utils,
     validations,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from settings import (
     LOGGING,
 )
@@ -52,7 +46,6 @@ from typing import (
     Dict,
     List,
     Optional,
-    Union,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -106,25 +99,6 @@ async def get_records_from_file(
     return file_content
 
 
-async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
-    finding = await get_finding(finding_id)
-    group_name = get_key_or_fallback(finding, "groupName", "projectName")
-    files = cast(List[Dict[str, str]], finding.get("files", []))
-
-    evidence: Dict[str, str] = next(
-        (item for item in files if item["name"] == evidence_name), {}
-    )
-    if not evidence:
-        raise EvidenceNotFound()
-
-    evidence_id = str(evidence.get("file_url", ""))
-    full_name = f"{group_name}/{finding_id}/{evidence_id}"
-    await findings_dal.remove_evidence(full_name)
-    index = files.index(evidence)
-    del files[index]
-    return await findings_dal.update(finding_id, {"files": files})
-
-
 async def remove_evidence_new(
     loaders: Any, evidence_id: str, finding_id: str
 ) -> None:
@@ -142,77 +116,6 @@ async def remove_evidence_new(
         group_name=finding.group_name,
         finding_id=finding.id,
         evidence_name=FindingEvidenceName[EVIDENCE_NAMES[evidence_id]],
-    )
-
-
-async def update_evidence(
-    finding_id: str, evidence_type: str, file: UploadFile
-) -> bool:
-    finding = await get_finding(finding_id)
-    files = cast(List[Dict[str, str]], finding.get("files", []))
-    group_name = str(
-        get_key_or_fallback(finding, "groupName", "projectName", "")
-    )
-    today = datetime_utils.get_now_as_str()
-
-    if evidence_type == "fileRecords":
-        old_file_name: str = next(
-            (
-                item["file_url"]
-                for item in files
-                if item["name"] == "fileRecords"
-            ),
-            "",
-        )
-        if old_file_name != "":
-            old_records = await get_records_from_file(
-                group_name, finding_id, old_file_name
-            )
-            if old_records:
-                file = await finding_utils.append_records_to_file(
-                    cast(List[Dict[str, str]], old_records), file
-                )
-
-    mime_type = await files_utils.get_uploaded_file_mime(file)
-    try:
-        extension = {
-            "image/gif": ".gif",
-            "image/jpeg": ".jpg",
-            "image/png": ".png",
-            "application/x-empty": ".exp",
-            "text/x-python": ".exp",
-            "application/csv": ".csv",
-            "text/csv": ".csv",
-            "text/plain": ".txt",
-        }[mime_type]
-    except KeyError:
-        extension = ""
-    evidence_id = f"{group_name}-{finding_id}-{evidence_type}{extension}"
-    full_name = f"{group_name}/{finding_id}/{evidence_id}"
-    await findings_dal.save_evidence(file, full_name)
-    evidence: Union[Dict[str, str], List[Optional[Any]]] = next(
-        (item for item in files if item["name"] == evidence_type), []
-    )
-    if evidence:
-        index = files.index(cast(Dict[str, str], evidence))
-        return await findings_dal.update(
-            finding_id,
-            {
-                f"files[{index}].file_url": evidence_id,
-                f"files[{index}].upload_date": today,
-            },
-        )
-
-    return await findings_dal.list_append(
-        finding_id,
-        "files",
-        [
-            {
-                "name": evidence_type,
-                "file_url": evidence_id,
-                "upload_date": today,
-            }
-        ],
     )
 
 
@@ -279,27 +182,6 @@ async def update_evidence_new(
         )
 
 
-async def update_evidence_description(
-    finding_id: str, evidence_type: str, description: str
-) -> bool:
-    validations.validate_fields(cast(List[str], [description]))
-    finding = await get_finding(finding_id)
-    files = cast(List[Dict[str, str]], finding.get("files", []))
-    success = False
-
-    evidence: Union[Dict[str, str], List[Optional[Any]]] = next(
-        (item for item in files if item["name"] == evidence_type), []
-    )
-    if evidence:
-        index = files.index(cast(Dict[str, str], evidence))
-        success = await findings_dal.update(
-            finding_id, {f"files[{index}].description": description}
-        )
-    else:
-        raise EvidenceNotFound()
-    return success
-
-
 async def update_evidence_description_new(
     loaders: Any, finding_id: str, evidence_id: str, description: str
 ) -> None:
@@ -318,15 +200,6 @@ async def update_evidence_description_new(
         evidence_name=FindingEvidenceName[EVIDENCE_NAMES[evidence_id]],
         evidence=FindingEvidenceToUpdate(description=description),
     )
-
-
-async def validate_and_upload_evidence(
-    finding_id: str, evidence_id: str, file: UploadFile
-) -> bool:
-    success = False
-    if await validate_evidence(evidence_id, file):
-        success = await update_evidence(finding_id, evidence_id, file)
-    return success
 
 
 async def validate_evidence(evidence_id: str, file: UploadFile) -> bool:
