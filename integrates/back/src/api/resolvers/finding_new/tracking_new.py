@@ -10,14 +10,8 @@ from db_model.findings.types import (
 from findings import (
     domain as findings_domain,
 )
-from functools import (
-    partial,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from redis_cluster.operations import (
-    redis_get_or_set_entity_attr,
 )
 from typing import (
     List,
@@ -25,18 +19,6 @@ from typing import (
 
 
 async def resolve(
-    parent: Finding, info: GraphQLResolveInfo, **kwargs: None
-) -> List[TrackingItem]:
-    response: List[TrackingItem] = await redis_get_or_set_entity_attr(
-        partial(resolve_no_cache, parent, info, **kwargs),
-        entity="finding",
-        attr="tracking",
-        id=parent.id,
-    )
-    return response
-
-
-async def resolve_no_cache(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[TrackingItem]:
     tracking = []

@@ -76,6 +76,7 @@ import logging.config
 from mailer import (
     findings as findings_mail,
 )
+import newrelic.agent
 from newutils import (
     cvss,
     cvss_new,
@@ -772,6 +773,7 @@ async def get_total_treatment_new(
     }
 
 
+@newrelic.agent.function_trace()
 def get_tracking_vulnerabilities(
     vulnerabilities: List[Dict[str, FindingType]]
 ) -> List[TrackingItem]:
