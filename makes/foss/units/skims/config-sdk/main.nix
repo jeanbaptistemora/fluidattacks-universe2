@@ -1,4 +1,6 @@
-{ makeTemplate
+{ makePythonPypiEnvironment
+, makeTemplate
+, inputs
 , outputs
 , projectPath
 , ...
@@ -14,6 +16,17 @@ makeTemplate {
   searchPaths = {
     pythonPackage = [
       (projectPath "/skims/skims/sdk")
+    ];
+    source = [
+      (makePythonPypiEnvironment {
+        name = "skims-sdk-runtime";
+        searchPaths = {
+          bin = [ inputs.nixpkgs.gcc ];
+        };
+        sourcesYaml = ./pypi-sources.yaml;
+        withSetuptools_57_4_0 = true;
+        withWheel_0_37_0 = true;
+      })
     ];
   };
   template = ''

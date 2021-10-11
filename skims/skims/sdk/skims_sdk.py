@@ -1,3 +1,4 @@
+import aioboto3
 import asyncio
 from datetime import (
     datetime,
@@ -8,6 +9,7 @@ from enum import (
     Enum,
 )
 import json
+import os
 from os import (
     environ,
 )
@@ -231,3 +233,48 @@ async def queue(
             urgent=urgent,
         ),
     )
+
+
+async def queue_boto3(
+    finding_code: str,
+    group: str,
+    namespace: str,
+    urgent: bool,
+) -> Dict[str, Any]:
+    queue_name = get_queue_for_finding(finding_code, urgent=urgent)
+    resource_options = dict(
+        service_name="batch",
+        aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
+        aws_secret_access_key=os.environ["AWS_ACCESS_KEY_ID"],
+        aws_session_token=os.environ.get("AWS_SESSION_TOKEN"),
+    )
+    async with aioboto3.client(**resource_options) as batch:
+        return await batch.submit_job(
+            jobName=f"process-{group}-{finding_code}-{namespace}",
+            jobQueue=queue_name,
+            jobDefinition="makes",
+            containerOverrides={
+                "vcpus": 1,
+                "command": [
+                    "m",
+                    "f",
+                    "/skims/process-group",
+                    group,
+                    finding_code,
+                    namespace,
+                ],
+                "environment": [
+                    {"name": "CI", "value": "true"},
+                    {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
+                    {
+                        "name": "PRODUCT_API_TOKEN",
+                        "value": os.environ.get("PRODUCT_API_TOKEN"),
+                    },
+                ],
+                "memory": 1 * 1800,
+            },
+            retryStrategy={
+                "attempts": 1,
+            },
+            timeout={"attemptDurationSeconds": 86400},
+        )
