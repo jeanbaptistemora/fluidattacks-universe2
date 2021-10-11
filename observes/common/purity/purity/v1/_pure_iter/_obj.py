@@ -8,9 +8,6 @@ from collections import (
 from dataclasses import (
     dataclass,
 )
-from purity.v1._frozen import (
-    FrozenList,
-)
 from purity.v1._patch import (
     Patch,
 )

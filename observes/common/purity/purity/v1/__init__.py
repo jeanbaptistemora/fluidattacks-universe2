@@ -30,8 +30,13 @@ from purity.v1._pure_iter import (
     PureIterFactory,
     PureIterIOFactory,
 )
+from purity.v1._temp_file import (
+    OpenStrFile,
+    TempFile,
+)
 
 __all__ = [
+    # Json lib
     "InvalidType",
     "Primitive",
     "PrimitiveTypes",
@@ -43,11 +48,18 @@ __all__ = [
     "UnexpectedResult",
     "DictFactory",
     "JsonFactory",
+    # Patch lib
     "Patch",
+    # Pure iter lib
     "PureIter",
     "PureIterFactory",
     "PureIterIOFactory",
+    # Flat lib
     "Flattener",
+    # Frozen lib
     "FrozenList",
     "FrozenDict",
+    # temp lib
+    "TempFile",
+    "OpenStrFile",
 ]
