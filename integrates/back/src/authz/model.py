@@ -281,9 +281,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     customer=dict(
         actions={
-            "api_mutations_activate_root_mutate",
-            "api_mutations_deactivate_root_mutate",
-            "api_mutations_update_root_state_mutate",
             "api_resolvers_group_forces_token_resolve",
             "api_mutations_update_forces_access_token_mutate",
             "api_mutations_move_root_mutate",
@@ -413,9 +410,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     executive=dict(
         actions={
-            "api_mutations_activate_root_mutate",
-            "api_mutations_deactivate_root_mutate",
-            "api_mutations_update_root_state_mutate",
             "api_mutations_move_root_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_files_mutate",
@@ -465,8 +459,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_resolvers_group_forces_token_resolve",
             "api_mutations_update_forces_access_token_mutate",
-            "api_mutations_activate_root_mutate",
-            "api_mutations_deactivate_root_mutate",
             "api_mutations_move_root_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_files_mutate",
@@ -503,7 +495,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_unsubscribe_from_group_mutate",
             "api_mutations_update_git_environments_mutate",
             "api_mutations_update_git_root_mutate",
-            "api_mutations_update_root_state_mutate",
             "api_mutations_update_toe_lines_sorts_mutate",
             "api_mutations_update_vulnerability_treatment_mutate",
             "api_mutations_update_vulnerabilities_treatment_mutate",
