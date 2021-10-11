@@ -53,14 +53,6 @@
       when: never
     - when: always
 
-.sorts_in_schedule_train: &sorts_in_schedule_train
-  rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
-      when: never
-    - if: '$sorts_train != "defined"'
-      when: never
-    - when: always
-
 .sorts_in_schedule_execute: &sorts_in_schedule_execute
   rules:
     - if: '$CI_PIPELINE_SOURCE != "schedule"'
@@ -102,17 +94,3 @@ sorts.merge-features:
   interruptible: false
   needs: [sorts.extract-features]
   stage: build
-
-# Sorts training scheduled pipeline
-sorts.train:
-  <<: *makes
-  <<: *sorts_in_schedule_train
-  interruptible: false
-  stage: deploy-app
-
-sorts.tune:
-  <<: *makes
-  <<: *sorts_in_schedule_train
-  interruptible: false
-  needs: [sorts.train]
-  stage: post-deploy

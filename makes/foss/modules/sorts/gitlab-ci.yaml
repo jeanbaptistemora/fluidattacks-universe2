@@ -129,6 +129,43 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/sorts/train:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $sorts_train == null
+      when: never
+    - when: always
+  script:
+    - m . /sorts/train
+  stage: deploy-app
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/sorts/tune:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs:
+    - /sorts/train
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $sorts_train == null
+      when: never
+    - when: always
+  script:
+    - m . /sorts/tune
+  stage: post-deploy
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/sorts:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true

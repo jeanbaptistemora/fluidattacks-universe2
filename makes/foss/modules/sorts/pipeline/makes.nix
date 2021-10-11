@@ -68,6 +68,33 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/sorts/train";
+          gitlabExtra = {
+            interruptible = false;
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "sorts_train")
+              (gitlabCi.rules.always)
+            ];
+            stage = "deploy-app";
+            tags = [ "autoscaling" ];
+          };
+        }
+        {
+          output = "/sorts/tune";
+          gitlabExtra = {
+            interruptible = false;
+            needs = [ "/sorts/train" ];
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "sorts_train")
+              (gitlabCi.rules.always)
+            ];
+            stage = "post-deploy";
+            tags = [ "autoscaling" ];
+          };
+        }
+        {
           output = "/testTerraform/sorts";
           gitlabExtra = gitlabTestInfra;
         }

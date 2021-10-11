@@ -87,5 +87,3 @@ sorts.execute
 sorts.extract-features
 sorts.merge-features
 sorts.test
-sorts.train
-sorts.tune
