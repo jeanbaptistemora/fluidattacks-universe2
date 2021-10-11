@@ -58,11 +58,6 @@ makes.test.sorts:
   <<: *sorts_in_master_branch
   stage: test-code
 
-sorts.test:
-  <<: *makes
-  <<: *sorts_in_dev_branch
-  stage: test-code
-
 sorts.execute:
   <<: *makes
   <<: *sorts_in_schedule_execute

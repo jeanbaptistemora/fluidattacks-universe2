@@ -84,4 +84,3 @@ observes.tap-json
 observes.target-redshift
 sorts
 sorts.execute
-sorts.test

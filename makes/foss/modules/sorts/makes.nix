@@ -3,6 +3,7 @@
     ./infra/makes.nix
     ./linters/makes.nix
     ./pipeline/makes.nix
+    ./tests/makes.nix
   ];
   secretsForAwsFromEnv = {
     sortsDev = {

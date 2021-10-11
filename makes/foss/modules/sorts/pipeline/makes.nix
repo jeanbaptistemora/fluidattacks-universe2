@@ -32,6 +32,11 @@ let
     stage = "lint-code";
     tags = [ "autoscaling" ];
   };
+  gitlabTest = {
+    rules = gitlabOnlyDev;
+    stage = "test-code";
+    tags = [ "autoscaling" ];
+  };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
@@ -122,6 +127,10 @@ in
             stage = "post-deploy";
             tags = [ "autoscaling" ];
           };
+        }
+        {
+          output = "/testPython/sorts";
+          gitlabExtra = gitlabTest;
         }
         {
           output = "/testTerraform/sorts";
