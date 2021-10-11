@@ -1,3 +1,10 @@
+from purity.v1 import (
+    OpenStrFile,
+    TempFile,
+)
+from shutil import (
+    copyfile,
+)
 from singer_io.singer2 import (
     SingerRecord,
 )
@@ -13,7 +20,6 @@ from tap_csv.core import (
     AdjustCsvOptions,
 )
 from typing import (
-    IO,
     NamedTuple,
     Optional,
 )
@@ -59,7 +65,7 @@ def deserialize(tap_input: str) -> Optional[TapCsvInput]:
     )
 
 
-def process_stdin(stdin: IO[str]) -> None:
+def process_stdin(stdin: OpenStrFile) -> None:
     line: str = stdin.readline()
     while line:
         tap_input = deserialize(line)
@@ -68,6 +74,7 @@ def process_stdin(stdin: IO[str]) -> None:
             line = stdin.readline()
             continue
         LOG.debug("Tap input %s", tap_input)
-        with open(tap_input.csv_path, "r", encoding="UTF-8") as file:
-            core.to_singer(file, tap_input.stream, tap_input.options)
+        temp_data = TempFile("UTF-8")
+        copyfile(tap_input.csv_path, temp_data.name)
+        core.to_singer(temp_data, tap_input.stream, tap_input.options)
         line = stdin.readline()
