@@ -30,8 +30,9 @@
     }
 
     h3 {
-      font-size: 36px;
-      font-weight: 400;
+      font-size: 32px;
+      font-weight: 700;
+      color: #2e2e38;
     }
 
     h4 {
@@ -40,12 +41,12 @@
     }
 
     p {
-      font-size: 14px;
-      color: #84849a;
+      font-size: 16px;
+      color: #5c5c70;
     }
 
     span {
-      font-size: 14px;
+      font-size: 16px;
     }
 
     .flex {
@@ -74,29 +75,17 @@
       max-width: 800px;
     }
 
-    .numbers {
-      background-color: #f4f4f6;
-      border-radius: 10px;
-      margin-top: 30px;
-      margin-bottom: 30px;
-      padding: 15px;
-      text-align: center;
+    .numbers, .main-content {
       width: 100%;
     }
 
     .numbers div {
-      display: inline-block;
-      text-align: center;
-      padding: 10px;
-      width: 170px;
-      vertical-align: top;
-    }
-
-    .main-content {
-      background-color: #ffffff;
-      margin-top: 30px;
-      margin-bottom: 30px;
       width: 100%;
+      text-align: center;
+      padding: 24px !important;
+      background-color: #f4f4f6;
+      border-radius: 8px;
+      margin: 5px 5px !important;
     }
 
     .icon {
@@ -104,10 +93,6 @@
       text-align: center;
       padding: 30px;
       min-width: 200px;
-    }
-
-    .icon-div {
-      display: none;
     }
 
     .content {
@@ -118,11 +103,17 @@
       justify-content: space-evenly;
     }
 
-    .content div {
-      display: block;
+    .content .first-row {
       justify-content: space-between;
-      margin-bottom: 1rem;
-      height: auto;
+      border-top: 1px solid #b0b0bf;
+      border-bottom: 1px solid #b0b0bf;
+      padding: 20px 0;
+    }
+
+    .content .following-rows {
+      justify-content: space-between;
+      border-bottom: 1px solid #b0b0bf;
+      padding: 20px 0;
     }
 
     .content-number {
@@ -132,9 +123,20 @@
     }
 
     @media only screen and (min-width: 320px) {
-      .numbers,
-      div .icon .content {
+      .numbers {
+        display: flex !important;
+      }
+
+      div .icon {
         display: block !important;
+      }
+
+      .content{
+        margin-bottom: 24px !important;
+        margin-left: 24px !important;
+        margin-right: 24px !important;
+        padding-bottom: 24px !important;
+        background-color: #ffffff !important;
       }
 
       .numbers,
@@ -142,28 +144,28 @@
       .icon {
         width: 100% !important;
       }
-
-      .icon-div {
-        display: none !important;
-      }
     }
 
     @media only screen and (min-width: 599px) {
+      .numbers {
+        display: flex !important;
+        justify-content: center !important;
+      }
+
       .main-content {
         display: flex !important;
         justify-content: space-between !important;
-        width: 100% !important;
       }
 
       .content {
-        width: 60% !important;
+        margin-bottom: 0px !important;
+        flex-direction: column !important;
+        justify-content: space-evenly !important;
+        width: 100% !important;
       }
 
       .icon {
-        width: 40% !important;
-      }
-
-      .icon-div {
+        width: 100% !important;
         display: block !important;
       }
     }
@@ -177,13 +179,14 @@
       <img alt="Fluid Attacks logo"
         src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/3c66db1f-0f67-491a-9193-3d8e6d1ea983.png"
         style="height: 100px; margin: 30px 0;">
-      <h4>Hello {{ name }},<br />
-        here’s how your day was at your <strong>{{ groups_len }}</strong> subscribed groups:</h4>
+      <h4>
+        Hello {{ name }}, here’s how your day was at your {{ groups_len }} subscribed groups:
+      </h4>
     </div>
 
     <!-- NUMBERS -->
-    <div class="numbers">
-      {%- if groups_len > 1 %}
+    {%- if groups_len > 1 %}
+      <div class="numbers">
         <div>
           {%- if group_age['oldest_age'] >= 60 %}
             <h3>{{ (group_age['oldest_age'] * 0.032855)|round(1, 'common') }}</h3>
@@ -202,6 +205,8 @@
             <p><strong>{{ group_age['newest_group'] }}</strong> is the <strong>newest</strong> group among your subscribed (days)</p>
           {%- endif %}
         </div>
+      </div>
+      <div class="numbers">
         <div>
           <h3>{{ remediation_rate['min'] }}%</h3>
           <p><strong>{{ remediation_rate['min_group'] }}</strong> has the <strong>minimum</strong> remediation rate</p>
@@ -210,6 +215,8 @@
           <h3>{{ remediation_rate['max'] }}%</h3>
           <p><strong>{{ remediation_rate['max_group'] }}</strong> has the <strong>maximum</strong> remediation rate</p>
         </div>
+      </div>
+      <div class="numbers">
         <div>
           {%- if remediation_time['max'] >= 60 %}
             <h3>{{ (remediation_time['max'] * 0.032855)|round(1, 'common') }}</h3>
@@ -228,7 +235,9 @@
             <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>minimum</strong> mean time to remediate (days)</p>
           {%- endif %}
         </div>
-      {%- else %}
+      </div>
+    {%- else %}
+      <div class="numbers">
         <div>
           <h3>{{ remediation_rate['max'] }}%</h3>
           <p>Remediation rate at <strong>{{ remediation_rate['max_group'] }}</strong></p>
@@ -237,7 +246,9 @@
           <h3>{{ remediation_time['max'] }}</h3>
           <p>Mean time to remediate (days) at <strong>{{ remediation_time['max_group'] }}</strong></p>
         </div>
-      {%- endif %}
+      </div>
+    {%- endif %}
+    <div class="numbers">
       <div>
         {%- if 'reattack_effectiveness' in reattacks %}
           <h3>{{ reattacks['reattack_effectiveness'] }}%</h3>
@@ -250,6 +261,8 @@
         <h3>{{ events['unsolved'] }}</h3>
         <p>Unsolved events</p>
       </div>
+    </div>
+    <div class="numbers">
       <div>
         <h3>{{ events['new'] }}</h3>
         <p>New events</p>
@@ -261,261 +274,271 @@
     </div>
 
     <!-- REATTACKS -->
-    <div class="main-content">
-      <div class="icon">
-        <div class="icon-div">
-          {%- if 'groups_requested' in reattacks %}
-            <div style="height: {{ reattacks['groups_requested']|length * 5 }}px;"></div>
-          {%- endif %}
-          {%- if 'groups_executed' in reattacks %}
-            <div style="height: {{ reattacks['groups_executed']|length * 5 }}px;"></div>
-          {%- endif %}
-          {%- if 'groups_pending' in reattacks %}
-            <div style="height: {{ reattacks['groups_pending']|length * 5 }}px;"></div>
-          {%- endif %}
-        </div>
-        <img alt="Reattacks logo"
-          src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/6a93e786-ab0e-4285-9ec0-c0c7bbd9fbc5.png">
-        <h4>Reattacks</h4>
-      </div>
+    <div class="icon" style="background-color: #ffffff; text-align: center;padding: 24px;margin-top:24px !important;">
+      <img src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/6a93e786-ab0e-4285-9ec0-c0c7bbd9fbc5.png">
+      <h4 style="font-weight: 700;color:#2e2e38;">Reattacks</h4>
+    </div>
+
+    <div class="main-content" style="background-color: #ffffff;">
       <div class="content">
         <!-- REATTACKS REQUESTED -->
-        <div>
-          {%- if reattacks['reattacks_requested'] > 0 %}
-            <span>Requested</span>
-            <span class="content-number">{{ reattacks['reattacks_requested'] }}</span>
-            {%- if 'groups_requested' in reattacks %}
-              {%- for group in reattacks['groups_requested'] %}
-                <p style="padding: 0 1rem;">
-                  <strong>{{ group['group'] }}</strong>
-                  <!-- With only one group, don't repeat the stat -->
-                  {%- if reattacks['groups_requested']|length > 1 %}
-                    {{ group['reattacks_requested'] }}
-                  {%- endif %}
-                </p>
-              {%- endfor %}
-            {%- endif %}
-          {%- elif 'groups_requested' in reattacks and reattacks['groups_requested']|length > 0 %}
-            <span>Last request at</span>
+        {%- if reattacks['reattacks_requested'] > 0 %}
+          <div class="first-row">
+            <span style="font-weight: 700;">Requested at group</span>
+            <span style="font-weight: 700;float: right;"># of requests</span>
+          </div>
+          {%- if 'groups_requested' in reattacks %}
             {%- for group in reattacks['groups_requested'] %}
-                <p style="padding: 0 1rem;">
-                  <strong>{{ group['group'] }}</strong>,
-                  {%- if group['age_last_requested']  >= 60 %}
-                    {{ (group['age_last_requested'] * 0.032855)|round(1, 'common') }} months ago
-                  {%- elif group['age_last_requested']  == 1 %}
-                    {{ group['age_last_requested'] }} day ago
-                  {%- else %}
-                    {{ group['age_last_requested'] }} days ago
-                  {%- endif %}
-                </p>
-              {%- endfor %}
-          {%- else %}
-            <!-- No info to display -->
-            <span style="height: 33%">No requests</span>
+              <div class="following-rows">
+                <span>{{ group['group'] }}</span>
+                <span style="float: right;">{{ group['reattacks_requested'] }}</span>
+              </div>
+            {%- endfor %}
           {%- endif %}
-        </div>
-        <!-- REATTACKS EXECUTED -->
-        <div>
-          {%- if reattacks['reattacks_executed'] > 0 %}
-            <span>Executed</span>
-            <span class="content-number">{{ reattacks['reattacks_executed'] }}</span>
-            {%- if 'groups_executed' in reattacks %}
-              {%- for group in reattacks['groups_executed'] %}
-                <p style="padding: 0 1rem;">
-                  <strong>{{ group['group'] }}</strong>
-                  <!-- With only one group, don't repeat the stat -->
-                  {%- if reattacks['groups_executed']|length > 1 %}
-                    {{ group['reattacks_executed'] }}
-                  {%- endif %}
-                </p>
-              {%- endfor %}
-            {%- endif %}
-          {%- elif 'groups_executed' in reattacks and reattacks['groups_executed']|length > 0 %}
-            <span>Last execution at</span>
+        {%- elif 'groups_requested' in reattacks and reattacks['groups_requested']|length > 0 %}
+          <div class="first-row">
+            <span style="font-weight: 700;">Last requested at group</span>
+            <span style="font-weight: 700;float: right;">Time elapsed</span>
+          </div>
+          {%- for group in reattacks['groups_requested'] %}
+            <div class="following-rows">
+              <span>{{ group['group'] }}</span>
+              <span style="float: right;">
+                {%- if group['age_last_requested']  >= 60 %}
+                  {{ (group['age_last_requested'] * 0.032855)|round(1, 'common') }} months
+                {%- elif group['age_last_requested']  == 1 %}
+                  {{ group['age_last_requested'] }} day
+                {%- else %}
+                  {{ group['age_last_requested'] }} days
+                {%- endif %}
+              </span>
+            </div>
+          {%- endfor %}
+        {%- else %}
+          <!-- No info to display -->
+          <div class="first-row">
+            <span>No requests</span>
+          </div>
+        {%- endif %}
+      </div>
+    </div>
+    <div class="main-content" style="background-color: #ffffff; margin-top: 24px !important; padding-top:24px !important;">
+      <div class="content" style="margin: 0 24px; background-color: #ffffff;">
+         <!-- REATTACKS EXECUTED -->
+        {%- if reattacks['reattacks_executed'] > 0 %}
+          <div class="first-row">
+            <span style="font-weight: 700;">Executed at group</span>
+            <span style="font-weight: 700;float: right;"># of executions</span>
+          </div>
+          {%- if 'groups_executed' in reattacks %}
             {%- for group in reattacks['groups_executed'] %}
-                <p style="padding: 0 1rem;">
-                  <strong>{{ group['group'] }}</strong>,
-                  {%- if group['age_last_executed'] >= 60 %}
-                    {{ (group['age_last_executed'] * 0.032855)|round(1, 'common') }} months ago
-                  {%- elif group['age_last_executed']  == 1 %}
-                    {{ group['age_last_executed'] }} day ago
-                  {%- else %}
-                    {{ group['age_last_executed'] }} days ago
-                  {%- endif %}
-                </p>
-              {%- endfor %}
-          {%- else %}
-            <!-- No info to display -->
-            <span style="height: 33%">No executions</span>
+              <div class="following-rows">
+                <span>{{ group['group'] }}</span>
+                <span style="float: right;">{{ group['reattacks_executed'] }}</span>
+              </div>
+            {%- endfor %}
           {%- endif %}
-        </div>
-        <!-- REATTACKS PENDING -->
-        <div>
-          {%- if reattacks['pending_attacks'] > 0 %}
-            <span>Pending</span>
-            <span class="content-number">{{ reattacks['pending_attacks'] }}</span>
-            {%- if 'groups_pending' in reattacks %}
-              {%- for group in reattacks['groups_pending'] %}
-                <p style="padding: 0 1rem;">
-                  <strong>{{ group['group'] }}</strong>
-                  <!-- With only one group, don't repeat the stat -->
-                  {%- if reattacks['groups_pending']|length > 1 %}
-                    {{ group['pending_attacks'] }}
-                  {%- endif %}
-                </p>
-              {%- endfor %}
-            {%- endif %}
-          {%- else %}
-            <!-- No info to display -->
-            <span style="height: 33%">No pending</span>
+        {%- elif 'groups_executed' in reattacks and reattacks['groups_executed']|length > 0 %}
+          <div class="first-row">
+            <span style="font-weight: 700;">Last executed at group</span>
+            <span style="font-weight: 700;float: right;">Time elapsed</span>
+          </div>
+          {%- for group in reattacks['groups_executed'] %}
+            <div class="following-rows">
+              <span>{{ group['group'] }}</span>
+              <span style="float: right;">
+                {%- if group['age_last_executed'] >= 60 %}
+                  {{ (group['age_last_executed'] * 0.032855)|round(1, 'common') }} months
+                {%- elif group['age_last_executed']  == 1 %}
+                  {{ group['age_last_executed'] }} day
+                {%- else %}
+                  {{ group['age_last_executed'] }} days
+                {%- endif %}
+              </span>
+            </div>
+          {%- endfor %}
+        {%- else %}
+          <!-- No info to display -->
+          <div class="first-row">
+            <span>No executions</span>
+          </div>
+        {%- endif %}
+      </div>
+    </div>
+    <div class="main-content" style="background-color: #ffffff; margin-top: 24px !important; padding-top:24px !important;">
+      <div class="content" style="margin: 0 24px; background-color: #ffffff;">
+         <!-- REATTACKS PENDING -->
+        {%- if reattacks['pending_attacks'] > 0 %}
+          <div class="first-row">
+            <span style="font-weight: 700;">Reattacks pending at group</span>
+            <span style="font-weight: 700;float: right;"># of reattacks pending</span>
+          </div>
+          {%- if 'groups_pending' in reattacks %}
+            {%- for group in reattacks['groups_pending'] %}
+              <div class="following-rows">
+                <span>{{ group['group'] }}</span>
+                <span style="float: right;">{{ group['pending_attacks'] }}</span>
+              </div>
+            {%- endfor %}
           {%- endif %}
-        </div>
+        {%- else %}
+          <!-- No info to display -->
+          <div class="first-row">
+            <span>No reattacks pending</span>
+          </div>
+        {%- endif %}
       </div>
     </div>
 
     <!-- TREATMENTS -->
-    <div class="main-content">
-      <div class="icon">
-        <div class="icon-div">
-          {%- if 'groups_temporary' in treatments %}
-            <div style="height: {{ treatments['groups_temporary']|length * 5 }}px;"></div>
-          {%- endif %}
-          {%- if 'groups_permanent_requested' in treatments %}
-            <div style="height: {{ treatments['groups_permanent_requested']|length * 5 }}px;"></div>
-          {%- endif %}
-          {%- if 'groups_permanent_approved' in treatments %}
-            <div style="height: {{ treatments['groups_permanent_approved']|length * 5 }}px;"></div>
-          {%- endif %}
-        </div>
-        <img alt="Treatments logo"
-          src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/c5daa720-d198-4df7-84a2-50bd498f31ab.png">
-        <h4>Treatments</h4>
-      </div>
+    <div class="icon" style="background-color: #ffffff; text-align: center;padding: 24px;margin-top:24px !important;">
+      <img src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/c5daa720-d198-4df7-84a2-50bd498f31ab.png">
+      <h4 style="font-weight: 700;color:#2e2e38;">Treatments</h4>
+    </div>
+
+    <div class="main-content" style="background-color: #ffffff;">
       <div class="content">
         <!-- TEMPORARY APPLIED -->
-        <div>
-          {%- if treatments['temporary_applied'] > 0 %}
-            <span>Temporary treatments applied</span>
-            <span class="content-number">{{ treatments['temporary_applied'] }}</span>
-            {%- if 'groups_temporary' in treatments %}
-              {%- for group in treatments['groups_temporary'] %}
-                <p style="padding: 0 1rem;">
-                  <strong>{{ group['group'] }}</strong>
-                  {%- if treatments['groups_temporary']|length > 1 %}
-                    {{ group['temporary_applied'] }}
-                  {%- endif %}
-                </p>
-              {%- endfor %}
-            {%- endif %}
-          {%- else %}
+        {%- if treatments['temporary_applied'] > 0 %}
+          <div class="first-row">
+            <span style="font-weight: 700;">Temporary treatments applied at group</span>
+            <span style="font-weight: 700;float: right;"># applied</span>
+          </div>
+          {%- if 'groups_temporary' in treatments %}
+            {%- for group in treatments['groups_temporary'] %}
+              <div class="following-rows">
+                <span>{{ group['group'] }}</span>
+                <span style="float: right;">{{ group['temporary_applied'] }}</span>
+              </div>
+            {%- endfor %}
+          {%- endif %}
+        {%- else %}
+          <!-- No info to display -->
+          <div class="first-row">
             <span>No temporary treatments</span>
-          {%- endif %}
-        </div>
+          </div>
+        {%- endif %}
+      </div>
+    </div>
+    <div class="main-content" style="background-color: #ffffff; margin-top: 24px !important; padding-top:24px !important;">
+      <div class="content" style="margin: 0 24px; background-color: #ffffff;">
         <!-- PERMANENT REQUESTED -->
-        <div>
-          {%- if treatments['permanent_requested'] > 0 %}
-            <span>Permanent treatments requested</span>
-            <span class="content-number">{{ treatments['permanent_requested'] }}</span>
-            {%- if 'groups_permanent_requested' in treatments %}
-              {%- for group in treatments['groups_permanent_requested'] %}
-                <p style="padding: 0 1rem;">
-                  <strong>{{ group['group'] }}</strong>
-                  {%- if treatments['groups_permanent_requested']|length > 1 %}
-                    {{ group['permanent_requested'] }}
-                  {%- endif %}
-                </p>
-              {%- endfor %}
-            {%- endif %}
-          {%- else %}
+        {%- if treatments['permanent_requested'] > 0 %}
+          <div class="first-row">
+            <span style="font-weight: 700;">Permanent treatments requested at group</span>
+            <span style="font-weight: 700;float: right;"># requested</span>
+          </div>
+          {%- if 'groups_permanent_requested' in treatments %}
+            {%- for group in treatments['groups_permanent_requested'] %}
+              <div class="following-rows">
+                <span>{{ group['group'] }}</span>
+                <span style="float: right;">{{ group['permanent_requested'] }}</span>
+              </div>
+            {%- endfor %}
+          {%- endif %}
+        {%- else %}
+          <!-- No info to display -->
+          <div class="first-row">
             <span>No permanent treatments requested</span>
-          {%- endif %}
-        </div>
+          </div>
+        {%- endif %}
+      </div>
+    </div>
+    <div class="main-content" style="background-color: #ffffff; margin-top: 24px !important; padding-top:24px !important;">
+      <div class="content" style="margin: 0 24px; background-color: #ffffff;">
         <!-- PERMANENT APPROVED -->
-        <div>
-          {%- if treatments['permanent_approved'] > 0 %}
-            <span>Permanent treatments approved</span>
-            <span class="content-number">{{ treatments['permanent_approved'] }}</span>
-            {%- if 'groups_permanent_approved' in treatments %}
-              {%- for group in treatments['groups_permanent_approved'] %}
-                <p style="padding: 0 1rem;">
-                  <strong>{{ group['group'] }}</strong>
-                  {%- if treatments['groups_permanent_approved']|length > 1 %}
-                    {{ group['permanent_approved'] }}
-                  {%- endif %}
-                </p>
-              {%- endfor %}
-            {%- endif %}
-          {%- else %}
-            <span>No permanent treatments approved</span>
+        {%- if treatments['permanent_approved'] > 0 %}
+          <div class="first-row">
+            <span style="font-weight: 700;">Permanent treatments approved at group</span>
+            <span style="font-weight: 700;float: right;"># approved</span>
+          </div>
+          {%- if 'groups_permanent_approved' in treatments %}
+            {%- for group in treatments['groups_permanent_approved'] %}
+              <div class="following-rows">
+                <span>{{ group['group'] }}</span>
+                <span style="float: right;">{{ group['permanent_approved'] }}</span>
+              </div>
+            {%- endfor %}
           {%- endif %}
-        </div>
+        {%- else %}
+          <!-- No info to display -->
+          <div class="first-row">
+            <span>No permanent treatments approved</span>
+          </div>
+        {%- endif %}
       </div>
     </div>
 
-    <!-- FINDINGS -->
-    <div class="main-content">
-      <div class="icon">
-        <div style="height: {{ -40 + 28 * findings|length }}px;" class="icon-div"></div>
-        <img alt="Findings logo"
-          src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/48b502a4-b33f-4a29-be67-66e87147d669.png">
-        <h4>
-          Oldest and Most Severe Findings
-          <span style="display: none;">{{ hash }}</span>
-        </h4>
-      </div>
+    <!-- OLDEST FINDINGS -->
+    <div class="icon" style="background-color: #ffffff; text-align: center;padding: 24px;margin-top:24px !important;">
+      <img alt="Oldest findings logo"
+        src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/48b502a4-b33f-4a29-be67-66e87147d669.png">
+        <h4 style="font-weight: 700;color:#2e2e38;">
+        The oldest types of vulnerabilities
+      </h4>
+    </div>
+    <div class="main-content" style="background-color: #ffffff;margin-bottom: 24px;">
       <div class="content">
-        {%- for finding in findings %}
-        <span><strong>{{ finding['finding_group'] }}</strong></span>
-        <table aria-hidden="true"
-          style="border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%; table-layout: fixed;">
-          <tr>
-            <td>
-              <div style="white-space: nowrap !important;
-                      overflow: hidden !important;
-                      text-overflow: ellipsis !important;
-                      font-size: 14px; margin-bottom: 0;">
-                {# Truncated due to unwanted html generation in the email client #}
-                {{ finding['oldest_name']|truncate(60, True, '...', 3) }}
-                <span style="display: none;">{{ hash }}</span>
-              </div>
-            </td>
-            <td style="text-align: right; width: 75px; font-size: 14px;">
-              <div class="content-number" style="margin-bottom: 0;">
-                {%- if finding['oldest_age'] >= 60 %}
-                  {{ (finding['oldest_age'] * 0.032855)|round(1, 'common') }} months
+        {%- for finding in oldest_findings %}
+          <div style="justify-content: space-between;border-bottom:1px solid #b0b0bf;padding:20px 0;">
+            <span style="font-weight: 700;">
+              <strong>{{ finding['finding_group'] }}</strong>
+            </span>
+            <span style="font-weight: 700;float: right;">
+              Time elapsed
+            </span>
+          </div>
+          <div style="justify-content: space-between;border-bottom:1px solid #b0b0bf;padding:20px 0;">
+            <span>
+              {# Truncated due to unwanted html generation in the email client #}
+              {{ finding['oldest_name']|truncate(60, True, '...', 3) }}
+            </span>
+            <span style="float: right;">
+              {%- if finding['oldest_age'] >= 60 %}
+                {{ (finding['oldest_age'] * 0.032855)|round(1, 'common') }} months
+              {%- else %}
+                {%- if finding['oldest_age'] == 0 %}
+                today
+                {%- elif finding['oldest_age'] == 1 %}
+                1 day
                 {%- else %}
-                  {%- if finding['oldest_age'] == 0 %}
-                  today
-                  {%- elif finding['oldest_age'] == 1 %}
-                  1 day
-                  {%- else %}
-                  {{ finding['oldest_age'] }} days
-                  {%- endif %}
+                {{ finding['oldest_age'] }} days
                 {%- endif %}
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div style="white-space: nowrap !important;
-                      overflow: hidden !important;
-                      text-overflow: ellipsis !important;
-                      font-size: 14px;">
-                {%- if finding['oldest_name'] == finding['severest_name'] -%}
-                &nbsp;&nbsp;(also the most severe)
-                {%- else %}
-                {{ finding['severest_name']|truncate(60, True, '...', 3) }}
-                {%- endif -%}
-                <span style="display: none;">{{ hash }}</span>
-              </div>
-            </td>
-            <td style="text-align: right; width: 75px; font-size: 14px;">
-              <div class="content-number">
-                {{ finding['severity'] }} / 10
-              </div>
-            </td>
-          </tr>
-        </table>
+              {%- endif %}
+            </span>
+          </div>
+        {%- endfor %}
+      </div>
+    </div>
+
+    <!-- MOST SEVERE FINDINGS -->
+    <div class="icon" style="background-color: #ffffff; text-align: center;padding: 24px;margin-top:24px !important;">
+      <img alt="Oldest findings logo"
+        src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/485d3fcb-4b64-f688-f02e-5817c16ec401.png">
+        <h4 style="font-weight: 700;color:#2e2e38;">
+        The most severe types of vulnerabilities
+      </h4>
+    </div>
+    <div class="main-content" style="background-color: #ffffff;margin-bottom: 24px;">
+      <div class="content">
+        {%- for finding in most_severe_findings %}
+          <div style="justify-content: space-between;border-bottom:1px solid #b0b0bf;padding:20px 0;">
+            <span style="font-weight: 700;">
+              <strong>{{ finding['finding_group'] }}</strong>
+            </span>
+            <span style="font-weight: 700;float: right;">
+              Severity
+            </span>
+          </div>
+          <div style="justify-content: space-between;border-bottom:1px solid #b0b0bf;padding:20px 0;">
+            <span>
+              {# Truncated due to unwanted html generation in the email client #}
+              {{ finding['severest_name']|truncate(60, True, '...', 3) }}
+            </span>
+            <span style="float: right;">
+              {{ finding['severity'] }} / 10
+            </span>
+          </div>
         {%- endfor %}
       </div>
     </div>

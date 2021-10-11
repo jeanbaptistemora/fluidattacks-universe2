@@ -1540,7 +1540,8 @@ def process_user_digest_stats(
             "min": groups_stats[0]["main"]["remediation_time"],
             "min_group": groups_stats[0]["group"],
         },
-        "findings": [],
+        "oldest_findings": [],
+        "most_severe_findings": [],
     }
 
     main: Counter = Counter()
@@ -1588,8 +1589,11 @@ def process_user_digest_stats(
             for finding in stat["findings"]
         ]
         findings.extend(findings_extended)
-    total["findings"] = sorted(
+    total["oldest_findings"] = sorted(
         findings, key=itemgetter("oldest_age"), reverse=True
+    )[:10]
+    total["most_severe_findings"] = sorted(
+        findings, key=itemgetter("severity"), reverse=True
     )[:10]
 
     return total
