@@ -3,6 +3,7 @@
 }:
 {
   imports = [
+    ./compute-on-aws-batch/makes.nix
     ./infra/makes.nix
     ./linters/makes.nix
     ./pipeline/makes.nix
