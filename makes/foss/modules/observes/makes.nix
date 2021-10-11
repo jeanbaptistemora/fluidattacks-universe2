@@ -1,3 +1,6 @@
+{ projectPath
+, ...
+}:
 {
   imports = [
     ./infra/makes.nix
@@ -5,7 +8,7 @@
     ./pipeline/makes.nix
   ];
   inputs = {
-    observesIndex = import ./observes/architecture/index.nix;
+    observesIndex = import (projectPath "/observes/architecture/index.nix");
   };
   secretsForAwsFromEnv = {
     observesDev = {

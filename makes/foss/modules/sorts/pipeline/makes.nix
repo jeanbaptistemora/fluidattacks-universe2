@@ -68,6 +68,35 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/sorts/extract-features";
+          gitlabExtra = {
+            interruptible = false;
+            parallel = 15;
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "sorts_extract_features")
+              (gitlabCi.rules.always)
+            ];
+            stage = "pre-build";
+            tags = [ "autoscaling-large" ];
+          };
+        }
+        {
+          output = "/sorts/merge-features";
+          gitlabExtra = {
+            interruptible = false;
+            needs = [ "/sorts/extract-features" ];
+            parallel = 15;
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "sorts_extract_features")
+              (gitlabCi.rules.always)
+            ];
+            stage = "build";
+            tags = [ "autoscaling" ];
+          };
+        }
+        {
           output = "/sorts/train";
           gitlabExtra = {
             interruptible = false;

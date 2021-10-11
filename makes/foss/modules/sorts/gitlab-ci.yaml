@@ -129,6 +129,45 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/sorts/extract-features:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  parallel: 15
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $sorts_extract_features == null
+      when: never
+    - when: always
+  script:
+    - m . /sorts/extract-features
+  stage: pre-build
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/sorts/merge-features:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs:
+    - /sorts/extract-features
+  parallel: 15
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $sorts_extract_features == null
+      when: never
+    - when: always
+  script:
+    - m . /sorts/merge-features
+  stage: build
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /sorts/train:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false

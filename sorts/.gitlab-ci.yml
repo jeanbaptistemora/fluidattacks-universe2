@@ -45,14 +45,6 @@
       when: never
     - if: *sorts_commit_pattern
 
-.sorts_in_schedule_extract_features: &sorts_in_schedule_extract_features
-  rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
-      when: never
-    - if: '$sorts_extract_features != "defined"'
-      when: never
-    - when: always
-
 .sorts_in_schedule_execute: &sorts_in_schedule_execute
   rules:
     - if: '$CI_PIPELINE_SOURCE != "schedule"'
@@ -78,19 +70,3 @@ sorts.execute:
   parallel: 15
   stage: test-code
   tags: [autoscaling-large]
-
-# Sorts extract features scheduled pipeline
-sorts.extract-features:
-  <<: *makes
-  <<: *sorts_in_schedule_extract_features
-  interruptible: false
-  parallel: 15
-  stage: pre-build
-  tags: [autoscaling-large]
-
-sorts.merge-features:
-  <<: *makes
-  <<: *sorts_in_schedule_extract_features
-  interruptible: false
-  needs: [sorts.extract-features]
-  stage: build

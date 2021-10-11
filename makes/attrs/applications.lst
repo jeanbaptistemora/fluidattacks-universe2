@@ -84,6 +84,4 @@ observes.tap-json
 observes.target-redshift
 sorts
 sorts.execute
-sorts.extract-features
-sorts.merge-features
 sorts.test
