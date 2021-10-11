@@ -8015,6 +8015,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (netmask v1.0.6)
   21 |   }
      ^ Col 0
 "
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (netmask v1.0.6) [CVE-2021-29418],11,937,skims,011. Use of software with known vulnerabilities,Use of netmask at version 1.0.6 with CVE-2021-29418 in skims/test/data/lib_path/f011/package.json,"
+   1 | {
+   2 |   ""dependencies"": {
+   3 |     ""@angular/core"": ""11.0.4"",
+   4 |     ""axios"": ""0.18.0"",
+   5 |     ""connect"": ""2.8"",
+   6 |     ""fresh"": ""xxxxwhasdflaskdjfasdf"",
+   7 |     ""hoek"": ""^5.0.0"",
+   8 |     ""html-parse-stringify"": ""2.0.0"",
+   9 |     ""i18next"": ""19.8.4"",
+  10 |     ""lodash"": ""0.*"",
+> 11 |     ""netmask"": ""1.0.6"",
+  12 |     ""path-parse"": ""1.0.6"",
+  13 |     ""jasmine-core"": ""2.99.1"",
+  14 |     ""jquery"": ""0.*"",
+  15 |     ""ng-packagr"": ""12.2.2"",
+  16 |     ""node-sass"": ""^5.0.0"",
+  17 |     ""postcss"": ""7.0.0"",
+  18 |     ""serverless-offline"": ""3.3.0"",
+  19 |     ""y18n"": ""4.0.0"",
+  20 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  21 |   }
+     ^ Col 0
+"
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [SNYK-JS-NODESASS-540996],16,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with SNYK-JS-NODESASS-540996 in skims/test/data/lib_path/f011/package.json,"
    2 |   ""dependencies"": {
    3 |     ""@angular/core"": ""11.0.4"",
