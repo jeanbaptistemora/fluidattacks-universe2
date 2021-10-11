@@ -8,6 +8,7 @@
     "html-parse-stringify": "2.0.0",
     "i18next": "19.8.4",
     "lodash": "0.*",
+    "path-parse": "1.0.6",
     "jasmine-core": "2.99.1",
     "jquery": "0.*",
     "ng-packagr": "12.2.2",
