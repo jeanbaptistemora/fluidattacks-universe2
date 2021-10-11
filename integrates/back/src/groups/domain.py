@@ -809,18 +809,6 @@ async def get_attributes(
     return await groups_dal.get_attributes(group_name, attributes)
 
 
-async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
-    group_findings = await context.group_findings.load(group_name)
-    findings_vulns = await context.finding_vulns_nzr.load_many_chained(
-        [finding["finding_id"] for finding in group_findings]
-    )
-
-    last_approved_status = [
-        vulns_utils.get_last_status(vuln) for vuln in findings_vulns
-    ]
-    return last_approved_status.count("closed")
-
-
 async def get_closed_vulnerabilities_new(loaders: Any, group_name: str) -> int:
     group_findings_loader = loaders.group_findings_new
     finding_vulns_loader = loaders.finding_vulns_nzr
@@ -897,16 +885,6 @@ async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
     return cast(List[GroupType], groups)
 
 
-async def get_mean_remediate(
-    context: Any, group_name: str, min_date: Optional[date] = None
-) -> Decimal:
-    group_findings = await context.group_findings.load(group_name)
-    vulns = await context.finding_vulns.load_many_chained(
-        [str(finding["finding_id"]) for finding in group_findings]
-    )
-    return vulns_utils.get_mean_remediate_vulnerabilities(vulns, min_date)
-
-
 async def get_mean_remediate_new(
     loaders: Any,
     group_name: str,
@@ -922,27 +900,6 @@ async def get_mean_remediate_new(
         [finding.id for finding in group_findings]
     )
     return vulns_utils.get_mean_remediate_vulnerabilities(vulns, min_date)
-
-
-async def get_mean_remediate_non_treated(
-    loaders: Any, group_name: str, min_date: Optional[date] = None
-) -> Decimal:
-    findings = await loaders.group_findings.load(group_name)
-    all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
-        [str(finding["finding_id"]) for finding in findings]
-    )
-    vulnerabilities = vulns_utils.filter_non_confirmed_zero_risk(
-        all_vulnerabilities
-    )
-
-    return vulns_utils.get_mean_remediate_vulnerabilities(
-        [
-            vuln
-            for vuln in vulnerabilities
-            if not vulns_utils.is_accepted_undefined_vulnerability(vuln)
-        ],
-        min_date,
-    )
 
 
 async def get_mean_remediate_non_treated_new(
@@ -1053,90 +1010,6 @@ async def get_mean_remediate_non_treated_cvssf_new(
     )
 
 
-async def get_mean_remediate_severity_cvssf(
-    loaders: Any,
-    group_name: str,
-    min_severity: Decimal,
-    max_severity: Decimal,
-    min_date: Optional[date] = None,
-) -> Decimal:
-    group_findings = await loaders.group_findings.load(group_name.lower())
-    group_findings_ids = [
-        finding["finding_id"]
-        for finding in group_findings
-        if (
-            min_severity
-            <= Decimal(finding.get("cvss_temporal", "0.0")).quantize(
-                Decimal("0.1")
-            )
-            <= max_severity
-        )
-    ]
-    finding_cvssf: Dict[str, Decimal] = {
-        str(finding["finding_id"]): vulns_utils.get_cvssf(
-            Decimal(finding.get("cvss_temporal", "0.0")).quantize(
-                Decimal("0.1")
-            )
-        )
-        for finding in group_findings
-    }
-    findings_vulns = await loaders.finding_vulns_nzr.load_many_chained(
-        group_findings_ids
-    )
-    return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
-        findings_vulns, finding_cvssf, min_date
-    )
-
-
-async def get_mean_remediate_cvssf(
-    loaders: Any,
-    group_name: str,
-    min_date: Optional[date] = None,
-) -> Decimal:
-    group_findings = await loaders.group_findings.load(group_name.lower())
-    group_findings_ids = [finding["finding_id"] for finding in group_findings]
-    finding_cvssf: Dict[str, Decimal] = {
-        str(finding["finding_id"]): vulns_utils.get_cvssf(
-            Decimal(finding.get("cvss_temporal", "0.0")).quantize(
-                Decimal("0.1")
-            )
-        )
-        for finding in group_findings
-    }
-    findings_vulns = await loaders.finding_vulns.load_many_chained(
-        group_findings_ids
-    )
-    return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
-        findings_vulns, finding_cvssf, min_date
-    )
-
-
-async def get_mean_remediate_non_treated_cvssf(
-    loaders: Any,
-    group_name: str,
-    min_date: Optional[date] = None,
-) -> Decimal:
-    group_findings = await loaders.group_findings.load(group_name.lower())
-    group_findings_ids = [finding["finding_id"] for finding in group_findings]
-    finding_cvssf: Dict[str, Decimal] = {
-        str(finding["finding_id"]): vulns_utils.get_cvssf(
-            Decimal(finding.get("cvss_temporal", "0.0")).quantize(
-                Decimal("0.1")
-            )
-        )
-        for finding in group_findings
-    }
-    all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
-        group_findings_ids
-    )
-    vulnerabilities = vulns_utils.filter_non_confirmed_zero_risk(
-        all_vulnerabilities
-    )
-    return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
-        vulnerabilities, finding_cvssf, min_date
-    )
-
-
 async def get_mean_remediate_severity(
     context: Any,
     group_name: str,
@@ -1195,15 +1068,6 @@ async def get_mean_remediate_severity_new(
     return vulns_utils.get_mean_remediate_vulnerabilities(
         findings_vulns, min_date
     )
-
-
-async def get_open_finding(loaders: Any, group_name: str) -> int:
-    group_findings = await loaders.group_findings.load(group_name)
-    finding_status = await collect(
-        findings_domain.get_status(loaders, finding["id"])
-        for finding in group_findings
-    )
-    return finding_status.count("open")
 
 
 async def get_open_findings_new(loaders: Any, group_name: str) -> int:
@@ -1523,21 +1387,6 @@ def filter_active_groups(groups: List[GroupType]) -> List[GroupType]:
         if get_key_or_fallback(group, "group_status", "project_status")
         == "ACTIVE"
     ]
-
-
-async def get_remediation_rate(
-    context: Any,
-    group_name: str,
-) -> int:
-    """Percentage of closed vulns, ignoring treatments"""
-    remediation_rate: int = 0
-    open_vulns = await get_open_vulnerabilities(context, group_name)
-    closed_vulns = await get_closed_vulnerabilities(context, group_name)
-    if closed_vulns:
-        remediation_rate = int(
-            100 * closed_vulns / (open_vulns + closed_vulns)
-        )
-    return remediation_rate
 
 
 async def get_remediation_rate_new(
