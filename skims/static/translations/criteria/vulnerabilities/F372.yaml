@@ -1,0 +1,28 @@
+src.lib_path.f372.serves_content_over_http:
+  en: The application is serving content over HTTP.
+  es: La aplicación ofrece contenido a través de HTTP.
+F372.title:
+  en: >
+    Use of an insecure channel - HTTP
+  es: >
+    Use of an insecure channel - HTTP
+F372.description:
+  en: >
+    The system transmits information through HTTP without encryption.
+  es: >
+    La información de los clientes es transmitida por HTTP que no usa cifrado.
+F372.impact:
+  en: |
+    - Capture confidential information and credentials in plain text.
+    - Intercept the communication and steal/tamper requests and responses.
+  es: >
+    - Capturar información confidencial y credenciales en texto plano.
+    - Interceptar la comunicación y robar o falsificar peticiones y respuestas.
+F372.recommendation:
+  en: >
+    Deploy the application over an encrypted communication channel (HTTPS).
+  es: >
+    Desplegar la aplicación sobre un canal de comunicación cifrado (HTTPS).
+F372.threat:
+  en: Anonymous attacker on adjacent network performing a man-in-the-middle.
+  es: Atacante anónimo en red adyacente ejecutando un ataque de hombre en el medio.

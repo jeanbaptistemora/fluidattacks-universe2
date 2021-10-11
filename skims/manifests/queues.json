@@ -16,7 +16,8 @@
     "findings": [
       "F024",
       "F031",
-      "F080"
+      "F080",
+      "F372"
     ]
   },
   "skims_control": {

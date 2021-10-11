@@ -471,6 +471,14 @@
       "title": "366. Inappropriate coding practices - Transparency Conflict"
     }
   },
+  "F372": {
+    "EN": {
+      "title": "372. Use of an insecure channel - HTTP"
+    },
+    "ES": {
+      "title": "372. Use of an insecure channel - HTTP"
+    }
+  },
   "F380": {
     "EN": {
       "title": "380. Supply Chain Attack - Docker"
