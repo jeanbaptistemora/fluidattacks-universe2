@@ -73,6 +73,20 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/sorts/execute";
+          gitlabExtra = {
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "sorts_execute")
+              (gitlabCi.rules.always)
+            ];
+            interruptible = false;
+            parallel = 15;
+            stage = "test-code";
+            tags = [ "autoscaling-large" ];
+          };
+        }
+        {
           output = "/sorts/extract-features";
           gitlabExtra = {
             interruptible = false;

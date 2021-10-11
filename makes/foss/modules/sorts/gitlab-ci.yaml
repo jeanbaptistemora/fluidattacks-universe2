@@ -129,6 +129,25 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/sorts/execute:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  parallel: 15
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $sorts_execute == null
+      when: never
+    - when: always
+  script:
+    - m . /sorts/execute
+  stage: test-code
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /sorts/extract-features:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false

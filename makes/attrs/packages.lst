@@ -12,7 +12,6 @@ makes.test.asserts
 makes.test.docs
 makes.test.makes
 makes.test.observes
-makes.test.sorts
 melts.config-development
 melts.config-runtime
 melts.lib

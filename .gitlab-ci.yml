@@ -14,7 +14,6 @@ include:
   - local: docs/.gitlab-ci.yml
   - local: forces/.gitlab-ci.yml
   - local: observes/.gitlab-ci.yml
-  - local: sorts/.gitlab-ci.yml
 
 stages:
   - rotation

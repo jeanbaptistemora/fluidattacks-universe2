@@ -83,4 +83,3 @@ observes.scheduled.on-aws.gitlab-etl.services
 observes.tap-json
 observes.target-redshift
 sorts
-sorts.execute
