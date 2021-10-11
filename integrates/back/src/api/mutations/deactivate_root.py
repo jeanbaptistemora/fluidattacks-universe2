@@ -1,6 +1,9 @@
 from aiodataloader import (
     DataLoader,
 )
+from aioextensions import (
+    collect,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -28,11 +31,15 @@ from newutils import (
     token as token_utils,
 )
 from roots import (
+    dal as roots_dal,
     domain as roots_domain,
 )
 from typing import (
     Any,
     Dict,
+)
+from vulnerabilities import (
+    domain as vulns_domain,
 )
 
 
@@ -42,14 +49,29 @@ async def deactivate_root(
     user_email: str,
     **kwargs: Any,
 ) -> None:
-    if await roots_domain.has_open_vulns(
-        root, info.context.loaders, kwargs["group_name"]
-    ):
-        raise HasOpenVulns()
+    group_name: str = kwargs["group_name"]
+    loaders = info.context.loaders
+    reason: str = kwargs["reason"]
+
+    if reason in {"OUT_OF_SCOPE", "REGISTERED_BY_MISTAKE"}:
+        await collect(
+            tuple(
+                vulns_domain.close_by_exclusion(vuln)
+                for vuln in await roots_dal.get_root_vulns(
+                    loaders=loaders,
+                    group_name=group_name,
+                    nickname=root.state.nickname,
+                )
+            )
+        )
+    else:
+        if await roots_domain.has_open_vulns(root, loaders, group_name):
+            raise HasOpenVulns()
+
     await roots_domain.deactivate_root(
-        group_name=kwargs["group_name"],
-        other=kwargs.get("other") if kwargs["reason"] == "OTHER" else None,
-        reason=kwargs["reason"],
+        group_name=group_name,
+        other=kwargs.get("other") if reason == "OTHER" else None,
+        reason=reason,
         root=root,
         user_email=user_email,
     )

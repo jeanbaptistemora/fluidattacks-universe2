@@ -1035,3 +1035,28 @@ async def verify(
 
 async def verify_vulnerability(vulnerability: Dict[str, FindingType]) -> bool:
     return await vulns_dal.verify_vulnerability(vulnerability)
+
+
+async def close_by_exclusion(vuln: Dict[str, Any]) -> None:
+    current_state = vuln["historic_state"][-1]["state"]
+    current_treatment = vuln["historic_treatment"][-1]["treatment"]
+    if (
+        current_state not in {"closed", "DELETED"}
+        and current_treatment != "ACCEPTED_UNDEFINED"
+    ):
+        await vulns_dal.update(
+            vuln["finding_id"],
+            vuln["UUID"],
+            {
+                "historic_state": [
+                    *vuln["historic_state"],
+                    {
+                        **vuln["historic_state"][-1],
+                        "state": "closed",
+                        "justification": "EXCLUSION",
+                    },
+                ]
+            },
+        )
+        if vulns_utils.is_reattack_requested(vuln):
+            await verify_vulnerability(vuln)

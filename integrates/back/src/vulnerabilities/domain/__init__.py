@@ -1,4 +1,5 @@
 from .core import (
+    close_by_exclusion,
     confirm_vulnerabilities_zero_risk,
     filter_closed_vulnerabilities,
     filter_confirmed_zero_risk,
@@ -52,6 +53,7 @@ from .verification import (
 
 __all__ = [
     # core
+    "close_by_exclusion",
     "confirm_vulnerabilities_zero_risk",
     "filter_closed_vulnerabilities",
     "filter_confirmed_zero_risk",
