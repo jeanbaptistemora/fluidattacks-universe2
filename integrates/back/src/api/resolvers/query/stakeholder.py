@@ -24,7 +24,6 @@ from newutils.utils import (
     get_key_or_fallback,
 )
 from typing import (
-    cast,
     List,
 )
 from users import (
@@ -60,7 +59,7 @@ async def _resolve_for_group(
         access = await group_access_domain.get_user_access(email, group_name)
         return {
             **stakeholder,
-            "responsibility": cast(str, access.get("responsibility", "")),
+            "responsibility": access.get("responsibility", ""),
             "role": group_role,
         }
     raise StakeholderNotFound()

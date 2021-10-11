@@ -27,8 +27,7 @@ async def resolve(
 ) -> List[TagType]:
     organization_loader = info.context.loaders.organization
     organization_tags_loader = info.context.loaders.organization_tags
-
-    user_email: str = cast(str, parent["user_email"])
+    user_email: str = parent["user_email"]
     organization_id: str = kwargs["organization_id"]
 
     organization = await organization_loader.load(organization_id)

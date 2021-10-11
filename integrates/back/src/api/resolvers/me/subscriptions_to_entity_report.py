@@ -17,7 +17,7 @@ from typing import (
 async def resolve(
     parent: Me, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Dict[str, str]]:
-    user_email: str = cast(str, parent["user_email"])
+    user_email: str = parent["user_email"]
 
     return cast(
         List[Dict[str, str]],

@@ -28,7 +28,7 @@ async def resolve(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="organization",
         attr="stakeholders",
-        id=cast(str, parent["id"]),
+        id=parent["id"],
     )
     return response
 
@@ -36,7 +36,7 @@ async def resolve(
 async def resolve_no_cache(
     parent: OrganizationType, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[StakeholderType]:
-    org_id: str = cast(str, parent["id"])
+    org_id: str = parent["id"]
     organization_stakeholders_loader = (
         info.context.loaders.organization_stakeholders
     )

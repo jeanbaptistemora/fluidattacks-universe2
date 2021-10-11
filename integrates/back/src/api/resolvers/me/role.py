@@ -5,13 +5,10 @@ from custom_types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    cast,
-)
 
 
 async def resolve(
     parent: Me, _info: GraphQLResolveInfo, **_kwargs: str
 ) -> str:
-    user_email: str = cast(str, parent["user_email"])
+    user_email: str = parent["user_email"]
     return await authz.get_user_level_role(user_email)

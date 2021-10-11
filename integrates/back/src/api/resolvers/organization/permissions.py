@@ -47,7 +47,7 @@ async def resolve(
 ) -> Set[str]:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    org_id: str = cast(str, parent["id"])
+    org_id: str = parent["id"]
     identifier: str = cast(str, kwargs.get("identifier", org_id))
 
     permissions: Set[str] = await _get_org_permissions(

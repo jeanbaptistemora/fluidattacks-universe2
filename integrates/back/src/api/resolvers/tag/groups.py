@@ -15,7 +15,6 @@ from newutils.utils import (
     get_key_or_fallback,
 )
 from typing import (
-    cast,
     List,
 )
 
@@ -23,9 +22,7 @@ from typing import (
 async def resolve(
     parent: Tag, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Group]:
-    group_names: str = cast(
-        str, get_key_or_fallback(parent, "groups", "projects")
-    )
+    group_names: str = get_key_or_fallback(parent, "groups", "projects")
     group_loader: DataLoader = info.context.loaders.group
     groups: List[Group] = await group_loader.load_many(group_names)
     groups_filtered = groups_domain.filter_active_groups(groups)

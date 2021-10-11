@@ -15,7 +15,6 @@ from newutils import (
     token as token_utils,
 )
 from typing import (
-    cast,
     Dict,
     List,
 )
@@ -27,7 +26,7 @@ async def resolve(
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
 
-    org_id: str = cast(str, parent["id"])
+    org_id: str = parent["id"]
     user_groups: List[str] = await groups_domain.get_groups_by_user(
         user_email, organization_id=org_id
     )

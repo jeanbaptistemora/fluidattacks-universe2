@@ -13,9 +13,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    cast,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -25,7 +22,7 @@ async def resolve(
 ) -> object:
     document_name: str = kwargs["document_name"]
     document_type: str = kwargs["document_type"]
-    org_id: str = cast(str, parent["id"])
+    org_id: str = parent["id"]
 
     return await analytics_domain.get_document(
         document_name=document_name,
