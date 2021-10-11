@@ -1,0 +1,24 @@
+closure:
+  pytz: "2021.1"
+  returns: 0.16.0
+  typing-extensions: 3.10.0.0
+links:
+  - name: pytz-2021.1-py2.py3-none-any.whl
+    sha256: 1607gl2x9290ks5sa6dvqw9dgg1kwdf9fj9xcb9jw19nfwzcw47b
+    url: https://files.pythonhosted.org/packages/70/94/784178ca5dd892a98f113cdd923372024dc04b8d40abe77ca76b5fb90ca6/pytz-2021.1-py2.py3-none-any.whl
+  - name: pytz-2021.1.tar.gz
+    sha256: 1nn459q7zg20n75akxl3ljkykgw1ydc8nb05rx1y4f5zjh4ak943
+    url: https://files.pythonhosted.org/packages/b0/61/eddc6eb2c682ea6fd97a7e1018a6294be80dba08fa28e7a3570148b4612d/pytz-2021.1.tar.gz
+  - name: returns-0.16.0-py3-none-any.whl
+    sha256: 0amw125x7wnf6gqlfga4y29wjy48xlscxdk96kdcian5p3vl8x9v
+    url: https://files.pythonhosted.org/packages/ff/e6/c66f2dfd12cd47e0efb54c0aefd35f0bbad0242fbaefe52310ebf71f010b/returns-0.16.0-py3-none-any.whl
+  - name: returns-0.16.0.tar.gz
+    sha256: 1dq0z348xyjkba8whdqgplkgf1mvw1ydaz4wijc8g7783npplwdc
+    url: https://files.pythonhosted.org/packages/52/ad/a312c66697e1be62dc50144ad491ec43ee08c0f4090a635c8a34c88cbd3a/returns-0.16.0.tar.gz
+  - name: typing_extensions-3.10.0.0-py3-none-any.whl
+    sha256: 112ar7s85msx9r0hmkl3j9x979y8m8wzzw0wwjdck43d13v874vp
+    url: https://files.pythonhosted.org/packages/2e/35/6c4fff5ab443b57116cb1aad46421fb719bed2825664e8fe77d66d99bcbc/typing_extensions-3.10.0.0-py3-none-any.whl
+  - name: typing_extensions-3.10.0.0.tar.gz
+    sha256: 0hpkrp39w58f6lc6r0jhn97qhcp95z49vyan0ryj2x4ihibz3djh
+    url: https://files.pythonhosted.org/packages/aa/55/62e2d4934c282a60b4243a950c9dbfa01ae7cac0e8d6c0b5315b87432c81/typing_extensions-3.10.0.0.tar.gz
+python: "3.8"
