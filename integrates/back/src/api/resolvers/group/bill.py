@@ -20,7 +20,6 @@ from newutils import (
     datetime as datetime_utils,
 )
 from typing import (
-    cast,
     Dict,
 )
 
@@ -32,7 +31,7 @@ from typing import (
 async def resolve(
     parent: Group, _info: GraphQLResolveInfo, **kwargs: datetime
 ) -> Dict[str, Historic]:
-    group_name: str = cast(str, parent["name"])
+    group_name: str = parent["name"]
     date: datetime = kwargs.get("date", datetime_utils.get_now())
     return {
         "authors": await bill_domain.get_authors_data(

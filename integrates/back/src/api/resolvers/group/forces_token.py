@@ -16,7 +16,6 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
-    cast,
     Optional,
 )
 
@@ -30,6 +29,6 @@ async def resolve(
     parent: Group,
     __: GraphQLResolveInfo,
 ) -> Optional[str]:
-    group_name: str = cast(str, parent["name"])
+    group_name: str = parent["name"]
     token: Optional[str] = await forces_domain.get_token(group_name)
     return token

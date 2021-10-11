@@ -33,8 +33,8 @@ async def resolve_no_cache(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> List[Comment]:
-    event_id: str = cast(str, parent["id"])
-    group_name: str = cast(str, get_key_or_fallback(parent))
+    event_id: str = parent["id"]
+    group_name: str = get_key_or_fallback(parent)
 
     user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
@@ -56,6 +56,6 @@ async def resolve(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="event",
         attr="consulting",
-        id=cast(str, parent["id"]),
+        id=parent["id"],
     )
     return response

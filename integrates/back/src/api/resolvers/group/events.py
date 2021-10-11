@@ -17,7 +17,6 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
-    cast,
     List,
 )
 
@@ -29,7 +28,7 @@ from typing import (
 async def resolve(
     parent: Group, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Event]:
-    group_name: str = cast(str, parent["name"])
+    group_name: str = parent["name"]
 
     event_ids = await events_domain.list_group_events(group_name)
     event_loader: DataLoader = info.context.loaders.event

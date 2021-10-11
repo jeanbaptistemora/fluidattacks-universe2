@@ -40,7 +40,7 @@ async def resolve(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
         attr="consulting",
-        name=cast(str, parent["name"]),
+        name=parent["name"],
     )
     return response
 
@@ -48,7 +48,7 @@ async def resolve(
 async def resolve_no_cache(
     parent: Group, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Comment]:
-    group_name: str = cast(str, parent["name"])
+    group_name: str = parent["name"]
     user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
 
