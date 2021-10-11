@@ -106,7 +106,7 @@ async def _add_updated_max_number_acceptances(
         "max_number_acceptations"
     ]
     if (
-        new_max_number_acceptances
+        new_max_number_acceptances is not None
         and new_max_number_acceptances != max_number_acceptances
     ):
         historic_max_number_acceptation = organization_data[
