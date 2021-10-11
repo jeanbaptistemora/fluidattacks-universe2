@@ -6,6 +6,7 @@ from datetime import (
     datetime,
 )
 from purity.v1 import (
+    FrozenList,
     InvalidType,
     PrimitiveFactory,
 )
@@ -96,7 +97,7 @@ class PostFactory:
 
 @dataclass(frozen=True)
 class _PostIdPage:
-    data: List[PostId]
+    data: FrozenList[PostId]
     count: int
     page: int
     pages: int
@@ -120,7 +121,9 @@ class PostPageFactory(_Post):
     @staticmethod
     def to_post_page(raw: RawPosts) -> PostIdPage:
         draft = _PostIdPage(
-            [PostId.from_any(i.project_id, i.id) for i in _to_list(raw.list)],
+            tuple(
+                PostId.from_any(i.project_id, i.id) for i in _to_list(raw.list)
+            ),
             to_primitive(raw.count, int),
             to_primitive(raw.page, int),
             to_primitive(raw.pages, int),

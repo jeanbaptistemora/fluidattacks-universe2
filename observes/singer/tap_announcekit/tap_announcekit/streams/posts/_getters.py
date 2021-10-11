@@ -6,7 +6,6 @@ from paginator.v2 import (
     IntIndexGetter,
 )
 from purity.v1 import (
-    Mappable,
     PrimitiveFactory,
     PureIter,
     PureIterFactory,
@@ -45,7 +44,6 @@ from tap_announcekit.streams.posts._queries import (
 )
 from typing import (
     cast,
-    TypeVar,
 )
 
 LOG = logging.getLogger(__name__)
@@ -90,9 +88,6 @@ def _get_page_range(client: ApiClient, proj: ProjectId) -> IO[range]:
     return raw.map(lambda r: range(_to_primitive(r.pages, int)))
 
 
-_T = TypeVar("_T")
-
-
 @dataclass(frozen=True)
 class PostsGetters:
     client: ApiClient
@@ -107,7 +102,18 @@ class PostsGetters:
         getter: IntIndexGetter[PostIdPage] = IntIndexGetter(
             partial(_get_post_id_page, self.client, proj)
         )
-        id_pages: IO[Mappable[Maybe[PostIdPage]]] = _get_page_range(
-            self.client, proj
-        ).bind(getter.get_pages)
-        return id_pages.map(PureIterFactory.until_empty)
+        # pylint: disable=unnecessary-lambda
+        # for correct type checking lambda is necessary
+        id_pages: IO[PureIter[PostId]] = (
+            _get_page_range(self.client, proj)
+            .bind(getter.get_pages)
+            .map(lambda x: PureIterFactory.from_flist(x))
+            .map(lambda x: PureIterFactory.until_empty(x))
+            .map(lambda p: PureIterFactory.map(lambda i: i.data, p))
+            .map(
+                lambda x: PureIterFactory.chain(
+                    x.map_each(PureIterFactory.from_flist)
+                )
+            )
+        )
+        return id_pages

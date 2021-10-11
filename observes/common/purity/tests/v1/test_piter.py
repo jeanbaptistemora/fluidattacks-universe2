@@ -1,6 +1,5 @@
 from purity.v1 import (
     FrozenList,
-    Mappable,
     PureIter,
     PureIterFactory,
     PureIterIOFactory,
@@ -20,9 +19,9 @@ from typing import (
 )
 
 
-def mock_get(_: int) -> IO[FrozenList[int]]:
+def mock_get(_: int) -> IO[PureIter[int]]:
     data = (randint(0, 10), randint(0, 10))
-    return IO(data)
+    return IO(PureIterFactory.from_flist(data))
 
 
 _T = TypeVar("_T")
@@ -50,8 +49,12 @@ def assert_immutability_inf(piter: PureIter[_T]) -> None:
 class TestPureIterFactory:
     @staticmethod
     def test_chain() -> None:
-        data = ((1, 2, 3), (1, 2, 3))
-        items: PureIter[Mappable[int]] = PureIterFactory.from_flist(data)
+        items = PureIterFactory.from_flist(
+            (
+                PureIterFactory.from_flist((1, 2, 3)),
+                PureIterFactory.from_flist((1, 2, 3)),
+            )
+        )
         piter = PureIterFactory.chain(items)
         assert_immutability(piter)
 
@@ -71,7 +74,7 @@ class TestPureIterFactory:
 
     @staticmethod
     def test_map() -> None:
-        items = (1, 2, 3)
+        items = PureIterFactory.from_flist((1, 2, 3))
         piter = PureIterFactory.map(lambda x: x, items)
         assert_immutability(piter)
 
@@ -96,7 +99,7 @@ class TestPureIterFactory:
 
     @staticmethod
     def test_until_empty() -> None:
-        raw: FrozenList[Optional[int]] = (1, 2, None, 5, 6)
+        raw = PureIterFactory.from_flist((1, 2, None, 5, 6))
         items = PureIterFactory.map(lambda x: Maybe.from_optional(x), raw)
         filtered = PureIterFactory.until_empty(items)
         assert_immutability(filtered)
@@ -106,7 +109,7 @@ class TestPureIterFactory:
 class TestPureIterIOFactory:
     @staticmethod
     def test_chain() -> None:
-        items: PureIter[IO[Mappable[int]]] = PureIterFactory.map_range(
+        items: PureIter[IO[PureIter[int]]] = PureIterFactory.map_range(
             mock_get, range(10)
         )
         chained = PureIterIOFactory.chain(items)
@@ -114,7 +117,7 @@ class TestPureIterIOFactory:
 
     @staticmethod
     def test_until_none() -> None:
-        raw: FrozenList[Optional[int]] = (1, 2, None, 5, 6)
+        raw = PureIterFactory.from_flist((1, 2, None, 5, 6))
         items = PureIterFactory.map(lambda x: IO(x), raw)
         filtered = PureIterIOFactory.until_none(items)
         assert_immutability(filtered)
@@ -122,7 +125,7 @@ class TestPureIterIOFactory:
 
     @staticmethod
     def test_until_empty() -> None:
-        raw: FrozenList[Optional[int]] = (1, 2, None, 5, 6)
+        raw = PureIterFactory.from_flist((1, 2, None, 5, 6))
         items = PureIterFactory.map(lambda x: IO(Maybe.from_optional(x)), raw)
         filtered = PureIterIOFactory.until_empty(items)
         assert_immutability(filtered)

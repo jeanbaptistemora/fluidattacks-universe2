@@ -25,7 +25,6 @@ from typing import (
     Iterable,
     Iterator,
     TypeVar,
-    Union,
 )
 
 _I = TypeVar("_I")
@@ -54,6 +53,3 @@ class PureIter(_PureIter[_I]):
     def consume(p_iter: PureIter[IO[None]]) -> IO[None]:
         deque(p_iter, maxlen=0)
         return IO(None)
-
-
-Mappable = Union[FrozenList[_I], PureIter[_I]]

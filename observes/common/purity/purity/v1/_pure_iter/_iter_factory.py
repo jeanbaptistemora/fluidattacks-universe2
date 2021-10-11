@@ -4,7 +4,6 @@ from itertools import (
     chain,
 )
 from purity.v1._pure_iter._obj import (
-    Mappable,
     PureIter,
 )
 from returns.io import (
@@ -27,7 +26,7 @@ _R = TypeVar("_R")
 class IterableFactory:
     @staticmethod
     def chain(
-        unchained: PureIter[Mappable[_I]],
+        unchained: PureIter[PureIter[_I]],
     ) -> Iterable[_I]:
         return chain.from_iterable(unchained)
 
@@ -36,7 +35,7 @@ class IterableFactory:
         return (i for i in items if i is not None)
 
     @staticmethod
-    def map(function: Callable[[_I], _R], items: Mappable[_I]) -> Iterable[_R]:
+    def map(function: Callable[[_I], _R], items: PureIter[_I]) -> Iterable[_R]:
         return (function(i) for i in items)
 
     @staticmethod
@@ -54,7 +53,7 @@ class IterableFactory:
 class IterableFactoryIO:
     @staticmethod
     def chain_io(
-        unchained: PureIter[IO[Mappable[_I]]],
+        unchained: PureIter[IO[PureIter[_I]]],
     ) -> Iterable[IO[_I]]:
         iters = (unsafe_perform_io(i) for i in iter(unchained))
         return map(IO, chain.from_iterable(iters))

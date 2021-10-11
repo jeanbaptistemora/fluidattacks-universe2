@@ -8,7 +8,6 @@ from paginator.v2._parallel_getter import (
 )
 from purity.v1 import (
     FrozenList,
-    Mappable,
     Patch,
     PureIter,
     PureIterFactory,
@@ -67,8 +66,8 @@ class IntIndexGetter(
             )
 
         ranges = PureIterFactory.infinite_map(page_range, 0, 1)
-        chunks: PureIter[IO[Mappable[Maybe[_DataTVar]]]] = PureIterFactory.map(
-            self.get_pages, ranges
+        chunks = PureIterFactory.map(self.get_pages, ranges).map_each(
+            lambda x: x.map(lambda i: PureIterFactory.from_flist(i))
         )
         chained = PureIterIOFactory.chain(chunks)
         return PureIterIOFactory.until_empty(chained)

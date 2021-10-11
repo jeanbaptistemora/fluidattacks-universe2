@@ -20,7 +20,6 @@ from purity.v1._pure_iter._iter_factory import (
 )
 from purity.v1._pure_iter._obj import (
     _PureIter,
-    Mappable,
     PureIter,
 )
 from returns.curry import (
@@ -46,7 +45,7 @@ _R = TypeVar("_R")
 class PureIterFactory:
     @staticmethod
     def chain(
-        unchained: PureIter[Mappable[_I]],
+        unchained: PureIter[PureIter[_I]],
     ) -> PureIter[_I]:
         function = partial(IterableFactory.chain, unchained)
         return PureIter(_PureIter(Patch(function)))
@@ -71,7 +70,7 @@ class PureIterFactory:
         return cls.map(function, PureIter(draft))
 
     @staticmethod
-    def map(function: Callable[[_I], _R], items: Mappable[_I]) -> PureIter[_R]:
+    def map(function: Callable[[_I], _R], items: PureIter[_I]) -> PureIter[_R]:
         draft = _PureIter(
             Patch(lambda: iter(IterableFactory.map(function, items)))
         )
@@ -103,7 +102,7 @@ class PureIterFactory:
 class PureIterIOFactory:
     @staticmethod
     def chain(
-        unchained: PureIter[IO[Mappable[_I]]],
+        unchained: PureIter[IO[PureIter[_I]]],
     ) -> PureIter[IO[_I]]:
         function = partial(IterableFactoryIO.chain_io, unchained)
         return PureIter(_PureIter(Patch(function)))
