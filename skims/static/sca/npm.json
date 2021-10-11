@@ -296,6 +296,11 @@
   "is-number": {},
   "is-plain-object": {},
   "is-stream": {},
+  "is-svg": {
+    "CVE-2021-28092": [
+      ">=2.1.0,<=4.2.1"
+    ]
+  },
   "isarray": {},
   "isobject": {},
   "istanbul-lib-coverage": {},
