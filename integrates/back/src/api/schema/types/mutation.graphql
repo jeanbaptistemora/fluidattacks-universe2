@@ -913,4 +913,12 @@ type Mutation {
     "List of vulnerabilities that were confirmed closed"
     closedVulnerabilities: [String]!
   ): SimplePayload!
+
+  "Create a Batch job to scan a file on Cloudmersive"
+  virusScanFile(
+    "Name of the file with extension"
+    fileName: String!
+    "Email of the requester"
+    requester: String!
+  ): SimplePayload!
 }

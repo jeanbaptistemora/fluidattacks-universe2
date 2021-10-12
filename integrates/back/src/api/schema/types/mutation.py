@@ -78,6 +78,7 @@ from api.mutations import (
     update_vulnerability_treatment,
     upload_file_new,
     verify_vulnerabilities_request_new,
+    virus_scan_file,
 )
 from ariadne import (
     MutationType,
@@ -217,3 +218,4 @@ MUTATION.set_field(
     "verifyVulnerabilitiesRequest",
     verify_vulnerabilities_request_new.mutate,
 )
+MUTATION.set_field("virusScanFile", virus_scan_file.mutate)

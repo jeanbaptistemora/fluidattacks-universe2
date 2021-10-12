@@ -113,6 +113,7 @@ TEST_GROUPS: Set[str] = {
     "verify_vulnerabilities_request_new",
     "vulnerability",
     "vulnerability_new",
+    "virus_scan_file",
 }
 
 

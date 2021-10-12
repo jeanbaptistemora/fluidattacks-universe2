@@ -13,11 +13,11 @@ from typing import (
 @pytest.mark.parametrize(
     ("email", "role", "permissions"),
     (
-        ("admin@gmail.com", "admin", 14),
-        ("customer@gmail.com", "customer", 2),
+        ("admin@gmail.com", "admin", 15),
+        ("customer@gmail.com", "customer", 3),
         ("customeradmin@gmail.com", "customeradmin", 0),
         ("executive@gmail.com", "executive", 0),
-        ("hacker@gmail.com", "hacker", 2),
+        ("hacker@gmail.com", "hacker", 3),
         ("reattacker@gmail.com", "reattacker", 0),
         ("resourcer@gmail.com", "resourcer", 0),
         ("reviewer@gmail.com", "reviewer", 0),
