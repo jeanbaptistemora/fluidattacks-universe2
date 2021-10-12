@@ -9,7 +9,7 @@
           outputs."/secretsForAwsFromEnv/integratesDev"
         ];
         src = "/makes/foss/modules/integrates/infra/resources/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -20,7 +20,7 @@
           outputs."/secretsForAwsFromEnv/integratesDev"
         ];
         src = "/makes/foss/modules/integrates/infra/resources/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -31,7 +31,7 @@
           outputs."/secretsForAwsFromEnv/integratesDev"
         ];
         src = "/makes/foss/modules/integrates/infra/resources/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };

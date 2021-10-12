@@ -7,7 +7,7 @@
       integratesSecrets = {
         setup = [ outputs."/secretsForAwsFromEnv/integratesProd" ];
         src = "/makes/foss/modules/integrates/infra/secrets/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -16,7 +16,7 @@
       integratesSecrets = {
         setup = [ outputs."/secretsForAwsFromEnv/integratesDev" ];
         src = "/makes/foss/modules/integrates/infra/secrets/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -25,7 +25,7 @@
       integratesSecrets = {
         setup = [ outputs."/secretsForAwsFromEnv/integratesDev" ];
         src = "/makes/foss/modules/integrates/infra/secrets/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };

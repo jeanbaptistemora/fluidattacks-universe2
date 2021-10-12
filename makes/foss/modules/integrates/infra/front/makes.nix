@@ -11,7 +11,7 @@
           outputs."/secretsForTerraformFromEnv/integratesFront"
         ];
         src = "/makes/foss/modules/integrates/infra/front/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -24,7 +24,7 @@
           outputs."/secretsForTerraformFromEnv/integratesFront"
         ];
         src = "/makes/foss/modules/integrates/infra/front/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -52,7 +52,7 @@
           outputs."/secretsForTerraformFromEnv/integratesFront"
         ];
         src = "/makes/foss/modules/integrates/infra/front/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };

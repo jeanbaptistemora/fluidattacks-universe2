@@ -7,7 +7,7 @@
       integratesDatabase = {
         setup = [ outputs."/secretsForAwsFromEnv/integratesProd" ];
         src = "/makes/foss/modules/integrates/infra/database/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -16,7 +16,7 @@
       integratesDatabase = {
         setup = [ outputs."/secretsForAwsFromEnv/integratesDev" ];
         src = "/makes/foss/modules/integrates/infra/database/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -25,7 +25,7 @@
       integratesDatabase = {
         setup = [ outputs."/secretsForAwsFromEnv/integratesDev" ];
         src = "/makes/foss/modules/integrates/infra/database/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
