@@ -357,9 +357,7 @@ def get_creation_date(finding: Dict[str, FindingType]) -> str:
 
 
 def get_date_with_format(item: Dict[str, str]) -> str:
-    return str(item.get("date", "")).split(  # pylint: disable=use-maxsplit-arg
-        " "
-    )[0]
+    return str(item.get("date", "")).split(" ", maxsplit=1)[0]
 
 
 def get_evidence(
