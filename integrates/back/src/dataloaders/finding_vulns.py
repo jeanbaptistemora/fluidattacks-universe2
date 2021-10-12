@@ -10,7 +10,6 @@ from custom_types import (
     Historic as HistoricType,
     Vulnerability as VulnerabilityType,
 )
-import newrelic.agent
 from newutils.requests import (
     map_source,
 )
@@ -24,7 +23,6 @@ from vulnerabilities import (
 )
 
 
-@newrelic.agent.function_trace()
 async def batch_load_fn_vulns(
     finding_ids: List[str],
 ) -> List[List[VulnerabilityType]]:

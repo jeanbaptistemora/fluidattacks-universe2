@@ -35,7 +35,6 @@ from dynamodb import (
     keys,
     operations,
 )
-import newrelic.agent
 from typing import (
     List,
     Tuple,
@@ -223,7 +222,6 @@ class FindingNewLoader(DataLoader):
         return await collect(tuple(map(_get_finding_by_id, finding_ids)))
 
 
-@newrelic.agent.function_trace()
 async def _get_historic_verification(
     finding_id: str,
 ) -> Tuple[FindingVerification, ...]:

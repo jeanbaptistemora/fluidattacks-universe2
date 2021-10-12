@@ -1,3 +1,5 @@
+# pylint: disable=method-hidden
+
 from aiodataloader import (
     DataLoader,
 )
@@ -7,7 +9,6 @@ from custom_types import (
 from itertools import (
     chain,
 )
-import newrelic.agent
 from newutils import (
     vulnerabilities as vulns_utils,
 )
@@ -28,7 +29,6 @@ class FindingVulnsNonZeroRiskLoader(DataLoader):
         unchained_data = await self.load_many(finding_ids)
         return list(chain.from_iterable(unchained_data))
 
-    @newrelic.agent.function_trace()
     async def batch_load_fn(
         self, finding_ids: List[str]
     ) -> List[List[VulnerabilityType]]:

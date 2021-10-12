@@ -28,7 +28,6 @@ from decimal import (
 import html
 import itertools
 import logging
-import newrelic.agent
 from operator import (
     itemgetter,
 )
@@ -359,7 +358,6 @@ def get_reattack_requesters(
     return list(set(users))
 
 
-@newrelic.agent.function_trace()
 def get_reattack_requesters_new(
     historic_verification: Tuple[FindingVerification],
     vulnerability_ids: Set[str],
