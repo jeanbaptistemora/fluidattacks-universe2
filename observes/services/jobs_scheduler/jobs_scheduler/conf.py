@@ -20,7 +20,7 @@ SCHEDULE: Dict[PartialCron, List[str]] = {
     PartialCron.new(3, AnyTime(), 1): [
         os.environ["bugsnagEtl"],
         os.environ["checklyEtl"],
-        "observes.scheduled.on-aws.delighted-etl",
+        os.environ["delightedEtl"],
     ],
     PartialCron.new(6, AnyTime(), work_days): [
         "observes.scheduled.on-aws.code-etl-upload",

@@ -37,5 +37,12 @@ in
         "SERVICES_API_TOKEN"
       ];
     };
+
+    observesDelightedEtl = sharedConfiguration // {
+      attempts = 5;
+      attemptDurationSeconds = 3600;
+      command = [ "./m" "observes.job.delighted-etl" ];
+      queue = "observes_later";
+    };
   };
 }

@@ -17,12 +17,13 @@ makeTemplate {
         bugsnagEtl = outputs."/computeOnAwsBatch/observesBugsnagEtl";
         checklyEtl = outputs."/computeOnAwsBatch/observesChecklyEtl";
         codeEtlAmend = outputs."/computeOnAwsBatch/observesCodeEtlAmend";
+        delightedEtl = outputs."/computeOnAwsBatch/observesDelightedEtl";
       });
     bin = [
       inputs.product.observes-job-batch-stability
       inputs.product.observes-scheduled-on-aws-code-etl-mirror
       inputs.product.observes-scheduled-on-aws-code-etl-upload
-      inputs.product.observes-scheduled-on-aws-delighted-etl
+
       inputs.product.observes-scheduled-on-aws-dynamodb-forces-etl
       inputs.product.observes-scheduled-on-aws-dynamodb-integrates-etl
       inputs.product.observes-scheduled-on-aws-formstack-etl
