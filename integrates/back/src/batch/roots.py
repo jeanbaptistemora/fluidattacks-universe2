@@ -10,8 +10,15 @@ from batch.types import (
 from dataloaders import (
     get_new_context,
 )
+from db_model import (
+    findings as findings_model,
+)
+from db_model.findings.enums import (
+    FindingStateStatus,
+)
 from db_model.findings.types import (
     Finding,
+    FindingState,
 )
 from db_model.roots.types import (
     RootItem,
@@ -24,6 +31,9 @@ from dynamodb.types import (
     Table,
 )
 import itertools
+from newutils import (
+    datetime as datetime_utils,
+)
 from operator import (
     itemgetter,
 )
@@ -36,6 +46,7 @@ from typing import (
     Iterator,
     Tuple,
 )
+import uuid
 
 VULNS_TABLE = Table(
     facets={},
@@ -85,6 +96,32 @@ async def process_finding(
 
     if target_finding:
         await process_vulns(tuple(vulns), target_finding.id)
+    else:
+        target_finding_id = str(uuid.uuid4())
+        await findings_model.add(
+            finding=Finding(
+                affected_systems=source_finding.affected_systems,
+                hacker_email=source_finding.hacker_email,
+                attack_vector_description=(
+                    source_finding.attack_vector_description
+                ),
+                description=source_finding.description,
+                group_name=target_group,
+                id=target_finding_id,
+                state=FindingState(
+                    modified_by=source_finding.hacker_email,
+                    modified_date=datetime_utils.get_iso_date(),
+                    source=source_finding.state.source,
+                    status=FindingStateStatus.CREATED,
+                ),
+                recommendation=source_finding.recommendation,
+                requirements=source_finding.requirements,
+                severity=source_finding.severity,
+                title=source_finding.title,
+                threat=source_finding.threat,
+            )
+        )
+        await process_vulns(tuple(vulns), target_finding_id)
 
 
 async def move_root(*, item: BatchProcessing) -> None:
