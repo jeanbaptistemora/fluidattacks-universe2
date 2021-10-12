@@ -18,12 +18,8 @@ const ACKNOWLEDGE_CONCURRENT_SESSION: DocumentNode = gql`
 `;
 
 const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
-  mutation AddStakeholderMutation(
-    $email: String!
-    $role: StakeholderRole!
-    $phoneNumber: String
-  ) {
-    addStakeholder(email: $email, role: $role, phoneNumber: $phoneNumber) {
+  mutation AddStakeholderMutation($email: String!, $role: StakeholderRole!) {
+    addStakeholder(email: $email, role: $role) {
       success
       email
     }

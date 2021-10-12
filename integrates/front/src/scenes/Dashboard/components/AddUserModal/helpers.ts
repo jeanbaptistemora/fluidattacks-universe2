@@ -15,7 +15,6 @@ const getNewInitialValues = (
   action === "edit"
     ? {
         email: initialValues.email,
-        phoneNumber: initialValues.phoneNumber,
         responsibility: organizationModal ? "" : initialValues.responsibility,
         role: initialValues.role.toUpperCase(),
       }

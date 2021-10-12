@@ -9,7 +9,6 @@ const GET_ORGANIZATION_STAKEHOLDERS: DocumentNode = gql`
         email
         firstLogin
         lastLogin
-        phoneNumber
         role
       }
     }
@@ -20,12 +19,10 @@ const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation GrantStakeholderOrganizationAccessMutation(
     $email: String!
     $organizationId: String!
-    $phoneNumber: String
     $role: OrganizationRole!
   ) {
     grantStakeholderOrganizationAccess(
       organizationId: $organizationId
-      phoneNumber: $phoneNumber
       role: $role
       userEmail: $email
     ) {
@@ -41,12 +38,10 @@ const UPDATE_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation UpdateOrganizationStakeholderMutation(
     $email: String!
     $organizationId: String!
-    $phoneNumber: String
     $role: OrganizationRole!
   ) {
     updateOrganizationStakeholder(
       organizationId: $organizationId
-      phoneNumber: $phoneNumber
       role: $role
       userEmail: $email
     ) {

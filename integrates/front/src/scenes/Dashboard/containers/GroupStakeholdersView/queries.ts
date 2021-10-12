@@ -10,7 +10,6 @@ const GET_STAKEHOLDERS: DocumentNode = gql`
         invitationState
         role
         responsibility
-        phoneNumber
         firstLogin
         lastLogin
       }
@@ -33,14 +32,12 @@ const REMOVE_STAKEHOLDER_MUTATION: DocumentNode = gql`
 const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation GrantStakeholderMutation(
     $email: String!
-    $phoneNumber: String
     $groupName: String
     $responsibility: String
     $role: StakeholderRole!
   ) {
     grantStakeholderAccess(
       email: $email
-      phoneNumber: $phoneNumber
       groupName: $groupName
       responsibility: $responsibility
       role: $role
@@ -50,7 +47,6 @@ const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
         email
         role
         responsibility
-        phoneNumber
         firstLogin
         lastLogin
       }
@@ -61,14 +57,12 @@ const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
 const UPDATE_GROUP_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation UpdateGroupStakeholderMutation(
     $email: String!
-    $phoneNumber: String!
     $groupName: String!
     $responsibility: String!
     $role: StakeholderRole!
   ) {
     updateGroupStakeholder(
       email: $email
-      phoneNumber: $phoneNumber
       groupName: $groupName
       responsibility: $responsibility
       role: $role

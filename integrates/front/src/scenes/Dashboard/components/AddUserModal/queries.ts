@@ -16,7 +16,6 @@ export const GET_STAKEHOLDER: DocumentNode = gql`
     ) {
       email
       responsibility
-      phoneNumber
     }
   }
 `;
