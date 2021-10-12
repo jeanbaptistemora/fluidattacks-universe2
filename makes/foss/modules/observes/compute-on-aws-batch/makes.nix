@@ -25,5 +25,17 @@ in
       command = [ "./m" "observes.job.checkly-etl" ];
       queue = "observes_later";
     };
+
+    observesCodeEtlAmend = sharedConfiguration // {
+      attempts = 5;
+      attemptDurationSeconds = 18000;
+      command = [ "./m" "observes.scheduled.job.code-etl-amend" ];
+      queue = "observes_later";
+      environment = [
+        "INTEGRATES_API_TOKEN"
+        "PRODUCT_API_TOKEN"
+        "SERVICES_API_TOKEN"
+      ];
+    };
   };
 }

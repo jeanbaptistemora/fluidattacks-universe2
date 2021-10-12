@@ -16,10 +16,10 @@ makeTemplate {
       {
         bugsnagEtl = outputs."/computeOnAwsBatch/observesBugsnagEtl";
         checklyEtl = outputs."/computeOnAwsBatch/observesChecklyEtl";
+        codeEtlAmend = outputs."/computeOnAwsBatch/observesCodeEtlAmend";
       });
     bin = [
       inputs.product.observes-job-batch-stability
-      inputs.product.observes-scheduled-on-aws-code-etl-amend
       inputs.product.observes-scheduled-on-aws-code-etl-mirror
       inputs.product.observes-scheduled-on-aws-code-etl-upload
       inputs.product.observes-scheduled-on-aws-delighted-etl

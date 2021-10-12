@@ -37,7 +37,7 @@ SCHEDULE: Dict[PartialCron, List[str]] = {
         "observes.scheduled.on-aws.formstack-etl",
     ],
     PartialCron.new(range(7, 21, 4), AnyTime(), work_days): [
-        "observes.scheduled.on-aws.code-etl-amend",
+        os.environ["codeEtlAmend"],
     ],
     PartialCron.new(range(0, 16, 5), AnyTime(), work_days): [
         "observes.scheduled.on-aws.dynamodb-forces-etl",

@@ -65,7 +65,6 @@ observes.scheduled.job.timedoctor-refresh-token
 observes.scheduled.job.toe-files-etl
 observes.scheduled.job.zoho-crm-etl.fluid
 observes.scheduled.job.zoho-crm-prepare.fluid
-observes.scheduled.on-aws.code-etl-amend
 observes.scheduled.on-aws.code-etl-mirror
 observes.scheduled.on-aws.code-etl-upload
 observes.scheduled.on-aws.delighted-etl
