@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 This migration remove releaseDate and report_date from findings
 

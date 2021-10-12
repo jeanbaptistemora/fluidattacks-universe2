@@ -48,7 +48,7 @@ from decimal import (
     Decimal,
 )
 from findings import (
-    dal as findings_dal,
+    storage as findings_storage,
 )
 from findings.types import (
     FindingDescriptionToUpdate,
@@ -173,11 +173,11 @@ async def remove_finding_new(
             context, finding_id, justification.value, user_email
         )
     )
-    file_names = await findings_dal.search_evidence(
+    file_names = await findings_storage.search_evidence(
         f"{finding.group_name}/{finding.id}"
     )
     await collect(
-        findings_dal.remove_evidence(file_name) for file_name in file_names
+        findings_storage.remove_evidence(file_name) for file_name in file_names
     )
     metadata = FindingMetadataToUpdate(evidences=FindingEvidences())
     await findings_model.update_metadata(
@@ -632,11 +632,11 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
             historic_verification=new_historic_verification,
         )
     )
-    list_evidences_files = await findings_dal.search_evidence(
+    list_evidences_files = await findings_storage.search_evidence(
         f"{finding.group_name}/{finding.id}"
     )
     evidence_s3_coroutines = [
-        findings_dal.remove_evidence(file_name)
+        findings_storage.remove_evidence(file_name)
         for file_name in list_evidences_files
     ]
     mask_new_finding_coroutines.extend(evidence_s3_coroutines)

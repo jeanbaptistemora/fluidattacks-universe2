@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 This migration adds a dafault date to those finding historic_treatments that
 do not have a date.

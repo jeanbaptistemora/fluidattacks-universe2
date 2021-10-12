@@ -12,7 +12,7 @@ from db_model.findings.types import (
     Finding,
 )
 from findings import (
-    dal as findings_dal,
+    storage as findings_storage,
 )
 import logging
 import logging.config
@@ -126,7 +126,7 @@ async def download_evidences_for_pdf(
         folder_name = f'{finding["projectName"]}/{finding["findingId"]}'
         evidences = cast(Dict[str, Dict[str, str]], finding["evidence"])
         evidences_s3: Set[str] = set(
-            await findings_dal.search_evidence(folder_name)
+            await findings_storage.search_evidence(folder_name)
         )
         evidence_set: List[Dict[str, str]] = [
             {
@@ -146,7 +146,7 @@ async def download_evidences_for_pdf(
             for evidence in evidence_set:
                 evidence_id_2 = str(evidence["id"]).split("/")[2]
                 try:
-                    await findings_dal.download_evidence(
+                    await findings_storage.download_evidence(
                         evidence["id"],
                         f"{tempdir}/{evidence_id_2}",
                     )
@@ -173,7 +173,7 @@ async def download_evidences_for_pdf_new(
         folder_name = f"{finding.group_name}/{finding.id}"
         evidences = get_formatted_evidence(finding)
         evidences_s3: Set[str] = set(
-            await findings_dal.search_evidence(folder_name)
+            await findings_storage.search_evidence(folder_name)
         )
         evidence_set = [
             {
@@ -192,7 +192,7 @@ async def download_evidences_for_pdf_new(
             for evidence in evidence_set:
                 evidence_id_2 = str(evidence["id"]).split("/")[2]
                 try:
-                    await findings_dal.download_evidence(
+                    await findings_storage.download_evidence(
                         evidence["id"],
                         f"{tempdir}/{evidence_id_2}",
                     )

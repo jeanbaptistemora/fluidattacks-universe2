@@ -32,9 +32,6 @@ from dynamodb.types import (
 from events import (
     dal as dal_event,
 )
-from findings import (
-    dal as dal_findings,
-)
 from forces import (
     dal as dal_forces,
 )
@@ -156,22 +153,6 @@ async def populate_groups(data: List[Any]) -> bool:
                 group,
             )
             for group in data_parsed
-        ]
-    )
-    return all(await collect(coroutines))
-
-
-async def populate_findings(data: List[Any]) -> bool:
-    coroutines: List[Awaitable[bool]] = []
-    data_parsed: List[Any] = json.loads(json.dumps(data), parse_float=Decimal)
-    coroutines.extend(
-        [
-            dal_findings.add(
-                finding["finding_id"],
-                get_key_or_fallback(finding),
-                finding,
-            )
-            for finding in data_parsed
         ]
     )
     return all(await collect(coroutines))

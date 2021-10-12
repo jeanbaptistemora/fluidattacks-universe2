@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -.- coding: utf-8 -.-
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 This migration browses through the findings and removes the unsafe characters
 introduced by the Google spreadsheet that autocompletes the finding information

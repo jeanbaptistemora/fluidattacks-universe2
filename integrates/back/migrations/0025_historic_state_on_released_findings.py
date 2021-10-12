@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 # Formerly a draft was identified by 'not having a releaseDate' in the DB.
 # This was migrated and a new column called 'historic_state' was added.
 # When this was done there was a missing migration, and now you can find

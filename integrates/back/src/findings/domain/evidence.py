@@ -18,7 +18,7 @@ from db_model.findings.types import (
     FindingEvidenceToUpdate,
 )
 from findings import (
-    dal as findings_dal,
+    storage as findings_storage,
 )
 import io
 import itertools
@@ -68,13 +68,13 @@ async def download_evidence_file(
     group_name: str, finding_id: str, file_name: str
 ) -> str:
     file_id = "/".join([group_name.lower(), finding_id, file_name])
-    file_exists = await findings_dal.search_evidence(file_id)
+    file_exists = await findings_storage.search_evidence(file_id)
     if file_exists:
         start = file_id.find(finding_id) + len(finding_id)
         localfile = f"/tmp{file_id[start:]}"  # nosec
         ext = {".py": ".tmp"}
         tmp_filepath = utils.replace_all(localfile, ext)
-        await findings_dal.download_evidence(file_id, tmp_filepath)
+        await findings_storage.download_evidence(file_id, tmp_filepath)
         return cast(str, tmp_filepath)
     raise Exception("Evidence not found")
 
@@ -111,7 +111,7 @@ async def remove_evidence_new(
         raise EvidenceNotFound()
 
     full_name = f"{finding.group_name}/{finding.id}/{evidence.url}"
-    await findings_dal.remove_evidence(full_name)
+    await findings_storage.remove_evidence(full_name)
     await findings_model.remove_evidence(
         group_name=finding.group_name,
         finding_id=finding.id,
@@ -154,7 +154,7 @@ async def update_evidence_new(
                     cast(List[Dict[str, str]], old_records), file
                 )
 
-    await findings_dal.save_evidence(file, full_name)
+    await findings_storage.save_evidence(file, full_name)
     evidence: Optional[FindingEvidence] = getattr(
         finding.evidences, EVIDENCE_NAMES[evidence_id]
     )
