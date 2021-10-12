@@ -9,6 +9,7 @@ from charts.colors import (
 )
 from charts.utils import (
     get_portfolios_groups,
+    get_subject_days,
     iterate_groups,
     iterate_organizations_and_groups,
     json_dump,
@@ -19,6 +20,9 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
     get_new_context,
+)
+from datetime import (
+    date as datetype,
 )
 from db_model.findings.types import (
     Finding,
@@ -33,6 +37,11 @@ from findings.domain.core import (
 from groups.domain import (
     get_alive_group_names,
 )
+from newutils.datetime import (
+    DEFAULT_STR,
+    get_from_str,
+    get_now_minus_delta,
+)
 from statistics import (
     mean,
 )
@@ -44,6 +53,7 @@ from typing import (
     Dict,
     List,
     NamedTuple,
+    Optional,
     Tuple,
 )
 
@@ -95,6 +105,18 @@ def get_vulnerability_reattacks(*, vulnerability: Vulnerability) -> int:
     )
 
 
+def get_vulnerability_reattacks_date(
+    *, vulnerability: Vulnerability, min_date: datetype
+) -> int:
+    return sum(
+        1
+        for verification in vulnerability["historic_verification"]
+        if verification.get("status") == "REQUESTED"
+        and get_from_str(verification.get("date", DEFAULT_STR)).date()
+        > min_date
+    )
+
+
 def format_mttr_data(
     data: Tuple[Decimal, Decimal, Decimal, Decimal],
     categories: List[str],
@@ -108,7 +130,7 @@ def format_mttr_data(
                     "Mean time to remediate",
                     Decimal("0")
                     if data[0] == Decimal("Infinity")
-                    else data[0],
+                    else data[0].to_integral_exact(rounding=ROUND_CEILING),
                     data[1],
                     data[2],
                     data[3],
@@ -273,10 +295,13 @@ async def get_data_many_groups_mttr(
     organization_id: str,
     groups: Tuple[str, ...],
     loaders: Dataloaders,
-    get_data_one_group: Callable[[str, Dataloaders], Awaitable[Benchmarking]],
+    get_data_one_group: Callable[
+        [str, Dataloaders, Optional[datetype]], Awaitable[Benchmarking]
+    ],
+    min_date: Optional[datetype],
 ) -> Benchmarking:
     groups_data: Tuple[Benchmarking, ...] = await collect(
-        [get_data_one_group(group, loaders) for group in groups]
+        [get_data_one_group(group, loaders, min_date) for group in groups]
     )
 
     mttr: Decimal = (
@@ -300,9 +325,16 @@ async def get_data_many_groups_mttr(
 
 async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
     *,
-    get_data_one_group: Callable[[str, Dataloaders], Awaitable[Benchmarking]],
+    get_data_one_group: Callable[
+        [str, Dataloaders, Optional[datetype]], Awaitable[Benchmarking]
+    ],
 ) -> None:
     loaders: Dataloaders = get_new_context()
+    list_days: List[int] = [30, 90]
+    dates: List[datetype] = [
+        get_now_minus_delta(days=list_days[0]).date(),
+        get_now_minus_delta(days=list_days[1]).date(),
+    ]
     organizations: List[Tuple[str, Tuple[str, ...]]] = []
     portfolios: List[Tuple[str, Tuple[str, ...]]] = []
     groups: List[str] = list(
@@ -324,9 +356,20 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
             get_data_one_group(
                 group,
                 loaders,
+                None,
             )
             for group in groups
         ],
+        workers=24,
+    )
+
+    all_groups_data_30: Tuple[Benchmarking, ...] = await collect(
+        [get_data_one_group(group, loaders, dates[0]) for group in groups],
+        workers=24,
+    )
+
+    all_groups_data_90: Tuple[Benchmarking, ...] = await collect(
+        [get_data_one_group(group, loaders, dates[1]) for group in groups],
         workers=24,
     )
 
@@ -337,6 +380,35 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
                 groups=organization[1],
                 loaders=loaders,
                 get_data_one_group=get_data_one_group,
+                min_date=None,
+            )
+            for organization in organizations
+        ],
+        workers=24,
+    )
+
+    all_organizations_data_30: Tuple[Benchmarking, ...] = await collect(
+        [
+            get_data_many_groups_mttr(
+                organization_id=organization[0],
+                groups=organization[1],
+                loaders=loaders,
+                get_data_one_group=get_data_one_group,
+                min_date=dates[0],
+            )
+            for organization in organizations
+        ],
+        workers=24,
+    )
+
+    all_organizations_data_90: Tuple[Benchmarking, ...] = await collect(
+        [
+            get_data_many_groups_mttr(
+                organization_id=organization[0],
+                groups=organization[1],
+                loaders=loaders,
+                get_data_one_group=get_data_one_group,
+                min_date=dates[1],
             )
             for organization in organizations
         ],
@@ -350,136 +422,264 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
                 groups=portfolio[1],
                 loaders=loaders,
                 get_data_one_group=get_data_one_group,
+                min_date=None,
             )
             for portfolio in portfolios
         ],
         workers=24,
     )
 
-    best_mttr = get_best_mttr(
-        subjects=[
-            organization
-            for organization in all_organizations_data
-            if organization.is_valid
-        ]
-    )
-
-    worst_organazation_mttr = get_worst_mttr(
-        subjects=[
-            organization
-            for organization in all_organizations_data
-            if organization.is_valid
+    all_portfolios_data_30: Tuple[Benchmarking, ...] = await collect(
+        [
+            get_data_many_groups_mttr(
+                organization_id=portfolio[0],
+                groups=portfolio[1],
+                loaders=loaders,
+                get_data_one_group=get_data_one_group,
+                min_date=dates[0],
+            )
+            for portfolio in portfolios
         ],
-        oldest_open_age=oldest_open_age,
+        workers=24,
     )
 
-    best_group_mttr = get_best_mttr(
-        subjects=[group for group in all_groups_data if group.is_valid]
-    )
-
-    worst_group_mttr = get_worst_mttr(
-        subjects=[group for group in all_groups_data if group.is_valid],
-        oldest_open_age=oldest_open_age,
-    )
-
-    best_portfolio_mttr = get_best_mttr(
-        subjects=[
-            portfolio
-            for portfolio in all_portfolios_data
-            if portfolio.is_valid
-        ]
-    )
-
-    worst_portfolio_mttr = get_worst_mttr(
-        subjects=[
-            portfolio
-            for portfolio in all_portfolios_data
-            if portfolio.is_valid
+    all_portfolios_data_90: Tuple[Benchmarking, ...] = await collect(
+        [
+            get_data_many_groups_mttr(
+                organization_id=portfolio[0],
+                groups=portfolio[1],
+                loaders=loaders,
+                get_data_one_group=get_data_one_group,
+                min_date=dates[1],
+            )
+            for portfolio in portfolios
         ],
-        oldest_open_age=oldest_open_age,
+        workers=24,
     )
 
-    async for group in iterate_groups():
-        json_dump(
-            document=format_mttr_data(
-                data=(
-                    Decimal(
+    best_mttr: Dict[str, Decimal] = {
+        "best_mttr": get_best_mttr(
+            subjects=[
+                organization
+                for organization in all_organizations_data
+                if organization.is_valid
+            ]
+        ),
+        "best_mttr_30": get_best_mttr(
+            subjects=[
+                organization
+                for organization in all_organizations_data_30
+                if organization.is_valid
+            ]
+        ),
+        "best_mttr_90": get_best_mttr(
+            subjects=[
+                organization
+                for organization in all_organizations_data_90
+                if organization.is_valid
+            ]
+        ),
+    }
+
+    worst_organazation_mttr: Dict[str, Decimal] = {
+        "worst_organazation_mttr": get_worst_mttr(
+            subjects=[
+                organization
+                for organization in all_organizations_data
+                if organization.is_valid
+            ],
+            oldest_open_age=oldest_open_age,
+        ),
+        "worst_organazation_mttr_30": get_worst_mttr(
+            subjects=[
+                organization
+                for organization in all_organizations_data_30
+                if organization.is_valid
+            ],
+            oldest_open_age=Decimal("30.0"),
+        ),
+        "worst_organazation_mttr_90": get_worst_mttr(
+            subjects=[
+                organization
+                for organization in all_organizations_data_90
+                if organization.is_valid
+            ],
+            oldest_open_age=Decimal("90.0"),
+        ),
+    }
+
+    best_group_mttr: Dict[str, Decimal] = {
+        "best_group_mttr": get_best_mttr(
+            subjects=[group for group in all_groups_data if group.is_valid]
+        ),
+        "best_group_mttr_30": get_best_mttr(
+            subjects=[group for group in all_groups_data_30 if group.is_valid]
+        ),
+        "best_group_mttr_90": get_best_mttr(
+            subjects=[group for group in all_groups_data_90 if group.is_valid]
+        ),
+    }
+
+    worst_group_mttr: Dict[str, Decimal] = {
+        "worst_group_mttr": get_worst_mttr(
+            subjects=[group for group in all_groups_data if group.is_valid],
+            oldest_open_age=oldest_open_age,
+        ),
+        "worst_group_mttr_30": get_worst_mttr(
+            subjects=[group for group in all_groups_data_30 if group.is_valid],
+            oldest_open_age=Decimal("30.0"),
+        ),
+        "worst_group_mttr_90": get_worst_mttr(
+            subjects=[group for group in all_groups_data_90 if group.is_valid],
+            oldest_open_age=Decimal("90.0"),
+        ),
+    }
+
+    best_portfolio_mttr: Dict[str, Decimal] = {
+        "best_portfolio_mttr": get_best_mttr(
+            subjects=[
+                portfolio
+                for portfolio in all_portfolios_data
+                if portfolio.is_valid
+            ]
+        ),
+        "best_portfolio_mttr_30": get_best_mttr(
+            subjects=[
+                portfolio
+                for portfolio in all_portfolios_data_30
+                if portfolio.is_valid
+            ]
+        ),
+        "best_portfolio_mttr_90": get_best_mttr(
+            subjects=[
+                portfolio
+                for portfolio in all_portfolios_data_90
+                if portfolio.is_valid
+            ]
+        ),
+    }
+
+    worst_portfolio_mttr: Dict[str, Decimal] = {
+        "worst_portfolio_mttr": get_worst_mttr(
+            subjects=[
+                portfolio
+                for portfolio in all_portfolios_data
+                if portfolio.is_valid
+            ],
+            oldest_open_age=oldest_open_age,
+        ),
+        "worst_portfolio_mttr_30": get_worst_mttr(
+            subjects=[
+                portfolio
+                for portfolio in all_portfolios_data_30
+                if portfolio.is_valid
+            ],
+            oldest_open_age=Decimal("30.0"),
+        ),
+        "worst_portfolio_mttr_90": get_worst_mttr(
+            subjects=[
+                portfolio
+                for portfolio in all_portfolios_data_90
+                if portfolio.is_valid
+            ],
+            oldest_open_age=Decimal("90.0"),
+        ),
+    }
+
+    for days, min_date in zip([None, *list_days], [None, *dates]):
+        async for group in iterate_groups():
+            json_dump(
+                document=format_mttr_data(
+                    data=(
                         (
                             await get_data_one_group(
                                 group,
                                 loaders,
+                                min_date,
                             )
-                        ).mttr
-                    ).to_integral_exact(rounding=ROUND_CEILING),
-                    best_group_mttr,
-                    get_mean_organizations(
-                        organizations=get_valid_subjects(
-                            all_subjects=all_groups_data,
-                            subject=group,
-                        )
+                        ).mttr,
+                        best_group_mttr[
+                            "best_group_mttr" + get_subject_days(days)
+                        ],
+                        get_mean_organizations(
+                            organizations=get_valid_subjects(
+                                all_subjects=all_groups_data,
+                                subject=group,
+                            )
+                        ),
+                        worst_group_mttr[
+                            "worst_group_mttr" + get_subject_days(days)
+                        ],
                     ),
-                    worst_group_mttr,
+                    categories=GROUP_CATEGORIES,
                 ),
-                categories=GROUP_CATEGORIES,
-            ),
-            entity="group",
-            subject=group,
-        )
+                entity="group",
+                subject=group + get_subject_days(days),
+            )
 
-    async for org_id, _, org_groups in iterate_organizations_and_groups():
-        json_dump(
-            document=format_mttr_data(
-                data=(
-                    (
-                        await get_data_many_groups_mttr(
-                            organization_id=org_id,
-                            groups=org_groups,
-                            loaders=loaders,
-                            get_data_one_group=get_data_one_group,
-                        )
-                    ).mttr,
-                    best_mttr,
-                    get_mean_organizations(
-                        organizations=get_valid_subjects(
-                            all_subjects=all_organizations_data,
-                            subject=org_id,
-                        )
-                    ),
-                    worst_organazation_mttr,
-                ),
-                categories=ORGANIZATION_CATEGORIES,
-            ),
-            entity="organization",
-            subject=org_id,
-        )
-
-    async for org_id, org_name, _ in iterate_organizations_and_groups():
-        for portfolio, groups in await get_portfolios_groups(org_name):
+        async for org_id, _, org_groups in iterate_organizations_and_groups():
             json_dump(
                 document=format_mttr_data(
                     data=(
                         (
                             await get_data_many_groups_mttr(
-                                organization_id=portfolio,
-                                groups=tuple(groups),
+                                organization_id=org_id,
+                                groups=org_groups,
                                 loaders=loaders,
                                 get_data_one_group=get_data_one_group,
+                                min_date=min_date,
                             )
                         ).mttr,
-                        best_portfolio_mttr,
+                        best_mttr["best_mttr" + get_subject_days(days)],
                         get_mean_organizations(
                             organizations=get_valid_subjects(
-                                all_subjects=all_portfolios_data,
-                                subject=portfolio,
+                                all_subjects=all_organizations_data,
+                                subject=org_id,
                             )
                         ),
-                        worst_portfolio_mttr,
+                        worst_organazation_mttr[
+                            "worst_organazation_mttr" + get_subject_days(days)
+                        ],
                     ),
-                    categories=PORTFOLIO_CATEGORIES,
+                    categories=ORGANIZATION_CATEGORIES,
                 ),
-                entity="portfolio",
-                subject=f"{org_id}PORTFOLIO#{portfolio}",
+                entity="organization",
+                subject=org_id + get_subject_days(days),
             )
+
+        async for org_id, org_name, _ in iterate_organizations_and_groups():
+            for portfolio, groups in await get_portfolios_groups(org_name):
+                json_dump(
+                    document=format_mttr_data(
+                        data=(
+                            (
+                                await get_data_many_groups_mttr(
+                                    organization_id=portfolio,
+                                    groups=tuple(groups),
+                                    loaders=loaders,
+                                    get_data_one_group=get_data_one_group,
+                                    min_date=min_date,
+                                )
+                            ).mttr,
+                            best_portfolio_mttr[
+                                "best_portfolio_mttr" + get_subject_days(days)
+                            ],
+                            get_mean_organizations(
+                                organizations=get_valid_subjects(
+                                    all_subjects=all_portfolios_data,
+                                    subject=portfolio,
+                                )
+                            ),
+                            worst_portfolio_mttr[
+                                "worst_portfolio_mttr" + get_subject_days(days)
+                            ],
+                        ),
+                        categories=PORTFOLIO_CATEGORIES,
+                    ),
+                    entity="portfolio",
+                    subject=f"{org_id}PORTFOLIO#{portfolio}"
+                    + get_subject_days(days),
+                )
 
 
 def sum_mttr_many_groups(*, groups_data: Tuple[Remediate, ...]) -> Remediate:
