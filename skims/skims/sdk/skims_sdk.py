@@ -1,5 +1,8 @@
 import aioboto3
 import asyncio
+from botocore.exceptions import (
+    ClientError,
+)
 from datetime import (
     datetime,
     timedelta,
@@ -237,45 +240,49 @@ async def queue(
 
 
 async def queue_boto3(
-    finding_code: str,
     group: str,
+    finding_code: str,
     namespace: str,
     urgent: bool,
 ) -> Dict[str, Any]:
     queue_name = get_queue_for_finding(finding_code, urgent=urgent)
+    job_name = f"process-{group}-{finding_code}-{namespace}"
     resource_options = dict(
         service_name="batch",
-        aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
-        aws_secret_access_key=os.environ["AWS_ACCESS_KEY_ID"],
-        aws_session_token=os.environ.get("AWS_SESSION_TOKEN"),
+        aws_access_key_id=os.environ["SKIMS_PROD_AWS_ACCESS_KEY_ID"],
+        aws_secret_access_key=os.environ["SKIMS_PROD_AWS_SECRET_ACCESS_KEY"],
+        aws_session_token=os.environ.get("SKIMS_PROD_AWS_SESSION_TOKEN"),
     )
     async with aioboto3.client(**resource_options) as batch:
-        return await batch.submit_job(
-            jobName=f"process-{group}-{finding_code}-{namespace}",
-            jobQueue=queue_name,
-            jobDefinition="makes",
-            containerOverrides={
-                "vcpus": 1,
-                "command": [
-                    "m",
-                    "f",
-                    "/skims/process-group",
-                    group,
-                    finding_code,
-                    namespace,
-                ],
-                "environment": [
-                    {"name": "CI", "value": "true"},
-                    {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
-                    {
-                        "name": "PRODUCT_API_TOKEN",
-                        "value": os.environ.get("PRODUCT_API_TOKEN"),
-                    },
-                ],
-                "memory": 1 * 1800,
-            },
-            retryStrategy={
-                "attempts": 1,
-            },
-            timeout={"attemptDurationSeconds": 86400},
-        )
+        try:
+            return await batch.submit_job(
+                jobName=job_name,
+                jobQueue=queue_name,
+                jobDefinition="makes",
+                containerOverrides={
+                    "vcpus": 1,
+                    "command": [
+                        "m",
+                        "f",
+                        "/skims/process-group",
+                        group,
+                        finding_code,
+                        namespace,
+                    ],
+                    "environment": [
+                        {"name": "CI", "value": "true"},
+                        {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
+                        {
+                            "name": "PRODUCT_API_TOKEN",
+                            "value": os.environ.get("PRODUCT_API_TOKEN"),
+                        },
+                    ],
+                    "memory": 1 * 1800,
+                },
+                retryStrategy={
+                    "attempts": 1,
+                },
+                timeout={"attemptDurationSeconds": 86400},
+            )
+        except ClientError:
+            return {}

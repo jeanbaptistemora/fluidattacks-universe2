@@ -1,9 +1,6 @@
 from aioextensions import (
     schedule,
 )
-from context import (
-    PRODUCT_API_TOKEN,
-)
 from custom_types import (
     MailContent as MailContentType,
 )
@@ -16,6 +13,7 @@ import skims_sdk
 from typing import (
     Any,
     Callable,
+    Dict,
     List,
 )
 
@@ -38,21 +36,10 @@ async def machine_queue(
     group_name: str,
     namespace: str,
     urgent: bool,
-) -> None:
-    machine_queue_kwargs = dict(
-        finding_code=finding_code,
-        group=group_name,
-        namespace=namespace,
-        urgent=urgent,
-        product_api_token=PRODUCT_API_TOKEN,
+) -> Dict[str, Any]:
+    return await skims_sdk.queue_boto3(
+        group_name, finding_code, namespace, urgent
     )
-
-    info("Queueing Machine", extra=machine_queue_kwargs)
-    out, _, _ = await skims_sdk.queue(**machine_queue_kwargs)
-    if out != 0:
-        error(
-            "Could not queue a machine execution", extra=machine_queue_kwargs
-        )
 
 
 def scheduler_send_mail(
