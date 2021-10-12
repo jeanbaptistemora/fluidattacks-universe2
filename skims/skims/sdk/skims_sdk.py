@@ -225,7 +225,7 @@ async def queue(
         group,
         finding_code,
         namespace,
-        urgent,
+        str(urgent).lower(),
         PRODUCT_API_TOKEN=product_api_token,
         stderr=stderr,
         stdout=stdout,
