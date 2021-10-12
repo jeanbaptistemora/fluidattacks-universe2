@@ -8,9 +8,13 @@ from charts.generators.bar_chart.utils import (
     Benchmarking,
     generate_all_mttr_benchmarking,
     get_vulnerability_reattacks,
+    get_vulnerability_reattacks_date,
 )
 from dataloaders import (
     Dataloaders,
+)
+from datetime import (
+    date as datetype,
 )
 from db_model.findings.types import (
     Finding,
@@ -26,12 +30,15 @@ from newutils.vulnerabilities import (
     is_accepted_undefined_vulnerability,
 )
 from typing import (
+    Optional,
     Tuple,
 )
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str, loaders: Dataloaders) -> Benchmarking:
+async def get_data_one_group(
+    group: str, loaders: Dataloaders, min_date: Optional[datetype]
+) -> Benchmarking:
     group_findings_new: Tuple[
         Finding, ...
     ] = await loaders.group_findings_new.load(group.lower())
@@ -46,13 +53,21 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Benchmarking:
         if not is_accepted_undefined_vulnerability(vulnerability)
     ]
 
-    number_of_reattacks: int = sum(
-        get_vulnerability_reattacks(vulnerability=vulnerability)
-        for vulnerability in vulnerabilities_excluding_permanently_accepted
-    )
+    if min_date:
+        number_of_reattacks: int = sum(
+            get_vulnerability_reattacks_date(
+                vulnerability=vulnerability, min_date=min_date
+            )
+            for vulnerability in vulnerabilities_excluding_permanently_accepted
+        )
+    else:
+        number_of_reattacks = sum(
+            get_vulnerability_reattacks(vulnerability=vulnerability)
+            for vulnerability in vulnerabilities_excluding_permanently_accepted
+        )
 
     mttr: Decimal = await get_mean_remediate_non_treated_cvssf_new(
-        loaders, group.lower()
+        loaders, group.lower(), min_date=min_date
     )
 
     return Benchmarking(
