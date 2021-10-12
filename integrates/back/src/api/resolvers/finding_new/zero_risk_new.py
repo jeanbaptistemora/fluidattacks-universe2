@@ -16,6 +16,7 @@ from functools import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+import newrelic.agent
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
@@ -25,6 +26,7 @@ from typing import (
 )
 
 
+@newrelic.agent.function_trace()
 @enforce_group_level_auth_async
 async def resolve(
     parent: Finding, info: GraphQLResolveInfo, **kwargs: None
@@ -45,6 +47,7 @@ async def resolve(
     return vulns
 
 
+@newrelic.agent.function_trace()
 async def resolve_no_cache(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Vulnerability]:
