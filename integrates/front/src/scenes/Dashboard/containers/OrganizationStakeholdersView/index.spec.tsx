@@ -65,14 +65,12 @@ describe("Organization users view", (): void => {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
                   lastLogin: "2020-09-01",
-                  phoneNumber: "3100000000",
                   role: "system_owner",
                 },
                 {
                   email: "testuser2@gmail.com",
                   firstLogin: "2020-08-01",
                   lastLogin: "-",
-                  phoneNumber: "3140000000",
                   role: "customeradmin",
                 },
               ],
@@ -118,12 +116,10 @@ describe("Organization users view", (): void => {
     const user1Cells: ReactWrapper = wrapper.find("tr").at(1).find("td");
     const user2Cells: ReactWrapper = wrapper.find("tr").at(2).find("td");
 
-    const RENDER_TEST_AT3 = 3;
     const RENDER_TEST_AT5 = 5;
 
     expect(user1Cells.at(1).text()).toBe("testuser1@gmail.com");
     expect(user1Cells.at(2).text()).toBe("System Owner");
-    expect(user1Cells.at(RENDER_TEST_AT3).text()).toBe("3100000000");
     expect(user1Cells.at(4).text()).toBe("2020-06-01");
     expect(user1Cells.at(RENDER_TEST_AT5).text()).toBe(
       moment("2020-09-01", "YYYY-MM-DD hh:mm:ss").fromNow()
@@ -131,7 +127,6 @@ describe("Organization users view", (): void => {
 
     expect(user2Cells.at(1).text()).toBe("testuser2@gmail.com");
     expect(user2Cells.at(2).text()).toBe("User Manager");
-    expect(user2Cells.at(RENDER_TEST_AT3).text()).toBe("3140000000");
     expect(user2Cells.at(4).text()).toBe("2020-08-01");
     expect(user2Cells.at(RENDER_TEST_AT5).text()).toBe("-");
 
@@ -167,7 +162,6 @@ describe("Organization users view", (): void => {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
                   lastLogin: "[10, 35207]",
-                  phoneNumber: "+573100000000",
                   role: "system_owner",
                 },
               ],
@@ -189,7 +183,6 @@ describe("Organization users view", (): void => {
           data: {
             stakeholder: {
               email: "testuser2@gmail.com",
-              phoneNumber: "+573104448888",
               responsibility: "",
             },
           },
@@ -201,7 +194,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser2@gmail.com",
             organizationId: mockProps.organizationId,
-            phoneNumber: "+573104448888",
             responsibility: "",
             role: "CUSTOMER",
           },
@@ -233,14 +225,12 @@ describe("Organization users view", (): void => {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
                   lastLogin: "[10, 35207]",
-                  phoneNumber: "+573100000000",
                   role: "system_owner",
                 },
                 {
                   email: "testuser2@gmail.com",
                   firstLogin: "2020-08-01",
                   lastLogin: "[-1, -1]",
-                  phoneNumber: "+573104448888",
                   role: "customer",
                 },
               ],
@@ -289,21 +279,6 @@ describe("Organization users view", (): void => {
     emailField().simulate("blur", {
       target: { name: "email" },
     });
-
-    await act(async (): Promise<void> => {
-      const sleep = 200;
-      await wait(sleep);
-      wrapper.update();
-
-      expect(
-        wrapper
-          .find(AddUserModal)
-          .find({ name: "phoneNumber" })
-          .find("input")
-          .prop("value")
-      ).toBe("+57 (310) 444 8888");
-    });
-
     roleField().simulate("change", {
       target: { name: "role", value: "CUSTOMER" },
     });
@@ -341,7 +316,6 @@ describe("Organization users view", (): void => {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
                   lastLogin: "[10, 35207]",
-                  phoneNumber: "+573100000000",
                   role: "customer",
                 },
               ],
@@ -355,7 +329,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
-            phoneNumber: "+573201113333",
             responsibility: "",
             role: "CUSTOMERADMIN",
           },
@@ -387,7 +360,6 @@ describe("Organization users view", (): void => {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
                   lastLogin: "[10, 35207]",
-                  phoneNumber: "+573201113333",
                   role: "customeradmin",
                 },
               ],
@@ -444,29 +416,15 @@ describe("Organization users view", (): void => {
         .find("select")
         .prop("value")
     ).toBe("CUSTOMER");
-    expect(
-      wrapper
-        .find(AddUserModal)
-        .find({ name: "phoneNumber" })
-        .find("input")
-        .prop("value")
-    ).toBe("+57 (310) 000 0000");
 
     const form: ReactWrapper = wrapper.find(AddUserModal).find("Formik");
     const roleField: ReactWrapper = wrapper
       .find(AddUserModal)
       .find({ name: "role" })
       .find("select");
-    const phoneField: ReactWrapper = wrapper
-      .find(AddUserModal)
-      .find({ name: "phoneNumber" })
-      .find("input");
 
     roleField.simulate("change", {
       target: { name: "role", value: "CUSTOMERADMIN" },
-    });
-    phoneField.simulate("change", {
-      target: { name: "phoneNumber", value: "+57 (320) 111 3333" },
     });
     form.simulate("submit");
 
@@ -501,14 +459,12 @@ describe("Organization users view", (): void => {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
                   lastLogin: "[10, 35207]",
-                  phoneNumber: "3100000000",
                   role: "system_owner",
                 },
                 {
                   email: "testuser2@gmail.com",
                   firstLogin: "2020-08-01",
                   lastLogin: "[-1, -1]",
-                  phoneNumber: "3140000000",
                   role: "customeradmin",
                 },
               ],
@@ -548,7 +504,6 @@ describe("Organization users view", (): void => {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
                   lastLogin: "[10, 35207]",
-                  phoneNumber: "3100000000",
                   role: "system_owner",
                 },
               ],
@@ -666,7 +621,6 @@ describe("Organization users view", (): void => {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
                   lastLogin: "[10, 35207]",
-                  phoneNumber: "3100000000",
                   role: "system_owner",
                 },
               ],
@@ -680,7 +634,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
-            phoneNumber: "3100000000",
             responsibility: "",
             role: "CUSTOMERADMIN",
           },
@@ -695,7 +648,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
-            phoneNumber: "3100000000",
             responsibility: "",
             role: "CUSTOMERADMIN",
           },
@@ -710,7 +662,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
-            phoneNumber: "3100000000",
             responsibility: "",
             role: "CUSTOMERADMIN",
           },
@@ -725,7 +676,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
-            phoneNumber: "3100000000",
             responsibility: "",
             role: "CUSTOMERADMIN",
           },
@@ -742,7 +692,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
-            phoneNumber: "3100000000",
             responsibility: "",
             role: "CUSTOMERADMIN",
           },
@@ -759,7 +708,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
-            phoneNumber: "3100000000",
             responsibility: "",
             role: "CUSTOMERADMIN",
           },
