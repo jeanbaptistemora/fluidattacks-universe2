@@ -19,7 +19,7 @@ SCHEDULE: Dict[PartialCron, List[str]] = {
     ],
     PartialCron.new(3, AnyTime(), 1): [
         os.environ["bugsnagEtl"],
-        "observes.scheduled.on-aws.checkly-etl",
+        os.environ["checklyEtl"],
         "observes.scheduled.on-aws.delighted-etl",
     ],
     PartialCron.new(6, AnyTime(), work_days): [

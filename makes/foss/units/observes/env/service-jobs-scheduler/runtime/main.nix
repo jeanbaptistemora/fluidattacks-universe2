@@ -7,19 +7,18 @@
 }:
 let
   self = projectPath "/observes/services/jobs_scheduler";
-
-  makeExport = name: output:
-    [ name output "/bin/${output.name}" ];
 in
 makeTemplate {
   name = "observes-env-service-jobs-scheduler-runtime";
   searchPaths = {
-    export = [
-      (makeExport "bugsnagEtl" outputs."/computeOnAwsBatch/observesBugsnagEtl")
-    ];
+    export = builtins.attrValues (builtins.mapAttrs
+      (name: output: [ name output "/bin/${output.name}" ])
+      {
+        bugsnagEtl = outputs."/computeOnAwsBatch/observesBugsnagEtl";
+        checklyEtl = outputs."/computeOnAwsBatch/observesChecklyEtl";
+      });
     bin = [
       inputs.product.observes-job-batch-stability
-      inputs.product.observes-scheduled-on-aws-checkly-etl
       inputs.product.observes-scheduled-on-aws-code-etl-amend
       inputs.product.observes-scheduled-on-aws-code-etl-mirror
       inputs.product.observes-scheduled-on-aws-code-etl-upload
