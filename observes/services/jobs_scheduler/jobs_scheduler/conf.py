@@ -34,7 +34,7 @@ SCHEDULE: Dict[PartialCron, List[str]] = {
         "observes.scheduled.on-aws.gitlab-etl.services",
     ],
     PartialCron.new((11, 18), AnyTime(), work_days): [
-        "observes.scheduled.on-aws.formstack-etl",
+        os.environ["formstackEtl"],
     ],
     PartialCron.new(range(7, 21, 4), AnyTime(), work_days): [
         os.environ["codeEtlAmend"],

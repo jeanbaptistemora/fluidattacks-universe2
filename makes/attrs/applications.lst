@@ -68,7 +68,6 @@ observes.scheduled.job.zoho-crm-prepare.fluid
 observes.scheduled.on-aws.code-etl-mirror
 observes.scheduled.on-aws.code-etl-upload
 observes.scheduled.on-aws.dynamodb-integrates-etl
-observes.scheduled.on-aws.formstack-etl
 observes.scheduled.on-aws.gitlab-etl.challenges
 observes.scheduled.on-aws.gitlab-etl.default
 observes.scheduled.on-aws.gitlab-etl.product

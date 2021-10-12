@@ -19,15 +19,14 @@ makeTemplate {
         codeEtlAmend = outputs."/computeOnAwsBatch/observesCodeEtlAmend";
         delightedEtl = outputs."/computeOnAwsBatch/observesDelightedEtl";
         dynamoDbForcesEtl = outputs."/computeOnAwsBatch/observesDynamoDbForcesEtl";
-
+        formstackEtl = outputs."/computeOnAwsBatch/observesFormstackEtl";
       });
     bin = [
       inputs.product.observes-job-batch-stability
       inputs.product.observes-scheduled-on-aws-code-etl-mirror
       inputs.product.observes-scheduled-on-aws-code-etl-upload
-
       inputs.product.observes-scheduled-on-aws-dynamodb-integrates-etl
-      inputs.product.observes-scheduled-on-aws-formstack-etl
+
       inputs.product.observes-scheduled-on-aws-gitlab-etl-challenges
       inputs.product.observes-scheduled-on-aws-gitlab-etl-default
       inputs.product.observes-scheduled-on-aws-gitlab-etl-product
