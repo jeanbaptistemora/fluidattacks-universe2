@@ -7,7 +7,7 @@
       sorts = {
         setup = [ outputs."/secretsForAwsFromEnv/sortsDev" ];
         src = "/makes/foss/modules/sorts/infra/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -16,7 +16,7 @@
       sorts = {
         setup = [ outputs."/secretsForAwsFromEnv/sortsDev" ];
         src = "/makes/foss/modules/sorts/infra/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -25,7 +25,7 @@
       sorts = {
         setup = [ outputs."/secretsForAwsFromEnv/sortsDev" ];
         src = "/makes/foss/modules/sorts/infra/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
