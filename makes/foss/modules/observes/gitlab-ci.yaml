@@ -1066,6 +1066,8 @@
   script:
     - m . /observes/bin/jobs-scheduler
   stage: analytics
+  tags:
+    - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1

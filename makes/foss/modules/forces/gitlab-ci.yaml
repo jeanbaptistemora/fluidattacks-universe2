@@ -73,6 +73,8 @@
   script:
     - m . /forces/process-groups
   stage: scheduler
+  tags:
+    - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -88,6 +90,8 @@
   script:
     - m . /forces/process-groups-break
   stage: scheduler
+  tags:
+    - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
