@@ -90,7 +90,7 @@ async def generate_all(
             subject=group,
         )
 
-    async for org_id, _, org_groups in (iterate_organizations_and_groups()):
+    async for org_id, _, org_groups in iterate_organizations_and_groups():
         json_dump(
             document=format_document(
                 await get_data_many_groups(org_groups),
@@ -99,7 +99,7 @@ async def generate_all(
             subject=org_id,
         )
 
-    async for org_id, org_name, _ in (iterate_organizations_and_groups()):
+    async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
             json_dump(
                 document=format_document(

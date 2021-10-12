@@ -312,7 +312,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         groups=groups, loaders=loaders
     )
 
-    async for org_id, _, org_groups in (iterate_organizations_and_groups()):
+    async for org_id, _, org_groups in iterate_organizations_and_groups():
         organizations.append((org_id, org_groups))
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
@@ -426,7 +426,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
             subject=group,
         )
 
-    async for org_id, _, org_groups in (iterate_organizations_and_groups()):
+    async for org_id, _, org_groups in iterate_organizations_and_groups():
         json_dump(
             document=format_mttr_data(
                 data=(
@@ -534,7 +534,7 @@ async def generate_all_top_vulnerabilities(
             subject=group,
         )
 
-    async for org_id, _, org_groups in (iterate_organizations_and_groups()):
+    async for org_id, _, org_groups in iterate_organizations_and_groups():
         json_dump(
             document=format_data(
                 await get_data_many_groups(list(org_groups), loaders),
@@ -543,7 +543,7 @@ async def generate_all_top_vulnerabilities(
             subject=org_id,
         )
 
-    async for org_id, org_name, _ in (iterate_organizations_and_groups()):
+    async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
             json_dump(
                 document=format_data(
