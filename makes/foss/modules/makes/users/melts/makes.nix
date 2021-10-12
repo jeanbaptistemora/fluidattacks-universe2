@@ -11,7 +11,7 @@
           outputs."/secretsForTerraformFromEnv/makesUsersMelts"
         ];
         src = "/makes/foss/modules/makes/users/melts/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -22,7 +22,7 @@
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
         src = "/makes/foss/modules/makes/users/melts/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -44,7 +44,7 @@
         ];
         reDeploy = true;
         src = "/makes/foss/modules/makes/users/melts/infra";
-        version = "0.14";
+        version = "1.0";
       };
       makesUsersMeltsKeys2 = {
         setup = [
@@ -57,7 +57,7 @@
         ];
         reDeploy = true;
         src = "/makes/foss/modules/makes/users/melts/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -69,7 +69,7 @@
           outputs."/secretsForTerraformFromEnv/makesUsersMelts"
         ];
         src = "/makes/foss/modules/makes/users/melts/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };

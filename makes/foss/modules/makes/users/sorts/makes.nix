@@ -11,7 +11,7 @@
           outputs."/secretsForTerraformFromEnv/makesUsersSorts"
         ];
         src = "/makes/foss/modules/makes/users/sorts/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -23,7 +23,7 @@
           outputs."/secretsForTerraformFromEnv/makesUsersSorts"
         ];
         src = "/makes/foss/modules/makes/users/sorts/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -46,7 +46,7 @@
         ];
         reDeploy = true;
         src = "/makes/foss/modules/makes/users/sorts/infra";
-        version = "0.14";
+        version = "1.0";
       };
       makesUsersSortsKeys2 = {
         setup = [
@@ -59,7 +59,7 @@
         ];
         reDeploy = true;
         src = "/makes/foss/modules/makes/users/sorts/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -71,7 +71,7 @@
           outputs."/secretsForTerraformFromEnv/makesUsersSorts"
         ];
         src = "/makes/foss/modules/makes/users/sorts/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };

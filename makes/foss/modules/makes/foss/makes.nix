@@ -11,7 +11,7 @@
           outputs."/secretsForAwsFromEnv/makesProd"
         ];
         src = "/makes/foss/modules/makes/foss/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -23,7 +23,7 @@
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
         src = "/makes/foss/modules/makes/foss/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -40,7 +40,7 @@
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
         src = "/makes/foss/modules/makes/foss/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };

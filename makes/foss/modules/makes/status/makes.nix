@@ -12,7 +12,7 @@
           outputs."/secretsForTerraformFromEnv/makesStatus"
         ];
         src = "/makes/foss/modules/makes/status/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -25,7 +25,7 @@
           outputs."/secretsForTerraformFromEnv/makesStatus"
         ];
         src = "/makes/foss/modules/makes/status/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -69,7 +69,7 @@
           outputs."/secretsForTerraformFromEnv/makesStatus"
         ];
         src = "/makes/foss/modules/makes/status/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };

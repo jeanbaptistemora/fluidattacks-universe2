@@ -21,7 +21,7 @@ in
           outputs."/secretsForTerraformFromEnv/makesKubernetes"
         ];
         src = "/makes/foss/modules/makes/kubernetes/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -35,7 +35,7 @@ in
           outputs."/secretsForTerraformFromEnv/makesKubernetes"
         ];
         src = "/makes/foss/modules/makes/kubernetes/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -84,7 +84,7 @@ in
           outputs."/secretsForTerraformFromEnv/makesKubernetes"
         ];
         src = "/makes/foss/modules/makes/kubernetes/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };

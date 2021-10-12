@@ -13,7 +13,7 @@
           outputs."/secretsForTerraformFromEnv/makesOkta"
         ];
         src = "/makes/foss/modules/makes/okta/src/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -27,7 +27,7 @@
           outputs."/secretsForTerraformFromEnv/makesOkta"
         ];
         src = "/makes/foss/modules/makes/okta/src/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -57,7 +57,7 @@
           outputs."/secretsForTerraformFromEnv/makesOkta"
         ];
         src = "/makes/foss/modules/makes/okta/src/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };

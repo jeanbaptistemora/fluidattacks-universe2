@@ -27,7 +27,7 @@ in
           outputs."/envVarsForTerraform/makesCi"
         ];
         src = "/makes/foss/modules/makes/ci/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -47,7 +47,7 @@ in
           outputs."/envVarsForTerraform/makesCi"
         ];
         src = "/makes/foss/modules/makes/ci/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -87,7 +87,7 @@ in
           outputs."/envVarsForTerraform/makesCi"
         ];
         src = "/makes/foss/modules/makes/ci/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
