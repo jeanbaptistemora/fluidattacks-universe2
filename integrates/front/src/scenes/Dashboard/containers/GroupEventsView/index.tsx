@@ -140,6 +140,23 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const [accessibilityFilter, setAccessibilityFilter] = useState("");
   const [afectCompsFilter, setAfectCompsFilter] = useState("");
 
+  const [columnItems, setColumnItems] = useStoredState<Record<string, boolean>>(
+    "eventsTableSet",
+    {
+      accessibility: true,
+      actionAfterBlocking: true,
+      actionBeforeBlocking: true,
+      affectedComponents: true,
+      closingDate: true,
+      detail: true,
+      eventDate: true,
+      eventStatus: true,
+      eventType: true,
+      id: true,
+    },
+    localStorage
+  );
+
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
   }, [isCustomFilterEnabled, setCustomFilterEnabled]);
@@ -152,12 +169,36 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     sessionStorage.setItem("eventSort", JSON.stringify(newSorted));
   };
 
+  const handleColumnToggle: (columnName: string) => void = useCallback(
+    (columnName: string): void => {
+      if (
+        Object.values(columnItems).filter((val: boolean): boolean => val)
+          .length === 1 &&
+        columnItems[columnName]
+      ) {
+        // eslint-disable-next-line no-alert
+        alert(translate.t("validations.columns"));
+        setColumnItems({
+          ...columnItems,
+          [columnName]: true,
+        });
+      } else {
+        setColumnItems({
+          ...columnItems,
+          [columnName]: !columnItems[columnName],
+        });
+      }
+    },
+    [columnItems, setColumnItems]
+  );
+
   const tableHeaders: IHeaderConfig[] = [
     {
       align: "center",
       dataField: "id",
       header: translate.t("searchFindings.tabEvents.id"),
       onSort: onSortState,
+      visible: columnItems.id,
       width: "8%",
       wrapped: true,
     },
@@ -166,6 +207,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       dataField: "eventDate",
       header: translate.t("searchFindings.tabEvents.date"),
       onSort: onSortState,
+      visible: columnItems.eventDate,
       width: "10%",
       wrapped: true,
     },
@@ -174,6 +216,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       dataField: "detail",
       header: translate.t("searchFindings.tabEvents.description"),
       onSort: onSortState,
+      visible: columnItems.detail,
       width: "50%",
       wrapped: true,
     },
@@ -182,6 +225,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       dataField: "accessibility",
       header: translate.t("searchFindings.tabEvents.accessibility"),
       onSort: onSortState,
+      visible: columnItems.accessibility,
       width: "50%",
       wrapped: true,
     },
@@ -190,6 +234,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       dataField: "affectedComponents",
       header: translate.t("searchFindings.tabEvents.affectedComponents"),
       onSort: onSortState,
+      visible: columnItems.affectedComponents,
       width: "50%",
       wrapped: true,
     },
@@ -198,6 +243,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       dataField: "actionAfterBlocking",
       header: translate.t("searchFindings.tabEvents.actionAfterBlocking"),
       onSort: onSortState,
+      visible: columnItems.actionAfterBlocking,
       width: "50%",
       wrapped: true,
     },
@@ -206,6 +252,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       dataField: "actionBeforeBlocking",
       header: translate.t("searchFindings.tabEvents.actionBeforeBlocking"),
       onSort: onSortState,
+      visible: columnItems.actionBeforeBlocking,
       width: "50%",
       wrapped: true,
     },
@@ -214,6 +261,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       dataField: "eventType",
       header: translate.t("searchFindings.tabEvents.type"),
       onSort: onSortState,
+      visible: columnItems.eventType,
       width: "20%",
       wrapped: true,
     },
@@ -223,6 +271,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       formatter: pointStatusFormatter,
       header: translate.t("searchFindings.tabEvents.status"),
       onSort: onSortState,
+      visible: columnItems.eventStatus,
       width: "90px",
       wrapped: true,
     },
@@ -231,6 +280,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       dataField: "closingDate",
       header: translate.t("searchFindings.tabEvents.closingDate"),
       onSort: onSortState,
+      visible: columnItems.closingDate,
       width: "13%",
       wrapped: true,
     },
@@ -1026,6 +1076,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       >
         <DataTableNext
           bordered={true}
+          columnToggle={true}
           customFilters={{
             customFiltersProps,
             isCustomFilterEnabled,
@@ -1062,6 +1113,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           }
           headers={tableHeaders}
           id={"tblEvents"}
+          onColumnToggle={handleColumnToggle}
           pageSize={10}
           rowEvents={{ onClick: goToEvent }}
           search={false}
