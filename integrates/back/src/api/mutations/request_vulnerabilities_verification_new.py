@@ -1,6 +1,3 @@
-from aioextensions import (
-    collect,
-)
 from api import (
     APP_EXCEPTIONS,
 )
@@ -29,7 +26,6 @@ from newutils import (
     token as token_utils,
 )
 from redis_cluster.operations import (
-    redis_del_by_deps,
     redis_del_by_deps_soon,
 )
 from typing import (
@@ -71,16 +67,6 @@ async def mutate(
         redis_del_by_deps_soon(
             "request_vulnerabilities_verification",
             finding_id=finding_id,
-        )
-        await collect(
-            tuple(
-                redis_del_by_deps(
-                    "vulnerability_request_vulnerabilities_verification",
-                    vulnerability_finding=finding_id,
-                    vulnerability_id=vulnerability_id,
-                )
-                for vulnerability_id in vulnerabilities
-            )
         )
         await update_unreliable_indicators_by_deps(
             EntityDependency.request_vulnerabilities_verification,

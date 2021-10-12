@@ -195,18 +195,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         dependencies=set(),
     ),
-    vulnerability=dict(
-        args={
-            "finding",
-            "id",
-        },
-        attrs={
-            "last_reattack_requester",
-        },
-        dependencies={
-            "vulnerability_request_vulnerabilities_verification",
-        },
-    ),
 )
 
 
