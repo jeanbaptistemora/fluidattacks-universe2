@@ -38,4 +38,5 @@ we require the following information:
 
 Regarding the Health Check estimation,
 the same considerations apply as for One-Shot Hacking,
-so the client should also provide the mentioned information.
+so the client should also provide the corresponding information
+as mentioned above.

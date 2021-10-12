@@ -32,23 +32,24 @@ a service with the following benefits:
   and facilitates a coordinated effort
   between external project personnel
   (`Fluid Attacks` experts)
-  identifying security risks,
+  identifying security risks
   and internal project personnel
   (client company)
   fixing security issues without delays.
 
 ## In what industries does your company have experience?
 
-Along our career trajectory
+Throughout our trajectory
 we have been working with companies from different sectors,
-such as financial, transportation,
-industrial, consumer, communications,
+such as finance, transportation,
+industry, consumer, communications,
 technology and utilities.
 
 ## Is it possible to hire an On-the-Premises Squad Plan?
 
 No.
-Due to the operational model that supports the Squad Plan,
+Due to the operational model
+behind the Squad Plan,
 it can only be done remotely.
 
 ## At 100% coverage, is the Squad Plan suspended until new changes are added?
@@ -70,7 +71,7 @@ when we receive a written request
 through previously defined channels
 to terminate the contract.
 
-## Can the contract be canceled at anytime?
+## Can the contract be canceled at any time?
 
 You can cancel your contract
 at any time after the fourth month.
@@ -85,7 +86,7 @@ it is still possible to use the Squad Plan.
 There are two options available:
 
 - A Health Check can be performed
-  testing all existing code.
+  that tests all existing code.
   Then,
   the Squad Plan is executed as usual
   within the defined scope
@@ -100,7 +101,7 @@ There are two options available:
   until 100% is reached.
   This option is better suited
   for applications
-  no longer in development.
+  that are no longer in development.
 
 ## Can you review all the existing code before starting the tests?
 
@@ -119,7 +120,7 @@ up to the contracted starting point
 in addition to the monthly test limit.
 This allows us to catch up
 with the development team
-within the first **3 contract months**.
+within the first **three contract months**.
 Then,
 we continue hacking simultaneously
 with the development team
@@ -134,9 +135,9 @@ that is never going to be tested
 and, therefore,
 it's not possible to know
 what vulnerabilities may exist in it;
-those vulnerabilities are not going to be identified.
-We guarantee that **100% of the code change**
-is going to be tested,
+those vulnerabilities will not be identified.
+We guarantee that
+**100% of the code change** will be tested,
 but what cannot be reached,
 cannot be tested.
 
@@ -168,7 +169,7 @@ runs in the cloud.
 No.
 We use federated authentication.
 Google, Azure (Microsoft 360) and Bitbucket are the entities
-which validate your user access credentials.
+that validate your user access credentials.
 
 ## Can I activate the double authentication token?
 
@@ -263,9 +264,9 @@ The service includes the environment of the reviewed code.
 It is possible to include different environments
 for an additional fee.
 
-## Severity vs. Vulnerabilities
+## Severity vs. vulnerabilities
 
-The analysis grouping the number of vulnerabilities
+The analysis that groups the number of vulnerabilities
 has the following problems:
 
 - Not all the vulnerabilities
@@ -299,7 +300,7 @@ to allow the grouping of vulnerabilities.
 It reflects the exponential nature of the severity
 in each vulnerability:
 
-1. Reduce the severity of vulnerabilities:
+1. Reduces the severity of vulnerabilities:
 
   a. Little severe
 
@@ -313,11 +314,11 @@ in each vulnerability:
 
 1. Allows:
 
-  a. Analysis aggregated into a single data set.
+  a. Analysis aggregated into a single data set
 
-  b. No arbitrary ranges.
+  b. No arbitrary ranges
 
-  c. Reality alined **prioritization**.
+  c. Reality aligned **prioritization**
 
 ## Adjustment by severity: equivalences
 
