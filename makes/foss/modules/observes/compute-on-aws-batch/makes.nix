@@ -44,5 +44,14 @@ in
       command = [ "./m" "observes.job.delighted-etl" ];
       queue = "observes_later";
     };
+
+    observesDynamoDbForcesEtl = sharedConfiguration // rec {
+      attempts = 5;
+      attemptDurationSeconds = 18000;
+      command = [ "./m" "observes.job.dynamodb-forces-etl" ];
+      queue = "observes_later";
+      memory = 1800 * vcpus;
+      vcpus = 2;
+    };
   };
 }
