@@ -555,7 +555,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       onChangeSelect: onTreatmentChange,
       placeholder: "Treatment",
       selectOptions: {
-        accepted: "Accepted",
+        accepted: "Temporarily Accepted",
         acceptedUndefined: "Permanently Accepted",
         inProgress: "In Progress",
         new: "New",
