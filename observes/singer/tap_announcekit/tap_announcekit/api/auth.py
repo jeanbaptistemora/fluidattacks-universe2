@@ -1,7 +1,6 @@
 import base64
 from cachetools import (  # type: ignore
     cached,
-    LRUCache,
 )
 from dataclasses import (
     dataclass,
@@ -17,8 +16,6 @@ from typing import (
 
 USER_ENV_VAR = "ANNOUNCEKIT_USER"
 PASSWD_ENV_VAR = "ANNOUNCEKIT_PASSWD"
-# maxsize can be float but int is inferred
-_cache: LRUCache = LRUCache(maxsize=cast(int, float("inf")))
 
 
 @dataclass(frozen=True)
@@ -38,7 +35,7 @@ class Creds:
         return {"Authorization": f"Basic {b64_payload}"}
 
 
-@cached(cache=_cache)
+@cached(cache={})
 def _get_creds() -> Creds:
     # environ returns IO type; inf. cache ensures purity
     return Creds(environ[USER_ENV_VAR], environ[PASSWD_ENV_VAR])

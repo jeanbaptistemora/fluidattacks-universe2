@@ -4,11 +4,18 @@ from purity.v1 import (
 from returns.curry import (
     partial,
 )
+from returns.io import (
+    IO,
+)
 from tap_announcekit.api.client import (
     ApiClient,
 )
 from tap_announcekit.stream import (
     Stream,
+    StreamIO,
+)
+from tap_announcekit.streams.id_objs import (
+    ProjectId,
 )
 from tap_announcekit.streams.posts._getters import (
     PostsGetters,
@@ -22,14 +29,13 @@ from tap_announcekit.streams.posts._singer import (
 
 
 class PostsStreams:
-    # pylint: disable=too-few-public-methods
     client: ApiClient
     name: str = "posts"
 
     def stream(
         self,
         post_ids: PureIter[PostId],
-    ) -> Stream:
+    ) -> StreamIO:
         getters = PostsGetters(self.client)
         getter = getters.stream_getter()
         posts = getter.get_iter(post_ids)
@@ -37,3 +43,8 @@ class PostsStreams:
             lambda p: p.map(partial(PostSingerUtils.to_singer, self.name))
         )
         return Stream(PostSingerUtils.schema(self.name), records)
+
+    def stream_all(self, proj: ProjectId) -> IO[StreamIO]:
+        getters = PostsGetters(self.client)
+        ids_io = getters.get_ids(proj)
+        return ids_io.map(self.stream)

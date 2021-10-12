@@ -9,6 +9,7 @@ from tap_announcekit.api.client import (
 )
 from tap_announcekit.stream import (
     Stream,
+    StreamIO,
 )
 from tap_announcekit.streams.project._getters import (
     ProjectGetters,
@@ -29,7 +30,7 @@ class ProjectStreams:
         client: ApiClient,
         proj_ids: PureIter[ProjectId],
         name: str = "project",
-    ) -> Stream:
+    ) -> StreamIO:
         getter = ProjectGetters.getter(client)
         projs = proj_ids.map_each(getter.get)
         records = projs.map_each(

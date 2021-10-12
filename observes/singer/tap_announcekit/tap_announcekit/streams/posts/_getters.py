@@ -51,17 +51,17 @@ JsonStr = str
 _to_primitive = PrimitiveFactory.to_primitive
 
 
-def _get_project(client: ApiClient, post_id: PostId) -> IO[Post]:
+def _get_post(client: ApiClient, post_id: PostId) -> IO[Post]:
     query = PostQuery(post_id).query()
     LOG.debug("query: %s", query)
     raw: IO[RawPost] = client.get(query).map(lambda q: cast(RawPost, q.post))
     return raw.map(PostFactory.to_post)
 
 
-def _get_projs(
+def _get_posts(
     client: ApiClient, projs: PureIter[PostId]
 ) -> PureIter[IO[Post]]:
-    return projs.map_each(partial(_get_project, client))
+    return projs.map_each(partial(_get_post, client))
 
 
 def _filter_empty(page: PostIdPage) -> Maybe[PostIdPage]:
@@ -94,8 +94,8 @@ class PostsGetters:
 
     def stream_getter(self) -> StreamGetter[PostId, Post]:
         return StreamGetter(
-            partial(_get_project, self.client),
-            partial(_get_projs, self.client),
+            partial(_get_post, self.client),
+            partial(_get_posts, self.client),
         )
 
     def get_ids(self, proj: ProjectId) -> IO[PureIter[PostId]]:

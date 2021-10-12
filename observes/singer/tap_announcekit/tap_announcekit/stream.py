@@ -4,10 +4,14 @@ from dataclasses import (
 from purity.v1 import (
     PureIter,
 )
+from returns.functions import (
+    raise_exception,
+)
 from returns.io import (
     IO,
 )
 from returns.primitives.hkt import (
+    SupportsKind1,
     SupportsKind2,
 )
 from singer_io.singer2 import (
@@ -52,23 +56,39 @@ class StreamGetter(SupportsKind2["StreamGetter[_ID, _D]", _ID, _D]):
         return self._get_iter.unwrap(items)
 
 
+_R = TypeVar("_R", SingerRecord, IO[SingerRecord])
+
+
 @dataclass(frozen=True)
-class Stream:
+class Stream(SupportsKind1["Stream[_R]", _R]):
     schema: SingerSchema
-    records: PureIter[IO[SingerRecord]]
+    records: PureIter[_R]
+
+
+StreamIO = Stream[IO[SingerRecord]]
+StreamData = Stream[SingerRecord]
 
 
 @dataclass(frozen=True)
-class StreamEmitter:
+class StreamEmitter(SupportsKind1["StreamEmitter[_R]", _R]):
     emitter: SingerEmitter
-    stream: Stream
+    stream: Stream[_R]
 
-    def _emit(self, item: SingerRecord) -> IO[None]:
-        self.stream.schema.schema.validate(DictFactory.from_json(item.record))
-        return self.emitter.emit_record(item)
+    def _validate_record(self, item: SingerRecord) -> SingerRecord:
+        jschema = self.stream.schema.schema
+        raw_record = DictFactory.from_json(item.record)
+        jschema.validate(raw_record).alt(raise_exception)
+        return item
+
+    def _emit_record(self, item: _R) -> IO[None]:
+        if isinstance(item, SingerRecord):
+            return self.emitter.emit_record(self._validate_record(item))
+        return item.map(self._validate_record).bind(self.emitter.emit_record)
+
+    def _emit_schema(self, item: SingerSchema) -> IO[None]:
+        return self.emitter.emit_schema(item)
 
     def emit(self) -> IO[None]:
-        self.emitter.emit_schema(self.stream.schema)
-        return PureIter.consume(
-            self.stream.records.map_each(lambda s: s.bind(self._emit))
-        )
+        self._emit_schema(self.stream.schema)
+        emits_io = self.stream.records.map_each(self._emit_record)
+        return PureIter.consume(emits_io)

@@ -18,7 +18,7 @@ from sgqlc.endpoint.http import (
     HTTPEndpoint,
 )
 from sgqlc.operation import (
-    Operation,
+    Operation as GQL_Operation,
 )
 from tap_announcekit.api import (
     gql_schema,
@@ -32,6 +32,13 @@ from typing import (
 )
 
 API_ENDPOINT = "https://announcekit.app/gq/v2"
+
+
+class Operation(GQL_Operation):
+    # pylint: disable=too-few-public-methods
+    # wrapper for making unfollowed import sgqlc.operation.Operation
+    # not equivalent to Any type
+    pass
 
 
 @dataclass(frozen=True)
@@ -88,8 +95,3 @@ class ApiClient(_ApiClient):
         gql_op = query.operation()
         data = self._endpoint(gql_op)
         return IO(gql_op + data)
-
-
-__all__ = [
-    "Operation",
-]
