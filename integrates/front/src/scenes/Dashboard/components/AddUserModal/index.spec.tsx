@@ -72,7 +72,6 @@ describe("Add user modal", (): void => {
           stakeholder: {
             __typename: "User",
             email: "user@test.com",
-            phoneNumber: "+573123456791",
             responsibility: "tester",
           },
         },
@@ -93,7 +92,6 @@ describe("Add user modal", (): void => {
           stakeholder: {
             __typename: "User",
             email: "unittest@test.com",
-            phoneNumber: "+573123210123",
             responsibility: "edited",
           },
         },
@@ -186,8 +184,6 @@ describe("Add user modal", (): void => {
     );
     const emailInput = (): ReactWrapper =>
       wrapper.find({ name: "email", type: "text" }).at(0).find("input");
-    const phoneNumberInput = (): ReactWrapper =>
-      wrapper.find({ name: "phoneNumber", type: "text" }).at(0).find("input");
     const responsibilityInput = (): ReactWrapper =>
       wrapper
         .find({ name: "responsibility", type: "text" })
@@ -207,9 +203,6 @@ describe("Add user modal", (): void => {
       wrapper.update();
     });
 
-    expect(phoneNumberInput().prop("value")).toStrictEqual(
-      "+57 (312) 321 0123"
-    );
     expect(responsibilityInput().prop("value")).toStrictEqual("edited");
   });
 

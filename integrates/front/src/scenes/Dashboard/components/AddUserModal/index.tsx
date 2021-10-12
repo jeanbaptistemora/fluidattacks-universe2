@@ -24,7 +24,7 @@ import {
   Row,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { FormikDropdown, FormikText, PhoneNumber } from "utils/forms/fields";
+import { FormikDropdown, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -106,7 +106,6 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
     email: string()
       .email(translate.t("validations.email"))
       .required(translate.t("validations.required")),
-    phoneNumber: string(),
     responsibility: string()
       .when("$groupName", {
         is: groupName,
@@ -210,16 +209,6 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                     />
                   </FormGroup>
                 )}
-                <FormGroup>
-                  <ControlLabel>
-                    {translate.t("userModal.phoneNumber")}
-                  </ControlLabel>
-                  <Field
-                    component={PhoneNumber}
-                    name={"phoneNumber"}
-                    type={"text"}
-                  />
-                </FormGroup>
               </Col100>
             </Row>
             <hr />

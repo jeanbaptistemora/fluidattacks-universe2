@@ -51,7 +51,6 @@ describe("Group stakeholders view", (): void => {
                 firstLogin: "2017-09-05 15:00:00",
                 invitationState: "CONFIRMED",
                 lastLogin: "2017-10-29 13:40:37",
-                phoneNumber: "+573123210121",
                 responsibility: "Test responsibility",
                 role: "customer",
               },
@@ -77,7 +76,6 @@ describe("Group stakeholders view", (): void => {
                 firstLogin: "2017-09-05 15:00:00",
                 invitationState: "CONFIRMED",
                 lastLogin: "2017-10-29 13:40:37",
-                phoneNumber: "+573123210121",
                 responsibility: "Rest responsibility",
                 role: "customer",
               },
@@ -86,7 +84,6 @@ describe("Group stakeholders view", (): void => {
                 firstLogin: "2017-09-05 15:00:00",
                 invitationState: "CONFIRMED",
                 lastLogin: "2017-10-29 13:40:37",
-                phoneNumber: "+573123210123",
                 responsibility: "Project Manager",
                 role: "hacker",
               },
@@ -173,7 +170,6 @@ describe("Group stakeholders view", (): void => {
     expect(firstRow.text()).toContain("user@gmail.com");
     expect(firstRow.text()).toContain("User");
     expect(firstRow.text()).toContain("Test responsibility");
-    expect(firstRow.text()).toContain("+573123210121");
     expect(firstRow.text()).toContain("2017-09-05 15:00:00");
     expect(firstRow.text()).toContain(timeFromNow("2017-10-29 13:40:37"));
     expect(firstRow.text()).toContain("Confirmed");
@@ -331,7 +327,6 @@ describe("Group stakeholders view", (): void => {
           variables: {
             email: "unittest@test.com",
             groupName: "TEST",
-            phoneNumber: "+573123210123",
             responsibility: "Project Manager",
             role: "HACKER",
           },
@@ -385,13 +380,6 @@ describe("Group stakeholders view", (): void => {
       .find("input");
     emailInput.simulate("change", {
       target: { name: "email", value: "unittest@test.com" },
-    });
-    const phoneNumberInput: ReactWrapper = addUserModal
-      .find({ name: "phoneNumber", type: "text" })
-      .at(0)
-      .find("input");
-    phoneNumberInput.simulate("change", {
-      target: { name: "phoneNumber", value: "+573123210123" },
     });
     const responsibilityInput: ReactWrapper = addUserModal
       .find({ name: "responsibility", type: "text" })
@@ -502,7 +490,6 @@ describe("Group stakeholders view", (): void => {
           variables: {
             email: "user@gmail.com",
             groupName: "TEST",
-            phoneNumber: "+573123210123",
             responsibility: "Project Manager",
             role: "HACKER",
           },
@@ -557,13 +544,6 @@ describe("Group stakeholders view", (): void => {
 
     expect(editUserModal).toHaveLength(1);
 
-    const phoneNumberInput: ReactWrapper = editUserModal
-      .find({ name: "phoneNumber", type: "text" })
-      .at(0)
-      .find("input");
-    phoneNumberInput.simulate("change", {
-      target: { name: "phoneNumber", value: "+573123210123" },
-    });
     const responsibilityInput: ReactWrapper = editUserModal
       .find({ name: "responsibility", type: "text" })
       .at(0)
@@ -606,7 +586,6 @@ describe("Group stakeholders view", (): void => {
           variables: {
             email: "unittest@test.com",
             groupName: "TEST",
-            phoneNumber: "+573123210123",
             responsibility: "Project Manager",
             role: "HACKER",
           },
@@ -668,13 +647,6 @@ describe("Group stakeholders view", (): void => {
       .find("input");
     emailInput.simulate("change", {
       target: { name: "email", value: "unittest@test.com" },
-    });
-    const phoneNumberInput: ReactWrapper = addUserModal
-      .find({ name: "phoneNumber", type: "text" })
-      .at(0)
-      .find("input");
-    phoneNumberInput.simulate("change", {
-      target: { name: "phoneNumber", value: "+573123210123" },
     });
     const responsibilityInput: ReactWrapper = addUserModal
       .find({ name: "responsibility", type: "text" })
@@ -778,7 +750,6 @@ describe("Group stakeholders view", (): void => {
           variables: {
             email: "user@gmail.com",
             groupName: "TEST",
-            phoneNumber: "+573123210123",
             responsibility: "Project Manager",
             role: "HACKER",
           },
@@ -840,13 +811,6 @@ describe("Group stakeholders view", (): void => {
 
     expect(editUserModal).toHaveLength(1);
 
-    const phoneNumberInput: ReactWrapper = editUserModal
-      .find({ name: "phoneNumber", type: "text" })
-      .at(0)
-      .find("input");
-    phoneNumberInput.simulate("change", {
-      target: { name: "phoneNumber", value: "+573123210123" },
-    });
     const responsibilityInput: ReactWrapper = editUserModal
       .find({ name: "responsibility", type: "text" })
       .at(0)
