@@ -86,6 +86,7 @@ function skims_should_run {
   local group="${1}"
   local namespace="${2}"
   local check="${3}"
+  local urgent="${4}"
   local metadata="groups/${group}/fusion/${namespace}/.git/fluidattacks_metadata"
 
   local expected_code_date
@@ -93,18 +94,22 @@ function skims_should_run {
   local metadata_date
   local metadata_date_epoch
 
-  echo "[INFO] Checking if skims should run in ${group} ${namespace} ${check}" \
-    && expected_code_date_epoch="$(get_skims_expected_code_date "${group}" "${namespace}" "${check}")" \
-    && expected_code_date="$(from_epoch_to_iso8601 "${expected_code_date_epoch}")" \
-    && if test -e "${metadata}" && metadata_date=$(jq -er '.date' < "${metadata}"); then
-      echo "[INFO] Git data for ${group} ${namespace} is at ${metadata_date}" \
-        && metadata_date_epoch="$(from_iso8601_to_epoch "${metadata_date}")" \
-        && echo "[INFO] Skims expected code date for ${group} ${namespace} is ${expected_code_date}" \
-        && test "${metadata_date_epoch}" -ge "${expected_code_date_epoch}"
-    else
-      echo "[INFO] Either ${metadata} does not exist or it is corrupt" \
-        && return 1
-    fi
+  if test "${urgent}" == "true"; then
+    echo "[INFO] Running in priority queue, skipping date check..."
+  else
+    echo "[INFO] Checking if skims should run in ${group} ${namespace} ${check}" \
+      && expected_code_date_epoch="$(get_skims_expected_code_date "${group}" "${namespace}" "${check}")" \
+      && expected_code_date="$(from_epoch_to_iso8601 "${expected_code_date_epoch}")" \
+      && if test -e "${metadata}" && metadata_date=$(jq -er '.date' < "${metadata}"); then
+        echo "[INFO] Git data for ${group} ${namespace} is at ${metadata_date}" \
+          && metadata_date_epoch="$(from_iso8601_to_epoch "${metadata_date}")" \
+          && echo "[INFO] Skims expected code date for ${group} ${namespace} is ${expected_code_date}" \
+          && test "${metadata_date_epoch}" -ge "${expected_code_date_epoch}"
+      else
+        echo "[INFO] Either ${metadata} does not exist or it is corrupt" \
+          && return 1
+      fi
+  fi
 }
 
 function skims_scan {
@@ -127,6 +132,7 @@ function main {
   local group="${1:-}"
   local check="${2:-}"
   local namespace="${3:-}"
+  local urgent="${4:-}"
   local config
   local success='true'
 
@@ -145,7 +151,7 @@ function main {
       aws_login_prod 'skims' \
         && skims_cache pull "${group}" "${check}" "${namespace}" \
         && skims_rebase "${group}" "${namespace}" \
-        && skims_should_run "${group}" "${namespace}" "${check}" \
+        && skims_should_run "${group}" "${namespace}" "${check}" "${urgent}" \
         && if skims_scan "${group}" "${namespace}" "${check}" "${config}"; then
           echo "[INFO] Succesfully processed: ${group} ${namespace}"
         else
