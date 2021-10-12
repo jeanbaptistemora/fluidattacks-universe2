@@ -24,7 +24,7 @@
       skims = {
         setup = [ outputs."/secretsForAwsFromEnv/skimsProd" ];
         src = "/skims/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -80,7 +80,7 @@
       skims = {
         setup = [ outputs."/secretsForAwsFromEnv/skimsDev" ];
         src = "/skims/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -105,7 +105,7 @@
       skims = {
         setup = [ outputs."/secretsForAwsFromEnv/skimsDev" ];
         src = "/skims/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
