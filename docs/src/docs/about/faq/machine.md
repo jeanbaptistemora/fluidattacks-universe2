@@ -5,7 +5,7 @@ sidebar_label: Machine
 slug: /about/faq/machine
 ---
 
-## What is `Fluid Attacks'` Machine?
+## What is Fluid Attacks' Machine?
 
 `Fluid Attacks'` Machine is a bot
 that continuously looks for vulnerabilities
@@ -51,7 +51,8 @@ due to different reasons.
 As a security company,
 we perform our penetration testing
 in the strictest configuration,
-checking all our environments as production.
+checking all our environments
+as if they were in production.
 Hence,
 vulnerabilities found
 outside of working hours

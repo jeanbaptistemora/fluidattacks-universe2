@@ -5,156 +5,147 @@ sidebar_label: Vulnerabilities
 slug: /machine/web/groups/vulnerabilities
 ---
 
-The tab of **Vulnerabilities**
-is the first one you will see
-when clicking on a group,
-in this tab you will find a table
-listing all of the vulnerabilities for the group
-and also the **Reports** button,
-which can be used to request one
-of the several types of reports
-about all the vulnerabilities the group has.
+The tab of **Vulnerabilities** is the first one
+you will see
+when clicking on a group.
+In this tab,
+you will find a table
+listing all the vulnerabilities in the group
+and the **Reports** button,
+which you can use
+to request one of several types of reports
+on all the vulnerabilities present there.
 
 ## Table of vulnerabilities
 
-In this table you will find the vulnerabilities
+In this table,
+you will find the vulnerabilities
 categorized by their **type**
 and you can organize them
 by clicking on the various columns
-that will be described here
+described here:
 
 ![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/vulns_table_1h_m2j4au.webp)
 
-- **Age(days):**
-  This column shows the amount of days passed
-  since that specific type of vulnerability
-  was first found.
-- **Open Age(days):**
-  This is the amount of days passed
+- **Age (days):**
+  The number of days elapsed
+  since we first identified
+  that specific type of vulnerability.
+- **Open age (days):**
+  The number of days passed
   since the oldest
   of all the open vulnerabilities
   was found,
   thus,
   if the vulnerability is closed,
   this number will be 0.
-- **Last report(days):**
-  The amount of days passed
-  since a vulnerability
-  of this specific type
-  was found,
+- **Last report (days):**
+  The number of days passed
+  since we found a vulnerability
+  of that specific type,
   regardless of its open/closed status.
 - **Type:**
   Depending on several characteristics
   of a single vulnerability,
   we can categorize them
-  in various groups.
+  into various groups.
   This column represents
   such categorization.
 - **Description:**
   A brief explanation
-  about what this type of vulnerability does.
+  of what that type of vulnerability does.
 - **Severity:**
   This is the score given
-  to each type of vulnerability.
-  We use the
-  [CVSS](/about/glossary#cvss "Common Vulnerability Scoring System")
+  to that type of vulnerability.
+  We use the CVSS
+  (Common Vulnerability Scoring System)
   standard to assign each score.
 
 ![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/vulns_table_2h_s8mag6.webp)
 
 - **Open:**
-  This column shows
-  the amount of vulnerabilities
-  that currently haven't
-  been resolved.
+  This column shows the number of vulnerabilities
+  that have not been resolved.
 - **Status:**
-  This column tells you
-  that it is Open
-  if there is at least one vulnerability
-  that hasn't been resolved yet,
-  otherwise it will tell you
-  it is Closed.
+  This column tells you "Open"
+  if at least one vulnerability
+  has not yet been resolved;
+  otherwise,
+  it will tell you "Closed."
 - **Treatment:**
-  This column will show you
-  the treatments that can be given
-  to a vulnerability
-  and a number in front of them.
-  This number corresponds
-  to the amount of vulnerabilities
-  that are receiving
-  the corresponding treatment.
+  This column shows you the treatments
+  that can be given
+  to a vulnerability.
+  Each treatment has a number in front of it
+  That represents the number of vulnerabilities
+  receiving it.
 - **Verification:**
   This column shows you
   if there is at least one vulnerability
   that is still in the process
   of being reattacked for verification.
 - **Exploitable:**
-  This column will tell you,
+  This column tells you
+  whether the vulnerability can be exploited
+  or not
   according to the score given
-  to the specific type,
-  if the vulnerability
-  can be exploited or not.
+  to the specific type.
 - **Where:**
   This column shows you
-  a number of specific locations
-  of the vulnerabilities,
-  however if there are too many
+  several specific locations of vulnerabilities.
+  However,
+  if there are too many vulnerabilities
   of the same type,
-  you will need to click on it
+  you should click on it
   and access the **Location** tab
-  of the vulnerability
-  to see all of them.
+  to see them all.
 
 ## Reports
 
-In the vulnerabilities tab,
-you can also request several reports
-about the vulnerabilities
-by clicking the **Reports** button
-seen in the following image
+In the Vulnerabilities tab,
+you can also request
+various vulnerability reports
+by clicking on the **Reports** button
+shown in the following image:
 
 ![Reports Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/reports_button_yzszmw.webp)
 
 When you click on it,
-the following window will show up
+the following window will appear:
 
 ![Reports Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/reports_modal_h26dmp.webp)
 
-There are three types of report
+There are three types of reports
 you can request:
 
 - **Executive:**
-  This will give you
-  a more summarized report
-  of all the vulnerabilities
-  in line with the knowledge needed
-  from a managerial perspective.
+  This will give you a more summary report
+  of all vulnerabilities
+  in line with necessary knowledge
+  from a management perspective.
 - **Technical:**
-  This report will give
-  a much more in-depth look
-  at all the vulnerabilities of the group,
-  suitable for those that want
-  all the technical details.
+  This will give a much more in-depth look
+  at all the group's vulnerabilities,
+  being suitable for those
+  that want all the technical details.
 - **Export:**
-  This option will give you
-  a zip file with an export
-  of all the vulnerabilities
-  of the group.
+  This will give you a zip file
+  with an export of all vulnerabilities
+  in the group.
 
 Lastly,
-as you can see in the image,
-in order to download the report
-you need to check your e-mail
+in order to download the report,
+you need to check your email
 and click on the **Download** button
-you can see in the following image
+that you can see in the following image:
 
 ![Reports Mail](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/reports_mail_zjkigl.webp)
 
 The downloaded file will be protected
 with a passphrase
-which will be sent
+that we will send
 to your mobile device.
-You can check the documentation for our
-[mobile app](/machine/web/groups/vulnerabilities#reports)
-in case you encounter any trouble
-in this part of the process.
+You can refer
+to our [mobile app documentation](/machine/web/groups/vulnerabilities#reports)
+if you encounter any problems
+with this part of the process.

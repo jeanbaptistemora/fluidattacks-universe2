@@ -318,7 +318,7 @@ in each vulnerability:
 
   b. No arbitrary ranges
 
-  c. Reality aligned **prioritization**
+  c. Reality-aligned **prioritization**
 
 ## Adjustment by severity: equivalences
 
