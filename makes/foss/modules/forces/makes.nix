@@ -26,7 +26,7 @@
       forces = {
         setup = [ outputs."/secretsForAwsFromEnv/forcesProd" ];
         src = "/forces/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -54,7 +54,7 @@
       forces = {
         setup = [ outputs."/secretsForAwsFromEnv/forcesDev" ];
         src = "/forces/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
@@ -73,7 +73,7 @@
       forces = {
         setup = [ outputs."/secretsForAwsFromEnv/forcesDev" ];
         src = "/forces/infra";
-        version = "0.14";
+        version = "1.0";
       };
     };
   };
