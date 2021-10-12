@@ -586,6 +586,22 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         ),
     }
 
+    _all_groups_data: Dict[str, Tuple[Benchmarking, ...]] = {
+        "all_groups_data": all_groups_data,
+        "all_groups_data_30": all_groups_data_30,
+        "all_groups_data_90": all_groups_data_90,
+    }
+    _all_organizations_data: Dict[str, Tuple[Benchmarking, ...]] = {
+        "all_organizations_data": all_organizations_data,
+        "all_organizations_data_30": all_organizations_data_30,
+        "all_organizations_data_90": all_organizations_data_90,
+    }
+    _all_portfolios_data: Dict[str, Tuple[Benchmarking, ...]] = {
+        "all_portfolios_data": all_portfolios_data,
+        "all_portfolios_data_30": all_portfolios_data_30,
+        "all_portfolios_data_90": all_portfolios_data_90,
+    }
+
     for days, min_date in zip([None, *list_days], [None, *dates]):
         async for group in iterate_groups():
             json_dump(
@@ -603,7 +619,9 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
                         ],
                         get_mean_organizations(
                             organizations=get_valid_subjects(
-                                all_subjects=all_groups_data,
+                                all_subjects=_all_groups_data[
+                                    "all_groups_data" + get_subject_days(days)
+                                ],
                                 subject=group,
                             )
                         ),
@@ -633,7 +651,10 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
                         best_mttr["best_mttr" + get_subject_days(days)],
                         get_mean_organizations(
                             organizations=get_valid_subjects(
-                                all_subjects=all_organizations_data,
+                                all_subjects=_all_organizations_data[
+                                    "all_organizations_data"
+                                    + get_subject_days(days)
+                                ],
                                 subject=org_id,
                             )
                         ),
@@ -666,7 +687,10 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
                             ],
                             get_mean_organizations(
                                 organizations=get_valid_subjects(
-                                    all_subjects=all_portfolios_data,
+                                    all_subjects=_all_portfolios_data[
+                                        "all_portfolios_data"
+                                        + get_subject_days(days)
+                                    ],
                                     subject=portfolio,
                                 )
                             ),
