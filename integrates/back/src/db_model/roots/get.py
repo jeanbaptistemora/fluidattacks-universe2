@@ -88,7 +88,9 @@ def _build_root(
                 status=cloning["status"],
             ),
             machine_execution=MachineGitRootExecution(
-                queue_date=queue.get("queue_date")
+                queue_date=queue.get("queue_date"),
+                job_id=queue.get("job_id"),
+                finding_code=queue.get("job_id"),
             ),
             group_name=group_name,
             id=metadata[key_structure.sort_key].split("#")[1],

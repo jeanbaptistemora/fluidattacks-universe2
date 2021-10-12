@@ -37,7 +37,9 @@ class GitRootState(NamedTuple):
 
 
 class MachineGitRootExecution(NamedTuple):
-    queue_date: Optional[str]
+    queue_date: Optional[str] = None
+    job_id: Optional[str] = None
+    finding_code: Optional[str] = None
 
 
 class GitRootItem(NamedTuple):

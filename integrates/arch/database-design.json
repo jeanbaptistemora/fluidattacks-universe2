@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 08, 2021, 10:54 AM",
+    "DateLastModified": "Oct 12, 2021, 07:19 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -428,6 +428,14 @@
         },
         {
           "AttributeName": "queue_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "job_id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "finding_code",
           "AttributeType": "S"
         }
       ],
@@ -8332,24 +8340,29 @@
         {
           "FacetName": "machine_git_root_execution",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid#MACHINE",
+            "PartitionKeyAlias": "ROOT#uuid#FIN#finding_code#MACHINE",
             "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#MACHINE"
+                "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#FIN#F112#MACHINE"
               },
               "sk": {
                 "S": "GROUP#unittesting"
               },
               "queue_date": {
                 "S": "2020-11-19T13:37:10+00:00"
+              },
+              "job_id": {
+                "S": "5504e9ed-8e43-486d-830b-c495086d84c1"
               }
             }
           ],
           "NonKeyAttributes": [
-            "queue_date"
+            "queue_date",
+            "job_id",
+            "finding_code"
           ]
         }
       ],

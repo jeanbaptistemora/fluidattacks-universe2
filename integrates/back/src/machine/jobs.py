@@ -1,5 +1,8 @@
 import aiohttp
 import asyncio
+from back.src.schedulers.common import (
+    error,
+)
 from batch.dal import (
     Job,
     JobStatus,
@@ -18,7 +21,6 @@ from typing import (
     Dict,
     List,
     NamedTuple,
-    Tuple,
 )
 from urllib.parse import (
     urlparse,
@@ -88,7 +90,7 @@ async def get_job(  # pylint: disable=too-many-locals
     group: str,
     check: str,
     namespace: str,
-) -> Tuple[Dict[str, Any], str, str, str]:
+) -> Dict[str, Any]:
     service = "batch"
     session = boto3.Session()
     credentials = session.get_credentials()
@@ -185,20 +187,27 @@ async def get_job(  # pylint: disable=too-many-locals
         "X-Amz-Target": amz_target,
         "Authorization": authorization_header,
     }
+    retries = 0
     async with aiohttp.ClientSession(headers=headers) as session:
         retry = True
-        while retry:
+        while retry and retries < 100:
             retry = False
             async with session.post(
-                endpoint, data=request_parameters
+                endpoint, data=request_parameters_str
             ) as response:
-                result = await response.json()
+                try:
+                    result = await response.json()
+                except json.decoder.JSONDecodeError as exc:
+                    error(exc)
+                    error(response.text())
+                    break
                 if (
                     not response.ok
                     and result.get("message", "") == "Too Many Requests"
                 ):
                     retry = True
-                    await asyncio.sleep(0.3)
+                    retries += 1
+                    await asyncio.sleep(0.1)
                     continue
-                return (result, group, check, namespace)
-    return ({}, group, check, namespace)
+                return result
+    return {}
