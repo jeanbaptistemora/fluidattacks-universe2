@@ -57,7 +57,7 @@ According to link:https://www.phishingbox.com/assets/files/Page_Editor_Files/rp_
 which periodically publishes
 the Data Breach Investigation Report (DBIR),
 in 2015,
-*95* out of *100* of advanced and targeted attacks
+*95 out of 100* of advanced and targeted attacks
 involved spear-phishing scams
 through emails with malicious attachments.
 Many people still make a decision
@@ -125,7 +125,7 @@ The majority of us agree that
 saving for the future is very important;
 yet,
 just a few of us are saving enough for retirement.)
-`Ideas42` has identified link:http://www.ideas42.org/wp-content/uploads/2016/08/Deep-Thought-A-Cybersecurity-Story.pdf[secure coding]
+Ideas42 has identified link:http://www.ideas42.org/wp-content/uploads/2016/08/Deep-Thought-A-Cybersecurity-Story.pdf[secure coding]
 as one behavioral challenge
 that might be a potential lever
 to make cybersecurity more robust.
@@ -174,7 +174,7 @@ behavioral scientists refer to cognitive capacity.
 Off-loading cognitive attention on secure coding
 from developers is a way to provide more robustness to security,
 by allocating full attention to safe coding.
-Do you know our link:../../services/continuous-hacking/[Continuous Hacking service]#?
+Do you know our link:../../services/continuous-hacking/[Continuous Hacking service]?
 We are bandwidth for you!
 We make it easier for your development team
 to focus first on functionality and performance
@@ -234,7 +234,7 @@ recently shared with us some ideas and perspectives
 that led to this post.
 We were impressed by how behavioral science is spreading fast,
 as he told us,
-and we also came across this study from ideas42
+and we also came across this study from Ideas42
 in which we find common grounds
 in what we already do
 that influences behavior for the benefit of our customers.
@@ -245,9 +245,10 @@ in future posts,
 and we want to hear from you!
 
 * What human errors do you think are the most relevant
-to address in the workplace (i.e., more dangerous or pervasive)?
+to address in the workplace
+(i.e., more dangerous or pervasive)?
 
-* How could a company nudge users or even  `IT` guys
+* How could a company nudge users or even IT guys
 to do what they should do?
 
 * Are you a software developer?
