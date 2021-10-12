@@ -43,11 +43,17 @@ def insecure_attribute(
                 in list(
                     dependencie.symbol
                     for dependencie in get_dependencies(index, syntax_steps)
+                    if isinstance(
+                        dependencie, graph_model.SyntaxStepSymbolLookup
+                    )
                 )
                 and danger_param
                 in list(
                     dependencie.symbol
                     for dependencie in get_dependencies(index, syntax_steps)
+                    if isinstance(
+                        dependencie, graph_model.SyntaxStepSymbolLookup
+                    )
                 )
             ):
                 return syntax_step.meta.n_id

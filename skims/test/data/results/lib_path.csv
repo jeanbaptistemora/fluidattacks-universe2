@@ -6545,6 +6545,81 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,10,502,skims,096. Ins
   15 |
      ^ Col 9
 "
+F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,14,502,skims,091. Log injection,"Log injection
+","
+   4 | public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller
+   5 | {
+   6 |     public void LogSomething(HttpRequest id)
+   7 |     {
+   8 |         //insecure
+   9 |         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger();
+  10 |         _logger.Info(id);
+  11 |
+  12 |         //insecure
+  13 |         var logger = new DBLogger();
+> 14 |         logger.Log(id);
+  15 |
+  16 |         //insecure
+  17 |         var log = new FileLogger();
+  18 |         log.Debug(id);
+  19 |
+  20 |         //secure
+  21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
+  22 |         id = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
+  23 |         sec_log.Info(id);
+  24 |     }
+     ^ Col 0
+"
+F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,18,502,skims,091. Log injection,"Log injection
+","
+   5 | {
+   6 |     public void LogSomething(HttpRequest id)
+   7 |     {
+   8 |         //insecure
+   9 |         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger();
+  10 |         _logger.Info(id);
+  11 |
+  12 |         //insecure
+  13 |         var logger = new DBLogger();
+  14 |         logger.Log(id);
+  15 |
+  16 |         //insecure
+  17 |         var log = new FileLogger();
+> 18 |         log.Debug(id);
+  19 |
+  20 |         //secure
+  21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
+  22 |         id = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
+  23 |         sec_log.Info(id);
+  24 |     }
+  25 | }
+     ^ Col 0
+"
+F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,10,502,skims,091. Log injection,"Log injection
+","
+   1 | using System;
+   2 | using Microsoft.AspNetCore.Mvc;
+   3 |
+   4 | public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller
+   5 | {
+   6 |     public void LogSomething(HttpRequest id)
+   7 |     {
+   8 |         //insecure
+   9 |         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger();
+> 10 |         _logger.Info(id);
+  11 |
+  12 |         //insecure
+  13 |         var logger = new DBLogger();
+  14 |         logger.Log(id);
+  15 |
+  16 |         //insecure
+  17 |         var log = new FileLogger();
+  18 |         log.Debug(id);
+  19 |
+  20 |         //secure
+  21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
+     ^ Col 0
+"
 F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,8,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations,"
    1 | namespace Controllers
    2 | {
