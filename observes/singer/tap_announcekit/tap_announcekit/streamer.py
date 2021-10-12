@@ -21,6 +21,9 @@ from tap_announcekit.api import (
 from tap_announcekit.stream import (
     StreamEmitter,
 )
+from tap_announcekit.streams.posts import (
+    PostsStreams,
+)
 from tap_announcekit.streams.project import (
     ProjectId,
     ProjectStreams,
@@ -43,6 +46,7 @@ class AutoName(Enum):
 
 class SupportedStream(AutoName):
     PROJECTS = auto()
+    POSTS = auto()
     ALL = auto()
 
 
@@ -60,7 +64,7 @@ class Streamer:
     def start(self) -> IO[None]:
         client = ApiClient(self.creds)
 
-        if self.selection == SupportedStream.PROJECTS:
+        if self.selection in (SupportedStream.PROJECTS, SupportedStream.ALL):
             proj_stream = ProjectStreams.stream(
                 client, PureIterFactory.from_flist((self.proj,))
             )
@@ -68,5 +72,14 @@ class Streamer:
                 SingerEmitter(),
                 proj_stream,
             )
-            return emitter.emit()
+            emitter.emit()
+        if self.selection in (SupportedStream.POSTS, SupportedStream.ALL):
+            stream_io = PostsStreams(client).stream_all(self.proj)
+            emitter_io = stream_io.map(
+                lambda stream: StreamEmitter(
+                    SingerEmitter(),
+                    stream,
+                )
+            )
+            emitter_io.bind(lambda e: e.emit())
         return IO(None)

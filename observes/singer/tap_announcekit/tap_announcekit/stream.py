@@ -1,11 +1,12 @@
 from dataclasses import (
     dataclass,
 )
+import logging
 from purity.v1 import (
     PureIter,
 )
-from returns.functions import (
-    raise_exception,
+from returns.curry import (
+    partial,
 )
 from returns.io import (
     IO,
@@ -23,15 +24,18 @@ from singer_io.singer2.emitter import (
 )
 from singer_io.singer2.json import (
     DictFactory,
+    JsonObj,
 )
 from tap_announcekit.utils import (
     Patch,
 )
 from typing import (
     Callable,
+    NoReturn,
     TypeVar,
 )
 
+LOG = logging.getLogger(__name__)
 _ID = TypeVar("_ID")
 _D = TypeVar("_D")
 
@@ -69,6 +73,11 @@ StreamIO = Stream[IO[SingerRecord]]
 StreamData = Stream[SingerRecord]
 
 
+def _raise_and_inform(item: JsonObj, error: Exception) -> NoReturn:
+    LOG.error("Invalid json: %s", item)
+    raise error
+
+
 @dataclass(frozen=True)
 class StreamEmitter(SupportsKind1["StreamEmitter[_R]", _R]):
     emitter: SingerEmitter
@@ -77,7 +86,9 @@ class StreamEmitter(SupportsKind1["StreamEmitter[_R]", _R]):
     def _validate_record(self, item: SingerRecord) -> SingerRecord:
         jschema = self.stream.schema.schema
         raw_record = DictFactory.from_json(item.record)
-        jschema.validate(raw_record).alt(raise_exception)
+        jschema.validate(raw_record).alt(
+            partial(_raise_and_inform, item.record)
+        )
         return item
 
     def _emit_record(self, item: _R) -> IO[None]:

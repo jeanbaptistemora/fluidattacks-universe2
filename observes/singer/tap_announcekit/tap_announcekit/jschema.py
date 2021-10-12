@@ -61,12 +61,14 @@ class ObjEncoder:
             )
             if len(single_type) > 1:
                 raise UnsupportedMultipleType(single_type)
-            return self._to_jschema_optional(single_type[0], None in var_types)
+            return self._to_jschema_optional(
+                single_type[0], type(None) in var_types
+            )
         return self._to_jschema_optional(ptype, False)
 
     def to_jschema(self, obj_props: Dict[str, Type[Any]]) -> JsonSchema:
         props = {
-            key: JsonValue(self._to_jschema_type(str_type))
-            for key, str_type in obj_props.items()
+            key: JsonValue(self._to_jschema_type(field_type))
+            for key, field_type in obj_props.items()
         }
         return JsonSchemaFactory.from_json({"properties": JsonValue(props)})
