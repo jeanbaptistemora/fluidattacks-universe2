@@ -1,7 +1,6 @@
 from datetime import (
     datetime,
 )
-import logging
 from purity.v1 import (
     PureIter,
 )
@@ -41,7 +40,6 @@ from typing import (
     cast,
 )
 
-LOG = logging.getLogger(__name__)
 JsonStr = str
 
 
@@ -96,7 +94,6 @@ def _proj_query(proj_id: str) -> Query:
 
 def _get_project(client: ApiClient, proj_id: ProjectId) -> IO[Project]:
     query = _proj_query(proj_id.proj_id)
-    LOG.debug("query: %s", query)
     raw: IO[RawProject] = client.get(query).map(
         lambda q: cast(RawProject, q.project)
     )

@@ -18,6 +18,7 @@ SCHEDULE: Dict[PartialCron, List[str]] = {
         "observes.job.batch-stability report-cancelled observes",
     ],
     PartialCron.new(3, AnyTime(), 1): [
+        os.environ["announceKitEtl"],
         os.environ["bugsnagEtl"],
         os.environ["checklyEtl"],
         os.environ["delightedEtl"],

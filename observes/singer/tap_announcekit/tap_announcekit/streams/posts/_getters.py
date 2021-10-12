@@ -1,7 +1,6 @@
 from dataclasses import (
     dataclass,
 )
-import logging
 from paginator.v2 import (
     IntIndexGetter,
 )
@@ -46,14 +45,12 @@ from typing import (
     cast,
 )
 
-LOG = logging.getLogger(__name__)
 JsonStr = str
 _to_primitive = PrimitiveFactory.to_primitive
 
 
 def _get_post(client: ApiClient, post_id: PostId) -> IO[Post]:
     query = PostQuery(post_id).query()
-    LOG.debug("query: %s", query)
     raw: IO[RawPost] = client.get(query).map(lambda q: cast(RawPost, q.post))
     return raw.map(PostFactory.to_post)
 
@@ -72,7 +69,6 @@ def _get_post_id_page(
     client: ApiClient, proj: ProjectId, page: int
 ) -> IO[Maybe[PostIdPage]]:
     query = PostIdsQuery(proj, page).query()
-    LOG.debug("query: %s", query)
     raw: IO[RawPosts] = client.get(query).map(
         lambda q: cast(RawPosts, q.posts)
     )
@@ -81,7 +77,6 @@ def _get_post_id_page(
 
 def _get_page_range(client: ApiClient, proj: ProjectId) -> IO[range]:
     query = TotalPagesQuery(proj).query()
-    LOG.debug("query: %s", query)
     raw: IO[RawPosts] = client.get(query).map(
         lambda q: cast(RawPosts, q.posts)
     )

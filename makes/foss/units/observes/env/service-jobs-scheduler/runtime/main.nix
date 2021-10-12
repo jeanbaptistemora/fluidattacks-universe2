@@ -14,6 +14,7 @@ makeTemplate {
     export = builtins.attrValues (builtins.mapAttrs
       (name: output: [ name output "/bin/${output.name}" ])
       {
+        announceKitEtl = outputs."/computeOnAwsBatch/observesAnnounceKitEtl";
         bugsnagEtl = outputs."/computeOnAwsBatch/observesBugsnagEtl";
         checklyEtl = outputs."/computeOnAwsBatch/observesChecklyEtl";
         codeEtlAmend = outputs."/computeOnAwsBatch/observesCodeEtlAmend";

@@ -5,6 +5,7 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
+import logging
 from purity.v1 import (
     Patch,
 )
@@ -32,6 +33,7 @@ from typing import (
 )
 
 API_ENDPOINT = "https://announcekit.app/gq/v2"
+LOG = logging.getLogger(__name__)
 
 
 class Operation(GQL_Operation):
@@ -47,12 +49,14 @@ class _Query:
 
 
 class Query(_Query):
-    # pylint: disable=too-few-public-methods
     def __init__(self, obj: _Query) -> None:
         super().__init__(obj._raw)
 
     def operation(self) -> Operation:
         return self._raw.unwrap()
+
+    def __str__(self) -> str:
+        return str(self.operation())
 
 
 @dataclass(frozen=True)
@@ -92,6 +96,7 @@ class ApiClient(_ApiClient):
         )
 
     def get(self, query: Query) -> IO[Any]:
+        LOG.debug("Api call: %s", query)
         gql_op = query.operation()
         data = self._endpoint(gql_op)
         return IO(gql_op + data)

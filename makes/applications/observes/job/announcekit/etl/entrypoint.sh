@@ -20,10 +20,18 @@ function start_etl {
     && echo '[INFO] Generating secret files' \
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
     && echo '[INFO] Running tap' \
-    && tap-announcekit stream 'PROJECTS' \
+    && tap-announcekit stream 'ALL' \
       --project "${announcekit_fluid_proj}" \
-    | tap-json \
-      > .singer
+      > .singer \
+    && echo '[INFO] Running target' \
+    && target-redshift \
+      --auth "${db_creds}" \
+      --drop-schema \
+      --schema-name 'announcekit' \
+      < .singer \
+    && last-success single-job \
+      --auth "${db_creds}" \
+      --job 'announcekit'
 }
 
 start_etl
