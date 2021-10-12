@@ -12,7 +12,6 @@ interface IAddStakeholderAttr {
       firstLogin: string;
       lastLogin: string;
       organization: string;
-      phoneNumber: string;
       responsibility: string;
       role: string;
     };
@@ -32,7 +31,6 @@ interface IStakeholderDataSet {
   invitationState: string;
   lastLogin: string;
   organization: string;
-  phoneNumber: string;
   groupName: string;
   responsibility: string;
   role: string;
@@ -45,7 +43,6 @@ interface IStakeholderAttrs {
   invitationState: string;
   lastLogin: string;
   organization: string;
-  phoneNumber: string;
   groupName: string;
   responsibility: string;
   role: string;

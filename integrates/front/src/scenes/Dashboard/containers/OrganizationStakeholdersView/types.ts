@@ -4,7 +4,6 @@ interface IAddStakeholderAttrs {
       email: string;
       firstLogin: string;
       lastLogin: string;
-      phoneNumber: string;
       role: string;
       userOrganization: string;
     };
@@ -41,7 +40,6 @@ interface IStakeholderAttrs {
   firstLogin: string;
   lastLogin: ILastLogin;
   organization: string;
-  phoneNumber: string;
   responsibility: string;
   role: string;
 }

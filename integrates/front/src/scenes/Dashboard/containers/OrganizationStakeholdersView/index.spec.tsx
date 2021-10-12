@@ -116,19 +116,20 @@ describe("Organization users view", (): void => {
     const user1Cells: ReactWrapper = wrapper.find("tr").at(1).find("td");
     const user2Cells: ReactWrapper = wrapper.find("tr").at(2).find("td");
 
-    const RENDER_TEST_AT5 = 5;
+    const RENDER_TEST_AT3 = 3;
+    const RENDER_TEST_AT4 = 4;
 
     expect(user1Cells.at(1).text()).toBe("testuser1@gmail.com");
     expect(user1Cells.at(2).text()).toBe("System Owner");
-    expect(user1Cells.at(4).text()).toBe("2020-06-01");
-    expect(user1Cells.at(RENDER_TEST_AT5).text()).toBe(
+    expect(user1Cells.at(RENDER_TEST_AT3).text()).toBe("2020-06-01");
+    expect(user1Cells.at(RENDER_TEST_AT4).text()).toBe(
       moment("2020-09-01", "YYYY-MM-DD hh:mm:ss").fromNow()
     );
 
     expect(user2Cells.at(1).text()).toBe("testuser2@gmail.com");
     expect(user2Cells.at(2).text()).toBe("User Manager");
-    expect(user2Cells.at(4).text()).toBe("2020-08-01");
-    expect(user2Cells.at(RENDER_TEST_AT5).text()).toBe("-");
+    expect(user2Cells.at(RENDER_TEST_AT3).text()).toBe("2020-08-01");
+    expect(user2Cells.at(RENDER_TEST_AT4).text()).toBe("-");
 
     wrapper.find("tr").at(1).simulate("click");
 

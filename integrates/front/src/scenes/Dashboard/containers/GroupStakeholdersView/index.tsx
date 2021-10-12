@@ -119,28 +119,23 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         });
       },
       header: translate.t("searchFindings.usersTable.userRole"),
-      width: "12%",
+      width: "15%",
     },
     {
       dataField: "responsibility",
       header: translate.t("searchFindings.usersTable.userResponsibility"),
-      width: "12%",
-    },
-    {
-      dataField: "phoneNumber",
-      header: translate.t("searchFindings.usersTable.phoneNumber"),
-      width: "12%",
+      width: "15%",
     },
     {
       dataField: "firstLogin",
       header: translate.t("searchFindings.usersTable.firstlogin"),
-      width: "12%",
+      width: "15%",
     },
     {
       dataField: "lastLogin",
       formatter: timeFromNow,
       header: translate.t("searchFindings.usersTable.lastlogin"),
-      width: "12%",
+      width: "15%",
     },
     {
       dataField: "invitationState",

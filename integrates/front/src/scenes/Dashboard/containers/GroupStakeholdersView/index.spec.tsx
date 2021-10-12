@@ -160,7 +160,6 @@ describe("Group stakeholders view", (): void => {
     expect(tableHeader.text()).toContain("Stakeholder email");
     expect(tableHeader.text()).toContain("Role");
     expect(tableHeader.text()).toContain("Responsibility");
-    expect(tableHeader.text()).toContain("Phone Number");
     expect(tableHeader.text()).toContain("First login");
     expect(tableHeader.text()).toContain("Last login");
     expect(tableHeader.text()).toContain("Invitation");

@@ -20,9 +20,6 @@ const handleGrantError = (grantError: ApolloError): void => {
       case "Exception - Invalid characters":
         msgError(translate.t("validations.invalidChar"));
         break;
-      case "Exception - Invalid phone number in form":
-        msgError(translate.t("validations.invalidPhoneNumberInField"));
-        break;
       case "Exception - Invalid email address in form":
         msgError(translate.t("validations.invalidEmailInField"));
         break;
@@ -65,9 +62,6 @@ const handleEditError = (
         break;
       case "Exception - This role can only be granted to Fluid Attacks users":
         msgError(translate.t("validations.userIsNotFromFluidAttacks"));
-        break;
-      case "Exception - Invalid phone number in form":
-        msgError(translate.t("validations.invalidPhoneNumberInField"));
         break;
       case "Exception - Groups without an active Fluid Attacks service " +
         "can not have Fluid Attacks staff":

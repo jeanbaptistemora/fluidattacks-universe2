@@ -1,7 +1,6 @@
 interface IStakeholderAttrs {
   stakeholder: {
     organization: string;
-    phoneNumber: string;
     responsibility: string;
   };
 }
