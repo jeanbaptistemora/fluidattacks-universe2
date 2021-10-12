@@ -3,6 +3,7 @@ from jobs_scheduler.cron import (
     PartialCron,
     work_days,
 )
+import os
 from typing import (
     Dict,
     List,
@@ -17,7 +18,7 @@ SCHEDULE: Dict[PartialCron, List[str]] = {
         "observes.job.batch-stability report-cancelled observes",
     ],
     PartialCron.new(3, AnyTime(), 1): [
-        "observes.scheduled.on-aws.bugsnag-etl",
+        os.environ["bugsnagEtl"],
         "observes.scheduled.on-aws.checkly-etl",
         "observes.scheduled.on-aws.delighted-etl",
     ],
