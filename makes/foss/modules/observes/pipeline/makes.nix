@@ -45,6 +45,7 @@ let
       gitlabCi.rules.always
     ];
     stage = "analytics";
+    tags = [ "autoscaling" ];
   };
 in
 {

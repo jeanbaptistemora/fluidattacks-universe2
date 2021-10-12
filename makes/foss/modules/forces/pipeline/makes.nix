@@ -76,6 +76,7 @@ in
             only.refs = [ "schedules" ];
             only.variables = [ "$forces_process_groups" ];
             stage = "scheduler";
+            tags = [ "autoscaling" ];
           };
         }
         {
@@ -84,6 +85,7 @@ in
             only.refs = [ "schedules" ];
             only.variables = [ "$forces_process_groups_break" ];
             stage = "scheduler";
+            tags = [ "autoscaling" ];
           };
         }
         {
