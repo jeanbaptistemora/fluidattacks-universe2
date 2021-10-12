@@ -188,6 +188,7 @@ function cool(x) {
 In the case of documents focused on exploitation, once the procedure is
 explained, we recommend including a short `gif` showing the result of
 what was explained. Add a description for the `gif`.
+
 <div class="imgblock">
 
 ![Exploit description
