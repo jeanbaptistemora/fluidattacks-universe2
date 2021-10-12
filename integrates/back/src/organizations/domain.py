@@ -73,7 +73,10 @@ async def _add_updated_max_acceptance_days(
     max_acceptance_days: Optional[Decimal] = organization_data[
         "max_acceptance_days"
     ]
-    if new_max_acceptance_days != max_acceptance_days:
+    if (
+        new_max_acceptance_days is not None
+        and new_max_acceptance_days != max_acceptance_days
+    ):
         return {"max_acceptance_days": new_max_acceptance_days}
     return {}
 
@@ -88,7 +91,10 @@ async def _add_updated_max_acceptance_severity(
     max_acceptance_severity: Decimal = organization_data[
         "max_acceptance_severity"
     ]
-    if new_max_acceptance_severity != max_acceptance_severity:
+    if (
+        new_max_acceptance_severity is not None
+        and new_max_acceptance_severity != max_acceptance_severity
+    ):
         return {"max_acceptance_severity": new_max_acceptance_severity}
     return {}
 
@@ -135,7 +141,10 @@ async def _add_updated_min_acceptance_severity(
     min_acceptance_severity: Decimal = organization_data[
         "min_acceptance_severity"
     ]
-    if new_min_acceptance_severity != min_acceptance_severity:
+    if (
+        new_min_acceptance_severity is not None
+        and new_min_acceptance_severity != min_acceptance_severity
+    ):
         return {"min_acceptance_severity": new_min_acceptance_severity}
     return {}
 
