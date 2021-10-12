@@ -65,15 +65,12 @@ def _build_root(
     )
 
     if metadata["type"] == "Git":
-        try:
-            queue = historics.get_latest(
-                item_id=item_id,
-                key_structure=key_structure,
-                historic_suffix="MACHINE",
-                raw_items=raw_items,
-            )
-        except StopIteration:
-            queue = {}
+        queue = [
+            item
+            for item in raw_items
+            if item[key_structure.sort_key].startswith(f"{item_id}#FIN")
+            and item[key_structure.sort_key].endswith("#MACHINE")
+        ]
         cloning = historics.get_latest(
             item_id=item_id,
             key_structure=key_structure,
@@ -87,11 +84,14 @@ def _build_root(
                 reason=cloning["reason"],
                 status=cloning["status"],
             ),
-            machine_execution=MachineGitRootExecution(
-                queue_date=queue.get("queue_date"),
-                job_id=queue.get("job_id"),
-                finding_code=queue.get("job_id"),
-            ),
+            machine_execution=[
+                MachineGitRootExecution(
+                    queue_date=item.get("queue_date"),
+                    job_id=item.get("job_id"),
+                    finding_code=item.get("finding_code"),
+                )
+                for item in queue
+            ],
             group_name=group_name,
             id=metadata[key_structure.sort_key].split("#")[1],
             metadata=GitRootMetadata(type=metadata["type"]),
@@ -226,6 +226,7 @@ async def _get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
             TABLE.facets["git_root_metadata"],
             TABLE.facets["git_root_state"],
             TABLE.facets["ip_root_metadata"],
+            TABLE.facets["machine_git_root_execution"],
             TABLE.facets["ip_root_state"],
             TABLE.facets["url_root_metadata"],
             TABLE.facets["url_root_state"],

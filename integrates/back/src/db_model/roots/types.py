@@ -11,9 +11,9 @@ class GitRootMetadata(NamedTuple):
 
 
 class GitRootCloning(NamedTuple):
-    modified_date: str
-    reason: str
-    status: str
+    modified_date: Optional[str]
+    reason: Optional[str]
+    status: Optional[str]
 
 
 class GitEnvironmentUrl(NamedTuple):
@@ -37,9 +37,9 @@ class GitRootState(NamedTuple):
 
 
 class MachineGitRootExecution(NamedTuple):
-    queue_date: Optional[str] = None
-    job_id: Optional[str] = None
-    finding_code: Optional[str] = None
+    queue_date: str
+    job_id: str
+    finding_code: str
 
 
 class GitRootItem(NamedTuple):
@@ -48,7 +48,7 @@ class GitRootItem(NamedTuple):
     id: str
     metadata: GitRootMetadata
     state: GitRootState
-    machine_execution: Optional[MachineGitRootExecution]
+    machine_execution: Optional[List[MachineGitRootExecution]]
 
 
 class IPRootMetadata(NamedTuple):

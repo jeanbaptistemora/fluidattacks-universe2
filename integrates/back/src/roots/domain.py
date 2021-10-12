@@ -22,7 +22,6 @@ from db_model.roots.types import (
     IPRootItem,
     IPRootMetadata,
     IPRootState,
-    MachineGitRootExecution,
     RootItem,
     RootState,
     URLRootItem,
@@ -203,7 +202,7 @@ async def add_git_root(
         ),
         group_name=group_name,
         id=str(uuid4()),
-        machine_execution=MachineGitRootExecution(queue_date=None),
+        machine_execution=[],
         metadata=GitRootMetadata(type="Git"),
         state=GitRootState(
             branch=branch,
