@@ -40,6 +40,10 @@ spec:
           envFrom:
             - secretRef:
                 name: integrates-${CI_COMMIT_REF_NAME}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
           ports:
             - containerPort: 8001
           readinessProbe:
@@ -89,6 +93,10 @@ spec:
           envFrom:
             - secretRef:
                 name: integrates-${CI_COMMIT_REF_NAME}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
         - name: cache
           image: ghcr.io/fluidattacks/makes:21.11
           imagePullPolicy: Always
@@ -109,6 +117,10 @@ spec:
           envFrom:
             - secretRef:
                 name: integrates-${CI_COMMIT_REF_NAME}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
         - name: storage
           image: ghcr.io/fluidattacks/makes:21.11
           imagePullPolicy: Always
@@ -129,3 +141,7 @@ spec:
           envFrom:
             - secretRef:
                 name: integrates-${CI_COMMIT_REF_NAME}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
