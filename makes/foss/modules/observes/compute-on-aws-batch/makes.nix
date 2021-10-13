@@ -67,7 +67,8 @@ in
     observesDynamoDbForcesEtl = sharedConfiguration // rec {
       attempts = 5;
       attemptDurationSeconds = 18000;
-      command = [ "./m" "observes.job.dynamodb-forces-etl" ];
+      command = [ "m" "f" "/observes/job/dynamodb-forces-etl" ];
+      definition = "makes";
       memory = 1800 * vcpus;
       vcpus = 2;
     };

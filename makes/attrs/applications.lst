@@ -33,7 +33,6 @@ observes.bin.update-project-variable
 observes.fx-test.tap-announcekit
 observes.job.announcekit.update-schema
 observes.job.dynamodb-etl
-observes.job.dynamodb-forces-etl
 observes.job.gitlab-etl
 observes.job.timedoctor.new-grant-code
 observes.job.timedoctor.set-init-token
