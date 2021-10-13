@@ -106,7 +106,8 @@ in
     observesCodeEtlMirror = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 7200;
-      command = [ "./m" "observes.scheduled.job.code-etl-mirror" ];
+      command = [ "m" "f" "/observes/scheduled/job/code-etl-mirror" ];
+      definition = "makes";
       environment = [
         "INTEGRATES_API_TOKEN"
         "PRODUCT_API_TOKEN"
