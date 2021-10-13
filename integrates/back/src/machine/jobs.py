@@ -1,5 +1,11 @@
+import aioboto3
 import aiohttp
 import asyncio
+from back.src.context import (
+    FI_AWS_BATCH_ACCESS_KEY,
+    FI_AWS_BATCH_SECRET_KEY,
+    PRODUCT_API_TOKEN,
+)
 from back.src.schedulers.common import (
     error,
 )
@@ -13,9 +19,7 @@ import datetime
 import hashlib
 import hmac
 import json
-from skims_sdk import (
-    get_queue_for_finding,
-)
+import os
 from typing import (
     Any,
     Dict,
@@ -24,6 +28,17 @@ from typing import (
 )
 from urllib.parse import (
     urlparse,
+)
+
+
+def _json_load(path: str) -> Any:
+    with open(path, encoding="utf-8") as file:
+        return json.load(file)
+
+
+QUEUES: Dict[str, Dict[str, str]] = _json_load(os.environ["MACHINE_QUEUES"])
+FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
+    os.environ["SKIMS_FINDINGS"]
 )
 
 
@@ -40,6 +55,18 @@ def parse_name(name: str) -> JobArguments:
         group_name=tokens[1],
         root_nickname=tokens[3],
     )
+
+
+def _get_priority_suffix(urgent: bool) -> str:
+    return "soon" if urgent else "later"
+
+
+def get_queue_for_finding(finding_code: str, urgent: bool = False) -> str:
+    for queue_ in QUEUES:
+        if finding_code in QUEUES[queue_]["findings"]:
+            return f"{queue_}_{_get_priority_suffix(urgent)}"
+
+    raise NotImplementedError(f"{finding_code} does not belong to a queue")
 
 
 async def list_(
@@ -211,3 +238,52 @@ async def get_job(  # pylint: disable=too-many-locals
                     continue
                 return result
     return {}
+
+
+async def queue_boto3(
+    group: str,
+    finding_code: str,
+    namespace: str,
+    urgent: bool,
+) -> Dict[str, Any]:
+    try:
+        queue_name = get_queue_for_finding(finding_code, urgent=urgent)
+    except NotImplementedError:
+        print(f"[ERROR] {finding_code} does not belong to a queue")
+        return {}
+    job_name = f"process-{group}-{finding_code}-{namespace}"
+    resource_options = dict(
+        service_name="batch",
+        aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
+        aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
+    )
+    async with aioboto3.client(**resource_options) as batch:
+        return await batch.submit_job(
+            jobName=job_name,
+            jobQueue=queue_name,
+            jobDefinition="makes",
+            containerOverrides={
+                "vcpus": 1,
+                "command": [
+                    "m",
+                    "f",
+                    "/skims/process-group",
+                    group,
+                    finding_code,
+                    namespace,
+                ],
+                "environment": [
+                    {"name": "CI", "value": "true"},
+                    {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
+                    {
+                        "name": "PRODUCT_API_TOKEN",
+                        "value": PRODUCT_API_TOKEN,
+                    },
+                ],
+                "memory": 1 * 1800,
+            },
+            retryStrategy={
+                "attempts": 1,
+            },
+            timeout={"attemptDurationSeconds": 86400},
+        )

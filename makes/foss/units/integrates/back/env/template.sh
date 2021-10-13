@@ -30,6 +30,8 @@ function main {
     && export API_STATUS="${api_status}" \
     && export CI_COMMIT_REF_NAME \
     && export CI_COMMIT_SHA \
+    && export MACHINE_QUEUES='__argManifestQueues__' \
+    && export MACHINE_FINDINGS='__argManifestFindings__' \
     && export INTEGRATES_DB_MODEL_PATH='__argIntegrates__/arch/database-design.json' \
     && export INTEGRATES_CHARTS_LOGO_PATH='__argIntegrates__/back/src/reports/resources/themes/logo.png' \
     && export INTEGRATES_MAILER_TEMPLATES='__argIntegrates__/back/src/mailer/email_templates' \
