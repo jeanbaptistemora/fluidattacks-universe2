@@ -79,7 +79,6 @@ async def test_group() -> None:
             invitationState
             role
             responsibility
-            phoneNumber
             firstLogin
             lastLogin
           }
@@ -127,7 +126,6 @@ async def test_group() -> None:
             "firstLogin": "2018-02-28 11:54:12",  # NOSONAR
             "invitationState": "CONFIRMED",
             "lastLogin": "2019-10-29 13:40:37",  # NOSONAR
-            "phoneNumber": "-",
             "responsibility": "Test",
             "role": "service_forces",
         },
@@ -136,7 +134,6 @@ async def test_group() -> None:
             "firstLogin": "2018-02-28 11:54:12",
             "invitationState": "CONFIRMED",
             "lastLogin": "2019-12-29 11:50:17",
-            "phoneNumber": "-",
             "responsibility": "Test",
             "role": "admin",
         },
@@ -145,7 +142,6 @@ async def test_group() -> None:
             "firstLogin": "2018-02-28 11:54:12",
             "invitationState": "CONFIRMED",
             "lastLogin": "2019-10-29 13:40:37",
-            "phoneNumber": "-",
             "responsibility": "Test",
             "role": "executive",
         },
@@ -154,7 +150,6 @@ async def test_group() -> None:
             "firstLogin": "2018-02-28 11:54:12",
             "invitationState": "CONFIRMED",
             "lastLogin": "2019-10-29 13:40:37",
-            "phoneNumber": "-",
             "responsibility": "Test",
             "role": "customer",
         },
@@ -163,7 +158,6 @@ async def test_group() -> None:
             "firstLogin": "2018-02-28 11:54:12",
             "invitationState": "CONFIRMED",
             "lastLogin": "2019-10-29 13:40:37",
-            "phoneNumber": "-",
             "responsibility": "Test",
             "role": "customeradmin",
         },
@@ -172,7 +166,6 @@ async def test_group() -> None:
             "firstLogin": "2018-02-28 11:54:12",
             "invitationState": "CONFIRMED",
             "lastLogin": "2020-03-23 10:45:37",
-            "phoneNumber": "-",
             "responsibility": "Test",
             "role": "customeradmin",
         },
@@ -181,7 +174,6 @@ async def test_group() -> None:
             "firstLogin": "2018-02-28 11:54:12",
             "invitationState": "CONFIRMED",
             "lastLogin": "2020-03-23 10:45:37",
-            "phoneNumber": "-",
             "responsibility": "Test",
             "role": "customeradmin",
         },

@@ -95,9 +95,8 @@ async def test_update_organization_stakeholder() -> None:
         """
         mutation {
             updateOrganizationStakeholder(
-                organizationId: "$org_id",
-                phoneNumber: "-",
-                role: $role,
+                organizationId: "$org_id"
+                role: $role
                 userEmail: "$email"
             ) {
                 success
@@ -152,9 +151,8 @@ async def test_grant_stakeholder_organization_access() -> None:
         """
         mutation {
             grantStakeholderOrganizationAccess(
-                organizationId: "$org_id",
-                phoneNumber: "-",
-                role: $role,
+                organizationId: "$org_id"
+                role: $role
                 userEmail: "$email"
             ) {
                 success

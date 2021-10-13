@@ -134,7 +134,7 @@ async def update_user_information(
 ) -> bool:
     coroutines: List[Awaitable[bool]] = []
     email = modified_user_data["email"]
-    phone = modified_user_data["phone_number"]
+    phone = modified_user_data.get("phone_number", "")
     responsibility = modified_user_data["responsibility"]
     success: bool = False
 

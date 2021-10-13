@@ -40,7 +40,6 @@ async def test_get_user() -> None:
                 email
                 role
                 responsibility
-                phoneNumber
                 firstLogin
                 lastLogin
                 groups {
@@ -61,9 +60,6 @@ async def test_get_user() -> None:
     assert result["data"]["stakeholder"][
         "responsibility"
     ] == expected_output.get("responsibility")
-    assert result["data"]["stakeholder"]["phoneNumber"] == expected_output.get(
-        "phone_number"
-    )
     assert result["data"]["stakeholder"]["firstLogin"] == expected_output.get(
         "first_login"
     )
@@ -72,7 +68,6 @@ async def test_get_user() -> None:
     )
     assert "stakeholder" in result["data"]
     assert "responsibility" in result["data"]["stakeholder"]
-    assert "phoneNumber" in result["data"]["stakeholder"]
 
 
 async def test_user_list_groups() -> None:
@@ -98,8 +93,7 @@ async def test_add_stakeholder() -> None:
         mutation {
             addStakeholder(
                 email: "test@test.com",
-                role: CUSTOMER,
-                phoneNumber: "3331112233"
+                role: CUSTOMER
             ) {
                 success
                 email
@@ -121,17 +115,15 @@ async def test_grant_stakeholder_access_1() -> None:
     query = """
         mutation {
             grantStakeholderAccess (
-            email: "test@test.test",
-            phoneNumber: "3453453453"
-            groupName: "unittesting",
-            responsibility: "test",
+            email: "test@test.test"
+            groupName: "unittesting"
+            responsibility: "test"
             role: CUSTOMER) {
             success
             grantedStakeholder {
                 email
                 role
                 responsibility
-                phoneNumber
                 firstLogin
                 lastLogin
             }
@@ -156,17 +148,15 @@ async def test_grant_stakeholder_access_2() -> None:
     query = """
         mutation {
             grantStakeholderAccess (
-            email: "test@test.test",
-            phoneNumber: "3453453453"
-            groupName: "unittesting",
-            responsibility: "test",
+            email: "test@test.test"
+            groupName: "unittesting"
+            responsibility: "test"
             role: HACKER) {
                 success
                 grantedStakeholder {
                     email
                     role
                     responsibility
-                    phoneNumber
                     firstLogin
                     lastLogin
                 }
@@ -189,17 +179,15 @@ async def test_grant_stakeholder_access_3() -> None:
     query = """
         mutation {
             grantStakeholderAccess (
-            email: "test@fluidattacks.com",
-            phoneNumber: "3453453453"
-            groupName: "unittesting",
-            responsibility: "test",
+            email: "test@fluidattacks.com"
+            groupName: "unittesting"
+            responsibility: "test"
             role: HACKER) {
                 success
                 grantedStakeholder {
                     email
                     role
                     responsibility
-                    phoneNumber
                     firstLogin
                     lastLogin
                 }
@@ -247,10 +235,9 @@ async def test_edit_stakeholder() -> None:
     query = """
         mutation {
             updateGroupStakeholder (
-            email: "integratescustomer@gmail.com",
-            phoneNumber: "17364735",
-            groupName: "unittesting",
-            responsibility: "edited",
+            email: "integratescustomer@gmail.com"
+            groupName: "unittesting"
+            responsibility: "edited"
             role: CUSTOMER) {
                 success
             }
