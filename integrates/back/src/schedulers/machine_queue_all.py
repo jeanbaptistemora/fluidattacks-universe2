@@ -76,7 +76,7 @@ async def _machine_queue(
         namespace=namespace,
         urgent=urgent,
     )
-    if job_id := result.get("jobId"):
+    if result and (job_id := result.get("jobId")):
         await update_git_root_machine_execution(
             group_name,
             root_id,
@@ -143,6 +143,6 @@ async def main() -> None:
                 namespace=namespace,
                 urgent=False,
             )
-            for _, root_id, group, finding, namespace in sorted_jobs
+            for root_id, group, finding, namespace, _ in sorted_jobs
         ]
         await collect(all_jobs_futers)
