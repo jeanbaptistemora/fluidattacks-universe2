@@ -24,7 +24,9 @@ def test_get_best_combination() -> None:
         "best_f1": "77.4",
     }
     with open(
-        os.path.join(DATA_PATH, "test_model_train_results.csv"), "r"
+        os.path.join(DATA_PATH, "test_model_train_results.csv"),
+        "r",
+        encoding="utf8",
     ) as csv_file:
         csv_reader = csv.reader(csv_file)
         best_features, best_f1 = get_best_combination(list(csv_reader))
@@ -47,7 +49,9 @@ def test_get_tried_combinations() -> None:
     ]
 
     with open(
-        os.path.join(DATA_PATH, "test_model_train_results.csv"), "r"
+        os.path.join(DATA_PATH, "test_model_train_results.csv"),
+        "r",
+        encoding="utf8",
     ) as csv_file:
         csv_reader = csv.reader(csv_file)
         tried_combinations = get_tried_combinations(list(csv_reader))

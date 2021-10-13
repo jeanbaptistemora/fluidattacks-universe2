@@ -19,10 +19,10 @@ from typing import (
 
 def update_best_model_txt(model_name_file: str, best_model_name: str) -> None:
     if "tune" in best_model_name:
-        with open(model_name_file, "a") as file:
+        with open(model_name_file, "a", encoding="utf8") as file:
             file.write(f"\n{best_model_name}")
     else:
-        with open(model_name_file, "w") as file:
+        with open(model_name_file, "w", encoding="utf8") as file:
             file.write(best_model_name)
 
 
@@ -36,7 +36,7 @@ def get_best_model_name(model_name_file: str, mode: str = "train") -> str:
     S3_RESOURCE.Object(
         S3_BUCKET_NAME, "training-output/best_model.txt"
     ).download_file(model_name_file)
-    with open(model_name_file) as file:
+    with open(model_name_file, encoding="utf8") as file:
         best_model_lines = file.read().splitlines()
 
     return best_model_lines[index]

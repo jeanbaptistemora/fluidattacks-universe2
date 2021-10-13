@@ -118,7 +118,7 @@ def get_previous_training_results(results_filename: str) -> List[List[str]]:
         local_file: str = os.path.join(tmp_dir, results_filename)
         remote_file: str = f"training-output/results/{results_filename}"
         S3_BUCKET.Object(remote_file).download_file(local_file)
-        with open(local_file, "r") as csv_file:
+        with open(local_file, "r", encoding="utf8") as csv_file:
             csv_reader = csv.reader(csv_file)
             previous_results.extend(csv_reader)
 
@@ -153,7 +153,7 @@ def load_training_data(training_dir: str) -> DataFrame:
 
 
 def update_results_csv(filename: str, results: List[List[str]]) -> None:
-    with open(filename, "w", newline="") as results_file:
+    with open(filename, "w", newline="", encoding="utf8") as results_file:
         csv_writer = csv.writer(results_file)
         csv_writer.writerows(results)
     S3_BUCKET.Object(f"training-output/results/{filename}").upload_file(

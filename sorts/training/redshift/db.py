@@ -146,7 +146,9 @@ def reset(model_name: str) -> None:
 
         for file in os.listdir(tmpdir):
             print(f"[INFO] Updating {file.split('_')[0]} training info...")
-            with open(os.path.join(tmpdir, file), "r") as csv_file:
+            with open(
+                os.path.join(tmpdir, file), "r", encoding="utf8"
+            ) as csv_file:
                 reader = csv.DictReader(csv_file)
                 for row in reader:
                     item = dict(zip(redshift_table_columns, row.values()))
