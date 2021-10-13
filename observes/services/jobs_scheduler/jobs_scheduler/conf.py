@@ -27,7 +27,7 @@ SCHEDULE: Dict[PartialCron, List[str]] = {
         "observes.scheduled.on-aws.code-etl-upload",
     ],
     PartialCron.new(range(0, 24, 2), AnyTime(), AnyTime()): [
-        "observes.scheduled.on-aws.gitlab-etl.product",
+        os.environ["gitlabEtlProduct"],
     ],
     PartialCron.new(range(1, 24, 2), AnyTime(), AnyTime()): [
         os.environ["gitlabEtlChallenges"],

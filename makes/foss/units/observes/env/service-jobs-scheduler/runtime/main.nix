@@ -23,6 +23,7 @@ makeTemplate {
         formstackEtl = outputs."/computeOnAwsBatch/observesFormstackEtl";
         gitlabEtlChallenges = outputs."/computeOnAwsBatch/observesGitlabEtlChallenges";
         gitlabEtlDefault = outputs."/computeOnAwsBatch/observesGitlabEtlDefault";
+        gitlabEtlProduct = outputs."/computeOnAwsBatch/observesGitlabEtlProduct";
       });
     bin = [
       inputs.product.observes-job-batch-stability
@@ -30,7 +31,6 @@ makeTemplate {
       inputs.product.observes-scheduled-on-aws-code-etl-upload
       inputs.product.observes-scheduled-on-aws-dynamodb-integrates-etl
 
-      inputs.product.observes-scheduled-on-aws-gitlab-etl-product
       inputs.product.observes-scheduled-on-aws-gitlab-etl-services
     ];
     pythonMypy = [ self ];

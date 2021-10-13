@@ -83,5 +83,12 @@ in
         "PRODUCT_API_TOKEN"
       ];
     };
+
+    observesGitlabEtlProduct = sharedConfiguration // {
+      attempts = 5;
+      attemptDurationSeconds = 7200;
+      command = [ "./m" "observes.job.gitlab-etl.product" ];
+      queue = "observes_later";
+    };
   };
 }
