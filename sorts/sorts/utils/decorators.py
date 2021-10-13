@@ -53,7 +53,7 @@ def shield(
 
             for _, is_last, number in mark_ends(range(retries)):
                 try:
-                    return function(*args, **kwargs)
+                    return_value = function(*args, **kwargs)
                 except on_exceptions as exc:
                     msg: str = "Function: %s, %s: %s"
                     exc_msg: str = str(exc)
@@ -65,10 +65,12 @@ def shield(
                             return exc.args[0]
                         if on_error_return is RAISE:
                             raise exc
-                        return on_error_return
+                        return_value = on_error_return
 
                     log("info", "retry #%s: %s", number, function_id)
                     time.sleep(sleep_between_retries)
+
+            return return_value
 
         return cast(TFun, wrapper)
 
