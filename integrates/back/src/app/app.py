@@ -171,6 +171,9 @@ async def logout(request: Request) -> HTMLResponse:
     request.session.clear()
     response = RedirectResponse("/")
     response.delete_cookie(key=JWT_COOKIE_NAME)
+    response.headers[
+        "Clear-Site-Data"
+    ] = '"cookies", "executionContexts", "cache"'
     return response
 
 
