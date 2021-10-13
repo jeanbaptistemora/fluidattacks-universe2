@@ -25,9 +25,9 @@ makeTemplate {
         gitlabEtlDefault = outputs."/computeOnAwsBatch/observesGitlabEtlDefault";
         gitlabEtlProduct = outputs."/computeOnAwsBatch/observesGitlabEtlProduct";
         gitlabEtlServices = outputs."/computeOnAwsBatch/observesGitlabEtlServices";
+        batchStability = outputs."/observes/job/batch-stability";
       });
     bin = [
-      inputs.product.observes-job-batch-stability
       inputs.product.observes-scheduled-on-aws-code-etl-mirror
       inputs.product.observes-scheduled-on-aws-code-etl-upload
       inputs.product.observes-scheduled-on-aws-dynamodb-integrates-etl

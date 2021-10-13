@@ -33,7 +33,6 @@ observes.bin.update-project-variable
 observes.fx-test.tap-announcekit
 observes.job.announcekit.etl
 observes.job.announcekit.update-schema
-observes.job.batch-stability
 observes.job.bugsnag-etl
 observes.job.checkly-etl
 observes.job.delighted-etl

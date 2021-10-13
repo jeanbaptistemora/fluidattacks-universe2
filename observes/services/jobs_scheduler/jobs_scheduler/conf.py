@@ -11,11 +11,11 @@ from typing import (
 
 SCHEDULE: Dict[PartialCron, List[str]] = {
     PartialCron.new(AnyTime(), AnyTime(), work_days): [
-        "observes.job.batch-stability report-failures observes",
+        os.environ["batchStability"] + " report-failures observes",
     ],
     PartialCron.new(0, AnyTime(), work_days): [
         "observes.scheduled.on-aws.code-etl-mirror",
-        "observes.job.batch-stability report-cancelled observes",
+        os.environ["batchStability"] + " report-cancelled observes",
     ],
     PartialCron.new(3, AnyTime(), 1): [
         os.environ["announceKitEtl"],
