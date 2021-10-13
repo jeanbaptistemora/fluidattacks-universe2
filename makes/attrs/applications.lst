@@ -48,7 +48,6 @@ observes.job.timedoctor.new-grant-code
 observes.job.timedoctor.set-init-token
 observes.job.zoho-crm-etl
 observes.job.zoho-crm-prepare
-observes.scheduled.job.code-etl-amend
 observes.scheduled.job.code-etl-compute-bills
 observes.scheduled.job.code-etl-mirror
 observes.scheduled.job.code-etl-upload

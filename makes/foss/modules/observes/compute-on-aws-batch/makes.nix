@@ -34,7 +34,8 @@ in
     observesCodeEtlAmend = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 18000;
-      command = [ "./m" "observes.scheduled.job.code-etl-amend" ];
+      command = [ "m" "f" "/observes/scheduled/job/code-etl-amend" ];
+      definition = "makes";
       environment = [
         "INTEGRATES_API_TOKEN"
         "PRODUCT_API_TOKEN"
