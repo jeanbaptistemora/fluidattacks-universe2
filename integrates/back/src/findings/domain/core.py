@@ -63,7 +63,6 @@ from mailer import (
 )
 import newrelic.agent
 from newutils import (
-    cvss,
     cvss_new,
     datetime as datetime_utils,
     findings as findings_utils,
@@ -781,12 +780,12 @@ async def update_severity_new(
     finding_loader = loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
     if isinstance(severity, Finding31Severity):
-        privileges = cvss.calculate_privileges(
+        privileges = cvss_new.calculate_privileges(
             float(severity.privileges_required),
             float(severity.severity_scope),
         )
         privileges_required = Decimal(privileges).quantize(Decimal("0.01"))
-        modified_privileges = cvss.calculate_privileges(
+        modified_privileges = cvss_new.calculate_privileges(
             float(severity.modified_privileges_required),
             float(severity.modified_severity_scope),
         )

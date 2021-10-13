@@ -157,3 +157,19 @@ def get_cvss2_temporal(
     )
     resp = temporal.quantize(Decimal("0.1"))
     return resp
+
+
+def calculate_privileges(privileges: float, scope: float) -> float:
+    """Calculate privileges attribute."""
+    if scope:
+        if privileges == 0.62:
+            privileges = 0.68
+        elif privileges == 0.27:
+            privileges = 0.5
+    else:
+        if privileges == 0.68:
+            privileges = 0.62
+        elif privileges == 0.5:
+            privileges = 0.27
+
+    return privileges
