@@ -90,5 +90,16 @@ in
       command = [ "./m" "observes.job.gitlab-etl.product" ];
       queue = "observes_later";
     };
+
+    observesGitlabEtlServices = sharedConfiguration // {
+      attempts = 5;
+      attemptDurationSeconds = 7200;
+      command = [ "./m" "observes.job.gitlab-etl.services" ];
+      environment = [
+        "PRODUCT_API_TOKEN"
+        "SERVICES_API_TOKEN"
+      ];
+      queue = "observes_later";
+    };
   };
 }
