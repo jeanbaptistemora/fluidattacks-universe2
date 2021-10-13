@@ -94,7 +94,7 @@ def get_user_email() -> str:
             }
         """,
         operation="SortsGetUserInfo",
-        variables=dict(),
+        variables={},
     )
 
     return result["me"]["userEmail"]
