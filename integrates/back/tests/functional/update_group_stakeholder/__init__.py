@@ -14,7 +14,6 @@ async def get_result(
     *,
     user: str,
     stakeholder: str,
-    phone: str,
     group: str,
     responsibility: str,
     role: str,
@@ -22,10 +21,9 @@ async def get_result(
     query: str = f"""
         mutation {{
             updateGroupStakeholder (
-                email: "{stakeholder}",
-                phoneNumber: "{phone}",
-                groupName: "{group}",
-                responsibility: "{responsibility}",
+                email: "{stakeholder}"
+                groupName: "{group}"
+                responsibility: "{responsibility}"
                 role: {role}
             ) {{
                 success

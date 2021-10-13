@@ -21,13 +21,11 @@ from typing import (
 async def test_update_group_stakeholder(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
-    phone_number: str = "123456"
     stakeholder_responsibility: str = "Test"
     stakeholder_role: str = "ADMIN"
     result: Dict[str, Any] = await get_result(
         user=email,
         stakeholder=email,
-        phone=phone_number,
         group=group_name,
         responsibility=stakeholder_responsibility,
         role=stakeholder_role,
@@ -54,13 +52,11 @@ async def test_update_group_stakeholder_fail(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    phone_number: str = "123456"
     stakeholder_responsibility: str = "Test"
     stakeholder_role: str = "ADMIN"
     result: Dict[str, Any] = await get_result(
         user=email,
         stakeholder=email,
-        phone=phone_number,
         group=group_name,
         responsibility=stakeholder_responsibility,
         role=stakeholder_role,

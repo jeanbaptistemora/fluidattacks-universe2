@@ -735,7 +735,7 @@ type Mutation {
     "Role of the user within the group"
     role: StakeholderRole!
     "Phone number of the user preceded by its call sign"
-    phoneNumber: String!
+    phoneNumber: String
   ): UpdateStakeholderPayload!
 
   "Updates the Organization's common policies"

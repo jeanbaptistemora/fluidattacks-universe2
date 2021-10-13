@@ -16,14 +16,12 @@ async def get_result(
     org: str,
     email: str,
     role: str,
-    phone: str,
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
             updateOrganizationStakeholder(
-                organizationId: "{org}",
-                userEmail: "{email}",
-                phoneNumber: "{phone}",
+                organizationId: "{org}"
+                userEmail: "{email}"
                 role: {role}
             ) {{
                 success

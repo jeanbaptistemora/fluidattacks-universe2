@@ -20,9 +20,8 @@ async def get_result(
     query: str = f"""
         mutation {{
             grantStakeholderOrganizationAccess(
-                organizationId: "{org}",
-                phoneNumber: "-",
-                role: {role},
+                organizationId: "{org}"
+                role: {role}
                 userEmail: "{email}"
             ) {{
                 success

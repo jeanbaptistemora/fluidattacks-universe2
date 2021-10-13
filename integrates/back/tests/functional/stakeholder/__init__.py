@@ -24,7 +24,6 @@ async def get_result(
                 email
                 role
                 responsibility
-                phoneNumber
                 firstLogin
                 lastLogin
                 groups {{
