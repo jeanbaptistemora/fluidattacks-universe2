@@ -312,14 +312,22 @@ def rename_kwargs(mapping: Dict[str, str]) -> Callable[[TVar], TVar]:
     def wrapped(func: TVar) -> TVar:
         _func = cast(Callable[..., Any], func)
 
-        @functools.wraps(_func)
-        def decorated(*args: Any, **kwargs: Any) -> Any:
-            kwargs = {
-                mapping.get(key, key): val for key, val in kwargs.items()
-            }
-            return _func(*args, **kwargs)
+        def rename(kwargs: Dict[str, Any]) -> Dict[str, Any]:
+            return {mapping.get(key, key): val for key, val in kwargs.items()}
 
-        return cast(TVar, decorated)
+        if asyncio.iscoroutinefunction(_func):
+
+            @functools.wraps(_func)
+            async def async_wrapper(*args: Any, **kwargs: Any) -> Any:
+                return await _func(*args, **rename(kwargs))
+
+            return cast(TVar, async_wrapper)
+
+        @functools.wraps(_func)
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
+            return _func(*args, **rename(kwargs))
+
+        return cast(TVar, wrapper)
 
     return wrapped
 

@@ -388,7 +388,7 @@ type Mutation {
     "ID of the source root"
     id: ID!
     "Name of the target group"
-    targetGroup: String!
+    targetGroupName: String!
   ): SimplePayload!
 
   "Rejects a drafted Finding"

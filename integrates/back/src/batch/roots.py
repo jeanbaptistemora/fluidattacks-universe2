@@ -77,14 +77,14 @@ async def process_vulns(
 
 async def process_finding(
     loaders: Any,
-    target_group: str,
+    target_group_name: str,
     finding_vulns: Tuple[str, Iterator[Dict[str, Any]]],
 ) -> None:
     source_finding_id, vulns = finding_vulns
     source_finding: Finding = await loaders.finding_new.load(source_finding_id)
     target_group_findings: Tuple[
         Finding, ...
-    ] = await loaders.group_findings_new.load(target_group)
+    ] = await loaders.group_findings_new.load(target_group_name)
     target_finding = next(
         (
             finding
@@ -106,7 +106,7 @@ async def process_finding(
                     source_finding.attack_vector_description
                 ),
                 description=source_finding.description,
-                group_name=target_group,
+                group_name=target_group_name,
                 id=target_finding_id,
                 state=FindingState(
                     modified_by=source_finding.hacker_email,
@@ -125,7 +125,7 @@ async def process_finding(
 
 
 async def move_root(*, item: BatchProcessing) -> None:
-    target_group = item.entity
+    target_group_name = item.entity
     group_name, root_id = item.additional_info.split("/")
     loaders = get_new_context()
     root: RootItem = await loaders.root.load((group_name, root_id))
@@ -139,7 +139,7 @@ async def move_root(*, item: BatchProcessing) -> None:
 
     await collect(
         tuple(
-            process_finding(loaders, target_group, finding_vulns)
+            process_finding(loaders, target_group_name, finding_vulns)
             for finding_vulns in vulns_by_finding
         )
     )

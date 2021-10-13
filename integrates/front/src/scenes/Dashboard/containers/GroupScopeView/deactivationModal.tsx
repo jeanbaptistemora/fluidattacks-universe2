@@ -126,7 +126,7 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
       then: string().required(t("validations.required")),
     }),
     reason: string().required(t("validations.required")),
-    targetRoot: string().when("reason", {
+    targetGroupName: string().when("reason", {
       is: "MOVED_TO_ANOTHER_GROUP",
       then: string()
         .required(t("validations.required"))
@@ -141,7 +141,7 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
           variables: {
             groupName,
             id: rootId,
-            targetId: values.targetGroup,
+            targetGroupName: values.targetGroupName,
           },
         });
       } else {
@@ -241,7 +241,7 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                             </ControlLabel>
                             <Field
                               component={FormikAutocompleteText}
-                              name={"targetGroup"}
+                              name={"targetGroupName"}
                               placeholder={t(
                                 "group.scope.common.deactivation.targetPlaceholder"
                               )}

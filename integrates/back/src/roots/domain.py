@@ -793,17 +793,19 @@ async def move_root(
     user_email: str,
     group_name: str,
     root_id: str,
-    target_group: str,
+    target_group_name: str,
 ) -> None:
     root: RootItem = await loaders.root.load((group_name, root_id))
-    source, target = await loaders.group.load_many([group_name, target_group])
+    source_group, target_group = await loaders.group.load_many(
+        [group_name, target_group_name]
+    )
 
     if (
         root.state.status != "ACTIVE"
-        or target_group == root.group_name
-        or target_group
-        not in await orgs_domain.get_groups(source["organization"])
-        or source["service"] != target["service"]
+        or target_group_name == root.group_name
+        or target_group_name
+        not in await orgs_domain.get_groups(source_group["organization"])
+        or source_group["service"] != target_group["service"]
     ):
         raise InvalidParameter()
 
@@ -811,7 +813,7 @@ async def move_root(
         raise HasOpenVulns()
 
     target_group_roots: Tuple[RootItem, ...] = await loaders.group_roots.load(
-        target_group
+        target_group_name
     )
 
     if isinstance(root, GitRootItem):
@@ -827,7 +829,7 @@ async def move_root(
             branch=root.state.branch,
             environment=root.state.environment,
             gitignore=root.state.gitignore,
-            group_name=target_group,
+            group_name=target_group_name,
             includes_health_check=root.state.includes_health_check,
             nickname=root.state.nickname,
             url=root.state.url,
@@ -843,7 +845,7 @@ async def move_root(
             user_email,
             ensure_org_uniqueness=False,
             address=root.state.address,
-            group_name=target_group,
+            group_name=target_group_name,
             nickname=root.state.nickname,
             port=root.state.port,
         )
@@ -861,7 +863,7 @@ async def move_root(
             loaders,
             user_email,
             ensure_org_uniqueness=False,
-            group_name=target_group,
+            group_name=target_group_name,
             nickname=root.state.nickname,
             url=(
                 f"{root.state.protocol}://{root.state.host}:{root.state.port}"
@@ -871,7 +873,7 @@ async def move_root(
 
     await deactivate_root(
         group_name=group_name,
-        other=target_group,
+        other=target_group_name,
         reason="MOVED_TO_ANOTHER_GROUP",
         root=root,
         user_email=user_email,
