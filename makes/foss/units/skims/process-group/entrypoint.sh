@@ -93,24 +93,18 @@ function skims_should_run {
   local metadata_date
   local metadata_date_epoch
 
-  export AWS_BATCH_JQ_NAME
-
-  if [[ ${AWS_BATCH_JQ_NAME} == *"soon" ]]; then
-    echo "[INFO] Running in priority queue, skipping date check..."
-  else
-    echo "[INFO] Checking if skims should run in ${group} ${namespace} ${check}" \
-      && expected_code_date_epoch="$(get_skims_expected_code_date "${group}" "${namespace}" "${check}")" \
-      && expected_code_date="$(from_epoch_to_iso8601 "${expected_code_date_epoch}")" \
-      && if test -e "${metadata}" && metadata_date=$(jq -er '.date' < "${metadata}"); then
-        echo "[INFO] Git data for ${group} ${namespace} is at ${metadata_date}" \
-          && metadata_date_epoch="$(from_iso8601_to_epoch "${metadata_date}")" \
-          && echo "[INFO] Skims expected code date for ${group} ${namespace} is ${expected_code_date}" \
-          && test "${metadata_date_epoch}" -ge "${expected_code_date_epoch}"
-      else
-        echo "[INFO] Either ${metadata} does not exist or it is corrupt" \
-          && return 1
-      fi
-  fi
+  echo "[INFO] Checking if skims should run in ${group} ${namespace} ${check}" \
+    && expected_code_date_epoch="$(get_skims_expected_code_date "${group}" "${namespace}" "${check}")" \
+    && expected_code_date="$(from_epoch_to_iso8601 "${expected_code_date_epoch}")" \
+    && if test -e "${metadata}" && metadata_date=$(jq -er '.date' < "${metadata}"); then
+      echo "[INFO] Git data for ${group} ${namespace} is at ${metadata_date}" \
+        && metadata_date_epoch="$(from_iso8601_to_epoch "${metadata_date}")" \
+        && echo "[INFO] Skims expected code date for ${group} ${namespace} is ${expected_code_date}" \
+        && test "${metadata_date_epoch}" -ge "${expected_code_date_epoch}"
+    else
+      echo "[INFO] Either ${metadata} does not exist or it is corrupt" \
+        && return 1
+    fi
 }
 
 function skims_scan {
