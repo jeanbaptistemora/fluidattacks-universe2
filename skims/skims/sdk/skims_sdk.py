@@ -244,7 +244,11 @@ async def queue_boto3(
     namespace: str,
     urgent: bool,
 ) -> Dict[str, Any]:
-    queue_name = get_queue_for_finding(finding_code, urgent=urgent)
+    try:
+        queue_name = get_queue_for_finding(finding_code, urgent=urgent)
+    except NotImplementedError:
+        print(f"[ERROR] {finding_code} does not belong to a queue")
+        return {}
     job_name = f"process-{group}-{finding_code}-{namespace}"
     resource_options = dict(
         service_name="batch",
