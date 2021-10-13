@@ -49,7 +49,8 @@ in
     observesGitlabEtlChallenges = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 7200;
-      command = [ "./m" "observes.job.gitlab-etl.challenges" ];
+      command = [ "m" "f" "/observes/job/gitlab-etl/challenges" ];
+      definition = "makes";
       environment = [
         "AUTONOMIC_API_TOKEN"
         "PRODUCT_API_TOKEN"

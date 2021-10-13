@@ -36,7 +36,6 @@ observes.job.delighted-etl
 observes.job.dynamodb-etl
 observes.job.dynamodb-forces-etl
 observes.job.gitlab-etl
-observes.job.gitlab-etl.challenges
 observes.job.gitlab-etl.default
 observes.job.gitlab-etl.product
 observes.job.timedoctor.new-grant-code
