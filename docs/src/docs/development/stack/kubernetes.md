@@ -163,12 +163,6 @@ We use [Kubernetes][KUBERNETES] for:
 
 We do not use [Kubernetes][KUBERNETES] for:
 
-1. [Metrics-based autoscaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/):
-    Our autoscaling is based on the
-    [number of replicas](https://gitlab.com/fluidattacks/product/-/blob/9581d53dc73e59cc7709981743ddc47153d7909a/makes/applications/integrates/back/deploy/prod/k8s/deployment.yaml#L7)
-    we specify.
-    It should instead be based
-    on application load.
 1. [Rollbacks][ROLLBACKS]:
     We should version production artifacts
     in order to be able to automatically

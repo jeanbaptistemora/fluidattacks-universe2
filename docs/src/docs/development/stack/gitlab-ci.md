@@ -138,7 +138,7 @@ We use [GItlab CI][GITLAB-CI] for:
 1. Configuring our
     [AWS autoscaler][AUTOSCALE]
     as
-    [code](https://gitlab.com/fluidattacks/product/-/tree/47d00a5ace02160becc82de533710f1155080b6d/makes/applications/makes/ci/src).
+    [code](https://gitlab.com/fluidattacks/product/-/tree/7088bb9d4084d867255edec68614fee6ad7bbca6/makes/foss/modules/makes/ci).
 1. Implementing a
     [Continuous Delivery](https://semaphoreci.com/blog/2017/07/27/what-is-the-difference-between-continuous-integration-continuous-deployment-and-continuous-delivery.html)
     approach for our
@@ -147,9 +147,7 @@ We use [GItlab CI][GITLAB-CI] for:
     including deployments
     for both development and production,
     a manual [merge request approval](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-    from a developer other than the one
-    who opened the request
-    is still required in order to
+    from a developer is still required in order to
     be able to deploy changes to production.
 
 We do not use [GItlab CI][GITLAB-CI] for:
@@ -171,10 +169,12 @@ We do not use [GItlab CI][GITLAB-CI] for:
     being terminated
     before they can finish,
     mainly due to disconnections between the
-    worker running the job and the
+    worker running the job and its
     [Gitlab CI Bastion](https://docs.gitlab.com/runner/configuration/autoscale.html).
 
 ## Guidelines
+
+### General
 
 1. Any changes to the
     [CI pipelines](https://gitlab.com/fluidattacks/product/-/blob/47d00a5ace02160becc82de533710f1155080b6d/.gitlab-ci.yml)
@@ -185,7 +185,7 @@ We do not use [GItlab CI][GITLAB-CI] for:
     infrastructure must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/)
     by modifying its
-    [Terraform module](https://gitlab.com/fluidattacks/product/-/tree/47d00a5ace02160becc82de533710f1155080b6d/makes/applications/makes/ci/src/terraform).
+    [Terraform module](https://gitlab.com/fluidattacks/product/-/tree/7088bb9d4084d867255edec68614fee6ad7bbca6/makes/foss/modules/makes/ci).
 1. To learn how to test and apply infrastructure
     via [Terraform](/development/stack/terraform),
     visit the
@@ -195,6 +195,53 @@ We do not use [GItlab CI][GITLAB-CI] for:
     it generally should run in [Batch](/development/stack/aws/batch/),
     otherwise it can use
     the [Gitlab CI][GITLAB-CI].
+
+### Architecture
+
+We use:
+
+1. [terraform-aws-gitlab-module](https://github.com/npalm/terraform-aws-gitlab-runner)
+    for defining our CI as code.
+1. [AWS Lambda](/development/stack/aws/lambda/)
+    for hourly cleaning orphaned machines.
+1. [AWS DynamoDB](/development/stack/aws/dynamodb/)
+    for [locking Terraform states](https://www.terraform.io/docs/language/state/locking.html)
+    and avoiding race conditions.
+
+### Debugging
+
+As we use a [multi-bastion approach](https://github.com/npalm/terraform-aws-gitlab-runner#gitlab-ci-docker-machine-runner---multiple-runner-agents),
+the following tasks can be considered
+when debugging the CI:
+
+1. If you're an admin in [Gitlab][GITLAB],
+    you can visit the [CI/CD Settings](https://gitlab.com/groups/fluidattacks/-/settings/ci_cd)
+    to validate if bastions
+    are properly communicating.
+1. You can inspect both bastions and workers from the [AWS EC2 console](/development/stack/aws/ec2/).
+    Another useful place to look at
+    when you're suspecting of [spot availability](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html),
+    is the [spot requests view](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-requests.html#using-spot-instances-running).
+1. You can connect to a bastion
+    using [AWS Session Manager](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/session-manager.html).
+    Once inside, you can:
+    1. Run `docker-machine` as root.
+        This will allow you to inspect and access
+        workers with commands like
+        `docker-machine ls`,
+        `docker-machine inspect <worker>`,
+        and `docker-machine ssh <worker>`.
+    1. Watch `/var/log/messages` for
+        relevant logs from the bastion.
+    1. Watch `/etc/gitlab-runner/config.toml`
+        for bastion configurations.
+
+### Pending tasks
+
+1. [Workers are left orphaned when a bastion is destroyed](https://github.com/npalm/terraform-aws-gitlab-runner/issues/214),
+    impacting reproducibility.
+1. [External cache module fails when referenced before creation](https://github.com/npalm/terraform-aws-gitlab-runner/issues/298),
+    impacting reproducibility.
 
 [GITLAB]: /development/stack/gitlab
 [GITLAB-CI]: https://docs.gitlab.com/ee/ci/
