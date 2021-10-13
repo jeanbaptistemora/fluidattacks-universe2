@@ -76,7 +76,8 @@ in
     observesFormstackEtl = sharedConfiguration // rec {
       attempts = 5;
       attemptDurationSeconds = 14000;
-      command = [ "./m" "observes.scheduled.job.formstack-etl" ];
+      command = [ "m" "f" "/observes/scheduled/job/formstack-etl" ];
+      definition = "makes";
       memory = 1800 * vcpus;
       vcpus = 2;
     };

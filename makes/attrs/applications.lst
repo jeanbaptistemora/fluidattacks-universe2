@@ -40,7 +40,6 @@ observes.job.zoho-crm-etl
 observes.job.zoho-crm-prepare
 observes.scheduled.job.code-etl-compute-bills
 observes.scheduled.job.dynamodb-centralize
-observes.scheduled.job.formstack-etl
 observes.scheduled.job.mailchimp-etl
 observes.scheduled.job.mixpanel-integrates-etl
 observes.scheduled.job.tap-zoho-analytics
