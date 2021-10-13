@@ -262,10 +262,10 @@ async def request_vulnerability_zero_risk(
     justification: str,
     requester_email: str,
 ) -> bool:
-    finding_new_loader: DataLoader = info.context.loaders.finding_new
-    finding_new: Finding = await finding_new_loader.load(finding_id)
-    finding_title = finding_new.title
-    group_name = finding_new.group_name
+    finding_loader: DataLoader = info.context.loaders.finding
+    finding: Finding = await finding_loader.load(finding_id)
+    finding_title = finding.title
+    group_name = finding.group_name
 
     org_id = await orgs_domain.get_id_for_group(group_name)
     org_name = await orgs_domain.get_name_by_id(org_id)

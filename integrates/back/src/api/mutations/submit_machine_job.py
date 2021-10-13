@@ -47,8 +47,8 @@ async def mutate(
     finding_id: str,
     root_nickname: str,
 ) -> SimplePayload:
-    finding_new_loader = info.context.loaders.finding_new
-    finding: Finding = await finding_new_loader.load(finding_id)
+    finding_loader = info.context.loaders.finding
+    finding: Finding = await finding_loader.load(finding_id)
     group_name: str = finding.group_name
     finding_title: str = finding.title
     root_nicknames: Set[str] = {

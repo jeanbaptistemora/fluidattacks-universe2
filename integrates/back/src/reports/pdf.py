@@ -366,7 +366,7 @@ def make_vuln_table(
 
 
 # pylint: disable=too-many-instance-attributes
-class CreatorPdfNew:
+class CreatorPdf:
     """Class to generate reports in PDF."""
 
     command: str = ""

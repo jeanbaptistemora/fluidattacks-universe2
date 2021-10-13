@@ -39,11 +39,11 @@ from typing import (
 async def get_data_one_group(
     group: str, loaders: Dataloaders, min_date: Optional[datetype]
 ) -> Benchmarking:
-    group_findings_new: Tuple[
-        Finding, ...
-    ] = await loaders.group_findings_new.load(group.lower())
+    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+        group.lower()
+    )
     all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
-        [finding.id for finding in group_findings_new]
+        [finding.id for finding in group_findings]
     )
 
     vulnerabilities = filter_non_confirmed_zero_risk(all_vulnerabilities)

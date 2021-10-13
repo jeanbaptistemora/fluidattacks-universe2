@@ -120,7 +120,7 @@ async def delete_obsolete_groups() -> None:
     Delete groups without users, findings nor Fluid Attacks services enabled
     """
     loaders: Dataloaders = get_new_context()
-    group_findings_loader: DataLoader = loaders.group_findings_new
+    group_findings_loader: DataLoader = loaders.group_findings
     group_stakeholders_loader: DataLoader = loaders.group_stakeholders
     group_attributes = {
         "project_name",

@@ -140,9 +140,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
     all_registers_cvsff = OrderedDict()
     all_registers_exposed_cvsff = OrderedDict()
 
-    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
-        group
-    )
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
     vulns = await loaders.finding_vulns_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
@@ -283,9 +281,7 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
     all_registers_cvsff = OrderedDict()
     all_registers_exposed_cvsff = OrderedDict()
 
-    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
-        group
-    )
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
     vulnerabilties = await loaders.finding_vulns_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
@@ -682,9 +678,7 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         "Getting group indicator", extra={"extra": {"group_name": group}}
     )
     loaders: Dataloaders = get_new_context()
-    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
-        group
-    )
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
     _indicators = await _get_group_indicators(group, loaders, findings)
     (
         remediate_critical,

@@ -256,13 +256,13 @@ async def test_add_comment() -> None:
 async def test_mask_finding() -> None:
     finding_id = "475041524"
     loaders: Dataloaders = get_new_context()
-    finding: Finding = await loaders.finding_new.load(finding_id)
+    finding: Finding = await loaders.finding.load(finding_id)
     success = await mask_finding(loaders, finding)
     assert isinstance(success, bool)
     assert success
 
-    loaders.finding_new.clear(finding_id)
-    masked_finding: Finding = await loaders.finding_new.load(finding_id)
+    loaders.finding.clear(finding_id)
+    masked_finding: Finding = await loaders.finding.load(finding_id)
     assert masked_finding.affected_systems == MASKED
     assert masked_finding.attack_vector_description == MASKED
     assert masked_finding.compromised_attributes == MASKED
@@ -396,7 +396,7 @@ async def test_approve_draft() -> None:
 async def test_get_oldest_no_treatment_findings() -> None:
     group_name = "oneshottest"
     loaders = get_new_context()
-    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     oldest_findings = await get_oldest_no_treatment(loaders, findings)

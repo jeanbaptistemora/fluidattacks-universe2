@@ -42,7 +42,7 @@ from typing import (
 async def get_data_one_group(
     group: str, loaders: Dataloaders, source: str
 ) -> Counter[str]:
-    findings: Tuple[FindingNew, ...] = await loaders.group_findings_new.load(
+    findings: Tuple[FindingNew, ...] = await loaders.group_findings.load(
         group.lower()
     )
     finding_ids = [finding.id for finding in findings]

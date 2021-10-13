@@ -62,7 +62,7 @@ async def mutate(
 ) -> SimplePayload:
     try:
         kwargs["id"] = finding_id
-        finding_loader = info.context.loaders.finding_new
+        finding_loader = info.context.loaders.finding
         finding: Finding = await finding_loader.load(finding_id)
         if "cvss_version" not in kwargs:
             raise NotCvssVersion()

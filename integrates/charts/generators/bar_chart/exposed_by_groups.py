@@ -42,13 +42,13 @@ from typing import (
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
 ) -> PortfoliosGroupsInfo:
-    group_findings_new: Tuple[
-        Finding, ...
-    ] = await loaders.group_findings_new.load(group.lower())
-    finding_ids = [finding.id for finding in group_findings_new]
+    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+        group.lower()
+    )
+    finding_ids = [finding.id for finding in group_findings]
     finding_cvssf: Dict[str, Decimal] = {
         finding.id: utils.get_cvssf(get_severity_score(finding.severity))
-        for finding in group_findings_new
+        for finding in group_findings
     }
 
     vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(

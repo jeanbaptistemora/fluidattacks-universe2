@@ -43,7 +43,7 @@ async def resolve_no_cache(
     finding_id: str = parent["max_open_severity_finding"]
     max_open_severity_finding: Optional[Finding] = None
     if finding_id:
-        finding_loader: DataLoader = info.context.loaders.finding_new
+        finding_loader: DataLoader = info.context.loaders.finding
         max_open_severity_finding = await finding_loader.load(finding_id)
 
     return max_open_severity_finding

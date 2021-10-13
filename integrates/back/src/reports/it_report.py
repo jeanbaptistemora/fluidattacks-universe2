@@ -62,7 +62,7 @@ def get_formatted_last_date(
 
 
 # pylint: disable=too-many-instance-attributes
-class ITReportNew:
+class ITReport:
     """Class to generate IT reports."""
 
     current_sheet: WorksheetType = None
@@ -103,7 +103,7 @@ class ITReportNew:
         """Initialize variables."""
         self.data = data
         self.finding_historic_verification_loader = (
-            loaders.finding_historic_verification_new
+            loaders.finding_historic_verification
         )
         self.finding_vulns_loader = loaders.finding_vulns_nzr
         self.group_name = group_name

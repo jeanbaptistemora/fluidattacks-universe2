@@ -49,7 +49,7 @@ async def mutate(
     _parent: None, info: GraphQLResolveInfo, finding_id: str
 ) -> SimplePayload:
     try:
-        finding_loader = info.context.loaders.finding_new
+        finding_loader = info.context.loaders.finding
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         await findings_domain.submit_draft(

@@ -89,7 +89,7 @@ def calculate_tag_indicators(
 async def update_organization_indicators(
     loaders: Dataloaders, org_name: str, groups: List[str]
 ) -> Tuple[bool, List[str]]:
-    group_findings_loader = loaders.group_findings_new
+    group_findings_loader = loaders.group_findings
     success: List[bool] = []
     updated_tags: List[str] = []
     indicator_list: List[str] = [

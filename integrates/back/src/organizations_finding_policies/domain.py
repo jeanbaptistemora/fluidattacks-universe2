@@ -204,15 +204,13 @@ async def update_finding_policy_in_groups(
     user_email: str,
     tags: Set[str],
 ) -> None:
-    group_drafts_new: Tuple[
+    group_drafts: Tuple[
         Tuple[FindingNew, ...], ...
-    ] = await loaders.group_drafts_new.load_many(groups)
-    group_findings_new: Tuple[
+    ] = await loaders.group_drafts.load_many(groups)
+    group_findings: Tuple[
         Tuple[FindingNew, ...], ...
-    ] = await loaders.group_findings_new.load_many(groups)
-    findings_new = tuple(
-        chain.from_iterable(group_drafts_new + group_findings_new)
-    )
+    ] = await loaders.group_findings.load_many(groups)
+    findings_new = tuple(chain.from_iterable(group_drafts + group_findings))
     findings_ids: List[str] = [
         finding.id
         for finding in findings_new

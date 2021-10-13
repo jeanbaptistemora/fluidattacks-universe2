@@ -39,7 +39,7 @@ async def reset_group_expired_accepted_findings(
     loaders: Dataloaders, group_name: str, today: str
 ) -> None:
     finding_vulns_loader = loaders.finding_vulns
-    group_findings_loader = loaders.group_findings_new
+    group_findings_loader = loaders.group_findings
 
     group_findings: Tuple[Finding] = await group_findings_loader.load(
         group_name

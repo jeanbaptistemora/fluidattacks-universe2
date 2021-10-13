@@ -25,9 +25,9 @@ async def main() -> None:
     dataloaders = get_new_context()
 
     for group in sorted(groups):
-        findings: Tuple[
-            Finding, ...
-        ] = await dataloaders.group_findings_new.load(group)
+        findings: Tuple[Finding, ...] = await dataloaders.group_findings.load(
+            group
+        )
         for finding in findings:
             finding_id: str = finding.id
             finding_title: str = finding.title

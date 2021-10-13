@@ -35,12 +35,12 @@ from collections import (
     defaultdict,
 )
 from db_model.findings.get import (
-    FindingHistoricStateNewLoader,
-    FindingHistoricVerificationNewLoader,
-    FindingNewLoader,
+    FindingHistoricStateLoader,
+    FindingHistoricVerificationLoader,
+    FindingLoader,
     GroupDraftsAndFindingsNewLoader,
-    GroupDraftsNewLoader,
-    GroupFindingsNewLoader,
+    GroupDraftsLoader,
+    GroupFindingsLoader,
     GroupRemovedFindingsLoader,
 )
 from db_model.roots.get import (
@@ -73,16 +73,16 @@ from typing import (
 
 class Dataloaders(NamedTuple):
     event: EventLoader
-    finding_new: FindingNewLoader
-    finding_historic_state_new: FindingHistoricStateNewLoader
-    finding_historic_verification_new: FindingHistoricVerificationNewLoader
+    finding: FindingLoader
+    finding_historic_state: FindingHistoricStateLoader
+    finding_historic_verification: FindingHistoricVerificationLoader
     finding_vulns: FindingVulnsLoader  # All vulns except deleted
     finding_vulns_all: FindingVulnsNonDeletedLoader  # All vulns
     finding_vulns_nzr: FindingVulnsNonZeroRiskLoader
     finding_vulns_zr: FindingVulnsOnlyZeroRiskLoader
     group: GroupLoader
-    group_drafts_new: GroupDraftsNewLoader
-    group_findings_new: GroupFindingsNewLoader
+    group_drafts: GroupDraftsLoader
+    group_findings: GroupFindingsLoader
     group_removed_findings: GroupRemovedFindingsLoader
     group_roots: GroupRootsLoader
     group_stakeholders: GroupStakeholdersLoader
@@ -112,7 +112,7 @@ def apply_context_attrs(
 
 
 def get_new_context() -> Dataloaders:
-    group_drafts_and_findings_new_loader = GroupDraftsAndFindingsNewLoader()
+    group_drafts_and_findings_loader = GroupDraftsAndFindingsNewLoader()
     group_stakeholders_loader = GroupStakeholdersLoader()
     finding_vulns_loader = FindingVulnsLoader()
     finding_vulns_non_deleted_loader = FindingVulnsNonDeletedLoader(
@@ -128,22 +128,16 @@ def get_new_context() -> Dataloaders:
 
     return Dataloaders(
         event=EventLoader(),
-        finding_historic_state_new=FindingHistoricStateNewLoader(),
-        finding_historic_verification_new=(
-            FindingHistoricVerificationNewLoader()
-        ),
-        finding_new=FindingNewLoader(),
+        finding_historic_state=FindingHistoricStateLoader(),
+        finding_historic_verification=(FindingHistoricVerificationLoader()),
+        finding=FindingLoader(),
         finding_vulns=finding_vulns_non_deleted_loader,
         finding_vulns_all=finding_vulns_loader,
         finding_vulns_nzr=finding_vulns_nzr_loader,
         finding_vulns_zr=finding_vulns_zr_loader,
         group=GroupLoader(),
-        group_drafts_new=GroupDraftsNewLoader(
-            group_drafts_and_findings_new_loader
-        ),
-        group_findings_new=GroupFindingsNewLoader(
-            group_drafts_and_findings_new_loader
-        ),
+        group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
+        group_findings=GroupFindingsLoader(group_drafts_and_findings_loader),
         group_removed_findings=GroupRemovedFindingsLoader(),
         group_roots=GroupRootsLoader(),
         group_stakeholders=group_stakeholders_loader,

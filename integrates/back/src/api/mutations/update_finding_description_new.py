@@ -55,7 +55,7 @@ async def mutate(
     _parent: None, info: GraphQLResolveInfo, finding_id: str, **kwargs: Any
 ) -> SimplePayload:
     try:
-        finding_loader = info.context.loaders.finding_new
+        finding_loader = info.context.loaders.finding
         description = FindingDescriptionToUpdate(
             affected_systems=kwargs["affected_systems"],
             attack_vector_description=get_key_or_fallback(

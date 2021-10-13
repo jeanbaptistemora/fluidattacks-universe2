@@ -18,10 +18,10 @@ from newutils.findings import (
 )
 import os
 from reports.it_report import (
-    ITReportNew,
+    ITReport,
 )
 from reports.pdf import (
-    CreatorPdfNew,
+    CreatorPdf,
 )
 from reports.secure_pdf import (
     SecurePDF,
@@ -139,7 +139,7 @@ async def generate_pdf_file(
     secure_pdf = SecurePDF(passphrase)
     report_filename = ""
     with TemporaryDirectory() as tempdir:
-        pdf_maker = CreatorPdfNew(lang, "tech", tempdir)
+        pdf_maker = CreatorPdf(lang, "tech", tempdir)
         finding_evidences_set = await download_evidences_for_pdf(
             findings_ord, tempdir
         )
@@ -164,7 +164,7 @@ async def generate_xls_file(
     group_name: str,
     passphrase: str,
 ) -> str:
-    it_report = ITReportNew(
+    it_report = ITReport(
         data=findings_ord, group_name=group_name, loaders=loaders
     )
     await it_report.create()

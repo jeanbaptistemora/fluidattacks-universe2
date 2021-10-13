@@ -50,17 +50,17 @@ class OrganizationCvssfBenchmarking(NamedTuple):
 @alru_cache(maxsize=None, typed=True)
 async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
     finding_severity: Dict[str, Decimal] = {}
-    group_findings_new: Tuple[
-        Finding, ...
-    ] = await loaders.group_findings_new.load(group.lower())
+    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+        group.lower()
+    )
     finding_severity.update(
         {
             finding.id: get_severity_score(finding.severity)
-            for finding in group_findings_new
+            for finding in group_findings
         }
     )
     vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
-        [finding.id for finding in group_findings_new]
+        [finding.id for finding in group_findings]
     )
 
     counter: Counter[str] = Counter()

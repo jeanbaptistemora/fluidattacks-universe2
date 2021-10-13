@@ -153,7 +153,7 @@ async def remove_finding(
     justification: FindingStateJustification,
     user_email: str,
 ) -> None:
-    finding_loader = context.loaders.finding_new
+    finding_loader = context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     new_state = FindingState(
         justification=justification,
@@ -370,7 +370,7 @@ async def get_pending_verification_findings(
     group_name: str,
 ) -> Tuple[Finding, ...]:
     """Gets findings pending for verification"""
-    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     are_pending_verifications = await collect(
@@ -553,7 +553,7 @@ async def has_access_to_finding(
     loaders: Any, email: str, finding_id: str
 ) -> bool:
     """Verify if the user has access to a finding submission."""
-    finding: Finding = await loaders.finding_new.load(finding_id)
+    finding: Finding = await loaders.finding.load(finding_id)
     has_access = await authz.has_access_to_group(email, finding.group_name)
     return has_access
 
@@ -610,7 +610,7 @@ async def mask_finding(  # pylint: disable=too-many-locals
         )
     )
     finding_historic_verification_loader = (
-        loaders.finding_historic_verification_new
+        loaders.finding_historic_verification
     )
     finding_historic_verification: Tuple[
         FindingVerification, ...
@@ -661,7 +661,7 @@ async def request_vulnerabilities_verification(
     justification: str,
     vulnerability_ids: Set[str],
 ) -> None:
-    finding_loader = context.loaders.finding_new
+    finding_loader = context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     vulnerabilities = await vulns_domain.get_by_finding_and_uuids(
         finding_id, vulnerability_ids
@@ -749,7 +749,7 @@ async def update_description(
     ):
         raise InvalidDraftTitle()
 
-    finding_loader = loaders.finding_new
+    finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     metadata = FindingMetadataToUpdate(
         affected_systems=description.affected_systems,
@@ -774,7 +774,7 @@ async def update_severity(
     finding_id: str,
     severity: Union[Finding20Severity, Finding31Severity],
 ) -> None:
-    finding_loader = loaders.finding_new
+    finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     if isinstance(severity, Finding31Severity):
         privileges = cvss_new.calculate_privileges(
@@ -840,8 +840,8 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     user_email: str = user_info["user_email"]
 
     # Modify the verification state to mark the finding as verified
-    finding_new_loader = info.context.loaders.finding_new
-    finding_new: Finding = await finding_new_loader.load(finding_id)
+    finding_loader = info.context.loaders.finding
+    finding: Finding = await finding_loader.load(finding_id)
     verification = FindingVerification(
         comment_id=comment_id,
         modified_by=user_email,
@@ -850,8 +850,8 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         vulnerability_ids=set(vulnerability_ids),
     )
     await findings_model.update_verification(
-        group_name=finding_new.group_name,
-        finding_id=finding_new.id,
+        group_name=finding.group_name,
+        finding_id=finding.id,
         verification=verification,
     )
     comment_data = {

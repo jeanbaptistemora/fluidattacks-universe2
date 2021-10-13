@@ -81,10 +81,10 @@ async def process_finding(
     finding_vulns: Tuple[str, Iterator[Dict[str, Any]]],
 ) -> None:
     source_finding_id, vulns = finding_vulns
-    source_finding: Finding = await loaders.finding_new.load(source_finding_id)
+    source_finding: Finding = await loaders.finding.load(source_finding_id)
     target_group_findings: Tuple[
         Finding, ...
-    ] = await loaders.group_findings_new.load(target_group_name)
+    ] = await loaders.group_findings.load(target_group_name)
     target_finding = next(
         (
             finding

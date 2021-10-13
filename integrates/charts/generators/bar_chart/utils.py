@@ -251,14 +251,14 @@ def format_vulnerabilities_by_data(
 
 
 async def _get_oldest_open_age(*, group: str, loaders: Dataloaders) -> Decimal:
-    group_findings_new_loader = loaders.group_findings_new
-    group_findings_new: Tuple[
-        Finding, ...
-    ] = await group_findings_new_loader.load(group.lower())
+    group_findings_loader = loaders.group_findings
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+        group.lower()
+    )
     findings_open_age = await collect(
         [
             get_finding_open_age(loaders, finding.id)
-            for finding in group_findings_new
+            for finding in group_findings
         ]
     )
 

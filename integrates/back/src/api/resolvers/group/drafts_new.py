@@ -27,7 +27,7 @@ from typing import (
 async def resolve(
     parent: Group, info: GraphQLResolveInfo, **_kwargs: None
 ) -> Tuple[Finding, ...]:
-    group_drafts_loader: DataLoader = info.context.loaders.group_drafts_new
+    group_drafts_loader: DataLoader = info.context.loaders.group_drafts
     group_name: str = parent["name"]
     drafts: Tuple[Finding, ...] = await group_drafts_loader.load(group_name)
     return drafts

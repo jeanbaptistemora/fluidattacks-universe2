@@ -144,7 +144,7 @@ async def test_get_vulnerabilities_with_pending_attacks() -> None:
 async def test_get_last_closing_vuln() -> None:
     findings_to_get = ["463558592", "422286126"]
     loaders = get_new_context()
-    findings: Tuple[Finding, ...] = await loaders.finding_new.load_many(
+    findings: Tuple[Finding, ...] = await loaders.finding.load_many(
         findings_to_get
     )
     test_data = await get_last_closed_vulnerability_info(loaders, findings)
@@ -207,7 +207,7 @@ async def test_is_vulnerability_closed() -> None:
 async def test_get_max_open_severity() -> None:
     findings_to_get = ["463558592", "422286126"]
     loaders = get_new_context()
-    findings: Tuple[Finding, ...] = await loaders.finding_new.load_many(
+    findings: Tuple[Finding, ...] = await loaders.finding.load_many(
         findings_to_get
     )
     test_data = await get_max_open_severity(loaders, findings)
@@ -338,7 +338,7 @@ async def test_get_mean_remediate_non_treated_cvssf(
 async def test_get_total_treatment() -> None:
     loaders = get_new_context()
     findings_to_get = ["463558592", "422286126"]
-    findings: Tuple[Finding, ...] = await loaders.finding_new.load_many(
+    findings: Tuple[Finding, ...] = await loaders.finding.load_many(
         findings_to_get
     )
     test_data = await get_total_treatment(loaders, findings)
@@ -694,7 +694,7 @@ async def test_get_total_comments_date() -> None:
     group_name = "unittesting"
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     loaders = get_new_context()
-    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     findings_ids = list(map(lambda finding: finding.id, findings))

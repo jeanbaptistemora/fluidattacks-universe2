@@ -38,7 +38,7 @@ from vulnerabilities.domain import (
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> List[Vulnerability]:
-    group_findings_loader: DataLoader = info.context.loaders.group_findings_new
+    group_findings_loader: DataLoader = info.context.loaders.group_findings
     group_name = kwargs.get("group", "all")
 
     if group_name == "all":

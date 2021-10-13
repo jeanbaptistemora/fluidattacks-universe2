@@ -47,7 +47,7 @@ async def resolve_no_cache(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Dict[str, str]]:
     historic_state_loader: DataLoader = (
-        info.context.loaders.finding_historic_state_new
+        info.context.loaders.finding_historic_state
     )
     historic_state: Tuple[
         FindingState, ...

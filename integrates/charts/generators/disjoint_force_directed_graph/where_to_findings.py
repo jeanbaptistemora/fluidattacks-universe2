@@ -27,17 +27,17 @@ async def generate_one(group: str) -> dict:
         "nodes": set(),
         "links": set(),
     }
-    group_findings_new_loader = context.group_findings_new
-    group_findings_new: Tuple[
-        Finding, ...
-    ] = await group_findings_new_loader.load(group)
+    group_findings_loader = context.group_findings
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+        group
+    )
     group_findings_data = [
         (
             finding.id,
             finding.title,
             findings_domain.get_severity_score(finding.severity),
         )
-        for finding in group_findings_new
+        for finding in group_findings
     ]
 
     for finding_id, finding_title, finding_cvss in group_findings_data:

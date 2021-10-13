@@ -54,7 +54,7 @@ async def approve_draft(
 ) -> str:
     finding_all_vulns_loader = context.loaders.finding_vulns_all
     finding_nzr_vulns_loader = context.loaders.finding_vulns_nzr
-    finding_loader = context.loaders.finding_new
+    finding_loader = context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
@@ -128,7 +128,7 @@ async def add_draft(
 
 
 async def reject_draft(context: Any, finding_id: str, user_email: str) -> None:
-    finding_loader = context.loaders.finding_new
+    finding_loader = context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
@@ -151,7 +151,7 @@ async def reject_draft(context: Any, finding_id: str, user_email: str) -> None:
 
 async def submit_draft(context: Any, finding_id: str, user_email: str) -> None:
     finding_vulns_loader = context.loaders.finding_vulns
-    finding_loader = context.loaders.finding_new
+    finding_loader = context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()

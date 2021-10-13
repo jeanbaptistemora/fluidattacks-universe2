@@ -56,8 +56,8 @@ async def mutate(
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
-        finding_new_loader = info.context.loaders.finding_new
-        finding: Finding = await finding_new_loader.load(finding_id)
+        finding_loader = info.context.loaders.finding
+        finding: Finding = await finding_loader.load(finding_id)
         group_name: str = finding.group_name
         group_loader = info.context.loaders.group
         group = await group_loader.load(group_name)

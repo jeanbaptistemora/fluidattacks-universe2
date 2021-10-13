@@ -39,11 +39,11 @@ GroupsTags = NamedTuple(
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> GroupsTags:
     context = get_new_context()
-    group_findings_new_loader = context.group_findings_new
-    group_findings_new: Tuple[
-        Finding, ...
-    ] = await group_findings_new_loader.load(group.lower())
-    finding_ids = [finding.id for finding in group_findings_new]
+    group_findings_loader = context.group_findings
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+        group.lower()
+    )
+    finding_ids = [finding.id for finding in group_findings]
 
     vulnerabilities = await context.finding_vulns_nzr.load_many_chained(
         finding_ids

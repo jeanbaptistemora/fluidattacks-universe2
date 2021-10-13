@@ -132,7 +132,7 @@ class GroupDraftsAndFindingsNewLoader(DataLoader):
         )
 
 
-class GroupDraftsNewLoader(DataLoader):
+class GroupDraftsLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
@@ -155,7 +155,7 @@ class GroupDraftsNewLoader(DataLoader):
         )
 
 
-class GroupFindingsNewLoader(DataLoader):
+class GroupFindingsLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
@@ -214,7 +214,7 @@ async def _get_finding_by_id(finding_id: str) -> Finding:
     return finding
 
 
-class FindingNewLoader(DataLoader):
+class FindingLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, finding_ids: List[str]
@@ -241,7 +241,7 @@ async def _get_historic_verification(
     return tuple(map(format_verification, results))
 
 
-class FindingHistoricVerificationNewLoader(DataLoader):
+class FindingHistoricVerificationLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, finding_ids: List[str]
@@ -268,7 +268,7 @@ async def _get_historic_state(finding_id: str) -> Tuple[FindingState, ...]:
     return tuple(map(format_state, results))
 
 
-class FindingHistoricStateNewLoader(DataLoader):
+class FindingHistoricStateLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, finding_ids: List[str]

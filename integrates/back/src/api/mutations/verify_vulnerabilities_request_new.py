@@ -53,7 +53,7 @@ async def mutate(
 ) -> SimplePayloadType:
     try:
         finding_id = kwargs["finding_id"]
-        finding_loader = info.context.loaders.finding_new
+        finding_loader = info.context.loaders.finding
         finding: Finding = await finding_loader.load(finding_id)
         user_info = await token_utils.get_jwt_content(info.context)
         success = await findings_domain.verify_vulnerabilities(

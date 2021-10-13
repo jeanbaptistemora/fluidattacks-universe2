@@ -80,7 +80,7 @@ async def test_get_status_vulns_by_time_range() -> None:
     first_day = "2019-01-01 12:00:00"
     last_day = "2019-06-30 23:59:59"
     loaders = get_new_context()
-    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         "unittesting"
     )
     vulns = await loaders.finding_vulns_nzr.load_many_chained(
@@ -124,7 +124,7 @@ def test_create_weekly_date() -> None:
 async def test_get_accepted_vulns() -> None:
     loaders = get_new_context()
     last_day = "2019-06-30 23:59:59"
-    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         "unittesting"
     )
     vulnerabilties = await loaders.finding_vulns_nzr.load_many_chained(
@@ -162,9 +162,7 @@ async def test_get_by_time_range() -> None:
     loaders = get_new_context()
     last_day = "2020-09-09 23:59:59"
     vulnerability = (await get_vuln("80d6a69f-a376-46be-98cd-2fdedcffdcc0"))[0]
-    finding: Finding = await loaders.finding_new.load(
-        vulnerability["finding_id"]
-    )
+    finding: Finding = await loaders.finding.load(vulnerability["finding_id"])
     vulnerability_severity = get_severity_score(finding.severity)
     test_data = update_indicators.get_by_time_range(
         findings_utils.sort_historic_by_date(vulnerability["historic_state"]),
@@ -239,7 +237,7 @@ async def test_get_date_last_vulns() -> None:
 async def test_get_group_indicators() -> None:
     loaders = get_new_context()
     group_name = "unittesting"
-    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     vulnerabilties = await loaders.finding_vulns_nzr.load_many_chained(

@@ -28,7 +28,7 @@ from vulnerabilities import (
 async def send_group_treatment_change(
     loaders: Dataloaders, group_name: str, min_date: datetime
 ) -> None:
-    group_findings_loader = loaders.group_findings_new
+    group_findings_loader = loaders.group_findings
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
     )

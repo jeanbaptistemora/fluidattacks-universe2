@@ -60,7 +60,7 @@ async def mutate(
         success = False
         finding_id = kwargs["finding_id"]
         file_input = kwargs["file"]
-        finding_loader = info.context.loaders.finding_new
+        finding_loader = info.context.loaders.finding
         finding: Finding = await finding_loader.load(finding_id)
         allowed_mime_type = await files_utils.assert_uploaded_file_mime(
             file_input, ["text/x-yaml", "text/plain", "text/html"]

@@ -59,7 +59,7 @@ async def mutate(
             f"Security: Attempted to remove evidence in finding {finding_id}",
         )
         raise
-    finding_loader = info.context.loaders.finding_new
+    finding_loader = info.context.loaders.finding
     finding_loader.clear(finding_id)
     finding: Finding = await finding_loader.load(finding_id)
     return SimpleFindingPayload(finding=finding, success=True)

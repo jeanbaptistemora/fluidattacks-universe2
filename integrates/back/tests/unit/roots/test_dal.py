@@ -62,11 +62,11 @@ async def test_has_open_vulns(
             return [[MockedFinding(id="123")]]
 
     class MockedContext(NamedTuple):
-        group_findings_new: MockedFindingsLoader
+        group_findings: MockedFindingsLoader
 
     result = await roots_dal.has_open_vulns(
         nickname="product",
-        loaders=MockedContext(group_findings_new=MockedFindingsLoader()),
+        loaders=MockedContext(group_findings=MockedFindingsLoader()),
         group_name="",
     )
     assert result == expected_result

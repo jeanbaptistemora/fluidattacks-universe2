@@ -32,10 +32,10 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
     context = get_new_context()
-    group_findings_new: Tuple[
-        Finding, ...
-    ] = await context.group_findings_new.load(group.lower())
-    findings_found = len(group_findings_new)
+    group_findings: Tuple[Finding, ...] = await context.group_findings.load(
+        group.lower()
+    )
+    findings_found = len(group_findings)
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),

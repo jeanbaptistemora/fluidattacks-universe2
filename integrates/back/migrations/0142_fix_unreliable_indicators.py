@@ -130,7 +130,7 @@ async def main() -> None:
     print(f"Alive groups: {len(alive_groups)}")
     group_findings: Tuple[
         Tuple[Finding, ...], ...
-    ] = await loaders.group_findings_new.load_many(alive_groups)
+    ] = await loaders.group_findings.load_many(alive_groups)
     findings = tuple(chain.from_iterable(group_findings))
     print(f"Findings: {len(findings)}")
 

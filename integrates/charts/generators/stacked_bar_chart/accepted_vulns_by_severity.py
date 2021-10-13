@@ -47,16 +47,16 @@ def get_severity_level(severity: Decimal) -> str:
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
-    group_findings_new_loader = context.group_findings_new
-    group_findings_new: Tuple[
-        Finding, ...
-    ] = await group_findings_new_loader.load(group.lower())
-    finding_ids = [finding.id for finding in group_findings_new]
+    group_findings_loader = context.group_findings
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+        group.lower()
+    )
+    finding_ids = [finding.id for finding in group_findings]
     finding_severity_levels = [
         get_severity_level(
             findings_domain.get_severity_score(finding.severity)
         )
-        for finding in group_findings_new
+        for finding in group_findings
     ]
 
     finding_vulns_loader = context.finding_vulns_nzr

@@ -36,19 +36,19 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
-    group_findings_new: Tuple[
-        Finding, ...
-    ] = await context.group_findings_new.load(group.lower())
+    group_findings: Tuple[Finding, ...] = await context.group_findings.load(
+        group.lower()
+    )
     findings_open_age = await collect(
         [
             get_finding_open_age(context, finding.id)
-            for finding in group_findings_new
+            for finding in group_findings
         ]
     )
     counter: Counter[str] = Counter(
         {
             f"{finding.id}/{finding.title}": open_age
-            for finding, open_age in zip(group_findings_new, findings_open_age)
+            for finding, open_age in zip(group_findings, findings_open_age)
         }
     )
 

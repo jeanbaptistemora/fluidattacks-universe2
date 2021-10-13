@@ -65,7 +65,7 @@ async def update_finding_unreliable_indicators(  # noqa: C901
     finding_id: str,
     attrs_to_update: Set[EntityAttr],
 ) -> None:
-    finding: Finding = await loaders.finding_new.load(finding_id)
+    finding: Finding = await loaders.finding.load(finding_id)
     indicators = {}
 
     if EntityAttr.closed_vulnerabilities in attrs_to_update:

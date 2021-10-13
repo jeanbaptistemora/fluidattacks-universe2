@@ -72,7 +72,7 @@ async def test_get_reattack_requesters() -> None:
     loaders = get_new_context()
     historic_verification: Tuple[
         FindingVerification, ...
-    ] = await loaders.finding_historic_verification_new.load("463558592")
+    ] = await loaders.finding_historic_verification.load("463558592")
     recipients = get_reattack_requesters(
         historic_verification,
         {"3bcdb384-5547-4170-a0b6-3b397a245465"},

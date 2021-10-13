@@ -28,13 +28,13 @@ async def get_group_report_url(
     user_email: str,
 ) -> Optional[str]:
     loaders = get_new_context()
-    group_findings_new_loader = loaders.group_findings_new
-    group_findings_new: Tuple[
-        Finding, ...
-    ] = await group_findings_new_loader.load(group_name)
-    findings_ord_new = tuple(
+    group_findings_loader = loaders.group_findings
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+        group_name
+    )
+    findings_ord = tuple(
         sorted(
-            group_findings_new,
+            group_findings,
             key=lambda finding: findings_domain.get_severity_score(
                 finding.severity
             ),
@@ -45,7 +45,7 @@ async def get_group_report_url(
     if report_type == "XLS":
         return await technical_report.generate_xls_file(
             loaders,
-            findings_ord=findings_ord_new,
+            findings_ord=findings_ord,
             group_name=group_name,
             passphrase=passphrase,
         )
@@ -53,7 +53,7 @@ async def get_group_report_url(
         return await technical_report.generate_pdf_file(
             loaders=loaders,
             description=description,
-            findings_ord=findings_ord_new,
+            findings_ord=findings_ord,
             group_name=group_name,
             lang="en",
             passphrase=passphrase,
@@ -62,7 +62,7 @@ async def get_group_report_url(
     if report_type == "DATA":
         return await data_report.generate(
             loaders=loaders,
-            findings_ord=findings_ord_new,
+            findings_ord=findings_ord,
             group=group_name,
             group_description=description,
             passphrase=passphrase,

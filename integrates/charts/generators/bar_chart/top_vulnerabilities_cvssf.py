@@ -51,17 +51,15 @@ def get_finding_severity(
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
-    group_findings_new: Tuple[
-        FindingNew, ...
-    ] = await loaders.group_findings_new.load(group.lower())
-    finding_ids = [finding.id for finding in group_findings_new]
+    group_findings: Tuple[FindingNew, ...] = await loaders.group_findings.load(
+        group.lower()
+    )
+    finding_ids = [finding.id for finding in group_findings]
     finding_vulns = await loaders.finding_vulns_nzr.load_many(finding_ids)
     counter: Counter[str] = Counter(
         [
             f"{finding.id}/{finding.title}"
-            for finding, vulnerabilities in zip(
-                group_findings_new, finding_vulns
-            )
+            for finding, vulnerabilities in zip(group_findings, finding_vulns)
             for vulnerability in vulnerabilities
             if vulnerability["current_state"] == "open"
         ]
@@ -72,9 +70,7 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
             {
                 key: Decimal(
                     utils.get_cvssf(
-                        get_finding_severity(
-                            group_findings_new, key.split("/")[0]
-                        )
+                        get_finding_severity(group_findings, key.split("/")[0])
                     )
                     * value
                 ).quantize(Decimal("0.001"))

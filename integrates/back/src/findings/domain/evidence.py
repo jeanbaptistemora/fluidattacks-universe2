@@ -102,7 +102,7 @@ async def get_records_from_file(
 async def remove_evidence(
     loaders: Any, evidence_id: str, finding_id: str
 ) -> None:
-    finding_loader = loaders.finding_new
+    finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     evidence: Optional[FindingEvidence] = getattr(
         finding.evidences, EVIDENCE_NAMES[evidence_id]
@@ -123,7 +123,7 @@ async def update_evidence(
     loaders: Any, finding_id: str, evidence_id: str, file: UploadFile
 ) -> None:
     await validate_evidence(evidence_id, file)
-    finding_loader = loaders.finding_new
+    finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     mime_type = await files_utils.get_uploaded_file_mime(file)
     try:
@@ -187,7 +187,7 @@ async def update_evidence_description(
 ) -> None:
     validations.validate_fields([description])
     validations.validate_field_length(description, 5000)
-    finding_loader = loaders.finding_new
+    finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     evidence: Optional[FindingEvidence] = getattr(
         finding.evidences, EVIDENCE_NAMES[evidence_id]

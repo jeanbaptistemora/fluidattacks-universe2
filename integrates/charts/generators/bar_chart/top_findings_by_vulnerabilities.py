@@ -35,17 +35,15 @@ from typing import (
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
-    group_findings_new: Tuple[
-        Finding, ...
-    ] = await loaders.group_findings_new.load(group.lower())
-    finding_ids = [finding.id for finding in group_findings_new]
+    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+        group.lower()
+    )
+    finding_ids = [finding.id for finding in group_findings]
     finding_vulns = await loaders.finding_vulns_nzr.load_many(finding_ids)
     counter = Counter(
         [
             f"{finding.id}/{finding.title}"
-            for finding, vulnerabilities in zip(
-                group_findings_new, finding_vulns
-            )
+            for finding, vulnerabilities in zip(group_findings, finding_vulns)
             for vulnerability in vulnerabilities
             if vulnerability["current_state"] == "open"
         ]

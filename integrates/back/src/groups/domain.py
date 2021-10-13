@@ -796,7 +796,7 @@ async def get_attributes(
 
 
 async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
-    group_findings_loader = loaders.group_findings_new
+    group_findings_loader = loaders.group_findings
     finding_vulns_loader = loaders.finding_vulns_nzr
 
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
@@ -844,7 +844,7 @@ async def get_vulnerabilities_with_pending_attacks(
     loaders: Any,
     group_name: str,
 ) -> int:
-    findings_new: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+    findings_new: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
@@ -876,7 +876,7 @@ async def get_mean_remediate(
     group_name: str,
     min_date: Optional[date] = None,
 ) -> Decimal:
-    group_findings_loader = loaders.group_findings_new
+    group_findings_loader = loaders.group_findings
     finding_vulns_loaders = loaders.finding_vulns
 
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
@@ -891,7 +891,7 @@ async def get_mean_remediate(
 async def get_mean_remediate_non_treated(
     loaders: Any, group_name: str, min_date: Optional[date] = None
 ) -> Decimal:
-    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
@@ -918,7 +918,7 @@ async def get_mean_remediate_severity_cvssf(
     max_severity: Decimal,
     min_date: Optional[date] = None,
 ) -> Decimal:
-    group_findings_loader = loaders.group_findings_new
+    group_findings_loader = loaders.group_findings
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name.lower()
     )
@@ -950,7 +950,7 @@ async def get_mean_remediate_cvssf(
     group_name: str,
     min_date: Optional[date] = None,
 ) -> Decimal:
-    group_findings_loader = loaders.group_findings_new
+    group_findings_loader = loaders.group_findings
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name.lower()
     )
@@ -976,7 +976,7 @@ async def get_mean_remediate_non_treated_severity_cvssf(
     max_severity: Decimal,
     min_date: Optional[date] = None,
 ) -> Decimal:
-    group_findings_loader = loaders.group_findings_new
+    group_findings_loader = loaders.group_findings
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name.lower()
     )
@@ -1018,7 +1018,7 @@ async def get_mean_remediate_non_treated_cvssf(
     group_name: str,
     min_date: Optional[date] = None,
 ) -> Decimal:
-    group_findings_loader = loaders.group_findings_new
+    group_findings_loader = loaders.group_findings
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name.lower()
     )
@@ -1055,7 +1055,7 @@ async def get_mean_remediate_severity(
     min_date: Optional[date] = None,
 ) -> Decimal:
     """Get mean time to remediate"""
-    group_findings_loader = loaders.group_findings_new
+    group_findings_loader = loaders.group_findings
 
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name.lower()
@@ -1078,7 +1078,7 @@ async def get_mean_remediate_severity(
 
 
 async def get_open_findings(loaders: Any, group_name: str) -> int:
-    group_findings_loader = loaders.group_findings_new
+    group_findings_loader = loaders.group_findings
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
     )
@@ -1093,7 +1093,7 @@ async def get_open_vulnerabilities(
     loaders: Any,
     group_name: str,
 ) -> int:
-    group_findings_loader = loaders.group_findings_new
+    group_findings_loader = loaders.group_findings
     finding_vulns_loader = loaders.finding_vulns_nzr
 
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
@@ -1245,9 +1245,9 @@ async def remove_all_users(loaders: Any, group: str) -> bool:
 
 async def remove_resources(loaders: Any, group_name: str) -> bool:
     are_users_removed = await remove_all_users(loaders, group_name)
-    group_drafts_loader: DataLoader = loaders.group_drafts_new
+    group_drafts_loader: DataLoader = loaders.group_drafts
     drafts: Tuple[Finding, ...] = await group_drafts_loader.load(group_name)
-    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     removed_findings: Tuple[
@@ -1426,7 +1426,7 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
         "vulns_len": 0,
     }
 
-    findings_loader = loaders.group_findings_new
+    findings_loader = loaders.group_findings
     findings: Tuple[Finding, ...] = await findings_loader.load(group_name)
     findings_ids = [finding.id for finding in findings]
 

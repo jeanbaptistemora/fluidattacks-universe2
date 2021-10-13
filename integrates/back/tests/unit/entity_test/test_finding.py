@@ -522,7 +522,7 @@ async def test_remove_finding() -> None:
     """Check for removeFinding mutation."""
     finding_id = "560175507"
     loaders: Dataloaders = get_new_context()
-    finding: Finding = await loaders.finding_new.load(finding_id)
+    finding: Finding = await loaders.finding.load(finding_id)
     assert finding.state.status == FindingStateStatus.CREATED
 
     query = f"""
@@ -541,9 +541,9 @@ async def test_remove_finding() -> None:
     assert "success" in result["data"]["removeFinding"]
     assert result["data"]["removeFinding"]["success"]
 
-    loaders.finding_new.clear(finding_id)
+    loaders.finding.clear(finding_id)
     with pytest.raises(FindingNotFound):
-        assert await loaders.finding_new.load(finding_id)
+        assert await loaders.finding.load(finding_id)
 
 
 @pytest.mark.changes_db

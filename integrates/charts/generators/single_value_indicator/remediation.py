@@ -79,10 +79,10 @@ def get_totals_by_week(
 async def generate_one(groups: Tuple[str, ...]) -> RemediationReport:
     context = get_new_context()
     finding_vulns_loader = context.finding_vulns_nzr
-    group_findings_new_loader = context.group_findings_new
+    group_findings_loader = context.group_findings
     groups_findings_new: Tuple[
         Tuple[Finding, ...], ...
-    ] = await group_findings_new_loader.load_many(groups)
+    ] = await group_findings_loader.load_many(groups)
     finding_ids = [
         finding.id
         for group_findings in groups_findings_new

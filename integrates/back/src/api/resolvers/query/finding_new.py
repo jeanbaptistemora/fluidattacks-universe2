@@ -34,7 +34,7 @@ async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Finding:
     finding_id: str = kwargs["finding_id"]
-    finding_loader: DataLoader = info.context.loaders.finding_new
+    finding_loader: DataLoader = info.context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     if finding.approval is None:
         return await _get_draft(finding, info)

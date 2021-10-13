@@ -137,7 +137,7 @@ async def get_comments(
     group_name: str, finding_id: str, user_email: str, info: GraphQLResolveInfo
 ) -> Tuple[CommentType, ...]:
     historic_verification_loader = (
-        info.context.loaders.finding_historic_verification_new
+        info.context.loaders.finding_historic_verification
     )
     finding_vulns_loader = info.context.loaders.finding_vulns
     comments = await _get_comments("comment", finding_id)

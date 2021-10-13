@@ -69,21 +69,21 @@ def get_max_severity_many(groups: List[Decimal]) -> Tuple[int, Decimal]:
 
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str, loaders: Dataloaders) -> Severity:
-    group_findings_new_loader = loaders.group_findings_new
-    group_findings_new: Tuple[
-        FindingNew, ...
-    ] = await group_findings_new_loader.load(group.lower())
-    max_found_index, max_found_value = get_max_severity_one(group_findings_new)
+    group_findings_loader = loaders.group_findings
+    group_findings: Tuple[FindingNew, ...] = await group_findings_loader.load(
+        group.lower()
+    )
+    max_found_index, max_found_value = get_max_severity_one(group_findings)
     open_findings_vulnerabilities = await collect(
         [
             findings_domain.get_open_vulnerabilities(loaders, finding.id)
-            for finding in group_findings_new
+            for finding in group_findings
         ]
     )
     open_group_findings_new = tuple(
         finding
         for finding, open_vulnerabilities in zip(
-            group_findings_new, open_findings_vulnerabilities
+            group_findings, open_findings_vulnerabilities
         )
         if open_vulnerabilities > 0
     )
@@ -99,7 +99,7 @@ async def generate_one(group: str, loaders: Dataloaders) -> Severity:
         ),
         max_severity_found=MaxSeverity(
             value=max_found_value,
-            name=(group_findings_new[max_found_index].title)
+            name=(group_findings[max_found_index].title)
             if max_found_index >= 0
             else "",
         ),

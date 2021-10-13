@@ -41,7 +41,7 @@ async def resolve_no_cache(
     parent: Group, info: GraphQLResolveInfo, **_kwargs: None
 ) -> int:
     group_name: str = parent["name"]
-    group_findings_loader: DataLoader = info.context.loaders.group_findings_new
+    group_findings_loader: DataLoader = info.context.loaders.group_findings
     findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
     )

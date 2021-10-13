@@ -26,7 +26,7 @@ LOGGER: logging.Logger = logging.getLogger(__name__)
 async def get_root_vulns(
     *, loaders: Any, group_name: str, nickname: str
 ) -> Tuple[Dict[str, Any], ...]:
-    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     finding_ids = {finding.id for finding in findings}

@@ -79,8 +79,8 @@ async def _resolve_from_event_id(context: Any, identifier: str) -> str:
 
 async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
     validations.validate_finding_id(identifier)
-    finding_new_loader = context.loaders.finding_new
-    finding: Finding = await finding_new_loader.load(identifier)
+    finding_loader = context.loaders.finding
+    finding: Finding = await finding_loader.load(identifier)
     return finding.group_name
 
 
@@ -415,9 +415,9 @@ def require_finding_access(func: TVar) -> TVar:
             finding_id = vuln["finding_id"]
 
         validations.validate_finding_id(finding_id)
-        finding_new_loader = context.loaders.finding_new
+        finding_loader = context.loaders.finding
         try:
-            await finding_new_loader.load(finding_id)
+            await finding_loader.load(finding_id)
         except FindingNotFound:
             logs_utils.cloudwatch_log(context, UNAVAILABLE_FINDING_MSG)
             raise
