@@ -116,12 +116,6 @@
       padding: 20px 0;
     }
 
-    .content-number {
-      color: #ff3435;
-      font-weight: bold;
-      float: right;
-    }
-
     @media only screen and (min-width: 320px) {
       .numbers {
         display: flex !important;
@@ -479,30 +473,28 @@
     </div>
     <div class="main-content" style="background-color: #ffffff;margin-bottom: 24px;">
       <div class="content">
+        <div style="justify-content: space-between;border-bottom:1px solid #b0b0bf;padding:20px 0;">
+          <span style="font-weight: 700;">
+            <strong>Group - Vulnerability</strong>
+          </span>
+          <span style="font-weight: 700;float: right;">
+            Time elapsed
+          </span>
+        </div>
         {%- for finding in oldest_findings %}
-          <div style="justify-content: space-between;border-bottom:1px solid #b0b0bf;padding:20px 0;">
-            <span style="font-weight: 700;">
-              <strong>{{ finding['finding_group'] }}</strong>
-            </span>
-            <span style="font-weight: 700;float: right;">
-              Time elapsed
-            </span>
-          </div>
           <div style="justify-content: space-between;border-bottom:1px solid #b0b0bf;padding:20px 0;">
             <span>
               {# Truncated due to unwanted html generation in the email client #}
-              {{ finding['oldest_name']|truncate(60, True, '...', 3) }}
+              {{ finding['finding_group'] }} - {{ finding['oldest_name']|truncate(60, True, '...', 3) }}
             </span>
             <span style="float: right;">
               {%- if finding['oldest_age'] >= 60 %}
                 {{ (finding['oldest_age'] * 0.032855)|round(1, 'common') }} months
               {%- else %}
-                {%- if finding['oldest_age'] == 0 %}
-                today
-                {%- elif finding['oldest_age'] == 1 %}
-                1 day
+                {%- if finding['oldest_age'] == 1 %}
+                  1 day
                 {%- else %}
-                {{ finding['oldest_age'] }} days
+                  {{ finding['oldest_age'] }} days
                 {%- endif %}
               {%- endif %}
             </span>
@@ -521,19 +513,19 @@
     </div>
     <div class="main-content" style="background-color: #ffffff;margin-bottom: 24px;">
       <div class="content">
+        <div style="justify-content: space-between;border-bottom:1px solid #b0b0bf;padding:20px 0;">
+          <span style="font-weight: 700;">
+            <strong>Group - Vulnerability</strong>
+          </span>
+          <span style="font-weight: 700;float: right;">
+            Severity
+          </span>
+        </div>
         {%- for finding in most_severe_findings %}
-          <div style="justify-content: space-between;border-bottom:1px solid #b0b0bf;padding:20px 0;">
-            <span style="font-weight: 700;">
-              <strong>{{ finding['finding_group'] }}</strong>
-            </span>
-            <span style="font-weight: 700;float: right;">
-              Severity
-            </span>
-          </div>
           <div style="justify-content: space-between;border-bottom:1px solid #b0b0bf;padding:20px 0;">
             <span>
               {# Truncated due to unwanted html generation in the email client #}
-              {{ finding['severest_name']|truncate(60, True, '...', 3) }}
+              {{ finding['finding_group'] }} - {{ finding['severest_name']|truncate(60, True, '...', 3) }}
             </span>
             <span style="float: right;">
               {{ finding['severity'] }} / 10
