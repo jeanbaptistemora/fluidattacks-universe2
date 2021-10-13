@@ -4,6 +4,7 @@ import { Field } from "formik";
 import type { FieldValidator } from "formik";
 import _ from "lodash";
 import React, { cloneElement, useCallback } from "react";
+import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button/index";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -18,6 +19,7 @@ import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import {
   composeValidators,
+  maxLength,
   validEvidenceDescription,
   validTextField,
 } from "utils/validations";
@@ -37,6 +39,11 @@ interface IEvidenceImageProps {
   onDelete?: () => void;
 }
 /* eslint-disable react/require-default-props, react/no-unused-prop-types */
+
+const MAX_DESCRIPTION_LENGTH: number = 5000;
+const maxDescriptionLength: ConfigurableValidator = maxLength(
+  MAX_DESCRIPTION_LENGTH
+);
 
 const renderForm: (props: IEvidenceImageProps) => JSX.Element = (
   props: IEvidenceImageProps
@@ -68,6 +75,7 @@ const renderForm: (props: IEvidenceImageProps) => JSX.Element = (
             component={FormikTextArea}
             name={getFieldName("description")}
             validate={composeValidators([
+              maxDescriptionLength,
               validEvidenceDescription,
               validTextField,
             ])}

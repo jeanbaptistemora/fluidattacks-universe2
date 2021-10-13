@@ -186,6 +186,7 @@ async def update_evidence_description_new(
     loaders: Any, finding_id: str, evidence_id: str, description: str
 ) -> None:
     validations.validate_fields([description])
+    validations.validate_field_length(description, 5000)
     finding_loader = loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
     evidence: Optional[FindingEvidence] = getattr(
