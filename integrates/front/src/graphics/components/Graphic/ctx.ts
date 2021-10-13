@@ -16,6 +16,8 @@ interface IMergedCharts {
 const allowedDocumentNames: string[] = [
   "meanTimeToRemediate",
   "meanTimeToRemediateCvssf",
+  "mttrBenchmarkingCvssf",
+  "mttrBenchmarkingNonTreatedCvssf",
   "riskOverTime",
   "riskOverTimeCvssf",
 ];
