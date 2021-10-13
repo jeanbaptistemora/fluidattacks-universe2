@@ -82,7 +82,8 @@ in
     observesGitlabEtlDefault = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 7200;
-      command = [ "./m" "observes.job.gitlab-etl.default" ];
+      command = [ "m" "f" "/observes/job/gitlab-etl/default" ];
+      definition = "makes";
       environment = [
         "AUTONOMIC_API_TOKEN"
         "PRODUCT_API_TOKEN"
@@ -92,7 +93,8 @@ in
     observesGitlabEtlProduct = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 7200;
-      command = [ "./m" "observes.job.gitlab-etl.product" ];
+      command = [ "m" "f" "/observes/job/gitlab-etl/product" ];
+      definition = "makes";
     };
 
     observesGitlabEtlServices = sharedConfiguration // {

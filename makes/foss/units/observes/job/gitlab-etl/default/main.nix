@@ -12,6 +12,6 @@ makeScript {
       (inputs.legacy.importUtility "sops")
     ];
   };
-  name = "observes-job-gitlab-etl-challenges";
+  name = "observes-job-gitlab-etl-default";
   entrypoint = ./entrypoint.sh;
 }
