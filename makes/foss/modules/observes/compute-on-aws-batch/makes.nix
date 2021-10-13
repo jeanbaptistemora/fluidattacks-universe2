@@ -17,12 +17,14 @@ in
       attempts = 5;
       attemptDurationSeconds = 14000;
       command = [ "m" "f" "/observes/job/announcekit/etl" ];
+      definition = "makes";
     };
 
     observesBugsnagEtl = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 14000;
-      command = [ "./m" "observes.job.bugsnag-etl" ];
+      command = [ "m" "f" "/observes/job/bugsnag-etl" ];
+      definition = "makes";
     };
 
     observesChecklyEtl = sharedConfiguration // {
