@@ -4,6 +4,9 @@ from aioextensions import (
 from back.src.db_model.roots.update import (
     update_git_root_machine_execution,
 )
+from botocore.exceptions import (
+    ClientError,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -13,6 +16,7 @@ import dateutil.parser  # type: ignore
 from groups.domain import (
     get_active_groups,
     get_attributes,
+    LOGGER_CONSOLE,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -70,20 +74,23 @@ async def _machine_queue(
     namespace: str,
     urgent: bool,
 ) -> Tuple[Dict[str, Any], str, str, str, str]:
-    result = await machine_queue(
-        finding_code=finding_code,
-        group_name=group_name,
-        namespace=namespace,
-        urgent=urgent,
-    )
+    try:
+        result = await machine_queue(
+            finding_code=finding_code,
+            group_name=group_name,
+            namespace=namespace,
+            urgent=urgent,
+        )
+    except ClientError as exc:
+        LOGGER_CONSOLE.exception(exc, exc_info=True)
+        return ({}, root_id, group_name, finding_code, namespace)
+
     if result and (job_id := result.get("jobId")):
         await update_git_root_machine_execution(
             group_name,
             root_id,
             finding_code,
-            datetime.datetime.fromtimestamp(
-                result["createdAt"] / 1000
-            ).isoformat(),
+            datetime.datetime.now().isoformat(),
             job_id,
         )
         info(

@@ -1,8 +1,5 @@
 import aioboto3
 import asyncio
-from botocore.exceptions import (
-    ClientError,
-)
 from datetime import (
     datetime,
     timedelta,
@@ -257,35 +254,32 @@ async def queue_boto3(
         aws_session_token=os.environ.get("SKIMS_PROD_AWS_SESSION_TOKEN"),
     )
     async with aioboto3.client(**resource_options) as batch:
-        try:
-            return await batch.submit_job(
-                jobName=job_name,
-                jobQueue=queue_name,
-                jobDefinition="makes",
-                containerOverrides={
-                    "vcpus": 1,
-                    "command": [
-                        "m",
-                        "f",
-                        "/skims/process-group",
-                        group,
-                        finding_code,
-                        namespace,
-                    ],
-                    "environment": [
-                        {"name": "CI", "value": "true"},
-                        {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
-                        {
-                            "name": "PRODUCT_API_TOKEN",
-                            "value": os.environ.get("PRODUCT_API_TOKEN"),
-                        },
-                    ],
-                    "memory": 1 * 1800,
-                },
-                retryStrategy={
-                    "attempts": 1,
-                },
-                timeout={"attemptDurationSeconds": 86400},
-            )
-        except ClientError:
-            return {}
+        return await batch.submit_job(
+            jobName=job_name,
+            jobQueue=queue_name,
+            jobDefinition="makes",
+            containerOverrides={
+                "vcpus": 1,
+                "command": [
+                    "m",
+                    "f",
+                    "/skims/process-group",
+                    group,
+                    finding_code,
+                    namespace,
+                ],
+                "environment": [
+                    {"name": "CI", "value": "true"},
+                    {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
+                    {
+                        "name": "PRODUCT_API_TOKEN",
+                        "value": os.environ.get("PRODUCT_API_TOKEN"),
+                    },
+                ],
+                "memory": 1 * 1800,
+            },
+            retryStrategy={
+                "attempts": 1,
+            },
+            timeout={"attemptDurationSeconds": 86400},
+        )
