@@ -24,7 +24,7 @@ from decimal import (
     Decimal,
 )
 from findings.domain import (
-    get_severity_score_new,
+    get_severity_score,
 )
 from typing import (
     Counter,
@@ -41,7 +41,7 @@ async def get_data_one_group(group: str) -> Counter[str]:
     ] = await context.group_findings_new.load(group.lower())
     finding_ids = [finding.id for finding in group_findings_new]
     finding_cvssf: Dict[str, Decimal] = {
-        finding.id: utils.get_cvssf(get_severity_score_new(finding.severity))
+        finding.id: utils.get_cvssf(get_severity_score(finding.severity))
         for finding in group_findings_new
     }
 

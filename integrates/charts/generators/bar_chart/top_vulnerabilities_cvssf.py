@@ -39,10 +39,10 @@ from typing import (
 )
 
 
-def get_finding_severity_new(
+def get_finding_severity(
     findings: Tuple[FindingNew, ...], finding_id: str
 ) -> Decimal:
-    return findings_domain.get_severity_score_new(
+    return findings_domain.get_severity_score(
         next(
             finding for finding in findings if finding.id == finding_id
         ).severity
@@ -72,7 +72,7 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
             {
                 key: Decimal(
                     utils.get_cvssf(
-                        get_finding_severity_new(
+                        get_finding_severity(
                             group_findings_new, key.split("/")[0]
                         )
                     )

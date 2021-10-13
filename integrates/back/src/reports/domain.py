@@ -35,7 +35,7 @@ async def get_group_report_url(
     findings_ord_new = tuple(
         sorted(
             group_findings_new,
-            key=lambda finding: findings_domain.get_severity_score_new(
+            key=lambda finding: findings_domain.get_severity_score(
                 finding.severity
             ),
         )
@@ -43,14 +43,14 @@ async def get_group_report_url(
     description = await groups_domain.get_description(group_name)
 
     if report_type == "XLS":
-        return await technical_report.generate_xls_file_new(
+        return await technical_report.generate_xls_file(
             loaders,
             findings_ord=findings_ord_new,
             group_name=group_name,
             passphrase=passphrase,
         )
     if report_type == "PDF":
-        return await technical_report.generate_pdf_file_new(
+        return await technical_report.generate_pdf_file(
             loaders=loaders,
             description=description,
             findings_ord=findings_ord_new,
@@ -60,7 +60,7 @@ async def get_group_report_url(
             user_email=user_email,
         )
     if report_type == "DATA":
-        return await data_report.generate_new(
+        return await data_report.generate(
             loaders=loaders,
             findings_ord=findings_ord_new,
             group=group_name,

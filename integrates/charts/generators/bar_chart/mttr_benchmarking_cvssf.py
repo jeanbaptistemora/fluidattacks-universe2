@@ -23,7 +23,7 @@ from decimal import (
     Decimal,
 )
 from groups.domain import (
-    get_mean_remediate_cvssf_new,
+    get_mean_remediate_cvssf,
 )
 from typing import (
     Optional,
@@ -55,7 +55,7 @@ async def get_data_one_group(
             for vulnerability in vulnerabilities
         )
 
-    mttr: Decimal = await get_mean_remediate_cvssf_new(
+    mttr: Decimal = await get_mean_remediate_cvssf(
         loaders, group.lower(), min_date=min_date
     )
 

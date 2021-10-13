@@ -23,10 +23,10 @@ from events.domain import (
     list_group_events,
 )
 from findings.domain import (
-    get_last_closed_vulnerability_info_new,
-    get_max_open_severity_new,
-    get_pending_verification_findings_new,
-    get_total_treatment_new,
+    get_last_closed_vulnerability_info,
+    get_max_open_severity,
+    get_pending_verification_findings,
+    get_total_treatment,
 )
 from freezegun import (  # type: ignore
     freeze_time,
@@ -49,18 +49,18 @@ from groups.domain import (
     add_group,
     get_active_groups,
     get_alive_group_names,
-    get_closed_vulnerabilities_new,
+    get_closed_vulnerabilities,
     get_description,
     get_group_digest_stats,
-    get_mean_remediate_cvssf_new,
-    get_mean_remediate_new,
-    get_mean_remediate_non_treated_cvssf_new,
-    get_mean_remediate_non_treated_new,
+    get_mean_remediate,
+    get_mean_remediate_cvssf,
+    get_mean_remediate_non_treated,
+    get_mean_remediate_non_treated_cvssf,
     get_mean_remediate_non_treated_severity_cvssf,
-    get_mean_remediate_severity_cvssf_new,
-    get_mean_remediate_severity_new,
-    get_open_findings_new,
-    get_open_vulnerabilities_new,
+    get_mean_remediate_severity,
+    get_mean_remediate_severity_cvssf,
+    get_open_findings,
+    get_open_vulnerabilities,
     get_vulnerabilities_with_pending_attacks,
     is_alive,
     update_group_attrs,
@@ -141,13 +141,13 @@ async def test_get_vulnerabilities_with_pending_attacks() -> None:
     assert test_data == expected_output
 
 
-async def test_get_last_closing_vuln_new() -> None:
+async def test_get_last_closing_vuln() -> None:
     findings_to_get = ["463558592", "422286126"]
     loaders = get_new_context()
     findings: Tuple[Finding, ...] = await loaders.finding_new.load_many(
         findings_to_get
     )
-    test_data = await get_last_closed_vulnerability_info_new(loaders, findings)
+    test_data = await get_last_closed_vulnerability_info(loaders, findings)
     tzn = timezone(TIME_ZONE)
     actual_date = datetime.now(tz=tzn).date()
     initial_date = datetime(2019, 1, 15).date()
@@ -204,39 +204,37 @@ async def test_is_vulnerability_closed() -> None:
     assert not is_vulnerability_closed(open_vulnerability[0])
 
 
-async def test_get_max_open_severity_new() -> None:
+async def test_get_max_open_severity() -> None:
     findings_to_get = ["463558592", "422286126"]
     loaders = get_new_context()
     findings: Tuple[Finding, ...] = await loaders.finding_new.load_many(
         findings_to_get
     )
-    test_data = await get_max_open_severity_new(loaders, findings)
+    test_data = await get_max_open_severity(loaders, findings)
     assert test_data[0] == Decimal(4.3).quantize(Decimal("0.1"))
     assert test_data[1].id == "463558592"
 
 
-async def test_get_open_vulnerabilities_new() -> None:
+async def test_get_open_vulnerabilities() -> None:
     group_name = "unittesting"
     expected_output = 29
-    open_vulns = await get_open_vulnerabilities_new(
-        get_new_context(), group_name
-    )
+    open_vulns = await get_open_vulnerabilities(get_new_context(), group_name)
     assert open_vulns == expected_output
 
 
-async def test_get_closed_vulnerabilities_new() -> None:
+async def test_get_closed_vulnerabilities() -> None:
     group_name = "unittesting"
     expected_output = 7
-    closed_vulnerabilities = await get_closed_vulnerabilities_new(
+    closed_vulnerabilities = await get_closed_vulnerabilities(
         get_new_context(), group_name
     )
     assert closed_vulnerabilities == expected_output
 
 
-async def test_get_open_findings_new() -> None:
+async def test_get_open_findings() -> None:
     group_name = "unittesting"
     expected_output = 5
-    open_findings = await get_open_findings_new(get_new_context(), group_name)
+    open_findings = await get_open_findings(get_new_context(), group_name)
     assert open_findings == expected_output
 
 
@@ -264,29 +262,27 @@ async def test_get_open_vulnerability_date() -> None:
 
 
 @freeze_time("2020-12-01")
-async def test_get_mean_remediate_new() -> None:
+async def test_get_mean_remediate() -> None:
     context = get_new_context()
     group_name = "unittesting"
-    assert await get_mean_remediate_new(context, group_name) == Decimal(
-        "383.0"
-    )
-    assert await get_mean_remediate_non_treated_new(
+    assert await get_mean_remediate(context, group_name) == Decimal("383.0")
+    assert await get_mean_remediate_non_treated(
         context, group_name
     ) == Decimal("385.0")
 
     min_date = datetime_utils.get_now_minus_delta(days=30).date()
-    assert await get_mean_remediate_new(
-        context, group_name, min_date
-    ) == Decimal("0.0")
-    assert await get_mean_remediate_non_treated_new(
+    assert await get_mean_remediate(context, group_name, min_date) == Decimal(
+        "0.0"
+    )
+    assert await get_mean_remediate_non_treated(
         context, group_name, min_date
     ) == Decimal("0.0")
 
     min_date = datetime_utils.get_now_minus_delta(days=90).date()
-    assert await get_mean_remediate_new(
-        context, group_name, min_date
-    ) == Decimal("82.0")
-    assert await get_mean_remediate_non_treated_new(
+    assert await get_mean_remediate(context, group_name, min_date) == Decimal(
+        "82.0"
+    )
+    assert await get_mean_remediate_non_treated(
         context, group_name, min_date
     ) == Decimal("0.0")
 
@@ -300,12 +296,12 @@ async def test_get_mean_remediate_new() -> None:
         (90, Decimal("82.000")),
     ),
 )
-async def test_get_mean_remediate_cvssf_new(
+async def test_get_mean_remediate_cvssf(
     min_days: int, expected_output: Decimal
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
-    mean_remediate_cvssf_new = await get_mean_remediate_cvssf_new(
+    mean_remediate_cvssf_new = await get_mean_remediate_cvssf(
         loaders,
         group_name,
         (datetime.now() - timedelta(days=min_days)).date()
@@ -324,12 +320,12 @@ async def test_get_mean_remediate_cvssf_new(
         (90, Decimal("0")),
     ),
 )
-async def test_get_mean_remediate_non_treated_cvssf_new(
+async def test_get_mean_remediate_non_treated_cvssf(
     min_days: int, expected_output: Decimal
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
-    mttr_no_treated_cvssf_new = await get_mean_remediate_non_treated_cvssf_new(
+    mttr_no_treated_cvssf_new = await get_mean_remediate_non_treated_cvssf(
         loaders,
         group_name,
         (datetime.now() - timedelta(days=min_days)).date()
@@ -339,13 +335,13 @@ async def test_get_mean_remediate_non_treated_cvssf_new(
     assert mttr_no_treated_cvssf_new == expected_output
 
 
-async def test_get_total_treatment_new() -> None:
+async def test_get_total_treatment() -> None:
     loaders = get_new_context()
     findings_to_get = ["463558592", "422286126"]
     findings: Tuple[Finding, ...] = await loaders.finding_new.load_many(
         findings_to_get
     )
-    test_data = await get_total_treatment_new(loaders, findings)
+    test_data = await get_total_treatment(loaders, findings)
     expected_output = {
         "inProgress": 1,
         "accepted": 1,
@@ -491,14 +487,14 @@ async def test_get_reattackers() -> None:
         (90, Decimal("12")),
     ),
 )
-async def test_get_mean_remediate_severity_low_new(
+async def test_get_mean_remediate_severity_low(
     min_days: Optional[int], expected_output: Decimal
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
     min_severity = 0.1
     max_severity = 3.9
-    mean_remediate_low_severity = await get_mean_remediate_severity_new(
+    mean_remediate_low_severity = await get_mean_remediate_severity(
         loaders,
         group_name,
         min_severity,
@@ -519,7 +515,7 @@ async def test_get_mean_remediate_severity_low_new(
         (90, Decimal("11.269")),
     ),
 )
-async def test_get_mean_remediate_severity_low_new(
+async def test_get_mean_remediate_severity_low(
     min_days: Optional[int], expected_output: Decimal
 ) -> None:
     loaders = get_new_context()
@@ -547,14 +543,14 @@ async def test_get_mean_remediate_severity_low_new(
         (90, Decimal("0")),
     ),
 )
-async def test_get_mean_remediate_severity_medium_new(
+async def test_get_mean_remediate_severity_medium(
     min_days: Optional[int], expected_output: Decimal
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
     min_severity = 4
     max_severity = 6.9
-    mean_remediate_medium_severity = await get_mean_remediate_severity_new(
+    mean_remediate_medium_severity = await get_mean_remediate_severity(
         loaders,
         group_name,
         min_severity,
@@ -575,23 +571,21 @@ async def test_get_mean_remediate_severity_medium_new(
         (90, Decimal("0")),
     ),
 )
-async def test_get_mean_remediate_severity_medium_cvssf_new(
+async def test_get_mean_remediate_severity_medium_cvssf(
     min_days: int, expected_output: Decimal
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
     min_severity = Decimal("4")
     max_severity = Decimal("6.9")
-    mean_remediate_medium_severity = (
-        await get_mean_remediate_severity_cvssf_new(
-            loaders,
-            group_name,
-            min_severity,
-            max_severity,
-            (datetime.now() - timedelta(days=min_days)).date()
-            if min_days
-            else None,
-        )
+    mean_remediate_medium_severity = await get_mean_remediate_severity_cvssf(
+        loaders,
+        group_name,
+        min_severity,
+        max_severity,
+        (datetime.now() - timedelta(days=min_days)).date()
+        if min_days
+        else None,
     )
     assert mean_remediate_medium_severity == expected_output
 
@@ -605,14 +599,14 @@ async def test_get_mean_remediate_severity_medium_cvssf_new(
         (90, Decimal("82.0")),
     ),
 )
-async def test_get_mean_remediate_severity_low_cvssf_new(
+async def test_get_mean_remediate_severity_low_cvssf(
     min_days: int, expected_output: Decimal
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
     min_severity = Decimal("0.1")
     max_severity = Decimal("3.9")
-    mean_remediate_low_severity = await get_mean_remediate_severity_cvssf_new(
+    mean_remediate_low_severity = await get_mean_remediate_severity_cvssf(
         loaders,
         group_name,
         min_severity,
@@ -685,10 +679,10 @@ async def test_update_group_attrs(
     )
 
 
-async def test_get_pending_verification_findings_new() -> None:
+async def test_get_pending_verification_findings() -> None:
     group_name = "unittesting"
     loaders = get_new_context()
-    findings = await get_pending_verification_findings_new(loaders, group_name)
+    findings = await get_pending_verification_findings(loaders, group_name)
     assert len(findings) >= 1
     assert findings[0].title == "038. Business information leak"
     assert findings[0].id == "436992569"
@@ -696,7 +690,7 @@ async def test_get_pending_verification_findings_new() -> None:
 
 
 @freeze_time("2018-12-27")
-async def test_get_total_comments_date_new() -> None:
+async def test_get_total_comments_date() -> None:
     group_name = "unittesting"
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     loaders = get_new_context()

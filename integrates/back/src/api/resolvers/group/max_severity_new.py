@@ -53,7 +53,7 @@ async def resolve_no_cache(
     )
     max_severity: Decimal = max(
         map(
-            lambda finding: findings_domain.get_severity_score_new(
+            lambda finding: findings_domain.get_severity_score(
                 finding.severity
             ),
             findings,

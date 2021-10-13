@@ -2,7 +2,7 @@ from .common import (
     COMMENTS_TAG,
     DIGEST_TAG,
     GENERAL_TAG,
-    send_mails_async_new,
+    send_mails_async,
 )
 from context import (
     BASE_URL,
@@ -26,7 +26,7 @@ from typing import (
 async def send_mail_access_granted(
     email_to: List[str], context: MailContentType
 ) -> None:
-    await send_mails_async_new(
+    await send_mails_async(
         email_to,
         context,
         GENERAL_TAG,
@@ -42,7 +42,7 @@ async def send_mail_daily_digest(
     # Unique number needed to avoid the email client generating unwanted html
     # code in the template
     context["hash"] = hash((email_to[0], datetime_utils.get_now().timestamp()))
-    await send_mails_async_new(
+    await send_mails_async(
         email_to,
         context,
         DIGEST_TAG,
@@ -54,7 +54,7 @@ async def send_mail_daily_digest(
 async def send_mail_group_report(
     email_to: List[str], context: MailContentType
 ) -> None:
-    await send_mails_async_new(
+    await send_mails_async(
         email_to,
         context,
         GENERAL_TAG,
@@ -83,7 +83,7 @@ async def send_mail_comment(
         "group": group_name,
         "user_email": user_mail,
     }
-    await send_mails_async_new(
+    await send_mails_async(
         recipients,
         email_context,
         COMMENTS_TAG,

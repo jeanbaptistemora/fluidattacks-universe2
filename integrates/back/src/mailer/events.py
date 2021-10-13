@@ -1,6 +1,6 @@
 from .common import (
     COMMENTS_TAG,
-    send_mails_async_new,
+    send_mails_async,
 )
 from context import (
     BASE_URL,
@@ -42,7 +42,7 @@ async def send_mail_comment(
         "group": group_name,
         "user_email": user_mail,
     }
-    await send_mails_async_new(
+    await send_mails_async(
         recipients,
         email_context,
         COMMENTS_TAG,

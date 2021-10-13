@@ -38,16 +38,16 @@ async def get_data_one_group(
 ) -> Remediate:
     critical, high, medium, low = await collect(
         [
-            groups_domain.get_mean_remediate_severity_new(
+            groups_domain.get_mean_remediate_severity(
                 loaders, group, 9, 10, min_date
             ),
-            groups_domain.get_mean_remediate_severity_new(
+            groups_domain.get_mean_remediate_severity(
                 loaders, group, 7, 8.9, min_date
             ),
-            groups_domain.get_mean_remediate_severity_new(
+            groups_domain.get_mean_remediate_severity(
                 loaders, group, 4, 6.9, min_date
             ),
-            groups_domain.get_mean_remediate_severity_new(
+            groups_domain.get_mean_remediate_severity(
                 loaders, group, 0.1, 3.9, min_date
             ),
         ]

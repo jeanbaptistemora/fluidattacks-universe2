@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,no-value-for-parameter
 """
 This migration aims to copy the evidences for new drafts,
 in order to continue with the findings standarization.

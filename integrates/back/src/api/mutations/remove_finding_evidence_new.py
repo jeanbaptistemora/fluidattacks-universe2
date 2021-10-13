@@ -42,7 +42,7 @@ async def mutate(
     _parent: None, info: GraphQLResolveInfo, evidence_id: str, finding_id: str
 ) -> SimpleFindingPayload:
     try:
-        await findings_domain.remove_evidence_new(
+        await findings_domain.remove_evidence(
             info.context.loaders, evidence_id, finding_id
         )
         redis_del_by_deps_soon(

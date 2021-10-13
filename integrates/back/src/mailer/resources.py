@@ -1,6 +1,6 @@
 from .common import (
     GENERAL_TAG,
-    send_mails_async_new,
+    send_mails_async,
 )
 
 
@@ -16,7 +16,7 @@ async def send_mail_handled_file(
     }
 
     if uploaded:
-        await send_mails_async_new(
+        await send_mails_async(
             [email_to],
             mail_context,
             GENERAL_TAG,
@@ -24,7 +24,7 @@ async def send_mail_handled_file(
             "file_uploaded",
         )
     else:
-        await send_mails_async_new(
+        await send_mails_async(
             [email_to],
             mail_context,
             GENERAL_TAG,

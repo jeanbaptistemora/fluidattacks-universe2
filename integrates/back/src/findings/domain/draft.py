@@ -47,7 +47,7 @@ from vulnerabilities import (
 )
 
 
-async def approve_draft_new(
+async def approve_draft(
     context: Any,
     finding_id: str,
     user_email: str,
@@ -94,7 +94,7 @@ async def approve_draft_new(
     return approval_date
 
 
-async def add_draft_new(
+async def add_draft(
     context: Any,
     group_name: str,
     user_email: str,
@@ -127,9 +127,7 @@ async def add_draft_new(
     await findings_model.add(finding=draft)
 
 
-async def reject_draft_new(
-    context: Any, finding_id: str, user_email: str
-) -> None:
+async def reject_draft(context: Any, finding_id: str, user_email: str) -> None:
     finding_loader = context.loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
     if finding.state.status == FindingStateStatus.APPROVED:
@@ -151,9 +149,7 @@ async def reject_draft_new(
     )
 
 
-async def submit_draft_new(
-    context: Any, finding_id: str, user_email: str
-) -> None:
+async def submit_draft(context: Any, finding_id: str, user_email: str) -> None:
     finding_vulns_loader = context.loaders.finding_vulns
     finding_loader = context.loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
@@ -163,7 +159,7 @@ async def submit_draft_new(
     if finding.state.status == FindingStateStatus.SUBMITTED:
         raise AlreadySubmitted()
 
-    has_severity = findings_domain.get_severity_score_new(
+    has_severity = findings_domain.get_severity_score(
         finding.severity
     ) > Decimal(0)
     has_vulns = bool(await finding_vulns_loader.load(finding_id))

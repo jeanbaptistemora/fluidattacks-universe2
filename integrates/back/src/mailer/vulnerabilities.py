@@ -1,6 +1,6 @@
 from .common import (
     GENERAL_TAG,
-    send_mails_async_new,
+    send_mails_async,
 )
 from context import (
     BASE_URL,
@@ -41,7 +41,7 @@ async def send_mail_updated_treatment(
             f"/vulns/{finding_id}"
         ),
     }
-    await send_mails_async_new(
+    await send_mails_async(
         managers,
         email_context,
         GENERAL_TAG,

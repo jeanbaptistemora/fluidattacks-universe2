@@ -26,7 +26,7 @@ from freezegun import (  # type: ignore
     freeze_time,
 )
 from groups.domain import (
-    get_open_vulnerabilities_new,
+    get_open_vulnerabilities,
 )
 import json
 import os
@@ -57,7 +57,7 @@ async def _get_result(
 
 
 @freeze_time("2020-12-01")
-async def test_finding_age_new() -> None:
+async def test_finding_age() -> None:
     """Check for finding age."""
     query = """{
       finding(identifier: "422286126"){
@@ -518,7 +518,7 @@ async def test_reject_draft() -> None:
 
 
 @pytest.mark.changes_db
-async def test_remove_finding_new() -> None:
+async def test_remove_finding() -> None:
     """Check for removeFinding mutation."""
     finding_id = "560175507"
     loaders: Dataloaders = get_new_context()
@@ -547,7 +547,7 @@ async def test_remove_finding_new() -> None:
 
 
 @pytest.mark.changes_db
-async def test_approve_draft_new() -> None:
+async def test_approve_draft() -> None:
     """Check for approveDraft mutation."""
     query = """
       mutation {
@@ -621,7 +621,7 @@ async def test_submit_draft() -> None:
 
 
 @pytest.mark.changes_db
-async def test_filter_deleted_findings_new() -> None:
+async def test_filter_deleted_findings() -> None:
     """Check if vulns of removed findings are filtered out"""
     finding_id = "988493279"
     group_name = "unittesting"
@@ -635,7 +635,7 @@ async def test_filter_deleted_findings_new() -> None:
       }}
     """
     loaders: Dataloaders = get_new_context()
-    open_vulns = await get_open_vulnerabilities_new(loaders, group_name)
+    open_vulns = await get_open_vulnerabilities(loaders, group_name)
 
     data = {"query": mutation}
     result = await _get_result(data, loaders=loaders)
@@ -643,7 +643,7 @@ async def test_filter_deleted_findings_new() -> None:
     assert "success" in result["data"]["removeFinding"]
     assert result["data"]["removeFinding"]["success"]
     loaders = get_new_context()
-    assert await get_open_vulnerabilities_new(loaders, group_name) < open_vulns
+    assert await get_open_vulnerabilities(loaders, group_name) < open_vulns
 
 
 async def test_non_existing_finding() -> None:

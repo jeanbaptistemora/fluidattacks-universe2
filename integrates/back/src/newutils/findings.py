@@ -192,7 +192,7 @@ def is_valid_finding_title(title: str) -> bool:
     return bool(re.match(r"^[0-9]{3}\. .+", title))
 
 
-def get_updated_evidence_date_new(
+def get_updated_evidence_date(
     finding: Finding, evidence: FindingEvidence
 ) -> datetime:
     evidence_date = datetime.fromisoformat(evidence.modified_date)
@@ -215,7 +215,7 @@ def format_evidence(
         if evidence is None
         else {
             "date": datetime_utils.get_as_str(
-                get_updated_evidence_date_new(finding, evidence)
+                get_updated_evidence_date(finding, evidence)
             ),
             "description": evidence.description,
             "url": evidence.url,

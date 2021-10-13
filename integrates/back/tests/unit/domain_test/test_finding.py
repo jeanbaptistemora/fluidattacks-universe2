@@ -22,11 +22,11 @@ from db_model.findings.types import (
 )
 from findings.domain import (
     add_comment,
-    approve_draft_new,
-    get_oldest_no_treatment_new,
+    approve_draft,
+    get_oldest_no_treatment,
     get_tracking_vulnerabilities,
     get_treatment_summary,
-    mask_finding_new,
+    mask_finding,
     validate_evidence,
 )
 from freezegun import (  # type: ignore
@@ -253,11 +253,11 @@ async def test_add_comment() -> None:
 
 
 @pytest.mark.changes_db
-async def test_mask_finding_new() -> None:
+async def test_mask_finding() -> None:
     finding_id = "475041524"
     loaders: Dataloaders = get_new_context()
     finding: Finding = await loaders.finding_new.load(finding_id)
-    success = await mask_finding_new(loaders, finding)
+    success = await mask_finding(loaders, finding)
     assert isinstance(success, bool)
     assert success
 
@@ -368,11 +368,11 @@ async def test_validate_number_acceptances() -> None:
 
 @pytest.mark.changes_db
 @freeze_time("2019-12-01")
-async def test_approve_draft_new() -> None:
+async def test_approve_draft() -> None:
     finding_id = "475041513"
     user_email = "unittest@fluidattacks.com"
     context: Response = await create_dummy_session(user_email)
-    approval_date = await approve_draft_new(context, finding_id, user_email)
+    approval_date = await approve_draft(context, finding_id, user_email)
 
     expected_date = "2019-11-30 19:00:00"
     assert isinstance(approval_date, str)
@@ -393,13 +393,13 @@ async def test_approve_draft_new() -> None:
 
 
 @freeze_time("2021-05-27")
-async def test_get_oldest_no_treatment_findings_new() -> None:
+async def test_get_oldest_no_treatment_findings() -> None:
     group_name = "oneshottest"
     loaders = get_new_context()
     findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
         group_name
     )
-    oldest_findings = await get_oldest_no_treatment_new(loaders, findings)
+    oldest_findings = await get_oldest_no_treatment(loaders, findings)
     expected_output = {
         "oldest_name": "037. Technical information leak",
         "oldest_age": 256,

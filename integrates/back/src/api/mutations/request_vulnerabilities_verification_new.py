@@ -57,7 +57,7 @@ async def mutate(
 ) -> SimplePayloadType:
     try:
         user_info = await token_utils.get_jwt_content(info.context)
-        await findings_domain.request_vulnerabilities_verification_new(
+        await findings_domain.request_vulnerabilities_verification(
             info.context,
             finding_id,
             user_info,

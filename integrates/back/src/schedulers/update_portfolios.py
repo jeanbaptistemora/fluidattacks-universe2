@@ -18,7 +18,7 @@ from decimal import (
     Decimal,
 )
 from findings.domain.core import (
-    get_severity_score_new,
+    get_severity_score,
 )
 from groups import (
     domain as groups_domain,
@@ -113,7 +113,7 @@ async def update_organization_indicators(
         groups_attrs[index]["max_severity"] = Decimal(
             max(
                 [
-                    float(get_severity_score_new(finding.severity))
+                    float(get_severity_score(finding.severity))
                     for finding in group_findings[index]
                 ]
                 if group_findings[index]

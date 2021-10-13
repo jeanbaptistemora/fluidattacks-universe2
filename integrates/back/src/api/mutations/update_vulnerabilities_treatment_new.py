@@ -61,9 +61,7 @@ async def mutate(
         group_name: str = finding.group_name
         group_loader = info.context.loaders.group
         group = await group_loader.load(group_name)
-        severity_score = findings_domain.get_severity_score_new(
-            finding.severity
-        )
+        severity_score = findings_domain.get_severity_score(finding.severity)
         success: bool = await vulns_domain.update_vulnerabilities_treatment(
             loaders=info.context.loaders,
             finding_id=finding_id,

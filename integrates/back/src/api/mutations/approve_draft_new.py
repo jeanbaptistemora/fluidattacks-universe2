@@ -53,7 +53,7 @@ async def mutate(
         finding: Finding = await finding_loader.load(finding_id)
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
-        approval_date = await findings_domain.approve_draft_new(
+        approval_date = await findings_domain.approve_draft(
             info.context, finding_id, user_email
         )
         redis_del_by_deps_soon(

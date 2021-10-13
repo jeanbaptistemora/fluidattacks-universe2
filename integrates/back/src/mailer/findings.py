@@ -1,7 +1,7 @@
 from .common import (
     COMMENTS_TAG,
     GENERAL_TAG,
-    send_mails_async_new,
+    send_mails_async,
     VERIFY_TAG,
 )
 from context import (
@@ -55,7 +55,7 @@ async def send_mail_comment(
         "user_email": user_mail,
     }
 
-    await send_mails_async_new(
+    await send_mails_async(
         recipients,
         email_context,
         COMMENTS_TAG,
@@ -88,7 +88,7 @@ async def send_mail_remove_finding(
         "justification": justification_dict[justification],
         "group": group_name,
     }
-    await send_mails_async_new(
+    await send_mails_async(
         recipients,
         mail_context,
         GENERAL_TAG,
@@ -117,7 +117,7 @@ async def send_mail_new_draft(
         "group": group_name,
         "organization": org_name,
     }
-    await send_mails_async_new(
+    await send_mails_async(
         recipients,
         email_context,
         GENERAL_TAG,
@@ -129,7 +129,7 @@ async def send_mail_new_draft(
 async def send_mail_new_remediated(
     email_to: List[str], context: MailContentType
 ) -> None:
-    await send_mails_async_new(
+    await send_mails_async(
         email_to,
         context,
         GENERAL_TAG,
@@ -161,7 +161,7 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
         "group": group_name,
         "organization": org_name,
     }
-    await send_mails_async_new(
+    await send_mails_async(
         recipients,
         email_context,
         GENERAL_TAG,
@@ -192,7 +192,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
         "user_email": user_email,
         "solution_description": justification.splitlines(),
     }
-    await send_mails_async_new(
+    await send_mails_async(
         recipients,
         mail_context,
         VERIFY_TAG,

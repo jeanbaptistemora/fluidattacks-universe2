@@ -71,7 +71,7 @@ async def mutate(
             threat=kwargs["threat"],
             title=kwargs["title"],
         )
-        await findings_domain.update_description_new(
+        await findings_domain.update_description(
             info.context.loaders, finding_id, description
         )
         redis_del_by_deps_soon(

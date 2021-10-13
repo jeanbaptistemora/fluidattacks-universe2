@@ -57,7 +57,7 @@ async def get_filtered_elements(
     ]
 
 
-async def filter_findings_new(
+async def filter_findings(
     findings: Finding, filters: Dict[str, Any]
 ) -> Tuple[Finding, ...]:
     """Return filtered findings according to filters."""

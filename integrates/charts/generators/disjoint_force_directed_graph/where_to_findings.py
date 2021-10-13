@@ -35,7 +35,7 @@ async def generate_one(group: str) -> dict:
         (
             finding.id,
             finding.title,
-            findings_domain.get_severity_score_new(finding.severity),
+            findings_domain.get_severity_score(finding.severity),
         )
         for finding in group_findings_new
     ]

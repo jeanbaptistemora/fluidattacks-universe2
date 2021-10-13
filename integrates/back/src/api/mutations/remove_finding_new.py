@@ -60,7 +60,7 @@ async def mutate(
         user_email = user_info["user_email"]
         state_justification = FindingStateJustification[justification]
         finding: Finding = await finding_loader.load(finding_id)
-        await findings_domain.remove_finding_new(
+        await findings_domain.remove_finding(
             info.context,
             finding_id,
             state_justification,

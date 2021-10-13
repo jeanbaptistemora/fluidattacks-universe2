@@ -12,7 +12,7 @@ from findings.domain import (
     get_records_from_file,
 )
 from newutils.vulnerabilities import (
-    get_reattack_requesters_new,
+    get_reattack_requesters,
 )
 import os
 import pytest
@@ -68,12 +68,12 @@ async def test_get_records_from_file() -> None:
     assert test_data == expected_output
 
 
-async def test_get_reattack_requesters_new() -> None:
+async def test_get_reattack_requesters() -> None:
     loaders = get_new_context()
     historic_verification: Tuple[
         FindingVerification, ...
     ] = await loaders.finding_historic_verification_new.load("463558592")
-    recipients = get_reattack_requesters_new(
+    recipients = get_reattack_requesters(
         historic_verification,
         {"3bcdb384-5547-4170-a0b6-3b397a245465"},
     )

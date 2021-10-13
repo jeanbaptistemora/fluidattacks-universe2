@@ -73,7 +73,7 @@ async def log(msg: str, **kwargs: Any) -> None:
     await in_thread(LOGGER_TRANSACTIONAL.info, msg, **kwargs)
 
 
-async def send_mail_async_new(
+async def send_mail_async(
     email_to: str,
     context: MailContentType,
     tags: List[str],
@@ -123,7 +123,7 @@ async def send_mail_async_new(
         raise UnableToSendMail() from ex
 
 
-async def send_mails_async_new(
+async def send_mails_async(
     email_to: List[str],
     context: MailContentType,
     tags: List[str],
@@ -133,7 +133,7 @@ async def send_mails_async_new(
     test_group_list = FI_TEST_PROJECTS.split(",")
     await collect(
         [
-            send_mail_async_new(email, context, tags, subject, template_name)
+            send_mail_async(email, context, tags, subject, template_name)
             for email in email_to
             if context.get("group", "").lower() not in test_group_list
         ]

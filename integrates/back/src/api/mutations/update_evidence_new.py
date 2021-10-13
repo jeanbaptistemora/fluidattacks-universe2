@@ -48,7 +48,7 @@ async def mutate(
         file: UploadFile = kwargs["file"]
         finding_id: str = kwargs["finding_id"]
         evidence_id: str = kwargs["evidence_id"]
-        await findings_domain.update_evidence_new(
+        await findings_domain.update_evidence(
             info.context.loaders, finding_id, evidence_id, file
         )
         redis_del_by_deps_soon(

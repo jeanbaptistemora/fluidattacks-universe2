@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,no-value-for-parameter
 """
 This migration aims to delete findings without vulns, in order to continue with
 the findings type standarization effort.

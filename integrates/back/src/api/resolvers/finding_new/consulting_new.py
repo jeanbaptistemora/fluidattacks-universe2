@@ -50,6 +50,6 @@ async def resolve_no_cache(
 ) -> List[Comment]:
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
-    return await comments_domain.get_comments_new(
+    return await comments_domain.get_comments(
         parent.group_name, parent.id, user_email, info
     )

@@ -21,7 +21,7 @@ from decimal import (
     Decimal,
 )
 from findings.domain import (
-    get_severity_score_new,
+    get_severity_score,
 )
 from freezegun import (  # type: ignore
     freeze_time,
@@ -87,7 +87,7 @@ async def test_get_status_vulns_by_time_range() -> None:
         [finding.id for finding in findings]
     )
     findings_severity: Dict[str, Decimal] = {
-        finding.id: get_severity_score_new(finding.severity)
+        finding.id: get_severity_score(finding.severity)
         for finding in findings
     }
     vulnerabilities_severity = [
@@ -131,7 +131,7 @@ async def test_get_accepted_vulns() -> None:
         [finding.id for finding in findings]
     )
     findings_severity: Dict[str, Decimal] = {
-        finding.id: get_severity_score_new(finding.severity)
+        finding.id: get_severity_score(finding.severity)
         for finding in findings
     }
     vulnerabilities_severity = [
@@ -165,7 +165,7 @@ async def test_get_by_time_range() -> None:
     finding: Finding = await loaders.finding_new.load(
         vulnerability["finding_id"]
     )
-    vulnerability_severity = get_severity_score_new(finding.severity)
+    vulnerability_severity = get_severity_score(finding.severity)
     test_data = update_indicators.get_by_time_range(
         findings_utils.sort_historic_by_date(vulnerability["historic_state"]),
         vulnerability_severity,

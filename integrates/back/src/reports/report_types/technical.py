@@ -46,7 +46,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-def convert_evidences_to_png_new(
+def convert_evidences_to_png(
     findings: Tuple[Finding, ...],
     finding_evidences_set: Dict[str, List[Dict[str, str]]],
     tempdir: str,
@@ -79,7 +79,7 @@ def convert_evidences_to_png_new(
                 )
 
 
-async def download_evidences_for_pdf_new(
+async def download_evidences_for_pdf(
     findings: Tuple[Finding, ...], tempdir: str
 ) -> Dict[str, List[Dict[str, str]]]:
     finding_evidences_set = {}
@@ -126,7 +126,7 @@ async def download_evidences_for_pdf_new(
     return finding_evidences_set
 
 
-async def generate_pdf_file_new(
+async def generate_pdf_file(
     *,
     loaders: Any,
     description: str,
@@ -140,12 +140,10 @@ async def generate_pdf_file_new(
     report_filename = ""
     with TemporaryDirectory() as tempdir:
         pdf_maker = CreatorPdfNew(lang, "tech", tempdir)
-        finding_evidences_set = await download_evidences_for_pdf_new(
+        finding_evidences_set = await download_evidences_for_pdf(
             findings_ord, tempdir
         )
-        convert_evidences_to_png_new(
-            findings_ord, finding_evidences_set, tempdir
-        )
+        convert_evidences_to_png(findings_ord, finding_evidences_set, tempdir)
         await pdf_maker.tech(
             findings_ord,
             finding_evidences_set,
@@ -160,7 +158,7 @@ async def generate_pdf_file_new(
     return report_filename
 
 
-async def generate_xls_file_new(
+async def generate_xls_file(
     loaders: Any,
     findings_ord: Tuple[Finding, ...],
     group_name: str,

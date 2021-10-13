@@ -88,7 +88,7 @@ async def mutate(
             threat=kwargs.get("threat", ""),
             title=title,
         )
-        await findings_domain.add_draft_new(
+        await findings_domain.add_draft(
             info.context, group_name, user_email, draft_info
         )
         logs_utils.cloudwatch_log(

@@ -15,4 +15,4 @@ from graphql.type.definition import (
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> Decimal:
-    return findings_domain.get_severity_score_new(parent.severity)
+    return findings_domain.get_severity_score(parent.severity)

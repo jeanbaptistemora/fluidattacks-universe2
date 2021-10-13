@@ -28,7 +28,7 @@ from uuid import (
 )
 
 
-async def _append_evidences_new(
+async def _append_evidences(
     *,
     directory: str,
     group: str,
@@ -70,7 +70,7 @@ async def _append_evidences_new(
                     )
 
 
-async def _append_pdf_report_new(
+async def _append_pdf_report(
     *,
     loaders: Any,
     directory: str,
@@ -81,7 +81,7 @@ async def _append_pdf_report_new(
     requester_email: str,
 ) -> None:
     # Generate the PDF report
-    report_filename = await technical_report.generate_pdf_file_new(
+    report_filename = await technical_report.generate_pdf_file(
         loaders=loaders,
         description=group_description,
         findings_ord=findings_ord,
@@ -95,14 +95,14 @@ async def _append_pdf_report_new(
             file.write(report.read())
 
 
-async def _append_xls_report_new(
+async def _append_xls_report(
     loaders: Any,
     directory: str,
     findings_ord: Tuple[Finding, ...],
     group_name: str,
     passphrase: str,
 ) -> None:
-    report_filename = await technical_report.generate_xls_file_new(
+    report_filename = await technical_report.generate_xls_file(
         loaders,
         findings_ord=findings_ord,
         group_name=group_name,
@@ -163,7 +163,7 @@ def _get_directory_contents(directory: str) -> List[str]:
     ]
 
 
-async def generate_new(
+async def generate(
     *,
     loaders: Any,
     findings_ord: Tuple[Finding, ...],
@@ -173,7 +173,7 @@ async def generate_new(
     requester_email: str,
 ) -> str:
     with tempfile.TemporaryDirectory() as directory:
-        await _append_pdf_report_new(
+        await _append_pdf_report(
             loaders=loaders,
             directory=directory,
             findings_ord=findings_ord,
@@ -182,14 +182,14 @@ async def generate_new(
             passphrase=passphrase,
             requester_email=requester_email,
         )
-        await _append_xls_report_new(
+        await _append_xls_report(
             loaders,
             directory=directory,
             findings_ord=findings_ord,
             group_name=group,
             passphrase=passphrase,
         )
-        await _append_evidences_new(
+        await _append_evidences(
             directory=directory,
             group=group,
             findings_ord=findings_ord,

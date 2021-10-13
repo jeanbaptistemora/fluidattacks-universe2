@@ -31,7 +31,7 @@ from findings import (
     domain as findings_domain,
 )
 from findings.domain.core import (
-    get_severity_score_new,
+    get_severity_score,
 )
 from groups import (
     domain as groups_domain,
@@ -147,7 +147,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
         [finding.id for finding in findings]
     )
     findings_severity: Dict[str, Decimal] = {
-        finding.id: get_severity_score_new(finding.severity)
+        finding.id: get_severity_score(finding.severity)
         for finding in findings
     }
     vulnerabilities_severity = [
@@ -290,7 +290,7 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
         [finding.id for finding in findings]
     )
     findings_severity: Dict[str, Decimal] = {
-        finding.id: get_severity_score_new(finding.severity)
+        finding.id: get_severity_score(finding.severity)
         for finding in findings
     }
     vulnerabilities_severity = [
@@ -654,13 +654,13 @@ async def _get_group_indicators(
         open_findings,
     ) = await collect(
         (
-            findings_domain.get_last_closed_vulnerability_info_new(
+            findings_domain.get_last_closed_vulnerability_info(
                 loaders, findings
             ),
-            findings_domain.get_max_open_severity_new(loaders, findings),
-            groups_domain.get_mean_remediate_new(loaders, group),
-            groups_domain.get_closed_vulnerabilities_new(loaders, group),
-            groups_domain.get_open_findings_new(loaders, group),
+            findings_domain.get_max_open_severity(loaders, findings),
+            groups_domain.get_mean_remediate(loaders, group),
+            groups_domain.get_closed_vulnerabilities(loaders, group),
+            groups_domain.get_open_findings(loaders, group),
         )
     )
 
@@ -694,19 +694,13 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         total_treatment,
     ) = await collect(
         [
-            groups_domain.get_mean_remediate_severity_new(
-                loaders, group, 9, 10
-            ),
-            groups_domain.get_mean_remediate_severity_new(
-                loaders, group, 7, 8.9
-            ),
-            groups_domain.get_mean_remediate_severity_new(
-                loaders, group, 4, 6.9
-            ),
-            groups_domain.get_mean_remediate_severity_new(
+            groups_domain.get_mean_remediate_severity(loaders, group, 9, 10),
+            groups_domain.get_mean_remediate_severity(loaders, group, 7, 8.9),
+            groups_domain.get_mean_remediate_severity(loaders, group, 4, 6.9),
+            groups_domain.get_mean_remediate_severity(
                 loaders, group, 0.1, 3.9
             ),
-            findings_domain.get_total_treatment_new(loaders, findings),
+            findings_domain.get_total_treatment(loaders, findings),
         ]
     )
     (
@@ -744,7 +738,7 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         "mean_remediate_low_severity": remediate_low,
         "mean_remediate_medium_severity": remediate_medium,
         "open_vulnerabilities": (
-            await groups_domain.get_open_vulnerabilities_new(loaders, group)
+            await groups_domain.get_open_vulnerabilities(loaders, group)
         ),
         "total_treatment": total_treatment,
         "remediated_over_time": remediated_over_time.vulnerabilities[-40:],

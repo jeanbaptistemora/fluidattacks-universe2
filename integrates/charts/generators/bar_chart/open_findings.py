@@ -31,7 +31,7 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
     context = get_new_context()
-    open_findings = await groups_domain.get_open_findings_new(
+    open_findings = await groups_domain.get_open_findings(
         context, group.lower()
     )
 

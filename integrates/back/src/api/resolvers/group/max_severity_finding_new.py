@@ -52,7 +52,7 @@ async def resolve_no_cache(
     _, max_severity_finding = max(
         [
             (
-                findings_domain.get_severity_score_new(finding.severity),
+                findings_domain.get_severity_score(finding.severity),
                 finding,
             )
             for finding in findings

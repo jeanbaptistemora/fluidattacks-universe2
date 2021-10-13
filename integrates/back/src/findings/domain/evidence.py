@@ -99,7 +99,7 @@ async def get_records_from_file(
     return file_content
 
 
-async def remove_evidence_new(
+async def remove_evidence(
     loaders: Any, evidence_id: str, finding_id: str
 ) -> None:
     finding_loader = loaders.finding_new
@@ -119,7 +119,7 @@ async def remove_evidence_new(
     )
 
 
-async def update_evidence_new(
+async def update_evidence(
     loaders: Any, finding_id: str, evidence_id: str, file: UploadFile
 ) -> None:
     await validate_evidence(evidence_id, file)
@@ -182,7 +182,7 @@ async def update_evidence_new(
         )
 
 
-async def update_evidence_description_new(
+async def update_evidence_description(
     loaders: Any, finding_id: str, evidence_id: str, description: str
 ) -> None:
     validations.validate_fields([description])

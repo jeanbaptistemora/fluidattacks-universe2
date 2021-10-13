@@ -147,7 +147,7 @@ async def add_comment(
     return success[1]
 
 
-async def remove_finding_new(
+async def remove_finding(
     context: Any,
     finding_id: str,
     justification: FindingStateJustification,
@@ -265,14 +265,14 @@ async def get_finding_open_age(context: Any, finding_id: str) -> int:
     return open_age
 
 
-async def get_last_closed_vulnerability_info_new(
+async def get_last_closed_vulnerability_info(
     loaders: Any,
     findings: Tuple[Finding, ...],
 ) -> Tuple[Decimal, VulnerabilityType]:
     """Get days since the last closed vulnerability"""
     finding_vulns_loader = loaders.finding_vulns_nzr
     valid_findings_ids = [
-        finding.id for finding in findings if not is_deleted_new(finding)
+        finding.id for finding in findings if not is_deleted(finding)
     ]
     vulns = await finding_vulns_loader.load_many_chained(valid_findings_ids)
     are_vuln_closed = [
@@ -312,11 +312,11 @@ async def get_is_verified(loaders: Any, finding_id: str) -> bool:
     return len(remediated_vulns) == 0
 
 
-async def get_max_open_severity_new(
+async def get_max_open_severity(
     loaders: Any, findings: Tuple[Finding, ...]
 ) -> Tuple[Decimal, Optional[Finding]]:
     total_vulns = await collect(
-        [total_vulnerabilities_new(loaders, finding) for finding in findings]
+        [total_vulnerabilities(loaders, finding) for finding in findings]
     )
     opened_findings = [
         finding
@@ -326,7 +326,7 @@ async def get_max_open_severity_new(
     total_severity: List[float] = cast(
         List[float],
         [
-            float(get_severity_score_new(finding.severity))
+            float(get_severity_score(finding.severity))
             for finding in opened_findings
         ],
     )
@@ -365,7 +365,7 @@ async def get_open_vulnerabilities(loaders: Any, finding_id: str) -> int:
     return len(vulns)
 
 
-async def get_pending_verification_findings_new(
+async def get_pending_verification_findings(
     loaders: Any,
     group_name: str,
 ) -> Tuple[Finding, ...]:
@@ -374,10 +374,7 @@ async def get_pending_verification_findings_new(
         group_name
     )
     are_pending_verifications = await collect(
-        [
-            is_pending_verification_new(loaders, finding.id)
-            for finding in findings
-        ]
+        [is_pending_verification(loaders, finding.id) for finding in findings]
     )
     return tuple(
         finding
@@ -397,7 +394,7 @@ def get_report_days(report_date: str) -> int:
     return days
 
 
-async def get_report_date_new(loaders: Any, finding_id: str) -> Optional[str]:
+async def get_report_date(loaders: Any, finding_id: str) -> Optional[str]:
     iso_report_date = ""
     finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
     vulns = await finding_vulns_loader.load(finding_id)
@@ -409,7 +406,7 @@ async def get_report_date_new(loaders: Any, finding_id: str) -> Optional[str]:
     return iso_report_date
 
 
-def get_severity_score_new(
+def get_severity_score(
     severity: Union[Finding20Severity, Finding31Severity]
 ) -> Decimal:
     if isinstance(severity, Finding31Severity):
@@ -427,7 +424,7 @@ async def get_status(loaders: Any, finding_id: str) -> str:
     return "open" if open_vulns else "closed"
 
 
-async def get_total_treatment_new(
+async def get_total_treatment(
     loaders: Any, findings: Tuple[Finding, ...]
 ) -> Dict[str, int]:
     """Get the total vulnerability treatment of all the findings"""
@@ -438,7 +435,7 @@ async def get_total_treatment_new(
     finding_vulns_loader = loaders.finding_vulns_nzr
 
     valid_findings = [
-        finding for finding in findings if not is_deleted_new(finding)
+        finding for finding in findings if not is_deleted(finding)
     ]
     vulns = await finding_vulns_loader.load_many_chained(
         [finding.id for finding in valid_findings]
@@ -561,11 +558,11 @@ async def has_access_to_finding(
     return has_access
 
 
-def is_deleted_new(finding: Finding) -> bool:
+def is_deleted(finding: Finding) -> bool:
     return finding.state.status == FindingStateStatus.DELETED
 
 
-async def is_pending_verification_new(
+async def is_pending_verification(
     loaders: Any,
     finding_id: str,
 ) -> bool:
@@ -583,7 +580,7 @@ async def is_pending_verification_new(
     return len(reattack_requested) > 0
 
 
-async def mask_finding_new(  # pylint: disable=too-many-locals
+async def mask_finding(  # pylint: disable=too-many-locals
     loaders: Any, finding: Finding
 ) -> bool:
     mask_finding_coroutines = []
@@ -657,7 +654,7 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
     return all(await collect(mask_finding_coroutines))
 
 
-async def request_vulnerabilities_verification_new(
+async def request_vulnerabilities_verification(
     context: Any,
     finding_id: str,
     user_info: Dict[str, str],
@@ -719,12 +716,12 @@ async def request_vulnerabilities_verification_new(
     )
 
 
-async def total_vulnerabilities_new(
+async def total_vulnerabilities(
     loaders: Any, finding: Finding
 ) -> Dict[str, int]:
     finding_stats = {"openVulnerabilities": 0, "closedVulnerabilities": 0}
     finding_vulns_loader = loaders.finding_vulns_nzr
-    if not is_deleted_new(finding):
+    if not is_deleted(finding):
         vulns = await finding_vulns_loader.load(finding.id)
         last_approved_status = await collect(
             [in_process(vulns_utils.get_last_status, vuln) for vuln in vulns]
@@ -740,7 +737,7 @@ async def total_vulnerabilities_new(
     return finding_stats
 
 
-async def update_description_new(
+async def update_description(
     loaders: Any, finding_id: str, description: FindingDescriptionToUpdate
 ) -> None:
     validations.validate_fields(
@@ -772,7 +769,7 @@ async def update_description_new(
     )
 
 
-async def update_severity_new(
+async def update_severity(
     loaders: Any,
     finding_id: str,
     severity: Union[Finding20Severity, Finding31Severity],
@@ -887,7 +884,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     return all(success)
 
 
-async def get_oldest_no_treatment_new(
+async def get_oldest_no_treatment(
     loaders: Any,
     findings: Tuple[Finding, ...],
 ) -> Dict[str, str]:

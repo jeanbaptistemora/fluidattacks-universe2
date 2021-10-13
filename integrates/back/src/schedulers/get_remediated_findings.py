@@ -49,7 +49,7 @@ async def get_remediated_findings() -> None:
     findings = tuple(
         chain.from_iterable(
             await collect(
-                findings_domain.get_pending_verification_findings_new(
+                findings_domain.get_pending_verification_findings(
                     get_new_context(), group
                 )
                 for group in active_groups

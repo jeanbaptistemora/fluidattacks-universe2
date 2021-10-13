@@ -160,7 +160,7 @@ async def format_finding(
     open_vulnerabilities = await findings_domain.get_open_vulnerabilities(
         loaders, finding.id
     )
-    severity_score = findings_domain.get_severity_score_new(finding.severity)
+    severity_score = findings_domain.get_severity_score(finding.severity)
 
     treatments = get_treatments(vulnerabilities)
     formated_treatments: List[str] = []
@@ -216,20 +216,20 @@ async def format_finding(
     )
 
 
-def get_access_vector_new(finding: Finding) -> Optional[str]:
+def get_access_vector(finding: Finding) -> Optional[str]:
     """Get metrics based on cvss version."""
     if isinstance(finding.severity, Finding31Severity):
-        severity = get_severity_new(
+        severity = get_severity(
             "attack_vector", finding.severity.attack_vector
         )
     else:
-        severity = get_severity_new(
+        severity = get_severity(
             "access_vector", finding.severity.access_vector
         )
     return severity
 
 
-def get_severity_new(metric: str, metric_value: Decimal) -> Optional[str]:
+def get_severity(metric: str, metric_value: Decimal) -> Optional[str]:
     """Extract number of CSSV metrics."""
     description: Optional[str] = ""
     metrics = {
@@ -294,7 +294,7 @@ def get_severity_new(metric: str, metric_value: Decimal) -> Optional[str]:
     return description
 
 
-def make_vuln_table_new(
+def make_vuln_table(
     context_findings: Tuple[PdfFindingInfo, ...], words: Dict[str, str]
 ) -> VulnTable:
     """Label findings percent quantity."""
@@ -428,7 +428,7 @@ class CreatorPdfNew:
         version = "v1.0"
         team_mail = "engineering@fluidattacks.com"
         fluid_tpl_content = self.make_content(words)
-        access_vector = get_access_vector_new(findings[0]) if findings else ""
+        access_vector = get_access_vector(findings[0]) if findings else ""
         context_findings = await collect(
             [
                 format_finding(
@@ -437,7 +437,7 @@ class CreatorPdfNew:
                 for finding in findings
             ]
         )
-        main_tables = make_vuln_table_new(context_findings, words)
+        main_tables = make_vuln_table(context_findings, words)
         main_pie_filename = self.make_pie_finding(
             context_findings, group, words
         )

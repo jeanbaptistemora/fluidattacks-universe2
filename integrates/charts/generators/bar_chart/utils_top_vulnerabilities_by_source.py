@@ -27,7 +27,7 @@ from decimal import (
     Decimal,
 )
 from findings.domain.core import (
-    get_severity_score_new,
+    get_severity_score,
 )
 from typing import (
     Any,
@@ -48,7 +48,7 @@ async def get_data_one_group(
     finding_ids = [finding.id for finding in findings]
     findings_vulns = await loaders.finding_vulns_nzr.load_many(finding_ids)
     findings_cvssf = [
-        utils.get_cvssf(get_severity_score_new(finding.severity))
+        utils.get_cvssf(get_severity_score(finding.severity))
         for finding in findings
     ]
 

@@ -24,7 +24,7 @@ from decimal import (
     ROUND_FLOOR,
 )
 from findings.domain import (
-    get_severity_score_new,
+    get_severity_score,
 )
 from statistics import (
     mean,
@@ -55,7 +55,7 @@ async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
     ] = await loaders.group_findings_new.load(group.lower())
     finding_severity.update(
         {
-            finding.id: get_severity_score_new(finding.severity)
+            finding.id: get_severity_score(finding.severity)
             for finding in group_findings_new
         }
     )

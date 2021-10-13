@@ -133,7 +133,7 @@ async def get(comment_type: str, element_id: str) -> List[CommentType]:
     return await comments_dal.get_comments(comment_type, element_id)
 
 
-async def get_comments_new(
+async def get_comments(
     group_name: str, finding_id: str, user_email: str, info: GraphQLResolveInfo
 ) -> Tuple[CommentType, ...]:
     historic_verification_loader = (

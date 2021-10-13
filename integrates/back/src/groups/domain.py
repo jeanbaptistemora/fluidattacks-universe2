@@ -64,8 +64,8 @@ from findings import (
     domain as findings_domain,
 )
 from findings.domain import (
-    get_max_open_severity_new,
-    get_oldest_no_treatment_new,
+    get_max_open_severity,
+    get_oldest_no_treatment,
 )
 from group_access import (
     domain as group_access_domain,
@@ -795,7 +795,7 @@ async def get_attributes(
     return await groups_dal.get_attributes(group_name, attributes)
 
 
-async def get_closed_vulnerabilities_new(loaders: Any, group_name: str) -> int:
+async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
     group_findings_loader = loaders.group_findings_new
     finding_vulns_loader = loaders.finding_vulns_nzr
 
@@ -871,7 +871,7 @@ async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
     return cast(List[GroupType], groups)
 
 
-async def get_mean_remediate_new(
+async def get_mean_remediate(
     loaders: Any,
     group_name: str,
     min_date: Optional[date] = None,
@@ -888,7 +888,7 @@ async def get_mean_remediate_new(
     return vulns_utils.get_mean_remediate_vulnerabilities(vulns, min_date)
 
 
-async def get_mean_remediate_non_treated_new(
+async def get_mean_remediate_non_treated(
     loaders: Any, group_name: str, min_date: Optional[date] = None
 ) -> Decimal:
     findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
@@ -911,7 +911,7 @@ async def get_mean_remediate_non_treated_new(
     )
 
 
-async def get_mean_remediate_severity_cvssf_new(
+async def get_mean_remediate_severity_cvssf(
     loaders: Any,
     group_name: str,
     min_severity: Decimal,
@@ -927,13 +927,13 @@ async def get_mean_remediate_severity_cvssf_new(
         for finding in group_findings
         if (
             min_severity
-            <= findings_domain.get_severity_score_new(finding.severity)
+            <= findings_domain.get_severity_score(finding.severity)
             <= max_severity
         )
     ]
     finding_cvssf: Dict[str, Decimal] = {
         finding.id: vulns_utils.get_cvssf(
-            findings_domain.get_severity_score_new(finding.severity)
+            findings_domain.get_severity_score(finding.severity)
         )
         for finding in group_findings
     }
@@ -945,7 +945,7 @@ async def get_mean_remediate_severity_cvssf_new(
     )
 
 
-async def get_mean_remediate_cvssf_new(
+async def get_mean_remediate_cvssf(
     loaders: Any,
     group_name: str,
     min_date: Optional[date] = None,
@@ -957,7 +957,7 @@ async def get_mean_remediate_cvssf_new(
     group_findings_ids: List[str] = [finding.id for finding in group_findings]
     finding_cvssf: Dict[str, Decimal] = {
         finding.id: vulns_utils.get_cvssf(
-            findings_domain.get_severity_score_new(finding.severity)
+            findings_domain.get_severity_score(finding.severity)
         )
         for finding in group_findings
     }
@@ -985,13 +985,13 @@ async def get_mean_remediate_non_treated_severity_cvssf(
         for finding in group_findings
         if (
             min_severity
-            <= findings_domain.get_severity_score_new(finding.severity)
+            <= findings_domain.get_severity_score(finding.severity)
             <= max_severity
         )
     ]
     finding_cvssf: Dict[str, Decimal] = {
         finding.id: vulns_utils.get_cvssf(
-            findings_domain.get_severity_score_new(finding.severity)
+            findings_domain.get_severity_score(finding.severity)
         )
         for finding in group_findings
     }
@@ -1013,7 +1013,7 @@ async def get_mean_remediate_non_treated_severity_cvssf(
     )
 
 
-async def get_mean_remediate_non_treated_cvssf_new(
+async def get_mean_remediate_non_treated_cvssf(
     loaders: Any,
     group_name: str,
     min_date: Optional[date] = None,
@@ -1025,7 +1025,7 @@ async def get_mean_remediate_non_treated_cvssf_new(
     group_findings_ids: List[str] = [finding.id for finding in group_findings]
     finding_cvssf: Dict[str, Decimal] = {
         finding.id: vulns_utils.get_cvssf(
-            findings_domain.get_severity_score_new(finding.severity)
+            findings_domain.get_severity_score(finding.severity)
         )
         for finding in group_findings
     }
@@ -1047,7 +1047,7 @@ async def get_mean_remediate_non_treated_cvssf_new(
     )
 
 
-async def get_mean_remediate_severity_new(
+async def get_mean_remediate_severity(
     loaders: Any,
     group_name: str,
     min_severity: float,
@@ -1065,7 +1065,7 @@ async def get_mean_remediate_severity_new(
         for finding in group_findings
         if (
             min_severity
-            <= float(findings_domain.get_severity_score_new(finding.severity))
+            <= float(findings_domain.get_severity_score(finding.severity))
             <= max_severity
         )
     ]
@@ -1077,7 +1077,7 @@ async def get_mean_remediate_severity_new(
     )
 
 
-async def get_open_findings_new(loaders: Any, group_name: str) -> int:
+async def get_open_findings(loaders: Any, group_name: str) -> int:
     group_findings_loader = loaders.group_findings_new
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
@@ -1089,7 +1089,7 @@ async def get_open_findings_new(loaders: Any, group_name: str) -> int:
     return finding_status.count("open")
 
 
-async def get_open_vulnerabilities_new(
+async def get_open_vulnerabilities(
     loaders: Any,
     group_name: str,
 ) -> int:
@@ -1255,7 +1255,7 @@ async def remove_resources(loaders: Any, group_name: str) -> bool:
     ] = await loaders.group_removed_findings.load(group_name)
     are_findings_masked = all(
         await collect(
-            findings_domain.mask_finding_new(loaders, finding)
+            findings_domain.mask_finding(loaders, finding)
             for finding in (*drafts, *findings, *removed_findings)
         )
     )
@@ -1377,14 +1377,14 @@ def filter_active_groups(groups: List[GroupType]) -> List[GroupType]:
     ]
 
 
-async def get_remediation_rate_new(
+async def get_remediation_rate(
     loaders: Any,
     group_name: str,
 ) -> int:
     """Percentage of closed vulns, ignoring treatments"""
     remediation_rate: int = 0
-    open_vulns = await get_open_vulnerabilities_new(loaders, group_name)
-    closed_vulns = await get_closed_vulnerabilities_new(loaders, group_name)
+    open_vulns = await get_open_vulnerabilities(loaders, group_name)
+    closed_vulns = await get_closed_vulnerabilities(loaders, group_name)
     if closed_vulns:
         remediation_rate = int(
             100 * closed_vulns / (open_vulns + closed_vulns)
@@ -1440,9 +1440,9 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
     content["vulns_len"] = len(group_vulns)
     last_day = datetime_utils.get_now_minus_delta(hours=24)
 
-    oldest_finding = await get_oldest_no_treatment_new(loaders, findings)
+    oldest_finding = await get_oldest_no_treatment(loaders, findings)
     if oldest_finding:
-        max_severity, severest_finding = await get_max_open_severity_new(
+        max_severity, severest_finding = await get_max_open_severity(
             loaders, findings
         )
         content["findings"] = [
@@ -1455,9 +1455,9 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
             }
         ]
     content["main"]["remediation_time"] = int(
-        await get_mean_remediate_non_treated_new(loaders, group_name)
+        await get_mean_remediate_non_treated(loaders, group_name)
     )
-    content["main"]["remediation_rate"] = await get_remediation_rate_new(
+    content["main"]["remediation_rate"] = await get_remediation_rate(
         loaders, group_name
     )
 

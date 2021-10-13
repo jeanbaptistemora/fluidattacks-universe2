@@ -14,14 +14,14 @@ pytestmark = [
 ]
 
 
-async def test_list_comments_new() -> None:
+async def test_list_comments() -> None:
     finding_id = "422286126"
     user_email = "unittest@fluidattacks.com"
     request = await create_dummy_session(user_email)
     info = GraphQLResolveInfo(
         None, None, None, None, None, None, None, None, None, None, request
     )
-    test_data = await comments_domain.get_comments_new(
+    test_data = await comments_domain.get_comments(
         "unittesting", finding_id, user_email, info
     )
     expected_output = [

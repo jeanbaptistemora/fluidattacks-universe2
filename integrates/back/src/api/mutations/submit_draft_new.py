@@ -52,7 +52,7 @@ async def mutate(
         finding_loader = info.context.loaders.finding_new
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
-        await findings_domain.submit_draft_new(
+        await findings_domain.submit_draft(
             info.context, finding_id, user_email
         )
         redis_del_by_deps_soon(

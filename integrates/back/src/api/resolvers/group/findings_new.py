@@ -35,6 +35,6 @@ async def resolve(
         group_name
     )
     if filters:
-        return await utils.filter_findings_new(findings, filters)
+        return await utils.filter_findings(findings, filters)
 
     return findings

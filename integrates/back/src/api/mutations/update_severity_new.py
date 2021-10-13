@@ -145,7 +145,7 @@ async def mutate(
         else:
             raise InvalidCvssVersion()
 
-        await findings_domain.update_severity_new(
+        await findings_domain.update_severity(
             info.context.loaders, finding_id, severity
         )
         redis_del_by_deps_soon(

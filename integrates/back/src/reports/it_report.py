@@ -237,9 +237,7 @@ class ITReportNew:
         self.row_values[vuln[cvss_key]] = cell_content
 
     def set_finding_data(self, finding: Finding, vuln: VulnType) -> None:
-        severity = float(
-            findings_domain.get_severity_score_new(finding.severity)
-        )
+        severity = float(findings_domain.get_severity_score(finding.severity))
         finding_data = {
             "Description": finding.description,
             "Status": cast(HistoricType, vuln.get("historic_state"))[-1][

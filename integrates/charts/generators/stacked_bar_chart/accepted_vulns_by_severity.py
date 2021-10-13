@@ -54,7 +54,7 @@ async def get_data_one_group(group: str) -> Counter[str]:
     finding_ids = [finding.id for finding in group_findings_new]
     finding_severity_levels = [
         get_severity_level(
-            findings_domain.get_severity_score_new(finding.severity)
+            findings_domain.get_severity_score(finding.severity)
         )
         for finding in group_findings_new
     ]

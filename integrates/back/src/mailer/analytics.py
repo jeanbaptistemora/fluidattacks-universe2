@@ -1,6 +1,6 @@
 from .common import (
     GENERAL_TAG,
-    send_mails_async_new,
+    send_mails_async,
 )
 from context import (
     BASE_URL,
@@ -19,7 +19,7 @@ async def send_mail_analytics(*email_to: str, **context: str) -> None:
         f'{BASE_URL}/{context["report_entity_percent"]}s/'
         f'{context["report_subject_percent"]}/analytics'
     )
-    await send_mails_async_new(
+    await send_mails_async(
         list(email_to),
         context,
         GENERAL_TAG,
