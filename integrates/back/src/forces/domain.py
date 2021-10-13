@@ -86,7 +86,6 @@ async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> bool:
         email=user_email,
         responsibility="Forces service user",
         role="service_forces",
-        phone_number="",
         group_name=group_name,
     )
 

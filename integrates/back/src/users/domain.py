@@ -192,16 +192,13 @@ async def format_stakeholder(email: str, group_name: str) -> StakeholderType:
     if invitation_state == "PENDING":
         responsibility = invitation["responsibility"]
         group_role = invitation["role"]
-        phone_number = invitation["phone_number"]
     else:
         responsibility = cast(str, group_access.get("responsibility", ""))
         group_role = await authz.get_group_level_role(email, group_name)
-        phone_number = cast(str, stakeholder["phone_number"])
     return {
         **stakeholder,
         "responsibility": responsibility,
         "invitation_state": invitation_state,
-        "phone_number": phone_number,
         "role": group_role,
     }
 

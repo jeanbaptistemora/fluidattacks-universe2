@@ -595,7 +595,6 @@ describe("Group stakeholders view", (): void => {
             new GraphQLError("Exception - Email is not valid"),
             new GraphQLError("Exception - Invalid field in form"),
             new GraphQLError("Exception - Invalid characters"),
-            new GraphQLError("Exception - Invalid phone number in form"),
             new GraphQLError("Exception - Invalid email address in form"),
             new GraphQLError(
               "Exception - Groups without an active Fluid Attacks service " +
@@ -670,7 +669,7 @@ describe("Group stakeholders view", (): void => {
       .find("ModalBase")
       .find({ headerTitle: "Add stakeholder to this group", open: true });
 
-    const TEST_TIMES_CALLED = 8;
+    const TEST_TIMES_CALLED = 7;
 
     expect(addUserModal2).toHaveLength(0);
 
@@ -758,7 +757,6 @@ describe("Group stakeholders view", (): void => {
             new GraphQLError("Access denied"),
             new GraphQLError("Exception - Invalid field in form"),
             new GraphQLError("Exception - Invalid characters"),
-            new GraphQLError("Exception - Invalid phone number in form"),
             new GraphQLError(
               "Exception - Groups without an active Fluid Attacks service " +
                 "can not have Fluid Attacks staff"
@@ -834,7 +832,7 @@ describe("Group stakeholders view", (): void => {
       open: true,
     });
 
-    const TEST_TIMES_CALLED = 6;
+    const TEST_TIMES_CALLED = 5;
 
     expect(editUserModal2).toHaveLength(0);
 

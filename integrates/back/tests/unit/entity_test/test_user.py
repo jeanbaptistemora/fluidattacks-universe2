@@ -19,7 +19,6 @@ async def test_get_user() -> None:
         "email": "continuoushacking@gmail.com",
         "role": "customeradmin",
         "responsibility": "Test",
-        "phone_number": "-",
         "first_login": "2018-02-28 11:54:12",
         "last_login": "[186, 33677]",
         "groups": [

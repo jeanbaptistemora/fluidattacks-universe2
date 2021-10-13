@@ -10,8 +10,6 @@ type Stakeholder {
   invitationState: InvitationState
   "Datetime of the latest login to ASM"
   lastLogin: String
-  "Phone number"
-  phoneNumber: String
   "Groups the stakeholder has access to"
   projects: [Group] @deprecated(reason: """This field will
     be removed after 2021/12/31. Use `groups` instead.""")

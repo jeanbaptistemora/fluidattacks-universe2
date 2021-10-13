@@ -51,7 +51,6 @@ async def mutate(
     requester_email = requester_data["user_email"]
 
     user_email = str(parameters.get("user_email"))
-    user_phone_number = parameters.get("phone_number", "")
     user_role: str = map_roles(str(parameters.get("role")).lower())
 
     user_added = await orgs_domain.add_user(
@@ -64,7 +63,6 @@ async def mutate(
         user_created = await groups_domain.add_without_group(
             user_email,
             "customer",
-            user_phone_number,
             should_add_default_org=(
                 FI_DEFAULT_ORG.lower() == organization_name.lower()
             ),

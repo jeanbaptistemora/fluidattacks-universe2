@@ -35,9 +35,6 @@ from redis_cluster.operations import (
 from typing import (
     Any,
 )
-from users import (
-    domain as users_domain,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -58,7 +55,6 @@ async def mutate(
 
     user_email: str = str(parameters.get("user_email"))
     new_role: str = map_roles(str(parameters.get("role")).lower())
-    new_phone_number: str = parameters.get("phone_number", "")
 
     # Validate role requirements before changing anything
     validate_role_fluid_reqs(user_email, new_role)
@@ -72,16 +68,6 @@ async def mutate(
         raise UserNotInOrganization()
 
     success = await orgs_domain.add_user(organization_id, user_email, new_role)
-    if new_phone_number:
-        success = await users_domain.update_user_information(
-            info.context,
-            {
-                "email": user_email,
-                "phone_number": new_phone_number,
-                "responsibility": "",
-            },
-            "",
-        )
 
     if success:
         await redis_del_by_deps(

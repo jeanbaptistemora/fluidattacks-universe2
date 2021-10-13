@@ -101,7 +101,6 @@ from newutils.validations import (
     validate_field_length,
     validate_fields,
     validate_group_name,
-    validate_phone_field,
     validate_string_length_between,
 )
 from notifications import (
@@ -411,7 +410,6 @@ async def complete_register_for_group_invitation(
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
     group_name = cast(str, get_key_or_fallback(group_access))
-    phone_number = cast(str, invitation["phone_number"])
     responsibility = cast(str, invitation["responsibility"])
     role = cast(str, invitation["role"])
     user_email = cast(str, group_access["user_email"])
@@ -438,15 +436,6 @@ async def complete_register_for_group_invitation(
     if not await orgs_domain.has_user_access(organization_id, user_email):
         coroutines.append(
             orgs_domain.add_user(organization_id, user_email, "customer")
-        )
-
-    if await users_domain.get_data(user_email, "email"):
-        coroutines.append(
-            users_domain.add_phone_to_user(user_email, phone_number)
-        )
-    else:
-        coroutines.append(
-            users_domain.create(user_email, {"phone": phone_number})
         )
 
     if not await users_domain.is_registered(user_email):
@@ -584,17 +573,14 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
 async def add_without_group(
     email: str,
     role: str,
-    phone_number: str = "",
     should_add_default_org: bool = True,
 ) -> bool:
     success = False
-    if validate_phone_field(phone_number) and validate_email_address(email):
+    if validate_email_address(email):
         new_user_data: UserType = {}
         new_user_data["email"] = email
         new_user_data["authorized"] = True
         new_user_data["registered"] = True
-        if phone_number:
-            new_user_data["phone"] = phone_number
 
         success = all(
             await collect(
@@ -1142,21 +1128,18 @@ async def invite_to_group(
     email: str,
     responsibility: str,
     role: str,
-    phone_number: str,
     group_name: str,
 ) -> bool:
     success = False
     if (
         validate_field_length(responsibility, 50)
         and validate_alphanumeric_field(responsibility)
-        and validate_phone_field(phone_number)
         and validate_email_address(email)
+        and validate_role_fluid_reqs(email, role)
         and await authz.validate_fluidattacks_staff_on_group(
             group_name, email, role
         )
     ):
-        # Extra validation here to satisfy the linter
-        validate_role_fluid_reqs(email, role)
         expiration_time = datetime_utils.get_as_epoch(
             datetime_utils.get_now_plus_delta(weeks=1)
         )
@@ -1169,7 +1152,6 @@ async def invite_to_group(
                 "has_access": False,
                 "invitation": {
                     "is_used": False,
-                    "phone_number": phone_number,
                     "responsibility": responsibility,
                     "role": role,
                     "url_token": url_token,

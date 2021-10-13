@@ -85,7 +85,6 @@ async def mutate(
             email=new_user_email,
             responsibility=new_user_responsibility,
             role=new_user_role,
-            phone_number=query_args.get("phone_number", ""),
             group_name=group_name,
         )
     else:

@@ -55,7 +55,6 @@ async def mutate(
     info: GraphQLResolveInfo,
     email: str,
     role: str,
-    phone_number: str = "",
 ) -> AddStakeholderPayload:
     role = map_roles(role)
     success: bool = False
@@ -69,7 +68,6 @@ async def mutate(
         new_user = await groups_domain.add_without_group(
             email=email,
             role=role,
-            phone_number=phone_number,
         )
         if new_user:
             logs_utils.cloudwatch_log(
