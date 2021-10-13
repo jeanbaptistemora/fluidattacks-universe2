@@ -951,7 +951,7 @@ async def get_mean_remediate_severity_cvssf_new(
         )
         for finding in group_findings
     }
-    findings_vulns = await loaders.finding_vulns_nzr.load_many_chained(
+    findings_vulns = await loaders.finding_vulns.load_many_chained(
         group_findings_ids
     )
     return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
@@ -1061,35 +1061,6 @@ async def get_mean_remediate_non_treated_cvssf_new(
     )
 
 
-async def get_mean_remediate_severity(
-    context: Any,
-    group_name: str,
-    min_severity: float,
-    max_severity: float,
-    min_date: Optional[date] = None,
-) -> Decimal:
-    """Get mean time to remediate"""
-    finding_vulns_loader = context.finding_vulns_nzr
-    group_findings_loader = context.group_findings
-
-    group_findings = await group_findings_loader.load(group_name.lower())
-    group_findings_ids = [
-        finding["finding_id"]
-        for finding in group_findings
-        if (
-            min_severity
-            <= cast(float, finding.get("cvss_temporal", 0))
-            <= max_severity
-        )
-    ]
-    findings_vulns = await finding_vulns_loader.load_many_chained(
-        group_findings_ids
-    )
-    return vulns_utils.get_mean_remediate_vulnerabilities(
-        findings_vulns, min_date
-    )
-
-
 async def get_mean_remediate_severity_new(
     loaders: Any,
     group_name: str,
@@ -1098,7 +1069,6 @@ async def get_mean_remediate_severity_new(
     min_date: Optional[date] = None,
 ) -> Decimal:
     """Get mean time to remediate"""
-    finding_vulns_loader = loaders.finding_vulns_nzr
     group_findings_loader = loaders.group_findings_new
 
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
@@ -1113,7 +1083,7 @@ async def get_mean_remediate_severity_new(
             <= max_severity
         )
     ]
-    findings_vulns = await finding_vulns_loader.load_many_chained(
+    findings_vulns = await loaders.finding_vulns.load_many_chained(
         group_findings_ids
     )
     return vulns_utils.get_mean_remediate_vulnerabilities(

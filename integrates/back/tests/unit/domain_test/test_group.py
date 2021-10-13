@@ -494,7 +494,6 @@ async def test_get_reattackers() -> None:
 async def test_get_mean_remediate_severity_low_new(
     min_days: Optional[int], expected_output: Decimal
 ) -> None:
-    # pylint: disable=unsubscriptable-object
     loaders = get_new_context()
     group_name = "unittesting"
     min_severity = 0.1
@@ -543,7 +542,7 @@ async def test_get_mean_remediate_severity_low_new(
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (None, Decimal("154")),
+        (None, Decimal("185")),
         (30, Decimal("0")),
         (90, Decimal("0")),
     ),
@@ -551,7 +550,6 @@ async def test_get_mean_remediate_severity_low_new(
 async def test_get_mean_remediate_severity_medium_new(
     min_days: Optional[int], expected_output: Decimal
 ) -> None:
-    # pylint: disable=unsubscriptable-object
     loaders = get_new_context()
     group_name = "unittesting"
     min_severity = 4
@@ -572,7 +570,7 @@ async def test_get_mean_remediate_severity_medium_new(
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (0, Decimal("147.823")),
+        (0, Decimal("152.580")),
         (30, Decimal("0")),
         (90, Decimal("0")),
     ),
@@ -598,13 +596,13 @@ async def test_get_mean_remediate_severity_medium_cvssf_new(
     assert mean_remediate_medium_severity == expected_output
 
 
-@freeze_time("2019-09-30")
+@freeze_time("2020-12-01")
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (0, Decimal("43.020")),
-        (30, Decimal("9.782")),
-        (90, Decimal("10.389")),
+        (0, Decimal("358.666")),
+        (30, Decimal("0.0")),
+        (90, Decimal("82.0")),
     ),
 )
 async def test_get_mean_remediate_severity_low_cvssf_new(
