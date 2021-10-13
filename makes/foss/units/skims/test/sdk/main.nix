@@ -13,6 +13,8 @@ makeScript {
     source = [ outputs."/skims/config-sdk" ];
   };
   entrypoint = ''
+    AWS_ACCESS_KEY_ID=$SKIMS_PROD_AWS_ACCESS_KEY_ID \
+    AWS_SECRET_ACCESS_KEY=$SKIMS_PROD_AWS_SECRET_ACCESS_KEY \
     python3 __argEntrypoint__
   '';
 }
