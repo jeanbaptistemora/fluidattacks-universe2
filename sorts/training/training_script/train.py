@@ -69,7 +69,7 @@ def get_tried_combinations(
         for result in previous_results[1:]:
             features_tried: str = result[1]
             tried_combinations.append(
-                tuple(
+                tuple(  # pylint: disable=consider-using-generator
                     [
                         inv_features_dict[feature]
                         for feature in features_tried.split(" ")
@@ -102,7 +102,7 @@ def save_model(
         save_model_to_s3(model, model_file_name)
 
 
-def train_model(  # pylint: disable=too-many-locals
+def train_model(
     model_class: ModelType,
     training_dir: str,
     previous_results: List[List[str]],

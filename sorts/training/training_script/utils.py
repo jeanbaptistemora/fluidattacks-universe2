@@ -245,7 +245,7 @@ def get_best_combination(
     for candidate in best_combination_candidates:
         overfit = float(candidate[5])
         if overfit < min_overfit:
-            best_features = tuple(
+            best_features = tuple(  # pylint: disable=consider-using-generator
                 [
                     inv_features_dict[feature]
                     for feature in candidate[1].split(" ")
