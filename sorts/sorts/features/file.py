@@ -79,9 +79,7 @@ def encode_extensions(training_df: DataFrame) -> None:
     ] = encoded_extensions.values.tolist()
 
 
-def get_features(  # pylint: disable=too-many-locals
-    row: Series, logs_dir: str
-) -> FileFeatures:
+def get_features(row: Series, logs_dir: str) -> FileFeatures:
     # Use -1 as default value to avoid ZeroDivisionError
     file_age: int = -1
     midnight_commits: int = -1
@@ -142,12 +140,14 @@ def get_file_age(git_metrics: GitMetrics) -> int:
     today: datetime = datetime.now(pytz.utc)
     commit_date_history: List[str] = git_metrics["date_iso_format"]
     file_creation_date: str = commit_date_history[-1]
+
     return (today - datetime.fromisoformat(file_creation_date)).days
 
 
 def get_num_commits(git_metrics: GitMetrics) -> int:
     """Gets the number of commits that have modified a file"""
     commit_history: List[str] = git_metrics["commit_hash"]
+
     return len(commit_history)
 
 
@@ -155,11 +155,14 @@ def get_num_lines(file_path: str) -> int:
     """Gets the numberr of lines that a file has"""
     result: int = 0
     try:
-        file = open(file_path, "rb")
-        bufgen = iter(partial(file.raw.read, 1024 * 1024), b"")  # type: ignore
-        result = sum(buf.count(b"\n") for buf in bufgen)
+        with open(file_path, "rb") as file:
+            bufgen = iter(
+                partial(file.raw.read, 1024 * 1024), b""  # type: ignore
+            )
+            result = sum(buf.count(b"\n") for buf in bufgen)
     except FileNotFoundError:
         log("warning", "File %s not found", file_path)
+
     return result
 
 
@@ -169,6 +172,7 @@ def get_midnight_commits(git_metrics: GitMetrics) -> int:
     commit_hour_history: List[int] = [
         datetime.fromisoformat(date).hour for date in commit_date_history
     ]
+
     return sum([1 for hour in commit_hour_history if 0 <= hour < 6])
 
 
@@ -180,6 +184,7 @@ def get_risky_commits(git_metrics: GitMetrics) -> int:
         insertions, deletions = parse_git_shortstat(stat.replace("--", ", "))
         if insertions + deletions > 200:
             risky_commits += 1
+
     return risky_commits
 
 
@@ -195,6 +200,7 @@ def get_seldom_contributors(git_metrics: GitMetrics) -> int:
         commits: int = authors_history.count(author)
         if commits < avg_commit_per_author:
             seldom_contributors += 1
+
     return seldom_contributors
 
 
@@ -262,4 +268,5 @@ def extract_features(training_df: DataFrame) -> bool:
             ),
         )
         success = False
+
     return success
