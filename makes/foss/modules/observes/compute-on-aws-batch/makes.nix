@@ -88,7 +88,6 @@ in
       attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "./m" "observes.job.gitlab-etl.product" ];
-      queue = "observes_later";
     };
 
     observesGitlabEtlServices = sharedConfiguration // {
@@ -99,7 +98,18 @@ in
         "PRODUCT_API_TOKEN"
         "SERVICES_API_TOKEN"
       ];
-      queue = "observes_later";
+    };
+
+    observesCodeEtlMirror = sharedConfiguration // {
+      attempts = 5;
+      attemptDurationSeconds = 7200;
+      command = [ "./m" "observes.scheduled.job.code-etl-mirror" ];
+      environment = [
+        "INTEGRATES_API_TOKEN"
+        "PRODUCT_API_TOKEN"
+        "SERVICES_API_TOKEN"
+      ];
+      queue = "observes_soon";
     };
   };
 }

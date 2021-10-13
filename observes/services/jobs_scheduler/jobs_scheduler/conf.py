@@ -14,7 +14,7 @@ SCHEDULE: Dict[PartialCron, List[str]] = {
         os.environ["batchStability"] + " report-failures observes",
     ],
     PartialCron.new(0, AnyTime(), work_days): [
-        "observes.scheduled.on-aws.code-etl-mirror",
+        os.environ["codeEtlMirror"],
         os.environ["batchStability"] + " report-cancelled observes",
     ],
     PartialCron.new(3, AnyTime(), 1): [
