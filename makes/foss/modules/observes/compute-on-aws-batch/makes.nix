@@ -127,7 +127,8 @@ in
     observesDynamoDbIntegratesEtl = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 7200;
-      command = [ "./m" "observes.job.dynamodb-table-etl" ];
+      command = [ "m" "f" "/observes/job/dynamodb-table-etl" ];
+      definition = "makes";
       queue = "observes_soon";
     };
   };

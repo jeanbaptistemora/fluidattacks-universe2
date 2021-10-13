@@ -37,7 +37,6 @@ observes.job.checkly-etl
 observes.job.delighted-etl
 observes.job.dynamodb-etl
 observes.job.dynamodb-forces-etl
-observes.job.dynamodb-table-etl
 observes.job.gitlab-etl
 observes.job.gitlab-etl.challenges
 observes.job.gitlab-etl.default
@@ -51,7 +50,6 @@ observes.scheduled.job.code-etl-compute-bills
 observes.scheduled.job.code-etl-mirror
 observes.scheduled.job.code-etl-upload
 observes.scheduled.job.dynamodb-centralize
-observes.scheduled.job.dynamodb-integrates-etl-vulns
 observes.scheduled.job.formstack-etl
 observes.scheduled.job.mailchimp-etl
 observes.scheduled.job.mixpanel-integrates-etl

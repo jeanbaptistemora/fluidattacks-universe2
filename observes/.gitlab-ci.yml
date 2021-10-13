@@ -56,10 +56,6 @@ include:
   <<: *scheduled
   tags: [autoscaling]
 
-.scheduled_job_large: &scheduled_job_large
-  <<: *scheduled
-  tags: [autoscaling-large]
-
 # scheduled jobs
 
 observes.scheduled.job.batch-stability:
@@ -70,9 +66,6 @@ observes.scheduled.job.code-etl-compute-bills:
 
 observes.scheduled.job.dynamodb-centralize:
   <<: *scheduled_job
-
-observes.scheduled.job.dynamodb-integrates-etl-vulns:
-  <<: *scheduled_job_large
 
 observes.scheduled.job.mailchimp-etl:
   <<: *scheduled_job
