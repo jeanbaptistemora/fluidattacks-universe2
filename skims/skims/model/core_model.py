@@ -1422,7 +1422,7 @@ class FindingEnum(Enum):
         ),
     )
     F372: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
+        auto_approve=False,
         code="F372",
         cwe=650,
         execution_queue=ExecutionQueue.aws,

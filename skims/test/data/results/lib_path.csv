@@ -6834,6 +6834,150 @@ F074,lines,namespace/skims/test/data/lib_root/f074/test.cs,13,615,skims,074. Com
   23 |     }
      ^ Col 0
 "
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,13,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP.,"
+   3 |   Type: AWS::CloudFront::Distribution
+   4 |   Properties:
+   5 |     DistributionConfig:
+   6 |       Enabled: 'true'
+   7 |       DefaultCacheBehavior:
+   8 |         TargetOriginId: def1
+   9 |         ForwardedValues:
+  10 |           QueryString: 'false'
+  11 |           Cookies:
+  12 |             Forward: all
+> 13 |         ViewerProtocolPolicy: allow-all
+  14 |       CacheBehaviors:
+  15 |       - TargetOriginId: cache11
+  16 |         ForwardedValues:
+  17 |           QueryString: 'true'
+  18 |           Cookies:
+  19 |             Forward: none
+  20 |         ViewerProtocolPolicy: https-only
+  21 |         PathPattern: images1/*.jpg
+  22 |       - TargetOriginId: cache12
+  23 |         ForwardedValues:
+     ^ Col 2
+"
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,27,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP.,"
+  17 |           QueryString: 'true'
+  18 |           Cookies:
+  19 |             Forward: none
+  20 |         ViewerProtocolPolicy: https-only
+  21 |         PathPattern: images1/*.jpg
+  22 |       - TargetOriginId: cache12
+  23 |         ForwardedValues:
+  24 |           QueryString: 'true'
+  25 |           Cookies:
+  26 |             Forward: none
+> 27 |         ViewerProtocolPolicy: allow-all
+  28 |         PathPattern: images2/*.jpg
+  29 | distribution2:
+  30 |   Type: AWS::CloudFront::Distribution
+  31 |   Properties:
+  32 |     DistributionConfig:
+  33 |       Enabled: 'true'
+  34 |       DefaultCacheBehavior:
+  35 |         TargetOriginId: def2
+  36 |         ForwardedValues:
+  37 |           QueryString: 'false'
+     ^ Col 2
+"
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,47,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP.,"
+  35 |         TargetOriginId: def2
+  36 |         ForwardedValues:
+  37 |           QueryString: 'false'
+  38 |           Cookies:
+  39 |             Forward: all
+  40 |         ViewerProtocolPolicy: https-only
+  41 |       CacheBehaviors:
+  42 |       - TargetOriginId: cache21
+  43 |         ForwardedValues:
+  44 |           QueryString: 'true'
+  45 |           Cookies:
+  46 |             Forward: none
+> 47 |         ViewerProtocolPolicy: allow-all
+  48 |         PathPattern: images1/*.jpg
+  49 |       - TargetOriginId: cache22
+  50 |         ForwardedValues:
+  51 |           QueryString: 'true'
+  52 |           Cookies:
+  53 |             Forward: none
+  54 |         ViewerProtocolPolicy: https-only
+  55 |         PathPattern: images2/*.jpg
+     ^ Col 2
+"
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,16,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP.,"
+   6 |   ""DistributionConfig"": {
+   7 |     ""Enabled"": ""true"",
+   8 |     ""DefaultCacheBehavior"": {
+   9 |       ""TargetOriginId"": ""def1"",
+  10 |       ""ForwardedValues"": {
+  11 |         ""QueryString"": ""false"",
+  12 |         ""Cookies"": {
+  13 |           ""Forward"": ""all""
+  14 |         }
+  15 |       },
+> 16 |       ""ViewerProtocolPolicy"": ""allow-all""
+  17 |     },
+  18 |     ""CacheBehaviors"": [
+  19 |       {
+  20 |         ""TargetOriginId"": ""cache11"",
+  21 |         ""ForwardedValues"": {
+  22 |           ""QueryString"": ""true"",
+  23 |           ""Cookies"": {
+  24 |             ""Forward"": ""none""
+  25 |           }
+  26 |         },
+     ^ Col 6
+"
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,38,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP.,"
+  28 |       ""PathPattern"": ""images1/*.jpg""
+  29 |     },
+  30 |     {
+  31 |       ""TargetOriginId"": ""cache12"",
+  32 |       ""ForwardedValues"": {
+  33 |         ""QueryString"": ""true"",
+  34 |         ""Cookies"": {
+  35 |           ""Forward"": ""none""
+  36 |         }
+  37 |       },
+> 38 |       ""ViewerProtocolPolicy"": ""allow-all"",
+  39 |       ""PathPattern"": ""images2/*.jpg""
+  40 |     }
+  41 |   ]
+  42 | }
+  43 |
+  44 |
+  45 | tribution2"": {
+  46 | ype"": ""AWS::CloudFront::Distribution"",
+  47 | roperties"": {
+  48 | ""DistributionConfig"": {
+     ^ Col 8
+"
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,69,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP.,"
+  59 |   },
+  60 |   ""CacheBehaviors"": [
+  61 |     {
+  62 |       ""TargetOriginId"": ""cache21"",
+  63 |       ""ForwardedValues"": {
+  64 |         ""QueryString"": ""true"",
+  65 |         ""Cookies"": {
+  66 |           ""Forward"": ""none""
+  67 |         }
+  68 |       },
+> 69 |       ""ViewerProtocolPolicy"": ""allow-all"",
+  70 |       ""PathPattern"": ""images1/*.jpg""
+  71 |     },
+  72 |     {
+  73 |       ""TargetOriginId"": ""cache22"",
+  74 |       ""ForwardedValues"": {
+  75 |         ""QueryString"": ""true"",
+  76 |         ""Cookies"": {
+  77 |           ""Forward"": ""none""
+  78 |         }
+  79 |       },
+     ^ Col 8
+"
 F009,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,009. Sensitive information in source code,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
 ","
    1 | # Insecure

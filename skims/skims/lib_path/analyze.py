@@ -14,6 +14,7 @@ from lib_path import (
     f061,
     f079,
     f117,
+    f372,
     f380,
 )
 from model import (
@@ -63,6 +64,7 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F061, f061.analyze),
     (core_model.FindingEnum.F079, f079.analyze),
     (core_model.FindingEnum.F117, f117.analyze),
+    (core_model.FindingEnum.F372, f372.analyze),
     (core_model.FindingEnum.F380, f380.analyze),
 )
 
