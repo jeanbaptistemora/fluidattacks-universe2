@@ -796,13 +796,14 @@ async def move_root(
     target_group: str,
 ) -> None:
     root: RootItem = await loaders.root.load((group_name, root_id))
-    group = await loaders.group.load(group_name)
+    source, target = await loaders.group.load_many([group_name, target_group])
 
     if (
         root.state.status != "ACTIVE"
         or target_group == root.group_name
         or target_group
-        not in await orgs_domain.get_groups(group["organization"])
+        not in await orgs_domain.get_groups(source["organization"])
+        or source["service"] != target["service"]
     ):
         raise InvalidParameter()
 

@@ -181,6 +181,8 @@ const GET_GROUPS: DocumentNode = gql`
       organizations {
         groups {
           name
+          organization
+          service
         }
         name
       }

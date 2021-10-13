@@ -75,27 +75,50 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
     },
   });
 
-  const { data } = useQuery<{
-    me: { organizations: { groups: { name: string }[] }[] };
-  }>(GET_GROUPS, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't load group names", error);
-      });
-    },
-  });
+  interface IGroup {
+    name: string;
+    organization: string;
+    service: string;
+  }
+  interface IOrganization {
+    groups: IGroup[];
+  }
+
+  const { data } = useQuery<{ me: { organizations: IOrganization[] } }>(
+    GET_GROUPS,
+    {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          Logger.error("Couldn't load group names", error);
+        });
+      },
+    }
+  );
   const groups =
     data === undefined
       ? []
-      : data.me.organizations.reduce<string[]>(
-          (previousValue, currentValue): string[] => [
+      : data.me.organizations.reduce<IGroup[]>(
+          (previousValue, currentValue): IGroup[] => [
             ...previousValue,
-            ...currentValue.groups.map((group): string => group.name),
+            ...currentValue.groups,
           ],
           []
         );
 
-  const suggestions = groups.filter((group): boolean => group !== groupName);
+  const currentGroup = groups.find(
+    (group): boolean => group.name === groupName
+  );
+  const suggestions =
+    currentGroup === undefined
+      ? []
+      : groups
+          .filter(
+            (group): boolean =>
+              group.name !== currentGroup.name &&
+              group.organization === currentGroup.organization &&
+              group.service === currentGroup.service
+          )
+          .map((group): string => group.name);
 
   const validations = object().shape({
     other: string().when("reason", {
