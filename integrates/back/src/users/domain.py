@@ -35,7 +35,6 @@ from newutils.validations import (
     validate_alphanumeric_field,
     validate_email_address,
     validate_field_length,
-    validate_phone_field,
 )
 import re
 from redis_cluster.model import (
@@ -66,11 +65,6 @@ from users import (
 async def acknowledge_concurrent_session(email: str) -> bool:
     """Acknowledge termination of concurrent session"""
     return await users_dal.update(email, {"is_concurrent_session": False})
-
-
-async def add_phone_to_user(email: str, phone: str) -> bool:
-    """Update user phone number."""
-    return await users_dal.update(email, {"phone": phone})
 
 
 async def add_push_token(user_email: str, push_token: str) -> bool:
@@ -134,7 +128,6 @@ async def update_user_information(
 ) -> bool:
     coroutines: List[Awaitable[bool]] = []
     email = modified_user_data["email"]
-    phone = modified_user_data.get("phone_number", "")
     responsibility = modified_user_data["responsibility"]
     success: bool = False
 
@@ -151,15 +144,6 @@ async def update_user_information(
                 f"Security: {email} Attempted to add responsibility to "
                 f"group {group_name} bypassing validation",
             )
-
-    if phone and validate_phone_field(phone):
-        coroutines.append(add_phone_to_user(email, phone))
-    else:
-        logs_utils.cloudwatch_log(
-            context,
-            f"Security: {email} Attempted to edit "
-            f"user phone bypassing validation",
-        )
 
     if coroutines:
         success = all(await collect(coroutines))
@@ -220,7 +204,6 @@ async def get_by_email(email: str) -> UserType:
         "last_login": "",
         "last_name": "",
         "legal_remember": False,
-        "phone_number": "-",
         "push_tokens": [],
         "is_registered": True,
     }
@@ -234,7 +217,6 @@ async def get_by_email(email: str) -> UserType:
                 "last_login": user.get("last_login", ""),
                 "last_name": user.get("last_name", ""),
                 "legal_remember": user.get("legal_remember", False),
-                "phone_number": user.get("phone", "-"),
                 "push_tokens": user.get("push_tokens", []),
             }
         )
@@ -374,20 +356,17 @@ async def update_invited_stakeholder(
     success = False
     email = updated_data["email"]
     responsibility = updated_data["responsibility"]
-    phone_number = updated_data["phone_number"]
     role = updated_data["role"]
     new_invitation = invitation.copy()
     if (
         validate_field_length(responsibility, 50)
         and validate_alphanumeric_field(responsibility)
-        and validate_phone_field(phone_number)
         and validate_email_address(email)
+        and validate_role_fluid_reqs(email, role)
         and await authz.validate_fluidattacks_staff_on_group(
             group_name, email, role
         )
     ):
-        validate_role_fluid_reqs(email, role)
-        new_invitation["phone_number"] = phone_number
         new_invitation["responsibility"] = responsibility
         new_invitation["role"] = role
         success = await group_access_domain.update(

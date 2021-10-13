@@ -139,9 +139,3 @@ def validate_alphanumeric_field(field: str) -> bool:
     if is_alnum or field == "-" or not field:
         return True
     raise InvalidField()
-
-
-def validate_phone_field(phone_field: str) -> bool:
-    if re.match((r"(^\+\d+$)|(^\d+$)|(^$)|(^-$)"), phone_field):
-        return True
-    raise InvalidField("phone number")

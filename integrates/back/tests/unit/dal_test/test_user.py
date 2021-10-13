@@ -28,30 +28,14 @@ async def test_delete() -> None:
 
 
 @pytest.mark.changes_db
-async def test_create() -> None:
-    assert await get("unittest4") == {}
-
-    await create("unittest4", {"phone_number": "11111111"})
-    assert await get("unittest4") == {
-        "email": "unittest4",
-        "phone_number": "11111111",
-    }
-
-
-@pytest.mark.changes_db
 async def test_update() -> None:
     assert await get("unittest5") == {}
 
-    await create("unittest5", {"phone_number": "22222222"})
-    await update("unittest5", {})
-    assert await get("unittest5") == {
-        "email": "unittest5",
-        "phone_number": "22222222",
-    }
+    await create("unittest4", {})
+    assert await get("unittest4") == {"email": "unittest4"}
 
-    await update("unittest5", {"last_name": "testing"})
-    assert await get("unittest5") == {
+    await update("unittest4", {"last_name": "testing"})
+    assert await get("unittest4") == {
         "last_name": "testing",
-        "email": "unittest5",
-        "phone_number": "22222222",
+        "email": "unittest4",
     }

@@ -10,7 +10,6 @@ from newutils.validations import (
     validate_fields,
     validate_file_name,
     validate_group_name,
-    validate_phone_field,
 )
 import pytest
 from roots.validations import (
@@ -60,12 +59,6 @@ def test_validate_alphanumeric_field() -> None:
     assert validate_alphanumeric_field("one test")
     with pytest.raises(InvalidField):
         assert validate_alphanumeric_field("=test2@")
-
-
-def test_validate_phone_field() -> None:
-    assert validate_phone_field("+57123")
-    with pytest.raises(InvalidField):
-        assert validate_phone_field("+")
 
 
 def test_validate_file_name() -> None:
