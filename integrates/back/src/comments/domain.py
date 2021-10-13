@@ -133,54 +133,6 @@ async def get(comment_type: str, element_id: str) -> List[CommentType]:
     return await comments_dal.get_comments(comment_type, element_id)
 
 
-async def get_comments(
-    group_name: str,
-    finding_id: str,
-    user_email: str,
-    info: GraphQLResolveInfo,
-) -> List[CommentType]:
-    finding_loader = info.context.loaders.finding
-    finding_vulns_loader = info.context.loaders.finding_vulns
-
-    comments = await _get_comments("comment", finding_id)
-    finding = await finding_loader.load(finding_id)
-    historic_verification = finding.get("historic_verification", [])
-    verified = [
-        verification
-        for verification in historic_verification
-        if cast(List[str], verification.get("vulns", []))
-    ]
-    if verified:
-        vulns = await finding_vulns_loader.load(finding_id)
-        verification_comment_ids: Set[str] = {
-            str(verification["comment"]) for verification in verified
-        }
-        reattack_comments, non_reattack_comments = filter_reattack_comments(
-            comments, verification_comment_ids
-        )
-
-        # Loop to add the «Regarding vulnerabilities...» header to comments
-        # answering a solicited reattack
-        reattack_comments = [
-            _fill_vuln_info(
-                cast(Dict[str, str], comment),
-                set(cast(List[str], verification.get("vulns", []))),
-                vulns,
-            )
-            if str(comment["id"]) == str(verification["comment"])
-            else {}
-            for comment in reattack_comments
-            for verification in verified
-        ]
-        reattack_comments = list(filter(None, reattack_comments))
-        comments = reattack_comments + non_reattack_comments
-
-    enforcer = await authz.get_group_level_enforcer(user_email)
-    if enforcer(group_name, "handle_comment_scope"):
-        return comments
-    return list(filter(_is_scope_comment, comments))
-
-
 async def get_comments_new(
     group_name: str, finding_id: str, user_email: str, info: GraphQLResolveInfo
 ) -> Tuple[CommentType, ...]:

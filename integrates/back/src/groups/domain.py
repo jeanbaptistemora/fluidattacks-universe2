@@ -1089,21 +1089,6 @@ async def get_open_findings_new(loaders: Any, group_name: str) -> int:
     return finding_status.count("open")
 
 
-async def get_open_vulnerabilities(context: Any, group_name: str) -> int:
-    group_findings_loader = context.group_findings
-    finding_vulns_loader = context.finding_vulns_nzr
-
-    group_findings = await group_findings_loader.load(group_name)
-    findings_vulns = await finding_vulns_loader.load_many_chained(
-        [finding["finding_id"] for finding in group_findings]
-    )
-
-    last_approved_status = [
-        vulns_utils.get_last_status(vuln) for vuln in findings_vulns
-    ]
-    return last_approved_status.count("open")
-
-
 async def get_open_vulnerabilities_new(
     loaders: Any,
     group_name: str,
