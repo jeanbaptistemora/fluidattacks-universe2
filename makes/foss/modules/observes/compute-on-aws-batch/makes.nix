@@ -73,5 +73,15 @@ in
       memory = 1800 * vcpus;
       vcpus = 2;
     };
+
+    observesGitlabEtlDefault = sharedConfiguration // {
+      attempts = 5;
+      attemptDurationSeconds = 7200;
+      command = [ "./m" "observes.job.gitlab-etl.default" ];
+      environment = [
+        "AUTONOMIC_API_TOKEN"
+        "PRODUCT_API_TOKEN"
+      ];
+    };
   };
 }
