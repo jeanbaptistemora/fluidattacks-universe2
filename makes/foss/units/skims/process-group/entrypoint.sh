@@ -86,7 +86,6 @@ function skims_should_run {
   local group="${1}"
   local namespace="${2}"
   local check="${3}"
-  local urgent="${4}"
   local metadata="groups/${group}/fusion/${namespace}/.git/fluidattacks_metadata"
 
   local expected_code_date
@@ -94,7 +93,9 @@ function skims_should_run {
   local metadata_date
   local metadata_date_epoch
 
-  if test "${urgent}" == "true"; then
+  export AWS_BATCH_JQ_NAME
+
+  if [[ ${AWS_BATCH_JQ_NAME} == *"soon" ]]; then
     echo "[INFO] Running in priority queue, skipping date check..."
   else
     echo "[INFO] Checking if skims should run in ${group} ${namespace} ${check}" \
@@ -132,7 +133,6 @@ function main {
   local group="${1:-}"
   local check="${2:-}"
   local namespace="${3:-}"
-  local urgent="${4:-}"
   local config
   local success='true'
 
@@ -151,7 +151,7 @@ function main {
       aws_login_prod 'skims' \
         && skims_cache pull "${group}" "${check}" "${namespace}" \
         && skims_rebase "${group}" "${namespace}" \
-        && skims_should_run "${group}" "${namespace}" "${check}" "${urgent}" \
+        && skims_should_run "${group}" "${namespace}" "${check}" \
         && if skims_scan "${group}" "${namespace}" "${check}" "${config}"; then
           echo "[INFO] Succesfully processed: ${group} ${namespace}"
         else
