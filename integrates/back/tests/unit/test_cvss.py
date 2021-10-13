@@ -6,9 +6,7 @@ from decimal import (
     Decimal,
 )
 from newutils import (
-    cvss,
     cvss_new,
-    findings as finding_utils,
     utils,
 )
 from typing import (
@@ -32,13 +30,7 @@ def test_calculate_cvss2_basescore() -> None:
         "authentication": 0.704,
         "accessVector": 1,
     }
-    cvss_version = "2"
-    cvss_basescore = cvss.calculate_cvss_basescore(
-        severity, finding_utils.CVSS_PARAMETERS["2"], cvss_version
-    )
     cvss_basescore_test = Decimal(4.3).quantize(Decimal("0.1"))
-    assert cvss_basescore == cvss_basescore_test
-
     severity_new = Finding20Severity(**format_severity(severity))
     cvss_basescore_new = cvss_new.get_cvss2_basescore(severity_new)
     assert cvss_basescore_new == cvss_basescore_test
@@ -56,47 +48,13 @@ def test_calculate_cvss2_temporal() -> None:
         "resolutionLevel": 0.95,
         "confidenceLevel": 0.95,
     }
-    cvss_version = "2"
-    cvss_basescore = cvss.calculate_cvss_basescore(
-        severity, finding_utils.CVSS_PARAMETERS["2"], cvss_version
-    )
-    cvss_temporal = cvss.calculate_cvss_temporal(
-        severity, cvss_basescore, cvss_version
-    )
     cvss_temporal_test = Decimal(3.7).quantize(Decimal("0.1"))
-    assert cvss_temporal == cvss_temporal_test
-
     severity_new = Finding20Severity(**format_severity(severity))
     cvss_basescore_new = cvss_new.get_cvss2_basescore(severity_new)
     cvss_temporal_new = cvss_new.get_cvss2_temporal(
         severity_new, cvss_basescore_new
     )
     assert cvss_temporal_new == cvss_temporal_test
-
-
-def test_calculate_cvss2_environment() -> None:
-    severity = {
-        "accessComplexity": 0.61,
-        "authentication": 0.704,
-        "accessVector": 1,
-        "confidentialityImpact": 0,
-        "confidentialityRequirement": 0.5,
-        "confidenceLevel": 0.95,
-        "integrityRequirement": 0.5,
-        "availabilityImpact": 0,
-        "availabilityRequirement": 0.5,
-        "findingDistribution": 0.25,
-        "resolutionLevel": 0.95,
-        "integrityImpact": 0.275,
-        "collateralDamagePotential": 0.1,
-        "exploitability": 0.95,
-    }
-    cvss_version = "2"
-    cvss_environment = cvss.calculate_cvss_environment(
-        severity, finding_utils.CVSS_PARAMETERS["2"], cvss_version
-    )
-    cvss_environment_test = Decimal(0.9).quantize(Decimal("0.1"))
-    assert cvss_environment == cvss_environment_test
 
 
 def test_calculate_cvss3_scope_changed_basescore() -> None:
@@ -110,13 +68,7 @@ def test_calculate_cvss3_scope_changed_basescore() -> None:
         "privilegesRequired": 0.68,
         "userInteraction": 0.85,
     }
-    cvss_version = "3.1"
-    cvss_basescore = cvss.calculate_cvss_basescore(
-        severity, finding_utils.CVSS_PARAMETERS["3.1"], cvss_version
-    )
     cvss_basescore_test = Decimal(6.4).quantize(Decimal("0.1"))
-    assert cvss_basescore == cvss_basescore_test
-
     severity_new = Finding31Severity(**format_severity(severity))
     cvss_basescore_new = cvss_new.get_cvss3_basescore(severity_new)
     assert cvss_basescore_new == cvss_basescore_test
@@ -133,13 +85,7 @@ def test_calculate_cvss3_scope_unchanged_basescore() -> None:
         "privilegesRequired": 0.62,
         "userInteraction": 0.85,
     }
-    cvss_version = "3.1"
-    cvss_basescore = cvss.calculate_cvss_basescore(
-        severity, finding_utils.CVSS_PARAMETERS["3.1"], cvss_version
-    )
     cvss_basescore_test = Decimal(5.4).quantize(Decimal("0.1"))
-    assert cvss_basescore == cvss_basescore_test
-
     severity_new = Finding31Severity(**format_severity(severity))
     cvss_basescore_new = cvss_new.get_cvss3_basescore(severity_new)
     assert cvss_basescore_new == cvss_basescore_test
@@ -159,16 +105,7 @@ def test_calculate_cvss3_scope_changed_temporal() -> None:
         "remediationLevel": 0.97,
         "reportConfidence": 1,
     }
-    cvss_version = "3.1"
-    cvss_basescore = cvss.calculate_cvss_basescore(
-        severity, finding_utils.CVSS_PARAMETERS["3.1"], cvss_version
-    )
-    cvss_temporal = cvss.calculate_cvss_temporal(
-        severity, float(cvss_basescore), cvss_version
-    )
     cvss_temporal_test = Decimal(6.1).quantize(Decimal("0.1"))
-    assert cvss_temporal == cvss_temporal_test
-
     severity_new = Finding31Severity(**format_severity(severity))
     cvss_basescore_new = cvss_new.get_cvss3_basescore(severity_new)
     cvss_temporal_new = cvss_new.get_cvss3_temporal(
@@ -191,69 +128,10 @@ def test_calculate_cvss3_scope_unchanged_temporal() -> None:
         "remediationLevel": 0.97,
         "reportConfidence": 1,
     }
-    cvss_version = "3.1"
-    cvss_basescore = cvss.calculate_cvss_basescore(
-        severity, finding_utils.CVSS_PARAMETERS["3.1"], cvss_version
-    )
-    cvss_temporal = cvss.calculate_cvss_temporal(
-        severity, float(cvss_basescore), cvss_version
-    )
     cvss_temporal_test = Decimal(5.1).quantize(Decimal("0.1"))
-    assert cvss_temporal == cvss_temporal_test
-
     severity_new = Finding31Severity(**format_severity(severity))
     cvss_basescore_new = cvss_new.get_cvss3_basescore(severity_new)
     cvss_temporal_new = cvss_new.get_cvss3_temporal(
         severity_new, cvss_basescore_new
     )
     assert cvss_temporal_new == cvss_temporal_test
-
-
-def test_calculate_cvss3_scope_changed_environment() -> None:
-    severity = {
-        "modifiedConfidentialityImpact": 0.22,
-        "reportConfidence": 1,
-        "modifiedIntegrityImpact": 0.22,
-        "modifiedAvailabilityImpact": 0.22,
-        "confidentialityRequirement": 0.5,
-        "integrityRequirement": 0.5,
-        "availabilityRequirement": 0.5,
-        "modifiedSeverityScope": 1,
-        "modifiedAttackVector": 0.85,
-        "modifiedAttackComplexity": 0.77,
-        "modifiedPrivilegesRequired": 0.68,
-        "remediationLevel": 0.97,
-        "exploitability": 0.97,
-        "modifiedUserInteraction": 0.85,
-    }
-    cvss_version = "3.1"
-    cvss_environment = cvss.calculate_cvss_environment(
-        severity, finding_utils.CVSS_PARAMETERS["3.1"], cvss_version
-    )
-    cvss_environment_test = Decimal(5.3).quantize(Decimal("0.1"))
-    assert cvss_environment == cvss_environment_test
-
-
-def test_calculate_cvss3_scope_unchanged_environment() -> None:
-    severity = {
-        "modifiedConfidentialityImpact": 0.22,
-        "reportConfidence": 1,
-        "modifiedIntegrityImpact": 0.22,
-        "modifiedAvailabilityImpact": 0.22,
-        "confidentialityRequirement": 0.5,
-        "integrityRequirement": 0.5,
-        "availabilityRequirement": 0.5,
-        "modifiedSeverityScope": 0,
-        "modifiedAttackVector": 0.85,
-        "modifiedAttackComplexity": 0.77,
-        "modifiedPrivilegesRequired": 0.62,
-        "remediationLevel": 0.97,
-        "exploitability": 0.97,
-        "modifiedUserInteraction": 0.85,
-    }
-    cvss_version = "3.1"
-    cvss_environment = cvss.calculate_cvss_environment(
-        severity, finding_utils.CVSS_PARAMETERS["3.1"], cvss_version
-    )
-    cvss_environment_test = Decimal(4.6).quantize(Decimal("0.1"))
-    assert cvss_environment == cvss_environment_test
