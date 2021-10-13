@@ -60,7 +60,8 @@ in
     observesDelightedEtl = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 3600;
-      command = [ "./m" "observes.job.delighted-etl" ];
+      command = [ "m" "f" "/observes/job/delighted-etl" ];
+      definition = "makes";
     };
 
     observesDynamoDbForcesEtl = sharedConfiguration // rec {
