@@ -543,7 +543,7 @@ export const enTranslations: ResourceKey = {
           reason: {
             label: "Reason",
             mistake: "Registered by mistake",
-            moved: "Moved to another root",
+            moved: "Moved to another group",
             other: "Other",
             scope: "Out of scope",
           },

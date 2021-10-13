@@ -153,6 +153,7 @@ async def process_finding(
             group_name=target_group_name,
             state=source_finding.approval,
         )
+
     await process_vulns(vulns, target_finding_id)
     await collect(
         (

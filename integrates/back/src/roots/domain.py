@@ -809,9 +809,6 @@ async def move_root(
     ):
         raise InvalidParameter()
 
-    if await has_open_vulns(root, loaders, group_name):
-        raise HasOpenVulns()
-
     target_group_roots: Tuple[RootItem, ...] = await loaders.group_roots.load(
         target_group_name
     )

@@ -19,6 +19,7 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
 import {
   FormikAutocompleteText,
   FormikDropdown,
@@ -69,8 +70,17 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
     },
     onError: ({ graphQLErrors }): void => {
       graphQLErrors.forEach((error): void => {
-        msgError(t("groupAlerts.errorTextsad"));
-        Logger.error("Couldn't move root", error);
+        switch (error.message) {
+          case "Exception - Active root with the same Nickname already exists":
+            msgError(t("group.scope.common.errors.duplicateNickname"));
+            break;
+          case "Exception - Active root with the same URL/branch already exists":
+            msgError(t("group.scope.common.errors.duplicateUrl"));
+            break;
+          default:
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.error("Couldn't move root", error);
+        }
       });
     },
   });
@@ -219,6 +229,13 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                                 "group.scope.common.deactivation.reason.mistake"
                               )}
                             </option>
+                            <Can do={"api_mutations_move_root_mutate"}>
+                              <option value={"MOVED_TO_ANOTHER_GROUP"}>
+                                {t(
+                                  "group.scope.common.deactivation.reason.moved"
+                                )}
+                              </option>
+                            </Can>
                             <option value={"OTHER"}>
                               {t(
                                 "group.scope.common.deactivation.reason.other"
