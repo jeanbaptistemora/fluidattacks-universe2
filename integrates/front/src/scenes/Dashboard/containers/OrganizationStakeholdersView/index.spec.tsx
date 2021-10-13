@@ -683,22 +683,6 @@ describe("Organization users view", (): void => {
         },
         result: {
           errors: [
-            new GraphQLError("Exception - Invalid phone number in form"),
-          ],
-        },
-      },
-      {
-        request: {
-          query: UPDATE_STAKEHOLDER_MUTATION,
-          variables: {
-            email: "testuser1@gmail.com",
-            organizationId: mockProps.organizationId,
-            responsibility: "",
-            role: "CUSTOMERADMIN",
-          },
-        },
-        result: {
-          errors: [
             new GraphQLError("Exception - Invalid email address in form"),
           ],
         },
@@ -791,18 +775,6 @@ describe("Organization users view", (): void => {
 
         expect(msgError).toHaveBeenCalledWith(
           translate.t("validations.invalidChar")
-        );
-      });
-    });
-
-    submit();
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledWith(
-          translate.t("validations.invalidPhoneNumberInField")
         );
       });
     });

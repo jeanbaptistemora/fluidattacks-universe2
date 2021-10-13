@@ -2287,7 +2287,6 @@ export const enTranslations: ResourceKey = {
       firstlogin: "First login",
       invitation: "Invitation",
       lastlogin: "Last login",
-      phoneNumber: "Phone Number",
       resendEmail: "Resend",
       userOrganization: "Organization",
       userResponsibility: "Responsibility",
@@ -2384,7 +2383,6 @@ export const enTranslations: ResourceKey = {
       "Enter the email of the person you wish to add, it must be " +
       "an Office 365 or Google email",
     organization: "Organization",
-    phoneNumber: "Phone Number",
     responsibility: "Responsibility",
     responsibilityPlaceholder: "Product Owner, Group Manager, Tester, ...",
     role: "Role",
@@ -2428,7 +2426,6 @@ export const enTranslations: ResourceKey = {
     invalidCommentParent: "The comment parent is invalid",
     invalidEmailInField: "The email address inserted is not valid",
     invalidFieldLength: "The value inserted in one of the fields is too large",
-    invalidPhoneNumberInField: "The phone number inserted is not valid",
     invalidTextBeginning:
       "Field cannot begin with the following character: {{ chars }}",
     invalidTextField:
