@@ -97,11 +97,9 @@ in
     observesGitlabEtlServices = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 7200;
-      command = [ "./m" "observes.job.gitlab-etl.services" ];
-      environment = [
-        "PRODUCT_API_TOKEN"
-        "SERVICES_API_TOKEN"
-      ];
+      command = [ "m" "f" "/observes/job/gitlab-etl/services" ];
+      definition = "makes";
+      environment = [ "PRODUCT_API_TOKEN" "SERVICES_API_TOKEN" ];
     };
 
     observesCodeEtlMirror = sharedConfiguration // {

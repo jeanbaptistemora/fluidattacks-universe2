@@ -4,16 +4,12 @@
 }:
 makeScript {
   searchPaths = {
-    bin = [
-      inputs.nixpkgs.findutils
-      outputs."/melts"
-    ];
+    bin = [ inputs.product.observes-job-gitlab-etl ];
     source = [
       (inputs.legacy.importUtility "aws")
-      (inputs.legacy.importUtility "git")
       (inputs.legacy.importUtility "sops")
     ];
   };
-  name = "observes-scheduled-job-code-etl-mirror";
+  name = "observes-job-gitlab-etl-services";
   entrypoint = ./entrypoint.sh;
 }
