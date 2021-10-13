@@ -609,13 +609,16 @@ async def trigger_user_to_entity_report() -> None:
         digest_stats = await _get_digest_stats(loaders, subscriptions)
 
     await collect(
-        _process_subscription(
-            bot_time=bot_time,
-            digest_stats=digest_stats,
-            loaders=loaders,
-            subscription=subscription,
-        )
-        for subscription in subscriptions
+        [
+            _process_subscription(
+                bot_time=bot_time,
+                digest_stats=digest_stats,
+                loaders=loaders,
+                subscription=subscription,
+            )
+            for subscription in subscriptions
+        ],
+        workers=16,
     )
 
 
