@@ -983,6 +983,50 @@ async def get_mean_remediate_cvssf_new(
     )
 
 
+async def get_mean_remediate_non_treated_severity_cvssf(
+    loaders: Any,
+    group_name: str,
+    min_severity: Decimal,
+    max_severity: Decimal,
+    min_date: Optional[date] = None,
+) -> Decimal:
+    group_findings_loader = loaders.group_findings_new
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+        group_name.lower()
+    )
+    group_findings_ids: List[str] = [
+        finding.id
+        for finding in group_findings
+        if (
+            min_severity
+            <= findings_domain.get_severity_score_new(finding.severity)
+            <= max_severity
+        )
+    ]
+    finding_cvssf: Dict[str, Decimal] = {
+        finding.id: vulns_utils.get_cvssf(
+            findings_domain.get_severity_score_new(finding.severity)
+        )
+        for finding in group_findings
+    }
+    all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
+        group_findings_ids
+    )
+    vulnerabilities = vulns_utils.filter_non_confirmed_zero_risk(
+        all_vulnerabilities
+    )
+
+    return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
+        [
+            vuln
+            for vuln in vulnerabilities
+            if not vulns_utils.is_accepted_undefined_vulnerability(vuln)
+        ],
+        finding_cvssf,
+        min_date,
+    )
+
+
 async def get_mean_remediate_non_treated_cvssf_new(
     loaders: Any,
     group_name: str,
@@ -1005,8 +1049,15 @@ async def get_mean_remediate_non_treated_cvssf_new(
     vulnerabilities = vulns_utils.filter_non_confirmed_zero_risk(
         all_vulnerabilities
     )
+
     return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
-        vulnerabilities, finding_cvssf, min_date
+        [
+            vuln
+            for vuln in vulnerabilities
+            if not vulns_utils.is_accepted_undefined_vulnerability(vuln)
+        ],
+        finding_cvssf,
+        min_date,
     )
 
 
