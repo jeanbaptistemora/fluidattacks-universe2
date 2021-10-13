@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: integrates-master
@@ -21,6 +21,9 @@ spec:
       http:
         paths:
           - path: /*
+            pathType: Prefix
             backend:
-              serviceName: integrates-master
-              servicePort: 81
+              service:
+                name: integrates-master
+                port:
+                  number: 81
