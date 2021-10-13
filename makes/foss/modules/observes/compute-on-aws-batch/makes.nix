@@ -16,7 +16,7 @@ in
     observesAnnounceKitEtl = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 14000;
-      command = [ "./m" "observes.job.announcekit.etl" ];
+      command = [ "m" "f" "/observes/job/announcekit/etl" ];
     };
 
     observesBugsnagEtl = sharedConfiguration // {
