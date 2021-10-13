@@ -16,7 +16,7 @@ function job_code_mirror_all_groups {
   list_services_groups "${groups_file}" \
     && while read -r group; do
       echo "[INFO] Submitting: ${group}" \
-        && aws-batch-code-etl-upload "${group}" \
+        && __argCodeEtlUpload__ "${group}" \
         || return 1
     done < "${groups_file}"
 }

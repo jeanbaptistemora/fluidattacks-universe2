@@ -27,9 +27,9 @@ makeTemplate {
         gitlabEtlServices = outputs."/computeOnAwsBatch/observesGitlabEtlServices";
         batchStability = outputs."/observes/job/batch-stability";
         codeEtlMirror = outputs."/observes/scheduled/on-aws/code-etl-mirror";
+        codeEtlUpload = outputs."/observes/scheduled/on-aws/code-etl-upload";
       });
     bin = [
-      inputs.product.observes-scheduled-on-aws-code-etl-upload
       inputs.product.observes-scheduled-on-aws-dynamodb-integrates-etl
     ];
     pythonMypy = [ self ];

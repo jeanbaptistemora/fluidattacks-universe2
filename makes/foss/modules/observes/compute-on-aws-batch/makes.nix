@@ -111,5 +111,16 @@ in
       ];
       queue = "observes_soon";
     };
+
+    observesCodeEtlUpload = sharedConfiguration // {
+      attempts = 5;
+      attemptDurationSeconds = 7200;
+      command = [ "./m" "observes.scheduled.job.code-etl-upload" ];
+      environment = [
+        "INTEGRATES_API_TOKEN"
+        "PRODUCT_API_TOKEN"
+        "SERVICES_API_TOKEN"
+      ];
+    };
   };
 }
