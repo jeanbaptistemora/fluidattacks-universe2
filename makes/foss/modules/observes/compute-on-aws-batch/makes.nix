@@ -30,7 +30,8 @@ in
     observesChecklyEtl = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 3600;
-      command = [ "./m" "observes.job.checkly-etl" ];
+      command = [ "m" "f" "/observes/job/checkly-etl" ];
+      definition = "makes";
     };
 
     observesCodeEtlAmend = sharedConfiguration // {
