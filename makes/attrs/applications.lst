@@ -64,6 +64,5 @@ observes.scheduled.job.timedoctor-refresh-token
 observes.scheduled.job.toe-files-etl
 observes.scheduled.job.zoho-crm-etl.fluid
 observes.scheduled.job.zoho-crm-prepare.fluid
-observes.scheduled.on-aws.dynamodb-integrates-etl
 observes.tap-json
 observes.target-redshift

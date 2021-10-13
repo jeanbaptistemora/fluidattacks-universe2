@@ -122,5 +122,12 @@ in
         "SERVICES_API_TOKEN"
       ];
     };
+
+    observesDynamoDbIntegratesEtl = sharedConfiguration // {
+      attempts = 5;
+      attemptDurationSeconds = 7200;
+      command = [ "./m" "observes.job.dynamodb-table-etl" ];
+      queue = "observes_soon";
+    };
   };
 }

@@ -16,7 +16,7 @@ function dynamodb_etl {
     && while read -r table; do
       echo "[INFO] Submitting: ${table}"
       if test "${table,,}" != "fi_vulnerabilities"; then
-        aws-batch-dynamodb-etl "${table}" || return 1
+        __argDynamoDbIntegratesEtl__ "${table}" || return 1
       fi
     done < "${tables_file}"
 }

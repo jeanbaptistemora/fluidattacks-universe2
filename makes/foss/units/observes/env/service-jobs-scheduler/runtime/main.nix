@@ -28,10 +28,8 @@ makeTemplate {
         batchStability = outputs."/observes/job/batch-stability";
         codeEtlMirror = outputs."/observes/scheduled/on-aws/code-etl-mirror";
         codeEtlUpload = outputs."/observes/scheduled/on-aws/code-etl-upload";
+        dynamoDbIntegratesEtl = outputs."/observes/scheduled/on-aws/dynamodb-integrates-etl";
       });
-    bin = [
-      inputs.product.observes-scheduled-on-aws-dynamodb-integrates-etl
-    ];
     pythonMypy = [ self ];
     pythonPackage = [ self ];
     source = [
