@@ -6,9 +6,6 @@ from back.src.context import (
     FI_AWS_BATCH_SECRET_KEY,
     PRODUCT_API_TOKEN,
 )
-from back.src.schedulers.common import (
-    error,
-)
 from batch.dal import (
     Job,
     JobStatus,
@@ -25,6 +22,7 @@ from typing import (
     Dict,
     List,
     NamedTuple,
+    Optional,
 )
 from urllib.parse import (
     urlparse,
@@ -38,7 +36,7 @@ def _json_load(path: str) -> Any:
 
 QUEUES: Dict[str, Dict[str, str]] = _json_load(os.environ["MACHINE_QUEUES"])
 FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
-    os.environ["SKIMS_FINDINGS"]
+    os.environ["MACHINE_FINDINGS"]
 )
 
 
@@ -67,6 +65,14 @@ def get_queue_for_finding(finding_code: str, urgent: bool = False) -> str:
             return f"{queue_}_{_get_priority_suffix(urgent)}"
 
     raise NotImplementedError(f"{finding_code} does not belong to a queue")
+
+
+def get_finding_code_from_title(finding_title: str) -> Optional[str]:
+    for finding_code in FINDINGS:
+        for locale in FINDINGS[finding_code]:
+            if finding_title == FINDINGS[finding_code][locale]["title"]:
+                return finding_code
+    return None
 
 
 async def list_(
@@ -224,9 +230,7 @@ async def get_job(  # pylint: disable=too-many-locals
             ) as response:
                 try:
                     result = await response.json()
-                except json.decoder.JSONDecodeError as exc:
-                    error(exc)
-                    error(response.text())
+                except json.decoder.JSONDecodeError:
                     break
                 if (
                     not response.ok

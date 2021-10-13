@@ -1,8 +1,15 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from context import (
-    PRODUCT_API_TOKEN,
+from back.src.machine.jobs import (
+    get_finding_code_from_title,
+    queue_boto3,
+)
+from botocore.exceptions import (
+    ClientError,
+)
+from contextlib import (
+    suppress,
 )
 from custom_types import (
     SimplePayload,
@@ -21,10 +28,6 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from skims_sdk import (
-    get_finding_code_from_title,
-    queue,
 )
 from typing import (
     Optional,
@@ -60,13 +63,14 @@ async def mutate(
 
     if finding_code is None:
         return SimplePayload(success=False)
+    success = False
+    with suppress(ClientError):
+        await queue_boto3(
+            finding_code=finding_code,
+            group=group_name,
+            namespace=root_nickname,
+            urgent=True,
+        )
+        success = True
 
-    code, _, _ = await queue(
-        finding_code=finding_code,
-        group=group_name,
-        namespace=root_nickname,
-        product_api_token=PRODUCT_API_TOKEN,
-        urgent=True,
-    )
-
-    return SimplePayload(success=code == 0)
+    return SimplePayload(success=success)

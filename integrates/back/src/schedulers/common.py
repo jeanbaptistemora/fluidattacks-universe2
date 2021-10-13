@@ -1,6 +1,9 @@
 from aioextensions import (
     schedule,
 )
+from back.src.machine.jobs import (
+    queue_boto3,
+)
 from custom_types import (
     MailContent as MailContentType,
 )
@@ -9,7 +12,6 @@ import logging.config
 from settings import (
     LOGGING,
 )
-import skims_sdk
 from typing import (
     Any,
     Callable,
@@ -37,9 +39,7 @@ async def machine_queue(
     namespace: str,
     urgent: bool,
 ) -> Dict[str, Any]:
-    return await skims_sdk.queue_boto3(
-        group_name, finding_code, namespace, urgent
-    )
+    return await queue_boto3(group_name, finding_code, namespace, urgent)
 
 
 def scheduler_send_mail(

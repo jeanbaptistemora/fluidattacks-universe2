@@ -4,6 +4,9 @@ from aioextensions import (
 from back.src.db_model.roots.update import (
     update_git_root_machine_execution,
 )
+from back.src.machine.jobs import (
+    FINDINGS,
+)
 from botocore.exceptions import (
     ClientError,
 )
@@ -53,7 +56,7 @@ async def _jobs_by_group(
                 for execution in executions
             }
 
-            for check in skims_sdk.FINDINGS:
+            for check in FINDINGS:
                 if skims_sdk.is_check_available(check):
                     result.append(
                         (
