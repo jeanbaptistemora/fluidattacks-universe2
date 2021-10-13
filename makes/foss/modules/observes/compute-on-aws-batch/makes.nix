@@ -42,6 +42,16 @@ in
       ];
     };
 
+    observesGitlabEtlChallenges = sharedConfiguration // {
+      attempts = 5;
+      attemptDurationSeconds = 7200;
+      command = [ "./m" "observes.job.gitlab-etl.challenges" ];
+      environment = [
+        "AUTONOMIC_API_TOKEN"
+        "PRODUCT_API_TOKEN"
+      ];
+    };
+
     observesDelightedEtl = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 3600;
