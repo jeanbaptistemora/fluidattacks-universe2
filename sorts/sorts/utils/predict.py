@@ -58,7 +58,7 @@ def build_results_csv(
 def display_results(csv_name: str) -> None:
     scope: str = get_scope_from_csv_name(csv_name)
     log("info", "Here are the top 20 files to check:")
-    with open(csv_name, "r") as csv_file:
+    with open(csv_name, "r", encoding="utf8") as csv_file:
         table: PrettyTable = from_csv(
             csv_file, field_names=[scope, "prob_vuln"], delimiter=","
         )

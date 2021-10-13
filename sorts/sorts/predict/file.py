@@ -87,7 +87,7 @@ def get_toes_to_update(
 
 def update_integrates_toes(group_name: str, csv_name: str) -> None:
     group_toe_lines: List[ToeLines] = get_toe_lines_sorts(group_name)
-    with open(csv_name, "r") as csv_file:
+    with open(csv_name, "r", encoding="utf8") as csv_file:
         reader = csv.DictReader(csv_file)
         toes_to_update = get_toes_to_update(group_toe_lines, reader)
         with ThreadPoolExecutor(max_workers=8) as executor:

@@ -48,7 +48,11 @@ def get_log_file_metrics(logs_dir: str, repo: str, file: str) -> GitMetrics:
         author_email=[], commit_hash=[], date_iso_format=[], stats=[]
     )
     cursor: str = ""
-    with open(os.path.join(logs_dir, f"{repo}.log"), "r") as log_file:
+    with open(
+        os.path.join(logs_dir, f"{repo}.log"),
+        "r",
+        encoding="utf8",
+    ) as log_file:
         for line in log_file:
             # An empty line marks the start of a new commit diff
             if not line.strip("\n"):
@@ -105,7 +109,11 @@ def get_repositories_log(dir_: str, repos_paths: ndarray) -> None:
             git_log: str = git_repo.log(
                 "--no-merges", "--numstat", "--pretty=%n%H,%ae,%aI%n"
             ).replace("\n\n\n", "\n")
-            with open(os.path.join(dir_, f"{repo}.log"), "w") as log_file:
+            with open(
+                os.path.join(dir_, f"{repo}.log"),
+                "w",
+                encoding="utf8",
+            ) as log_file:
                 log_file.write(git_log)
         except GitCommandNotFound as exc:
             log_exception("warning", exc, message=f"Repo {repo} doesn't exist")
@@ -120,7 +128,9 @@ def get_repository_files(repo_path: str) -> List[str]:
         )
         for path, _, files in os.walk(repo_path)
         for filename in files
-        if all([dir_ not in path for dir_ in ignore_dirs])
+        if all(  # pylint: disable=use-a-generator
+            [dir_ not in path for dir_ in ignore_dirs]
+        )
     ]
 
 
