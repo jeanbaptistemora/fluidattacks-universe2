@@ -4,7 +4,7 @@ from singer_io.singer2.json_schema import (
 from tap_announcekit.jschema import (
     ObjEncoder,
 )
-from tap_announcekit.streams.id_objs import (
+from tap_announcekit.objs.id_objs import (
     ImageId,
     PostId,
     ProjectId,

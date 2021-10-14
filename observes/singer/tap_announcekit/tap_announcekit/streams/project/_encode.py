@@ -9,11 +9,11 @@ from singer_io.singer2.json import (
 from singer_io.singer2.json_schema import (
     JsonSchema,
 )
+from tap_announcekit.objs.project import (
+    Project,
+)
 from tap_announcekit.streams._obj_encoder import (
     StreamsObjsEncoder,
-)
-from tap_announcekit.streams.project._objs import (
-    Project,
 )
 from typing import (
     Dict,

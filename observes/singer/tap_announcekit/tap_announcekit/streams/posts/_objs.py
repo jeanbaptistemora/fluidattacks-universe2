@@ -2,11 +2,7 @@
 from dataclasses import (
     dataclass,
 )
-from datetime import (
-    datetime,
-)
 from purity.v1 import (
-    FrozenList,
     InvalidType,
     PrimitiveFactory,
 )
@@ -14,11 +10,19 @@ from tap_announcekit.api.gql_schema import (
     Post as RawPost,
     Posts as RawPosts,
 )
-from tap_announcekit.streams.id_objs import (
+from tap_announcekit.objs.id_objs import (
     ImageId,
     PostId,
     ProjectId,
     UserId,
+)
+from tap_announcekit.objs.post import (
+    _Post,
+    Post,
+)
+from tap_announcekit.objs.post_page import (
+    _PostIdPage,
+    PostIdPage,
 )
 from tap_announcekit.utils import (
     CastUtils,
@@ -26,37 +30,11 @@ from tap_announcekit.utils import (
 from typing import (
     Any,
     List,
-    Optional,
 )
 
 JsonStr = str
 to_primitive = PrimitiveFactory.to_primitive
 to_opt_primitive = PrimitiveFactory.to_opt_primitive
-
-
-@dataclass(frozen=True)
-class _Post:
-    # pylint: disable=too-many-instance-attributes
-    obj_id: PostId
-    user_id: Optional[UserId]
-    created_at: datetime
-    visible_at: datetime
-    image_id: Optional[ImageId]
-    expire_at: Optional[datetime]
-    updated_at: datetime
-    is_draft: bool
-    is_pushed: bool
-    is_pinned: bool
-    is_internal: bool
-    external_url: Optional[str]
-    segment_filters: Optional[JsonStr]
-
-
-@dataclass(frozen=True)
-class Post(_Post):
-    def __init__(self, obj: _Post) -> None:
-        for key, val in obj.__dict__.items():
-            object.__setattr__(self, key, val)
 
 
 @dataclass(frozen=True)
@@ -79,21 +57,6 @@ class PostFactory:
             to_opt_primitive(raw.segment_filters, str),
         )
         return Post(draft)
-
-
-@dataclass(frozen=True)
-class _PostIdPage:
-    data: FrozenList[PostId]
-    count: int
-    page: int
-    pages: int
-
-
-@dataclass(frozen=True)
-class PostIdPage(_PostIdPage):
-    def __init__(self, obj: _PostIdPage) -> None:
-        for key, val in obj.__dict__.items():
-            object.__setattr__(self, key, val)
 
 
 def _to_list(raw: Any) -> List[Any]:

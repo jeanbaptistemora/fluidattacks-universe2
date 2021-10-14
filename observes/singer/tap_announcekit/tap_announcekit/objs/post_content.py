@@ -1,7 +1,7 @@
 from dataclasses import (
     dataclass,
 )
-from tap_announcekit.streams.id_objs import (
+from tap_announcekit.objs.id_objs import (
     PostId,
 )
 

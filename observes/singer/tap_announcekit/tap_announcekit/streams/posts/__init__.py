@@ -13,12 +13,12 @@ from returns.io import (
 from tap_announcekit.api.client import (
     ApiClient,
 )
+from tap_announcekit.objs.id_objs import (
+    ProjectId,
+)
 from tap_announcekit.stream import (
     Stream,
     StreamIO,
-)
-from tap_announcekit.streams.id_objs import (
-    ProjectId,
 )
 from tap_announcekit.streams.posts._getters import (
     PostsGetters,

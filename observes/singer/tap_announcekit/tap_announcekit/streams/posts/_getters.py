@@ -25,16 +25,22 @@ from tap_announcekit.api.gql_schema import (
     Post as RawPost,
     Posts as RawPosts,
 )
+from tap_announcekit.objs.id_objs import (
+    PostId,
+    ProjectId,
+)
+from tap_announcekit.objs.post import (
+    Post,
+)
+from tap_announcekit.objs.post_page import (
+    PostIdPage,
+)
 from tap_announcekit.stream import (
     StreamGetter,
 )
 from tap_announcekit.streams.posts._objs import (
-    Post,
     PostFactory,
-    PostId,
-    PostIdPage,
     PostPageFactory,
-    ProjectId,
 )
 from tap_announcekit.streams.posts._queries import (
     PostIdsQuery,

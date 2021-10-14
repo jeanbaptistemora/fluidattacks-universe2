@@ -9,10 +9,12 @@ from tap_announcekit.api.client import (
     Query,
     QueryFactory,
 )
-from tap_announcekit.streams.posts._objs import (
-    Post,
+from tap_announcekit.objs.id_objs import (
     PostId,
     ProjectId,
+)
+from tap_announcekit.objs.post import (
+    Post,
 )
 
 

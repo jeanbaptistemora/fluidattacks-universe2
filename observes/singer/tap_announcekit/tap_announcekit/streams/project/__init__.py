@@ -7,16 +7,18 @@ from returns.curry import (
 from tap_announcekit.api.client import (
     ApiClient,
 )
+from tap_announcekit.objs.id_objs import (
+    ProjectId,
+)
+from tap_announcekit.objs.project import (
+    Project,
+)
 from tap_announcekit.stream import (
     Stream,
     StreamIO,
 )
 from tap_announcekit.streams.project._getters import (
     ProjectGetters,
-)
-from tap_announcekit.streams.project._objs import (
-    Project,
-    ProjectId,
 )
 from tap_announcekit.streams.project._singer import (
     ProjectSingerUtils,

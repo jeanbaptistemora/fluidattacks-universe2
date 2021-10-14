@@ -2,11 +2,11 @@ from singer_io.singer2 import (
     SingerRecord,
     SingerSchema,
 )
+from tap_announcekit.objs.project import (
+    Project,
+)
 from tap_announcekit.streams.project._encode import (
     ProjectEncoder,
-)
-from tap_announcekit.streams.project._objs import (
-    Project,
 )
 
 

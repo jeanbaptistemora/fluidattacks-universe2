@@ -9,11 +9,11 @@ from tap_announcekit.api.client import (
     Query,
     QueryFactory,
 )
+from tap_announcekit.objs.post_content import (
+    PostContent,
+)
 from tap_announcekit.streams.posts._objs import (
     PostId,
-)
-from tap_announcekit.streams.posts.post_content._obj import (
-    PostContent,
 )
 
 

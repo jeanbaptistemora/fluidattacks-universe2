@@ -20,16 +20,16 @@ from tap_announcekit.api.client import (
 from tap_announcekit.api.gql_schema import (
     Project as RawProject,
 )
-from tap_announcekit.stream import (
-    StreamGetter,
-)
-from tap_announcekit.streams.id_objs import (
+from tap_announcekit.objs.id_objs import (
     ImageId,
+    ProjectId,
 )
-from tap_announcekit.streams.project._objs import (
+from tap_announcekit.objs.project import (
     _Project,
     Project,
-    ProjectId,
+)
+from tap_announcekit.stream import (
+    StreamGetter,
 )
 from tap_announcekit.utils import (
     CastUtils,
