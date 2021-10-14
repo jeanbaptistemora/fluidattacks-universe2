@@ -361,7 +361,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__add_draft_new__false__migration:
+/integrates/back/test/functional__add_draft:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -376,7 +376,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'add_draft_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'add_draft'
   stage: test-code
   tags:
     - autoscaling
@@ -449,7 +449,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__add_finding_consult_new__false__migration:
+/integrates/back/test/functional__add_finding_consult:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -464,7 +464,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'add_finding_consult_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'add_finding_consult'
   stage: test-code
   tags:
     - autoscaling
@@ -625,7 +625,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__approve_draft_new__false__migration:
+/integrates/back/test/functional__approve_draft:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -640,14 +640,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'approve_draft_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'approve_draft'
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__confirm_vulnerabilities_zero_risk_new__false__migration:
+/integrates/back/test/functional__confirm_vulnerabilities_zero_risk:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -662,8 +662,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'confirm_vulnerabilities_zero_risk_new'
-      'false' 'migration'
+    - m . /integrates/back/test/functional 'confirm_vulnerabilities_zero_risk'
   stage: test-code
   tags:
     - autoscaling
@@ -692,7 +691,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__delete_obsolete_groups__false__migration:
+/integrates/back/test/functional__delete_obsolete_groups:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -707,7 +706,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'delete_obsolete_groups' 'false' 'migration'
+    - m . /integrates/back/test/functional 'delete_obsolete_groups'
   stage: test-code
   tags:
     - autoscaling
@@ -758,7 +757,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__download_vulnerability_file_new__false__migration:
+/integrates/back/test/functional__download_vulnerability_file:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -773,8 +772,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'download_vulnerability_file_new' 'false'
-      'migration'
+    - m . /integrates/back/test/functional 'download_vulnerability_file'
   stage: test-code
   tags:
     - autoscaling
@@ -825,7 +823,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__finding_new__false__migration:
+/integrates/back/test/functional__finding:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -840,7 +838,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'finding_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'finding'
   stage: test-code
   tags:
     - autoscaling
@@ -913,7 +911,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__group_new__false__migration:
+/integrates/back/test/functional__group:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -928,7 +926,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'group_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'group'
   stage: test-code
   tags:
     - autoscaling
@@ -957,7 +955,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__handle_vulnerabilities_acceptance_new__false__migration:
+/integrates/back/test/functional__handle_vulnerabilities_acceptance:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -972,8 +970,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'handle_vulnerabilities_acceptance_new'
-      'false' 'migration'
+    - m . /integrates/back/test/functional 'handle_vulnerabilities_acceptance'
   stage: test-code
   tags:
     - autoscaling
@@ -1090,7 +1087,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__reject_draft_new__false__migration:
+/integrates/back/test/functional__reject_draft:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1105,14 +1102,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'reject_draft_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'reject_draft'
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__reject_vulnerabilities_zero_risk_new__false__migration:
+/integrates/back/test/functional__reject_vulnerabilities_zero_risk:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1127,8 +1124,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'reject_vulnerabilities_zero_risk_new'
-      'false' 'migration'
+    - m . /integrates/back/test/functional 'reject_vulnerabilities_zero_risk'
   stage: test-code
   tags:
     - autoscaling
@@ -1157,7 +1153,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__remove_evidence_new__false__migration:
+/integrates/back/test/functional__remove_evidence:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1172,7 +1168,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'remove_evidence_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'remove_evidence'
   stage: test-code
   tags:
     - autoscaling
@@ -1201,7 +1197,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__remove_finding_new__false__migration:
+/integrates/back/test/functional__remove_finding:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1216,14 +1212,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'remove_finding_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'remove_finding'
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__remove_group_new__false__migration:
+/integrates/back/test/functional__remove_group:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1238,7 +1234,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'remove_group_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'remove_group'
   stage: test-code
   tags:
     - autoscaling
@@ -1311,7 +1307,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__remove_tags_new__false__migration:
+/integrates/back/test/functional__remove_tags:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1326,14 +1322,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'remove_tags_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'remove_tags'
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__remove_vulnerability_new__false__migration:
+/integrates/back/test/functional__remove_vulnerability:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1348,7 +1344,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'remove_vulnerability_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'remove_vulnerability'
   stage: test-code
   tags:
     - autoscaling
@@ -1377,7 +1373,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__request_vulnerabilities_verification_new__false__migration:
+/integrates/back/test/functional__request_vulnerabilities_verification:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1392,15 +1388,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'request_vulnerabilities_verification_new'
-      'false' 'migration'
+    - m . /integrates/back/test/functional 'request_vulnerabilities_verification'
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__request_vulnerabilities_zero_risk_new__false__migration:
+/integrates/back/test/functional__request_vulnerabilities_zero_risk:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1415,15 +1410,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'request_vulnerabilities_zero_risk_new'
-      'false' 'migration'
+    - m . /integrates/back/test/functional 'request_vulnerabilities_zero_risk'
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__reset_expired_accepted_findings__false__migration:
+/integrates/back/test/functional__reset_expired_accepted_findings:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1438,8 +1432,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'reset_expired_accepted_findings' 'false'
-      'migration'
+    - m . /integrates/back/test/functional 'reset_expired_accepted_findings'
   stage: test-code
   tags:
     - autoscaling
@@ -1534,7 +1527,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__submit_draft_new__false__migration:
+/integrates/back/test/functional__submit_draft:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1549,14 +1542,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'submit_draft_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'submit_draft'
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__submit_organization_finding_policy__false__migration:
+/integrates/back/test/functional__submit_organization_finding_policy:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1571,15 +1564,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'submit_organization_finding_policy' 'false'
-      'migration'
+    - m . /integrates/back/test/functional 'submit_organization_finding_policy'
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__subscribe_to_entity_report__false__migration:
+/integrates/back/test/functional__subscribe_to_entity_report:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1594,7 +1586,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'subscribe_to_entity_report' 'false' 'migration'
+    - m . /integrates/back/test/functional 'subscribe_to_entity_report'
   stage: test-code
   tags:
     - autoscaling
@@ -1711,7 +1703,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__update_evidence_description_new__false__migration:
+/integrates/back/test/functional__update_evidence:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1726,15 +1718,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'update_evidence_description_new' 'false'
-      'migration'
+    - m . /integrates/back/test/functional 'update_evidence'
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__update_evidence_new__false__migration:
+/integrates/back/test/functional__update_evidence_description:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1749,7 +1740,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'update_evidence_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'update_evidence_description'
   stage: test-code
   tags:
     - autoscaling
@@ -1772,29 +1763,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/back/test/functional 'update_finding_description'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__update_finding_description_new__false__migration:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'update_finding_description_new' 'false'
-      'migration'
   stage: test-code
   tags:
     - autoscaling
@@ -1911,7 +1879,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__update_severity_new__false__migration:
+/integrates/back/test/functional__update_severity:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1926,7 +1894,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'update_severity_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'update_severity'
   stage: test-code
   tags:
     - autoscaling
@@ -1955,7 +1923,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__update_vulnerabilities_treatment_new__false__migration:
+/integrates/back/test/functional__update_vulnerabilities_treatment:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1970,15 +1938,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'update_vulnerabilities_treatment_new'
-      'false' 'migration'
+    - m . /integrates/back/test/functional 'update_vulnerabilities_treatment'
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__update_vulnerability_commit_new__false__migration:
+/integrates/back/test/functional__update_vulnerability_commit:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1993,15 +1960,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'update_vulnerability_commit_new' 'false'
-      'migration'
+    - m . /integrates/back/test/functional 'update_vulnerability_commit'
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__update_vulnerability_treatment_new__false__migration:
+/integrates/back/test/functional__update_vulnerability_treatment:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -2016,15 +1982,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'update_vulnerability_treatment_new' 'false'
-      'migration'
+    - m . /integrates/back/test/functional 'update_vulnerability_treatment'
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__upload_file_new__false__migration:
+/integrates/back/test/functional__upload_file:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -2039,14 +2004,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'upload_file_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'upload_file'
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__verify_vulnerabilities_request_new__false__migration:
+/integrates/back/test/functional__verify_vulnerabilities_request:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -2061,15 +2026,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'verify_vulnerabilities_request_new' 'false'
-      'migration'
+    - m . /integrates/back/test/functional 'verify_vulnerabilities_request'
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__vulnerability_new__false__migration:
+/integrates/back/test/functional__vulnerability:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -2084,7 +2048,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'vulnerability_new' 'false' 'migration'
+    - m . /integrates/back/test/functional 'vulnerability'
   stage: test-code
   tags:
     - autoscaling

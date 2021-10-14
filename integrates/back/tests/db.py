@@ -194,7 +194,7 @@ async def _populate_finding_historic_verification(
         )
 
 
-async def populate_findings_new(data: List[Dict[str, Any]]) -> bool:
+async def populate_findings(data: List[Dict[str, Any]]) -> bool:
     await collect([findings.add(finding=item["finding"]) for item in data])
     await collect([_populate_finding_historic_state(item) for item in data])
     await collect(
