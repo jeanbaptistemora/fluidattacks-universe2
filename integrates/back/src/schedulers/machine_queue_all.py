@@ -6,6 +6,7 @@ from back.src.db_model.roots.update import (
 )
 from back.src.machine.jobs import (
     FINDINGS,
+    is_check_available,
 )
 from botocore.exceptions import (
     ClientError,
@@ -28,7 +29,6 @@ from schedulers.common import (
     info,
     machine_queue,
 )
-import skims_sdk
 from typing import (
     Any,
     Dict,
@@ -57,7 +57,7 @@ async def _jobs_by_group(
             }
 
             for check in FINDINGS:
-                if skims_sdk.is_check_available(check):
+                if is_check_available(check):
                     result.append(
                         (
                             root.id,

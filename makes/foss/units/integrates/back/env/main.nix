@@ -30,7 +30,6 @@ makeTemplate {
       inputs.nixpkgs.p7zip
     ];
     source = [
-      outputs."/skims/config-sdk"
       outputs."/integrates/back/tools"
       outputs."/integrates/back/pypi/runtime"
       outputs."/integrates/secrets/list"

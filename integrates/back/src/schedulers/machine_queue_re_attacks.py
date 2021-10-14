@@ -1,3 +1,6 @@
+from back.src.machine.jobs import (
+    get_finding_code_from_title,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -11,7 +14,6 @@ from schedulers.common import (
     info,
     machine_queue,
 )
-import skims_sdk
 from typing import (
     Tuple,
 )
@@ -49,9 +51,7 @@ async def main() -> None:
                     group=group,
                     vulnerabilities=vulns_to_reattack,
                 ):
-                    finding_code = skims_sdk.get_finding_code_from_title(
-                        finding_title
-                    )
+                    finding_code = get_finding_code_from_title(finding_title)
                     if finding_code is not None:
                         await machine_queue(
                             finding_code=finding_code,

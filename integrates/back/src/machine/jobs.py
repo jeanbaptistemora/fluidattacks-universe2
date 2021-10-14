@@ -12,9 +12,17 @@ from batch.dal import (
     list_queues_jobs,
 )
 import boto3
-import datetime
+from datetime import (
+    datetime,
+    timedelta,
+    timezone,
+)
+from enum import (
+    Enum,
+)
 import hashlib
 import hmac
+import holidays
 import json
 import os
 from typing import (
@@ -40,6 +48,27 @@ FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
 )
 
 
+class AvailabilityEnum(Enum):
+    ALWAYS: str = "ALWAYS"
+    NEVER: str = "NEVER"
+    WORKING_HOURS: str = "WORKING_HOURS"
+
+    def is_available_right_now(self) -> bool:
+        now: datetime = datetime.now(timezone(timedelta(hours=-5)))  # Colombia
+
+        if self == AvailabilityEnum.ALWAYS:
+            return True
+        if self == AvailabilityEnum.NEVER:
+            return False
+        if self == AvailabilityEnum.WORKING_HOURS:
+            in_working_days: bool = 0 <= now.weekday() <= 5  # Monday to Friday
+            in_working_hours: bool = 9 <= now.hour < 16  # [9:00, 15:59] Col
+            is_holiday: bool = now.strftime("%y-%m-%d") in holidays.CO()
+            return in_working_days and in_working_hours and not is_holiday
+
+        raise NotImplementedError()
+
+
 class JobArguments(NamedTuple):
     group_name: str
     finding_code: str
@@ -63,6 +92,16 @@ def get_queue_for_finding(finding_code: str, urgent: bool = False) -> str:
     for queue_ in QUEUES:
         if finding_code in QUEUES[queue_]["findings"]:
             return f"{queue_}_{_get_priority_suffix(urgent)}"
+
+    raise NotImplementedError(f"{finding_code} does not belong to a queue")
+
+
+def is_check_available(finding_code: str) -> bool:
+    for data in QUEUES.values():
+        if finding_code in data["findings"]:
+            return AvailabilityEnum(
+                data["availability"]
+            ).is_available_right_now()
 
     raise NotImplementedError(f"{finding_code} does not belong to a queue")
 
@@ -145,7 +184,7 @@ async def get_job(  # pylint: disable=too-many-locals
     request_parameters_str = json.dumps(request_parameters)
     access_key = credentials.access_key
     secret_key = credentials.secret_key
-    time = datetime.datetime.utcnow()
+    time = datetime.utcnow()
     amz_date = time.strftime("%Y%m%dT%H%M%SZ")
     date_stamp = time.strftime("%Y%m%d")
 
