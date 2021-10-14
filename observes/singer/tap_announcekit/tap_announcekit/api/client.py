@@ -69,7 +69,7 @@ class QueryFactory:
     def select(selections: Callable[[Operation], IO[None]]) -> Query:
         def op_obj() -> Operation:
             obj = QueryFactory._new_op()
-            selections(obj)
+            selections(obj)  # call equivalent to unsafe_perform_io
             return obj
 
         draft = _Query(Patch(op_obj))

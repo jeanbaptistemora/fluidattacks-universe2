@@ -3,6 +3,7 @@ from dataclasses import (
 )
 import logging
 from purity.v1 import (
+    Patch,
     PureIter,
 )
 from returns.curry import (
@@ -25,9 +26,6 @@ from singer_io.singer2.emitter import (
 from singer_io.singer2.json import (
     DictFactory,
     JsonObj,
-)
-from tap_announcekit.utils import (
-    Patch,
 )
 from typing import (
     Callable,

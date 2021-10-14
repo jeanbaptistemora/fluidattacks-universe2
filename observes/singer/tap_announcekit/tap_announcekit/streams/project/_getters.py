@@ -1,6 +1,3 @@
-from datetime import (
-    datetime,
-)
 from purity.v1 import (
     PureIter,
 )
@@ -11,7 +8,6 @@ from returns.io import (
     IO,
 )
 from singer_io.singer2.json import (
-    InvalidType,
     to_opt_primitive,
     to_primitive,
 )
@@ -35,18 +31,14 @@ from tap_announcekit.streams.project._objs import (
     Project,
     ProjectId,
 )
+from tap_announcekit.utils import (
+    CastUtils,
+)
 from typing import (
-    Any,
     cast,
 )
 
 JsonStr = str
-
-
-def _to_datetime(raw: Any) -> datetime:
-    if isinstance(raw, datetime):
-        return raw
-    raise InvalidType(f"{type(raw)} expected datetime")
 
 
 def _to_proj(raw: RawProject) -> Project:
@@ -67,13 +59,13 @@ def _to_proj(raw: RawProject) -> Project:
         to_primitive(raw.is_readonly, bool),
         ImageId(raw_image_id) if raw_image_id else None,
         ImageId(raw_favicon_id) if raw_favicon_id else None,
-        _to_datetime(raw.created_at),
+        CastUtils.to_datetime(raw.created_at),
         to_opt_primitive(raw.ga_property, str),
         to_primitive(raw.avatar, str),
         to_primitive(raw.locale, str),
         to_opt_primitive(raw.uses_new_feed_hostname, bool),
         to_primitive(raw.payment_gateway, str),
-        _to_datetime(raw.trial_until) if raw.trial_until else None,
+        CastUtils.to_datetime(raw.trial_until) if raw.trial_until else None,
         to_primitive(raw.metadata, str),
     )
     return Project(draft)
