@@ -125,6 +125,11 @@
   "cliui": {},
   "color-convert": {},
   "color-name": {},
+  "color-string": {
+    "SNYK-JS-COLORSTRING-1082939": [
+      "<<1.5.5"
+    ]
+  },
   "combined-stream": {},
   "commander": {},
   "component-emitter": {},

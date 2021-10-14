@@ -3,6 +3,7 @@
     "@angular/core": "11.0.4",
     "axios": "0.18.0",
     "connect": "2.8",
+    "color-string": "1.1.4",
     "fresh": "xxxxwhasdflaskdjfasdf",
     "hoek": "^5.0.0",
     "html-parse-stringify": "2.0.0",
