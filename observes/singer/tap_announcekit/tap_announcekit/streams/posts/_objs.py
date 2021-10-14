@@ -20,7 +20,7 @@ from tap_announcekit.objs.post import (
     _Post,
     Post,
 )
-from tap_announcekit.objs.post_page import (
+from tap_announcekit.objs.post.page import (
     _PostIdPage,
     PostIdPage,
 )

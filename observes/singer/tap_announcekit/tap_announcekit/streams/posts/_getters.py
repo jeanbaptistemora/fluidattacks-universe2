@@ -31,8 +31,6 @@ from tap_announcekit.objs.id_objs import (
 )
 from tap_announcekit.objs.post import (
     Post,
-)
-from tap_announcekit.objs.post_page import (
     PostIdPage,
 )
 from tap_announcekit.stream import (

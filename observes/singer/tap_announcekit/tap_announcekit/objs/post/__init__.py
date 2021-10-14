@@ -12,6 +12,12 @@ from tap_announcekit.objs.id_objs import (
     PostId,
     UserId,
 )
+from tap_announcekit.objs.post.content import (
+    PostContent,
+)
+from tap_announcekit.objs.post.page import (
+    PostIdPage,
+)
 from typing import (
     Optional,
 )
@@ -46,3 +52,9 @@ class Post(_Post):
         # calling super is tedious because the number of args
         for key, val in obj.__dict__.items():
             object.__setattr__(self, key, val)
+
+
+__all__ = [
+    "PostIdPage",
+    "PostContent",
+]
