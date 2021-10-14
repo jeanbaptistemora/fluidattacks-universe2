@@ -61,9 +61,6 @@ include:
 observes.scheduled.job.batch-stability:
   <<: *scheduled_job
 
-observes.scheduled.job.dynamodb-centralize:
-  <<: *scheduled_job
-
 observes.scheduled.job.mailchimp-etl:
   <<: *scheduled_job
 

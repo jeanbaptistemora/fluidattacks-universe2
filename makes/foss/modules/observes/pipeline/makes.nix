@@ -256,12 +256,16 @@ in
           };
         }
         {
-          output = "/testTerraform/observes";
-          gitlabExtra = gitlabTestInfra;
-        }
-        {
           output = "/observes/scheduled/job/code-etl-compute-bills";
           gitlabExtra = gitlabScheduled;
+        }
+        {
+          output = "/observes/scheduled/job/dynamodb-centralize";
+          gitlabExtra = gitlabScheduled;
+        }
+        {
+          output = "/testTerraform/observes";
+          gitlabExtra = gitlabTestInfra;
         }
       ];
     };

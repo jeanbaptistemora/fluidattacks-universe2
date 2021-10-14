@@ -37,7 +37,6 @@ observes.job.timedoctor.new-grant-code
 observes.job.timedoctor.set-init-token
 observes.job.zoho-crm-etl
 observes.job.zoho-crm-prepare
-observes.scheduled.job.dynamodb-centralize
 observes.scheduled.job.mailchimp-etl
 observes.scheduled.job.mixpanel-integrates-etl
 observes.scheduled.job.tap-zoho-analytics
