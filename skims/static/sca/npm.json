@@ -225,7 +225,11 @@
   "get-stream": {},
   "get-value": {},
   "glob": {},
-  "glob-parent": {},
+  "glob-parent": {
+    "CVE-2020-28469": [
+      "<5.1.2"
+    ]
+  },
   "globals": {},
   "graceful-fs": {},
   "handlebars": {

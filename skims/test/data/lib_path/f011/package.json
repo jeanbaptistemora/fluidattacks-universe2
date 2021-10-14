@@ -6,6 +6,7 @@
     "connect": "2.8",
     "color-string": "1.1.4",
     "fresh": "xxxxwhasdflaskdjfasdf",
+    "glob-parent": "5.1.1",
     "hoek": "^5.0.0",
     "html-parse-stringify": "2.0.0",
     "i18next": "19.8.4",
