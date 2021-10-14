@@ -259,6 +259,10 @@ in
           output = "/testTerraform/observes";
           gitlabExtra = gitlabTestInfra;
         }
+        {
+          output = "/observes/scheduled/job/code-etl-compute-bills";
+          gitlabExtra = gitlabScheduled;
+        }
       ];
     };
   };
