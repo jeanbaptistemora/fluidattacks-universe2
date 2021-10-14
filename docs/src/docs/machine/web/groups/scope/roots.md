@@ -72,7 +72,7 @@ To discard or apply the changes
 you can click on **Cancel**
 or **Proceed** respectively.
 
-## Deactivating a root
+## Deactivating roots
 
 :::caution
 Scope changes may involve closing or reporting new vulnerabilities

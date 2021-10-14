@@ -7,9 +7,6 @@ from aioextensions import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_exceptions import (
-    HasOpenVulns,
-)
 from custom_types import (
     SimplePayload,
 )
@@ -53,24 +50,19 @@ async def deactivate_root(
     loaders = info.context.loaders
     reason: str = kwargs["reason"]
 
-    if reason in {"OUT_OF_SCOPE", "REGISTERED_BY_MISTAKE"}:
-        await collect(
-            tuple(
-                vulns_domain.close_by_exclusion(vuln)
-                for vuln in await roots_dal.get_root_vulns(
-                    loaders=loaders,
-                    group_name=group_name,
-                    nickname=root.state.nickname,
-                )
+    await collect(
+        tuple(
+            vulns_domain.close_by_exclusion(vuln)
+            for vuln in await roots_dal.get_root_vulns(
+                loaders=loaders,
+                group_name=group_name,
+                nickname=root.state.nickname,
             )
         )
-    else:
-        if await roots_domain.has_open_vulns(root, loaders, group_name):
-            raise HasOpenVulns()
-
+    )
     await roots_domain.deactivate_root(
         group_name=group_name,
-        other=kwargs.get("other") if reason == "OTHER" else None,
+        other=None,
         reason=reason,
         root=root,
         user_email=user_email,

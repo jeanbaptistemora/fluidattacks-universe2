@@ -17,7 +17,6 @@ async def get_result(
     group_name: str,
     identifier: str,
     reason: str,
-    other: Optional[str],
 ) -> Dict[str, Any]:
     # pylint: disable=unsubscriptable-object
     query: str = f"""
@@ -25,8 +24,7 @@ async def get_result(
             deactivateRoot(
                 groupName: "{group_name}",
                 id: "{identifier}",
-                reason: {reason},
-                other: "{other}"
+                reason: {reason}
             ) {{
                 success
             }}

@@ -2,9 +2,6 @@ from . import (
     get_result,
 )
 import pytest
-from typing import (
-    Optional,
-)
 
 
 @pytest.mark.asyncio
@@ -27,11 +24,10 @@ from typing import (
     ),
 )
 @pytest.mark.parametrize(
-    ("reason", "other"),
+    ("reason"),
     (
-        ("OTHER", "custom reason"),
-        ("OUT_OF_SCOPE", None),
-        ("REGISTERED_BY_MISTAKE", None),
+        ("OUT_OF_SCOPE"),
+        ("REGISTERED_BY_MISTAKE"),
     ),
 )
 async def test_deactivate_root(
@@ -39,7 +35,6 @@ async def test_deactivate_root(
     group_name: str,
     root_id: str,
     reason: str,
-    other: Optional[str],
 ) -> None:
     # pylint: disable=unsubscriptable-object
     assert populate
@@ -48,7 +43,6 @@ async def test_deactivate_root(
         group_name=group_name,
         identifier=root_id,
         reason=reason,
-        other=other,
     )
     assert "errors" not in result
     assert result["data"]["deactivateRoot"]["success"]
@@ -84,7 +78,6 @@ async def test_deactivate_root_fail(
         group_name=group_name,
         identifier=root_id,
         reason="REGISTERED_BY_MISTAKE",
-        other=None,
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

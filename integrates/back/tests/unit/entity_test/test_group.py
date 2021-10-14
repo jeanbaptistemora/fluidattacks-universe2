@@ -1048,7 +1048,7 @@ async def test_deactivate_root() -> None:
         deactivateRoot(
           groupName: "unittesting"
           id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
-          reason: OTHER
+          reason: REGISTERED_BY_MISTAKE
         ) {
           success
         }
@@ -1066,7 +1066,7 @@ async def test_deactivate_root_nonexistent() -> None:
         deactivateRoot(
           groupName: "unittesting"
           id: "some-thing"
-          reason: OTHER
+          reason: REGISTERED_BY_MISTAKE
         ) {
           success
         }
