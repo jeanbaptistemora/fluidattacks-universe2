@@ -8,32 +8,18 @@ slug: /machine/web/groups/scope/roots
 In this section of the Scope tab,
 you can add and edit
 the repositories and environments
-that we should take into account
-when performing penetration tests.
-In order to do this,
-you can click on one
-of the three buttons
-that allow you to do
-different things.
+to be included in the testing service
 
 ## Add a git root
 
 ![Git Root Buttons](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/web/groups/scope/git_root_buttons_pviqnf.webp)
 
-By clicking on
-the "Add git root" button
-the following form
-will show up
+By clicking on the "Add new root" button, the following form will show up:
 
 ![Add New Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211896/docs/web/groups/scope/add_new_root_nql2hc.webp)
 
-In here you can specify
-the URL of your repository,
-the specific branch
-that we will use
-to perform the penetration test
-and the kind of environment
-that it points to.
+Here you can specify the URL of the repository, the specific branch, and the
+kind of environment to which it corresponds
 
 You can also choose
 if you would like a Health Check
@@ -43,55 +29,37 @@ all the code already in the repository
 at the moment the project starts,
 for an additional cost.
 
-Lastly,
-there are some fields
-used to exclude
-specific paths
-from the group scope,
-you can read
-the details about this
-in [this page](/machine/web/groups/scope/exclusions).
+Lastly, you can specify the paths to
+[exclude](/machine/web/groups/scope/exclusions)
+from the testing scope.
 
 After you complete the required fields,
-you can click on **Proceed**
-to add the Git Root,
+click on **Proceed**
+to add the git Root,
 or you can click on **Cancel**
 to discard all the information.
 
 ## Edit a git root
 
-In order for the next button,
-**Edit root**,
-to become available
-you must first click
-on one of the git roots you already added
-and the same form will show up again,
-albeit slightly different
+To edit a git root, click the desired row on the table and the following form
+will show up:
 
 ![Edit Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/web/groups/scope/edit_root_whbob4.webp)
 
-The form will have all the information
-of the Git Root you selected
-for you to modify.
-You can change its environment kind,
+You can update the branch, environment kind,
 activate or deactivate the Health Check option,
-add more gitignores
-or delete them by clicking on the trash icon
-to the right of the specific gitignore
-you would like to delete.
+modify the [exclusions](/machine/web/groups/scope/exclusions), and if there
+are no active vulnerabilities reported, you can also update the URL.
 
-Again,
-you can click on **Proceed**
+Then, click on **Proceed**
 to apply the changes
 or on **Cancel** to discard them.
 
-You might also wonder
-how to delete a git root,
-however this isn't possible in the ASM
+Deleting a root isn't possible in the ASM
 because in the security world
 it is always better
 to keep records of everything.
-What you can do is change a repository state
+However, you can change its state
 to **Active** or **Inactive**,
 which would mean the following:
 
@@ -104,15 +72,12 @@ which would mean the following:
   it was changed,
   or it was added by mistake.
 
-Every time a repository is changed,
-a notification will be sent
+We will notify the state changes via email
 to all the people involved in the project
 (both Fluid Attacks’s and the customer’s users).
-Finally,
-the states can be changed
-by project users at any moment,
-and every change will be stored
-for future needs.
+
+You can change the state at any moment. We will keep track of every change for
+traceability reasons.
 
 ## Manage a git root environment
 
@@ -125,7 +90,7 @@ for the following form to show up
 
 You can click on the **plus(+)** button
 to add the environment URLs
-corresponding to the selected Git Root,
+corresponding to the selected git Root,
 and also delete them
 by clicking on the trash button
 to the right of the URL field.
@@ -146,7 +111,7 @@ This option takes the root out of scope, therefore it will no longer be tested.
 ### Registered by mistake
 
 This option is useful in case of mistakes when adding a root, but if you just
-need to update the url, branch or any other root attributes,
+need to update the URL, branch or any other root attributes,
 refer to [Edit a git root](#edit-a-git-root)
 
 ### Moved to another group
