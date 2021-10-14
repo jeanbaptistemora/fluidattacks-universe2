@@ -19,6 +19,7 @@
     "jquery": "0.*",
     "ng-packagr": "12.2.2",
     "node-sass": "^5.0.0",
+    "node-notifier": "5.4.2",
     "postcss": "7.0.0",
     "serverless-offline": "3.3.0",
     "y18n": "4.0.0",
