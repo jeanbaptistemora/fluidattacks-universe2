@@ -390,7 +390,7 @@ async def test_iterate_organizations_and_groups() -> None:
             "okada": ["oneshottest", "continuoustesting", "unittesting"]
         },
         "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86": {
-            "bulat": ["pendingproject"]
+            "bulat": ["pendinggroup"]
         },
         "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2": {
             "hajime": ["kurome", "sheele"]

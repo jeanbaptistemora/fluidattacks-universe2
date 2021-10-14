@@ -125,12 +125,12 @@ async def test_validate_tags() -> None:
             "unittesting", ["same-name", "same-name", "another-one"]
         )
     with pytest.raises(RepeatedValues):
-        assert await validate_group_tags("unittesting", ["test-projects"])
+        assert await validate_group_tags("unittesting", ["test-groups"])
 
 
 async def test_is_alive() -> None:
     assert await is_alive("unittesting")
-    assert not await is_alive("unexisting_group")
+    assert not await is_alive("nonexistent_group")
 
 
 async def test_get_vulnerabilities_with_pending_attacks() -> None:
@@ -356,7 +356,7 @@ async def test_list_comments() -> None:
     group_name = "unittesting"
     test_data = await list_comments(group_name, "admin")
     expected_output = {
-        "content": "Now we can post comments on projects",
+        "content": "Now we can post comments on groups",
         "parent": 0,
         "created": "2018/12/27 16:30:28",
         "id": 1545946228675,
@@ -447,7 +447,7 @@ async def test_get_managers() -> None:
 
 async def test_get_description() -> None:
     group_name = "unittesting"
-    expected_output = "Integrates unit test project"
+    expected_output = "Integrates unit test group"
     assert expected_output == await get_description(group_name)
 
 

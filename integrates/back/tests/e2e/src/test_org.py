@@ -104,7 +104,7 @@ def test_org_portfolios(
     driver.get(f"{asm_endpoint}/orgs/okada/portfolios")
     test_groups = utils.wait_for_text(
         driver,
-        "test-projects",
+        "test-groups",
         timeout,
     )
     test_groups.click()

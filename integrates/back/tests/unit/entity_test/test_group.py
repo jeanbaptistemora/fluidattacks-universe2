@@ -108,17 +108,16 @@ async def test_group() -> None:
     assert result["data"]["group"]["subscription"] == "continuous"
     assert result["data"]["group"]["deletionDate"] == ""
     assert result["data"]["group"]["userDeletion"] == ""
-    assert result["data"]["group"]["tags"][0] == "test-projects"
+    assert result["data"]["group"]["tags"][0] == "test-groups"
     assert (
-        result["data"]["group"]["description"]
-        == "Integrates unit test project"
+        result["data"]["group"]["description"] == "Integrates unit test group"
     )
     assert len(result["data"]["group"]["drafts"]) == 1
     assert result["data"]["group"]["drafts"][0]["openVulnerabilities"] == 0
     assert len(result["data"]["group"]["events"]) == 5
     assert (
         result["data"]["group"]["consulting"][0]["content"]
-        == "Now we can post comments on projects"
+        == "Now we can post comments on groups"
     )
     assert result["data"]["group"]["stakeholders"] == [
         {

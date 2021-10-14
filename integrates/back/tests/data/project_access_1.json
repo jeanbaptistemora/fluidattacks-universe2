@@ -97,7 +97,7 @@
             "S": "Test"
           },
           "project_name": {
-            "S": "pendingproject"
+            "S": "pendinggroup"
           },
           "has_access": {
             "BOOL": true
@@ -241,7 +241,7 @@
             "S": "Test"
           },
           "project_name": {
-            "S": "pendingproject"
+            "S": "pendinggroup"
           },
           "has_access": {
             "BOOL": true
@@ -259,7 +259,7 @@
             "S": "Test"
           },
           "project_name": {
-            "S": "pendingproject"
+            "S": "pendinggroup"
           },
           "has_access": {
             "BOOL": true
@@ -277,7 +277,7 @@
             "S": "Test"
           },
           "project_name": {
-            "S": "pendingproject"
+            "S": "pendinggroup"
           },
           "has_access": {
             "BOOL": true

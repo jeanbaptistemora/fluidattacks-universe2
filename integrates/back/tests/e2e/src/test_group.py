@@ -20,7 +20,7 @@ def test_group_consulting(
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/consulting")
     assert utils.wait_for_text(
         driver,
-        "Now we can post comments on projects",
+        "Now we can post comments on groups",
         timeout,
     )
 

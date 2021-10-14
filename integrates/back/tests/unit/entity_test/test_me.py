@@ -52,7 +52,7 @@ async def test_me() -> None:
     for tag in result["data"]["me"]["tags"]:
         assert "name" in tag
         assert "groups" in tag
-        if tag["name"] == "test-projects":
+        if tag["name"] == "test-groups":
             output = [proj["name"] for proj in tag["groups"]]
             assert sorted(output) == sorted(expected_groups)
 

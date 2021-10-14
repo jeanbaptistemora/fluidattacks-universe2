@@ -4,7 +4,7 @@
       "PutRequest": {
         "Item": {
           "content": {
-            "S": "Now we can post comments on projects"
+            "S": "Now we can post comments on groups"
           },
           "created": {
             "S": "2018-12-27 16:30:28"
@@ -64,7 +64,7 @@
       "PutRequest": {
         "Item": {
           "content": {
-            "S": "This is a comment in project scope."
+            "S": "This is a comment in group scope."
           },
           "created": {
             "S": "2019-02-20 19:05:13"
@@ -202,7 +202,7 @@
             "N": "0"
           },
           "project_name": {
-            "S": "pendingproject"
+            "S": "pendinggroup"
           },
           "user_id": {
             "N": "1559074177400"

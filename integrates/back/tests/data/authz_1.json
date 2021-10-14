@@ -208,7 +208,7 @@
             "S": "continuoushacking@gmail.com"
           },
           "object": {
-            "S": "pendingproject"
+            "S": "pendinggroup"
           },
           "role": {
             "S": "customeradmin"

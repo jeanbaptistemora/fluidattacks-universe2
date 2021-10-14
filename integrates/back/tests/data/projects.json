@@ -396,7 +396,7 @@
           "tag": {
             "SS": [
               "another-tag",
-              "test-projects"
+              "test-groups"
             ]
           },
           "total_treatment": {
@@ -441,7 +441,7 @@
             ]
           },
           "description": {
-            "S": "Integrates unit test project"
+            "S": "Integrates unit test group"
           },
           "historic_configuration": {
             "L": [
@@ -1719,7 +1719,7 @@
           },
           "tag": {
             "SS": [
-              "test-projects"
+              "test-groups"
             ]
           },
           "total_treatment": {
@@ -1763,7 +1763,7 @@
             ]
           },
           "description": {
-            "S": "Integrates continuous project"
+            "S": "Integrates continuous group"
           },
           "historic_configuration": {
             "L": [
@@ -2141,7 +2141,7 @@
             ]
           },
           "description": {
-            "S": "Integrates continuous project"
+            "S": "Integrates continuous group"
           },
           "historic_configuration": {
             "L": [
@@ -2461,7 +2461,7 @@
           },
           "tag": {
             "SS": [
-              "test-projects"
+              "test-groups"
             ]
           },
           "total_treatment": {
@@ -2711,7 +2711,7 @@
           },
           "tag": {
             "SS": [
-              "test-projects"
+              "test-groups"
             ]
           },
           "total_treatment": {
@@ -2836,7 +2836,7 @@
           },
           "tag": {
             "SS": [
-              "test-projects"
+              "test-groups"
             ]
           },
           "total_treatment": {
@@ -2961,7 +2961,7 @@
           },
           "tag": {
             "SS": [
-              "test-projects"
+              "test-groups"
             ]
           },
           "total_treatment": {
@@ -3086,7 +3086,7 @@
           },
           "tag": {
             "SS": [
-              "test-projects"
+              "test-groups"
             ]
           },
           "total_treatment": {
@@ -3211,7 +3211,7 @@
           },
           "tag": {
             "SS": [
-              "test-projects"
+              "test-groups"
             ]
           },
           "total_treatment": {
@@ -3331,7 +3331,7 @@
           },
           "tag": {
             "SS": [
-              "test-projects"
+              "test-groups"
             ]
           },
           "total_treatment": {
@@ -3451,7 +3451,7 @@
           },
           "tag": {
             "SS": [
-              "test-projects"
+              "test-groups"
             ]
           },
           "total_treatment": {
@@ -3574,7 +3574,7 @@
           },
           "tag": {
             "SS": [
-              "test-projects"
+              "test-groups"
             ]
           },
           "total_treatment": {

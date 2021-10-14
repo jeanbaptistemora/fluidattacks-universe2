@@ -79,7 +79,7 @@
             ]
           },
           "tag": {
-            "S": "test-projects"
+            "S": "test-groups"
           }
         }
       }
@@ -251,7 +251,7 @@
             ]
           },
           "tag": {
-            "S": "test-projects"
+            "S": "test-groups"
           }
         }
       }
@@ -293,7 +293,7 @@
             ]
           },
           "tag": {
-            "S": "test-projects"
+            "S": "test-groups"
           }
         }
       }

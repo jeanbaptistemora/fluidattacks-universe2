@@ -20,7 +20,7 @@ async def test_get_tag_query() -> None:
     """Check for group alert."""
     query = """
         query{
-            tag(tag: "test-projects"){
+            tag(tag: "test-groups"){
                 lastClosedVulnerability
                 maxOpenSeverity
                 maxSeverity
