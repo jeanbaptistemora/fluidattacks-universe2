@@ -56,6 +56,7 @@ from groups.domain import (
     get_mean_remediate_cvssf,
     get_mean_remediate_non_treated,
     get_mean_remediate_non_treated_cvssf,
+    get_mean_remediate_non_treated_severity,
     get_mean_remediate_non_treated_severity_cvssf,
     get_mean_remediate_severity,
     get_mean_remediate_severity_cvssf,
@@ -560,6 +561,35 @@ async def test_get_mean_remediate_severity_medium(
         else None,
     )
     assert mean_remediate_medium_severity == expected_output
+
+
+@freeze_time("2019-11-01")
+@pytest.mark.parametrize(
+    ("min_days", "expected_output"),
+    (
+        (None, Decimal("182")),
+        (30, Decimal("0")),
+        (90, Decimal("0")),
+    ),
+)
+@pytest.mark.u_changes_db
+async def test_get_mean_remediate_non_treated_severity_medium(
+    min_days: Optional[int], expected_output: Decimal
+) -> None:
+    loaders = get_new_context()
+    group_name = "unittesting"
+    min_severity = Decimal("4.0")
+    max_severity = Decimal("6.9")
+    medium_severity = await get_mean_remediate_non_treated_severity(
+        loaders,
+        group_name,
+        min_severity,
+        max_severity,
+        (datetime.now() - timedelta(days=min_days)).date()
+        if min_days
+        else None,
+    )
+    assert medium_severity == expected_output
 
 
 @freeze_time("2019-10-01")
