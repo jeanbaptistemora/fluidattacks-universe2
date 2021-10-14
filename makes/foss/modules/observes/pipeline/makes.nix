@@ -272,6 +272,14 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
+          output = "/observes/scheduled/job/toe-files-etl";
+          gitlabExtra = gitlabScheduled;
+        }
+        {
+          output = "/observes/scheduled/job/zoho-crm-etl/fluid";
+          gitlabExtra = gitlabScheduled;
+        }
+        {
           output = "/observes/scheduled/job/zoho-crm-prepare/fluid";
           gitlabExtra = gitlabScheduled;
         }

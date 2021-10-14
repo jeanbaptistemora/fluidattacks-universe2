@@ -41,6 +41,5 @@ observes.scheduled.job.tap-zoho-analytics
 observes.scheduled.job.timedoctor-backup
 observes.scheduled.job.timedoctor-etl
 observes.scheduled.job.timedoctor-refresh-token
-observes.scheduled.job.toe-files-etl
 observes.tap-json
 observes.target-redshift
