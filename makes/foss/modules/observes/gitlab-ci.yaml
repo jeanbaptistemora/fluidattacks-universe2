@@ -1161,7 +1161,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/observes/scheduled/job/oe-files-etl:
+/observes/scheduled/job/timedoctor-refresh-token:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
   needs: []
@@ -1172,7 +1172,25 @@
       when: never
     - when: always
   script:
-    - m . /observes/scheduled/job/oe-files-etl
+    - m . /observes/scheduled/job/timedoctor-refresh-token
+  stage: analytics
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/observes/scheduled/job/toe-files-etl:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $observes_scheduled_job != $CI_JOB_NAME
+      when: never
+    - when: always
+  script:
+    - m . /observes/scheduled/job/toe-files-etl
   stage: analytics
   tags:
     - autoscaling

@@ -272,6 +272,10 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
+          output = "/observes/scheduled/job/timedoctor-refresh-token";
+          gitlabExtra = gitlabScheduled;
+        }
+        {
           output = "/observes/scheduled/job/toe-files-etl";
           gitlabExtra = gitlabScheduled;
         }

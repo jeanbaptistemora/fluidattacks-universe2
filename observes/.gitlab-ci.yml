@@ -70,9 +70,6 @@ observes.scheduled.job.timedoctor-backup:
 observes.scheduled.job.timedoctor-etl:
   <<: *scheduled_job
 
-observes.scheduled.job.timedoctor-refresh-token:
-  <<: *scheduled_job
-
 observes.scheduled.on-aws.code-etl-mirror:
   <<: *scheduled_job
 
