@@ -2,8 +2,8 @@
 """
 This migration wipes phone number user data from the DB
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-10-14 at 13:11:25 UTC-5
+Finalization Time: 2021-10-14 at 13:13:27 UTC-5
 """
 
 from aioextensions import (
@@ -21,19 +21,15 @@ from dynamodb import (
 )
 import time
 from typing import (
-    Any,
     cast,
-    Collection,
     Dict,
     List,
-    Type,
-    Union,
 )
 
 # Constants
-PROD: bool = False
+PROD: bool = True
 
-USERS_TABLE: str = "fi_users"
+USERS_TABLE: str = "FI_users"
 
 
 async def get_all_users(
@@ -51,12 +47,11 @@ async def get_all_users(
 
 async def update(email: str, data: Dict[str, None]) -> bool:
     """Manually updates db data"""
-    # pylint: disable=using-constant-test
     success = False
     set_expression = ""
     remove_expression = ""
     expression_names = {}
-    expression_values = Dict[str, Collection[str]]
+    expression_values = {}  # type: ignore
     for attr, value in data.items():
         if value is None:
             remove_expression += f"#{attr}, "
@@ -71,9 +66,7 @@ async def update(email: str, data: Dict[str, None]) -> bool:
     if remove_expression:
         remove_expression = f'REMOVE {remove_expression.strip(", ")}'
 
-    update_attrs: Dict[
-        str, Union[Type[Dict[Any, Any]], Dict[str, str], str]
-    ] = {
+    update_attrs = {
         "Key": {
             "email": email,
         },
@@ -100,15 +93,14 @@ async def process_user(user: Dict[str, str]) -> bool:
     return success
 
 
-async def migrate_users(users: List[UserType]) -> None:
+async def remove_phones(users: List[UserType]) -> None:
     success = all(await collect(process_user(user) for user in users))
     print(f"Phone numbers removed: {success}")
 
 
 async def main() -> None:
     users = await get_all_users()
-
-    await migrate_users(users)
+    await remove_phones(users)
 
 
 if __name__ == "__main__":
