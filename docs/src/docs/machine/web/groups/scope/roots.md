@@ -132,3 +132,32 @@ to the right of the URL field.
 To discard or apply the changes
 you can click on **Cancel**
 or **Proceed** respectively.
+
+## Deactivating a root
+
+:::caution
+Scope changes may involve closing or reporting new vulnerabilities
+:::
+
+### Out of scope
+
+This option takes the root out of scope, therefore it will no longer be tested.
+
+### Registered by mistake
+
+This option is useful in case of mistakes when adding a root, but if you just
+need to update the url, branch or any other root attributes,
+refer to [Edit a git root](#edit-a-git-root)
+
+### Moved to another group
+
+This option allows moving a root to another group along with the
+vulnerabilities reported to it.
+
+![Move root](https://res.cloudinary.com/fluid-attacks/image/upload/v1634230160/docs/web/groups/scope/move_root.png)
+
+The search bar will suggest other groups with the same service type that you
+have access to within the organization.
+
+Then, after clicking the "proceed" button, the root will be deactivated in the
+current group and created in the selected group.
