@@ -37,16 +37,27 @@ from newutils import (
 from operator import (
     itemgetter,
 )
+from redis_cluster.operations import (
+    redis_del_by_deps,
+)
 from roots import (
     dal as roots_dal,
 )
 from typing import (
     Any,
     Dict,
-    Iterator,
     Tuple,
 )
+from unreliable_indicators.enums import (
+    EntityDependency,
+)
+from unreliable_indicators.operations import (
+    update_unreliable_indicators_by_deps,
+)
 import uuid
+from vulnerabilities import (
+    domain as vulns_domain,
+)
 
 VULNS_TABLE = Table(
     facets={},
@@ -56,31 +67,42 @@ VULNS_TABLE = Table(
 )
 
 
+async def update_indicators(finding_id: str, group_name: str) -> None:
+    await redis_del_by_deps(
+        "upload_file", finding_id=finding_id, group_name=group_name
+    )
+    await update_unreliable_indicators_by_deps(
+        EntityDependency.upload_file, finding_id=finding_id
+    )
+
+
 async def process_vulns(
     vulns: Tuple[Dict[str, Any], ...],
     target_finding_id: str,
 ) -> None:
     await operations.batch_write_item(
         items=tuple(
-            {**vuln, "finding_id": target_finding_id} for vuln in vulns
-        ),
-        table=VULNS_TABLE,
-    )
-    await operations.batch_delete_item(
-        keys=tuple(
-            PrimaryKey(partition_key=vuln["finding_id"], sort_key=vuln["UUID"])
+            {
+                **vuln,
+                "finding_id": target_finding_id,
+                "UUID": str(uuid.uuid4()),
+            }
             for vuln in vulns
         ),
         table=VULNS_TABLE,
+    )
+    await collect(
+        tuple(vulns_domain.close_by_exclusion(vuln) for vuln in vulns)
     )
 
 
 async def process_finding(
     loaders: Any,
+    source_group_name: str,
     target_group_name: str,
-    finding_vulns: Tuple[str, Iterator[Dict[str, Any]]],
+    source_finding_id: str,
+    vulns: Tuple[Dict[str, Any], ...],
 ) -> None:
-    source_finding_id, vulns = finding_vulns
     source_finding: Finding = await loaders.finding.load(source_finding_id)
     target_group_findings: Tuple[
         Finding, ...
@@ -95,7 +117,7 @@ async def process_finding(
     )
 
     if target_finding:
-        await process_vulns(tuple(vulns), target_finding.id)
+        target_finding_id = target_finding.id
     else:
         target_finding_id = str(uuid.uuid4())
         await findings_model.add(
@@ -121,26 +143,50 @@ async def process_finding(
                 threat=source_finding.threat,
             )
         )
-        await process_vulns(tuple(vulns), target_finding_id)
+        await findings_model.update_state(
+            finding_id=target_finding_id,
+            group_name=target_group_name,
+            state=source_finding.submission,
+        )
+        await findings_model.update_state(
+            finding_id=target_finding_id,
+            group_name=target_group_name,
+            state=source_finding.approval,
+        )
+    await process_vulns(vulns, target_finding_id)
+    await collect(
+        (
+            update_indicators(source_finding_id, source_group_name),
+            update_indicators(target_finding_id, target_group_name),
+        )
+    )
 
 
 async def move_root(*, item: BatchProcessing) -> None:
     target_group_name = item.entity
-    group_name, root_id = item.additional_info.split("/")
+    source_group_name, root_id = item.additional_info.split("/")
     loaders = get_new_context()
-    root: RootItem = await loaders.root.load((group_name, root_id))
-    vulns = await roots_dal.get_root_vulns(
-        loaders=loaders, group_name=group_name, nickname=root.state.nickname
+    root: RootItem = await loaders.root.load((source_group_name, root_id))
+    root_vulns = await roots_dal.get_root_vulns(
+        loaders=loaders,
+        group_name=source_group_name,
+        nickname=root.state.nickname,
     )
     vulns_by_finding = itertools.groupby(
-        sorted(vulns, key=itemgetter("finding_id")),
+        sorted(root_vulns, key=itemgetter("finding_id")),
         key=itemgetter("finding_id"),
     )
 
     await collect(
         tuple(
-            process_finding(loaders, target_group_name, finding_vulns)
-            for finding_vulns in vulns_by_finding
+            process_finding(
+                loaders,
+                source_group_name,
+                target_group_name,
+                source_finding_id,
+                tuple(vulns),
+            )
+            for source_finding_id, vulns in vulns_by_finding
         )
     )
     await delete_action(

@@ -364,12 +364,7 @@ resource "aws_dynamodb_table" "vulnerabilities" {
     name            = "repo_index"
     hash_key        = "repo_nickname"
     range_key       = "UUID"
-    projection_type = "INCLUDE"
-    non_key_attributes = [
-      "historic_state",
-      "historic_treatment",
-      "historic_zero_risk"
-    ]
+    projection_type = "ALL"
   }
 
   tags = {
