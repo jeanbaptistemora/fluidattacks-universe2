@@ -540,6 +540,11 @@
   "number-is-nan": {},
   "object-assign": {},
   "object-keys": {},
+  "object-path": {
+    "CVE-2020-15256": [
+      "<0.11.5"
+    ]
+  },
   "object.pick": {},
   "on-finished": {},
   "once": {},
