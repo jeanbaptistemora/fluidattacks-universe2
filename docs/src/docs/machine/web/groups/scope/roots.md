@@ -10,7 +10,7 @@ you can add and edit
 the repositories and environments
 to be included in the testing service
 
-## Add a git root
+## Adding git roots
 
 ![Git Root Buttons](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/web/groups/scope/git_root_buttons_pviqnf.webp)
 
@@ -39,7 +39,7 @@ to add the git Root,
 or you can click on **Cancel**
 to discard all the information.
 
-## Edit a git root
+## Editing git roots
 
 To edit a git root, click the desired row on the table and the following form
 will show up:
@@ -55,36 +55,10 @@ Then, click on **Proceed**
 to apply the changes
 or on **Cancel** to discard them.
 
-Deleting a root isn't possible in the ASM
-because in the security world
-it is always better
-to keep records of everything.
-However, you can change its state
-to **Active** or **Inactive**,
-which would mean the following:
+### Managing git root environments
 
-- **Active:**
-  The repository is available
-  and ready for our analysts
-  to access.
-- **Inactive:**
-  The repository does not exist anymore,
-  it was changed,
-  or it was added by mistake.
-
-We will notify the state changes via email
-to all the people involved in the project
-(both Fluid Attacks’s and the customer’s users).
-
-You can change the state at any moment. We will keep track of every change for
-traceability reasons.
-
-## Manage a git root environment
-
-And lastly,
-after selecting one of your added **Git Roots**,
-you can also click on the **Manage environments** button
-for the following form to show up
+In the edit modal, authorized users will also find the **Environment URLs**
+tab:
 
 ![Manage environments](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211895/docs/web/groups/scope/manage_envs_ywyggq.webp)
 
@@ -104,6 +78,23 @@ or **Proceed** respectively.
 Scope changes may involve closing or reporting new vulnerabilities
 :::
 
+Deleting a root isn't possible in the ASM because in the security world it is
+always better to keep records of everything.
+However, you can change its state to **Active** or **Inactive**, which would
+mean the following:
+
+- **Active:**
+  The repository is available and ready for our analysts to access.
+- **Inactive:**
+  The repository does not exist anymore, it was changed, or it was added by
+  mistake.
+
+We will notify the state changes via email to all the people involved in the
+project (both Fluid Attacks’s and the customer’s users).
+
+You can change the state at any moment. We will keep track of every change for
+traceability reasons.
+
 ### Out of scope
 
 This option takes the root out of scope, therefore it will no longer be tested.
@@ -112,7 +103,7 @@ This option takes the root out of scope, therefore it will no longer be tested.
 
 This option is useful in case of mistakes when adding a root, but if you just
 need to update the URL, branch or any other root attributes,
-refer to [Edit a git root](#edit-a-git-root)
+refer to [Editing git roots](#editing-git-roots)
 
 ### Moved to another group
 
