@@ -7,7 +7,6 @@ makes.bugsnag.source-map-uploader
 makes.done
 makes.kill-port
 makes.kill-tree
-makes.profiles
 makes.wait
 melts
 observes.bin.code-etl
