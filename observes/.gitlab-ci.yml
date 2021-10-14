@@ -82,9 +82,6 @@ observes.scheduled.job.toe-files-etl:
 observes.scheduled.job.zoho-crm-etl.fluid:
   <<: *scheduled_job
 
-observes.scheduled.job.zoho-crm-prepare.fluid:
-  <<: *scheduled_job
-
 observes.scheduled.on-aws.code-etl-mirror:
   <<: *scheduled_job
 

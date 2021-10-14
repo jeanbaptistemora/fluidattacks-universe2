@@ -268,6 +268,10 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
+          output = "/observes/scheduled/job/zoho-crm-prepare/fluid";
+          gitlabExtra = gitlabScheduled;
+        }
+        {
           output = "/testTerraform/observes";
           gitlabExtra = gitlabTestInfra;
         }
