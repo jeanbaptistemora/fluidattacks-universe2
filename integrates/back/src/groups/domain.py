@@ -1077,6 +1077,42 @@ async def get_mean_remediate_severity(
     )
 
 
+async def get_mean_remediate_non_treated_severity(
+    loaders: Any,
+    group_name: str,
+    min_severity: Decimal,
+    max_severity: Decimal,
+    min_date: Optional[date] = None,
+) -> Decimal:
+    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+        group_name.lower()
+    )
+    group_findings_ids: List[str] = [
+        finding.id
+        for finding in group_findings
+        if (
+            min_severity
+            <= findings_domain.get_severity_score(finding.severity)
+            <= max_severity
+        )
+    ]
+    all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
+        group_findings_ids
+    )
+    vulnerabilities = vulns_utils.filter_non_confirmed_zero_risk(
+        all_vulnerabilities
+    )
+
+    return vulns_utils.get_mean_remediate_vulnerabilities(
+        [
+            vuln
+            for vuln in vulnerabilities
+            if not vulns_utils.is_accepted_undefined_vulnerability(vuln)
+        ],
+        min_date,
+    )
+
+
 async def get_open_findings(loaders: Any, group_name: str) -> int:
     group_findings_loader = loaders.group_findings
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
