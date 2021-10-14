@@ -61,9 +61,6 @@ include:
 observes.scheduled.job.batch-stability:
   <<: *scheduled_job
 
-observes.scheduled.job.timedoctor-backup:
-  <<: *scheduled_job
-
 observes.scheduled.on-aws.code-etl-mirror:
   <<: *scheduled_job
 

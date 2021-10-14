@@ -276,6 +276,10 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
+          output = "/observes/scheduled/job/timedoctor-backup";
+          gitlabExtra = gitlabScheduled;
+        }
+        {
           output = "/observes/scheduled/job/timedoctor-etl";
           gitlabExtra = gitlabScheduled;
         }
