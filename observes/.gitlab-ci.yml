@@ -61,9 +61,6 @@ include:
 observes.scheduled.job.batch-stability:
   <<: *scheduled_job
 
-observes.scheduled.job.mailchimp-etl:
-  <<: *scheduled_job
-
 observes.scheduled.job.mixpanel-integrates-etl:
   <<: *scheduled_job
 

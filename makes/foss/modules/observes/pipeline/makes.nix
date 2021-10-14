@@ -264,6 +264,10 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
+          output = "/observes/scheduled/job/mailchimp-etl";
+          gitlabExtra = gitlabScheduled;
+        }
+        {
           output = "/testTerraform/observes";
           gitlabExtra = gitlabTestInfra;
         }
