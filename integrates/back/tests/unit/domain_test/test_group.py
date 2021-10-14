@@ -761,6 +761,7 @@ async def test_get_group_digest_stats() -> None:
             "temporary_applied": 0,
             "permanent_requested": 0,
             "permanent_approved": 0,
+            "undefined": 0,
         },
         "events": {
             "unsolved": 3,

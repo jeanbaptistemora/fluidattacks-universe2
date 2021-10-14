@@ -612,6 +612,7 @@ async def get_total_treatment_date(
     accepted_vuln: int = 0
     accepted_undefined_submited_vuln: int = 0
     accepted_undefined_approved_vuln: int = 0
+    undefined_treatment_vuln: int = 0
 
     for vuln in vulns:
         filtered_historic_as_str = str(
@@ -626,10 +627,13 @@ async def get_total_treatment_date(
             accepted_undefined_submited_vuln += 1
         if "APPROVED" in filtered_historic_as_str:
             accepted_undefined_approved_vuln += 1
+        if "NEW" in filtered_historic_as_str:
+            undefined_treatment_vuln += 1
     return {
         "accepted": accepted_vuln,
         "accepted_undefined_submitted": accepted_undefined_submited_vuln,
         "accepted_undefined_approved": accepted_undefined_approved_vuln,
+        "undefined_treatment": undefined_treatment_vuln,
     }
 
 

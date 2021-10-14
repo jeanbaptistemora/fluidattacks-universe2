@@ -383,6 +383,25 @@ def _process_digest_treatments(
     )
     treatments.update(permanent_approved)
 
+    # Get groups with most undefined
+    undefined: MailContentType = {
+        "groups_undefined": [],
+    }
+    groups_undefined = [
+        {
+            "undefined": group["treatments"]["undefined"],
+            "group": group["group"],
+        }
+        for group in groups_stats
+        if group["treatments"]["undefined"]
+    ]
+    undefined["groups_undefined"] = sorted(
+        groups_undefined,
+        key=itemgetter("undefined"),
+        reverse=True,
+    )
+    treatments.update(undefined)
+
     return treatments
 
 
@@ -1453,6 +1472,7 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
             "temporary_applied": 0,
             "permanent_requested": 0,
             "permanent_approved": 0,
+            "undefined": 0,
         },
         "events": {
             "unsolved": 0,
@@ -1514,6 +1534,9 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
     )
     content["treatments"]["permanent_approved"] = treatments.get(
         "accepted_undefined_approved", 0
+    )
+    content["treatments"]["undefined"] = treatments.get(
+        "undefined_treatment", 0
     )
     content["reattacks"] = await vulns_utils.get_total_reattacks_stats(
         group_vulns, last_day
