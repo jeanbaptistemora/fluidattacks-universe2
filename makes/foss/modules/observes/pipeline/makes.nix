@@ -246,18 +246,12 @@ in
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/observes/bin/jobs-scheduler";
-          gitlabExtra = gitlabScheduled;
-        }
-        {
           output = "/pipelineOnGitlab/observes";
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/oberves/scheduled/job/dynamodb-integrates-etl-vulns";
-          gitlabExtra = gitlabScheduled // {
-            tags = [ "autoscaling-large" ];
-          };
+          output = "/observes/bin/jobs-scheduler";
+          gitlabExtra = gitlabScheduled;
         }
         {
           output = "/observes/scheduled/job/code-etl-compute-bills";
@@ -268,7 +262,17 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
+          output = "/oberves/scheduled/job/dynamodb-integrates-etl-vulns";
+          gitlabExtra = gitlabScheduled // {
+            tags = [ "autoscaling-large" ];
+          };
+        }
+        {
           output = "/observes/scheduled/job/mailchimp-etl";
+          gitlabExtra = gitlabScheduled;
+        }
+        {
+          output = "/observes/scheduled/job/mixpanel-integrates-etl";
           gitlabExtra = gitlabScheduled;
         }
         {
@@ -288,7 +292,7 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/scheduled/job/mixpanel-integrates-etl";
+          output = "/observes/scheduled/job/zoho-crm-prepare/fluid";
           gitlabExtra = gitlabScheduled;
         }
         {

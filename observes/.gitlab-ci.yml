@@ -61,9 +61,6 @@ include:
 observes.scheduled.job.batch-stability:
   <<: *scheduled_job
 
-observes.scheduled.job.tap-zoho-analytics:
-  <<: *scheduled_job
-
 observes.scheduled.job.timedoctor-backup:
   <<: *scheduled_job
 
