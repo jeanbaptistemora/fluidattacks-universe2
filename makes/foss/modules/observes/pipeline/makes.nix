@@ -250,6 +250,10 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
+          output = "/pipelineOnGitlab/observes";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/oberves/scheduled/job/dynamodb-integrates-etl-vulns";
           gitlabExtra = gitlabScheduled // {
             tags = [ "autoscaling-large" ];
