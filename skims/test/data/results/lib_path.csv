@@ -7477,6 +7477,31 @@ F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,10,90,skims,338. Inse
   15 |
      ^ Col 2
 "
+F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,18,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application’s server into making requests to an arbitrary domain.
+","
+   1 | g System.Net;
+   2 | g System;
+   3 | space testmod
+   4 |
+   5 |
+   6 | public class Controllers
+   7 | {
+   8 |     public void ReadContentOfURL(HttpRequest url)
+   9 |     {
+  10 |         //insecure
+  11 |         WebRequest req = WebRequest.Create(url);
+  12 |
+  13 |         if (!whiteList.Contains(url))
+  14 |         {
+  15 |             return BadRequest();
+  16 |         }
+  17 |         //secure
+> 18 |         WebRequest request = WebRequest.Create(url);
+  19 |     }
+  20 | }
+  21 |
+     ^ Col 4
+"
 F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application’s server into making requests to an arbitrary domain.
 ","
    1 | using System.Net;
