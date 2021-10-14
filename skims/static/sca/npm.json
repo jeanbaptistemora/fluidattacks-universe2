@@ -299,7 +299,11 @@
   "imurmurhash": {},
   "inflight": {},
   "inherits": {},
-  "ini": {},
+  "ini": {
+    "CVE-2020-7788": [
+      "<1.3.6"
+    ]
+  },
   "ip": {
     "github.com/indutny/node-ip/commit/b2b4469255a624619bda71e52fd1f05dc0dd621f": [
       "<1.1.5"
