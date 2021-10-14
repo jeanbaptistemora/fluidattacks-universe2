@@ -456,7 +456,6 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
             },
             "System.Web.HttpResponse": {
                 "Write",
-                "AddHeader",
             },
             "Response": {
                 "send",
@@ -537,6 +536,13 @@ RETURN_TYPES = complete_attrs_on_dict(
             "createConnection": "mysql.Connection",
             "createPoolCluster": "mysql.PoolCluster",
             "createPool": "mysql.Pool",
+        },
+    }
+)
+BY_UNVALIDATED_ARGUMENTS: Dict[str, Dict[str, str]] = complete_attrs_on_dict(
+    {
+        "HttpResponse": {
+            "AddHeader": "IsMatch",
         },
     }
 )

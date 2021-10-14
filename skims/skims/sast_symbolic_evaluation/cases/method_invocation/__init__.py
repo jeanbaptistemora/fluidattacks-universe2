@@ -15,6 +15,7 @@ from sast_symbolic_evaluation.cases.method_invocation.constants import (
     BY_TYPE_ARGS_PROPAG_FINDING,
     BY_TYPE_ARGS_PROPAGATION,
     BY_TYPE_HANDLER,
+    BY_UNVALIDATED_ARGUMENTS,
     RETURN_TYPES,
     STATIC_FINDING,
     STATIC_SIDE_EFFECTS,
@@ -47,6 +48,7 @@ from sast_symbolic_evaluation.types import (
     JavaClassInstance,
 )
 from sast_symbolic_evaluation.utils_generic import (
+    has_validations,
     lookup_var_dcl_by_name,
     lookup_var_state_by_name,
 )
@@ -352,6 +354,7 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     # pylint: disable=expression-not-assigned
     (
         attempt_static(args, method)
+        or analyze_unvalidated_method(args, method, method_var_decl)
         or attempt_static_side_effects(args, method)
         or attempt_by_args_propagation_no_type(args, method)
         or attempt_by_type_args_propagation(args, method, method_var_decl)
@@ -551,3 +554,39 @@ def analyze_method_invocation_values_list(
     }
     if method := methods.get(method_path):
         method(args, dcl)
+
+
+def analyze_unvalidated_method(
+    args: EvaluatorArgs,
+    method: str,
+    method_var_decl: Optional[
+        Union[
+            SyntaxStepDeclaration,
+            SyntaxStepSymbolLookup,
+        ]
+    ],
+) -> bool:
+    dangers_args = list(
+        dep.symbol
+        for dep in args.dependencies
+        if dep.meta.danger is True and isinstance(dep, SyntaxStepSymbolLookup)
+    )
+    _, method_path = split_on_first_dot(method)
+    if (
+        len(dangers_args) > 0
+        and method_var_decl
+        and method_var_decl.var_type_base
+    ):
+        if method_path in (
+            BY_UNVALIDATED_ARGUMENTS.get(method_var_decl.var_type_base, {})
+        ) and not has_validations(
+            dangers_args,
+            args,
+            args.syntax_step.meta.n_id,
+            BY_UNVALIDATED_ARGUMENTS.get(
+                method_var_decl.var_type_base, {}
+            ).get(method_path),
+        ):
+            args.syntax_step.meta.danger = True
+            return True
+    return False
