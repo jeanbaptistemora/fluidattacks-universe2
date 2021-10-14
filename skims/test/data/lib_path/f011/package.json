@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@angular/core": "11.0.4",
+    "acorn": "7.1.0",
     "axios": "0.18.0",
     "aws-sdk": "2.813.0",
     "connect": "2.8",

@@ -20,6 +20,13 @@
   "@webassemblyjs/ast": {},
   "@webassemblyjs/helper-wasm-bytecode": {},
   "accepts": {},
+  "acorn": {
+    "SNYK-JS-ACORN-559469": [
+      ">=5.5.0,<5.7.4",
+      ">=6.0.0,<6.4.1",
+      ">=7.0.0,<7.1.1"
+    ]
+  },
   "adm-zip": {
     "CVE-2018-1002204": [
       "<0.4.9"
