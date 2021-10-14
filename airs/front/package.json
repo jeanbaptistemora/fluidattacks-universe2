@@ -64,7 +64,7 @@
     "lodash": "4.17.21",
     "modal-video-custom": "1.0.2",
     "moment": "2.29.1",
-    "npm-check": "^5.9.2",
+    "npm-check": "5.9.2",
     "postcss": "8.3.9",
     "prop-types": "15.7.2",
     "react": "16.14.0",
