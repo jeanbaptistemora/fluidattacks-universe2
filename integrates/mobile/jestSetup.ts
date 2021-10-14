@@ -18,7 +18,8 @@ Object.assign(global, {
   clearImmediate: (id: number): void => {
     clearTimeout(id);
   },
-  setImmediate: (handler: () => void): number => setTimeout(handler, 0),
+  setImmediate: (handler: () => void): ReturnType<typeof setTimeout> =>
+    setTimeout(handler, 0),
 });
 
 // Configure enzyme

@@ -99,7 +99,7 @@ const DashboardView: React.FunctionComponent = (): JSX.Element => {
   });
 
   // Side effects
-  let lockTimerId: number | undefined;
+  let lockTimerId: unknown | undefined;
   let locked: boolean = false;
 
   const handleAppStateChange: (state: AppStateStatus) => void = async (
@@ -115,7 +115,7 @@ const DashboardView: React.FunctionComponent = (): JSX.Element => {
        * @see https://git.io/JJYeb
        */
       if (lockTimerId !== undefined && !locked) {
-        clearTimeout(lockTimerId);
+        clearTimeout(lockTimerId as number);
         locked = false;
         await refetch();
       }

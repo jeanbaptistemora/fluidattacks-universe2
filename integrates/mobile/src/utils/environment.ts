@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-named-default -- Needed for using manifest correctly
 import { default as Constants } from "expo-constants";
+import type { AppManifest } from "expo-constants/build/Constants.types";
 
 /**
  * Environment data
@@ -10,7 +11,7 @@ interface IEnvironment {
 }
 
 export const getEnvironment: () => IEnvironment = (): IEnvironment => {
-  const { hostUri, releaseChannel } = Constants.manifest;
+  const { hostUri, releaseChannel } = Constants.manifest as AppManifest;
 
   if (__DEV__ || releaseChannel === "local") {
     const [hostAddress] = (hostUri as string).split(":");
