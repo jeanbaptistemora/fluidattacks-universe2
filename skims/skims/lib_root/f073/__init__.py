@@ -10,9 +10,6 @@ from lib_root.f073.java import (
 from lib_root.f073.javascript import (
     switch_without_default as javascript_switch_without_default,
 )
-from lib_root.f073.kotlin import (
-    when_without_else as kotlin_when_without_else,
-)
 from model import (
     core_model,
     graph_model,
@@ -24,5 +21,4 @@ QUERIES: graph_model.Queries = (
     (FINDING, go_switch_without_default),
     (FINDING, java_switch_without_default),
     (FINDING, javascript_switch_without_default),
-    (FINDING, kotlin_when_without_else),
 )
