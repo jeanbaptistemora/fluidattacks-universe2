@@ -22,6 +22,7 @@ from utils.graph.text_nodes import (
 def get_variable_attribute(
     graph: graph_model.GraphShard, name_var: str, attribute: str
 ) -> str:
+    possible_types = {"invocation_expression", "binary_expression"}
     for member in g.filter_nodes(
         graph,
         nodes=graph.nodes,
@@ -33,10 +34,7 @@ def get_variable_attribute(
         if graph.nodes[pred].get("label_type") == "variable_declarator":
             declaration_node = g.match_ast(graph, pred, "__0__")["__1__"]
             value_node = g.match_ast(graph, declaration_node, "__0__")["__1__"]
-            if (
-                graph.nodes[value_node].get("label_type")
-                == "invocation_expression"
-            ):
+            if graph.nodes[value_node].get("label_type") in possible_types:
                 if attribute == "label_text":
                     return node_to_str(graph, value_node)
                 if attribute == "label_type":
