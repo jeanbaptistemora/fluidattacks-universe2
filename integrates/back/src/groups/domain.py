@@ -863,11 +863,11 @@ async def get_vulnerabilities_with_pending_attacks(
     loaders: Any,
     group_name: str,
 ) -> int:
-    findings_new: Tuple[Finding, ...] = await loaders.group_findings.load(
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
-        [finding.id for finding in findings_new]
+        [finding.id for finding in findings]
     )
     return sum(
         vulnerability["verification"] == "Requested"

@@ -125,8 +125,8 @@ def test_pdf_paths() -> None:
         f"{path}/resources/fonts",
         f"{path}/resources/themes",
         f"{path}/results/results_pdf/",
-        f"{path}/templates/pdf/executive_new.adoc",
-        f"{path}/templates/pdf/tech_new.adoc",
+        f"{path}/templates/pdf/executive.adoc",
+        f"{path}/templates/pdf/tech.adoc",
         f"{path}/tpls/",
     ]
 

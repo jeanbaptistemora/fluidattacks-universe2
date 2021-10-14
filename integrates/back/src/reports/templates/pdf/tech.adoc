@@ -39,7 +39,7 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 .{{resume_table_title}}
 |===
 |{{finding_title}} |{{severity_title}} |{{cardinality_title}} |{{state_title}} |{{treatment_title}}
-{% for finding in findings_new %}
+{% for finding in findings %}
     {{"| "+finding.title}}
     {{"| "+finding.severity_score|string}}
     {{"| "+finding.open_vulnerabilities|string}}
@@ -82,7 +82,7 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 //Septima en adleante - Resumen hallazgos
 <<<
 === {{finding_section_title}}
-{% for finding in findings_new %}
+{% for finding in findings %}
 ==== {{finding.title + "\n"}}
 |===
 |{{severity_title}}|{{cardinality_title}}|{{records_title}}|{{state_title}}

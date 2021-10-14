@@ -11,9 +11,6 @@ from context import (
     BASE_URL,
     STARTDIR,
 )
-from custom_types import (
-    Finding as FindingType,
-)
 from db_model.findings.types import (
     Finding,
     Finding31Severity,
@@ -95,8 +92,7 @@ Context = TypedDict(
         "fluid_tpl": Dict[str, str],
         "main_pie_filename": str,
         "main_tables": VulnTable,
-        "findings": List[Dict[str, FindingType]],
-        "findings_new": Tuple[PdfFindingInfo, ...],
+        "findings": Tuple[PdfFindingInfo, ...],
         "accessVector": Optional[str],
         "finding_title": str,
         "finding_section_title": str,
@@ -375,7 +371,7 @@ class CreatorPdf:
     font_dir: str = "/resources/fonts"
     lang: str = "en"
     out_name: str = ""
-    proj_tpl: str = "templates/pdf/executive_new.adoc"
+    proj_tpl: str = "templates/pdf/executive.adoc"
     result_dir: str = "/results/results_pdf/"
     style: str = "fluid"
     style_dir: str = "/resources/themes"
@@ -394,7 +390,7 @@ class CreatorPdf:
         self.tpl_dir = self.path + self.tpl_dir
         self.style_dir = self.path + self.style_dir
         if self.doctype == "tech":
-            self.proj_tpl = "templates/pdf/tech_new.adoc"
+            self.proj_tpl = "templates/pdf/tech.adoc"
 
         importlib.reload(sys)
         self.lang_support()
@@ -456,8 +452,7 @@ class CreatorPdf:
             "fluid_tpl": fluid_tpl_content,
             "main_pie_filename": main_pie_filename,
             "main_tables": main_tables,
-            "findings": [],
-            "findings_new": context_findings,
+            "findings": context_findings,
             "accessVector": access_vector,
             # Titulos segun lenguaje
             "finding_title": words["finding_title"],

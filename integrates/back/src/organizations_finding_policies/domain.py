@@ -210,10 +210,10 @@ async def update_finding_policy_in_groups(
     group_findings: Tuple[
         Tuple[FindingNew, ...], ...
     ] = await loaders.group_findings.load_many(groups)
-    findings_new = tuple(chain.from_iterable(group_drafts + group_findings))
+    findings = tuple(chain.from_iterable(group_drafts + group_findings))
     findings_ids: List[str] = [
         finding.id
-        for finding in findings_new
+        for finding in findings
         if finding_name.lower().endswith(finding.title.split(".")[0].lower())
     ]
 
