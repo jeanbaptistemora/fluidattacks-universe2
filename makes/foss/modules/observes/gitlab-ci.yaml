@@ -1143,6 +1143,24 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/observes/scheduled/job/mixpanel-integrates-etl:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $observes_scheduled_job != $CI_JOB_NAME
+      when: never
+    - when: always
+  script:
+    - m . /observes/scheduled/job/mixpanel-integrates-etl
+  stage: analytics
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /observes/scheduled/job/zoho-crm-prepare/fluid:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false

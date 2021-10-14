@@ -276,6 +276,10 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
+          output = "/observes/scheduled/job/mixpanel-integrates-etl";
+          gitlabExtra = gitlabScheduled;
+        }
+        {
           output = "/testTerraform/observes";
           gitlabExtra = gitlabTestInfra;
         }
