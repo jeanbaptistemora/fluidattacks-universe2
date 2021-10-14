@@ -196,7 +196,7 @@ We do not use [GItlab CI][GITLAB-CI] for:
     otherwise it can use
     the [Gitlab CI][GITLAB-CI].
 
-### Architecture
+### Components
 
 We use:
 
@@ -212,29 +212,39 @@ We use:
 
 As we use a [multi-bastion approach](https://github.com/npalm/terraform-aws-gitlab-runner#gitlab-ci-docker-machine-runner---multiple-runner-agents),
 the following tasks can be considered
-when debugging the CI:
+when debugging the CI.
 
-1. If you're an admin in [Gitlab][GITLAB],
-    you can visit the [CI/CD Settings](https://gitlab.com/groups/fluidattacks/-/settings/ci_cd)
-    to validate if bastions
-    are properly communicating.
-1. You can inspect both bastions and workers from the [AWS EC2 console](/development/stack/aws/ec2/).
-    Another useful place to look at
-    when you're suspecting of [spot availability](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html),
-    is the [spot requests view](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-requests.html#using-spot-instances-running).
-1. You can connect to a bastion
-    using [AWS Session Manager](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/session-manager.html).
-    Once inside, you can:
-    1. Run `docker-machine` as root.
-        This will allow you to inspect and access
-        workers with commands like
-        `docker-machine ls`,
-        `docker-machine inspect <worker>`,
-        and `docker-machine ssh <worker>`.
-    1. Watch `/var/log/messages` for
-        relevant logs from the bastion.
-    1. Watch `/etc/gitlab-runner/config.toml`
-        for bastion configurations.
+#### Review Gitlab CI/CD Settings
+
+If you're an admin in [Gitlab][GITLAB],
+you can visit the [CI/CD Settings](https://gitlab.com/groups/fluidattacks/-/settings/ci_cd)
+to validate if bastions
+are properly communicating.
+
+#### Inspect infrastructure
+
+You can inspect both bastions and workers
+from the [AWS EC2 console](/development/stack/aws/ec2/).
+Another useful place to look at
+when you're suspecting of [spot availability](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html),
+is the [spot requests view](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-requests.html#using-spot-instances-running).
+
+#### Connect to bastions and workers
+
+You can connect to a bastion
+using [AWS Session Manager](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/session-manager.html).
+Once inside, you can:
+
+1. Run `docker-machine` as root.
+    This will allow you to inspect and access
+    workers with commands like
+    `docker-machine ls`,
+    `docker-machine inspect <worker>`,
+    and `docker-machine ssh <worker>`.
+1. Watch `/var/log/messages` for
+    relevant logs from the bastion.
+1. Watch `/etc/gitlab-runner/config.toml`
+    for bastion configurations.
 
 ### Pending tasks
 

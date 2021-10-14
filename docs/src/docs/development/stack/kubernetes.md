@@ -144,9 +144,9 @@ but not chosen for the following reasons:
 
 We use [Kubernetes][KUBERNETES] for:
 
-1. [Hosting](https://gitlab.com/fluidattacks/product/-/tree/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/integrates/back/deploy/prod/k8s)
+1. [Hosting](https://gitlab.com/fluidattacks/product/-/tree/4ad18b78c630878afdafbf192fcbf54c7bc7a006/makes/foss/units/integrates/back/deploy/prod/k8s)
     our
-    [ASM](https://fluidattacks.com/categories/asm/).
+    [ASM][ASM].
 1. [Automatically](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/integrates/back/deploy/dev/entrypoint.sh)
     deploying
     [ephemeral environments](/about/security/integrity/developing-integrity#ephemeral-environments)
@@ -180,7 +180,60 @@ We do not use [Kubernetes][KUBERNETES] for:
 
 ## Guidelines
 
-### Connect to cluster
+### General
+
+1. Any changes to the
+    [cluster](https://gitlab.com/fluidattacks/product/-/tree/4ad18b78c630878afdafbf192fcbf54c7bc7a006/makes/foss/modules/makes/kubernetes)
+    infrastructure and configuration
+    must be done via
+    [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
+1. Any changes related to the
+    [ASM][ASM]
+    (deployments, autoscaling, ingress...)
+    for both
+    [development](https://gitlab.com/fluidattacks/product/-/tree/4ad18b78c630878afdafbf192fcbf54c7bc7a006/makes/foss/units/integrates/back/deploy/dev/k8s)
+    and
+    [production](https://gitlab.com/fluidattacks/product/-/tree/4ad18b78c630878afdafbf192fcbf54c7bc7a006/makes/foss/units/integrates/back/deploy/prod/k8s)
+    must be done via
+    [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
+1. To learn how to test and apply infrastructure
+    via [Terraform](/development/stack/terraform),
+    visit the
+    [Terraform Guidelines](/development/stack/terraform#guidelines).
+
+### Components
+
+Our cluster implements:
+
+1. [AWS EKS Terraform module](https://github.com/terraform-aws-modules/terraform-aws-eks)
+    for declaring the cluster as code
+    using [Terraform](/development/stack/terraform/).
+1. [AWS Load Balancer Controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller)
+    for automatically initializing
+    [AWS load balancers](/development/stack/aws/elb/)
+    when declaring
+    [ingress resources](https://kubernetes.io/docs/concepts/services-networking/ingress/).
+1. [AWS Kubernetes Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
+    for automatically scaling
+    the cluster size based on
+    [resource assignation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
+1. [ExternalDNS](https://github.com/kubernetes-sigs/external-dns)
+    for automatically setting DNS records
+    when declaring
+    [ingress resources](https://kubernetes.io/docs/concepts/services-networking/ingress/).
+1. [Kubernetes Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
+    for automatically scaling
+    [deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+    like production [ASM][ASM]
+    based on application load (CPU, Memory, custom metrics).
+1. [New Relic](https://newrelic.com/)
+    for monitoring both
+    production [ASM][ASM]
+    and general infrastructure.
+
+### Debugging
+
+#### Connect to cluster
 
 In order to connect
 to the Kubernetes Cluster,
@@ -215,19 +268,35 @@ ip-192-168-7-48.ec2.internal    Ready    <none>   30d   v1.17.11-eks-cfdc40
 ip-192-168-7-54.ec2.internal    Ready    <none>   39d   v1.17.11-eks-cfdc40
 ```
 
-### Common commands
+#### Common commands
 
-These are the most commonly used
-kubectl commands for debugging:
+Most commands have the following syntax: `kubectl <action> <resource> -n <namespace>`
 
-| Command                                                           | Example                                                                                            | Description                   |
-| ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ----------------------------- |
-| `kubectl get pod -A`                                              | NA                                                                                                 | Get all running pods          |
-| `kubectl get node -A`                                             | NA                                                                                                 | Get all cluster nodes         |
-| `kubectl describe pod -n <namespace> <pod>`                       | `kubectl describe pod -n ephemeral app-dsalazaratfluid-7c485cf565-w9gwg`                           | Describe pod configurations   |
-| `kubectl logs -n <namespace> <pod> -c <container>`                | `kubectl logs -n ephemeral app-dsalazaratfluid-7c485cf565-w9gwg -c app`                            | Get container logs from a pod |
-| `kubectl exec -it -n ephemeral <pod> -c <container> -- <command>` | `kubectl exec -it -n ephemeral app-dsalazaratfluid-7c485cf565-w9gwg -c app -- bash`                | Access container within pod   |
+- Common actions are: `get`, `describe`, `logs`, `exec` and `edit`.
+- Common resources are: `pod`, `node`, `deployment`, `ingress`, `hpa`.
+- Common namespaces are: `development`, `production` and `kube-system`.
+    Aditionally, the `-A` flag executes `<action>` for all namespaces.
 
+Some basic examples are:
+
+| Command                     | Example | Description                  |
+| --------------------------- | ------- | ---------------------------- |
+| `kubectl get pod -A`        | `N/A`   | Get all running pods         |
+| `kubectl get node -A`       | `N/A`   | Get all cluster nodes        |
+| `kubectl get deployment -A` | `N/A`   | Get all cluster deployments  |
+| `kubectl get hpa -A`        | `N/A`   | Get all autoscaling policies |
+| `kubectl get namespace`     | `N/A`   | Get all cluster namespaces   |
+
+Some more complex examples are:
+
+| Command                                                             | Example                                                                               | Description                   |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ----------------------------- |
+| `kubectl describe pod -n <namespace> <pod>`                         | `kubectl describe pod -n development app-dsalazaratfluid-7c485cf565-w9gwg`            | Describe pod configurations   |
+| `kubectl logs -n <namespace> <pod> -c <container>`                  | `kubectl logs -n development app-dsalazaratfluid-7c485cf565-w9gwg -c app`             | Get container logs from a pod |
+| `kubectl exec -it -n <namespace> <pod> -c <container> -- <command>` | `kubectl exec -it -n development app-dsalazaratfluid-7c485cf565-w9gwg -c app -- bash` | Access a container within pod |
+| `kubectl edit deployment -n <namespace> <deployment>`               | `kubectl edit deployment -n development integrates-dsalazaratfluid`                   | Edit a specific deployment    |
+
+[ASM]: https://fluidattacks.com/categories/asm/
 [KUBERNETES]: https://kubernetes.io/
 [ROLLBACKS]: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment
 [OSS]: https://opensource.com/resources/what-open-source
