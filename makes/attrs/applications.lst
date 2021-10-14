@@ -30,7 +30,6 @@ observes.bin.tap-toe-files
 observes.bin.tap-zoho-analytics
 observes.bin.update-project-variable
 observes.fx-test.tap-announcekit
-observes.job.announcekit.update-schema
 observes.job.dynamodb-etl
 observes.job.gitlab-etl
 observes.job.timedoctor.new-grant-code
