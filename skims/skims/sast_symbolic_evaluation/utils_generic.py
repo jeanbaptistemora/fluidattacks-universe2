@@ -1,6 +1,12 @@
 from model import (
     graph_model,
 )
+from model.graph_model import (
+    Graph,
+    SyntaxStepIf,
+    SyntaxSteps,
+    SyntaxStepSymbolLookup,
+)
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
 )
@@ -13,6 +19,10 @@ from typing import (
     Iterator,
     Optional,
     Union,
+)
+from utils.graph import (
+    adj_ast,
+    adj_lazy,
 )
 from utils.string import (
     build_attr_paths,
@@ -139,3 +149,67 @@ def complete_attrs_on_dict(data: Dict[str, Any]) -> Dict[str, Any]:
         for path, value in data.items()
         for attr in build_attr_paths(*path.split("."))
     }
+
+
+def get_if_condition_node(graph: Graph, if_nid: str) -> list:
+    if_parts = ["if", "(", ")", "block", "else"]
+    return [
+        c_id
+        for c_id in adj_ast(graph, if_nid)
+        if graph.nodes[c_id]["label_type"] not in if_parts
+    ]
+
+
+# Check if at least one variable is called in a method given a if statement
+def var_in_method_from_if(
+    args: EvaluatorArgs, if_nid: str, method: str, var_list: list
+) -> bool:
+    dependencies = []
+    for node in list(adj_lazy(args.shard.graph, if_nid, depth=-1)):
+        if args.shard.graph.nodes[node].get(
+            "label_type"
+        ) == "invocation_expression" and get_syntax_step_from_nid(
+            args.syntax_steps, node
+        ):
+            s_step = get_syntax_step_from_nid(args.syntax_steps, node)
+            index = list(s_step.keys()).pop()
+            syntax_step = s_step[index]
+            if syntax_step.method == method:
+                dependencies = get_dependencies(index, args.syntax_steps)
+    for depend in dependencies:
+        if (
+            isinstance(depend, SyntaxStepSymbolLookup)
+            and depend.symbol in var_list
+        ):
+            return True
+    return False
+
+
+def get_syntax_step_from_nid(syntax_steps: SyntaxSteps, n_id: str) -> dict:
+    for index, syntax_step in enumerate(syntax_steps):
+        if syntax_step.meta.n_id == n_id:
+            return {index: syntax_step}
+    return {}
+
+
+def has_validations(
+    dangers_args: list,
+    args: EvaluatorArgs,
+    elem_node: str,
+    validation: Optional[str],
+) -> bool:
+    for syntax_step in args.syntax_steps:
+        if (
+            isinstance(syntax_step, SyntaxStepIf)
+            and int(syntax_step.meta.n_id) < int(elem_node)
+            and validation
+        ):
+            cond_nid = get_if_condition_node(
+                args.shard.graph, syntax_step.meta.n_id
+            )
+
+            if len(cond_nid) > 0 and var_in_method_from_if(
+                args, cond_nid[0], validation, dangers_args
+            ):
+                return True
+    return False
