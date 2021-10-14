@@ -613,7 +613,6 @@ describe("GroupScopeView", (): void => {
           variables: {
             groupName: "unittesting",
             id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
-            other: "",
             reason,
           },
         },

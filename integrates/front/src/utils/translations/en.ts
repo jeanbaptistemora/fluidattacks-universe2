@@ -539,12 +539,10 @@ export const enTranslations: ResourceKey = {
         deactivation: {
           confirm:
             "Deactivating this root takes it out of scope, therefore it will no longer be tested.",
-          other: "Which?",
           reason: {
             label: "Reason",
             mistake: "Registered by mistake",
             moved: "Moved to another group",
-            other: "Other",
             scope: "Out of scope",
           },
           targetGroup: "Target group",

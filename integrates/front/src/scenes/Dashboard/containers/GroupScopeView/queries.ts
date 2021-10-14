@@ -148,15 +148,9 @@ const DEACTIVATE_ROOT: DocumentNode = gql`
   mutation DeactivateRoot(
     $groupName: String!
     $id: ID!
-    $other: String
     $reason: RootDeactivationReason!
   ) {
-    deactivateRoot(
-      groupName: $groupName
-      id: $id
-      other: $other
-      reason: $reason
-    ) {
+    deactivateRoot(groupName: $groupName, id: $id, reason: $reason) {
       success
     }
   }
