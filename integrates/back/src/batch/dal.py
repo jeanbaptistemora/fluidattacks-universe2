@@ -14,7 +14,6 @@ from botocore.exceptions import (
     ClientError,
 )
 from context import (
-    FI_API_STATUS,
     FI_AWS_DYNAMODB_ACCESS_KEY,
     FI_AWS_DYNAMODB_SECRET_KEY,
     FI_AWS_SESSION_TOKEN,
@@ -287,7 +286,6 @@ async def put_action_to_batch(
                         "f",
                         "/integrates/batch",
                         "prod",
-                        FI_API_STATUS,
                         action_name,
                         subject,
                         entity,

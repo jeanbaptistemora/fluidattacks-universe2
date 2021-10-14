@@ -68,7 +68,6 @@ async def _run(
     batch_action = await _get_batch_job(finding_policy_id=finding_policy_id)
     cmd_args: List[str] = [
         "test",
-        environ["API_STATUS"],
         "handle_finding_policy",
         finding_policy_id,
         user_email,
