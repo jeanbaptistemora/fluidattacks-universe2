@@ -4,7 +4,7 @@
 from api.resolvers.query import (
     event,
     events,
-    finding_new,
+    finding,
     forces_execution,
     forces_executions,
     group,
@@ -28,7 +28,7 @@ from ariadne import (
 QUERY = QueryType()
 QUERY.set_field("event", event.resolve)
 QUERY.set_field("events", events.resolve)
-QUERY.set_field("finding", finding_new.resolve)
+QUERY.set_field("finding", finding.resolve)
 QUERY.set_field("forcesExecution", forces_execution.resolve)
 QUERY.set_field("forcesExecutions", forces_executions.resolve)
 QUERY.set_field("group", group.resolve)

@@ -306,9 +306,7 @@ const findingContent: React.FC = (): JSX.Element => {
                     />
                   </Can>
                   <Have I={"has_squad"}>
-                    <Can
-                      do={"api_resolvers_finding_new_consulting_new_resolve"}
-                    >
+                    <Can do={"api_resolvers_finding_consulting_resolve"}>
                       <ContentTab
                         icon={"icon pe-7s-comment"}
                         id={"commentItem"}

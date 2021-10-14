@@ -5,9 +5,9 @@ from api.resolvers.group import (
     analytics,
     bill,
     consulting,
-    drafts_new,
+    drafts,
     events,
-    findings_new,
+    findings,
     forces_token,
     last_closed_vulnerability_finding_new,
     max_open_severity_finding_new,
@@ -31,9 +31,9 @@ GROUP: ObjectType = ObjectType("Group")
 GROUP.set_field("analytics", analytics.resolve)
 GROUP.set_field("bill", bill.resolve)
 GROUP.set_field("consulting", consulting.resolve)
-GROUP.set_field("drafts", drafts_new.resolve)
+GROUP.set_field("drafts", drafts.resolve)
 GROUP.set_field("events", events.resolve)
-GROUP.set_field("findings", findings_new.resolve)
+GROUP.set_field("findings", findings.resolve)
 GROUP.set_field("forcesToken", forces_token.resolve)
 GROUP.set_field("organization", organization.resolve)
 GROUP.set_field(

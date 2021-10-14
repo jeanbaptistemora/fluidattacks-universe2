@@ -4,7 +4,7 @@ from aiodataloader import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_types import (
+from db_model.findings.types import (
     Finding,
 )
 from decorators import (
@@ -16,13 +16,6 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from newutils import (
-    findings as findings_utils,
-)
-from typing import (
-    cast,
-    Dict,
 )
 
 
@@ -36,17 +29,14 @@ async def _get_draft(finding: Finding, _info: GraphQLResolveInfo) -> Finding:
 @concurrent_decorators(
     require_login, enforce_group_level_auth_async, require_asm
 )
-@rename_kwargs({"finding_id": "identifier"})
+@require_login
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Finding:
+    finding_id: str = kwargs["finding_id"]
     finding_loader: DataLoader = info.context.loaders.finding
-    finding_id: str = kwargs["identifier"]
     finding: Finding = await finding_loader.load(finding_id)
-
-    is_draft = not findings_utils.is_released(
-        cast(Dict[str, Finding], finding)
-    )
-    if is_draft:
+    if finding.approval is None:
         return await _get_draft(finding, info)
+
     return finding
