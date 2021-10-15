@@ -4,9 +4,11 @@ from aioextensions import (
 from back.src.db_model.roots.update import (
     update_git_root_machine_execution,
 )
+from back.src.machine.availability import (
+    is_check_available,
+)
 from back.src.machine.jobs import (
     FINDINGS,
-    is_check_available,
 )
 from botocore.exceptions import (
     ClientError,
