@@ -11,8 +11,8 @@ import {
   BannerContainer,
   BannerSubtitle,
   BannerTitle,
+  BlogPageArticle,
   FullWidthContainer,
-  PageArticle,
 } from "../../styles/styledComponents";
 import { translate } from "../../utils/translations/translate";
 
@@ -46,7 +46,7 @@ const CardsContainer: StyledComponent<
     mw-1366
     pv4-l
     pv3
-    bg-lightgray
+    bg-gray-221
     ml-auto
     mr-auto
     `,
@@ -55,7 +55,7 @@ const CardsContainer: StyledComponent<
 const ResourcesPage: React.FC<IProps> = ({
   bannerTitle,
 }: IProps): JSX.Element => (
-  <PageArticle>
+  <BlogPageArticle>
     <BannerContainer className={"resources-bg"}>
       <FullWidthContainer>
         <BannerTitle>{bannerTitle}</BannerTitle>
@@ -73,8 +73,8 @@ const ResourcesPage: React.FC<IProps> = ({
       )}`}
       direction={"https://docs.fluidattacks.com/criteria/"}
       image={"/resources/resource-rules_roxdew"}
-      imageSide={"fr-l"}
-      textSide={"pl5-l fl-l"}
+      imageSide={"center"}
+      textSide={"center"}
       title={`${translate.t("resources.elementsText.rules.rulesTitle")}`}
     />
     <MenuList>
@@ -267,7 +267,7 @@ const ResourcesPage: React.FC<IProps> = ({
         urlCard={"https://www.youtube.com/watch?reload=9&v=-KvvMD7EJAs"}
       />
     </CardsContainer>
-  </PageArticle>
+  </BlogPageArticle>
 );
 
 export { ResourcesPage };

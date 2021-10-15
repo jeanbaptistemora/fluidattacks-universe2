@@ -69,8 +69,6 @@ const CardTitle: StyledComponent<
     fw8
     tc
     lh2
-    pb3
-    h-resources-card-title
     roboto
   `,
 })``;
@@ -111,10 +109,8 @@ const CardInnerContainer: StyledComponent<
     pr3-ns
     pl3-ns
     pt3
-    ma-auto
     pt3
-    ml-auto
-    mr-auto
+    center
   `,
 })``;
 
@@ -136,8 +132,8 @@ const CardInnerDescription: StyledComponent<
 > = styled.p.attrs({
   className: `
     fw3
-    f4
-    c-fluid-bk
+    f5
+    c-black-gray
     roboto
   `,
 })``;
@@ -148,7 +144,7 @@ const ImageContainer: StyledComponent<
 > = styled.div.attrs({
   className: `
     tc
-    w-50-l
+    w-100
     mb5
     ml-auto
     mr-auto
@@ -160,15 +156,34 @@ const TextContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    tl-l
     tc
-    w-50-l
-    mw6
-    ml-auto
-    mr-auto
-    pt3-l
+    w-100
+    center
     ph0-ns
     ph3
+  `,
+})``;
+
+const LittleRegularRedButton: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className: `
+    outline-transparent
+    bg-button-red
+    hv-bg-fluid-rd
+    pointer
+    white
+    pv3
+    ph4
+    fw7
+    f5
+    dib
+    t-all-3-eio
+    br2
+    bc-fluid-red
+    ba
+    roboto
   `,
 })``;
 
@@ -182,6 +197,7 @@ export {
   CardTextContainer,
   CardTitle,
   ImageContainer,
+  LittleRegularRedButton,
   TextContainer,
   WebinarImageContainer,
   WebinarLanguage,

@@ -2,13 +2,13 @@
 import { Link } from "gatsby";
 import React from "react";
 
-import { RegularRedButton } from "../../../styles/styledComponents";
 import { CloudImage } from "../../CloudImage";
 import {
   CardInnerContainer,
   CardInnerDescription,
   CardTitle,
   ImageContainer,
+  LittleRegularRedButton,
   TextContainer,
 } from "../styledComponents";
 
@@ -39,7 +39,7 @@ const ResourcesElement: React.FC<IProps> = ({
       <CardTitle>{title}</CardTitle>
       <CardInnerDescription>{description}</CardInnerDescription>
       <Link to={direction}>
-        <RegularRedButton>{buttonDescription}</RegularRedButton>
+        <LittleRegularRedButton>{buttonDescription}</LittleRegularRedButton>
       </Link>
     </TextContainer>
   </CardInnerContainer>
