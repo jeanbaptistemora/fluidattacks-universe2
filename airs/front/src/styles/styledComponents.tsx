@@ -1086,13 +1086,14 @@ const MenuItem: StyledComponent<
   Record<string, unknown>
 > = styled.li.attrs({
   className: `
-    ph2
+    ph3
+    pv1
     dib
     bg-lightergray
     mh2
     mt2
-    br2
-    hv-bg-soft-gray
+    br4
+    hv-bg-fluid-gray
   `,
 })``;
 
@@ -1113,13 +1114,13 @@ const RadioLabel: StyledComponent<
   Record<string, unknown>
 > = styled.label.attrs({
   className: `
-    c-gray-179
+    c-black-gray
     f4-ns
     f5
     roboto
     no-underline
     fw3
-    hv-fluid-dkred
+    hv-fluid-black
     pointer
   `,
 })``;

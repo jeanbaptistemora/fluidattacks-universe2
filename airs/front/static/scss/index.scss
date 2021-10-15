@@ -173,6 +173,7 @@ $gray-120: rgba(120, 120, 145, 1);
 // Hover changes classes
 .hv-fluid-black { &:hover { color: $fluid-black;} }
 .hv-bg-fluid-dkred { &:hover { background-color: $fluid-dark-red; } }
+.hv-bg-fluid-gray { &:hover { background-color: $fluid-gray; } }
 .hv-bg-soft-gray { &:hover { background-color: $soft-gray; } }
 .hv-bd-fluid-dkred { &:hover { border-color: $fluid-dark-red; } }
 .hv-bd-soft-gray { &:hover { border-color: $soft-gray; } }
