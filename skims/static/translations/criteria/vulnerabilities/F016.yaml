@@ -1,3 +1,6 @@
+src.lib_path.f016.serves_content_over_insecure_protocols:
+  en: The application is not using the strongest protocol from AWS.
+  es: La aplicación no está usando el protocolo mas fuerte de aws.
 lib_ssl.analyze_protocol.sslv3_enabled:
   en: server accepts connections with SSLv3
   es: el servidor acepta conexiones con SSLv3
