@@ -1053,24 +1053,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/oberves/scheduled/job/dynamodb-integrates-etl-vulns:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: false
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $observes_scheduled_job != $CI_JOB_NAME
-      when: never
-    - when: always
-  script:
-    - m . /oberves/scheduled/job/dynamodb-integrates-etl-vulns
-  stage: analytics
-  tags:
-    - autoscaling-large
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /observes/bin/jobs-scheduler:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -1122,6 +1104,24 @@
   stage: analytics
   tags:
     - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/observes/scheduled/job/dynamodb-integrates-etl-vulns:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $observes_scheduled_job != $CI_JOB_NAME
+      when: never
+    - when: always
+  script:
+    - m . /observes/scheduled/job/dynamodb-integrates-etl-vulns
+  stage: analytics
+  tags:
+    - autoscaling-large
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1

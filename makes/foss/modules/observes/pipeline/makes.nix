@@ -262,7 +262,7 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/oberves/scheduled/job/dynamodb-integrates-etl-vulns";
+          output = "/observes/scheduled/job/dynamodb-integrates-etl-vulns";
           gitlabExtra = gitlabScheduled // {
             tags = [ "autoscaling-large" ];
           };
