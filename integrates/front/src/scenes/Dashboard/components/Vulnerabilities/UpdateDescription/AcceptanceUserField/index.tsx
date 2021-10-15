@@ -1,12 +1,12 @@
 import React from "react";
 
-import type { IAcceptationUserFieldProps } from "./types";
+import type { IAcceptanceUserFieldProps } from "./types";
 
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
-const AcceptationUserField: React.FC<IAcceptationUserFieldProps> = (
-  props: IAcceptationUserFieldProps
+const AcceptanceUserField: React.FC<IAcceptanceUserFieldProps> = (
+  props: IAcceptanceUserFieldProps
 ): JSX.Element => {
   const {
     isAcceptedSelected,
@@ -35,4 +35,4 @@ const AcceptationUserField: React.FC<IAcceptationUserFieldProps> = (
   );
 };
 
-export { AcceptationUserField };
+export { AcceptanceUserField };

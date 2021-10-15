@@ -1,4 +1,4 @@
-export interface IHandleAcceptationButtonProps {
+export interface IHandleAcceptanceButtonProps {
   areVulnerabilitiesPendingToAcceptation: boolean;
   isEditing: boolean;
   isRequestingReattack: boolean;

@@ -1,10 +1,10 @@
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
-interface IAcceptationUserFieldProps {
+interface IAcceptanceUserFieldProps {
   isAcceptedSelected: boolean;
   isAcceptedUndefinedSelected: boolean;
   isInProgressSelected: boolean;
   lastTreatment: IHistoricTreatment;
 }
 
-export { IAcceptationUserFieldProps };
+export { IAcceptanceUserFieldProps };

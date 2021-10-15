@@ -3,20 +3,20 @@ import { useAbility } from "@casl/react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import type { IHandleAcceptationButtonProps } from "./types";
+import type { IHandleAcceptanceButtonProps } from "./types";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { authzPermissionsContext } from "utils/authz/config";
 
-const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
+const HandleAcceptanceButton: React.FC<IHandleAcceptanceButtonProps> = ({
   areVulnerabilitiesPendingToAcceptation,
   isEditing,
   isRequestingReattack,
   isVerifying,
   openHandleAcceptation,
-}: IHandleAcceptationButtonProps): JSX.Element => {
+}: IHandleAcceptanceButtonProps): JSX.Element => {
   const { t } = useTranslation();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -62,4 +62,4 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
   );
 };
 
-export { HandleAcceptationButton };
+export { HandleAcceptanceButton };

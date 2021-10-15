@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import { EditButton } from "./EditButton";
-import { HandleAcceptationButton } from "./HandleAcceptationButton";
+import { HandleAcceptanceButton } from "./HandleAcceptanceButton";
 import { ReattackVulnButton } from "./ReattackVulnButton";
 import { VerifyVunButton } from "./VerifyVunButton";
 
@@ -12,7 +12,7 @@ import { translate } from "utils/translations/translate";
 
 interface IActionButtonsProps {
   areVulnsSelected: boolean;
-  areVulnerabilitiesPendingToAcceptation: boolean;
+  areVulnerabilitiesPendingToAcceptance: boolean;
   isEditing: boolean;
   isFindingReleased: boolean;
   isOpen: boolean;
@@ -31,7 +31,7 @@ interface IActionButtonsProps {
 
 const ActionButtons: React.FC<IActionButtonsProps> = ({
   areVulnsSelected,
-  areVulnerabilitiesPendingToAcceptation,
+  areVulnerabilitiesPendingToAcceptance,
   isEditing,
   isFindingReleased,
   isOpen,
@@ -58,9 +58,9 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
 
   return (
     <ButtonToolbarRow>
-      <HandleAcceptationButton
+      <HandleAcceptanceButton
         areVulnerabilitiesPendingToAcceptation={
-          areVulnerabilitiesPendingToAcceptation
+          areVulnerabilitiesPendingToAcceptance
         }
         isEditing={isEditing}
         isRequestingReattack={isRequestingReattack}

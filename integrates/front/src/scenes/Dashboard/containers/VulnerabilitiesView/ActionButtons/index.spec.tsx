@@ -30,7 +30,7 @@ describe("ActionButtons", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <ActionButtons
-        areVulnerabilitiesPendingToAcceptation={true}
+        areVulnerabilitiesPendingToAcceptance={true}
         areVulnsSelected={false}
         isEditing={false}
         isFindingReleased={true}
@@ -67,7 +67,7 @@ describe("ActionButtons", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <ActionButtons
-        areVulnerabilitiesPendingToAcceptation={true}
+        areVulnerabilitiesPendingToAcceptance={true}
         areVulnsSelected={false}
         isEditing={false}
         isFindingReleased={true}
@@ -121,7 +121,7 @@ describe("ActionButtons", (): void => {
     );
     const wrapper: ReactWrapper = mount(
       <ActionButtons
-        areVulnerabilitiesPendingToAcceptation={true}
+        areVulnerabilitiesPendingToAcceptance={true}
         areVulnsSelected={false}
         isEditing={false}
         isFindingReleased={true}

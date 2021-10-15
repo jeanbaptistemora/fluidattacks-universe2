@@ -10,7 +10,7 @@ import { GET_FINDING_HEADER } from "../../FindingContent/queries";
 import type { IVulnerabilitiesAttr } from "../types";
 import {
   getRequestedZeroRiskVulns,
-  getVulnsPendingOfAcceptation,
+  getVulnsPendingOfAcceptance,
 } from "../utils";
 import type {
   IConfirmVulnZeroRiskResultAttr,
@@ -33,7 +33,7 @@ const onTreatmentChangeHelper = (
 ): void => {
   if (isAcceptedUndefinedSelected) {
     const pendingVulnsToHandleAcceptation: IVulnDataAttr[] =
-      getVulnsPendingOfAcceptation(vulns);
+      getVulnsPendingOfAcceptance(vulns);
     setAcceptationVulns(pendingVulnsToHandleAcceptation);
   } else if (isConfirmRejectZeroRiskSelected) {
     const requestedZeroRiskVulns: IVulnDataAttr[] =

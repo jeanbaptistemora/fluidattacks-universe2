@@ -3,7 +3,7 @@ import type { IHistoricTreatment } from "scenes/Dashboard/containers/Description
 import type { IVulnDataAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/types";
 import type { IVulnerabilitiesAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 
-const getVulnsPendingOfAcceptation: (
+const getVulnsPendingOfAcceptance: (
   vulnerabilities: IVulnerabilitiesAttr[]
 ) => IVulnDataAttr[] = (
   vulnerabilities: IVulnerabilitiesAttr[]
@@ -42,16 +42,16 @@ const getRequestedZeroRiskVulns: (
     []
   );
 
-function isPendingToAcceptation(
+function isPendingToAcceptance(
   vulnerabilities: IVulnerabilitiesAttr[]
 ): boolean {
   return (
-    getVulnsPendingOfAcceptation(vulnerabilities).length > 0 ||
+    getVulnsPendingOfAcceptance(vulnerabilities).length > 0 ||
     getRequestedZeroRiskVulns(vulnerabilities).length > 0
   );
 }
 export {
-  getVulnsPendingOfAcceptation,
+  getVulnsPendingOfAcceptance,
   getRequestedZeroRiskVulns,
-  isPendingToAcceptation,
+  isPendingToAcceptance,
 };

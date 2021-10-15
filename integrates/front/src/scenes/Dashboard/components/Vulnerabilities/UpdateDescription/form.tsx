@@ -9,7 +9,7 @@ import _ from "lodash";
 import React, { useContext, useEffect, useRef, useState } from "react";
 
 import { AcceptanceDateField } from "./AcceptanceDateField";
-import { AcceptationUserField } from "./AcceptationUserField";
+import { AcceptanceUserField } from "./AcceptanceUserField";
 import { ExternalBtsField } from "./ExternalBtsField";
 import {
   dataTreatmentTrackHelper,
@@ -384,7 +384,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             />
           </Col50>
           <Col50>
-            <AcceptationUserField
+            <AcceptanceUserField
               isAcceptedSelected={isAcceptedSelected}
               isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
               isInProgressSelected={isInProgressSelected}
