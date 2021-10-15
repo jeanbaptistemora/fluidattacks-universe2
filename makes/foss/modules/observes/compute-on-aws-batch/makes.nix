@@ -3,7 +3,7 @@
 }:
 let
   sharedConfiguration = rec {
-    definition = "default";
+    definition = "makes";
     environment = [ "PRODUCT_API_TOKEN" ];
     memory = 1800 * vcpus;
     queue = "observes_later";
@@ -17,28 +17,24 @@ in
       attempts = 5;
       attemptDurationSeconds = 14000;
       command = [ "m" "f" "/observes/job/announcekit/etl" ];
-      definition = "makes";
     };
 
     observesBugsnagEtl = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 14000;
       command = [ "m" "f" "/observes/job/bugsnag-etl" ];
-      definition = "makes";
     };
 
     observesChecklyEtl = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 3600;
       command = [ "m" "f" "/observes/job/checkly-etl" ];
-      definition = "makes";
     };
 
     observesCodeEtlAmend = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 18000;
       command = [ "m" "f" "/observes/scheduled/job/code-etl-amend" ];
-      definition = "makes";
       environment = [
         "INTEGRATES_API_TOKEN"
         "PRODUCT_API_TOKEN"
@@ -50,7 +46,6 @@ in
       attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/job/gitlab-etl/challenges" ];
-      definition = "makes";
       environment = [
         "AUTONOMIC_API_TOKEN"
         "PRODUCT_API_TOKEN"
@@ -61,14 +56,12 @@ in
       attempts = 5;
       attemptDurationSeconds = 3600;
       command = [ "m" "f" "/observes/job/delighted-etl" ];
-      definition = "makes";
     };
 
     observesDynamoDbForcesEtl = sharedConfiguration // rec {
       attempts = 5;
       attemptDurationSeconds = 18000;
       command = [ "m" "f" "/observes/job/dynamodb-forces-etl" ];
-      definition = "makes";
       memory = 1800 * vcpus;
       vcpus = 2;
     };
@@ -77,7 +70,6 @@ in
       attempts = 5;
       attemptDurationSeconds = 14000;
       command = [ "m" "f" "/observes/scheduled/job/formstack-etl" ];
-      definition = "makes";
       memory = 1800 * vcpus;
       vcpus = 2;
     };
@@ -86,7 +78,6 @@ in
       attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/job/gitlab-etl/default" ];
-      definition = "makes";
       environment = [
         "AUTONOMIC_API_TOKEN"
         "PRODUCT_API_TOKEN"
@@ -97,14 +88,12 @@ in
       attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/job/gitlab-etl/product" ];
-      definition = "makes";
     };
 
     observesGitlabEtlServices = sharedConfiguration // {
       attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/job/gitlab-etl/services" ];
-      definition = "makes";
       environment = [ "PRODUCT_API_TOKEN" "SERVICES_API_TOKEN" ];
     };
 
@@ -112,7 +101,6 @@ in
       attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/scheduled/job/code-etl-mirror" ];
-      definition = "makes";
       environment = [
         "INTEGRATES_API_TOKEN"
         "PRODUCT_API_TOKEN"
@@ -125,7 +113,6 @@ in
       attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/scheduled/job/code-etl-upload" ];
-      definition = "makes";
       environment = [
         "INTEGRATES_API_TOKEN"
         "PRODUCT_API_TOKEN"
@@ -137,7 +124,6 @@ in
       attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/job/dynamodb-table-etl" ];
-      definition = "makes";
       queue = "observes_soon";
     };
   };
