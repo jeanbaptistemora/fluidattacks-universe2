@@ -9,7 +9,7 @@
     "fresh": "xxxxwhasdflaskdjfasdf",
     "glob-parent": "5.1.1",
     "hoek": "^5.0.0",
-    "hosted-git-info": "^5.0.0",
+    "hosted-git-info": "2.8.5",
     "html-parse-stringify": "2.0.0",
     "i18next": "19.8.4",
     "ini": "1.3.5",
