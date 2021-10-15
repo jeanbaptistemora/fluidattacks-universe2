@@ -4,7 +4,7 @@ import { useAbility } from "@casl/react";
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 
-import { HandleAcceptationModalForm } from "./form";
+import { HandleAcceptanceModalForm } from "./form";
 import {
   acceptationProps,
   confirmZeroRiskProps,
@@ -45,7 +45,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     const canRetrieveZeroRisk: boolean = permissions.can(
       "api_resolvers_finding_zero_risk_resolve"
     );
-    const canHandleVulnsAcceptation: boolean = permissions.can(
+    const canHandleVulnsAcceptance: boolean = permissions.can(
       "api_mutations_handle_vulnerabilities_acceptance_mutate"
     );
     const canConfirmZeroRiskVuln: boolean = permissions.can(
@@ -169,7 +169,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     }
 
     const initialTreatment: string = getInitialTreatment(
-      canHandleVulnsAcceptation,
+      canHandleVulnsAcceptance,
       canConfirmZeroRiskVuln
     );
 
@@ -191,7 +191,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
             name={"updateTreatmentAcceptance"}
             onSubmit={handleSubmit}
           >
-            <HandleAcceptationModalForm
+            <HandleAcceptanceModalForm
               acceptanceVulnerabilities={acceptationVulns}
               acceptedVulnerabilities={acceptedVulns}
               confirmingZeroRisk={confirmingZeroRisk}

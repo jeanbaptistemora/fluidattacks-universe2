@@ -11,7 +11,7 @@ import { required } from "utils/validations";
 
 const TreatmentField: React.FC = (): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canHandleVulnsAcceptation: boolean = permissions.can(
+  const canHandleVulnsAcceptance: boolean = permissions.can(
     "api_mutations_handle_vulnerabilities_acceptance_mutate"
   );
   const canConfirmZeroRiskVuln: boolean = permissions.can(
@@ -33,7 +33,7 @@ const TreatmentField: React.FC = (): JSX.Element => {
         validate={required}
       >
         <option value={""} />
-        {canHandleVulnsAcceptation ? (
+        {canHandleVulnsAcceptance ? (
           <option value={"ACCEPTED_UNDEFINED"}>
             {translate.t(
               "searchFindings.tabDescription.treatment.acceptedUndefined"

@@ -15,7 +15,7 @@ import type {
 import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
-const HandleAcceptationModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalFormProps> =
+const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalFormProps> =
   (props: IHandleVulnerabilitiesAcceptanceModalFormProps): JSX.Element => {
     const {
       acceptanceVulnerabilities: acceptationVulns,
@@ -112,4 +112,4 @@ const HandleAcceptationModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModal
     );
   };
 
-export { HandleAcceptationModalForm };
+export { HandleAcceptanceModalForm };

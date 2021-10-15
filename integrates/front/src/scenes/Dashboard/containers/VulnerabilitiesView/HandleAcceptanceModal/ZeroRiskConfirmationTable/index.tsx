@@ -10,13 +10,13 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 const ZeroRiskConfirmationTable: React.FC<IZeroRiskConfirmationTableProps> = (
   props: IZeroRiskConfirmationTableProps
 ): JSX.Element => {
-  const { acceptationVulns, isConfirmZeroRiskSelected, setAcceptationVulns } =
+  const { acceptanceVulns, isConfirmZeroRiskSelected, setAcceptanceVulns } =
     props;
 
   const handleUpdateZeroRiskConfirmation: (
     vulnInfo: Dictionary<string>
   ) => void = (vulnInfo: Dictionary<string>): void => {
-    const newVulnList: IVulnDataAttr[] = acceptationVulns.map(
+    const newVulnList: IVulnDataAttr[] = acceptanceVulns.map(
       (vuln: IVulnDataAttr): IVulnDataAttr =>
         vuln.id === vulnInfo.id
           ? {
@@ -25,7 +25,7 @@ const ZeroRiskConfirmationTable: React.FC<IZeroRiskConfirmationTableProps> = (
             }
           : vuln
     );
-    setAcceptationVulns([...newVulnList]);
+    setAcceptanceVulns([...newVulnList]);
   };
   const vulnsHeader: IHeaderConfig[] = [
     {
@@ -58,7 +58,7 @@ const ZeroRiskConfirmationTable: React.FC<IZeroRiskConfirmationTableProps> = (
       {isConfirmZeroRiskSelected ? (
         <DataTableNext
           bordered={false}
-          dataset={acceptationVulns}
+          dataset={acceptanceVulns}
           exportCsv={false}
           headers={vulnsHeader}
           id={"vulnsToHandleAcceptation"}
