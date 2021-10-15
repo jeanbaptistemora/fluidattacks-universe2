@@ -9,7 +9,6 @@ makes.kill-port
 makes.kill-tree
 makes.wait
 melts
-observes.bin.service.job-last-success
 observes.bin.service.migrate-tables
 observes.bin.service.timedoctor-tokens
 observes.bin.streamer-dynamodb

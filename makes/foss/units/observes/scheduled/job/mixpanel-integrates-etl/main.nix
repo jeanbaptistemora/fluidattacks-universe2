@@ -1,5 +1,6 @@
 { makeScript
 , inputs
+, outputs
 , ...
 }:
 makeScript {
@@ -8,7 +9,7 @@ makeScript {
       inputs.product.observes-tap-json
       inputs.product.observes-bin-tap-mixpanel
       inputs.product.observes-target-redshift
-      inputs.product.observes-bin-service-job-last-success
+      outputs."/observes/bin/service/job-last-success"
     ];
     source = [
       (inputs.legacy.importUtility "aws")

@@ -1,5 +1,6 @@
 { makeScript
 , inputs
+, outputs
 , ...
 }:
 makeScript {
@@ -9,7 +10,7 @@ makeScript {
       inputs.product.observes-bin-tap-csv
       inputs.product.observes-tap-json
       inputs.product.observes-target-redshift
-      inputs.product.observes-bin-service-job-last-success
+      outputs."/observes/bin/service/job-last-success"
     ];
   };
   name = "observes-job-zoho-crm-etl";

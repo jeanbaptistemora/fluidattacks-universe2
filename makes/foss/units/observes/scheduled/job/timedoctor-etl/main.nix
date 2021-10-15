@@ -11,7 +11,7 @@ makeScript {
       inputs.nixpkgs.jq
       outputs."/observes/bin/tap-timedoctor"
       inputs.product.observes-target-redshift
-      inputs.product.observes-bin-service-job-last-success
+      outputs."/observes/bin/service/job-last-success"
     ];
     source = [
       (inputs.legacy.importUtility "aws")
