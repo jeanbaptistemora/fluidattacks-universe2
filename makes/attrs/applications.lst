@@ -31,7 +31,5 @@ observes.bin.tap-zoho-analytics
 observes.bin.update-project-variable
 observes.fx-test.tap-announcekit
 observes.job.gitlab-etl
-observes.job.timedoctor.new-grant-code
-observes.job.timedoctor.set-init-token
 observes.tap-json
 observes.target-redshift
