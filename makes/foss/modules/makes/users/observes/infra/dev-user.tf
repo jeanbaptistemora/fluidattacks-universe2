@@ -77,11 +77,8 @@ data "aws_iam_policy_document" "dev-policy-data" {
       "redshift:List*",
       "redshift:View*",
       "redshift:Fetch*",
-      "redshift:View*",
     ]
-    resources = [
-      "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:fluid-redshift"
-    ]
+    resources = ["*"]
   }
 
   # KMS
