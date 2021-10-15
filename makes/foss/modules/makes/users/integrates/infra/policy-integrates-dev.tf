@@ -199,8 +199,14 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
 
   # Batch access
   statement {
-    effect    = "Allow"
-    actions   = ["batch:ListJobs"]
+    effect = "Allow"
+    actions = [
+      "batch:DescribeComputeEnvironments",
+      "batch:DescribeJobs",
+      "batch:DescribeJobDefinitions",
+      "batch:DescribeJobQueues",
+      "batch:ListJobs",
+    ]
     resources = ["*"]
   }
   statement {
