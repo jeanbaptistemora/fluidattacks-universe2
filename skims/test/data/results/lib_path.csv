@@ -7788,7 +7788,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (html-parse-stri
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (i18next v19.8.4) [SNYK-JS-I18NEXT-1065979],14,937,skims,011. Use of software with known vulnerabilities,Use of i18next at version 19.8.4 with SNYK-JS-I18NEXT-1065979 in skims/test/data/lib_path/f011/package.json,"
@@ -7811,8 +7811,8 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (i18next v19.8.4
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ini v1.3.5) [CVE-2020-7788],15,937,skims,011. Use of software with known vulnerabilities,Use of ini at version 1.3.5 with CVE-2020-7788 in skims/test/data/lib_path/f011/package.json,"
@@ -7834,9 +7834,9 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ini v1.3.5) [CV
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (is-svg v3.0.0) [CVE-2021-28092],16,937,skims,011. Use of software with known vulnerabilities,Use of is-svg at version 3.0.0 with CVE-2021-28092 in skims/test/data/lib_path/f011/package.json,"
@@ -7857,10 +7857,10 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (is-svg v3.0.0) 
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jasmine-core v2.99.1) [npm:jasmine-core:20180216],21,937,skims,011. Use of software with known vulnerabilities,Use of jasmine-core at version 2.99.1 with npm:jasmine-core:20180216 in skims/test/data/lib_path/f011/package.json,"
@@ -7876,15 +7876,15 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jasmine-core v2
   20 |     ""path-parse"": ""1.0.6"",
 > 21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2011-4969],22,937,skims,011. Use of software with known vulnerabilities,Use of jquery at version 0. with CVE-2011-4969 in skims/test/data/lib_path/f011/package.json,"
@@ -7899,16 +7899,16 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [C
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
 > 22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2015-9251],22,937,skims,011. Use of software with known vulnerabilities,Use of jquery at version 0. with CVE-2015-9251 in skims/test/data/lib_path/f011/package.json,"
@@ -7923,16 +7923,16 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [C
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
 > 22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2017-16012],22,937,skims,011. Use of software with known vulnerabilities,Use of jquery at version 0. with CVE-2017-16012 in skims/test/data/lib_path/f011/package.json,"
@@ -7947,16 +7947,16 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [C
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
 > 22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2019-11358],22,937,skims,011. Use of software with known vulnerabilities,Use of jquery at version 0. with CVE-2019-11358 in skims/test/data/lib_path/f011/package.json,"
@@ -7971,16 +7971,16 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [C
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
 > 22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2019-5428],22,937,skims,011. Use of software with known vulnerabilities,Use of jquery at version 0. with CVE-2019-5428 in skims/test/data/lib_path/f011/package.json,"
@@ -7995,16 +7995,16 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [C
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
 > 22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2020-7656],22,937,skims,011. Use of software with known vulnerabilities,Use of jquery at version 0. with CVE-2020-7656 in skims/test/data/lib_path/f011/package.json,"
@@ -8019,16 +8019,16 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [C
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
 > 22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2018-16487],17,937,skims,011. Use of software with known vulnerabilities,Use of lodash at version 0. with CVE-2018-16487 in skims/test/data/lib_path/f011/package.json,"
@@ -8048,11 +8048,11 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [C
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2018-3721],17,937,skims,011. Use of software with known vulnerabilities,Use of lodash at version 0. with CVE-2018-3721 in skims/test/data/lib_path/f011/package.json,"
@@ -8072,11 +8072,11 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [C
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2019-1010266],17,937,skims,011. Use of software with known vulnerabilities,Use of lodash at version 0. with CVE-2019-1010266 in skims/test/data/lib_path/f011/package.json,"
@@ -8096,11 +8096,11 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [C
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2019-10744],17,937,skims,011. Use of software with known vulnerabilities,Use of lodash at version 0. with CVE-2019-10744 in skims/test/data/lib_path/f011/package.json,"
@@ -8120,11 +8120,11 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [C
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2020-8203],17,937,skims,011. Use of software with known vulnerabilities,Use of lodash at version 0. with CVE-2020-8203 in skims/test/data/lib_path/f011/package.json,"
@@ -8144,11 +8144,11 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [C
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2021-23337],17,937,skims,011. Use of software with known vulnerabilities,Use of lodash at version 0. with CVE-2021-23337 in skims/test/data/lib_path/f011/package.json,"
@@ -8168,11 +8168,11 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [C
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [SNYK-JS-LODASH-567746],17,937,skims,011. Use of software with known vulnerabilities,Use of lodash at version 0. with SNYK-JS-LODASH-567746 in skims/test/data/lib_path/f011/package.json,"
@@ -8192,11 +8192,11 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [S
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [SNYK-JS-LODASH-590103],17,937,skims,011. Use of software with known vulnerabilities,Use of lodash at version 0. with SNYK-JS-LODASH-590103 in skims/test/data/lib_path/f011/package.json,"
@@ -8216,11 +8216,11 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [S
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874],17,937,skims,011. Use of software with known vulnerabilities,Use of lodash at version 0. with github.com/lodash/lodash/issues/4874 in skims/test/data/lib_path/f011/package.json,"
@@ -8240,11 +8240,11 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [g
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (netmask v1.0.6) [CVE-2021-28918],18,937,skims,011. Use of software with known vulnerabilities,Use of netmask at version 1.0.6 with CVE-2021-28918 in skims/test/data/lib_path/f011/package.json,"
@@ -8263,12 +8263,12 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (netmask v1.0.6)
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (netmask v1.0.6) [CVE-2021-29418],18,937,skims,011. Use of software with known vulnerabilities,Use of netmask at version 1.0.6 with CVE-2021-29418 in skims/test/data/lib_path/f011/package.json,"
@@ -8287,16 +8287,15 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (netmask v1.0.6)
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-notifier v5.4.2) [CVE-2020-7789],25,937,skims,011. Use of software with known vulnerabilities,Use of node-notifier at version 5.4.2 with CVE-2020-7789 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-notifier v5.4.2) [CVE-2020-7789],26,937,skims,011. Use of software with known vulnerabilities,Use of node-notifier at version 5.4.2 with CVE-2020-7789 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8307,20 +8306,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-notifier v
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-> 25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+> 26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-11694],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-11694 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-11694],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-11694 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8331,20 +8330,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-11697],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-11697 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-11697],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-11697 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8355,20 +8354,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-11698],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-11698 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-11698],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-11698 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8379,20 +8378,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-19797],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-19797 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-19797],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-19797 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8403,20 +8402,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-19827],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-19827 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-19827],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-19827 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8427,20 +8426,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-19839],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-19839 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-19839],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-19839 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8451,20 +8450,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-20190],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-20190 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-20190],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-20190 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8475,20 +8474,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-20821],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-20821 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-20821],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-20821 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8499,20 +8498,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-20822],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-20822 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2018-20822],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2018-20822 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8523,20 +8522,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2019-18797],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2019-18797 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2019-18797],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2019-18797 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8547,20 +8546,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2019-18798],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2019-18798 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2019-18798],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2019-18798 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8571,20 +8570,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2019-18799],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2019-18799 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2019-18799],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2019-18799 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8595,20 +8594,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2019-6283],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2019-6283 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2019-6283],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2019-6283 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8619,20 +8618,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2019-6286],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2019-6286 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [CVE-2019-6286],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with CVE-2019-6286 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8643,20 +8642,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [SNYK-JS-NODESASS-540996],24,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with SNYK-JS-NODESASS-540996 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0.0) [SNYK-JS-NODESASS-540996],25,937,skims,011. Use of software with known vulnerabilities,Use of node-sass at version 5.0.0 with SNYK-JS-NODESASS-540996 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8667,16 +8666,17 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (node-sass v^5.0
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-> 24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+> 25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (object-path v0.11.4) [CVE-2020-15256],19,937,skims,011. Use of software with known vulnerabilities,Use of object-path at version 0.11.4 with CVE-2020-15256 in skims/test/data/lib_path/f011/package.json,"
@@ -8694,13 +8694,13 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (object-path v0.
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (path-parse v1.0.6) [CVE-2021-23343],20,937,skims,011. Use of software with known vulnerabilities,Use of path-parse at version 1.0.6 with CVE-2021-23343 in skims/test/data/lib_path/f011/package.json,"
@@ -8717,18 +8717,17 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (path-parse v1.0
 > 20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (postcss v7.0.0) [CVE-2021-23368],26,937,skims,011. Use of software with known vulnerabilities,Use of postcss at version 7.0.0 with CVE-2021-23368 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (postcss v7.0.0) [CVE-2021-23368],27,937,skims,011. Use of software with known vulnerabilities,Use of postcss at version 7.0.0 with CVE-2021-23368 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8739,20 +8738,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (postcss v7.0.0)
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-> 26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+> 27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (serverless-offline v3.3.0) [SNYK-JS-SERVERLESSOFFLINE-1540299],27,937,skims,011. Use of software with known vulnerabilities,Use of serverless-offline at version 3.3.0 with SNYK-JS-SERVERLESSOFFLINE-1540299 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (serverless-offline v3.3.0) [SNYK-JS-SERVERLESSOFFLINE-1540299],28,937,skims,011. Use of software with known vulnerabilities,Use of serverless-offline at version 3.3.0 with SNYK-JS-SERVERLESSOFFLINE-1540299 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8763,20 +8762,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (serverless-offl
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-> 27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+> 28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ssri v6.0.1) [CVE-2021-27290],28,937,skims,011. Use of software with known vulnerabilities,Use of ssri at version 6.0.1 with CVE-2021-27290 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ssri v6.0.1) [CVE-2021-27290],29,937,skims,011. Use of software with known vulnerabilities,Use of ssri at version 6.0.1 with CVE-2021-27290 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8787,20 +8786,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ssri v6.0.1) [C
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-> 28 |     ""ssri"": ""6.0.1"",
-  29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+> 29 |     ""ssri"": ""6.0.1"",
+  30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (y18n v4.0.0) [CVE-2020-7774],29,937,skims,011. Use of software with known vulnerabilities,Use of y18n at version 4.0.0 with CVE-2020-7774 in skims/test/data/lib_path/f011/package.json,"
-  12 |     ""hosted-git-info"": ""2.8.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (y18n v4.0.0) [CVE-2020-7774],30,937,skims,011. Use of software with known vulnerabilities,Use of y18n at version 4.0.0 with CVE-2020-7774 in skims/test/data/lib_path/f011/package.json,"
   13 |     ""html-parse-stringify"": ""2.0.0"",
   14 |     ""i18next"": ""19.8.4"",
   15 |     ""ini"": ""1.3.5"",
@@ -8811,15 +8810,16 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (y18n v4.0.0) [C
   20 |     ""path-parse"": ""1.0.6"",
   21 |     ""jasmine-core"": ""2.99.1"",
   22 |     ""jquery"": ""0.*"",
-  23 |     ""ng-packagr"": ""12.2.2"",
-  24 |     ""node-sass"": ""^5.0.0"",
-  25 |     ""node-notifier"": ""5.4.2"",
-  26 |     ""postcss"": ""7.0.0"",
-  27 |     ""serverless-offline"": ""3.3.0"",
-  28 |     ""ssri"": ""6.0.1"",
-> 29 |     ""y18n"": ""4.0.0"",
-  30 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  31 |   }
-  32 | }
+  23 |     ""jsrsasign"": ""8.0.0*"",
+  24 |     ""ng-packagr"": ""12.2.2"",
+  25 |     ""node-sass"": ""^5.0.0"",
+  26 |     ""node-notifier"": ""5.4.2"",
+  27 |     ""postcss"": ""7.0.0"",
+  28 |     ""serverless-offline"": ""3.3.0"",
+  29 |     ""ssri"": ""6.0.1"",
+> 30 |     ""y18n"": ""4.0.0"",
+  31 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  32 |   }
+  33 | }
      ^ Col 0
 "
