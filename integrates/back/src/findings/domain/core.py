@@ -7,12 +7,16 @@ from aioextensions import (
     schedule,
 )
 import authz
+from back.src.machine.availability import (
+    operation_can_be_executed,
+)
 from comments import (
     domain as comments_domain,
 )
 from custom_exceptions import (
     InvalidCommentParent,
     InvalidDraftTitle,
+    MachineCanNotOperate,
     NotVerificationRequested,
     PermissionDenied,
     VulnNotFound,
@@ -817,6 +821,11 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     # All vulns must be open before verifying them
     # we will just keep them open or close them
     # in either case, their historic_verification is updated to VERIFIED
+    finding_loader = info.context.loaders.finding
+    finding: Finding = await finding_loader.load(finding_id)
+    if not operation_can_be_executed(info.context, finding.title):
+        raise MachineCanNotOperate()
+
     finding_vulns_loader = info.context.loaders.finding_vulns_all
     vulnerability_ids: List[str] = get_key_or_fallback(
         parameters, "open_vulnerabilities", "open_vulns", []
@@ -842,8 +851,6 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     user_email: str = user_info["user_email"]
 
     # Modify the verification state to mark the finding as verified
-    finding_loader = info.context.loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
     verification = FindingVerification(
         comment_id=comment_id,
         modified_by=user_email,

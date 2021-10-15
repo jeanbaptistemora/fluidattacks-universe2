@@ -874,3 +874,9 @@ class PolicyAlreadyHandled(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - This policy has already been reviewed"
         super(PolicyAlreadyHandled, self).__init__(msg)
+
+
+class MachineCanNotOperate(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Machine cannot operate at this time"
+        super(MachineCanNotOperate, self).__init__(msg)

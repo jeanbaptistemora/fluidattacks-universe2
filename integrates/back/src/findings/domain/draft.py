@@ -1,12 +1,16 @@
 from aioextensions import (
     collect,
 )
+from back.src.machine.availability import (
+    operation_can_be_executed,
+)
 from custom_exceptions import (
     AlreadyApproved,
     AlreadySubmitted,
     DraftWithoutVulns,
     IncompleteDraft,
     InvalidDraftTitle,
+    MachineCanNotOperate,
     NotSubmitted,
 )
 from datetime import (
@@ -56,6 +60,10 @@ async def approve_draft(
     finding_nzr_vulns_loader = context.loaders.finding_vulns_nzr
     finding_loader = context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
+
+    if not operation_can_be_executed(context, finding.title):
+        raise MachineCanNotOperate()
+
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
 
@@ -102,6 +110,8 @@ async def add_draft(
 ) -> None:
     if not findings_utils.is_valid_finding_title(draft_info.title):
         raise InvalidDraftTitle()
+    if not operation_can_be_executed(context, draft_info.title):
+        raise MachineCanNotOperate()
 
     group_name = group_name.lower()
     finding_id = str(uuid.uuid4())
@@ -153,6 +163,9 @@ async def submit_draft(context: Any, finding_id: str, user_email: str) -> None:
     finding_vulns_loader = context.loaders.finding_vulns
     finding_loader = context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
+    if not operation_can_be_executed(context, finding.title):
+        raise MachineCanNotOperate()
+
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
 
