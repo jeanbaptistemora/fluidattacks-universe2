@@ -4777,7 +4777,7 @@
     threat: >
       Authenticated attacker from the Internet.
   es:
-    title: Non-encrypted confidential information - AWS
+    title: Business information leak - Customers or providers
     description: >
       Información sensible como listas de proveedores o clientes,
       correos electrónicos, números de teléfono o identificadores
