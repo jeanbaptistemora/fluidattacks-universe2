@@ -1,4 +1,0 @@
-aiohttp: "3.6.2"
-click: "7.1.2"
-nest-asyncio: "1.4.1"
-psycopg2: "2.8.6"

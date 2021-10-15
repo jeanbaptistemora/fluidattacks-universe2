@@ -16,8 +16,6 @@ melts.config-development
 melts.config-runtime
 observes.env.code-etl.development
 observes.env.code-etl.runtime
-observes.env.gitlab-etl.development
-observes.env.gitlab-etl.runtime
 observes.env.job-last-success.runtime
 observes.env.paginator.development
 observes.env.paginator.runtime
