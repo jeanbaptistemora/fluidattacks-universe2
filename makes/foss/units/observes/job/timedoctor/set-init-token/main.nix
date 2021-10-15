@@ -1,10 +1,13 @@
 { makeScript
 , inputs
+, outputs
 , ...
 }:
 makeScript {
   searchPaths = {
-    bin = [ inputs.product.observes.bin.service.timedoctor-tokens ];
+    bin = [
+      outputs."/observes/bin/service/timedoctor-tokens"
+    ];
     source = [
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "sops")

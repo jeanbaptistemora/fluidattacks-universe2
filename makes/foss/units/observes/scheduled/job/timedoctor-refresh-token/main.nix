@@ -7,7 +7,7 @@ makeScript {
   searchPaths = {
     bin = [
       outputs."/observes/bin/service/job-last-success"
-      inputs.product.observes-bin-service-timedoctor-tokens
+      outputs."/observes/bin/service/timedoctor-tokens"
     ];
     source = [
       (inputs.legacy.importUtility "aws")
