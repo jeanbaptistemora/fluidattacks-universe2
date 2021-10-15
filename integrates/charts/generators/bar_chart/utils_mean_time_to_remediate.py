@@ -1,6 +1,9 @@
 from charts import (
     utils,
 )
+from charts.colors import (
+    RISK,
+)
 from charts.generators.bar_chart.utils import (
     Remediate,
 )
@@ -84,3 +87,41 @@ async def generate_all(
                     subject=f"{org_id}PORTFOLIO#{portfolio}"
                     + utils.get_subject_days(days),
                 )
+
+
+def format_data_non_cvssf(data: Remediate) -> dict:
+    translations: Dict[str, str] = {
+        "critical_severity": "Critical Severity",
+        "high_severity": "High Severity",
+        "medium_severity": "Medium Severity",
+        "low_severity": "Low Severity",
+    }
+    return dict(
+        data=dict(
+            columns=[
+                ["Mean time to remediate"]
+                + [getattr(data, column) for column in translations]
+            ],
+            colors={
+                "Mean time to remediate": RISK.neutral,
+            },
+            type="bar",
+        ),
+        axis=dict(
+            x=dict(
+                categories=[value for _, value in translations.items()],
+                type="category",
+            ),
+            y=dict(
+                min=0,
+                padding=dict(
+                    bottom=0,
+                ),
+                label=dict(
+                    text="Calendar days per severity (less is better)",
+                    position="inner-top",
+                ),
+            ),
+        ),
+        barChartYTickFormat=True,
+    )
