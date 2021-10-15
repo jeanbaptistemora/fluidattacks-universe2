@@ -4764,51 +4764,47 @@
       details: __empty__
 "080":
   en:
-    title: Non-encrypted confidential information - AWS
+    title: Business information leak - Customers or providers
     description: >
-      Infrastructure is not encrypted.
+      Sensitive information such as customer or providers
+      lists, emails, phone numbers or identifiers
+      can be obtained from the application.
     impact: >
-      Expose resources, processes
-      and sensitive information
-      that could be compromised.
+     - Obtain sensitive information to craft new attack vectors
     recommendation: >
-      Encrypt infrastructure
-      with server-side encryption
-      or customer-managed keys.
+      Implement security controls to ensure that the leaked information
+      can be accessed only by authenticated and authorized users
     threat: >
-      Internal attacker
-      with access to the configuration.
+      Authenticated attacker from the Internet.
   es:
     title: Non-encrypted confidential information - AWS
     description: >
-      La infrastructura
-      no se encuentra cifrada.
+      Información sensible como listas de proveedores o clientes,
+      correos electrónicos, números de teléfono o identificadores
+      pueden ser obtenidos de la aplicación.
     impact: >
-      Exponer recursos, procesos
-      e información sensible
-      que podrían ser comprometidos.
+      - Obtener información sensible para elaborar nuevos vectores de ataque.
     recommendation: >
-      Cifrar la infrastructura
-      con cifrado del lado del servidor
-      o llaves administradas por el usuario.
+      Implementar controles de seguridad para garantizar
+      que la información filtrada sólo puede ser accedida
+      por usuarios autenticados y autorizados.
     threat: >
-      Atacante interno
-      con acceso a la configuración.
+      Atacante autenticado desde Internet
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["176","177","261","300"]
   metadata:
     en:
@@ -5044,7 +5040,7 @@
       in the client-side storage
       (localStorage or sessionStorage).
       This exposes the information
-      to unauthorized read and write operations.
+      to unauthorized read operations.
     impact: >
       Obtain sensitive information
       through XSS or MitB attacks.
@@ -5067,8 +5063,7 @@
       del lado del cliente
       (localStorage o sessionStorage).
       Esto expone la información
-      a operaciones de lectura
-      y escritura no autorizadas.
+      a operaciones de lectura no autorizadas.
     impact: >
       Obtener información sensible
       mediante ataques XSS o MitB.
@@ -5644,57 +5639,54 @@
       details: __empty__
 "095":
   en:
-    title: Non-encrypted confidential information - AWS EBS
+    title: Data uniqueness not properly verified
     description: >
-      When dealing with sensitive data
-      that is crucial to your business,
-      it is required by regulations
-      to implement encryption
-      in order to protect it
-      from attackers or unauthorized personnel.
-      Using EBS Encryption will enable Amazon
-      to encrypt your data at rest,
-      volume snapshots and disk I/O.
-      Data protected is encrypted
-      with 256-bit Advanced Encryption Standard
-      (AES-256).
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+      The application does not properly validate
+      the uniqueness of the data,
+      allowing an attacker to reuse
+      or regenerate information
+      that should be valid for one use only
+    impact: >
+      Lead to diferent vulnerabilities
+      by abusing the misconfigured feature
+    recommendation: >
+      Implement validations to ensure
+      that the data cannot be reused nor regenerated
+      if the application requires a unique value.
+    threat: Authenticated attacker from the Internet
   es:
-    title: Non-encrypted confidential information - AWS EBS
+    title: Data uniqueness not properly verified
     description: >
-      Al tratar con datos sensibles
-      que son críticos para el negocio,
-      las regulaciones requieren
-      para implementar el cifrado
-      para protegerlo de atacantes
-      ó personal no autorizado.
-      El uso de cifrado EBS
-      permitirá a Amazon cifrar tus datos
-      en reposo, copias de volúmenes
-      y disco E/S.
-      La información está cifrada
-      con 256-bit Advanced Encryption Standard
-      (AES-256).
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  category: Collect Information
+      La aplicación no valida adecuadamente
+      la unicidad de los datos,
+      permitiendo a un atacante regenerar
+      o reutilizar información
+      que debería ser válida para un solo uso.
+    impact: >
+      Conducir a diferentes diferentes vulnerabilidades
+      al abusar de la ausencia de validación
+      de la unicidad de los datos
+    recommendation: >
+      Implementar validaciones que garanticen
+      que los datos no puedan ser reutilizados
+      ni regenerados si la aplicación
+      espera un valor único
+    threat: Atacante autenticado desde Internet
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["134", "135", "185", "227", "229", "264", "300"]
   metadata:
     en:
