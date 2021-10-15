@@ -618,7 +618,11 @@ async def add_without_group(
 
 
 async def remove_group(
-    context: Any, group_name: str, user_email: str, organization_id: str
+    context: Any,
+    group_name: str,
+    user_email: str,
+    organization_id: str,
+    reason: Optional[str] = "",
 ) -> bool:
     response = False
     data = await groups_dal.get_attributes(
@@ -643,6 +647,7 @@ async def remove_group(
             "historic_deletion": historic_deletion,
             "group_status": "DELETED",
             "project_status": "DELETED",
+            "reason": reason,
         }
         response = all(
             [all_resources_removed, await update(group_name, new_data)]
@@ -740,7 +745,7 @@ async def update_group_attrs(
         group = await group_loader.load(group_name)
         org_id = group["organization"]
         success = success and await remove_group(
-            loaders, group_name, requester_email, org_id
+            loaders, group_name, requester_email, org_id, reason
         )
 
     if success and has_asm:

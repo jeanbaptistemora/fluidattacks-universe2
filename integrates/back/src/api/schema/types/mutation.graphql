@@ -445,7 +445,7 @@ type Mutation {
     "Name of the group to be deleted"
     groupName: String!
     "Reason for the removal of the group"
-    reason: String
+    reason: RemoveGroupReason!
   ): SimplePayload!
 
   "Removes/deletes the specified tag from the group"

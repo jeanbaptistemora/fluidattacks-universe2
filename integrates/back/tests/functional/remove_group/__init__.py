@@ -20,7 +20,7 @@ async def get_result(
         mutation {{
             removeGroup(
                 groupName: "{group}"
-                reason: "{reason}"
+                reason: {reason}
             ) {{
             success
             }}

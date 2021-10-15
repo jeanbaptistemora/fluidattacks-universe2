@@ -304,6 +304,20 @@ enum OrganizationRole {
   SYSTEM_OWNER
 }
 
+"Reasons allowed for removing a group enum dfinition"
+enum RemoveGroupReason {
+  "Different security testing strategy"
+  DIFF_SECTST
+  "Information will be moved to a different group"
+  MIGRATION
+  "No more security testing"
+  NO_SECTST
+  "System will be deprecated"
+  NO_SYSTEM
+  "Other reason not mentioned above"
+  OTHER
+}
+
 "Language for Group Reports enum definition"
 enum ReportLang {
   "English"
