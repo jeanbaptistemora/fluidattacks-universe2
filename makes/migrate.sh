@@ -21,6 +21,7 @@ function main {
   sed -Ei 's|env([A-z].*) = |__arg\1__ =|g' "${path}"
   sed -Ei 's|env([A-z].*)|arg\1|g' "${path}"
   sed -Ei 's|makes\.||g' "${path}"
+  sed -Ei 's|.*template = .*/entrypoint.sh.*|  entrypoint = ./entrypoint.sh;|g' "${path}"
 }
 
 main "${@}"

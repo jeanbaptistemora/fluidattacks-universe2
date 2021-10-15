@@ -1,10 +1,11 @@
 { inputs
 , makeScript
+, outputs
 , ...
 }:
 makeScript {
   searchPaths = {
-    bin = [ inputs.product.observes-job-zoho-crm-prepare ];
+    bin = [ outputs."/observes/job/zoho-crm-prepare" ];
     source = [
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "sops")
