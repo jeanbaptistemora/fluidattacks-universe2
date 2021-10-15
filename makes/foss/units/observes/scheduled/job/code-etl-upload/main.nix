@@ -1,11 +1,12 @@
-{ makeScript
-, inputs
+{ inputs
+, makeScript
+, outputs
 , ...
 }:
 makeScript {
   searchPaths = {
     bin = [
-      inputs.product.observes-bin-code-etl
+      outputs."/observes/bin/code-etl"
       inputs.product.melts
     ];
     source = [

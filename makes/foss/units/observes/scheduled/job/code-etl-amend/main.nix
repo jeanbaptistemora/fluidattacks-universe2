@@ -1,12 +1,13 @@
-{ makeScript
-, inputs
+{ inputs
+, makeScript
+, outputs
 , projectPath
 , ...
 }:
 makeScript {
   searchPaths = {
     bin = [
-      inputs.product.observes-bin-code-etl
+      outputs."/observes/bin/code-etl"
     ];
     source = [
       (inputs.legacy.importUtility "aws")
