@@ -5,14 +5,12 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.colors import (
-    RISK,
-)
 from charts.generators.bar_chart.utils import (
     Remediate,
     sum_mttr_many_groups,
 )
 from charts.generators.bar_chart.utils_mean_time_to_remediate import (
+    format_data_non_cvssf,
     generate_all,
 )
 from dataloaders import (
@@ -25,7 +23,6 @@ from groups import (
     domain as groups_domain,
 )
 from typing import (
-    Dict,
     List,
     Optional,
     Tuple,
@@ -74,48 +71,10 @@ async def get_data_many_groups(
     return sum_mttr_many_groups(groups_data=groups_data)
 
 
-def format_data(data: Remediate) -> dict:
-    translations: Dict[str, str] = {
-        "critical_severity": "Critical Severity",
-        "high_severity": "High Severity",
-        "medium_severity": "Medium Severity",
-        "low_severity": "Low Severity",
-    }
-    return dict(
-        data=dict(
-            columns=[
-                ["Mean time to remediate"]
-                + [getattr(data, column) for column in translations]
-            ],
-            colors={
-                "Mean time to remediate": RISK.neutral,
-            },
-            type="bar",
-        ),
-        axis=dict(
-            x=dict(
-                categories=[value for _, value in translations.items()],
-                type="category",
-            ),
-            y=dict(
-                min=0,
-                padding=dict(
-                    bottom=0,
-                ),
-                label=dict(
-                    text="Calendar days per severity (less is better)",
-                    position="inner-top",
-                ),
-            ),
-        ),
-        barChartYTickFormat=True,
-    )
-
-
 if __name__ == "__main__":
     run(
         generate_all(
-            format_data=format_data,
+            format_data=format_data_non_cvssf,
             get_data_one_group=get_data_one_group,
             get_data_many_groups=get_data_many_groups,
         )
