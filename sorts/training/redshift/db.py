@@ -80,6 +80,17 @@ def initialize() -> None:
                         group_name
                     )
                 );
+                CREATE TABLE IF NOT EXISTS sorts.models (
+                    timestamp TIMESTAMPTZ,
+                    model VARCHAR(256),
+                    features VARCHAR(256),
+                    f_score INT,
+                    tuned_parameters VARCHAR(256),
+
+                    PRIMARY KEY (
+                        timestamp
+                    )
+                );
                 CREATE TABLE IF NOT EXISTS sorts.executions (
                     timestamp TIMESTAMPTZ,
                     group_name VARCHAR(256),
