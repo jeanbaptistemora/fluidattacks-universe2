@@ -11,16 +11,16 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
   props: IZeroRiskTableProps
 ): JSX.Element => {
   const {
-    acceptanceVulns: acceptationVulns,
+    acceptanceVulns,
     isConfirmRejectZeroRiskSelected,
-    setAcceptanceVulns: setAcceptationVulns,
+    setAcceptanceVulns,
   } = props;
 
   const handleRejectZeroRisk: (vulnInfo?: Dictionary<string>) => void = (
     vulnInfo?: Dictionary<string>
   ): void => {
     if (vulnInfo) {
-      const newVulnList: IVulnDataAttr[] = acceptationVulns.map(
+      const newVulnList: IVulnDataAttr[] = acceptanceVulns.map(
         (vuln: IVulnDataAttr): IVulnDataAttr =>
           vuln.id === vulnInfo.id
             ? {
@@ -29,7 +29,7 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
               }
             : vuln
       );
-      setAcceptationVulns([...newVulnList]);
+      setAcceptanceVulns([...newVulnList]);
     }
   };
 
@@ -37,7 +37,7 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
     vulnInfo?: Dictionary<string>
   ): void => {
     if (vulnInfo) {
-      const newVulnList: IVulnDataAttr[] = acceptationVulns.map(
+      const newVulnList: IVulnDataAttr[] = acceptanceVulns.map(
         (vuln: IVulnDataAttr): IVulnDataAttr =>
           vuln.id === vulnInfo.id
             ? {
@@ -46,7 +46,7 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
               }
             : vuln
       );
-      setAcceptationVulns([...newVulnList]);
+      setAcceptanceVulns([...newVulnList]);
     }
   };
 
@@ -85,7 +85,7 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
       {isConfirmRejectZeroRiskSelected ? (
         <DataTableNext
           bordered={false}
-          dataset={acceptationVulns}
+          dataset={acceptanceVulns}
           exportCsv={false}
           headers={vulnsHeader}
           id={"vulnsToHandleAcceptance"}

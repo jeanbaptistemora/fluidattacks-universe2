@@ -18,16 +18,16 @@ import { translate } from "utils/translations/translate";
 const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalFormProps> =
   (props: IHandleVulnerabilitiesAcceptanceModalFormProps): JSX.Element => {
     const {
-      acceptanceVulnerabilities: acceptationVulns,
-      acceptedVulnerabilities: acceptedVulns,
+      acceptanceVulnerabilities,
+      acceptedVulnerabilities,
       confirmingZeroRisk,
       handleCloseModal,
-      handlingAcceptation,
+      handlingAcceptance,
       hasAcceptedVulns,
       hasRejectedVulns,
-      rejectedVulnerabilities: rejectedVulns,
+      rejectedVulnerabilities,
       rejectingZeroRisk,
-      setAcceptationVulns,
+      setAcceptanceVulns,
       vulns,
     } = props;
 
@@ -43,19 +43,19 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
       onTreatmentChangeHelper(
         isAcceptedUndefinedSelected,
         vulns,
-        setAcceptationVulns,
+        setAcceptanceVulns,
         isConfirmRejectZeroRiskSelected
       );
     };
     useEffect(onTreatmentChange, [
       isAcceptedUndefinedSelected,
       isConfirmRejectZeroRiskSelected,
-      setAcceptationVulns,
+      setAcceptanceVulns,
       vulns,
     ]);
 
     return (
-      <Form id={"updateTreatmentAcceptation"}>
+      <Form id={"updateTreatmentAcceptance"}>
         <Row>
           <Col50>
             <TreatmentField />
@@ -64,26 +64,26 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
         <Row>
           <Col100>
             <AcceptedUndefinedTable
-              acceptationVulns={acceptationVulns}
+              acceptanceVulns={acceptanceVulnerabilities}
               isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
-              setAcceptationVulns={setAcceptationVulns}
+              setAcceptanceVulns={setAcceptanceVulns}
             />
           </Col100>
         </Row>
         <Row>
           <Col100>
             <ZeroRiskTable
-              acceptanceVulns={acceptationVulns}
+              acceptanceVulns={acceptanceVulnerabilities}
               isConfirmRejectZeroRiskSelected={isConfirmRejectZeroRiskSelected}
-              setAcceptanceVulns={setAcceptationVulns}
+              setAcceptanceVulns={setAcceptanceVulns}
             />
           </Col100>
         </Row>
         <Row>
           <Col100>
             <JustificationField
-              isConfirmZeroRiskSelected={acceptedVulns.length !== 0}
-              isRejectZeroRiskSelected={rejectedVulns.length !== 0}
+              isConfirmZeroRiskSelected={acceptedVulnerabilities.length !== 0}
+              isRejectZeroRiskSelected={rejectedVulnerabilities.length !== 0}
             />
           </Col100>
         </Row>
@@ -97,7 +97,7 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
               <Button
                 disabled={
                   !(hasAcceptedVulns || hasRejectedVulns) ||
-                  handlingAcceptation ||
+                  handlingAcceptance ||
                   confirmingZeroRisk ||
                   rejectingZeroRisk
                 }

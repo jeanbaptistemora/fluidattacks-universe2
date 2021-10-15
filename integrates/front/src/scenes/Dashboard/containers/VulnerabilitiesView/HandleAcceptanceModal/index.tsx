@@ -196,12 +196,12 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
               acceptedVulnerabilities={acceptedVulns}
               confirmingZeroRisk={confirmingZeroRisk}
               handleCloseModal={handleCloseModal}
-              handlingAcceptation={handlingAcceptation}
+              handlingAcceptance={handlingAcceptation}
               hasAcceptedVulns={hasAcceptedVulns}
               hasRejectedVulns={hasRejectedVulns}
               rejectedVulnerabilities={rejectedVulns}
               rejectingZeroRisk={rejectingZeroRisk}
-              setAcceptationVulns={setAcceptationVulns}
+              setAcceptanceVulns={setAcceptationVulns}
               vulns={vulns}
             />
           </Formik>

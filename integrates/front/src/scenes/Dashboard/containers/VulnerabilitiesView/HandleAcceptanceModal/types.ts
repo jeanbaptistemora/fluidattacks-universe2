@@ -26,10 +26,10 @@ interface IHandleVulnerabilitiesAcceptanceModalFormProps {
   rejectedVulnerabilities: IVulnDataAttr[];
   hasAcceptedVulns: boolean;
   hasRejectedVulns: boolean;
-  handlingAcceptation: boolean;
+  handlingAcceptance: boolean;
   confirmingZeroRisk: boolean;
   rejectingZeroRisk: boolean;
-  setAcceptationVulns: React.Dispatch<React.SetStateAction<IVulnDataAttr[]>>;
+  setAcceptanceVulns: React.Dispatch<React.SetStateAction<IVulnDataAttr[]>>;
   handleCloseModal: () => void;
   vulns: IVulnerabilitiesAttr[];
 }

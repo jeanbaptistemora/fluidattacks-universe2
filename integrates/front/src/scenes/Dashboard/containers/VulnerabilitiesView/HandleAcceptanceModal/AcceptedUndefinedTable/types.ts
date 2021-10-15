@@ -1,9 +1,9 @@
 import type { IVulnDataAttr } from "../types";
 
 interface IAcceptedUndefinedTableProps {
-  acceptationVulns: IVulnDataAttr[];
+  acceptanceVulns: IVulnDataAttr[];
   isAcceptedUndefinedSelected: boolean;
-  setAcceptationVulns: (vulns: IVulnDataAttr[]) => void;
+  setAcceptanceVulns: (vulns: IVulnDataAttr[]) => void;
 }
 
 export { IAcceptedUndefinedTableProps };
