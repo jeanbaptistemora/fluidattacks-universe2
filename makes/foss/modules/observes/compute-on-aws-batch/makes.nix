@@ -3,6 +3,7 @@
 }:
 let
   sharedConfiguration = rec {
+    attempts = 5;
     definition = "makes";
     environment = [ "PRODUCT_API_TOKEN" ];
     memory = 1800 * vcpus;
@@ -14,25 +15,21 @@ in
 {
   computeOnAwsBatch = {
     observesAnnounceKitEtl = sharedConfiguration // {
-      attempts = 5;
       attemptDurationSeconds = 14000;
       command = [ "m" "f" "/observes/job/announcekit/etl" ];
     };
 
     observesBugsnagEtl = sharedConfiguration // {
-      attempts = 5;
       attemptDurationSeconds = 14000;
       command = [ "m" "f" "/observes/job/bugsnag-etl" ];
     };
 
     observesChecklyEtl = sharedConfiguration // {
-      attempts = 5;
       attemptDurationSeconds = 3600;
       command = [ "m" "f" "/observes/job/checkly-etl" ];
     };
 
     observesCodeEtlAmend = sharedConfiguration // {
-      attempts = 5;
       attemptDurationSeconds = 18000;
       command = [ "m" "f" "/observes/scheduled/job/code-etl-amend" ];
       environment = [
@@ -43,7 +40,6 @@ in
     };
 
     observesGitlabEtlChallenges = sharedConfiguration // {
-      attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/job/gitlab-etl/challenges" ];
       environment = [
@@ -53,13 +49,11 @@ in
     };
 
     observesDelightedEtl = sharedConfiguration // {
-      attempts = 5;
       attemptDurationSeconds = 3600;
       command = [ "m" "f" "/observes/job/delighted-etl" ];
     };
 
     observesDynamoDbForcesEtl = sharedConfiguration // rec {
-      attempts = 5;
       attemptDurationSeconds = 18000;
       command = [ "m" "f" "/observes/job/dynamodb-forces-etl" ];
       memory = 1800 * vcpus;
@@ -67,7 +61,6 @@ in
     };
 
     observesFormstackEtl = sharedConfiguration // rec {
-      attempts = 5;
       attemptDurationSeconds = 14000;
       command = [ "m" "f" "/observes/scheduled/job/formstack-etl" ];
       memory = 1800 * vcpus;
@@ -75,7 +68,6 @@ in
     };
 
     observesGitlabEtlDefault = sharedConfiguration // {
-      attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/job/gitlab-etl/default" ];
       environment = [
@@ -85,20 +77,17 @@ in
     };
 
     observesGitlabEtlProduct = sharedConfiguration // {
-      attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/job/gitlab-etl/product" ];
     };
 
     observesGitlabEtlServices = sharedConfiguration // {
-      attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/job/gitlab-etl/services" ];
       environment = [ "PRODUCT_API_TOKEN" "SERVICES_API_TOKEN" ];
     };
 
     observesCodeEtlMirror = sharedConfiguration // {
-      attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/scheduled/job/code-etl-mirror" ];
       environment = [
@@ -110,7 +99,6 @@ in
     };
 
     observesCodeEtlUpload = sharedConfiguration // {
-      attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/scheduled/job/code-etl-upload" ];
       environment = [
@@ -121,7 +109,6 @@ in
     };
 
     observesDynamoDbIntegratesEtl = sharedConfiguration // {
-      attempts = 5;
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/job/dynamodb-table-etl" ];
       queue = "observes_soon";
