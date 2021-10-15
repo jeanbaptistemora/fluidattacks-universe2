@@ -16,7 +16,6 @@ observes.bin.tap-announcekit
 observes.bin.tap-bugsnag
 observes.bin.tap-checkly
 observes.bin.tap-csv
-observes.bin.tap-delighted
 observes.bin.update-project-variable
 observes.fx-test.tap-announcekit
 observes.tap-json
