@@ -38,6 +38,7 @@ async def get_group_report_url(
             key=lambda finding: findings_domain.get_severity_score(
                 finding.severity
             ),
+            reverse=True,
         )
     )
     description = await groups_domain.get_description(group_name)
