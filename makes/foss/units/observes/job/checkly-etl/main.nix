@@ -6,8 +6,8 @@
 makeScript {
   searchPaths = {
     bin = [
-      inputs.product.observes-bin-tap-checkly
       outputs."/observes/bin/service/job-last-success"
+      outputs."/observes/bin/tap-checkly"
       inputs.product.observes-tap-json
       inputs.product.observes-target-redshift
     ];

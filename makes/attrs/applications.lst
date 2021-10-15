@@ -13,7 +13,6 @@ observes.bin.streamer-dynamodb
 observes.bin.streamer-zoho-crm
 observes.bin.tap-announcekit
 observes.bin.tap-bugsnag
-observes.bin.tap-checkly
 observes.bin.tap-csv
 observes.bin.update-project-variable
 observes.fx-test.tap-announcekit
