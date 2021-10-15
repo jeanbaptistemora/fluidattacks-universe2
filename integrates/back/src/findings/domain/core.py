@@ -607,6 +607,7 @@ async def mask_finding(  # pylint: disable=too-many-locals
             group_name=finding.group_name,
             finding_id=finding.id,
             metadata=metadata,
+            is_removed=finding.state.status == FindingStateStatus.DELETED,
         )
     )
     finding_historic_verification_loader = (
@@ -626,6 +627,7 @@ async def mask_finding(  # pylint: disable=too-many-locals
             group_name=finding.group_name,
             finding_id=finding.id,
             historic_verification=new_historic_verification,
+            is_removed=finding.state.status == FindingStateStatus.DELETED,
         )
     )
     list_evidences_files = await findings_storage.search_evidence(

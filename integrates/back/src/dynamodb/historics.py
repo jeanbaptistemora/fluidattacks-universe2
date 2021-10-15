@@ -6,11 +6,21 @@ from dynamodb.types import (
     Item,
     PrimaryKey,
 )
+import logging
+import logging.config
+from settings import (
+    LOGGING,
+)
 from typing import (
     Dict,
     Optional,
     Tuple,
 )
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 def get_metadata(
@@ -29,12 +39,18 @@ def get_latest(
     raw_items: Tuple[Item, ...],
 ) -> Item:
     historic_sort_key = f"{item_id}#{historic_suffix}"
+    try:
+        return next(
+            item
+            for item in raw_items
+            if item[key_structure.sort_key] == historic_sort_key
+        )
+    except StopIteration:
+        LOGGER.error(
+            "Couldn't get the historic status", extra={"extra": locals()}
+        )
 
-    return next(
-        item
-        for item in raw_items
-        if item[key_structure.sort_key] == historic_sort_key
-    )
+        raise
 
 
 def get_optional_latest(

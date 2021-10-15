@@ -14,6 +14,9 @@ from db_model import (
     toe_lines as toe_lines_model,
     vulnerabilities,
 )
+from db_model.findings.enums import (
+    FindingStateStatus,
+)
 from db_model.roots.types import (
     RootItem,
 )
@@ -202,6 +205,17 @@ async def populate_findings(data: List[Dict[str, Any]]) -> bool:
     )
     await collect(
         [_populate_finding_historic_verification(item) for item in data]
+    )
+    await collect(
+        [
+            findings.remove(
+                group_name=item["finding"].group_name,
+                finding_id=item["finding"].id,
+            )
+            for item in data
+            if item["historic_state"]
+            and item["historic_state"][-1].status == FindingStateStatus.DELETED
+        ]
     )
     return True
 

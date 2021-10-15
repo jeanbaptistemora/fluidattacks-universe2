@@ -306,7 +306,7 @@ async def _get_removed_findings_by_group(
     )
     finding_items = defaultdict(list)
     for item in results:
-        finding_id = "#".join(item[key_structure.sort_key].split("#")[:2])
+        finding_id = "#".join(item[key_structure.sort_key].split("#")[:3])
         finding_items[finding_id].append(item)
 
     return tuple(
