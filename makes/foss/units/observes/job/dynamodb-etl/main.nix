@@ -7,7 +7,7 @@ makeScript {
   searchPaths = {
     bin = [
       outputs."/observes/bin/service/job-last-success"
-      inputs.product.observes-bin-streamer-dynamodb
+      outputs."/observes/bin/streamer-dynamodb"
       inputs.product.observes-tap-json
       inputs.product.observes-target-redshift
     ];

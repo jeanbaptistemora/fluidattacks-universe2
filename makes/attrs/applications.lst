@@ -9,7 +9,6 @@ makes.kill-port
 makes.kill-tree
 makes.wait
 melts
-observes.bin.streamer-dynamodb
 observes.bin.streamer-zoho-crm
 observes.bin.tap-announcekit
 observes.bin.tap-bugsnag
