@@ -27,7 +27,6 @@ observes.bin.tap-mailchimp
 observes.bin.tap-mixpanel
 observes.bin.tap-timedoctor
 observes.bin.tap-toe-files
-observes.bin.tap-zoho-analytics
 observes.bin.update-project-variable
 observes.fx-test.tap-announcekit
 observes.tap-json

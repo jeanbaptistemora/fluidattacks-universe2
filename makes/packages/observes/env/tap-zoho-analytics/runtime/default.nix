@@ -13,7 +13,7 @@ makeTemplate {
       self
     ];
     envPaths = [
-      nixpkgs.python38Packages.requests
+      nixpkgs.python38
     ];
     envPythonPaths = [
       self
