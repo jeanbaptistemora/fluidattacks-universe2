@@ -56,5 +56,6 @@ module.exports = {
         'test',  // Adding missing tests or correcting existing tests
       ],
     ],
+    'signed-off-by': [2, 'always', 'Signed-off-by:'], 	  
   },
 };
