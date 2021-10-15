@@ -1,11 +1,12 @@
 { makeScript
 , inputs
+, outputs
 , ...
 }:
 makeScript {
   searchPaths = {
     bin = [
-      inputs.product.observes-bin-service-migrate-tables
+      outputs."/observes/bin/service/migrate-tables"
     ];
     source = [
       (inputs.legacy.importUtility "aws")
