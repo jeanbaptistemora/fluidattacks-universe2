@@ -34,6 +34,5 @@ observes.job.dynamodb-etl
 observes.job.gitlab-etl
 observes.job.timedoctor.new-grant-code
 observes.job.timedoctor.set-init-token
-observes.job.zoho-crm-etl
 observes.tap-json
 observes.target-redshift
