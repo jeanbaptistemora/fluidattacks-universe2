@@ -4,7 +4,9 @@
 , ...
 }:
 makeScript {
-  entrypoint = "import_and_run tap_bugsnag.cli main";
+  entrypoint = ''
+    import_and_run tap_bugsnag.cli main "$@"
+  '';
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"

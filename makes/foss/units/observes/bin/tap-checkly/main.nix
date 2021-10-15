@@ -4,7 +4,9 @@
 , ...
 }:
 makeScript {
-  entrypoint = "import_and_run tap_checkly.cli main";
+  entrypoint = ''
+    import_and_run tap_checkly.cli main "$@"
+  '';
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"

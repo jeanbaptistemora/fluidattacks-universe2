@@ -4,7 +4,9 @@
 , ...
 }:
 makeScript {
-  entrypoint = "import_and_run tap_announcekit.cli main";
+  entrypoint = ''
+    import_and_run tap_announcekit.cli main "$@"
+  '';
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"

@@ -4,7 +4,9 @@
 , ...
 }:
 makeScript {
-  entrypoint = "import_and_run streamer_dynamodb main";
+  entrypoint = ''
+    import_and_run streamer_dynamodb main "$@"
+  '';
   searchPaths = {
     source = [
       outputs."/observes/commin/import-and-run"

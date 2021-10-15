@@ -4,7 +4,9 @@
 , ...
 }:
 makeScript {
-  entrypoint = "import_and_run tap_toe_files main";
+  entrypoint = ''
+    import_and_run tap_toe_files main "$@"
+  '';
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"

@@ -4,7 +4,9 @@
 , ...
 }:
 makeScript {
-  entrypoint = "import_and_run tap_zoho_analytics.converter_zoho_csv cli";
+  entrypoint = ''
+    import_and_run tap_zoho_analytics.converter_zoho_csv cli "$@"
+  '';
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"

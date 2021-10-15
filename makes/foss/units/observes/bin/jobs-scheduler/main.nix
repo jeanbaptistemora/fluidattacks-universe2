@@ -3,7 +3,9 @@
 , ...
 }:
 makeScript {
-  entrypoint = "import_and_run jobs_scheduler main";
+  entrypoint = ''
+    import_and_run jobs_scheduler main "$@"
+  '';
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"

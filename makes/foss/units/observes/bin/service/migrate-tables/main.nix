@@ -4,7 +4,9 @@
 , ...
 }:
 makeScript {
-  entrypoint = "import_and_run migrate_tables.cli main";
+  entrypoint = ''
+    import_and_run migrate_tables.cli main "$@"
+  '';
   searchPaths = {
     source = [
       inputs.product.observes-env-service-migrate-tables-runtime

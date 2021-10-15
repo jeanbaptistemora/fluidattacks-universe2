@@ -4,7 +4,9 @@
 , ...
 }:
 makeScript {
-  entrypoint = "import_and_run job_last_success.cli main";
+  entrypoint = ''
+    import_and_run job_last_success.cli main "$@"
+  '';
   searchPaths = {
     source = [
       inputs.product.observes-env-job-last-success-runtime

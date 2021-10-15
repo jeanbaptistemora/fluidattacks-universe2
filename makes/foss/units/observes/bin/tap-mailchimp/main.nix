@@ -4,7 +4,9 @@
 , ...
 }:
 makeScript {
-  entrypoint = "import_and_run tap_mailchimp.cli main";
+  entrypoint = ''
+    import_and_run tap_mailchimp.cli main "$@"
+  '';
   searchPaths = {
     bin = [ inputs.nixpkgs.python38 ];
     source = [
