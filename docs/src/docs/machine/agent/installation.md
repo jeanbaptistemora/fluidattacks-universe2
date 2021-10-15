@@ -69,6 +69,6 @@ Run the Docker image:
 1. To check only `static` vulnerabilities
     - `docker run --rm -ti fluidattacks/forces:new
     forces --static --strict --token <your-token>`.
-1. To check only `dynamyc` vulnerabilities
+1. To check only `dynamic` vulnerabilities
     - `docker run --rm -ti fluidattacks/forces:new
     forces --dynamic --strict --token <your-token>`.
