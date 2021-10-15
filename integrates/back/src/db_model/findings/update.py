@@ -27,6 +27,7 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
+    Not,
 )
 from custom_exceptions import (
     FindingNotFound,
@@ -222,7 +223,9 @@ async def update_state(
         },
         latest_facet=TABLE.facets["finding_state"],
     )
-    condition_expression = Attr(key_structure.partition_key).exists()
+    condition_expression = Attr("status").exists() & Not(
+        Attr("status").eq(FindingStateStatus.DELETED.value)
+    )
     try:
         await operations.put_item(
             condition_expression=condition_expression,
