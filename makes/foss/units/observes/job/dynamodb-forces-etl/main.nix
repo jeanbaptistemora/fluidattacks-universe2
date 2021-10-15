@@ -1,12 +1,11 @@
 { makeScript
-, inputs
+, outputs
 , ...
 }:
 makeScript {
-  replace = { };
   searchPaths = {
     bin = [
-      inputs.product.observes-job-dynamodb-etl
+      outputs."/observes/job/dynamodb-etl"
     ];
   };
   name = "observes-job-dynamodb-forces-etl";
