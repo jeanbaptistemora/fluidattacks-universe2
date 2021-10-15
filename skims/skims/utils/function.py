@@ -7,6 +7,9 @@ from asyncio.tasks import (
 )
 import functools
 import inspect
+from metaloaders.model import (
+    Node,
+)
 from more_itertools import (
     mark_ends,
 )
@@ -15,6 +18,7 @@ from typing import (
     Any,
     Callable,
     cast,
+    List,
     Optional,
     Tuple,
     Type,
@@ -71,6 +75,16 @@ def get_signature(function: Callable[..., Any]) -> inspect.Signature:
     )
 
     return signature
+
+
+def get_node_by_keys(node: Node, keys: List[str]) -> Optional[Node]:
+    cur_node = node
+    for key in keys:
+        if key in cur_node.inner:
+            cur_node = cur_node.inner[key]
+        else:
+            return None
+    return cur_node
 
 
 def shield(
