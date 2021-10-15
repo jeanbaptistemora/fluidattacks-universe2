@@ -5,7 +5,7 @@ from tap_announcekit.objs.id_objs import (
 from tap_announcekit.streams.posts._encode import (
     PostEncoder,
 )
-from tap_announcekit.streams.posts._queries import (
+from tap_announcekit.streams.posts._factory._queries import (
     PostIdsQuery,
     PostQuery,
 )

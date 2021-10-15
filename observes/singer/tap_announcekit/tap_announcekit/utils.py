@@ -50,3 +50,9 @@ class CastUtils:
     @staticmethod
     def to_maybe_str(raw: Any) -> Maybe[str]:
         return Maybe.from_optional(to_opt_primitive(raw, str) if raw else None)
+
+    @staticmethod
+    def to_list(raw: Any) -> List[Any]:
+        if isinstance(raw, list):
+            return raw
+        raise InvalidType(f"{type(raw)} expected List[Any]")

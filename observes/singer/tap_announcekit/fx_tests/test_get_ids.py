@@ -7,12 +7,12 @@ from tap_announcekit.api.client import (
 from tap_announcekit.objs.id_objs import (
     ProjectId,
 )
-from tap_announcekit.streams.posts._getters import (
-    PostsGetters,
+from tap_announcekit.streams.posts._factory import (
+    PostIdFactory,
 )
 
 
 def test_get_ids() -> None:
     client = ApiClient(get_creds())
-    getter = PostsGetters(client)
-    getter.get_ids(ProjectId("11264"))
+    getter = PostIdFactory(client, ProjectId("11264"))
+    getter.get_ids()
