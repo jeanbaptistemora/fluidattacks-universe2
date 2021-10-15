@@ -1,5 +1,6 @@
 { inputs
 , makeScript
+, outputs
 , ...
 }:
 makeScript {
@@ -8,7 +9,7 @@ makeScript {
       inputs.nixpkgs.awscli
       inputs.nixpkgs.coreutils
       inputs.nixpkgs.jq
-      inputs.product.observes-bin-tap-timedoctor
+      outputs."/observes/bin/tap-timedoctor"
       inputs.product.observes-target-redshift
       inputs.product.observes-bin-service-job-last-success
     ];

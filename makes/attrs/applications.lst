@@ -23,7 +23,6 @@ observes.bin.tap-formstack
 observes.bin.tap-gitlab
 observes.bin.tap-mailchimp
 observes.bin.tap-mixpanel
-observes.bin.tap-timedoctor
 observes.bin.update-project-variable
 observes.fx-test.tap-announcekit
 observes.tap-json
