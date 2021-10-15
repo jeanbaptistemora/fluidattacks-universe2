@@ -1,13 +1,9 @@
 { makeScript
-, inputs
+, outputs
 , ...
 }:
 makeScript {
-  searchPaths = {
-    bin = [
-      inputs.product.observes-bin-tap-announcekit
-    ];
-  };
+  searchPaths.bin = [ outputs."/observes/bin/tap-announcekit" ];
   name = "observes-job-announcekit-update-schema";
   entrypoint = ./entrypoint.sh;
 }
