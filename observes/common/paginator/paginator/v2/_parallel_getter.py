@@ -3,8 +3,8 @@
 from dataclasses import (
     dataclass,
 )
-from multiprocessing.pool import (
-    Pool,
+from pathos.threading import (
+    ThreadPool,
 )
 from purity.v1 import (
     Flattener,
@@ -27,6 +27,10 @@ from typing import (
 
 _PageTVar = TypeVar("_PageTVar")
 _DataTVar = TypeVar("_DataTVar")
+_thread_pool = ThreadPool()
+# using pathos solves some issues of using multiprocessing:
+# - pool scope: pool obj had to be created on specific scope
+# - serialization: some pickle errors raise when mapping
 
 
 @dataclass(frozen=True)
@@ -56,7 +60,4 @@ class ParallelGetter(
         self,
         pages: FrozenList[_PageTVar],
     ) -> IO[FrozenList[Maybe[_DataTVar]]]:
-        _thread_pool = Pool()
-        # define the map function before creating a Pool instance;
-        # otherwise the pool workers cannot find it
         return Flattener.list_io(tuple(_thread_pool.map(self.getter, pages)))
