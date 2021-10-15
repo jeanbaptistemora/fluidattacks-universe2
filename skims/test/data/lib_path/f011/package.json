@@ -20,7 +20,7 @@
     "path-parse": "1.0.6",
     "jasmine-core": "2.99.1",
     "jquery": "0.*",
-    "jsrsasign": "8.0.0*",
+    "jsrsasign": "8.0.0",
     "ng-packagr": "12.2.2",
     "node-sass": "^5.0.0",
     "node-notifier": "5.4.2",
