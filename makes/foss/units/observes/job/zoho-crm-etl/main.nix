@@ -6,7 +6,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      inputs.product.observes-bin-streamer-zoho-crm
+      outputs."/observes/bin/streamer-zoho-crm"
       outputs."/observes/bin/tap-csv"
       inputs.product.observes-tap-json
       inputs.product.observes-target-redshift

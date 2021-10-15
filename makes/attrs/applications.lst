@@ -9,7 +9,6 @@ makes.kill-port
 makes.kill-tree
 makes.wait
 melts
-observes.bin.streamer-zoho-crm
 observes.bin.update-project-variable
 observes.fx-test.tap-announcekit
 observes.tap-json

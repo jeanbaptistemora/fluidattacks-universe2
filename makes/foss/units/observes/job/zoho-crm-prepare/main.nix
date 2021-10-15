@@ -1,12 +1,12 @@
 { makeScript
-, inputs
+, outputs
 , ...
 }:
 makeScript {
   searchPaths = {
     bin = [
-      inputs.product.observes-bin-streamer-zoho-crm
-      inputs.product.observes-bin-service.job-last-success
+      outputs."/observes/bin/streamer-zoho-crm"
+      outputs."/observes/bin/service/job-last-success"
     ];
   };
   name = "observes-job-zoho-crm-prepare";
