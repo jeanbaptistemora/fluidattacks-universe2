@@ -16,7 +16,7 @@ Going Open Source
 gives our customers the confidence
 that what we do is
 [transparent](https://fluidattacks.com/about-us/values/)
-and [secure](https://fluidattacks.com/security/).
+and [secure](https://docs.fluidattacks.com/about/security/).
 
 In order to verify
 the OWASP benchmark results
