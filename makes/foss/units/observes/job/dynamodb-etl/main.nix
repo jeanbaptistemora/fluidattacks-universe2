@@ -9,7 +9,7 @@ makeScript {
       outputs."/observes/bin/service/job-last-success"
       outputs."/observes/bin/streamer-dynamodb"
       outputs."/observes/bin/tap-json"
-      inputs.product.observes-target-redshift
+      outputs."/observes/bin/target-redshift"
     ];
     source = [
       (inputs.legacy.importUtility "aws")

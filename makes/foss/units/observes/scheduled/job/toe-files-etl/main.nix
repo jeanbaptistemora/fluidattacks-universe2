@@ -8,7 +8,7 @@ makeScript {
     bin = [
       outputs."/observes/bin/tap-toe-files"
       outputs."/observes/bin/tap-json"
-      inputs.product.observes-target-redshift
+      outputs."/observes/bin/target-redshift"
     ];
     source = [
       (inputs.legacy.importUtility "aws")

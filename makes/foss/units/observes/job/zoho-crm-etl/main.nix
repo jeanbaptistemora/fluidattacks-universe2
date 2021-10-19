@@ -1,5 +1,4 @@
 { makeScript
-, inputs
 , outputs
 , ...
 }:
@@ -9,7 +8,7 @@ makeScript {
       outputs."/observes/bin/streamer-zoho-crm"
       outputs."/observes/bin/tap-csv"
       outputs."/observes/bin/tap-json"
-      inputs.product.observes-target-redshift
+      outputs."/observes/bin/target-redshift"
       outputs."/observes/bin/service/job-last-success"
     ];
   };

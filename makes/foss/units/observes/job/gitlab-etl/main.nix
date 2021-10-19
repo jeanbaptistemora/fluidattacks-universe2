@@ -1,5 +1,4 @@
 { makeScript
-, inputs
 , outputs
 , ...
 }:
@@ -8,7 +7,7 @@ makeScript {
     bin = [
       outputs."/observes/bin/tap-gitlab"
       outputs."/observes/bin/tap-json"
-      inputs.product.observes-target-redshift
+      outputs."/observes/bin/target-redshift"
     ];
   };
   name = "observes-job-gitlab-etl";

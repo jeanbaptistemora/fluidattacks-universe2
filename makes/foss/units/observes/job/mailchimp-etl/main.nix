@@ -6,9 +6,8 @@
 makeScript {
   searchPaths = {
     bin = [
-      inputs.product.observes-target-redshift
+      outputs."/observes/bin/target-redshift"
       outputs."/observes/bin/tap-json"
-      inputs.product.observes-bin-tap-mailchimp
       outputs."/observes/bin/tap-mailchimp"
       outputs."/observes/bin/service/job-last-success"
     ];

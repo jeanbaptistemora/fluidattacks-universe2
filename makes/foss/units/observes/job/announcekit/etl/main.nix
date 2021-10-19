@@ -8,7 +8,7 @@ makeScript {
     bin = [
       outputs."/observes/bin/tap-announcekit"
       outputs."/observes/bin/tap-json"
-      inputs.product.observes-target-redshift
+      outputs."/observes/bin/target-redshift"
       outputs."/observes/bin/service/job-last-success"
     ];
     source = [
