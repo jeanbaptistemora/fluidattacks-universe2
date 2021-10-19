@@ -4,8 +4,8 @@ Unreliable indicators were left out in the previous findings migration.
 We need to populate them now for consistency and avoiding a StopIteration
 with the group_removed_findings Dataloader.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-10-19 at 20:04:44 UTC
+Finalization Time: 2021-10-19 at 20:39:48 UTC
 """
 
 from aioextensions import (
@@ -68,7 +68,7 @@ from unreliable_indicators.operations import (
 )
 
 FINDING_TABLE: str = "FI_findings"
-PROD: bool = False
+PROD: bool = True
 
 
 async def _update_unreliable_indicators(
