@@ -302,6 +302,11 @@
     ]
   },
   "http-errors": {},
+  "https-proxy-agent": {
+    "CVE-2018-3739": [
+      "<2.2.0"
+    ]
+  },
   "i18next": {
     "SNYK-JS-I18NEXT-1065979": [
       "<19.8.5"
@@ -500,6 +505,11 @@
   "ng-packagr": {
     "CVE-2020-7735": [
       "<10.1.1"
+    ]
+  },
+  "node-connects": {
+    "CVE-2013-7371": [
+      "<2.8.2"
     ]
   },
   "node-fetch": {
