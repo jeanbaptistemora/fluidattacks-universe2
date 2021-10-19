@@ -2179,6 +2179,8 @@ export const enTranslations: ResourceKey = {
           "The treatment on one or more vulnerabilities is set as new, please select a treatment for the vulnerabilities.",
         maximumNumberOfAcceptances:
           "Vulnerability has been accepted the maximum number of times allowed by the organization",
+        tagReminder:
+          "Remember to add tags to your vulnerabilities to ease their management",
         treatmentChange: "Vulnerability treatment will be changed",
         uploadFile: {
           invalidRoot:

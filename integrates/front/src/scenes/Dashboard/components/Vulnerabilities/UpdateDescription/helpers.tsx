@@ -277,6 +277,17 @@ const handleSubmitHelper = async (
   }
 };
 
+const tagReminderAlert = (isTreatmentPristine: boolean): JSX.Element => {
+  return isTreatmentPristine ? (
+    <div />
+  ) : (
+    <Alert>
+      {"*"}&nbsp;
+      {translate.t("searchFindings.tabVuln.alerts.tagReminder")}
+    </Alert>
+  );
+};
+
 const treatmentChangeAlert = (isTreatmentPristine: boolean): JSX.Element => {
   return isTreatmentPristine ? (
     <div />
@@ -323,6 +334,7 @@ export {
   requestZeroRiskHelper,
   handleRequestZeroRiskError,
   handleSubmitHelper,
+  tagReminderAlert,
   treatmentChangeAlert,
   hasNewVulnsAlert,
 };

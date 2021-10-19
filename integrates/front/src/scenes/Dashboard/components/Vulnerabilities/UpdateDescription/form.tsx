@@ -21,6 +21,7 @@ import {
   hasNewVulnsAlert,
   isTheFormPristine,
   requestZeroRiskHelper,
+  tagReminderAlert,
   treatmentChangeAlert,
   validMutationsHelper,
 } from "./helpers";
@@ -439,6 +440,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             />
           </Col100>
         </Row>
+        {tagReminderAlert(isTreatmentPristine)}
         <Row>
           <Col50>
             <SeverityField
