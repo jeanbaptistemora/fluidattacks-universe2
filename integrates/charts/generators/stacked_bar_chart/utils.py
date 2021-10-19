@@ -473,13 +473,15 @@ def format_severity(values: Dict[str, Decimal]) -> Tuple[Dict[str, str], ...]:
     percentages: List[Decimal] = get_percentage(raw_percentages)
     max_percentages = max(percentages) if max(percentages) else ""
     is_first_value_max: bool = percentages[0] == max_percentages
+    is_second_value_max: bool = percentages[1] == max_percentages
     max_percentage_values = dict(
         Closed=str(percentages[0]) if is_first_value_max else "",
         Accepted=str(percentages[1])
-        if percentages[1] == max_percentages and not is_first_value_max
+        if is_second_value_max and not is_first_value_max
         else "",
         Open=str(percentages[2])
-        if percentages[2] == max_percentages and not is_first_value_max
+        if percentages[2] == max_percentages
+        and not (is_first_value_max or is_second_value_max)
         else "",
     )
     percentage_values = dict(
