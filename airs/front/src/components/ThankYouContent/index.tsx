@@ -32,7 +32,7 @@ const ThankYouContent: React.FC<{ content: string; title: string }> = ({
 
           <ButtonDiv>
             <Link to={"/blog/"}>
-              <CardButton>{"Read Last Blog Entry"}</CardButton>
+              <CardButton>{"Visit our Blog!"}</CardButton>
             </Link>
           </ButtonDiv>
         </ContentMainDiv>
