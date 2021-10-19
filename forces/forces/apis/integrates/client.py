@@ -34,7 +34,7 @@ TVar = TypeVar("TVar")
 
 class ApiError(Exception):
     def __init__(self, *errors: Dict[str, Any]) -> None:
-        self.messages: List[str] = list()
+        self.messages: List[str] = []
         for error in errors:
             if message := error.get("message"):
                 self.messages.append(message)
@@ -100,5 +100,5 @@ async def execute(
         if "errors" in result.keys():
             raise ApiError(*result["errors"])
 
-        result = result.get("data", dict())
+        result = result.get("data", {})
         return result or default  # type: ignore

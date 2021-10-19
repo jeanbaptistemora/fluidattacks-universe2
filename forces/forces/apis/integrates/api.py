@@ -60,15 +60,15 @@ async def get_findings(group: str, **kwargs: str) -> List[str]:
             query=query,
             operation_name="ForcesDoGetGroupFindings",
             variables=params,
-            default=dict(),
+            default={},
             **kwargs,
         )
-        or dict()
+        or {}
     )
 
     findings: List[str] = [
         group["id"]
-        for group in (result.get("group", dict()) or {}).get("findings", [])
+        for group in (result.get("group", {}) or {}).get("findings", [])
     ]
 
     return findings
@@ -109,11 +109,11 @@ async def get_vulnerabilities(
         query=query,
         operation_name="ForcesDoGetFindingVulnerabilities",
         variables=params,
-        default=dict(),
+        default={},
         **kwargs,
     )
-    finding_value = response.get("finding", dict())
-    vulnerabilities = finding_value.get("vulnerabilities", list())
+    finding_value = response.get("finding", {})
+    vulnerabilities = finding_value.get("vulnerabilities", [])
     for index, _ in enumerate(vulnerabilities):
         current_state: Dict[str, str] = (
             vulnerabilities[index].get("historicTreatment", [{}])
@@ -124,7 +124,7 @@ async def get_vulnerabilities(
         if zero_risk.get("status") in {"REQUESTED", "CONFIRMED"}:
             vulnerabilities[index]["currentState"] = "accepted"
 
-    return finding_value.get("vulnerabilities", list())
+    return finding_value.get("vulnerabilities", [])
 
 
 @SHIELD
@@ -150,10 +150,10 @@ async def get_finding(finding: str, **kwargs: str) -> Dict[str, Any]:
         query=query,
         operation_name="ForcesDoGetFinding",
         variables=params,
-        default=dict(),
+        default={},
         **kwargs,
     )
-    return response.get("finding", dict())  # type: ignore
+    return response.get("finding", {})  # type: ignore
 
 
 async def vulns_generator(
@@ -279,7 +279,7 @@ async def upload_report(
         default={},
         **kwargs,
     )
-    return response.get("addForcesExecution", dict()).get("success", False)
+    return response.get("addForcesExecution", {}).get("success", False)
 
 
 @SHIELD
@@ -310,7 +310,7 @@ async def get_groups_access(**kwargs: Any) -> List[Dict[str, str]]:
                 "error",
                 "The token has expired or the token has no permissions",
             )
-            return list()
+            return []
         raise Exception
 
     return list(

@@ -85,7 +85,7 @@ def show_banner() -> None:
     help="name of the repository in which it is running",
 )  # pylint: disable=too-many-arguments
 def main(
-    token: str,  # pylint: disable=too-many-arguments
+    token: str,
     verbose: int,
     strict: bool,
     output: TextIOWrapper,

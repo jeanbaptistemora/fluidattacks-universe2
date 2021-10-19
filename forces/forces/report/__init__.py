@@ -42,20 +42,20 @@ async def create_findings_dict(
     **kwargs: str,
 ) -> Dict[str, Dict[str, Any]]:
     """Returns a dictionary containing as key the findings of a project."""
-    findings_dict: Dict[str, Dict[str, Any]] = dict()
+    findings_dict: Dict[str, Dict[str, Any]] = {}
     findings_futures = [
         get_finding(fin) for fin in await get_findings(group, **kwargs)
     ]
     for _find in asyncio.as_completed(findings_futures):
         find: Dict[str, Any] = await _find
-        severity: Dict[str, Any] = find.pop("severity", dict())
+        severity: Dict[str, Any] = find.pop("severity", {})
         find["exploitability"] = severity.get("exploitability", 0)
         find["severity"] = find.pop("severityScore", "N/A")
         findings_dict[find["id"]] = find
         findings_dict[find["id"]].update(
             {"open": 0, "closed": 0, "accepted": 0}
         )
-        findings_dict[find["id"]]["vulnerabilities"] = list()
+        findings_dict[find["id"]]["vulnerabilities"] = []
     return findings_dict
 
 
@@ -128,7 +128,7 @@ async def generate_report(
 
     _summary_dict = get_summary_template(kind)
 
-    raw_report: Dict[str, List[Any]] = {"findings": list()}
+    raw_report: Dict[str, List[Any]] = {"findings": []}
     findings_dict = await create_findings_dict(
         config.group,
         **kwargs,

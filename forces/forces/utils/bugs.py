@@ -25,7 +25,7 @@ def customize_bugsnag_error_reports(
     notification: Any,
 ) -> None:  # pragma: no cover
     # Customize Login required error
-    environment = dict()
+    environment = {}
     if os.environ.get("CI_JOB_ID", None):
         environment["PIPELINE"] = "GITLAB_CI"
         environment["CI_JOB_ID"] = os.environ.get("CI_JOB_ID", "unknown")
