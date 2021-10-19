@@ -6,6 +6,7 @@
     "aws-sdk": "2.813.0",
     "connect": "2.8",
     "color-string": "1.1.4",
+    "express": "2.5.11",
     "fresh": "xxxxwhasdflaskdjfasdf",
     "glob-parent": "5.1.1",
     "hoek": "^5.0.0",
