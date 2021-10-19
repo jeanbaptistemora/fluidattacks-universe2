@@ -187,7 +187,7 @@ const ResourcesPage: React.FC<IProps> = ({
           "resources.cardsText.webinars.webinar4Description"
         )}`}
         image={"/resources/resource-card8n"}
-        language={"ENG"}
+        language={"ENGLISH"}
         title={`${translate.t("resources.cardsText.webinars.webinar4Title")}`}
         urlCard={
           "https://register.gotowebinar.com/register/3700452970867466510"
@@ -247,7 +247,7 @@ const ResourcesPage: React.FC<IProps> = ({
           "resources.cardsText.webinars.webinar7Description"
         )}`}
         image={"/resources/resource-card8n"}
-        language={"ENG"}
+        language={"ENGLISH"}
         title={`${translate.t("resources.cardsText.webinars.webinar7Title")}`}
         urlCard={
           "https://register.gotowebinar.com/register/1179192545930222092"
