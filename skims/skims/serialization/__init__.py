@@ -91,8 +91,6 @@ def _load_lark_tree(children: Any, data: Any, meta: Any) -> LarkTree:
 
 def _side_effects() -> None:
     for factory in (
-        core_model.AvailabilityEnum,
-        core_model.ExecutionQueue,
         core_model.FindingEnum,
         core_model.Grammar,
         core_model.Platform,
@@ -118,7 +116,6 @@ def _side_effects() -> None:
         safe_pickle.register_enum(factory)
 
     for factory in (
-        core_model.ExecutionQueueConfig,
         core_model.FindingMetadata,
         core_model.IntegratesVulnerabilityMetadata,
         core_model.NVDVulnerability,
