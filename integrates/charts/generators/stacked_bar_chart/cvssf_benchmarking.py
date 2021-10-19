@@ -12,6 +12,9 @@ from charts.colors import (
     RISK,
     TREATMENT,
 )
+from charts.generators.stacked_bar_chart.utils import (
+    get_percentage,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -21,7 +24,6 @@ from db_model.findings.types import (
 )
 from decimal import (
     Decimal,
-    ROUND_FLOOR,
 )
 from findings.domain import (
     get_severity_score,
@@ -191,31 +193,6 @@ def get_valid_organizations(
         for organization in organizations
         if organization_id != organization.organization_id
     ]
-
-
-def round_percentage(percentages: List[Decimal], last: int) -> List[Decimal]:
-    sum_percentage = sum(percentages)
-    if sum_percentage == Decimal("100.0") or sum_percentage == Decimal("0.0"):
-        return percentages
-
-    if last < 0:
-        return percentages
-
-    new_percentages = [
-        percentage + Decimal("1.0") if index == last else percentage
-        for index, percentage in enumerate(percentages)
-    ]
-    return round_percentage(new_percentages, last - 1)
-
-
-def get_percentage(values: List[Decimal]) -> List[Decimal]:
-    percentages = [
-        Decimal(value * Decimal("100.0")).to_integral_exact(
-            rounding=ROUND_FLOOR
-        )
-        for value in values
-    ]
-    return round_percentage(percentages, len(percentages) - 1)
 
 
 def format_data(
