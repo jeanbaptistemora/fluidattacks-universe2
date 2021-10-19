@@ -83,7 +83,7 @@ Finally, it would be useless to have a tool
 that randomly has 50% true positives and 50% false positives.
 See the following chart:
 
-.link:https://raw.githubusercontent.com/OWASP/Benchmark/master/src/main/resources/scorecard/content/benchmark_guide.png[OWASP Benchmark Results Interpretation Guide].
+.link:https://raw.githubusercontent.com/OWASP-Benchmark/BenchmarkJava/8df16196378048c54f68cd3a77531e9741a0c7ae/scorecard/content/benchmark_guide.png[OWASP Benchmark Results Interpretation Guide].
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330968/blog/owasp-benchmark-fluid-attacks/benchguide_vaeam7.webp[Benchmark Guide]
 
 True Positive Rate (TPR) is the percentage of true vulnerabilities
