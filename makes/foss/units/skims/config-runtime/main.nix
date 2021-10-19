@@ -37,7 +37,6 @@ makeTemplate {
     ];
     source = [
       inputs.product.makes-python-safe-pickle
-      outputs."/skims/config-sdk"
       (makePythonPypiEnvironment {
         name = "skims-runtime";
         searchPaths = {

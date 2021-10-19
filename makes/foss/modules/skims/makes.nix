@@ -59,13 +59,6 @@
         python = "3.8";
         src = "/makes/foss/units/skims/test/mocks/http/src";
       };
-      skimsTestSdk = {
-        searchPaths.source = [
-          outputs."/skims/config-sdk"
-        ];
-        python = "3.8";
-        src = "/makes/foss/units/skims/test/sdk/src";
-      };
       skimsProcessGroup = {
         searchPaths.source = [
           outputs."/skims/config-runtime"

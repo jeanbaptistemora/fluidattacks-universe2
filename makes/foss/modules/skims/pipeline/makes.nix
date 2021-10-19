@@ -91,10 +91,6 @@ in
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintPython/module/skimsTestSdk";
-          gitlabExtra = gitlabLint;
-        }
-        {
           output = "/lintPython/module/skimsProcessGroup";
           gitlabExtra = gitlabLint;
         }
@@ -122,10 +118,6 @@ in
       ++ [
         {
           output = "/skims/test/cli";
-          gitlabExtra = gitlabTest;
-        }
-        {
-          output = "/skims/test/sdk";
           gitlabExtra = gitlabTest;
         }
         {

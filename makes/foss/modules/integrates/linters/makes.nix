@@ -8,7 +8,6 @@
         searchPaths.source = [
           outputs."/integrates/back/pypi/runtime"
           outputs."/integrates/back/pypi/unit-tests"
-          outputs."/skims/config-sdk"
         ];
         python = "3.9";
         src = "/integrates/back/src";
