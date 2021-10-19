@@ -3,6 +3,9 @@
 from dataclasses import (
     dataclass,
 )
+from enum import (
+    Enum,
+)
 from paginator.raw_client.handlers import (
     ErrorHandler,
     insistent_call,
@@ -51,6 +54,16 @@ def _extract_http_error(response: Response) -> Maybe[HTTPError]:
         return Maybe.from_value(ResponseError(error))
 
 
+class RequestMethod(Enum):
+    GET = "GET"
+    OPTIONS = "OPTIONS"
+    HEAD = "HEAD"
+    POST = "POST"
+    PUT = "PUT"
+    PATCH = "PATCH"
+    DELETE = "DELETE"
+
+
 @dataclass(frozen=True)
 class RawClient:
     url_base: str
@@ -58,10 +71,15 @@ class RawClient:
     max_retries: int
     handler: Patch[ErrorHandler]
 
-    def try_get(
-        self, endpoint: str, params: Dict[str, Any], **kargs: Any
+    def _try_call(
+        self,
+        method: RequestMethod,
+        endpoint: str,
+        params: Dict[str, Any],
+        **kargs: Any,
     ) -> RawResponse:
-        response = requests.get(
+        response = requests.request(
+            method.value,
             f"{self.url_base}{endpoint}",
             headers=self.headers,
             params=params,
@@ -72,8 +90,26 @@ class RawClient:
             return IOSuccess(response)
         return IOFailure(error.unwrap())
 
+    def try_get(
+        self, endpoint: str, params: Dict[str, Any], **kargs: Any
+    ) -> RawResponse:
+        return self._try_call(RequestMethod.GET, endpoint, params, **kargs)
+
+    def try_post(
+        self, endpoint: str, json: Dict[str, Any], **kargs: Any
+    ) -> RawResponse:
+        return self._try_call(
+            RequestMethod.POST, endpoint, {}, json=json, **kargs
+        )
+
     def get(
         self, endpoint: str, params: Dict[str, Any], **kargs: Any
     ) -> IO[Response]:
         request = lambda: self.try_get(endpoint, params, **kargs)
+        return insistent_call(request, self.handler.unwrap, self.max_retries)
+
+    def post(
+        self, endpoint: str, json: Dict[str, Any], **kargs: Any
+    ) -> IO[Response]:
+        request = lambda: self.try_post(endpoint, json, **kargs)
         return insistent_call(request, self.handler.unwrap, self.max_retries)

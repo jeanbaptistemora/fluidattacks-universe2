@@ -20,9 +20,6 @@ from returns.io import (
 from returns.maybe import (
     Maybe,
 )
-from returns.primitives.types import (
-    Immutable,
-)
 from singer_io import (
     JSON,
 )
