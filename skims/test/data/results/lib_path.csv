@@ -5267,6 +5267,198 @@ F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,1,319,skims,0
   19 | sonar.host.url=http://localhost:9000
      ^ Col 0
 "
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,16,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS.,"
+   6 |         Enabled: 'true'
+   7 |         DefaultCacheBehavior:
+   8 |           TargetOriginId: def1
+   9 |           ForwardedValues:
+  10 |             QueryString: 'false'
+  11 |             Cookies:
+  12 |               Forward: all
+  13 |         Origins:
+  14 |         - CustomOriginConfig:
+  15 |             OriginSSLProtocols:
+> 16 |             - SSLv3
+  17 |             - TLSv1
+  18 |             - TLSv1.1
+  19 |             - TLSv1.2
+  20 |   distribution2:
+  21 |     Type: AWS::CloudFront::Distribution
+  22 |     Properties:
+  23 |       DistributionConfig:
+  24 |         Enabled: 'true'
+  25 |         DefaultCacheBehavior:
+  26 |           TargetOriginId: def2
+     ^ Col 0
+"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,17,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS.,"
+   7 |         DefaultCacheBehavior:
+   8 |           TargetOriginId: def1
+   9 |           ForwardedValues:
+  10 |             QueryString: 'false'
+  11 |             Cookies:
+  12 |               Forward: all
+  13 |         Origins:
+  14 |         - CustomOriginConfig:
+  15 |             OriginSSLProtocols:
+  16 |             - SSLv3
+> 17 |             - TLSv1
+  18 |             - TLSv1.1
+  19 |             - TLSv1.2
+  20 |   distribution2:
+  21 |     Type: AWS::CloudFront::Distribution
+  22 |     Properties:
+  23 |       DistributionConfig:
+  24 |         Enabled: 'true'
+  25 |         DefaultCacheBehavior:
+  26 |           TargetOriginId: def2
+  27 |           ForwardedValues:
+     ^ Col 0
+"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,18,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS.,"
+   8 |           TargetOriginId: def1
+   9 |           ForwardedValues:
+  10 |             QueryString: 'false'
+  11 |             Cookies:
+  12 |               Forward: all
+  13 |         Origins:
+  14 |         - CustomOriginConfig:
+  15 |             OriginSSLProtocols:
+  16 |             - SSLv3
+  17 |             - TLSv1
+> 18 |             - TLSv1.1
+  19 |             - TLSv1.2
+  20 |   distribution2:
+  21 |     Type: AWS::CloudFront::Distribution
+  22 |     Properties:
+  23 |       DistributionConfig:
+  24 |         Enabled: 'true'
+  25 |         DefaultCacheBehavior:
+  26 |           TargetOriginId: def2
+  27 |           ForwardedValues:
+  28 |             QueryString: 'false'
+     ^ Col 0
+"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,32,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS.,"
+  12 |           Forward: all
+  13 |     Origins:
+  14 |     - CustomOriginConfig:
+  15 |         OriginSSLProtocols:
+  16 |         - SSLv3
+  17 |         - TLSv1
+  18 |         - TLSv1.1
+  19 |         - TLSv1.2
+  20 | stribution2:
+  21 | Type: AWS::CloudFront::Distribution
+  22 | Properties:
+  23 |   DistributionConfig:
+  24 |     Enabled: 'true'
+  25 |     DefaultCacheBehavior:
+  26 |       TargetOriginId: def2
+  27 |       ForwardedValues:
+  28 |         QueryString: 'false'
+  29 |         Cookies:
+  30 |           Forward: all
+  31 |     ViewerCertificate:
+> 32 |       MinimumProtocolVersion: TLSv1
+     ^ Col 4
+"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,21,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS.,"
+  11 |               ""QueryString"": ""false"",
+  12 |               ""Cookies"": {
+  13 |                 ""Forward"": ""all""
+  14 |               }
+  15 |             }
+  16 |           },
+  17 |           ""Origins"": [
+  18 |             {
+  19 |               ""CustomOriginConfig"": {
+  20 |                 ""OriginSSLProtocols"": [
+> 21 |                   ""SSLv3"",
+  22 |                   ""TLSv1"",
+  23 |                   ""TLSv1.1"",
+  24 |                   ""TLSv1.2""
+  25 |                 ]
+  26 |               }
+  27 |             }
+  28 |           ]
+  29 |         }
+  30 |       }
+  31 |     },
+     ^ Col 0
+"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,22,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS.,"
+  12 |               ""Cookies"": {
+  13 |                 ""Forward"": ""all""
+  14 |               }
+  15 |             }
+  16 |           },
+  17 |           ""Origins"": [
+  18 |             {
+  19 |               ""CustomOriginConfig"": {
+  20 |                 ""OriginSSLProtocols"": [
+  21 |                   ""SSLv3"",
+> 22 |                   ""TLSv1"",
+  23 |                   ""TLSv1.1"",
+  24 |                   ""TLSv1.2""
+  25 |                 ]
+  26 |               }
+  27 |             }
+  28 |           ]
+  29 |         }
+  30 |       }
+  31 |     },
+  32 |     ""distribution2"": {
+     ^ Col 0
+"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,23,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS.,"
+  13 |                 ""Forward"": ""all""
+  14 |               }
+  15 |             }
+  16 |           },
+  17 |           ""Origins"": [
+  18 |             {
+  19 |               ""CustomOriginConfig"": {
+  20 |                 ""OriginSSLProtocols"": [
+  21 |                   ""SSLv3"",
+  22 |                   ""TLSv1"",
+> 23 |                   ""TLSv1.1"",
+  24 |                   ""TLSv1.2""
+  25 |                 ]
+  26 |               }
+  27 |             }
+  28 |           ]
+  29 |         }
+  30 |       }
+  31 |     },
+  32 |     ""distribution2"": {
+  33 |       ""Type"": ""AWS::CloudFront::Distribution"",
+     ^ Col 0
+"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,47,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS.,"
+  33 | ype"": ""AWS::CloudFront::Distribution"",
+  34 | roperties"": {
+  35 | ""DistributionConfig"": {
+  36 |   ""Enabled"": ""true"",
+  37 |   ""DefaultCacheBehavior"": {
+  38 |     ""TargetOriginId"": ""def2"",
+  39 |     ""ForwardedValues"": {
+  40 |       ""QueryString"": ""false"",
+  41 |       ""Cookies"": {
+  42 |         ""Forward"": ""all""
+  43 |       }
+  44 |     }
+  45 |   },
+  46 |   ""ViewerCertificate"": {
+> 47 |     ""MinimumProtocolVersion"": ""TLSv1""
+  48 |   }
+  49 | }
+  50 |
+  51 |
+  52 |
+  53 |
+     ^ Col 8
+"
 F034,lines,namespace/skims/test/data/lib_path/f034/Test.java,11,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
 ","
    1 |

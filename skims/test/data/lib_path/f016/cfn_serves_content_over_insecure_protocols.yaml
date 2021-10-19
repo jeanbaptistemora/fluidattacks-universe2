@@ -1,0 +1,32 @@
+Resources:
+  distribution1:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: 'true'
+        DefaultCacheBehavior:
+          TargetOriginId: def1
+          ForwardedValues:
+            QueryString: 'false'
+            Cookies:
+              Forward: all
+        Origins:
+        - CustomOriginConfig:
+            OriginSSLProtocols:
+            - SSLv3
+            - TLSv1
+            - TLSv1.1
+            - TLSv1.2
+  distribution2:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: 'true'
+        DefaultCacheBehavior:
+          TargetOriginId: def2
+          ForwardedValues:
+            QueryString: 'false'
+            Cookies:
+              Forward: all
+        ViewerCertificate:
+          MinimumProtocolVersion: TLSv1
