@@ -10,6 +10,9 @@ from training.constants import (
     S3_BUCKET_NAME,
     S3_RESOURCE,
 )
+from training.redshift import (
+    db as redshift,
+)
 from typing import (
     Any,
     Dict,
@@ -103,6 +106,7 @@ def main() -> None:
                 os.path.join(tmp_dir, best_current_model),
                 ExtraArgs={"ACL": "public-read"},
             )
+            redshift.insert("models", get_model_item(best_current_model))
             print("[INFO] There is a new improved model available")
         else:
             print("[INFO] There have not been any improvements in the model")
