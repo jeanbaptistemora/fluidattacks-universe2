@@ -1,25 +1,8 @@
 # https://github.com/fluidattacks/makes
-{ inputs
-, makeDerivation
-, makesExecutionId
-, outputs
+{ outputs
+, projectPath
 , ...
 }:
-let
-  skimsQueuesAvailable = makeDerivation {
-    name = "skims-queues-available";
-    env.envPrintAvailableQueues = builtins.toFile "print-available-queues.py" ''
-      # ${makesExecutionId}
-      import skims_sdk
-      skims_sdk.print_available_queues()
-    '';
-    searchPaths = {
-      bin = [ inputs.nixpkgs.python38 ];
-      source = [ outputs."/skims/config-sdk" ];
-    };
-    builder = "python $envPrintAvailableQueues > $out";
-  };
-in
 {
   deployTerraform = {
     modules = {
@@ -47,7 +30,7 @@ in
   };
   envVarsForTerraform = {
     makesCompute = {
-      skimsQueues = skimsQueuesAvailable.outPath;
+      skimsQueues = projectPath "/skims/manifests/queues.json";
     };
   };
   testTerraform = {
