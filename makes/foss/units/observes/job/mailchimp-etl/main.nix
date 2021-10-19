@@ -9,6 +9,7 @@ makeScript {
       inputs.product.observes-target-redshift
       inputs.product.observes-tap-json
       inputs.product.observes-bin-tap-mailchimp
+      outputs."/observes/bin/tap-mailchimp"
       outputs."/observes/bin/service/job-last-success"
     ];
     source = [
@@ -16,6 +17,6 @@ makeScript {
       (inputs.legacy.importUtility "sops")
     ];
   };
-  name = "observes-scheduled-job-mailchimp-etl";
+  name = "observes-job-mailchimp-etl";
   entrypoint = ./entrypoint.sh;
 }

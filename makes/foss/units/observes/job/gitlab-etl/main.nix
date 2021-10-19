@@ -1,11 +1,12 @@
 { makeScript
 , inputs
+, outputs
 , ...
 }:
 makeScript {
   searchPaths = {
     bin = [
-      inputs.product.observes-bin-tap-gitlab
+      outputs."/observes/bin/tap-gitlab"
       inputs.product.observes-tap-json
       inputs.product.observes-target-redshift
     ];

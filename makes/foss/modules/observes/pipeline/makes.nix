@@ -268,7 +268,7 @@ in
           };
         }
         {
-          output = "/observes/scheduled/job/mailchimp-etl";
+          output = "/observes/job/mailchimp-etl";
           gitlabExtra = gitlabScheduled;
         }
         {

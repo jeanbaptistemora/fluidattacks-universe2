@@ -1,11 +1,12 @@
 { makeScript
 , inputs
+, outputs
 , ...
 }:
 makeScript {
   searchPaths = {
     bin = [
-      inputs.product.observes-job-dynamodb-etl
+      outputs."/observes/job/dynamodb-etl"
       inputs.nixpkgs.coreutils
       inputs.nixpkgs.jq
     ];
