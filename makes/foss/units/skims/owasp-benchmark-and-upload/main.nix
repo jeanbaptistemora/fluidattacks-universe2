@@ -8,7 +8,7 @@ makeScript {
   searchPaths = {
     bin = [
       outputs."/skims/owasp-benchmark"
-      inputs.product.observes-tap-json
+      outputs."/observes/bin/tap-json"
       inputs.product.observes-target-redshift
     ];
     source = [

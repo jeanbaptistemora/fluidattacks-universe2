@@ -11,5 +11,4 @@ makes.wait
 melts
 observes.bin.update-project-variable
 observes.fx-test.tap-announcekit
-observes.tap-json
 observes.target-redshift
