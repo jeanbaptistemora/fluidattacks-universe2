@@ -1,35 +1,32 @@
 closure:
-  aioboto3: 9.2.2
-  aiobotocore: 1.4.2
+  aioboto3: 8.3.0
+  aiobotocore: 1.2.2
   aioextensions: 20.11.1621472
   aiohttp: 3.7.4.post0
   aioitertools: 0.8.0
   aiomultiprocess: 0.9.0
   async-timeout: 3.0.1
   attrs: 21.2.0
-  boto3: 1.17.106
-  botocore: 1.20.106
+  boto3: 1.16.52
+  botocore: 1.19.52
   chardet: 4.0.0
   idna: "3.3"
   jmespath: 0.10.0
   multidict: 5.2.0
   python-dateutil: 2.8.2
-  s3transfer: 0.4.2
+  s3transfer: 0.3.7
   six: 1.16.0
   typing-extensions: 3.10.0.2
   urllib3: 1.26.7
   wrapt: 1.13.2
   yarl: 1.7.0
 links:
-  - name: aioboto3-9.2.2-py3-none-any.whl
-    sha256: 0p5y22kddyc5npg77asg1q8wdpxv0zmiga62vb94xmfagq2awdy2
-    url: https://files.pythonhosted.org/packages/c9/46/227097b28a897cd73a2feb494cf6dda7a606e8851b60870023d2b4f0cb4c/aioboto3-9.2.2-py3-none-any.whl
-  - name: aioboto3-9.2.2.tar.gz
-    sha256: 17c5irw8anq4ypz957pbfhjrhrvbg4qg04nfdncgignhwa5w128j
-    url: https://files.pythonhosted.org/packages/12/ba/8093e939743349c6c41b50f13862811c94b6431b46b8604d2d6c4c877b48/aioboto3-9.2.2.tar.gz
-  - name: aiobotocore-1.4.2.tar.gz
-    sha256: 0aqxvkr9wajczlvap1a979w5cdi03i66nd2k5ag9x0xab8rfzx62
-    url: https://files.pythonhosted.org/packages/4a/4c/2dc35d03068e964c20fac70cd954d1298d27d49c17dc478b136ede988ec7/aiobotocore-1.4.2.tar.gz
+  - name: aioboto3-8.3.0.tar.gz
+    sha256: 086i14rhijw378palzwwaaz999ms1g9azw4ync3liv1qpx8v26gh
+    url: https://files.pythonhosted.org/packages/74/91/f68ebfa7a715e9330b34ed9cee767fabff426a4ab2b6f747e7fe669d1c61/aioboto3-8.3.0.tar.gz
+  - name: aiobotocore-1.2.2.tar.gz
+    sha256: 0hxzl3bjrvcjlbxih5674i6ls9wcpzdj5z7nwlsd2frsc1k33hip
+    url: https://files.pythonhosted.org/packages/39/12/b09f17cb971ed606bbbff5773f36837da6054eb74248e3473a126967b5ee/aiobotocore-1.2.2.tar.gz
   - name: aioextensions-20.11.1621472-py3-none-any.whl
     sha256: 07j4bmdb10kl2gfar7v6ffqzcbnahfp9vnlcbh11wzs4qlfmjfwv
     url: https://files.pythonhosted.org/packages/94/f2/14bf675717d2536a2199c3e4b724bda82d13de8565aaf884a262713aefd8/aioextensions-20.11.1621472-py3-none-any.whl
@@ -84,18 +81,18 @@ links:
   - name: attrs-21.2.0.tar.gz
     sha256: 1yzmwi5d197p0qhl7rl4xi9q1w8mk9i3zn6hrl22knbcrb1slspg
     url: https://files.pythonhosted.org/packages/ed/d6/3ebca4ca65157c12bd08a63e20ac0bdc21ac7f3694040711f9fd073c0ffb/attrs-21.2.0.tar.gz
-  - name: boto3-1.17.106-py2.py3-none-any.whl
-    sha256: 0lpkc03qjxkqzi8zma0q4gdh69yf6hsqjzgsk9ksy4pyyhij06r3
-    url: https://files.pythonhosted.org/packages/d2/20/e579b5d7b72162461236133b837eae51d4fab290f3286e020b3be544447f/boto3-1.17.106-py2.py3-none-any.whl
-  - name: boto3-1.17.106.tar.gz
-    sha256: 1i96vxl2lgjfwp2s0n3vmqq5lb3mkblr3fhdzksm7jhkp5w06x60
-    url: https://files.pythonhosted.org/packages/4d/67/f27c22aad4221ac647a239f2f56fa7d86d8a09b21ad80744784fe371d1cf/boto3-1.17.106.tar.gz
-  - name: botocore-1.20.106-py2.py3-none-any.whl
-    sha256: 08xh828lx1ywdhsq7c1m2dyb8dzlsbm5dxr1dnhsmijb1jr03v27
-    url: https://files.pythonhosted.org/packages/9a/14/3e13e2db6a8f2690d53d202baa1390d0c0141c9577d5c7fca751fea40c5e/botocore-1.20.106-py2.py3-none-any.whl
-  - name: botocore-1.20.106.tar.gz
-    sha256: 1pymshgpl9wpbxapxdzx2a09ybfq5d0hh33dylvh9l5i10w9hp3d
-    url: https://files.pythonhosted.org/packages/91/21/e5d47bb39b19056e98d8caf93561af123074380f2d1c420151e723d0ae80/botocore-1.20.106.tar.gz
+  - name: boto3-1.16.52-py2.py3-none-any.whl
+    sha256: 1wsqknx34p133k1xm3rlwrqg3ihcmrpld8i3a2kpp4z8blc19ic1
+    url: https://files.pythonhosted.org/packages/78/32/dd9dd1c7f4de02e5e02dca22599caf465c0bee190a3e3f478e0b16c5bc01/boto3-1.16.52-py2.py3-none-any.whl
+  - name: boto3-1.16.52.tar.gz
+    sha256: 09j70fjkccmn7a4m0hxn63xnb1r7aly1j5c8silf9whibf09y2in
+    url: https://files.pythonhosted.org/packages/4a/98/67ba637f47ec7462575da356bd8311c66768a1d8218e6c8f95a56546df0d/boto3-1.16.52.tar.gz
+  - name: botocore-1.19.52-py2.py3-none-any.whl
+    sha256: 1qj6cpb16q5mp98j41w9fzalcg9ik764zny2cjmwyb01c90hxxfq
+    url: https://files.pythonhosted.org/packages/e9/a8/3a70380b52a34bed791a1dcc3f5e5967c81676f452aef440416efac62cfd/botocore-1.19.52-py2.py3-none-any.whl
+  - name: botocore-1.19.52.tar.gz
+    sha256: 08d2wqgr81d6vs0bvalv0m4wa188z3fkzl417iyk5sfvx8yw4pnw
+    url: https://files.pythonhosted.org/packages/60/ac/11043c6ae96212550e1907ab27453c66fb5abf480bdbd7db58f08ea2710b/botocore-1.19.52.tar.gz
   - name: chardet-4.0.0-py2.py3-none-any.whl
     sha256: 198xs99vbvcj312d1bk7bgn7aix5h64sqi3hwvr1i4gxcr6har7q
     url: https://files.pythonhosted.org/packages/19/c7/fa589626997dd07bd87d9269342ccb74b1720384a4d739a1872bd84fbe68/chardet-4.0.0-py2.py3-none-any.whl
@@ -162,12 +159,12 @@ links:
   - name: python-dateutil-2.8.2.tar.gz
     sha256: 11iy7m4bp2lgfkcl0r6xzf34bvk7ppjmsyn2ygfikbi72v6cl8q1
     url: https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz
-  - name: s3transfer-0.4.2-py2.py3-none-any.whl
-    sha256: 1g5hbsd87jf1j14gzb5fhd08d8qkdlyjdg18wq66k018ga454dwv
-    url: https://files.pythonhosted.org/packages/63/d0/693477c688348654ddc21dcdce0817653a294aa43f41771084c25e7ff9c7/s3transfer-0.4.2-py2.py3-none-any.whl
-  - name: s3transfer-0.4.2.tar.gz
-    sha256: 1cp169vz9rvng7dwbn33fgdbl3b014zpsdqsnfxxw7jm2r5jy0nb
-    url: https://files.pythonhosted.org/packages/27/90/f467e516a845cf378d85f0a51913c642e31e2570eb64b352c4dc4c6cbfc7/s3transfer-0.4.2.tar.gz
+  - name: s3transfer-0.3.7-py2.py3-none-any.whl
+    sha256: 0iijs1pgp8v30ms4jvbmw280fbfmlgf2hf1qq7asidlpm29bv9gg
+    url: https://files.pythonhosted.org/packages/00/89/0cb4e92c239e6425b9b0035227b8cdf9d3d098a5c9e95632c3815df63a09/s3transfer-0.3.7-py2.py3-none-any.whl
+  - name: s3transfer-0.3.7.tar.gz
+    sha256: 1509v2y2g5l8df53scy68r5q24m3k05gwxbrq9x7xycgmy37nqim
+    url: https://files.pythonhosted.org/packages/66/f5/5ca537483fa5e96fbd455f52a69fc70c5f659f7e8c9189a1dbc211e1ccf9/s3transfer-0.3.7.tar.gz
   - name: six-1.16.0-py2.py3-none-any.whl
     sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
     url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl

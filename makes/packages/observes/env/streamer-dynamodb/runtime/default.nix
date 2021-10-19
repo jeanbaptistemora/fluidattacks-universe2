@@ -17,6 +17,8 @@ makeTemplate {
     ];
     envSources = [
       (makes.makePythonPypiEnvironment {
+        withWheel_0_37_0 = true;
+        withSetuptools_57_4_0 = true;
         name = "observes-env-streamer-dynamodb-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
