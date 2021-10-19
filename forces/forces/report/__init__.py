@@ -38,18 +38,19 @@ def get_exploitability_measure(score: int) -> str:
 
 
 async def create_findings_dict(
-    project: str,
+    group: str,
     **kwargs: str,
 ) -> Dict[str, Dict[str, Any]]:
     """Returns a dictionary containing as key the findings of a project."""
     findings_dict: Dict[str, Dict[str, Any]] = dict()
     findings_futures = [
-        get_finding(fin) for fin in await get_findings(project, **kwargs)
+        get_finding(fin) for fin in await get_findings(group, **kwargs)
     ]
     for _find in asyncio.as_completed(findings_futures):
         find: Dict[str, Any] = await _find
         severity: Dict[str, Any] = find.pop("severity", dict())
         find["exploitability"] = severity.get("exploitability", 0)
+        find["severity"] = find.pop("severityScore", "N/A")
         findings_dict[find["id"]] = find
         findings_dict[find["id"]].update(
             {"open": 0, "closed": 0, "accepted": 0}
@@ -116,9 +117,9 @@ async def generate_report(
     **kwargs: Any,
 ) -> Dict[str, Any]:
     """
-    Generate a project vulnerability report.
+    Generate a group vulnerability report.
 
-    :param project: Project Name.
+    :param group: Group Name.
     :param verbose_level: Level of detail of the report.
     """
     _start_time = timer()

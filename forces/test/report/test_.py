@@ -14,14 +14,14 @@ async def test_create_findings_dict(
     test_token: str,
 ) -> None:
     findings_dict_1 = await create_findings_dict(
-        project=test_group, api_token=test_token
+        group=test_group, api_token=test_token
     )
     for find in findings_dict_1.values():
         for key in ("open", "closed", "accepted"):
             assert key in find
 
     findings_dict_2 = await create_findings_dict(
-        project=test_group, api_token=test_token
+        group=test_group, api_token=test_token
     )
     for find in findings_dict_2.values():
         for key in ("open", "closed", "accepted"):
