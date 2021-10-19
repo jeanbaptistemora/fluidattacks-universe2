@@ -7,4 +7,4 @@ template: thankYou
 ---
 
 Thank you for contacting Fluid Attacks. We will get back to you very soon.
-In the meantime, you might be interested in reading our latest blog post.
+In the meantime, you may be interested in reading our latest blog post.
