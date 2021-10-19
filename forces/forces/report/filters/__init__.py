@@ -26,6 +26,8 @@ def filter_repo(
 ) -> bool:
     vuln_type = "SAST" if vuln["vulnerabilityType"] == "lines" else "DAST"
 
-    if kind in ("all", "static") and vuln_type == "SAST" and repo_name:
+    if (kind in ("all", "static") and vuln_type == "SAST" and repo_name) or (
+        kind == "dynamic" and vuln_type == "DAST" and repo_name
+    ):
         return fnmatch.fnmatch(cast(str, vuln["where"]), f"{repo_name}/*")
     return True

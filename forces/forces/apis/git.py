@@ -148,7 +148,7 @@ async def check_remotes(config: ForcesConfig) -> bool:
     )
     if not active_remotes:
         await log(
-            "error", "The %s repository is innactive", config.repository_name
+            "error", "The %s repository is inactive", config.repository_name
         )
         return False
 
