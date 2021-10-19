@@ -59,7 +59,6 @@ const CardTitle: StyledComponent<
     b
     lh-solid
     mt2
-    min-h-60
     roboto
   `,
 })``;
@@ -175,6 +174,7 @@ const LittleRegularRedButton: StyledComponent<
     bc-fluid-red
     ba
     roboto
+    mb4
   `,
 })``;
 
