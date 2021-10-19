@@ -2,7 +2,6 @@
 
 function main {
   export BATCH_BIN
-  local api_status="migration"
   local pytest_args=(
     --cov 'back'
     --cov 'backend'
@@ -16,9 +15,9 @@ function main {
     --verbose
   )
 
-  source __argIntegratesBackEnv__/template dev "${api_status}" \
+  source __argIntegratesBackEnv__/template dev \
     && DAEMON=true integrates-cache \
-    && DAEMON=true integrates-db integratesmanager@gmail.com "${api_status}" \
+    && DAEMON=true integrates-db \
     && DAEMON=true integrates-storage \
     && pushd integrates \
     && BATCH_BIN="$(command -v integrates-batch)" \

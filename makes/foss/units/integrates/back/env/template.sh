@@ -2,7 +2,6 @@
 
 function main {
   local env="${1:-}"
-  local api_status="${2:-no-migration}"
 
   true \
     && case "${env}" in
@@ -23,11 +22,6 @@ function main {
         && export REDIS_SERVER=localhost ;;
       *) abort '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod, prod-lcoal' ;;
     esac \
-    && if ! { test "${api_status}" == 'migration' || test "${api_status}" == 'no-migration'; }; then
-      echo '[ERROR] Second argument must be one of: migration,  no-migration' \
-        && return 1
-    fi \
-    && export API_STATUS="${api_status}" \
     && export CI_COMMIT_REF_NAME \
     && export CI_COMMIT_SHA \
     && export MACHINE_QUEUES='__argManifestQueues__' \

@@ -3,7 +3,6 @@
 function main {
   local resolver_test_group="${1}"
   local populate_db="${2:-false}"
-  local api_status="${3:-no-migration}"
   local pytest_args=(
     --cov 'back'
     --cov 'backend'
@@ -17,7 +16,7 @@ function main {
     --verbose
   )
 
-  source __argIntegratesBackEnv__/template dev "${api_status}" \
+  source __argIntegratesBackEnv__/template dev \
     && DAEMON=true integrates-cache \
     && DAEMON=true integrates-storage \
     && DAEMON=true POPULATE="${populate_db}" integrates-db \

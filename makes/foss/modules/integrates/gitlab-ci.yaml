@@ -2055,7 +2055,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/unit__migration:
+/integrates/back/test/unit:
   artifacts:
     expire_in: 1 week
     name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
@@ -2075,7 +2075,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/unit 'migration'
+    - m . /integrates/back/test/unit
   stage: test-code
   tags:
     - autoscaling
@@ -2157,7 +2157,7 @@
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs:
-    - /integrates/back/test/unit__migration
+    - /integrates/back/test/unit
     - /integrates/front/test
     - /integrates/mobile/test
   rules:

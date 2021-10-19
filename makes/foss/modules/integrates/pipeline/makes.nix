@@ -308,7 +308,6 @@ in
         ])
         ++ [
         {
-          args = [ "migration" ];
           output = "/integrates/back/test/unit";
           gitlabExtra = gitlabTest // {
             artifacts = {
@@ -358,7 +357,7 @@ in
           output = "/integrates/coverage";
           gitlabExtra = {
             needs = [
-              "/integrates/back/test/unit__migration"
+              "/integrates/back/test/unit"
               "/integrates/front/test"
               "/integrates/mobile/test"
             ];

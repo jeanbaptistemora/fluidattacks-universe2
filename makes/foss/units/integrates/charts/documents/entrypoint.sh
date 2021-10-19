@@ -15,10 +15,9 @@ function execute_analytics_generator {
 
 function main {
   local env="${1:-}"
-  local api_status="migration"
   local todo
 
-  source __argIntegratesBackEnv__/template "${env}" "${api_status}" \
+  source __argIntegratesBackEnv__/template "${env}" \
     && if test "${env}" = 'prod'; then
       DAEMON=true integrates-cache
     else

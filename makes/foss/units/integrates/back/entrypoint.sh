@@ -2,7 +2,6 @@
 
 function main {
   local env="${1:-}"
-  local api_status="migration"
   local host='0.0.0.0'
   local port='8001'
   local config=(
@@ -28,7 +27,7 @@ function main {
     --worker-connections '512'
   )
 
-  source __argIntegratesBackEnv__/template "${env}" "${api_status}" \
+  source __argIntegratesBackEnv__/template "${env}" \
     && if test "${env}" == 'dev'; then
       config+=(
         # SSL certificate file
