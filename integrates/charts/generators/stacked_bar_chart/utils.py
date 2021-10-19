@@ -182,6 +182,17 @@ def format_distribution_document(
     document: Dict[str, Dict[datetime, float]],
     y_label: str,
 ) -> Dict[str, Any]:
+    percentage_values: List[Tuple[Dict[str, str], ...]] = [
+        format_severity(
+            {
+                name: Decimal(document[name][date]).quantize(Decimal("0.1"))
+                for name in document
+                if name != "date"
+            }
+        )
+        for date in tuple(document["date"])[-12:]
+    ]
+
     return dict(
         data=dict(
             x="date",
@@ -209,8 +220,13 @@ def format_distribution_document(
                     "Open",
                 ]
             ],
-            type="bar",
+            labels=dict(
+                format=dict(
+                    Closed=None,
+                ),
+            ),
             order=None,
+            type="bar",
             stack=dict(
                 normalize=True,
             ),
@@ -259,7 +275,34 @@ def format_distribution_document(
                 value=None,
             ),
         ),
-        normalizedToolTip=True,
+        percentageValues=dict(
+            Closed=[
+                percentage_value[0]["Closed"]
+                for percentage_value in percentage_values
+            ],
+            Accepted=[
+                percentage_value[0]["Accepted"]
+                for percentage_value in percentage_values
+            ],
+            Open=[
+                percentage_value[0]["Open"]
+                for percentage_value in percentage_values
+            ],
+        ),
+        maxPercentageValues=dict(
+            Closed=[
+                percentage_value[1]["Closed"]
+                for percentage_value in percentage_values
+            ],
+            Accepted=[
+                percentage_value[1]["Accepted"]
+                for percentage_value in percentage_values
+            ],
+            Open=[
+                percentage_value[1]["Open"]
+                for percentage_value in percentage_values
+            ],
+        ),
     )
 
 
@@ -403,3 +446,46 @@ def get_percentage(values: List[Decimal]) -> List[Decimal]:
         for value in values
     ]
     return round_percentage(percentages, len(percentages) - 1)
+
+
+def format_severity(values: Dict[str, Decimal]) -> Tuple[Dict[str, str], ...]:
+    if not values:
+        max_percentage_values = dict(
+            Closed="",
+            Accepted="",
+            Open="",
+        )
+        percentage_values = dict(
+            Closed="0.0",
+            Accepted="0.0",
+            Open="0.0",
+        )
+
+        return (percentage_values, max_percentage_values)
+
+    total_bar: Decimal = values["Accepted"] + values["Open"] + values["Closed"]
+    total_bar = total_bar if total_bar > Decimal("0.0") else Decimal("0.1")
+    raw_percentages: List[Decimal] = [
+        values["Closed"] / total_bar,
+        values["Accepted"] / total_bar,
+        values["Open"] / total_bar,
+    ]
+    percentages: List[Decimal] = get_percentage(raw_percentages)
+    max_percentages = max(percentages) if max(percentages) else ""
+    is_first_value_max: bool = percentages[0] == max_percentages
+    max_percentage_values = dict(
+        Closed=str(percentages[0]) if is_first_value_max else "",
+        Accepted=str(percentages[1])
+        if percentages[1] == max_percentages and not is_first_value_max
+        else "",
+        Open=str(percentages[2])
+        if percentages[2] == max_percentages and not is_first_value_max
+        else "",
+    )
+    percentage_values = dict(
+        Closed=str(percentages[0]),
+        Accepted=str(percentages[1]),
+        Open=str(percentages[2]),
+    )
+
+    return (percentage_values, max_percentage_values)
