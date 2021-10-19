@@ -2,7 +2,6 @@
 import { Link } from "gatsby";
 import React from "react";
 
-import { RegularRedButton } from "../../../styles/styledComponents";
 import { CloudImage } from "../../CloudImage";
 import {
   ButtonContainer,
@@ -10,7 +9,6 @@ import {
   CardDescription,
   CardTextContainer,
   CardTitle,
-  WebinarImageContainer,
   WebinarLanguage,
 } from "../styledComponents";
 
@@ -34,23 +32,20 @@ const ResourcesCard: React.FC<IProps> = ({
   urlCard,
 }: IProps): JSX.Element => (
   <CardContainer className={cardType}>
-    {cardType === "webinar-card" ? (
-      <WebinarImageContainer className={image}>
-        <CloudImage alt={language} src={image} styles={"br3 br--top"} />
-        <div className={"pa3 top-0 absolute"}>
-          <WebinarLanguage>{language}</WebinarLanguage>
-        </div>
-      </WebinarImageContainer>
-    ) : (
-      <CloudImage alt={language} src={image} styles={"br3 br--top"} />
-    )}
+    <CloudImage alt={language} src={image} styles={"br3 br--top"} />
     <CardTextContainer>
+      <div className={"pv3"}>
+        <WebinarLanguage>{language}</WebinarLanguage>
+      </div>
       <CardTitle>{title}</CardTitle>
       <CardDescription>{description}</CardDescription>
     </CardTextContainer>
     <ButtonContainer>
-      <Link to={urlCard}>
-        <RegularRedButton>{buttonText}</RegularRedButton>
+      <Link
+        className={"f5 mt6 hv-fluid-rd fw4 no-underline t-all-5"}
+        to={urlCard}
+      >
+        <button className={"button-white w-80"}>{buttonText}</button>
       </Link>
     </ButtonContainer>
   </CardContainer>

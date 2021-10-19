@@ -1020,7 +1020,7 @@ const CardContainer: StyledComponent<
     mv3
     mh2
     bg-white
-    w-resources-card
+    w-clients-card
   `,
 })``;
 const CardHeader: StyledComponent<

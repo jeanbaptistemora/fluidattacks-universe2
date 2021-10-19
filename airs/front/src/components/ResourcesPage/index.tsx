@@ -42,13 +42,13 @@ const CardsContainer: StyledComponent<
     roboto
     flex-ns
     flex-wrap-ns
-    justify-between-m
+    justify-around
     mw-1366
+    ph-body
     pv4-l
     pv3
-    bg-gray-221
-    ml-auto
-    mr-auto
+    bg-graylight
+    center
     `,
 })``;
 
@@ -90,7 +90,7 @@ const ResourcesPage: React.FC<IProps> = ({
           "resources.cardsText.webinars.webinar1Description"
         )}`}
         image={"/resources/resource-card1n"}
-        language={"ESP"}
+        language={"SPANISH"}
         title={`${translate.t("resources.cardsText.webinars.webinar1Title")}`}
         urlCard={
           "https://www.gotostage.com/channel/d38612ee120645cd93ac5ef7f65119f6/recording/287e90418c824496b67638480010f2b4/watch"
@@ -105,7 +105,7 @@ const ResourcesPage: React.FC<IProps> = ({
           "resources.cardsText.reports.report1Description"
         )}`}
         image={"/resources/resource-card12n"}
-        language={"Webinar cover ESP"}
+        language={"ENGLISH"}
         title={`${translate.t("resources.cardsText.reports.report1Title")}`}
         urlCard={"https://try.fluidattacks.com/report/state-of-attacks-2021/"}
       />
@@ -118,7 +118,7 @@ const ResourcesPage: React.FC<IProps> = ({
           "resources.cardsText.reports.report2Description"
         )}`}
         image={"/resources/resource-card2n"}
-        language={"Webinar cover ESP"}
+        language={"ENGLISH"}
         title={`${translate.t("resources.cardsText.reports.report2Title")}`}
         urlCard={"https://report2020.fluidattacks.com/"}
       />
@@ -131,7 +131,7 @@ const ResourcesPage: React.FC<IProps> = ({
           "resources.cardsText.reports.report3Description"
         )}`}
         image={"/resources/resource-card13n"}
-        language={"Webinar cover ESP"}
+        language={"ENGLISH"}
         title={`${translate.t("resources.cardsText.reports.report3Title")}`}
         urlCard={"https://fluidattacks.docsend.com/view/qkdsfs75j37k8atz"}
       />
@@ -144,7 +144,7 @@ const ResourcesPage: React.FC<IProps> = ({
           "resources.cardsText.webinars.webinar2Description"
         )}`}
         image={"/resources/resource-card1n"}
-        language={"ESP"}
+        language={"SPANISH"}
         title={`${translate.t("resources.cardsText.webinars.webinar2Title")}`}
         urlCard={
           "https://register.gotowebinar.com/register/1684905226222105611"
@@ -159,7 +159,7 @@ const ResourcesPage: React.FC<IProps> = ({
           "resources.cardsText.webinars.webinar3Description"
         )}`}
         image={"/resources/resource-card3n"}
-        language={"ESP"}
+        language={"SPANISH"}
         title={`${translate.t("resources.cardsText.webinars.webinar3Title")}`}
         urlCard={
           "https://www.gotostage.com/channel/d38612ee120645cd93ac5ef7f65119f6/recording/702df3005c534f6992ad60bffc63bdee/watch"
@@ -174,7 +174,7 @@ const ResourcesPage: React.FC<IProps> = ({
           "resources.cardsText.eBooks.ebook1Description"
         )}`}
         image={"/resources/resource-card5n"}
-        language={"Webinar cover ESP"}
+        language={"ENGLISH"}
         title={`${translate.t("resources.cardsText.eBooks.ebook1Title")}`}
         urlCard={"https://landing.fluidattacks.com/us/ebook/"}
       />
@@ -202,7 +202,7 @@ const ResourcesPage: React.FC<IProps> = ({
           "resources.cardsText.webinars.webinar4Description"
         )}`}
         image={"/resources/resource-card8n"}
-        language={"ESP"}
+        language={"SPANISH"}
         title={`${translate.t("resources.cardsText.webinars.webinar4Title")}`}
         urlCard={
           "https://register.gotowebinar.com/register/8330343603644644110"
@@ -217,7 +217,7 @@ const ResourcesPage: React.FC<IProps> = ({
           "resources.cardsText.webinars.webinar5Description"
         )}`}
         image={"/resources/resource-card3n"}
-        language={"ESP"}
+        language={"SPANISH"}
         title={`${translate.t("resources.cardsText.webinars.webinar5Title")}`}
         urlCard={
           "https://register.gotowebinar.com/register/3618185313140820236"
@@ -232,7 +232,7 @@ const ResourcesPage: React.FC<IProps> = ({
           "resources.cardsText.webinars.webinar6Description"
         )}`}
         image={"/resources/resource-card9n"}
-        language={"ESP"}
+        language={"SPANISH"}
         title={`${translate.t("resources.cardsText.webinars.webinar6Title")}`}
         urlCard={
           "https://register.gotowebinar.com/register/6501685343309054732"
@@ -262,7 +262,7 @@ const ResourcesPage: React.FC<IProps> = ({
           "resources.cardsText.webinars.webinar8Description"
         )}`}
         image={"/resources/resource-card11n"}
-        language={"ESP"}
+        language={"SPANISH"}
         title={`${translate.t("resources.cardsText.webinars.webinar8Title")}`}
         urlCard={"https://www.youtube.com/watch?reload=9&v=-KvvMD7EJAs"}
       />
