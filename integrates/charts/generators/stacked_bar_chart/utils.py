@@ -6,6 +6,7 @@ from datetime import (
 )
 from decimal import (
     Decimal,
+    ROUND_FLOOR,
 )
 from typing import (
     Any,
@@ -377,3 +378,28 @@ def get_data_risk_over_time_group(
             },
         },
     )
+
+
+def round_percentage(percentages: List[Decimal], last: int) -> List[Decimal]:
+    sum_percentage = sum(percentages)
+    if sum_percentage == Decimal("100.0") or sum_percentage == Decimal("0.0"):
+        return percentages
+
+    if last < 0:
+        return percentages
+
+    new_percentages = [
+        percentage + Decimal("1.0") if index == last else percentage
+        for index, percentage in enumerate(percentages)
+    ]
+    return round_percentage(new_percentages, last - 1)
+
+
+def get_percentage(values: List[Decimal]) -> List[Decimal]:
+    percentages = [
+        Decimal(value * Decimal("100.0")).to_integral_exact(
+            rounding=ROUND_FLOOR
+        )
+        for value in values
+    ]
+    return round_percentage(percentages, len(percentages) - 1)
