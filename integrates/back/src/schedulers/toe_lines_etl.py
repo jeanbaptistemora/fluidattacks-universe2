@@ -58,6 +58,7 @@ INVALID_FILENAMES = {
     "Repo1/Folder1/Folder2/Folder3/File.html",
     "Repo2/Folder1/File.cs",
 }
+IGNORED_SERVICES_REPO_GROUP = {"kadugli", "wareham"}
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
@@ -219,7 +220,8 @@ async def update_toe_lines_from_csv(
         [
             toe_lines_domain.update(toe_lines)
             for toe_lines in toe_lines_to_update
-        ]
+        ],
+        workers=100,
     )
     toe_lines_to_remove = _get_toe_lines_to_remove(
         group_toe_lines, cvs_group_toe_lines_hashes
@@ -230,7 +232,8 @@ async def update_toe_lines_from_csv(
                 toe_lines.filename, toe_lines.group_name, toe_lines.root_id
             )
             for toe_lines in toe_lines_to_remove
-        ]
+        ],
+        workers=100,
     )
     toe_lines_to_add = _get_toe_lines_to_add(
         group_toe_lines,
@@ -238,7 +241,8 @@ async def update_toe_lines_from_csv(
         cvs_group_toe_lines,
     )
     await collect(
-        [toe_lines_domain.add(toe_lines) for toe_lines in toe_lines_to_add]
+        [toe_lines_domain.add(toe_lines) for toe_lines in toe_lines_to_add],
+        workers=100,
     )
 
 
@@ -339,5 +343,9 @@ async def main() -> None:
     loaders = get_new_context()
     with tempfile.TemporaryDirectory() as tmpdirname:
         git_utils.clone_services_repository(tmpdirname)
+        for group in IGNORED_SERVICES_REPO_GROUP:
+            lines_path = f"{tmpdirname}/groups/{group}/toe/lines.csv"
+            if os.path.exists(lines_path):
+                os.remove(lines_path)
         await update_toe_lines(loaders, tmpdirname)
     await update_toe_lines_machine_groups(loaders)
