@@ -20,27 +20,40 @@ from utils.graph.text_nodes import (
 
 
 def get_variable_attribute(
-    graph: graph_model.GraphShard, name_var: str, attribute: str
+    shard: graph_model.GraphShard, name_var: str, attribute: str
 ) -> str:
-    possible_types = {"invocation_expression", "binary_expression"}
-    for member in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(
-            label_type="identifier", label_text=name_var
-        ),
+    node_var = ""
+    for syntax_steps in shard.syntax.values():
+        for syntax_step in syntax_steps:
+            if (
+                isinstance(syntax_step, graph_model.SyntaxStepDeclaration)
+                and syntax_step.var == name_var
+                and shard.graph.nodes[syntax_step.meta.n_id].get("label_type")
+                != "parameter"
+            ):
+                node_var = g.match_ast(
+                    shard.graph,
+                    syntax_step.meta.n_id,
+                    "equals_value_clause",
+                    depth=2,
+                )["equals_value_clause"]
+                node_index = 1
+            elif (
+                isinstance(syntax_step, graph_model.SyntaxStepAssignment)
+                and syntax_step.var == name_var
+            ):
+                node_var = syntax_step.meta.n_id
+                node_index = 2
+    if (
+        len(node_var) > 0
+        and g.adj_ast(shard.graph, node_var)
+        and len(var_value := g.adj_ast(shard.graph, node_var)) > node_index
     ):
-        pred = g.pred(graph, member)[0]
-        if graph.nodes[pred].get("label_type") == "variable_declarator":
-            declaration_node = g.match_ast(graph, pred, "__0__")["__1__"]
-            value_node = g.match_ast(graph, declaration_node, "__0__")["__1__"]
-            if graph.nodes[value_node].get("label_type") in possible_types:
-                if attribute == "label_text":
-                    return node_to_str(graph, value_node)
-                if attribute == "label_type":
-                    return graph.nodes[value_node].get("label_type")
-            return graph.nodes[value_node].get(attribute)
-    return ""
+        if attribute == "text":
+            return node_to_str(shard.graph, var_value[node_index])
+        if attribute == "type":
+            return shard.graph.nodes[var_value[node_index]].get("label_type")
+    return node_var
 
 
 def yield_member_access(

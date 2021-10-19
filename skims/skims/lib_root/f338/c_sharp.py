@@ -59,9 +59,9 @@ def check_hashes_salt(
                     == "identifier"
                 ):
                     var_assign = get_variable_attribute(
-                        shard.graph,
+                        shard,
                         shard.graph.nodes[node_param].get("label_text"),
-                        "label_text",
+                        "text",
                     )
                     if (
                         var_assign

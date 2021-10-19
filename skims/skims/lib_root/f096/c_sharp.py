@@ -75,9 +75,9 @@ def check_xml_serializer(
                 == "identifier"
             ):
                 var_value = get_variable_attribute(
-                    shard.graph,
+                    shard,
                     shard.graph.nodes[type_var].get("label_text"),
-                    "label_text",
+                    "text",
                 )
             elif (
                 len(type_node) > 0

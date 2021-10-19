@@ -62,20 +62,20 @@ def vuln_regular_expression(
                     )
                     if regex_param:
                         yield shard, invocation
-                    elif var_param and vuln_attributes(shard.graph, var_param):
+                    elif var_param and vuln_attributes(shard, var_param):
                         yield shard, invocation
 
     def vuln_attributes(
-        graph: graph_model.GraphShard,
+        shard: graph_model.GraphShard,
         list_vars: Tuple[str, ...],
     ) -> bool:
         for node_var in list_vars:
-            var_name = graph.nodes[node_var].get("label_text")
+            var_name = shard.graph.nodes[node_var].get("label_text")
             if (
                 get_variable_attribute(
-                    graph,
+                    shard,
                     var_name,
-                    "label_type",
+                    "type",
                 )
                 == "verbatim_string_literal"
             ):
