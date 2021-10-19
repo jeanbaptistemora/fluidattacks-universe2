@@ -2091,7 +2091,7 @@
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
-  parallel: 5
+  parallel: 6
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
       when: never
@@ -2119,7 +2119,7 @@
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
   needs: []
-  parallel: 14
+  parallel: 15
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never
