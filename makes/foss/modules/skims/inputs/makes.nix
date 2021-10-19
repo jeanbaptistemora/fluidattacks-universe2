@@ -12,10 +12,10 @@
       sha256 = "IdN5CNBgVqFWSZk/nwX11KE5llLxQ2Hyrb69P3uXRuA=";
     };
     skimsBenchmarkOwasp = fetchGithub {
-      owner = "owasp";
-      repo = "benchmark";
-      rev = "1cfe52ea6dc49bebae12e6ceb20356196f0e9ac8";
-      sha256 = "pcNMJJJ2cRxh4Kgq0ElOIyBJemJu4qggxY3Debjbcms=";
+      owner = "OWASP-Benchmark";
+      repo = "BenchmarkJava";
+      rev = "53732be42f3e780fd98d40b32f538062b3b19da9";
+      sha256 = "0frrvrl4nyy8rllcpvgxazv9ybv61z49knhd6k0pmnasz2a53zga";
     };
     skimsNistTestSuites = fetchGithub {
       owner = "fluidattacks";

@@ -1,376 +1,376 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01561.java,67,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01224.java,66,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
-   57 |             // Prevent XXE
-   58 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-   59 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-   60 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-   61 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-   62 |             javax.xml.xpath.XPath xp = xpf.newXPath();
-   63 |
-   64 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
-   65 |             org.w3c.dom.NodeList nodeList =
-   66 |                     (org.w3c.dom.NodeList)
->  67 |                             xp.compile(expression)
-   68 |                                     .evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
-   69 |
-   70 |             response.getWriter().println(""Your query results are: <br/>"");
+   56 |    java.io.FileInputStream file = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""emp
+   57 |    javax.xml.parsers.DocumentBuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+   58 |    // Prevent XXE
+   59 |    builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
+   60 |    javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
+   61 |    org.w3c.dom.Document xmlDocument = builder.parse(file);
+   62 |    javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
+   63 |    javax.xml.xpath.XPath xp = xpf.newXPath();
+   64 |
+   65 |    String expression = ""/Employees/Employee[@emplid='""+bar+""']"";
+>  66 |    String result = xp.evaluate(expression, xmlDocument);
+   67 |
+   68 |    response.getWriter().println(
+   69 |     ""Your query results are: "" + result + ""<br/>""
+   70 |    );
    71 |
-   72 |             for (int i = 0; i < nodeList.getLength(); i++) {
-   73 |                 org.w3c.dom.Element value = (org.w3c.dom.Element) nodeList.item(i);
-   74 |                 response.getWriter().println(value.getTextContent() + ""<br/>"");
-   75 |             }
-   76 |         } catch (javax.xml.xpath.XPathExpressionException
-   77 |                 | javax.xml.parsers.ParserConfigurationException
+   72 |   } catch (javax.xml.xpath.XPathExpressionException | javax.xml.parsers.ParserConfigurationException
+   73 |     | org.xml.sax.SAXException e) {
+   74 |    response.getWriter().println(
+   75 |     ""Error parsing XPath input: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar) + ""'""
+   76 |    );
       ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01974.java,70,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01223.java,66,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
-   60 |             // Prevent XXE
-   61 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-   62 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-   63 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-   64 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-   65 |             javax.xml.xpath.XPath xp = xpf.newXPath();
-   66 |
-   67 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
-   68 |             org.w3c.dom.NodeList nodeList =
-   69 |                     (org.w3c.dom.NodeList)
->  70 |                             xp.compile(expression)
-   71 |                                     .evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
-   72 |
-   73 |             response.getWriter().println(""Your query results are: <br/>"");
-   74 |
-   75 |             for (int i = 0; i < nodeList.getLength(); i++) {
-   76 |                 org.w3c.dom.Element value = (org.w3c.dom.Element) nodeList.item(i);
-   77 |                 response.getWriter().println(value.getTextContent() + ""<br/>"");
-   78 |             }
-   79 |         } catch (javax.xml.xpath.XPathExpressionException
-   80 |                 | javax.xml.parsers.ParserConfigurationException
-      ^ Col 0
-"
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01224.java,70,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
-","
-   60 |             javax.xml.parsers.DocumentBuilderFactory builderFactory =
-   61 |                     javax.xml.parsers.DocumentBuilderFactory.newInstance();
-   62 |             // Prevent XXE
-   63 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-   64 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-   65 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-   66 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-   67 |             javax.xml.xpath.XPath xp = xpf.newXPath();
-   68 |
-   69 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
->  70 |             String result = xp.evaluate(expression, xmlDocument);
+   56 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
+   57 | BuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+   58 |
+   59 | ""http://apache.org/xml/features/disallow-doctype-decl"", true);
+   60 | Builder builder = builderFactory.newDocumentBuilder();
+   61 | cument = builder.parse(file);
+   62 | ry xpf = javax.xml.xpath.XPathFactory.newInstance();
+   63 |  xpf.newXPath();
+   64 |
+   65 | oyees/Employee[@emplid='""+bar+""']"";
+>  66 | ist = (org.w3c.dom.NodeList) xp.compile(expression).evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
+   67 |
+   68 | ln(
+   69 | <br/>""
+   70 |
    71 |
-   72 |             response.getWriter().println(""Your query results are: "" + result + ""<br/>"");
-   73 |
-   74 |         } catch (javax.xml.xpath.XPathExpressionException
-   75 |                 | javax.xml.parsers.ParserConfigurationException
-   76 |                 | org.xml.sax.SAXException e) {
-   77 |             response.getWriter()
-   78 |                     .println(
-   79 |                             ""Error parsing XPath input: '""
-   80 |                                     + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar)
-      ^ Col 0
-"
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01223.java,72,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
-","
-   62 |             // Prevent XXE
-   63 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-   64 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-   65 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-   66 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-   67 |             javax.xml.xpath.XPath xp = xpf.newXPath();
-   68 |
-   69 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
-   70 |             org.w3c.dom.NodeList nodeList =
-   71 |                     (org.w3c.dom.NodeList)
->  72 |                             xp.compile(expression)
-   73 |                                     .evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
-   74 |
-   75 |             response.getWriter().println(""Your query results are: <br/>"");
+   72 | st.getLength(); i++) {
+   73 |  = (org.w3c.dom.Element) nodeList.item(i);
+   74 | tln(
+   75 |  ""<br/>""
    76 |
-   77 |             for (int i = 0; i < nodeList.getLength(); i++) {
-   78 |                 org.w3c.dom.Element value = (org.w3c.dom.Element) nodeList.item(i);
-   79 |                 response.getWriter().println(value.getTextContent() + ""<br/>"");
-   80 |             }
-   81 |         } catch (javax.xml.xpath.XPathExpressionException
-   82 |                 | javax.xml.parsers.ParserConfigurationException
-      ^ Col 0
+      ^ Col 29
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02100.java,72,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02100.java,66,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
-   62 |             // Prevent XXE
-   63 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-   64 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-   65 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-   66 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-   67 |             javax.xml.xpath.XPath xp = xpf.newXPath();
-   68 |
-   69 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
-   70 |             org.w3c.dom.NodeList nodeList =
-   71 |                     (org.w3c.dom.NodeList)
->  72 |                             xp.compile(expression)
-   73 |                                     .evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
-   74 |
-   75 |             response.getWriter().println(""Your query results are: <br/>"");
+   56 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
+   57 | BuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+   58 |
+   59 | ""http://apache.org/xml/features/disallow-doctype-decl"", true);
+   60 | Builder builder = builderFactory.newDocumentBuilder();
+   61 | cument = builder.parse(file);
+   62 | ry xpf = javax.xml.xpath.XPathFactory.newInstance();
+   63 |  xpf.newXPath();
+   64 |
+   65 | oyees/Employee[@emplid='""+bar+""']"";
+>  66 | ist = (org.w3c.dom.NodeList) xp.compile(expression).evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
+   67 |
+   68 | ln(
+   69 | <br/>""
+   70 |
+   71 |
+   72 | st.getLength(); i++) {
+   73 |  = (org.w3c.dom.Element) nodeList.item(i);
+   74 | tln(
+   75 |  ""<br/>""
    76 |
-   77 |             for (int i = 0; i < nodeList.getLength(); i++) {
-   78 |                 org.w3c.dom.Element value = (org.w3c.dom.Element) nodeList.item(i);
-   79 |                 response.getWriter().println(value.getTextContent() + ""<br/>"");
-   80 |             }
-   81 |         } catch (javax.xml.xpath.XPathExpressionException
-   82 |                 | javax.xml.parsers.ParserConfigurationException
+      ^ Col 29
+"
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01736.java,73,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+","
+   63 |    java.io.FileInputStream file = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""emp
+   64 |    javax.xml.parsers.DocumentBuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+   65 |    // Prevent XXE
+   66 |    builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
+   67 |    javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
+   68 |    org.w3c.dom.Document xmlDocument = builder.parse(file);
+   69 |    javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
+   70 |    javax.xml.xpath.XPath xp = xpf.newXPath();
+   71 |
+   72 |    String expression = ""/Employees/Employee[@emplid='""+bar+""']"";
+>  73 |    String result = xp.evaluate(expression, xmlDocument);
+   74 |
+   75 |    response.getWriter().println(
+   76 |     ""Your query results are: "" + result + ""<br/>""
+   77 |    );
+   78 |
+   79 |   } catch (javax.xml.xpath.XPathExpressionException | javax.xml.parsers.ParserConfigurationException
+   80 |     | org.xml.sax.SAXException e) {
+   81 |    response.getWriter().println(
+   82 |     ""Error parsing XPath input: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar) + ""'""
+   83 |    );
       ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01478.java,79,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01478.java,73,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
-   69 |             // Prevent XXE
-   70 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-   71 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-   72 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-   73 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-   74 |             javax.xml.xpath.XPath xp = xpf.newXPath();
-   75 |
-   76 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
-   77 |             org.w3c.dom.NodeList nodeList =
-   78 |                     (org.w3c.dom.NodeList)
->  79 |                             xp.compile(expression)
-   80 |                                     .evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
+   63 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
+   64 | BuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+   65 |
+   66 | ""http://apache.org/xml/features/disallow-doctype-decl"", true);
+   67 | Builder builder = builderFactory.newDocumentBuilder();
+   68 | cument = builder.parse(file);
+   69 | ry xpf = javax.xml.xpath.XPathFactory.newInstance();
+   70 |  xpf.newXPath();
+   71 |
+   72 | oyees/Employee[@emplid='""+bar+""']"";
+>  73 | ist = (org.w3c.dom.NodeList) xp.compile(expression).evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
+   74 |
+   75 | ln(
+   76 | <br/>""
+   77 |
+   78 |
+   79 | st.getLength(); i++) {
+   80 |  = (org.w3c.dom.Element) nodeList.item(i);
+   81 | tln(
+   82 |  ""<br/>""
+   83 |
+      ^ Col 29
+"
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01734.java,73,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+","
+   63 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
+   64 | BuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+   65 |
+   66 | ""http://apache.org/xml/features/disallow-doctype-decl"", true);
+   67 | Builder builder = builderFactory.newDocumentBuilder();
+   68 | cument = builder.parse(file);
+   69 | ry xpf = javax.xml.xpath.XPathFactory.newInstance();
+   70 |  xpf.newXPath();
+   71 |
+   72 | oyees/Employee[@emplid='""+bar+""']"";
+>  73 | ist = (org.w3c.dom.NodeList) xp.compile(expression).evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
+   74 |
+   75 | ln(
+   76 | <br/>""
+   77 |
+   78 |
+   79 | st.getLength(); i++) {
+   80 |  = (org.w3c.dom.Element) nodeList.item(i);
+   81 | tln(
+   82 |  ""<br/>""
+   83 |
+      ^ Col 29
+"
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01894.java,76,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+","
+   66 |    java.io.FileInputStream file = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""emp
+   67 |    javax.xml.parsers.DocumentBuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+   68 |    // Prevent XXE
+   69 |    builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
+   70 |    javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
+   71 |    org.w3c.dom.Document xmlDocument = builder.parse(file);
+   72 |    javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
+   73 |    javax.xml.xpath.XPath xp = xpf.newXPath();
+   74 |
+   75 |    String expression = ""/Employees/Employee[@emplid='""+bar+""']"";
+>  76 |    String result = xp.evaluate(expression, xmlDocument);
+   77 |
+   78 |    response.getWriter().println(
+   79 |     ""Your query results are: "" + result + ""<br/>""
+   80 |    );
    81 |
-   82 |             response.getWriter().println(""Your query results are: <br/>"");
-   83 |
-   84 |             for (int i = 0; i < nodeList.getLength(); i++) {
-   85 |                 org.w3c.dom.Element value = (org.w3c.dom.Element) nodeList.item(i);
-   86 |                 response.getWriter().println(value.getTextContent() + ""<br/>"");
-   87 |             }
-   88 |         } catch (javax.xml.xpath.XPathExpressionException
-   89 |                 | javax.xml.parsers.ParserConfigurationException
+   82 |   } catch (javax.xml.xpath.XPathExpressionException | javax.xml.parsers.ParserConfigurationException
+   83 |     | org.xml.sax.SAXException e) {
+   84 |    response.getWriter().println(
+   85 |     ""Error parsing XPath input: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar) + ""'""
+   86 |    );
       ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01894.java,82,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01892.java,76,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
-   72 |             javax.xml.parsers.DocumentBuilderFactory builderFactory =
-   73 |                     javax.xml.parsers.DocumentBuilderFactory.newInstance();
-   74 |             // Prevent XXE
-   75 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-   76 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-   77 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-   78 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-   79 |             javax.xml.xpath.XPath xp = xpf.newXPath();
+   66 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
+   67 | BuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+   68 |
+   69 | ""http://apache.org/xml/features/disallow-doctype-decl"", true);
+   70 | Builder builder = builderFactory.newDocumentBuilder();
+   71 | cument = builder.parse(file);
+   72 | ry xpf = javax.xml.xpath.XPathFactory.newInstance();
+   73 |  xpf.newXPath();
+   74 |
+   75 | oyees/Employee[@emplid='""+bar+""']"";
+>  76 | ist = (org.w3c.dom.NodeList) xp.compile(expression).evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
+   77 |
+   78 | ln(
+   79 | <br/>""
    80 |
-   81 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
->  82 |             String result = xp.evaluate(expression, xmlDocument);
-   83 |
-   84 |             response.getWriter().println(""Your query results are: "" + result + ""<br/>"");
-   85 |
-   86 |         } catch (javax.xml.xpath.XPathExpressionException
-   87 |                 | javax.xml.parsers.ParserConfigurationException
-   88 |                 | org.xml.sax.SAXException e) {
-   89 |             response.getWriter()
-   90 |                     .println(
-   91 |                             ""Error parsing XPath input: '""
-   92 |                                     + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar)
-      ^ Col 0
-"
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01892.java,84,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
-","
-   74 |             // Prevent XXE
-   75 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-   76 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-   77 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-   78 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-   79 |             javax.xml.xpath.XPath xp = xpf.newXPath();
-   80 |
-   81 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
-   82 |             org.w3c.dom.NodeList nodeList =
-   83 |                     (org.w3c.dom.NodeList)
->  84 |                             xp.compile(expression)
-   85 |                                     .evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
+   81 |
+   82 | st.getLength(); i++) {
+   83 |  = (org.w3c.dom.Element) nodeList.item(i);
+   84 | tln(
+   85 |  ""<br/>""
    86 |
-   87 |             response.getWriter().println(""Your query results are: <br/>"");
-   88 |
-   89 |             for (int i = 0; i < nodeList.getLength(); i++) {
-   90 |                 org.w3c.dom.Element value = (org.w3c.dom.Element) nodeList.item(i);
-   91 |                 response.getWriter().println(value.getTextContent() + ""<br/>"");
-   92 |             }
-   93 |         } catch (javax.xml.xpath.XPathExpressionException
-   94 |                 | javax.xml.parsers.ParserConfigurationException
-      ^ Col 0
+      ^ Col 29
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01736.java,87,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01316.java,59,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
-   77 |             javax.xml.parsers.DocumentBuilderFactory builderFactory =
-   78 |                     javax.xml.parsers.DocumentBuilderFactory.newInstance();
-   79 |             // Prevent XXE
-   80 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-   81 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-   82 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-   83 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-   84 |             javax.xml.xpath.XPath xp = xpf.newXPath();
-   85 |
-   86 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
->  87 |             String result = xp.evaluate(expression, xmlDocument);
-   88 |
-   89 |             response.getWriter().println(""Your query results are: "" + result + ""<br/>"");
-   90 |
-   91 |         } catch (javax.xml.xpath.XPathExpressionException
-   92 |                 | javax.xml.parsers.ParserConfigurationException
-   93 |                 | org.xml.sax.SAXException e) {
-   94 |             response.getWriter()
-   95 |                     .println(
-   96 |                             ""Error parsing XPath input: '""
-   97 |                                     + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar)
-      ^ Col 0
-"
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01734.java,89,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
-","
-   79 |             // Prevent XXE
-   80 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-   81 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-   82 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-   83 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-   84 |             javax.xml.xpath.XPath xp = xpf.newXPath();
-   85 |
-   86 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
-   87 |             org.w3c.dom.NodeList nodeList =
-   88 |                     (org.w3c.dom.NodeList)
->  89 |                             xp.compile(expression)
-   90 |                                     .evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
-   91 |
-   92 |             response.getWriter().println(""Your query results are: <br/>"");
-   93 |
-   94 |             for (int i = 0; i < nodeList.getLength(); i++) {
-   95 |                 org.w3c.dom.Element value = (org.w3c.dom.Element) nodeList.item(i);
-   96 |                 response.getWriter().println(value.getTextContent() + ""<br/>"");
-   97 |             }
-   98 |         } catch (javax.xml.xpath.XPathExpressionException
-   99 |                 | javax.xml.parsers.ParserConfigurationException
-      ^ Col 0
-"
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01316.java,63,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
-","
-  53 |             javax.xml.parsers.DocumentBuilderFactory builderFactory =
-  54 |                     javax.xml.parsers.DocumentBuilderFactory.newInstance();
-  55 |             // Prevent XXE
-  56 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-  57 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-  58 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-  59 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-  60 |             javax.xml.xpath.XPath xp = xpf.newXPath();
-  61 |
-  62 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
-> 63 |             String result = xp.evaluate(expression, xmlDocument);
+  49 |    java.io.FileInputStream file = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""emp
+  50 |    javax.xml.parsers.DocumentBuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+  51 |    // Prevent XXE
+  52 |    builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
+  53 |    javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
+  54 |    org.w3c.dom.Document xmlDocument = builder.parse(file);
+  55 |    javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
+  56 |    javax.xml.xpath.XPath xp = xpf.newXPath();
+  57 |
+  58 |    String expression = ""/Employees/Employee[@emplid='""+bar+""']"";
+> 59 |    String result = xp.evaluate(expression, xmlDocument);
+  60 |
+  61 |    response.getWriter().println(
+  62 |     ""Your query results are: "" + result + ""<br/>""
+  63 |    );
   64 |
-  65 |             response.getWriter().println(""Your query results are: "" + result + ""<br/>"");
-  66 |
-  67 |         } catch (javax.xml.xpath.XPathExpressionException
-  68 |                 | javax.xml.parsers.ParserConfigurationException
-  69 |                 | org.xml.sax.SAXException e) {
-  70 |             response.getWriter()
-  71 |                     .println(
-  72 |                             ""Error parsing XPath input: '""
-  73 |                                     + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar)
+  65 |   } catch (javax.xml.xpath.XPathExpressionException | javax.xml.parsers.ParserConfigurationException
+  66 |     | org.xml.sax.SAXException e) {
+  67 |    response.getWriter().println(
+  68 |     ""Error parsing XPath input: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar) + ""'""
+  69 |    );
      ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02189.java,65,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02189.java,59,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
-  55 |             // Prevent XXE
-  56 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-  57 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-  58 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-  59 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-  60 |             javax.xml.xpath.XPath xp = xpf.newXPath();
+  49 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
+  50 | BuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+  51 |
+  52 | ""http://apache.org/xml/features/disallow-doctype-decl"", true);
+  53 | Builder builder = builderFactory.newDocumentBuilder();
+  54 | cument = builder.parse(file);
+  55 | ry xpf = javax.xml.xpath.XPathFactory.newInstance();
+  56 |  xpf.newXPath();
+  57 |
+  58 | oyees/Employee[@emplid='""+bar+""']"";
+> 59 | ist = (org.w3c.dom.NodeList) xp.compile(expression).evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
+  60 |
+  61 | ln(
+  62 | <br/>""
+  63 |
+  64 |
+  65 | st.getLength(); i++) {
+  66 |  = (org.w3c.dom.Element) nodeList.item(i);
+  67 | tln(
+  68 |  ""<br/>""
+  69 |
+     ^ Col 29
+"
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01561.java,60,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+","
+  50 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
+  51 | BuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+  52 |
+  53 | ""http://apache.org/xml/features/disallow-doctype-decl"", true);
+  54 | Builder builder = builderFactory.newDocumentBuilder();
+  55 | cument = builder.parse(file);
+  56 | ry xpf = javax.xml.xpath.XPathFactory.newInstance();
+  57 |  xpf.newXPath();
+  58 |
+  59 | oyees/Employee[@emplid='""+bar+""']"";
+> 60 | ist = (org.w3c.dom.NodeList) xp.compile(expression).evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
   61 |
-  62 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
-  63 |             org.w3c.dom.NodeList nodeList =
-  64 |                     (org.w3c.dom.NodeList)
-> 65 |                             xp.compile(expression)
-  66 |                                     .evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
-  67 |
-  68 |             response.getWriter().println(""Your query results are: <br/>"");
+  62 | ln(
+  63 | <br/>""
+  64 |
+  65 |
+  66 | st.getLength(); i++) {
+  67 |  = (org.w3c.dom.Element) nodeList.item(i);
+  68 | tln(
+  69 |  ""<br/>""
+  70 |
+     ^ Col 29
+"
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01974.java,64,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+","
+  54 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
+  55 | BuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+  56 |
+  57 | ""http://apache.org/xml/features/disallow-doctype-decl"", true);
+  58 | Builder builder = builderFactory.newDocumentBuilder();
+  59 | cument = builder.parse(file);
+  60 | ry xpf = javax.xml.xpath.XPathFactory.newInstance();
+  61 |  xpf.newXPath();
+  62 |
+  63 | oyees/Employee[@emplid='""+bar+""']"";
+> 64 | ist = (org.w3c.dom.NodeList) xp.compile(expression).evaluate(xmlDocument, javax.xml.xpath.XPathConstants.NODESET);
+  65 |
+  66 | ln(
+  67 | <br/>""
+  68 |
   69 |
-  70 |             for (int i = 0; i < nodeList.getLength(); i++) {
-  71 |                 org.w3c.dom.Element value = (org.w3c.dom.Element) nodeList.item(i);
-  72 |                 response.getWriter().println(value.getTextContent() + ""<br/>"");
-  73 |             }
-  74 |         } catch (javax.xml.xpath.XPathExpressionException
-  75 |                 | javax.xml.parsers.ParserConfigurationException
+  70 | st.getLength(); i++) {
+  71 |  = (org.w3c.dom.Element) nodeList.item(i);
+  72 | tln(
+  73 |  ""<br/>""
+  74 |
+     ^ Col 29
+"
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java,67,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+","
+  57 |    java.io.FileInputStream file = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""emp
+  58 |    javax.xml.parsers.DocumentBuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+  59 |    // Prevent XXE
+  60 |    builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
+  61 |    javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
+  62 |    org.w3c.dom.Document xmlDocument = builder.parse(file);
+  63 |    javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
+  64 |    javax.xml.xpath.XPath xp = xpf.newXPath();
+  65 |
+  66 |    String expression = ""/Employees/Employee[@emplid='""+bar+""']"";
+> 67 |    String result = xp.evaluate(expression, xmlDocument);
+  68 |
+  69 |    response.getWriter().println(
+  70 |     ""Your query results are: "" + result + ""<br/>""
+  71 |    );
+  72 |
+  73 |   } catch (javax.xml.xpath.XPathExpressionException | javax.xml.parsers.ParserConfigurationException
+  74 |     | org.xml.sax.SAXException e) {
+  75 |    response.getWriter().println(
+  76 |     ""Error parsing XPath input: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar) + ""'""
+  77 |    );
      ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java,68,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java,70,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
-  58 |             javax.xml.parsers.DocumentBuilderFactory builderFactory =
-  59 |                     javax.xml.parsers.DocumentBuilderFactory.newInstance();
-  60 |             // Prevent XXE
-  61 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-  62 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-  63 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-  64 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-  65 |             javax.xml.xpath.XPath xp = xpf.newXPath();
-  66 |
-  67 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
-> 68 |             String result = xp.evaluate(expression, xmlDocument);
-  69 |
-  70 |             response.getWriter().println(""Your query results are: "" + result + ""<br/>"");
+  60 |    java.io.FileInputStream file = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""emp
+  61 |    javax.xml.parsers.DocumentBuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+  62 |    // Prevent XXE
+  63 |    builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
+  64 |    javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
+  65 |    org.w3c.dom.Document xmlDocument = builder.parse(file);
+  66 |    javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
+  67 |    javax.xml.xpath.XPath xp = xpf.newXPath();
+  68 |
+  69 |    String expression = ""/Employees/Employee[@emplid='""+bar+""']"";
+> 70 |    String result = xp.evaluate(expression, xmlDocument);
   71 |
-  72 |         } catch (javax.xml.xpath.XPathExpressionException
-  73 |                 | javax.xml.parsers.ParserConfigurationException
-  74 |                 | org.xml.sax.SAXException e) {
-  75 |             response.getWriter()
-  76 |                     .println(
-  77 |                             ""Error parsing XPath input: '""
-  78 |                                     + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar)
+  72 |    response.getWriter().println(
+  73 |     ""Your query results are: "" + result + ""<br/>""
+  74 |    );
+  75 |
+  76 |   } catch (javax.xml.xpath.XPathExpressionException | javax.xml.parsers.ParserConfigurationException
+  77 |     | org.xml.sax.SAXException e) {
+  78 |    response.getWriter().println(
+  79 |     ""Error parsing XPath input: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar) + ""'""
+  80 |    );
      ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java,75,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00607.java,76,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
-  65 |             javax.xml.parsers.DocumentBuilderFactory builderFactory =
-  66 |                     javax.xml.parsers.DocumentBuilderFactory.newInstance();
-  67 |             // Prevent XXE
-  68 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-  69 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-  70 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-  71 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-  72 |             javax.xml.xpath.XPath xp = xpf.newXPath();
-  73 |
-  74 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
-> 75 |             String result = xp.evaluate(expression, xmlDocument);
-  76 |
-  77 |             response.getWriter().println(""Your query results are: "" + result + ""<br/>"");
-  78 |
-  79 |         } catch (javax.xml.xpath.XPathExpressionException
-  80 |                 | javax.xml.parsers.ParserConfigurationException
-  81 |                 | org.xml.sax.SAXException e) {
-  82 |             response.getWriter()
-  83 |                     .println(
-  84 |                             ""Error parsing XPath input: '""
-  85 |                                     + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar)
-     ^ Col 0
-"
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00607.java,79,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
-","
-  69 |             javax.xml.parsers.DocumentBuilderFactory builderFactory =
-  70 |                     javax.xml.parsers.DocumentBuilderFactory.newInstance();
-  71 |             // Prevent XXE
-  72 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
-  73 |             javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
-  74 |             org.w3c.dom.Document xmlDocument = builder.parse(file);
-  75 |             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
-  76 |             javax.xml.xpath.XPath xp = xpf.newXPath();
+  66 |    java.io.FileInputStream file = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""emp
+  67 |    javax.xml.parsers.DocumentBuilderFactory builderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+  68 |    // Prevent XXE
+  69 |    builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
+  70 |    javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
+  71 |    org.w3c.dom.Document xmlDocument = builder.parse(file);
+  72 |    javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
+  73 |    javax.xml.xpath.XPath xp = xpf.newXPath();
+  74 |
+  75 |    String expression = ""/Employees/Employee[@emplid='""+bar+""']"";
+> 76 |    String result = xp.evaluate(expression, xmlDocument);
   77 |
-  78 |             String expression = ""/Employees/Employee[@emplid='"" + bar + ""']"";
-> 79 |             String result = xp.evaluate(expression, xmlDocument);
-  80 |
-  81 |             response.getWriter().println(""Your query results are: "" + result + ""<br/>"");
-  82 |
-  83 |         } catch (javax.xml.xpath.XPathExpressionException
-  84 |                 | javax.xml.parsers.ParserConfigurationException
-  85 |                 | org.xml.sax.SAXException e) {
-  86 |             response.getWriter()
-  87 |                     .println(
-  88 |                             ""Error parsing XPath input: '""
-  89 |                                     + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar)
+  78 |    response.getWriter().println(
+  79 |     ""Your query results are: "" + result + ""<br/>""
+  80 |    );
+  81 |
+  82 |   } catch (javax.xml.xpath.XPathExpressionException | javax.xml.parsers.ParserConfigurationException
+  83 |     | org.xml.sax.SAXException e) {
+  84 |    response.getWriter().println(
+  85 |     ""Error parsing XPath input: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar) + ""'""
+  86 |    );
      ^ Col 0
 "

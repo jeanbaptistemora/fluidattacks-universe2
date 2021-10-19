@@ -92,6 +92,7 @@ def _format_csv(
     for row in csv.DictReader(content):
         row["snippet"] = snippet_filter(row["snippet"])
         result.append(row)
+    result.sort(key=str)
     return result
 
 
