@@ -9,8 +9,8 @@ makeScript {
   '';
   searchPaths = {
     source = [
-      outputs."/observes/commin/import-and-run"
-      inputs.product.observes.env.streamer-dynamodb.runtime
+      outputs."/observes/common/import-and-run"
+      inputs.product.observes-env-streamer-dynamodb-runtime
     ];
   };
   name = "observes-bin-streamer-dynamodb";
