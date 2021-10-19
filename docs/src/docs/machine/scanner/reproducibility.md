@@ -41,7 +41,7 @@ we'll need to:
     ```
 
     There is an open
-    [pull request](https://github.com/OWASP/Benchmark/pull/146)
+    [pull request](https://github.com/OWASP-Benchmark/BenchmarkJava/pull/146)
     at the OWASP Benchmark official repository
     in order to add support natively.
 
