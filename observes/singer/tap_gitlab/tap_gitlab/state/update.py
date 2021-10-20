@@ -75,6 +75,7 @@ class StateUpdater:
         ).list_all(PageId(1, 100))
         try:
             last = deque(unsafe_perform_io(pages), maxlen=1).pop()
+            LOG.debug("Last job: %s", last)
             return Maybe.from_value(JobStatePoint(last.min_id - 1, last.page))
         except IndexError:
             return Maybe.empty
@@ -121,7 +122,8 @@ class StateUpdater:
     def update_job_state(self, state: JobStreamState) -> JobStreamState:
         point = self.most_recent_job_point()
         last = state.state.f_interval.endpoints[-1]
-        if isinstance(last, int) and last != point.item_id:
+        LOG.debug("point: %s, last: %s", point, last)
+        if isinstance(last, JobStatePoint) and last.item_id != point.item_id:
             return JobStreamState(fp_factory_2.append(state.state, point))
         return state
 
@@ -140,4 +142,8 @@ class StateUpdater:
             if state.jobs
             else None
         )
-        return EtlState(JobStateMap(jobs) if jobs else None, MrStateMap(mrs))
+        new_state = EtlState(
+            JobStateMap(jobs) if jobs else None, MrStateMap(mrs)
+        )
+        LOG.debug("[OLD] %s \n->\n[NEW]\n%s", state, new_state)
+        return new_state
