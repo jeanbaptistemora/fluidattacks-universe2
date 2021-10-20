@@ -431,6 +431,14 @@
       "title": "160. Excessive privileges - Temporary Files"
     }
   },
+  "F165": {
+    "EN": {
+      "title": "Insecure service configuration - AWS"
+    },
+    "ES": {
+      "title": "Insecure service configuration - AWS"
+    }
+  },
   "F207": {
     "EN": {
       "title": "207. Security controls bypass or absence - SSLPinning"
