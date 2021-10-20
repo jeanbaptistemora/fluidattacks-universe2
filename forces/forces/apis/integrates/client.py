@@ -89,14 +89,14 @@ async def execute(
 
         try:
             result = await response.json()
-        except ClientResponseError:
+        except ClientResponseError as client_error:
             raise ApiError(
                 dict(
                     status=getattr(response, "status", "unknown"),
                     reason=getattr(response, "reason", "unknown"),
                     ok=getattr(response, "ok", False),
                 )
-            )
+            ) from client_error
         if "errors" in result.keys():
             raise ApiError(*result["errors"])
 

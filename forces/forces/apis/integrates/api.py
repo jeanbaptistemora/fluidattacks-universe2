@@ -99,6 +99,7 @@ async def get_vulnerabilities(
               vulnerabilityType
               where
               specific
+              rootNickname
             }
           }
         }
