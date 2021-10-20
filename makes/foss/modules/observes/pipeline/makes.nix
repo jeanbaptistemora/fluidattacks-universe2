@@ -37,6 +37,11 @@ let
     stage = "test-infra";
     tags = [ "autoscaling" ];
   };
+  gitlabTestCode = {
+    rules = gitlabOnlyDev;
+    stage = "test-code";
+    tags = [ "autoscaling" ];
+  };
   gitlabScheduled = {
     interruptible = false;
     rules = [
@@ -306,6 +311,10 @@ in
         {
           output = "/testTerraform/observes";
           gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/observes/test/code-etl";
+          gitlabExtra = gitlabTestCode;
         }
       ];
     };
