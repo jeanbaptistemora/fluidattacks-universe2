@@ -1,5 +1,4 @@
 include:
-  - local: observes/common/singer_io/.gitlab-ci.yml
   - local: observes/singer/tap_announcekit/.gitlab-ci.yml
   - local: observes/singer/tap_csv/.gitlab-ci.yml
   - local: observes/singer/tap_gitlab/.gitlab-ci.yml

@@ -313,6 +313,10 @@ in
           gitlabExtra = gitlabTestCode;
         }
         {
+          output = "/observes/test/singer-io";
+          gitlabExtra = gitlabTestCode;
+        }
+        {
           output = "/testTerraform/observes";
           gitlabExtra = gitlabTestInfra;
         }
