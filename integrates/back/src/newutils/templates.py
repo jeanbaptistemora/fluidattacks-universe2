@@ -6,6 +6,7 @@ from custom_types import (
     GroupAccess as GroupAccessType,
 )
 import json
+import newrelic.agent
 from newutils.utils import (
     get_key_or_fallback,
 )
@@ -53,6 +54,7 @@ def graphic_error(request: Request) -> HTMLResponse:
 
 def graphics_for_entity_view(request: Request, entity: str) -> HTMLResponse:
     entity_title = entity.title()
+    newrelic.agent.disable_browser_autorum()
     return TEMPLATING_ENGINE.TemplateResponse(
         name="graphics-for-entity.html",
         context=dict(
@@ -74,6 +76,7 @@ def graphics_for_entity_view(request: Request, entity: str) -> HTMLResponse:
 def graphic_view(
     request: Request, document: object, params: GraphicParameters
 ) -> HTMLResponse:
+    newrelic.agent.disable_browser_autorum()
     return TEMPLATING_ENGINE.TemplateResponse(
         name="graphic.html",
         context=dict(

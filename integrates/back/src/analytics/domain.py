@@ -190,7 +190,6 @@ async def handle_graphic_request(request: Request) -> Response:
         response = templates_utils.graphic_error(request)
     else:
         response = templates_utils.graphic_view(request, document, params)
-        response.headers["x-frame-options"] = "SAMEORIGIN"
 
     return response
 
