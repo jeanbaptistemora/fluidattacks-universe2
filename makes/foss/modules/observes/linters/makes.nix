@@ -175,14 +175,14 @@
       };
       observesJobLastSuccess = {
         searchPaths.source = [
-          inputs.product.observes-env-job-last-success-runtime
+          outputs."/observes/env/job-last-success/runtime"
         ];
         python = "3.8";
         src = "/observes/services/job_last_success/job_last_success";
       };
       observesJobLastSuccessTests = {
         searchPaths.source = [
-          inputs.product.observes-env-job-last-success-runtime
+          outputs."/observes/env/job-last-success/runtime"
         ];
         python = "3.8";
         src = "/observes/services/job_last_success/tests";

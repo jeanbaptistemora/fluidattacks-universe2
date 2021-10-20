@@ -1,29 +1,26 @@
-{ inputs
-, makePythonPypiEnvironment
+{ makePythonPypiEnvironment
 , makeTemplate
+, inputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/code_etl";
+  self = projectPath "/observes/services/job_last_success";
 in
 makeTemplate {
-  name = "observes-env-code-etl-runtime";
+  name = "observes-env-job-last-success-runtime";
   searchPaths = {
     pythonMypy = [
       self
-    ];
-    bin = [
-      inputs.nixpkgs.git
     ];
     pythonPackage = [
       self
     ];
     source = [
       (makePythonPypiEnvironment {
-        name = "observes-env-code-etl-runtime";
-        sourcesYaml = ./pypi-sources.yaml;
+        name = "observes-env-job-last-success-runtime";
         searchPaths.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
+        sourcesYaml = ./pypi-sources.yaml;
       })
     ];
   };
