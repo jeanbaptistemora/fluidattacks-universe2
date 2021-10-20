@@ -63,7 +63,9 @@ INVALID_FILENAMES = {
     "Repo1/Folder1/Folder2/Folder3/File.html",
     "Repo2/Folder1/File.cs",
 }
-IGNORED_SERVICES_REPO_GROUP = {"kadugli", "wareham"}
+IGNORED_SERVICES_REPO_GROUP = {
+    "kadugli",
+}
 DEFAULT_RISK_LEVEL = 0
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
@@ -322,8 +324,11 @@ def _create_group_basic_structure(tmpdirname: str, group: str) -> None:
         writer.writeheader()
 
 
-async def update_toe_lines_machine_groups(loaders: Dataloaders) -> None:
-    groups = await _get_machine_only_groups()
+async def update_toe_lines_machine_groups(
+    loaders: Dataloaders, services_group_names: Set[str]
+) -> None:
+    machine_group_names = set(await _get_machine_only_groups())
+    group_names = machine_group_names.difference(services_group_names)
     current_dir = os.getcwd()
     with tempfile.TemporaryDirectory() as tmpdirname:
         os.chdir(tmpdirname)
@@ -333,11 +338,11 @@ async def update_toe_lines_machine_groups(loaders: Dataloaders) -> None:
         os.environ["PROD_AWS_SECRET_ACCESS_KEY"] = os.environ.get(
             "SERVICES_PROD_AWS_SECRET_ACCESS_KEY", ""
         )
-        for group in groups:
-            _create_group_basic_structure(tmpdirname, group)
+        for group_name in group_names:
+            _create_group_basic_structure(tmpdirname, group_name)
             os.system(  # nosec
-                f"melts drills --pull-repos {group} && "
-                f"melts drills --update-lines {group}"
+                f"melts drills --pull-repos {group_name} && "
+                f"melts drills --update-lines {group_name}"
             )
         await update_toe_lines(loaders, tmpdirname)
     os.chdir(current_dir)
@@ -353,4 +358,10 @@ async def main() -> None:
             if os.path.exists(lines_path):
                 os.remove(lines_path)
         await update_toe_lines(loaders, tmpdirname)
-    await update_toe_lines_machine_groups(loaders)
+        lines_csv_glob = f"{tmpdirname}/groups/*/toe/lines.csv"
+        lines_cvs_paths = glob.glob(lines_csv_glob)
+        services_group_names = set(
+            _get_group_name(tmpdirname, lines_cvs_path)
+            for lines_cvs_path in lines_cvs_paths
+        )
+    await update_toe_lines_machine_groups(loaders, services_group_names)
