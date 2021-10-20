@@ -123,8 +123,6 @@ async def main() -> None:
                 exclude=sorted(
                     [
                         "glob(**/.git)",
-                        "glob(**/UI/AutocompleteGenerico)",
-                        "glob(**/UI/Tabs)",
                         "glob(**/.idea)",
                         "glob(**/*.pydevproject)",
                         "glob(**/*.swp)",
