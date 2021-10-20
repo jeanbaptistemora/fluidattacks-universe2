@@ -20,11 +20,11 @@ def format_toe_lines(
         comments=item["comments"],
         filename=filename,
         group_name=group_name,
-        loc=item["loc"],
+        loc=int(item["loc"]),
         modified_commit=item["modified_commit"],
         modified_date=item["modified_date"],
         root_id=root_id,
         tested_date=item["tested_date"],
-        tested_lines=item["tested_lines"],
+        tested_lines=int(item["tested_lines"]),
         sorts_risk_level=item["sorts_risk_level"],
     )

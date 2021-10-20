@@ -1,5 +1,6 @@
 from .types import (
     ServicesToeLines,
+    ServicesToeLinesMetadataToUpdate,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -45,3 +46,33 @@ async def update(*, toe_lines: ServicesToeLines) -> None:
         )
     except ConditionalCheckFailedException as ex:
         raise ToeLinesNotFound() from ex
+
+
+async def update_metadata(
+    *,
+    group_name: str,
+    filename: str,
+    root_id: str,
+    metadata: ServicesToeLinesMetadataToUpdate,
+) -> None:
+    key_structure = TABLE.primary_key
+    metadata_key = keys.build_key(
+        facet=TABLE.facets["root_toe_lines"],
+        values={
+            "filename": filename,
+            "group_name": group_name,
+            "root_id": root_id,
+        },
+    )
+    metadata_item = {
+        key: value
+        for key, value in metadata._asdict().items()
+        if value is not None
+    }
+    condition_expression = Attr(key_structure.partition_key).exists()
+    await operations.update_item(
+        condition_expression=condition_expression,
+        item=metadata_item,
+        key=metadata_key,
+        table=TABLE,
+    )

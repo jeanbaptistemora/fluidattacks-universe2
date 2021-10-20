@@ -1,5 +1,6 @@
 from aioextensions import (
     collect,
+    in_process,
 )
 import csv
 from custom_exceptions import (
@@ -63,6 +64,7 @@ INVALID_FILENAMES = {
     "Repo2/Folder1/File.cs",
 }
 IGNORED_SERVICES_REPO_GROUP = {"kadugli", "wareham"}
+DEFAULT_RISK_LEVEL = 0
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
@@ -144,10 +146,11 @@ def _get_group_toe_lines_from_cvs(
                 )
             except RootNotFound as ex:
                 LOGGER.exception(ex, extra={"extra": locals()})
+                LOGGER_CONSOLE.exception(ex, extra={"extra": locals()})
                 raise ex
 
             new_toe_lines["group_name"] = group_name
-            new_toe_lines["sorts_risk_level"] = 0
+            new_toe_lines["sorts_risk_level"] = DEFAULT_RISK_LEVEL
             group_toe_lines.add(ServicesToeLines(**new_toe_lines))
 
     return group_toe_lines
@@ -171,21 +174,6 @@ def _get_toe_lines_to_update(
     group_toe_lines_hashes: Set[int],
     cvs_group_toe_lines: Set[ServicesToeLines],
 ) -> Set[ServicesToeLines]:
-    # Exclude sortsRiskLevel from updating, its value must remain
-    cvs_group_toe_lines_copy = cvs_group_toe_lines.copy()
-    for toe_lines_csv in cvs_group_toe_lines_copy:
-        group_toes = [
-            toe_lines
-            for toe_lines in group_toe_lines
-            if toe_lines.get_hash() == toe_lines_csv.get_hash()
-        ]
-        for toe_lines in group_toes:
-            cvs_group_toe_lines.discard(toe_lines_csv)
-            toe_lines_csv = toe_lines_csv._replace(
-                sorts_risk_level=toe_lines.sorts_risk_level
-            )
-            cvs_group_toe_lines.add(toe_lines_csv)
-
     return {
         toe_lines
         for toe_lines in cvs_group_toe_lines
@@ -206,7 +194,7 @@ def _get_toe_lines_to_remove(
 
 
 async def update_toe_lines_from_csv(
-    loaders: Any, group_name: str, lines_csv_path: str
+    loaders: Dataloaders, group_name: str, lines_csv_path: str
 ) -> None:
     LOGGER_CONSOLE.info(
         "Updating toe lines", extra={"extra": {"group_name": group_name}}
@@ -214,14 +202,16 @@ async def update_toe_lines_from_csv(
     group_roots_loader = loaders.group_roots
     group_roots: Tuple[Root, ...] = await group_roots_loader.load(group_name)
     group_toe_lines_loader = loaders.group_toe_lines
+    # Ignore risk level to no remove it with this scheduler
     group_toe_lines: Set[ServicesToeLines] = set(
-        await group_toe_lines_loader.load(group_name)
+        toe_lines._replace(sorts_risk_level=DEFAULT_RISK_LEVEL)
+        for toe_lines in await group_toe_lines_loader.load(group_name)
     )
     group_toe_lines_hashes = {
         toe_lines.get_hash() for toe_lines in group_toe_lines
     }
-    cvs_group_toe_lines = _get_group_toe_lines_from_cvs(
-        lines_csv_path, group_name, group_roots
+    cvs_group_toe_lines = await in_process(
+        _get_group_toe_lines_from_cvs, lines_csv_path, group_name, group_roots
     )
     cvs_group_toe_lines_hashes = {
         toe_lines.get_hash() for toe_lines in cvs_group_toe_lines
@@ -232,7 +222,10 @@ async def update_toe_lines_from_csv(
         cvs_group_toe_lines,
     )
     await collect(
-        [toe_lines_update(toe_lines) for toe_lines in toe_lines_to_update],
+        [
+            toe_lines_update(toe_lines, include_risk_level=False)
+            for toe_lines in toe_lines_to_update
+        ],
         workers=100,
     )
     toe_lines_to_remove = _get_toe_lines_to_remove(
