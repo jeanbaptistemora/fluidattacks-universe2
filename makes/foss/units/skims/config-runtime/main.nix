@@ -86,6 +86,12 @@ makeTemplate {
             rev = "48bfb38abd93f8d617877d7bb7f92a6bb1166285";
             sha256 = "5thm7nYOZLDUsb/2KGV2fZg35uId8nZEMdyLUsdTPT0=";
           };
+          __argSrcTreeSitterPhp__ = fetchGithub {
+            owner = "tree-sitter";
+            repo = "tree-sitter-php";
+            rev = "435fa00006c0d1515c37fbb4dd6a9de284af75ab";
+            sha256 = "05k4h58gi616gv41r0qqdb1x4rs8y94vghn2r10yczisgzq4vbad";
+          };
           __argSrcTreeSitterTsx__ = fetchGithub {
             owner = "tree-sitter";
             repo = "tree-sitter-typescript";
@@ -110,6 +116,7 @@ makeTemplate {
           export SKIMS_TREE_SITTER_JAVA='__argSrcTreeSitterJava__'
           export SKIMS_TREE_SITTER_JAVASCRIPT='__argSrcTreeSitterJavaScript__'
           export SKIMS_TREE_SITTER_KOTLIN='__argSrcTreeSitterKotlin__'
+          export SKIMS_TREE_SITTER_PHP='__argSrcTreeSitterPhp__'
           export SKIMS_TREE_SITTER_TSX='__argSrcTreeSitterTsx__/tsx'
           export SKIMS_VENDOR='__argSrcSkimsVendor__'
         '';
