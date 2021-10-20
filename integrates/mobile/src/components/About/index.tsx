@@ -3,11 +3,13 @@ import { MaterialIcons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import { manifest } from "expo-updates";
 import type { ClassicManifest } from "expo-updates";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, Linking, View } from "react-native";
 
 import { styles } from "./styles";
+
+import { Licenses } from "../Licenses";
 
 const manifestConst: ClassicManifest = manifest as ClassicManifest;
 const manifestExtra: Record<string, string> =
@@ -21,6 +23,7 @@ const manifestExtra: Record<string, string> =
 
 const About: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
+  const [modalVisible, setModalVisible] = useState(false);
   const displayDialog: () => void = useCallback((): void => {
     Alert.alert(
       "Fluid Attacks",
@@ -30,6 +33,12 @@ const About: React.FC = (): JSX.Element => {
         `\n${t("about.commit")} ${manifestExtra.commitShaShort}`,
       [
         {
+          onPress: (): void => {
+            setModalVisible(true);
+          },
+          text: t("about.licenses.text"),
+        },
+        {
           onPress: async (): Promise<string> =>
             // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             Linking.openURL(
@@ -38,13 +47,15 @@ const About: React.FC = (): JSX.Element => {
           text: "Commit Details",
         },
         { text: "Ok" },
-      ]
+      ],
+      { cancelable: true }
     );
   }, [t]);
 
   return (
     // eslint-disable-next-line react/forbid-component-props
     <View style={styles.container}>
+      <Licenses setVisible={setModalVisible} visible={modalVisible} />
       <MaterialIcons
         color={"#808080"}
         name={"info-outline"}
