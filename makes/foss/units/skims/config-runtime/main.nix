@@ -1,6 +1,5 @@
 { fetchGithub
 , inputs
-, makePythonPypiEnvironment
 , makeTemplate
 , projectPath
 , outputs
@@ -37,15 +36,7 @@ makeTemplate {
     ];
     source = [
       inputs.product.makes-python-safe-pickle
-      (makePythonPypiEnvironment {
-        name = "skims-runtime";
-        searchPaths = {
-          bin = [ inputs.nixpkgs.gcc ];
-        };
-        sourcesYaml = ./pypi-sources.yaml;
-        withSetuptools_57_4_0 = true;
-        withWheel_0_37_0 = true;
-      })
+      outputs."/skims/config-runtime/pypi"
       (makeTemplate {
         replace = {
           __argCriteriaRequirements__ =
