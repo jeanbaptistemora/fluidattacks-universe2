@@ -1,5 +1,6 @@
 { inputs
 , makeDerivation
+, outputs
 , projectPath
 , ...
 }:
@@ -13,7 +14,7 @@ makeDerivation {
   searchPaths = {
     source = [
       inputs.product.observes-generic-tester
-      inputs.product.observes-env-code-etl-development
+      outputs."/observes/env/code-etl/development"
     ];
   };
 }

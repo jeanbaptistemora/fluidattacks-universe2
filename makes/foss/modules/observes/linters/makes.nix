@@ -112,14 +112,14 @@
     modules = {
       observesCodeEtl = {
         searchPaths.source = [
-          inputs.product.observes-env-code-etl-development
+          outputs."/observes/env/code-etl/development"
         ];
         python = "3.8";
         src = "/observes/code_etl/code_etl";
       };
       observesCodeEtlTests = {
         searchPaths.source = [
-          inputs.product.observes-env-code-etl-development
+          outputs."/observes/env/code-etl/development"
         ];
         python = "3.8";
         src = "/observes/code_etl/tests";

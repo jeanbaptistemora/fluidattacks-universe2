@@ -1,17 +1,17 @@
-{ makes
+{ inputs
 , makeTemplate
-, packages
+, makePythonPypiEnvironment
 , ...
 }:
 makeTemplate {
   name = "observes-env-code-etl-development";
   searchPaths = {
-    envSources = [
-      (makes.makePythonPypiEnvironment {
+    source = [
+      (makePythonPypiEnvironment {
         name = "observes-env-code-etl-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      packages.observes.env.code-etl.runtime
+      inputs.product.observes-env-code-etl-runtime
     ];
   };
 }
