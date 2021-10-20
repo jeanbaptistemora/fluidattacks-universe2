@@ -1,5 +1,5 @@
 from tap_announcekit.streams.project._encode import (
-    ProjectEncoder,
+    ProjectEncoders,
 )
 from tap_announcekit.streams.project._getters import (
     _proj_query,
@@ -11,4 +11,4 @@ def test_query() -> None:
 
 
 def test_schema() -> None:
-    ProjectEncoder.schema()
+    assert ProjectEncoders.encoder("stream_1").schema

@@ -86,9 +86,8 @@ class Streamer(_Streamer):
         return self.emitter.emit(stream)
 
     def stream_proj(self) -> IO[None]:
-        stream = ProjectStreams.stream(
-            self.client, PureIterFactory.from_flist((self.proj,))
-        )
+        streams = ProjectStreams(self.client)
+        stream = streams.stream(PureIterFactory.from_flist((self.proj,)))
         return self.emitter.emit(stream)
 
     def start(self) -> IO[None]:

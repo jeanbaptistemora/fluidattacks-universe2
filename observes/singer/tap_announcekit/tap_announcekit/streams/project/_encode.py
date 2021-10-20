@@ -1,6 +1,16 @@
 from dataclasses import (
     dataclass,
 )
+from purity.v1 import (
+    Transform,
+)
+from returns.curry import (
+    partial,
+)
+from singer_io.singer2 import (
+    SingerRecord,
+    SingerSchema,
+)
 from singer_io.singer2.json import (
     JsonFactory,
     JsonObj,
@@ -12,12 +22,21 @@ from singer_io.singer2.json_schema import (
 from tap_announcekit.objs.project import (
     Project,
 )
+from tap_announcekit.stream import (
+    SingerEncoder,
+)
 from tap_announcekit.streams._obj_encoder import (
     StreamsObjsEncoder,
 )
 from typing import (
     Dict,
 )
+
+_encoder = StreamsObjsEncoder.encoder()
+
+
+def _schema() -> JsonSchema:
+    return _encoder.to_jschema(Project.__annotations__)
 
 
 def _to_json(proj: Project) -> JsonObj:
@@ -50,19 +69,16 @@ def _to_json(proj: Project) -> JsonObj:
     return JsonFactory.from_prim_dict(json)
 
 
-_encoder = StreamsObjsEncoder.encoder()
-
-
-def _project_schema() -> JsonSchema:
-    return _encoder.to_jschema(Project.__annotations__)
+def _to_singer(stream_name: str, proj: Project) -> SingerRecord:
+    data = _to_json(proj)
+    return SingerRecord(stream_name, data)
 
 
 @dataclass(frozen=True)
-class ProjectEncoder:
+class ProjectEncoders:
     @staticmethod
-    def to_json(project: Project) -> JsonObj:
-        return _to_json(project)
-
-    @staticmethod
-    def schema() -> JsonSchema:
-        return _project_schema()
+    def encoder(stream_name: str) -> SingerEncoder[Project]:
+        schema = SingerSchema(stream_name, _schema(), frozenset([]))
+        return SingerEncoder(
+            schema, Transform(partial(_to_singer, stream_name))
+        )
