@@ -1,5 +1,6 @@
 { inputs
 , makeDerivation
+, outputs
 , projectPath
 , ...
 }:
@@ -12,7 +13,7 @@ makeDerivation {
   searchPaths = {
     source = [
       inputs.product.observes-generic-tester
-      inputs.product.observes-env-postgres-client-development
+      outputs."/observes/env/postgres-client/development"
     ];
   };
   builder = projectPath "/makes/packages/observes/generic/tester/test_builder.sh";

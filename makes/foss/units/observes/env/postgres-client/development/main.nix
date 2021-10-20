@@ -1,17 +1,17 @@
-{ makes
+{ makePythonPypiEnvironment
 , makeTemplate
-, packages
+, inputs
 , ...
 }:
 makeTemplate {
   name = "observes-env-postgres-client-development";
   searchPaths = {
-    envSources = [
-      (makes.makePythonPypiEnvironment {
+    source = [
+      (makePythonPypiEnvironment {
         name = "observes-env-postgres-client-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      packages.observes.env.postgres-client.runtime
+      inputs.product.observes-env-postgres-client-runtime
     ];
   };
 }

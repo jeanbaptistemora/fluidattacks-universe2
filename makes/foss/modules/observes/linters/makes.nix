@@ -133,7 +133,7 @@
       };
       observesCommonPostgresClient = {
         searchPaths.source = [
-          inputs.product.observes-env-postgres-client-development
+          outputs."/observes/env/postgres-client/development"
         ];
         python = "3.8";
         src = "/observes/common/postgres_client/postgres_client";
@@ -154,7 +154,7 @@
       };
       observesCommonPostgresClientTests = {
         searchPaths.source = [
-          inputs.product.observes-env-postgres-client-development
+          outputs."/observes/env/postgres-client/development"
         ];
         python = "3.8";
         src = "/observes/common/postgres_client/postgres_client";

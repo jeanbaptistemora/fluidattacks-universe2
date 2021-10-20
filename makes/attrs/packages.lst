@@ -15,7 +15,6 @@ makes.test.observes
 melts.config-development
 melts.config-runtime
 observes.env.paginator.runtime
-observes.env.postgres-client.development
 observes.env.postgres-client.runtime
 observes.env.purity.runtime
 observes.env.service-batch-stability.runtime
