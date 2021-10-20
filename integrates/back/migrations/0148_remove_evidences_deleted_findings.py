@@ -23,6 +23,9 @@ from db_model.findings.types import (
 from groups import (
     domain as groups_domain,
 )
+from itertools import (
+    chain,
+)
 from s3.operations import (
     list_files,
     remove_file,
@@ -42,14 +45,17 @@ async def _process_evidence(full_name: str) -> None:
 
 
 async def _process_finding(finding: Finding) -> None:
-    evidences: List[str] = list_files(
+    evidences: List[str] = await list_files(
         EVIDENCES_BUCKET, f"{finding.group_name}/{finding.id}/"
     )
 
     if not evidences:
         return
 
-    await collect(_process_evidence(full_name) for full_name in evidences)
+    if PROD:
+        await collect(_process_evidence(full_name) for full_name in evidences)
+    else:
+        print(f"Found evidences: {evidences}")
 
 
 async def main() -> None:
@@ -58,13 +64,14 @@ async def main() -> None:
     group_names = sorted(await groups_domain.get_alive_group_names())
     print(f"Groups to check: {len(group_names)}")
 
-    findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_removed_findings.load_many_chained(group_names)
+    findings: Tuple[Finding, ...] = tuple(
+        chain.from_iterable(
+            await loaders.group_removed_findings.load_many(group_names)
+        )
+    )
     print(f"Deleted findings to check: {len(findings)}")
 
-    if PROD:
-        await collect(_process_finding(finding) for finding in findings)
+    await collect(_process_finding(finding) for finding in findings)
 
     print("Done")
 
