@@ -138,7 +138,7 @@ async def check_remotes(config: ForcesConfig) -> bool:
     if not match_remotes:
         await log(
             "error",
-            "The %s repository has not been registered in integrates",
+            "The %s repository has not been registered in ASM",
             config.repository_name,
         )
         return False

@@ -147,14 +147,14 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
     if repo_name:
         await log(
             "info",
-            f"Ruing forces for vulnerabilities in the repo: {repo_name}",
+            f"Running forces for vulnerabilities in the repo: {repo_name}",
         )
     else:
         await log(
             "warning",
             (
                 "If the repository name is not specified, it will run on all "
-                "the existing repositories in integrates"
+                "the existing repositories in ASM"
             ),
         )
 

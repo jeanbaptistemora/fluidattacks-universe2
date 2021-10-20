@@ -174,7 +174,7 @@ async def generate_report(
             + _summary_dict["closed"]["total"]
             + _summary_dict["accepted"]["total"],
             **_summary_dict,
-            "time": "%.4f seconds" % (timer() - _start_time),
+            "time": f"{(timer() - _start_time):.4f} seconds",
         }
     }
     raw_report.update(summary)  # type: ignore

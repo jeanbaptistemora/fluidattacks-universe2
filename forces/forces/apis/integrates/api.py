@@ -311,7 +311,7 @@ async def get_groups_access(**kwargs: Any) -> List[Dict[str, str]]:
                 "The token has expired or the token has no permissions",
             )
             return []
-        raise Exception
+        raise Exception from exc
 
     return list(
         group
