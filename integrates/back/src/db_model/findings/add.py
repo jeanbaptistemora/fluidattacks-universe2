@@ -149,23 +149,19 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
 
 async def add_evidence(
     *,
-    group_name: str,
-    finding_id: str,
     evidence_name: FindingEvidenceName,
     evidence: FindingEvidence,
+    finding_id: str,
+    group_name: str,
 ) -> None:
-    key_structure = TABLE.primary_key
     metadata_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
         values={"group_name": group_name, "id": finding_id},
     )
-    metadata_item = {
-        f"evidences.{evidence_name.value}": format_evidence_item(evidence)
-    }
-    condition_expression = Attr(key_structure.partition_key).exists()
+    attribute = f"evidences.{evidence_name.value}"
     await operations.update_item(
-        condition_expression=condition_expression,
-        item=metadata_item,
+        condition_expression=Attr(attribute).not_exists(),
+        item={attribute: format_evidence_item(evidence)},
         key=metadata_key,
         table=TABLE,
     )

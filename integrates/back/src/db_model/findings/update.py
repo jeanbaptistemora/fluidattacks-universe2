@@ -6,6 +6,7 @@ from .enums import (
 from .types import (
     Finding20Severity,
     Finding31Severity,
+    FindingEvidence,
     FindingEvidences,
     FindingEvidenceToUpdate,
     FindingMetadataToUpdate,
@@ -53,25 +54,24 @@ from typing import (
 
 async def update_evidence(
     *,
-    group_name: str,
-    finding_id: str,
+    current_value: FindingEvidence,
     evidence_name: FindingEvidenceName,
     evidence: FindingEvidenceToUpdate,
+    finding_id: str,
+    group_name: str,
 ) -> None:
-    key_structure = TABLE.primary_key
     metadata_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
         values={"group_name": group_name, "id": finding_id},
     )
-    metadata_item = {
-        f"evidences.{evidence_name.value}.{key}": value
-        for key, value in evidence._asdict().items()
-        if value is not None
-    }
-    condition_expression = Attr(key_structure.partition_key).exists()
+    attribute = f"evidences.{evidence_name.value}"
     await operations.update_item(
-        condition_expression=condition_expression,
-        item=metadata_item,
+        condition_expression=Attr(attribute).eq(current_value._asdict()),
+        item={
+            f"{attribute}.{key}": value
+            for key, value in evidence._asdict().items()
+            if value is not None
+        },
         key=metadata_key,
         table=TABLE,
     )

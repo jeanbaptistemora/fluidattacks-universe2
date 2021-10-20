@@ -163,6 +163,7 @@ async def update_evidence(
             url=filename, modified_date=datetime_utils.get_iso_date()
         )
         await findings_model.update_evidence(
+            current_value=evidence,
             group_name=finding.group_name,
             finding_id=finding.id,
             evidence_name=FindingEvidenceName[EVIDENCE_NAMES[evidence_id]],
@@ -196,6 +197,7 @@ async def update_evidence_description(
         raise EvidenceNotFound()
 
     await findings_model.update_evidence(
+        current_value=evidence,
         group_name=finding.group_name,
         finding_id=finding.id,
         evidence_name=FindingEvidenceName[EVIDENCE_NAMES[evidence_id]],

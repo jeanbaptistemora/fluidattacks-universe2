@@ -31,6 +31,7 @@ from dynamodb.types import (
 from itertools import (
     chain,
 )
+import newrelic.agent
 from typing import (
     Any,
     Dict,
@@ -102,6 +103,7 @@ def _exclude_none(*, args: Dict[str, Any]) -> Dict[str, Any]:
     return {key: value for key, value in args.items() if value is not None}
 
 
+@newrelic.agent.function_trace()
 async def batch_delete_item(
     *, keys: Tuple[PrimaryKey, ...], table: Table
 ) -> None:
@@ -128,6 +130,7 @@ async def batch_delete_item(
                 handle_error(error=error)
 
 
+@newrelic.agent.function_trace()
 async def batch_write_item(*, items: Tuple[Item, ...], table: Table) -> None:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
@@ -144,6 +147,7 @@ async def batch_write_item(*, items: Tuple[Item, ...], table: Table) -> None:
                 handle_error(error=error)
 
 
+@newrelic.agent.function_trace()
 async def delete_item(
     *,
     condition_expression: Optional[ConditionBase] = None,
@@ -168,6 +172,7 @@ async def delete_item(
             handle_error(error=error)
 
 
+@newrelic.agent.function_trace()
 async def put_item(
     *,
     condition_expression: Optional[ConditionBase] = None,
@@ -189,6 +194,7 @@ async def put_item(
             handle_error(error=error)
 
 
+@newrelic.agent.function_trace()
 async def query(
     *,
     condition_expression: ConditionBase,
@@ -221,6 +227,7 @@ async def query(
     return tuple(items)
 
 
+@newrelic.agent.function_trace()
 async def update_item(
     *,
     condition_expression: Optional[ConditionBase] = None,
