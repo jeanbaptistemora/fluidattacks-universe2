@@ -10,6 +10,7 @@
     "deap": "1.0.0",
     "fresh": "xxxxwhasdflaskdjfasdf",
     "glob-parent": "5.1.1",
+    "hawk": "2.3.1",
     "hoek": "^5.0.0",
     "hosted-git-info": "2.8.5",
     "html-parse-stringify": "2.0.0",
