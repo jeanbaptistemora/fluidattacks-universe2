@@ -2,7 +2,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.toe_lines.types import (
-    ToeLines,
+    ServicesToeLines,
 )
 import pytest
 from toe.lines import (
@@ -21,7 +21,7 @@ async def test_get_by_root() -> None:
     loaders = get_new_context()
     root_toe_lines = await loaders.root_toe_lines.load((group_name, root_id))
     assert root_toe_lines == (
-        ToeLines(
+        ServicesToeLines(
             comments="comment test",
             filename="product/test/test#.config",
             group_name="unittesting",
@@ -39,7 +39,7 @@ async def test_get_by_root() -> None:
 @pytest.mark.changes_db
 async def test_add() -> None:
     group_name = "unittesting"
-    toe_lines = ToeLines(
+    toe_lines = ServicesToeLines(
         comments="comment test",
         filename="product/test/new#.new",
         group_name=group_name,
@@ -76,7 +76,7 @@ async def test_remove() -> None:
 @pytest.mark.changes_db
 async def test_update() -> None:
     group_name = "unittesting"
-    toe_lines = ToeLines(
+    toe_lines = ServicesToeLines(
         comments="edited",
         filename="product/test/test#.config",
         group_name="unittesting",

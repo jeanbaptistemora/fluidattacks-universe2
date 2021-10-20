@@ -11,7 +11,7 @@ from custom_types import (
     SimplePayload as SimplePayloadType,
 )
 from db_model.toe_lines.types import (
-    ToeLines,
+    ServicesToeLines,
 )
 from decorators import (
     concurrent_decorators,
@@ -48,12 +48,14 @@ async def mutate(
 ) -> SimplePayloadType:
     success = False
     group_toe_lines_loader = info.context.loaders.group_toe_lines
-    group_toes: Set[ToeLines] = await group_toe_lines_loader.load(group_name)
+    group_toes: Set[ServicesToeLines] = await group_toe_lines_loader.load(
+        group_name
+    )
 
     # Rare, but we can have the same filename in different roots.
     # That's why this set
     root_ids: Set[str] = set()
-    group_toes_to_update: List[ToeLines] = []
+    group_toes_to_update: List[ServicesToeLines] = []
     for toe in group_toes:
         if toe.filename == filename:
             toe = toe._replace(sorts_risk_level=sorts_risk_level)

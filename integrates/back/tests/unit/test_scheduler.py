@@ -15,7 +15,7 @@ from db_model.toe_inputs.types import (
     ToeInput,
 )
 from db_model.toe_lines.types import (
-    ToeLines,
+    ServicesToeLines,
 )
 from decimal import (
     Decimal,
@@ -411,7 +411,7 @@ async def test_toe_lines_etl() -> None:
     loaders = get_new_context()
     group_toe_lines = await loaders.group_toe_lines.load(group_name)
     assert group_toe_lines == (
-        ToeLines(
+        ServicesToeLines(
             comments="comment test",  # NOSONAR
             filename="product/test/test#.config",
             group_name="unittesting",
@@ -423,7 +423,7 @@ async def test_toe_lines_etl() -> None:
             tested_lines=4,
             sorts_risk_level=0,
         ),
-        ToeLines(
+        ServicesToeLines(
             comments="comment test",
             filename="integrates_1/test2/test.sh",
             group_name="unittesting",
@@ -446,7 +446,7 @@ async def test_toe_lines_etl() -> None:
     loaders = get_new_context()
     group_toe_lines = await loaders.group_toe_lines.load(group_name)
     assert group_toe_lines == (
-        ToeLines(
+        ServicesToeLines(
             comments="comment test 2",
             filename="product/test/test#.config",
             group_name="unittesting",
@@ -458,7 +458,7 @@ async def test_toe_lines_etl() -> None:
             tested_lines=4,
             sorts_risk_level=0,
         ),
-        ToeLines(
+        ServicesToeLines(
             comments="comment test",
             filename="integrates_1/test3/test.sh",
             group_name="unittesting",

@@ -1,5 +1,5 @@
 from .types import (
-    ToeLines,
+    ServicesToeLines,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -19,7 +19,7 @@ from dynamodb.model import (
 )
 
 
-async def add(*, toe_lines: ToeLines) -> None:
+async def add(*, toe_lines: ServicesToeLines) -> None:
     key_structure = TABLE.primary_key
     facet = TABLE.facets["root_toe_lines"]
     toe_lines_key = keys.build_key(

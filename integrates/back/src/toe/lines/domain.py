@@ -2,11 +2,11 @@ from db_model import (
     toe_lines as toe_lines_model,
 )
 from db_model.toe_lines.types import (
-    ToeLines,
+    ServicesToeLines,
 )
 
 
-async def add(toe_lines: ToeLines) -> None:
+async def add(toe_lines: ServicesToeLines) -> None:
     await toe_lines_model.add(toe_lines=toe_lines)
 
 
@@ -16,5 +16,5 @@ async def remove(filename: str, group_name: str, root_id: str) -> None:
     )
 
 
-async def update(toe_lines: ToeLines) -> None:
+async def update(toe_lines: ServicesToeLines) -> None:
     await toe_lines_model.update(toe_lines=toe_lines)

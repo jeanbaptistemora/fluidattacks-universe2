@@ -3,7 +3,7 @@ from typing import (
 )
 
 
-class ToeLines(NamedTuple):
+class ServicesToeLines(NamedTuple):
     comments: str
     filename: str
     group_name: str

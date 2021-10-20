@@ -24,7 +24,7 @@ from db_model.toe_inputs.types import (
     ToeInput,
 )
 from db_model.toe_lines.types import (
-    ToeLines,
+    ServicesToeLines,
 )
 from decimal import (
     Decimal,
@@ -411,7 +411,7 @@ async def populate_executions(data: List[Any]) -> bool:
     return all(await collect(coroutines))
 
 
-async def populate_toe_lines(data: Tuple[ToeLines, ...]) -> bool:
+async def populate_toe_lines(data: Tuple[ServicesToeLines, ...]) -> bool:
     await collect(
         [toe_lines_model.add(toe_lines=toe_lines) for toe_lines in data]
     )

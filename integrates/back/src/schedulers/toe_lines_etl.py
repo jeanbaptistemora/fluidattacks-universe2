@@ -12,7 +12,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.toe_lines.types import (
-    ToeLines,
+    ServicesToeLines,
 )
 from decorators import (
     retry_on_exceptions,
@@ -100,7 +100,7 @@ def _format_filename(filename: str) -> str:
 
 def _get_group_toe_lines_from_cvs(
     lines_csv_path: str, group_name: str, group_roots: Tuple[Root, ...]
-) -> Set[ToeLines]:
+) -> Set[ServicesToeLines]:
     default_date = datetime_utils.DEFAULT_ISO_STR
     lines_csv_fields: List[Tuple[str, Callable, Any, str]] = [
         # field_name, field_formater, field_default_value, cvs_field_name,
@@ -148,16 +148,16 @@ def _get_group_toe_lines_from_cvs(
 
             new_toe_lines["group_name"] = group_name
             new_toe_lines["sorts_risk_level"] = 0
-            group_toe_lines.add(ToeLines(**new_toe_lines))
+            group_toe_lines.add(ServicesToeLines(**new_toe_lines))
 
     return group_toe_lines
 
 
 def _get_toe_lines_to_add(
-    group_toe_lines: Set[ToeLines],
+    group_toe_lines: Set[ServicesToeLines],
     group_toe_lines_hashes: Set[int],
-    cvs_group_toe_lines: Set[ToeLines],
-) -> Set[ToeLines]:
+    cvs_group_toe_lines: Set[ServicesToeLines],
+) -> Set[ServicesToeLines]:
     return {
         toe_lines
         for toe_lines in cvs_group_toe_lines
@@ -167,10 +167,10 @@ def _get_toe_lines_to_add(
 
 
 def _get_toe_lines_to_update(
-    group_toe_lines: Set[ToeLines],
+    group_toe_lines: Set[ServicesToeLines],
     group_toe_lines_hashes: Set[int],
-    cvs_group_toe_lines: Set[ToeLines],
-) -> Set[ToeLines]:
+    cvs_group_toe_lines: Set[ServicesToeLines],
+) -> Set[ServicesToeLines]:
     # Exclude sortsRiskLevel from updating, its value must remain
     cvs_group_toe_lines_copy = cvs_group_toe_lines.copy()
     for toe_lines_csv in cvs_group_toe_lines_copy:
@@ -195,8 +195,9 @@ def _get_toe_lines_to_update(
 
 
 def _get_toe_lines_to_remove(
-    group_toe_lines: Set[ToeLines], cvs_group_toe_lines_hashes: Set[int]
-) -> Set[ToeLines]:
+    group_toe_lines: Set[ServicesToeLines],
+    cvs_group_toe_lines_hashes: Set[int],
+) -> Set[ServicesToeLines]:
     return {
         toe_lines
         for toe_lines in group_toe_lines
@@ -213,7 +214,7 @@ async def update_toe_lines_from_csv(
     group_roots_loader = loaders.group_roots
     group_roots: Tuple[Root, ...] = await group_roots_loader.load(group_name)
     group_toe_lines_loader = loaders.group_toe_lines
-    group_toe_lines: Set[ToeLines] = set(
+    group_toe_lines: Set[ServicesToeLines] = set(
         await group_toe_lines_loader.load(group_name)
     )
     group_toe_lines_hashes = {

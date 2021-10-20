@@ -18,7 +18,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.toe_lines.types import (
-    ToeLines,
+    ServicesToeLines,
 )
 from groups.dal import (
     get_active_groups,
@@ -34,7 +34,7 @@ from typing import (
 )
 
 
-async def update_sorts_risk_level(toe: ToeLines) -> None:
+async def update_sorts_risk_level(toe: ServicesToeLines) -> None:
     toe = toe._replace(sorts_risk_level=0)
     await update_toe(toe)
 
@@ -42,7 +42,7 @@ async def update_sorts_risk_level(toe: ToeLines) -> None:
 async def main() -> None:
     groups = await get_active_groups()
     loaders = get_new_context()
-    groups_toes: List[ToeLines] = list(
+    groups_toes: List[ServicesToeLines] = list(
         chain.from_iterable(await loaders.group_toe_lines.load_many(groups))
     )
     print(f"We have {len(groups)} groups and {len(groups_toes)} toes in total")
