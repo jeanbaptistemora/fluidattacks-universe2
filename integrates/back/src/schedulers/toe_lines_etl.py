@@ -5,6 +5,7 @@ import csv
 from custom_exceptions import (
     GroupNameNotFound,
     RootNotFound,
+    UnavailabilityError,
 )
 from dataloaders import (
     Dataloaders,
@@ -12,6 +13,9 @@ from dataloaders import (
 )
 from db_model.toe_lines.types import (
     ToeLines,
+)
+from decorators import (
+    retry_on_exceptions,
 )
 import glob
 from groups import (
@@ -64,6 +68,16 @@ LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
 bugsnag_utils.start_scheduler_session()
+
+toe_lines_add = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=10
+)(toe_lines_domain.add)
+toe_lines_remove = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=10
+)(toe_lines_domain.remove)
+toe_lines_update = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=10
+)(toe_lines_domain.update)
 
 
 def _format_date(date_str: str) -> str:
@@ -217,10 +231,7 @@ async def update_toe_lines_from_csv(
         cvs_group_toe_lines,
     )
     await collect(
-        [
-            toe_lines_domain.update(toe_lines)
-            for toe_lines in toe_lines_to_update
-        ],
+        [toe_lines_update(toe_lines) for toe_lines in toe_lines_to_update],
         workers=100,
     )
     toe_lines_to_remove = _get_toe_lines_to_remove(
@@ -228,7 +239,7 @@ async def update_toe_lines_from_csv(
     )
     await collect(
         [
-            toe_lines_domain.remove(
+            toe_lines_remove(
                 toe_lines.filename, toe_lines.group_name, toe_lines.root_id
             )
             for toe_lines in toe_lines_to_remove
@@ -241,7 +252,7 @@ async def update_toe_lines_from_csv(
         cvs_group_toe_lines,
     )
     await collect(
-        [toe_lines_domain.add(toe_lines) for toe_lines in toe_lines_to_add],
+        [toe_lines_add(toe_lines) for toe_lines in toe_lines_to_add],
         workers=100,
     )
 

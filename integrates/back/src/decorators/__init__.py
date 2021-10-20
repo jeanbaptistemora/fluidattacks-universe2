@@ -3,6 +3,9 @@ from aioextensions import (
     schedule,
 )
 import asyncio
+from asyncio import (
+    sleep,
+)
 import authz
 import contextlib
 from custom_exceptions import (
@@ -590,7 +593,7 @@ def retry_on_exceptions(
                     with contextlib.suppress(*exceptions):
                         return await _func(*args, **kwargs)
 
-                    time.sleep(sleep_seconds)
+                    await sleep(sleep_seconds)
 
                 return await _func(*args, **kwargs)
 
