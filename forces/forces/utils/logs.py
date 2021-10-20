@@ -1,3 +1,4 @@
+# pylint: disable=consider-using-with
 from aioextensions import (
     in_thread,
 )

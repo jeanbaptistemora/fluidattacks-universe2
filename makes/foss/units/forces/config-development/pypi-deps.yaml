@@ -1,3 +1,5 @@
+pyfiglet: "0.8.post1"
 pytest-asyncio: 0.14.0
 pytest-cov: 2.10.0
 pytest: 5.4.3
+rich: 10.12.0

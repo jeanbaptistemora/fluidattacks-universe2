@@ -195,6 +195,7 @@ async def upload_report(
     :param git_metadata: Repository metadata.
     :param date: Forces execution date.
     """
+    # pylint: disable=consider-using-with
     query = """
         mutation ForcesDoUploadReport(
             $group_name: String!
