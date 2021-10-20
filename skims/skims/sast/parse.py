@@ -46,12 +46,12 @@ from utils import (
 )
 from utils.ctx import (
     CTX,
-    STATE_FOLDER,
     TREE_SITTER_CSHARP,
     TREE_SITTER_GO,
     TREE_SITTER_JAVA,
     TREE_SITTER_JAVASCRIPT,
     TREE_SITTER_KOTLIN,
+    TREE_SITTER_PARSER,
     TREE_SITTER_PHP,
     TREE_SITTER_TSX,
 )
@@ -71,22 +71,6 @@ from utils.logs import (
 )
 from utils.string import (
     get_debug_path,
-)
-
-# Constants
-LANGUAGES_SO = os.path.join(STATE_FOLDER, "languages.so")
-
-# Side effects
-Language.build_library(
-    LANGUAGES_SO,
-    [
-        TREE_SITTER_CSHARP,
-        TREE_SITTER_GO,
-        TREE_SITTER_JAVA,
-        TREE_SITTER_JAVASCRIPT,
-        TREE_SITTER_KOTLIN,
-        TREE_SITTER_TSX,
-    ],
 )
 
 
@@ -269,7 +253,7 @@ def parse_content(
     language: GraphShardMetadataLanguage,
 ) -> Tree:
     parser: Parser = Parser()
-    parser.set_language(Language(LANGUAGES_SO, language.value))
+    parser.set_language(Language(TREE_SITTER_PARSER, language.value))
     return parser.parse(content)
 
 

@@ -9,7 +9,6 @@ tree_sitter.Language.build_library(
         os.environ["envTreeSitterJava"],
         os.environ["envTreeSitterJavaScript"],
         os.environ["envTreeSitterKotlin"],
-        os.environ["envTreeSitterPhp"],
         os.environ["envTreeSitterTsx"] + "/tsx",
     ],
 )
