@@ -16,7 +16,6 @@ makeTemplate {
       inputs.nixpkgs.git
       inputs.nixpkgs.graphviz
       inputs.nixpkgs.nodejs
-      inputs.nixpkgs.python38
     ];
     pythonPackage = [
       (projectPath "/skims/skims")
