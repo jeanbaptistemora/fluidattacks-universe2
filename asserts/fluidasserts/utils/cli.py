@@ -1008,10 +1008,6 @@ def exec_cloudformation_package(
     )
 
     source: Dict[str, str] = {
-        ("cloudfront", "CloudFront (Content Delivery Network)"): [
-            "cloudfront.serves_content_over_http",
-            "cloudfront.serves_content_over_insecure_protocols",
-        ],
         ("dynamodb", "DynamoDB (NoSQL Database Service)"): [
             "dynamodb.has_not_point_in_time_recovery",
         ],
