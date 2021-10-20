@@ -47,6 +47,7 @@ def decide_language(path: str) -> GraphShardMetadataLanguage:
         GraphShardMetadataLanguage.JAVA: [".java"],
         GraphShardMetadataLanguage.JAVASCRIPT: [".js", ".jsx"],
         GraphShardMetadataLanguage.KOTLIN: [".kt", ".ktm", ".kts"],
+        GraphShardMetadataLanguage.PHP: [".php"],
         GraphShardMetadataLanguage.TSX: [".ts", ".tsx"],
     }
     language = GraphShardMetadataLanguage.NOT_SUPPORTED

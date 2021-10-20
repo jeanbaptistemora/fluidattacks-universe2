@@ -52,6 +52,7 @@ from utils.ctx import (
     TREE_SITTER_JAVA,
     TREE_SITTER_JAVASCRIPT,
     TREE_SITTER_KOTLIN,
+    TREE_SITTER_PHP,
     TREE_SITTER_TSX,
 )
 from utils.encodings import (
@@ -113,6 +114,7 @@ FIELDS_BY_LANGAUGE: Dict[
     GraphShardMetadataLanguage.JAVA: get_fields(TREE_SITTER_JAVA),
     GraphShardMetadataLanguage.JAVASCRIPT: get_fields(TREE_SITTER_JAVASCRIPT),
     GraphShardMetadataLanguage.KOTLIN: get_fields(TREE_SITTER_KOTLIN),
+    GraphShardMetadataLanguage.PHP: get_fields(TREE_SITTER_PHP),
     GraphShardMetadataLanguage.TSX: get_fields(TREE_SITTER_TSX),
 }
 
