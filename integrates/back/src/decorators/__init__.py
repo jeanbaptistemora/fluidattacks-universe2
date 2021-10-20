@@ -4,6 +4,7 @@ from aioextensions import (
 )
 import asyncio
 import authz
+import contextlib
 from custom_exceptions import (
     FindingNotFound,
     InvalidAuthorization,
@@ -39,12 +40,15 @@ from settings import (
     DEBUG,
     LOGGING,
 )
+import time
 from typing import (
     Any,
     Callable,
     cast,
     Dict,
     Set,
+    Tuple,
+    Type,
     TypeVar,
 )
 from users import (
@@ -568,6 +572,43 @@ async def resolve_group_name(  # noqa: MC0001
     if isinstance(name, str):
         name = name.lower()
     return cast(str, name)
+
+
+def retry_on_exceptions(
+    *,
+    exceptions: Tuple[Type[Exception], ...],
+    max_attempts: int = 10,
+    sleep_seconds: float = 1,
+) -> Callable[[TVar], TVar]:
+    def decorator(func: TVar) -> TVar:
+        _func = cast(Callable[..., Any], func)
+        if asyncio.iscoroutinefunction(_func):
+
+            @functools.wraps(_func)
+            async def wrapper(*args: Any, **kwargs: Any) -> Any:
+                for _ in range(max_attempts - 1):
+                    with contextlib.suppress(*exceptions):
+                        return await _func(*args, **kwargs)
+
+                    time.sleep(sleep_seconds)
+
+                return await _func(*args, **kwargs)
+
+        else:
+
+            @functools.wraps(_func)
+            def wrapper(*args: Any, **kwargs: Any) -> Any:
+                for _ in range(max_attempts - 1):
+                    with contextlib.suppress(*exceptions):
+                        return _func(*args, **kwargs)
+
+                    time.sleep(sleep_seconds)
+
+                return _func(*args, **kwargs)
+
+        return cast(TVar, wrapper)
+
+    return decorator
 
 
 def turn_args_into_kwargs(func: TVar) -> TVar:
