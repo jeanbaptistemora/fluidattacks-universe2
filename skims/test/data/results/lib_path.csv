@@ -7458,6 +7458,56 @@ F127,lines,namespace/skims/test/data/lib_root/f124/test.go,27,843,skims,127. Lac
   37 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
      ^ Col 0
 "
+F001,lines,namespace/skims/test/data/lib_root/f001/test.cs,13,89,skims,001. SQL injection - C Sharp SQL API,"Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures.
+","
+   3 | using WebApplication1.Controllers;
+   4 |
+   5 | namespace WebApplicationDotNetCore.Controllers
+   6 | {
+   7 |     public class RSPEC3649SQLiNoncompliant
+   8 |     {
+   9 |         public IActionResult Authenticate(UserAccountContext context, string user)
+  10 |         {
+  11 |             string insecure_query = ""SELECT * FROM Users WHERE Username = '"" + user + ""'"";
+  12 |
+> 13 |             insecure_obj = new SqlCommand(insecure_query);
+  14 |
+  15 |             insecure_methd = sqcontext.Database.ExecuteSqlCommand(insecure_query);
+  16 |
+  17 |             string secure_query = ""UPDATE Sales.Store SET Demographics = @demographics "" + ""WHERE CustomerID = @ID;"";
+  18 |
+  19 |             secure_obj = new SqlCommand(secure_query);
+  20 |
+  21 |             secure_methd = sqcontext.Database.ExecuteSqlCommand(secure_query);
+  22 |         }
+  23 |     }
+     ^ Col 0
+"
+F001,lines,namespace/skims/test/data/lib_root/f001/test.cs,15,89,skims,001. SQL injection - C Sharp SQL API,"Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures.
+","
+   4 |
+   5 | namespace WebApplicationDotNetCore.Controllers
+   6 | {
+   7 |     public class RSPEC3649SQLiNoncompliant
+   8 |     {
+   9 |         public IActionResult Authenticate(UserAccountContext context, string user)
+  10 |         {
+  11 |             string insecure_query = ""SELECT * FROM Users WHERE Username = '"" + user + ""'"";
+  12 |
+  13 |             insecure_obj = new SqlCommand(insecure_query);
+  14 |
+> 15 |             insecure_methd = sqcontext.Database.ExecuteSqlCommand(insecure_query);
+  16 |
+  17 |             string secure_query = ""UPDATE Sales.Store SET Demographics = @demographics "" + ""WHERE CustomerID = @ID;"";
+  18 |
+  19 |             secure_obj = new SqlCommand(secure_query);
+  20 |
+  21 |             secure_methd = sqcontext.Database.ExecuteSqlCommand(secure_query);
+  22 |         }
+  23 |     }
+  24 | }
+     ^ Col 0
+"
 F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,23,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in skims/test/data/lib_path/f001_jpa/java.java,"
    13 |     @Query(value = ""SELECT * FROM schema.table "" +
    14 |         ""WHERE CODE = ?1"", nativeQuery = true)
