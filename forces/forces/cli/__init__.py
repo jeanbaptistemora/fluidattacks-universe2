@@ -14,7 +14,6 @@ from forces.utils.function import (
     shield,
 )
 from forces.utils.logs import (
-    blocking_log,
     log,
 )
 from forces.utils.model import (
@@ -25,6 +24,9 @@ from io import (
     TextIOWrapper,
 )
 import re
+from rich import (
+    print as rprint,
+)
 import sys
 import textwrap
 from typing import (
@@ -48,19 +50,20 @@ def show_banner() -> None:
     """Show forces banner."""
     header = textwrap.dedent(
         r"""
-        #     ______
-        #    / ____/___  _____________  _____
-        #   / /_  / __ \/ ___/ ___/ _ \/ ___/
-        #  / __/ / /_/ / /  / /__/  __(__  )
-        # /_/    \____/_/   \___/\___/____/
-        #
-        #  ___
+        [cyan]
+        #    ____            _____           ____
+        #   / __ \___ _   __/ ___/___  _____/ __ \____  _____
+        #  / / / / _ \ | / /\__ \/ _ \/ ___/ / / / __ \/ ___/
+        # / /_/ /  __/ |/ /___/ /  __/ /__/ /_/ / /_/ (__  )
+        #/_____/\___/|___//____/\___/\___/\____/ .___/____/
+        #                                     /_/ [/]
+        [bold red]#  ___
         # | >>|> fluid
         # |___|  attacks, we hack your software
-        #
+        # [/]
         """
     )
-    blocking_log("info", "%s", header)
+    rprint(header)
 
 
 @click.command(name="forces")
@@ -142,12 +145,13 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
     show_banner()
 
     striccness = "strict" if strict else "lax"
-    await log("info", "Running forces in %s mode", striccness)
-    await log("info", "Running forces in %s kind", kind)
+    start_msg: str = "Running DevSecOps agent"
+    await log("info", f"{start_msg} in {striccness} mode")
+    await log("info", f"{start_msg} in {kind} kind")
     if repo_name:
         await log(
             "info",
-            f"Running forces for vulnerabilities in the repo: {repo_name}",
+            f"{start_msg} for vulnerabilities in the repo: {repo_name}",
         )
     else:
         await log(
