@@ -60,4 +60,3 @@ observes.env.utils-logger.runtime
 observes.env.utils-logger.runtime.python
 observes.generic.runner
 observes.generic.tester
-observes.test.tap-mixpanel

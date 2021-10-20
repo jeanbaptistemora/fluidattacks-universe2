@@ -333,6 +333,10 @@ in
           gitlabExtra = gitlabTestCode;
         }
         {
+          output = "/observes/test/tap-mixpanel";
+          gitlabExtra = gitlabTestCode;
+        }
+        {
           output = "/testTerraform/observes";
           gitlabExtra = gitlabTestInfra;
         }
