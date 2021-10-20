@@ -1,17 +1,17 @@
-{ makes
+{ makePythonPypiEnvironment
 , makeTemplate
-, packages
+, inputs
 , ...
 }:
 makeTemplate {
   name = "observes-env-paginator-development";
   searchPaths = {
-    envSources = [
-      (makes.makePythonPypiEnvironment {
+    source = [
+      (makePythonPypiEnvironment {
         name = "observes-env-paginator-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      packages.observes.env.paginator.runtime
+      inputs.product.observes-env-paginator-runtime
     ];
   };
 }
