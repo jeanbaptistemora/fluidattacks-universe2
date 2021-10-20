@@ -378,6 +378,7 @@ async def update_git_environments(
         raise InvalidParameter()
 
     await roots_model.update_root_state(
+        current_value=root.state,
         group_name=group_name,
         root_id=root_id,
         state=GitRootState(
@@ -454,6 +455,7 @@ async def update_git_root(
     )
 
     await roots_model.update_root_state(
+        current_value=root.state,
         group_name=group_name,
         root_id=root_id,
         state=GitRootState(
@@ -502,6 +504,7 @@ async def update_root_cloning_status(
         raise InvalidParameter()
 
     await roots_model.update_git_root_cloning(
+        current_value=root.cloning,
         cloning=GitRootCloning(
             modified_date=datetime_utils.get_iso_date(),
             reason=message,
@@ -530,6 +533,7 @@ async def activate_root(
                 raise RepeatedRoot()
 
             await roots_model.update_root_state(
+                current_value=root.state,
                 group_name=group_name,
                 root_id=root.id,
                 state=GitRootState(
@@ -567,6 +571,7 @@ async def activate_root(
                 raise RepeatedRoot()
 
             await roots_model.update_root_state(
+                current_value=root.state,
                 group_name=group_name,
                 root_id=root.id,
                 state=IPRootState(
@@ -592,6 +597,7 @@ async def activate_root(
                 raise RepeatedRoot()
 
             await roots_model.update_root_state(
+                current_value=root.state,
                 group_name=group_name,
                 root_id=root.id,
                 state=URLRootState(
@@ -622,6 +628,7 @@ async def deactivate_root(
     if root.state.status != new_status:
         if isinstance(root, GitRootItem):
             await roots_model.update_root_state(
+                current_value=root.state,
                 group_name=group_name,
                 root_id=root.id,
                 state=GitRootState(
@@ -654,6 +661,7 @@ async def deactivate_root(
 
         elif isinstance(root, IPRootItem):
             await roots_model.update_root_state(
+                current_value=root.state,
                 group_name=group_name,
                 root_id=root.id,
                 state=IPRootState(
@@ -670,6 +678,7 @@ async def deactivate_root(
 
         else:
             await roots_model.update_root_state(
+                current_value=root.state,
                 group_name=group_name,
                 root_id=root.id,
                 state=URLRootState(

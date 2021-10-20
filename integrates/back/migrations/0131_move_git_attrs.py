@@ -61,7 +61,10 @@ async def update_root(root: GitRootItem) -> None:
     )
     # Update latest state
     await roots_model.update_root_state(
-        group_name=root.group_name, root_id=root.id, state=root.state
+        current_value=root.state,
+        group_name=root.group_name,
+        root_id=root.id,
+        state=root.state,
     )
     # Update metadata
     await operations.update_item(
