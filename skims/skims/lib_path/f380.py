@@ -2,6 +2,7 @@ from aioextensions import (
     in_process,
 )
 from lib_path.common import (
+    EXTENSIONS_YAML,
     get_vulnerabilities_blocking,
     NAMES_DOCKERFILE,
     SHIELD,
@@ -49,7 +50,7 @@ def _unpinned_docker_image(
             key="F380.description",
             path=path,
         ),
-        finding=core_model.FindingEnum.F009,
+        finding=core_model.FindingEnum.F380,
         grammar=grammar,
         path=path,
     )
@@ -78,7 +79,10 @@ async def analyze(
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
-    if file_name in NAMES_DOCKERFILE and file_extension == "":
+    if (file_name in NAMES_DOCKERFILE and file_extension == "") or (
+        re.search("docker", file_name, re.IGNORECASE)
+        and file_extension in EXTENSIONS_YAML
+    ):
         coroutines.append(
             unpinned_docker_image(
                 content=await content_generator(),

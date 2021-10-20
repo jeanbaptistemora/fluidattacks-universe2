@@ -7014,7 +7014,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   79 |       },
      ^ Col 8
 "
-F009,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,009. Sensitive information in source code,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
+F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
 ","
    1 | # Insecure
    2 | FROM node
@@ -7039,7 +7039,7 @@ F009,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,009. 
   21 | RUN apt install -y nginx php-fpm supervisor && \
      ^ Col 0
 "
-F009,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,2,749,skims,009. Sensitive information in source code,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
+F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,2,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
 ","
    1 | # Insecure
 >  2 | FROM node
