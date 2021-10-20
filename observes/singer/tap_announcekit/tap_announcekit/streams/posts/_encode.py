@@ -1,6 +1,16 @@
 from dataclasses import (
     dataclass,
 )
+from purity.v1 import (
+    Transform,
+)
+from returns.curry import (
+    partial,
+)
+from singer_io.singer2 import (
+    SingerRecord,
+    SingerSchema,
+)
 from singer_io.singer2.json import (
     JsonFactory,
     JsonObj,
@@ -12,12 +22,21 @@ from singer_io.singer2.json_schema import (
 from tap_announcekit.objs.post import (
     Post,
 )
+from tap_announcekit.stream import (
+    SingerEncoder,
+)
 from tap_announcekit.streams._obj_encoder import (
     StreamsObjsEncoder,
 )
 from typing import (
     Dict,
 )
+
+_encoder = StreamsObjsEncoder.encoder()
+
+
+def _schema() -> JsonSchema:
+    return _encoder.to_jschema(Post.__annotations__)
 
 
 def _to_json(obj: Post) -> JsonObj:
@@ -40,19 +59,16 @@ def _to_json(obj: Post) -> JsonObj:
     return JsonFactory.from_prim_dict(json)
 
 
-_encoder = StreamsObjsEncoder.encoder()
-
-
-def _schema() -> JsonSchema:
-    return _encoder.to_jschema(Post.__annotations__)
+def _to_singer(stream_name: str, post: Post) -> SingerRecord:
+    data = _to_json(post)
+    return SingerRecord(stream_name, data)
 
 
 @dataclass(frozen=True)
-class PostEncoder:
+class PostEncoders:
     @staticmethod
-    def to_json(post: Post) -> JsonObj:
-        return _to_json(post)
-
-    @staticmethod
-    def schema() -> JsonSchema:
-        return _schema()
+    def encoder(stream_name: str) -> SingerEncoder[Post]:
+        schema = SingerSchema(stream_name, _schema(), frozenset([]))
+        return SingerEncoder(
+            schema, Transform(partial(_to_singer, stream_name))
+        )

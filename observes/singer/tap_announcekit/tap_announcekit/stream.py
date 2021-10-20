@@ -5,6 +5,7 @@ import logging
 from purity.v1 import (
     Patch,
     PureIter,
+    Transform,
 )
 from returns.curry import (
     partial,
@@ -59,6 +60,12 @@ class StreamGetter(SupportsKind2["StreamGetter[_ID, _D]", _ID, _D]):
 
 
 _R = TypeVar("_R", SingerRecord, IO[SingerRecord])
+
+
+@dataclass(frozen=True)
+class SingerEncoder(SupportsKind1["SingerEncoder[_D]", _D]):
+    schema: SingerSchema
+    to_singer: Transform[_D, SingerRecord]
 
 
 @dataclass(frozen=True)

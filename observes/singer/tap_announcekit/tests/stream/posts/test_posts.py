@@ -3,7 +3,7 @@ from tap_announcekit.objs.id_objs import (
     ProjectId,
 )
 from tap_announcekit.streams.posts._encode import (
-    PostEncoder,
+    PostEncoders,
 )
 from tap_announcekit.streams.posts._factory._queries import (
     PostIdsQuery,
@@ -18,4 +18,4 @@ def test_queries() -> None:
 
 
 def test_schema() -> None:
-    PostEncoder.schema()
+    assert PostEncoders.encoder("stream_1").schema

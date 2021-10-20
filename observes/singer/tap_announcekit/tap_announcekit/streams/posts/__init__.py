@@ -4,9 +4,6 @@ from dataclasses import (
 from purity.v1 import (
     PureIter,
 )
-from returns.curry import (
-    partial,
-)
 from returns.io import (
     IO,
 )
@@ -21,12 +18,12 @@ from tap_announcekit.stream import (
     Stream,
     StreamIO,
 )
+from tap_announcekit.streams.posts._encode import (
+    PostEncoders,
+)
 from tap_announcekit.streams.posts._factory import (
     PostFactory,
     PostIdFactory,
-)
-from tap_announcekit.streams.posts._singer import (
-    PostSingerUtils,
 )
 
 
@@ -39,13 +36,12 @@ class PostsStreams:
         self,
         post_ids: PureIter[PostId],
     ) -> StreamIO:
+        encoder = PostEncoders.encoder(self._name)
         factory = PostFactory(self.client)
         getter = factory.stream_getter()
         posts = getter.get_iter(post_ids)
-        records = posts.map_each(
-            lambda p: p.map(partial(PostSingerUtils.to_singer, self._name))
-        )
-        return Stream(PostSingerUtils.schema(self._name), records)
+        records = posts.map_each(lambda p: p.map(encoder.to_singer))
+        return Stream(encoder.schema, records)
 
     def ids(self, proj: ProjectId) -> IO[PureIter[PostId]]:
         factory = PostIdFactory(self.client, proj)
