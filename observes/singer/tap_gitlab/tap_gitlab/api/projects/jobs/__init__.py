@@ -35,6 +35,9 @@ from returns.unsafe import (
 from tap_gitlab.api.projects.ids import (
     ProjectId,
 )
+from tap_gitlab.api.projects.jobs._manager import (
+    JobManager,
+)
 from tap_gitlab.api.projects.jobs.page import (
     filter_page,
     JobsPage,
@@ -175,3 +178,8 @@ class JobApi(NamedTuple):
         return init.bind(partial(self.list_all_updated_before, ids.upper)).map(
             _filter
         )
+
+
+__all__ = [
+    "JobManager",
+]

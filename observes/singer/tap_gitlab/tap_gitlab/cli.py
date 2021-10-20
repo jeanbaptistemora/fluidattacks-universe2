@@ -6,6 +6,7 @@ from returns.maybe import (
     Maybe,
 )
 from tap_gitlab import (
+    cleaner,
     executor,
 )
 from tap_gitlab.api.auth import (
@@ -77,6 +78,17 @@ def stream(
         raise NotImplementedError()
 
 
+@click.command()
+@click.option("--api-key", type=str, required=True)
+@click.option("--project", type=str, required=True)
+def clean_stuck_jobs(
+    api_key: str,
+    project: str,
+) -> None:
+    creds = Credentials(api_key)
+    cleaner.clean(creds, project)
+
+
 @click.group()
 def main() -> None:
     # cli group entrypoint
@@ -84,3 +96,4 @@ def main() -> None:
 
 
 main.add_command(stream)
+main.add_command(clean_stuck_jobs)
