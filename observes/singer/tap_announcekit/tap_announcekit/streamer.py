@@ -24,6 +24,7 @@ from tap_announcekit.objs.id_objs import (
 )
 from tap_announcekit.stream import (
     StreamEmitter,
+    StreamEmitterFactory,
 )
 from tap_announcekit.streams.posts import (
     PostsStreams,
@@ -64,6 +65,7 @@ class _Streamer:
     client: ApiClient
     selection: SupportedStream
     proj: ProjectId
+    emitter: StreamEmitter
 
 
 class Streamer(_Streamer):
@@ -73,26 +75,21 @@ class Streamer(_Streamer):
         selection: SupportedStream,
         proj: ProjectId,
     ) -> None:
-        super().__init__(ApiClient(creds), selection, proj)
+        factory = StreamEmitterFactory(SingerEmitter())
+        super().__init__(
+            ApiClient(creds), selection, proj, factory.new_emitter()
+        )
 
     def stream_posts(self, ids: PureIter[PostId]) -> IO[None]:
         streams = PostsStreams(self.client)
         stream = streams.stream(ids)
-        emitter = StreamEmitter(
-            SingerEmitter(),
-            stream,
-        )
-        return emitter.emit()
+        return self.emitter.emit(stream)
 
     def stream_proj(self) -> IO[None]:
         stream = ProjectStreams.stream(
             self.client, PureIterFactory.from_flist((self.proj,))
         )
-        emitter = StreamEmitter(
-            SingerEmitter(),
-            stream,
-        )
-        return emitter.emit()
+        return self.emitter.emit(stream)
 
     def start(self) -> IO[None]:
         if self.selection in (SupportedStream.PROJECTS, SupportedStream.ALL):

@@ -71,33 +71,48 @@ StreamIO = Stream[IO[SingerRecord]]
 StreamData = Stream[SingerRecord]
 
 
-def _raise_and_inform(item: JsonObj, error: Exception) -> NoReturn:
-    LOG.error("Invalid json: %s", item)
-    raise error
+@dataclass(frozen=True)
+class StreamEmitter:
+    _emit: Patch[Callable[[Stream[_R]], IO[None]]]
+
+    def emit(self, stream: Stream[_R]) -> IO[None]:
+        return self._emit.unwrap(stream)
 
 
 @dataclass(frozen=True)
-class StreamEmitter(SupportsKind1["StreamEmitter[_R]", _R]):
-    emitter: SingerEmitter
-    stream: Stream[_R]
+class StreamEmitterFactory:
+    s_emitter: SingerEmitter
 
-    def _validate_record(self, item: SingerRecord) -> SingerRecord:
-        jschema = self.stream.schema.schema
+    @staticmethod
+    def _raise_and_inform(item: JsonObj, error: Exception) -> NoReturn:
+        LOG.error("Invalid json: %s", item)
+        raise error
+
+    def _validate_record(
+        self, schema: SingerSchema, item: SingerRecord
+    ) -> SingerRecord:
+        jschema = schema.schema
         raw_record = DictFactory.from_json(item.record)
         jschema.validate(raw_record).alt(
-            partial(_raise_and_inform, item.record)
+            partial(self._raise_and_inform, item.record)
         )
         return item
 
-    def _emit_record(self, item: _R) -> IO[None]:
+    def _emit_record(self, schema: SingerSchema, item: _R) -> IO[None]:
+        validate = partial(self._validate_record, schema)
         if isinstance(item, SingerRecord):
-            return self.emitter.emit_record(self._validate_record(item))
-        return item.map(self._validate_record).bind(self.emitter.emit_record)
+            return self.s_emitter.emit_record(validate(item))
+        return item.map(validate).bind(self.s_emitter.emit_record)
 
     def _emit_schema(self, item: SingerSchema) -> IO[None]:
-        return self.emitter.emit_schema(item)
+        return self.s_emitter.emit_schema(item)
 
-    def emit(self) -> IO[None]:
-        self._emit_schema(self.stream.schema)
-        emits_io = self.stream.records.map_each(self._emit_record)
+    def _emit(self, stream: Stream[_R]) -> IO[None]:
+        self._emit_schema(stream.schema)
+        emits_io = stream.records.map_each(
+            partial(self._emit_record, stream.schema)
+        )
         return PureIter.consume(emits_io)
+
+    def new_emitter(self) -> StreamEmitter:
+        return StreamEmitter(Patch(self._emit))
