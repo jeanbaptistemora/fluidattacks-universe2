@@ -47,7 +47,6 @@ class PostsStreams:
         )
         return Stream(PostSingerUtils.schema(self._name), records)
 
-    def stream_all(self, proj: ProjectId) -> IO[StreamIO]:
+    def ids(self, proj: ProjectId) -> IO[PureIter[PostId]]:
         factory = PostIdFactory(self.client, proj)
-        ids_io = factory.get_ids()
-        return ids_io.map(self.stream)
+        return factory.get_ids()

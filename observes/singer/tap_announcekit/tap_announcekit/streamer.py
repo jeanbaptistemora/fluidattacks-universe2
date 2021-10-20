@@ -6,6 +6,7 @@ from enum import (
     Enum,
 )
 from purity.v1 import (
+    PureIter,
     PureIterFactory,
 )
 from returns.io import (
@@ -17,6 +18,9 @@ from singer_io.singer2 import (
 from tap_announcekit.api import (
     ApiClient,
     Creds,
+)
+from tap_announcekit.objs.id_objs import (
+    PostId,
 )
 from tap_announcekit.stream import (
     StreamEmitter,
@@ -56,30 +60,45 @@ class StreamSelector:
 
 
 @dataclass(frozen=True)
-class Streamer:
-    creds: Creds
+class _Streamer:
+    client: ApiClient
     selection: SupportedStream
     proj: ProjectId
 
-    def start(self) -> IO[None]:
-        client = ApiClient(self.creds)
 
+class Streamer(_Streamer):
+    def __init__(
+        self,
+        creds: Creds,
+        selection: SupportedStream,
+        proj: ProjectId,
+    ) -> None:
+        super().__init__(ApiClient(creds), selection, proj)
+
+    def stream_posts(self, ids: PureIter[PostId]) -> IO[None]:
+        streams = PostsStreams(self.client)
+        stream = streams.stream(ids)
+        emitter = StreamEmitter(
+            SingerEmitter(),
+            stream,
+        )
+        return emitter.emit()
+
+    def stream_proj(self) -> IO[None]:
+        stream = ProjectStreams.stream(
+            self.client, PureIterFactory.from_flist((self.proj,))
+        )
+        emitter = StreamEmitter(
+            SingerEmitter(),
+            stream,
+        )
+        return emitter.emit()
+
+    def start(self) -> IO[None]:
         if self.selection in (SupportedStream.PROJECTS, SupportedStream.ALL):
-            proj_stream = ProjectStreams.stream(
-                client, PureIterFactory.from_flist((self.proj,))
-            )
-            emitter = StreamEmitter(
-                SingerEmitter(),
-                proj_stream,
-            )
-            emitter.emit()
+            self.stream_proj()
         if self.selection in (SupportedStream.POSTS, SupportedStream.ALL):
-            stream_io = PostsStreams(client).stream_all(self.proj)
-            emitter_io = stream_io.map(
-                lambda stream: StreamEmitter(
-                    SingerEmitter(),
-                    stream,
-                )
-            )
-            emitter_io.bind(lambda e: e.emit())
+            streams = PostsStreams(self.client)
+            ids_io = streams.ids(self.proj)
+            ids_io.map(self.stream_posts)
         return IO(None)
