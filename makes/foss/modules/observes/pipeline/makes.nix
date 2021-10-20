@@ -309,12 +309,12 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/testTerraform/observes";
-          gitlabExtra = gitlabTestInfra;
-        }
-        {
           output = "/observes/test/code-etl";
           gitlabExtra = gitlabTestCode;
+        }
+        {
+          output = "/testTerraform/observes";
+          gitlabExtra = gitlabTestInfra;
         }
       ];
     };
