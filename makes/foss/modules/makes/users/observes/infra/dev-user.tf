@@ -61,12 +61,11 @@ data "aws_iam_policy_document" "dev-policy-data" {
   statement {
     effect = "Allow"
     actions = [
-      "logs:GetLogEvents",
-      "logs:DescribeLogGroups",
+      "cloudwatch:Get*",
+      "logs:Get*",
+      "logs:Describe*",
     ]
-    resources = [
-      "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:/aws/batch/job:log-stream:*",
-    ]
+    resources = ["*"]
   }
 
   # Redshift
