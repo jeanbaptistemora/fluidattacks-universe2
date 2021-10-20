@@ -1,5 +1,10 @@
 # shellcheck shell=bash
 
+alias job-success="observes-bin-service-job-last-success"
+alias tap-mailchimp="observes-bin-tap-mailchimp"
+alias tap-json="observes-tap-json"
+alias target-redshift="observes-target-redshift"
+
 function start_etl {
   local db_creds
   local mailchimp_creds
@@ -19,18 +24,18 @@ function start_etl {
     } > "${mailchimp_creds}" \
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
     && echo '[INFO] Running tap' \
-    && observes-bin-tap-mailchimp stream \
+    && tap-mailchimp stream \
       --creds-file "${mailchimp_creds}" \
       --all-streams \
-    | observes-tap-json \
+    | tap-json \
       > .singer \
     && echo '[INFO] Running target' \
-    && observes-target-redshift \
+    && target-redshift \
       --auth "${db_creds}" \
       --drop-schema \
       --schema-name 'mailchimp' \
       < .singer \
-    && observes-bin-service-job-last-success single-job \
+    && job-success single-job \
       --auth "${db_creds}" \
       --job 'mailchimp'
 }
