@@ -65,11 +65,12 @@ def secure_command(shard: graph_model.GraphShard, dependencies: list) -> bool:
 
     secure_str = False
     for depend in dependencies:
+        sql_str = get_variable_attribute(shard, depend, "text")
         for elem in secure_chars:
-            if get_variable_attribute(
-                shard, depend, "type"
-            ) == "binary_expression" and re.search(
-                elem, get_variable_attribute(shard, depend, "text")
+            if len(sql_str) == 0 or (
+                get_variable_attribute(shard, depend, "type")
+                != "binary_expression"
+                or re.search(elem, sql_str)
             ):
                 secure_str = True
     return secure_str
