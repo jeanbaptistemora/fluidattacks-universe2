@@ -49,6 +49,10 @@ class StopRetrying(Exception):
     """Raise this exception will make the `shield` decorator stop retrying."""
 
 
+class SkimsCanNotOperate(Exception):
+    """Skims cannot operate at this time."""
+
+
 def get_bound_arguments(
     function: Callable[..., Any],
     *args: Any,

@@ -29,6 +29,7 @@ from utils.function import (
     rate_limited,
     RetryAndFinallyReturn,
     shield,
+    SkimsCanNotOperate,
     StopRetrying,
 )
 from utils.limits import (
@@ -104,6 +105,10 @@ async def _execute(
             ErrorMapping(
                 exception=StopRetrying("Invalid API token"),
                 messages=("Login required",),
+            ),
+            ErrorMapping(
+                exception=SkimsCanNotOperate(),
+                messages=("Exception - Machine cannot operate at this time",),
             ),
         ),
         query=query,
@@ -420,8 +425,9 @@ async def do_create_draft(
     finding: core_model.FindingEnum,
     group: str,
 ) -> bool:
-    result = await _execute(
-        query="""
+    try:
+        result = await _execute(
+            query="""
             mutation SkimsDoAddDraft(
                 $affected_systems: String
                 $impact: String
@@ -446,26 +452,27 @@ async def do_create_draft(
                 }
             }
         """,
-        operation="SkimsDoAddDraft",
-        variables=dict(
-            affected_systems=affected_systems,
-            description=t(finding.value.description),
-            impact=t(finding.value.impact),
-            group=group,
-            recommendation=t(finding.value.recommendation),
-            requirements="\n".join(
-                t(f"criteria.requirements.{requirement.zfill(3)}")
-                for requirement in map(str, finding.value.requirements)
+            operation="SkimsDoAddDraft",
+            variables=dict(
+                affected_systems=affected_systems,
+                description=t(finding.value.description),
+                impact=t(finding.value.impact),
+                group=group,
+                recommendation=t(finding.value.recommendation),
+                requirements="\n".join(
+                    t(f"criteria.requirements.{requirement.zfill(3)}")
+                    for requirement in map(str, finding.value.requirements)
+                ),
+                threat=t(finding.value.threat),
+                title=t(finding.value.title),
             ),
-            threat=t(finding.value.threat),
-            title=t(finding.value.title),
-        ),
-    )
+        )
 
-    success: bool = result["data"]["addDraft"]["success"]
-
-    if not success:
-        raise RetryAndFinallyReturn(success)
+        success: bool = result["data"]["addDraft"]["success"]
+        if not success:
+            raise RetryAndFinallyReturn(success)
+    except SkimsCanNotOperate:
+        return False
 
     return success
 
@@ -511,8 +518,9 @@ async def do_approve_draft(
     *,
     finding_id: str,
 ) -> bool:
-    result = await _execute(
-        query="""
+    try:
+        result = await _execute(
+            query="""
             mutation SkimsDoApproveDraft(
                 $finding_id: String!
             ) {
@@ -523,16 +531,18 @@ async def do_approve_draft(
                 }
             }
         """,
-        operation="SkimsDoApproveDraft",
-        variables=dict(
-            finding_id=finding_id,
-        ),
-    )
+            operation="SkimsDoApproveDraft",
+            variables=dict(
+                finding_id=finding_id,
+            ),
+        )
 
-    success: bool = result["data"]["approveDraft"]["success"]
+        success: bool = result["data"]["approveDraft"]["success"]
 
-    if not success:
-        raise RetryAndFinallyReturn(success)
+        if not success:
+            raise RetryAndFinallyReturn(success)
+    except SkimsCanNotOperate:
+        return False
 
     return success
 
@@ -542,8 +552,9 @@ async def do_submit_draft(
     *,
     finding_id: str,
 ) -> bool:
-    result = await _execute(
-        query="""
+    try:
+        result = await _execute(
+            query="""
             mutation SkimsDoSubmitDraft(
                 $finding_id: String!
             ) {
@@ -554,16 +565,18 @@ async def do_submit_draft(
                 }
             }
         """,
-        operation="SkimsDoSubmitDraft",
-        variables=dict(
-            finding_id=finding_id,
-        ),
-    )
+            operation="SkimsDoSubmitDraft",
+            variables=dict(
+                finding_id=finding_id,
+            ),
+        )
 
-    success: bool = result["data"]["submitDraft"]["success"]
+        success: bool = result["data"]["submitDraft"]["success"]
 
-    if not success:
-        raise RetryAndFinallyReturn(success)
+        if not success:
+            raise RetryAndFinallyReturn(success)
+    except SkimsCanNotOperate:
+        return False
 
     return success
 
@@ -574,8 +587,9 @@ async def do_update_finding_severity(
     finding_id: str,
     severity: Dict[str, float],
 ) -> bool:
-    result = await _execute(
-        query="""
+    try:
+        result = await _execute(
+            query="""
             mutation SkimsDoUpdateFindingSeverity(
                 $findingId: String!
                 $attackComplexity: String!
@@ -635,15 +649,18 @@ async def do_update_finding_severity(
                 }
             }
         """,
-        operation="SkimsDoUpdateFindingSeverity",
-        variables=dict(cvssVersion="3.1", findingId=finding_id, **severity),
-    )
+            operation="SkimsDoUpdateFindingSeverity",
+            variables=dict(
+                cvssVersion="3.1", findingId=finding_id, **severity
+            ),
+        )
 
-    success: bool = result["data"]["updateSeverity"]["success"]
+        success: bool = result["data"]["updateSeverity"]["success"]
 
-    if not success:
-        raise RetryAndFinallyReturn(success)
-
+        if not success:
+            raise RetryAndFinallyReturn(success)
+    except SkimsCanNotOperate:
+        return False
     return success
 
 
@@ -783,9 +800,9 @@ async def do_upload_vulnerabilities(
         finding_id,
         stream,
     )
-
-    result = await _execute(
-        query="""
+    try:
+        result = await _execute(
+            query="""
             mutation SkimsDoUploadVulnerabilities(
                 $file_handle: Upload!
                 $finding_id: String!
@@ -798,17 +815,19 @@ async def do_upload_vulnerabilities(
                 }
             }
         """,
-        operation="SkimsDoUploadVulnerabilities",
-        variables=dict(
-            file_handle=to_in_memory_file(stream),
-            finding_id=finding_id,
-        ),
-    )
+            operation="SkimsDoUploadVulnerabilities",
+            variables=dict(
+                file_handle=to_in_memory_file(stream),
+                finding_id=finding_id,
+            ),
+        )
 
-    success: bool = result["data"]["uploadFile"]["success"]
+        success: bool = result["data"]["uploadFile"]["success"]
 
-    if not success:
-        raise RetryAndFinallyReturn(success)
+        if not success:
+            raise RetryAndFinallyReturn(success)
+    except SkimsCanNotOperate:
+        return False
 
     return success
 
