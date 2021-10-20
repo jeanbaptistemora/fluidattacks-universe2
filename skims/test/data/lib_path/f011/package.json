@@ -2,10 +2,13 @@
   "dependencies": {
     "@angular/core": "11.0.4",
     "acorn": "7.1.0",
+    "ansi-regex": "5.0.0",
     "axios": "0.18.0",
     "aws-sdk": "2.813.0",
     "connect": "2.8.0",
     "color-string": "1.1.4",
+    "dojo": "1.13.0",
+    "dojox": "1.6.5",
     "express": "2.5.11",
     "deap": "1.0.0",
     "fresh": "xxxxwhasdflaskdjfasdf",
