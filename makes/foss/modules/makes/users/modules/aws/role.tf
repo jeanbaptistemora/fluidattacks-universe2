@@ -12,7 +12,7 @@ resource "aws_iam_role" "main" {
 
 resource "aws_iam_role_policy_attachment" "main" {
   role       = aws_iam_role.main.name
-  policy_arn = var.policy
+  policy_arn = aws_iam_policy.main.arn
 }
 
 data "aws_caller_identity" "current" {}

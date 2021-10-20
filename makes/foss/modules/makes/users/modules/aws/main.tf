@@ -9,7 +9,7 @@ terraform {
   }
 }
 
-variable "user" {}
+variable "name" {}
 variable "type" {}
 variable "product" {}
 variable "policy" {}
