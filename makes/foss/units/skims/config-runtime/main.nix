@@ -21,19 +21,6 @@ makeTemplate {
     pythonPackage = [
       (projectPath "/skims/skims")
     ];
-    pythonPackage38 = [
-      inputs.nixpkgs.python38Packages.asn1crypto
-      inputs.nixpkgs.python38Packages.androguard
-      inputs.nixpkgs.python38Packages.beautifulsoup4
-      inputs.nixpkgs.python38Packages.future
-      inputs.nixpkgs.python38Packages.lxml
-      inputs.nixpkgs.python38Packages.ntplib
-      inputs.nixpkgs.python38Packages.pygments
-      inputs.nixpkgs.python38Packages.pygraphviz
-      inputs.nixpkgs.python38Packages.soupsieve
-      inputs.nixpkgs.python38Packages.unidiff
-      inputs.nixpkgs.python38Packages.viewstate
-    ];
     source = [
       inputs.product.makes-python-safe-pickle
       outputs."/skims/config-runtime/pypi"
