@@ -8,7 +8,6 @@ closure:
   packaging: "21.0"
   pluggy: 0.13.1
   py: 1.10.0
-  pyfiglet: 0.8.post1
   pygments: 2.10.0
   pyparsing: 2.4.7
   pytest: 5.4.3
@@ -80,9 +79,6 @@ links:
   - name: py-1.10.0.tar.gz
     sha256: 1lqvkqk3b440g9z82gqbzlzas84wrm6ir8kplzhzavmn2pd1pf11
     url: https://files.pythonhosted.org/packages/0d/8c/50e9f3999419bb7d9639c37e83fa9cdcf0f601a9d407162d6c37ad60be71/py-1.10.0.tar.gz
-  - name: pyfiglet-0.8.post1.tar.gz
-    sha256: 0f9n2076ga2ccsg174k2d7n0z4d44ml96yzc72s6g4nhalbk5hn6
-    url: https://files.pythonhosted.org/packages/f9/02/48293654fb2e4fdeb4d927f00a380230a832744b6c9af757373a72d018d1/pyfiglet-0.8.post1.tar.gz
   - name: Pygments-2.10.0-py3-none-any.whl
     sha256: 1003l9kipymrk4n3nj8yxf5z1jr40q69gqmkqjrr5x3qmzk7zrmq
     url: https://files.pythonhosted.org/packages/78/c8/8d9be2f72d8f465461f22b5f199c04f7ada933add4dae6e2468133c17471/Pygments-2.10.0-py3-none-any.whl
