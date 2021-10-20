@@ -7,7 +7,7 @@
   variables:
     GIT_DEPTH: 5
 
-.commit_pattern: &commit_pattern '$CI_COMMIT_TITLE =~ /^(all|observes)/'
+.commit_pattern: &commit_pattern "$CI_COMMIT_TITLE =~ /^(all|observes)/"
 
 .dev_job: &dev_job
   rules:
@@ -28,9 +28,6 @@
   <<: *makes
   <<: *dev_job
   stage: test-code
-
-observes.test.tap-announcekit:
-  <<: *test_job
 
 observes.fx-test.tap-announcekit:
   <<: *test_job
