@@ -30,5 +30,5 @@ def filter_repo(
         return fnmatch.fnmatch(cast(str, vuln["where"]), f"{repo_name}/*")
     if kind == "dynamic" and vuln_type == "DAST" and repo_name:
         root_nickname: Optional[str] = vuln.get("rootNickname", "")
-        return root_nickname and repo_name in root_nickname
+        return root_nickname == repo_name or not root_nickname
     return True
