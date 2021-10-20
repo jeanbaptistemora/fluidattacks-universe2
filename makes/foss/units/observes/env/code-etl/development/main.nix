@@ -1,6 +1,6 @@
-{ inputs
-, makeTemplate
+{ makeTemplate
 , makePythonPypiEnvironment
+, outputs
 , ...
 }:
 makeTemplate {
@@ -11,7 +11,7 @@ makeTemplate {
         name = "observes-env-code-etl-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      inputs.product.observes-env-code-etl-runtime
+      outputs."/observes/env/code-etl/runtime"
     ];
   };
 }
