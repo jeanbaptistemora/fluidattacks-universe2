@@ -53,7 +53,6 @@ from groups.domain import (
     get_description,
     get_group_digest_stats,
     get_mean_remediate,
-    get_mean_remediate_cvssf,
     get_mean_remediate_non_treated,
     get_mean_remediate_non_treated_cvssf,
     get_mean_remediate_non_treated_severity,
@@ -302,9 +301,11 @@ async def test_get_mean_remediate_cvssf(
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
-    mean_remediate_cvssf_new = await get_mean_remediate_cvssf(
+    mean_remediate_cvssf_new = await get_mean_remediate_severity_cvssf(
         loaders,
         group_name,
+        Decimal("0.0"),
+        Decimal("10.0"),
         (datetime.now() - timedelta(days=min_days)).date()
         if min_days
         else None,
@@ -572,7 +573,6 @@ async def test_get_mean_remediate_severity_medium(
         (90, Decimal("0")),
     ),
 )
-@pytest.mark.u_changes_db
 async def test_get_mean_remediate_non_treated_severity_medium(
     min_days: Optional[int], expected_output: Decimal
 ) -> None:
