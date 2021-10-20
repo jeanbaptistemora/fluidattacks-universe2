@@ -150,7 +150,7 @@ describe("Navbar", (): void => {
               to: "/orgs/okada/groups/unittesting/drafts/F3F42d73-c1bf-47c5-954e-FFFFFFFFFFFF",
             })
             .text()
-        ).toStrictEqual("001. test draft title");
+        ).toStrictEqual("001. Test draft title");
       });
     });
   });
@@ -229,7 +229,7 @@ describe("Navbar", (): void => {
               to: "/orgs/okada/groups/unittesting/vulns/436992569",
             })
             .text()
-        ).toStrictEqual("001. test finding title");
+        ).toStrictEqual("001. Test finding title");
       });
     });
   });
