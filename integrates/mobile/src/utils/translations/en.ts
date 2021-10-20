@@ -5,6 +5,10 @@ export const enTranslations: ResourceLanguage = {
     bin: "Bin:",
     commit: "Commit:",
     deploymentDate: "Deploy Date:",
+    licenses: {
+      btn: "Done",
+      text: "Licenses",
+    },
   },
   common: {
     error: {
