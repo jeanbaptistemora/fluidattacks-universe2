@@ -309,6 +309,10 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
+          output = "/observes/fx-test/tap-announcekit";
+          gitlabExtra = gitlabTestCode;
+        }
+        {
           output = "/observes/test/code-etl";
           gitlabExtra = gitlabTestCode;
         }

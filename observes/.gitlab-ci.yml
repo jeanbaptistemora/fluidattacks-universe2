@@ -1,6 +1,3 @@
-include:
-  - local: observes/singer/tap_announcekit/.gitlab-ci.yml
-
 .makes: &makes
   tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/makes"

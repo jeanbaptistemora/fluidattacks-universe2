@@ -8,4 +8,4 @@ aws_login_dev 'observes' \
     "announcekit_passwd" \
   && ANNOUNCEKIT_USER="${announcekit_user}" \
   && ANNOUNCEKIT_PASSWD="${announcekit_passwd}" \
-  && observes_generic_test "__envSrc__" "__envTestDir__"
+  && observes_generic_test "__argEnvSrc__" "__argEnvTestDir__"
