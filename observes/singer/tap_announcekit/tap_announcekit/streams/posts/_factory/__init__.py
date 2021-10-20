@@ -56,7 +56,7 @@ class PostFactory:
         return self._getters().get_post(post_id)
 
     def stream_getter(self) -> StreamGetter[PostId, Post]:
-        return self.stream_getter()
+        return StreamGetter(self.get_post, lambda i: i.map_each(self.get_post))
 
 
 @dataclass(frozen=True)
