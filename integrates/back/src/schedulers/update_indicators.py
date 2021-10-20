@@ -654,7 +654,9 @@ async def _get_group_indicators(
                 loaders, findings
             ),
             findings_domain.get_max_open_severity(loaders, findings),
-            groups_domain.get_mean_remediate(loaders, group),
+            groups_domain.get_mean_remediate_severity(
+                loaders, group, Decimal("0.0"), Decimal("10.0")
+            ),
             groups_domain.get_closed_vulnerabilities(loaders, group),
             groups_domain.get_open_findings(loaders, group),
         )
@@ -688,11 +690,17 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         total_treatment,
     ) = await collect(
         [
-            groups_domain.get_mean_remediate_severity(loaders, group, 9, 10),
-            groups_domain.get_mean_remediate_severity(loaders, group, 7, 8.9),
-            groups_domain.get_mean_remediate_severity(loaders, group, 4, 6.9),
             groups_domain.get_mean_remediate_severity(
-                loaders, group, 0.1, 3.9
+                loaders, group, Decimal("9.0"), Decimal("10.0")
+            ),
+            groups_domain.get_mean_remediate_severity(
+                loaders, group, Decimal("7.0"), Decimal("8.9")
+            ),
+            groups_domain.get_mean_remediate_severity(
+                loaders, group, Decimal("4.0"), Decimal("6.9")
+            ),
+            groups_domain.get_mean_remediate_severity(
+                loaders, group, Decimal("0.1"), Decimal("3.9")
             ),
             findings_domain.get_total_treatment(loaders, findings),
         ]

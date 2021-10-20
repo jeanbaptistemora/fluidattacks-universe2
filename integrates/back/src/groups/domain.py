@@ -895,23 +895,6 @@ async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
     return cast(List[GroupType], groups)
 
 
-async def get_mean_remediate(
-    loaders: Any,
-    group_name: str,
-    min_date: Optional[date] = None,
-) -> Decimal:
-    group_findings_loader = loaders.group_findings
-    finding_vulns_loaders = loaders.finding_vulns
-
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
-        group_name
-    )
-    vulns = await finding_vulns_loaders.load_many_chained(
-        [finding.id for finding in group_findings]
-    )
-    return vulns_utils.get_mean_remediate_vulnerabilities(vulns, min_date)
-
-
 async def get_mean_remediate_non_treated(
     loaders: Any, group_name: str, min_date: Optional[date] = None
 ) -> Decimal:

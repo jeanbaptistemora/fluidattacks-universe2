@@ -52,7 +52,6 @@ from groups.domain import (
     get_closed_vulnerabilities,
     get_description,
     get_group_digest_stats,
-    get_mean_remediate,
     get_mean_remediate_non_treated,
     get_mean_remediate_non_treated_cvssf,
     get_mean_remediate_non_treated_severity,
@@ -265,23 +264,27 @@ async def test_get_open_vulnerability_date() -> None:
 async def test_get_mean_remediate() -> None:
     context = get_new_context()
     group_name = "unittesting"
-    assert await get_mean_remediate(context, group_name) == Decimal("383.0")
+    min_severity: Decimal = Decimal("0.0")
+    max_severity: Decimal = Decimal("10.0")
+    assert await get_mean_remediate_severity(
+        context, group_name, min_severity, max_severity
+    ) == Decimal("383.0")
     assert await get_mean_remediate_non_treated(
         context, group_name
     ) == Decimal("385.0")
 
     min_date = datetime_utils.get_now_minus_delta(days=30).date()
-    assert await get_mean_remediate(context, group_name, min_date) == Decimal(
-        "0.0"
-    )
+    assert await get_mean_remediate_severity(
+        context, group_name, min_severity, max_severity, min_date
+    ) == Decimal("0.0")
     assert await get_mean_remediate_non_treated(
         context, group_name, min_date
     ) == Decimal("0.0")
 
     min_date = datetime_utils.get_now_minus_delta(days=90).date()
-    assert await get_mean_remediate(context, group_name, min_date) == Decimal(
-        "82.0"
-    )
+    assert await get_mean_remediate_severity(
+        context, group_name, min_severity, max_severity, min_date
+    ) == Decimal("82.0")
     assert await get_mean_remediate_non_treated(
         context, group_name, min_date
     ) == Decimal("0.0")
@@ -494,8 +497,8 @@ async def test_get_mean_remediate_severity_low(
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
-    min_severity = 0.1
-    max_severity = 3.9
+    min_severity = Decimal("0.1")
+    max_severity = Decimal("3.9")
     mean_remediate_low_severity = await get_mean_remediate_severity(
         loaders,
         group_name,
@@ -550,8 +553,8 @@ async def test_get_mean_remediate_severity_medium(
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
-    min_severity = 4
-    max_severity = 6.9
+    min_severity = Decimal("4.0")
+    max_severity = Decimal("6.9")
     mean_remediate_medium_severity = await get_mean_remediate_severity(
         loaders,
         group_name,
