@@ -235,6 +235,24 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "has_access": {
+            "BOOL": true
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "responsibility": {
+            "S": "Forces service user"
+          },
+          "user_email": {
+            "S": "forces.unittesting@fluidattacks.com"
+          }
+        }
+      }
     }
   ]
 }

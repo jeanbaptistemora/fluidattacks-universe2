@@ -472,6 +472,7 @@ async def test_get_users() -> None:
         "system_owner@fluidattacks.com",
         "continuoushacking@gmail.com",
         "integratesmanager@fluidattacks.com",
+        "forces.unittesting@fluidattacks.com",
         "continuoushack2@gmail.com",
         "integratesreviewer@fluidattacks.com",
     ]

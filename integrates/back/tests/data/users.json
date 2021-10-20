@@ -621,6 +621,50 @@
       "PutRequest": {
         "Item": {
           "company": {
+            "S": ""
+          },
+          "organization": {
+            "S": ""
+          },
+          "last_name": {
+            "S": ""
+          },
+          "first_name": {
+            "S": ""
+          },
+          "date_joined": {
+            "S": ""
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": ""
+          },
+          "email": {
+            "S": "forces.unittesting@fluidattacks.com"
+          },
+          "registered": {
+            "BOOL": true
+          },
+          "access_token": {
+            "M": {
+              "iat": { "N": "1634749073" },
+              "jti": {
+                "S": "a825cf9dc60a4a3f4797df217f1bf51a09f604d126222f19f9513f73b8f036bb"
+              },
+              "salt": {
+                "S": "42a2d4efd161ded4565c5880e5083589a4819780ff55a27f674fbfdf182e0726"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
             "S": "fluid"
           },
           "organization": {
