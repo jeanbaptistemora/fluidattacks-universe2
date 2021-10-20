@@ -5,6 +5,7 @@
 */
 import React from "react";
 
+import type { IDocumentValues } from "./ctx";
 import { mergedDocuments } from "./ctx";
 import { DropdownFilter } from "./filter";
 import { DaysLabel, DocumentMerged } from "./helpers";
@@ -25,9 +26,37 @@ interface ITypeFilterButton {
   documentName: string;
   currentDocumentName: string;
   documentNameFilter: boolean;
-  changeToAlternative: () => void;
+  changeToAlternative: (index: number) => void;
   changeToDefault: () => void;
 }
+
+interface IGButton {
+  alternative: IDocumentValues;
+  changeToAlternative: (index: number) => void;
+  currentDocumentName: string;
+  index: number;
+}
+
+const GButton: React.FC<IGButton> = ({
+  alternative,
+  changeToAlternative,
+  currentDocumentName,
+  index,
+}: IGButton): JSX.Element => {
+  function onClick(): void {
+    changeToAlternative(index);
+  }
+
+  return (
+    <GraphicButton className={styles.buttonSize} onClick={onClick}>
+      <DocumentMerged
+        isEqual={alternative.documentName === currentDocumentName}
+        label={alternative.label}
+        tooltip={alternative.tooltip}
+      />
+    </GraphicButton>
+  );
+};
 
 const TimeFilterButton: React.FC<ITimeFilterButton> = ({
   subjectName,
@@ -76,18 +105,17 @@ const TypeFilterButton: React.FC<ITypeFilterButton> = ({
           tooltip={mergedDocuments[documentName].default.tooltip}
         />
       </GraphicButton>
-      <GraphicButton
-        className={styles.buttonSize}
-        onClick={changeToAlternative}
-      >
-        <DocumentMerged
-          isEqual={
-            mergedDocuments[documentName].documentName === currentDocumentName
-          }
-          label={mergedDocuments[documentName].alt.label}
-          tooltip={mergedDocuments[documentName].alt.tooltip}
-        />
-      </GraphicButton>
+      {mergedDocuments[documentName].alt.map(
+        (alternative: IDocumentValues, index: number): JSX.Element => (
+          <GButton
+            alternative={alternative}
+            changeToAlternative={changeToAlternative}
+            currentDocumentName={currentDocumentName}
+            index={index}
+            key={alternative.documentName}
+          />
+        )
+      )}
     </React.StrictMode>
   );
 };

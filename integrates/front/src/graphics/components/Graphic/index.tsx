@@ -25,6 +25,7 @@ import React, {
 } from "react";
 
 import { Modal } from "components/Modal";
+import type { IDocumentValues } from "graphics/components/Graphic/ctx";
 import {
   allowedDocumentNames,
   allowedDocumentTypes,
@@ -212,10 +213,12 @@ export const Graphic: React.FC<IGraphicProps> = (
     setCurrentTitle(title);
     frameOnRefresh();
   }
-  function changeToAlternative(): void {
+  function changeToAlternative(index: number): void {
     if (_.includes(Object.keys(mergedDocuments), documentName)) {
-      setCurrentDocumentName(mergedDocuments[documentName].documentName);
-      setCurrentTitle(mergedDocuments[documentName].alt.title);
+      setCurrentDocumentName(
+        mergedDocuments[documentName].alt[index].documentName
+      );
+      setCurrentTitle(mergedDocuments[documentName].alt[index].title);
       frameOnRefresh();
     }
   }
@@ -231,11 +234,20 @@ export const Graphic: React.FC<IGraphicProps> = (
       mergedDocuments[name].documentType === type
     );
   }
+  function getUrl(alternatives: IDocumentValues[]): string {
+    return alternatives.reduce(
+      (url: string, alternative: IDocumentValues): string =>
+        alternative.documentName === currentDocumentName
+          ? alternative.url
+          : url,
+      ""
+    );
+  }
   function getAdditionalInfoLink(name: string, type: string): string {
     if (isDocumentMerged(name, type)) {
-      return mergedDocuments[name].documentName === currentDocumentName
-        ? mergedDocuments[name].alt.url
-        : mergedDocuments[name].default.url;
+      return mergedDocuments[name].default.documentName === currentDocumentName
+        ? mergedDocuments[name].default.url
+        : getUrl(mergedDocuments[name].alt);
     }
 
     return "";
