@@ -39,7 +39,7 @@ const features = [
     title: 'Criteria',
     description: (
       <>
-        List of security requirements and vulnerabilities considered by our organization
+        List of security requirements, compliances and vulnerabilities considered by our organization
       </>
     ),
     link: 'criteria/'
