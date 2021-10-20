@@ -325,6 +325,10 @@ in
           gitlabExtra = gitlabTestCode;
         }
         {
+          output = "/observes/test/tap-gitlab";
+          gitlabExtra = gitlabTestCode;
+        }
+        {
           output = "/testTerraform/observes";
           gitlabExtra = gitlabTestInfra;
         }
