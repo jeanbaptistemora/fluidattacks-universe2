@@ -39,15 +39,17 @@ async def remove_lines(group_name: str) -> None:
         index=None,
         table=TABLE,
     )
-    await operations.batch_delete_item(
-        keys=tuple(
-            PrimaryKey(
-                partition_key=item[TABLE.primary_key.partition_key],
-                sort_key=item[TABLE.primary_key.sort_key],
+    await collect(
+        tuple(
+            operations.delete_item(
+                primary_key=PrimaryKey(
+                    partition_key=item[TABLE.primary_key.partition_key],
+                    sort_key=item[TABLE.primary_key.sort_key],
+                ),
+                table=TABLE,
             )
             for item in items
-        ),
-        table=TABLE,
+        )
     )
 
 
