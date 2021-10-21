@@ -10,7 +10,7 @@ slug: /about/faq/requirements
 - **Phase 1:**
   Access to the integration branch of the repository
   for the not-yet-deployed application's source code.
-  Ethical Hacking focuses on the source code.
+  Ethical hacking focuses on the source code.
 
 - **Phase 2:**
   When the project has a deployed application
@@ -51,7 +51,7 @@ on the latest version available.
 ## If the application is stored along multiple repositories, can they all be attacked?
 
 Yes,
-with one condition.
+under one condition:
 The code must be stored in the same branch
 in each repository.
 For example,
@@ -73,7 +73,7 @@ and infrastructure hacking
 The Squad Plan is based on using Git
 for version control.
 Therefore,
-Git is necessary for she Squad Plan.
+Git is necessary for the Squad Plan.
 
 ## Does the Squad Plan require any development methodology?
 

@@ -36,7 +36,7 @@ taking into account the following:
 - Percentages are determined
   using percentiles.
 - Office hours correspond to twelve-hour business days,
-  like this:
+  as follows:
   7 AM - 7 PM (GMT-5).
 - The reattacks to be considered
   will be those that had their vulnerability closed.

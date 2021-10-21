@@ -5,7 +5,7 @@ sidebar_label: Speed
 slug: /about/faq/speed
 ---
 
-## When does the Squad Plan hacking begin?
+## When does Squad Plan hacking begin?
 
 It begins immediately
 after receiving the purchase order.
@@ -18,12 +18,12 @@ are determined using the following metrics:
 - Source code coverage indicator
 - Percentage of remediated security risk vulnerabilities
 
-## Does the Squad Plan use automated tools, or is it a manual process?
+## Does the Squad Plan use automated tools or is it a manual process?
 
-Automated tools,
-by themselves,
+Automated tools
+alone
 are not capable of extracting sensitive business information,
-such as client or employee information.
+such as that of clients or employees.
 In our Squad Plan service,
 we use a series of tools
 acquired and developed by us at `Fluid Attacks`,
@@ -46,8 +46,8 @@ because automated tools present the following problems:
 
 ## How are development cycles not slowed down by manual reviews?
 
-The Squad Plan hacking
-is first performed on the source code.
+Squad Plan hacking is first performed
+on the source code.
 This allows for hacking
 and development to occur simultaneously,
 which minimizes the dependency on functional environments,

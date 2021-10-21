@@ -30,11 +30,11 @@ for the application of the service-level agreements:
 - Remote access with no human intervention
   (no captcha, OTP, etc.).
 - 100% Health Check was performed
-  to a group potentially affected
+  on a group potentially affected
   by a false negative.
 - Average of **400** weekly changes per author
   from the start of service
-  to the potential false-negative report.
+  to the potential false negative report.
 
 ## Details
 

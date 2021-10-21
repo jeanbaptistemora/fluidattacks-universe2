@@ -28,7 +28,7 @@ ASM delivers a presentation
 and an executive report,
 also in PDF format.
 
-## How do I communicate with you?
+## How can I communicate with you?
 
 For the Squad Plan,
 communication takes place
@@ -57,13 +57,13 @@ Yes, we can.
 To set up a teleconference presentation,
 you will need to provide us
 with the emails of attendees
-and **three optional periods** of **1-hour duration**
+and **three options** of **1-hour time slots**
 for the teleconference.
-We will then notify you
-of the best time for the teleconference
+We will then confirm
+the best time for the teleconference
 based on your availability and ours
-and send emails to your list of attendees
-inviting them to participate.
+and send an invitation via email
+to your list of attendees.
 
 ## Do I lose my property rights if you review my source code?
 

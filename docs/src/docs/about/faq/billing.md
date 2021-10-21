@@ -16,7 +16,7 @@ during the analyzed month.
 ## Why is there a month 0, and how does the setup work?
 
 Month 0 begins the test setup
-and is the start of the monthly payment.
+and is the start of the monthly payments.
 A project leader is assigned
 who is responsible for managing the connection of environments,
 profiling, user creation, allocation of privileges,
@@ -28,4 +28,5 @@ to begin the review without setbacks.
 Yes.
 The service cost varies
 depending on the number of active authors
-identified in the project each month.
+identified within the project
+each month.

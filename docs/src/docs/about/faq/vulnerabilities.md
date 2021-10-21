@@ -11,7 +11,7 @@ A vulnerability is anything
 that represents a security risk
 (integrity, availability,
 confidentiality, non-repudiation)
-to the application.
+for the application.
 
 ## How is the score of a vulnerability calculated?
 
@@ -88,15 +88,17 @@ the entire project team is notified.
 
 ## What happens if I do not consider something a vulnerability?
 
-Within ASM, there is a comment section.
+Within ASM,
+there is a comment section.
 A client company can post its reasons
 for believing a vulnerability finding is not valid.
-Our experts and all other project members
+Our experts
+and all other project members
 can then interface and discuss
 the relative merits of the vulnerability finding
-as well as the validity of it
+as well as its validity
 as a security risk,
-and a final determination can be made.
+in order to make a final decision.
 
 ## Do all reported vulnerabilities have to be remediated?
 
@@ -120,10 +122,8 @@ Reports and ASM include information
 regarding all vulnerabilities,
 along with whether vulnerabilities were remediated
 or not.
-Reports and ASM will include all the information
-with nothing excluded.
 
-## Do you keep information regarding the vulnerabilities found?
+## Do you keep information regarding the discovered vulnerabilities?
 
 Information is only kept
 for the duration of the contract.
