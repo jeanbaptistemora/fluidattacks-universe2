@@ -19,7 +19,7 @@
     modules = {
       airsInfra = {
         setup = [
-          outputs."/secretsForAwsFromEnv/development"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/airsInfraDev"
           outputs."/secretsForTerraformFromEnv/airsInfra"
         ];
@@ -48,7 +48,7 @@
     modules = {
       airsInfra = {
         setup = [
-          outputs."/secretsForAwsFromEnv/development"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/airsInfraDev"
           outputs."/secretsForTerraformFromEnv/airsInfra"
         ];
