@@ -357,6 +357,18 @@ def sum_over_time_many_groups(
     }
 
 
+def get_quarter(data_date: datetime) -> datetime:
+    quarter_day = Timestamp(data_date).to_period("Q").end_time.date()
+
+    if quarter_day < datetime.now().date():
+        return datetime.combine(quarter_day, datetime.min.time())
+
+    return datetime.combine(
+        datetime.now(),
+        datetime.min.time(),
+    )
+
+
 def get_data_risk_over_time_group(
     *,
     over_time_weekly: List[List[Dict[str, float]]],
@@ -543,19 +555,9 @@ def get_current_time_range(
     return tuple(group_document.weekly for group_document in group_documents)
 
 
-def get_quarterly(
+def get_distribution_over_quarterly(
     group_data: Dict[str, Dict[datetime, float]]
 ) -> Dict[str, Dict[datetime, float]]:
-    def get_quarter(data_date: datetime) -> datetime:
-        quarter_day = Timestamp(data_date).to_period("Q").end_time.date()
-
-        if quarter_day < datetime.now().date():
-            return quarter_day
-
-        return datetime.combine(
-            datetime.now(),
-            datetime.min.time(),
-        )
 
     return {
         "date": {get_quarter(key): 0 for key, _ in group_data["date"].items()},

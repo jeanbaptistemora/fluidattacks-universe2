@@ -12,7 +12,7 @@ from charts.generators.stacked_bar_chart.utils import (
     DISTRIBUTION_OVER_TIME,
     format_distribution_document,
     get_current_time_range,
-    get_quarterly,
+    get_distribution_over_quarterly,
     get_time_range,
     GroupDocumentData,
     RiskOverTime,
@@ -115,7 +115,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
     return RiskOverTime(
         time_range=get_time_range(weekly_data_size, monthly_data_size),
         monthly=monthly,
-        quarterly=get_quarterly(monthly),
+        quarterly=get_distribution_over_quarterly(monthly),
         weekly={
             "date": {datum.date: 0 for datum in data},
             "Closed": {datum.date: datum.closed for datum in data},
