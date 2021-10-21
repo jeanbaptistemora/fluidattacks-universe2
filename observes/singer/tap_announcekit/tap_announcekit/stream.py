@@ -3,8 +3,11 @@ from dataclasses import (
 )
 import logging
 from purity.v1 import (
+    FrozenList,
     Patch,
     PureIter,
+    PureIterFactory,
+    PureIterIOFactory,
     Transform,
 )
 from returns.curry import (
@@ -113,3 +116,19 @@ class StreamFactory:
         items = ids.map_each(get)
         records = items.map_each(lambda p: p.map(encoder.to_singer))
         return Stream(encoder.schema, records)
+
+    @staticmethod
+    def multi_stream(
+        encoder: SingerEncoder[_D],
+        get: Transform[_ID, IO[FrozenList[_D]]],
+        ids: PureIter[_ID],
+    ) -> StreamIO:
+        # pylint: disable=unnecessary-lambda
+        # for correct type checking lambda is necessary
+        items = ids.map_each(get)
+        records = items.map_each(
+            lambda p: p.map(
+                lambda items: tuple(encoder.to_singer(i) for i in items)
+            ).map(lambda i: PureIterFactory.from_flist(i))
+        )
+        return Stream(encoder.schema, PureIterIOFactory.chain(records))

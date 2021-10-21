@@ -58,7 +58,7 @@ def _to_singer(stream_name: str, post: PostContent) -> SingerRecord:
 
 
 @dataclass(frozen=True)
-class PostEncoders:
+class PostContentEncoders:
     @staticmethod
     def encoder(stream_name: str) -> SingerEncoder[PostContent]:
         schema = SingerSchema(stream_name, _schema(), frozenset([]))

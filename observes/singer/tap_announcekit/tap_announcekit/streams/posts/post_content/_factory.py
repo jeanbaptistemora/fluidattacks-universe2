@@ -2,12 +2,14 @@ from dataclasses import (
     dataclass,
 )
 from purity.v1 import (
+    FrozenList,
     PrimitiveFactory,
 )
 from returns.io import (
     IO,
 )
 from tap_announcekit.api.client import (
+    ApiClient,
     Operation,
     Query,
     QueryFactory,
@@ -21,6 +23,10 @@ from tap_announcekit.objs.id_objs import (
 )
 from tap_announcekit.objs.post.content import (
     PostContent,
+)
+from typing import (
+    cast,
+    List,
 )
 
 
@@ -54,3 +60,17 @@ def _from_raw(proj: ProjectId, raw: RawPostContent) -> PostContent:
         to_primitive(raw.slug, str),
         to_primitive(raw.url, str),
     )
+
+
+@dataclass(frozen=True)
+class PostContentFactory:
+    client: ApiClient
+
+    def get(self, pid: PostId) -> IO[FrozenList[PostContent]]:
+        query = PostContentQuery(pid).query()
+        return self.client.get(query).map(
+            lambda q: tuple(
+                _from_raw(pid.proj, i)
+                for i in cast(List[RawPostContent], q.post.contents)
+            )
+        )
