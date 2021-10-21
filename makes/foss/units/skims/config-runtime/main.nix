@@ -30,14 +30,7 @@ makeTemplate {
             projectPath "/makes/foss/modules/makes/criteria/src/vulnerabilities/data.yaml";
           __argSkimsProcessGroupOnAws__ =
             outputs."/computeOnAwsBatch/skimsProcessGroup";
-          __argSrcTreeSitterCSharp__ = inputs.skimsTreeSitterCSharp;
-          __argSrcTreeSitterGo__ = inputs.skimsTreeSitterGo;
-          __argSrcTreeSitterJava__ = inputs.skimsTreeSitterJava;
-          __argSrcTreeSitterJavaScript__ = inputs.skimsTreeSitterJavaScript;
-          __argSrcTreeSitterKotlin__ = inputs.skimsTreeSitterKotlin;
-          __argSrcTreeSitterParser__ = outputs."/skims/config-runtime/parsers";
-          __argSrcTreeSitterPhp__ = inputs.skimsTreeSitterPhp;
-          __argSrcTreeSitterTsx__ = inputs.skimsTreeSitterTsx;
+          __argSrcTreeSitterParsers__ = outputs."/skims/config-runtime/parsers";
           __argSrcSkimsStatic__ = projectPath "/skims/static";
           __argSrcSkimsVendor__ = projectPath "/skims/vendor";
         };
@@ -53,14 +46,7 @@ makeTemplate {
           export SKIMS_PROCESS_GROUP_ON_AWS='__argSkimsProcessGroupOnAws__/bin/compute-on-aws-batch-for-skimsProcessGroup'
           export SKIMS_ROBOTO_FONT='__argSrcSkimsVendor__/fonts/roboto_mono_from_google/regular.ttf'
           export SKIMS_STATIC='__argSrcSkimsStatic__'
-          export SKIMS_TREE_SITTER_CSHARP='__argSrcTreeSitterCSharp__'
-          export SKIMS_TREE_SITTER_GO='__argSrcTreeSitterGo__'
-          export SKIMS_TREE_SITTER_JAVA='__argSrcTreeSitterJava__'
-          export SKIMS_TREE_SITTER_JAVASCRIPT='__argSrcTreeSitterJavaScript__'
-          export SKIMS_TREE_SITTER_KOTLIN='__argSrcTreeSitterKotlin__'
-          export SKIMS_TREE_SITTER_PARSER='__argSrcTreeSitterParser__'
-          export SKIMS_TREE_SITTER_PHP='__argSrcTreeSitterPhp__'
-          export SKIMS_TREE_SITTER_TSX='__argSrcTreeSitterTsx__/tsx'
+          export SKIMS_TREE_SITTER_PARSERS='__argSrcTreeSitterParsers__'
           export SKIMS_VENDOR='__argSrcSkimsVendor__'
         '';
       })

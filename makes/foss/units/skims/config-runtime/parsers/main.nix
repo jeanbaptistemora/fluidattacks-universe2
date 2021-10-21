@@ -7,7 +7,11 @@ makeDerivation {
   builder = ./builder.sh;
   name = "tree-sitter-languages";
   searchPaths = {
-    bin = [ inputs.nixpkgs.python38 ];
+    bin = [
+      inputs.nixpkgs.python38
+      inputs.nixpkgs.binutils-unwrapped
+    ];
+    rpath = [ inputs.nixpkgs.gcc.cc.lib ];
     source = [ outputs."/skims/config-runtime/pypi" ];
   };
   env = {

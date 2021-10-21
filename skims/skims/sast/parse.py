@@ -46,14 +46,7 @@ from utils import (
 )
 from utils.ctx import (
     CTX,
-    TREE_SITTER_CSHARP,
-    TREE_SITTER_GO,
-    TREE_SITTER_JAVA,
-    TREE_SITTER_JAVASCRIPT,
-    TREE_SITTER_KOTLIN,
-    TREE_SITTER_PARSER,
-    TREE_SITTER_PHP,
-    TREE_SITTER_TSX,
+    TREE_SITTER_PARSERS,
 )
 from utils.encodings import (
     json_dump,
@@ -74,33 +67,29 @@ from utils.string import (
 )
 
 
-def get_fields(source: str) -> Dict[str, Tuple[str, ...]]:
-    with open(f"{source}/src/node-types.json", encoding="utf-8") as handle:
-        language_fields: Dict[str, Tuple[str, ...]] = {
-            node["type"]: fields
-            for node in json.load(handle)
-            for fields in [tuple(node.get("fields", {}))]
-            if fields
-        }
-
-    return language_fields
-
-
 class ParsingError(Exception):
     pass
 
 
-FIELDS_BY_LANGAUGE: Dict[
+FIELDS_BY_LANGUAGE: Dict[
     GraphShardMetadataLanguage, Dict[str, Tuple[str, ...]]
-] = {
-    GraphShardMetadataLanguage.CSHARP: get_fields(TREE_SITTER_CSHARP),
-    GraphShardMetadataLanguage.GO: get_fields(TREE_SITTER_GO),
-    GraphShardMetadataLanguage.JAVA: get_fields(TREE_SITTER_JAVA),
-    GraphShardMetadataLanguage.JAVASCRIPT: get_fields(TREE_SITTER_JAVASCRIPT),
-    GraphShardMetadataLanguage.KOTLIN: get_fields(TREE_SITTER_KOTLIN),
-    GraphShardMetadataLanguage.PHP: get_fields(TREE_SITTER_PHP),
-    GraphShardMetadataLanguage.TSX: get_fields(TREE_SITTER_TSX),
-}
+] = {}
+
+
+def _get_fields_by_language() -> None:
+    for lang in GraphShardMetadataLanguage:
+        if lang == GraphShardMetadataLanguage.NOT_SUPPORTED:
+            continue
+
+        path: str = os.path.join(
+            TREE_SITTER_PARSERS, f"{lang.value}-fields.json"
+        )
+
+        with open(path, encoding="utf-8") as file:
+            FIELDS_BY_LANGUAGE[lang] = json.load(file)
+
+
+_get_fields_by_language()
 
 
 def hash_node(node: Node) -> int:
@@ -239,7 +228,7 @@ def _build_ast_graph(
                 _parent=n_id,
                 _parent_fields={
                     hash_node(child): fld
-                    for fld in FIELDS_BY_LANGAUGE[language].get(node.type, ())
+                    for fld in FIELDS_BY_LANGUAGE[language].get(node.type, ())
                     for child in [node.child_by_field_name(fld)]
                     if child
                 },
@@ -252,8 +241,9 @@ def parse_content(
     content: bytes,
     language: GraphShardMetadataLanguage,
 ) -> Tree:
+    path: str = os.path.join(TREE_SITTER_PARSERS, f"{language.value}.so")
     parser: Parser = Parser()
-    parser.set_language(Language(TREE_SITTER_PARSER, language.value))
+    parser.set_language(Language(path, language.value))
     return parser.parse(content)
 
 
