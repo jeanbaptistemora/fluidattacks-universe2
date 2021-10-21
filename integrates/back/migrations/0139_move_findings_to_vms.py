@@ -202,6 +202,7 @@ async def _update_state_entry(
 ) -> None:
     state = _format_state(old_state)
     await findings_model.update_state(
+        current_value=state,
         group_name=group_name,
         finding_id=finding_id,
         state=state,
@@ -232,6 +233,7 @@ async def _update_verification_entry(
 ) -> None:
     verification = _format_verification(old_verification)
     await findings_model.update_verification(
+        current_value=verification,
         group_name=group_name,
         finding_id=finding_id,
         verification=verification,

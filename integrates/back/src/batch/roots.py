@@ -120,6 +120,12 @@ async def process_finding(
         target_finding_id = target_finding.id
     else:
         target_finding_id = str(uuid.uuid4())
+        initial_state = FindingState(
+            modified_by=source_finding.hacker_email,
+            modified_date=datetime_utils.get_iso_date(),
+            source=source_finding.state.source,
+            status=FindingStateStatus.CREATED,
+        )
         await findings_model.add(
             finding=Finding(
                 affected_systems=source_finding.affected_systems,
@@ -130,12 +136,7 @@ async def process_finding(
                 description=source_finding.description,
                 group_name=target_group_name,
                 id=target_finding_id,
-                state=FindingState(
-                    modified_by=source_finding.hacker_email,
-                    modified_date=datetime_utils.get_iso_date(),
-                    source=source_finding.state.source,
-                    status=FindingStateStatus.CREATED,
-                ),
+                state=initial_state,
                 recommendation=source_finding.recommendation,
                 requirements=source_finding.requirements,
                 severity=source_finding.severity,
@@ -144,11 +145,13 @@ async def process_finding(
             )
         )
         await findings_model.update_state(
+            current_value=initial_state,
             finding_id=target_finding_id,
             group_name=target_group_name,
             state=source_finding.submission,
         )
         await findings_model.update_state(
+            current_value=source_finding.submission,
             finding_id=target_finding_id,
             group_name=target_group_name,
             state=source_finding.approval,

@@ -85,6 +85,7 @@ async def approve_draft(
         status=FindingStateStatus.APPROVED,
     )
     await findings_model.update_state(
+        current_value=finding.state,
         finding_id=finding.id,
         group_name=finding.group_name,
         state=new_state,
@@ -153,6 +154,7 @@ async def reject_draft(context: Any, finding_id: str, user_email: str) -> None:
         status=FindingStateStatus.REJECTED,
     )
     await findings_model.update_state(
+        current_value=finding.state,
         finding_id=finding.id,
         group_name=finding.group_name,
         state=new_state,
@@ -192,6 +194,7 @@ async def submit_draft(context: Any, finding_id: str, user_email: str) -> None:
         status=FindingStateStatus.SUBMITTED,
     )
     await findings_model.update_state(
+        current_value=finding.state,
         finding_id=finding.id,
         group_name=finding.group_name,
         state=new_state,

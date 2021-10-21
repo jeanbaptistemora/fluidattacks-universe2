@@ -17,6 +17,9 @@ from db_model import (
 from db_model.findings.enums import (
     FindingStateStatus,
 )
+from db_model.findings.types import (
+    Finding,
+)
 from db_model.roots.types import (
     RootItem,
 )
@@ -174,12 +177,14 @@ async def _populate_finding_unreliable_indicator(data: Dict[str, Any]) -> None:
 async def _populate_finding_historic_state(data: Dict[str, Any]) -> None:
     # Update the finding state sequentially is important to
     # not generate a race condition
-    finding = data["finding"]
-    for state in data["historic_state"]:
+    finding: Finding = data["finding"]
+    historic = (finding.state, *data["historic_state"])
+    for previous, current in zip(historic, historic[1:]):
         await findings.update_state(
+            current_value=previous,
             group_name=finding.group_name,
             finding_id=finding.id,
-            state=state,
+            state=current,
         )
 
 
@@ -188,12 +193,14 @@ async def _populate_finding_historic_verification(
 ) -> None:
     # Update the finding verification sequentially is important to
     # not generate a race condition
-    finding = data["finding"]
-    for verification in data["historic_verification"]:
+    finding: Finding = data["finding"]
+    historic = (finding.verification, *data["historic_verification"])
+    for previous, current in zip(historic, historic[1:]):
         await findings.update_verification(
+            current_value=previous,
             group_name=finding.group_name,
             finding_id=finding.id,
-            verification=verification,
+            verification=current,
         )
 
 

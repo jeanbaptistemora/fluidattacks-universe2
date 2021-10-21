@@ -167,6 +167,7 @@ async def remove_finding(
         status=FindingStateStatus.DELETED,
     )
     await findings_model.update_state(
+        current_value=finding.state,
         finding_id=finding.id,
         group_name=finding.group_name,
         state=new_state,
@@ -692,6 +693,7 @@ async def request_vulnerabilities_verification(
         vulnerability_ids=vulnerability_ids,
     )
     await findings_model.update_verification(
+        current_value=finding.verification,
         group_name=finding.group_name,
         finding_id=finding.id,
         verification=verification,
@@ -859,6 +861,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         vulnerability_ids=set(vulnerability_ids),
     )
     await findings_model.update_verification(
+        current_value=finding.verification,
         group_name=finding.group_name,
         finding_id=finding.id,
         verification=verification,

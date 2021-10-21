@@ -28,7 +28,6 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
-    Not,
 )
 from custom_exceptions import (
     FindingNotFound,
@@ -48,6 +47,7 @@ from enum import (
     Enum,
 )
 from typing import (
+    Optional,
     Tuple,
 )
 
@@ -205,8 +205,9 @@ async def update_metadata(
 
 async def update_state(
     *,
-    group_name: str,
+    current_value: FindingState,
     finding_id: str,
+    group_name: str,
     state: FindingState,
 ) -> None:
     items = []
@@ -223,12 +224,12 @@ async def update_state(
         },
         latest_facet=TABLE.facets["finding_state"],
     )
-    condition_expression = Attr("status").exists() & Not(
-        Attr("status").eq(FindingStateStatus.DELETED.value)
-    )
     try:
         await operations.put_item(
-            condition_expression=condition_expression,
+            condition_expression=(
+                Attr("status").ne(FindingStateStatus.DELETED.value)
+                & Attr("modified_date").eq(current_value.modified_date)
+            ),
             facet=TABLE.facets["finding_state"],
             item=latest,
             table=TABLE,
@@ -292,11 +293,11 @@ async def update_unreliable_indicators(
 
 async def update_verification(
     *,
+    current_value: Optional[FindingVerification],
     group_name: str,
     finding_id: str,
     verification: FindingVerification,
 ) -> None:
-    items = []
     key_structure = TABLE.primary_key
     verification_item = format_verification_item(verification)
     latest, historic = historics.build_historic(
@@ -311,9 +312,17 @@ async def update_verification(
         latest_facet=TABLE.facets["finding_verification"],
     )
     await operations.put_item(
+        condition_expression=(
+            Attr("modified_date").eq(current_value.modified_date)
+            if current_value
+            else None
+        ),
         facet=TABLE.facets["finding_verification"],
         item=latest,
         table=TABLE,
     )
-    items.append(historic)
-    await operations.batch_write_item(items=tuple(items), table=TABLE)
+    await operations.put_item(
+        facet=TABLE.facets["finding_historic_verification"],
+        item=historic,
+        table=TABLE,
+    )
