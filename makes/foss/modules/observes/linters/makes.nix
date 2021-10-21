@@ -265,12 +265,16 @@
         src = "/observes/singer/tap_csv/tests";
       };
       observesTapDelighted = {
-        searchPaths.source = [ inputs.product.observes-env-tap-delighted-runtime ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-delighted/runtime"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_delighted/tap_delighted";
       };
       observesTapFormstack = {
-        searchPaths.source = [ inputs.product.observes-env-tap-formstack-runtime ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-formstack/runtime"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_formstack/tap_formstack";
       };

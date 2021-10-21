@@ -1,12 +1,12 @@
 { makeTemplate
-, packages
+, outputs
 , ...
 }:
 makeTemplate {
   name = "observes-env-tap-delighted-development";
   searchPaths = {
-    envSources = [
-      packages.observes.env.tap-delighted.runtime
+    source = [
+      outputs."/observes/env/tap-delighted/runtime"
     ];
   };
 }

@@ -1,22 +1,22 @@
-{ makes
+{ makePythonPypiEnvironment
 , makeTemplate
-, path
+, projectPath
 , ...
 }:
 let
-  self = path "/observes/singer/tap_formstack";
+  self = projectPath "/observes/singer/tap_formstack";
 in
 makeTemplate {
   name = "observes-env-tap-formstack-runtime";
   searchPaths = {
-    envMypyPaths = [
+    pythonMypy = [
       self
     ];
-    envPythonPaths = [
+    pythonPackage = [
       self
     ];
-    envSources = [
-      (makes.makePythonPypiEnvironment {
+    source = [
+      (makePythonPypiEnvironment {
         name = "observes-env-tap-formstack-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
