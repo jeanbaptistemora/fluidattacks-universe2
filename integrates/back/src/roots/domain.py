@@ -1,6 +1,6 @@
 import authz
 from custom_exceptions import (
-    HasOpenVulns,
+    HasVulns,
     InvalidParameter,
     InvalidRootExclusion,
     PermissionDenied,
@@ -400,14 +400,6 @@ async def update_git_environments(
     )
 
 
-async def has_open_vulns(
-    root: RootItem, loaders: Any, group_name: str
-) -> bool:
-    return await roots_dal.has_open_vulns(
-        nickname=root.state.nickname, loaders=loaders, group_name=group_name
-    )
-
-
 async def update_git_root(
     loaders: Any, user_email: str, **kwargs: Any
 ) -> None:
@@ -430,8 +422,12 @@ async def update_git_root(
         raise InvalidParameter()
 
     if url != root.state.url:
-        if await has_open_vulns(root, loaders, group_name):
-            raise HasOpenVulns()
+        if await roots_dal.get_root_vulns(
+            nickname=root.state.nickname,
+            loaders=loaders,
+            group_name=group_name,
+        ):
+            raise HasVulns()
         group = await loaders.group.load(group_name)
         if not validations.is_git_unique(
             url,

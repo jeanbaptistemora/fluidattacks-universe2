@@ -242,6 +242,12 @@ class GroupNotFound(CustomBaseException):
         super(GroupNotFound, self).__init__(msg)
 
 
+class HasVulns(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - A root with reported vulns can't be updated"
+        super(HasVulns, self).__init__(msg)
+
+
 class HasOpenVulns(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - A root with open vulns can't be deactivated"

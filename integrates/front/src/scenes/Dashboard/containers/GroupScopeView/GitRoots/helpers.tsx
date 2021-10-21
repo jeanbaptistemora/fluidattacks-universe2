@@ -109,6 +109,9 @@ const handleUpdateError = (
       case "Exception - A root with open vulns can't be deactivated":
         msgError(translate.t("group.scope.common.errors.hasOpenVulns"));
         break;
+      case "Exception - A root with reported vulns can't be updated":
+        msgError(translate.t("group.scope.common.errors.hasVulns"));
+        break;
       case "Exception - Active root with the same URL/branch already exists":
         msgError(translate.t("group.scope.common.errors.duplicateUrl"));
         break;
