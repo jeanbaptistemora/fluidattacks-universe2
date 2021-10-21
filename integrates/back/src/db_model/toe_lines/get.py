@@ -30,7 +30,7 @@ async def _get_toe_lines_by_group(
     group_name: str,
 ) -> Tuple[ServicesToeLines, ...]:
     primary_key = keys.build_key(
-        facet=TABLE.facets["root_toe_lines"],
+        facet=TABLE.facets["root_services_toe_lines"],
         values={"group_name": group_name},
     )
     key_structure = TABLE.primary_key
@@ -40,7 +40,7 @@ async def _get_toe_lines_by_group(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(line_key)
         ),
-        facets=(TABLE.facets["root_toe_lines"],),
+        facets=(TABLE.facets["root_services_toe_lines"],),
         index=None,
         table=TABLE,
     )
@@ -56,7 +56,7 @@ async def _get_toe_lines_by_root(
     group_name: str, root_id: str
 ) -> Tuple[ServicesToeLines, ...]:
     primary_key = keys.build_key(
-        facet=TABLE.facets["root_toe_lines"],
+        facet=TABLE.facets["root_services_toe_lines"],
         values={"group_name": group_name, "root_id": root_id},
     )
     key_structure = TABLE.primary_key
@@ -65,7 +65,7 @@ async def _get_toe_lines_by_root(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
         ),
-        facets=(TABLE.facets["root_toe_lines"],),
+        facets=(TABLE.facets["root_services_toe_lines"],),
         table=TABLE,
     )
     return tuple(
@@ -76,7 +76,7 @@ async def _get_toe_lines_by_root(
     )
 
 
-class GroupToeLinesLoader(DataLoader):
+class GroupServicesToeLinesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: List[str]
@@ -84,7 +84,7 @@ class GroupToeLinesLoader(DataLoader):
         return await collect(tuple(map(_get_toe_lines_by_group, group_names)))
 
 
-class RootToeLinesLoader(DataLoader):
+class RootServicesToeLinesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, roots: List[Tuple[str, str]]

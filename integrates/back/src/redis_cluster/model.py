@@ -157,7 +157,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             "id",
         },
         attrs={
-            "toe_lines",
+            "services_toe_lines",
         },
         dependencies={
             "update_toe_lines_sorts",

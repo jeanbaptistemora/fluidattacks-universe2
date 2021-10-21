@@ -36,7 +36,7 @@ async def resolve(
     ] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="root",
-        attr="toe_lines",
+        attr="services_toe_lines",
         ttl=CACHE_TTL,
         group=parent.group_name,
         id=parent.id,
@@ -49,7 +49,11 @@ async def resolve_no_cache(
 ) -> Tuple[ServicesToeLines, ...]:
     group_name = parent.group_name
     root_id = parent.id
-    root_toe_lines_loader: DataLoader = info.context.loaders.root_toe_lines
-    root_toe_lines = await root_toe_lines_loader.load((group_name, root_id))
+    root_toe_lines_loader: DataLoader = (
+        info.context.loaders.root_services_toe_lines
+    )
+    root_services_toe_lines = await root_toe_lines_loader.load(
+        (group_name, root_id)
+    )
 
-    return root_toe_lines
+    return root_services_toe_lines

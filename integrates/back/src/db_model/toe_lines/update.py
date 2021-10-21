@@ -22,7 +22,7 @@ from dynamodb.model import (
 
 async def update(*, toe_lines: ServicesToeLines) -> None:
     key_structure = TABLE.primary_key
-    facet = TABLE.facets["root_toe_lines"]
+    facet = TABLE.facets["root_services_toe_lines"]
     toe_lines_key = keys.build_key(
         facet=facet,
         values={
@@ -57,7 +57,7 @@ async def update_metadata(
 ) -> None:
     key_structure = TABLE.primary_key
     metadata_key = keys.build_key(
-        facet=TABLE.facets["root_toe_lines"],
+        facet=TABLE.facets["root_services_toe_lines"],
         values={
             "filename": filename,
             "group_name": group_name,

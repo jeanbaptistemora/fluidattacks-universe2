@@ -47,7 +47,7 @@ async def mutate(
     sorts_risk_level: float,
 ) -> SimplePayloadType:
     success = False
-    group_toe_lines_loader = info.context.loaders.group_toe_lines
+    group_toe_lines_loader = info.context.loaders.group_services_toe_lines
     group_toes: Set[ServicesToeLines] = await group_toe_lines_loader.load(
         group_name
     )

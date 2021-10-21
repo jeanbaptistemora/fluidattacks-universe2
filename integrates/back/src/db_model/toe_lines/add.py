@@ -21,7 +21,7 @@ from dynamodb.model import (
 
 async def add(*, toe_lines: ServicesToeLines) -> None:
     key_structure = TABLE.primary_key
-    facet = TABLE.facets["root_toe_lines"]
+    facet = TABLE.facets["root_services_toe_lines"]
     toe_lines_key = keys.build_key(
         facet=facet,
         values={

@@ -409,7 +409,7 @@ async def test_toe_lines_etl() -> None:
 
     group_name = "unittesting"
     loaders = get_new_context()
-    group_toe_lines = await loaders.group_toe_lines.load(group_name)
+    group_toe_lines = await loaders.group_services_toe_lines.load(group_name)
     assert group_toe_lines == (
         ServicesToeLines(
             comments="comment test",  # NOSONAR
@@ -444,7 +444,7 @@ async def test_toe_lines_etl() -> None:
         await toe_lines_etl.main()
 
     loaders = get_new_context()
-    group_toe_lines = await loaders.group_toe_lines.load(group_name)
+    group_toe_lines = await loaders.group_services_toe_lines.load(group_name)
     assert group_toe_lines == (
         ServicesToeLines(
             comments="comment test 2",

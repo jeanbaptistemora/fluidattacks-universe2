@@ -8,7 +8,7 @@ from dynamodb.model import (
 
 
 async def remove(*, filename: str, group_name: str, root_id: str) -> None:
-    facet = TABLE.facets["root_toe_lines"]
+    facet = TABLE.facets["root_services_toe_lines"]
     toe_lines_key = keys.build_key(
         facet=facet,
         values={

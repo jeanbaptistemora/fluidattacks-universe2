@@ -203,7 +203,7 @@ async def update_toe_lines_from_csv(
     )
     group_roots_loader = loaders.group_roots
     group_roots: Tuple[Root, ...] = await group_roots_loader.load(group_name)
-    group_toe_lines_loader = loaders.group_toe_lines
+    group_toe_lines_loader = loaders.group_services_toe_lines
     # Ignore risk level to no remove it with this scheduler
     group_toe_lines: Set[ServicesToeLines] = set(
         toe_lines._replace(sorts_risk_level=DEFAULT_RISK_LEVEL)

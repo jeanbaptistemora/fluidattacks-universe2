@@ -52,8 +52,8 @@ from db_model.toe_inputs.get import (
     GroupToeInputsLoader,
 )
 from db_model.toe_lines.get import (
-    GroupToeLinesLoader,
-    RootToeLinesLoader,
+    GroupServicesToeLinesLoader,
+    RootServicesToeLinesLoader,
 )
 from db_model.vulnerabilities.get import (
     VulnHistoricStateNewLoader,
@@ -87,13 +87,13 @@ class Dataloaders(NamedTuple):
     group_roots: GroupRootsLoader
     group_stakeholders: GroupStakeholdersLoader
     group_toe_inputs: GroupToeInputsLoader
-    group_toe_lines: GroupToeLinesLoader
+    group_services_toe_lines: GroupServicesToeLinesLoader
     organization: OrganizationLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
     root: RootLoader
     root_states: RootStatesLoader
-    root_toe_lines: RootToeLinesLoader
+    root_services_toe_lines: RootServicesToeLinesLoader
     vulnerability: VulnerabilityLoader
     vuln_historic_state_new: VulnHistoricStateNewLoader
     vuln_historic_treatment_new: VulnHistoricTreatmentNewLoader
@@ -124,7 +124,7 @@ def get_new_context() -> Dataloaders:
     finding_vulns_zr_loader = FindingVulnsOnlyZeroRiskLoader(
         finding_vulns_loader
     )
-    root_toe_lines_loader = RootToeLinesLoader()
+    root_toe_lines_loader = RootServicesToeLinesLoader()
 
     return Dataloaders(
         event=EventLoader(),
@@ -142,13 +142,13 @@ def get_new_context() -> Dataloaders:
         group_roots=GroupRootsLoader(),
         group_stakeholders=group_stakeholders_loader,
         group_toe_inputs=GroupToeInputsLoader(),
-        group_toe_lines=GroupToeLinesLoader(),
+        group_services_toe_lines=GroupServicesToeLinesLoader(),
         organization=OrganizationLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
         root=RootLoader(),
         root_states=RootStatesLoader(),
-        root_toe_lines=root_toe_lines_loader,
+        root_services_toe_lines=root_toe_lines_loader,
         vulnerability=VulnerabilityLoader(),
         vuln_historic_state_new=VulnHistoricStateNewLoader(),
         vuln_historic_treatment_new=VulnHistoricTreatmentNewLoader(),

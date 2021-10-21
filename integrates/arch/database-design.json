@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 12, 2021, 07:19 AM",
+    "DateLastModified": "Oct 21, 2021, 10:10 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1608,10 +1608,10 @@
           ]
         },
         {
-          "FacetName": "root_toe_lines",
+          "FacetName": "root_services_toe_lines",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "GROUP#group_name",
-            "SortKeyAlias": "LINES#ROOT#root_id#FILENAME#filename"
+            "SortKeyAlias": "SERVICESLINES#ROOT#root_id#FILENAME#filename"
           },
           "TableData": [
             {
@@ -1619,7 +1619,7 @@
                 "S": "GROUP#unittesting"
               },
               "sk": {
-                "S": "LINES#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#product/test/test#.config"
+                "S": "SERVICESLINES#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#product/test/test#.config"
               },
               "modified_date": {
                 "S": "2019-08-01T00:00:00-05:00"
@@ -1648,7 +1648,7 @@
                 "S": "GROUP#unittesting"
               },
               "sk": {
-                "S": "LINES#ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#FILENAME#integrates_1/test2/test.sh"
+                "S": "SERVICESLINES#ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#FILENAME#integrates_1/test2/test.sh"
               },
               "modified_date": {
                 "S": "2020-11-19T00:00:00-05:00"

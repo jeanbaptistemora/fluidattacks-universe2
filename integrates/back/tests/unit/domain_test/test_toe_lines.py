@@ -19,8 +19,10 @@ async def test_get_by_root() -> None:
     group_name = "unittesting"
     root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
     loaders = get_new_context()
-    root_toe_lines = await loaders.root_toe_lines.load((group_name, root_id))
-    assert root_toe_lines == (
+    root_services_toe_lines = await loaders.root_services_toe_lines.load(
+        (group_name, root_id)
+    )
+    assert root_services_toe_lines == (
         ServicesToeLines(
             comments="comment test",
             filename="product/test/test#.config",
@@ -53,7 +55,7 @@ async def test_add() -> None:
     )
     await toe_lines_domain.add(toe_lines)
     loaders = get_new_context()
-    group_toe_lines = await loaders.group_toe_lines.load(group_name)
+    group_toe_lines = await loaders.group_services_toe_lines.load(group_name)
     assert toe_lines in group_toe_lines
 
 
@@ -61,7 +63,7 @@ async def test_add() -> None:
 async def test_remove() -> None:
     group_name = "unittesting"
     loaders = get_new_context()
-    group_toe_lines = await loaders.group_toe_lines.load(group_name)
+    group_toe_lines = await loaders.group_services_toe_lines.load(group_name)
     assert len(group_toe_lines) == 3
     await toe_lines_domain.remove(
         group_name=group_name,
@@ -69,7 +71,7 @@ async def test_remove() -> None:
         filename="product/test/new#.new",
     )
     loaders = get_new_context()
-    group_toe_lines = await loaders.group_toe_lines.load(group_name)
+    group_toe_lines = await loaders.group_services_toe_lines.load(group_name)
     assert len(group_toe_lines) == 2
 
 
@@ -90,5 +92,5 @@ async def test_update() -> None:
     )
     await toe_lines_domain.update(toe_lines)
     loaders = get_new_context()
-    group_toe_lines = await loaders.group_toe_lines.load(group_name)
+    group_toe_lines = await loaders.group_services_toe_lines.load(group_name)
     assert toe_lines in group_toe_lines

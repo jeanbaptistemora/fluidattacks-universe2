@@ -43,7 +43,9 @@ async def main() -> None:
     groups = await get_active_groups()
     loaders = get_new_context()
     groups_toes: List[ServicesToeLines] = list(
-        chain.from_iterable(await loaders.group_toe_lines.load_many(groups))
+        chain.from_iterable(
+            await loaders.group_services_toe_lines.load_many(groups)
+        )
     )
     print(f"We have {len(groups)} groups and {len(groups_toes)} toes in total")
 
