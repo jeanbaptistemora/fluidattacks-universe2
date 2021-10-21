@@ -13,8 +13,8 @@ from tap_announcekit.streams.posts._factory._queries import (
 
 def test_queries() -> None:
     mock_post = PostId(ProjectId("1234"), "4321")
-    PostQuery(mock_post).query()
-    PostIdsQuery(mock_post.proj, 0)
+    PostQuery(mock_post).query().operation()
+    PostIdsQuery(mock_post.proj, 0).query().operation()
 
 
 def test_schema() -> None:

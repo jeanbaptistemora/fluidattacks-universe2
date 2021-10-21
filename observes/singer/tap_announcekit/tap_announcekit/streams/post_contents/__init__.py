@@ -15,10 +15,10 @@ from tap_announcekit.stream import (
     StreamFactory,
     StreamIO,
 )
-from tap_announcekit.streams.posts.post_content._encode import (
+from tap_announcekit.streams.post_contents._encode import (
     PostContentEncoders,
 )
-from tap_announcekit.streams.posts.post_content._factory import (
+from tap_announcekit.streams.post_contents._factory import (
     PostContentFactory,
 )
 

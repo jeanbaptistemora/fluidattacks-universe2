@@ -7,7 +7,7 @@ from tap_announcekit.streams.project._getters import (
 
 
 def test_query() -> None:
-    ProjectQuery("1234").query()
+    ProjectQuery("1234").query().operation()
 
 
 def test_schema() -> None:
