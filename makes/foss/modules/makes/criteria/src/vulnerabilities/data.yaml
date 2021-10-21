@@ -18428,3 +18428,60 @@
   metadata:
     en:
       details: __empty__
+"391":
+  en:
+    title: Inappropriate coding practices - Unused properties
+    description: >
+      The application source code defines properties
+      that are not used, adding unnecessary complexity
+      to the source code
+      and leading to a suboptimal state
+      that may cause affectations
+      to the overall application performance
+    impact: >
+      - Hinder the source code maintainability
+
+      - Release unoptimized source code
+      that may affect the application performance
+    recommendation: >
+      Remove the unused properties
+      from the application source code
+    threat: >
+      Authenticated attacker from the Internet
+  category: Abuse Functionality
+  es:
+    title: Inappropriate coding practices - Unused properties
+    description: >
+      Dentro del código fuente de la aplicación
+      se definen propiedades que no se utilizan,
+      agregando complejidad innecesaria al código
+      y causando un estado subóptimo que podría generar
+      una afectación en el desempeño general de la aplicación.
+    impact: >
+      - Dificultar la mantenibilidad del código
+
+      - Desplegar códigos no optimizados
+      que pueden afectar el desempeño de la aplicación
+    recommendation: >
+      Remover las propiedades no utilizadas
+      del código fuente de la aplicación
+    threat: >
+      Atacante autenticado desde Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "U"
+      remediation_level: "O"
+      report_confidence: "R"
+  requirements: ["164","167"]
+  metadata:
+    en:
+      details: __empty__
