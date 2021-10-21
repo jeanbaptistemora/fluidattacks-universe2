@@ -15,6 +15,7 @@ from charts.generators.stacked_bar_chart.utils import (
     DATE_FMT,
     EXPOSED_OVER_TIME,
     get_current_time_range,
+    get_quarter,
     get_time_range,
     RiskOverTime,
     sum_over_time_many_groups,
@@ -48,6 +49,22 @@ class GroupDocumentCvssfData(NamedTuple):
     critical: Decimal
 
 
+def get_quarterly(
+    group_data: Dict[str, Dict[datetime, Decimal]]
+) -> Dict[str, Dict[datetime, Decimal]]:
+
+    return {
+        "date": {
+            get_quarter(key): value
+            for key, value in group_data["date"].items()
+        },
+        "Exposure": {
+            get_quarter(key): value
+            for key, value in group_data["Exposure"].items()
+        },
+    }
+
+
 @alru_cache(maxsize=None, typed=True)
 async def get_group_document(  # pylint: disable=too-many-locals
     group: str, loaders: Dataloaders
@@ -58,10 +75,9 @@ async def get_group_document(  # pylint: disable=too-many-locals
 
     group_data = await loaders.group.load(group)
     group_over_time = [elements[-12:] for elements in group_data[data_name]]
-    group_over_time_monthly = [
-        elements[-12:]
-        for elements in group_data["exposed_over_time_month_cvssf"]
-    ]
+    group_over_time_monthly = list(
+        elements for elements in group_data["exposed_over_time_month_cvssf"]
+    )
 
     if group_over_time:
         group_low_over_time = group_over_time[0]
@@ -118,20 +134,25 @@ async def get_group_document(  # pylint: disable=too-many-locals
         group_data[data_name][0] if group_data[data_name] else []
     )
 
-    return RiskOverTime(
-        time_range=get_time_range(weekly_data_size),
-        monthly={
-            "date": {
-                datum.data_date: Decimal("0.0") for datum in data_monthly
-            },
-            "Exposure": {
-                datum.data_date: Decimal(
-                    datum.low + datum.medium + datum.high + datum.critical
-                )
-                for datum in data_monthly
-            },
+    monthly_data_size: int = len(
+        group_data["exposed_over_time_month_cvssf"][0]
+        if group_data["exposed_over_time_month_cvssf"]
+        else []
+    )
+    monthly = {
+        "date": {datum.data_date: Decimal("0.0") for datum in data_monthly},
+        "Exposure": {
+            datum.data_date: Decimal(
+                datum.low + datum.medium + datum.high + datum.critical
+            )
+            for datum in data_monthly
         },
-        quarterly={},
+    }
+
+    return RiskOverTime(
+        time_range=get_time_range(weekly_data_size, monthly_data_size),
+        monthly=monthly,
+        quarterly=get_quarterly(monthly),
         weekly={
             "date": {datum.data_date: Decimal("0.0") for datum in data},
             "Exposure": {
