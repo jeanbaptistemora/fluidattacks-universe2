@@ -4,8 +4,8 @@ It aims to have two toe lines facets for the same group. The lines keyword in
 the toe lines facet is going to be reserved for the last facet version of toe
 lines.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-10-21 at 14:49:23 UTC
+Finalization Time: 2021-10-21 at 14:57:54 UTC
 """
 
 from aioextensions import (
