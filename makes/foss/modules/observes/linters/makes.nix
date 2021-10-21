@@ -161,14 +161,14 @@
       };
       observesCommonSingerIo = {
         searchPaths.source = [
-          inputs.product.observes-env-singer-io-development
+          outputs."/observes/env/singer-io/development"
         ];
         python = "3.8";
         src = "/observes/common/singer_io/singer_io";
       };
       observesCommonSingerIoTests = {
         searchPaths.source = [
-          inputs.product.observes-env-singer-io-development
+          outputs."/observes/env/singer-io/development"
         ];
         python = "3.8";
         src = "/observes/common/singer_io/tests";

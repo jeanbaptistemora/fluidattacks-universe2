@@ -1,18 +1,17 @@
-{ makes
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
-, packages
 , ...
 }:
-with packages.observes.env;
 makeTemplate {
   name = "observes-env-singer-io-development";
   searchPaths = {
-    envSources = [
-      (makes.makePythonPypiEnvironment {
+    source = [
+      (makePythonPypiEnvironment {
         name = "observes-env-singer-io-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      singer-io.runtime
+      inputs.product.observes-env-singer-io-runtime
     ];
   };
 }
