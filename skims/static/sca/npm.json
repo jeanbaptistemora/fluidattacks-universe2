@@ -395,10 +395,23 @@
       "<2.0.1"
     ]
   },
+  "http-auth": {
+    "https://github.com/gevorg/http-auth/issues/94": [
+      "<3.2.4"
+    ]
+  },
   "http-errors": {},
+  "http-proxy": {
+    "github.com/http-party/node-http-proxy/issues/1328": [
+      "<1.18.1"
+    ]
+  },
   "https-proxy-agent": {
     "CVE-2018-3739": [
       "<2.2.0"
+    ],
+    "https://github.com/TooTallNate/node-https-proxy-agent/issues/78": [
+      "<2.2.3"
     ]
   },
   "https-signature": {
@@ -409,6 +422,9 @@
   "i18next": {
     "SNYK-JS-I18NEXT-1065979": [
       "<19.8.5"
+    ],
+    "github.com/i18next/i18next/issues/1479": [
+      "<19.5.5"
     ]
   },
   "iconv-lite": {},
@@ -621,6 +637,11 @@
       "<2.6.1"
     ]
   },
+  "node-forge": {
+    "CVE-2020-7720": [
+      "<0.10.0"
+    ]
+  },
   "node-notifier": {
     "CVE-2020-7789": [
       "<5.4.5",
@@ -721,6 +742,11 @@
     ]
   },
   "postcss-value-parser": {},
+  "prismjs": {
+    "CVE-2020-15138": [
+      ">=1.1.0,<1.21.0"
+    ]
+  },
   "process-nextick-args": {},
   "pump": {},
   "punycode": {},
@@ -909,6 +935,11 @@
   },
   "util-deprecate": {},
   "uuid": {},
+  "useragent": {
+    "https://github.com/3rd-Eden/useragent/pull/140": [
+      "<=2.3.0"
+    ]
+  },
   "webpack-dev-server": {
     "CVE-2018-14732": [
       "<3.1.6"
