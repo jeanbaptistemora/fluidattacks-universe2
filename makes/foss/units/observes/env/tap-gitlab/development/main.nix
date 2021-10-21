@@ -1,17 +1,17 @@
-{ makes
+{ makePythonPypiEnvironment
 , makeTemplate
-, packages
+, outputs
 , ...
 }:
 makeTemplate {
   name = "observes-env-tap-gitlab-development";
   searchPaths = {
-    envSources = [
-      (makes.makePythonPypiEnvironment {
+    source = [
+      (makePythonPypiEnvironment {
         name = "observes-env-tap-gitlab-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      packages.observes.env.tap-gitlab.runtime
+      outputs."/observes/env/tap-gitlab/runtime"
     ];
   };
 }

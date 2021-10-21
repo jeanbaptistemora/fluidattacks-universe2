@@ -1,28 +1,26 @@
-{ makes
+{ makePythonPypiEnvironment
 , makeTemplate
-, nixpkgs
-, packages
-, path
+, inputs
+, projectPath
 , ...
 }:
-with packages.observes.env;
 let
-  self = path "/observes/singer/tap_git";
+  self = projectPath "/observes/singer/tap_git";
 in
 makeTemplate {
   name = "observes-env-tap-git-runtime";
   searchPaths = {
-    envMypyPaths = [
+    pythonMypy = [
       self
     ];
-    envPaths = [
-      nixpkgs.git
+    bin = [
+      inputs.nixpkgs.git
     ];
-    envPythonPaths = [
+    pythonPackage = [
       self
     ];
-    envSources = [
-      (makes.makePythonPypiEnvironment {
+    source = [
+      (makePythonPypiEnvironment {
         name = "observes-env-tap-git-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })

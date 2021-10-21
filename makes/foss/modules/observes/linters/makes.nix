@@ -279,12 +279,16 @@
         src = "/observes/singer/tap_formstack/tap_formstack";
       };
       observesTapGitlab = {
-        searchPaths.source = [ inputs.product.observes-env-tap-gitlab-development ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-gitlab/development"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_gitlab/tap_gitlab";
       };
       observesTapGitlabTests = {
-        searchPaths.source = [ inputs.product.observes-env-tap-gitlab-development ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-gitlab/development"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_gitlab/tests";
       };
