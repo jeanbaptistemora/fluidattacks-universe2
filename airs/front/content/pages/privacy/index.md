@@ -45,14 +45,14 @@ store any information you knowingly provide to us when you create an
 account, publish content, make a purchase, or fill any online forms on
 the Website. When required, this information may include the following:
 
-  - Personal details such as name, country of residence, etc.
+- Personal details such as name, country of residence, etc.
 
-  - Contact information such as email address, address, etc.
+- Contact information such as email address, address, etc.
 
-  - Account details such as user name, unique user `ID`, password, etc.
+- Account details such as user name, unique user `ID`, password, etc.
 
-  - Any other materials you willingly submit to us such as articles,
-    images, feedback, etc.
+- Any other materials you willingly submit to us such as articles,
+  images, feedback, etc.
 
 You can choose not to provide us with your Personal Information, but
 then you may not be able to take advantage of some of the Website’s
@@ -70,37 +70,37 @@ However, we may also collect Personal Information about you from other
 sources such as social media, emails, etc. Any of the information we
 collect from you may be used for the following purposes:
 
-  - Create and manage user accounts
+- Create and manage user accounts
 
-  - Fulfill and manage orders
+- Fulfill and manage orders
 
-  - Deliver products or services
+- Deliver products or services
 
-  - Improve products and services
+- Improve products and services
 
-  - Send administrative information
+- Send administrative information
 
-  - Send marketing and promotional communications
+- Send marketing and promotional communications
 
-  - Respond to inquiries and offer support
+- Respond to inquiries and offer support
 
-  - Request user feedback
+- Request user feedback
 
-  - Improve user experience
+- Improve user experience
 
-  - Post customer testimonials
+- Post customer testimonials
 
-  - Deliver targeted advertising
+- Deliver targeted advertising
 
-  - Administer prize draws and competitions
+- Administer prize draws and competitions
 
-  - Enforce terms and conditions and policies
+- Enforce terms and conditions and policies
 
-  - Protect from abuse and malicious users
+- Protect from abuse and malicious users
 
-  - Respond to legal requests and prevent harm
+- Respond to legal requests and prevent harm
 
-  - Run and operate our Website and Services
+- Run and operate our Website and Services
 
 Processing your Personal Information depends on how you interact with
 our Website, where you are located in the world and if one of the
@@ -246,33 +246,33 @@ Information we hold about you and if you want it to be removed from our
 systems, please contact us. In certain circumstances, you have the
 following data protection rights:
 
-  - You have the right to request access to your Personal Information
-    that we store and have the ability to access your Personal
-    Information.
+- You have the right to request access to your Personal Information
+  that we store and have the ability to access your Personal
+  Information.
 
-  - You have the right to request that we correct any Personal
-    Information you believe is inaccurate. You also have the right to
-    request us to complete the Personal Information you believe is
-    incomplete.
+- You have the right to request that we correct any Personal
+  Information you believe is inaccurate. You also have the right to
+  request us to complete the Personal Information you believe is
+  incomplete.
 
-  - You have the right to request the erase your Personal Information
-    under certain conditions of this Privacy Policy.
+- You have the right to request the erase your Personal Information
+  under certain conditions of this Privacy Policy.
 
-  - You have the right to object to our processing of your Personal
-    Information.
+- You have the right to object to our processing of your Personal
+  Information.
 
-  - You have the right to seek restrictions on the processing of your
-    Personal Information. When you restrict the processing of your
-    Personal Information, we may store it but will not process it
-    further.
+- You have the right to seek restrictions on the processing of your
+  Personal Information. When you restrict the processing of your
+  Personal Information, we may store it but will not process it
+  further.
 
-  - You have the right to be provided with a copy of the information we
-    have on you in a structured, machine-readable and commonly used
-    format.
+- You have the right to be provided with a copy of the information we
+  have on you in a structured, machine-readable and commonly used
+  format.
 
-  - You also have the right to withdraw your consent at any time where
-    `Fluid Attacks` relied on your consent to process your Personal
-    Information.
+- You also have the right to withdraw your consent at any time where
+  `Fluid Attacks` relied on your consent to process your Personal
+  Information.
 
 You have the right to complain to a Data Protection Authority about our
 collection and use of your Personal Information. For more information,
