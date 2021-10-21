@@ -11,6 +11,9 @@ from decimal import (
 from enum import (
     Enum,
 )
+from pandas import (
+    Timestamp,
+)
 from typing import (
     Any,
     Dict,
@@ -538,3 +541,34 @@ def get_current_time_range(
             group_document.monthly for group_document in group_documents
         )
     return tuple(group_document.weekly for group_document in group_documents)
+
+
+def get_quarterly(
+    group_data: Dict[str, Dict[datetime, float]]
+) -> Dict[str, Dict[datetime, float]]:
+    def get_quarter(data_date: datetime) -> datetime:
+        quarter_day = Timestamp(data_date).to_period("Q").end_time.date()
+
+        if quarter_day < datetime.now().date():
+            return quarter_day
+
+        return datetime.combine(
+            datetime.now(),
+            datetime.min.time(),
+        )
+
+    return {
+        "date": {get_quarter(key): 0 for key, _ in group_data["date"].items()},
+        "Closed": {
+            get_quarter(key): value
+            for key, value in group_data["Closed"].items()
+        },
+        "Accepted": {
+            get_quarter(key): value
+            for key, value in group_data["Accepted"].items()
+        },
+        "Open": {
+            get_quarter(key): value
+            for key, value in group_data["Open"].items()
+        },
+    }
