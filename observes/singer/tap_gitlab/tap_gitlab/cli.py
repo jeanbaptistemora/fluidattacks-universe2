@@ -81,12 +81,11 @@ def stream(
 @click.command()
 @click.option("--api-key", type=str, required=True)
 @click.option("--project", type=str, required=True)
-def clean_stuck_jobs(
-    api_key: str,
-    project: str,
-) -> None:
+@click.option("--dry-run", is_flag=True)
+def clean_stuck_jobs(api_key: str, project: str, dry_run: bool) -> None:
+    # utility to find and cancel stuck jobs
     creds = Credentials(api_key)
-    cleaner.clean(creds, project)
+    cleaner.clean(creds, project, dry_run)
 
 
 @click.group()

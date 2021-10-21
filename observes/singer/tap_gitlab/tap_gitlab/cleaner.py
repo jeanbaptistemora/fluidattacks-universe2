@@ -50,8 +50,8 @@ from tap_gitlab.api.projects.jobs.page import (
 
 LOG = logging.getLogger(__name__)
 NOW = datetime.now(timezone.utc)
-# how old a job shoul be for considering it stuck
-THRESHOLD = timedelta(days=7)
+# how old a job should be for considering it stuck
+THRESHOLD = timedelta(days=1)
 
 
 def _json_to_job(proj: ProjectId, raw: JSON) -> Maybe[JobId]:
@@ -82,13 +82,15 @@ def clean_stuck_jobs(api: ProjectApi, manager: JobManager) -> IO[None]:
         PageId(1, 100)
     )
     pages.map(
-        lambda p: [_clean_stuck_jobs(j, manager) for j in deque(p, maxlen=100)]
+        lambda p: [_clean_stuck_jobs(j, manager) for j in deque(p, maxlen=10)]
     )
     return IO(None)
 
 
-def clean(creds: Credentials, proj: str) -> IO[None]:
+def clean(creds: Credentials, proj: str, dry_run: bool) -> IO[None]:
+    if dry_run:
+        LOG.info("Dry run enabled!")
     client = ApiClient(creds)
-    manager = JobManager(client.client)
+    manager = JobManager(client.client, dry_run)
     proj_api = client.project(ProjectId.from_name(proj))
     return clean_stuck_jobs(proj_api, manager)

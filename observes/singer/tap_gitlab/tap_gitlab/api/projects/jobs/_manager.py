@@ -18,8 +18,12 @@ LOG = logging.getLogger(__name__)
 @dataclass(frozen=True)
 class JobManager:
     client: PageClient
+    dry_run: bool
 
     def cancel(self, job: JobId) -> IO[None]:
         url = f"/projects/{job.proj}/jobs/{job.item_id}/cancel"
-        LOG.info("Cancelling job: %s", job)
-        return self.client.get(url, {}).map(lambda _: None)
+        if not self.dry_run:
+            LOG.info("Canceling job: %s", job)
+            return self.client.get(url, {}).map(lambda _: None)
+        LOG.info("%s will be canceled", job)
+        return IO(None)
