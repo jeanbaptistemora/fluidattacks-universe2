@@ -77,7 +77,7 @@ with a brief description of each one (for more information see the
 
 <div class="sect3 owasp-col fl">
 
-#### Injection
+#### 1. Injection
 
 [A code
 injection](https://owasp.org/www-project-top-ten/2017/A1_2017-Injection)
@@ -88,7 +88,7 @@ and this can be leveraged to make it process the input as code.
 
 <div class="sect3 owasp-col fr">
 
-#### Broken Authentication
+#### 2. Broken Authentication
 
 [Attackers can
 take](https://owasp.org/www-project-top-ten/2017/A2_2017-Broken_Authentication)
@@ -100,7 +100,7 @@ even entire systems.
 
 <div class="sect3 owasp-col fl">
 
-#### Sensitive Data Exposure
+#### 3. Sensitive Data Exposure
 
 [This problem
 occurs](https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure)
@@ -113,7 +113,7 @@ illegal activities.
 
 <div class="sect3 owasp-col fr">
 
-#### XML External Entities (XXE)
+#### 4. XML External Entities (XXE)
 
 [In this
 case](https://owasp.org/www-project-top-ten/2017/A4_2017-XML_External_Entities_\(XXE\)),
@@ -126,7 +126,7 @@ perform denial-of-service attacks.
 
 <div class="sect3 owasp-col fl">
 
-#### Broken Access Control
+#### 5. Broken Access Control
 
 [Web applications
 need](https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control)
@@ -139,7 +139,7 @@ any user, including administrators.
 
 <div class="sect3 owasp-col fr">
 
-#### Security Misconfiguration
+#### 6. Security Misconfiguration
 
 [This misconfiguration
 refers](https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration)
@@ -151,7 +151,7 @@ sensitive data and the use of non-updated systems or components.
 
 <div class="sect3 owasp-col fl">
 
-#### Cross-Site Scripting XSS
+#### 7. Cross-Site Scripting XSS
 
 [Attackers can
 inject](https://owasp.org/www-project-top-ten/2017/A7_2017-Cross-Site_Scripting_\(XSS\))
@@ -163,7 +163,7 @@ websites.
 
 <div class="sect3 owasp-col fr">
 
-#### Insecure Deserialization
+#### 8. Insecure Deserialization
 
 [Deserialization](https://owasp.org/www-project-top-ten/2017/A8_2017-Insecure_Deserialization)
 process to serialization, consists in converting strings of bytes into
@@ -175,7 +175,7 @@ manipulate serialized objects as desired.
 
 <div class="sect3 owasp-col fl">
 
-#### Using Components with Known Vulnerabilities
+#### 9. Using Components with Known Vulnerabilities
 
 [Web applications
 commonly](https://owasp.org/www-project-top-ten/2017/A9_2017-Using_Components_with_Known_Vulnerabilities)
@@ -188,7 +188,7 @@ to having an application exposed to exploitation.
 
 <div class="sect3 owasp-col fr">
 
-#### Insufficient Logging & Monitoring
+#### 10. Insufficient Logging & Monitoring
 
 [Many companies
 do](https://owasp.org/www-project-top-ten/2017/A10_2017-Insufficient_Logging%2526Monitoring)
