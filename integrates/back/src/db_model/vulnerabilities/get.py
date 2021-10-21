@@ -138,10 +138,11 @@ async def _get_finding(*, uuid: str) -> str:
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
         ),
-        facets=(TABLE.facets["finding_metadata"],),
+        facets=(TABLE.facets["vulnerability_metadata"],),
         table=TABLE,
     )
-
+    if not results:
+        raise VulnNotFound()
     inverted_index = TABLE.indexes["inverted_index"]
     inverted_key_structure = inverted_index.primary_key
     metadata = historics.get_metadata(
@@ -149,9 +150,6 @@ async def _get_finding(*, uuid: str) -> str:
         key_structure=inverted_key_structure,
         raw_items=results,
     )
-
-    if not results:
-        raise VulnNotFound()
 
     return metadata[inverted_key_structure.partition_key].split("#")[1]
 
