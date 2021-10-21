@@ -2103,7 +2103,7 @@
                 "S": "436712859"
               },
               "threat": {
-                "S": "This is a treat."
+                "S": "This is a threat"
               },
               "evidences": {
                 "M": {}
@@ -2226,7 +2226,7 @@
                 "S": "683100860"
               },
               "threat": {
-                "S": "This is a treat."
+                "S": "This is a threat"
               },
               "evidences": {
                 "M": {}
@@ -2349,7 +2349,7 @@
                 "S": "997868246"
               },
               "threat": {
-                "S": "This is a treat."
+                "S": "This is a threat"
               },
               "evidences": {
                 "M": {}
@@ -8074,7 +8074,7 @@
           "FacetName": "vulnerability_historic_treatment",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "VULN#uuid",
-            "SortKeyAlias": "TREAT#iso8601utc"
+            "SortKeyAlias": "TREATMENT#iso8601utc"
           },
           "TableData": [
             {
@@ -8082,7 +8082,7 @@
                 "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
               },
               "sk": {
-                "S": "TREAT#2021-02-15T14:01:16Z"
+                "S": "TREATMENT#2021-02-15T14:01:16Z"
               },
               "status": {
                 "S": "NEW"
@@ -8109,7 +8109,7 @@
           "FacetName": "vulnerability_historic_verification",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "VULN#uuid",
-            "SortKeyAlias": "VERIF#iso8601utc"
+            "SortKeyAlias": "VERIFICATION#iso8601utc"
           },
           "TableData": [
             {
@@ -8117,7 +8117,7 @@
                 "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
               },
               "sk": {
-                "S": "VERIF#2021-02-15T14:01:16Z"
+                "S": "VERIFICATION#2021-02-15T14:01:16Z"
               },
               "status": {
                 "S": "REQUESTED"
@@ -8140,7 +8140,7 @@
           "FacetName": "vulnerability_historic_zero_risk",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "VULN#uuid",
-            "SortKeyAlias": "ZERO#iso8601utc"
+            "SortKeyAlias": "ZERORISK#iso8601utc"
           },
           "TableData": [
             {
@@ -8148,7 +8148,7 @@
                 "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
               },
               "sk": {
-                "S": "ZERO#2021-03-30T15:30:00Z"
+                "S": "ZERORISK#2021-03-30T15:30:00Z"
               },
               "status": {
                 "S": "REQUESTED"
@@ -8168,7 +8168,7 @@
                 "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
               },
               "sk": {
-                "S": "ZERO#2021-04-01T11:30:00Z"
+                "S": "ZERORISK#2021-04-01T11:30:00Z"
               },
               "status": {
                 "S": "REJECTED"
@@ -8231,13 +8231,13 @@
         {
           "FacetName": "vulnerability_treatment",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid#TREAT",
+            "PartitionKeyAlias": "VULN#uuid#TREATMENT",
             "SortKeyAlias": "FIN#finding_id"
           },
           "TableData": [
             {
               "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#TREAT"
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#TREATMENT"
               },
               "sk": {
                 "S": "FIN#475041513"
@@ -8266,13 +8266,13 @@
         {
           "FacetName": "vulnerability_verification",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid#VERIF",
+            "PartitionKeyAlias": "VULN#uuid#VERIFICATION",
             "SortKeyAlias": "FIN#finding_id"
           },
           "TableData": [
             {
               "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#VERIF"
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#VERIFICATION"
               },
               "sk": {
                 "S": "FIN#475041513"
@@ -8297,13 +8297,13 @@
         {
           "FacetName": "vulnerability_zero_risk",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid#ZERO",
+            "PartitionKeyAlias": "VULN#uuid#ZERORISK",
             "SortKeyAlias": "FIN#finding_id"
           },
           "TableData": [
             {
               "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#ZERO"
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#ZERORISK"
               },
               "sk": {
                 "S": "FIN#475041513"

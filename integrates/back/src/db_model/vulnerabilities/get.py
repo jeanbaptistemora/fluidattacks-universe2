@@ -74,7 +74,7 @@ def _build_vulnerability(
             historics.get_latest(
                 item_id=item_id,
                 key_structure=key_structure,
-                historic_suffix="TREAT",
+                historic_suffix="TREATMENT",
                 raw_items=raw_items,
             )
         )
@@ -88,7 +88,7 @@ def _build_vulnerability(
             historics.get_latest(
                 item_id=item_id,
                 key_structure=key_structure,
-                historic_suffix="VERIF",
+                historic_suffix="VERIFICATION",
                 raw_items=raw_items,
             )
         )
@@ -100,7 +100,7 @@ def _build_vulnerability(
             historics.get_latest(
                 item_id=item_id,
                 key_structure=key_structure,
-                historic_suffix="ZERO",
+                historic_suffix="ZERORISK",
                 raw_items=raw_items,
             )
         )
