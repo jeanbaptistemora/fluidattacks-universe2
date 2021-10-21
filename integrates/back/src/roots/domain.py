@@ -167,24 +167,23 @@ async def add_git_root(
     branch: str = kwargs["branch"].rstrip()
     nickname: str = _format_root_nickname(kwargs.get("nickname", ""), url)
 
-    gitignore = kwargs["gitignore"]
-    enforcer = await authz.get_group_level_enforcer(user_email)
-
     loaders.group_roots.clear(group_name)
-    validations.validate_nickname(nickname)
-    validations.validate_nickname_is_unique(
-        nickname, await loaders.group_roots.load(group_name)
-    )
-    if gitignore and not enforcer(group_name, "update_git_root_filter"):
-        raise PermissionDenied()
-    if not validations.is_exclude_valid(gitignore, url):
-        raise InvalidRootExclusion()
-
     if not (
         validations.is_valid_repo_url(url)
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
+    validations.validate_nickname(nickname)
+    validations.validate_nickname_is_unique(
+        nickname, await loaders.group_roots.load(group_name)
+    )
+
+    gitignore = kwargs["gitignore"]
+    enforcer = await authz.get_group_level_enforcer(user_email)
+    if gitignore and not enforcer(group_name, "update_git_root_filter"):
+        raise PermissionDenied()
+    if not validations.is_exclude_valid(gitignore, url):
+        raise InvalidRootExclusion()
 
     group = await loaders.group.load(group_name)
     if ensure_org_uniqueness and not validations.is_git_unique(
@@ -424,6 +423,12 @@ async def update_git_root(
 
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
+    if not (
+        validations.is_valid_repo_url(url)
+        and validations.is_valid_git_branch(branch)
+    ):
+        raise InvalidParameter()
+
     if url != root.state.url:
         if await has_open_vulns(root, loaders, group_name):
             raise HasOpenVulns()

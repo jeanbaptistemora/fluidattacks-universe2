@@ -87,6 +87,9 @@ const handleCreationError = (graphQLErrors: readonly GraphQLError[]): void => {
       case "Exception - Root name should not be included in the exception pattern":
         msgError(translate.t("group.scope.git.errors.rootInGitignore"));
         break;
+      case "Exception - Invalid characters":
+        msgError(translate.t("validations.invalidChar"));
+        break;
       default:
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.error("Couldn't add git roots", error);
@@ -105,6 +108,12 @@ const handleUpdateError = (
         break;
       case "Exception - A root with open vulns can't be deactivated":
         msgError(translate.t("group.scope.common.errors.hasOpenVulns"));
+        break;
+      case "Exception - Active root with the same URL/branch already exists":
+        msgError(translate.t("group.scope.common.errors.duplicateUrl"));
+        break;
+      case "Exception - Invalid characters":
+        msgError(translate.t("validations.invalidChar"));
         break;
       default:
         msgError(translate.t("groupAlerts.errorTextsad"));
