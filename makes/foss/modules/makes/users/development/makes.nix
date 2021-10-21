@@ -42,6 +42,32 @@
       gitlab_token = "PRODUCT_API_TOKEN";
     };
   };
+  taintTerraform = {
+    modules = {
+      makesUsersDevelopmentKey1 = {
+        setup = [
+          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForEnvFromSops/makesUsersDevelopmentProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersDevelopment"
+        ];
+        resources = [ "module.aws.aws_iam_access_key._1" ];
+        reDeploy = true;
+        src = "/makes/foss/modules/makes/users/development/infra";
+        version = "1.0";
+      };
+      makesUsersDevelopmentKey2 = {
+        setup = [
+          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForEnvFromSops/makesUsersDevelopmentProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersDevelopment"
+        ];
+        resources = [ "module.aws.aws_iam_access_key._2" ];
+        reDeploy = true;
+        src = "/makes/foss/modules/makes/users/development/infra";
+        version = "1.0";
+      };
+    };
+  };
   testTerraform = {
     modules = {
       makesUsersDevelopment = {
