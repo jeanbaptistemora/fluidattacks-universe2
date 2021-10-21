@@ -48,79 +48,87 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
           name={"editGroupInformation"}
           onSubmit={onSubmit}
         >
-          <Form>
-            <Row>
-              <Col100>
-                <FormGroup>
-                  <ControlLabel>
-                    {translate.t(
-                      "organization.tabs.groups.newGroup.description.text"
-                    )}
-                  </ControlLabel>
-                  <TooltipWrapper
-                    id={"organization.tabs.groups.newGroup.description.tooltip"}
-                    message={translate.t(
-                      "organization.tabs.groups.newGroup.description.tooltip"
-                    )}
-                    placement={"top"}
-                  >
-                    <FormGroup>
-                      <Field
-                        component={FormikText}
-                        id={"add-group-description"}
-                        name={"description"}
-                        type={"text"}
-                        validate={composeValidators([
-                          required,
-                          maxDescriptionLength,
-                          validTextField,
-                        ])}
-                      />
-                    </FormGroup>
-                  </TooltipWrapper>
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>
-                    {translate.t(
-                      "organization.tabs.groups.newGroup.language.text"
-                    )}
-                  </ControlLabel>
-                  <TooltipWrapper
-                    id={"organization.tabs.groups.newGroup.language.tooltip"}
-                    message={translate.t(
-                      "organization.tabs.groups.newGroup.language.tooltip"
-                    )}
-                    placement={"top"}
-                  >
-                    <FormGroup>
-                      <Field component={FormikDropdown} name={"language"}>
-                        <option value={"EN"}>
-                          {translate.t(
-                            "organization.tabs.groups.newGroup.language.EN"
-                          )}
-                        </option>
-                        <option value={"ES"}>
-                          {translate.t(
-                            "organization.tabs.groups.newGroup.language.ES"
-                          )}
-                        </option>
-                      </Field>
-                    </FormGroup>
-                  </TooltipWrapper>
-                </FormGroup>
-              </Col100>
-            </Row>
-          </Form>
+          {({ dirty }): React.ReactNode => (
+            <Form>
+              <Row>
+                <Col100>
+                  <FormGroup>
+                    <ControlLabel>
+                      {translate.t(
+                        "organization.tabs.groups.newGroup.description.text"
+                      )}
+                    </ControlLabel>
+                    <TooltipWrapper
+                      id={
+                        "organization.tabs.groups.newGroup.description.tooltip"
+                      }
+                      message={translate.t(
+                        "organization.tabs.groups.newGroup.description.tooltip"
+                      )}
+                      placement={"top"}
+                    >
+                      <FormGroup>
+                        <Field
+                          component={FormikText}
+                          id={"add-group-description"}
+                          name={"description"}
+                          type={"text"}
+                          validate={composeValidators([
+                            required,
+                            maxDescriptionLength,
+                            validTextField,
+                          ])}
+                        />
+                      </FormGroup>
+                    </TooltipWrapper>
+                  </FormGroup>
+                  <FormGroup>
+                    <ControlLabel>
+                      {translate.t(
+                        "organization.tabs.groups.newGroup.language.text"
+                      )}
+                    </ControlLabel>
+                    <TooltipWrapper
+                      id={"organization.tabs.groups.newGroup.language.tooltip"}
+                      message={translate.t(
+                        "organization.tabs.groups.newGroup.language.tooltip"
+                      )}
+                      placement={"top"}
+                    >
+                      <FormGroup>
+                        <Field component={FormikDropdown} name={"language"}>
+                          <option value={"EN"}>
+                            {translate.t(
+                              "organization.tabs.groups.newGroup.language.EN"
+                            )}
+                          </option>
+                          <option value={"ES"}>
+                            {translate.t(
+                              "organization.tabs.groups.newGroup.language.ES"
+                            )}
+                          </option>
+                        </Field>
+                      </FormGroup>
+                    </TooltipWrapper>
+                  </FormGroup>
+                </Col100>
+              </Row>
+              <hr />
+              <Row>
+                <Col100>
+                  <ButtonToolbar>
+                    <Button id={"edit-group-inf-cancel"} onClick={onClose}>
+                      {translate.t("confirmmodal.cancel")}
+                    </Button>
+                    <Button disabled={!dirty} type={"submit"}>
+                      {translate.t("confirmmodal.proceed")}
+                    </Button>
+                  </ButtonToolbar>
+                </Col100>
+              </Row>
+            </Form>
+          )}
         </Formik>
-        <Row>
-          <Col100>
-            <ButtonToolbar>
-              <Button id={"edit-group-inf-cancel"} onClick={onClose}>
-                {translate.t("confirmmodal.cancel")}
-              </Button>
-            </ButtonToolbar>
-          </Col100>
-        </Row>
       </Modal>
     </React.StrictMode>
   );

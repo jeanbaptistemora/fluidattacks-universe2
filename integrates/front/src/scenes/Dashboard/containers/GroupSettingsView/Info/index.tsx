@@ -1,9 +1,10 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
+import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -13,12 +14,15 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { EditGroupInformationModal } from "scenes/Dashboard/components/EditGroupInformationModal";
+import { UPDATE_GROUP_INFO } from "scenes/Dashboard/components/EditGroupInformationModal/queries";
 import { GET_GROUP_DATA } from "scenes/Dashboard/containers/GroupSettingsView/queries";
+import { handleEditGroupDataError } from "scenes/Dashboard/containers/GroupSettingsView/Services/helpers";
+import type { IGroupData } from "scenes/Dashboard/containers/GroupSettingsView/Services/types";
 import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
-import { msgError } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const GroupInformation: React.FC = (): JSX.Element => {
@@ -55,15 +59,47 @@ const GroupInformation: React.FC = (): JSX.Element => {
     );
   };
 
-  const { data } = useQuery(GET_GROUP_DATA, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorText"));
-        Logger.warning("An error occurred getting group data", error);
-      });
+  const { data, refetch: refetchGroupData } = useQuery<IGroupData>(
+    GET_GROUP_DATA,
+    {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(translate.t("groupAlerts.errorText"));
+          Logger.warning("An error occurred getting group data", error);
+        });
+      },
+      variables: { groupName },
+    }
+  );
+
+  const [editGroupInfo] = useMutation(UPDATE_GROUP_INFO, {
+    onCompleted: (): void => {
+      track("EditGroupData");
+      msgSuccess(
+        translate.t("groupAlerts.groupInfoUpdated"),
+        translate.t("groupAlerts.titleSuccess")
+      );
+      void refetchGroupData({ groupName });
     },
-    variables: { groupName },
+    onError: (error: ApolloError): void => {
+      handleEditGroupDataError(error);
+    },
   });
+
+  const handleFormSubmit = useCallback(
+    (values: Record<string, string>): void => {
+      void editGroupInfo({
+        variables: {
+          description: values.description,
+          groupName,
+          language: values.language,
+        },
+      });
+      setGroupSettingsModalOpen(false);
+    },
+    [editGroupInfo, groupName]
+  );
+
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
@@ -75,7 +111,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
       attribute: "Language",
       // Next annotations needed as DB queries use "any" type
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-member-access
-      value: translate.t(`searchFindings.infoTable.${data.group.language}`),
+      value: data.group.language,
     },
     {
       attribute: "Description",
@@ -91,6 +127,18 @@ const GroupInformation: React.FC = (): JSX.Element => {
     },
     {
       dataField: "value",
+      formatter: (value: string): string => {
+        const mappedLanguage = {
+          EN: "English",
+          ES: "Spanish",
+        }[value];
+
+        if (!_.isUndefined(mappedLanguage)) {
+          return mappedLanguage;
+        }
+
+        return value;
+      },
       header: "Value",
     },
   ];
@@ -143,7 +191,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
         initialValues={formatDataSet(attributesDataset)}
         isOpen={isGroupSettingsModalOpen}
         onClose={closeEditGroupInformationModal}
-        onSubmit={closeEditGroupInformationModal}
+        onSubmit={handleFormSubmit}
       />
     </React.StrictMode>
   );

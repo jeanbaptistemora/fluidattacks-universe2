@@ -760,6 +760,7 @@ export const enTranslations: ResourceKey = {
     fileTypeWrong: "The file has an unknown or non-allowed format",
     fileTypeYaml: "The file must be .yaml or .yml type",
     fileUpdated: "File updated ;)",
+    groupInfoUpdated: "Group information updated successfully",
     invalid: "is invalid",
     invalidCannotModifyNicknameWhenClosing:
       "Invalid, you cannot change the nickname while closing",
