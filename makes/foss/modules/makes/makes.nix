@@ -27,6 +27,10 @@
     ./vpc/makes.nix
   ];
   secretsForAwsFromEnv = {
+    development = {
+      accessKeyId = "DEV_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "DEV_AWS_SECRET_ACCESS_KEY";
+    };
     makesDev = {
       accessKeyId = "MAKES_DEV_AWS_ACCESS_KEY_ID";
       secretAccessKey = "MAKES_DEV_AWS_SECRET_ACCESS_KEY";

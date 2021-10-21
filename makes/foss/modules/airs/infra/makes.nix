@@ -19,23 +19,13 @@
     modules = {
       airsInfra = {
         setup = [
-          outputs."/secretsForAwsFromEnv/airsDev"
+          outputs."/secretsForAwsFromEnv/development"
           outputs."/secretsForEnvFromSops/airsInfraDev"
           outputs."/secretsForTerraformFromEnv/airsInfra"
         ];
         src = "/airs/infra";
         version = "1.0";
       };
-    };
-  };
-  secretsForAwsFromEnv = {
-    airsDev = {
-      accessKeyId = "AIRS_DEV_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "AIRS_DEV_AWS_SECRET_ACCESS_KEY";
-    };
-    airsProd = {
-      accessKeyId = "AIRS_PROD_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "AIRS_PROD_AWS_SECRET_ACCESS_KEY";
     };
   };
   secretsForEnvFromSops = {
@@ -58,7 +48,7 @@
     modules = {
       airsInfra = {
         setup = [
-          outputs."/secretsForAwsFromEnv/airsDev"
+          outputs."/secretsForAwsFromEnv/development"
           outputs."/secretsForEnvFromSops/airsInfraDev"
           outputs."/secretsForTerraformFromEnv/airsInfra"
         ];

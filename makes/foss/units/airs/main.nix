@@ -7,7 +7,7 @@ makeScript {
   replace = {
     __argAirsBuild__ = inputs.product.airs-build;
     __argAirsDevelopment__ = inputs.product.airs-development;
-    __argSecretsAwsDev__ = outputs."/secretsForAwsFromEnv/airsDev";
+    __argSecretsAwsDev__ = outputs."/secretsForAwsFromEnv/development";
     __argSecretsAwsProd__ = outputs."/secretsForAwsFromEnv/airsProd";
   };
   name = "airs";

@@ -2,7 +2,7 @@
 
 function main {
   copy __envAirsFront__ out \
-    && aws_login_dev airs \
+    && aws_login_dev_new \
     && sops_export_vars __envAirsSecrets__/dev.yaml \
       FONTAWESOME_NPM_AUTH_TOKEN \
     && pushd out \

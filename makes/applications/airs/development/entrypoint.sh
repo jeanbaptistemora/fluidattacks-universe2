@@ -3,7 +3,7 @@
 function main {
   local src="${1}"
 
-  aws_login_dev airs \
+  aws_login_dev_new \
     && sops_export_vars __envAirsSecrets__/dev.yaml \
       CLOUDINARY_API_SECRET \
       CLOUDINARY_API_KEY \
