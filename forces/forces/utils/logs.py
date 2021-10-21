@@ -30,7 +30,7 @@ logging.basicConfig(filename=LOG_FILE.get().name, format=_FORMAT)
 _LOGGER_FORMATTER: logging.Formatter = logging.Formatter(_FORMAT)
 
 _LOGGER_HANDLER: logging.Handler = RichHandler(
-    show_time=False, level=logging.INFO, markup=True, show_path=False
+    show_time=False, markup=True, show_path=False
 )
 _LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
 

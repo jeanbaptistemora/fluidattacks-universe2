@@ -71,7 +71,7 @@ async def entrypoint(
         yaml_report = await generate_report_log(
             copy.deepcopy(report), verbose_level=config.verbose_level
         )
-        await log("info", "\n%s", yaml_report)
+        await log("info", "%s", yaml_report)
     else:
         await log(
             "info", "The current repository has no reported vulnerabilities"

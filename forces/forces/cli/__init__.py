@@ -50,17 +50,16 @@ def show_banner() -> None:
     """Show forces banner."""
     header = textwrap.dedent(
         r"""
+        [bold white]  ___
+         |[/][bold red] ››[/][bold white]|›[/][bold red] fluid [/][bold white]
+         |___| [/][bold red] attacks, we hack your software[/]
         [bold green]
              ____            _____           ____
             / __ \___ _   __/ ___/___  _____/ __ \____  _____
            / / / / _ \ | / /\__ \/ _ \/ ___/ / / / __ \/ ___/
           / /_/ /  __/ |/ /___/ /  __/ /__/ /_/ / /_/ (__  )
          /_____/\___/|___//____/\___/\___/\____/ .___/____/
-                                              /_/ [/] [bold red]
-          ___
-         | >>|> fluid
-         |___|  attacks, we hack your software
-         [/]
+                                              /_/ [/]
         """
     )
     rprint(header)

@@ -65,6 +65,7 @@ async def generate_report_log(
 ) -> str:
     # Set finding exploitability level
     for finding in report["findings"]:
+        finding.pop("id")
         explot = get_exploitability_measure(finding.get("exploitability", 0))
         finding["exploitability"] = explot
         for vuln in finding["vulnerabilities"]:
