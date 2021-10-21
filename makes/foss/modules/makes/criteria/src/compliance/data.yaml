@@ -2286,7 +2286,7 @@
     description: __empty__
   definitions:
     "A1":
-      title: Injection
+      title: Broken Access Control
       link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
     "A2":
       title: Broken Authentication
