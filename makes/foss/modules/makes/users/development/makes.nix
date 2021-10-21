@@ -9,6 +9,7 @@
         setup = [
           outputs."/secretsForAwsFromEnv/makesProd"
           outputs."/secretsForEnvFromSops/makesUsersDevelopmentProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersDevelopment"
         ];
         src = "/makes/foss/modules/makes/users/development/infra";
         version = "1.0";
@@ -36,12 +37,18 @@
       manifest = "/makes/foss/modules/makes/secrets/prod.yaml";
     };
   };
+  secretsForTerraformFromEnv = {
+    makesUsersDevelopment = {
+      gitlab_token = "PRODUCT_API_TOKEN";
+    };
+  };
   testTerraform = {
     modules = {
       makesUsersDevelopment = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesDev"
           outputs."/secretsForEnvFromSops/makesUsersDevelopmentDev"
+          outputs."/secretsForTerraformFromEnv/makesUsersDevelopment"
         ];
         src = "/makes/foss/modules/makes/users/development/infra";
         version = "1.0";

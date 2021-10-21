@@ -8,10 +8,3 @@ resource "aws_iam_user" "main" {
   }
 }
 
-resource "aws_iam_access_key" "_1" {
-  user = var.name
-}
-
-resource "aws_iam_access_key" "_2" {
-  user = var.name
-}

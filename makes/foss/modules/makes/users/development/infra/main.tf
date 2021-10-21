@@ -62,3 +62,12 @@ module "cloudflare" {
     }
   }
 }
+
+module "publish_credentials" {
+  source       = "../../modules/publish_credentials"
+  gitlab_token = var.gitlab_token
+  key_1        = module.aws.keys.1
+  key_2        = module.aws.keys.2
+  prefix       = "DEV"
+  protected    = false
+}
