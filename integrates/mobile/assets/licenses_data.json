@@ -2,7 +2,7 @@
   "@apollo/client@3.4.15": {
     "licenses": "MIT",
     "repository": "https://github.com/apollographql/apollo-client",
-    "licenseUrl": "https://github.com/apollographql/apollo-client/raw/master/LICENSE",
+    "licenseUrl": "https://raw.githubusercontent.com/apollographql/apollo-client/v3.4.15/LICENSE",
     "parents": "asm"
   },
   "@bugsnag/core@7.10.0": {
@@ -13,14 +13,14 @@
   },
   "@bugsnag/expo@7.12.0": {
     "licenses": "MIT",
-    "repository": "https://github.com/bugsnag/bugsnag-js",
-    "licenseUrl": "https://github.com/bugsnag/bugsnag-js/raw/master/LICENSE.txt",
+    "repository": "https://github.com/bugsnag/bugsnag-js/tree/v7.12.0/packages/expo",
+    "licenseUrl": "https://raw.githubusercontent.com/bugsnag/bugsnag-js/v7.12.0/packages/expo/LICENSE.txt",
     "parents": "asm"
   },
   "@bugsnag/plugin-react@7.10.0": {
     "licenses": "MIT",
-    "repository": "https://github.com/bugsnag/bugsnag-js",
-    "licenseUrl": "https://github.com/bugsnag/bugsnag-js/raw/master/LICENSE.txt",
+    "repository": "https://github.com/bugsnag/bugsnag-js/tree/v7.10.0/packages/plugin-react",
+    "licenseUrl": "https://raw.githubusercontent.com/bugsnag/bugsnag-js/v7.10.0/packages/plugin-react/LICENSE.txt",
     "parents": "asm"
   },
   "@expo/vector-icons@12.0.5": {
@@ -110,55 +110,55 @@
   "graphql@14.7.0": {
     "licenses": "MIT",
     "repository": "https://github.com/graphql/graphql-js",
-    "licenseUrl": "https://github.com/graphql/graphql-js/raw/master/LICENSE",
+    "licenseUrl": "https://raw.githubusercontent.com/graphql/graphql-js/v14.7.0/LICENSE",
     "parents": "asm"
   },
   "i18next@20.3.1": {
     "licenses": "MIT",
     "repository": "https://github.com/i18next/i18next",
-    "licenseUrl": "https://github.com/i18next/i18next/raw/master/LICENSE",
+    "licenseUrl": "https://raw.githubusercontent.com/i18next/i18next/v20.3.1/LICENSE",
     "parents": "asm"
   },
   "intl@1.2.5": {
     "licenses": "MIT",
     "repository": "https://github.com/andyearnshaw/Intl.js",
-    "licenseUrl": "https://github.com/andyearnshaw/Intl.js/raw/master/LICENSE.txt",
+    "licenseUrl": "https://raw.githubusercontent.com/andyearnshaw/Intl.js/v1.2.5/LICENSE.txt",
     "parents": "asm"
   },
   "jwt-decode@3.1.2": {
     "licenses": "MIT",
     "repository": "https://github.com/auth0/jwt-decode",
-    "licenseUrl": "https://github.com/auth0/jwt-decode/raw/master/LICENSE",
+    "licenseUrl": "https://raw.githubusercontent.com/auth0/jwt-decode/v3.1.2/LICENSE",
     "parents": "asm"
   },
   "lodash@4.17.21": {
     "licenses": "MIT",
     "repository": "https://github.com/lodash/lodash",
-    "licenseUrl": "https://github.com/lodash/lodash/raw/master/LICENSE",
+    "licenseUrl": "https://raw.githubusercontent.com/lodash/lodash/4.17.21/LICENSE",
     "parents": "asm"
   },
   "react-i18next@11.11.0": {
     "licenses": "MIT",
     "repository": "https://github.com/i18next/react-i18next",
-    "licenseUrl": "https://github.com/i18next/react-i18next/raw/master/LICENSE",
+    "licenseUrl": "https://raw.githubusercontent.com/i18next/react-i18next/v11.11.0/LICENSE",
     "parents": "asm"
   },
   "react-native-paper@4.9.1": {
     "licenses": "MIT",
     "repository": "https://github.com/callstack/react-native-paper",
-    "licenseUrl": "https://github.com/callstack/react-native-paper/raw/master/LICENSE.md",
+    "licenseUrl": "https://raw.githubusercontent.com/callstack/react-native-paper/v4.9.1/LICENSE.md",
     "parents": "asm"
   },
   "react-native-ssl-pinning@1.5.4": {
     "licenses": "MIT",
     "repository": "https://github.com/MaxToyberman/react-native-ssl-pinning",
-    "licenseUrl": "https://github.com/MaxToyberman/react-native-ssl-pinning/raw/master/LICENSE",
+    "licenseUrl": "https://raw.githubusercontent.com/MaxToyberman/react-native-ssl-pinning/v1.5.4/LICENSE",
     "parents": "asm"
   },
   "react-native-svg@12.1.1": {
     "licenses": "MIT",
     "repository": "https://github.com/react-native-community/react-native-svg",
-    "licenseUrl": "https://github.com/react-native-community/react-native-svg/raw/master/LICENSE",
+    "licenseUrl": "https://raw.githubusercontent.com/react-native-svg/react-native-svg/v12.1.1/LICENSE",
     "parents": "asm"
   },
   "react-native@0.63.2": {
@@ -170,7 +170,7 @@
   "react-router-native@5.2.0": {
     "licenses": "MIT",
     "repository": "https://github.com/ReactTraining/react-router",
-    "licenseUrl": "https://github.com/ReactTraining/react-router/main/master/LICENSE",
+    "licenseUrl": "https://github.com/ReactTraining/react-router/raw/main/LICENSE.md",
     "parents": "asm"
   },
   "react@16.13.1": {

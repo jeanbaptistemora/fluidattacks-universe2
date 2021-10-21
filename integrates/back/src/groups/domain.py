@@ -895,29 +895,6 @@ async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
     return cast(List[GroupType], groups)
 
 
-async def get_mean_remediate_non_treated(
-    loaders: Any, group_name: str, min_date: Optional[date] = None
-) -> Decimal:
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
-    all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
-        [finding.id for finding in findings]
-    )
-    vulnerabilities = vulns_utils.filter_non_confirmed_zero_risk(
-        all_vulnerabilities
-    )
-
-    return vulns_utils.get_mean_remediate_vulnerabilities(
-        [
-            vuln
-            for vuln in vulnerabilities
-            if not vulns_utils.is_accepted_undefined_vulnerability(vuln)
-        ],
-        min_date,
-    )
-
-
 async def get_mean_remediate_severity_cvssf(
     loaders: Any,
     group_name: str,
@@ -1475,7 +1452,9 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
             }
         ]
     content["main"]["remediation_time"] = int(
-        await get_mean_remediate_non_treated(loaders, group_name)
+        await get_mean_remediate_non_treated_severity(
+            loaders, group_name, Decimal("0.0"), Decimal("10.0")
+        )
     )
     content["main"]["remediation_rate"] = await get_remediation_rate(
         loaders, group_name

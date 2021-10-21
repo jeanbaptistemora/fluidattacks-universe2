@@ -52,7 +52,6 @@ from groups.domain import (
     get_closed_vulnerabilities,
     get_description,
     get_group_digest_stats,
-    get_mean_remediate_non_treated,
     get_mean_remediate_non_treated_cvssf,
     get_mean_remediate_non_treated_severity,
     get_mean_remediate_non_treated_severity_cvssf,
@@ -269,24 +268,24 @@ async def test_get_mean_remediate() -> None:
     assert await get_mean_remediate_severity(
         context, group_name, min_severity, max_severity
     ) == Decimal("383.0")
-    assert await get_mean_remediate_non_treated(
-        context, group_name
+    assert await get_mean_remediate_non_treated_severity(
+        context, group_name, min_severity, max_severity
     ) == Decimal("385.0")
 
     min_date = datetime_utils.get_now_minus_delta(days=30).date()
     assert await get_mean_remediate_severity(
         context, group_name, min_severity, max_severity, min_date
     ) == Decimal("0.0")
-    assert await get_mean_remediate_non_treated(
-        context, group_name, min_date
+    assert await get_mean_remediate_non_treated_severity(
+        context, group_name, min_severity, max_severity, min_date
     ) == Decimal("0.0")
 
     min_date = datetime_utils.get_now_minus_delta(days=90).date()
     assert await get_mean_remediate_severity(
         context, group_name, min_severity, max_severity, min_date
     ) == Decimal("82.0")
-    assert await get_mean_remediate_non_treated(
-        context, group_name, min_date
+    assert await get_mean_remediate_non_treated_severity(
+        context, group_name, min_severity, max_severity, min_date
     ) == Decimal("0.0")
 
 
