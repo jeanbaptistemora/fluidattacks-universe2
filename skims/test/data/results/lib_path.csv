@@ -5929,6 +5929,21 @@ F060,lines,namespace/skims/test/data/lib_path/f160/Test.java,7,396,skims,060. In
   16 |  */
      ^ Col 0
 "
+F060,lines,namespace/skims/test/data/lib_path/f060/php.php,7,396,skims,060. Insecure exceptions,Insecure PHP exception in skims/test/data/lib_path/f060/php.php,"
+   1 | <?php
+   2 |
+   3 | class Test {
+   4 |   public function testing() {
+   5 |     try {
+   6 |       throw new Exception();
+>  7 |     } catch (Exception $e) {
+   8 |     }
+   9 |   }
+  10 | }
+  11 |
+  12 | ?>
+     ^ Col 0
+"
 F060,lines,namespace/skims/test/data/lib_path/f060/python060.py,10,396,skims,060. Insecure exceptions,Insecure Python exception in skims/test/data/lib_path/f060/python060.py,"
    1 | # flake8: noqa
    2 | try:

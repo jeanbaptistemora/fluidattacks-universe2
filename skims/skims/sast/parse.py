@@ -154,6 +154,13 @@ def _is_final_node(node: Node, language: GraphShardMetadataLanguage) -> bool:
             }
         )
         or (
+            language == GraphShardMetadataLanguage.PHP
+            and node.type
+            in {
+                "named_type",
+            }
+        )
+        or (
             language == GraphShardMetadataLanguage.TSX
             and node.type
             in {
