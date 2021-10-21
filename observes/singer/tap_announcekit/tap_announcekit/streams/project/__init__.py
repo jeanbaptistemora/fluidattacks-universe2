@@ -3,6 +3,7 @@ from dataclasses import (
 )
 from purity.v1 import (
     PureIter,
+    Transform,
 )
 from tap_announcekit.api.client import (
     ApiClient,
@@ -14,7 +15,7 @@ from tap_announcekit.objs.project import (
     Project,
 )
 from tap_announcekit.stream import (
-    Stream,
+    StreamFactory,
     StreamIO,
 )
 from tap_announcekit.streams.project._encode import (
@@ -34,11 +35,12 @@ class ProjectStreams:
         self,
         proj_ids: PureIter[ProjectId],
     ) -> StreamIO:
-        encoder = ProjectEncoders.encoder(self._name)
         getter = ProjectGetters.getter(self.client)
-        projs = proj_ids.map_each(getter.get)
-        records = projs.map_each(lambda p: p.map(encoder.to_singer))
-        return Stream(encoder.schema, records)
+        return StreamFactory.new_stream(
+            ProjectEncoders.encoder(self._name),
+            Transform(getter.get),
+            proj_ids,
+        )
 
 
 __all__ = [

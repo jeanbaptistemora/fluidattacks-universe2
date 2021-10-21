@@ -123,3 +123,16 @@ class StreamEmitterFactory:
 
     def new_emitter(self) -> StreamEmitter:
         return StreamEmitter(Patch(self._emit))
+
+
+@dataclass(frozen=True)
+class StreamFactory:
+    @staticmethod
+    def new_stream(
+        encoder: SingerEncoder[_D],
+        get: Transform[_ID, IO[_D]],
+        ids: PureIter[_ID],
+    ) -> StreamIO:
+        items = ids.map_each(get)
+        records = items.map_each(lambda p: p.map(encoder.to_singer))
+        return Stream(encoder.schema, records)
