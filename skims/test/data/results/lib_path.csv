@@ -5929,7 +5929,7 @@ F060,lines,namespace/skims/test/data/lib_path/f160/Test.java,7,396,skims,060. In
   16 |  */
      ^ Col 0
 "
-F060,lines,namespace/skims/test/data/lib_path/f060/php.php,8,396,skims,060. Insecure exceptions,Insecure PHP exception in skims/test/data/lib_path/f060/php.php,"
+F060,lines,namespace/skims/test/data/lib_path/f060/php.php,15,396,skims,060. Insecure exceptions,Insecure PHP exception in skims/test/data/lib_path/f060/php.php,"
    1 | <?php
    2 |
    3 | class Test {
@@ -5937,12 +5937,88 @@ F060,lines,namespace/skims/test/data/lib_path/f060/php.php,8,396,skims,060. Inse
    5 |     try {
    6 |       throw new Exception();
    7 |     } catch (CustomException | Exception $e) {
->  8 |     } catch (Exception $e) {
-   9 |     }
-  10 |   }
-  11 | }
+   8 |
+   9 |     } catch (\Exception) {
+  10 |     } catch (\Firebase\JWT\ExpiredException $e) {
+  11 |     } catch (\Throwable) {
   12 |
-  13 | ?>
+  13 |     } catch (Exception $e) {
+  14 |     } catch (Firebase\JWT\ExpiredException $e) {
+> 15 |     } catch (Throwable) {
+  16 |     }
+  17 |   }
+  18 | }
+  19 |
+  20 | ?>
+     ^ Col 0
+"
+F060,lines,namespace/skims/test/data/lib_path/f060/php.php,13,396,skims,060. Insecure exceptions,Insecure PHP exception in skims/test/data/lib_path/f060/php.php,"
+   1 | <?php
+   2 |
+   3 | class Test {
+   4 |   public function testing() {
+   5 |     try {
+   6 |       throw new Exception();
+   7 |     } catch (CustomException | Exception $e) {
+   8 |
+   9 |     } catch (\Exception) {
+  10 |     } catch (\Firebase\JWT\ExpiredException $e) {
+  11 |     } catch (\Throwable) {
+  12 |
+> 13 |     } catch (Exception $e) {
+  14 |     } catch (Firebase\JWT\ExpiredException $e) {
+  15 |     } catch (Throwable) {
+  16 |     }
+  17 |   }
+  18 | }
+  19 |
+  20 | ?>
+     ^ Col 0
+"
+F060,lines,namespace/skims/test/data/lib_path/f060/php.php,11,396,skims,060. Insecure exceptions,Insecure PHP exception in skims/test/data/lib_path/f060/php.php,"
+   1 | <?php
+   2 |
+   3 | class Test {
+   4 |   public function testing() {
+   5 |     try {
+   6 |       throw new Exception();
+   7 |     } catch (CustomException | Exception $e) {
+   8 |
+   9 |     } catch (\Exception) {
+  10 |     } catch (\Firebase\JWT\ExpiredException $e) {
+> 11 |     } catch (\Throwable) {
+  12 |
+  13 |     } catch (Exception $e) {
+  14 |     } catch (Firebase\JWT\ExpiredException $e) {
+  15 |     } catch (Throwable) {
+  16 |     }
+  17 |   }
+  18 | }
+  19 |
+  20 | ?>
+     ^ Col 0
+"
+F060,lines,namespace/skims/test/data/lib_path/f060/php.php,9,396,skims,060. Insecure exceptions,Insecure PHP exception in skims/test/data/lib_path/f060/php.php,"
+   1 | <?php
+   2 |
+   3 | class Test {
+   4 |   public function testing() {
+   5 |     try {
+   6 |       throw new Exception();
+   7 |     } catch (CustomException | Exception $e) {
+   8 |
+>  9 |     } catch (\Exception) {
+  10 |     } catch (\Firebase\JWT\ExpiredException $e) {
+  11 |     } catch (\Throwable) {
+  12 |
+  13 |     } catch (Exception $e) {
+  14 |     } catch (Firebase\JWT\ExpiredException $e) {
+  15 |     } catch (Throwable) {
+  16 |     }
+  17 |   }
+  18 | }
+  19 |
+  20 | ?>
      ^ Col 0
 "
 F060,lines,namespace/skims/test/data/lib_path/f060/php.php,7,396,skims,060. Insecure exceptions,Insecure PHP exception in skims/test/data/lib_path/f060/php.php,"
@@ -5953,12 +6029,19 @@ F060,lines,namespace/skims/test/data/lib_path/f060/php.php,7,396,skims,060. Inse
    5 |   try {
    6 |     throw new Exception();
 >  7 |   } catch (CustomException | Exception $e) {
-   8 |   } catch (Exception $e) {
-   9 |   }
-  10 | }
-  11 |
+   8 |
+   9 |   } catch (\Exception) {
+  10 |   } catch (\Firebase\JWT\ExpiredException $e) {
+  11 |   } catch (\Throwable) {
   12 |
-  13 |
+  13 |   } catch (Exception $e) {
+  14 |   } catch (Firebase\JWT\ExpiredException $e) {
+  15 |   } catch (Throwable) {
+  16 |   }
+  17 | }
+  18 |
+  19 |
+  20 |
      ^ Col 2
 "
 F060,lines,namespace/skims/test/data/lib_path/f060/python060.py,10,396,skims,060. Insecure exceptions,Insecure Python exception in skims/test/data/lib_path/f060/python060.py,"

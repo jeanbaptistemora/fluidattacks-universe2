@@ -17,7 +17,12 @@ def insecure_exceptions(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
-        bad: Set[str] = {"Exception"}
+        bad: Set[str] = {
+            "\\Exception",
+            "\\Throwable",
+            "Exception",
+            "Throwable",
+        }
         for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.PHP,
         ):
