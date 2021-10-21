@@ -2,7 +2,7 @@ from tap_announcekit.objs.id_objs import (
     PostId,
     ProjectId,
 )
-from tap_announcekit.streams.posts.post_content._queries import (
+from tap_announcekit.streams.posts.post_content._factory import (
     PostContentQuery,
 )
 
