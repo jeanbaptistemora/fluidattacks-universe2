@@ -1,5 +1,4 @@
 { makeScript
-, inputs
 , outputs
 , ...
 }:
@@ -10,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      inputs.product.observes-env-service-batch-stability-runtime
+      outputs."/observes/env/service-batch-stability/runtime"
     ];
   };
   name = "observes-bin-service-batch-stability";

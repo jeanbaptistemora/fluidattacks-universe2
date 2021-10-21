@@ -1,22 +1,22 @@
-{ makes
+{ makePythonPypiEnvironment
 , makeTemplate
-, path
+, projectPath
 , ...
 }:
 let
-  self = path "/observes/services/batch_stability";
+  self = projectPath "/observes/services/batch_stability";
 in
 makeTemplate {
   name = "observes-env-runtime-batch-stability";
   searchPaths = {
-    envMypyPaths = [
+    pythonMypy = [
       self
     ];
-    envPythonPaths = [
+    pythonPackage = [
       self
     ];
-    envSources = [
-      (makes.makePythonPypiEnvironment {
+    source = [
+      (makePythonPypiEnvironment {
         name = "observes-env-runtime-batch-stability";
         sourcesYaml = ./pypi-sources.yaml;
       })

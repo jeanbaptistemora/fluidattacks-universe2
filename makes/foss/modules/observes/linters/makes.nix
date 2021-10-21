@@ -189,7 +189,7 @@
       };
       observesServiceBatchStability = {
         searchPaths.source = [
-          inputs.product.observes-env-service-batch-stability-runtime
+          outputs."/observes/env/service-batch-stability/runtime"
         ];
         python = "3.8";
         src = "/observes/services/batch_stability/batch_stability";
