@@ -48,6 +48,8 @@ locals {
           "s3:PutObjectAcl",
         ]
         Resource = [
+          "arn:aws:s3:::docs-dev.fluidattacks.com",
+          "arn:aws:s3:::docs-dev.fluidattacks.com/*",
           "arn:aws:s3:::web.eph.fluidattacks.com",
           "arn:aws:s3:::web.eph.fluidattacks.com/*",
         ]
