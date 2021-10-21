@@ -29,6 +29,9 @@ from db_model.toe_inputs.types import (
 from db_model.toe_lines.types import (
     ServicesToeLines,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from decimal import (
     Decimal,
 )
@@ -229,9 +232,10 @@ async def populate_findings(data: List[Dict[str, Any]]) -> bool:
 
 async def _populate_vuln_historic_state(data: Dict[str, Any]) -> None:
     if "historic_state" in data:
-        vuln = data["vulnerability"]
+        vuln: Vulnerability = data["vulnerability"]
         for state in data["historic_state"]:
             await vulnerabilities.update_state(
+                current_value=vuln.state,
                 finding_id=vuln.finding_id,
                 state=state,
                 uuid=vuln.uuid,
@@ -240,9 +244,10 @@ async def _populate_vuln_historic_state(data: Dict[str, Any]) -> None:
 
 async def _populate_vuln_historic_treatment(data: Dict[str, Any]) -> None:
     if "historic_treatment" in data:
-        vuln = data["vulnerability"]
+        vuln: Vulnerability = data["vulnerability"]
         for treatment in data["historic_treatment"]:
             await vulnerabilities.update_treatment(
+                current_value=vuln.treatment,
                 finding_id=vuln.finding_id,
                 treatment=treatment,
                 uuid=vuln.uuid,
@@ -251,9 +256,10 @@ async def _populate_vuln_historic_treatment(data: Dict[str, Any]) -> None:
 
 async def _populate_vuln_historic_verification(data: Dict[str, Any]) -> None:
     if "historic_verification" in data:
-        vuln = data["vulnerability"]
+        vuln: Vulnerability = data["vulnerability"]
         for verification in data["historic_verification"]:
             await vulnerabilities.update_verification(
+                current_value=vuln.verification,
                 finding_id=vuln.finding_id,
                 verification=verification,
                 uuid=vuln.uuid,
@@ -262,9 +268,10 @@ async def _populate_vuln_historic_verification(data: Dict[str, Any]) -> None:
 
 async def _populate_vuln_historic_zero_risk(data: Dict[str, Any]) -> None:
     if "historic_zero_risk" in data:
-        vuln = data["vulnerability"]
+        vuln: Vulnerability = data["vulnerability"]
         for zero_risk in data["historic_zero_risk"]:
             await vulnerabilities.update_zero_risk(
+                current_value=vuln.zero_risk,
                 finding_id=vuln.finding_id,
                 zero_risk=zero_risk,
                 uuid=vuln.uuid,

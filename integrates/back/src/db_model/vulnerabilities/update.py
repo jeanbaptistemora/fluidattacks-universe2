@@ -1,3 +1,6 @@
+from .enums import (
+    VulnerabilityStateStatus,
+)
 from .types import (
     VulnerabilityMetadataToUpdate,
     VulnerabilityState,
@@ -14,6 +17,9 @@ from .utils import (
 from boto3.dynamodb.conditions import (
     Attr,
 )
+from custom_exceptions import (
+    VulnNotFound,
+)
 from db_model import (
     TABLE,
 )
@@ -22,8 +28,14 @@ from dynamodb import (
     keys,
     operations,
 )
+from dynamodb.exceptions import (
+    ConditionalCheckFailedException,
+)
 from enum import (
     Enum,
+)
+from typing import (
+    Optional,
 )
 
 
@@ -54,6 +66,7 @@ async def update_metadata(
 
 async def update_state(
     *,
+    current_value: VulnerabilityState,
     finding_id: str,
     state: VulnerabilityState,
     uuid: str,
@@ -72,17 +85,25 @@ async def update_state(
         },
         latest_facet=TABLE.facets["vulnerability_state"],
     )
-    await operations.put_item(
-        facet=TABLE.facets["vulnerability_state"],
-        item=latest,
-        table=TABLE,
-    )
+    try:
+        await operations.put_item(
+            condition_expression=(
+                Attr("status").ne(VulnerabilityStateStatus.DELETED.value)
+                & Attr("modified_date").eq(current_value.modified_date)
+            ),
+            facet=TABLE.facets["vulnerability_state"],
+            item=latest,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise VulnNotFound() from ex
     items.append(historic)
     await operations.batch_write_item(items=tuple(items), table=TABLE)
 
 
 async def update_treatment(
     *,
+    current_value: VulnerabilityTreatment,
     finding_id: str,
     treatment: VulnerabilityTreatment,
     uuid: str,
@@ -101,17 +122,24 @@ async def update_treatment(
         },
         latest_facet=TABLE.facets["vulnerability_treatment"],
     )
-    await operations.put_item(
-        facet=TABLE.facets["vulnerability_treatment"],
-        item=latest,
-        table=TABLE,
-    )
+    try:
+        await operations.put_item(
+            condition_expression=(
+                Attr("modified_date").eq(current_value.modified_date)
+            ),
+            facet=TABLE.facets["vulnerability_treatment"],
+            item=latest,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise VulnNotFound() from ex
     items.append(historic)
     await operations.batch_write_item(items=tuple(items), table=TABLE)
 
 
 async def update_verification(
     *,
+    current_value: Optional[VulnerabilityVerification],
     finding_id: str,
     uuid: str,
     verification: VulnerabilityVerification,
@@ -130,17 +158,26 @@ async def update_verification(
         },
         latest_facet=TABLE.facets["vulnerability_verification"],
     )
-    await operations.put_item(
-        facet=TABLE.facets["vulnerability_verification"],
-        item=latest,
-        table=TABLE,
-    )
+    try:
+        await operations.put_item(
+            condition_expression=(
+                Attr("modified_date").eq(current_value.modified_date)
+                if current_value
+                else None
+            ),
+            facet=TABLE.facets["vulnerability_verification"],
+            item=latest,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise VulnNotFound() from ex
     items.append(historic)
     await operations.batch_write_item(items=tuple(items), table=TABLE)
 
 
 async def update_zero_risk(
     *,
+    current_value: Optional[VulnerabilityZeroRisk],
     finding_id: str,
     uuid: str,
     zero_risk: VulnerabilityZeroRisk,
@@ -159,10 +196,18 @@ async def update_zero_risk(
         },
         latest_facet=TABLE.facets["vulnerability_zero_risk"],
     )
-    await operations.put_item(
-        facet=TABLE.facets["vulnerability_zero_risk"],
-        item=latest,
-        table=TABLE,
-    )
+    try:
+        await operations.put_item(
+            condition_expression=(
+                Attr("modified_date").eq(current_value.modified_date)
+                if current_value
+                else None
+            ),
+            facet=TABLE.facets["vulnerability_zero_risk"],
+            item=latest,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise VulnNotFound() from ex
     items.append(historic)
     await operations.batch_write_item(items=tuple(items), table=TABLE)
