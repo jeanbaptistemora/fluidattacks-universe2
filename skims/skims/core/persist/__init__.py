@@ -35,9 +35,6 @@ from typing import (
 from utils.ctx import (
     CTX,
 )
-from utils.env import (
-    guess_environment,
-)
 from utils.logs import (
     log,
 )
@@ -329,7 +326,6 @@ async def persist(
                 )
                 for finding in core_model.FindingEnum
                 if finding in CTX.config.checks
-                if guess_environment() != "production"
             )
         )
     )
