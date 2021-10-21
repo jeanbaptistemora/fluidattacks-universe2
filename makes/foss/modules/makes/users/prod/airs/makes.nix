@@ -5,63 +5,63 @@
 {
   deployTerraform = {
     modules = {
-      makesUsersDev = {
+      makesUsersProdAirs = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesProd"
           outputs."/secretsForEnvFromSops/makesUsersProd"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
-        src = "/makes/foss/modules/makes/users/dev/infra";
+        src = "/makes/foss/modules/makes/users/prod/airs/infra";
         version = "1.0";
       };
     };
   };
   lintTerraform = {
     modules = {
-      makesUsersDev = {
+      makesUsersProdAirs = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
-        src = "/makes/foss/modules/makes/users/dev/infra";
+        src = "/makes/foss/modules/makes/users/prod/airs/infra";
         version = "1.0";
       };
     };
   };
   taintTerraform = {
     modules = {
-      makesUsersDevKey1 = {
+      makesUsersProdAirsKeys1 = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesProd"
           outputs."/secretsForEnvFromSops/makesUsersProd"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
-        resources = [ "module.aws.aws_iam_access_key._1" ];
+        resources = [ "aws_iam_access_key.airs-prod-key-1" ];
         reDeploy = true;
-        src = "/makes/foss/modules/makes/users/dev/infra";
+        src = "/makes/foss/modules/makes/users/prod/airs/infra";
         version = "1.0";
       };
-      makesUsersDevKey2 = {
+      makesUsersProdAirsKeys2 = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesProd"
           outputs."/secretsForEnvFromSops/makesUsersProd"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
-        resources = [ "module.aws.aws_iam_access_key._2" ];
+        resources = [ "aws_iam_access_key.airs-prod-key-2" ];
         reDeploy = true;
-        src = "/makes/foss/modules/makes/users/dev/infra";
+        src = "/makes/foss/modules/makes/users/prod/airs/infra";
         version = "1.0";
       };
     };
   };
   testTerraform = {
     modules = {
-      makesUsersDev = {
+      makesUsersProdAirs = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesDev"
           outputs."/secretsForEnvFromSops/makesUsersDev"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
-        src = "/makes/foss/modules/makes/users/dev/infra";
+        src = "/makes/foss/modules/makes/users/prod/airs/infra";
         version = "1.0";
       };
     };

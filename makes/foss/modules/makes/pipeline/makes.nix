@@ -109,10 +109,6 @@ in
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/makesUsersAirs";
-          gitlabExtra = gitlabDeployInfra;
-        }
-        {
           output = "/deployTerraform/makesUsersDev";
           gitlabExtra = gitlabDeployInfra;
         }
@@ -138,6 +134,10 @@ in
         }
         {
           output = "/deployTerraform/makesUsersObserves";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/deployTerraform/makesUsersProdAirs";
           gitlabExtra = gitlabDeployInfra;
         }
         {
@@ -189,10 +189,6 @@ in
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintTerraform/makesUsersAirs";
-          gitlabExtra = gitlabLint;
-        }
-        {
           output = "/lintTerraform/makesUsersDev";
           gitlabExtra = gitlabLint;
         }
@@ -218,6 +214,10 @@ in
         }
         {
           output = "/lintTerraform/makesUsersObserves";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/makesUsersProdAirs";
           gitlabExtra = gitlabLint;
         }
         {
@@ -259,14 +259,6 @@ in
         {
           output = "/pipelineOnGitlab/makes";
           gitlabExtra = gitlabLint;
-        }
-        {
-          output = "/taintTerraform/makesUsersAirsKeys1";
-          gitlabExtra = gitlabRotateUsersKeys1;
-        }
-        {
-          output = "/taintTerraform/makesUsersAirsKeys2";
-          gitlabExtra = gitlabRotateUsersKeys2;
         }
         {
           output = "/taintTerraform/makesUsersDevKey1";
@@ -322,6 +314,14 @@ in
         }
         {
           output = "/taintTerraform/makesUsersObservesKeys2";
+          gitlabExtra = gitlabRotateUsersKeys2;
+        }
+        {
+          output = "/taintTerraform/makesUsersProdAirsKeys1";
+          gitlabExtra = gitlabRotateUsersKeys1;
+        }
+        {
+          output = "/taintTerraform/makesUsersProdAirsKeys2";
           gitlabExtra = gitlabRotateUsersKeys2;
         }
         {
@@ -385,10 +385,6 @@ in
           gitlabExtra = gitlabTestInfra;
         }
         {
-          output = "/testTerraform/makesUsersAirs";
-          gitlabExtra = gitlabTestInfra;
-        }
-        {
           output = "/testTerraform/makesUsersDev";
           gitlabExtra = gitlabTestInfra;
         }
@@ -414,6 +410,10 @@ in
         }
         {
           output = "/testTerraform/makesUsersObserves";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesUsersProdAirs";
           gitlabExtra = gitlabTestInfra;
         }
         {
