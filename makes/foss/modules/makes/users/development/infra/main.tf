@@ -27,40 +27,13 @@ module "aws" {
   name    = "development"
   type    = "production"
   product = "makes"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid    = "s3Read"
-        Effect = "Allow"
-        Action = [
-          "s3:List*",
-          "s3:Get*",
-        ]
-        Resource = ["*"]
-      },
-    ]
-  })
+  policy  = jsonencode(local.aws)
 }
 
 module "cloudflare" {
   source = "../../modules/cloudflare"
   name   = "development"
-
-  policy = {
-    accountZone = {
-      effect = "allow"
-      permission_groups = [
-        data.cloudflare_api_token_permission_groups.all.permissions["DNS Read"],
-        data.cloudflare_api_token_permission_groups.all.permissions["Workers Routes Read"],
-        data.cloudflare_api_token_permission_groups.all.permissions["Page Rules Read"],
-      ]
-      resources = {
-        "com.cloudflare.api.account.zone.*" = "*"
-      }
-    }
-  }
+  policy = local.cloudflare
 }
 
 module "publish_credentials" {
