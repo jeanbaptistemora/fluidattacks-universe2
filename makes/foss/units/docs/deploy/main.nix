@@ -6,7 +6,7 @@
 makeScript {
   name = "docs";
   replace = {
-    __argSecretsAwsDev__ = outputs."/secretsForAwsFromEnv/docsDev";
+    __argSecretsAwsDev__ = outputs."/secretsForAwsFromEnv/dev";
     __argSecretsAwsProd__ = outputs."/secretsForAwsFromEnv/docsProd";
   };
   searchPaths = {

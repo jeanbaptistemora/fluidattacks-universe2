@@ -24,10 +24,10 @@ data "aws_iam_policy_document" "dev" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
       ]
     }
     actions = [
@@ -58,10 +58,10 @@ data "aws_iam_policy_document" "dev" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
       ]
     }
     actions = [
@@ -83,10 +83,10 @@ data "aws_iam_policy_document" "dev" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
       ]
     }
     actions = [

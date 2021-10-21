@@ -19,23 +19,13 @@
     modules = {
       docsInfra = {
         setup = [
-          outputs."/secretsForAwsFromEnv/docsDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/docsInfraDev"
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];
         src = "/docs/infra";
         version = "1.0";
       };
-    };
-  };
-  secretsForAwsFromEnv = {
-    docsDev = {
-      accessKeyId = "DOCS_DEV_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "DOCS_DEV_AWS_SECRET_ACCESS_KEY";
-    };
-    docsProd = {
-      accessKeyId = "DOCS_PROD_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "DOCS_PROD_AWS_SECRET_ACCESS_KEY";
     };
   };
   secretsForEnvFromSops = {
@@ -58,7 +48,7 @@
     modules = {
       docsInfra = {
         setup = [
-          outputs."/secretsForAwsFromEnv/docsDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/docsInfraDev"
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];
