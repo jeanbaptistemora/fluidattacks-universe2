@@ -3,7 +3,6 @@ from dataclasses import (
 )
 from purity.v1 import (
     PureIter,
-    Transform,
 )
 from tap_announcekit.api.client import (
     ApiClient,
@@ -35,10 +34,9 @@ class ProjectStreams:
         self,
         proj_ids: PureIter[ProjectId],
     ) -> StreamIO:
-        getter = ProjectGetters.getter(self.client)
         return StreamFactory.new_stream(
             ProjectEncoders.encoder(self._name),
-            Transform(getter.get),
+            ProjectGetters(self.client).getter(),
             proj_ids,
         )
 

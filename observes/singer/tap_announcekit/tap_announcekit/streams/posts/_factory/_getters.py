@@ -32,9 +32,6 @@ from tap_announcekit.objs.post import (
     Post,
     PostIdPage,
 )
-from tap_announcekit.stream import (
-    StreamGetter,
-)
 from typing import (
     cast,
 )
@@ -99,9 +96,3 @@ class PostGetters:
             lambda q: cast(RawPost, q.post)
         )
         return raw.map(self.to_post)
-
-    def stream_getter(self) -> StreamGetter[PostId, Post]:
-        return StreamGetter(
-            self.get_post,
-            lambda projs: projs.map_each(self.get_post),
-        )

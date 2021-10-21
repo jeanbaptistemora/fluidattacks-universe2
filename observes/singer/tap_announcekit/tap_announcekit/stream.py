@@ -15,7 +15,6 @@ from returns.io import (
 )
 from returns.primitives.hkt import (
     SupportsKind1,
-    SupportsKind2,
 )
 from singer_io.singer2 import (
     SingerRecord,
@@ -37,28 +36,6 @@ from typing import (
 LOG = logging.getLogger(__name__)
 _ID = TypeVar("_ID")
 _D = TypeVar("_D")
-
-
-@dataclass(frozen=True)
-class StreamGetter(SupportsKind2["StreamGetter[_ID, _D]", _ID, _D]):
-    _get: Patch[Callable[[_ID], IO[_D]]]
-    _get_iter: Patch[Callable[[PureIter[_ID]], PureIter[IO[_D]]]]
-
-    def __init__(
-        self,
-        get: Callable[[_ID], IO[_D]],
-        get_iter: Callable[[PureIter[_ID]], PureIter[IO[_D]]],
-    ) -> None:
-        object.__setattr__(self, "_get", Patch(get))
-        object.__setattr__(self, "_get_iter", Patch(get_iter))
-
-    def get(self, item: _ID) -> IO[_D]:
-        return self._get.unwrap(item)
-
-    def get_iter(self, items: PureIter[_ID]) -> PureIter[IO[_D]]:
-        return self._get_iter.unwrap(items)
-
-
 _R = TypeVar("_R", SingerRecord, IO[SingerRecord])
 
 

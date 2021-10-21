@@ -24,9 +24,6 @@ from tap_announcekit.objs.post import (
 from tap_announcekit.objs.post.page import (
     PostIdPage,
 )
-from tap_announcekit.stream import (
-    StreamGetter,
-)
 from tap_announcekit.streams.posts._factory import (
     _from_raw,
 )
@@ -54,9 +51,6 @@ class PostFactory:
 
     def get_post(self, post_id: PostId) -> IO[Post]:
         return self._getters().get_post(post_id)
-
-    def stream_getter(self) -> StreamGetter[PostId, Post]:
-        return StreamGetter(self.get_post, lambda i: i.map_each(self.get_post))
 
 
 @dataclass(frozen=True)

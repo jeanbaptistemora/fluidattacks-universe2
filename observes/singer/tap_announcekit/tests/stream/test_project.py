@@ -2,12 +2,12 @@ from tap_announcekit.streams.project._encode import (
     ProjectEncoders,
 )
 from tap_announcekit.streams.project._getters import (
-    _proj_query,
+    ProjectQuery,
 )
 
 
 def test_query() -> None:
-    _proj_query("1234")
+    ProjectQuery("1234").query()
 
 
 def test_schema() -> None:

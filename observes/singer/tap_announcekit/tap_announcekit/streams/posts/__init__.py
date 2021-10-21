@@ -38,9 +38,10 @@ class PostsStreams:
         post_ids: PureIter[PostId],
     ) -> StreamIO:
         factory = PostFactory(self.client)
-        getter = factory.stream_getter()
         return StreamFactory.new_stream(
-            PostEncoders.encoder(self._name), Transform(getter.get), post_ids
+            PostEncoders.encoder(self._name),
+            Transform(factory.get_post),
+            post_ids,
         )
 
     def ids(self, proj: ProjectId) -> IO[PureIter[PostId]]:

@@ -1,5 +1,8 @@
+from dataclasses import (
+    dataclass,
+)
 from purity.v1 import (
-    PureIter,
+    Transform,
 )
 from returns.curry import (
     partial,
@@ -27,9 +30,6 @@ from tap_announcekit.objs.id_objs import (
 from tap_announcekit.objs.project import (
     _Project,
     Project,
-)
-from tap_announcekit.stream import (
-    StreamGetter,
 )
 from tap_announcekit.utils import (
     CastUtils,
@@ -71,37 +71,32 @@ def _to_proj(raw: RawProject) -> Project:
     return Project(draft)
 
 
-def _select_proj_fields(proj_id: str, query: Operation) -> IO[None]:
-    proj = query.project(project_id=proj_id)
-    # select fields
-    for attr, _ in _Project.__annotations__.items():
-        _attr = "id" if attr == "proj_id" else attr
-        getattr(proj, _attr)()
-    return IO(None)
+@dataclass(frozen=True)
+class ProjectQuery:
+    proj_id: str
 
+    def _select_fields(self, query: Operation) -> IO[None]:
+        proj = query.project(project_id=self.proj_id)
+        for attr, _ in _Project.__annotations__.items():
+            _attr = "id" if attr == "proj_id" else attr
+            getattr(proj, _attr)()
+        return IO(None)
 
-def _proj_query(proj_id: str) -> Query:
-    return QueryFactory.select(partial(_select_proj_fields, proj_id))
+    def query(self) -> Query:
+        return QueryFactory.select(self._select_fields)
 
 
 def _get_project(client: ApiClient, proj_id: ProjectId) -> IO[Project]:
-    query = _proj_query(proj_id.proj_id)
+    query = ProjectQuery(proj_id.proj_id).query()
     raw: IO[RawProject] = client.get(query).map(
         lambda q: cast(RawProject, q.project)
     )
     return raw.map(_to_proj)
 
 
-def _get_projs(
-    client: ApiClient, projs: PureIter[ProjectId]
-) -> PureIter[IO[Project]]:
-    return projs.map_each(partial(_get_project, client))
-
-
+@dataclass(frozen=True)
 class ProjectGetters:
-    # pylint: disable=too-few-public-methods
-    @staticmethod
-    def getter(client: ApiClient) -> StreamGetter[ProjectId, Project]:
-        return StreamGetter(
-            partial(_get_project, client), partial(_get_projs, client)
-        )
+    client: ApiClient
+
+    def getter(self) -> Transform[ProjectId, IO[Project]]:
+        return Transform(partial(_get_project, self.client))

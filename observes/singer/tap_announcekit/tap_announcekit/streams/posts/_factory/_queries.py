@@ -26,7 +26,6 @@ class PostQuery:
         proj = query.post(
             project_id=self.post.proj.proj_id, post_id=self.post.post_id
         )
-        # select fields
         proj.project_id()
         for attr, _ in Post.__annotations__.items():
             _attr = "id" if attr == "obj_id" else attr
