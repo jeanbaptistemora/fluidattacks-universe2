@@ -10,7 +10,9 @@ from forces.utils.bugs import (
     META as BUGS_META,
 )
 import logging
-import sys
+from rich.logging import (
+    RichHandler,
+)
 import tempfile
 from typing import (
     Any,
@@ -22,13 +24,14 @@ LOG_FILE: ContextVar[IO[Any]] = ContextVar(
     "log_file", default=tempfile.NamedTemporaryFile()
 )
 
-_FORMAT: str = "# [%(levelname)s] %(message)s"
+_FORMAT: str = "%(message)s"
 logging.basicConfig(filename=LOG_FILE.get().name, format=_FORMAT)
 
 _LOGGER_FORMATTER: logging.Formatter = logging.Formatter(_FORMAT)
 
-_LOGGER_HANDLER: logging.Handler = logging.StreamHandler(sys.stderr)
-_LOGGER_HANDLER.setLevel(logging.INFO)
+_LOGGER_HANDLER: logging.Handler = RichHandler(
+    show_time=False, level=logging.INFO, markup=True, show_path=False
+)
 _LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
 
 _LOGGER: logging.Logger = logging.getLogger("forces")
