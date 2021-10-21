@@ -1,0 +1,612 @@
+{
+  "FI_vulnerabilities": [
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "89"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 13:38:10"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "OWASP/BenchmarkTest00001.java"
+          },
+          "repo_nickname": {
+            "S": "OWASP"
+          },
+          "finding_id": {
+            "S": "820521666"
+          },
+          "source": {
+            "S": "integrates"
+          },
+          "UUID": {
+            "S": "5ea4c3a4-1081-4b85-ba24-9d0787d6d697"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 13:38:10"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "skims"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              }
+            ]
+          },
+          "commit_hash": {
+            "S": "fa09d910"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "71"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-05-13 11:05:51"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "OWASP/BenchmarkTest00001.java"
+          },
+          "repo_nickname": {
+            "S": "OWASP"
+          },
+          "finding_id": {
+            "S": "682152985"
+          },
+          "source": {
+            "S": "integrates"
+          },
+          "UUID": {
+            "S": "e0bb8149-a28b-44cf-8975-0f79df751778"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-05-13 11:05:51"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "skims"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              }
+            ]
+          },
+          "commit_hash": {
+            "S": "fa09d910"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "89"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 13:38:12"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "OWASP/BenchmarkTest00001.java"
+          },
+          "repo_nickname": {
+            "S": "OWASP"
+          },
+          "finding_id": {
+            "S": "965874880"
+          },
+          "source": {
+            "S": "integrates"
+          },
+          "UUID": {
+            "S": "074876cf-1718-46a5-bdb5-10ab0bc346ce"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 13:38:12"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "skims"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              }
+            ]
+          },
+          "commit_hash": {
+            "S": "fa09d910"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "78"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 13:38:12"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "OWASP/BenchmarkTest00001.java"
+          },
+          "repo_nickname": {
+            "S": "OWASP"
+          },
+          "finding_id": {
+            "S": "965874880"
+          },
+          "source": {
+            "S": "integrates"
+          },
+          "UUID": {
+            "S": "d299f046-ca7a-4480-8148-deea429bbf7b"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 13:38:12"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "skims"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              }
+            ]
+          },
+          "commit_hash": {
+            "S": "fa09d910"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "3"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 16:19:24"
+                  },
+                  "treatment_manager": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  },
+                  "user": {
+                    "S": "drestrepo@fluidattacks.com"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "forces/test/data/user_controller.py"
+          },
+          "repo_nickname": {
+            "S": "forces"
+          },
+          "finding_id": {
+            "S": "940350540"
+          },
+          "UUID": {
+            "S": "2418fa95-d641-4cac-8cea-377db026f82d"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 16:19:24"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "open"
+                  },
+                  "source": {
+                    "S": "integrates"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "1"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 16:19:24"
+                  },
+                  "treatment_manager": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  },
+                  "user": {
+                    "S": "drestrepo@fluidattacks.com"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "forces/test/data/user_controller.py"
+          },
+          "repo_nickname": {
+            "S": "forces"
+          },
+          "finding_id": {
+            "S": "940350540"
+          },
+          "UUID": {
+            "S": "2966c4ea-f05b-4bd7-8061-7ac12a778b25"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 16:19:24"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "open"
+                  },
+                  "source": {
+                    "S": "integrates"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 16:19:24"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "closed"
+                  },
+                  "source": {
+                    "S": "integrates"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "5"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 16:19:24"
+                  },
+                  "treatment_manager": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  },
+                  "user": {
+                    "S": "drestrepo@fluidattacks.com"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "forces/test/data/user_controller.py"
+          },
+          "repo_nickname": {
+            "S": "forces"
+          },
+          "finding_id": {
+            "S": "940350540"
+          },
+          "UUID": {
+            "S": "51d8ea91-9a6c-4aec-98b9-2e23d650c53e"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 16:19:24"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "open"
+                  },
+                  "source": {
+                    "S": "integrates"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "2"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 16:19:24"
+                  },
+                  "treatment_manager": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  },
+                  "user": {
+                    "S": "drestrepo@fluidattacks.com"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "forces/test/data/user_controller.py"
+          },
+          "repo_nickname": {
+            "S": "forces"
+          },
+          "finding_id": {
+            "S": "940350540"
+          },
+          "UUID": {
+            "S": "96e46a43-0667-4504-af5d-57064a417c60"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 16:19:24"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "open"
+                  },
+                  "source": {
+                    "S": "integrates"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 16:19:24"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "closed"
+                  },
+                  "source": {
+                    "S": "integrates"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "4"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 16:19:24"
+                  },
+                  "treatment_manager": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  },
+                  "user": {
+                    "S": "drestrepo@fluidattacks.com"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "forces/test/data/user_controller.py"
+          },
+          "repo_nickname": {
+            "S": "forces"
+          },
+          "finding_id": {
+            "S": "940350540"
+          },
+          "UUID": {
+            "S": "f114ddb4-413e-4738-9ee0-b2309f5c9a6a"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 16:19:24"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "open"
+                  },
+                  "source": {
+                    "S": "integrates"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

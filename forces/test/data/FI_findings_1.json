@@ -1,0 +1,284 @@
+{
+  "FI_findings": [
+    {
+      "PutRequest": {
+        "Item": {
+          "project_name": {
+            "S": "herrin"
+          },
+          "cvss_temporal": {
+            "N": "4.1"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 13:38:06"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "CREATED"
+                  },
+                  "source": {
+                    "S": "skims"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 13:38:10"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "SUBMITTED"
+                  },
+                  "source": {
+                    "S": "skims"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 13:38:10"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "APPROVED"
+                  },
+                  "source": {
+                    "S": "skims"
+                  }
+                }
+              }
+            ]
+          },
+          "finding_id": {
+            "S": "820521666"
+          },
+          "finding": {
+            "S": "061. Errors without traceability"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "project_name": {
+            "S": "herrin"
+          },
+          "cvss_temporal": {
+            "N": "6.3"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 13:38:06"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "CREATED"
+                  },
+                  "source": {
+                    "S": "skims"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 13:38:09"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "SUBMITTED"
+                  },
+                  "source": {
+                    "S": "skims"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-05-13 11:05:51"
+                  },
+                  "analyst": {
+                    "S": "kamado@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
+                  },
+                  "state": {
+                    "S": "APPROVED"
+                  }
+                }
+              }
+            ]
+          },
+          "finding_id": {
+            "S": "682152985"
+          },
+          "finding": {
+            "S": "063. Lack of data validation - Path Traversal"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "project_name": {
+            "S": "herrin"
+          },
+          "cvss_temporal": {
+            "N": "3.9"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 13:38:06"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "CREATED"
+                  },
+                  "source": {
+                    "S": "skims"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 13:38:11"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "SUBMITTED"
+                  },
+                  "source": {
+                    "S": "skims"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 13:38:12"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "APPROVED"
+                  },
+                  "source": {
+                    "S": "skims"
+                  }
+                }
+              }
+            ]
+          },
+          "finding_id": {
+            "S": "965874880"
+          },
+          "finding": {
+            "S": "060. Insecure exceptions"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "project_name": {
+            "S": "herrin"
+          },
+          "cvss_temporal": {
+            "N": "5.9"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 15:57:04"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "CREATED"
+                  },
+                  "source": {
+                    "S": "integrates"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 16:17:22"
+                  },
+                  "analyst": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "SUBMITTED"
+                  },
+                  "source": {
+                    "S": "integrates"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-07-22 16:19:24"
+                  },
+                  "analyst": {
+                    "S": "jjacobo@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "APPROVED"
+                  },
+                  "source": {
+                    "S": "integrates"
+                  }
+                }
+              }
+            ]
+          },
+          "finding_id": {
+            "S": "940350540"
+          },
+          "finding": {
+            "S": "184. Lack of data validation"
+          }
+        }
+      }
+    }
+  ]
+}

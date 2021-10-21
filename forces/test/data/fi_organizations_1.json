@@ -1,0 +1,28 @@
+{
+  "fi_organizations": [
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "GROUP#herrin"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#forces.herrin@fluidattacks.com"
+          }
+        }
+      }
+    }
+  ]
+}

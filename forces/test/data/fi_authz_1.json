@@ -1,0 +1,58 @@
+{
+  "fi_authz": [
+    {
+      "PutRequest": {
+        "Item": {
+          "subject": {
+            "S": "forces.herrin@fluidattacks.com"
+          },
+          "role": {
+            "S": "service_forces"
+          },
+          "level": {
+            "S": "group"
+          },
+          "object": {
+            "S": "herrin"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "subject": {
+            "S": "forces.herrin@fluidattacks.com"
+          },
+          "role": {
+            "S": "customer"
+          },
+          "level": {
+            "S": "organization"
+          },
+          "object": {
+            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "subject": {
+            "S": "forces.herrin@fluidattacks.com"
+          },
+          "role": {
+            "S": "customer"
+          },
+          "level": {
+            "S": "user"
+          },
+          "object": {
+            "S": "self"
+          }
+        }
+      }
+    }
+  ]
+}

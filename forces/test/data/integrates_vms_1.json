@@ -1,0 +1,524 @@
+{
+  "integrates_vms": [
+    {
+      "PutRequest": {
+        "Item": {
+          "agent_token": {
+            "S": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjaXBoZXJ0ZXh0IjoiSHk3Z1V4LTRGOUoxUDZIakwzM1R2REdleks3WUZaQXp5SVY4WFVucGhGU0ZzQUR2Qm9MS1ZOQ1dXQmsxTENJV1A0MDNCSWFOUXVfZ0JGM2JXN1ZSemx6SF9MZlY3aUdKMVZKZUk3cHBHWFNjWFNDX2ZSMUxSUm9scFpTLVFqSEE3S0dmMVQySlA3RFY3ODhaT2Q4Tnh5OTZWd3J3NDZwMXU4dmV6YlZnaTFORThRMlg4U05ibWVXVlFENlpMNVBqYlBySEQ2a1JsbERvTnhLZ1cyazQyUDM0ZlBYVXZaYS0zQXlBcG5OaXlGazVHM3hjb1EiLCJlbmNyeXB0ZWRfa2V5IjoibEZZZkFsRlk0cDdsZDczaFJMWkNWZ2pVTjN0NFl4ejhyV3ZQNGVYSmg0dyIsImhlYWRlciI6eyJpdiI6Ims5emFoZEhZMjMzQTJaTzAiLCJ0YWciOiJZVVRpQ1JHeUs3ZEtkRmVlX2ZCSlV3In0sIml2IjoiS01hajFrRnprT1ZyblE1eiIsInByb3RlY3RlZCI6ImV5SmhiR2NpT2lKQk1qVTJSME5OUzFjaUxDSmxibU1pT2lKQk1qVTJSME5OSW4wIiwidGFnIjoiTHJZQUhyRXVyeWJ0N3pIOTdIUjM4dyJ9.hEoz0-B7_bRUL0e2Iv4TzzSx4FncjFR6maHE7Zz3yzwMJt-mBtf-fKRzoIxMNlgE9bmbYNAafrtuB2yT4UslXA"
+          },
+          "sk": {
+            "S": "GROUP#herrin"
+          },
+          "description": {
+            "S": "Project for testing forces"
+          },
+          "pk": {
+            "S": "GROUP#herrin"
+          },
+          "name": {
+            "S": "herrin"
+          },
+          "language": {
+            "S": "es"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "requirements": {
+            "S": "R173. Discard unsafe inputs"
+          },
+          "compromised_attributes": {
+            "S": ""
+          },
+          "sorts": {
+            "S": "NO"
+          },
+          "cvss_version": {
+            "S": "3.1"
+          },
+          "affected_systems": {
+            "S": "OWASP"
+          },
+          "recommendation": {
+            "S": "- Prevent the attacker from constructing the pathname, or\n- Validate/Neutralize the input for special elements like: .., , etc.\n"
+          },
+          "analyst_email": {
+            "S": "drestrepo@fluidattacks.com"
+          },
+          "evidences": {
+            "M": {
+              "evidence5": {
+                "M": {
+                  "modified_date": {
+                    "S": "2021-05-13T16:05:51+00:00"
+                  },
+                  "description": {
+                    "S": "Path traversal in BenchmarkTest00001.java"
+                  },
+                  "url": {
+                    "S": "herrin-682152985-evidence_route_5.png"
+                  }
+                }
+              }
+            }
+          },
+          "compromised_records": {
+            "N": "0"
+          },
+          "attack_vector_description": {
+            "S": "Make the software resolve the pathname to a location that is outside of the intended target, for instance: /etc/passwd.\n"
+          },
+          "sk": {
+            "S": "GROUP#herrin"
+          },
+          "description": {
+            "S": "The software uses external input to construct a pathname that is intended to identify a file or directory but it does not properly neutralize or validate special elements within the pathname.\n"
+          },
+          "id": {
+            "S": "682152985"
+          },
+          "threat": {
+            "S": "Autenticated attacker from the Internet."
+          },
+          "pk": {
+            "S": "FIN#682152985"
+          },
+          "severity": {
+            "M": {
+              "attack_complexity": {
+                "N": "0.77"
+              },
+              "integrity_impact": {
+                "N": "0.56"
+              },
+              "integrity_requirement": {
+                "N": "0"
+              },
+              "modified_confidentiality_impact": {
+                "N": "0"
+              },
+              "modified_user_interaction": {
+                "N": "0.85"
+              },
+              "modified_severity_scope": {
+                "N": "0"
+              },
+              "modified_availability_impact": {
+                "N": "0"
+              },
+              "report_confidence": {
+                "N": "0.96"
+              },
+              "modified_integrity_impact": {
+                "N": "0.56"
+              },
+              "attack_vector": {
+                "N": "0.85"
+              },
+              "modified_attack_complexity": {
+                "N": "0.77"
+              },
+              "privileges_required": {
+                "N": "0.62"
+              },
+              "availability_impact": {
+                "N": "0"
+              },
+              "modified_privileges_required": {
+                "N": "0.62"
+              },
+              "confidentiality_requirement": {
+                "N": "0"
+              },
+              "modified_attack_vector": {
+                "N": "0.85"
+              },
+              "user_interaction": {
+                "N": "0.85"
+              },
+              "confidentiality_impact": {
+                "N": "0"
+              },
+              "exploitability": {
+                "N": "1"
+              },
+              "remediation_level": {
+                "N": "1"
+              },
+              "severity_scope": {
+                "N": "0"
+              },
+              "availability_requirement": {
+                "N": "0"
+              }
+            }
+          },
+          "group_name": {
+            "S": "herrin"
+          },
+          "title": {
+            "S": "063. Lack of data validation - Path Traversal"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "modified_date": {
+            "S": "2021-05-13T16:05:51+00:00"
+          },
+          "justification": {
+            "S": "NO_JUSTIFICATION"
+          },
+          "status": {
+            "S": "APPROVED"
+          },
+          "sk": {
+            "S": "GROUP#herrin"
+          },
+          "source": {
+            "S": "ASM"
+          },
+          "modified_by": {
+            "S": "kamado@fluidattacks.com"
+          },
+          "pk": {
+            "S": "FIN#682152985#APPROVAL"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "modified_date": {
+            "S": "2021-02-24T18:38:06+00:00"
+          },
+          "justification": {
+            "S": "NO_JUSTIFICATION"
+          },
+          "status": {
+            "S": "CREATED"
+          },
+          "sk": {
+            "S": "GROUP#herrin"
+          },
+          "source": {
+            "S": "MACHINE"
+          },
+          "modified_by": {
+            "S": "drestrepo@fluidattacks.com"
+          },
+          "pk": {
+            "S": "FIN#682152985#CREATION"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "modified_date": {
+            "S": "2021-05-13T16:05:51+00:00"
+          },
+          "justification": {
+            "S": "NO_JUSTIFICATION"
+          },
+          "status": {
+            "S": "APPROVED"
+          },
+          "sk": {
+            "S": "GROUP#herrin"
+          },
+          "source": {
+            "S": "ASM"
+          },
+          "modified_by": {
+            "S": "kamado@fluidattacks.com"
+          },
+          "pk": {
+            "S": "FIN#682152985#STATE"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "modified_date": {
+            "S": "2021-02-24T18:38:09+00:00"
+          },
+          "justification": {
+            "S": "NO_JUSTIFICATION"
+          },
+          "status": {
+            "S": "SUBMITTED"
+          },
+          "sk": {
+            "S": "GROUP#herrin"
+          },
+          "source": {
+            "S": "MACHINE"
+          },
+          "modified_by": {
+            "S": "drestrepo@fluidattacks.com"
+          },
+          "pk": {
+            "S": "FIN#682152985#SUBMISSION"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "unreliable_oldest_vulnerability_report_date": {
+            "S": "2021-05-13T16:05:51+00:00"
+          },
+          "unreliable_open_vulnerabilities": {
+            "N": "1"
+          },
+          "sk": {
+            "S": "GROUP#herrin"
+          },
+          "unreliable_where": {
+            "S": "OWASP/BenchmarkTest00001.java"
+          },
+          "unreliable_closed_vulnerabilities": {
+            "N": "0"
+          },
+          "unreliable_is_verified": {
+            "BOOL": true
+          },
+          "pk": {
+            "S": "FIN#682152985#UNRELIABLEINDICATORS"
+          },
+          "unreliable_treatment_summary": {
+            "M": {
+              "accepted": {
+                "N": "0"
+              },
+              "new": {
+                "N": "1"
+              },
+              "in_progress": {
+                "N": "0"
+              },
+              "accepted_undefined": {
+                "N": "0"
+              }
+            }
+          },
+          "unreliable_oldest_open_vulnerability_report_date": {
+            "S": "2021-05-13T16:05:51+00:00"
+          },
+          "unreliable_status": {
+            "S": "OPEN"
+          },
+          "unreliable_newest_vulnerability_report_date": {
+            "S": "2021-05-13T16:05:51+00:00"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "requirements": {
+            "S": "R075. Record exceptional events in logs.\n"
+          },
+          "compromised_attributes": {
+            "S": ""
+          },
+          "sorts": {
+            "S": "NO"
+          },
+          "cvss_version": {
+            "S": "3.1"
+          },
+          "affected_systems": {
+            "S": "OWASP"
+          },
+          "recommendation": {
+            "S": "- Use a centralized logging mechanism that supports several levels of detail.\n- Make sure all events related to successes and failures are recorded.\n"
+          },
+          "analyst_email": {
+            "S": "drestrepo@fluidattacks.com"
+          },
+          "evidences": {
+            "M": {
+              "evidence5": {
+                "M": {
+                  "modified_date": {
+                    "S": "2021-02-24T18:38:14+00:00"
+                  },
+                  "description": {
+                    "S": "Empty Java catch in BenchmarkTest00001.java"
+                  },
+                  "url": {
+                    "S": "herrin-820521666-evidence_route_5.png"
+                  }
+                }
+              }
+            }
+          },
+          "compromised_records": {
+            "N": "0"
+          },
+          "attack_vector_description": {
+            "S": "- Perform malicious actions within the application and leave no trace about it.\n- Make auditing and debugging difficult, as it is not possible to\n  correctly identify the errors generated.\n"
+          },
+          "sk": {
+            "S": "GROUP#herrin"
+          },
+          "description": {
+            "S": "Application errors are handled neither by throwing an exception nor by triggering a logging event, which causes a loss of traceability.\n"
+          },
+          "id": {
+            "S": "820521666"
+          },
+          "threat": {
+            "S": "Autenticated attacker from the Internet.\n"
+          },
+          "pk": {
+            "S": "FIN#820521666"
+          },
+          "severity": {
+            "M": {
+              "attack_complexity": {
+                "N": "0.77"
+              },
+              "integrity_impact": {
+                "N": "0.22"
+              },
+              "integrity_requirement": {
+                "N": "0"
+              },
+              "modified_confidentiality_impact": {
+                "N": "0"
+              },
+              "modified_user_interaction": {
+                "N": "0.85"
+              },
+              "modified_severity_scope": {
+                "N": "0"
+              },
+              "modified_availability_impact": {
+                "N": "0"
+              },
+              "report_confidence": {
+                "N": "1"
+              },
+              "modified_integrity_impact": {
+                "N": "0.22"
+              },
+              "attack_vector": {
+                "N": "0.85"
+              },
+              "modified_attack_complexity": {
+                "N": "0.77"
+              },
+              "privileges_required": {
+                "N": "0.62"
+              },
+              "availability_impact": {
+                "N": "0"
+              },
+              "modified_privileges_required": {
+                "N": "0.62"
+              },
+              "confidentiality_requirement": {
+                "N": "0"
+              },
+              "modified_attack_vector": {
+                "N": "0.85"
+              },
+              "user_interaction": {
+                "N": "0.85"
+              },
+              "confidentiality_impact": {
+                "N": "0"
+              },
+              "exploitability": {
+                "N": "0.94"
+              },
+              "remediation_level": {
+                "N": "1"
+              },
+              "severity_scope": {
+                "N": "0"
+              },
+              "availability_requirement": {
+                "N": "0"
+              }
+            }
+          },
+          "group_name": {
+            "S": "herrin"
+          },
+          "title": {
+            "S": "061. Errors without traceability"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "modified_date": {
+            "S": "2021-02-24T18:38:11+00:00"
+          },
+          "justification": {
+            "S": "NO_JUSTIFICATION"
+          },
+          "status": {
+            "S": "APPROVED"
+          },
+          "sk": {
+            "S": "GROUP#herrin"
+          },
+          "source": {
+            "S": "MACHINE"
+          },
+          "modified_by": {
+            "S": "drestrepo@fluidattacks.com"
+          },
+          "pk": {
+            "S": "FIN#820521666#APPROVAL"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "modified_date": {
+            "S": "2021-02-24T18:38:06+00:00"
+          },
+          "justification": {
+            "S": "NO_JUSTIFICATION"
+          },
+          "status": {
+            "S": "CREATED"
+          },
+          "sk": {
+            "S": "GROUP#herrin"
+          },
+          "source": {
+            "S": "MACHINE"
+          },
+          "modified_by": {
+            "S": "drestrepo@fluidattacks.com"
+          },
+          "pk": {
+            "S": "FIN#820521666#CREATION"
+          }
+        }
+      }
+    }
+  ]
+}

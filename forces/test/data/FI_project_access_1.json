@@ -1,0 +1,41 @@
+{
+  "FI_project_access": [
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Forces service user"
+          },
+          "project_name": {
+            "S": "herrin"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "invitation": {
+            "M": {
+              "url_token": {
+                "S": "P8MPA7bnJG4-iACw10zsfYsyxIawbVEyrLkjyXy4b4IPmJli3hXL1p2i1Gwc5CmwmqnpNNkRYyerCDGY5V8xRA"
+              },
+              "phone_number": {
+                "S": ""
+              },
+              "role": {
+                "S": "service_forces"
+              },
+              "responsibility": {
+                "S": "Forces service user"
+              },
+              "is_used": {
+                "BOOL": true
+              }
+            }
+          },
+          "user_email": {
+            "S": "forces.herrin@fluidattacks.com"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "FI_users": [
+    {
+      "PutRequest": {
+        "Item": {
+          "email": {
+            "S": "forces.herrin@fluidattacks.com"
+          },
+          "registered": {
+            "BOOL": true
+          },
+          "access_token": {
+            "M": {
+              "iat": {
+                "N": "1634855101"
+              },
+              "jti": {
+                "S": "1329597f0c95cda0368ee6f7207bfeb1767922a989a4c8b4fa15fb18b8b70aa3"
+              },
+              "salt": {
+                "S": "8fce0ca77620011850be696bb8b1735f6119653ba948eb6e8d22069add44c6a8"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
