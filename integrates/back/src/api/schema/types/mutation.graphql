@@ -716,6 +716,16 @@ type Mutation {
     subscription: SubscriptionType!
   ): SimplePayload!
 
+  "Updates a group's general information"
+  updateGroupInfo(
+    "Description of the group"
+    description: String!
+    "Name of the group to be updated"
+    groupName: String!
+    "Language of the group"
+    language: Language!
+  ): SimplePayload!
+
   "Updates/edits an user belonging to a group"
   updateGroupStakeholder(
     "Name of the group to which the user to be updated belongs"

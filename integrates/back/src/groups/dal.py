@@ -199,12 +199,15 @@ async def update(group_name: str, data: GroupType) -> bool:
     success = False
     set_expression = ""
     remove_expression = ""
+    expression_names = {}
     expression_values = {}
     for attr, value in data.items():
         if value is None:
-            remove_expression += f"{attr}, "
+            remove_expression += f"#{attr}, "
+            expression_names.update({f"#{attr}": attr})
         else:
-            set_expression += f"{attr} = :{attr}, "
+            set_expression += f"#{attr} = :{attr}, "
+            expression_names.update({f"#{attr}": attr})
             expression_values.update({f":{attr}": value})
 
     if set_expression:
@@ -221,6 +224,8 @@ async def update(group_name: str, data: GroupType) -> bool:
     }
     if expression_values:
         update_attrs.update({"ExpressionAttributeValues": expression_values})
+    if expression_names:
+        update_attrs.update({"ExpressionAttributeNames": expression_names})
     try:
         success = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
