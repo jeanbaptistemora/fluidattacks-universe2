@@ -38,5 +38,4 @@ taking into account the following:
 - Office hours correspond to twelve-hour business days,
   as follows:
   7 AM - 7 PM (GMT-5).
-- The reattacks to be considered
-  will be those that had their vulnerability closed.
+- Only reattacks on vulnerabilities reported as closed.

@@ -47,7 +47,7 @@ through the vulnerabilities comment system
 have a **four business hours SLA**.
 M - F from 8 AM to 12 noon
 and 2 PM to 6 PM
-(UTC-5 Colombia is the same as EST USA).
+(Colombian time, UTC-5).
 SLA is not contractually defined;
 it is our value promise.
 

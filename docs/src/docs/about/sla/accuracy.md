@@ -19,7 +19,7 @@ for the application of the service-level agreements:
 - Both the environment
   and the source code
   are accessible.
-- The environment is pair to the code,
+- The environment is paired with the code,
   i.e.,
   the environment corresponds to the provided branch.
 - Stable environment
