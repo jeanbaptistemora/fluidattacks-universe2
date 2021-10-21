@@ -1,17 +1,17 @@
-{ makes
+{ makePythonPypiEnvironment
 , makeTemplate
-, packages
+, outputs
 , ...
 }:
 makeTemplate {
   name = "observes-env-tap-csv-development";
   searchPaths = {
-    envSources = [
-      (makes.makePythonPypiEnvironment {
+    source = [
+      (makePythonPypiEnvironment {
         name = "observes-env-tap-csv-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      packages.observes.env.tap-csv.runtime
+      outputs."/observes/env/tap-csv/runtime"
     ];
   };
 }

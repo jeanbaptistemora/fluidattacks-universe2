@@ -210,7 +210,7 @@
       };
       observesStreamerZohoCrm = {
         searchPaths.source = [
-          inputs.product.observes-env-streamer-zoho-crm-runtime
+          outputs."/observes/env/streamer-zoho-crm/runtime"
         ];
         python = "3.8";
         src = "/observes/singer/streamer_zoho_crm/streamer_zoho_crm";
@@ -251,12 +251,16 @@
         src = "/observes/singer/tap_checkly/tap_checkly";
       };
       observesTapCsv = {
-        searchPaths.source = [ inputs.product.observes-env-tap-csv-development ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-csv/development"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_csv/tap_csv";
       };
       observesTapCsvTests = {
-        searchPaths.source = [ inputs.product.observes-env-tap-csv-development ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-csv/development"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_csv/tests";
       };
