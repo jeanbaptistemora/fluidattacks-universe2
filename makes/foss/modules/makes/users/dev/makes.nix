@@ -5,78 +5,78 @@
 {
   deployTerraform = {
     modules = {
-      makesUsersDevelopment = {
+      makesUsersDev = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesProd"
-          outputs."/secretsForEnvFromSops/makesUsersDevelopmentProd"
-          outputs."/secretsForTerraformFromEnv/makesUsersDevelopment"
+          outputs."/secretsForEnvFromSops/makesUsersDevProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersDev"
         ];
-        src = "/makes/foss/modules/makes/users/development/infra";
+        src = "/makes/foss/modules/makes/users/dev/infra";
         version = "1.0";
       };
     };
   };
   lintTerraform = {
     modules = {
-      makesUsersDevelopment = {
+      makesUsersDev = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
-        src = "/makes/foss/modules/makes/users/development/infra";
+        src = "/makes/foss/modules/makes/users/dev/infra";
         version = "1.0";
       };
     };
   };
   secretsForEnvFromSops = {
-    makesUsersDevelopmentDev = {
+    makesUsersDevDev = {
       vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL" ];
       manifest = "/makes/foss/modules/makes/secrets/dev.yaml";
     };
-    makesUsersDevelopmentProd = {
+    makesUsersDevProd = {
       vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL" ];
       manifest = "/makes/foss/modules/makes/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {
-    makesUsersDevelopment = {
+    makesUsersDev = {
       gitlab_token = "PRODUCT_API_TOKEN";
     };
   };
   taintTerraform = {
     modules = {
-      makesUsersDevelopmentKey1 = {
+      makesUsersDevKey1 = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesProd"
-          outputs."/secretsForEnvFromSops/makesUsersDevelopmentProd"
-          outputs."/secretsForTerraformFromEnv/makesUsersDevelopment"
+          outputs."/secretsForEnvFromSops/makesUsersDevProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersDev"
         ];
         resources = [ "module.aws.aws_iam_access_key._1" ];
         reDeploy = true;
-        src = "/makes/foss/modules/makes/users/development/infra";
+        src = "/makes/foss/modules/makes/users/dev/infra";
         version = "1.0";
       };
-      makesUsersDevelopmentKey2 = {
+      makesUsersDevKey2 = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesProd"
-          outputs."/secretsForEnvFromSops/makesUsersDevelopmentProd"
-          outputs."/secretsForTerraformFromEnv/makesUsersDevelopment"
+          outputs."/secretsForEnvFromSops/makesUsersDevProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersDev"
         ];
         resources = [ "module.aws.aws_iam_access_key._2" ];
         reDeploy = true;
-        src = "/makes/foss/modules/makes/users/development/infra";
+        src = "/makes/foss/modules/makes/users/dev/infra";
         version = "1.0";
       };
     };
   };
   testTerraform = {
     modules = {
-      makesUsersDevelopment = {
+      makesUsersDev = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesDev"
-          outputs."/secretsForEnvFromSops/makesUsersDevelopmentDev"
-          outputs."/secretsForTerraformFromEnv/makesUsersDevelopment"
+          outputs."/secretsForEnvFromSops/makesUsersDevDev"
+          outputs."/secretsForTerraformFromEnv/makesUsersDev"
         ];
-        src = "/makes/foss/modules/makes/users/development/infra";
+        src = "/makes/foss/modules/makes/users/dev/infra";
         version = "1.0";
       };
     };

@@ -1,7 +1,7 @@
 {
   imports = [
     ./airs/makes.nix
-    ./development/makes.nix
+    ./dev/makes.nix
     ./docs/makes.nix
     ./forces/makes.nix
     ./integrates/makes.nix

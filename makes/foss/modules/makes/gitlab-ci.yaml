@@ -164,7 +164,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployTerraform/makesUsersDevelopment:
+/deployTerraform/makesUsersDev:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -178,7 +178,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /deployTerraform/makesUsersDevelopment
+    - m . /deployTerraform/makesUsersDev
   stage: deploy-infra
   tags:
     - autoscaling
@@ -615,7 +615,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/makesUsersDevelopment:
+/lintTerraform/makesUsersDev:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -630,7 +630,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /lintTerraform/makesUsersDevelopment
+    - m . /lintTerraform/makesUsersDev
   stage: lint-code
   tags:
     - autoscaling
@@ -1025,7 +1025,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/taintTerraform/makesUsersDevelopmentKey1:
+/taintTerraform/makesUsersDevKey1:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1036,14 +1036,14 @@
       when: never
     - when: always
   script:
-    - m . /taintTerraform/makesUsersDevelopmentKey1
+    - m . /taintTerraform/makesUsersDevKey1
   stage: rotation
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/taintTerraform/makesUsersDevelopmentKey2:
+/taintTerraform/makesUsersDevKey2:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1054,7 +1054,7 @@
       when: never
     - when: always
   script:
-    - m . /taintTerraform/makesUsersDevelopmentKey2
+    - m . /taintTerraform/makesUsersDevKey2
   stage: rotation
   tags:
     - autoscaling
@@ -1583,7 +1583,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/makesUsersDevelopment:
+/testTerraform/makesUsersDev:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs: []
@@ -1598,7 +1598,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /testTerraform/makesUsersDevelopment
+    - m . /testTerraform/makesUsersDev
   stage: test-infra
   tags:
     - autoscaling

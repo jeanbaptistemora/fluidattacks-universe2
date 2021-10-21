@@ -14,7 +14,7 @@ terraform {
 
   backend "s3" {
     bucket         = "fluidattacks-terraform-states-prod"
-    key            = "user-provision-development.tfstate"
+    key            = "makes-users-dev.tfstate"
     region         = "us-east-1"
     encrypt        = true
     dynamodb_table = "terraform_state_lock"
@@ -24,7 +24,7 @@ terraform {
 
 module "aws" {
   source  = "../../modules/aws"
-  name    = "development"
+  name    = "dev"
   type    = "production"
   product = "makes"
   policy  = jsonencode(local.aws)
@@ -32,7 +32,7 @@ module "aws" {
 
 module "cloudflare" {
   source = "../../modules/cloudflare"
-  name   = "development"
+  name   = "dev"
   policy = local.cloudflare
 }
 
