@@ -48,18 +48,24 @@ def get_group_from_email(email: str) -> str:
 
 def show_banner() -> None:
     """Show forces banner."""
+    # The name and motto may come with closing markup tags from other parts of
+    # the banner, this is done to avoid the wrath of the linter, but if any
+    # modifications are needed, just paste them back and refac away
+    name = "› [/][italic bold red] Fluid [bold white]Attacks[/][/]"
+    motto = "[italic bold white] We [bold red]hack[/] your software[/]"
     header = textwrap.dedent(
-        r"""
-        [bold white]  ___
-         |[/][bold red] ››[/][bold white]|›[/][bold red] fluid [/][bold white]
-         |___| [/][bold red] attacks, we hack your software[/]
+        rf"""
+         [red on red]  ‎ ‎ ‎ ‎ ‎‎  ‎[/]
+         [red on red]  [/][bold red on white]‎  ››[/][bold white on red]{name}
+         [red on red]  [/][white on white]   ‎ [/][white on red]  [/]{motto}
+         [red on red]   ‎‎   ‎ ‎ [/]
         [bold green]
-             ____            _____           ____
-            / __ \___ _   __/ ___/___  _____/ __ \____  _____
-           / / / / _ \ | / /\__ \/ _ \/ ___/ / / / __ \/ ___/
-          / /_/ /  __/ |/ /___/ /  __/ /__/ /_/ / /_/ (__  )
-         /_____/\___/|___//____/\___/\___/\____/ .___/____/
-                                              /_/ [/]
+              ____            _____           ____
+             / __ \___ _   __/ ___/___  _____/ __ \____  _____
+            / / / / _ \ | / /\__ \/ _ \/ ___/ / / / __ \/ ___/
+           / /_/ /  __/ |/ /___/ /  __/ /__/ /_/ / /_/ (__  )
+          /_____/\___/|___//____/\___/\___/\____/ .___/____/
+                                               /_/[/]
         """
     )
     rprint(header)
