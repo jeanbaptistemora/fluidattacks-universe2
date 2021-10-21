@@ -369,6 +369,27 @@ def get_quarter(data_date: datetime) -> datetime:
     )
 
 
+def get_risk_over_quarterly(
+    group_data: Dict[str, Dict[datetime, float]]
+) -> Dict[str, Dict[datetime, float]]:
+
+    return {
+        "date": {get_quarter(key): 0 for key, _ in group_data["date"].items()},
+        "Closed": {
+            get_quarter(key): value
+            for key, value in group_data["Closed"].items()
+        },
+        "Accepted": {
+            get_quarter(key): value
+            for key, value in group_data["Accepted"].items()
+        },
+        "Found": {
+            get_quarter(key): value
+            for key, value in group_data["Found"].items()
+        },
+    }
+
+
 def get_data_risk_over_time_group(
     *,
     over_time_weekly: List[List[Dict[str, float]]],
@@ -426,20 +447,25 @@ def get_data_risk_over_time_group(
                 )
             )
 
+    monthly_data_size: int = len(
+        over_time_monthly[0] if over_time_monthly else []
+    )
+    monthly: Dict[str, Dict[datetime, float]] = {
+        "date": {datum.date: 0 for datum in data_monthly},
+        "Closed": {datum.date: datum.closed for datum in data_monthly},
+        "Accepted": {datum.date: datum.accepted for datum in data_monthly},
+        "Found": {
+            datum.date: datum.closed + datum.accepted + datum.opened
+            for datum in data_monthly
+        },
+    }
+
     return RiskOverTime(
         time_range=TimeRangeType.WEEKLY
         if limited_days
-        else get_time_range(weekly_data_size),
-        monthly={
-            "date": {datum.date: 0 for datum in data_monthly},
-            "Closed": {datum.date: datum.closed for datum in data_monthly},
-            "Accepted": {datum.date: datum.accepted for datum in data_monthly},
-            "Found": {
-                datum.date: datum.closed + datum.accepted + datum.opened
-                for datum in data_monthly
-            },
-        },
-        quarterly={},
+        else get_time_range(weekly_data_size, monthly_data_size),
+        monthly=monthly,
+        quarterly=get_risk_over_quarterly(monthly),
         weekly={
             "date": {datum.date: 0 for datum in data},
             "Closed": {datum.date: datum.closed for datum in data},
