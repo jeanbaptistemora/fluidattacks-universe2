@@ -18,6 +18,7 @@ makeScript {
       outputs."/integrates/storage"
     ];
     source = [
+      outputs."/integrates/back/charts/pypi"
       (inputs.legacy.importUtility "aws")
     ];
   };

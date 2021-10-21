@@ -1,10 +1,69 @@
 closure:
+  numpy: 1.21.2
+  pandas: 1.3.4
+  python-dateutil: 2.8.2
+  pytz: "2021.3"
   selenium: 3.141.0
+  six: 1.16.0
   urllib3: 1.26.7
 links:
+  - name: numpy-1.21.2-cp39-cp39-macosx_10_9_universal2.whl
+    sha256: 0f6cnafmi20pi4gjc2zga7pnwra5m9ddf0w5w49qs1hhs98kc3nx
+    url: https://files.pythonhosted.org/packages/cf/96/4a0eed13a185da6f7e48f76739de86c21661fe6c2738f4630a628d5dcbcf/numpy-1.21.2-cp39-cp39-macosx_10_9_universal2.whl
+  - name: numpy-1.21.2-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 038jlkzanh347slziims7v86fd56fpq9lyh7p7arsy87ic9ap84j
+    url: https://files.pythonhosted.org/packages/24/ad/b1fc85dda2d40af2b28c70f741df80ee0e243502b61b33baf7fa150760f8/numpy-1.21.2-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: numpy-1.21.2-cp39-cp39-macosx_11_0_arm64.whl
+    sha256: 06943ylnl62dh982qzck5gqaihmz6w6wr7hsdz4mp03xsri01rgx
+    url: https://files.pythonhosted.org/packages/e8/66/380373a412dda1f321773b3872dd0d1fcb4ceac7b8c62baf436a31ce4638/numpy-1.21.2-cp39-cp39-macosx_11_0_arm64.whl
+  - name: numpy-1.21.2-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.whl
+    sha256: 08rpvb8li31vjg9m3k617dy61f75wb66qyr3bjaz4937sp7iq334
+    url: https://files.pythonhosted.org/packages/fe/78/3a18a4a8a24a3fa5ca34ff3b0e855c19503dc6fb625b75a83bc17e4817e3/numpy-1.21.2-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.whl
+  - name: numpy-1.21.2-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+    sha256: 0dzpm6dgglcjibvhg0id9jaiz3rf77dmcdg9djvm0fkz2d84krjx
+    url: https://files.pythonhosted.org/packages/7a/4c/dd00ce768b0f0f7de5c486cbd9f5b922bc3af2f3a5da30121d7f7dc03130/numpy-1.21.2-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+  - name: numpy-1.21.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 03sqhci19zcj2jpnddcmmhy9a36md9lp55picnkrq2bxci70chmk
+    url: https://files.pythonhosted.org/packages/01/c5/3ac36428af637b48236a389aca0e39896dd66477d759f6831a593d56d248/numpy-1.21.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: numpy-1.21.2.zip
+    sha256: 1p6n7pbc4s7qdqh28clyrhahs0xzadh7q0w6vwakp4n5mzc1ccj2
+    url: https://files.pythonhosted.org/packages/3a/be/650f9c091ef71cb01d735775d554e068752d3ff63d7943b26316dc401749/numpy-1.21.2.zip
+  - name: pandas-1.3.4-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 1yddvd92vw412gfjxzvng4ki8wv21pkinir3hifvbrny0z7m0xyl
+    url: https://files.pythonhosted.org/packages/3b/52/d5475578dc252c13e0823b9a715c2e17002dcdaee9defba0d2b2659112df/pandas-1.3.4-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: pandas-1.3.4-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 1aqv5j6zs51sygf96p5rg8jzd6jzawdxcx258ykzmn0k02fc079d
+    url: https://files.pythonhosted.org/packages/31/29/1d4fa5419507150b3c68404970615c37e56f9b6855da73b182c3024414d0/pandas-1.3.4-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: pandas-1.3.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 1ad49g5an5gwrzw70ll8caqq60ynli15hg8chdpayyfv4wjhmq8h
+    url: https://files.pythonhosted.org/packages/48/b4/1081d66b71c4dfc1bc1e19d6f2abbf93ed42f69df7703eb323742d45423e/pandas-1.3.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: pandas-1.3.4-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+    sha256: 0hy1sb30c2b7samimpg8ma3irlvh3k0y1fj1v8bxbr6jmh4pdirm
+    url: https://files.pythonhosted.org/packages/4a/71/b78cb9d1d88f0177da9a6ca6548244d52540a22cf730492231287a5eb93f/pandas-1.3.4-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+  - name: pandas-1.3.4.tar.gz
+    sha256: 1z3gm521wpm3j13rwhlb4f2x0645zvxkgxij37i3imdpy39iiam2
+    url: https://files.pythonhosted.org/packages/58/58/b729eda34f78060e14cb430c91d4f7ba3cf1e34797976877a3a1125ea5b2/pandas-1.3.4.tar.gz
+  - name: python_dateutil-2.8.2-py2.py3-none-any.whl
+    sha256: 1aaxjfp4lrz8c6qls3vdhw554lan3khy9afyvdcvrssk6kf067cn
+    url: https://files.pythonhosted.org/packages/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f57342a56d/python_dateutil-2.8.2-py2.py3-none-any.whl
+  - name: python-dateutil-2.8.2.tar.gz
+    sha256: 11iy7m4bp2lgfkcl0r6xzf34bvk7ppjmsyn2ygfikbi72v6cl8q1
+    url: https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz
+  - name: pytz-2021.3-py2.py3-none-any.whl
+    sha256: 0z5qylvysr2zy9n2ylaiwkd0paympz1s3dxa4av5fd25qf5hawin
+    url: https://files.pythonhosted.org/packages/d3/e3/d9f046b5d1c94a3aeab15f1f867aa414f8ee9d196fae6865f1d6a0ee1a0b/pytz-2021.3-py2.py3-none-any.whl
+  - name: pytz-2021.3.tar.gz
+    sha256: 09hk9zpxr26d7xgjfbq6ai1i1naybhlfkln9wka0gbx1425jvbdc
+    url: https://files.pythonhosted.org/packages/e3/8e/1cde9d002f48a940b9d9d38820aaf444b229450c0854bdf15305ce4a3d1a/pytz-2021.3.tar.gz
   - name: selenium-3.141.0.tar.gz
     sha256: 039hf9knvl4s3hp21bzwsp1g5ri9gxsh504dp48lc6nr1av35byy
     url: https://files.pythonhosted.org/packages/ed/9c/9030520bf6ff0b4c98988448a93c04fcbd5b13cd9520074d8ed53569ccfe/selenium-3.141.0.tar.gz
+  - name: six-1.16.0-py2.py3-none-any.whl
+    sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
+    url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl
+  - name: six-1.16.0.tar.gz
+    sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
+    url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
   - name: urllib3-1.26.7-py2.py3-none-any.whl
     sha256: 0i68pdi0mfnfjphp6ycsf1rzibjdzv4ipq1p6r1fbdh5jq0z9zf4
     url: https://files.pythonhosted.org/packages/af/f4/524415c0744552cce7d8bf3669af78e8a069514405ea4fcbd0cc44733744/urllib3-1.26.7-py2.py3-none-any.whl
