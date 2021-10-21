@@ -2,8 +2,10 @@
 slug: compliance/cwe/
 title: CWE
 category: compliance
-description: At Fluid Attacks, we work and keep up to date with the CWE list for our findings and reports, as well as contribute to community efforts.
-keywords: Fluid Attacks, CWE, MITRE, Continuous Hacking, Security, Standards, Ethical Hacking, Pentesting
+description: At Fluid Attacks, we work and keep up to date with the CWE list
+    for our findings and reports, as well as contribute to community efforts.
+keywords: Fluid Attacks, CWE, MITRE, Continuous Hacking,
+    Security, Standards, Ethical Hacking, Pentesting
 banner: bg-compliance-internal
 template: compliance
 ---

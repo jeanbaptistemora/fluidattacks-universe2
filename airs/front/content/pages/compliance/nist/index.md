@@ -2,8 +2,11 @@
 slug: compliance/nist/
 title: NIST
 category: compliance
-description: At Fluid Attacks, through comprehensive analysis, we can help you comply with a variety of security standards for information technology, including NIST.
-keywords: Fluid Attacks, NIST, 800-53, Continuous Hacking, Security, Standards, Ethical Hacking, Pentesting
+description: At Fluid Attacks, through comprehensive analysis,
+    we can help you comply with a variety of security standards
+    for information technology, including NIST.
+keywords: Fluid Attacks, NIST, 800-53, Continuous Hacking,
+    Security, Standards, Ethical Hacking, Pentesting
 banner: bg-compliance-internal
 template: compliance
 ---
