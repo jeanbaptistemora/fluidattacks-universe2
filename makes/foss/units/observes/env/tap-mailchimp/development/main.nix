@@ -1,17 +1,17 @@
 { makeTemplate
-, makes
-, packages
+, makePythonPypiEnvironment
+, outputs
 , ...
 }:
 makeTemplate {
   name = "observes-env-tap-mailchimp-development";
   searchPaths = {
-    envSources = [
-      (makes.makePythonPypiEnvironment {
+    source = [
+      (makePythonPypiEnvironment {
         name = "observes-env-tap-mailchimp-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      packages.observes.env.tap-mailchimp.runtime
+      outputs."/observes/env/tap-mailchimp/runtime"
     ];
   };
 }

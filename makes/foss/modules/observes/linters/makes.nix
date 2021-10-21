@@ -293,17 +293,23 @@
         src = "/observes/singer/tap_gitlab/tests";
       };
       observesTapJson = {
-        searchPaths.source = [ inputs.product.observes-env-tap-json-development ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-json/development"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_json/tap_json";
       };
       observesTapMailchimp = {
-        searchPaths.source = [ inputs.product.observes-env-tap-mailchimp-development ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-mailchimp/development"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_mailchimp/tap_mailchimp";
       };
       observesTapMailchimpTests = {
-        searchPaths.source = [ inputs.product.observes-env-tap-mailchimp-development ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-mailchimp/development"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_mailchimp/tests";
       };

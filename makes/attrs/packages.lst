@@ -20,11 +20,6 @@ observes.env.purity.runtime
 observes.env.service-migrate-tables.runtime
 observes.env.service-timedoctor-tokens.runtime
 observes.env.singer-io.runtime
-observes.env.tap-json.development
-observes.env.tap-json.runtime
-observes.env.tap-mailchimp.development
-observes.env.tap-mailchimp.runtime
-observes.env.tap-mailchimp.runtime.python
 observes.env.tap-mixpanel.development
 observes.env.tap-mixpanel.runtime
 observes.env.tap-timedoctor.runtime

@@ -1,12 +1,12 @@
 { makeTemplate
-, packages
+, outputs
 , ...
 }:
 makeTemplate {
   name = "observes-env-tap-json-development";
   searchPaths = {
-    envSources = [
-      packages.observes.env.tap-json.runtime
+    source = [
+      outputs."/observes/env/tap-json/runtime"
     ];
   };
 }
