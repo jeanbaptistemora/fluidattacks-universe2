@@ -11,6 +11,8 @@ from charts import (
 from charts.generators.stacked_bar_chart.utils import (
     DISTRIBUTION_OVER_TIME,
     format_distribution_document,
+    get_current_time_range,
+    get_time_range,
     GroupDocumentData,
     RiskOverTime,
     sum_over_time_many_groups,
@@ -32,7 +34,10 @@ from typing import (
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_group_document(group: str, loaders: Dataloaders) -> RiskOverTime:
+async def get_group_document(  # pylint: disable=too-many-locals
+    group: str,
+    loaders: Dataloaders,
+) -> RiskOverTime:
     data: List[GroupDocumentData] = []
     data_monthly: List[GroupDocumentData] = []
     data_name = "remediated_over_time_cvssf"
@@ -94,15 +99,17 @@ async def get_group_document(group: str, loaders: Dataloaders) -> RiskOverTime:
     weekly_data_size: int = len(
         group_data[data_name][0] if group_data[data_name] else []
     )
+    monthly = {
+        "date": {datum.date: 0 for datum in data_monthly},
+        "Closed": {datum.date: datum.closed for datum in data_monthly},
+        "Accepted": {datum.date: datum.accepted for datum in data_monthly},
+        "Open": {datum.date: datum.opened for datum in data_monthly},
+    }
 
     return RiskOverTime(
-        should_use_monthly=weekly_data_size > 12,
-        monthly={
-            "date": {datum.date: 0 for datum in data_monthly},
-            "Closed": {datum.date: datum.closed for datum in data_monthly},
-            "Accepted": {datum.date: datum.accepted for datum in data_monthly},
-            "Open": {datum.date: datum.opened for datum in data_monthly},
-        },
+        time_range=get_time_range(weekly_data_size),
+        monthly=monthly,
+        quarterly={},
         weekly={
             "date": {datum.date: 0 for datum in data},
             "Closed": {datum.date: datum.closed for datum in data},
@@ -119,14 +126,9 @@ async def get_many_groups_document(
     group_documents: Tuple[RiskOverTime, ...] = await collect(
         [get_group_document(group, loaders) for group in groups]
     )
-    should_use_monthly: bool = any(
-        group.should_use_monthly for group in group_documents
-    )
 
     return sum_over_time_many_groups(
-        [group_document.monthly for group_document in group_documents]
-        if should_use_monthly
-        else [group_document.weekly for group_document in group_documents],
+        get_current_time_range(group_documents),
         DISTRIBUTION_OVER_TIME,
     )
 
@@ -138,9 +140,7 @@ async def generate_all() -> None:
         group_document: RiskOverTime = await get_group_document(group, loaders)
         utils.json_dump(
             document=format_distribution_document(
-                document=group_document.monthly
-                if group_document.should_use_monthly
-                else group_document.weekly,
+                document=get_current_time_range([group_document])[0],
                 y_label=y_label,
             ),
             entity="group",

@@ -14,6 +14,8 @@ from charts.colors import (
 from charts.generators.stacked_bar_chart.utils import (
     DATE_FMT,
     EXPOSED_OVER_TIME,
+    get_current_time_range,
+    get_time_range,
     RiskOverTime,
     sum_over_time_many_groups,
     translate_date,
@@ -117,7 +119,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
     )
 
     return RiskOverTime(
-        should_use_monthly=weekly_data_size > 12,
+        time_range=get_time_range(weekly_data_size),
         monthly={
             "date": {
                 datum.data_date: Decimal("0.0") for datum in data_monthly
@@ -129,6 +131,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
                 for datum in data_monthly
             },
         },
+        quarterly={},
         weekly={
             "date": {datum.data_date: Decimal("0.0") for datum in data},
             "Exposure": {
@@ -148,14 +151,9 @@ async def get_many_groups_document(
     group_documents: Tuple[RiskOverTime, ...] = await collect(
         [get_group_document(group, loaders) for group in groups]
     )
-    should_use_monthly: bool = any(
-        group.should_use_monthly for group in group_documents
-    )
 
     return sum_over_time_many_groups(
-        [group_document.monthly for group_document in group_documents]
-        if should_use_monthly
-        else [group_document.weekly for group_document in group_documents],
+        get_current_time_range(group_documents),
         EXPOSED_OVER_TIME,
     )
 
@@ -242,9 +240,7 @@ async def generate_all() -> None:
         group_document: RiskOverTime = await get_group_document(group, loaders)
         utils.json_dump(
             document=format_document(
-                document=group_document.monthly
-                if group_document.should_use_monthly
-                else group_document.weekly,
+                document=get_current_time_range([group_document])[0],
             ),
             entity="group",
             subject=group,

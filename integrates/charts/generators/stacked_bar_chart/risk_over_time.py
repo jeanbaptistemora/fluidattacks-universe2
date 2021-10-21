@@ -10,6 +10,7 @@ from charts import (
 )
 from charts.generators.stacked_bar_chart.utils import (
     format_document,
+    get_current_time_range,
     get_data_risk_over_time_group,
     RISK_OVER_TIME,
     RiskOverTime,
@@ -64,14 +65,9 @@ async def get_many_groups_document(
     group_documents: Tuple[RiskOverTime, ...] = await collect(
         [get_group_document(group, days) for group in groups]
     )
-    should_use_monthly: bool = any(
-        group.should_use_monthly for group in group_documents
-    )
 
     return sum_over_time_many_groups(
-        [group_document.monthly for group_document in group_documents]
-        if should_use_monthly
-        else [group_document.weekly for group_document in group_documents],
+        get_current_time_range(group_documents),
         RISK_OVER_TIME,
     )
 
@@ -86,9 +82,7 @@ async def generate_all() -> None:
             )
             utils.json_dump(
                 document=format_document(
-                    document=group_document.monthly
-                    if group_document.should_use_monthly
-                    else group_document.weekly,
+                    document=get_current_time_range([group_document])[0],
                     y_label=y_label,
                 ),
                 entity="group",

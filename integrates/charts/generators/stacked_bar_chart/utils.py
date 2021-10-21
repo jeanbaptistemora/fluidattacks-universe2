@@ -8,11 +8,15 @@ from decimal import (
     Decimal,
     ROUND_FLOOR,
 )
+from enum import (
+    Enum,
+)
 from typing import (
     Any,
     Dict,
     List,
     NamedTuple,
+    Set,
     Tuple,
 )
 
@@ -66,10 +70,17 @@ GroupDocumentData = NamedTuple(
 )
 
 
+class TimeRangeType(Enum):
+    WEEKLY: str = "WEEKLY"
+    MONTHLY: str = "MONTHLY"
+    QUARTERLY: str = "QUARTERLY"
+
+
 class RiskOverTime(NamedTuple):
     monthly: Dict[str, Dict[datetime, float]]
+    quarterly: Dict[str, Dict[datetime, float]]
+    time_range: TimeRangeType
     weekly: Dict[str, Dict[datetime, float]]
-    should_use_monthly: bool
 
 
 def translate_date(date_str: str) -> datetime:
@@ -401,7 +412,9 @@ def get_data_risk_over_time_group(
             )
 
     return RiskOverTime(
-        should_use_monthly=False if limited_days else weekly_data_size > 12,
+        time_range=TimeRangeType.WEEKLY
+        if limited_days
+        else get_time_range(weekly_data_size),
         monthly={
             "date": {datum.date: 0 for datum in data_monthly},
             "Closed": {datum.date: datum.closed for datum in data_monthly},
@@ -411,6 +424,7 @@ def get_data_risk_over_time_group(
                 for datum in data_monthly
             },
         },
+        quarterly={},
         weekly={
             "date": {datum.date: 0 for datum in data},
             "Closed": {datum.date: datum.closed for datum in data},
@@ -420,6 +434,21 @@ def get_data_risk_over_time_group(
                 for datum in data
             },
         },
+    )
+
+
+def get_time_range(
+    weekly_data_size: int, monthly_size: int = 0
+) -> TimeRangeType:
+    if not monthly_size:
+        return (
+            TimeRangeType.MONTHLY
+            if weekly_data_size > 12
+            else TimeRangeType.WEEKLY
+        )
+
+    return (
+        TimeRangeType.QUARTERLY if monthly_size > 12 else TimeRangeType.MONTHLY
     )
 
 
@@ -491,3 +520,21 @@ def format_severity(values: Dict[str, Decimal]) -> Tuple[Dict[str, str], ...]:
     )
 
     return (percentage_values, max_percentage_values)
+
+
+def get_current_time_range(
+    group_documents: Tuple[RiskOverTime, ...]
+) -> Tuple[Dict[str, Dict[datetime, float]], ...]:
+    time_range: Set[TimeRangeType] = {
+        group.time_range for group in group_documents
+    }
+
+    if TimeRangeType.QUARTERLY in time_range:
+        return tuple(
+            group_document.quarterly for group_document in group_documents
+        )
+    if TimeRangeType.MONTHLY in time_range:
+        return tuple(
+            group_document.monthly for group_document in group_documents
+        )
+    return tuple(group_document.weekly for group_document in group_documents)
