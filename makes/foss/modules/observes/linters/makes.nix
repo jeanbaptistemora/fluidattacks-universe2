@@ -237,12 +237,16 @@
         src = "/observes/singer/tap_announcekit/tests";
       };
       observesTapBugsnag = {
-        searchPaths.source = [ inputs.product.observes-env-tap-bugsnag-runtime ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-bugsnag/runtime"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_bugsnag/tap_bugsnag";
       };
       observesTapCheckly = {
-        searchPaths.source = [ inputs.product.observes-env-tap-checkly-runtime ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-checkly/runtime"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_checkly/tap_checkly";
       };

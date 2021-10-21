@@ -1,5 +1,4 @@
 { makeScript
-, inputs
 , outputs
 , ...
 }:
@@ -10,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      inputs.product.observes-env-tap-bugsnag-runtime
+      outputs."/observes/env/tap-bugsnag/runtime"
     ];
   };
   name = "observes-bin-tap-bugsnag";

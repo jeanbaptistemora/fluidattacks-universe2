@@ -1,12 +1,12 @@
 { makeTemplate
-, packages
+, outputs
 , ...
 }:
 makeTemplate {
   name = "observes-env-tap-checkly-development";
   searchPaths = {
-    envSources = [
-      packages.observes.env.tap-checkly.runtime
+    source = [
+      outputs."/observes/env/tap-checkly/runtime"
     ];
   };
 }
