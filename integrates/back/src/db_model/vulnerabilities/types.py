@@ -53,18 +53,18 @@ class VulnerabilityZeroRisk(NamedTuple):
 class Vulnerability(NamedTuple):
     finding_id: str
     specific: str
+    state: VulnerabilityState
+    treatment: VulnerabilityTreatment
+    type: VulnerabilityType
     uuid: str
     where: str
-    type: VulnerabilityType
     bug_tracking_system_url: Optional[str] = None
     commit: Optional[str] = None
     custom_severity: Optional[int] = None
     hash: Optional[int] = None
     repo: Optional[str] = None
-    state: Optional[VulnerabilityState] = None
     stream: Optional[List[str]] = None
     tags: Optional[List[str]] = None
-    treatment: Optional[VulnerabilityTreatment] = None
     verification: Optional[VulnerabilityVerification] = None
     zero_risk: Optional[VulnerabilityZeroRisk] = None
 

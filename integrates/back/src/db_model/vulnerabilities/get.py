@@ -9,6 +9,7 @@ from .utils import (
     format_state,
     format_treatment,
     format_verification,
+    format_vulnerability,
     format_zero_risk,
 )
 from aiodataloader import (
@@ -26,105 +27,14 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
-from db_model.vulnerabilities.enums import (
-    VulnerabilityType,
-)
 from dynamodb import (
     historics,
     keys,
     operations,
 )
-from dynamodb.types import (
-    Item,
-    PrimaryKey,
-)
 from typing import (
-    Optional,
     Tuple,
 )
-
-
-def _build_vulnerability(
-    *,
-    item_id: str,
-    key_structure: PrimaryKey,
-    raw_items: Tuple[Item, ...],
-) -> Vulnerability:
-    metadata = historics.get_metadata(
-        item_id=item_id, key_structure=key_structure, raw_items=raw_items
-    )
-    inverted_index = TABLE.indexes["inverted_index"]
-    inverted_key_structure = inverted_index.primary_key
-    metadata["finding_id"] = metadata[
-        inverted_key_structure.partition_key
-    ].split("#")[1]
-    metadata["uuid"] = metadata[inverted_key_structure.sort_key].split("#")[1]
-
-    state: VulnerabilityState = format_state(
-        historics.get_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="STATE",
-            raw_items=raw_items,
-        )
-    )
-
-    try:
-        treatment: Optional[VulnerabilityTreatment] = format_treatment(
-            historics.get_latest(
-                item_id=item_id,
-                key_structure=key_structure,
-                historic_suffix="TREATMENT",
-                raw_items=raw_items,
-            )
-        )
-    except StopIteration:
-        treatment = None
-
-    try:
-        verification: Optional[
-            VulnerabilityVerification
-        ] = format_verification(
-            historics.get_latest(
-                item_id=item_id,
-                key_structure=key_structure,
-                historic_suffix="VERIFICATION",
-                raw_items=raw_items,
-            )
-        )
-    except StopIteration:
-        verification = None
-
-    try:
-        zero_risk: Optional[VulnerabilityZeroRisk] = format_zero_risk(
-            historics.get_latest(
-                item_id=item_id,
-                key_structure=key_structure,
-                historic_suffix="ZERORISK",
-                raw_items=raw_items,
-            )
-        )
-    except StopIteration:
-        zero_risk = None
-
-    return Vulnerability(
-        bug_tracking_system_url=metadata.get("bug_tracking_system_url", None),
-        commit=metadata.get("commit", None),
-        custom_severity=metadata.get("custom_severity", None),
-        finding_id=metadata["finding_id"],
-        hash=metadata.get("hash", None),
-        repo=metadata.get("repo", None),
-        specific=metadata["specific"],
-        state=state,
-        stream=metadata.get("stream", None),
-        uuid=metadata["uuid"],
-        tags=metadata.get("tags", None),
-        treatment=treatment,
-        type=VulnerabilityType[metadata["type"]],
-        verification=verification,
-        where=metadata["where"],
-        zero_risk=zero_risk,
-    )
 
 
 async def _get_finding(*, uuid: str) -> str:
@@ -185,7 +95,7 @@ async def _get_vulnerability(*, uuid: str) -> Vulnerability:
     if not results:
         raise VulnNotFound()
 
-    return _build_vulnerability(
+    return format_vulnerability(
         item_id=primary_key.partition_key,
         key_structure=key_structure,
         raw_items=results,
