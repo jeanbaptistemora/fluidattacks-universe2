@@ -20,11 +20,7 @@ observes.env.purity.runtime
 observes.env.service-migrate-tables.runtime
 observes.env.service-timedoctor-tokens.runtime
 observes.env.singer-io.runtime
-observes.env.streamer-zoho-crm.development
 observes.env.streamer-zoho-crm.runtime
-observes.env.tap-announcekit.development
-observes.env.tap-announcekit.runtime
-observes.env.tap-bugsnag.development
 observes.env.tap-bugsnag.runtime
 observes.env.tap-checkly.development
 observes.env.tap-checkly.runtime

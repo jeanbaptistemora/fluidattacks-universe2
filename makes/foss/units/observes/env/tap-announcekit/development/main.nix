@@ -1,17 +1,17 @@
-{ makes
+{ makePythonPypiEnvironment
 , makeTemplate
-, packages
+, outputs
 , ...
 }:
 makeTemplate {
   name = "observes-env-tap-announcekit-development";
   searchPaths = {
-    envSources = [
-      (makes.makePythonPypiEnvironment {
+    source = [
+      (makePythonPypiEnvironment {
         name = "observes-env-tap-announcekit-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      packages.observes.env.tap-announcekit.runtime
+      outputs."/observes/env/tap-announcekit/runtime"
     ];
   };
 }

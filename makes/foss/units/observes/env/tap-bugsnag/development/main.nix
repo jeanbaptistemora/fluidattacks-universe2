@@ -1,12 +1,12 @@
 { makeTemplate
-, packages
+, inputs
 , ...
 }:
 makeTemplate {
   name = "observes-env-tap-bugsnag-development";
   searchPaths = {
-    envSources = [
-      packages.observes.env.tap-bugsnag.runtime
+    source = [
+      inputs.product.observes-env-tap-bugsnag-runtime
     ];
   };
 }

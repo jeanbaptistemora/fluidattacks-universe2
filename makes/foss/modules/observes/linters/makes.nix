@@ -217,18 +217,22 @@
       };
       observesStreamerZohoCrmTests = {
         searchPaths.source = [
-          inputs.product.observes-env-streamer-zoho-crm-development
+          outputs."/observes/env/streamer-zoho-crm/development"
         ];
         python = "3.8";
         src = "/observes/singer/streamer_zoho_crm/tests";
       };
       observesTapAnnounceKit = {
-        searchPaths.source = [ inputs.product.observes-env-tap-announcekit-runtime ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-announcekit/runtime"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_announcekit/tap_announcekit";
       };
       observesTapAnnounceKitTests = {
-        searchPaths.source = [ inputs.product.observes-env-tap-announcekit-development ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-announcekit/development"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_announcekit/tests";
       };

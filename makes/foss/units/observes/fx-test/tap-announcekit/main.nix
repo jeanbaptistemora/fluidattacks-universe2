@@ -1,5 +1,6 @@
 { makeScript
 , inputs
+, outputs
 , projectPath
 , ...
 }:
@@ -11,7 +12,7 @@ makeScript {
   searchPaths = {
     source = [
       inputs.product.observes-generic-tester
-      inputs.product.observes-env-tap-announcekit-development
+      outputs."/observes/env/tap-announcekit/development"
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "sops")
     ];
