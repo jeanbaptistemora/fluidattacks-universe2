@@ -1,0 +1,26 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_group %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_group('Root Moved') }}
+
+  <div class="main-content">
+    <p>Good news!</p>
+    <p>
+      You recently moved the root <strong>"{{ nickname }}"</strong>
+      from group <strong>"{{ group }}"</strong>
+      to group <strong>"{{ target }}"</strong>.
+    </p>
+    <p>
+      The vulnerabilities previously reported to it were also moved
+      successfully
+    </p>
+    <p>Regards,<br>Fluid Attacks Team</p>
+    <br />
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}

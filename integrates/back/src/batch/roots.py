@@ -31,6 +31,10 @@ from dynamodb.types import (
     Table,
 )
 import itertools
+from mailer.common import (
+    GENERAL_TAG,
+    send_mails_async,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -192,6 +196,19 @@ async def move_root(*, item: BatchProcessing) -> None:
             )
             for source_finding_id, vulns in vulns_by_finding
         )
+    )
+    await send_mails_async(
+        email_to=[item.subject],
+        context={
+            "group": source_group_name,
+            "nickname": root.state.nickname,
+            "target": target_group_name,
+        },
+        tags=GENERAL_TAG,
+        subject=(
+            f"Root moved from [{source_group_name}] to [{target_group_name}]"
+        ),
+        template_name="root_moved",
     )
     await delete_action(
         action_name=item.action_name,

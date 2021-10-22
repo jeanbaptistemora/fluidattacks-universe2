@@ -22,7 +22,7 @@ import {
 import { Can } from "utils/authz/Can";
 import { FormikAutocompleteText, FormikDropdown } from "utils/forms/fields";
 import { Logger } from "utils/logger";
-import { msgError } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 
 interface IDeactivationModalProps {
   groupName: string;
@@ -61,6 +61,10 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
 
   const [moveRoot] = useMutation(MOVE_ROOT, {
     onCompleted: (): void => {
+      msgSuccess(
+        t("group.scope.common.deactivation.success.message"),
+        t("group.scope.common.deactivation.success.title")
+      );
       onClose();
       onUpdate();
     },

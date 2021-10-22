@@ -557,6 +557,11 @@ export const enTranslations: ResourceKey = {
             moved: "Moved to another group",
             scope: "Out of scope",
           },
+          success: {
+            message:
+              "You will be notified via email once the process is complete",
+            title: "Success",
+          },
           targetGroup: "Target group",
           targetPlaceholder: "Search by group name...",
           title: "Deactivate Root",
