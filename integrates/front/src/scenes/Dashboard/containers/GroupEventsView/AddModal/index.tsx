@@ -59,7 +59,7 @@ interface IFormValues {
 
 interface IAddModalProps {
   onClose: () => void;
-  onSubmit: (values: Record<string, unknown>) => Promise<void>;
+  onSubmit: (values: IFormValues) => Promise<void>;
 }
 
 const AddModal: React.FC<IAddModalProps> = ({
@@ -127,7 +127,7 @@ const AddModal: React.FC<IAddModalProps> = ({
                     name={"eventType"}
                     validate={required}
                   >
-                    <option selected={true} value={""} />
+                    <option value={""} />
                     <option value={"AUTHORIZATION_SPECIAL_ATTACK"}>
                       {t("group.events.form.type.specialAttack")}
                     </option>
@@ -164,7 +164,7 @@ const AddModal: React.FC<IAddModalProps> = ({
                     name={"context"}
                     validate={required}
                   >
-                    <option selected={true} value={""} />
+                    <option value={""} />
                     <option value={"CLIENT"}>
                       {t("group.events.form.context.client")}
                     </option>
@@ -386,7 +386,7 @@ const AddModal: React.FC<IAddModalProps> = ({
                     name={"actionBeforeBlocking"}
                     validate={required}
                   >
-                    <option selected={true} value={""} />
+                    <option value={""} />
                     <option value={"DOCUMENT_GROUP"}>
                       {t("group.events.form.actionBefore.document")}
                     </option>
@@ -412,7 +412,7 @@ const AddModal: React.FC<IAddModalProps> = ({
                     name={"actionAfterBlocking"}
                     validate={required}
                   >
-                    <option selected={true} value={""} />
+                    <option value={""} />
                     <option value={"EXECUTE_OTHER_GROUP_SAME_CLIENT"}>
                       {t("group.events.form.actionAfter.otherSame")}
                     </option>

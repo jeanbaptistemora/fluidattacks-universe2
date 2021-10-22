@@ -31,6 +31,8 @@ describe("EventsView", (): void => {
             events: [
               {
                 accessibility: "Repository",
+                actionAfterBlocking: "NONE",
+                actionBeforeBlocking: "NONE",
                 affectedComponents: "",
                 closingDate: "-",
                 detail: "Test description",
@@ -200,7 +202,9 @@ describe("EventsView", (): void => {
     const evidenceFiles = (): ReactWrapper =>
       wrapper.find("span").find(".fa-search");
 
-    expect(wrapper.containsMatchingElement(<h4>{"New Event"}</h4>)).toBe(true);
+    expect(wrapper.containsMatchingElement(<h4>{"group.events.new"}</h4>)).toBe(
+      true
+    );
     expect(dateField()).toHaveLength(1);
     expect(typeField()).toHaveLength(1);
     expect(contextField()).toHaveLength(1);
