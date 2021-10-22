@@ -26,13 +26,13 @@ class VulnerabilityState(NamedTuple):
 
 
 class VulnerabilityTreatment(NamedTuple):
+    modified_by: str
     modified_date: str
     status: VulnerabilityTreatmentStatus
     accepted_until: Optional[str] = None
     acceptance_status: Optional[VulnerabilityAcceptanceStatus] = None
     justification: Optional[str] = None
     manager: Optional[str] = None
-    modified_by: Optional[str] = None
 
 
 class VulnerabilityVerification(NamedTuple):
