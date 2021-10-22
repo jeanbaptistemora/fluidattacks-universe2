@@ -109,7 +109,7 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
                     name
                     roots {
                         ... on GitRoot {
-                            toeLines {
+                            servicesToeLines {
                                 filename
                                 sortsRiskLevel
                             }
@@ -130,7 +130,7 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
                 sorts_risk_level=toe_lines["sortsRiskLevel"],
             )
             for group_root in group_roots
-            for toe_lines in group_root["toeLines"]
+            for toe_lines in group_root["servicesToeLines"]
         ]
 
     return group_toe_lines
