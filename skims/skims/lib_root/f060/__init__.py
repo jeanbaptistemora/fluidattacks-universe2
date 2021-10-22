@@ -9,6 +9,9 @@ from lib_root.f060.java import (
 from lib_root.f060.php import (
     insecure_exceptions as php_insecure_exceptions,
 )
+from lib_root.f060.ruby import (
+    insecure_exceptions as ruby_insecure_exceptions,
+)
 from model import (
     core_model,
     graph_model,
@@ -21,4 +24,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, java_throws_generic_exception),
     (FINDING, java_insecure_exceptions),
     (FINDING, php_insecure_exceptions),
+    (FINDING, ruby_insecure_exceptions),
 )
