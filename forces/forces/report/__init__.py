@@ -17,6 +17,12 @@ from forces.utils.model import (
     ForcesConfig,
 )
 import oyaml as yaml
+from rich.box import (
+    MINIMAL,
+)
+from rich.table import (
+    Table,
+)
 from timeit import (
     default_timer as timer,
 )
@@ -35,6 +41,27 @@ def get_exploitability_measure(score: int) -> str:
         "1.0": "High",
     }
     return data.get(str(score), "-")
+
+
+def styles(key: str, value: str) -> str:
+    style_data = {
+        "title": "[yellow]",
+        "state": {"open": "[red]", "closed": "[green]"},
+        "exploitability": {
+            "Unproven": "[green]",
+            "Proof of concept": "[yellow3]",
+            "Functional": "[orange3]",
+            "High": "[red]",
+        },
+    }
+    if key in style_data:
+        value_style = style_data[key]
+        if isinstance(value_style, Dict):
+            if value in value_style:
+                return f"{value_style[value]}{value}[/]"
+            return value
+        return f"{value_style}{value}[/]"
+    return value
 
 
 async def create_findings_dict(
@@ -57,6 +84,31 @@ async def create_findings_dict(
         )
         findings_dict[find["id"]]["vulnerabilities"] = []
     return findings_dict
+
+
+def format_rich_report(
+    report: Dict[str, Any],
+    verbose_level: int,
+) -> Table:
+
+    report_table = Table(
+        title="Findings Report",
+        show_header=False,
+        highlight=True,
+        box=MINIMAL,
+        width=80,
+        border_style="gold1",
+    )
+    last_key: str = "accepted" if verbose_level == 1 else "vulnerabilities"
+    report_table.add_column("Key", style="cyan")
+    report_table.add_column("Value")
+    findings = report["findings"]
+    for find in findings:
+        for key, value in find.items():
+            report_table.add_row(
+                key, styles(key, str(value)), end_section=(key == last_key)
+            )
+    return report_table
 
 
 async def generate_report_log(
@@ -88,7 +140,7 @@ async def generate_report_log(
                 if vuln["state"] == "open"
             ]
     elif verbose_level == 3:
-        # Filter level 4, only show open and closed vulnerabilities
+        # Filter level 3, only show open and closed vulnerabilities
         for finding in report["findings"]:
             finding["vulnerabilities"] = [
                 vuln
