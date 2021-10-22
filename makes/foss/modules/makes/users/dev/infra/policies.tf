@@ -3,39 +3,35 @@ locals {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid    = "iamRead"
+        Sid    = "read"
         Effect = "Allow"
         Action = [
+          "application-autoscaling:Describe*",
+          "backup:Describe*",
+          "backup:Get*",
+          "backup:List*",
+          "cloudwatch:Describe*",
+          "cloudwatch:Get*",
+          "cloudwatch:List*",
+          "dynamodb:DescribeContinuousBackups",
+          "dynamodb:DescribeTable",
+          "dynamodb:DescribeTimeToLive",
+          "dynamodb:ListTagsOfResource",
+          "ec2:Describe*",
+          "ec2:Get*",
+          "elasticache:Describe*",
+          "elasticache:List*",
           "iam:Get*",
           "iam:List*",
-        ]
-        Resource = ["*"]
-      },
-      {
-        Sid    = "s3Read"
-        Effect = "Allow"
-        Action = [
-          "s3:Get*",
-          "s3:List*",
-        ]
-        Resource = ["*"]
-      },
-      {
-        Sid    = "lambdaRead"
-        Effect = "Allow"
-        Action = [
-          "lambda:Get*",
-          "lambda:List*",
-        ]
-        Resource = ["*"]
-      },
-      {
-        Sid    = "kmsRead"
-        Effect = "Allow"
-        Action = [
           "kms:Describe*",
           "kms:Get*",
           "kms:List*",
+          "lambda:Get*",
+          "lambda:List*",
+          "sts:Decode*",
+          "sts:Get*",
+          "s3:Get*",
+          "s3:List*",
         ]
         Resource = ["*"]
       },
@@ -62,9 +58,7 @@ locals {
           "dynamodb:GetItem",
           "dynamodb:PutItem",
         ]
-        Resource = [
-          "arn:aws:dynamodb:us-east-1:205810638802:table/terraform_state_lock",
-        ]
+        Resource = ["arn:aws:dynamodb:us-east-1:205810638802:table/terraform_state_lock"]
       },
     ]
   }
