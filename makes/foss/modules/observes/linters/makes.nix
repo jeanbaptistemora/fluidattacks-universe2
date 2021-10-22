@@ -203,7 +203,7 @@
       };
       observesServiceMigrateTables = {
         searchPaths.source = [
-          inputs.product.observes-env-service-migrate-tables-runtime
+          outputs."/observes/env/service-migrate-tables/runtime"
         ];
         python = "3.8";
         src = "/observes/services/migrate_tables/migrate_tables";

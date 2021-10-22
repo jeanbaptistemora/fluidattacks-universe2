@@ -1,29 +1,30 @@
 { makePythonPypiEnvironment
 , makeTemplate
 , inputs
-, outputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/singer/streamer_zoho_crm";
+  self = projectPath "/observes/common/postgres_client";
 in
 makeTemplate {
-  name = "observes-env-streamer-zoho-crm-runtime";
+  name = "observes-env-postgres-client-runtime";
   searchPaths = {
     pythonMypy = [
       self
+    ];
+    bin = [
+      inputs.nixpkgs.postgresql
     ];
     pythonPackage = [
       self
     ];
     source = [
       (makePythonPypiEnvironment {
-        name = "observes-env-streamer-zoho-crm-runtime";
+        name = "observes-env-postgres-client-development";
+        searchPaths.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/observes/env/postgres-client/runtime"
-      inputs.product.observes-env-singer-io-runtime
       inputs.product.observes-env-utils-logger-runtime
     ];
   };

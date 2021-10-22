@@ -1,28 +1,27 @@
-{ makes
+{ makePythonPypiEnvironment
 , makeTemplate
-, packages
-, path
+, outputs
+, projectPath
 , ...
 }:
-with packages.observes.env;
 let
-  self = path "/observes/services/migrate_tables";
+  self = projectPath "/observes/services/migrate_tables";
 in
 makeTemplate {
   name = "observes-env-service-migrate-tables-runtime";
   searchPaths = {
-    envMypyPaths = [
+    pythonMypy = [
       self
     ];
-    envPythonPaths = [
+    pythonPackage = [
       self
     ];
-    envSources = [
-      (makes.makePythonPypiEnvironment {
+    source = [
+      (makePythonPypiEnvironment {
         name = "observes-env-service-migrate-tables-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      postgres-client.runtime
+      outputs."/observes/env/postgres-client/runtime"
     ];
   };
 }

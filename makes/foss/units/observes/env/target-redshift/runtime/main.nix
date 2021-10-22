@@ -18,7 +18,7 @@ makeTemplate {
     ];
     source = [
       outputs."/observes/env/target-redshift/runtime/python"
-      inputs.product.observes-env-postgres-client-runtime
+      outputs."/observes/env/postgres-client/runtime"
       inputs.product.observes-env-singer-io-runtime
       inputs.product.observes-env-utils-logger-runtime
     ];

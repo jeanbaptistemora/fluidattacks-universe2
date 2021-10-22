@@ -1,6 +1,6 @@
 { makePythonPypiEnvironment
 , makeTemplate
-, inputs
+, outputs
 , ...
 }:
 makeTemplate {
@@ -11,7 +11,7 @@ makeTemplate {
         name = "observes-env-postgres-client-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      inputs.product.observes-env-postgres-client-runtime
+      outputs."/observes/env/postgres-client/runtime"
     ];
   };
 }
