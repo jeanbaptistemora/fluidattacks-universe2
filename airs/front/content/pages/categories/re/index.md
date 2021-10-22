@@ -1,12 +1,29 @@
 ---
 slug: categories/re/
 title: RE
-description: Here at Fluid Attacks, we also use the technique of Reverse Engineering (RE) to detect security flaws, mainly when the source code is not available.
-keywords: Fluid Attacks, Techniques, RE, Reverse, Engineering, Security, Testing, Ethical Hacking
+description: Here at Fluid Attacks, we also use the technique of
+  Reverse Engineering (RE) to detect security flaws,
+  mainly when the source code is not available.
+keywords: Fluid Attacks, Techniques, RE, Reverse,
+  Engineering, Security, Testing, Ethical Hacking
 banner: re-bg
 template: category
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619634638/airs/categories/cover-sre_o0pqhq.webp
-definition: Fluid Attacks’ Reverse Engineering (RE) is an outside-in process of deconstructing software, performed by our certified, experienced hackers. They employ this technique, which goes from an overview to an in-depth observation, to analyze and obtain knowledge about your applications’ flaws or vulnerabilities. Although they need to use disassemblers, debuggers and decompilers, this complicated process relies mostly on their skills and creativity. It cannot merely be done by automated tools. RE usually starts with static methods to recognize components, functions and other basic information, and finishes with dynamic ones (using techniques like sandboxing and symbolic execution), more oriented towards focused experimentation to confirm/discard software operation hypotheses. All this can help our hackers understand how difficult it is to hack into your applications or systems and then develop more elaborate attacks to report your cybersecurity weaknesses.
+definition: Fluid Attacks’ Reverse Engineering (RE) is an outside-in process
+  of deconstructing software, performed by our certified, experienced hackers.
+  They employ this technique, which goes from an overview
+  to an in-depth observation, to analyze and obtain knowledge
+  about your applications’ flaws or vulnerabilities. Although they need
+  to use disassemblers, debuggers and decompilers, this complicated process
+  relies mostly on their skills and creativity. It cannot merely be done
+  by automated tools. RE usually starts with static methods
+  to recognize components, functions and other basic information,
+  and finishes with dynamic ones (using techniques like sandboxing
+  and symbolic execution), more oriented towards focused experimentation
+  to confirm/discard software operation hypotheses. All this can help
+  our hackers understand how difficult it is to hack into your applications
+  or systems and then develop more elaborate attacks
+  to report your cybersecurity weaknesses.
 ---
 
 <div class="sect2">
