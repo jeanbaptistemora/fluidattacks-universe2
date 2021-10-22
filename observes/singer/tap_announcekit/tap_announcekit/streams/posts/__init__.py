@@ -29,7 +29,7 @@ from tap_announcekit.streams.posts._factory import (
 
 
 @dataclass(frozen=True)
-class PostsStreams:
+class PostStreams:
     client: ApiClient
     _name: str = "posts"
 

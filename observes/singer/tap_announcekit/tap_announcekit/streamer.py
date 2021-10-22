@@ -21,16 +21,15 @@ from tap_announcekit.api import (
 )
 from tap_announcekit.objs.id_objs import (
     PostId,
+    ProjectId,
 )
 from tap_announcekit.stream import (
     StreamEmitter,
     StreamEmitterFactory,
 )
-from tap_announcekit.streams.posts import (
-    PostsStreams,
-)
-from tap_announcekit.streams.project import (
-    ProjectId,
+from tap_announcekit.streams import (
+    PostContentStreams,
+    PostStreams,
     ProjectStreams,
 )
 from typing import (
@@ -52,6 +51,7 @@ class AutoName(Enum):
 class SupportedStream(AutoName):
     PROJECTS = auto()
     POSTS = auto()
+    POST_CONTENTS = auto()
     ALL = auto()
 
 
@@ -81,7 +81,12 @@ class Streamer(_Streamer):
         )
 
     def stream_posts(self, ids: PureIter[PostId]) -> IO[None]:
-        streams = PostsStreams(self.client)
+        streams = PostStreams(self.client)
+        stream = streams.stream(ids)
+        return self.emitter.emit(stream)
+
+    def stream_post_contents(self, ids: PureIter[PostId]) -> IO[None]:
+        streams = PostContentStreams(self.client)
         stream = streams.stream(ids)
         return self.emitter.emit(stream)
 
@@ -93,8 +98,18 @@ class Streamer(_Streamer):
     def start(self) -> IO[None]:
         if self.selection in (SupportedStream.PROJECTS, SupportedStream.ALL):
             self.stream_proj()
-        if self.selection in (SupportedStream.POSTS, SupportedStream.ALL):
-            streams = PostsStreams(self.client)
+        if self.selection in (
+            SupportedStream.POSTS,
+            SupportedStream.POST_CONTENTS,
+            SupportedStream.ALL,
+        ):
+            streams = PostStreams(self.client)
             ids_io = streams.ids(self.proj)
-            ids_io.map(self.stream_posts)
+            if self.selection in (SupportedStream.POSTS, SupportedStream.ALL):
+                ids_io.map(self.stream_posts)
+            if self.selection in (
+                SupportedStream.POST_CONTENTS,
+                SupportedStream.ALL,
+            ):
+                ids_io.map(self.stream_post_contents)
         return IO(None)

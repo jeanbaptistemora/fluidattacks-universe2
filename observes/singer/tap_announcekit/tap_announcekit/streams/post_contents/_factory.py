@@ -29,6 +29,8 @@ from typing import (
     List,
 )
 
+_to_primitive = PrimitiveFactory.to_primitive
+
 
 @dataclass(frozen=True)
 class PostContentQuery:
@@ -46,19 +48,14 @@ class PostContentQuery:
         return QueryFactory.select(self._select_fields)
 
 
-JsonStr = str
-to_primitive = PrimitiveFactory.to_primitive
-to_opt_primitive = PrimitiveFactory.to_opt_primitive
-
-
-def _from_raw(proj: ProjectId, raw: RawPostContent) -> PostContent:
+def from_raw(proj: ProjectId, raw: RawPostContent) -> PostContent:
     return PostContent(
-        PostId.from_any(proj, raw.post_id),
-        to_primitive(raw.locale_id, str),
-        to_primitive(raw.title, str),
-        to_primitive(raw.body, str),
-        to_primitive(raw.slug, str),
-        to_primitive(raw.url, str),
+        PostId.from_any(proj.proj_id, raw.post_id),
+        _to_primitive(raw.locale_id, str),
+        _to_primitive(raw.title, str),
+        _to_primitive(raw.body, str),
+        _to_primitive(raw.slug, str),
+        _to_primitive(raw.url, str),
     )
 
 
@@ -70,7 +67,7 @@ class PostContentFactory:
         query = PostContentQuery(pid).query()
         return self.client.get(query).map(
             lambda q: tuple(
-                _from_raw(pid.proj, i)
+                from_raw(pid.proj, i)
                 for i in cast(List[RawPostContent], q.post.contents)
             )
         )

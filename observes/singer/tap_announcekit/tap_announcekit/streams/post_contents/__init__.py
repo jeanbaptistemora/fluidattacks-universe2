@@ -24,7 +24,7 @@ from tap_announcekit.streams.post_contents._factory import (
 
 
 @dataclass(frozen=True)
-class PostContentsStream:
+class PostContentStreams:
     client: ApiClient
     _name: str = "post_contents"
 

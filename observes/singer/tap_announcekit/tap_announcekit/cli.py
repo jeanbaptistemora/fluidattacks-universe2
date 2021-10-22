@@ -11,12 +11,12 @@ from tap_announcekit.api.cli import (
     get_api_schema,
     update_schema,
 )
+from tap_announcekit.objs.id_objs import (
+    ProjectId,
+)
 from tap_announcekit.streamer import (
     Streamer,
     SupportedStream,
-)
-from tap_announcekit.streams.project import (
-    ProjectId,
 )
 
 

@@ -10,9 +10,6 @@ from tap_announcekit.api.client import (
 from tap_announcekit.objs.id_objs import (
     ProjectId,
 )
-from tap_announcekit.objs.project import (
-    Project,
-)
 from tap_announcekit.stream import (
     StreamFactory,
     StreamIO,
@@ -39,9 +36,3 @@ class ProjectStreams:
             ProjectGetters(self.client).getter(),
             proj_ids,
         )
-
-
-__all__ = [
-    "Project",
-    "ProjectId",
-]
