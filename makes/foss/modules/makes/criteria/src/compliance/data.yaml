@@ -2298,7 +2298,7 @@
       title: XML External Entities (XXE)
       link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
     "A5":
-      title: Broken Access Control
+      title: Injection
       link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
     "A6":
       title: Security Misconfiguration
