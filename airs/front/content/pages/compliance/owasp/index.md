@@ -15,29 +15,36 @@ template: compliance
 
 ### How can Fluid Attacks help with OWASP compliance?
 
-Ensuring compliance with up-to-date security standards may become a
-complicated issue for diverse organizations that use continually
-evolving information technology for their businesses. Fluid Attacks
-recognizes this and offers you comprehensive testing and analysis to
-determine whether your company is effectively complying with all
-corresponding security requirements.
+Ensuring compliance with up-to-date security standards
+may become a complicated issue
+for diverse organizations that use
+continually evolving information technology for their businesses.
+`Fluid Attacks` recognizes this
+and offers you comprehensive testing and analysis
+to determine whether your company is effectively complying
+with all the corresponding security requirements.
 
-Although Fluid Attacks’ [Continuous
-Hacking](../../services/continuous-hacking/) service goes beyond the
-OWASP Top 10 Web Application Security Risk, testing around 200 technical
-security requirements in each of your projects, we can guarantee the
-detection of all vulnerabilities in your software associated with such
-risks. In addition, we provide you with reliable reports so that your
-team can take the necessary steps to adjust and maintain your
-information systems in line with such requirements.
+`Fluid Attacks'` [Continuous
+Hacking](../../services/continuous-hacking/) service tests
+around 200 technical security requirements in each of your projects.
+These requirements include preventing
+OWASP Top 10 Web Application Security Risks.
+We guarantee the detection
+of all vulnerabilities in your software associated with such risks.
+In addition,
+we provide you with reliable reports
+so that your team can take the necessary steps
+to adjust
+and maintain your information systems in line with OWASP requirements.
 
 All our security testing is based on
 [Criteria](https://docs.fluidattacks.com/criteria/), which is a set of
-security requirements written by us in a comprehensible manner, using
-several international standards as a reference. It allows you to
-parameterize the assessments we make to your systems and determine what
-your company agrees to comply with and what would be considered a
-vulnerability.
+security requirements written by us in a comprehensible manner,
+using several international standards as a reference.
+It allows you to
+parameterize the assessments we make to your systems and determine
+what your company agrees to comply with
+and what would be considered a vulnerability.
 
 </div>
 
@@ -46,14 +53,21 @@ vulnerability.
 ### What is the OWASP?
 
 The Open Web Application Security Project ([OWASP](https://owasp.org/)),
-of which Fluid Attacks is a corporate member, is a non-profit foundation
-that through different means of communication is committed to improving
-the security of software. The OWASP works as an online, open community
-where anyone can contribute to the production of material in the field
-of web application security and also take advantage of the available
-information. Their repository is useful for companies that develop or
-manage web applications, since it relies on the knowledge of many global
-community members with extensive experience in cybersecurity.
+of which `Fluid Attacks` [is a corporate member](https://owasp.org/supporters/list),
+is a non-profit foundation
+that is committed to improving the security of software
+and it does so
+by creating awareness through different means of communication.
+The OWASP works as an online,
+open community
+where anyone can contribute to the production of material
+in the field of web application security
+and also take advantage of the available information.
+Their repository is useful for companies
+that develop or manage web applications,
+since it relies on the knowledge
+of many global community members
+with extensive experience in cybersecurity.
 
 </div>
 
@@ -61,143 +75,157 @@ community members with extensive experience in cybersecurity.
 
 ### What is the OWASP Top 10?
 
-The OWASP Top 10 refers to a cybersecurity guide by the OWASP community
-that is created in agreement between experts and serves both developers
-and security professionals in their projects. This guide, with a
-[current version
-from 2017](https://owasp.org/www-project-top-ten/2017/​), lists the
-ten most common and critical security risks in web applications and
-provides practical information for their prevention or remediation.
+The OWASP Top 10 refers to a cybersecurity guide
+by the OWASP community
+that is created as a collaborative effort between experts
+and serves both developers
+and security professionals in their projects.
+This guide,
+with a [current version](https://owasp.org/Top10/) from 2021,
+lists the ten most common and critical security risks in web applications
+and provides practical information for their prevention or remediation.
 
-The idea with this ranking is to help reduce the presence of flaws in
-web applications that can be easily exploited and generate terrible
-impact. Organizations should always be careful not to bring into
-production applications with vulnerabilities related to these security
-risks, making sure to pay attention to the most prevalent risks in their
-specific industry sector. Here we show you the current list of risks
-with a brief description of each one (for more information see the
-[official report](https://owasp.org/www-project-top-ten/2017/)):
+The idea with this ranking is to help reduce
+the presence of flaws in web applications
+that can be easily exploited
+and generate terrible impact.
+Organizations should always be careful
+not to bring into production
+applications with vulnerabilities related to these security risks,
+making sure to pay attention to the most prevalent risks
+in their specific industry sector.
+Here we show you the current list of risks
+with a brief description of each one (for more information see
+the [official report](https://owasp.org/Top10/)):
 
 <div class="sect3 owasp-col fl">
 
-#### 1. Injection
+#### 1. Broken Access Control
 
-[A code
-injection](https://owasp.org/www-project-top-ten/2017/A1_2017-Injection)
-occurs when an application does not properly validate or sanitize input
-and this can be leveraged to make it process the input as code.
+Web applications need to establish limits for access to data
+and functions
+depending on the type of user.
+When that is not done properly,
+attackers can [circumvent misconfigured](https://owasp.org/Top10/A01_2021-Broken_Access_Control/)
+(sometimes simply non-existent) access restrictions
+and operate as any user, including administrators.
 
 </div>
 
 <div class="sect3 owasp-col fr">
 
-#### 2. Broken Authentication
+#### 2. Cryptographic Failures
 
-[Attackers can
-take](https://owasp.org/www-project-top-ten/2017/A2_2017-Broken_Authentication)
-advantage of misconfigured session authentication and management
-functions in the applications and compromise passwords, sessions, and
-even entire systems.
-
-</div>
-
-<div class="sect3 owasp-col fl">
-
-#### 3. Sensitive Data Exposure
-
-[This problem
-occurs](https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure)
-when applications do not have sufficient protection for sensitive data
-(e.g., financial data), leaving it publicly accessible or without
-adequate access controls that prevent attackers from obtaining it for
-illegal activities.
-
-</div>
-
-<div class="sect3 owasp-col fr">
-
-#### 4. XML External Entities (XXE)
-
-[In this
-case](https://owasp.org/www-project-top-ten/2017/A4_2017-XML_External_Entities_\(XXE\)),
-attackers exploit weak configurations in a web application that parses
-XML input but does not properly handle references to external entities,
-which can be used to exfiltrate documents, execute code remotely or
-perform denial-of-service attacks.
+[This problem](https://owasp.org/Top10/A02_2021-Cryptographic_Failures/) occurs
+when applications fail
+to protect data with adequate and modern encryption techniques or algorithms,
+use weak or predictable encoding for passwords
+or do not have sufficient protection for sensitive data (e.g., financial data).
+It leaves information assets easily accessible for attackers
+that can obtain them for illegal activities.
 
 </div>
 
 <div class="sect3 owasp-col fl">
 
-#### 5. Broken Access Control
+#### 3. Injection
 
-[Web applications
-need](https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control)
-to establish limits for the access to data and functions depending on
-the type of user. Here, the attackers circumvent misconfigured
-(sometimes simply non-existent) access restrictions and can operate as
-any user, including administrators.
+A code [injection](https://owasp.org/Top10/A03_2021-Injection/) occurs
+when an application does not properly validate
+or sanitize user-supplied input
+and this can be leveraged
+to make it process the input as code.
 
 </div>
 
 <div class="sect3 owasp-col fr">
 
-#### 6. Security Misconfiguration
+#### 4. Insecure Design
 
-[This misconfiguration
-refers](https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration)
-to the inappropriate implementation of controls for the application’s
-security, resulting in the exposure of error messages containing
-sensitive data and the use of non-updated systems or components.
+[This risk](https://owasp.org/Top10/A04_2021-Insecure_Design/) refers
+to a lack of security controls to defend against attacks
+and failure to establish a secure development lifecycle.
 
 </div>
 
 <div class="sect3 owasp-col fl">
 
-#### 7. Cross-Site Scripting XSS
+#### 5. Security Misconfiguration
 
-[Attackers can
-inject](https://owasp.org/www-project-top-ten/2017/A7_2017-Cross-Site_Scripting_\(XSS\))
-client-side scripts into the web application to change its behavior,
-modify what is displayed to the users or redirect the users to malicious
-websites.
+[This category](https://owasp.org/Top10/A05_2021-Security_Misconfiguration/) refers
+to the inappropriate configuration of the application’s components,
+leaving things like default accounts
+or unnecessary features enabled
+or allowing overly informative error messages to be returned to users.
+Attackers can gain access through these accounts or features
+or attempt to exploit unpatched flaws
+inferred from the information exposed in error messages.
 
 </div>
 
 <div class="sect3 owasp-col fr">
 
-#### 8. Insecure Deserialization
+#### 6. Vulnerable and Outdated Components
 
-[Deserialization](https://owasp.org/www-project-top-ten/2017/A8_2017-Insecure_Deserialization)
-process to serialization, consists in converting strings of bytes into
-data structures that the application can use. Deserialization weaknesses
-allow the attacker to execute code in the web application remotely and
-manipulate serialized objects as desired.
+Web applications commonly use various open-source
+and third-party components
+in which vulnerabilities are sometimes found
+and need to be patched.
+[Keeping outdated versions](https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/) 
+of those components with known vulnerabilities
+leads to having an application exposed to exploitation.
 
 </div>
 
 <div class="sect3 owasp-col fl">
 
-#### 9. Using Components with Known Vulnerabilities
+#### 7. Identification and Authentication Failures
 
-[Web applications
-commonly](https://owasp.org/www-project-top-ten/2017/A9_2017-Using_Components_with_Known_Vulnerabilities)
-use various open-source and third-party components in which
-vulnerabilities are sometimes found and need to be patched. Keeping
-outdated versions of those components with known vulnerabilities leads
-to having an application exposed to exploitation.
+Attackers can take advantage of [vulnerabilities related to](https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/) custom authentication schemes,
+exposure and reuse of session identifiers,
+as well as non-existent password policy
+to gain access to user accounts and compromise the system.
 
 </div>
 
 <div class="sect3 owasp-col fr">
 
-#### 10. Insufficient Logging & Monitoring
+#### 8. Software and Data Integrity Failures
 
-[Many companies
-do](https://owasp.org/www-project-top-ten/2017/A10_2017-Insufficient_Logging%2526Monitoring)
-not frequently log and monitor their applications’ activities. Usually,
-data breaches are detected after months, when the attackers have already
-done a lot of damage.
+[This](https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/) occurs
+when the software used to develop the application
+is not checked to come from a trusted source
+and have digital signatures
+or when unencrypted serialized data is sent
+without some form of integrity check.
+This heightens the risk of malicious code or data
+being introduced into the software pipeline.
+
+</div>
+
+<div class="sect3 owasp-col fl">
+
+#### 9. Security Logging and Monitoring Failures
+
+When applications [do not sufficiently log](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/)
+issues and events within them
+or do not create usable logs
+or these logs are not sufficiently monitored,
+data breaches might not be detected until months later
+when attackers have already done a lot of damage.
+
+</div>
+
+<div class="sect3 owasp-col fr">
+
+#### 10. Server-Side Request Forgery (SSRF)
+
+[These flaws](https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/) occur
+whenever an application does not validate the user-supplied URL
+when fetching a remote resource.
+This allows the attacker
+to coerce the application
+to send a crafted request to an unexpected destination.
 
 </div>
 
@@ -207,9 +235,10 @@ done a lot of damage.
 
 ### OWASP Benchmark Project v1.2
 
-Our SAST tool achieved the best possible result against the OWASP
-Benchmark: A TPR (True Positive Rate) of 100% and an FPR (False Positive
-Rate) of 0%.
+Our SAST tool achieved the best possible result
+against the OWASP Benchmark:
+A TPR (True Positive Rate) of 100%
+and an FPR (False Positive Rate) of 0%.
 
 ![OWASP benchmark
 clnlip](https://res.cloudinary.com/fluid-attacks/image/upload/v1619725547/airs/compliance/OWASP_benchmark_clnlip.webp)
