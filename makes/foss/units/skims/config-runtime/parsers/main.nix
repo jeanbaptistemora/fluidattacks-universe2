@@ -22,6 +22,7 @@ makeDerivation {
     envTreeSitterJavaScript = inputs.skimsTreeSitterJavaScript;
     envTreeSitterKotlin = inputs.skimsTreeSitterKotlin;
     envTreeSitterPhp = inputs.skimsTreeSitterPhp;
+    envTreeSitterRuby = inputs.skimsTreeSitterRuby;
     envTreeSitterTsx = inputs.skimsTreeSitterTsx;
   };
 }

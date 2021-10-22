@@ -13,6 +13,7 @@ GRAMMARS: Dict[str, str] = dict(
     javascript=os.environ["envTreeSitterJavaScript"],
     kotlin=os.environ["envTreeSitterKotlin"],
     php=os.environ["envTreeSitterPhp"],
+    ruby=os.environ["envTreeSitterRuby"],
     tsx=os.path.join(os.environ["envTreeSitterTsx"], "tsx"),
 )
 
