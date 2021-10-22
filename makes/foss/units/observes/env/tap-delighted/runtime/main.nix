@@ -1,6 +1,5 @@
 { makePythonPypiEnvironment
 , makeTemplate
-, inputs
 , outputs
 , projectPath
 , ...
@@ -23,8 +22,8 @@ makeTemplate {
         sourcesYaml = ./pypi-sources.yaml;
       })
       outputs."/observes/env/paginator/runtime"
-      inputs.product.observes-env-singer-io-runtime
-      inputs.product.observes-env-utils-logger-runtime
+      outputs."/observes/env/singer-io/runtime"
+      outputs."/observes/env/utils-logger/runtime"
     ];
   };
 }

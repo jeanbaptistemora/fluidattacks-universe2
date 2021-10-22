@@ -1,5 +1,4 @@
-{ inputs
-, makeSearchPaths
+{ makeSearchPaths
 , outputs
 , projectPath
 , ...
@@ -140,14 +139,14 @@
       };
       observesCommonPurity = {
         searchPaths.source = [
-          inputs.product.observes-env-purity-runtime
+          outputs."/observes/env/purity/runtime"
         ];
         python = "3.8";
         src = "/observes/common/purity/purity";
       };
       observesCommonPurityTests = {
         searchPaths.source = [
-          inputs.product.observes-env-purity-runtime
+          outputs."/observes/env/purity/runtime"
         ];
         python = "3.8";
         src = "/observes/common/purity/tests";

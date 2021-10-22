@@ -1,6 +1,7 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
-, inputs
+, outputs
 , projectPath
 , ...
 }:
@@ -25,7 +26,7 @@ makeTemplate {
         searchPaths.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
         sourcesYaml = ./pypi-sources.yaml;
       })
-      inputs.product.observes-env-utils-logger-runtime
+      outputs."/observes/env/utils-logger/runtime"
     ];
   };
 }

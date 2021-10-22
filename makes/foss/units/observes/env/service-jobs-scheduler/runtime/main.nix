@@ -1,5 +1,4 @@
-{ inputs
-, makePythonPypiEnvironment
+{ makePythonPypiEnvironment
 , makeTemplate
 , outputs
 , projectPath
@@ -37,7 +36,7 @@ makeTemplate {
         name = "observes-env-service-jobs-scheduler-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      inputs.product.observes-env-utils-logger-runtime
+      outputs."/observes/env/utils-logger/runtime"
     ];
   };
 }

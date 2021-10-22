@@ -1,6 +1,6 @@
-{ inputs
-, makePythonPypiEnvironment
+{ makePythonPypiEnvironment
 , makeTemplate
+, outputs
 , ...
 }:
 makeTemplate {
@@ -11,7 +11,7 @@ makeTemplate {
         name = "observes-env-singer-io-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      inputs.product.observes-env-singer-io-runtime
+      outputs."/observes/env/singer-io/runtime"
     ];
   };
 }

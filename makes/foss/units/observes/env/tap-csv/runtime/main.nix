@@ -1,6 +1,6 @@
-{ inputs
-, makePythonPypiEnvironment
+{ makePythonPypiEnvironment
 , makeTemplate
+, outputs
 , projectPath
 , ...
 }:
@@ -21,8 +21,8 @@ makeTemplate {
         name = "observes-env-tap-csv-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      inputs.product.observes-env-singer-io-runtime
-      inputs.product.observes-env-purity-runtime
+      outputs."/observes/env/singer-io/runtime"
+      outputs."/observes/env/purity/runtime"
     ];
   };
 }

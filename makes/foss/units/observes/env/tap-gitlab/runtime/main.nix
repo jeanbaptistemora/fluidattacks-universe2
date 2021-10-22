@@ -1,6 +1,5 @@
 { makePythonPypiEnvironment
 , makeTemplate
-, inputs
 , outputs
 , projectPath
 , ...
@@ -18,8 +17,8 @@ makeTemplate {
       })
       outputs."/observes/env/paginator/runtime"
       outputs."/observes/env/postgres-client/runtime"
-      inputs.product.observes-env-singer-io-runtime
-      inputs.product.observes-env-utils-logger-runtime
+      outputs."/observes/env/singer-io/runtime"
+      outputs."/observes/env/utils-logger/runtime"
     ];
   };
 }

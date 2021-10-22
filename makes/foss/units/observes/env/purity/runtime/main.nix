@@ -1,22 +1,22 @@
-{ makes
+{ makePythonPypiEnvironment
 , makeTemplate
-, path
+, projectPath
 , ...
 }:
 let
-  self = path "/observes/common/purity";
+  self = projectPath "/observes/common/purity";
 in
 makeTemplate {
   name = "observes-env-purity-runtime";
   searchPaths = {
-    envMypyPaths = [
+    pythonMypy = [
       self
     ];
-    envPythonPaths = [
+    pythonPackage = [
       self
     ];
-    envSources = [
-      (makes.makePythonPypiEnvironment {
+    source = [
+      (makePythonPypiEnvironment {
         name = "observes-env-purity-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
