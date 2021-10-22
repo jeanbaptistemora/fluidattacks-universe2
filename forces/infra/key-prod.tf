@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "key-forces-production" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user_provision/forces_prod",
       ]
     }
@@ -93,7 +93,7 @@ data "aws_iam_policy_document" "key-forces-production" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/makes_prod",
       ]
     }
     actions = [

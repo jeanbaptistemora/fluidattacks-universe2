@@ -22,6 +22,8 @@ data "aws_iam_policy_document" "key-forces-dev" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user_provision/forces_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
       ]
     }
     actions = [
@@ -52,6 +54,8 @@ data "aws_iam_policy_document" "key-forces-dev" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user_provision/forces_dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
       ]
     }
     actions = [
@@ -73,6 +77,8 @@ data "aws_iam_policy_document" "key-forces-dev" {
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user_provision/forces_dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user_provision/forces_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
       ]
     }
     actions = [
@@ -94,6 +100,8 @@ data "aws_iam_policy_document" "key-forces-dev" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user_provision/forces_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
       ]
     }
     actions = [
