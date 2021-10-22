@@ -85,11 +85,6 @@ class Streamer(_Streamer):
         stream = streams.stream(ids)
         return self.emitter.emit(stream)
 
-    def stream_post_contents(self, ids: PureIter[PostId]) -> IO[None]:
-        streams = PostContentStreams(self.client)
-        stream = streams.stream(ids)
-        return self.emitter.emit(stream)
-
     def stream_proj(self) -> IO[None]:
         streams = ProjectStreams(self.client)
         stream = streams.stream(PureIterFactory.from_flist((self.proj,)))
@@ -111,5 +106,5 @@ class Streamer(_Streamer):
                 SupportedStream.POST_CONTENTS,
                 SupportedStream.ALL,
             ):
-                ids_io.map(self.stream_post_contents)
+                ids_io.bind(PostContentStreams(self.client, self.emitter).emit)
         return IO(None)
