@@ -3327,7 +3327,7 @@
     - "012.V5_5_2"
     - "012.V14_1_2"
     - "013.A4"
-    - "013.A6"
+    - "013.A5"
     - "013.A8"
     - "014.6_5_2"
   metadata: {}
@@ -3535,7 +3535,7 @@
       vulnerabilidades.
   category: Source
   references:
-    - "013.A6"
+    - "013.A5"
   metadata: {}
 "162":
   en:
@@ -4609,7 +4609,7 @@
     description: __empty__
   category: Devices
   references:
-    - "013.A6"
+    - "013.A5"
   metadata: {}
 "206":
   en:
@@ -4638,7 +4638,7 @@
     description: __empty__
   category: Devices
   references:
-    - "013.A6"
+    - "013.A5"
   metadata: {}
 "209":
   en:
