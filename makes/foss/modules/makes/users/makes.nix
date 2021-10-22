@@ -1,13 +1,13 @@
 {
   imports = [
     ./dev/makes.nix
-    ./forces/makes.nix
     ./integrates/makes.nix
     ./makes/makes.nix
     ./melts/makes.nix
     ./observes/makes.nix
     ./prod/airs/makes.nix
     ./prod/docs/makes.nix
+    ./prod/forces/makes.nix
     ./services/makes.nix
     ./skims/makes.nix
     ./sorts/makes.nix
