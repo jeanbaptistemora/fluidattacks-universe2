@@ -1,0 +1,26 @@
+src.lib_path.f200.has_logging_disabled:
+  en: Missing 'Logging' property to make traceability.
+  es: Falta la propiedad 'Logging' para hacer trazabilidad
+F200.title:
+  en: >
+    Traceability loss
+  es: >
+    Traceability loss
+F200.description:
+  en: >
+    __empty__
+  es: >
+    __empty__
+F200.impact:
+  en: |
+    __empty__
+  es: >
+    __empty__
+F200.recommendation:
+  en: >
+    __empty__
+  es: >
+    __empty__
+F200.threat:
+  en: __empty__
+  es: __empty__
