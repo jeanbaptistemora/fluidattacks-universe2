@@ -343,7 +343,7 @@
       };
       observesServiceTimedoctorTokens = {
         searchPaths.source = [
-          inputs.product.observes-env-service-timedoctor-tokens-runtime
+          outputs."/observes/env/service-timedoctor-tokens/runtime"
         ];
         python = "3.8";
         src = "/observes/services/timedoctor_tokens/timedoctor_tokens";

@@ -9,4 +9,3 @@ makes.kill-port
 makes.kill-tree
 makes.wait
 melts
-observes.bin.update-project-variable
