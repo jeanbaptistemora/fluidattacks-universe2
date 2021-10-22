@@ -5,10 +5,10 @@
 , ...
 }:
 let
-  self = projectPath "/observes/singer/tap_mailchimp";
+  self = projectPath "/observes/singer/target_redshift";
 in
 makeTemplate {
-  name = "observes-env-tap-mailchimp-runtime";
+  name = "observes-env-target-redshift-runtime";
   searchPaths = {
     pythonMypy = [
       self
@@ -17,9 +17,9 @@ makeTemplate {
       self
     ];
     source = [
-      outputs."/observes/env/tap-mailchimp/runtime/python"
+      outputs."/observes/env/target-redshift/runtime/python"
+      inputs.product.observes-env-postgres-client-runtime
       inputs.product.observes-env-singer-io-runtime
-      outputs."/observes/env/paginator/runtime"
       inputs.product.observes-env-utils-logger-runtime
     ];
   };

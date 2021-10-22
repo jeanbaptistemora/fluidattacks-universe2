@@ -1,6 +1,7 @@
 { makePythonPypiEnvironment
 , makeTemplate
 , inputs
+, outputs
 , projectPath
 , ...
 }:
@@ -21,7 +22,7 @@ makeTemplate {
         name = "observes-env-tap-announcekit-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      inputs.product.observes-env-paginator-runtime
+      outputs."/observes/env/paginator/runtime"
       inputs.product.observes-env-purity-runtime
       inputs.product.observes-env-singer-io-runtime
       inputs.product.observes-env-utils-logger-runtime

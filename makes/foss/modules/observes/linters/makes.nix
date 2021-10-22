@@ -336,7 +336,7 @@
       };
       observesTargetRedshift = {
         searchPaths.source = [
-          inputs.product.observes-env-target-redshift-runtime
+          outputs."/observes/env/target-redshift/runtime"
         ];
         python = "3.8";
         src = "/observes/singer/target_redshift/target_redshift";

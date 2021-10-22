@@ -1,27 +1,27 @@
-{ makes
+{ makePythonPypiEnvironment
 , makeTemplate
-, packages
-, path
+, inputs
+, projectPath
 , ...
 }:
 let
-  self = path "/observes/common/paginator";
+  self = projectPath "/observes/common/paginator";
 in
 makeTemplate {
   name = "observes-env-paginator-runtime";
   searchPaths = {
-    envMypyPaths = [
+    pythonMypy = [
       self
     ];
-    envPythonPaths = [
+    pythonPackage = [
       self
     ];
-    envSources = [
-      (makes.makePythonPypiEnvironment {
+    source = [
+      (makePythonPypiEnvironment {
         name = "observes-env-paginator-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      packages.observes.env.purity.runtime
+      inputs.product.observes-env-purity-runtime
     ];
   };
 }

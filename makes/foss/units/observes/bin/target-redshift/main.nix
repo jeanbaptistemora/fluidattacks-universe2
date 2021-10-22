@@ -1,5 +1,4 @@
 { makeScript
-, inputs
 , outputs
 , ...
 }:
@@ -10,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      inputs.product.observes-env-target-redshift-runtime
+      outputs."/observes/env/target-redshift/runtime"
     ];
   };
   name = "observes-target-redshift";

@@ -1,6 +1,6 @@
 { makePythonPypiEnvironment
 , makeTemplate
-, inputs
+, outputs
 , ...
 }:
 makeTemplate {
@@ -11,7 +11,7 @@ makeTemplate {
         name = "observes-env-paginator-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      inputs.product.observes-env-paginator-runtime
+      outputs."/observes/env/paginator/runtime"
     ];
   };
 }
