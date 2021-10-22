@@ -314,17 +314,23 @@
         src = "/observes/singer/tap_mailchimp/tests";
       };
       observesTapMixpanel = {
-        searchPaths.source = [ inputs.product.observes-env-tap-mixpanel-development ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-mixpanel/development"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_mixpanel/tap_mixpanel";
       };
       observesTapMixpanelTests = {
-        searchPaths.source = [ inputs.product.observes-env-tap-mixpanel-development ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-mixpanel/development"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_mixpanel/tests";
       };
       observesTapTimedoctor = {
-        searchPaths.source = [ inputs.product.observes-env-tap-timedoctor-runtime ];
+        searchPaths.source = [
+          outputs."/observes/env/tap-timedoctor/runtime"
+        ];
         python = "3.8";
         src = "/observes/singer/tap_timedoctor/tap_timedoctor";
       };
