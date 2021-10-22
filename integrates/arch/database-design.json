@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 21, 2021, 10:10 AM",
+    "DateLastModified": "Oct 22, 2021, 11:44 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1800,6 +1800,34 @@
             "component",
             "entry_point",
             "unreliable_root_id"
+          ]
+        },
+        {
+          "FacetName": "machine_git_root_execution",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#uuid#FIN#finding_code#MACHINE",
+            "SortKeyAlias": "GROUP#name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#FIN#F112#MACHINE"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "queue_date": {
+                "S": "2020-11-19T13:37:10+00:00"
+              },
+              "job_id": {
+                "S": "5504e9ed-8e43-486d-830b-c495086d84c1"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "queue_date",
+            "job_id",
+            "finding_code"
           ]
         },
         {
@@ -7978,6 +8006,14 @@
           ]
         },
         {
+          "FacetName": "removed_finding_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "REMOVED#FIN#id",
+            "SortKeyAlias": "GROUP#group_name"
+          },
+          "TableData": []
+        },
+        {
           "FacetName": "vulnerability_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "VULN#uuid",
@@ -8022,15 +8058,15 @@
             }
           ],
           "NonKeyAttributes": [
-            "type",
-            "tags",
             "commit",
+            "custom_severity",
+            "hash",
             "repo",
-            "where",
             "specific",
             "stream",
-            "hash",
-            "custom_severity"
+            "tags",
+            "type",
+            "where"
           ]
         },
         {
@@ -8062,12 +8098,11 @@
             }
           ],
           "NonKeyAttributes": [
-            "status",
-            "modified_date",
-            "modified_by",
-            "source",
             "justification",
-            "approval_status"
+            "modified_by",
+            "modified_date",
+            "source",
+            "status"
           ]
         },
         {
@@ -8096,13 +8131,13 @@
             }
           ],
           "NonKeyAttributes": [
-            "status",
-            "modified_date",
-            "modified_by",
             "accepted_until",
-            "manager",
+            "acceptance_status",
             "justification",
-            "acceptance_status"
+            "manager",
+            "modified_by",
+            "modified_date",
+            "status"
           ]
         },
         {
@@ -8131,9 +8166,10 @@
             }
           ],
           "NonKeyAttributes": [
-            "status",
+            "comment_id",
+            "modified_by",
             "modified_date",
-            "modified_by"
+            "status"
           ]
         },
         {
@@ -8185,10 +8221,10 @@
             }
           ],
           "NonKeyAttributes": [
-            "status",
-            "modified_date",
+            "comment_id",
             "modified_by",
-            "comment_id"
+            "modified_date",
+            "status"
           ]
         },
         {
@@ -8220,12 +8256,11 @@
             }
           ],
           "NonKeyAttributes": [
-            "status",
-            "modified_date",
-            "modified_by",
-            "source",
             "justification",
-            "approval_status"
+            "modified_by",
+            "modified_date",
+            "source",
+            "status"
           ]
         },
         {
@@ -8254,13 +8289,13 @@
             }
           ],
           "NonKeyAttributes": [
-            "status",
-            "modified_date",
-            "modified_by",
             "accepted_until",
-            "manager",
+            "acceptance_status",
             "justification",
-            "acceptance_status"
+            "manager",
+            "modified_by",
+            "modified_date",
+            "status"
           ]
         },
         {
@@ -8289,9 +8324,10 @@
             }
           ],
           "NonKeyAttributes": [
-            "status",
+            "comment_id",
+            "modified_by",
             "modified_date",
-            "modified_by"
+            "status"
           ]
         },
         {
@@ -8323,46 +8359,10 @@
             }
           ],
           "NonKeyAttributes": [
-            "status",
-            "modified_date",
+            "comment_id",
             "modified_by",
-            "comment_id"
-          ]
-        },
-        {
-          "FacetName": "removed_finding_metadata",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "REMOVED#FIN#id",
-            "SortKeyAlias": "GROUP#group_name"
-          },
-          "TableData": []
-        },
-        {
-          "FacetName": "machine_git_root_execution",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid#FIN#finding_code#MACHINE",
-            "SortKeyAlias": "GROUP#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#FIN#F112#MACHINE"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "queue_date": {
-                "S": "2020-11-19T13:37:10+00:00"
-              },
-              "job_id": {
-                "S": "5504e9ed-8e43-486d-830b-c495086d84c1"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "queue_date",
-            "job_id",
-            "finding_code"
+            "modified_date",
+            "status"
           ]
         }
       ],
