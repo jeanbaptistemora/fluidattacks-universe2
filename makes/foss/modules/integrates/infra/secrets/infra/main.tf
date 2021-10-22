@@ -22,6 +22,7 @@ module "external" {
   source = "../../../../../../../makes/utils/terraform-modules/external-data"
 
   aws_iam_roles = [
+    "dev",
     "integrates-dev",
     "integrates-prod",
     "makes_prod",
@@ -33,6 +34,7 @@ module "external" {
     "integrates-prod-policy" = ["us", "user-provision/integrates-prod-policy"]
   }
   aws_iam_users = [
+    "dev",
     "integrates-dev",
     "integrates-prod",
   ]

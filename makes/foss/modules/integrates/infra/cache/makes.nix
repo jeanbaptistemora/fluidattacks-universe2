@@ -14,7 +14,7 @@
   lintTerraform = {
     modules = {
       integratesCache = {
-        setup = [ outputs."/secretsForAwsFromEnv/integratesDev" ];
+        setup = [ outputs."/secretsForAwsFromEnv/dev" ];
         src = "/makes/foss/modules/integrates/infra/cache/infra";
         version = "1.0";
       };
@@ -23,7 +23,7 @@
   testTerraform = {
     modules = {
       integratesCache = {
-        setup = [ outputs."/secretsForAwsFromEnv/integratesDev" ];
+        setup = [ outputs."/secretsForAwsFromEnv/dev" ];
         src = "/makes/foss/modules/integrates/infra/cache/infra";
         version = "1.0";
       };

@@ -19,7 +19,7 @@
     modules = {
       integratesFront = {
         setup = [
-          outputs."/secretsForAwsFromEnv/integratesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/integratesFrontDev"
           outputs."/secretsForTerraformFromEnv/integratesFront"
         ];
@@ -47,7 +47,7 @@
     modules = {
       integratesFront = {
         setup = [
-          outputs."/secretsForAwsFromEnv/integratesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/integratesFrontDev"
           outputs."/secretsForTerraformFromEnv/integratesFront"
         ];

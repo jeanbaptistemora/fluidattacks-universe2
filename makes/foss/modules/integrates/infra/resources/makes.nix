@@ -17,7 +17,7 @@
     modules = {
       integratesResources = {
         setup = [
-          outputs."/secretsForAwsFromEnv/integratesDev"
+          outputs."/secretsForAwsFromEnv/dev"
         ];
         src = "/makes/foss/modules/integrates/infra/resources/infra";
         version = "1.0";
@@ -28,7 +28,7 @@
     modules = {
       integratesResources = {
         setup = [
-          outputs."/secretsForAwsFromEnv/integratesDev"
+          outputs."/secretsForAwsFromEnv/dev"
         ];
         src = "/makes/foss/modules/integrates/infra/resources/infra";
         version = "1.0";

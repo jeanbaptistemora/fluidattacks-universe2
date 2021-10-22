@@ -21,6 +21,8 @@ data "aws_iam_policy_document" "integrates-dev-key" {
     principals {
       type = "AWS"
       identifiers = [
+        module.external.aws_iam_roles["dev"].arn,
+        module.external.aws_iam_users["dev"].arn,
         module.external.aws_iam_roles["integrates-dev"].arn,
         module.external.aws_iam_roles["makes_prod"].arn,
         module.external.aws_iam_users["integrates-dev"].arn,
@@ -54,6 +56,8 @@ data "aws_iam_policy_document" "integrates-dev-key" {
     principals {
       type = "AWS"
       identifiers = [
+        module.external.aws_iam_roles["dev"].arn,
+        module.external.aws_iam_users["dev"].arn,
         module.external.aws_iam_roles["integrates-dev"].arn,
         module.external.aws_iam_roles["makes_prod"].arn,
         module.external.aws_iam_users["integrates-dev"].arn,
@@ -78,6 +82,8 @@ data "aws_iam_policy_document" "integrates-dev-key" {
     principals {
       type = "AWS"
       identifiers = [
+        module.external.aws_iam_roles["dev"].arn,
+        module.external.aws_iam_users["dev"].arn,
         module.external.aws_iam_roles["integrates-dev"].arn,
         module.external.aws_iam_roles["makes_prod"].arn,
         module.external.aws_iam_users["integrates-dev"].arn,

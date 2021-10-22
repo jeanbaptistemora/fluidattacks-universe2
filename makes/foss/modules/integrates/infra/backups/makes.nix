@@ -14,7 +14,7 @@
   lintTerraform = {
     modules = {
       integratesBackups = {
-        setup = [ outputs."/secretsForAwsFromEnv/integratesDev" ];
+        setup = [ outputs."/secretsForAwsFromEnv/dev" ];
         src = "/makes/foss/modules/integrates/infra/backups/infra";
         version = "1.0";
       };
@@ -23,7 +23,7 @@
   testTerraform = {
     modules = {
       integratesBackups = {
-        setup = [ outputs."/secretsForAwsFromEnv/integratesDev" ];
+        setup = [ outputs."/secretsForAwsFromEnv/dev" ];
         src = "/makes/foss/modules/integrates/infra/backups/infra";
         version = "1.0";
       };
