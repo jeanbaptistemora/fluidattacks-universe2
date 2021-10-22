@@ -2292,7 +2292,7 @@
       title: Broken Authentication
       link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
     "A3":
-      title: Sensitive Data Exposure
+      title: Injection
       link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
     "A4":
       title: XML External Entities (XXE)
