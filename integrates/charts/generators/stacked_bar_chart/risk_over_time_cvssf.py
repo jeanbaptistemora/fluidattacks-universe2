@@ -44,9 +44,7 @@ async def get_group_document(group: str, days: int) -> RiskOverTime:
 
     group_data = await group_loader.load(group)
     group_over_time = [elements[-12:] for elements in group_data[data_name]]
-    group_over_time_monthly = list(
-        elements for elements in group_data[data_name_monthly]
-    )
+    group_over_time_monthly = group_data[data_name_monthly]
 
     return get_data_risk_over_time_group(
         over_time_weekly=group_over_time,

@@ -75,9 +75,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
 
     group_data = await loaders.group.load(group)
     group_over_time = [elements[-12:] for elements in group_data[data_name]]
-    group_over_time_monthly = list(
-        elements for elements in group_data["exposed_over_time_month_cvssf"]
-    )
+    group_over_time_monthly = group_data["exposed_over_time_month_cvssf"]
 
     if group_over_time:
         group_low_over_time = group_over_time[0]
