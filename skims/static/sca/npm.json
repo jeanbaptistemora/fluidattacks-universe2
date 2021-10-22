@@ -151,6 +151,11 @@
   },
   "cipher-base": {},
   "cliui": {},
+  "cookies": {
+    "CVE-2017-18589": [
+      "<0.7.6"
+    ]
+  },
   "color-convert": {},
   "color-name": {},
   "color-string": {
@@ -185,6 +190,11 @@
     ],
     "CVE-2018-1000620": [
       ">=4.0.0,<4.1.2"
+    ]
+  },
+  "css-what": {
+    "CVE-2021-33587": [
+      "<5.0.1"
     ]
   },
   "csv-parse": {
@@ -411,6 +421,9 @@
   },
   "http-errors": {},
   "http-proxy": {
+    "SNYK-JS-HTTPPROXY-569139": [
+      "<1.18.1"
+    ],
     "github.com/http-party/node-http-proxy/issues/1328": [
       "<1.18.1"
     ]
@@ -535,6 +548,11 @@
     ],
     "CVE-2020-14966": [
       "<=8.0.18"
+    ]
+  },
+  "jszip": {
+    "CVE-2021-23413": [
+      "<3.7.0"
     ]
   },
   "kind-of": {
@@ -851,6 +869,16 @@
   "signal-exit": {},
   "slash": {},
   "snapdragon": {},
+  "socket.io": {
+    "CVE-2020-28481": [
+      "<2.4.0"
+    ]
+  },
+  "socket.io-parser": {
+    "CVE-2021-32013": [
+      "<3.4.1"
+    ]
+  },
   "snapdragon-node": {},
   "sockjs": {
     "CVE-2020-8823": [
@@ -912,6 +940,11 @@
       "<4.4.16",
       ">=5.0.0,<5.0.8",
       ">=6.0.0,<6.1.4"
+    ]
+  },
+  "through": {
+    "CVE-2021-29940": [
+      "<2.3.8"
     ]
   },
   "timespan": {
