@@ -140,9 +140,44 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       {
         documentName: "topFindingsByVulnerabilities",
         label: "Vulns",
-        title: translate.t("analytics.barChart.topVulnerabilities.altTitle"),
+        title: translate.t(
+          "analytics.barChart.topVulnerabilities.altTitle.vulnerabilities"
+        ),
         tooltip: translate.t(
           "analytics.barChart.topVulnerabilities.tooltip.vulnerabilities"
+        ),
+        url: "#top-vulnerabilities",
+      },
+      {
+        documentName: "topVulnerabilitiesBySourceCode",
+        label: "Code",
+        title: translate.t(
+          "analytics.barChart.topVulnerabilities.altTitle.code"
+        ),
+        tooltip: translate.t(
+          "analytics.barChart.topVulnerabilities.tooltip.code"
+        ),
+        url: "#top-vulnerabilities",
+      },
+      {
+        documentName: "topVulnerabilitiesBySourceInfra",
+        label: "Infra",
+        title: translate.t(
+          "analytics.barChart.topVulnerabilities.altTitle.infra"
+        ),
+        tooltip: translate.t(
+          "analytics.barChart.topVulnerabilities.tooltip.infra"
+        ),
+        url: "#top-vulnerabilities",
+      },
+      {
+        documentName: "topVulnerabilitiesBySourceApp",
+        label: "App",
+        title: translate.t(
+          "analytics.barChart.topVulnerabilities.altTitle.app"
+        ),
+        tooltip: translate.t(
+          "analytics.barChart.topVulnerabilities.tooltip.app"
         ),
         url: "#top-vulnerabilities",
       },

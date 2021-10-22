@@ -22,10 +22,18 @@ export const enTranslations: ResourceKey = {
         },
       },
       topVulnerabilities: {
-        altTitle: "Top vulnerabilities",
+        altTitle: {
+          app: "App Open Severity (CVSSF)",
+          code: "Code Open Severity (CVSSF)",
+          infra: "Infra Open Severity (CVSSF)",
+          vulnerabilities: "Top vulnerabilities",
+        },
         title: "Open Severity per Type",
         tooltip: {
+          app: "Source of severity of type App",
+          code: "Source of severity of type Code",
           cvssf: "Severity",
+          infra: "Source of severity of type Infra",
           vulnerabilities: "Vulnerabilities",
         },
       },
