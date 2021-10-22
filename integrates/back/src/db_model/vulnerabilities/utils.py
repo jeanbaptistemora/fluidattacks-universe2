@@ -1,6 +1,5 @@
 from .enums import (
     VulnerabilityAcceptanceStatus,
-    VulnerabilityApprovalStatus,
     VulnerabilityDeletionJustification,
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -116,9 +115,6 @@ def format_vulnerability(
 
 def format_state(item: Item) -> VulnerabilityState:
     return VulnerabilityState(
-        approval_status=VulnerabilityApprovalStatus[item["approval_status"]]
-        if item.get("approval_status", None)
-        else None,
         justification=VulnerabilityDeletionJustification[item["justification"]]
         if item.get("justification", None)
         else None,
@@ -131,9 +127,6 @@ def format_state(item: Item) -> VulnerabilityState:
 
 def format_state_item(state: VulnerabilityState) -> Item:
     return {
-        "approval_status": state.approval_status.value
-        if state.approval_status
-        else None,
         "justification": state.justification.value
         if state.justification
         else None,

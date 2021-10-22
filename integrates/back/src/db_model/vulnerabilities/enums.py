@@ -16,11 +16,6 @@ class VulnerabilityDeletionJustification(Enum):
     NO_JUSTIFICATION: str = "NO_JUSTIFICATION"
 
 
-class VulnerabilityApprovalStatus(Enum):
-    APPROVED: str = "APPROVED"
-    PENDING: str = "PENDING"
-
-
 class VulnerabilityStateStatus(Enum):
     CLOSED: str = "CLOSED"
     DELETED: str = "DELETED"

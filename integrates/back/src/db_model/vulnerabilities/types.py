@@ -1,6 +1,5 @@
 from .enums import (
     VulnerabilityAcceptanceStatus,
-    VulnerabilityApprovalStatus,
     VulnerabilityDeletionJustification,
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -23,7 +22,6 @@ class VulnerabilityState(NamedTuple):
     modified_date: str
     source: Source
     status: VulnerabilityStateStatus
-    approval_status: Optional[VulnerabilityApprovalStatus] = None
     justification: Optional[VulnerabilityDeletionJustification] = None
 
 
