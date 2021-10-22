@@ -79,6 +79,7 @@ TEST_GROUPS: Set[str] = {
     "update_finding_description",
     "update_forces_access_token",
     "update_group",
+    "update_group_info",
     "update_group_stakeholder",
     "update_organization_policies",
     "update_organization_stakeholder",
