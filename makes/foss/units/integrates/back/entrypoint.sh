@@ -1,23 +1,20 @@
 # shellcheck shell=bash
 
-function serve_daemon {
-  makes-kill-port 28001 \
-    && { serve "${@}" & } \
-    && makes-wait 300 localhost:28001
-}
-
-function serve {
+function main {
   local env="${1:-}"
-
+  local host='0.0.0.0'
+  local port='8001'
   local config=(
     # The maximum number of pending connections. [2048]
     --backlog '512'
     # The socket to bind. [['127.0.0.1:8000']]
-    --bind "${HOST}:${PORT}"
+    --bind "${host}:${port}"
     # Front-end's IPs from which allowed to handle set secure headers. [127.0.0.1]
     --forwarded-allow-ips '*'
     # Timeout for graceful workers restart. [30]
     --graceful-timeout '30'
+    # The granularity of Error log outputs. [info]
+    --log-level 'info'
     # The maximum number of requests a worker will process before restarting. [0]
     --max-requests '256'
     # The maximum jitter to add to the max_requests setting. [0]
@@ -31,11 +28,6 @@ function serve {
   )
 
   source __argIntegratesBackEnv__/template "${env}" \
-    && case "${DAEMON:-}" in
-      # The granularity of Error log outputs. [info]
-      true) config+=(--log-level 'error') ;;
-      *) config+=(--log-level 'info') ;;
-    esac \
     && if test "${env}" == 'dev'; then
       config+=(
         # SSL certificate file
@@ -73,9 +65,9 @@ function serve {
       error First argument must be one of: dev, dev-mobile, eph, prod, prod-local
     fi \
     && pushd integrates \
-    && makes-kill-port "${PORT}" \
+    && makes-kill-port "${port}" \
     && { gunicorn "${config[@]}" 'app.app:APP' & } \
-    && makes-wait 5 "${HOST}:${PORT}" \
+    && makes-wait 5 "${host}:${port}" \
     && makes-done 28001 \
     && info Back is ready \
     && wait \
@@ -83,14 +75,4 @@ function serve {
     || return 1
 }
 
-function main {
-  export HOST="${HOST:-127.0.0.1}"
-  export PORT="${PORT:-8001}"
-  export DAEMON="${DAEMON:-false}"
-
-  case "${DAEMON:-}" in
-    true) serve_daemon "${@}" ;;
-    *) serve "${@}" ;;
-  esac
-}
 main "${@}"
