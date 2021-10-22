@@ -1,8 +1,11 @@
 ---
 slug: topics/
 title: Topics
-description: Fluid Attacks' website is a place where you can share your IT opinions. If you want to contribute to our blog, look at our topics of interest here.
-keywords: Fluid Attacks, Website, Topics, Blog, Opinion, Security, Ethical Hacking, Pentesting
+description: Fluid Attacks' website is a place where you can share your
+  IT opinions. If you want to contribute to our blog,
+  look at our topics of interest here.
+keywords: Fluid Attacks, Website, Topics, Blog, Opinion,
+  Security, Ethical Hacking, Pentesting
 category: blog
 ---
 
@@ -16,321 +19,321 @@ the ideas on our list, we add it to our blog and update the
 
 ## Attacks
 
-  - Poodle `TLS`.
+- Poodle `TLS`.
 
-  - Simple cracking of non-reversible keys.
+- Simple cracking of non-reversible keys.
 
-  - Cracking with rainbow tables.
+- Cracking with rainbow tables.
 
-  - Web shells without collateral effects.
+- Web shells without collateral effects.
 
-  - Reflected file download
+- Reflected file download
 
-  - Apache Struts 2 Framework Checks.
+- Apache Struts 2 Framework Checks.
 
-  - Apache Struts Detection.
+- Apache Struts Detection.
 
-  - Arbitrary File Upload.
+- Arbitrary File Upload.
 
-  - `ASP.Net` Misconfiguration.
+- `ASP.Net` Misconfiguration.
 
-  - `ASP.NET` Serialization.
+- `ASP.NET` Serialization.
 
-  - `ASP.NET` ViewState security (ViewState Check).
+- `ASP.NET` ViewState security (ViewState Check).
 
-  - Autocomplete attribute/check.
+- Autocomplete attribute/check.
 
-  - Blind `SQL` Injection.
+- Blind `SQL` Injection.
 
-  - Browser Cache directive (leaking sensitive information).
+- Browser Cache directive (leaking sensitive information).
 
-  - Browser Cache directive (web application performance).
+- Browser Cache directive (web application performance).
 
-  - Brute Force (`HTTP` Authentication).
+- Brute Force (`HTTP` Authentication).
 
-  - Brute Force Form based Authentication.
+- Brute Force Form based Authentication.
 
-  - Business Logic Abuse.
+- Business Logic Abuse.
 
-  - Clients Cross-Domain Policy Files.
+- Clients Cross-Domain Policy Files.
 
-  - Collecting Sensitive Personal Information (Personal Sensitive
-    Information).
+- Collecting Sensitive Personal Information (Personal Sensitive
+  Information).
 
-  - Command Injection.
+- Command Injection.
 
-  - Cookie attributes.
+- Cookie attributes.
 
-  - Credentials Over Insecure Channel.
+- Credentials Over Insecure Channel.
 
-  - Credentials stored in clear text in a cookie (Password Exposure).
+- Credentials stored in clear text in a cookie (Password Exposure).
 
-  - Cross Origin Resources Sharing (`CORS`).
+- Cross Origin Resources Sharing (`CORS`).
 
-  - Cross-Site Request Forgery (`CSRF`)
+- Cross-Site Request Forgery (`CSRF`)
 
-  - Cross-site scripting (`XSS`), (DOM based Reflected via `AJAX`
-    Request).
+- Cross-site scripting (`XSS`), (DOM based Reflected via `AJAX`
+  Request).
 
-  - Cross-site scripting (`XSS`),(`DOM` based).
+- Cross-site scripting (`XSS`),(`DOM` based).
 
-  - Cross-site tracing (`XST` – Web Method).
+- Cross-site tracing (`XST` – Web Method).
 
-  - `CSP` Headers.
+- `CSP` Headers.
 
-  - Custom Directory Module.
+- Custom Directory Module.
 
-  - Custom Parameter Module.
+- Custom Parameter Module.
 
-  - Custom Passive Module.
+- Custom Passive Module.
 
-  - Directory Indexing.
+- Directory Indexing.
 
-  - Email Disclosure.
+- Email Disclosure.
 
-  - Expression Language Injection.
+- Expression Language Injection.
 
-  - File Inclusion.
+- File Inclusion.
 
-  - Forced Browsing.
+- Forced Browsing.
 
-  - Form Session Strength.
+- Form Session Strength.
 
-  - FrontPage Checks.
+- FrontPage Checks.
 
-  - Heartbleed Check.
+- Heartbleed Check.
 
-  - `HTTP` Authentication over insecure channel.
+- `HTTP` Authentication over insecure channel.
 
-  - `HTTP` Headers.
+- `HTTP` Headers.
 
-  - `HTTP` Query Session Check.
+- `HTTP` Query Session Check.
 
-  - `HTTP` Response Splitting.
+- `HTTP` Response Splitting.
 
-  - `HTTP` Strict Transport Security (`HSTS`).
+- `HTTP` Strict Transport Security (`HSTS`).
 
-  - `HTTP` Verb Tampering (Request Method Tampering).
+- `HTTP` Verb Tampering (Request Method Tampering).
 
-  - `HTTPS` Downgrade.
+- `HTTPS` Downgrade.
 
-  - `HTTPS` Everywhere.
+- `HTTPS` Everywhere.
 
-  - Information Disclosure in comments.
+- Information Disclosure in comments.
 
-  - Information Disclosure in Response.
+- Information Disclosure in Response.
 
-  - Information Disclosure in scripts (Script Check).
+- Information Disclosure in scripts (Script Check).
 
-  - Information Leakage In Response.
+- Information Leakage In Response.
 
-  - `Java` Grinder.
+- `Java` Grinder.
 
-  - `LDAP` Injection.
+- `LDAP` Injection.
 
-  - Local Storage Usage.
+- Local Storage Usage.
 
-  - `Nginx` `NULL` code.
+- `Nginx` `NULL` code.
 
-  - `OS` Commanding.
+- `OS` Commanding.
 
-  - Out of Band Cross-site scripting (`XSS`).
+- Out of Band Cross-site scripting (`XSS`).
 
-  - Out of Band Stored Cross-site scripting (`XSS`).
+- Out of Band Stored Cross-site scripting (`XSS`).
 
-  - Parameter Fuzzing
+- Parameter Fuzzing
 
-  - Persistent Cross-site scripting (`XSS`) (passive – `XSS`
-    Persistent).
+- Persistent Cross-site scripting (`XSS`) (passive – `XSS`
+  Persistent).
 
-  - Persistent Cross-site scripting(`XSS`), (active - `XSS` Persistent
-    Active).
+- Persistent Cross-site scripting(`XSS`), (active - `XSS` Persistent
+  Active).
 
-  - `PHP` Code Execution.
+- `PHP` Code Execution.
 
-  - Predictable Resource Location (Resource Finder).
+- Predictable Resource Location (Resource Finder).
 
-  - Privacy Disclosure.
+- Privacy Disclosure.
 
-  - Privilege Escalation.
+- Privilege Escalation.
 
-  - Reflected Cross Site Scripting (`XSS`,Reflected).
+- Reflected Cross Site Scripting (`XSS`,Reflected).
 
-  - Reflected Cross Site Scripting Simple (`XSS`,Simple).
+- Reflected Cross Site Scripting Simple (`XSS`,Simple).
 
-  - Reflection.
+- Reflection.
 
-  - Reverse Clickjacking.
+- Reverse Clickjacking.
 
-  - Reverse Proxy.
+- Reverse Proxy.
 
-  - Secure and non-secure content mix.
+- Secure and non-secure content mix.
 
-  - Sensitive Data Exposure
+- Sensitive Data Exposure
 
-  - Sensitive data over an insecure channel.
+- Sensitive data over an insecure channel.
 
-  - Server Configuration
+- Server Configuration
 
-  - Server Side Include (`SSI`) Injection.
+- Server Side Include (`SSI`) Injection.
 
-  - Session Fixation.
+- Session Fixation.
 
-  - Session Strength.
+- Session Strength.
 
-  - Session Upgrade.
+- Session Upgrade.
 
-  - Source Code Disclosure.
+- Source Code Disclosure.
 
-  - `SQL` Information Leakage (`SQL` Errors).
+- `SQL` Information Leakage (`SQL` Errors).
 
-  - `SQL` Injection.
+- `SQL` Injection.
 
-  - `SQL` injection Auth Bypass.
+- `SQL` injection Auth Bypass.
 
-  - `SQL` Parameter Check.
+- `SQL` Parameter Check.
 
-  - `SSL` Strength.
+- `SSL` Strength.
 
-  - Subdomain discovery.
+- Subdomain discovery.
 
-  - Unvalidated Redirect.
+- Unvalidated Redirect.
 
-  - `URL` rewriting.
+- `URL` rewriting.
 
-  - Web Beacon.
+- Web Beacon.
 
-  - Web Service Parameter Fuzzing.
+- Web Service Parameter Fuzzing.
 
-  - X-Content-Type-Options.
+- X-Content-Type-Options.
 
-  - X-Frame-Options.
+- X-Frame-Options.
 
-  - `XML` External Entity Attack.
+- `XML` External Entity Attack.
 
-  - `XPath` Injection.
+- `XPath` Injection.
 
-  - X-Powered-By.
+- X-Powered-By.
 
-  - X-XSS-Protection.
+- X-XSS-Protection.
 
 ## Recommendations
 
-  - `API` throttling.
+- `API` throttling.
 
-  - Recommended hashing function.
+- Recommended hashing function.
 
-  - Recommended asymmetric encryption function.
+- Recommended asymmetric encryption function.
 
-  - Recommended symmetric encryption function.
+- Recommended symmetric encryption function.
 
-  - How to stop effectively a `ddos` without proxies.
+- How to stop effectively a `ddos` without proxies.
 
-  - `IAST`.
+- `IAST`.
 
-  - `DAST`.
+- `DAST`.
 
-  - `SAST`.
+- `SAST`.
 
-  - `SecDevOps`.
+- `SecDevOps`.
 
-  - Why we use monorepo?
+- Why we use monorepo?
 
-  - Why we use trunk based development?
+- Why we use trunk based development?
 
-  - Why we use continuous delivery?
+- Why we use continuous delivery?
 
-  - Why we use infrastructure as code?
+- Why we use infrastructure as code?
 
-  - Why we use `staticgen`?
+- Why we use `staticgen`?
 
-  - Why we use `SLB`?
+- Why we use `SLB`?
 
-  - Why we use `AsciiDoc`?
+- Why we use `AsciiDoc`?
 
-  - Why we use [`CalVer`](https://calver.org/) over
-    [`SemVer`](https://semver.org/)?
+- Why we use [`CalVer`](https://calver.org/) over
+  [`SemVer`](https://semver.org/)?
 
-  - Why `CI` security tools don’t break builds?
+- Why `CI` security tools don’t break builds?
 
-  - Why automated tools have higher escapes rate?
+- Why automated tools have higher escapes rate?
 
-  - Refactoring `JS` with linting.
+- Refactoring `JS` with linting.
 
-  - Who must detect changes in an `API`: provider or consumer?
+- Who must detect changes in an `API`: provider or consumer?
 
-  - Should ethical hacking include vulnerabilities analysis?
+- Should ethical hacking include vulnerabilities analysis?
 
 ## Concepts
 
-  - Immutable infrastructure.
+- Immutable infrastructure.
 
-  - Red team.
+- Red team.
 
-  - Blue team.
+- Blue team.
 
-  - Purple team.
+- Purple team.
 
-  - Capture the flag.
+- Capture the flag.
 
-  - `NixOS`
+- `NixOS`
 
-  - Linters as normalizers.
+- Linters as normalizers.
 
-  - Poor man linter: `check-all/changed` and `grep -P`.
+- Poor man linter: `check-all/changed` and `grep -P`.
 
-  - What is `SecDevOps`?
+- What is `SecDevOps`?
 
-  - Remediation Pipelines: One shot, Continuous, Breaking the `CI`.
+- Remediation Pipelines: One shot, Continuous, Breaking the `CI`.
 
-  - Black Box testing
+- Black Box testing
 
-  - Gray Box testing
+- Gray Box testing
 
-  - White Box testing
+- White Box testing
 
 ## Standards
 
-  - `Misra` Standard.
+- `Misra` Standard.
 
-  - Bearer authentication.
+- Bearer authentication.
 
-  - `SOAP` basic authentication.
+- `SOAP` basic authentication.
 
-  - `SOAP` digest authentication.
+- `SOAP` digest authentication.
 
-  - Correctness by Construction (`CbyC`).
+- Correctness by Construction (`CbyC`).
 
-  - Security development lifecycle (`SDL`).
+- Security development lifecycle (`SDL`).
 
-  - Comprehensive software development model.
+- Comprehensive software development model.
 
-  - Lightweight application security process (`CLASP`).
+- Lightweight application security process (`CLASP`).
 
-  - Team software process for secure SW/Dev (`TSP-Secure`).
+- Team software process for secure SW/Dev (`TSP-Secure`).
 
-  - Conceptual security modeling (`CoSMo`).
+- Conceptual security modeling (`CoSMo`).
 
-  - `UMLSec`.
+- `UMLSec`.
 
 ## Summary
 
-  - `Bitcoin blockchain` security issues.
+- `Bitcoin blockchain` security issues.
 
-  - `Ethereum` security issues.
+- `Ethereum` security issues.
 
-  - `Stellar` security issues.
+- `Stellar` security issues.
 
-  - Machine learning for vulnerabilities searching.
+- Machine learning for vulnerabilities searching.
 
-  - Incidents associated with vulnerabilities.
+- Incidents associated with vulnerabilities.
 
 ## Research
 
-  - [`DVWA`](http://www.dvwa.co.uk/) with false positives.
+- [`DVWA`](http://www.dvwa.co.uk/) with false positives.
 
 ## Marketing
 
-  - Who discards false positives?
+- Who discards false positives?
 
-  - How to prioritize vulnerabilities remediation?
+- How to prioritize vulnerabilities remediation?
