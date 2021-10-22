@@ -2293,7 +2293,7 @@
       link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
     "A3":
       title: Injection
-      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+      link: https://owasp.org/Top10/A03_2021-Injection/
     "A4":
       title: XML External Entities (XXE)
       link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
