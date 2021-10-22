@@ -4,6 +4,9 @@ from dataclasses import (
 from purity.v1 import (
     PureIter,
 )
+from returns.io import (
+    IO,
+)
 from tap_announcekit.api.client import (
     ApiClient,
 )
@@ -11,8 +14,8 @@ from tap_announcekit.objs.id_objs import (
     ProjectId,
 )
 from tap_announcekit.stream import (
+    StreamEmitter,
     StreamFactory,
-    StreamIO,
 )
 from tap_announcekit.streams.project._encode import (
     ProjectEncoders,
@@ -25,14 +28,16 @@ from tap_announcekit.streams.project._getters import (
 @dataclass(frozen=True)
 class ProjectStreams:
     client: ApiClient
+    emitter: StreamEmitter
     _name: str = "project"
 
-    def stream(
+    def emit(
         self,
-        proj_ids: PureIter[ProjectId],
-    ) -> StreamIO:
-        return StreamFactory.new_stream(
-            ProjectEncoders.encoder(self._name),
-            ProjectGetters(self.client).getter(),
-            proj_ids,
+        ids: PureIter[ProjectId],
+    ) -> IO[None]:
+        factory = ProjectGetters(self.client)
+        streams = StreamFactory.new_stream(
+            ProjectEncoders.encoder(self._name), factory.getter(), ids
         )
+        emissions = streams.map_each(lambda s_io: s_io.bind(self.emitter.emit))
+        return PureIter.consume(emissions)

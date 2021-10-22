@@ -16,8 +16,8 @@ from tap_announcekit.objs.id_objs import (
     ProjectId,
 )
 from tap_announcekit.stream import (
+    StreamEmitter,
     StreamFactory,
-    StreamIO,
 )
 from tap_announcekit.streams.posts._encode import (
     PostEncoders,
@@ -31,19 +31,21 @@ from tap_announcekit.streams.posts._factory import (
 @dataclass(frozen=True)
 class PostStreams:
     client: ApiClient
+    emitter: StreamEmitter
     _name: str = "posts"
 
-    def stream(
-        self,
-        post_ids: PureIter[PostId],
-    ) -> StreamIO:
-        factory = PostFactory(self.client)
-        return StreamFactory.new_stream(
-            PostEncoders.encoder(self._name),
-            Transform(factory.get_post),
-            post_ids,
-        )
-
-    def ids(self, proj: ProjectId) -> IO[PureIter[PostId]]:
-        factory = PostIdFactory(self.client, proj)
+    @staticmethod
+    def ids(client: ApiClient, proj: ProjectId) -> IO[PureIter[PostId]]:
+        factory = PostIdFactory(client, proj)
         return factory.get_ids()
+
+    def emit(
+        self,
+        ids: PureIter[PostId],
+    ) -> IO[None]:
+        factory = PostFactory(self.client)
+        streams = StreamFactory.new_stream(
+            PostEncoders.encoder(self._name), Transform(factory.get_post), ids
+        )
+        emissions = streams.map_each(lambda s_io: s_io.bind(self.emitter.emit))
+        return PureIter.consume(emissions)

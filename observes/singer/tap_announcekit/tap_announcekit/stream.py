@@ -112,10 +112,18 @@ class StreamFactory:
         encoder: SingerEncoder[_D],
         get: Transform[_ID, IO[_D]],
         ids: PureIter[_ID],
-    ) -> StreamIO:
-        items = ids.map_each(get)
-        records = items.map_each(lambda p: p.map(encoder.to_singer))
-        return Stream(encoder.schema, records)
+    ) -> PureIter[IO[StreamData]]:
+        result = ids.map_each(get).map_each(
+            lambda p_io: p_io.map(
+                lambda p: Stream(
+                    encoder.schema,
+                    PureIterFactory.from_flist((p,)).map_each(
+                        encoder.to_singer
+                    ),
+                )
+            )
+        )
+        return result
 
     @staticmethod
     def multi_stream(
