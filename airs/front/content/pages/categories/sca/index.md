@@ -1,12 +1,26 @@
 ---
 slug: categories/sca/
 title: SCA
-description: Here at Fluid Attacks, we perform Software Composition Analysis (SCA) to identify security weaknesses related to third-party or open-source components.
-keywords: Fluid Attacks, Techniques, SCA, Composition, Analysis, Security, Testing, Ethical Hacking
+description: Here at Fluid Attacks, we perform Software Composition Analysis
+  (SCA) to identify security weaknesses related to
+  third-party or open-source components.
+keywords: Fluid Attacks, Techniques, SCA, Composition,
+  Analysis, Security, Testing, Ethical Hacking
 banner: sca-bg
 template: category
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619634644/airs/categories/cover-sca_rbdocd.webp
-definition: Fluid Attacks’ Software Composition Analysis (SCA) reduces cybersecurity risks related to open source or third-party components, which are so sought after by development teams nowadays. SCA scans generate and deliver inventory reports of all direct and indirect open source components used by your analyzed software. They then provide information on component licenses, versions and security vulnerabilities present. Through an SCA combining automatic and manual work, we are always ready to detect new vulnerabilities; we do not depend exclusively on what is known and available in the National Vulnerability Database (NVD) for open source vulnerabilities. Additionally, our team of hackers working with the SCA technique has no problem covering almost any coding language used in your company for application development.
+definition: Fluid Attacks’ Software Composition Analysis (SCA)
+  reduces cybersecurity risks related to open source or third-party components,
+  which are so sought after by development teams nowadays. SCA scans generate
+  and deliver inventory reports of all direct and indirect open source
+  components used by your analyzed software. They then provide information
+  on component licenses, versions and security vulnerabilities present.
+  Through an SCA combining automatic and manual work, we are always ready
+  to detect new vulnerabilities; we do not depend exclusively on what is known
+  and available in the National Vulnerability Database (NVD)
+  for open source vulnerabilities. Additionally, our team of hackers working
+  with the SCA technique has no problem covering almost any coding
+  language used in your company for application development.
 ---
 
 <div class="sect2">
