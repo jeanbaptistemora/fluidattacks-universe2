@@ -18485,3 +18485,51 @@
   metadata:
     en:
       details: __empty__
+"392":
+  en:
+    title: Security controls bypass or absence - Firewall
+    description: >
+      The firewall security verifications
+      either do not exist
+      or can be bypassed
+    impact: >
+      Bypass security validations
+      to perform diferent attacks
+    recommendation: >
+      Guarantee that firewall security mechanisms
+      and access rules are active and cannot be bypassed.
+    threat: >
+      Anonymous attacker from the Internet
+  category: Abuse Functionality
+  es:
+    title: Security controls bypass or absence - Firewall
+    description: >
+      Las verificaciones de seguridad del Firewall
+      son inexistentes o pueden ser saltados
+    impact: >
+      Saltar validaciones de seguridad
+      para ejecutar diferentes ataques
+    recommendation: >
+     Garantizar que los mecanismos de seguridad
+     y reglas de acceso del firewall están activos
+     y no pueden ser bypaseados
+    threat: >
+      Atacante anónimo desde Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "H"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["062", "266", "273"]
+  metadata:
+    en:
+      details: __empty__
