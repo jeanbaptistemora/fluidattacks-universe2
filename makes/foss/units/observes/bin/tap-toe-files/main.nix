@@ -1,6 +1,5 @@
 { makeScript
 , outputs
-, inputs
 , ...
 }:
 makeScript {
@@ -10,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      inputs.product.observes-env-tap-toe-files-runtime
+      outputs."/observes/env/tap-toe-files/runtime"
     ];
   };
   name = "observes-bin-tap-toe-files";
