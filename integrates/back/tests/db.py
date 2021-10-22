@@ -10,8 +10,8 @@ from comments import (
 from db_model import (
     findings,
     roots as roots_model,
+    services_toe_lines as toe_lines_model,
     toe_inputs as toe_inputs_model,
-    toe_lines as toe_lines_model,
     vulnerabilities,
 )
 from db_model.findings.enums import (
@@ -24,11 +24,11 @@ from db_model.findings.types import (
 from db_model.roots.types import (
     RootItem,
 )
+from db_model.services_toe_lines.types import (
+    ServicesToeLines,
+)
 from db_model.toe_inputs.types import (
     ToeInput,
-)
-from db_model.toe_lines.types import (
-    ServicesToeLines,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -427,9 +427,14 @@ async def populate_executions(data: List[Any]) -> bool:
     return all(await collect(coroutines))
 
 
-async def populate_toe_lines(data: Tuple[ServicesToeLines, ...]) -> bool:
+async def populate_services_toe_lines(
+    data: Tuple[ServicesToeLines, ...]
+) -> bool:
     await collect(
-        [toe_lines_model.add(toe_lines=toe_lines) for toe_lines in data]
+        [
+            toe_lines_model.add(services_toe_lines=services_toe_lines)
+            for services_toe_lines in data
+        ]
     )
     return True
 

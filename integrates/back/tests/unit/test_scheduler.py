@@ -11,11 +11,11 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.services_toe_lines.types import (
+    ServicesToeLines,
+)
 from db_model.toe_inputs.types import (
     ToeInput,
-)
-from db_model.toe_lines.types import (
-    ServicesToeLines,
 )
 from decimal import (
     Decimal,
@@ -49,8 +49,8 @@ from schedulers import (
     delete_imamura_stakeholders,
     delete_obsolete_groups,
     delete_obsolete_orgs,
+    services_toe_lines_etl,
     toe_inputs_etl,
-    toe_lines_etl,
     update_indicators,
 )
 import shutil
@@ -441,7 +441,7 @@ async def test_toe_lines_etl() -> None:
         "newutils.git.clone_services_repository",
         wraps=clone_services_repository_mock,
     ):
-        await toe_lines_etl.main()
+        await services_toe_lines_etl.main()
 
     loaders = get_new_context()
     group_toe_lines = await loaders.group_services_toe_lines.load(group_name)

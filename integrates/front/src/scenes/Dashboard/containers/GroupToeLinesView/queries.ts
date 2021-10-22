@@ -9,7 +9,7 @@ const GET_TOE_LINES: DocumentNode = gql`
         ... on GitRoot {
           id
           nickname
-          toeLines {
+          servicesToeLines {
             filename
             modifiedDate
             modifiedCommit

@@ -223,10 +223,10 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     parseInt(toeLinesAttr.sortsRiskLevel, 10) >= 0
       ? `${toeLinesAttr.sortsRiskLevel.toString()} %`
       : "n/a";
-  const toeLines: IToeLinesData[] = roots.reduce(
+  const servicesToeLines: IToeLinesData[] = roots.reduce(
     (acc: IToeLinesData[], root: IGitRootAttr): IToeLinesData[] =>
       acc.concat(
-        root.toeLines.map(
+        root.servicesToeLines.map(
           (toeLinesAttr: IToeLinesAttr): IToeLinesData => ({
             attacked: getAttacked(toeLinesAttr),
             coverage: getCoverage(toeLinesAttr),
@@ -257,7 +257,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       <DataTableNext
         bordered={true}
         columnToggle={true}
-        dataset={toeLines}
+        dataset={servicesToeLines}
         defaultSorted={JSON.parse(
           _.get(sessionStorage, "toeLinesSort", initialSort)
         )}

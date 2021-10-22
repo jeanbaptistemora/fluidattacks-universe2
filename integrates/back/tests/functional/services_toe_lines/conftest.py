@@ -9,7 +9,7 @@ from db_model.roots.types import (
     GitRootState,
     MachineGitRootExecution,
 )
-from db_model.toe_lines.types import (
+from db_model.services_toe_lines.types import (
     ServicesToeLines,
 )
 import pytest
@@ -20,7 +20,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.resolver_test_group("services_toe_lines")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
@@ -90,7 +90,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
             ),
         ),
-        "toe_lines": (
+        "services_toe_lines": (
             ServicesToeLines(
                 comments="comment test",
                 filename="product/test/test#.config",

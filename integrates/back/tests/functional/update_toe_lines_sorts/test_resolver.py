@@ -28,7 +28,7 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
     assert result["data"]["group"]["roots"] == [
         {
             "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
-            "toeLines": [
+            "servicesToeLines": [
                 {
                     "filename": "product/test/test#.config",
                     "modifiedDate": "2019-08-01T00:00:00-05:00",
@@ -43,7 +43,7 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
         },
         {
             "id": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-            "toeLines": [
+            "servicesToeLines": [
                 {
                     "filename": "asm_1/test2/test.sh",
                     "modifiedDate": "2020-11-19T00:00:00-05:00",

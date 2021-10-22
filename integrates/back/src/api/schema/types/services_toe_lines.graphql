@@ -1,5 +1,5 @@
-"ToeLines type definition"
-type ToeLines {
+"ServicesToeLines type definition"
+type ServicesToeLines {
   "ToE comment"
   comments: String
   "ToE Filename"

@@ -21,7 +21,7 @@ async def get_result(
             roots {{
                 ... on GitRoot {{
                     id
-                    toeLines {{
+                    servicesToeLines {{
                         filename
                         modifiedDate
                         modifiedCommit

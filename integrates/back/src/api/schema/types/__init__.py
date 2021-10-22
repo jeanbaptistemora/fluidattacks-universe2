@@ -58,6 +58,9 @@ from .resource import (
 from .root import (
     GITROOT,
 )
+from .services_toe_lines import (
+    SERVICESTOELINES,
+)
 from .stakeholder import (
     STAKEHOLDER,
 )
@@ -66,9 +69,6 @@ from .tag import (
 )
 from .toe_inputs import (
     TOEINPUTS,
-)
-from .toe_lines import (
-    TOELINES,
 )
 from .treatment import (
     TREATMENT,
@@ -113,7 +113,7 @@ TYPES: Tuple[ObjectType, ...] = (
     STAKEHOLDER,
     TAG,
     TOEINPUTS,
-    TOELINES,
+    SERVICESTOELINES,
     TREATMENT,
     TREATMENT_SUMMARY,
     VERIFICATION,

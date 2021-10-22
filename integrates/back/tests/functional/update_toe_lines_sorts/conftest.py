@@ -9,7 +9,7 @@ from db_model.roots.types import (
     GitRootState,
     MachineGitRootExecution,
 )
-from db_model.toe_lines.types import (
+from db_model.services_toe_lines.types import (
     ServicesToeLines,
 )
 import pytest
@@ -90,7 +90,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
             ),
         ),
-        "toe_lines": (
+        "services_toe_lines": (
             ServicesToeLines(
                 comments="comment test",
                 filename="product/test/test#.config",

@@ -1,7 +1,7 @@
 from aiodataloader import (
     DataLoader,
 )
-from db_model.toe_lines.types import (
+from db_model.services_toe_lines.types import (
     ServicesToeLines,
 )
 from decorators import (

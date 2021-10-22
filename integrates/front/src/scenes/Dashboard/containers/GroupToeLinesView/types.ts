@@ -12,7 +12,7 @@ interface IToeLinesAttr {
 interface IGitRootAttr {
   id: string;
   nickname: string;
-  toeLines: IToeLinesAttr[];
+  servicesToeLines: IToeLinesAttr[];
 }
 
 interface IToeLinesData {

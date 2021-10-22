@@ -39,7 +39,7 @@ async def query_get(*, user: str, group_name: str) -> Dict[str, Any]:
             roots {{
                 ... on GitRoot {{
                     id
-                    toeLines {{
+                    servicesToeLines {{
                         filename
                         modifiedDate
                         modifiedCommit

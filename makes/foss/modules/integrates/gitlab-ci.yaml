@@ -1461,6 +1461,28 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/back/test/functional__services_toe_lines:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'services_toe_lines'
+  stage: test-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__sign_in:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
@@ -1609,28 +1631,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/back/test/functional 'toe_inputs'
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__toe_lines:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'toe_lines'
   stage: test-code
   tags:
     - autoscaling
@@ -2642,6 +2642,24 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.services_toe_lines_etl.main:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_services_toe_lines_etl == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.services_toe_lines_etl.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.toe_inputs_etl.main:
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: false
@@ -2654,24 +2672,6 @@
     - when: always
   script:
     - m . /integrates/scheduler 'prod' 'schedulers.toe_inputs_etl.main'
-  stage: scheduler
-  tags:
-    - autoscaling-large
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/integrates/scheduler__prod__schedulers.toe_lines_etl.main:
-  image: ghcr.io/fluidattacks/makes:21.11
-  interruptible: false
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $integrates_scheduler_toe_lines_etl == null
-      when: never
-    - when: always
-  script:
-    - m . /integrates/scheduler 'prod' 'schedulers.toe_lines_etl.main'
   stage: scheduler
   tags:
     - autoscaling-large

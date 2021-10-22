@@ -38,7 +38,7 @@ const GroupContent: React.FC = (): JSX.Element => {
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canGetToeLines: boolean = permissions.can(
-    "api_resolvers_git_root_toe_lines_resolve"
+    "api_resolvers_git_root_services_toe_lines_resolve"
   );
   const canGetToeInputs: boolean = permissions.can(
     "api_resolvers_group_toe_inputs_resolve"

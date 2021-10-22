@@ -37,9 +37,9 @@ describe("GroupToeLinesView", (): void => {
                 __typename: "GitRoot",
                 id: "4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 nickname: "product",
-                toeLines: [
+                servicesToeLines: [
                   {
-                    __typename: "ToeLines",
+                    __typename: "ServicesToeLines",
                     comments: "comment test",
                     filename: "product/test/test.config",
                     loc: 8,
@@ -55,9 +55,9 @@ describe("GroupToeLinesView", (): void => {
                 __typename: "GitRoot",
                 id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 nickname: "asm_1",
-                toeLines: [
+                servicesToeLines: [
                   {
-                    __typename: "ToeLines",
+                    __typename: "ServicesToeLines",
                     comments: "comment test",
                     filename: "asm_1/test2/test.sh",
                     loc: 172,

@@ -10,7 +10,7 @@ from ariadne import (
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
-from db_model.toe_lines.types import (
+from db_model.services_toe_lines.types import (
     ServicesToeLines,
 )
 from decorators import (
@@ -27,7 +27,7 @@ from newutils import (
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
-from toe.lines import (
+from toe.services_lines import (
     domain as toe_lines_domain,
 )
 from typing import (

@@ -48,12 +48,12 @@ from db_model.roots.get import (
     RootLoader,
     RootStatesLoader,
 )
-from db_model.toe_inputs.get import (
-    GroupToeInputsLoader,
-)
-from db_model.toe_lines.get import (
+from db_model.services_toe_lines.get import (
     GroupServicesToeLinesLoader,
     RootServicesToeLinesLoader,
+)
+from db_model.toe_inputs.get import (
+    GroupToeInputsLoader,
 )
 from db_model.vulnerabilities.get import (
     VulnHistoricStateNewLoader,

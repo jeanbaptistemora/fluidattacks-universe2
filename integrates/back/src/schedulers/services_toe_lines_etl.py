@@ -6,17 +6,19 @@ import csv
 from custom_exceptions import (
     GroupNameNotFound,
     RootNotFound,
-    UnavailabilityError,
 )
 from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.toe_lines.types import (
+from db_model.services_toe_lines.types import (
     ServicesToeLines,
 )
 from decorators import (
     retry_on_exceptions,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
 )
 import glob
 from groups import (
@@ -42,7 +44,7 @@ from settings import (
     LOGGING,
 )
 import tempfile
-from toe.lines import (
+from toe.services_lines import (
     domain as toe_lines_domain,
 )
 from typing import (
@@ -164,10 +166,10 @@ def _get_toe_lines_to_add(
     cvs_group_toe_lines: Set[ServicesToeLines],
 ) -> Set[ServicesToeLines]:
     return {
-        toe_lines
-        for toe_lines in cvs_group_toe_lines
-        if toe_lines not in group_toe_lines
-        and toe_lines.get_hash() not in group_toe_lines_hashes
+        services_toe_lines
+        for services_toe_lines in cvs_group_toe_lines
+        if services_toe_lines not in group_toe_lines
+        and services_toe_lines.get_hash() not in group_toe_lines_hashes
     }
 
 
@@ -177,10 +179,10 @@ def _get_toe_lines_to_update(
     cvs_group_toe_lines: Set[ServicesToeLines],
 ) -> Set[ServicesToeLines]:
     return {
-        toe_lines
-        for toe_lines in cvs_group_toe_lines
-        if toe_lines not in group_toe_lines
-        and toe_lines.get_hash() in group_toe_lines_hashes
+        services_toe_lines
+        for services_toe_lines in cvs_group_toe_lines
+        if services_toe_lines not in group_toe_lines
+        and services_toe_lines.get_hash() in group_toe_lines_hashes
     }
 
 
@@ -189,9 +191,9 @@ def _get_toe_lines_to_remove(
     cvs_group_toe_lines_hashes: Set[int],
 ) -> Set[ServicesToeLines]:
     return {
-        toe_lines
-        for toe_lines in group_toe_lines
-        if toe_lines.get_hash() not in cvs_group_toe_lines_hashes
+        services_toe_lines
+        for services_toe_lines in group_toe_lines
+        if services_toe_lines.get_hash() not in cvs_group_toe_lines_hashes
     }
 
 
@@ -206,17 +208,18 @@ async def update_toe_lines_from_csv(
     group_toe_lines_loader = loaders.group_services_toe_lines
     # Ignore risk level to no remove it with this scheduler
     group_toe_lines: Set[ServicesToeLines] = set(
-        toe_lines._replace(sorts_risk_level=DEFAULT_RISK_LEVEL)
-        for toe_lines in await group_toe_lines_loader.load(group_name)
+        services_toe_lines._replace(sorts_risk_level=DEFAULT_RISK_LEVEL)
+        for services_toe_lines in await group_toe_lines_loader.load(group_name)
     )
     group_toe_lines_hashes = {
-        toe_lines.get_hash() for toe_lines in group_toe_lines
+        services_toe_lines.get_hash() for services_toe_lines in group_toe_lines
     }
     cvs_group_toe_lines = await in_process(
         _get_group_toe_lines_from_cvs, lines_csv_path, group_name, group_roots
     )
     cvs_group_toe_lines_hashes = {
-        toe_lines.get_hash() for toe_lines in cvs_group_toe_lines
+        services_toe_lines.get_hash()
+        for services_toe_lines in cvs_group_toe_lines
     }
     toe_lines_to_update = _get_toe_lines_to_update(
         group_toe_lines,
@@ -225,8 +228,8 @@ async def update_toe_lines_from_csv(
     )
     await collect(
         [
-            toe_lines_update(toe_lines, include_risk_level=False)
-            for toe_lines in toe_lines_to_update
+            toe_lines_update(services_toe_lines, include_risk_level=False)
+            for services_toe_lines in toe_lines_to_update
         ],
         workers=100,
     )
@@ -236,9 +239,11 @@ async def update_toe_lines_from_csv(
     await collect(
         [
             toe_lines_remove(
-                toe_lines.filename, toe_lines.group_name, toe_lines.root_id
+                services_toe_lines.filename,
+                services_toe_lines.group_name,
+                services_toe_lines.root_id,
             )
-            for toe_lines in toe_lines_to_remove
+            for services_toe_lines in toe_lines_to_remove
         ],
         workers=100,
     )
@@ -248,7 +253,10 @@ async def update_toe_lines_from_csv(
         cvs_group_toe_lines,
     )
     await collect(
-        [toe_lines_add(toe_lines) for toe_lines in toe_lines_to_add],
+        [
+            toe_lines_add(services_toe_lines)
+            for services_toe_lines in toe_lines_to_add
+        ],
         workers=100,
     )
 

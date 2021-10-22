@@ -277,6 +277,7 @@ in
           [ "request_vulnerabilities_zero_risk" ]
           [ "reset_expired_accepted_findings" ]
           [ "resources" ]
+          [ "services_toe_lines" ]
           [ "sign_in" ]
           [ "solve_event" ]
           [ "stakeholder" ]
@@ -284,7 +285,6 @@ in
           [ "submit_organization_finding_policy" ]
           [ "subscribe_to_entity_report" ]
           [ "toe_inputs" ]
-          [ "toe_lines" ]
           [ "unsubscribe_from_group" ]
           [ "update_access_token" ]
           [ "update_event_evidence" ]
@@ -483,7 +483,7 @@ in
           "machine_queue_re_attacks"
           "send_treatment_change"
           "toe_inputs_etl"
-          "toe_lines_etl"
+          "services_toe_lines_etl"
         ])
         ++ [
         {

@@ -1,11 +1,11 @@
 from dataloaders import (
     get_new_context,
 )
-from db_model.toe_lines.types import (
+from db_model.services_toe_lines.types import (
     ServicesToeLines,
 )
 import pytest
-from toe.lines import (
+from toe.services_lines import (
     domain as toe_lines_domain,
 )
 
@@ -41,7 +41,7 @@ async def test_get_by_root() -> None:
 @pytest.mark.changes_db
 async def test_add() -> None:
     group_name = "unittesting"
-    toe_lines = ServicesToeLines(
+    services_toe_lines = ServicesToeLines(
         comments="comment test",
         filename="product/test/new#.new",
         group_name=group_name,
@@ -53,10 +53,10 @@ async def test_add() -> None:
         tested_lines=12,
         sorts_risk_level=0,
     )
-    await toe_lines_domain.add(toe_lines)
+    await toe_lines_domain.add(services_toe_lines)
     loaders = get_new_context()
     group_toe_lines = await loaders.group_services_toe_lines.load(group_name)
-    assert toe_lines in group_toe_lines
+    assert services_toe_lines in group_toe_lines
 
 
 @pytest.mark.changes_db
@@ -78,7 +78,7 @@ async def test_remove() -> None:
 @pytest.mark.changes_db
 async def test_update() -> None:
     group_name = "unittesting"
-    toe_lines = ServicesToeLines(
+    services_toe_lines = ServicesToeLines(
         comments="edited",
         filename="product/test/test#.config",
         group_name="unittesting",
@@ -90,7 +90,7 @@ async def test_update() -> None:
         tested_lines=55,
         sorts_risk_level=0,
     )
-    await toe_lines_domain.update(toe_lines)
+    await toe_lines_domain.update(services_toe_lines)
     loaders = get_new_context()
     group_toe_lines = await loaders.group_services_toe_lines.load(group_name)
-    assert toe_lines in group_toe_lines
+    assert services_toe_lines in group_toe_lines

@@ -19,11 +19,11 @@ from db_model.findings.types import (
     FindingUnreliableIndicators,
     FindingVerification,
 )
+from db_model.services_toe_lines.types import (
+    ServicesToeLines,
+)
 from db_model.toe_inputs.types import (
     ToeInput,
-)
-from db_model.toe_lines.types import (
-    ServicesToeLines,
 )
 import safe_pickle
 from safe_pickle import (
