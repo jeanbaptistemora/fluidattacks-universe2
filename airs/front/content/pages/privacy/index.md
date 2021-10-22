@@ -1,11 +1,15 @@
 ---
 slug: privacy/
 title: Privacy Policy
-description: This Privacy Policy describes the manner in which Fluid Attacks collects protects and uses information from users of our websites, event participants, prospective customers or job candidates, situations in which Fluid Attacks is a data controller, and from the use of our products or services.
+description: This Privacy Policy describes the manner in which Fluid Attacks
+  collects protects and uses information from users of our websites,
+  event participants, prospective customers or job candidates,
+  situations in which Fluid Attacks is a data controller,
+  and from the use of our products or services.
 keywords: Fluid Attacks, Privacy, Policy, Information, Website, Right.
 ---
 
-*This document was last updated on June 18, 2020*
+#### *This document was last updated on June 18, 2020*
 
 This privacy policy ("Policy") describes how `Fluid Attacks` ("Fluid
 Attacks", "we", "us" or "our") collects, protects and uses the
@@ -449,5 +453,3 @@ and your Personal Information, you may send an email to
 ![Help](https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_200/v1620228481/airs/advisories/help_usssdq.webp)
 
 </div>
-
-*This document was last updated on June 18, 2020*
