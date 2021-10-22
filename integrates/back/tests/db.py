@@ -19,6 +19,7 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     Finding,
+    FindingUnreliableIndicators,
 )
 from db_model.roots.types import (
     RootItem,
@@ -171,6 +172,7 @@ async def _populate_finding_unreliable_indicator(data: Dict[str, Any]) -> None:
     finding = data["finding"]
     if data.get("unreliable_indicator"):
         await findings.update_unreliable_indicators(
+            current_value=FindingUnreliableIndicators(),
             group_name=finding.group_name,
             finding_id=finding.id,
             indicators=data["unreliable_indicator"],

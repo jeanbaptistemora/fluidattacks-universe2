@@ -40,6 +40,15 @@ class ExpectedVulnToHaveNickname(_SingleMessageException):
     msg: str = "Expected vulnerability to have repo_nickname"
 
 
+class IndicatorAlreadyUpdated(CustomBaseException):
+    """Exception to control the indicator has not been updated"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - The indicator has been updated by another operation"
+        super(IndicatorAlreadyUpdated, self).__init__(msg)
+
+
 class InvalidCannotModifyNicknameWhenClosing(_SingleMessageException):
     msg: str = "Invalid, you cannot change the nickname while closing"
 

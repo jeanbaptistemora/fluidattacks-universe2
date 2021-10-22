@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,missing-kwoa
 """
 This migration aims to update the unreliable indicators facet for all
 findings in alive groups in the single table vms

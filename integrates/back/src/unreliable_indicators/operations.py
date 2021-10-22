@@ -4,6 +4,9 @@ from . import (
 from aioextensions import (
     collect,
 )
+from custom_exceptions import (
+    IndicatorAlreadyUpdated,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -18,6 +21,12 @@ from db_model.findings.types import (
     Finding,
     FindingTreatmentSummary,
     FindingUnreliableIndicatorsToUpdate,
+)
+from decorators import (
+    retry_on_exceptions,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
 )
 from findings import (
     domain as findings_domain,
@@ -60,11 +69,16 @@ def _format_unreliable_treatment_summary(
     return unreliable_treatment_summary
 
 
+@retry_on_exceptions(
+    exceptions=(IndicatorAlreadyUpdated, UnavailabilityError),
+    max_attempts=20,
+    sleep_seconds=0,
+)
 async def update_finding_unreliable_indicators(  # noqa: C901
-    loaders: Dataloaders,
     finding_id: str,
     attrs_to_update: Set[EntityAttr],
 ) -> None:
+    loaders: Dataloaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
     indicators = {}
 
@@ -146,6 +160,7 @@ async def update_finding_unreliable_indicators(  # noqa: C901
         ),
     )
     await findings_model.update_unreliable_indicators(
+        current_value=finding.unreliable_indicators,
         group_name=finding.group_name,
         finding_id=finding.id,
         indicators=indicators,
@@ -155,7 +170,6 @@ async def update_finding_unreliable_indicators(  # noqa: C901
 async def update_unreliable_indicators_by_deps(
     dependency: EntityDependency, **args: str
 ) -> None:
-    loaders: Dataloaders = get_new_context()
     entities_to_update = (
         unreliable_indicators_model.get_entities_to_update_by_dependency(
             dependency, **args
@@ -166,7 +180,6 @@ async def update_unreliable_indicators_by_deps(
     if Entity.finding in entities_to_update:
         updations.append(
             update_finding_unreliable_indicators(
-                loaders,
                 entities_to_update[Entity.finding].entity_ids[EntityId.id],
                 entities_to_update[Entity.finding].attributes_to_update,
             )

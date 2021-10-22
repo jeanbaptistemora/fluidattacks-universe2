@@ -12,6 +12,7 @@ from .types import (
     FindingMetadataToUpdate,
     FindingState,
     FindingTreatmentSummary,
+    FindingUnreliableIndicators,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
@@ -19,6 +20,7 @@ from .utils import (
     format_evidences_item,
     format_state_item,
     format_treatment_summary_item,
+    format_unreliable_indicators_item,
     format_verification_item,
     get_latest_verification,
 )
@@ -31,6 +33,7 @@ from boto3.dynamodb.conditions import (
 )
 from custom_exceptions import (
     FindingNotFound,
+    IndicatorAlreadyUpdated,
 )
 from db_model import (
     TABLE,
@@ -264,6 +267,7 @@ async def update_state(
 
 async def update_unreliable_indicators(
     *,
+    current_value: FindingUnreliableIndicators,
     group_name: str,
     finding_id: str,
     indicators: FindingUnreliableIndicatorsToUpdate,
@@ -282,13 +286,23 @@ async def update_unreliable_indicators(
         for key, value in indicators._asdict().items()
         if value is not None
     }
-    condition_expression = Attr(key_structure.partition_key).exists()
-    await operations.update_item(
-        condition_expression=condition_expression,
-        item=unreliable_indicators,
-        key=unreliable_indicators_key,
-        table=TABLE,
+    current_value_item = format_unreliable_indicators_item(current_value)
+    conditions = (
+        Attr(indicator_name).eq(current_value_item[indicator_name])
+        for indicator_name in unreliable_indicators
     )
+    condition_expression = Attr(key_structure.partition_key).exists()
+    for condition in conditions:
+        condition_expression &= condition
+    try:
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item=unreliable_indicators,
+            key=unreliable_indicators_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise IndicatorAlreadyUpdated() from ex
 
 
 async def update_verification(

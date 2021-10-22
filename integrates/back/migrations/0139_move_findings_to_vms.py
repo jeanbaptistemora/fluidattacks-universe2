@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,missing-kwoa
 """
 This migration aims to move/copy all the findings to the integrates_vms table
 using the new finding entity, from the current finding dedicated table.
