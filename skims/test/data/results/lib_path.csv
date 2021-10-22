@@ -7340,6 +7340,246 @@ F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Ina
   19 | }
      ^ Col 0
 "
+F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,6,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+   1 | Resources:
+   2 |   distribution1:
+   3 |     Type: AWS::CloudFront::Distribution
+   4 |     Properties:
+   5 |       DistributionConfig:
+>  6 |         Enabled: 'true'
+   7 |         DefaultCacheBehavior:
+   8 |           TargetOriginId: def1
+   9 |           ForwardedValues:
+  10 |             QueryString: 'false'
+  11 |             Cookies:
+  12 |               Forward: all
+  13 |           ViewerProtocolPolicy: allow-all
+  14 |         CacheBehaviors:
+  15 |         - TargetOriginId: cache11
+  16 |           ForwardedValues:
+  17 |             QueryString: 'true'
+  18 |             Cookies:
+  19 |               Forward: none
+  20 |           ViewerProtocolPolicy: https-only
+  21 |           PathPattern: images1/*.jpg
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,6,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+   1 | Resources:
+   2 |   distribution1:
+   3 |     Type: AWS::CloudFront::Distribution
+   4 |     Properties:
+   5 |       DistributionConfig:
+>  6 |         Enabled: 'true'
+   7 |         DefaultCacheBehavior:
+   8 |           TargetOriginId: def1
+   9 |           ForwardedValues:
+  10 |             QueryString: 'false'
+  11 |             Cookies:
+  12 |               Forward: all
+  13 |         Origins:
+  14 |         - CustomOriginConfig:
+  15 |             OriginSSLProtocols:
+  16 |             - SSLv3
+  17 |             - TLSv1
+  18 |             - TLSv1.1
+  19 |             - TLSv1.2
+  20 |   distribution2:
+  21 |     Type: AWS::CloudFront::Distribution
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_has_logging_disabled.yaml,19,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+   5 |       DistributionConfig:
+   6 |         Enabled: 'true'
+   7 |         DefaultCacheBehavior:
+   8 |           TargetOriginId: def1
+   9 |           ForwardedValues:
+  10 |             QueryString: 'false'
+  11 |             Cookies:
+  12 |               Forward: all
+  13 |         Logging:
+  14 |           Bucket: bucket1
+  15 |   distribution2:
+  16 |     Type: AWS::CloudFront::Distribution
+  17 |     Properties:
+  18 |       DistributionConfig:
+> 19 |         Enabled: 'true'
+  20 |         DefaultCacheBehavior:
+  21 |           TargetOriginId: def2
+  22 |           ForwardedValues:
+  23 |             QueryString: 'false'
+  24 |             Cookies:
+  25 |               Forward: all
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,24,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+  12 |               Forward: all
+  13 |         Origins:
+  14 |         - CustomOriginConfig:
+  15 |             OriginSSLProtocols:
+  16 |             - SSLv3
+  17 |             - TLSv1
+  18 |             - TLSv1.1
+  19 |             - TLSv1.2
+  20 |   distribution2:
+  21 |     Type: AWS::CloudFront::Distribution
+  22 |     Properties:
+  23 |       DistributionConfig:
+> 24 |         Enabled: 'true'
+  25 |         DefaultCacheBehavior:
+  26 |           TargetOriginId: def2
+  27 |           ForwardedValues:
+  28 |             QueryString: 'false'
+  29 |             Cookies:
+  30 |               Forward: all
+  31 |         ViewerCertificate:
+  32 |           MinimumProtocolVersion: TLSv1
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,33,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+  23 |           ForwardedValues:
+  24 |             QueryString: 'true'
+  25 |             Cookies:
+  26 |               Forward: none
+  27 |           ViewerProtocolPolicy: allow-all
+  28 |           PathPattern: images2/*.jpg
+  29 |   distribution2:
+  30 |     Type: AWS::CloudFront::Distribution
+  31 |     Properties:
+  32 |       DistributionConfig:
+> 33 |         Enabled: 'true'
+  34 |         DefaultCacheBehavior:
+  35 |           TargetOriginId: def2
+  36 |           ForwardedValues:
+  37 |             QueryString: 'false'
+  38 |             Cookies:
+  39 |               Forward: all
+  40 |           ViewerProtocolPolicy: https-only
+  41 |         CacheBehaviors:
+  42 |         - TargetOriginId: cache21
+  43 |           ForwardedValues:
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,6,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""distribution1"": {
+   4 |       ""Type"": ""AWS::CloudFront::Distribution"",
+   5 |       ""Properties"": {
+>  6 |         ""DistributionConfig"": {
+   7 |           ""Enabled"": ""true"",
+   8 |           ""DefaultCacheBehavior"": {
+   9 |             ""TargetOriginId"": ""def1"",
+  10 |             ""ForwardedValues"": {
+  11 |               ""QueryString"": ""false"",
+  12 |               ""Cookies"": {
+  13 |                 ""Forward"": ""all""
+  14 |               }
+  15 |             },
+  16 |             ""ViewerProtocolPolicy"": ""allow-all""
+  17 |           },
+  18 |           ""CacheBehaviors"": [
+  19 |             {
+  20 |               ""TargetOriginId"": ""cache11"",
+  21 |               ""ForwardedValues"": {
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,6,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""distribution1"": {
+   4 |       ""Type"": ""AWS::CloudFront::Distribution"",
+   5 |       ""Properties"": {
+>  6 |         ""DistributionConfig"": {
+   7 |           ""Enabled"": ""true"",
+   8 |           ""DefaultCacheBehavior"": {
+   9 |             ""TargetOriginId"": ""def1"",
+  10 |             ""ForwardedValues"": {
+  11 |               ""QueryString"": ""false"",
+  12 |               ""Cookies"": {
+  13 |                 ""Forward"": ""all""
+  14 |               }
+  15 |             }
+  16 |           },
+  17 |           ""Origins"": [
+  18 |             {
+  19 |               ""CustomOriginConfig"": {
+  20 |                 ""OriginSSLProtocols"": [
+  21 |                   ""SSLv3"",
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_has_logging_disabled.yaml.json,26,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+  16 |           },
+  17 |           ""Logging"": {
+  18 |             ""Bucket"": ""bucket1""
+  19 |           }
+  20 |         }
+  21 |       }
+  22 |     },
+  23 |     ""distribution2"": {
+  24 |       ""Type"": ""AWS::CloudFront::Distribution"",
+  25 |       ""Properties"": {
+> 26 |         ""DistributionConfig"": {
+  27 |           ""Enabled"": ""true"",
+  28 |           ""DefaultCacheBehavior"": {
+  29 |             ""TargetOriginId"": ""def2"",
+  30 |             ""ForwardedValues"": {
+  31 |               ""QueryString"": ""false"",
+  32 |               ""Cookies"": {
+  33 |                 ""Forward"": ""all""
+  34 |               }
+  35 |             }
+  36 |           }
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,35,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+  25 |                 ]
+  26 |               }
+  27 |             }
+  28 |           ]
+  29 |         }
+  30 |       }
+  31 |     },
+  32 |     ""distribution2"": {
+  33 |       ""Type"": ""AWS::CloudFront::Distribution"",
+  34 |       ""Properties"": {
+> 35 |         ""DistributionConfig"": {
+  36 |           ""Enabled"": ""true"",
+  37 |           ""DefaultCacheBehavior"": {
+  38 |             ""TargetOriginId"": ""def2"",
+  39 |             ""ForwardedValues"": {
+  40 |               ""QueryString"": ""false"",
+  41 |               ""Cookies"": {
+  42 |                 ""Forward"": ""all""
+  43 |               }
+  44 |             }
+  45 |           },
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,48,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+  38 |               ""ViewerProtocolPolicy"": ""allow-all"",
+  39 |               ""PathPattern"": ""images2/*.jpg""
+  40 |             }
+  41 |           ]
+  42 |         }
+  43 |       }
+  44 |     },
+  45 |     ""distribution2"": {
+  46 |       ""Type"": ""AWS::CloudFront::Distribution"",
+  47 |       ""Properties"": {
+> 48 |         ""DistributionConfig"": {
+  49 |           ""Enabled"": ""true"",
+  50 |           ""DefaultCacheBehavior"": {
+  51 |             ""TargetOriginId"": ""def2"",
+  52 |             ""ForwardedValues"": {
+  53 |               ""QueryString"": ""false"",
+  54 |               ""Cookies"": {
+  55 |                 ""Forward"": ""all""
+  56 |               }
+  57 |             },
+  58 |             ""ViewerProtocolPolicy"": ""https-only""
+     ^ Col 0
+"
 F004,lines,namespace/skims/test/data/lib_path/f004/test.cs,16,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    5 | {
