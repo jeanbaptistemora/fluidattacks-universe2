@@ -1,7 +1,8 @@
 ---
 slug: thank-you-survey/
 title: Your form was submitted succesfully!
-description: Thank you for filling out our form, we invite you to visit our Blog entries.
+description: Thank you for filling out our form,
+  we invite you to visit our Blog entries.
 keywords: Fluid Attacks, Contact, Acknowledgment, Company, About us, Security
 template: thankYou
 ---
