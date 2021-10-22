@@ -6,7 +6,11 @@ export const enTranslations: ResourceKey = {
       exposureByGroups: "Open Severity by Groups",
       meanTimeToRemediate: {
         tooltip: {
-          alt: "Mean time to remediate",
+          alt: {
+            default: "Mean time to remediate",
+            nonTreated: "Non treated mean time to remediate",
+            nonTreatedCvssf: "Non treated mean time to remediate & severity",
+          },
           default: "Mean time to remediate & severity",
         },
       },

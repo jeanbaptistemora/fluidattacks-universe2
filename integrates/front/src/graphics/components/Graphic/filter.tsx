@@ -22,7 +22,7 @@ const Children: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: `absolute dn z-1 ${styles.childrenContainer}`,
+  className: `absolute dn f7 z-1 ${styles.childrenContainer}`,
 })``;
 
 const DropdownFilter: React.FC<IDropdownFilterProps> = ({

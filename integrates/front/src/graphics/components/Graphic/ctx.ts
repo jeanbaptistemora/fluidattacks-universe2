@@ -57,7 +57,25 @@ const mergedDocuments: Record<string, IMergedCharts> = {
         label: "Days",
         title: translate.t("tagIndicator.meanRemediate"),
         tooltip: translate.t(
-          "analytics.barChart.meanTimeToRemediate.tooltip.alt"
+          "analytics.barChart.meanTimeToRemediate.tooltip.alt.default"
+        ),
+        url: "",
+      },
+      {
+        documentName: "meanTimeToRemediateNonTreatedCvssf",
+        label: "Non treated (CVSSF)",
+        title: translate.t("tagIndicator.meanRemediate"),
+        tooltip: translate.t(
+          "analytics.barChart.meanTimeToRemediate.tooltip.alt.nonTreatedCvssf"
+        ),
+        url: "",
+      },
+      {
+        documentName: "meanTimeToRemediateNonTreated",
+        label: "Non treated days",
+        title: translate.t("tagIndicator.meanRemediate"),
+        tooltip: translate.t(
+          "analytics.barChart.meanTimeToRemediate.tooltip.alt.nonTreated"
         ),
         url: "",
       },
