@@ -79,6 +79,12 @@
       rev = "1fedb2a117f89b7df05550255a022f6e25bb7975";
       sha256 = "0r8gp511ldp0h4f9v7pjcfmrldc68vad5vxphlknm4kvknm7ysfc";
     };
+    skimsTreeSitterScala = fetchGithub {
+      owner = "tree-sitter";
+      repo = "tree-sitter-scala";
+      rev = "0a3dd53a7fc4b352a538397d054380aaa28be54c";
+      sha256 = "1lwyipn5b36fskr8cm60qjblj2chf8336zkqbsifq49z1lj0wvpi";
+    };
     skimsTreeSitterTsx = fetchGithub {
       owner = "tree-sitter";
       repo = "tree-sitter-typescript";
