@@ -30,6 +30,8 @@ from typing import (
     Any,
     Dict,
     List,
+    Optional,
+    Tuple,
 )
 
 
@@ -43,7 +45,7 @@ def get_exploitability_measure(score: int) -> str:
     return data.get(str(score), "-")
 
 
-def styles(key: str, value: str) -> str:
+def style_report(key: str, value: str) -> str:
     style_data = {
         "title": "[yellow]",
         "state": {"open": "[red]", "closed": "[green]"},
@@ -62,6 +64,24 @@ def styles(key: str, value: str) -> str:
             return value
         return f"{value_style}{value}[/]"
     return value
+
+
+def style_summary(key: str, value: int) -> str:
+    markup: str = ""
+    if key == "accepted":
+        return str(value)
+    if key == "open":
+        if value == 0:
+            markup = "[green]"
+        elif value < 10:
+            markup = "[yellow3]"
+        elif value < 20:
+            markup = "[orange3]"
+        else:
+            markup = "[red]"
+    elif key == "closed":
+        markup = "[green]"
+    return f"{markup}{str(value)}[/]"
 
 
 async def create_findings_dict(
@@ -86,11 +106,49 @@ async def create_findings_dict(
     return findings_dict
 
 
+def format_summary_report(summary: Dict[str, Any], kind: str) -> Table:
+    footer = summary.pop("total")
+    time_elapsed = summary.pop("time")
+    summary_table = Table(
+        title="Summary",
+        show_header=False,
+        highlight=True,
+        box=MINIMAL,
+        border_style="blue",
+        width=40,
+        caption=f"Total: {footer} finding(s)\nTime elapsed: {time_elapsed}",
+    )
+    summary_table.add_column("Vuln state", style="cyan")
+    if kind != "all":
+        summary_table.add_column("Value")
+        for vuln_state, vuln_type in summary.items():
+            for key, value in vuln_type.items():
+                summary_table.add_row(
+                    vuln_state,
+                    style_summary(vuln_state, value),
+                    end_section=key == "total",
+                )
+    else:
+        summary_table.add_column("Vuln type", style="magenta1")
+        summary_table.add_column("Value")
+        for vuln_state, vuln_type in summary.items():
+            label: Optional[str] = vuln_state
+            for key, value in vuln_type.items():
+                summary_table.add_row(
+                    label,
+                    key,
+                    style_summary(vuln_state, value),
+                    end_section=key == "total",
+                )
+                label = None
+    return summary_table
+
+
 def format_rich_report(
     report: Dict[str, Any],
     verbose_level: int,
-) -> Table:
-
+    kind: str,
+) -> Tuple[Table, Table]:
     report_table = Table(
         title="Findings Report",
         show_header=False,
@@ -106,9 +164,11 @@ def format_rich_report(
     for find in findings:
         for key, value in find.items():
             report_table.add_row(
-                key, styles(key, str(value)), end_section=(key == last_key)
+                key, style_report(key, str(value)), end_section=key == last_key
             )
-    return report_table
+    summary = report["summary"]
+    summary_table = format_summary_report(summary, kind)
+    return report_table, summary_table
 
 
 async def generate_report_log(
