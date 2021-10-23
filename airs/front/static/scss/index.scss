@@ -234,9 +234,10 @@ $gray-120: rgba(120, 120, 145, 1);
 .wm-tb-rl { writing-mode: tb-rl; }
 
 // Media queries
-@media screen and (min-width: 1170px) {
+@media screen and (min-width: 1290px) {
   .owasp-col {
-    width: 510px;
+    min-height: 480px;
+    width: 610px;
   }
 }
 
