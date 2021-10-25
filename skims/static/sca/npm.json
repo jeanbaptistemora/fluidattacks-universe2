@@ -192,6 +192,12 @@
       ">=4.0.0,<4.1.2"
     ]
   },
+  "crypto-js": {
+    "SNYK-JS-CRYPTOJS-548472": [
+      "<3.2.1",
+      ">=3.3.0,<4.0.0"
+    ]
+  },
   "css-what": {
     "CVE-2021-33587": [
       "<5.0.1"
@@ -381,6 +387,14 @@
     ],
     "SNYK-JS-HANDLEBARS-480388": [
       ">=4.0.0,<4.5.5"
+    ],
+    "SNYK-JS-HANDLEBARS-469063": [
+      "<3.8.0",
+      ">=4.0.0,<4.3.0"
+    ],
+    "SNYK-JS-HANDLEBARS-173692": [
+      "<4.0.14",
+      ">=4.1.0,<4.1.2"
     ],
     "SNYK-JS-HANDLEBARS-174183": [
       ">=3.0.0,<3.0.7",
@@ -677,6 +691,9 @@
   },
   "mkdirp": {},
   "mocha": {
+    "SNYK-JS-MOCHA-561476": [
+      "<6.0.0"
+    ],
     "github.com/mochajs/mocha/pull/3686": [
       "<6.0.0"
     ]
@@ -950,6 +967,9 @@
   "superagent": {
     "CVE-2017-16129": [
       "<3.7.0"
+    ],
+    "npm:superagent:20181108": [
+      "<3.8.1"
     ],
     "github.com/visionmedia/superagent/issues/1309": [
       "<3.8.1"
