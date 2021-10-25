@@ -14,7 +14,7 @@ from dynamodb import (
 )
 
 
-async def create(*, vulnerability: Vulnerability) -> None:
+async def add(*, vulnerability: Vulnerability) -> None:
     items = []
     key_structure = TABLE.primary_key
     metadata_key = keys.build_key(
@@ -30,10 +30,10 @@ async def create(*, vulnerability: Vulnerability) -> None:
         "custom_severity": vulnerability.custom_severity,
         "finding_id": vulnerability.finding_id,
         "hash": vulnerability.hash,
+        "id": vulnerability.id,
         "repo": vulnerability.repo,
         "specific": vulnerability.specific,
         "stream": vulnerability.stream,
-        "id": vulnerability.id,
         "tags": vulnerability.tags,
         "type": vulnerability.type.value,
         "where": vulnerability.where,

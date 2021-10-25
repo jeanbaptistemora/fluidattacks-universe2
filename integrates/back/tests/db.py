@@ -283,7 +283,7 @@ async def _populate_vuln_historic_zero_risk(data: Dict[str, Any]) -> None:
 async def populate_vulnerabilities_new(data: List[Dict[str, Any]]) -> bool:
     await collect(
         [
-            vulnerabilities.create(vulnerability=item["vulnerability"])
+            vulnerabilities.add(vulnerability=item["vulnerability"])
             for item in data
         ]
     )

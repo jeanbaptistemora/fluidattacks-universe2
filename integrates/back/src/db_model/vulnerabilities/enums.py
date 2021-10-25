@@ -36,6 +36,7 @@ class VulnerabilityAcceptanceStatus(Enum):
 
 
 class VulnerabilityVerificationStatus(Enum):
+    MASKED: str = "MASKED"
     REQUESTED: str = "REQUESTED"
     VERIFIED: str = "VERIFIED"
 
