@@ -11,8 +11,15 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 from db_model import (
     TABLE,
+)
+from db_model.roots.types import (
+    RootItem,
 )
 from dynamodb import (
     operations,
@@ -26,15 +33,19 @@ from groups import (
 import time
 
 
-def format_sk(sk: str) -> str:
+async def format_sk(loaders: Dataloaders, group_name: str, sk: str) -> str:
     sk.split("#", 4)
     sort_key_items = sk.split("#", 4)
+    root_id = sort_key_items[2]
+    root: RootItem = await loaders.root.load((group_name, root_id))
     filename = sort_key_items.pop()
-    _, new_filename = filename.split("/", 1)
+    new_filename = filename.replace(f"{root.state.nickname}/", "")
     return "#".join([*sort_key_items, new_filename])
 
 
-async def remove_nicknames(group_name: str, progress: float) -> None:
+async def remove_nicknames(
+    loaders: Dataloaders, group_name: str, progress: float
+) -> None:
     print("Group", group_name)
     print("Progress", progress)
     key_structure = TABLE.primary_key
@@ -47,15 +58,19 @@ async def remove_nicknames(group_name: str, progress: float) -> None:
         index=None,
         table=TABLE,
     )
+    new_sks = await collect(
+        tuple(
+            format_sk(loaders, group_name, item[TABLE.primary_key.sort_key])
+            for item in items
+        )
+    )
     await operations.batch_write_item(
         items=tuple(
             {
                 **item,
-                TABLE.primary_key.sort_key: (
-                    format_sk(item[TABLE.primary_key.sort_key])
-                ),
+                TABLE.primary_key.sort_key: new_sk,
             }
-            for item in items
+            for item, new_sk in zip(items, new_sks)
         ),
         table=TABLE,
     )
@@ -70,10 +85,12 @@ async def remove_nicknames(group_name: str, progress: float) -> None:
             )
             for item in items
         ),
+        workers=100,
     )
 
 
 async def main() -> None:
+    loaders = get_new_context()
     group_names = tuple(
         group["project_name"]
         for group in await groups_domain.get_all(attributes=["project_name"])
@@ -82,9 +99,10 @@ async def main() -> None:
 
     await collect(
         tuple(
-            remove_nicknames(group_name, count / group_names_len)
+            remove_nicknames(loaders, group_name, count / group_names_len)
             for count, group_name in enumerate(group_names)
-        )
+        ),
+        workers=50,
     )
     print("Success: True")
 
