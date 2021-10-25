@@ -743,16 +743,16 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
             await groups_domain.get_open_vulnerabilities(loaders, group)
         ),
         "total_treatment": total_treatment,
-        "remediated_over_time": remediated_over_time.vulnerabilities[-40:],
-        "remediated_over_time_month": over_time_month.vulnerabilities[-40:],
+        "remediated_over_time": remediated_over_time.vulnerabilities[-18:],
+        "remediated_over_time_month": over_time_month.vulnerabilities[-80:],
         "remediated_over_time_cvssf": (
-            remediated_over_time.vulnerabilities_cvssf[-40:]
+            remediated_over_time.vulnerabilities_cvssf[-18:]
         ),
         "remediated_over_time_month_cvssf": (
-            over_time_month.vulnerabilities_cvssf[-40:]
+            over_time_month.vulnerabilities_cvssf[-80:]
         ),
-        "exposed_over_time_cvssf": remediated_over_time.exposed_cvssf[-40:],
-        "exposed_over_time_month_cvssf": over_time_month.exposed_cvssf[-40:],
+        "exposed_over_time_cvssf": remediated_over_time.exposed_cvssf[-18:],
+        "exposed_over_time_month_cvssf": over_time_month.exposed_cvssf[-80:],
         "remediated_over_time_30": remediated_over_thirty_days.vulnerabilities,
         "remediated_over_time_cvssf_30": (
             remediated_over_thirty_days.vulnerabilities_cvssf
