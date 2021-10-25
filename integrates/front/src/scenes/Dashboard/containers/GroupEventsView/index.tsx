@@ -538,7 +538,11 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   return (
     <React.Fragment>
       {isEventModalOpen ? (
-        <AddModal onClose={closeNewEventModal} onSubmit={handleSubmit} />
+        <AddModal
+          groupName={groupName}
+          onClose={closeNewEventModal}
+          onSubmit={handleSubmit}
+        />
       ) : undefined}
       <TooltipWrapper
         id={"group.events.help"}

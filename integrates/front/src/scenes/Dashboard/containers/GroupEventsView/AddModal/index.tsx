@@ -1,10 +1,14 @@
+import type { ApolloError } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
+import type { GraphQLError } from "graphql";
 import type { Moment } from "moment";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import type { BaseSchema } from "yup";
-import { array, lazy, object } from "yup";
+import { array, object, string } from "yup";
 
+import { GET_ROOTS } from "../../GroupScopeView/queries";
+import type { Root } from "../../GroupScopeView/types";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import globalStyle from "styles/global.css";
@@ -17,6 +21,7 @@ import {
   Row,
 } from "styles/styledComponents";
 import {
+  FormikAutocompleteText,
   FormikCheckbox,
   FormikDateTime,
   FormikDropdown,
@@ -24,6 +29,7 @@ import {
   FormikText,
   FormikTextArea,
 } from "utils/forms/fields";
+import { Logger } from "utils/logger";
 import {
   composeValidators,
   dateTimeBeforeToday,
@@ -56,37 +62,52 @@ interface IFormValues {
   file?: FileList;
   image?: FileList;
   rootId: string;
+  rootNickname: string;
 }
 
 interface IAddModalProps {
+  groupName: string;
   onClose: () => void;
   onSubmit: (values: IFormValues) => Promise<void>;
 }
 
 const AddModal: React.FC<IAddModalProps> = ({
+  groupName,
   onClose,
   onSubmit,
 }: IAddModalProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const validations = lazy(
-    (): BaseSchema =>
-      object().shape({
-        accessibility: array().min(1, t("validations.someRequired")),
-        affectedComponents: array().when("eventType", {
-          is: "INCORRECT_MISSING_SUPPLIES",
-          otherwise: array().notRequired(),
-          then: array().min(1, t("validations.someRequired")),
-        }),
-      })
-  );
+  const { data } = useQuery<{ group: { roots: Root[] } }>(GET_ROOTS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load roots", error);
+      });
+    },
+    variables: { groupName },
+  });
+  const roots =
+    data === undefined
+      ? []
+      : data.group.roots.filter((root): boolean => root.state === "ACTIVE");
+  const nicknames = roots.map((root): string => root.nickname);
 
   async function handleSubmit(values: IFormValues): Promise<void> {
     return onSubmit({
       ...values,
-      rootId: "",
+      rootId: roots[nicknames.indexOf(values.rootNickname)].id,
     });
   }
+
+  const validations = object().shape({
+    accessibility: array().min(1, t("validations.someRequired")),
+    affectedComponents: array().when("eventType", {
+      is: "INCORRECT_MISSING_SUPPLIES",
+      otherwise: array().notRequired(),
+      then: array().min(1, t("validations.someRequired")),
+    }),
+    rootNickname: string().required().oneOf(nicknames, t("validations.oneOf")),
+  });
 
   return (
     <Modal headerTitle={t("group.events.new")} onEsc={onClose} open={true}>
@@ -104,6 +125,7 @@ const AddModal: React.FC<IAddModalProps> = ({
           file: undefined,
           image: undefined,
           rootId: "",
+          rootNickname: "",
         }}
         name={"newEvent"}
         onSubmit={handleSubmit}
@@ -111,6 +133,19 @@ const AddModal: React.FC<IAddModalProps> = ({
       >
         {({ dirty, isSubmitting, values }): JSX.Element => (
           <Form>
+            <Row>
+              <Col100>
+                <FormGroup>
+                  <ControlLabel>{t("group.events.form.root")}</ControlLabel>
+                  <Field
+                    component={FormikAutocompleteText}
+                    name={"rootNickname"}
+                    placeholder={t("group.events.form.rootPlaceholder")}
+                    suggestions={nicknames}
+                  />
+                </FormGroup>
+              </Col100>
+            </Row>
             <Row>
               <Col50>
                 <FormGroup>

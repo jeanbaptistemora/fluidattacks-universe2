@@ -380,6 +380,8 @@ export const enTranslations: ResourceKey = {
         none: "None",
         other: "Other",
         responsible: "Person in charge (client)",
+        root: "Root",
+        rootPlaceholder: "Search by nickname...",
         type: {
           detectsAttack: "Client detects the attack",
           highAvailability: "High availability approval",

@@ -94,7 +94,7 @@ type Mutation {
     "Evidence image of the event"
     image: Upload
     "Id of the root the event is associated with"
-    rootId: ID
+    rootId: ID!
   ): SimplePayload!
 
   "Adds a consult/comment to an Event"
