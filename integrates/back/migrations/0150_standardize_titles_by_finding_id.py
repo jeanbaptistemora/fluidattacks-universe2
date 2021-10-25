@@ -5,8 +5,8 @@ https://gitlab.com/fluidattacks/product/-/blob/master/makes/foss/modules/makes/c
 
 Similar to migration 0109, but using the new db model
 
-Execution Time:
-Finalization Time:
+Execution Time:     2021-10-25 at 22:43:36 UTC
+Finalization Time:  2021-10-25 at 22:45:41 UTC
 """
 
 from aioextensions import (
@@ -36,7 +36,7 @@ from dynamodb import (
 )
 import time
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def _get_group(finding_id: str) -> str:
