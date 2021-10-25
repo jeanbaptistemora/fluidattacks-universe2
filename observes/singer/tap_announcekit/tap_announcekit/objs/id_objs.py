@@ -22,7 +22,7 @@ _T = TypeVar("_T")
 
 @dataclass(frozen=True)
 class ProjectId:
-    proj_id: str
+    id_str: str
 
     @staticmethod
     def from_any(raw: Any) -> ProjectId:
@@ -32,7 +32,7 @@ class ProjectId:
 @dataclass(frozen=True)
 class PostId:
     proj: ProjectId
-    post_id: str
+    id_str: str
 
     @staticmethod
     def from_any(proj: Any, post: Any) -> PostId:
@@ -45,18 +45,18 @@ class PostId:
 @dataclass(frozen=True)
 class ExtUserId:
     proj: ProjectId
-    obj_id: str
+    id_str: str
 
 
 @dataclass(frozen=True)
 class FeedbackId:
     post: PostId
-    obj_id: str
+    id_str: str
 
 
 @dataclass(frozen=True)
 class UserId:
-    user_id: str
+    id_str: str
 
     @staticmethod
     def from_any(raw: Any) -> UserId:
@@ -65,7 +65,7 @@ class UserId:
 
 @dataclass(frozen=True)
 class ImageId:
-    img_id: str
+    id_str: str
 
     @staticmethod
     def from_any(raw: Any) -> ImageId:

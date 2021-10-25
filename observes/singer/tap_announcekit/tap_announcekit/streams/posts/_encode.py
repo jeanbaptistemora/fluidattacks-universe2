@@ -41,12 +41,12 @@ def _schema() -> JsonSchema:
 
 def _to_json(obj: Post) -> JsonObj:
     json: Dict[str, Primitive] = {
-        "obj_id": obj.obj_id.post_id,
-        "project_id": obj.obj_id.proj.proj_id,
-        "user_id": obj.user_id.user_id if obj.user_id else None,
+        "obj_id": obj.obj_id.id_str,
+        "project_id": obj.obj_id.proj.id_str,
+        "user_id": obj.user_id.id_str if obj.user_id else None,
         "created_at": obj.created_at.isoformat(),
         "visible_at": obj.visible_at.isoformat(),
-        "image_id": obj.image_id.img_id if obj.image_id else None,
+        "image_id": obj.image_id.id_str if obj.image_id else None,
         "expire_at": obj.expire_at.isoformat() if obj.expire_at else None,
         "updated_at": obj.updated_at.isoformat() if obj.updated_at else None,
         "is_draft": obj.is_draft,

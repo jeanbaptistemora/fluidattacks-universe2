@@ -41,8 +41,8 @@ def _schema() -> JsonSchema:
 
 def _to_json(obj: PostContent) -> JsonObj:
     json: Dict[str, Primitive] = {
-        "proj_id": obj.post_id.proj.proj_id,
-        "post_id": obj.post_id.post_id,
+        "proj_id": obj.post_id.proj.id_str,
+        "post_id": obj.post_id.id_str,
         "locale_id": obj.locale_id,
         "title": obj.title,
         "body": obj.body,

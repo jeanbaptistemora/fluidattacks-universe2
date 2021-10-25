@@ -38,7 +38,7 @@ class PostContentQuery:
 
     def _select_fields(self, query: Operation) -> IO[None]:
         contents = query.post(
-            project_id=self.post.proj.proj_id, post_id=self.post.post_id
+            project_id=self.post.proj.id_str, post_id=self.post.id_str
         ).contents()
         for attr, _ in PostContent.__annotations__.items():
             getattr(contents, attr)()
@@ -50,7 +50,7 @@ class PostContentQuery:
 
 def from_raw(proj: ProjectId, raw: RawPostContent) -> PostContent:
     return PostContent(
-        PostId.from_any(proj.proj_id, raw.post_id),
+        PostId.from_any(proj.id_str, raw.post_id),
         _to_primitive(raw.locale_id, str),
         _to_primitive(raw.title, str),
         _to_primitive(raw.body, str),

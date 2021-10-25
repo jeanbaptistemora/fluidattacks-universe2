@@ -24,7 +24,7 @@ class PostQuery:
 
     def _select_fields(self, query: Operation) -> IO[None]:
         proj = query.post(
-            project_id=self.post.proj.proj_id, post_id=self.post.post_id
+            project_id=self.post.proj.id_str, post_id=self.post.id_str
         )
         proj.project_id()
         for attr, _ in Post.__annotations__.items():
@@ -42,7 +42,7 @@ class PostIdsQuery:
     page: int
 
     def _select_fields(self, query: Operation) -> IO[None]:
-        proj = query.posts(project_id=self.proj.proj_id, page=self.page)
+        proj = query.posts(project_id=self.proj.id_str, page=self.page)
         proj.list().id()
         proj.list().project_id()
         proj.page()
@@ -59,7 +59,7 @@ class TotalPagesQuery:
     proj: ProjectId
 
     def _select_fields(self, query: Operation) -> IO[None]:
-        proj = query.posts(project_id=self.proj.proj_id, page=0)
+        proj = query.posts(project_id=self.proj.id_str, page=0)
         proj.count()
         proj.pages()
         return IO(None)

@@ -87,7 +87,7 @@ class ProjectQuery:
 
 
 def _get_project(client: ApiClient, proj_id: ProjectId) -> IO[Project]:
-    query = ProjectQuery(proj_id.proj_id).query()
+    query = ProjectQuery(proj_id.id_str).query()
     raw: IO[RawProject] = client.get(query).map(
         lambda q: cast(RawProject, q.project)
     )

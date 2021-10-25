@@ -41,7 +41,7 @@ def _schema() -> JsonSchema:
 
 def _to_json(proj: Project) -> JsonObj:
     json: Dict[str, Primitive] = {
-        "proj_id": proj.proj_id.proj_id,
+        "proj_id": proj.proj_id.id_str,
         "encoded_id": proj.encoded_id,
         "name": proj.name,
         "slug": proj.slug,
@@ -53,8 +53,8 @@ def _to_json(proj: Project) -> JsonObj:
         "is_feedback_enabled": proj.is_feedback_enabled,
         "is_demo": proj.is_demo,
         "is_readonly": proj.is_readonly,
-        "image_id": proj.image_id.img_id if proj.image_id else None,
-        "favicon_id": proj.favicon_id.img_id if proj.favicon_id else None,
+        "image_id": proj.image_id.id_str if proj.image_id else None,
+        "favicon_id": proj.favicon_id.id_str if proj.favicon_id else None,
         "created_at": proj.created_at.isoformat(),
         "ga_property": proj.ga_property,
         "avatar": proj.avatar,
