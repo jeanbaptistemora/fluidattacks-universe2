@@ -33,7 +33,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
             "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
             "servicesToeLines": [
                 {
-                    "filename": "product/test/test#.config",
+                    "filename": "test/test#.config",
                     "modifiedDate": "2019-08-01T00:00:00-05:00",
                     "modifiedCommit": "983466z",
                     "loc": 8,
@@ -47,7 +47,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
             "id": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
             "servicesToeLines": [
                 {
-                    "filename": "asm_1/test2/test.sh",
+                    "filename": "test2/test.sh",
                     "modifiedDate": "2020-11-19T00:00:00-05:00",
                     "modifiedCommit": "273412t",
                     "loc": 172,
@@ -56,7 +56,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "comments": comments,
                 },
                 {
-                    "filename": "asm_1/test3/test.config",
+                    "filename": "test3/test.config",
                     "modifiedDate": "2020-11-19T00:00:00-05:00",
                     "modifiedCommit": "g545435i",
                     "loc": 55,

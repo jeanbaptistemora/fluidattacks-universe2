@@ -61,9 +61,9 @@ from urllib.parse import (
 # Constants
 INVALID_FILENAMES = {
     "",
-    "Repo1/Folder1/Folder2/File.js",
-    "Repo1/Folder1/Folder2/Folder3/File.html",
-    "Repo2/Folder1/File.cs",
+    "Folder1/Folder2/File.js",
+    "Folder1/Folder2/Folder3/File.html",
+    "Folder1/File.cs",
 }
 IGNORED_SERVICES_REPO_GROUP = {
     "kadugli",
@@ -94,14 +94,20 @@ def _format_date(date_str: str) -> str:
 
 
 def _format_filename(filename: str) -> str:
-    nickname, path = filename.strip('"').split("/", 1)
+    _, path = filename.strip('"').split("/", 1)
+
+    return path
+
+
+def _format_root_nickname(filename: str) -> str:
+    nickname, _ = filename.strip('"').split("/", 1)
     formatted_nickname = re.sub(
         r"(?![a-zA-Z_0-9-]).",
         "_",
         unquote(nickname).rstrip()[:128],
     )
 
-    return "/".join([formatted_nickname, path])
+    return formatted_nickname
 
 
 def _get_group_toe_lines_from_cvs(
@@ -111,6 +117,7 @@ def _get_group_toe_lines_from_cvs(
     lines_csv_fields: List[Tuple[str, Callable, Any, str]] = [
         # field_name, field_formater, field_default_value, cvs_field_name,
         ("filename", _format_filename, "", "filename"),
+        ("root_nickname", _format_root_nickname, "", "filename"),
         ("comments", str, "", "comments"),
         ("modified_commit", str, "", "modified-commit"),
         ("loc", int, 0, "loc"),
@@ -145,8 +152,8 @@ def _get_group_toe_lines_from_cvs(
             try:
                 new_toe_lines[
                     "root_id"
-                ] = roots_domain.get_root_id_by_filename(
-                    new_toe_lines["filename"], group_roots
+                ] = roots_domain.get_root_id_by_nickname(
+                    new_toe_lines["root_nickname"], group_roots
                 )
             except RootNotFound as ex:
                 LOGGER.exception(ex, extra={"extra": locals()})
@@ -155,6 +162,7 @@ def _get_group_toe_lines_from_cvs(
 
             new_toe_lines["group_name"] = group_name
             new_toe_lines["sorts_risk_level"] = DEFAULT_RISK_LEVEL
+            del new_toe_lines["root_nickname"]
             group_toe_lines.add(ServicesToeLines(**new_toe_lines))
 
     return group_toe_lines

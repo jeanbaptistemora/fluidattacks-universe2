@@ -25,7 +25,7 @@ async def test_get_by_root() -> None:
     assert root_services_toe_lines == (
         ServicesToeLines(
             comments="comment test",
-            filename="product/test/test#.config",
+            filename="test/test#.config",
             group_name="unittesting",
             loc=8,
             modified_commit="983466z",
@@ -80,7 +80,7 @@ async def test_update() -> None:
     group_name = "unittesting"
     services_toe_lines = ServicesToeLines(
         comments="edited",
-        filename="product/test/test#.config",
+        filename="test/test#.config",
         group_name="unittesting",
         loc=55,
         modified_commit="983466r",

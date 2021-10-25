@@ -413,7 +413,7 @@ async def test_toe_lines_etl() -> None:
     assert group_toe_lines == (
         ServicesToeLines(
             comments="comment test",  # NOSONAR
-            filename="product/test/test#.config",
+            filename="test/test#.config",
             group_name="unittesting",
             loc=8,
             modified_commit="983466z",
@@ -425,7 +425,7 @@ async def test_toe_lines_etl() -> None:
         ),
         ServicesToeLines(
             comments="comment test",
-            filename="integrates_1/test2/test.sh",
+            filename="test2/test.sh",
             group_name="unittesting",
             loc=172,
             modified_commit="273412t",
@@ -448,7 +448,7 @@ async def test_toe_lines_etl() -> None:
     assert group_toe_lines == (
         ServicesToeLines(
             comments="comment test 2",
-            filename="product/test/test#.config",
+            filename="test/test#.config",
             group_name="unittesting",
             loc=8,
             modified_commit="983466z",
@@ -460,7 +460,7 @@ async def test_toe_lines_etl() -> None:
         ),
         ServicesToeLines(
             comments="comment test",
-            filename="integrates_1/test3/test.sh",
+            filename="test3/test.sh",
             group_name="unittesting",
             loc=120,
             modified_commit="742412r",

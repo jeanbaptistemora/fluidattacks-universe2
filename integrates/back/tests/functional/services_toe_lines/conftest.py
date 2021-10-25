@@ -93,7 +93,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         "services_toe_lines": (
             ServicesToeLines(
                 comments="comment test",
-                filename="product/test/test#.config",
+                filename="test/test#.config",
                 group_name="group1",
                 loc=8,
                 modified_commit="983466z",
@@ -105,7 +105,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             ),
             ServicesToeLines(
                 comments="comment test",
-                filename="asm_1/test2/test.sh",
+                filename="test2/test.sh",
                 group_name="group1",
                 loc=172,
                 modified_commit="273412t",
@@ -117,7 +117,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             ),
             ServicesToeLines(
                 comments="comment test",
-                filename="asm_1/test3/test.config",
+                filename="test3/test.config",
                 group_name="group1",
                 loc=55,
                 modified_commit="g545435i",

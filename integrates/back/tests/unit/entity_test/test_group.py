@@ -596,7 +596,7 @@ async def test_get_toe_lines() -> None:
             "id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
             "servicesToeLines": [
                 {
-                    "filename": "product/test/test#.config",
+                    "filename": "test/test#.config",
                     "modifiedDate": "2019-08-01T00:00:00-05:00",
                     "modifiedCommit": "983466z",
                     "loc": 8,
@@ -610,7 +610,7 @@ async def test_get_toe_lines() -> None:
             "id": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
             "servicesToeLines": [
                 {
-                    "filename": "integrates_1/test2/test.sh",
+                    "filename": "test2/test.sh",
                     "modifiedDate": "2020-11-19T00:00:00-05:00",
                     "modifiedCommit": "273412t",
                     "loc": 172,

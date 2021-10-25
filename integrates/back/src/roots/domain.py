@@ -722,21 +722,14 @@ async def update_root_state(
         )
 
 
-def get_root_id_by_filename(
-    filename: str, group_roots: Tuple[RootItem, ...]
+def get_root_id_by_nickname(
+    nickname: str, group_roots: Tuple[RootItem, ...]
 ) -> str:
-    root_nickname = filename.split("/")[0]
-    file_name_root_ids = [
-        root.id
-        for root in group_roots
-        if isinstance(root, GitRootItem)
-        and root.state.nickname == root_nickname
-    ]
+    for root in group_roots:
+        if isinstance(root, GitRootItem) and root.state.nickname == nickname:
+            return root.id
 
-    if not file_name_root_ids:
-        raise RootNotFound()
-
-    return file_name_root_ids[0]
+    raise RootNotFound()
 
 
 @newrelic.agent.function_trace()
