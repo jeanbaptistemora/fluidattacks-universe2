@@ -725,7 +725,6 @@ export const enTranslations: ResourceKey = {
         seenFirstTimeBy: "Seen first time by",
         testedDate: "Attack moment",
         verified: "Attacked",
-        vulns: "Vulns",
       },
       lines: {
         attacked: "Attacked",

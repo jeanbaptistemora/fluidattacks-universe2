@@ -6,7 +6,6 @@ interface IToeInputAttr {
   testedDate: string;
   unreliableRootNickname: string;
   verified: string;
-  vulnerabilities: string;
 }
 
 interface IToeInputData {
@@ -17,7 +16,6 @@ interface IToeInputData {
   testedDate: string;
   unreliableRootNickname: string;
   verified: string;
-  vulnerabilities: string;
 }
 
 export type { IToeInputAttr, IToeInputData };

@@ -13,7 +13,6 @@ const GET_TOE_INPUTS: DocumentNode = gql`
         testedDate
         unreliableRootNickname
         verified
-        vulnerabilities
       }
     }
   }

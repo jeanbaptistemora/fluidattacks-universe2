@@ -40,7 +40,6 @@ describe("GroupToeInputsView", (): void => {
                 testedDate: "2020-01-02T00:00:00-05:00",
                 unreliableRootNickname: "test_nickname",
                 verified: "Yes",
-                vulnerabilities: "001. SQL injection - C Sharp SQL API",
               },
               {
                 component: "test.com/test/test.aspx",
@@ -50,7 +49,6 @@ describe("GroupToeInputsView", (): void => {
                 testedDate: "2021-02-02T00:00:00-05:00",
                 unreliableRootNickname: "test_nickname",
                 verified: "No",
-                vulnerabilities: "",
               },
               {
                 component: "test.com/test2/test.aspx",
@@ -60,7 +58,6 @@ describe("GroupToeInputsView", (): void => {
                 testedDate: "2021-02-11T00:00:00-05:00",
                 unreliableRootNickname: "",
                 verified: "No",
-                vulnerabilities: "003. Symmetric denial of service",
               },
             ],
           },
@@ -97,21 +94,14 @@ describe("GroupToeInputsView", (): void => {
         "Entry point",
         "Attacked",
         "Attack moment",
-        "Vulns",
         "Seen at",
         "Seen first time by",
       ].join("")
     );
     expect(firstRow.text()).toStrictEqual(
-      [
-        "test_nickname",
-        "idTest",
-        "Yes",
-        "2020-01-02",
-        "001. SQL injection - C Sharp SQL API",
-        "2000-01-01",
-        "",
-      ].join("")
+      ["test_nickname", "idTest", "Yes", "2020-01-02", "2000-01-01", ""].join(
+        ""
+      )
     );
     expect(secondRow.text()).toStrictEqual(
       [
@@ -119,21 +109,12 @@ describe("GroupToeInputsView", (): void => {
         "btnTest",
         "No",
         "2021-02-02",
-        "",
         "2020-03-14",
         "test@test.com",
       ].join("")
     );
     expect(thirdRow.text()).toStrictEqual(
-      [
-        "",
-        "-",
-        "No",
-        "2021-02-11",
-        "003. Symmetric denial of service",
-        "2020-01-11",
-        "test2@test.com",
-      ].join("")
+      ["", "-", "No", "2021-02-11", "2020-01-11", "test2@test.com"].join("")
     );
   });
 });
