@@ -753,17 +753,13 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         ),
         "exposed_over_time_cvssf": remediated_over_time.exposed_cvssf[-40:],
         "exposed_over_time_month_cvssf": over_time_month.exposed_cvssf[-40:],
-        "remediated_over_time_30": remediated_over_thirty_days.vulnerabilities[
-            -40:
-        ],
+        "remediated_over_time_30": remediated_over_thirty_days.vulnerabilities,
         "remediated_over_time_cvssf_30": (
-            remediated_over_thirty_days.vulnerabilities_cvssf[-40:]
+            remediated_over_thirty_days.vulnerabilities_cvssf
         ),
-        "remediated_over_time_90": remediated_over_ninety_days.vulnerabilities[
-            -40:
-        ],
+        "remediated_over_time_90": remediated_over_ninety_days.vulnerabilities,
         "remediated_over_time_cvssf_90": (
-            remediated_over_ninety_days.vulnerabilities_cvssf[-40:]
+            remediated_over_ninety_days.vulnerabilities_cvssf
         ),
     }
     return indicators
