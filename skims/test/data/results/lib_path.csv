@@ -6044,48 +6044,6 @@ F060,lines,namespace/skims/test/data/lib_path/f060/php.php,7,396,skims,060. Inse
   20 |
      ^ Col 2
 "
-F060,lines,namespace/skims/test/data/lib_path/f060/ruby.rb,16,396,skims,060. Insecure exceptions,Insecure Ruby exception in skims/test/data/lib_path/f060/ruby.rb,"
-   1 | begin
-   2 | rescue Namespace::ArgumentError, Namespace::NameError
-   3 | rescue ArgumentError, NameError
-   4 | rescue NameError => e
-   5 | rescue NameError
-   6 | rescue
-   7 | else
-   8 | ensure
-   9 | end
-  10 |
-  11 | def create_or_update_batch
-  12 |   @batch ||= begin
-  13 |     BookBatch.create(book_batch.batch_attrs)
-  14 |   end
-  15 |   @batch.update
-> 16 | rescue
-  17 |   raise_book_batch_error
-  18 | end
-     ^ Col 0
-"
-F060,lines,namespace/skims/test/data/lib_path/f060/ruby.rb,6,396,skims,060. Insecure exceptions,Insecure Ruby exception in skims/test/data/lib_path/f060/ruby.rb,"
-   1 | begin
-   2 | rescue Namespace::ArgumentError, Namespace::NameError
-   3 | rescue ArgumentError, NameError
-   4 | rescue NameError => e
-   5 | rescue NameError
->  6 | rescue
-   7 | else
-   8 | ensure
-   9 | end
-  10 |
-  11 | def create_or_update_batch
-  12 |   @batch ||= begin
-  13 |     BookBatch.create(book_batch.batch_attrs)
-  14 |   end
-  15 |   @batch.update
-  16 | rescue
-  17 |   raise_book_batch_error
-  18 | end
-     ^ Col 0
-"
 F060,lines,namespace/skims/test/data/lib_path/f060/python060.py,10,396,skims,060. Insecure exceptions,Insecure Python exception in skims/test/data/lib_path/f060/python060.py,"
    1 | # flake8: noqa
    2 | try:
@@ -6126,6 +6084,144 @@ F060,lines,namespace/skims/test/data/lib_path/f060/python060.py,4,396,skims,060.
    9 |     raise
   10 | except:
   11 |     raise
+     ^ Col 0
+"
+F060,lines,namespace/skims/test/data/lib_path/f060/ruby.rb,18,396,skims,060. Insecure exceptions,Insecure Ruby exception in skims/test/data/lib_path/f060/ruby.rb,"
+   1 | begin
+   2 | rescue Namespace::ArgumentError, Namespace::NameError
+   3 | rescue ArgumentError, Exception
+   4 | rescue ArgumentError, Asdf => e
+   5 | rescue StandardError
+   6 | rescue Exception => e
+   7 | rescue => e
+   8 | rescue
+   9 | else
+  10 | ensure
+  11 | end
+  12 |
+  13 | def create_or_update_batch
+  14 |   @batch ||= begin
+  15 |     BookBatch.create(book_batch.batch_attrs)
+  16 |   end
+  17 |   @batch.update
+> 18 | rescue
+  19 |   raise_book_batch_error
+  20 | end
+     ^ Col 0
+"
+F060,lines,namespace/skims/test/data/lib_path/f060/ruby.rb,8,396,skims,060. Insecure exceptions,Insecure Ruby exception in skims/test/data/lib_path/f060/ruby.rb,"
+   1 | begin
+   2 | rescue Namespace::ArgumentError, Namespace::NameError
+   3 | rescue ArgumentError, Exception
+   4 | rescue ArgumentError, Asdf => e
+   5 | rescue StandardError
+   6 | rescue Exception => e
+   7 | rescue => e
+>  8 | rescue
+   9 | else
+  10 | ensure
+  11 | end
+  12 |
+  13 | def create_or_update_batch
+  14 |   @batch ||= begin
+  15 |     BookBatch.create(book_batch.batch_attrs)
+  16 |   end
+  17 |   @batch.update
+  18 | rescue
+  19 |   raise_book_batch_error
+  20 | end
+     ^ Col 0
+"
+F060,lines,namespace/skims/test/data/lib_path/f060/ruby.rb,7,396,skims,060. Insecure exceptions,Insecure Ruby exception in skims/test/data/lib_path/f060/ruby.rb,"
+   1 | begin
+   2 | rescue Namespace::ArgumentError, Namespace::NameError
+   3 | rescue ArgumentError, Exception
+   4 | rescue ArgumentError, Asdf => e
+   5 | rescue StandardError
+   6 | rescue Exception => e
+>  7 | rescue => e
+   8 | rescue
+   9 | else
+  10 | ensure
+  11 | end
+  12 |
+  13 | def create_or_update_batch
+  14 |   @batch ||= begin
+  15 |     BookBatch.create(book_batch.batch_attrs)
+  16 |   end
+  17 |   @batch.update
+  18 | rescue
+  19 |   raise_book_batch_error
+  20 | end
+     ^ Col 0
+"
+F060,lines,namespace/skims/test/data/lib_path/f060/ruby.rb,6,396,skims,060. Insecure exceptions,Insecure Ruby exception in skims/test/data/lib_path/f060/ruby.rb,"
+   1 | begin
+   2 | rescue Namespace::ArgumentError, Namespace::NameError
+   3 | rescue ArgumentError, Exception
+   4 | rescue ArgumentError, Asdf => e
+   5 | rescue StandardError
+>  6 | rescue Exception => e
+   7 | rescue => e
+   8 | rescue
+   9 | else
+  10 | ensure
+  11 | end
+  12 |
+  13 | def create_or_update_batch
+  14 |   @batch ||= begin
+  15 |     BookBatch.create(book_batch.batch_attrs)
+  16 |   end
+  17 |   @batch.update
+  18 | rescue
+  19 |   raise_book_batch_error
+  20 | end
+     ^ Col 0
+"
+F060,lines,namespace/skims/test/data/lib_path/f060/ruby.rb,5,396,skims,060. Insecure exceptions,Insecure Ruby exception in skims/test/data/lib_path/f060/ruby.rb,"
+   1 | begin
+   2 | rescue Namespace::ArgumentError, Namespace::NameError
+   3 | rescue ArgumentError, Exception
+   4 | rescue ArgumentError, Asdf => e
+>  5 | rescue StandardError
+   6 | rescue Exception => e
+   7 | rescue => e
+   8 | rescue
+   9 | else
+  10 | ensure
+  11 | end
+  12 |
+  13 | def create_or_update_batch
+  14 |   @batch ||= begin
+  15 |     BookBatch.create(book_batch.batch_attrs)
+  16 |   end
+  17 |   @batch.update
+  18 | rescue
+  19 |   raise_book_batch_error
+  20 | end
+     ^ Col 0
+"
+F060,lines,namespace/skims/test/data/lib_path/f060/ruby.rb,3,396,skims,060. Insecure exceptions,Insecure Ruby exception in skims/test/data/lib_path/f060/ruby.rb,"
+   1 | begin
+   2 | rescue Namespace::ArgumentError, Namespace::NameError
+>  3 | rescue ArgumentError, Exception
+   4 | rescue ArgumentError, Asdf => e
+   5 | rescue StandardError
+   6 | rescue Exception => e
+   7 | rescue => e
+   8 | rescue
+   9 | else
+  10 | ensure
+  11 | end
+  12 |
+  13 | def create_or_update_batch
+  14 |   @batch ||= begin
+  15 |     BookBatch.create(book_batch.batch_attrs)
+  16 |   end
+  17 |   @batch.update
+  18 | rescue
+  19 |   raise_book_batch_error
+  20 | end
      ^ Col 0
 "
 F060,lines,namespace/skims/test/data/lib_path/f060/swift.swift,9,396,skims,060. Insecure exceptions,Insecure Swift exception in skims/test/data/lib_path/f060/swift.swift,"

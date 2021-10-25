@@ -33,8 +33,15 @@ def insecure_exceptions(
                     # so let's ignore the child `rescue`s
                     continue
 
-                if shard.graph.nodes[rescue_id].get("label_field_exceptions"):
-                    pass
+                if exceptions_id := shard.graph.nodes[rescue_id].get(
+                    "label_field_exceptions"
+                ):
+                    for exception_id in g.adj_ast(shard.graph, exceptions_id):
+                        if shard.graph.nodes[exception_id]["label_text"] in {
+                            "Exception",
+                            "StandardError",
+                        }:
+                            yield shard, rescue_id
                 else:
                     yield shard, rescue_id
 

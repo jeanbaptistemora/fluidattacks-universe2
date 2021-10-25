@@ -1,8 +1,10 @@
 begin
 rescue Namespace::ArgumentError, Namespace::NameError
-rescue ArgumentError, NameError
-rescue NameError => e
-rescue NameError
+rescue ArgumentError, Exception
+rescue ArgumentError, Asdf => e
+rescue StandardError
+rescue Exception => e
+rescue => e
 rescue
 else
 ensure
