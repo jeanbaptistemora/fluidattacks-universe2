@@ -169,7 +169,8 @@ def format_treatment_item(state: VulnerabilityTreatment) -> Item:
 
 def format_verification(item: Item) -> VulnerabilityVerification:
     return VulnerabilityVerification(
-        modified_by=item.get("modified_by", None),
+        comment_id=item["comment_id"],
+        modified_by=item["modified_by"],
         modified_date=item["modified_date"],
         status=VulnerabilityVerificationStatus[item["status"]],
     )
@@ -177,6 +178,7 @@ def format_verification(item: Item) -> VulnerabilityVerification:
 
 def format_verification_item(state: VulnerabilityVerification) -> Item:
     return {
+        "comment_id": state.comment_id,
         "modified_by": state.modified_by,
         "modified_date": state.modified_date,
         "status": state.status.value,

@@ -32,7 +32,7 @@ def get_efficacy(vuln: Dict[str, Finding]) -> Decimal:
 
 
 def get_efficacy_new(
-    historic: Tuple[VulnerabilityVerification],
+    historic: Tuple[VulnerabilityVerification, ...],
     vuln: Vulnerability,
 ) -> Decimal:
     cycles: int = get_reattack_cycles_new(historic)
@@ -56,7 +56,7 @@ def get_last_reattack_date(vuln: Dict[str, Finding]) -> str:
 
 
 def get_last_reattack_date_new(
-    historic: Tuple[VulnerabilityVerification],
+    historic: Tuple[VulnerabilityVerification, ...],
     vuln: Vulnerability,
 ) -> str:
     """Get last reattack date in ISO8601 UTC format"""
@@ -77,7 +77,7 @@ def get_last_requested_reattack_date(vuln: Dict[str, Finding]) -> str:
 
 
 def get_last_requested_reattack_date_new(
-    historic: Tuple[VulnerabilityVerification],
+    historic: Tuple[VulnerabilityVerification, ...],
     vuln: Vulnerability,
 ) -> str:
     """Get last requested reattack date in ISO8601 UTC format"""
@@ -99,7 +99,9 @@ def get_reattack_cycles(vuln: Dict[str, Finding]) -> int:
     )
 
 
-def get_reattack_cycles_new(historic: Tuple[VulnerabilityVerification]) -> int:
+def get_reattack_cycles_new(
+    historic: Tuple[VulnerabilityVerification, ...]
+) -> int:
     return len(
         [
             verification

@@ -188,7 +188,7 @@ class VulnHistoricStateNewLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, uuids: Tuple[str, ...]
-    ) -> Tuple[Tuple[VulnerabilityState], ...]:
+    ) -> Tuple[Tuple[VulnerabilityState, ...], ...]:
         return await collect(_get_historic_state(uuid=uuid) for uuid in uuids)
 
 
@@ -196,7 +196,7 @@ class VulnHistoricTreatmentNewLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, uuids: Tuple[str, ...]
-    ) -> Tuple[Tuple[VulnerabilityTreatment], ...]:
+    ) -> Tuple[Tuple[VulnerabilityTreatment, ...], ...]:
         return await collect(
             _get_historic_treatment(uuid=uuid) for uuid in uuids
         )
@@ -206,7 +206,7 @@ class VulnHistoricVerificationNewLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, uuids: Tuple[str, ...]
-    ) -> Tuple[Tuple[VulnerabilityVerification], ...]:
+    ) -> Tuple[Tuple[VulnerabilityVerification, ...], ...]:
         return await collect(
             _get_historic_verification(uuid=uuid) for uuid in uuids
         )
@@ -216,7 +216,7 @@ class VulnHistoricZeroRiskNewLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, uuids: Tuple[str, ...]
-    ) -> Tuple[Tuple[VulnerabilityZeroRisk], ...]:
+    ) -> Tuple[Tuple[VulnerabilityZeroRisk, ...], ...]:
         return await collect(
             _get_historic_zero_risk(uuid=uuid) for uuid in uuids
         )
