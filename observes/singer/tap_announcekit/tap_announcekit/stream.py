@@ -61,9 +61,13 @@ StreamData = Stream[SingerRecord]
 @dataclass(frozen=True)
 class StreamEmitter:
     _emit: Patch[Callable[[Stream[_R]], IO[None]]]
+    _emit_io_streams: Transform[PureIter[IO[StreamData]], IO[None]]
 
     def emit(self, stream: Stream[_R]) -> IO[None]:
         return self._emit.unwrap(stream)
+
+    def emit_io_streams(self, streams: PureIter[IO[StreamData]]) -> IO[None]:
+        return self._emit_io_streams(streams)
 
 
 @dataclass(frozen=True)
@@ -94,15 +98,26 @@ class StreamEmitterFactory:
     def _emit_schema(self, item: SingerSchema) -> IO[None]:
         return self.s_emitter.emit_schema(item)
 
-    def _emit(self, stream: Stream[_R]) -> IO[None]:
-        self._emit_schema(stream.schema)
+    def _emit(self, stream: Stream[_R], schema: bool) -> IO[None]:
+        if schema:
+            self._emit_schema(stream.schema)
         emits_io = stream.records.map_each(
             partial(self._emit_record, stream.schema)
         )
         return PureIter.consume(emits_io)
 
+    def _emit_io_streams(self, streams: PureIter[IO[StreamData]]) -> IO[None]:
+        first_emitted = False
+        for io_stream in streams:
+            io_stream.map(partial(self._emit, schema=not first_emitted))
+            first_emitted = True
+        return IO(None)
+
     def new_emitter(self) -> StreamEmitter:
-        return StreamEmitter(Patch(self._emit))
+        return StreamEmitter(
+            Patch(partial(self._emit, schema=True)),
+            Transform(self._emit_io_streams),
+        )
 
 
 @dataclass(frozen=True)

@@ -47,5 +47,4 @@ class PostStreams:
         streams = StreamFactory.new_stream(
             PostEncoders.encoder(self._name), Transform(factory.get_post), ids
         )
-        emissions = streams.map_each(lambda s_io: s_io.bind(self.emitter.emit))
-        return PureIter.consume(emissions)
+        return self.emitter.emit_io_streams(streams)

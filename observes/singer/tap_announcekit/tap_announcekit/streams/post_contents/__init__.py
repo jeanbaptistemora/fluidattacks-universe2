@@ -51,6 +51,5 @@ class PostContentStreams:
             post_ids.map_each(factory.get)
             .map_each(lambda i: i.map(lambda x: PureIterFactory.from_flist(x)))
             .map_each(lambda i: i.map(self.stream))
-            .map_each(lambda s: s.bind(self.emitter.emit))
         )
-        return PureIter.consume(result)
+        return self.emitter.emit_io_streams(result)
