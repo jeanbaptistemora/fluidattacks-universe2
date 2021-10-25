@@ -33,13 +33,13 @@ documenting the mailmap:
   of the provider
   over the one
   of the client.
-    - Use `<maria.camila.giraldo@accenture.com>`
-      over `Maria Giraldo` `<maria.giraldo@banistmo.com>`
-      or `CamilaGiraldou` `<maria.giraldou@udea.edu.co>`.
+    - Use `<eduardo.garcia@company.com>`
+      over `Eduardo Garcia` `<eduardo.garcia@corporation.com>`
+      or `EduardoGarcia` `<egarcia@institute.edu.co>`.
 1. Do not map by default
   a non-corporate email
   such as
-  `emerdeveloper <emersonjavid97@gmail.com>`.
+  `userdeveloper <user123@gmail.com>`.
 1. In order to map
   a non-corporate email
   to a corporate one,
