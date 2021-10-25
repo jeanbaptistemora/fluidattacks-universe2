@@ -1,3 +1,4 @@
+import pytest
 from tap_announcekit.api.gql_schema import (
     PostContent as RawPostContent,
 )
@@ -9,6 +10,9 @@ from tap_announcekit.streams.post_contents import (
     _encode,
     _factory,
 )
+from tests.stream import (
+    mock_data,
+)
 
 
 def test_queries() -> None:
@@ -16,8 +20,15 @@ def test_queries() -> None:
     _factory.PostContentQuery(mock_post).query().operation()
 
 
+@pytest.mark.xfail(reason="future fix")
 def test_schema() -> None:
-    assert _encode.PostContentEncoders.encoder("stream_1").schema
+    encoder = _encode.PostContentEncoders.encoder("stream_1")
+    jschema = encoder.schema.schema
+    jrecord = encoder.to_singer(mock_data.mock_post_content).record
+    assert frozenset(jschema.raw_schema["properties"].keys()) == frozenset(
+        jrecord.keys()
+    )
+    assert len(jschema.raw_schema["properties"]) == len(jrecord.keys())
 
 
 def test_from_raw() -> None:
