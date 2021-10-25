@@ -3,11 +3,11 @@
     {
       "PutRequest": {
         "Item": {
-          "pk": {
-            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-          },
           "sk": {
             "S": "GROUP#herrin"
+          },
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           }
         }
       }
@@ -15,11 +15,49 @@
     {
       "PutRequest": {
         "Item": {
+          "sk": {
+            "S": "INFO#okada"
+          },
+          "max_acceptance_days": {
+            "N": "60"
+          },
           "pk": {
             "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
+          "historic_max_number_acceptations": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-11-22 15:07:57"
+                  },
+                  "user": {
+                    "S": "drestrepo@fluidattacks.com"
+                  },
+                  "max_number_acceptations": {
+                    "N": "2"
+                  }
+                }
+              }
+            ]
+          },
+          "max_number_acceptations": {
+            "N": "2"
+          },
+          "pending_deletion_date": {
+            "S": "2019-11-22 15:07:57"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
           "sk": {
             "S": "USER#forces.herrin@fluidattacks.com"
+          },
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           }
         }
       }

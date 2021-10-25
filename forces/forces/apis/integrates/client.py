@@ -15,6 +15,9 @@ from contextvars import (
 from forces.apis.integrates import (
     get_api_token,
 )
+from forces.utils.env import (
+    guess_environment,
+)
 from forces.utils.logs import (
     blocking_log,
 )
@@ -29,6 +32,11 @@ from typing import (
 
 # Context
 SESSION: ContextVar[GraphQLClient] = ContextVar("SESSION")
+ENDPOINT: str = (
+    "https://app.fluidattacks.com/api"
+    if guess_environment() == "production"
+    else "https://127.0.0.1:8001/api"
+)
 TVar = TypeVar("TVar")
 
 
@@ -45,7 +53,7 @@ class ApiError(Exception):
 @contextlib.asynccontextmanager
 async def session(
     api_token: str = "",
-    endpoint_url: str = "https://app.fluidattacks.com/api",
+    endpoint_url: str = ENDPOINT,
     **kwargs: str,
 ) -> AsyncIterator[GraphQLClient]:
     """Returns an Async GraphQL Client."""
@@ -81,21 +89,24 @@ async def execute(
         result: Any
         response: aiohttp.ClientResponse
 
-        response = await client.execute(
-            query,
-            variables=variables,
-            operation=operation_name,
-        )
-
         try:
+            response = await client.execute(
+                query,
+                variables=variables,
+                operation=operation_name,
+            )
+
             result = await response.json()
         except ClientResponseError as client_error:
             raise ApiError(
-                dict(
-                    status=getattr(response, "status", "unknown"),
-                    reason=getattr(response, "reason", "unknown"),
-                    ok=getattr(response, "ok", False),
-                )
+                *[
+                    dict(
+                        status=getattr(response, "status", "unknown"),
+                        reason=getattr(response, "reason", "unknown"),
+                        message=getattr(response, "reason", "unknown"),
+                        ok=getattr(response, "ok", False),
+                    )
+                ]
             ) from client_error
         if "errors" in result.keys():
             raise ApiError(*result["errors"])

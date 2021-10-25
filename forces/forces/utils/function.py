@@ -1,4 +1,3 @@
-import aioextensions
 from asyncio import (
     sleep,
 )
@@ -83,13 +82,3 @@ def shield(
         return cast(TFun, wrapper)
 
     return decorator
-
-
-def rate_limited(*, rpm: float) -> Callable[[TFun], TFun]:
-    if RATE_LIMIT_ENABLED:
-        return aioextensions.rate_limited(
-            max_calls=1,
-            max_calls_period=60.0 / rpm,
-            min_seconds_between_calls=60.0 / rpm,
-        )
-    return lambda x: x
