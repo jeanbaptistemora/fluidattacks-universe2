@@ -1,4 +1,5 @@
-{ inputs
+{ outputs
+, inputs
 , ...
 }:
 {
@@ -6,7 +7,7 @@
     modules = {
       melts = {
         searchPaths.source = [
-          inputs.product.melts-config-development
+          outputs."/melts/config-development"
           inputs.product.melts-config-runtime
         ];
         python = "3.8";
@@ -14,7 +15,7 @@
       };
       meltsTests = {
         searchPaths.source = [
-          inputs.product.melts-config-development
+          outputs."/melts/config-development"
           inputs.product.melts-config-runtime
         ];
         python = "3.8";

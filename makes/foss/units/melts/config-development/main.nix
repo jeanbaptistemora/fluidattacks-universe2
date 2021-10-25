@@ -1,10 +1,10 @@
-{ makes
+{ makePythonPypiEnvironment
 , makeTemplate
-, nixpkgs
+, inputs
 , ...
 }:
 let
-  pythonRequirements = makes.makePythonPypiEnvironment {
+  pythonRequirements = makePythonPypiEnvironment {
     name = "melts-development";
     sourcesYaml = ./pypi-sources.yaml;
   };
@@ -12,7 +12,7 @@ in
 makeTemplate {
   name = "melts-config-development";
   searchPaths = {
-    envPaths = [ nixpkgs.docker ];
-    envSources = [ pythonRequirements ];
+    bin = [ inputs.nixpkgs.docker ];
+    source = [ pythonRequirements ];
   };
 }

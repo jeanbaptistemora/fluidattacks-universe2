@@ -12,5 +12,4 @@ makes.test.asserts
 makes.test.docs
 makes.test.makes
 makes.test.observes
-melts.config-development
 melts.config-runtime

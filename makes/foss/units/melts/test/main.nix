@@ -1,13 +1,13 @@
 { makeScript
 , inputs
-, projectPath
+, outputs
 , ...
 }:
 makeScript {
   name = "melts-test";
   searchPaths = {
     source = [
-      inputs.product.melts-config-development
+      outputs."/melts/config-development"
       inputs.product.melts-config-runtime
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "git")
@@ -16,5 +16,5 @@ makeScript {
       inputs.nixpkgs.gnugrep
     ];
   };
-  entrypoint = projectPath "/makes/foss/units/melts/test/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }

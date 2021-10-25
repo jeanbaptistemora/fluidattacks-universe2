@@ -1,5 +1,5 @@
-{ inputs
-, makeScript
+{ makeScript
+, inputs
 , ...
 }:
 makeScript {
