@@ -1,5 +1,6 @@
 from charts.colors import (
     RISK,
+    TREATMENT,
 )
 from datetime import (
     datetime,
@@ -140,7 +141,7 @@ def format_document(
             ],
             colors={
                 "Closed": RISK.more_passive,
-                "Accepted": RISK.agressive,
+                "Accepted": TREATMENT.passive,
                 "Found": RISK.more_agressive,
             },
             types={
@@ -224,7 +225,7 @@ def format_distribution_document(
             ],
             colors={
                 "Closed": RISK.more_passive,
-                "Accepted": RISK.agressive,
+                "Accepted": TREATMENT.passive,
                 "Open": RISK.more_agressive,
             },
             groups=[
