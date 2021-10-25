@@ -14,4 +14,3 @@ makes.test.makes
 makes.test.observes
 melts.config-development
 melts.config-runtime
-observes.generic.runner
