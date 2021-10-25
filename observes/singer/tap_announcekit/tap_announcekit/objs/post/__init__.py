@@ -15,6 +15,12 @@ from tap_announcekit.objs.id_objs import (
 from tap_announcekit.objs.post.content import (
     PostContent,
 )
+from tap_announcekit.objs.post.feedback import (
+    ActionSource,
+    Feedback,
+    FeedbackObj,
+    FeedbackPage,
+)
 from tap_announcekit.objs.post.page import (
     PostIdPage,
 )
@@ -55,6 +61,12 @@ class Post(_Post):
 
 
 __all__ = [
+    # content
     "PostIdPage",
     "PostContent",
+    # feedback
+    "ActionSource",
+    "Feedback",
+    "FeedbackPage",
+    "FeedbackObj",
 ]
