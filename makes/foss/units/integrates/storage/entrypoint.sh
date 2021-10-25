@@ -42,25 +42,27 @@ function serve {
       __argMinioCli__ mb --ignore-existing "storage/${bucket}" \
         || return 1
     done \
-    && for project in "${TEST_PROJECTS[@]}"; do
-      for bucket in "${buckets_by_group[@]}"; do
-        aws_s3_sync \
-          "s3://${bucket}/${project}" \
-          "${state_path}/${bucket}/${project}" \
-          --delete \
-          || return 1
-      done
-    done \
-    && if test -z "${CI_COMMIT_REF_NAME:-}"; then
-      CI_COMMIT_REF_NAME="$(get_abbrev_rev . HEAD)"
+    && if test "${POPULATE}" != 'false'; then
+      for project in "${TEST_PROJECTS[@]}"; do
+        for bucket in "${buckets_by_group[@]}"; do
+          aws_s3_sync \
+            "s3://${bucket}/${project}" \
+            "${state_path}/${bucket}/${project}" \
+            --delete \
+            || return 1
+        done
+      done \
+        && if test -z "${CI_COMMIT_REF_NAME:-}"; then
+          CI_COMMIT_REF_NAME="$(get_abbrev_rev . HEAD)"
+        fi \
+        && for bucket in "${buckets_by_branch[@]}"; do
+          aws_s3_sync \
+            "s3://${bucket}/${CI_COMMIT_REF_NAME}" \
+            "${state_path}/${bucket}/${CI_COMMIT_REF_NAME}" \
+            --delete \
+            || return 1
+        done
     fi \
-    && for bucket in "${buckets_by_branch[@]}"; do
-      aws_s3_sync \
-        "s3://${bucket}/${CI_COMMIT_REF_NAME}" \
-        "${state_path}/${bucket}/${CI_COMMIT_REF_NAME}" \
-        --delete \
-        || return 1
-    done \
     && makes-done 29000 \
     && echo '[INFO] Storage is ready' \
     && wait
@@ -73,6 +75,8 @@ function serve_daemon {
 }
 
 function main {
+  export POPULATE="${POPULATE:-true}"
+
   case "${DAEMON:-}" in
     true) serve_daemon "${@}" ;;
     *) serve "${@}" ;;
