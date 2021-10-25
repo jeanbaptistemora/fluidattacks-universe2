@@ -3,10 +3,10 @@ slug: compliance/owasp/
 title: OWASP
 category: compliance
 description: At Fluid Attacks, through comprehensive analysis,
-    we can help you comply with a variety of security standards
-    for information technology, including OWASP.
+  we can help you comply with a variety of security standards
+  for information technology, including OWASP.
 keywords: Fluid Attacks, OWASP, Top 10, Continuous Hacking,
-    Security, Standards, Ethical Hacking, Pentesting
+  Security, Standards, Ethical Hacking, Pentesting
 banner: bg-compliance-internal
 template: compliance
 ---
@@ -142,8 +142,8 @@ to make it process the input as code.
 
 #### 4. Insecure Design
 
-[This risk](https://owasp.org/Top10/A04_2021-Insecure_Design/) refers
-to a lack of security controls to defend against attacks
+[This risk](https://owasp.org/Top10/A04_2021-Insecure_Design/)
+refers to a lack of security controls to defend against attacks
 and failure to establish a secure development lifecycle.
 
 </div>
@@ -152,8 +152,8 @@ and failure to establish a secure development lifecycle.
 
 #### 5. Security Misconfiguration
 
-[This category](https://owasp.org/Top10/A05_2021-Security_Misconfiguration/) refers
-to the inappropriate configuration of the application’s components,
+[This category](https://owasp.org/Top10/A05_2021-Security_Misconfiguration/)
+refers to the inappropriate configuration of the application’s components,
 leaving things like default accounts
 or unnecessary features enabled
 or allowing overly informative error messages to be returned to users.
@@ -171,7 +171,7 @@ Web applications commonly use various open-source
 and third-party components
 in which vulnerabilities are sometimes found
 and need to be patched.
-[Keeping outdated versions](https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/) 
+[Keeping outdated versions](https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/)
 of those components with known vulnerabilities
 leads to having an application exposed to exploitation.
 
@@ -181,8 +181,9 @@ leads to having an application exposed to exploitation.
 
 #### 7. Identification and Authentication Failures
 
-Attackers can take advantage of [vulnerabilities related to](https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/) custom authentication schemes,
-exposure and reuse of session identifiers,
+Attackers can take advantage of
+[vulnerabilities related to](https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/)
+custom authentication schemes, exposure and reuse of session identifiers,
 as well as non-existent password policy
 to gain access to user accounts and compromise the system.
 
@@ -192,8 +193,8 @@ to gain access to user accounts and compromise the system.
 
 #### 8. Software and Data Integrity Failures
 
-[This](https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/) occurs
-when the software used to develop the application
+[This](https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/)
+occurs when the software used to develop the application
 is not checked to come from a trusted source
 and have digital signatures
 or when unencrypted serialized data is sent
@@ -220,8 +221,8 @@ when attackers have already done a lot of damage.
 
 #### 10. Server-Side Request Forgery (SSRF)
 
-[These flaws](https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/) occur
-whenever an application does not validate the user-supplied URL
+[These flaws](https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/)
+occur whenever an application does not validate the user-supplied URL
 when fetching a remote resource.
 This allows the attacker
 to coerce the application
