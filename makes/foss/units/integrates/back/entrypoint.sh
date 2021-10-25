@@ -33,8 +33,8 @@ function serve {
   source __argIntegratesBackEnv__/template "${env}" \
     && case "${DAEMON:-}" in
       # The granularity of Error log outputs. [info]
-      true) config+=(--log-level 'error') ;;
-      *) config+=(--log-level 'info') ;;
+      true) export LOG_LEVEL_CONSOLE="ERROR" ;;
+      *) export LOG_LEVEL_CONSOLE="INFO" ;;
     esac \
     && if test "${env}" == 'dev'; then
       config+=(

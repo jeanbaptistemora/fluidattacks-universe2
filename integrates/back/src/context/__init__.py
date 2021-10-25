@@ -1,4 +1,7 @@
 import os
+from typing import (
+    Optional,
+)
 
 try:
     CI_COMMIT_REF_NAME = os.environ["CI_COMMIT_REF_NAME"]
@@ -52,6 +55,11 @@ try:
     FI_ZENDESK_EMAIL = os.environ["ZENDESK_EMAIL"]
     FI_ZENDESK_SUBDOMAIN = os.environ["ZENDESK_SUBDOMAIN"]
     FI_ZENDESK_TOKEN = os.environ["ZENDESK_TOKEN"]
+    LOG_LEVEL_CONSOLE: Optional[str] = os.environ.get("LOG_LEVEL_CONSOLE")
+    LOG_LEVEL_BUGSNAG: Optional[str] = os.environ.get("LOG_LEVEL_BUGSNAG")
+    LOG_LEVEL_WATCHTOWER: Optional[str] = os.environ.get(
+        "LOG_LEVEL_WATCHTOWER"
+    )
     PRODUCT_API_TOKEN = os.environ["PRODUCT_API_TOKEN"]
     SERVICES_GITLAB_API_TOKEN = os.environ["SERVICES_GITLAB_API_TOKEN"]
     SERVICES_GITLAB_API_USER = os.environ["SERVICES_GITLAB_API_USER"]

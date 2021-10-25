@@ -16,6 +16,9 @@ from context import (
     FI_AWS_CLOUDWATCH_SECRET_KEY,
     FI_BUGSNAG_ACCESS_TOKEN,
     FI_ENVIRONMENT,
+    LOG_LEVEL_BUGSNAG,
+    LOG_LEVEL_CONSOLE,
+    LOG_LEVEL_WATCHTOWER,
 )
 from custom_exceptions import (
     DocumentNotFound,
@@ -70,17 +73,17 @@ LOGGING = {
         "bugsnag": {
             "extra_fields": {"extra": ["extra"]},
             "class": "bugsnag.handlers.BugsnagHandler",
-            "level": "WARNING",
+            "level": LOG_LEVEL_BUGSNAG or "WARNING",
         },
         "console": {
             "class": "logging.StreamHandler",
-            "level": "INFO",
+            "level": LOG_LEVEL_CONSOLE or "INFO",
             "formatter": "level_message_extra",
         },
         "watchtower": {
             "boto3_session": BOTO3_SESSION,
             "class": "watchtower.CloudWatchLogHandler",
-            "level": "INFO",
+            "level": LOG_LEVEL_WATCHTOWER or "INFO",
             "log_group": "FLUID",
             "filters": ["require_debug_false"],
             "stream_name": "FLUIDIntegrates",
