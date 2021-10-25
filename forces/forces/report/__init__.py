@@ -1,8 +1,5 @@
 """Fluid Forces report module"""
 
-from aioextensions import (
-    in_thread,
-)
 import asyncio
 from forces.apis.integrates.api import (
     get_finding,
@@ -16,7 +13,6 @@ from forces.report.filters import (
 from forces.utils.model import (
     ForcesConfig,
 )
-import oyaml as yaml
 from rich.box import (
     MINIMAL,
 )
@@ -50,7 +46,7 @@ def style_report(key: str, value: str) -> str:
     style_data = {
         "title": "[yellow]",
         "state": {"open": "[red]", "closed": "[green]"},
-        "exploitability": {
+        "exploit": {
             "Unproven": "[green]",
             "Proof of concept": "[yellow3]",
             "Functional": "[orange3]",
@@ -65,7 +61,7 @@ def style_report(key: str, value: str) -> str:
                 return f"{value_style[value]}{value}[/]"
             return value
         return f"{value_style}{value}[/]"
-    return value
+    return str(value)
 
 
 def style_summary(key: str, value: int) -> str:
@@ -152,18 +148,18 @@ def format_vuln_table(vulns: List[Dict[str, str]]) -> Table:
         highlight=True,
         box=MINIMAL,
         border_style="gold1",
-        width=60,
     )
     vuln_table.add_column("Vuln attr", style="cyan")
     vuln_table.add_column(
         "Vuln attr values", style="honeydew2", overflow="fold"
     )
     for vuln in vulns:
+        vuln["exploit"] = vuln.pop("exploitability")
         for key, value in vuln.items():
             vuln_table.add_row(
                 key,
                 style_report(key, value),
-                end_section=key == "exploitability",
+                end_section=key == "exploit",
             )
     return vuln_table
 
@@ -187,17 +183,19 @@ def format_rich_report(
     findings = report["findings"]
     for find in findings:
         for key, value in find.items():
+            if key == "exploitability":
+                key = "exploit"
             if key == "vulnerabilities":
-                vuln_data: Union[Table, str] = ""
+                vulns_data: Union[Table, str] = ""
                 if len(value):
-                    vuln_data = format_vuln_table(value)
+                    vulns_data = format_vuln_table(value)
                 elif verbose_level == 2:
-                    vuln_data = "None currently open"
+                    vulns_data = "None currently open"
                 elif verbose_level == 3:
-                    vuln_data = "None currently open or closed"
+                    vulns_data = "None currently open or closed"
                 else:  # 4th verbosity level
-                    vuln_data = "None currently open, closed or accepted"
-                report_table.add_row(key, vuln_data, end_section=True)
+                    vulns_data = "None currently open, closed or accepted"
+                report_table.add_row("vulns", vulns_data, end_section=True)
             else:
                 report_table.add_row(
                     key,
@@ -209,10 +207,10 @@ def format_rich_report(
     return report_table, summary_table
 
 
-async def generate_report_log(
+def filter_report(
     report: Dict[str, Any],
     verbose_level: int,
-) -> str:
+) -> Dict[str, Any]:
     # Set finding exploitability level
     for finding in report["findings"]:
         finding.pop("id")
@@ -246,7 +244,7 @@ async def generate_report_log(
                 if vuln["state"] in ("open", "closed")
             ]
     # If filter level is 4 show accepted, open and closed vulnerabilities
-    return await in_thread(yaml.dump, report, allow_unicode=True)
+    return report
 
 
 def get_summary_template(kind: str) -> Dict[str, Dict[str, int]]:

@@ -15,8 +15,9 @@ from forces.apis.integrates.api import (
     upload_report,
 )
 from forces.report import (
+    filter_report,
+    format_rich_report,
     generate_report,
-    generate_report_log,
 )
 from forces.utils.logs import (
     log,
@@ -27,6 +28,9 @@ from forces.utils.model import (
     KindEnum,
 )
 import os
+from rich import (
+    print as rprint,
+)
 import uuid
 
 
@@ -68,13 +72,18 @@ async def entrypoint(
     report = await generate_report(config)
 
     if report["summary"]["total"] > 0:
-        yaml_report = await generate_report_log(
+        filtered_report = filter_report(
             copy.deepcopy(report), verbose_level=config.verbose_level
         )
-        await log("info", "%s", yaml_report)
+        finding_report, summary_report = format_rich_report(
+            filtered_report, config.verbose_level, config.kind.value
+        )
+        rprint(finding_report)
+        rprint(summary_report)
     else:
         await log(
-            "info", "The current repository has no reported vulnerabilities"
+            "info",
+            "[green]The current repository has no reported vulnerabilities[/]",
         )
 
     if output := config.output:
