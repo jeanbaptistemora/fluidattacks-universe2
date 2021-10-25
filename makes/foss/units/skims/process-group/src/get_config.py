@@ -124,8 +124,6 @@ async def main() -> None:
                     [
                         "glob(**/.git)",
                         "glob(**/.idea)",
-                        "glob(**/*.pydevproject)",
-                        "glob(**/*.swp)",
                         "glob(**/*.launch)",
                         "glob(**/.cproject)",
                         "glob(**/.buildpath)",
