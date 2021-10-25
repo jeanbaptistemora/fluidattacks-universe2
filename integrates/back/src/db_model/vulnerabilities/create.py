@@ -21,7 +21,7 @@ async def create(*, vulnerability: Vulnerability) -> None:
         facet=TABLE.facets["vulnerability_metadata"],
         values={
             "finding_id": vulnerability.finding_id,
-            "uuid": vulnerability.uuid,
+            "id": vulnerability.id,
         },
     )
     vulnerability_metadata = {
@@ -33,7 +33,7 @@ async def create(*, vulnerability: Vulnerability) -> None:
         "repo": vulnerability.repo,
         "specific": vulnerability.specific,
         "stream": vulnerability.stream,
-        "uuid": vulnerability.uuid,
+        "id": vulnerability.id,
         "tags": vulnerability.tags,
         "type": vulnerability.type.value,
         "where": vulnerability.where,
@@ -53,7 +53,7 @@ async def create(*, vulnerability: Vulnerability) -> None:
             key_values={
                 "finding_id": vulnerability.finding_id,
                 "iso8601utc": vulnerability.state.modified_date,
-                "uuid": vulnerability.uuid,
+                "id": vulnerability.id,
             },
             latest_facet=TABLE.facets["vulnerability_state"],
         )
@@ -67,7 +67,7 @@ async def create(*, vulnerability: Vulnerability) -> None:
             key_values={
                 "finding_id": vulnerability.finding_id,
                 "iso8601utc": vulnerability.treatment.modified_date,
-                "uuid": vulnerability.uuid,
+                "id": vulnerability.id,
             },
             latest_facet=TABLE.facets["vulnerability_treatment"],
         )
@@ -81,7 +81,7 @@ async def create(*, vulnerability: Vulnerability) -> None:
             key_values={
                 "finding_id": vulnerability.finding_id,
                 "iso8601utc": vulnerability.verification.modified_date,
-                "uuid": vulnerability.uuid,
+                "id": vulnerability.id,
             },
             latest_facet=TABLE.facets["vulnerability_verification"],
         )
@@ -95,7 +95,7 @@ async def create(*, vulnerability: Vulnerability) -> None:
             key_values={
                 "finding_id": vulnerability.finding_id,
                 "iso8601utc": vulnerability.zero_risk.modified_date,
-                "uuid": vulnerability.uuid,
+                "id": vulnerability.id,
             },
             latest_facet=TABLE.facets["vulnerability_zero_risk"],
         )

@@ -37,10 +37,10 @@ from typing import (
 )
 
 
-async def _get_finding(*, uuid: str) -> str:
+async def _get_finding(*, vulnerability_id: str) -> str:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
-        values={"uuid": uuid},
+        values={"id": vulnerability_id},
     )
     key_structure = TABLE.primary_key
     results = await operations.query(
@@ -64,12 +64,12 @@ async def _get_finding(*, uuid: str) -> str:
     return metadata[inverted_key_structure.partition_key].split("#")[1]
 
 
-async def _get_vulnerability(*, uuid: str) -> Vulnerability:
-    finding_id = await _get_finding(uuid=uuid)
+async def _get_vulnerability(*, vulnerability_id: str) -> Vulnerability:
+    finding_id = await _get_finding(vulnerability_id=vulnerability_id)
 
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
-        values={"finding_id": finding_id, "uuid": uuid},
+        values={"finding_id": finding_id, "id": vulnerability_id},
     )
 
     index = TABLE.indexes["inverted_index"]
@@ -102,10 +102,13 @@ async def _get_vulnerability(*, uuid: str) -> Vulnerability:
     )
 
 
-async def _get_historic_state(*, uuid: str) -> Tuple[VulnerabilityState, ...]:
+async def _get_historic_state(
+    *,
+    vulnerability_id: str,
+) -> Tuple[VulnerabilityState, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_historic_state"],
-        values={"uuid": uuid},
+        values={"id": vulnerability_id},
     )
     key_structure = TABLE.primary_key
     results = await operations.query(
@@ -120,11 +123,12 @@ async def _get_historic_state(*, uuid: str) -> Tuple[VulnerabilityState, ...]:
 
 
 async def _get_historic_treatment(
-    *, uuid: str
+    *,
+    vulnerability_id: str,
 ) -> Tuple[VulnerabilityTreatment, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_historic_treatment"],
-        values={"uuid": uuid},
+        values={"id": vulnerability_id},
     )
     key_structure = TABLE.primary_key
     results = await operations.query(
@@ -139,11 +143,12 @@ async def _get_historic_treatment(
 
 
 async def _get_historic_verification(
-    *, uuid: str
+    *,
+    vulnerability_id: str,
 ) -> Tuple[VulnerabilityVerification, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_historic_verification"],
-        values={"uuid": uuid},
+        values={"id": vulnerability_id},
     )
     key_structure = TABLE.primary_key
     results = await operations.query(
@@ -158,11 +163,12 @@ async def _get_historic_verification(
 
 
 async def _get_historic_zero_risk(
-    *, uuid: str
+    *,
+    vulnerability_id: str,
 ) -> Tuple[VulnerabilityZeroRisk, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_historic_zero_risk"],
-        values={"uuid": uuid},
+        values={"id": vulnerability_id},
     )
     key_structure = TABLE.primary_key
     results = await operations.query(
@@ -179,44 +185,48 @@ async def _get_historic_zero_risk(
 class VulnNewLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, uuids: Tuple[str, ...]
+        self, ids: Tuple[str, ...]
     ) -> Tuple[Vulnerability, ...]:
-        return await collect(_get_vulnerability(uuid=uuid) for uuid in uuids)
+        return await collect(
+            _get_vulnerability(vulnerability_id=id) for id in ids
+        )
 
 
 class VulnHistoricStateNewLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, uuids: Tuple[str, ...]
+        self, ids: Tuple[str, ...]
     ) -> Tuple[Tuple[VulnerabilityState, ...], ...]:
-        return await collect(_get_historic_state(uuid=uuid) for uuid in uuids)
+        return await collect(
+            _get_historic_state(vulnerability_id=id) for id in ids
+        )
 
 
 class VulnHistoricTreatmentNewLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, uuids: Tuple[str, ...]
+        self, ids: Tuple[str, ...]
     ) -> Tuple[Tuple[VulnerabilityTreatment, ...], ...]:
         return await collect(
-            _get_historic_treatment(uuid=uuid) for uuid in uuids
+            _get_historic_treatment(vulnerability_id=id) for id in ids
         )
 
 
 class VulnHistoricVerificationNewLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, uuids: Tuple[str, ...]
+        self, ids: Tuple[str, ...]
     ) -> Tuple[Tuple[VulnerabilityVerification, ...], ...]:
         return await collect(
-            _get_historic_verification(uuid=uuid) for uuid in uuids
+            _get_historic_verification(vulnerability_id=id) for id in ids
         )
 
 
 class VulnHistoricZeroRiskNewLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, uuids: Tuple[str, ...]
+        self, ids: Tuple[str, ...]
     ) -> Tuple[Tuple[VulnerabilityZeroRisk, ...], ...]:
         return await collect(
-            _get_historic_zero_risk(uuid=uuid) for uuid in uuids
+            _get_historic_zero_risk(vulnerability_id=id) for id in ids
         )

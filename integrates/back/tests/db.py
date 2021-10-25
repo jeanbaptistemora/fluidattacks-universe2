@@ -240,7 +240,7 @@ async def _populate_vuln_historic_state(data: Dict[str, Any]) -> None:
                 current_value=vuln.state,
                 finding_id=vuln.finding_id,
                 state=state,
-                uuid=vuln.uuid,
+                vulnerability_id=vuln.id,
             )
 
 
@@ -252,7 +252,7 @@ async def _populate_vuln_historic_treatment(data: Dict[str, Any]) -> None:
                 current_value=vuln.treatment,
                 finding_id=vuln.finding_id,
                 treatment=treatment,
-                uuid=vuln.uuid,
+                vulnerability_id=vuln.id,
             )
 
 
@@ -264,7 +264,7 @@ async def _populate_vuln_historic_verification(data: Dict[str, Any]) -> None:
                 current_value=vuln.verification,
                 finding_id=vuln.finding_id,
                 verification=verification,
-                uuid=vuln.uuid,
+                vulnerability_id=vuln.id,
             )
 
 
@@ -276,7 +276,7 @@ async def _populate_vuln_historic_zero_risk(data: Dict[str, Any]) -> None:
                 current_value=vuln.zero_risk,
                 finding_id=vuln.finding_id,
                 zero_risk=zero_risk,
-                uuid=vuln.uuid,
+                vulnerability_id=vuln.id,
             )
 
 

@@ -51,11 +51,11 @@ class VulnerabilityZeroRisk(NamedTuple):
 
 class Vulnerability(NamedTuple):
     finding_id: str
+    id: str
     specific: str
     state: VulnerabilityState
     treatment: VulnerabilityTreatment
     type: VulnerabilityType
-    uuid: str
     where: str
     bug_tracking_system_url: Optional[str] = None
     commit: Optional[str] = None

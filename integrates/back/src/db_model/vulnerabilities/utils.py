@@ -47,7 +47,7 @@ def format_vulnerability(
     metadata["finding_id"] = metadata[
         inverted_key_structure.partition_key
     ].split("#")[1]
-    metadata["uuid"] = metadata[inverted_key_structure.sort_key].split("#")[1]
+    metadata["id"] = metadata[inverted_key_structure.sort_key].split("#")[1]
 
     state: VulnerabilityState = format_state(
         historics.get_latest(
@@ -106,7 +106,7 @@ def format_vulnerability(
         tags=metadata.get("tags", None),
         treatment=treatment,
         type=VulnerabilityType[metadata["type"]],
-        uuid=metadata["uuid"],
+        id=metadata["id"],
         verification=verification,
         where=metadata["where"],
         zero_risk=zero_risk,

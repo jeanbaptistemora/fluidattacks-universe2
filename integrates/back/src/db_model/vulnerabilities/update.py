@@ -43,12 +43,12 @@ async def update_metadata(
     *,
     finding_id: str,
     metadata: VulnerabilityMetadataToUpdate,
-    uuid: str,
+    vulnerability_id: str,
 ) -> None:
     key_structure = TABLE.primary_key
     metadata_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
-        values={"finding_id": finding_id, "uuid": uuid},
+        values={"finding_id": finding_id, "id": vulnerability_id},
     )
     metadata_item = {
         key: value.value if isinstance(value, Enum) else value._asdict()
@@ -69,7 +69,7 @@ async def update_state(
     current_value: VulnerabilityState,
     finding_id: str,
     state: VulnerabilityState,
-    uuid: str,
+    vulnerability_id: str,
 ) -> None:
     items = []
     key_structure = TABLE.primary_key
@@ -81,7 +81,7 @@ async def update_state(
         key_values={
             "finding_id": finding_id,
             "iso8601utc": state.modified_date,
-            "uuid": uuid,
+            "id": vulnerability_id,
         },
         latest_facet=TABLE.facets["vulnerability_state"],
     )
@@ -106,7 +106,7 @@ async def update_treatment(
     current_value: VulnerabilityTreatment,
     finding_id: str,
     treatment: VulnerabilityTreatment,
-    uuid: str,
+    vulnerability_id: str,
 ) -> None:
     items = []
     key_structure = TABLE.primary_key
@@ -118,7 +118,7 @@ async def update_treatment(
         key_values={
             "finding_id": finding_id,
             "iso8601utc": treatment.modified_date,
-            "uuid": uuid,
+            "id": vulnerability_id,
         },
         latest_facet=TABLE.facets["vulnerability_treatment"],
     )
@@ -141,7 +141,7 @@ async def update_verification(
     *,
     current_value: Optional[VulnerabilityVerification],
     finding_id: str,
-    uuid: str,
+    vulnerability_id: str,
     verification: VulnerabilityVerification,
 ) -> None:
     items = []
@@ -154,7 +154,7 @@ async def update_verification(
         key_values={
             "finding_id": finding_id,
             "iso8601utc": verification.modified_date,
-            "uuid": uuid,
+            "id": vulnerability_id,
         },
         latest_facet=TABLE.facets["vulnerability_verification"],
     )
@@ -179,7 +179,7 @@ async def update_zero_risk(
     *,
     current_value: Optional[VulnerabilityZeroRisk],
     finding_id: str,
-    uuid: str,
+    vulnerability_id: str,
     zero_risk: VulnerabilityZeroRisk,
 ) -> None:
     items = []
@@ -192,7 +192,7 @@ async def update_zero_risk(
         key_values={
             "finding_id": finding_id,
             "iso8601utc": zero_risk.modified_date,
-            "uuid": uuid,
+            "id": vulnerability_id,
         },
         latest_facet=TABLE.facets["vulnerability_zero_risk"],
     )

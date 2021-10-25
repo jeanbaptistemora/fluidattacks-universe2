@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 22, 2021, 11:44 AM",
+    "DateLastModified": "Oct 25, 2021, 09:47 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -8016,7 +8016,7 @@
         {
           "FacetName": "vulnerability_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid",
+            "PartitionKeyAlias": "VULN#id",
             "SortKeyAlias": "FIN#finding_id"
           },
           "TableData": [
@@ -8072,7 +8072,7 @@
         {
           "FacetName": "vulnerability_historic_state",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid",
+            "PartitionKeyAlias": "VULN#id",
             "SortKeyAlias": "STATE#iso8601utc"
           },
           "TableData": [
@@ -8108,7 +8108,7 @@
         {
           "FacetName": "vulnerability_historic_treatment",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid",
+            "PartitionKeyAlias": "VULN#id",
             "SortKeyAlias": "TREATMENT#iso8601utc"
           },
           "TableData": [
@@ -8143,7 +8143,7 @@
         {
           "FacetName": "vulnerability_historic_verification",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid",
+            "PartitionKeyAlias": "VULN#id",
             "SortKeyAlias": "VERIFICATION#iso8601utc"
           },
           "TableData": [
@@ -8175,7 +8175,7 @@
         {
           "FacetName": "vulnerability_historic_zero_risk",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid",
+            "PartitionKeyAlias": "VULN#id",
             "SortKeyAlias": "ZERORISK#iso8601utc"
           },
           "TableData": [
@@ -8230,7 +8230,7 @@
         {
           "FacetName": "vulnerability_state",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid#STATE",
+            "PartitionKeyAlias": "VULN#id#STATE",
             "SortKeyAlias": "FIN#finding_id"
           },
           "TableData": [
@@ -8266,7 +8266,7 @@
         {
           "FacetName": "vulnerability_treatment",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid#TREATMENT",
+            "PartitionKeyAlias": "VULN#id#TREATMENT",
             "SortKeyAlias": "FIN#finding_id"
           },
           "TableData": [
@@ -8301,7 +8301,7 @@
         {
           "FacetName": "vulnerability_verification",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid#VERIFICATION",
+            "PartitionKeyAlias": "VULN#id#VERIFICATION",
             "SortKeyAlias": "FIN#finding_id"
           },
           "TableData": [
@@ -8333,7 +8333,7 @@
         {
           "FacetName": "vulnerability_zero_risk",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid#ZERORISK",
+            "PartitionKeyAlias": "VULN#id#ZERORISK",
             "SortKeyAlias": "FIN#finding_id"
           },
           "TableData": [
