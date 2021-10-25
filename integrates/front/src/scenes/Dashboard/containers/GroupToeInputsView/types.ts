@@ -5,7 +5,6 @@ interface IToeInputAttr {
   seenFirstTimeBy: string;
   testedDate: string;
   unreliableRootNickname: string;
-  verified: string;
 }
 
 interface IToeInputData {
@@ -15,7 +14,6 @@ interface IToeInputData {
   seenFirstTimeBy: string;
   testedDate: string;
   unreliableRootNickname: string;
-  verified: string;
 }
 
 export type { IToeInputAttr, IToeInputData };

@@ -12,7 +12,6 @@ const GET_TOE_INPUTS: DocumentNode = gql`
         seenFirstTimeBy
         testedDate
         unreliableRootNickname
-        verified
       }
     }
   }

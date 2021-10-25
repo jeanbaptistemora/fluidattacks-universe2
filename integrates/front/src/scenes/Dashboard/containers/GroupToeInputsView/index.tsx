@@ -33,7 +33,6 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       seenFirstTimeBy: true,
       testedDate: true,
       unreliableRootNickname: true,
-      verified: true,
     },
     localStorage
   );
@@ -104,14 +103,6 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       onSort,
       visible: checkedItems.entryPoint,
       width: "10%",
-    },
-    {
-      align: "center",
-      dataField: "verified",
-      header: translate.t("group.toe.inputs.verified"),
-      onSort,
-      visible: checkedItems.verified,
-      width: "2.5%",
     },
     {
       align: "center",
