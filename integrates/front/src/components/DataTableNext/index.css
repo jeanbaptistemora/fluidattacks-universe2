@@ -87,3 +87,28 @@
     margin-left: 5px;
   }
 }
+
+:local .sizePerPage {
+  padding: 8px 12px;
+  line-height: 1.42857143;
+  text-decoration: none;
+  color: #ff3435;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  margin-left: -1px;
+}
+
+:local .sizePerPage:hover {
+  background-color: #eee;
+}
+
+:local .selectedSizePerPage {
+  padding: 8px 12px;
+  line-height: 1.42857143;
+  text-decoration: none;
+  border: 1px solid;
+  background-color: #ff3435;
+  border-color: #ff3435;
+  color: #fff;
+  margin-left: -1px;
+}

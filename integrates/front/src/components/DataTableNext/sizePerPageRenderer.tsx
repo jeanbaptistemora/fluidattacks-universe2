@@ -1,6 +1,6 @@
 import React from "react";
 
-import { DropdownButton, MenuItem } from "components/DropdownButton";
+import style from "components/DataTableNext/index.css";
 
 export interface ISizePerPageProps {
   currSizePerPage: number;
@@ -10,25 +10,27 @@ export interface ISizePerPageProps {
 
 export const SizePerPageRenderer = (props: ISizePerPageProps): JSX.Element => {
   const { options, currSizePerPage, onSizePerPageChange } = props;
-  function handleSelect(select: unknown): void {
-    onSizePerPageChange(select as number);
-  }
 
   return (
-    <DropdownButton
-      content={currSizePerPage}
-      id={"pageSizeDropDown"}
-      items={options.map(
-        (option): JSX.Element => (
-          <MenuItem
-            eventKey={`${option.page}`}
-            itemContent={option.page}
+    <div>
+      {options.map((option): JSX.Element => {
+        const isSelect = `${currSizePerPage}` === option.text;
+        function handleClick(): void {
+          onSizePerPageChange(option.page);
+        }
+
+        return (
+          <button
+            className={`${
+              isSelect ? style.selectedSizePerPage : style.sizePerPage
+            }`}
             key={option.text}
-            onClick={handleSelect}
-          />
-        )
-      )}
-      scrollInto={true}
-    />
+            onClick={handleClick}
+          >
+            {option.text}
+          </button>
+        );
+      })}
+    </div>
   );
 };
