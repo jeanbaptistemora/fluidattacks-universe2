@@ -224,7 +224,7 @@
     ]
   },
   "decompress-tar": {
-    "npmjs.com/advisories/1217": [
+    "SNYK-JS-DECOMPRESSTAR-559095": [
       "<4.2.1"
     ]
   },
