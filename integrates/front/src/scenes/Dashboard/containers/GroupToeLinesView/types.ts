@@ -24,7 +24,6 @@ interface IToeLinesData {
   loc: number;
   modifiedDate: string;
   modifiedCommit: string;
-  pendingLines: number;
   rootId: string;
   rootNickname: string;
   sortsRiskLevel: string;

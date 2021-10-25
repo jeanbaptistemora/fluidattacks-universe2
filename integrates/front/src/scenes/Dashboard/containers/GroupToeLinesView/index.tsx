@@ -36,7 +36,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       loc: true,
       modifiedCommit: true,
       modifiedDate: true,
-      pendingLines: true,
       rootNickname: true,
       sortsRiskLevel: false,
       testedDate: true,
@@ -144,14 +143,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
-      dataField: "pendingLines",
-      header: translate.t("group.toe.lines.pendingLines"),
-      onSort,
-      visible: checkedItems.pendingLines,
-      width: "8%",
-    },
-    {
-      align: "center",
       dataField: "modifiedDate",
       filter: dateFilter({}),
       formatter: formatDate,
@@ -217,8 +208,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       : translate.t("group.toe.lines.no");
   const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
     toeLinesAttr.loc === 0 ? 1 : toeLinesAttr.testedLines / toeLinesAttr.loc;
-  const getPendingLines = (toeLinesAttr: IToeLinesAttr): number =>
-    toeLinesAttr.loc - toeLinesAttr.testedLines;
   const getSortsRiskLevel = (toeLinesAttr: IToeLinesAttr): string =>
     parseInt(toeLinesAttr.sortsRiskLevel, 10) >= 0
       ? `${toeLinesAttr.sortsRiskLevel.toString()} %`
@@ -231,7 +220,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
             attacked: getAttacked(toeLinesAttr),
             coverage: getCoverage(toeLinesAttr),
             groupName,
-            pendingLines: getPendingLines(toeLinesAttr),
             rootId: root.id,
             rootNickname: root.nickname,
             ...toeLinesAttr,
