@@ -32,6 +32,7 @@ from typing import (
     List,
     Optional,
     Tuple,
+    Union,
 )
 
 
@@ -55,6 +56,7 @@ def style_report(key: str, value: str) -> str:
             "Functional": "[orange3]",
             "High": "[red]",
         },
+        "type": {"DAST": "[thistle3]", "SAST": "[light_steel_blue1]"},
     }
     if key in style_data:
         value_style = style_data[key]
@@ -144,6 +146,28 @@ def format_summary_report(summary: Dict[str, Any], kind: str) -> Table:
     return summary_table
 
 
+def format_vuln_table(vulns: List[Dict[str, str]]) -> Table:
+    vuln_table = Table(
+        show_header=False,
+        highlight=True,
+        box=MINIMAL,
+        border_style="gold1",
+        width=60,
+    )
+    vuln_table.add_column("Vuln attr", style="cyan")
+    vuln_table.add_column(
+        "Vuln attr values", style="honeydew2", overflow="fold"
+    )
+    for vuln in vulns:
+        for key, value in vuln.items():
+            vuln_table.add_row(
+                key,
+                style_report(key, value),
+                end_section=key == "exploitability",
+            )
+    return vuln_table
+
+
 def format_rich_report(
     report: Dict[str, Any],
     verbose_level: int,
@@ -163,9 +187,23 @@ def format_rich_report(
     findings = report["findings"]
     for find in findings:
         for key, value in find.items():
-            report_table.add_row(
-                key, style_report(key, str(value)), end_section=key == last_key
-            )
+            if key == "vulnerabilities":
+                vuln_data: Union[Table, str] = ""
+                if len(value):
+                    vuln_data = format_vuln_table(value)
+                elif verbose_level == 2:
+                    vuln_data = "None currently open"
+                elif verbose_level == 3:
+                    vuln_data = "None currently open or closed"
+                else:  # 4th verbosity level
+                    vuln_data = "None currently open, closed or accepted"
+                report_table.add_row(key, vuln_data, end_section=True)
+            else:
+                report_table.add_row(
+                    key,
+                    style_report(key, str(value)),
+                    end_section=key == last_key,
+                )
     summary = report["summary"]
     summary_table = format_summary_report(summary, kind)
     return report_table, summary_table
