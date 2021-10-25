@@ -36,6 +36,12 @@ class PostId:
 
 
 @dataclass(frozen=True)
+class ExtUserId:
+    proj: ProjectId
+    obj_id: str
+
+
+@dataclass(frozen=True)
 class UserId:
     user_id: str
 
