@@ -26,7 +26,7 @@ SCHEDULE: Dict[PartialCron, List[str]] = {
     PartialCron.new(6, AnyTime(), work_days): [
         os.environ["codeEtlUpload"],
     ],
-    PartialCron.new(range(0, 24), AnyTime(), AnyTime()): [
+    PartialCron.new(range(0, 24, 2), AnyTime(), AnyTime()): [
         os.environ["gitlabEtlProduct"],
     ],
     PartialCron.new(range(1, 24, 2), AnyTime(), AnyTime()): [
