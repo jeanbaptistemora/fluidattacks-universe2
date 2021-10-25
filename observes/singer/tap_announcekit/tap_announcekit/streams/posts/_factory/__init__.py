@@ -19,10 +19,8 @@ from tap_announcekit.objs.id_objs import (
     ProjectId,
 )
 from tap_announcekit.objs.post import (
-    PostObj,
-)
-from tap_announcekit.objs.post.page import (
     PostIdPage,
+    PostObj,
 )
 from tap_announcekit.streams.posts._factory import (
     _from_raw,

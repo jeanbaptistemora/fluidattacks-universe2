@@ -5,6 +5,7 @@ from datetime import (
     datetime,
 )
 from purity.v1 import (
+    FrozenList,
     PrimitiveFactory,
 )
 from tap_announcekit.objs.id_objs import (
@@ -22,9 +23,6 @@ from tap_announcekit.objs.post.feedback import (
     Feedback,
     FeedbackObj,
     FeedbackPage,
-)
-from tap_announcekit.objs.post.page import (
-    PostIdPage,
 )
 from typing import (
     Optional,
@@ -52,12 +50,19 @@ class Post:
     segment_filters: Optional[JsonStr]
 
 
+@dataclass(frozen=True)
+class PostIdPage:
+    data: FrozenList[PostId]
+    count: int
+    page: int
+    pages: int
+
+
 PostObj = IndexedObj[PostId, Post]
 
 
 __all__ = [
     # content
-    "PostIdPage",
     "PostContent",
     "PostContentObj",
     # feedback

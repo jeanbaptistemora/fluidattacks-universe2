@@ -14,11 +14,8 @@ from tap_announcekit.objs.id_objs import (
 )
 from tap_announcekit.objs.post import (
     Post,
-    PostObj,
-)
-from tap_announcekit.objs.post.page import (
-    _PostIdPage,
     PostIdPage,
+    PostObj,
 )
 from tap_announcekit.utils import (
     CastUtils,
@@ -52,7 +49,7 @@ def to_post(raw: RawPost) -> PostObj:
 
 
 def to_post_page(raw: RawPosts) -> PostIdPage:
-    draft = _PostIdPage(
+    return PostIdPage(
         tuple(
             PostId.from_any(i.project_id, i.id)
             for i in cast(List[RawPost], CastUtils.to_list(raw.list))
@@ -61,4 +58,3 @@ def to_post_page(raw: RawPosts) -> PostIdPage:
         to_primitive(raw.page, int),
         to_primitive(raw.pages, int),
     )
-    return PostIdPage(draft)
