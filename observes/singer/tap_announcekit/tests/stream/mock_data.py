@@ -74,13 +74,15 @@ mock_post = Post(
     )
 )
 
-mock_post_content = PostContent(
+mock_post_content_obj = IndexedObj(
     mock_post_id,
-    "locale",
-    "title1",
-    "the_body",
-    "slug",
-    "url",
+    PostContent(
+        "locale",
+        "title1",
+        "the_body",
+        "slug",
+        "url",
+    ),
 )
 
 mock_feedback_obj: FeedbackObj = IndexedObj(

@@ -14,8 +14,8 @@ from tap_announcekit.api.client import (
 from tap_announcekit.objs.id_objs import (
     PostId,
 )
-from tap_announcekit.objs.post import (
-    PostContent,
+from tap_announcekit.objs.post.content import (
+    PostContentObj,
 )
 from tap_announcekit.stream import (
     Stream,
@@ -36,7 +36,7 @@ class PostContentStreams:
     emitter: StreamEmitter
     _name: str = "post_contents"
 
-    def stream(self, items: PureIter[PostContent]) -> StreamData:
+    def stream(self, items: PureIter[PostContentObj]) -> StreamData:
         encoder = PostContentEncoders.encoder(self._name)
         return Stream(encoder.schema, items.map_each(encoder.to_singer))
 

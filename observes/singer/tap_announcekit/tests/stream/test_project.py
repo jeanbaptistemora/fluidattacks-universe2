@@ -13,7 +13,6 @@ def test_query() -> None:
     ProjectQuery("1234").query().operation()
 
 
-# @pytest.mark.xfail(reason="future fix")
 def test_schema() -> None:
     encoder = ProjectEncoders.encoder("stream_1")
     jschema = encoder.schema.schema

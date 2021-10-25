@@ -18,11 +18,13 @@ from tap_announcekit.api.gql_schema import (
     PostContent as RawPostContent,
 )
 from tap_announcekit.objs.id_objs import (
+    IndexedObj,
     PostId,
     ProjectId,
 )
 from tap_announcekit.objs.post.content import (
     PostContent,
+    PostContentObj,
 )
 from typing import (
     cast,
@@ -48,22 +50,22 @@ class PostContentQuery:
         return QueryFactory.select(self._select_fields)
 
 
-def from_raw(proj: ProjectId, raw: RawPostContent) -> PostContent:
-    return PostContent(
-        PostId.from_any(proj.id_str, raw.post_id),
+def from_raw(proj: ProjectId, raw: RawPostContent) -> PostContentObj:
+    content = PostContent(
         _to_primitive(raw.locale_id, str),
         _to_primitive(raw.title, str),
         _to_primitive(raw.body, str),
         _to_primitive(raw.slug, str),
         _to_primitive(raw.url, str),
     )
+    return IndexedObj(PostId.from_any(proj.id_str, raw.post_id), content)
 
 
 @dataclass(frozen=True)
 class PostContentFactory:
     client: ApiClient
 
-    def get(self, pid: PostId) -> IO[FrozenList[PostContent]]:
+    def get(self, pid: PostId) -> IO[FrozenList[PostContentObj]]:
         query = PostContentQuery(pid).query()
         return self.client.get(query).map(
             lambda q: tuple(
