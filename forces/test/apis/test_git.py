@@ -1,5 +1,6 @@
 from forces.apis.git import (
     check_remotes,
+    get_repo_name_from_vars,
     get_repository_metadata,
 )
 from forces.apis.integrates import (
@@ -8,6 +9,7 @@ from forces.apis.integrates import (
 from forces.utils.model import (
     ForcesConfig,
 )
+import os
 import pytest
 
 
@@ -15,7 +17,7 @@ import pytest
 def test_get_repository_metadata_test() -> None:
     result = get_repository_metadata(repo_path=".")
     assert result["git_repo"] == "product"
-    assert "product.git" in result["git_origin"]
+    assert "fluidattacks/product" in result["git_origin"]
     assert result["git_branch"] != "master"
 
 
@@ -27,3 +29,8 @@ async def test_check_remotes(test_token: str) -> None:
 
     bad_config = ForcesConfig(group="herrin", repository_name="products")
     assert not await check_remotes(bad_config)
+
+
+def test_get_repo_name_from_vars() -> None:
+    os.environ["REPO_NAME"] = "product"
+    assert get_repo_name_from_vars() == "product"
