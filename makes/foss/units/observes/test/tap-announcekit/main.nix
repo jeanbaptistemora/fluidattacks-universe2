@@ -1,5 +1,4 @@
-{ inputs
-, makeDerivation
+{ makeDerivation
 , outputs
 , projectPath
 , ...
@@ -12,9 +11,9 @@ makeDerivation {
   };
   searchPaths = {
     source = [
-      inputs.product.observes-generic-tester
+      outputs."/observes/common/tester"
       outputs."/observes/env/tap-announcekit/development"
     ];
   };
-  builder = projectPath "/makes/packages/observes/generic/tester/test_builder.sh";
+  builder = projectPath "/makes/foss/units/observes/common/tester/test_builder.sh";
 }
