@@ -337,11 +337,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     [addEvent, groupName]
   );
 
-  if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <div />;
-  }
-
-  const dataset = formatEvents(data.group.events);
+  const dataset = data === undefined ? [] : formatEvents(data.group.events);
 
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>

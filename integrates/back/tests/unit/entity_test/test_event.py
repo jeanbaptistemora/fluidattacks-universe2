@@ -85,7 +85,9 @@ async def test_create_event() -> None:
                         context: CLIENT,
                         detail: "Test",
                         eventDate: "2020-02-01T00:00:00Z",
-                        eventType: INCORRECT_MISSING_SUPPLIES) {
+                        eventType: INCORRECT_MISSING_SUPPLIES
+                        rootId: "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+            ) {
                 success
             }
         }

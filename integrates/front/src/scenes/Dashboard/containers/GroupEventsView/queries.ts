@@ -36,6 +36,7 @@ const ADD_EVENT_MUTATION: DocumentNode = gql`
     $file: Upload
     $image: Upload
     $groupName: String!
+    $rootId: ID!
   ) {
     addEvent(
       accessibility: $accessibility
@@ -50,6 +51,7 @@ const ADD_EVENT_MUTATION: DocumentNode = gql`
       file: $file
       image: $image
       groupName: $groupName
+      rootId: $rootId
     ) {
       success
     }

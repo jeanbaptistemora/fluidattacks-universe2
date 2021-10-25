@@ -55,6 +55,7 @@ interface IFormValues {
   actionAfterBlocking: string;
   file?: FileList;
   image?: FileList;
+  rootId: string;
 }
 
 interface IAddModalProps {
@@ -80,6 +81,13 @@ const AddModal: React.FC<IAddModalProps> = ({
       })
   );
 
+  async function handleSubmit(values: IFormValues): Promise<void> {
+    return onSubmit({
+      ...values,
+      rootId: "",
+    });
+  }
+
   return (
     <Modal headerTitle={t("group.events.new")} onEsc={onClose} open={true}>
       <Formik
@@ -95,9 +103,10 @@ const AddModal: React.FC<IAddModalProps> = ({
           eventType: "",
           file: undefined,
           image: undefined,
+          rootId: "",
         }}
         name={"newEvent"}
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         validationSchema={validations}
       >
         {({ dirty, isSubmitting, values }): JSX.Element => (

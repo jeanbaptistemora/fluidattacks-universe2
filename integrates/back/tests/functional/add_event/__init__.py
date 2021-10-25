@@ -26,6 +26,7 @@ async def get_result(
                 detail: "hacker create new event",
                 eventDate: "2020-02-01T00:00:00Z",
                 eventType: INCORRECT_MISSING_SUPPLIES
+                rootId: "63298a73-9dff-46cf-b42d-9b2f01a56690"
             ) {{
                 success
             }}

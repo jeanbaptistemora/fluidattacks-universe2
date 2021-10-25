@@ -60,6 +60,7 @@ async def test_add_event() -> None:
         "detail": "Something happened.",
         "event_date": parse_datetime("2019-12-09T05:00:00.000Z"),
         "event_type": "CLIENT_DETECTS_ATTACK",
+        "root_id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
     }
     assert await events_domain.add_event(
         get_new_context(),
