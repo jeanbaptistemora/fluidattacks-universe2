@@ -9,6 +9,7 @@ from purity.v1 import (
 )
 from tap_announcekit.objs.id_objs import (
     ImageId,
+    IndexedObj,
     PostId,
     UserId,
 )
@@ -35,9 +36,8 @@ to_opt_primitive = PrimitiveFactory.to_opt_primitive
 
 
 @dataclass(frozen=True)
-class _Post:
+class Post:
     # pylint: disable=too-many-instance-attributes
-    obj_id: PostId
     user_id: Optional[UserId]
     created_at: datetime
     visible_at: datetime
@@ -52,13 +52,7 @@ class _Post:
     segment_filters: Optional[JsonStr]
 
 
-class Post(_Post):
-    # pylint: disable=too-few-public-methods
-    def __init__(self, obj: _Post) -> None:
-        # pylint: disable=super-init-not-called
-        # calling super is tedious because the number of args
-        for key, val in obj.__dict__.items():
-            object.__setattr__(self, key, val)
+PostObj = IndexedObj[PostId, Post]
 
 
 __all__ = [

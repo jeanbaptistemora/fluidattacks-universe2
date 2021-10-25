@@ -8,12 +8,13 @@ from tap_announcekit.api.gql_schema import (
 )
 from tap_announcekit.objs.id_objs import (
     ImageId,
+    IndexedObj,
     PostId,
     UserId,
 )
 from tap_announcekit.objs.post import (
-    _Post,
     Post,
+    PostObj,
 )
 from tap_announcekit.objs.post.page import (
     _PostIdPage,
@@ -32,9 +33,8 @@ to_primitive = PrimitiveFactory.to_primitive
 to_opt_primitive = PrimitiveFactory.to_opt_primitive
 
 
-def to_post(raw: RawPost) -> Post:
-    draft = _Post(
-        PostId.from_any(raw.project_id, raw.id),
+def to_post(raw: RawPost) -> PostObj:
+    post = Post(
         CastUtils.to_maybe_str(raw.user_id).map(UserId).value_or(None),
         CastUtils.to_datetime(raw.created_at),
         CastUtils.to_datetime(raw.visible_at),
@@ -48,7 +48,7 @@ def to_post(raw: RawPost) -> Post:
         to_opt_primitive(raw.external_url, str),
         to_opt_primitive(raw.segment_filters, str),
     )
-    return Post(draft)
+    return IndexedObj(PostId.from_any(raw.project_id, raw.id), post)
 
 
 def to_post_page(raw: RawPosts) -> PostIdPage:

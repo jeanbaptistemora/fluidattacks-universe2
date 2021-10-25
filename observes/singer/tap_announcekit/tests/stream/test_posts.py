@@ -1,4 +1,3 @@
-import pytest
 from tap_announcekit.objs.id_objs import (
     ProjectId,
 )
@@ -21,11 +20,10 @@ def test_queries() -> None:
     PostIdsQuery(mock_data.mock_post_id.proj, 0).query().operation()
 
 
-@pytest.mark.xfail(reason="future fix")
 def test_schema() -> None:
     encoder = PostEncoders.encoder("stream_1")
     jschema = encoder.schema.schema
-    jrecord = encoder.to_singer(mock_data.mock_post).record
+    jrecord = encoder.to_singer(mock_data.mock_post_obj).record
     assert frozenset(jschema.raw_schema["properties"].keys()) == frozenset(
         jrecord.keys()
     )

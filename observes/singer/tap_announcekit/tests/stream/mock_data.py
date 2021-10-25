@@ -11,7 +11,6 @@ from tap_announcekit.objs.id_objs import (
     UserId,
 )
 from tap_announcekit.objs.post import (
-    _Post,
     ActionSource,
     Feedback,
     FeedbackObj,
@@ -56,9 +55,9 @@ mock_proj = Project(
 )
 
 mock_post_id = PostId(ProjectId("1234"), "post4321")
-mock_post = Post(
-    _Post(
-        mock_post_id,
+mock_post_obj = IndexedObj(
+    mock_post_id,
+    Post(
         UserId("wer"),
         mock_datetime,
         mock_datetime,
@@ -71,7 +70,7 @@ mock_post = Post(
         True,
         None,
         None,
-    )
+    ),
 )
 
 mock_post_content_obj = IndexedObj(

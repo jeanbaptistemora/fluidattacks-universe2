@@ -29,8 +29,8 @@ from tap_announcekit.objs.id_objs import (
     ProjectId,
 )
 from tap_announcekit.objs.post import (
-    Post,
     PostIdPage,
+    PostObj,
 )
 from typing import (
     cast,
@@ -88,9 +88,9 @@ class PostIdGetters:
 class PostGetters:
     client: ApiClient
     post_query: Transform[PostId, Query]
-    to_post: Transform[RawPost, Post]
+    to_post: Transform[RawPost, PostObj]
 
-    def get_post(self, post_id: PostId) -> IO[Post]:
+    def get_post(self, post_id: PostId) -> IO[PostObj]:
         query = self.post_query(post_id)
         raw: IO[RawPost] = self.client.get(query).map(
             lambda q: cast(RawPost, q.post)

@@ -19,7 +19,7 @@ from tap_announcekit.objs.id_objs import (
     ProjectId,
 )
 from tap_announcekit.objs.post import (
-    Post,
+    PostObj,
 )
 from tap_announcekit.objs.post.page import (
     PostIdPage,
@@ -49,7 +49,7 @@ class PostFactory:
             Transform(_from_raw.to_post),
         )
 
-    def get_post(self, post_id: PostId) -> IO[Post]:
+    def get_post(self, post_id: PostId) -> IO[PostObj]:
         return self._getters().get_post(post_id)
 
 
