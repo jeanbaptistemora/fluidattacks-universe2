@@ -1,3 +1,6 @@
+from tap_announcekit.api.client import (
+    ApiClient,
+)
 from tap_announcekit.streams.project import (
     _factory,
 )
@@ -9,15 +12,16 @@ from tests.stream import (
     mock_raw_data,
 )
 
-getter = _factory.raw_getter(mock_data.mock_proj_id)
+query = _factory.ProjectQuery(mock_data.mock_proj_id).query()
 
 
 def test_query() -> None:
-    assert getter.query.operation()
+    assert query.operation()
 
 
 def test_from_data() -> None:
-    assert getter.from_data({"data": mock_raw_data.mock_proj})
+    raw_data = {"data": mock_raw_data.mock_proj}
+    assert ApiClient.from_data(query, raw_data)
 
 
 def test_schema() -> None:

@@ -1,3 +1,6 @@
+from tap_announcekit.api.client import (
+    ApiClient,
+)
 from tap_announcekit.streams.posts import (
     _factory,
 )
@@ -16,15 +19,16 @@ from tests.stream import (
 )
 
 encoder = PostEncoders.encoder("stream_1")
-getter = _factory.raw_getter(mock_data.mock_post_id)
+post_query = _factory.PostQuery(mock_data.mock_post_id).query()
 
 
 def test_post_query() -> None:
-    assert getter.query.operation()
+    assert post_query.operation()
 
 
 def test_post_from_data() -> None:
-    assert getter.from_data({"data": mock_raw_data.mock_post})
+    raw_data = {"data": mock_raw_data.mock_post}
+    assert ApiClient.from_data(post_query, raw_data)
 
 
 def test_post_page_query() -> None:

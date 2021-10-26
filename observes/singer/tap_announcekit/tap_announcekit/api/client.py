@@ -8,9 +8,13 @@ from dataclasses import (
 import logging
 from purity.v1 import (
     Patch,
+    Transform,
 )
 from returns.io import (
     IO,
+)
+from returns.primitives.hkt import (
+    SupportsKind1,
 )
 from sgqlc import (
     introspection,
@@ -30,10 +34,12 @@ from tap_announcekit.api.auth import (
 from typing import (
     Any,
     Callable,
+    TypeVar,
 )
 
 API_ENDPOINT = "https://announcekit.app/gq/v2"
 LOG = logging.getLogger(__name__)
+_T = TypeVar("_T")
 
 
 class Operation(GQL_Operation):
@@ -44,16 +50,19 @@ class Operation(GQL_Operation):
 
 
 @dataclass(frozen=True)
-class _Query:
-    _raw: Patch[Callable[[], Operation]]
+class _Query(SupportsKind1["_Query[_T]", _T]):
+    # Instances of this class are NOT type safe
+    # therefore it must be tested
+    _raw_op: Patch[Callable[[], Operation]]
+    from_raw: Transform[Any, _T]
 
 
-class Query(_Query):
-    def __init__(self, obj: _Query) -> None:
-        super().__init__(obj._raw)
+class Query(_Query[_T]):
+    def __init__(self, obj: _Query[_T]) -> None:
+        super().__init__(obj._raw_op, obj.from_raw)
 
     def operation(self) -> Operation:
-        return self._raw.unwrap()
+        return self._raw_op.unwrap()
 
     def __str__(self) -> str:
         return str(self.operation())
@@ -66,13 +75,16 @@ class QueryFactory:
         return Operation(gql_schema.Query)
 
     @staticmethod
-    def select(selections: Callable[[Operation], IO[None]]) -> Query:
+    def select(
+        selections: Callable[[Operation], IO[None]],
+        from_raw: Transform[Any, _T],
+    ) -> Query[_T]:
         def op_obj() -> Operation:
             obj = QueryFactory._new_op()
             selections(obj)  # call equivalent to unsafe_perform_io
             return obj
 
-        draft = _Query(Patch(op_obj))
+        draft = _Query(Patch(op_obj), from_raw)
         return Query(draft)
 
 
@@ -95,8 +107,12 @@ class ApiClient(_ApiClient):
             ),
         )
 
-    def get(self, query: Query) -> IO[Any]:
-        LOG.debug("Api call: %s", query)
+    @staticmethod
+    def from_data(query: Query[_T], raw_data: Any) -> _T:
         gql_op = query.operation()
-        data = self._endpoint(gql_op)
-        return IO(gql_op + data)
+        return query.from_raw(gql_op + raw_data)
+
+    def get(self, query: Query[_T]) -> IO[_T]:
+        LOG.debug("Api call: %s", query)
+        data = self._endpoint(query.operation())
+        return IO(self.from_data(query, data))

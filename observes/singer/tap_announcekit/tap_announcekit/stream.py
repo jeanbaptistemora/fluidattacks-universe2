@@ -30,12 +30,7 @@ from singer_io.singer2.json import (
     DictFactory,
     JsonObj,
 )
-from tap_announcekit.api.client import (
-    ApiClient,
-    Query,
-)
 from typing import (
-    Any,
     Callable,
     NoReturn,
     TypeVar,
@@ -160,18 +155,3 @@ class StreamFactory:
             ).map(lambda i: PureIterFactory.from_flist(i))
         )
         return Stream(encoder.schema, PureIterIOFactory.chain(records))
-
-
-@dataclass(frozen=True)
-class RawGetter(SupportsKind1["RawGetter[_D]", _D]):
-    # Instances of this class are NOT type safe
-    # therefore it must be tested
-    query: Query
-    from_raw: Transform[Any, _D]
-
-    def from_data(self, raw_data: Any) -> _D:
-        raw_obj = self.query.operation() + raw_data
-        return self.from_raw(raw_obj)
-
-    def get(self, client: ApiClient) -> IO[_D]:
-        return client.get(self.query).map(self.from_raw)

@@ -26,31 +26,12 @@ from tap_announcekit.objs.post.content import (
     PostContent,
     PostContentObj,
 )
-from tap_announcekit.stream import (
-    RawGetter,
-)
 from typing import (
     cast,
     List,
 )
 
 _to_primitive = PrimitiveFactory.to_primitive
-
-
-@dataclass(frozen=True)
-class _PostContentQuery:
-    post: PostId
-
-    def _select_fields(self, query: Operation) -> IO[None]:
-        contents = query.post(
-            project_id=self.post.proj.id_str, post_id=self.post.id_str
-        ).contents()
-        for attr, _ in PostContent.__annotations__.items():
-            getattr(contents, attr)()
-        return IO(None)
-
-    def query(self) -> Query:
-        return QueryFactory.select(self._select_fields)
 
 
 def _from_raw(id_obj: PostId, raw: RawPostContent) -> PostContentObj:
@@ -64,16 +45,28 @@ def _from_raw(id_obj: PostId, raw: RawPostContent) -> PostContentObj:
     return IndexedObj(id_obj, content)
 
 
-def raw_getter(id_obj: PostId) -> RawGetter[FrozenList[PostContentObj]]:
-    return RawGetter(
-        _PostContentQuery(id_obj).query(),
-        Transform(
-            lambda q: tuple(
-                _from_raw(id_obj, i)
-                for i in cast(List[RawPostContent], q.post.contents)
-            )
-        ),
-    )
+@dataclass(frozen=True)
+class PostContentQuery:
+    post: PostId
+
+    def _select_fields(self, query: Operation) -> IO[None]:
+        contents = query.post(
+            project_id=self.post.proj.id_str, post_id=self.post.id_str
+        ).contents()
+        for attr, _ in PostContent.__annotations__.items():
+            getattr(contents, attr)()
+        return IO(None)
+
+    def query(self) -> Query[FrozenList[PostContentObj]]:
+        return QueryFactory.select(
+            self._select_fields,
+            Transform(
+                lambda q: tuple(
+                    _from_raw(self.post, i)
+                    for i in cast(List[RawPostContent], q.post.contents)
+                )
+            ),
+        )
 
 
 @dataclass(frozen=True)
@@ -81,5 +74,5 @@ class PostContentFactory:
     client: ApiClient
 
     def get(self, pid: PostId) -> IO[FrozenList[PostContentObj]]:
-        getter = raw_getter(pid)
-        return getter.get(self.client)
+        query = PostContentQuery(pid).query()
+        return self.client.get(query)

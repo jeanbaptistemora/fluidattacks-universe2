@@ -1,6 +1,10 @@
 from dataclasses import (
     dataclass,
 )
+from purity.v1 import (
+    PrimitiveFactory,
+    Transform,
+)
 from returns.io import (
     IO,
 )
@@ -9,31 +13,23 @@ from tap_announcekit.api.client import (
     Query,
     QueryFactory,
 )
+from tap_announcekit.api.gql_schema import (
+    Posts as RawPosts,
+)
 from tap_announcekit.objs.id_objs import (
-    PostId,
     ProjectId,
 )
 from tap_announcekit.objs.post import (
-    Post,
+    PostIdPage,
+)
+from tap_announcekit.streams.posts._factory import (
+    _from_raw,
+)
+from typing import (
+    cast,
 )
 
-
-@dataclass(frozen=True)
-class PostQuery:
-    post: PostId
-
-    def _select_fields(self, query: Operation) -> IO[None]:
-        proj = query.post(
-            project_id=self.post.proj.id_str, post_id=self.post.id_str
-        )
-        proj.project_id()
-        for attr, _ in Post.__annotations__.items():
-            _attr = "id" if attr == "obj_id" else attr
-            getattr(proj, _attr)()
-        return IO(None)
-
-    def query(self) -> Query:
-        return QueryFactory.select(self._select_fields)
+_to_primitive = PrimitiveFactory.to_primitive
 
 
 @dataclass(frozen=True)
@@ -50,8 +46,13 @@ class PostIdsQuery:
         proj.pages()
         return IO(None)
 
-    def query(self) -> Query:
-        return QueryFactory.select(self._select_fields)
+    def query(self) -> Query[PostIdPage]:
+        return QueryFactory.select(
+            self._select_fields,
+            Transform(
+                lambda q: _from_raw.to_post_page(cast(RawPosts, q.posts))
+            ),
+        )
 
 
 @dataclass(frozen=True)
@@ -64,5 +65,12 @@ class TotalPagesQuery:
         proj.pages()
         return IO(None)
 
-    def query(self) -> Query:
-        return QueryFactory.select(self._select_fields)
+    def query(self) -> Query[range]:
+        return QueryFactory.select(
+            self._select_fields,
+            Transform(
+                lambda q: range(
+                    _to_primitive(cast(RawPosts, q.posts).pages, int)
+                )
+            ),
+        )

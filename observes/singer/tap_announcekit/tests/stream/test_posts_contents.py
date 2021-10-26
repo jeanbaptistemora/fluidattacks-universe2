@@ -1,3 +1,6 @@
+from tap_announcekit.api.client import (
+    ApiClient,
+)
 from tap_announcekit.streams.post_contents import (
     _encode,
     _factory,
@@ -18,12 +21,13 @@ def test_schema() -> None:
     assert len(jschema.raw_schema["properties"]) == len(jrecord.keys())
 
 
-getter = _factory.raw_getter(mock_data.mock_post_id)
+query = _factory.PostContentQuery(mock_data.mock_post_id).query()
 
 
 def test_query() -> None:
-    assert getter.query.operation()
+    assert query.operation()
 
 
 def test_from_data() -> None:
-    assert getter.from_data({"data": mock_raw_data.mock_post_contents})
+    raw_data = {"data": mock_raw_data.mock_post_contents}
+    assert ApiClient.from_data(query, raw_data)

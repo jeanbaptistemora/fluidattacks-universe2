@@ -28,9 +28,6 @@ from tap_announcekit.objs.project import (
     _Project,
     Project,
 )
-from tap_announcekit.stream import (
-    RawGetter,
-)
 from tap_announcekit.utils import (
     CastUtils,
 )
@@ -72,7 +69,7 @@ def _to_proj(raw: RawProject) -> Project:
 
 
 @dataclass(frozen=True)
-class _ProjectQuery:
+class ProjectQuery:
     proj_id: ProjectId
 
     def _select_fields(self, query: Operation) -> IO[None]:
@@ -82,15 +79,11 @@ class _ProjectQuery:
             getattr(proj, _attr)()
         return IO(None)
 
-    def query(self) -> Query:
-        return QueryFactory.select(self._select_fields)
-
-
-def raw_getter(id_obj: ProjectId) -> RawGetter[Project]:
-    return RawGetter(
-        _ProjectQuery(id_obj).query(),
-        Transform(lambda q: _to_proj(cast(RawProject, q.project))),
-    )
+    def query(self) -> Query[Project]:
+        return QueryFactory.select(
+            self._select_fields,
+            Transform(lambda q: _to_proj(cast(RawProject, q.project))),
+        )
 
 
 @dataclass(frozen=True)
@@ -98,5 +91,5 @@ class ProjectFactory:
     client: ApiClient
 
     def get(self, proj: ProjectId) -> IO[Project]:
-        getter = raw_getter(proj)
-        return getter.get(self.client)
+        query = ProjectQuery(proj).query()
+        return self.client.get(query)

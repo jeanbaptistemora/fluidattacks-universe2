@@ -5,7 +5,6 @@ from paginator.v2 import (
     IntIndexGetter,
 )
 from purity.v1 import (
-    PrimitiveFactory,
     PureIter,
     PureIterFactory,
     Transform,
@@ -20,9 +19,6 @@ from tap_announcekit.api.client import (
     ApiClient,
     Query,
 )
-from tap_announcekit.api.gql_schema import (
-    Posts as RawPosts,
-)
 from tap_announcekit.objs.id_objs import (
     PostId,
     ProjectId,
@@ -30,38 +26,26 @@ from tap_announcekit.objs.id_objs import (
 from tap_announcekit.objs.post import (
     PostIdPage,
 )
-from typing import (
-    cast,
-)
 
 JsonStr = str
-_to_primitive = PrimitiveFactory.to_primitive
 
 
 @dataclass(frozen=True)
 class PostIdGetters:
     client: ApiClient
     proj: ProjectId
-    total_query: Query
-    page_query: Transform[int, Query]
-    to_page: Transform[RawPosts, PostIdPage]
+    total_query: Query[range]
+    page_query: Transform[int, Query[PostIdPage]]
 
     @staticmethod
     def _filter_empty(page: PostIdPage) -> Maybe[PostIdPage]:
         return Maybe.from_optional(page if len(page.data) > 0 else None)
 
     def get_ids_page(self, page: int) -> IO[Maybe[PostIdPage]]:
-        query = self.page_query(page)
-        raw: IO[RawPosts] = self.client.get(query).map(
-            lambda q: cast(RawPosts, q.posts)
-        )
-        return raw.map(self.to_page).map(self._filter_empty)
+        return self.client.get(self.page_query(page)).map(self._filter_empty)
 
     def _get_page_range(self) -> IO[range]:
-        raw: IO[RawPosts] = self.client.get(self.total_query).map(
-            lambda q: cast(RawPosts, q.posts)
-        )
-        return raw.map(lambda r: range(_to_primitive(r.pages, int)))
+        return self.client.get(self.total_query)
 
     def get_ids(self) -> IO[PureIter[PostId]]:
         getter: IntIndexGetter[PostIdPage] = IntIndexGetter(self.get_ids_page)
