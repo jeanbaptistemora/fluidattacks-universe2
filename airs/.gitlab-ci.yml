@@ -53,18 +53,3 @@ makes.test.airs:
   <<: *makes
   <<: *in_master_branch_airs
   stage: test-code
-
-/deployTerraform/airsInfra:
-  <<: *makes4
-  <<: *in_master_branch_airs
-  stage: deploy-infra
-
-/lintTerraform/airsInfra:
-  <<: *makes4
-  <<: *in_dev_branch_airs
-  stage: lint-code
-
-/testTerraform/airsInfra:
-  <<: *makes4
-  <<: *in_dev_branch_airs
-  stage: test-infra

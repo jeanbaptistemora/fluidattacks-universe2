@@ -59,6 +59,28 @@ in
           output = "/airs/lint/styles";
           gitlabExtra = gitlabLintJob;
         }
+        {
+          output = "/deployTerraform/airsInfra";
+          gitlabExtra = {
+            resource_group = "$CI_JOB_NAME";
+            rules = gitlabOnlyMaster;
+            stage = "deploy-infra";
+            tags = [ "autoscaling" ];
+          };
+        }
+        {
+          output = "/lintTerraform/airsInfra";
+          gitlabExtra = gitlabLintJob;
+        }
+        {
+          output = "/testTerraform/airsInfra";
+          gitlabExtra = {
+            resource_group = "$CI_JOB_NAME";
+            rules = gitlabOnlyDev;
+            stage = "test-infra";
+            tags = [ "autoscaling" ];
+          };
+        }
       ];
     };
   };
