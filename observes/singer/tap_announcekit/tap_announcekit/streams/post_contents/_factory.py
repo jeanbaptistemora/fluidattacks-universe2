@@ -21,7 +21,6 @@ from tap_announcekit.api.gql_schema import (
 from tap_announcekit.objs.id_objs import (
     IndexedObj,
     PostId,
-    ProjectId,
 )
 from tap_announcekit.objs.post.content import (
     PostContent,
@@ -54,7 +53,7 @@ class _PostContentQuery:
         return QueryFactory.select(self._select_fields)
 
 
-def _from_raw(proj: ProjectId, raw: RawPostContent) -> PostContentObj:
+def _from_raw(id_obj: PostId, raw: RawPostContent) -> PostContentObj:
     content = PostContent(
         _to_primitive(raw.locale_id, str),
         _to_primitive(raw.title, str),
@@ -62,15 +61,15 @@ def _from_raw(proj: ProjectId, raw: RawPostContent) -> PostContentObj:
         _to_primitive(raw.slug, str),
         _to_primitive(raw.url, str),
     )
-    return IndexedObj(PostId.from_any(proj.id_str, raw.post_id), content)
+    return IndexedObj(id_obj, content)
 
 
-def raw_getter(pid: PostId) -> RawGetter[FrozenList[PostContentObj]]:
+def raw_getter(id_obj: PostId) -> RawGetter[FrozenList[PostContentObj]]:
     return RawGetter(
-        _PostContentQuery(pid).query(),
+        _PostContentQuery(id_obj).query(),
         Transform(
             lambda q: tuple(
-                _from_raw(pid.proj, i)
+                _from_raw(id_obj, i)
                 for i in cast(List[RawPostContent], q.post.contents)
             )
         ),

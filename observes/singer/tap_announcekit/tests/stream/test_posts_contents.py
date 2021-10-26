@@ -1,4 +1,3 @@
-import pytest
 from tap_announcekit.streams.post_contents import (
     _encode,
     _factory,
@@ -26,6 +25,5 @@ def test_query() -> None:
     assert getter.query.operation()
 
 
-@pytest.mark.xfail(reason="future fix")
 def test_from_raw() -> None:
     assert getter.from_data({"data": mock_raw_data.mock_post_contents})
