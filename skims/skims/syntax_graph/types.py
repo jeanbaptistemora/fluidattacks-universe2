@@ -43,3 +43,7 @@ Dispatchers = Tuple[Dispatcher, ...]
 
 class MissingSyntaxReader(Exception):
     pass
+
+
+class MissingCaseHandling(Exception):
+    pass

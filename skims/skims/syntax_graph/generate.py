@@ -6,6 +6,7 @@ from syntax_graph.dispatchers import (
     DISPATCHERS_BY_LANG,
 )
 from syntax_graph.types import (
+    MissingCaseHandling,
     MissingSyntaxReader,
     SyntaxGraphArgs,
 )
@@ -38,6 +39,6 @@ def build_syntax_graph(
             SyntaxGraphArgs(generic, language, ast_graph, syntax_graph, "1")
         )
         return syntax_graph
-    except MissingSyntaxReader as error:
+    except (MissingSyntaxReader, MissingCaseHandling) as error:
         print(error)
         return None
