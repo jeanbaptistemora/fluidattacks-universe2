@@ -288,7 +288,6 @@ QUERIES: graph_model.Queries = (
     (core_model.FindingEnum.F063, query_f063_pt),
     (core_model.FindingEnum.F089, query_f063_tb),
     (core_model.FindingEnum.F100, query_f100),
-    (core_model.FindingEnum.F127, query_f063_tc),
     (core_model.FindingEnum.F107, query_f107),
     (core_model.FindingEnum.F320, query_f320),
 )
