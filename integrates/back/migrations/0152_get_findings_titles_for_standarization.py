@@ -28,7 +28,7 @@ from itertools import (
 )
 import time
 from typing import (
-    Tuple,
+    List,
 )
 
 
@@ -38,23 +38,32 @@ async def main() -> None:
     print(f"   === groups: {len(group_names)}")
 
     loaders: Dataloaders = get_new_context()
-    findings: Tuple[Finding, ...] = tuple(
+    findings: List[Finding] = list(
         chain.from_iterable(
             await loaders.group_findings.load_many(group_names)
         )
     )
     print(f"   === findings: {len(findings)}")
 
+    drafts: List[Finding] = list(
+        chain.from_iterable(await loaders.group_drafts.load_many(group_names))
+    )
+    print(f"   === drafts: {len(drafts)}")
+
+    findings.extend(drafts)
+    print(f"   === findings + drafts: {len(findings)}")
+
     findings_info = [
         {
             "group": finding.group_name,
             "finding_id": finding.id,
             "title": finding.title,
+            "status": finding.state.status.value,
         }
         for finding in findings
     ]
 
-    csv_columns = ["group", "finding_id", "title"]
+    csv_columns = ["group", "finding_id", "title", "status"]
     csv_file = "0152.csv"
     success = False
     try:
