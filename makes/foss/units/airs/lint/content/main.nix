@@ -1,5 +1,6 @@
 { inputs
 , makeDerivation
+, outputs
 , projectPath
 , ...
 }:
@@ -16,7 +17,7 @@ makeDerivation {
       inputs.nixpkgs.gnused
     ];
     source = [
-      inputs.product.airs-adoc-linter
+      outputs."/airs/adoc/linter"
     ];
   };
 }
