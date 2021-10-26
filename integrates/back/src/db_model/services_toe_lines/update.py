@@ -70,9 +70,12 @@ async def update_metadata(
         if value is not None
     }
     condition_expression = Attr(key_structure.partition_key).exists()
-    await operations.update_item(
-        condition_expression=condition_expression,
-        item=metadata_item,
-        key=metadata_key,
-        table=TABLE,
-    )
+    try:
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item=metadata_item,
+            key=metadata_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise ToeLinesNotFound() from ex

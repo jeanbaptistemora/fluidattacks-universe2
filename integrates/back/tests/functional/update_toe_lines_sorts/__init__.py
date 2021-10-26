@@ -11,12 +11,18 @@ from typing import (
 
 
 async def get_result(
-    *, user: str, group_name: str, filename: str, sorts_risk_level: int
+    *,
+    user: str,
+    group_name: str,
+    root_nickname: str,
+    filename: str,
+    sorts_risk_level: int,
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
             updateToeLinesSorts(
                 groupName: "{group_name}",
+                rootNickname: "{root_nickname}",
                 filename: "{filename}",
                 sortsRiskLevel: {sorts_risk_level}
             ) {{

@@ -845,6 +845,8 @@ type Mutation {
     filename: String,
     "Name of the Group containing the ToE lines to be updated"
     groupName: String,
+    "Nickname of the root to update the ToE lines "
+    rootNickname: String,
     "Risk level of the reviewed lines assigned by Sorts"
     sortsRiskLevel: Int
   ): SimplePayload!

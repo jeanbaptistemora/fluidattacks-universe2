@@ -1,8 +1,8 @@
 # This mutation updates the attribute sorts_file_risk for a concrete Toe
 
 
-from aioextensions import (
-    collect,
+from api import (
+    APP_EXCEPTIONS,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,
@@ -10,8 +10,8 @@ from ariadne import (
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
-from db_model.services_toe_lines.types import (
-    ServicesToeLines,
+from db_model.roots.types import (
+    RootItem,
 )
 from decorators import (
     concurrent_decorators,
@@ -27,13 +27,15 @@ from newutils import (
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
+from roots import (
+    domain as roots_domain,
+)
 from toe.services_lines import (
     domain as toe_lines_domain,
 )
 from typing import (
     Any,
-    List,
-    Set,
+    Tuple,
 )
 
 
@@ -43,48 +45,34 @@ async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
     group_name: str,
+    root_nickname: str,
     filename: str,
     sorts_risk_level: float,
 ) -> SimplePayloadType:
-    success = False
-    group_toe_lines_loader = info.context.loaders.group_services_toe_lines
-    group_toes: Set[ServicesToeLines] = await group_toe_lines_loader.load(
-        group_name
-    )
-
-    # Rare, but we can have the same filename in different roots.
-    # That's why this set
-    root_ids: Set[str] = set()
-    group_toes_to_update: List[ServicesToeLines] = []
-    for toe in group_toes:
-        if toe.filename == filename:
-            toe = toe._replace(sorts_risk_level=sorts_risk_level)
-            group_toes_to_update.append(toe)
-            root_ids.add(toe.root_id)
-
-    if group_toes_to_update:
-        await collect(
-            [toe_lines_domain.update(toe) for toe in group_toes_to_update]
+    try:
+        group_roots_loader = info.context.loaders.group_roots
+        roots: Tuple[RootItem, ...] = await group_roots_loader.load(group_name)
+        root_id = roots_domain.get_root_id_by_nickname(root_nickname, roots)
+        await toe_lines_domain.update_risk_level(
+            group_name=group_name,
+            filename=filename,
+            root_id=root_id,
+            sorts_risk_level=sorts_risk_level,
         )
-        success = True
-        await collect(
-            [
-                redis_del_by_deps(
-                    "update_toe_lines_sorts", group=group_name, root_id=root_id
-                )
-                for root_id in root_ids
-            ]
+        redis_del_by_deps(
+            "update_toe_lines_sorts", group=group_name, root_id=root_id
         )
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Successfully updated sorts risk level "
             f"for group {group_name} in toes with filename {filename}",
         )
-    else:
+    except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Tried to update sorts risk level "
             f"for group {group_name} in toes with filename {filename}",
         )
+        raise
 
-    return SimplePayloadType(success=success)
+    return SimplePayloadType(success=True)

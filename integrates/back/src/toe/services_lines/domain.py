@@ -40,3 +40,20 @@ async def update(
         root_id=services_toe_lines.root_id,
         metadata=metadata,
     )
+
+
+async def update_risk_level(
+    group_name: str,
+    filename: str,
+    root_id: str,
+    sorts_risk_level: float,
+) -> None:
+    metadata = ServicesToeLinesMetadataToUpdate(
+        sorts_risk_level=sorts_risk_level
+    )
+    await toe_lines_model.update_metadata(
+        group_name=group_name,
+        filename=filename,
+        root_id=root_id,
+        metadata=metadata,
+    )

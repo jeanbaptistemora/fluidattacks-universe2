@@ -20,7 +20,8 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
     result: Dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
-        filename="asm_1/test2/test.sh",
+        root_nickname="asm_1",
+        filename="test2/test.sh",
         sorts_risk_level=10,
     )
     assert result["data"]["updateToeLinesSorts"]["success"]
@@ -30,7 +31,7 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
             "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
             "servicesToeLines": [
                 {
-                    "filename": "product/test/test#.config",
+                    "filename": "test/test#.config",
                     "modifiedDate": "2019-08-01T00:00:00-05:00",
                     "modifiedCommit": "983466z",
                     "loc": 8,
@@ -45,7 +46,7 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
             "id": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
             "servicesToeLines": [
                 {
-                    "filename": "asm_1/test2/test.sh",
+                    "filename": "test2/test.sh",
                     "modifiedDate": "2020-11-19T00:00:00-05:00",
                     "modifiedCommit": "273412t",
                     "loc": 120,
@@ -55,7 +56,7 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
                     "sortsRiskLevel": 10,
                 },
                 {
-                    "filename": "asm_1/test3/test.config",
+                    "filename": "test3/test.config",
                     "modifiedDate": "2020-11-19T00:00:00-05:00",
                     "modifiedCommit": "g545435i",
                     "loc": 55,
@@ -79,7 +80,11 @@ async def test_update_toe_lines_sorts_no_filename(
     result: Dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
+        root_nickname="asm_1",
         filename="non_existing_filename",
         sorts_risk_level=10,
     )
-    assert not result["data"]["updateToeLinesSorts"]["success"]
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Toe lines has not been found"
+    )
