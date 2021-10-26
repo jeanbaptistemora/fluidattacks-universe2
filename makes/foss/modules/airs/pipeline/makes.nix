@@ -48,11 +48,15 @@ in
           };
         }
         {
+          output = "/airs/lint/code";
+          gitlabExtra = gitlabLintJob;
+        }
+        {
           output = "/airs/lint/content";
           gitlabExtra = gitlabLintJob;
         }
         {
-          output = "/airs/lint/code";
+          output = "/airs/lint/styles";
           gitlabExtra = gitlabLintJob;
         }
       ];
