@@ -3,6 +3,7 @@ from dataclasses import (
 )
 from purity.v1 import (
     PureIter,
+    Transform,
 )
 from returns.io import (
     IO,
@@ -20,8 +21,8 @@ from tap_announcekit.stream import (
 from tap_announcekit.streams.project._encode import (
     ProjectEncoders,
 )
-from tap_announcekit.streams.project._getters import (
-    ProjectGetters,
+from tap_announcekit.streams.project._factory import (
+    ProjectFactory,
 )
 
 
@@ -35,9 +36,9 @@ class ProjectStreams:
         self,
         ids: PureIter[ProjectId],
     ) -> IO[None]:
-        factory = ProjectGetters(self.client)
+        factory = ProjectFactory(self.client)
         streams = StreamFactory.new_stream(
-            ProjectEncoders.encoder(self._name), factory.getter(), ids
+            ProjectEncoders.encoder(self._name), Transform(factory.get), ids
         )
         emissions = streams.map_each(lambda s_io: s_io.bind(self.emitter.emit))
         return PureIter.consume(emissions)

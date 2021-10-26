@@ -4,9 +4,6 @@ from dataclasses import (
 from purity.v1 import (
     Transform,
 )
-from returns.curry import (
-    partial,
-)
 from returns.io import (
     IO,
 )
@@ -30,6 +27,9 @@ from tap_announcekit.objs.id_objs import (
 from tap_announcekit.objs.project import (
     _Project,
     Project,
+)
+from tap_announcekit.stream import (
+    RawGetter,
 )
 from tap_announcekit.utils import (
     CastUtils,
@@ -72,11 +72,11 @@ def _to_proj(raw: RawProject) -> Project:
 
 
 @dataclass(frozen=True)
-class ProjectQuery:
-    proj_id: str
+class _ProjectQuery:
+    proj_id: ProjectId
 
     def _select_fields(self, query: Operation) -> IO[None]:
-        proj = query.project(project_id=self.proj_id)
+        proj = query.project(project_id=self.proj_id.id_str)
         for attr, _ in _Project.__annotations__.items():
             _attr = "id" if attr == "proj_id" else attr
             getattr(proj, _attr)()
@@ -86,17 +86,17 @@ class ProjectQuery:
         return QueryFactory.select(self._select_fields)
 
 
-def _get_project(client: ApiClient, proj_id: ProjectId) -> IO[Project]:
-    query = ProjectQuery(proj_id.id_str).query()
-    raw: IO[RawProject] = client.get(query).map(
-        lambda q: cast(RawProject, q.project)
+def raw_getter(id_obj: ProjectId) -> RawGetter[Project]:
+    return RawGetter(
+        _ProjectQuery(id_obj).query(),
+        Transform(lambda q: _to_proj(cast(RawProject, q.project))),
     )
-    return raw.map(_to_proj)
 
 
 @dataclass(frozen=True)
-class ProjectGetters:
+class ProjectFactory:
     client: ApiClient
 
-    def getter(self) -> Transform[ProjectId, IO[Project]]:
-        return Transform(partial(_get_project, self.client))
+    def get(self, proj: ProjectId) -> IO[Project]:
+        getter = raw_getter(proj)
+        return getter.get(self.client)

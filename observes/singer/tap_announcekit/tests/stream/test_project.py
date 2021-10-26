@@ -1,16 +1,23 @@
+from tap_announcekit.streams.project import (
+    _factory,
+)
 from tap_announcekit.streams.project._encode import (
     ProjectEncoders,
 )
-from tap_announcekit.streams.project._getters import (
-    ProjectQuery,
-)
 from tests.stream import (
     mock_data,
+    mock_raw_data,
 )
+
+getter = _factory.raw_getter(mock_data.mock_proj_id)
 
 
 def test_query() -> None:
-    ProjectQuery("1234").query().operation()
+    assert getter.query.operation()
+
+
+def test_from_data() -> None:
+    assert getter.from_data({"data": mock_raw_data.mock_proj})
 
 
 def test_schema() -> None:
