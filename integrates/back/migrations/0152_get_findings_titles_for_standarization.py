@@ -5,8 +5,8 @@ and Masked findings are excluded from the search.
 
 Similar to migration 0108, but using the new db model.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2021-10-26 at 15:31:05 UTC
+Finalization Time:  2021-10-26 at 15:31:21 UTC
 """
 
 from aioextensions import (

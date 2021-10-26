@@ -72,7 +72,6 @@ async def _process_finding(
 ) -> str:
     try:
         group_name: str = await _get_group(finding_id=finding_id)
-        print(group_name)
     except FindingNotFound:
         print(f"   --- Deleted: {finding_id}")
         return f"DELETED status for {finding_id}"
@@ -86,7 +85,7 @@ async def _process_finding(
         print(f"   === Updated: {group_name} - {finding_id}")
         return f"Renaming OK for {finding_id}"
 
-    return f"No processed yet {finding_id}"
+    return f"Pending {group_name} - {finding_id}"
 
 
 async def main() -> None:
