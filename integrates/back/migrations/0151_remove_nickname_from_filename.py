@@ -2,6 +2,8 @@
 """
 Remove the root nickname from the toe lines filename.
 
+Execution Time:    2021-10-26 at 12:59:15 UTC
+Finalization Time: 2021-10-26 at 16:42:20 UTC
 """
 
 from aioextensions import (
@@ -22,8 +24,14 @@ from db_model.roots.types import (
     GitRootItem,
     RootItem,
 )
+from decorators import (
+    retry_on_exceptions,
+)
 from dynamodb import (
     operations,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
 )
 from dynamodb.types import (
     PrimaryKey,
@@ -46,10 +54,16 @@ def format_sk(nicknames: Dict[str, str], sk: str) -> str:
     sort_key_items = sk.split("#", 4)
     root_id = sort_key_items[2]
     filename = sort_key_items.pop()
+    if not nicknames.get(root_id):
+        return sk
     new_filename = filename.replace(f"{nicknames[root_id]}/", "")
     return "#".join([*sort_key_items, new_filename])
 
 
+@retry_on_exceptions(
+    exceptions=(UnavailabilityError,),
+    sleep_seconds=5,
+)
 async def remove_nicknames(
     loaders: Dataloaders, group_name: str, progress: float
 ) -> None:
@@ -80,22 +94,36 @@ async def remove_nicknames(
         )
         for item in items
     )
-    await operations.batch_write_item(
-        items=tuple(
-            {
-                **item,
-                TABLE.primary_key.sort_key: new_sk,
-            }
-            for item, new_sk in zip(items, new_sks)
-            if item[TABLE.primary_key.sort_key] != new_sk
-        ),
-        table=TABLE,
-    )
-    items_to_delete = [
+    items_to_update = [
         (item, new_sk)
         for item, new_sk in zip(items, new_sks)
         if item[TABLE.primary_key.sort_key] != new_sk
     ]
+    keys = {
+        (item[TABLE.primary_key.partition_key], new_sk)
+        for item, new_sk in zip(items, new_sks)
+    }
+    items_to_write = []
+    for item, new_sk in items_to_update:
+        if (item[TABLE.primary_key.partition_key], new_sk) in keys:
+            items_to_write.append((item, new_sk))
+            keys.discard((item[TABLE.primary_key.partition_key], new_sk))
+    await collect(
+        tuple(
+            operations.batch_write_item(
+                items=tuple(
+                    {
+                        **item,
+                        TABLE.primary_key.sort_key: new_sk,
+                    }
+                    for item, new_sk in items_to_write_chunk
+                ),
+                table=TABLE,
+            )
+            for items_to_write_chunk in chunked(items_to_write, 25)
+        ),
+        workers=100,
+    )
     await collect(
         tuple(
             operations.batch_delete_item(
@@ -104,13 +132,13 @@ async def remove_nicknames(
                         partition_key=item[TABLE.primary_key.partition_key],
                         sort_key=item[TABLE.primary_key.sort_key],
                     )
-                    for item, new_sk in items_chunk
-                    if item[TABLE.primary_key.sort_key] != new_sk
+                    for item, _ in items_chunk
                 ),
                 table=TABLE,
             )
-            for items_chunk in chunked(items_to_delete, 20)
-        )
+            for items_chunk in chunked(items_to_update, 20)
+        ),
+        workers=100,
     )
 
 
@@ -127,7 +155,7 @@ async def main() -> None:
             remove_nicknames(loaders, group_name, count / group_names_len)
             for count, group_name in enumerate(group_names)
         ),
-        workers=2,
+        workers=3,
     )
     print("Success: True")
 
