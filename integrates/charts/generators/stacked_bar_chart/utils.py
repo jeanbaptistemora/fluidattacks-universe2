@@ -358,6 +358,18 @@ def sum_over_time_many_groups(
     }
 
 
+def get_semester(data_date: datetime) -> datetime:
+    semester_day = Timestamp(data_date).to_period("S").end_time.date()
+
+    if semester_day < datetime.now().date():
+        return datetime.combine(semester_day, datetime.min.time())
+
+    return datetime.combine(
+        datetime.now(),
+        datetime.min.time(),
+    )
+
+
 def get_quarter(data_date: datetime) -> datetime:
     quarter_day = Timestamp(data_date).to_period("Q").end_time.date()
 
@@ -464,7 +476,9 @@ def get_data_risk_over_time_group(
     return RiskOverTime(
         time_range=TimeRangeType.WEEKLY
         if limited_days
-        else get_time_range(weekly_data_size, monthly_data_size),
+        else get_time_range(
+            weekly_size=weekly_data_size, monthly_size=monthly_data_size
+        ),
         monthly=monthly,
         quarterly=get_risk_over_quarterly(monthly),
         weekly={
@@ -480,18 +494,18 @@ def get_data_risk_over_time_group(
 
 
 def get_time_range(
-    weekly_data_size: int, monthly_size: int = 0
+    *, weekly_size: int, monthly_size: int = 0
 ) -> TimeRangeType:
-    if not monthly_size:
-        return (
-            TimeRangeType.MONTHLY
-            if weekly_data_size > 12
-            else TimeRangeType.WEEKLY
-        )
+    if weekly_size <= 12:
+        return TimeRangeType.WEEKLY
 
-    return (
-        TimeRangeType.QUARTERLY if monthly_size > 12 else TimeRangeType.MONTHLY
-    )
+    if monthly_size <= 12:
+        return TimeRangeType.MONTHLY
+
+    if monthly_size <= 36:
+        return TimeRangeType.QUARTERLY
+
+    return TimeRangeType.QUARTERLY
 
 
 def round_percentage(percentages: List[Decimal], last: int) -> List[Decimal]:

@@ -110,7 +110,9 @@ async def get_group_document(  # pylint: disable=too-many-locals
     }
 
     return RiskOverTime(
-        time_range=get_time_range(weekly_data_size, monthly_data_size),
+        time_range=get_time_range(
+            weekly_size=weekly_data_size, monthly_size=monthly_data_size
+        ),
         monthly=monthly,
         quarterly=get_distribution_over_quarterly(monthly),
         weekly={
