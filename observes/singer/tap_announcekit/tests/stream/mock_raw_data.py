@@ -67,3 +67,21 @@ mock_post_contents = {
         ],
     }
 }
+
+_mock_feedback = {
+    "id": "feedback42",
+    "post_id": "post44",
+    "reaction": None,
+    "feedback": "comment",
+    "source": "widget",
+    "created_at": MOCK_DATE,
+    "external_user_id": "extUser23",
+}
+mock_feedbacks = {
+    "feedbacks": {
+        "page": 0,
+        "pages": 1,
+        "count": 1,
+        "items": [_mock_feedback, _mock_feedback],
+    }
+}
