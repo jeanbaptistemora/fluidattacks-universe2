@@ -2,15 +2,17 @@
 slug: careers/openings/
 title: Openings
 category: careers
-description: The following are Fluid Attacks' job openings. Do not hesitate to apply now!
-keywords: Fluid Attacks, Careers, Profile, Selection, Process, Job, Developer, Ethical Hacker, Web Developer, Pentester
+description: The following are Fluid Attacks' job openings.
+  Do not hesitate to apply now!
+keywords: Fluid Attacks, Careers, Profile, Selection, Process, Job,
+  Developer, Ethical Hacker, Web Developer, Pentester
 ---
 
 If you are interested, motivated, and have the required skills, we may
 have an opening for you. The list and descriptions below are our most
 frequent job openings.
 
-## Ethical Hacker / Pentester:
+## Ethical Hacker / Pentester
 
 We need people with a developer profile, who like to program, and are
 interested in Information Security for pentesting.
@@ -22,7 +24,7 @@ Previous work experience is not needed. You do not need to have a
 university degree. You must be available full-time, but scheduling is
 negotiable if you are a student.
 
-## IT Project Manager:
+## IT Project Manager
 
 You must have a university degree, basic technical knowledge,
 understanding of information security, and some relevant experience in
@@ -37,36 +39,47 @@ position, you must conduct yourself in a professional manner and have
 substantial knowledge and understanding of networks, `IT`
 infrastructure, and information security.
 
-  - **Responsibilities:**
-    
-      - Structure, define, and jointly design security requirements and
-        controls in physical facilities, as well as in technologies and
-        organizational processes.
-    
-      - Investigate, analyze, propose and implement methodologies and
-        security best practices to maintain an impenetrable security
-        environment.
-    
-      - Interact effectively in a variety of business areas to provide
-        advice on security risks and controls in order to help prevent
-        the occurrence of critical security events.
+- **Responsibilities:**
+
+    - Structure, define, and jointly design security requirements and
+      controls in physical facilities, as well as in technologies and
+      organizational processes.
+
+    - Investigate, analyze, propose and implement methodologies and
+      security best practices to maintain an impenetrable security
+      environment.
+
+    - Interact effectively in a variety of business areas to provide
+      advice on security risks and controls in order to help prevent
+      the occurrence of critical security events.
 
 A finished university degree is not mandatory.
 
-## IT Support Assistant:
+## IT Support Assistant
 
 This is an intern position for systems and software areas. You must have
 experience in the use of office solutions.
 
-  - **Responsibilities:**
-    
-      - Provide guidance and software support.
-    
-      - Support the administrative, production and human resources
-        departments.
+- **Responsibilities:**
+
+    - Provide guidance and software support.
+
+    - Support the administrative, production and human resources
+      departments.
 
 <p style="text-align:center">
-<img class="tc w4 v-btm" src="https://res.cloudinary.com/fluid-attacks/image/upload/v1620242594/airs/careers/logo-autonomic_vf8crv.webp" alt="Autonomic Mind logo"> <a href="https://www.linkedin.com/company/autonomicmind/"><img style="vertical-align: bottom;padding-left: 30px;" src="https://res.cloudinary.com/fluid-attacks/image/upload/v1620242594/airs/careers/logo-linkedin_chsrhc.webp" alt="Linkedin logo"/></a>
+  <img
+    class="tc w4 v-btm"
+    src="https://res.cloudinary.com/fluid-attacks/image/upload/v1620242594/airs/careers/logo-autonomic_vf8crv.webp"
+    alt="Autonomic Mind logo"
+  />
+  <a href="https://www.linkedin.com/company/autonomicmind/">
+    <img
+    style="vertical-align: bottom;padding-left: 30px;"
+    src="https://res.cloudinary.com/fluid-attacks/image/upload/v1620242594/airs/careers/logo-linkedin_chsrhc.webp"
+    alt="Linkedin logo"
+    />
+  </a>
 </p>
 
 ## Openings in Autonomic Mind
@@ -90,44 +103,44 @@ The following openings are currently available with clients other than
 
 Knowledge, skills, and abilities:
 
-  - Develop responsive web applications.
+- Develop responsive web applications.
 
-  - Knowledge of frameworks sufficient to design views and web
-    components.
+- Knowledge of frameworks sufficient to design views and web
+  components.
 
-  - Take mock-ups from a concept to a user experience-based solution.
+- Take mock-ups from a concept to a user experience-based solution.
 
-  - Knowledge of `CSS` and criteria sufficient to choose the best design
-    for a given web project.
+- Knowledge of `CSS` and criteria sufficient to choose the best design
+  for a given web project.
 
-  - Ensure the consistency of the modules, the appearance and all
-    interactions with the user interface.
+- Ensure the consistency of the modules, the appearance and all
+  interactions with the user interface.
 
-  - Knowledge in agile methodologies, tests, and deliveries in
-    multidisciplinary teams.
+- Knowledge in agile methodologies, tests, and deliveries in
+  multidisciplinary teams.
 
-  - Communicate at a high level of proficiency, both conversationally
-    and technically, in spoken and written English.
+- Communicate at a high level of proficiency, both conversationally
+  and technically, in spoken and written English.
 
-  - Understand the web development process, as well as business
-    solutions, tests and debugging processes.
+- Understand the web development process, as well as business
+  solutions, tests and debugging processes.
 
-  - 3 to 5 years experience with technologies such as `JavaScript`,
-    `HTML`, `CSS3`, `JSON` and `AngularJS`.
+- 3 to 5 years experience with technologies such as `JavaScript`,
+  `HTML`, `CSS3`, `JSON` and `AngularJS`.
 
-  - Solid knowledge of what constitutes a good interaction design.
+- Solid knowledge of what constitutes a good interaction design.
 
-  - Experience building responsive and friendly web solutions.
+- Experience building responsive and friendly web solutions.
 
 Desirable:
 
-  - Basic back-end knowledge.
+- Basic back-end knowledge.
 
-  - Knowledge in graphics design.
+- Knowledge in graphics design.
 
-  - Experience using Microsoft Azure, `AWS` or similar platforms.
+- Experience using Microsoft Azure, `AWS` or similar platforms.
 
-  - Knowledge of Ruby on Rails, `WPF`, `Unity` or `C#`.
+- Knowledge of Ruby on Rails, `WPF`, `Unity` or `C#`.
 
 ## Senior Software Developer
 
@@ -138,31 +151,31 @@ and standards of the organization.
 
 Knowledge, skills, and abilities:
 
-  - Skills in more than 1 programming language such as `Java`, `.NET`,
-    `C#`, `Ruby` or `Python`.
+- Skills in more than 1 programming language such as `Java`, `.NET`,
+  `C#`, `Ruby` or `Python`.
 
-  - Knowledge of the POO programming paradigm.
+- Knowledge of the POO programming paradigm.
 
-  - Knowledge in `JavaScript`, `HTML 4` and `5`, `CSS`, `Ajax`.
+- Knowledge in `JavaScript`, `HTML 4` and `5`, `CSS`, `Ajax`.
 
-  - Knowledge of database engines on a large scale (`ORACLE`, `SQL
-    SERVER`, `DB2`, `MySQL`).
+- Knowledge of database engines on a large scale (`ORACLE`, `SQL
+  SERVER`, `DB2`, `MySQL`).
 
-  - Stored procedures (`PL / SQL`, `Transact SQL`).
+- Stored procedures (`PL / SQL`, `Transact SQL`).
 
-  - Knowledge in Application Servers (`IIS`, `OAS`, `IBM WEBSPHERE`,
-    `WEBLOGIC`).
+- Knowledge in Application Servers (`IIS`, `OAS`, `IBM WEBSPHERE`,
+  `WEBLOGIC`).
 
-  - Platforms and operating systems such as `GNU / Linux`, `Unix`
-    (`AIX`, `SOLARIS`).
+- Platforms and operating systems such as `GNU / Linux`, `Unix`
+  (`AIX`, `SOLARIS`).
 
-  - Knowledge of `Git` repositories.
+- Knowledge of `Git` repositories.
 
-  - UML Diagrams.
+- UML Diagrams.
 
-  - Documentation.
+- Documentation.
 
-  - Eliciting requirements.
+- Eliciting requirements.
 
 ## Junior Software Developer
 
@@ -190,56 +203,56 @@ regardless of the language.
 
 Knowledge, skills, and abilities:
 
-  - Design and execute assigned projects using the methodology and
-    automation tools defined by the client company.
+- Design and execute assigned projects using the methodology and
+  automation tools defined by the client company.
 
-  - Confirm certification of the tested application in accordance with
-    test requirements determined by the client as specified in the scope
-    and strategy of the project.
+- Confirm certification of the tested application in accordance with
+  test requirements determined by the client as specified in the scope
+  and strategy of the project.
 
 Preferably a minimum of 1 year experience in:
 
-  - Web applications development.
+- Web applications development.
 
-  - Software architecture.
+- Software architecture.
 
-  - Architecture Design Patterns.
+- Architecture Design Patterns.
 
-  - Architecture in layers and tiers.
+- Architecture in layers and tiers.
 
-  - `SOA`.
+- `SOA`.
 
-  - Database engines on a large scale (`ORACLE`, `SQL SERVER`, `DB2`,
+- Database engines on a large scale (`ORACLE`, `SQL SERVER`, `DB2`,
     `MySQL`).
 
-  - Two or more of the following load testing tools:
-    
-      - `JMeter`.
-    
-      - `Neoload`.
-    
-      - `WAPT PRO`.
-    
-      - `LoadRunner`.
-    
-      - `SilkPerformer`.
-    
-      - `IBM` Rational Performance Tester.
-    
-      - `Scapa`.
+- Two or more of the following load testing tools:
 
-  - Execution of performance tests.
+    - `JMeter`.
 
-  - Basic math and statistics.
+    - `Neoload`.
 
-  - Project management.
+    - `WAPT PRO`.
+
+    - `LoadRunner`.
+
+    - `SilkPerformer`.
+
+    - `IBM` Rational Performance Tester.
+
+    - `Scapa`.
+
+- Execution of performance tests.
+
+- Basic math and statistics.
+
+- Project management.
 
 Certifications in the following areas are desired:
 
-  - `ISTQB`.
+- `ISTQB`.
 
-  - Software development.
+- Software development.
 
-  - Databases.
+- Databases.
 
-  - Software testing tools.
+- Software testing tools.
