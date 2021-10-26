@@ -362,7 +362,18 @@ def sum_over_time_many_groups(
 
 
 def get_semester(data_date: datetime) -> datetime:
-    semester_day = Timestamp(data_date).to_period("S").end_time.date()
+    if data_date.month > 6:
+        semester_day = (
+            Timestamp(datetime(data_date.year, 12, data_date.day))
+            .to_period("Q")
+            .end_time.date()
+        )
+    else:
+        semester_day = (
+            Timestamp(datetime(data_date.year, 5, data_date.day))
+            .to_period("Q")
+            .end_time.date()
+        )
 
     if semester_day < datetime.now().date():
         return datetime.combine(semester_day, datetime.min.time())
@@ -602,6 +613,10 @@ def get_current_time_range(
         group.time_range for group in group_documents
     }
 
+    if TimeRangeType.SEMESTERLY in time_range:
+        return tuple(
+            group_document.semesterly for group_document in group_documents
+        )
     if TimeRangeType.QUARTERLY in time_range:
         return tuple(
             group_document.quarterly for group_document in group_documents
