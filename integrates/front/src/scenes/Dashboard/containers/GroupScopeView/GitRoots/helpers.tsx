@@ -106,9 +106,6 @@ const handleUpdateError = (
       case "Exception - Error empty value is not valid":
         msgError(translate.t("group.scope.git.errors.invalid"));
         break;
-      case "Exception - A root with open vulns can't be deactivated":
-        msgError(translate.t("group.scope.common.errors.hasOpenVulns"));
-        break;
       case "Exception - A root with reported vulns can't be updated":
         msgError(translate.t("group.scope.common.errors.hasVulns"));
         break;

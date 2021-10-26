@@ -46,15 +46,8 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
     },
     onError: ({ graphQLErrors }): void => {
       graphQLErrors.forEach((error): void => {
-        if (
-          error.message ===
-          "Exception - A root with open vulns can't be deactivated"
-        ) {
-          msgError(t("group.scope.common.errors.hasOpenVulns"));
-        } else {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.error("Couldn't deactivate root", error);
-        }
+        msgError(t("groupAlerts.errorTextsad"));
+        Logger.error("Couldn't deactivate root", error);
       });
     },
   });

@@ -579,9 +579,6 @@ export const enTranslations: ResourceKey = {
           duplicateUrl:
             "An active root with the same URL/Branch already exists " +
             "within the organization",
-          hasOpenVulns:
-            "There are open vulnerabilities reported for this root. " +
-            "Attend them first and try again",
           hasVulns:
             "Can't update as there are already vulnerabilities reported for this root",
         },
