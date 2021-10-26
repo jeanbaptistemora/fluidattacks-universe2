@@ -163,6 +163,11 @@
     ]
   },
   "cipher-base": {},
+  "class-validator": {
+    "CVE-2019-18413": [
+      "==0.10.2"
+    ]
+  },
   "cliui": {},
   "cookies": {
     "CVE-2017-18589": [
@@ -240,11 +245,14 @@
   "decompress": {
     "github.com/kevva/decompress/issues/71": [
       "<4.2.1"
+    ],
+    "npmjs.com/advisories/1217": [
+      "<4.2.1"
     ]
   },
   "decompress-tar": {
     "SNYK-JS-DECOMPRESSTAR-559095": [
-      "<4.2.1"
+      "<=4.1.1"
     ]
   },
   "decompress-zip": {
@@ -267,6 +275,12 @@
     ],
     "CVE-2018-6561": [
       "==1.13.0"
+    ]
+  },
+  "dns-packet": {
+    "CVE-2021-23386": [
+      "<1.3.4",
+      ">=2.0.0,<5.2.2"
     ]
   },
   "dojo": {
@@ -359,6 +373,15 @@
   "figgy-pudding": {},
   "fill-range": {},
   "find-up": {},
+  "flat": {
+    "SNYK-JS-FLAT-596927": [
+      "<1.6.2",
+      ">=2.0.0 <2.0.2",
+      ">=3.0.0 <3.0.1",
+      ">=4.0.0 <4.1.1",
+      ">=5.0.0 <5.0.2"
+    ]
+  },
   "fragment-cache": {},
   "fresh": {
     "CVE-2017-16119": [
@@ -744,6 +767,11 @@
     ],
     "github.com/mochajs/mocha/pull/3686": [
       "<6.0.0"
+    ]
+  },
+  "mongoose": {
+    "snyk.io/vuln/npm:mongoose:20150925": [
+      ">=4.0.0,<4.1.10"
     ]
   },
   "ms": {
@@ -1134,6 +1162,9 @@
   "url-parse": {
     "CVE-2021-27515": [
       "<1.5.0"
+    ],
+    "CVE-2020-8124": [
+      "<=1.4.4"
     ]
   },
   "util-deprecate": {},
