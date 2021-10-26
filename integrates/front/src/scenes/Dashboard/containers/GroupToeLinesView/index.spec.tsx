@@ -100,7 +100,6 @@ describe("GroupToeLinesView", (): void => {
     expect(tableHeader.text()).toStrictEqual(
       [
         "Root",
-        "Attacked",
         "Coverage",
         "LOC",
         "Attacked lines",
@@ -113,7 +112,6 @@ describe("GroupToeLinesView", (): void => {
     expect(firstRow.text()).toStrictEqual(
       [
         "asm_1",
-        "Yes",
         "100%",
         "172",
         "172",
@@ -126,7 +124,6 @@ describe("GroupToeLinesView", (): void => {
     expect(secondRow.text()).toStrictEqual(
       [
         "product",
-        "No",
         "50%",
         "8",
         "4",

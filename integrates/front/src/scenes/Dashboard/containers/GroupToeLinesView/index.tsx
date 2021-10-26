@@ -29,7 +29,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   >(
     "toeLinesTableSet",
     {
-      attacked: true,
       comments: true,
       coverage: true,
       filename: false,
@@ -107,14 +106,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       onSort,
       visible: checkedItems.filename,
       width: "40%",
-    },
-    {
-      align: "center",
-      dataField: "attacked",
-      header: translate.t("group.toe.lines.attacked"),
-      onSort,
-      visible: checkedItems.attacked,
-      width: "2.5%",
     },
     {
       align: "center",
@@ -202,10 +193,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
 
   const roots: IGitRootAttr[] = data === undefined ? [] : data.group.roots;
 
-  const getAttacked = (toeLinesAttr: IToeLinesAttr): string =>
-    toeLinesAttr.testedLines === toeLinesAttr.loc
-      ? translate.t("group.toe.lines.yes")
-      : translate.t("group.toe.lines.no");
   const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
     toeLinesAttr.loc === 0 ? 1 : toeLinesAttr.testedLines / toeLinesAttr.loc;
   const getSortsRiskLevel = (toeLinesAttr: IToeLinesAttr): string =>
@@ -217,7 +204,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       acc.concat(
         root.servicesToeLines.map(
           (toeLinesAttr: IToeLinesAttr): IToeLinesData => ({
-            attacked: getAttacked(toeLinesAttr),
             coverage: getCoverage(toeLinesAttr),
             groupName,
             rootId: root.id,

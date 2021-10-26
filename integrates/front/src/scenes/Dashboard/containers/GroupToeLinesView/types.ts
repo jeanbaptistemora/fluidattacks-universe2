@@ -16,7 +16,6 @@ interface IGitRootAttr {
 }
 
 interface IToeLinesData {
-  attacked: string;
   comments: string;
   coverage: number;
   filename: string;
