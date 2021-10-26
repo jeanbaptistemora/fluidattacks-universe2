@@ -80,6 +80,7 @@ async def test_add_event_file_image() -> None:
         "detail": "Something happened.",
         "event_date": parse_datetime("2019-12-09T05:00:00.000Z"),
         "event_type": "CLIENT_DETECTS_ATTACK",
+        "root_id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
     }
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "../mock/test-file-records.csv")

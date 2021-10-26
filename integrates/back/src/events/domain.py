@@ -14,6 +14,7 @@ from custom_exceptions import (
     InvalidDate,
     InvalidFileSize,
     InvalidFileType,
+    InvalidParameter,
 )
 from custom_types import (
     Comment as CommentType,
@@ -21,6 +22,9 @@ from custom_types import (
 )
 from datetime import (
     datetime,
+)
+from db_model.roots.types import (
+    RootItem,
 )
 from events import (
     dal as events_dal,
@@ -103,10 +107,13 @@ async def add_event(  # pylint: disable=too-many-locals
     tzn = pytz.timezone(TIME_ZONE)
     today = datetime_utils.get_now()
 
-    group_loader = loaders.group
-    group = await group_loader.load(group_name)
+    group = await loaders.group.load(group_name)
     subscription = group["subscription"]
     org_id = group["organization"]
+
+    root: RootItem = await loaders.root.load((group_name, kwargs["root_id"]))
+    if root.state.status != "ACTIVE":
+        raise InvalidParameter()
 
     event_attrs = kwargs.copy()
     event_date = event_attrs.pop("event_date").astimezone(tzn)
@@ -130,6 +137,7 @@ async def add_event(  # pylint: disable=too-many-locals
                     "state": "CREATED",
                 },
             ],
+            "root_id": root.id,
             "subscription": subscription.upper(),
         }
     )
