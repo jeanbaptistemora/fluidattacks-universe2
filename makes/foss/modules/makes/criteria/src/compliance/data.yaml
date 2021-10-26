@@ -2301,8 +2301,8 @@
       title: Security Misconfiguration
       link: https://owasp.org/Top10/A05_2021-Security_Misconfiguration/
     "A6":
-      title: Security Misconfiguration
-      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+      title: Vulnerable and Outdated Components
+      link: https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/
     "A7":
       title: Cross-Site Scripting (XSS)
       link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
