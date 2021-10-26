@@ -5,7 +5,8 @@ import style from "utils/forms/index.css";
 
 const Alert: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
   {
-    className: "b--salmon bg-salmon br3 burgundy mb4 outline-transparent pa3",
+    className:
+      "b--salmon bg-salmon br3 burgundy mb3 outline-transparent pb2 pt2 pl3 pr3",
   }
 )``;
 
