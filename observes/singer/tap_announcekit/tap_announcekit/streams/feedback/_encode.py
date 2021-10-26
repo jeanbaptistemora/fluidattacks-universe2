@@ -48,7 +48,7 @@ _encoder = ObjEncoder(
 
 
 def _schema() -> JsonSchema:
-    props = Feedback.__annotations__
+    props = Feedback.__annotations__.copy()
     props["feedback_id"] = str
     props["project_id"] = str
     props["post_id"] = str

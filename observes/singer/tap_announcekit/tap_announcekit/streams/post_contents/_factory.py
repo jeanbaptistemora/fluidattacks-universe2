@@ -4,6 +4,7 @@ from dataclasses import (
 from purity.v1 import (
     FrozenList,
     PrimitiveFactory,
+    Transform,
 )
 from returns.io import (
     IO,
@@ -26,6 +27,9 @@ from tap_announcekit.objs.post.content import (
     PostContent,
     PostContentObj,
 )
+from tap_announcekit.stream import (
+    RawGetter,
+)
 from typing import (
     cast,
     List,
@@ -35,7 +39,7 @@ _to_primitive = PrimitiveFactory.to_primitive
 
 
 @dataclass(frozen=True)
-class PostContentQuery:
+class _PostContentQuery:
     post: PostId
 
     def _select_fields(self, query: Operation) -> IO[None]:
@@ -50,7 +54,7 @@ class PostContentQuery:
         return QueryFactory.select(self._select_fields)
 
 
-def from_raw(proj: ProjectId, raw: RawPostContent) -> PostContentObj:
+def _from_raw(proj: ProjectId, raw: RawPostContent) -> PostContentObj:
     content = PostContent(
         _to_primitive(raw.locale_id, str),
         _to_primitive(raw.title, str),
@@ -61,15 +65,22 @@ def from_raw(proj: ProjectId, raw: RawPostContent) -> PostContentObj:
     return IndexedObj(PostId.from_any(proj.id_str, raw.post_id), content)
 
 
+def raw_getter(pid: PostId) -> RawGetter[FrozenList[PostContentObj]]:
+    return RawGetter(
+        _PostContentQuery(pid).query(),
+        Transform(
+            lambda q: tuple(
+                _from_raw(pid.proj, i)
+                for i in cast(List[RawPostContent], q.post.contents)
+            )
+        ),
+    )
+
+
 @dataclass(frozen=True)
 class PostContentFactory:
     client: ApiClient
 
     def get(self, pid: PostId) -> IO[FrozenList[PostContentObj]]:
-        query = PostContentQuery(pid).query()
-        return self.client.get(query).map(
-            lambda q: tuple(
-                from_raw(pid.proj, i)
-                for i in cast(List[RawPostContent], q.post.contents)
-            )
-        )
+        getter = raw_getter(pid)
+        return getter.get(self.client)

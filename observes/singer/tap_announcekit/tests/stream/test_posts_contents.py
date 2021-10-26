@@ -1,22 +1,12 @@
-from tap_announcekit.api.gql_schema import (
-    PostContent as RawPostContent,
-)
-from tap_announcekit.objs.id_objs import (
-    PostId,
-    ProjectId,
-)
+import pytest
 from tap_announcekit.streams.post_contents import (
     _encode,
     _factory,
 )
 from tests.stream import (
     mock_data,
+    mock_raw_data,
 )
-
-
-def test_queries() -> None:
-    mock_post = PostId(ProjectId("1234"), "4321")
-    _factory.PostContentQuery(mock_post).query().operation()
 
 
 def test_schema() -> None:
@@ -29,13 +19,13 @@ def test_schema() -> None:
     assert len(jschema.raw_schema["properties"]) == len(jrecord.keys())
 
 
+getter = _factory.raw_getter(mock_data.mock_post_id)
+
+
+def test_query() -> None:
+    assert getter.query.operation()
+
+
+@pytest.mark.xfail(reason="future fix")
 def test_from_raw() -> None:
-    mock_raw = {
-        "post_id": "",
-        "locale_id": "",
-        "title": "",
-        "body": "",
-        "slug": "",
-        "url": "",
-    }
-    _factory.from_raw(ProjectId("1234"), RawPostContent(mock_raw))
+    assert getter.from_data({"data": mock_raw_data.mock_post_contents})

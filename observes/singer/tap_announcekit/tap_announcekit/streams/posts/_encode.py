@@ -48,7 +48,7 @@ _encoder = ObjEncoder(
 
 
 def _schema() -> JsonSchema:
-    props = Post.__annotations__
+    props = Post.__annotations__.copy()
     props["post_id"] = str
     props["project_id"] = str
     return _encoder.to_jschema(props)
