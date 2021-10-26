@@ -15,6 +15,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     namespace_declaration as c_sharp_namespace_declaration,
     parameter as c_sharp_parameter,
     parameter_list as c_sharp_parameter_list,
+    prefix_expression as c_sharp_prefix_expression,
     variable_declaration as c_sharp_variable_declaration,
 )
 from syntax_graph.syntax_readers.common import (
@@ -148,6 +149,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "parameter_list",
         },
         syntax_reader=c_sharp_parameter_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "prefix_unary_expression",
+        },
+        syntax_reader=c_sharp_prefix_expression.reader,
     ),
     Dispatcher(
         applicable_types={
