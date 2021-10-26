@@ -20,6 +20,7 @@ from syntax_graph.syntax_readers.c_sharp import (
 from syntax_graph.syntax_readers.common import (
     block as common_block,
     identifier as common_identifier,
+    null_literal as common_null_literal,
     string_literal as common_string_literal,
 )
 from syntax_graph.types import (
@@ -129,6 +130,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "namespace_declaration",
         },
         syntax_reader=c_sharp_namespace_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "null_literal",
+        },
+        syntax_reader=common_null_literal.reader,
     ),
     Dispatcher(
         applicable_types={
