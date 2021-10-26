@@ -17,6 +17,7 @@ from pandas import (
 )
 from typing import (
     Any,
+    Callable,
     Dict,
     List,
     NamedTuple,
@@ -383,23 +384,23 @@ def get_quarter(data_date: datetime) -> datetime:
     )
 
 
-def get_risk_over_quarterly(
-    group_data: Dict[str, Dict[datetime, float]]
+def get_risk_over_rangetime(
+    *,
+    group_data: Dict[str, Dict[datetime, float]],
+    get_time: Callable[[datetime], datetime],
 ) -> Dict[str, Dict[datetime, float]]:
 
     return {
-        "date": {get_quarter(key): 0 for key, _ in group_data["date"].items()},
+        "date": {get_time(key): 0 for key, _ in group_data["date"].items()},
         "Closed": {
-            get_quarter(key): value
-            for key, value in group_data["Closed"].items()
+            get_time(key): value for key, value in group_data["Closed"].items()
         },
         "Accepted": {
-            get_quarter(key): value
+            get_time(key): value
             for key, value in group_data["Accepted"].items()
         },
         "Found": {
-            get_quarter(key): value
-            for key, value in group_data["Found"].items()
+            get_time(key): value for key, value in group_data["Found"].items()
         },
     }
 
@@ -473,7 +474,9 @@ def get_data_risk_over_time_group(
             for datum in data_monthly
         },
     }
-    quarterly = get_risk_over_quarterly(monthly)
+    quarterly = get_risk_over_rangetime(
+        group_data=monthly, get_time=get_quarter
+    )
 
     return RiskOverTime(
         time_range=TimeRangeType.WEEKLY
@@ -604,22 +607,22 @@ def get_current_time_range(
     return tuple(group_document.weekly for group_document in group_documents)
 
 
-def get_distribution_over_quarterly(
-    group_data: Dict[str, Dict[datetime, float]]
+def get_distribution_over_rangetime(
+    *,
+    group_data: Dict[str, Dict[datetime, float]],
+    get_time: Callable[[datetime], datetime],
 ) -> Dict[str, Dict[datetime, float]]:
 
     return {
-        "date": {get_quarter(key): 0 for key, _ in group_data["date"].items()},
+        "date": {get_time(key): 0 for key, _ in group_data["date"].items()},
         "Closed": {
-            get_quarter(key): value
-            for key, value in group_data["Closed"].items()
+            get_time(key): value for key, value in group_data["Closed"].items()
         },
         "Accepted": {
-            get_quarter(key): value
+            get_time(key): value
             for key, value in group_data["Accepted"].items()
         },
         "Open": {
-            get_quarter(key): value
-            for key, value in group_data["Open"].items()
+            get_time(key): value for key, value in group_data["Open"].items()
         },
     }

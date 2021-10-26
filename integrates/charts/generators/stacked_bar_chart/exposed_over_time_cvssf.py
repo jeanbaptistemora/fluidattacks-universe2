@@ -34,6 +34,7 @@ from decimal import (
 )
 from typing import (
     Any,
+    Callable,
     Dict,
     List,
     NamedTuple,
@@ -49,17 +50,18 @@ class GroupDocumentCvssfData(NamedTuple):
     critical: Decimal
 
 
-def get_quarterly(
-    group_data: Dict[str, Dict[datetime, Decimal]]
+def get_rangetime(
+    *,
+    group_data: Dict[str, Dict[datetime, Decimal]],
+    get_time: Callable[[datetime], datetime],
 ) -> Dict[str, Dict[datetime, Decimal]]:
 
     return {
         "date": {
-            get_quarter(key): value
-            for key, value in group_data["date"].items()
+            get_time(key): value for key, value in group_data["date"].items()
         },
         "Exposure": {
-            get_quarter(key): value
+            get_time(key): value
             for key, value in group_data["Exposure"].items()
         },
     }
@@ -146,7 +148,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
             for datum in data_monthly
         },
     }
-    quarterly = get_quarterly(monthly)
+    quarterly = get_rangetime(group_data=monthly, get_time=get_quarter)
 
     return RiskOverTime(
         time_range=get_time_range(
