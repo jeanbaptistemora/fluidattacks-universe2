@@ -494,6 +494,13 @@ $gray-120: rgba(120, 120, 145, 1);
   }
 }
 
+.faq-title > p {
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
+  line-height: 1.5rem !important;
+  margin: 0 !important;
+}
+
 .bl-red {
   border-left: 9px solid $red-255;
   content: '';
