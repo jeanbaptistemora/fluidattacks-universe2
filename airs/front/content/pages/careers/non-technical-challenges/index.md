@@ -2,8 +2,11 @@
 slug: careers/non-technical-challenges/
 title: Non-technical Challenges
 category: careers
-description: The Non-technical Challenges stage pretends to assess the candidate's ability to analyze, sort, test, and select relevant data from raw input.
-keywords: Fluid Attacks, Careers, Selection, Process, Non-technical Challenges, Training, Test, Pentesting, Ethical Hacking
+description: The Non-technical Challenges stage pretends to assess
+  the candidate's ability to analyze, sort, test,
+  and select relevant data from raw input.
+keywords: Fluid Attacks, Careers, Selection, Process,
+  Non-technical Challenges, Training, Test, Pentesting, Ethical Hacking
 toc: yes
 ---
 
@@ -12,28 +15,28 @@ process to become a part of `Fluid Attacks`.
 
 The goal of this stage is to determine your ability to:
 
-  - Discard irrelevant data
+- Discard irrelevant data
 
-  - Identify relevant data
+- Identify relevant data
 
-  - Complete incomplete data
+- Complete incomplete data
 
-  - Interpret the meaning of the data
+- Interpret the meaning of the data
 
-  - Group data
+- Group data
 
-  - Obtain metrics from raw data
+- Obtain metrics from raw data
 
-  - Create graphs to present data
+- Create graphs to present data
 
-  - Draw conclusions based on the data
+- Draw conclusions based on the data
 
-  - Identify **concrete** actions based on the conclusions
+- Identify **concrete** actions based on the conclusions
 
-  - Ask new questions based on this process
+- Ask new questions based on this process
 
-  - Iterate this process several times until you determine that you are
-    satisfied
+- Iterate this process several times until you determine that you are
+  satisfied
 
 To determine these skills you will be given the findings or
 vulnerabilities found by `Fluid Attacks` in recent months. These will be
@@ -66,15 +69,15 @@ graphs. What matters is that each graph is relevant and provides
 important information for management. If possible, and to minimize the
 number of graphs and maximize the number of variables, please use:
 
-  - Stacked bars
+- Stacked bars
 
-  - Data in the X and Y axis
+- Data in the X and Y axis
 
-  - Box plots
+- Box plots
 
-  - Pareto charts
+- Pareto charts
 
-  - An "others" category to ignore all irrelevant categories
+- An "others" category to ignore all irrelevant categories
 
 Many of the graphs can be made for the entire period in order to draw
 global conclusions. One possibility is to make metrics or graphs that
