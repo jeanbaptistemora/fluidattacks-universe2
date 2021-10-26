@@ -8,7 +8,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/melts/config-development"
-      inputs.product.melts-config-runtime
+      outputs."/melts/config-runtime"
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "git")
     ];

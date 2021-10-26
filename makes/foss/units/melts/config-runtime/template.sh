@@ -12,7 +12,7 @@ function melts_setup_runtime {
 }
 
 function melts {
-  python3.8 '__envSrcMelts__/toolbox/cli/__init__.py' "$@"
+  python3.8 '__argSrcMelts__/toolbox/cli/__init__.py' "$@"
 }
 
 melts_setup_runtime

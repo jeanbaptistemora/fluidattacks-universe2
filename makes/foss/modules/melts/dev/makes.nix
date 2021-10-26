@@ -1,6 +1,5 @@
 { makeSearchPaths
 , outputs
-, inputs
 , ...
 }:
 {
@@ -8,7 +7,7 @@
     melts = {
       source = [
         outputs."/melts/config-development"
-        inputs.product.melts-config-runtime
+        outputs."/melts/config-runtime"
         (makeSearchPaths {
           pythonPackage = [ "$PWD/melts" ];
         })
