@@ -51,13 +51,6 @@ def test_geo_restriction_open():
     )
 
 
-def test_logging_open():
-    """Check distribution logging."""
-    assert cloudfront.has_logging_disabled(
-        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
-    )
-
-
 #
 # Closing tests
 #
@@ -71,17 +64,5 @@ def test_geo_restriction_close():
 
     with no_connection():
         assert not cloudfront.has_not_geo_restrictions(
-            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False
-        )
-
-
-def test_logging_close():
-    """Check distribution logging."""
-    assert not cloudfront.has_logging_disabled(
-        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_BAD, retry=False
-    )
-
-    with no_connection():
-        assert not cloudfront.has_logging_disabled(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False
         )

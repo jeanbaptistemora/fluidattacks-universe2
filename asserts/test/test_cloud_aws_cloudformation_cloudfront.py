@@ -22,12 +22,3 @@ def test_has_not_geo_restrictions():
     assert result.get_vulns_number() == 1 * 2
     assert cloudfront.has_not_geo_restrictions(SAFE).is_closed()
     assert cloudfront.has_not_geo_restrictions(NOT_EXISTS).is_unknown()
-
-
-def test_has_logging_disabled():
-    """test cloudfront.has_logging_disabled."""
-    result = cloudfront.has_logging_disabled(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 1 * 2
-    assert cloudfront.has_logging_disabled(SAFE).is_closed()
-    assert cloudfront.has_logging_disabled(NOT_EXISTS).is_unknown()

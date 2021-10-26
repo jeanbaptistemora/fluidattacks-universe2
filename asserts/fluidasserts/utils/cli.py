@@ -637,7 +637,6 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
             "cloudfront",
             "CloudFront",
         ): """
-            cloudfront.has_logging_disabled('{key}', '{secret}')
             cloudfront.has_not_geo_restrictions('{key}', '{secret}')
             """,
         (
