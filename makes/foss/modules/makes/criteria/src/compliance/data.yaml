@@ -2295,8 +2295,8 @@
       title: Injection
       link: https://owasp.org/Top10/A03_2021-Injection/
     "A4":
-      title: XML External Entities (XXE)
-      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+      title: Insecure Design
+      link: https://owasp.org/Top10/A04_2021-Insecure_Design/
     "A5":
       title: Security Misconfiguration
       link: https://owasp.org/Top10/A05_2021-Security_Misconfiguration/
