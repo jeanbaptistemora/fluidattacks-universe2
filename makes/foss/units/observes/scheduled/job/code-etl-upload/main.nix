@@ -7,7 +7,7 @@ makeScript {
   searchPaths = {
     bin = [
       outputs."/observes/bin/code-etl"
-      inputs.product.melts
+      outputs."/melts"
     ];
     source = [
       (inputs.legacy.importUtility "aws")

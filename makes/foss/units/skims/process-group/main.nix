@@ -10,9 +10,9 @@ makeScript {
   name = "skims-process-group";
   searchPaths = {
     bin = [
-      inputs.product.melts
       inputs.nixpkgs.jq
       inputs.nixpkgs.yq
+      outputs."/melts"
       outputs."/skims"
     ];
     source = [
