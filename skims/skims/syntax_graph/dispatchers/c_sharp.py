@@ -6,6 +6,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     compilation_unit as c_sharp_compilation_unit,
     element_access_expression as c_sharp_element_access_expression,
     local_declaration_statement as c_sharp_local_declaration_statement,
+    member_access_expression as c_sharp_member_access_expression,
     method_declaration as c_sharp_method_declaration,
     namespace_declaration as c_sharp_namespace_declaration,
     parameter as c_sharp_parameter,
@@ -74,6 +75,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "local_declaration_statement",
         },
         syntax_reader=c_sharp_local_declaration_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "member_access_expression",
+        },
+        syntax_reader=c_sharp_member_access_expression.reader,
     ),
     Dispatcher(
         applicable_types={
