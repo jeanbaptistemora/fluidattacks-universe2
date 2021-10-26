@@ -137,17 +137,19 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
 
 
 def update_toe_lines_sorts(
-    group_name: str, filename: str, risk_level: int
+    group_name: str, root_nickname: str, filename: str, risk_level: int
 ) -> bool:
     result = _execute(
         query="""
             mutation SortsUpdateToeLinesSorts(
                 $group_name: String!,
+                $root_nickname: String!,
                 $filename: String!,
                 $risk_level: Int!
             ) {
                 updateToeLinesSorts(
                     groupName: $group_name,
+                    rootNickname: $root_nickname,
                     filename: $filename,
                     sortsRiskLevel: $risk_level
                 ) {
@@ -157,7 +159,10 @@ def update_toe_lines_sorts(
         """,
         operation="SortsUpdateToeLinesSorts",
         variables=dict(
-            group_name=group_name, filename=filename, risk_level=risk_level
+            group_name=group_name,
+            root_nickname=root_nickname,
+            filename=filename,
+            risk_level=risk_level,
         ),
     )
 

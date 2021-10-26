@@ -20,4 +20,5 @@ class Vulnerability(NamedTuple):  # pylint: disable=too-few-public-methods
 
 class ToeLines(NamedTuple):  # pylint: disable=too-few-public-methods
     filename: str
+    root_nickname: str
     sorts_risk_level: str

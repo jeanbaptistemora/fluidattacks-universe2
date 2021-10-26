@@ -63,7 +63,9 @@ def get_toes_to_update(
     toes_to_update: List[ToeLines] = []
     pred_range_lim = 3
     for predicted_file in predicted_files:
-        predicted_file_filename = predicted_file["file"]
+        predicted_nickname, predicted_file_filename = predicted_file[
+            "file"
+        ].split("/", 1)
         predicted_file_prob = int(float(predicted_file["prob_vuln"]))
         for toe_lines in group_toe_lines:
             if (
@@ -77,6 +79,7 @@ def get_toes_to_update(
                 toes_to_update.append(
                     ToeLines(
                         filename=predicted_file_filename,
+                        root_nickname=predicted_nickname,
                         sorts_risk_level=predicted_file_prob,
                     )
                 )
@@ -95,6 +98,7 @@ def update_integrates_toes(group_name: str, csv_name: str) -> None:
                 executor.submit(
                     update_toe_lines_sorts,
                     group_name,
+                    toe_lines.root_nickname,
                     toe_lines.filename,
                     toe_lines.sorts_risk_level,
                 )
