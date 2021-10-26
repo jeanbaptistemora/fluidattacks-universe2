@@ -22,7 +22,7 @@ async def get_result(
                 reportType: PDF,
                 lang: EN
             ) {{
-                url
+                success
             }}
         }}
     """

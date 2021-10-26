@@ -39,7 +39,7 @@ Organization = Dict[
 Group = Dict[
     str, Union[str, object, List[Dict[str, str]], List[str], Set[str]]
 ]
-Report = Dict[str, str]
+Report = Dict[str, bool]
 Stakeholder = Dict[
     str, Union[bool, str, Dict[str, object], List[str], Set[str], None]
 ]

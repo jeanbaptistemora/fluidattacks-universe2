@@ -26,11 +26,8 @@ async def test_get_report(populate: bool, email: str) -> None:
         user=email,
         group_name=group,
     )
-    assert "url" in result["data"]["report"]
-    assert (
-        result["data"]["report"]["url"]
-        == f"""The report will be sent to {email} shortly"""
-    )
+    assert "success" in result["data"]["report"]
+    assert result["data"]["report"]["success"]
 
 
 @pytest.mark.asyncio

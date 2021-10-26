@@ -1,5 +1,5 @@
 "Report type definition"
 type Report {
-  "Report URL"
-  url: String
+  "Succeeds only if user has the mobile app"
+  success: Boolean!
 }

@@ -61,7 +61,7 @@ async def test_finding_report() -> None:
                 groupName: "oneshottest",
                 reportType: PDF,
                 lang: EN) {
-                url
+                success
             }
         }
     """
@@ -70,7 +70,7 @@ async def test_finding_report() -> None:
             report(
                 groupName: "oneshottest",
                 reportType: XLS) {
-                url
+                success
             }
         }
     """
@@ -79,7 +79,7 @@ async def test_finding_report() -> None:
             report(
                 groupName: "oneshottest",
                 reportType: DATA) {
-                url
+                success
             }
         }
     """
@@ -92,7 +92,8 @@ async def test_finding_report() -> None:
     _, result_xls = await graphql(SCHEMA, data_xls, context_value=request)
     _, result_data = await graphql(SCHEMA, data_data, context_value=request)
     assert all(
-        "url" in result["data"]["report"] and result["data"]["report"]["url"]
+        "success" in result["data"]["report"]
+        and result["data"]["report"]["success"]
         for result in [result_xls, result_data, result_pdf]
     )
     assert (

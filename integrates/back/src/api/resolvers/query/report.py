@@ -34,19 +34,16 @@ async def _get_url_group_report(
     report_type: str,
     user_email: str,
     group_name: str,
-) -> str:
-    url: str = ""
+) -> bool:
     success: bool = await batch_dal.put_action(
         action_name="report",
         entity=group_name,
         subject=user_email,
         additional_info=report_type,
     )
-    if success:
-        url = f"The report will be sent to {user_email} shortly"
-    else:
+    if not success:
         raise RequestedReportError()
-    return url
+    return success
 
 
 @convert_kwargs_to_snake_case
@@ -59,7 +56,7 @@ async def resolve(
     group_name: str = get_key_or_fallback(kwargs)
     report_type: str = kwargs["report_type"]
     return {
-        "url": await _get_url_group_report(
+        "success": await _get_url_group_report(
             info,
             report_type,
             user_email,
