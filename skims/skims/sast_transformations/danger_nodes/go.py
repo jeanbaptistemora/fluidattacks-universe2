@@ -4,7 +4,6 @@ from model import (
 )
 from sast_transformations.danger_nodes.utils import (
     mark_function_arg,
-    mark_methods_input,
     mark_methods_sink,
 )
 from utils.string import (
@@ -21,16 +20,6 @@ def mark_inputs(
             *build_attr_paths("*http", "Request"),
         }
         mark_function_arg(finding, graph, syntax, danger_args)
-
-    for finding in (core_model.FindingEnum.F109,):
-        mark_methods_input(
-            finding,
-            graph,
-            syntax,
-            {
-                "strconv.ParseFloat",
-            },
-        )
 
 
 def mark_sinks(
