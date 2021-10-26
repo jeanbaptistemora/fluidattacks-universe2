@@ -16,6 +16,7 @@ from charts.generators.stacked_bar_chart.utils import (
     EXPOSED_OVER_TIME,
     get_current_time_range,
     get_quarter,
+    get_semester,
     get_time_range,
     RiskOverTime,
     sum_over_time_many_groups,
@@ -149,6 +150,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
         },
     }
     quarterly = get_rangetime(group_data=monthly, get_time=get_quarter)
+    semesterly = get_rangetime(group_data=monthly, get_time=get_semester)
 
     return RiskOverTime(
         time_range=get_time_range(
@@ -158,6 +160,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
         ),
         monthly=monthly,
         quarterly=quarterly,
+        semesterly=semesterly,
         weekly={
             "date": {datum.data_date: Decimal("0.0") for datum in data},
             "Exposure": {
