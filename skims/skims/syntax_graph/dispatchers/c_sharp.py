@@ -3,6 +3,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     compilation_unit as c_sharp_compilation_unit,
     method_declaration as c_sharp_method_declaration,
     namespace_declaration as c_sharp_namespace_declaration,
+    parameter_list as c_sharp_parameter_list,
 )
 from syntax_graph.syntax_readers.common import (
     block as common_block,
@@ -42,5 +43,11 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "namespace_declaration",
         },
         syntax_reader=c_sharp_namespace_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "parameter_list",
+        },
+        syntax_reader=c_sharp_parameter_list.reader,
     ),
 )
