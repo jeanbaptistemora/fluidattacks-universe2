@@ -7,6 +7,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     compilation_unit as c_sharp_compilation_unit,
     element_access_expression as c_sharp_element_access_expression,
     expression_statement as c_sharp_expression_statement,
+    if_statement as c_sharp_if_statement,
     invocation_expression as c_sharp_invocation_expression,
     local_declaration_statement as c_sharp_local_declaration_statement,
     member_access_expression as c_sharp_member_access_expression,
@@ -92,6 +93,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "identifier",
         },
         syntax_reader=common_identifier.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "if_statement",
+        },
+        syntax_reader=c_sharp_if_statement.reader,
     ),
     Dispatcher(
         applicable_types={
