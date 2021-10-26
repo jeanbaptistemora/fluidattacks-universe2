@@ -38,26 +38,3 @@ async def get_root_vulns(
         },
     )
     return tuple(vuln for vuln in vulns if vuln["finding_id"] in finding_ids)
-
-
-def is_open(vuln: Dict[str, Any]) -> bool:
-    return (
-        vuln["historic_state"][-1]["state"] == "open"
-        and vuln.get("historic_zero_risk", [{}])[-1].get("status")
-        != "CONFIRMED"
-    )
-
-
-async def has_open_vulns(
-    *, nickname: str, loaders: Any, group_name: str
-) -> bool:
-    vulns = await get_root_vulns(
-        loaders=loaders, group_name=group_name, nickname=nickname
-    )
-
-    return bool(
-        next(
-            (vuln for vuln in vulns if is_open(vuln)),
-            None,
-        )
-    )
