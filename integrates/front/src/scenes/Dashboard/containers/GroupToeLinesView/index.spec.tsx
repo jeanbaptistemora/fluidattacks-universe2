@@ -105,7 +105,7 @@ describe("GroupToeLinesView", (): void => {
         "Attacked lines",
         "Modified date",
         "Modified commit",
-        "Attack moment",
+        "Attacked at",
         "Comments",
       ].join("")
     );
