@@ -1,5 +1,10 @@
+import aioboto3
 from aioextensions import (
     collect,
+)
+from back.src.context import (
+    FI_AWS_BATCH_ACCESS_KEY,
+    FI_AWS_BATCH_SECRET_KEY,
 )
 from back.src.db_model.roots.update import (
     update_git_root_machine_execution,
@@ -13,6 +18,9 @@ from back.src.machine.jobs import (
 from botocore.exceptions import (
     ClientError,
 )
+from contextlib import (
+    suppress,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -24,6 +32,10 @@ from groups.domain import (
     get_attributes,
     LOGGER_CONSOLE,
 )
+from more_itertools import (
+    chunked,
+    collapse,
+)
 from newutils.utils import (
     get_key_or_fallback,
 )
@@ -34,9 +46,70 @@ from schedulers.common import (
 from typing import (
     Any,
     Dict,
+    Iterable,
     List,
+    NamedTuple,
+    Optional,
     Tuple,
 )
+
+
+class PreparedJob(NamedTuple):
+    root_id: str
+    group_name: str
+    check: str
+    root_nick_name: str
+    execution_date: Optional[float]
+    batch_job_id: Optional[str]
+
+
+def _is_check_available(check: str) -> bool:
+    with suppress(NotImplementedError):
+        return is_check_available(check)
+    return False
+
+
+async def get_jobs_from_bach(*job_ids: str) -> List[Dict[str, Any]]:
+    jobs = list(job_ids)
+    if not jobs:
+        return []
+    resource_options = dict(
+        service_name="batch",
+        aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
+        aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
+    )
+    async with aioboto3.client(**resource_options) as batch:
+        try:
+            result = await batch.describe_jobs(jobs=list(job_ids))
+            return result["jobs"]
+        except ClientError:
+            return []
+
+
+async def filer_already_in_queue(
+    jobs: Iterable[PreparedJob],
+) -> Tuple[PreparedJob, ...]:
+    futures = (
+        get_jobs_from_bach(
+            *[job.batch_job_id for job in set_jobs if job.batch_job_id]
+        )
+        for set_jobs in chunked(jobs, 100)
+    )
+    jobs_status = {
+        _job["jobId"]: _job["status"]
+        for _job in collapse(await collect(futures), base_type=dict)
+    }
+
+    return tuple(
+        _job
+        for _job in jobs
+        if _job.batch_job_id is None
+        or (
+            _job.batch_job_id
+            and jobs_status.get(_job.batch_job_id, "NEVER_EXECUTED")
+            in ("SUCCEEDED", "FAILED", "NEVER_EXECUTED")
+        )
+    )
 
 
 async def _jobs_by_group(
@@ -59,7 +132,7 @@ async def _jobs_by_group(
             }
 
             for check in FINDINGS:
-                if is_check_available(check):
+                if _is_check_available(check):
                     result.append(
                         (
                             root.id,
