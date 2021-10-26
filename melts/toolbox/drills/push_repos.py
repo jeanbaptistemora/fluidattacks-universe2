@@ -121,7 +121,7 @@ def s3_sync_fusion_to_s3(
     fusion_dir: str = f"groups/{subs}/fusion"
     s3_subs_repos_path: str = f"{subs}/"
     kwargs = (
-        dict()
+        {}
         if generic.is_env_ci()
         else dict(
             stdout=None,

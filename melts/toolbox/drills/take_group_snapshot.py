@@ -73,7 +73,8 @@ def get_last_date(repo: Repo, file_path: str) -> str:
 def get_lines_count(file_path: str) -> int:
     """Get the number of lines in a file if is non binary."""
     if not is_binary(file_path):
-        num_lines = len(open(file_path, encoding="latin-1").readlines())
+        with open(file_path, encoding="latin-1") as content:
+            num_lines = len(content.readlines())
         return num_lines
     return 0
 
@@ -114,7 +115,7 @@ def do_print_line(path: str) -> None:
         "2000-01-01",
         "",
     ]
-    with open("toe/snapshot", "a", newline="") as file:
+    with open("toe/snapshot", "a", newline="", encoding="utf8") as file:
         writer = csv.writer(file)
         writer.writerow(row)
 

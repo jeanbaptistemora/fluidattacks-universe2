@@ -153,7 +153,7 @@ def pull_repos_s3_to_fusion(subs: str, repository_name: str) -> bool:
     # Passing None to stdout and stderr shows the s3 progress
     # We want the CI to be as quiet as possible to have clean logs
     kwargs = (
-        dict()
+        {}
         if utils.generic.is_env_ci()
         else dict(
             stdout=None,

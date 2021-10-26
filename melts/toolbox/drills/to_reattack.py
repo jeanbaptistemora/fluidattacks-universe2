@@ -78,7 +78,7 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
     graphql_date_format = "%Y-%m-%d %H:%M:%S"
 
     response = get_subs_unverified_findings(group)
-    projects_info = response.data if response.status_code == 200 else dict()
+    projects_info = response.data if response.status_code == 200 else {}
 
     if group != "all":
         projects_info = {
@@ -86,8 +86,8 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
         }
     projects_info = [
         group
-        for org in projects_info.get("me", dict()).get("organizations", dict())
-        for group in org.get("groups", list())
+        for org in projects_info.get("me", {}).get("organizations", {})
+        for group in org.get("groups", [])
     ]
 
     # claning empty findigs
