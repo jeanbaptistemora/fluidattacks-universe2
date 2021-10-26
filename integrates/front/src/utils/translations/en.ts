@@ -3,7 +3,7 @@ import type { ResourceKey } from "i18next";
 export const enTranslations: ResourceKey = {
   analytics: {
     barChart: {
-      exposureByGroups: "Open Severity by Groups",
+      exposureByGroups: "Open Severity by groups",
       meanTimeToRemediate: {
         tooltip: {
           alt: {
@@ -28,7 +28,7 @@ export const enTranslations: ResourceKey = {
           infra: "Infra Open Severity (CVSSF)",
           vulnerabilities: "Top vulnerabilities",
         },
-        title: "Open Severity per Type",
+        title: "Open Severity by type",
         tooltip: {
           app: "Source of severity of type App",
           code: "Source of severity of type Code",
