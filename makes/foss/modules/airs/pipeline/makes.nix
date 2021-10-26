@@ -51,6 +51,10 @@ in
           output = "/airs/lint/content";
           gitlabExtra = gitlabLintJob;
         }
+        {
+          output = "/airs/lint/code";
+          gitlabExtra = gitlabLintJob;
+        }
       ];
     };
   };

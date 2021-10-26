@@ -1,6 +1,5 @@
 airs.build
 airs.development
-airs.lint.code
 makes.announce.bugsnag
 makes.attrs
 makes.bugsnag.source-map-uploader

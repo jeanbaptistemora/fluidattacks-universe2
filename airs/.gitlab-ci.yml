@@ -49,11 +49,6 @@
   script:
     - m . "${CI_JOB_NAME% *}"
 
-airs.lint.code:
-  <<: *makes
-  <<: *in_dev_branch_airs
-  stage: lint-code
-
 airs.lint.styles:
   <<: *makes
   <<: *in_dev_branch_airs
