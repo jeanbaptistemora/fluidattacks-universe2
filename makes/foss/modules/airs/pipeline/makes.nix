@@ -20,6 +20,11 @@ let
     gitlabCi.rules.notTriggers
     gitlabTitleMatchingAirs
   ];
+  gitlabLintJob = {
+    rules = gitlabOnlyDev;
+    stage = "lint-code";
+    tags = [ "autoscaling" ];
+  };
 in
 {
   pipelines = {
@@ -41,6 +46,10 @@ in
             stage = "deploy-app";
             tags = [ "autoscaling" ];
           };
+        }
+        {
+          output = "/airs/lint/content";
+          gitlabExtra = gitlabLintJob;
         }
       ];
     };

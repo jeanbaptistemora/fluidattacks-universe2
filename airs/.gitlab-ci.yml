@@ -1,4 +1,4 @@
-.airs_commit_pattern: &airs_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|airs)/'
+.airs_commit_pattern: &airs_commit_pattern "$CI_COMMIT_TITLE =~ /^(all|airs)/"
 
 .in_dev_branch_airs: &in_dev_branch_airs
   rules:
@@ -50,11 +50,6 @@
     - m . "${CI_JOB_NAME% *}"
 
 airs.lint.code:
-  <<: *makes
-  <<: *in_dev_branch_airs
-  stage: lint-code
-
-airs.lint.content:
   <<: *makes
   <<: *in_dev_branch_airs
   stage: lint-code
