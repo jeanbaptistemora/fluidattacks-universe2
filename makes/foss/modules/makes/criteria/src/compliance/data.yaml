@@ -2302,9 +2302,9 @@
       link: https://owasp.org/Top10/A05_2021-Security_Misconfiguration/
     "A6":
       title: Vulnerable and Outdated Components
-      link: https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/
+      link: https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/
     "A7":
-      title: Cross-Site Scripting (XSS)
+      title: Identification and Authentication Failures
       link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
     "A8":
       title: Insecure Deserialization
