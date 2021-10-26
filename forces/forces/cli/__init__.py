@@ -14,6 +14,7 @@ from forces.utils.function import (
     shield,
 )
 from forces.utils.logs import (
+    CONSOLE,
     log,
 )
 from forces.utils.model import (
@@ -24,9 +25,6 @@ from io import (
     TextIOWrapper,
 )
 import re
-from rich import (
-    print as rprint,
-)
 import sys
 import textwrap
 from typing import (
@@ -68,7 +66,7 @@ def show_banner() -> None:
                                                /_/[/]
         """
     )
-    rprint(header)
+    CONSOLE.log(header)
 
 
 @click.command(name="forces")

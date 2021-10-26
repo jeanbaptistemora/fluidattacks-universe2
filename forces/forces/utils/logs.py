@@ -10,6 +10,9 @@ from forces.utils.bugs import (
     META as BUGS_META,
 )
 import logging
+from rich.console import (
+    Console,
+)
 from rich.logging import (
     RichHandler,
 )
@@ -23,6 +26,8 @@ from typing import (
 LOG_FILE: ContextVar[IO[Any]] = ContextVar(
     "log_file", default=tempfile.NamedTemporaryFile()
 )
+# Console interface to show some special spinner symbols and logs
+CONSOLE = Console(log_path=False, log_time=False, markup=True)
 
 _FORMAT: str = "%(message)s"
 logging.basicConfig(filename=LOG_FILE.get().name, format=_FORMAT)
@@ -45,6 +50,12 @@ def blocking_log(level: str, msg: str, *args: Any) -> None:
 
 async def log(level: str, msg: str, *args: Any) -> None:
     await in_thread(getattr(_LOGGER, level), msg, *args)
+
+
+def spinner_log(msg: str, add_footer: bool = True) -> None:
+    """Helper logger for spinner messages"""
+    footer: str = ": [green]Complete[/]" if add_footer else ""
+    CONSOLE.log(f"[blue]INFO[/]\t {msg}{footer}")
 
 
 async def log_to_remote(

@@ -168,13 +168,13 @@ def format_vuln_table(vulns: List[Dict[str, str]]) -> Table:
         "Vuln attr values", style="honeydew2", overflow="fold"
     )
     for vuln in vulns:
-        # Real state is precious within CI pipelines' 80 character limit
-        vuln["exploit"] = vuln.pop("exploitability")
+        # Same value as the finding's exploitability
+        vuln.pop("exploitability")
         for key, value in vuln.items():
             vuln_table.add_row(
                 key,
                 style_report(key, value),
-                end_section=key == "exploit",
+                end_section=key == "state",
             )
     return vuln_table
 
