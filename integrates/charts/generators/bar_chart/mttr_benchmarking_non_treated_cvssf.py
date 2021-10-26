@@ -23,7 +23,7 @@ from decimal import (
     Decimal,
 )
 from groups.domain import (
-    get_mean_remediate_non_treated_cvssf,
+    get_mean_remediate_non_treated_severity_cvssf,
 )
 from newutils.vulnerabilities import (
     filter_non_confirmed_zero_risk,
@@ -66,8 +66,12 @@ async def get_data_one_group(
             for vulnerability in vulnerabilities_excluding_permanently_accepted
         )
 
-    mttr: Decimal = await get_mean_remediate_non_treated_cvssf(
-        loaders, group.lower(), min_date=min_date
+    mttr: Decimal = await get_mean_remediate_non_treated_severity_cvssf(
+        loaders,
+        group.lower(),
+        Decimal("0.0"),
+        Decimal("10.0"),
+        min_date=min_date,
     )
 
     return Benchmarking(

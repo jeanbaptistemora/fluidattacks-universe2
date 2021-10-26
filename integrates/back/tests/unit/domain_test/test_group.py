@@ -52,7 +52,6 @@ from groups.domain import (
     get_closed_vulnerabilities,
     get_description,
     get_group_digest_stats,
-    get_mean_remediate_non_treated_cvssf,
     get_mean_remediate_non_treated_severity,
     get_mean_remediate_non_treated_severity_cvssf,
     get_mean_remediate_severity,
@@ -329,12 +328,16 @@ async def test_get_mean_remediate_non_treated_cvssf(
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
-    mttr_no_treated_cvssf_new = await get_mean_remediate_non_treated_cvssf(
-        loaders,
-        group_name,
-        (datetime.now() - timedelta(days=min_days)).date()
-        if min_days
-        else None,
+    mttr_no_treated_cvssf_new = (
+        await get_mean_remediate_non_treated_severity_cvssf(
+            loaders,
+            group_name,
+            Decimal("0.0"),
+            Decimal("10.0"),
+            (datetime.now() - timedelta(days=min_days)).date()
+            if min_days
+            else None,
+        )
     )
     assert mttr_no_treated_cvssf_new == expected_output
 

@@ -19,6 +19,9 @@ from dataloaders import (
 from datetime import (
     date,
 )
+from decimal import (
+    Decimal,
+)
 from groups.domain import (
     get_mean_remediate_non_treated_severity,
 )
@@ -36,16 +39,16 @@ async def get_data_one_group(
     critical, high, medium, low = await collect(
         [
             get_mean_remediate_non_treated_severity(
-                loaders, group, 9, 10, min_date
+                loaders, group, Decimal("9.0"), Decimal("10.0"), min_date
             ),
             get_mean_remediate_non_treated_severity(
-                loaders, group, 7, 8.9, min_date
+                loaders, group, Decimal("7.0"), Decimal("8.9"), min_date
             ),
             get_mean_remediate_non_treated_severity(
-                loaders, group, 4, 6.9, min_date
+                loaders, group, Decimal("4.0"), Decimal("6.9"), min_date
             ),
             get_mean_remediate_non_treated_severity(
-                loaders, group, 0.1, 3.9, min_date
+                loaders, group, Decimal("0.1"), Decimal("3.9"), min_date
             ),
         ]
     )
