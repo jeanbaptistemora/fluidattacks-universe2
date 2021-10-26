@@ -29,7 +29,7 @@ def process_lines_csv(subs: str) -> Objective:
     date_format: str = "%Y-%m-%d"
     lines: Objective = Objective(count=0, sofar=0, today=0)
     try:
-        with open(path) as lines_csv:
+        with open(path, encoding="utf8") as lines_csv:
             for file in DictReader(lines_csv):
                 lines.count += int(file["loc"])
                 if file["tested-date"]:
@@ -50,7 +50,7 @@ def process_inputs_csv(subs: str) -> Objective:
     date_format: str = "%Y-%m-%d"
     inputs: Objective = Objective(count=0, sofar=0, today=0)
     try:
-        with open(path) as inputs_csv:
+        with open(path, encoding="utf8") as inputs_csv:
             for file in DictReader(inputs_csv):
                 if file["entry_point"]:
                     inputs.count += 1

@@ -30,7 +30,7 @@ def get_dynamodb_resource() -> Any:
 
 def count_lines(file_csv: str) -> Tuple[int, int]:
     """Insert lines.csv"""
-    with open(file_csv) as f_csv:
+    with open(file_csv, encoding="utf8") as f_csv:
         reader = csv.reader(f_csv)
         next(reader, None)
         (lines, tested_lines) = (
@@ -52,7 +52,7 @@ def count_lines(file_csv: str) -> Tuple[int, int]:
 
 def count_inputs(file_csv: str) -> Tuple[int, int]:
     """Insert campos.csv"""
-    with open(file_csv) as f_csv:
+    with open(file_csv, encoding="utf8") as f_csv:
         reader = csv.reader(f_csv)
         next(reader, None)
         (fields, tested_fields) = (0, 0)
