@@ -6,6 +6,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     namespace_declaration as c_sharp_namespace_declaration,
     parameter as c_sharp_parameter,
     parameter_list as c_sharp_parameter_list,
+    variable_declaration as c_sharp_variable_declaration,
 )
 from syntax_graph.syntax_readers.common import (
     block as common_block,
@@ -69,5 +70,11 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "parameter_list",
         },
         syntax_reader=c_sharp_parameter_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "variable_declaration",
+        },
+        syntax_reader=c_sharp_variable_declaration.reader,
     ),
 )
