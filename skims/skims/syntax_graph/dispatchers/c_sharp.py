@@ -15,6 +15,7 @@ from syntax_graph.syntax_readers.c_sharp import (
 )
 from syntax_graph.syntax_readers.common import (
     block as common_block,
+    identifier as common_identifier,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -69,6 +70,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "element_access_expression",
         },
         syntax_reader=c_sharp_element_access_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "identifier",
+        },
+        syntax_reader=common_identifier.reader,
     ),
     Dispatcher(
         applicable_types={
