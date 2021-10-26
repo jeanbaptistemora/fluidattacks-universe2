@@ -33,6 +33,7 @@ from groups.domain import (
     LOGGER_CONSOLE,
 )
 from more_itertools import (
+    bucket,
     chunked,
     collapse,
 )
@@ -80,7 +81,7 @@ async def get_jobs_from_bach(*job_ids: str) -> List[Dict[str, Any]]:
     )
     async with aioboto3.client(**resource_options) as batch:
         try:
-            result = await batch.describe_jobs(jobs=list(job_ids))
+            result = await batch.describe_jobs(jobs=jobs)
             return result["jobs"]
         except ClientError:
             return []
@@ -114,8 +115,8 @@ async def filer_already_in_queue(
 
 async def _jobs_by_group(
     group: str, group_conf: Dict[Any, Any], dataloaders: Dataloaders
-) -> List[Tuple[str, str, str, str, float]]:
-    result: List[Tuple[str, str, str, str, float]] = []
+) -> List[PreparedJob]:
+    result: List[PreparedJob] = []
     if not get_key_or_fallback(group_conf, "has_machine", "has_skims", False):
         return result
     for root in await dataloaders.group_roots.load(group):
@@ -124,69 +125,70 @@ async def _jobs_by_group(
                 executions = root.machine_execution
             except AttributeError:
                 continue
+
             map_executions = {
-                execution.finding_code: dateutil.parser.parse(
-                    execution.queue_date
-                ).timestamp()
+                execution.finding_code: (
+                    execution.job_id,
+                    dateutil.parser.parse(execution.queue_date).timestamp()
+                    if execution.queue_date
+                    else 0,
+                )
                 for execution in executions
             }
-
-            for check in FINDINGS:
-                if _is_check_available(check):
-                    result.append(
-                        (
-                            root.id,
-                            group,
-                            check,
-                            root.state.nickname,
-                            map_executions.get(check, 0),
-                        )
+            result.extend(
+                [
+                    PreparedJob(
+                        root_id=root.id,
+                        group_name=group,
+                        check=check,
+                        root_nick_name=root.state.nickname,
+                        execution_date=check_execution[1],
+                        batch_job_id=check_execution[0],
                     )
+                    for check in FINDINGS
+                    if _is_check_available(check)
+                    and (
+                        check_execution := map_executions.get(check, (None, 0))
+                    )
+                ]
+            )
     return result
 
 
-async def _machine_queue(
-    root_id: str,
-    finding_code: str,
-    group_name: str,
-    namespace: str,
-    urgent: bool,
-) -> Tuple[Dict[str, Any], str, str, str, str]:
+async def _machine_queue(job: PreparedJob, urgent: bool) -> None:
     try:
         result = await machine_queue(
-            finding_code=finding_code,
-            group_name=group_name,
-            namespace=namespace,
+            finding_code=job.check,
+            group_name=job.group_name,
+            namespace=job.root_nick_name,
             urgent=urgent,
         )
     except ClientError as exc:
         LOGGER_CONSOLE.exception(exc, exc_info=True)
-        return ({}, root_id, group_name, finding_code, namespace)
 
     if result and (job_id := result.get("jobId")):
         await update_git_root_machine_execution(
-            group_name,
-            root_id,
-            finding_code,
-            datetime.datetime.now().isoformat(),
-            job_id,
+            group_name=job.group_name,
+            root_id=job.root_id,
+            finding_code=job.check,
+            queue_date=datetime.datetime.now().isoformat(),
+            batch_id=job_id,
         )
         info(
             "queued %s-%s-%s",
-            group_name,
-            finding_code,
-            namespace,
-            extra={"root_id": root_id, "batch_id": job_id},
+            job.group_name,
+            job.check,
+            job.root_nick_name,
+            extra={"root_id": job.root_id, "batch_id": job_id},
         )
     else:
         info(
             "the job has not been queued %s-%s-%s",
-            group_name,
-            finding_code,
-            namespace,
-            extra={"root_id": root_id},
+            job.group_name,
+            job.check,
+            job.root_nick_name,
+            extra={"root_id": job.root_id},
         )
-    return (result, root_id, group_name, finding_code, namespace)
 
 
 async def main() -> None:
@@ -201,33 +203,36 @@ async def main() -> None:
 
     info("Computing jobs")
     # compute all jobs in parallel
-    group_jobs = await collect(
-        _jobs_by_group(group, group_conf, dataloaders)
-        for group, group_conf in zip(groups, groups_confs)
+    all_jobs: Tuple[PreparedJob, ...] = tuple(
+        collapse(
+            await collect(
+                _jobs_by_group(group, group_conf, dataloaders)
+                for group, group_conf in zip(groups, groups_confs)
+            ),
+            base_type=PreparedJob,
+        )
     )
-    all_jobs = []
-    for _jobs in group_jobs:
-        all_jobs.extend(_jobs)
-    info("jobs to queue %s", len(all_jobs))
-    jobs_by_finding: Dict[str, List[Tuple[float, str, str, str, str]]] = {}
-    for _job in all_jobs:
-        check = _job[2]
-        if check not in jobs_by_finding.keys():
-            jobs_by_finding[check] = [_job]
-        else:
-            jobs_by_finding[check].append(_job)
+    info("%s jobs could be queued", len(all_jobs))
 
-    for finding, _jobs in jobs_by_finding.items():
-        info("%s will be queued for finding %s", len(_jobs), finding)
-        sorted_jobs = list(sorted(_jobs, key=lambda x: x[4]))
+    info("Filtering jobs that are already in queue")
+    all_jobs = await filer_already_in_queue(all_jobs)
+
+    info("jobs to queue %s", len(all_jobs))
+    jobs_by_finding: Dict[str, List[PreparedJob]] = bucket(
+        all_jobs, key=lambda x: x.check
+    )
+
+    for key_finding in tuple(jobs_by_finding):
+        _jobs = tuple(jobs_by_finding[key_finding])
+        info("%s will be queued for finding %s", len(_jobs), key_finding)
+        sorted_jobs: Tuple[PreparedJob, ...] = tuple(
+            sorted(_jobs, key=lambda x: x.execution_date or 0)
+        )
         all_jobs_futers = [
             _machine_queue(
-                root_id=root_id,
-                finding_code=finding,
-                group_name=group,
-                namespace=namespace,
+                _job,
                 urgent=False,
             )
-            for root_id, group, finding, namespace, _ in sorted_jobs
+            for _job in sorted_jobs
         ]
         await collect(all_jobs_futers)
