@@ -30,7 +30,7 @@ to_primitive = PrimitiveFactory.to_primitive
 to_opt_primitive = PrimitiveFactory.to_opt_primitive
 
 
-def to_post(raw: RawPost) -> PostObj:
+def to_post(id_obj: PostId, raw: RawPost) -> PostObj:
     post = Post(
         CastUtils.to_maybe_str(raw.user_id).map(UserId).value_or(None),
         CastUtils.to_datetime(raw.created_at),
@@ -45,7 +45,7 @@ def to_post(raw: RawPost) -> PostObj:
         to_opt_primitive(raw.external_url, str),
         to_opt_primitive(raw.segment_filters, str),
     )
-    return IndexedObj(PostId.from_any(raw.project_id, raw.id), post)
+    return IndexedObj(id_obj, post)
 
 
 def to_post_page(raw: RawPosts) -> PostIdPage:

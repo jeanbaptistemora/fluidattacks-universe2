@@ -14,6 +14,9 @@ from returns.maybe import (
 from tap_announcekit.api.client import (
     ApiClient,
 )
+from tap_announcekit.api.gql_schema import (
+    Post as RawPost,
+)
 from tap_announcekit.objs.id_objs import (
     PostId,
     ProjectId,
@@ -22,11 +25,13 @@ from tap_announcekit.objs.post import (
     PostIdPage,
     PostObj,
 )
+from tap_announcekit.stream import (
+    RawGetter,
+)
 from tap_announcekit.streams.posts._factory import (
     _from_raw,
 )
 from tap_announcekit.streams.posts._factory._getters import (
-    PostGetters,
     PostIdGetters,
 )
 from tap_announcekit.streams.posts._factory._queries import (
@@ -34,21 +39,25 @@ from tap_announcekit.streams.posts._factory._queries import (
     PostQuery,
     TotalPagesQuery,
 )
+from typing import (
+    cast,
+)
+
+
+def raw_getter(id_obj: PostId) -> RawGetter[PostObj]:
+    return RawGetter(
+        PostQuery(id_obj).query(),
+        Transform(lambda q: _from_raw.to_post(id_obj, cast(RawPost, q.post))),
+    )
 
 
 @dataclass(frozen=True)
 class PostFactory:
     client: ApiClient
 
-    def _getters(self) -> PostGetters:
-        return PostGetters(
-            self.client,
-            Transform(lambda p: PostQuery(p).query()),
-            Transform(_from_raw.to_post),
-        )
-
     def get_post(self, post_id: PostId) -> IO[PostObj]:
-        return self._getters().get_post(post_id)
+        getter = raw_getter(post_id)
+        return getter.get(self.client)
 
 
 @dataclass(frozen=True)

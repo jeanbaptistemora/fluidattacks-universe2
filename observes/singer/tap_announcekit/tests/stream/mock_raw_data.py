@@ -1,7 +1,6 @@
-MOCK_DATE = "2000-01-1T18:18:18.123Z"
+MOCK_DATE = "2000-01-01T18:18:18.123Z"
 mock_post = {
     "post": {
-        "id": "post654",
         "project_id": "proj123",
         "user_id": None,
         "created_at": MOCK_DATE,

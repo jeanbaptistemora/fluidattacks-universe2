@@ -21,7 +21,6 @@ from tap_announcekit.api.client import (
     Query,
 )
 from tap_announcekit.api.gql_schema import (
-    Post as RawPost,
     Posts as RawPosts,
 )
 from tap_announcekit.objs.id_objs import (
@@ -30,7 +29,6 @@ from tap_announcekit.objs.id_objs import (
 )
 from tap_announcekit.objs.post import (
     PostIdPage,
-    PostObj,
 )
 from typing import (
     cast,
@@ -82,17 +80,3 @@ class PostIdGetters:
             )
         )
         return id_pages
-
-
-@dataclass(frozen=True)
-class PostGetters:
-    client: ApiClient
-    post_query: Transform[PostId, Query]
-    to_post: Transform[RawPost, PostObj]
-
-    def get_post(self, post_id: PostId) -> IO[PostObj]:
-        query = self.post_query(post_id)
-        raw: IO[RawPost] = self.client.get(query).map(
-            lambda q: cast(RawPost, q.post)
-        )
-        return raw.map(self.to_post)

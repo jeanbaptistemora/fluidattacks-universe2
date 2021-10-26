@@ -25,5 +25,5 @@ def test_query() -> None:
     assert getter.query.operation()
 
 
-def test_from_raw() -> None:
+def test_from_data() -> None:
     assert getter.from_data({"data": mock_raw_data.mock_post_contents})
