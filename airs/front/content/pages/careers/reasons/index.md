@@ -3,7 +3,8 @@ slug: careers/reasons/
 title: Reasons to Work With Us
 category: careers
 description: Here are some reasons why Fluid Attacks is a great place to work.
-keywords: Fluid Attacks, Careers, Reasons, Work, Projects, Clients, Candidates, Jobs, Pentester, Ethical Hacker
+keywords: Fluid Attacks, Careers, Reasons, Work, Projects,
+  Clients, Candidates, Jobs, Pentester, Ethical Hacker
 ---
 
 Here are **8** reasons why `Fluid Attacks` is a great place to work:
@@ -97,25 +98,25 @@ We are also proud of our former employees who are now studying or
 working in major universities and companies all over the world. Here is
 a short list:
 
-1.  Rafael: Masters in Math from the Royal Institute of Technology in
+1. Rafael: Masters in Math from the Royal Institute of Technology in
     Sweden, currently `PhD` in Math at the University of Miami.
 
-2.  Miguel: Masters in Computer Science from the Max Planck Institute in
+2. Miguel: Masters in Computer Science from the Max Planck Institute in
     Germany, currently PhD at the same institute.
 
-3.  Diego: Masters in Information Security, Australia.
+3. Diego: Masters in Information Security, Australia.
 
-4.  Juan: Masters in Innovation, Switzerland.
+4. Juan: Masters in Innovation, Switzerland.
 
-5.  Manuel: Masters in Innovation, England.
+5. Manuel: Masters in Innovation, England.
 
-6.  Jorge: Masters in Math from the University of Miami.
+6. Jorge: Masters in Math from the University of Miami.
 
-7.  Julian: Yahoo Taiwan.
+7. Julian: Yahoo Taiwan.
 
-8.  Luis: SAP Security consultant in England.
+8. Luis: SAP Security consultant in England.
 
-9.  Sebastian and Juan: Founders of Coffee Grid.
+9. Sebastian and Juan: Founders of Coffee Grid.
 
 10. Jaime: Entrepreneur with our cloud services ally (associate),
     `Nuva`.
@@ -126,17 +127,17 @@ To us, it is very important to maintain close relationships in academia.
 This is why some of our employees teach or have taught courses and
 lectures at different universities in Medellin, covering topics such as:
 
-  - Information Security
+- Information Security
 
-  - Secure Development Lifecycle
+- Secure Development Lifecycle
 
-  - Programming
+- Programming
 
-  - Networks
+- Networks
 
-  - Operating Systems
+- Operating Systems
 
-  - Distributed Systems
+- Distributed Systems
 
 In addition, we are part of the Business Lecture group at `EAFIT`
 University, University of Medellin, La Salle University Corporation, and
