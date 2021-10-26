@@ -1,6 +1,7 @@
 from syntax_graph.syntax_readers.c_sharp import (
     argument as c_sharp_argument,
     argument_list as c_sharp_argument_list,
+    binary_expression as c_sharp_binary_expression,
     bracketed_argument_list as c_sharp_bracketed_argument_list,
     class_declaration as c_sharp_class_declaration,
     compilation_unit as c_sharp_compilation_unit,
@@ -43,6 +44,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "bracketed_argument_list",
         },
         syntax_reader=c_sharp_bracketed_argument_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "binary_expression",
+        },
+        syntax_reader=c_sharp_binary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
