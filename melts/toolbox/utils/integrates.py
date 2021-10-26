@@ -53,7 +53,7 @@ def get_filter_rules(group: str) -> List[Dict[str, Any]]:
     if not filter_request.ok:
         LOGGER.error("An error has occurred querying the %s group", group)
         LOGGER.error(filter_request.errors)
-        return list()
+        return []
     return filter_request.data["group"]["roots"]
 
 

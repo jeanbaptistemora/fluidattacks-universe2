@@ -309,7 +309,8 @@ def _write_aws_credentials(
     if not os.path.exists(creds_file):
         with contextlib.suppress(FileExistsError):
             os.mkdir(os.path.expanduser("~/.aws/"))
-        open(creds_file, "w").close()
+        with open(creds_file, "w", encoding="utf8") as read_file:
+            read_file.close()
     config: ConfigParser = ConfigParser()
     config.read(creds_file)
     if not config.has_section(profile):
@@ -321,7 +322,7 @@ def _write_aws_credentials(
     config[profile]["aws_session_token"] = key_info["SessionToken"]
     config[profile]["aws_session_token_expiration"] = key_info["Expiration"]
 
-    with open(creds_file, "w") as file:
+    with open(creds_file, "w", encoding="utf8") as file:
         config.write(file)
 
 
@@ -358,7 +359,7 @@ def _get_okta_user() -> Optional[str]:
             path: str = os.path.expanduser("~/.aws-okta-processor/cache/")
             users: List[str] = os.listdir(path)
             if users:
-                with open(path + users[0], "r") as reader:
+                with open(path + users[0], "r", encoding="utf8") as reader:
                     session: Dict = json.load(reader)
                     user = session["login"]
                     LOGGER.info("Using %s", user)
@@ -501,7 +502,7 @@ def aws_login(profile: str = "default") -> None:
         credentials["default"]["aws_access_key_id"] = aws_access_key_id
         credentials["default"]["aws_secret_access_key"] = aws_secret_access_key
         os.makedirs(credentials_dir, exist_ok=True)
-        with open(credentials_path, "w") as handler:
+        with open(credentials_path, "w", encoding="utf8") as handler:
             credentials.write(handler)
 
     else:

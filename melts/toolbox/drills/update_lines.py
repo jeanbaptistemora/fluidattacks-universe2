@@ -45,7 +45,9 @@ def remove_cr(path: str) -> None:
 
 
 def append_changes(path: str) -> None:
-    with open("toe/snapshot", "r") as snapshot, open(path, "a") as now:
+    with open("toe/snapshot", "r", encoding="utf8") as snapshot, open(
+        path, "a", encoding="utf8"
+    ) as now:
         now_writer = csv.writer(now)
         for row in snapshot:
             modified_row = row.rsplit(",", 6)
@@ -56,7 +58,9 @@ def append_changes(path: str) -> None:
 
 def alter_state(path: str) -> None:
     command(f"mv '{path}' toe/lines.tmp")
-    with open("toe/lines.tmp", "r") as now, open(path, "w") as tmp:
+    with open("toe/lines.tmp", "r", encoding="utf8") as now, open(
+        path, "w", encoding="utf8"
+    ) as tmp:
         now_reader = csv.DictReader(now)
         tmp_writer = csv.DictWriter(tmp, fieldnames=FIELDS)
         tmp_writer.writeheader()
