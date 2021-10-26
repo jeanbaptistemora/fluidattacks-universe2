@@ -285,6 +285,11 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/dedicated_later",
     ]
   }
+  statement {
+    effect    = "Allow"
+    actions   = ["batch:DescribeJobs"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "integrates-prod-policy" {
