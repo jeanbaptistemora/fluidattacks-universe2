@@ -146,13 +146,16 @@ async def get_group_document(  # pylint: disable=too-many-locals
             for datum in data_monthly
         },
     }
+    quarterly = get_quarterly(monthly)
 
     return RiskOverTime(
         time_range=get_time_range(
-            weekly_size=weekly_data_size, monthly_size=monthly_data_size
+            weekly_size=weekly_data_size,
+            monthly_size=monthly_data_size,
+            quarterly_size=len(quarterly["date"]),
         ),
         monthly=monthly,
-        quarterly=get_quarterly(monthly),
+        quarterly=quarterly,
         weekly={
             "date": {datum.data_date: Decimal("0.0") for datum in data},
             "Exposure": {

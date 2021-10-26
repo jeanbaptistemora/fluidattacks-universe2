@@ -75,9 +75,10 @@ GroupDocumentData = NamedTuple(
 
 
 class TimeRangeType(Enum):
-    WEEKLY: str = "WEEKLY"
     MONTHLY: str = "MONTHLY"
     QUARTERLY: str = "QUARTERLY"
+    SEMESTERLY: str = "SEMESTERLY"
+    WEEKLY: str = "WEEKLY"
 
 
 class RiskOverTime(NamedTuple):
@@ -472,15 +473,18 @@ def get_data_risk_over_time_group(
             for datum in data_monthly
         },
     }
+    quarterly = get_risk_over_quarterly(monthly)
 
     return RiskOverTime(
         time_range=TimeRangeType.WEEKLY
         if limited_days
         else get_time_range(
-            weekly_size=weekly_data_size, monthly_size=monthly_data_size
+            weekly_size=weekly_data_size,
+            monthly_size=monthly_data_size,
+            quarterly_size=len(quarterly["date"]),
         ),
         monthly=monthly,
-        quarterly=get_risk_over_quarterly(monthly),
+        quarterly=quarterly,
         weekly={
             "date": {datum.date: 0 for datum in data},
             "Closed": {datum.date: datum.closed for datum in data},
@@ -494,7 +498,7 @@ def get_data_risk_over_time_group(
 
 
 def get_time_range(
-    *, weekly_size: int, monthly_size: int = 0
+    *, weekly_size: int, monthly_size: int = 0, quarterly_size: int = 0
 ) -> TimeRangeType:
     if weekly_size <= 12:
         return TimeRangeType.WEEKLY
@@ -505,7 +509,11 @@ def get_time_range(
     if monthly_size <= 36:
         return TimeRangeType.QUARTERLY
 
-    return TimeRangeType.QUARTERLY
+    return (
+        TimeRangeType.SEMESTERLY
+        if 12 < quarterly_size <= 24
+        else TimeRangeType.QUARTERLY
+    )
 
 
 def round_percentage(percentages: List[Decimal], last: int) -> List[Decimal]:

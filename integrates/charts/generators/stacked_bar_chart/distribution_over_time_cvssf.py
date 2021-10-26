@@ -108,13 +108,16 @@ async def get_group_document(  # pylint: disable=too-many-locals
         "Accepted": {datum.date: datum.accepted for datum in data_monthly},
         "Open": {datum.date: datum.opened for datum in data_monthly},
     }
+    quarterly = get_distribution_over_quarterly(monthly)
 
     return RiskOverTime(
         time_range=get_time_range(
-            weekly_size=weekly_data_size, monthly_size=monthly_data_size
+            weekly_size=weekly_data_size,
+            monthly_size=monthly_data_size,
+            quarterly_size=len(quarterly["date"]),
         ),
         monthly=monthly,
-        quarterly=get_distribution_over_quarterly(monthly),
+        quarterly=quarterly,
         weekly={
             "date": {datum.date: 0 for datum in data},
             "Closed": {datum.date: datum.closed for datum in data},
