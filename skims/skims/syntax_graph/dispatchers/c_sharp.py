@@ -16,6 +16,7 @@ from syntax_graph.syntax_readers.c_sharp import (
 from syntax_graph.syntax_readers.common import (
     block as common_block,
     identifier as common_identifier,
+    string_literal as common_string_literal,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -112,6 +113,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "parameter_list",
         },
         syntax_reader=c_sharp_parameter_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "string_literal",
+        },
+        syntax_reader=common_string_literal.reader,
     ),
     Dispatcher(
         applicable_types={
