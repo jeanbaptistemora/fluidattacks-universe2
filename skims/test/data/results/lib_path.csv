@@ -6224,6 +6224,54 @@ F060,lines,namespace/skims/test/data/lib_path/f060/ruby.rb,3,396,skims,060. Inse
   20 | end
      ^ Col 0
 "
+F060,lines,namespace/skims/test/data/lib_path/f060/scala.scala,21,396,skims,060. Insecure exceptions,Insecure Scala exception in skims/test/data/lib_path/f060/scala.scala,"
+   7 |   )(implicit ctx: Context): EitherT[Task, OpError, OpTransaction] = {
+   8 |     loggerDebug(
+   9 |       s""getOpTransaction called with transaction identifier: $transactionIdentifier ""
+  10 |     )
+  11 |     val result: Task[Either[OpError, OpTransaction]] = Task
+  12 |       .fromTry(
+  13 |         Try {
+  14 |           db.query(GenericDynamoDAO.buildQueryRequest())
+  15 |         }
+  16 |       )
+  17 |       .onErrorRecover {
+  18 |         case e: NullPointerException =>
+  19 |           loggerError(s""DB error response: NullPointerException"")
+  20 |           Left(OpResourceNotFoundError(""Session doesn't exist"", None))
+> 21 |         case e: Exception =>
+  22 |           loggerError(s""DB error response: ${e.getMessage}"")
+  23 |           Left(OpTechnicalError(e.getMessage, None))
+  24 |       }
+  25 |     EitherT(result)
+  26 |   }
+  27 | }
+     ^ Col 0
+"
+F060,lines,namespace/skims/test/data/lib_path/f060/scala.scala,18,396,skims,060. Insecure exceptions,Insecure Scala exception in skims/test/data/lib_path/f060/scala.scala,"
+   7 |   )(implicit ctx: Context): EitherT[Task, OpError, OpTransaction] = {
+   8 |     loggerDebug(
+   9 |       s""getOpTransaction called with transaction identifier: $transactionIdentifier ""
+  10 |     )
+  11 |     val result: Task[Either[OpError, OpTransaction]] = Task
+  12 |       .fromTry(
+  13 |         Try {
+  14 |           db.query(GenericDynamoDAO.buildQueryRequest())
+  15 |         }
+  16 |       )
+  17 |       .onErrorRecover {
+> 18 |         case e: NullPointerException =>
+  19 |           loggerError(s""DB error response: NullPointerException"")
+  20 |           Left(OpResourceNotFoundError(""Session doesn't exist"", None))
+  21 |         case e: Exception =>
+  22 |           loggerError(s""DB error response: ${e.getMessage}"")
+  23 |           Left(OpTechnicalError(e.getMessage, None))
+  24 |       }
+  25 |     EitherT(result)
+  26 |   }
+  27 | }
+     ^ Col 0
+"
 F060,lines,namespace/skims/test/data/lib_path/f060/swift.swift,9,396,skims,060. Insecure exceptions,Insecure Swift exception in skims/test/data/lib_path/f060/swift.swift,"
   1 | do { }
   2 | catch Machine.insufficientFunds(let coinsNeeded) { log() }
