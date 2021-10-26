@@ -1,5 +1,6 @@
 from syntax_graph.syntax_readers.c_sharp import (
     compilation_unit as c_sharp_compilation_unit,
+    namespace_declaration as c_sharp_namespace_declaration,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -12,5 +13,11 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "compilation_unit",
         },
         syntax_reader=c_sharp_compilation_unit.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "namespace_declaration",
+        },
+        syntax_reader=c_sharp_namespace_declaration.reader,
     ),
 )
