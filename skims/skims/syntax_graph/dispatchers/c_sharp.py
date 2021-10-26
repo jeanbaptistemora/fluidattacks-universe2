@@ -16,6 +16,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     parameter as c_sharp_parameter,
     parameter_list as c_sharp_parameter_list,
     prefix_expression as c_sharp_prefix_expression,
+    throw_statement as c_sharp_throw_statement,
     variable_declaration as c_sharp_variable_declaration,
 )
 from syntax_graph.syntax_readers.common import (
@@ -161,6 +162,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "string_literal",
         },
         syntax_reader=common_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "throw_statement",
+        },
+        syntax_reader=c_sharp_throw_statement.reader,
     ),
     Dispatcher(
         applicable_types={
