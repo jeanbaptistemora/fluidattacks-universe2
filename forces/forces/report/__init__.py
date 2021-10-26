@@ -43,6 +43,7 @@ def get_exploitability_measure(score: int) -> str:
 
 
 def style_report(key: str, value: str) -> str:
+    """Adds styles as rich console markup to the report values"""
     style_data = {
         "title": "[yellow]",
         "state": {"open": "[red]", "closed": "[green]"},
@@ -65,6 +66,7 @@ def style_report(key: str, value: str) -> str:
 
 
 def style_summary(key: str, value: int) -> str:
+    """Adds styles as rich console markup to the summary values"""
     markup: str = ""
     if key == "accepted":
         return str(value)
@@ -105,7 +107,12 @@ async def create_findings_dict(
 
 
 def format_summary_report(summary: Dict[str, Any], kind: str) -> Table:
-    footer = summary.pop("total")
+    """Helper method to create the findings summary table from the report's
+    summary data\n
+    @param summary: A dictionary with the summary data\n
+    @param kind: A string with the kind of desired vulnerabilities, can be
+    \"all\", \"static\" or \"dynamic\" """
+    total = summary.pop("total")
     time_elapsed = summary.pop("time")
     summary_table = Table(
         title="Summary",
@@ -113,20 +120,13 @@ def format_summary_report(summary: Dict[str, Any], kind: str) -> Table:
         highlight=True,
         box=MINIMAL,
         border_style="blue",
-        width=40,
-        caption=f"Total: {footer} finding(s)\nTime elapsed: {time_elapsed}",
+        width=30,
+        caption=f"Total: {total} finding(s)\nTime elapsed: {time_elapsed}",
     )
+    # open, closed and/or accepted
     summary_table.add_column("Vuln state", style="cyan")
-    if kind != "all":
-        summary_table.add_column("Value")
-        for vuln_state, vuln_type in summary.items():
-            for key, value in vuln_type.items():
-                summary_table.add_row(
-                    vuln_state,
-                    style_summary(vuln_state, value),
-                    end_section=key == "total",
-                )
-    else:
+    if kind == "all":
+        # DAST, SAST and total vulns
         summary_table.add_column("Vuln type", style="magenta1")
         summary_table.add_column("Value")
         for vuln_state, vuln_type in summary.items():
@@ -139,10 +139,24 @@ def format_summary_report(summary: Dict[str, Any], kind: str) -> Table:
                     end_section=key == "total",
                 )
                 label = None
+    # dynamic or static flags were set
+    else:
+        # No need for a type column, they all have the same
+        summary_table.add_column("Value")
+        for vuln_state, vuln_type in summary.items():
+            for key, value in vuln_type.items():
+                summary_table.add_row(
+                    vuln_state,
+                    style_summary(vuln_state, value),
+                    end_section=key == "total",
+                )
     return summary_table
 
 
 def format_vuln_table(vulns: List[Dict[str, str]]) -> Table:
+    """Helper method to create the nested vulns table\n
+    @param vulns: A list of dicts with each vuln's data\n
+    """
     vuln_table = Table(
         show_header=False,
         highlight=True,
@@ -154,6 +168,7 @@ def format_vuln_table(vulns: List[Dict[str, str]]) -> Table:
         "Vuln attr values", style="honeydew2", overflow="fold"
     )
     for vuln in vulns:
+        # Real state is precious within CI pipelines' 80 character limit
         vuln["exploit"] = vuln.pop("exploitability")
         for key, value in vuln.items():
             vuln_table.add_row(
@@ -169,6 +184,16 @@ def format_rich_report(
     verbose_level: int,
     kind: str,
 ) -> Tuple[Table, Table]:
+    """Outputs a rich-formatted table containing the reported data of findings
+    and associated vulns of an ASM group\n
+    @param report: A dict containing the list of findings and summary data of
+    an ASM group\n
+    @param verbose_level: An int from 1 to 4 of the desired verbosity level,
+    with more data being shown with the higher numbers\n
+    @param kind: A string with the kind of desired vulnerabilities, can be
+    \"all\", \"static\" or \"dynamic\"
+    """
+    # Finding report
     report_table = Table(
         title="Findings Report",
         show_header=False,
@@ -178,13 +203,15 @@ def format_rich_report(
         border_style="gold1",
     )
     last_key: str = "accepted" if verbose_level == 1 else "vulnerabilities"
-    report_table.add_column("Key", style="cyan")
-    report_table.add_column("Value")
+    report_table.add_column("Attributes", style="cyan")
+    report_table.add_column("Data")
     findings = report["findings"]
     for find in findings:
         for key, value in find.items():
+            # Real state is precious within CI pipelines' 80 character limit
             if key == "exploitability":
                 key = "exploit"
+            # Vulns can come as an empty list depending on the verbosity level
             if key == "vulnerabilities":
                 vulns_data: Union[Table, str] = ""
                 if len(value):
@@ -202,6 +229,7 @@ def format_rich_report(
                     style_report(key, str(value)),
                     end_section=key == last_key,
                 )
+    # Summary report
     summary = report["summary"]
     summary_table = format_summary_report(summary, kind)
     return report_table, summary_table
