@@ -1,10 +1,14 @@
 ---
 slug: careers/
 title: Careers
-description: Fluid Attacks is always looking for young talent with a passion for programming and Information Technology. Find out here how to become part of our team.
-keywords: Fluid Attacks, Careers, Job, Selection, Process, Recruitment, Programming, Pentesting, Ethical Hacking
+description: Fluid Attacks is always looking for young talent
+  with a passion for programming and Information Technology.
+  Find out here how to become part of our team.
+keywords: Fluid Attacks, Careers, Job, Selection, Process,
+  Recruitment, Programming, Pentesting, Ethical Hacking
 subtitle: Be part of Fluid Attacks
-subtext: Carefully read each section below and make sure you understand it. Do not skip any sections.
+subtext: Carefully read each section below and make sure you understand it.
+  Do not skip any sections.
 banner: careers-main-bg
 ---
 
@@ -56,15 +60,15 @@ To begin, click the following
 [link](https://careers.autonomicmind.com/candidateportal) and follow
 these detailed instructions:
 
-1.  Log In with your existing account. If you don’t have an account,
+1. Log In with your existing account. If you don’t have an account,
     click the **Create an account** button.
 
-2.  Fill the form with all your valid information.
+2. Fill the form with all your valid information.
 
-3.  In the menu at the left, click on **Jobs**. There you will see the
+3. In the menu at the left, click on **Jobs**. There you will see the
     details of our available job positions.
 
-4.  Click on your preferred job and submit it by pressing the **Apply
+4. Click on your preferred job and submit it by pressing the **Apply
     Now** button.
 
 If you find yourself in trouble with the process please contact us at
@@ -82,14 +86,14 @@ To begin, please follow these detailed
 
 ## 7\. Evaluations
 
-1.  **Knowledge:** The goal of this stage is to assess your skills and
+1. **Knowledge:** The goal of this stage is to assess your skills and
     abilities in different areas. This is mandatory and requires an
     estimated effort of 2 to 3 hours, depending on your knowledge, with
     an average time of `1` minute to answer each question. Before doing
     this, you must first complete the previous stage. To begin, please
     follow these detailed [instructions](knowledge-test/).
 
-2.  **Strengths:** The goal of this stage is to assess your strengths
+2. **Strengths:** The goal of this stage is to assess your strengths
     through the Clifton Strengths Finder test. This is mandatory and
     requires an estimated effort of 40 to 45 minutes. Before doing this,
     you must first complete the previous stage. To begin, please write
@@ -97,7 +101,7 @@ To begin, please follow these detailed
 
 ## 8\. Challenges
 
-1.  **Technical Challenges**: The goal of this stage is to assess your
+1. **Technical Challenges**: The goal of this stage is to assess your
     learning potential, investigate and solve different types of
     problems that we face on a daily basis. Our current talents are in
     the [TOP10 for
@@ -110,7 +114,7 @@ To begin, please follow these detailed
     detailed
     [instructions](https://gitlab.com/autonomicmind/challenges/-/wikis/technical-challenges).
 
-2.  **Non-Technical Challenges**: The goal of this stage is to assess
+2. **Non-Technical Challenges**: The goal of this stage is to assess
     your ability to solve challenges that apply to analytical and
     statistical profiles. This is mandatory for non-technical profiles
     and requires an estimated effort of 4 to 16 hours, according to your
@@ -120,13 +124,13 @@ To begin, please follow these detailed
 
 ## 9\. Interview
 
-1.  **Video Interview:** The goal of this stage is to show your interest
+1. **Video Interview:** The goal of this stage is to show your interest
     and desire to be a part of `Fluid Attacks` through a video
     interview. It requires an estimated effort of 25 to 30 minutes.
     Before doing this, you must first complete the previous stage. To
     begin, please write us an email at <careers@fluidattacks.com>.
 
-2.  **On-Site Interview:** The goal of this stage is to set up a meeting
+2. **On-Site Interview:** The goal of this stage is to set up a meeting
     where we can get to know you personally. It requires an estimated
     effort of 25 to 30 minutes. Before doing this, you must first
     complete the previous stage. To begin, please write us an email at
@@ -184,4 +188,4 @@ it can take less than 2 weeks.
 
 ## Frequently Asked Questions
 
-  - **Questions?** Please see our FAQ [here](faq/).
+- **Questions?** Please see our FAQ [here](faq/).
