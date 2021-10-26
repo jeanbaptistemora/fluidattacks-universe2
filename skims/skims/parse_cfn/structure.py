@@ -148,3 +148,14 @@ def iter_cloudfront_distributions(template: Node) -> Iterator[Node]:
             exact=True,
         )
     )
+
+
+def iter_cloudtrail_trail(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::CloudTrail::Trail",
+            exact=True,
+        )
+    )
