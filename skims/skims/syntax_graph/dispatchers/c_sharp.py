@@ -17,6 +17,12 @@ from syntax_graph.types import (
 CSHARP_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
+            "block",
+        },
+        syntax_reader=common_block.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "class_declaration",
         },
         syntax_reader=c_sharp_class_declaration.reader,
