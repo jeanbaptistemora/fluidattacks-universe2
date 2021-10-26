@@ -2307,8 +2307,8 @@
       title: Identification and Authentication Failures
       link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
     "A8":
-      title: Insecure Deserialization
-      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+      title: Software and Data Integrity Failures
+      link: https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/
     "A9":
       title: Using Components with Known Vulnerabilities
       link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
