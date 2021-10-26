@@ -4,6 +4,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     bracketed_argument_list as c_sharp_bracketed_argument_list,
     class_declaration as c_sharp_class_declaration,
     compilation_unit as c_sharp_compilation_unit,
+    element_access_expression as c_sharp_element_access_expression,
     local_declaration_statement as c_sharp_local_declaration_statement,
     method_declaration as c_sharp_method_declaration,
     namespace_declaration as c_sharp_namespace_declaration,
@@ -61,6 +62,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "declaration_list",
         },
         syntax_reader=common_block.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "element_access_expression",
+        },
+        syntax_reader=c_sharp_element_access_expression.reader,
     ),
     Dispatcher(
         applicable_types={
