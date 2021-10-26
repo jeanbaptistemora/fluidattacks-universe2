@@ -11,7 +11,7 @@ makeScript {
   name = "integrates-subscriptions-user-to-entity";
   searchPaths = {
     bin = [
-      inputs.nixpkgs.python37
+      inputs.nixpkgs.python39
       outputs."/integrates/cache"
       outputs."/integrates/db"
       outputs."/integrates/storage"

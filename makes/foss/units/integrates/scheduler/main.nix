@@ -11,8 +11,8 @@ makeScript {
   name = "integrates-scheduler";
   searchPaths = {
     bin = [
-      inputs.nixpkgs.python37
-      inputs.product.melts
+      inputs.nixpkgs.python39
+      outputs."/melts"
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/scheduler/entrypoint.sh";
