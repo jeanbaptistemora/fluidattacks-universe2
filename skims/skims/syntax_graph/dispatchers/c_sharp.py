@@ -1,6 +1,7 @@
 from syntax_graph.syntax_readers.c_sharp import (
     class_declaration as c_sharp_class_declaration,
     compilation_unit as c_sharp_compilation_unit,
+    local_declaration_statement as c_sharp_local_declaration_statement,
     method_declaration as c_sharp_method_declaration,
     namespace_declaration as c_sharp_namespace_declaration,
     parameter as c_sharp_parameter,
@@ -38,6 +39,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "declaration_list",
         },
         syntax_reader=common_block.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "local_declaration_statement",
+        },
+        syntax_reader=c_sharp_local_declaration_statement.reader,
     ),
     Dispatcher(
         applicable_types={
