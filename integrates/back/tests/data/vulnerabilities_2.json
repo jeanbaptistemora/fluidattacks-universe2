@@ -22,9 +22,6 @@
                   },
                   "state": {
                     "S": "open"
-                  },
-                  "approval_status": {
-                    "S": "APPROVED"
                   }
                 }
               }
@@ -355,9 +352,6 @@
                   },
                   "state": {
                     "S": "open"
-                  },
-                  "approval_status": {
-                    "S": "PENDING"
                   }
                 }
               },
@@ -374,9 +368,6 @@
                   },
                   "state": {
                     "S": "closed"
-                  },
-                  "approval_status": {
-                    "S": "APPROVED"
                   }
                 }
               }
@@ -542,9 +533,6 @@
                   },
                   "state": {
                     "S": "open"
-                  },
-                  "approval_status": {
-                    "S": "APPROVED"
                   }
                 }
               }
@@ -655,9 +643,6 @@
                   },
                   "state": {
                     "S": "open"
-                  },
-                  "approval_status": {
-                    "S": "APPROVED"
                   }
                 }
               }
@@ -729,9 +714,6 @@
                   },
                   "state": {
                     "S": "closed"
-                  },
-                  "approval_status": {
-                    "S": "APPROVED"
                   }
                 }
               }

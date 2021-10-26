@@ -152,7 +152,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         "analyst": "hacker@gmail.com",
                         "source": "asm",
                         "state": "open",
-                        "approval_status": "APPROVED",
                     },
                 ],
                 "historic_treatment": [
@@ -181,7 +180,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         "analyst": "hacker@gmail.com",
                         "source": "asm",
                         "state": "open",
-                        "approval_status": "APPROVED",
                     },
                 ],
                 "historic_treatment": [
@@ -210,7 +208,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         "analyst": "hacker@gmail.com",
                         "source": "asm",
                         "state": "open",
-                        "approval_status": "APPROVED",
                     },
                 ],
                 "historic_treatment": [

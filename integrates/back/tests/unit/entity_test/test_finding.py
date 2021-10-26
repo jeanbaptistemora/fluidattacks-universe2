@@ -96,7 +96,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
         "historicVerification": [{"date": None, "status": None}],
         "historicZeroRisk": [{"date": None, "status": None}],
         "currentState": "open",
-        "currentApprovalStatus": "",
         "hacker": "unittest@fluidattacks.com",
         "source": "asm",
         "vulnerabilityType": "lines",
@@ -174,7 +173,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
               status
             }
             currentState
-            currentApprovalStatus
             hacker
             source
             vulnerabilityType

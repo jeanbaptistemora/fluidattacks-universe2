@@ -49,12 +49,6 @@ async def batch_load_fn_vulns(
                     ].get("analyst", ""),
                 ),
                 commit_hash=str(vuln.get("commit_hash", "")),
-                current_approval_status=cast(
-                    str,
-                    cast(HistoricType, vuln.get("historic_state", [{}]))[
-                        -1
-                    ].get("approval_status", ""),
-                ),
                 current_state=cast(
                     str,
                     cast(HistoricType, vuln.get("historic_state", [{}]))[
