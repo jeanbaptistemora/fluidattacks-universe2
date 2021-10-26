@@ -155,8 +155,12 @@ def request(
             if params and "fileHandle" in params:
                 if params["fileHandle"].closed:
                     # Reopen it again
-                    params["fileHandle"] = open(
-                        params["fileHandle"].name, params["fileHandle"].mode
+                    params[
+                        "fileHandle"
+                    ] = open(  # pylint: disable=consider-using-with
+                        params["fileHandle"].name,
+                        params["fileHandle"].mode,
+                        encoding="utf8",
                     )
                 else:
                     # Reset the file pointer to BOF
