@@ -5,8 +5,10 @@ from datetime import (
     datetime,
 )
 from purity.v1 import (
+    FrozenList,
     InvalidType,
     PrimitiveFactory,
+    Transform,
 )
 from returns.io import (
     IO,
@@ -23,13 +25,11 @@ from typing import (
     Union,
 )
 
-DataType = TypeVar("DataType")
+_T = TypeVar("_T")
 to_opt_primitive = PrimitiveFactory.to_opt_primitive
 
 
-def new_iter(
-    raw: Union[Iterator[DataType], List[DataType]]
-) -> IO[Iterator[DataType]]:
+def new_iter(raw: Union[Iterator[_T], List[_T]]) -> IO[Iterator[_T]]:
     if isinstance(raw, list):
         return IO(iter(raw))
     return IO(raw)
@@ -55,4 +55,10 @@ class CastUtils:
     def to_list(raw: Any) -> List[Any]:
         if isinstance(raw, list):
             return raw
+        raise InvalidType(f"{type(raw)} expected List[Any]")
+
+    @staticmethod
+    def to_flist(raw: Any, convert: Transform[Any, _T]) -> FrozenList[_T]:
+        if isinstance(raw, (tuple, list)):
+            return tuple(convert(i) for i in raw)
         raise InvalidType(f"{type(raw)} expected List[Any]")

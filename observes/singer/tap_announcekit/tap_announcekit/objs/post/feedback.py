@@ -35,12 +35,12 @@ class Feedback:
     external_user_id: ExtUserId
 
 
+FeedbackObj = IndexedObj[FeedbackId, Feedback]
+
+
 @dataclass(frozen=True)
 class FeedbackPage:
     page: int
     pages: int
     count: int
-    items: FrozenList[Feedback]
-
-
-FeedbackObj = IndexedObj[FeedbackId, Feedback]
+    items: FrozenList[FeedbackObj]
