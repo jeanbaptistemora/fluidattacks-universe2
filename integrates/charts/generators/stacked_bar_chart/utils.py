@@ -85,6 +85,7 @@ class TimeRangeType(Enum):
 class RiskOverTime(NamedTuple):
     monthly: Dict[str, Dict[datetime, float]]
     quarterly: Dict[str, Dict[datetime, float]]
+    semesterly: Dict[str, Dict[datetime, float]]
     time_range: TimeRangeType
     weekly: Dict[str, Dict[datetime, float]]
 
@@ -405,7 +406,7 @@ def get_risk_over_rangetime(
     }
 
 
-def get_data_risk_over_time_group(
+def get_data_risk_over_time_group(  # pylint: disable=too-many-locals
     *,
     over_time_weekly: List[List[Dict[str, float]]],
     over_time_monthly: List[List[Dict[str, float]]],
@@ -478,6 +479,10 @@ def get_data_risk_over_time_group(
         group_data=monthly, get_time=get_quarter
     )
 
+    semesterly = get_risk_over_rangetime(
+        group_data=monthly, get_time=get_semester
+    )
+
     return RiskOverTime(
         time_range=TimeRangeType.WEEKLY
         if limited_days
@@ -488,6 +493,7 @@ def get_data_risk_over_time_group(
         ),
         monthly=monthly,
         quarterly=quarterly,
+        semesterly=semesterly,
         weekly={
             "date": {datum.date: 0 for datum in data},
             "Closed": {datum.date: datum.closed for datum in data},
