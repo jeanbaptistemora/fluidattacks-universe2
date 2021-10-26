@@ -1,4 +1,5 @@
 from syntax_graph.syntax_readers.c_sharp import (
+    argument as c_sharp_argument,
     class_declaration as c_sharp_class_declaration,
     compilation_unit as c_sharp_compilation_unit,
     local_declaration_statement as c_sharp_local_declaration_statement,
@@ -17,6 +18,12 @@ from syntax_graph.types import (
 )
 
 CSHARP_DISPATCHERS: Dispatchers = (
+    Dispatcher(
+        applicable_types={
+            "argument",
+        },
+        syntax_reader=c_sharp_argument.reader,
+    ),
     Dispatcher(
         applicable_types={
             "block",
