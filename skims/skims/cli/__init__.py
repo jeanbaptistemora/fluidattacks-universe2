@@ -202,11 +202,11 @@ def cli_scan(
 
     log_blocking("info", "Success: %s", success)
 
-    if guess_environment() == "production":
+    if guess_environment() == "production" and not success:
         log_to_remote_blocking(
             execution_seconds=f"{time() - start_time}",
-            msg="Success" if success else "Failure",
-            severity="info" if success else "error",
+            msg="Failure",
+            severity="error",
         )
 
     sys.exit(0 if success else 1)

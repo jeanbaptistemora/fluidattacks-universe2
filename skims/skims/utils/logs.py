@@ -2,12 +2,16 @@ from aioextensions import (
     in_thread,
 )
 import bugsnag
+from bugsnag import (
+    legacy as bugsnag_legacy,
+)
 import logging
 import sys
 from typing import (
     Any,
 )
 from utils.bugs import (
+    CustomBugsnagClient,
     META as BUGS_META,
 )
 
@@ -24,6 +28,7 @@ _LOGGER_REMOTE: logging.Logger = logging.getLogger("Skims.stability")
 
 
 def configure() -> None:
+    bugsnag_legacy.default_client = CustomBugsnagClient()
     _LOGGER_HANDLER.setStream(sys.stdout)
     _LOGGER_HANDLER.setLevel(logging.INFO)
     _LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
@@ -75,7 +80,10 @@ def log_to_remote_blocking(
     **meta_data: str,
 ) -> None:
     meta_data.update(BUGS_META)
-    bugsnag.notify(Exception(msg), meta_data=meta_data, severity=severity)
+    bugsnag_legacy.default_client = CustomBugsnagClient()
+    bugsnag.notify(
+        Exception(msg), meta_data=dict(meta_data), severity=severity
+    )
 
 
 async def log_to_remote(
