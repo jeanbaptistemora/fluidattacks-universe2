@@ -8264,31 +8264,43 @@
       details: __empty__
 "145":
   en:
-    title: Free
+    title: Inappropriate coding practices - Cyclomatic complexity
     description: >
-      __empty__
+      The application has source code
+      with high McCabe cyclomatic complexity,
+      making the code difficult to understand and maintain,
+      promoting the appearance of new security vulnerabilities
+      and hindering their detection and solution.
     impact: >
-      __empty__
+      Promote the creation of security vulnerabilities
     recommendation: >
-      __empty__
+      Refactor the complex code
+      by simplifying methods, subroutines or conditionals
     threat: >
-      __empty__
+      Authenticated attacker from the Internet
+      with write access to the code
   es:
-    title: Free
+    title: Inappropriate coding practices - Cyclomatic complexity
     description: >
-      __empty__
+      La aplicación cuenta con código fuente
+      con una alta complejidad ciclomática McCabe.
+      Esto hace que el código sea difícil de entender y mantener,
+      facilita la aparición de vulnerabilidades de seguridad
+      y dificulta su detección y corrección.
     impact: >
-      __empty__
+      Facilitar la introducción de vulnerabilidades de seguridad
     recommendation: >
-      __empty__
+      Refactorizar el código complejo,
+      simplificando métodos, subrutinas o condicionales extensos
     threat: >
-      __empty__
-  category: Collect Information
+      Atacante autenticado desde Internet
+      con permisos de edición en el código
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "H"
-      privileges_required: "N"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
@@ -8296,9 +8308,9 @@
       availability: "N"
     temporal:
       exploit_code_maturity: "P"
-      remediation_level: "O"
-      report_confidence: "R"
-  requirements: ["148", "149", "150", "181", "336"]
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["379"]
   metadata:
     en:
       details: __empty__
