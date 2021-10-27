@@ -1,4 +1,7 @@
 import aioboto3
+from aioextensions import (
+    collect,
+)
 import aiohttp
 import asyncio
 from back.src.context import (
@@ -6,10 +9,12 @@ from back.src.context import (
     FI_AWS_BATCH_SECRET_KEY,
     PRODUCT_API_TOKEN,
 )
+from back.src.settings.logger import (
+    LOGGING,
+)
 from batch.dal import (
     Job,
     JobStatus,
-    list_queues_jobs,
 )
 import boto3
 from datetime import (
@@ -17,7 +22,13 @@ from datetime import (
 )
 import hashlib
 import hmac
+from itertools import (
+    chain,
+    product,
+)
 import json
+import logging
+import logging.config
 import os
 from typing import (
     Any,
@@ -25,6 +36,7 @@ from typing import (
     List,
     NamedTuple,
     Optional,
+    Tuple,
 )
 from urllib.parse import (
     urlparse,
@@ -36,6 +48,8 @@ def _json_load(path: str) -> Any:
         return json.load(file)
 
 
+logging.config.dictConfig(LOGGING)
+LOGGER = logging.getLogger(__name__)
 QUEUES: Dict[str, Dict[str, str]] = _json_load(os.environ["MACHINE_QUEUES"])
 FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
     os.environ["MACHINE_FINDINGS"]
@@ -91,13 +105,16 @@ async def list_(
     if include_urgent:
         queues.append(get_queue_for_finding(finding_code, urgent=True))
 
-    jobs = await list_queues_jobs(
-        filters=(
-            lambda job: parse_name(job.name).finding_code == finding_code,
-            lambda job: parse_name(job.name).group_name == group_name,
-        ),
-        queues=queues,
-        statuses=statuses,
+    filters = (f"process-{group_name}-{finding_code}-*",)
+    jobs = list(
+        chain.from_iterable(
+            await collect(
+                [
+                    _list_jobs_by_name(queue, status, filters=filters)
+                    for queue, status in product(queues, statuses)
+                ]
+            )
+        )
     )
 
     return sorted(
@@ -121,18 +138,15 @@ def _get_signature_key(
     return k_signing
 
 
-async def get_job(  # pylint: disable=too-many-locals
-    group: str,
-    check: str,
-    namespace: str,
+async def _list_jobs_filter(  # pylint: disable=too-many-locals
+    queue: str,
+    filters: Tuple[str, ...],
+    next_token: Optional[str] = None,
 ) -> Dict[str, Any]:
     service = "batch"
     session = boto3.Session()
     credentials = session.get_credentials()
     client = session.client(service)
-
-    queue_name = get_queue_for_finding(check, False)
-    jobs = [f"process-{group}-{check}-{namespace}"]
     endpoint = f"{client.meta.endpoint_url}/v1/listjobs"
     method = "POST"
     host = urlparse(endpoint).hostname or ""
@@ -140,9 +154,11 @@ async def get_job(  # pylint: disable=too-many-locals
     content_type = "application/x-amz-json-1.0"
     amz_target = "Batch_20120810.ListJobs"
     request_parameters = {
-        "jobQueue": queue_name,
-        "filters": [{"name": "JOB_NAME", "values": list(jobs)}],
+        "jobQueue": queue,
+        "filters": [{"name": "JOB_NAME", "values": list(filters)}],
     }
+    if next_token:
+        request_parameters["nextToken"] = next_token
 
     request_parameters_str = json.dumps(request_parameters)
     access_key = credentials.access_key
@@ -246,6 +262,42 @@ async def get_job(  # pylint: disable=too-many-locals
     return {}
 
 
+async def _list_jobs_by_name(
+    queue: str, status: JobStatus, filters: Tuple[str, ...]
+) -> List[Job]:
+    next_token = "dummy"  # nosec
+    jobs = []
+    while next_token:
+        response = await _list_jobs_filter(
+            queue=queue,
+            filters=filters,
+            **(
+                {"next_token": next_token}
+                if next_token and next_token != "dummy"  # nosec
+                else {}
+            ),
+        )
+        next_token = response.get("nexToken", None)
+        jobs.extend(
+            [
+                Job(
+                    created_at=job_summary.get("createdAt"),
+                    exit_code=job_summary.get("container", {}).get("exitCode"),
+                    exit_reason=job_summary.get("container", {}).get("reason"),
+                    id=job_summary["jobId"],
+                    name=job_summary["jobName"],
+                    queue=queue,
+                    started_at=job_summary.get("startedAt"),
+                    stopped_at=job_summary.get("stoppedAt"),
+                    status=job_summary["status"],
+                )
+                for job_summary in response.get("jobSummaryList", [])
+                if job_summary["status"] == status.name
+            ]
+        )
+    return jobs
+
+
 async def queue_boto3(
     group: str,
     finding_code: str,
@@ -255,7 +307,7 @@ async def queue_boto3(
     try:
         queue_name = get_queue_for_finding(finding_code, urgent=urgent)
     except NotImplementedError:
-        print(f"[ERROR] {finding_code} does not belong to a queue")
+        LOGGER.error("%s does not belong to a queue", finding_code)
         return {}
     job_name = f"process-{group}-{finding_code}-{namespace}"
     resource_options = dict(
