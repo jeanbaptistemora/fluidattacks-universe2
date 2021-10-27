@@ -55,6 +55,10 @@ from db_model.services_toe_lines.get import (
 from db_model.toe_inputs.get import (
     GroupToeInputsLoader,
 )
+from db_model.toe_lines.get import (
+    GroupToeLinesLoader,
+    RootToeLinesLoader,
+)
 from db_model.vulnerabilities.get import (
     VulnHistoricStateNewLoader,
     VulnHistoricTreatmentNewLoader,
@@ -85,15 +89,17 @@ class Dataloaders(NamedTuple):
     group_findings: GroupFindingsLoader
     group_removed_findings: GroupRemovedFindingsLoader
     group_roots: GroupRootsLoader
+    group_services_toe_lines: GroupServicesToeLinesLoader
     group_stakeholders: GroupStakeholdersLoader
     group_toe_inputs: GroupToeInputsLoader
-    group_services_toe_lines: GroupServicesToeLinesLoader
+    group_toe_lines: GroupToeLinesLoader
     organization: OrganizationLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
     root: RootLoader
     root_states: RootStatesLoader
     root_services_toe_lines: RootServicesToeLinesLoader
+    root_toe_lines: RootToeLinesLoader
     vulnerability: VulnerabilityLoader
     vuln_historic_state_new: VulnHistoricStateNewLoader
     vuln_historic_treatment_new: VulnHistoricTreatmentNewLoader
@@ -124,7 +130,6 @@ def get_new_context() -> Dataloaders:
     finding_vulns_zr_loader = FindingVulnsOnlyZeroRiskLoader(
         finding_vulns_loader
     )
-    root_toe_lines_loader = RootServicesToeLinesLoader()
 
     return Dataloaders(
         event=EventLoader(),
@@ -140,15 +145,17 @@ def get_new_context() -> Dataloaders:
         group_findings=GroupFindingsLoader(group_drafts_and_findings_loader),
         group_removed_findings=GroupRemovedFindingsLoader(),
         group_roots=GroupRootsLoader(),
+        group_services_toe_lines=GroupServicesToeLinesLoader(),
         group_stakeholders=group_stakeholders_loader,
         group_toe_inputs=GroupToeInputsLoader(),
-        group_services_toe_lines=GroupServicesToeLinesLoader(),
+        group_toe_lines=GroupToeLinesLoader(),
         organization=OrganizationLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
         root=RootLoader(),
+        root_services_toe_lines=RootServicesToeLinesLoader(),
         root_states=RootStatesLoader(),
-        root_services_toe_lines=root_toe_lines_loader,
+        root_toe_lines=RootToeLinesLoader(),
         vulnerability=VulnerabilityLoader(),
         vuln_historic_state_new=VulnHistoricStateNewLoader(),
         vuln_historic_treatment_new=VulnHistoricTreatmentNewLoader(),
