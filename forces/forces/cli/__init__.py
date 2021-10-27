@@ -57,7 +57,7 @@ def show_banner() -> None:
          [red on red]  [/][bold red on white]‎  ››[/][bold white on red]{name}
          [red on red]  [/][white on white]   ‎ [/][white on red]  [/]{motto}
          [red on red]   ‎‎   ‎ ‎ [/]
-        [bold green]
+        [bright_green]
               ____            _____           ____
              / __ \___ _   __/ ___/___  _____/ __ \____  _____
             / / / / _ \ | / /\__ \/ _ \/ ___/ / / / __ \/ ___/
@@ -141,7 +141,7 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
 
     group: Optional[str] = await get_forces_user(api_token=token)
     if not group:
-        await log("warning", "Ensure that you use an forces user")
+        await log("warning", "Please make sure that you use a forces user")
         return 1
 
     configure_bugsnag(group=group or "")
@@ -149,19 +149,22 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
 
     striccness = "strict" if strict else "lax"
     start_msg: str = "Running DevSecOps agent"
-    await log("info", f"{start_msg} in {striccness} mode")
-    await log("info", f"{start_msg} in {kind} kind")
+    await log("info", f"{start_msg} in [bright_yellow]{striccness}[/] mode")
+    await log("info", f"{start_msg} in [bright_yellow]{kind}[/] kind")
     if repo_name:
         await log(
             "info",
-            f"{start_msg} for vulnerabilities in the repo: {repo_name}",
+            (
+                f"{start_msg} for vulnerabilities in the repo: "
+                f"[bright_yellow]{repo_name}[/]"
+            ),
         )
     else:
         await log(
             "warning",
             (
-                "If the repository name is not specified, it will run on all "
-                "the existing repositories in ASM"
+                "If the repository name is not specified, it will run on "
+                "[bright_yellow]all[/] the existing repositories in ASM"
             ),
         )
 

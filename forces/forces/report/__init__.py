@@ -120,7 +120,7 @@ def format_summary_report(summary: Dict[str, Any], kind: str) -> Table:
         highlight=True,
         box=MINIMAL,
         border_style="blue",
-        width=30,
+        width=35,
         caption=f"Total: {total} finding(s)\nTime elapsed: {time_elapsed}",
     )
     # open, closed and/or accepted
@@ -138,6 +138,7 @@ def format_summary_report(summary: Dict[str, Any], kind: str) -> Table:
                     style_summary(vuln_state, value),
                     end_section=key == "total",
                 )
+                # Blank label from now on to avoid redundancy
                 label = None
     # dynamic or static flags were set
     else:
@@ -189,11 +190,11 @@ def format_rich_report(
     @param report: A dict containing the list of findings and summary data of
     an ASM group\n
     @param verbose_level: An int from 1 to 4 of the desired verbosity level,
-    with more data being shown with the higher numbers\n
+    with more data being shown the higher the number\n
     @param kind: A string with the kind of desired vulnerabilities, can be
     \"all\", \"static\" or \"dynamic\"
     """
-    # Finding report
+    # Finding report table
     report_table = Table(
         title="Findings Report",
         show_header=False,
@@ -229,7 +230,7 @@ def format_rich_report(
                     style_report(key, str(value)),
                     end_section=key == last_key,
                 )
-    # Summary report
+    # Summary report table
     summary = report["summary"]
     summary_table = format_summary_report(summary, kind)
     return report_table, summary_table

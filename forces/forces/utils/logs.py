@@ -35,7 +35,7 @@ logging.basicConfig(filename=LOG_FILE.get().name, format=_FORMAT)
 _LOGGER_FORMATTER: logging.Formatter = logging.Formatter(_FORMAT)
 
 _LOGGER_HANDLER: logging.Handler = RichHandler(
-    show_time=False, markup=True, show_path=False
+    show_time=False, markup=True, show_path=False, console=CONSOLE
 )
 _LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
 
@@ -50,12 +50,6 @@ def blocking_log(level: str, msg: str, *args: Any) -> None:
 
 async def log(level: str, msg: str, *args: Any) -> None:
     await in_thread(getattr(_LOGGER, level), msg, *args)
-
-
-def spinner_log(msg: str, add_footer: bool = True) -> None:
-    """Helper logger for spinner messages"""
-    footer: str = ": [green]Complete[/]" if add_footer else ""
-    CONSOLE.log(f"[blue]INFO[/]\t {msg}{footer}")
 
 
 async def log_to_remote(

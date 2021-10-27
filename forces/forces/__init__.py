@@ -23,7 +23,6 @@ from forces.utils.logs import (
     CONSOLE,
     log,
     LOG_FILE,
-    spinner_log,
 )
 from forces.utils.model import (
     ForcesConfig,
@@ -56,14 +55,15 @@ async def entrypoint(
             "Formatting findings data",
             "Uploading Report to ASM",
         ]
+        footer: str = ": [green]Complete[/]"
         while tasks:
             if config.kind in {KindEnum.STATIC, KindEnum.ALL}:
                 if not config.repository_name:
                     await log(
                         "warning",
                         (
-                            "The vulnerabilities of all repositories will be "
-                            "scanned"
+                            "The vulnerabilities of [bright_yellow]all[/] "
+                            "repositories will be scanned"
                         ),
                     )
 
@@ -75,7 +75,7 @@ async def entrypoint(
                         "info",
                         (
                             "Running forces on the repository: "
-                            f"{config.repository_name}"
+                            f"[bright_yellow]{config.repository_name}[/]"
                         ),
                     )
 
@@ -86,30 +86,30 @@ async def entrypoint(
                     and config.kind != KindEnum.ALL
                 ):
                     return 1
-            spinner_log(tasks.pop(0))
+            await log("info", f"{tasks.pop(0)}{footer}")
             report = await generate_report(config)
-            spinner_log(tasks.pop(0))
+            await log("info", f"{tasks.pop(0)}{footer}")
 
             if report["summary"]["total"] > 0:
                 filtered_report = filter_report(
                     copy.deepcopy(report), verbose_level=config.verbose_level
                 )
-                spinner_log(tasks.pop(0))
+                await log("info", f"{tasks.pop(0)}{footer}")
                 finding_report, summary_report = format_rich_report(
                     filtered_report, config.verbose_level, config.kind.value
                 )
-                spinner_log(tasks.pop(0))
+                await log("info", f"{tasks.pop(0)}{footer}")
                 CONSOLE.log(finding_report)
                 CONSOLE.log(summary_report)
             else:
                 tasks.pop(0)
                 tasks.pop(0)
-                spinner_log(
+                await log(
+                    "info",
                     (
                         "[green]The current repository has no reported "
                         "vulnerabilities[/]"
                     ),
-                    add_footer=False,
                 )
 
             if output := config.output:
@@ -128,8 +128,6 @@ async def entrypoint(
                 git_metadata=metadata,
                 kind=config.kind.value,
             )
-            spinner_log(tasks.pop(0))
-            spinner_log(
-                f"Success execution: {exit_code == 0}", add_footer=False
-            )
+            await log("info", f"{tasks.pop(0)}{footer}")
+            await log("info", f"Success execution: {exit_code == 0}")
     return exit_code
