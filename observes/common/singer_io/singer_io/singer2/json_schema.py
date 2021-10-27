@@ -95,9 +95,7 @@ class JsonSchemaFactory:
 
     @classmethod
     def from_prim_type(cls, ptype: PrimitiveTypes) -> JsonSchema:
-        return JsonSchema(
-            cls.from_json({"type": JsonValue(_encode_type[ptype].value)})
-        )
+        return cls.from_json({"type": JsonValue(_encode_type[ptype].value)})
 
     @classmethod
     def datetime_schema(cls) -> JsonSchema:

@@ -22,10 +22,12 @@ from contextlib import (
     suppress,
 )
 from git import (
-    Commit,
     GitCommandError,
     InvalidGitRepositoryError,
     Repo,
+)
+from git.objects import (
+    Commit,
 )
 from os.path import (
     abspath,
