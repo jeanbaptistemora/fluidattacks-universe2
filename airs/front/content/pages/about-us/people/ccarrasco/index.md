@@ -3,7 +3,11 @@ slug: about-us/people/ccarrasco/
 title: Carolina Carrasco
 category: about-us
 peoplepage: yes
-description: Fluid Attacks is a company focused on ethical hacking and pentesting in applications with over 18 year of experience providing our services to the Colombian market. The purpose of this page is to present a small overview about the experience, education and achievements of Carolina Carrasco.
+description: Fluid Attacks is a company focused on ethical hacking
+  and pentesting in applications with over 18 year of experience
+  providing our services to the Colombian market. The purpose
+  of this page is to present a small overview about the experience,
+  education and achievements of Carolina Carrasco.
 keywords: Fluid Attacks, Team, People, Members, Carolina, Carrasco
 ---
 

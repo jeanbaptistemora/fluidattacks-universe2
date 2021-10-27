@@ -3,7 +3,11 @@ slug: about-us/people/jarmas/
 title: Jonathan Armas
 category: about-us
 peoplepage: yes
-description: Fluid Attacks is a company focused on ethical hacking and pentesting in applications with over 18 year of experience providing our services to the Colombian market. The purpose of this page is to present a small overview about the experience, education and achievements of Jonathan Armas.
+description: Fluid Attacks is a company focused on ethical hacking
+  and pentesting in applications with over 18 year of experience
+  providing our services to the Colombian market. The purpose
+  of this page is to present a small overview about the experience,
+  education and achievements of Jonathan Armas.
 keywords: Fluid Attacks, Team, People, Members, Jonathan, Armas.
 ---
 
