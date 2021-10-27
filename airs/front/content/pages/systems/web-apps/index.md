@@ -1,8 +1,11 @@
 ---
 slug: systems/web-apps/
 title: Web Applications
-description: Web applications are among the systems that we at Fluid Attacks help you evaluate to detect security vulnerabilities that you can subsequently remediate.
-keywords: luid Attacks, Web, Application, Continuous Hacking, Security, System, Ethical Hacking, Pentesting
+description: Web applications are among the systems that we at
+  Fluid Attacks help you evaluate to detect security vulnerabilities
+  that you can subsequently remediate.
+keywords: luid Attacks, Web, Application, Continuous Hacking, Security,
+  System, Ethical Hacking, Pentesting
 banner: bg-systems
 template: compliance
 ---

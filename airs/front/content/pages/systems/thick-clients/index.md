@@ -1,8 +1,11 @@
 ---
 slug: systems/thick-clients/
 title: Thick Clients
-description: Thick clients are among the systems that we at Fluid Attacks help you evaluate to detect security vulnerabilities that you can subsequently remediate.
-keywords: Fluid Attacks, Thick Client, Application, Continuous Hacking, Security, System, Ethical Hacking, Pentesting
+description: Thick clients are among the systems that we at
+  Fluid Attacks help you evaluate to detect security vulnerabilities
+  that you can subsequently remediate.
+keywords: Fluid Attacks, Thick Client, Application, Continuous Hacking,
+  Security, System, Ethical Hacking, Pentesting
 banner: bg-systems
 template: compliance
 ---
