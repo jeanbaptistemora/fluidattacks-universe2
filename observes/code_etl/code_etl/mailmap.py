@@ -24,6 +24,12 @@ class MailmapItem:
     canon: User
     alias: User
 
+    def encode(self) -> str:
+        return (
+            f"{self.canon.name} <{self.canon.email}>"
+            f" {self.alias.name} <{self.alias.email}>"
+        )
+
 
 @dataclass(frozen=True)
 class Mailmap:

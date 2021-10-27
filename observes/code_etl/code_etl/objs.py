@@ -7,10 +7,16 @@ from datetime import (
 
 
 @dataclass(frozen=True)
+class CommitId:
+    # relative id respect to repo
+    hash: str
+
+
+@dataclass(frozen=True)
 class CommitDataId:
     namespace: str
     repository: str
-    hash: str
+    hash: CommitId
 
 
 @dataclass(frozen=True)
