@@ -2765,4 +2765,49 @@
     "434":
       title: Unrestricted Upload of File with Dangerous Type
       link: https://cwe.mitre.org/data/definitions/434.html
+    "306":
+      title: Missing Authentication for Critical Function
+      link: https://cwe.mitre.org/data/definitions/306.html
+    "190":
+      title: Integer Overflow or Wraparound
+      link: https://cwe.mitre.org/data/definitions/190.html
+    "502":
+      title: Deserialization of Untrusted Data
+      link: https://cwe.mitre.org/data/definitions/502.html
+    "287":
+      title: Improper Authentication
+      link: https://cwe.mitre.org/data/definitions/287.html
+    "476":
+      title: NULL Pointer Dereference
+      link: https://cwe.mitre.org/data/definitions/476.html
+    "798":
+      title: Use of Hard-coded Credentials
+      link: https://cwe.mitre.org/data/definitions/798.html
+    "119":
+      title: Improper Restriction of Operations within the Bounds of a Memory Buffer
+      link: https://cwe.mitre.org/data/definitions/119.html
+    "862":
+      title: Missing Authorization
+      link: https://cwe.mitre.org/data/definitions/862.html
+    "276":
+      title: Incorrect Default Permissions
+      link: https://cwe.mitre.org/data/definitions/276.html
+    "200":
+      title: Exposure of Sensitive Information to an Unauthorized Actor
+      link: https://cwe.mitre.org/data/definitions/200.html
+    "522":
+      title: Insufficiently Protected Credentials
+      link: https://cwe.mitre.org/data/definitions/522.html
+    "732":
+      title: Incorrect Permission Assignment for Critical Resource
+      link: https://cwe.mitre.org/data/definitions/732.html
+    "611":
+      title: Improper Restriction of XML External Entity Reference
+      link: https://cwe.mitre.org/data/definitions/611.html
+    "918":
+      title: Server-Side Request Forgery (SSRF)
+      link: https://cwe.mitre.org/data/definitions/918.html
+    "77":
+      title: Improper Neutralization of Special Elements used in a Command ('Command Injection')
+      link: https://cwe.mitre.org/data/definitions/77.html
   metadata: {}
