@@ -230,9 +230,6 @@ class PDFWordlistEn(Wordlist):
     RESUME_PERC_TITLE: WordlistItem = WordlistItem(
         "resume_perc_title", "Percent"
     )
-    RESUME_REGI_TITLE: WordlistItem = WordlistItem(
-        "resume_regi_title", "Total Records"
-    )
     RESUME_VNUM_TITLE: WordlistItem = WordlistItem("resume_vnum_title", "#")
     RESUME_VNAME_TITLE: WordlistItem = WordlistItem(
         "resume_vname_title", "Name"
