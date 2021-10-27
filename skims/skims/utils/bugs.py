@@ -11,6 +11,7 @@ from bugsnag.configuration import (
 from bugsnag.event import (
     Event,
 )
+import os
 import re
 from typing import (
     Any,
@@ -40,6 +41,12 @@ class CustomBugsnagClient(Client):
         asynchronous: Optional[bool] = None,
         **options: Any,
     ) -> None:
+        if "metadata" in options:
+            if batch_job_id := os.environ.get("AWS_BATCH_JOB_ID"):
+                options["meta_data"]["batch_job_id"] = batch_job_id
+            if job_queue_name := os.environ.get("AWS_BATCH_JQ_NAME"):
+                options["meta_data"]["batch_job_queue"] = job_queue_name
+
         event = Event(
             exception,
             self.configuration,
