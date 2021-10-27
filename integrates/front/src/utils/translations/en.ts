@@ -1184,6 +1184,8 @@ export const enTranslations: ResourceKey = {
       },
       deletedsoon: "Scheduled to be deleted in 1 month",
       errors: {
+        activeRoots:
+          "This group has active roots. Review them first and try again",
         expectedGroupName: "Expected: {{groupName}}",
         organizationNotExists: "Target organization does not exist",
         squadOnlyIfContinuous:

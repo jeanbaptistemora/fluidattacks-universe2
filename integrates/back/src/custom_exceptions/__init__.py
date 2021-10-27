@@ -257,12 +257,6 @@ class HasVulns(CustomBaseException):
         super(HasVulns, self).__init__(msg)
 
 
-class HasOpenVulns(CustomBaseException):
-    def __init__(self) -> None:
-        msg = "Exception - A root with open vulns can't be deactivated"
-        super(HasOpenVulns, self).__init__(msg)
-
-
 class IncompleteDraft(CustomBaseException):
     """Exception to control draft submission"""
 
@@ -895,3 +889,9 @@ class MachineCanNotOperate(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Machine cannot operate at this time"
         super(MachineCanNotOperate, self).__init__(msg)
+
+
+class HasActiveRoots(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - This group has active roots"
+        super(HasActiveRoots, self).__init__(msg)

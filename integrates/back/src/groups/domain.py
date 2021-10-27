@@ -25,6 +25,7 @@ from contextlib import (
 )
 from custom_exceptions import (
     AlreadyPendingDeletion,
+    HasActiveRoots,
     InvalidGroupName,
     InvalidGroupServicesConfig,
     InvalidParameter,
@@ -44,6 +45,9 @@ from datetime import (
 )
 from db_model.findings.types import (
     Finding,
+)
+from db_model.roots.types import (
+    RootItem,
 )
 from decimal import (
     Decimal,
@@ -685,6 +689,12 @@ async def remove_group(
     return response
 
 
+async def validate_open_roots(loaders: Any, group_name: str) -> None:
+    roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
+    if next((root for root in roots if root.state.status == "ACTIVE"), None):
+        raise HasActiveRoots()
+
+
 async def update_group_attrs(
     *,
     loaders: Any,
@@ -708,20 +718,23 @@ async def update_group_attrs(
         has_asm,
     )
 
-    item = await groups_dal.get_attributes(
-        group_name=group_name,
-        attributes=["historic_configuration", "project_name"],
+    item = cast(
+        Dict[str, Any],
+        await groups_dal.get_attributes(
+            group_name=group_name,
+            attributes=["historic_configuration", "project_name"],
+        ),
     )
     item.setdefault("historic_configuration", [])
 
     if get_key_or_fallback(item):
+        if service != item["historic_configuration"][-1]["service"]:
+            await validate_open_roots(loaders, group_name)
+
         success = await update(
             data={
-                "historic_configuration": cast(
-                    List[Dict[str, Union[bool, str]]],
-                    item["historic_configuration"],
-                )
-                + [
+                "historic_configuration": [
+                    *item["historic_configuration"],
                     {
                         "comments": comments,
                         "date": datetime_utils.get_now_as_str(),
@@ -734,15 +747,14 @@ async def update_group_attrs(
                         "requester": requester_email,
                         "service": service,
                         "type": subscription,
-                    }
+                    },
                 ],
             },
             group_name=group_name,
         )
 
     if not has_asm:
-        group_loader = loaders.group
-        group = await group_loader.load(group_name)
+        group = await loaders.group.load(group_name)
         org_id = group["organization"]
         success = success and await remove_group(
             loaders, group_name, requester_email, org_id, reason
@@ -752,17 +764,12 @@ async def update_group_attrs(
         await notifications_domain.update_group(
             comments=comments,
             group_name=group_name,
-            had_machine=cast(
-                List[Dict[str, bool]], item["historic_configuration"]
-            )[-1]["has_skims"],
+            had_machine=item["historic_configuration"][-1]["has_skims"],
             had_squad=(
                 cast(
                     bool,
                     get_key_or_fallback(
-                        cast(
-                            List[Dict[str, Union[bool, str]]],
-                            item["historic_configuration"],
-                        )[-1],
+                        item["historic_configuration"][-1],
                         "has_squad",
                         "has_drills",
                     ),

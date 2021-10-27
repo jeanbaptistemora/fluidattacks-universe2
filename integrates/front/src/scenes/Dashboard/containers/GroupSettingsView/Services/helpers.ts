@@ -26,9 +26,15 @@ const editGroupDataHelper = (
   }
 };
 
-const handleEditGroupDataError = (error: ApolloError): void => {
-  msgError(translate.t("groupAlerts.errorTextsad"));
-  Logger.warning("An error occurred editing group services", error);
+const handleEditGroupDataError = ({ graphQLErrors }: ApolloError): void => {
+  graphQLErrors.forEach((error): void => {
+    if (error.message === "Exception - This group has active roots") {
+      msgError(translate.t("searchFindings.servicesTable.errors.activeRoots"));
+    } else {
+      msgError(translate.t("groupAlerts.errorTextsad"));
+      Logger.warning("An error occurred editing group services", error);
+    }
+  });
 };
 
 export { editGroupDataHelper, handleEditGroupDataError };
