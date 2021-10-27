@@ -122,7 +122,7 @@ def cmd_execute(cmnd: List[str], folder: str = ".") -> List[str]:
             "StrictHostKeyChecking=no"
         ),
     }
-    process = Popen(
+    process = Popen(  # pylint: disable=consider-using-with
         cmnd,
         stdin=DEVNULL,
         stdout=PIPE,
@@ -193,7 +193,7 @@ def repo_url(baseurl: str) -> str:
     ]:
         repo_user = ""
         repo_pass = ""
-        with open("../config/secrets-prod.yaml") as secrets:
+        with open("../config/secrets-prod.yaml", encoding="utf8") as secrets:
             if f"{user}:" in secrets.read():
                 repo_user = utils.generic.get_sops_secret(
                     user,
@@ -407,7 +407,7 @@ def repo_cloning(subs: str, repo_name: str) -> bool:
             if problem:
                 problems.append(problem)
             else:
-                progress_bar()
+                progress_bar()  # pylint: disable=not-callable
 
         with ThreadPool(processes=cpu_count()) as worker:
             worker.map(action, repositories)
@@ -531,7 +531,7 @@ def fluidcounts(path: str) -> str:
         myenv = os.environ.copy()
         myenv["LC_ALL"] = "C"
         check_output(call_cloc, env=myenv)
-        with open("ignored.txt", "r") as outfile:
+        with open("ignored.txt", "r", encoding="utf8") as outfile:
             filepaths = outfile.read()
     except OSError:
         print(

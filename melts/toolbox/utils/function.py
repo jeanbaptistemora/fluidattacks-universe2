@@ -77,6 +77,7 @@ def shield(
 
                     log("info", "retry #%s: %s", number, function_id)
                     sleep(sleep_between_retries)
+                    return None
 
         return cast(TFun, wrapper)
 
