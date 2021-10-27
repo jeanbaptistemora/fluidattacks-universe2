@@ -522,3 +522,14 @@ def validate_min_acceptance_severity(value: Decimal) -> bool:
     if not DEFAULT_MIN_SEVERITY <= value <= DEFAULT_MAX_SEVERITY:
         raise InvalidAcceptanceSeverity()
     return success
+
+
+async def remove_user_all_organizations(*, email: str) -> None:
+    organizations_ids = await get_user_organizations(email)
+
+    await collect(
+        tuple(
+            remove_user(organization_id, email)
+            for organization_id in organizations_ids
+        )
+    )
