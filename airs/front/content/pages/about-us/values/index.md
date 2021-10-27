@@ -2,8 +2,11 @@
 slug: about-us/values/
 title: Values
 category: about-us
-description: Fluid Attacks is committed to always having integral and correct behavior, and expects all members to act in accordance with the law and company's policies.
-keywords: Fluid Attacks, Values, Policies, Ethics, Protection, Information, Company Policies, Pentesting, Ethical Hacking
+description: Fluid Attacks is committed to always having integral
+  and correct behavior, and expects all members to act
+  in accordance with the law and company's policies.
+keywords: Fluid Attacks, Values, Policies, Ethics, Protection,
+  Information, Company Policies, Pentesting, Ethical Hacking
 banner: values-bg
 ---
 
@@ -29,18 +32,18 @@ therefore, are not negotiable.
 
 Our principles are:
 
-1.  **HONESTY:** At `Fluid Attacks` honesty is paramount in all our
+1. **HONESTY:** At `Fluid Attacks` honesty is paramount in all our
     business interactions. Truthfulness, trustworthiness, reliability,
     and integrity is what we bring to our business relationships and
     what we expect in return.
 
-2.  The **TEAM:** ``Fluid Attacks’ results are achieved
+2. The **TEAM:** ``Fluid Attacks’ results are achieved
     through the collaborative effort of all our staff.
     We are a team. Therefore, we maintain, and expect,
     dignified and respectful treatment
     for all members of the `Fluid Attacks`` team.
 
-3.  **DISCIPLINE:** `Fluid Attacks` will fulfill all our commitments
+3. **DISCIPLINE:** `Fluid Attacks` will fulfill all our commitments
     with dedication, perseverance and `100%` focus on excellence for all
     our customers.
 
@@ -49,33 +52,33 @@ Our principles are:
 Following are some examples of how our values and principles operate in
 our business interactions with customers:
 
-1.  **All detected vulnerabilities are reported:** No detected
+1. **All detected vulnerabilities are reported:** No detected
     vulnerabilities are stored for future personal or organizational
     use.
 
-2.  **Attacks are only carried out with authorization from the client
+2. **Attacks are only carried out with authorization from the client
     and in personal test environments or environments created to be
     hacked (CTFs, challenge sites, etc.)**. Attacks are not carried out
     as a test, outside of work hours, or outside of the organization to
     third parties (partners, other companies, friends, etc.).
 
-3.  **The vulnerabilities found by the hacker are not revealed:**
+3. **The vulnerabilities found by the hacker are not revealed:**
     Detected vulnerabilities are only revealed to the client and
     authorized people working directly on the project. Hackers do not
     reveal any information regarding vulnerabilities, nor their
     existence, to any unauthorized person inside or outside of `Fluid
     Attacks`.
 
-4.  **Any infection installed for an attack is uninstalled:** After
+4. **Any infection installed for an attack is uninstalled:** After
     finishing a client’s project all the software installed to infect
     the system is completely removed. If this is not possible, the
     client is notified in writing regarding the details of this
     situation.
 
-5.  **All detected security issues are reported:** If we know a security
+5. **All detected security issues are reported:** If we know a security
     issue exists, it is reported in writing to the client.
 
-6.  **Assume Responsibility:** If `Fluid Attacks` discovers any errors,
+6. **Assume Responsibility:** If `Fluid Attacks` discovers any errors,
     or missteps, on our part during work on your project, we will inform
     you, take full responsibility for any impacts and repercussions, and
     do whatever is required to fix them.

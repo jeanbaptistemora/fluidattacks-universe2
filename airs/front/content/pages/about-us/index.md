@@ -1,8 +1,10 @@
 ---
 slug: about-us/
 title: About Us
-description: Fluid Attacks is a cybersecurity company that offers ethical hacking and pentesting products and services.
-keywords: Fluid Attacks, About Us, Company, Ethical Hacking, Pentesting, Cybersecurity
+description: Fluid Attacks is a cybersecurity company that offers
+  ethical hacking and pentesting products and services.
+keywords: Fluid Attacks, About Us, Company, Ethical Hacking,
+  Pentesting, Cybersecurity
 banner: about-us-bg
 ---
 
