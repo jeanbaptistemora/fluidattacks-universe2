@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 27, 2021, 10:45 AM",
+    "DateLastModified": "Oct 27, 2021, 11:53 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1744,6 +1744,9 @@
               "sorts_risk_level": {
                 "N": "0.8"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "first_attack_at": {
                 "S": "2020-02-19T15:41:04+00:00"
               },
@@ -1791,6 +1794,9 @@
               "sorts_risk_level": {
                 "N": "0"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "first_attack_at": {
                 "S": "2020-01-19T15:41:04+00:00"
               },
@@ -1818,8 +1824,10 @@
             }
           ],
           "NonKeyAttributes": [
+            "modified_date",
             "comments",
             "loc",
+            "modified_commit",
             "sorts_risk_level",
             "first_attack_at",
             "attacked_lines",
@@ -1829,8 +1837,7 @@
             "attacked_by",
             "filename",
             "root_id",
-            "modified_date",
-            "modified_commit"
+            "group_name"
           ]
         },
         {
