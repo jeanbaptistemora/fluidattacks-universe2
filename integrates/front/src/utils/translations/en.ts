@@ -722,7 +722,7 @@ export const enTranslations: ResourceKey = {
         entryPoint: "Entry point",
         root: "Root",
         seenFirstTimeBy: "Seen first time by",
-        testedDate: "Attack moment",
+        testedDate: "Attacked at",
       },
       lines: {
         comments: "Comments",

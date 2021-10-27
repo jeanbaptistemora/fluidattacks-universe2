@@ -89,7 +89,7 @@ describe("GroupToeInputsView", (): void => {
       [
         "Root",
         "Entry point",
-        "Attack moment",
+        "Attacked at",
         "Seen at",
         "Seen first time by",
       ].join("")
