@@ -1,11 +1,12 @@
 ---
 slug: cookie/
 title: Cookie Policy
-description: This Cookie Policy describes what cookies are and how Fluid Attacks uses them on its website and any of its products or services.
+description: This Cookie Policy describes what cookies are and how
+  Fluid Attacks uses them on its website and any of its products or services.
 keywords: Fluid Attacks, Cookie, Policy, Information, Website, Right.
 ---
 
-*This document was last updated on July 2, 2020*
+#### *This document was last updated on July 2, 2020*
 
 This cookie policy ("Policy") describes what cookies are and how `Fluid
 Attacks` ("Fluid Attacks", "we", "us" or "our") uses them on the
@@ -45,7 +46,7 @@ visit certain other websites.
 
 ### What type of cookies do we use?
 
-  - Necessary cookies
+- Necessary cookies
 
 Necessary cookies allow us to offer you the best possible experience
 when accessing and navigating through our Website and using its
@@ -53,14 +54,14 @@ features. For example, these cookies let us recognize that you have
 created an account and have logged into that account to access the
 content.
 
-  - Functionality cookies
+- Functionality cookies
 
 Functionality cookies let us operate the Website and our Services in
 accordance with the choices you make. For example, we will recognize
 your username and remember how you customized the Website and Services
 during future visits.
 
-  - Analytical cookies
+- Analytical cookies
 
 These cookies enable us and third-party services to collect aggregated
 data for statistical purposes on how our visitors use the Website. These
@@ -68,7 +69,7 @@ cookies do not contain personal information such as names and email
 addresses and are used to help us improve your user experience of the
 Website.
 
-  - Advertising cookies
+- Advertising cookies
 
 Advertising cookies allow us and third parties serve relevant ads to you
 more effectively and help us collect aggregated audit data, research,
@@ -85,7 +86,7 @@ behavior on third party websites, we do use aggregate data from third
 parties to show you relevant, interest-based advertising. We do not
 provide any personal information that we collect to advertisers.
 
-  - Social media cookies
+- Social media cookies
 
 Third party cookies from social media sites (such as Facebook, Twitter,
 etc) let us track social network users when they visit our Website, use
@@ -145,5 +146,3 @@ you may send an email to
 ![Help](https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_200/v1620228481/airs/advisories/help_usssdq.webp)
 
 </div>
-
-*This document was last updated on July 2, 2020*
