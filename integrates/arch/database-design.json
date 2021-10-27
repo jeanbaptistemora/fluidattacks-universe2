@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 25, 2021, 09:47 AM",
+    "DateLastModified": "Oct 27, 2021, 10:45 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -436,6 +436,38 @@
         },
         {
           "AttributeName": "finding_code",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "first_attack_at",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "attacked_lines",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "attacked_at",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "seen_at",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "be_present",
+          "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "attacked_by",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "filename",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "root_id",
           "AttributeType": "S"
         }
       ],
@@ -1681,6 +1713,124 @@
             "tested_date",
             "tested_lines",
             "sorts_risk_level"
+          ]
+        },
+        {
+          "FacetName": "root_toe_lines",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "GROUP#group_name",
+            "SortKeyAlias": "LINES#ROOT#root_id#FILENAME#filename"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
+              "sk": {
+                "S": "LINES#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#test/test#.config"
+              },
+              "modified_date": {
+                "S": "2020-11-15T15:41:04+00:00"
+              },
+              "comments": {
+                "S": "comment 1"
+              },
+              "loc": {
+                "N": "8"
+              },
+              "modified_commit": {
+                "S": "983466z"
+              },
+              "sorts_risk_level": {
+                "N": "0.8"
+              },
+              "first_attack_at": {
+                "S": "2020-02-19T15:41:04+00:00"
+              },
+              "attacked_lines": {
+                "N": "4"
+              },
+              "attacked_at": {
+                "S": "2021-02-20T05:00:00+00:00"
+              },
+              "seen_at": {
+                "S": "2020-02-01T15:41:04+00:00"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "attacked_by": {
+                "S": "test2@test.com"
+              },
+              "filename": {
+                "S": "test/test#.config"
+              },
+              "root_id": {
+                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              }
+            },
+            {
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
+              "sk": {
+                "S": "LINES#ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#FILENAME#test2/test.sh"
+              },
+              "modified_date": {
+                "S": "2020-11-16T15:41:04+00:00"
+              },
+              "comments": {
+                "S": "comment 2"
+              },
+              "loc": {
+                "N": "172"
+              },
+              "modified_commit": {
+                "S": "273412t"
+              },
+              "sorts_risk_level": {
+                "N": "0"
+              },
+              "first_attack_at": {
+                "S": "2020-01-19T15:41:04+00:00"
+              },
+              "attacked_lines": {
+                "N": "120"
+              },
+              "attacked_at": {
+                "S": "2021-01-20T05:00:00+00:00"
+              },
+              "seen_at": {
+                "S": "2020-01-01T15:41:04+00:00"
+              },
+              "be_present": {
+                "BOOL": false
+              },
+              "attacked_by": {
+                "S": "test@test.com"
+              },
+              "filename": {
+                "S": "test2/test.sh"
+              },
+              "root_id": {
+                "S": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "comments",
+            "loc",
+            "sorts_risk_level",
+            "first_attack_at",
+            "attacked_lines",
+            "attacked_at",
+            "seen_at",
+            "be_present",
+            "attacked_by",
+            "filename",
+            "root_id",
+            "modified_date",
+            "modified_commit"
           ]
         },
         {
@@ -8058,15 +8208,15 @@
             }
           ],
           "NonKeyAttributes": [
+            "type",
+            "tags",
             "commit",
-            "custom_severity",
-            "hash",
             "repo",
+            "where",
             "specific",
             "stream",
-            "tags",
-            "type",
-            "where"
+            "hash",
+            "custom_severity"
           ]
         },
         {
@@ -8098,11 +8248,11 @@
             }
           ],
           "NonKeyAttributes": [
-            "justification",
-            "modified_by",
+            "status",
             "modified_date",
+            "modified_by",
             "source",
-            "status"
+            "justification"
           ]
         },
         {
@@ -8131,13 +8281,13 @@
             }
           ],
           "NonKeyAttributes": [
-            "accepted_until",
-            "acceptance_status",
-            "justification",
-            "manager",
-            "modified_by",
+            "status",
             "modified_date",
-            "status"
+            "modified_by",
+            "accepted_until",
+            "manager",
+            "justification",
+            "acceptance_status"
           ]
         },
         {
@@ -8166,10 +8316,10 @@
             }
           ],
           "NonKeyAttributes": [
-            "comment_id",
-            "modified_by",
+            "status",
             "modified_date",
-            "status"
+            "modified_by",
+            "comment_id"
           ]
         },
         {
@@ -8221,10 +8371,10 @@
             }
           ],
           "NonKeyAttributes": [
-            "comment_id",
-            "modified_by",
+            "status",
             "modified_date",
-            "status"
+            "modified_by",
+            "comment_id"
           ]
         },
         {
@@ -8256,11 +8406,11 @@
             }
           ],
           "NonKeyAttributes": [
-            "justification",
-            "modified_by",
+            "status",
             "modified_date",
+            "modified_by",
             "source",
-            "status"
+            "justification"
           ]
         },
         {
@@ -8289,13 +8439,13 @@
             }
           ],
           "NonKeyAttributes": [
-            "accepted_until",
-            "acceptance_status",
-            "justification",
-            "manager",
-            "modified_by",
+            "status",
             "modified_date",
-            "status"
+            "modified_by",
+            "accepted_until",
+            "manager",
+            "justification",
+            "acceptance_status"
           ]
         },
         {
@@ -8324,10 +8474,10 @@
             }
           ],
           "NonKeyAttributes": [
-            "comment_id",
-            "modified_by",
+            "status",
             "modified_date",
-            "status"
+            "modified_by",
+            "comment_id"
           ]
         },
         {
@@ -8359,10 +8509,10 @@
             }
           ],
           "NonKeyAttributes": [
-            "comment_id",
-            "modified_by",
+            "status",
             "modified_date",
-            "status"
+            "modified_by",
+            "comment_id"
           ]
         }
       ],
