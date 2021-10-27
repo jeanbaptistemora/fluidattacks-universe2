@@ -2,7 +2,9 @@
 slug: careers/hiring/
 title: Hiring Documents
 category: careers
-description: In this page we present the required documentation to formally legalize your selection once you have successfully finished all the previous stages.
+description: In this page we present the required documentation
+  to formally legalize your selection once you have successfully
+  finished all the previous stages.
 keywords: Fluid Attacks, Careers, Legalization, Selection, Process, Requirements.
 ---
 
@@ -11,45 +13,45 @@ When you accept `Fluid Attacks'` job offer, you must send us an
 organized** `.ZIP` file containing a `PDF` for each of the following
 documents:
 
-1.  Digital photo, in color, on a white background, with suit and tie
+1. Digital photo, in color, on a white background, with suit and tie
     (men).
 
-2.  Photocopy of a valid government-issued ID - both sides on one page.
+2. Photocopy of a valid government-issued ID - both sides on one page.
 
-3.  Photocopy of your business or professional card - both sides on one
+3. Photocopy of your business or professional card - both sides on one
     page (if you have a degree).
 
-4.  Photocopy of your highest-level university diploma (Bachelor’s,
+4. Photocopy of your highest-level university diploma (Bachelor’s,
     Master’s or PhD).
 
-5.  Photocopy of your high school diploma (if you don’t have a
+5. Photocopy of your high school diploma (if you don’t have a
     Bachelor’s, Master’s, or PhD).
 
-6.  College or university transcript or other official document of
+6. College or university transcript or other official document of
     current studies (if you are currently enrolled in studies). It must
     contain:
-    
-    1.  Your major(s) and minor(s).
-    
-    2.  Total number of credits required to graduate or complete your
+
+    1. Your major(s) and minor(s).
+
+    2. Total number of credits required to graduate or complete your
         degree.
-    
-    3.  Number of credits completed, with grades, as per the date you
+
+    3. Number of credits completed, with grades, as per the date you
         are applying to `Fluid Attacks`.
-    
-    4.  Course names and number of credits you are currently enrolled
+
+    4. Course names and number of credits you are currently enrolled
         in.
-    
-    5.  Cumulative grade point average as per the date you are applying
+
+    5. Cumulative grade point average as per the date you are applying
         to `Fluid Attacks`.
 
-7.  Photocopy of relevant professional certifications.
+7. Photocopy of relevant professional certifications.
 
-8.  Photocopy of relevant courses taken. If using a college transcript,
+8. Photocopy of relevant courses taken. If using a college transcript,
     please highlight relevant courses. Also include a list of your
     relevant professional certification courses.
 
-9.  Your `SSN` (Social Security Number) or if you do not have an `SSN`,
+9. Your `SSN` (Social Security Number) or if you do not have an `SSN`,
     your `ITIN` (Individual Taxpayer Identification Number).
 
 10. Name of the primary healthcare provider you will use or are
