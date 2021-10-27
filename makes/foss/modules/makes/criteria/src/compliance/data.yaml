@@ -2721,20 +2721,21 @@
   title: CWE Top 25
   en:
     description: >
-      These reports are intended
-      to meet the needs of a broad range
-      of users that need detailed information
-      and assurance about the controls
-      at a service organization relevant to security,
-      availability, and processing integrity
-      of the systems the service organization uses
-      to process users’ data and the confidentiality
-      and privacy of the information processed
-      by these systems.
+      Common Weakness Enumeration Top 25
+      (CWE Top 25) is a demonstrative list
+      and valuable community resource of the
+      most common and impactful issues
+      experienced over the previous two
+      calendar years. It can help developers,
+      testers and users to provide into the
+      most severe and current security
+      weaknesses.
+      The version used in this section is
+      CWE Top 25 2021.
   es:
     description: __empty__
   definitions:
     "787":
       title: Out-of-bounds Write
-      link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
+      link: https://cwe.mitre.org/data/definitions/787.html
   metadata: {}
