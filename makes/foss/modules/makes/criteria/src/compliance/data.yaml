@@ -2310,11 +2310,11 @@
       title: Software and Data Integrity Failures
       link: https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/
     "A9":
-      title: Software and Data Integrity Failures
+      title: Security Logging and Monitoring Failures
       link: https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/
     "A10":
-      title: Insufficient Logging & Monitoring
-      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+      title: Server-Side Request Forgery
+      link: https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/
   metadata: {}
 "014":
   title: PCI DSS
