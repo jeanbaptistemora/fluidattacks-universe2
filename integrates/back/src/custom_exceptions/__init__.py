@@ -806,6 +806,15 @@ class ToeInputNotFound(CustomBaseException):
         super(ToeInputNotFound, self).__init__(msg)
 
 
+class ToeLinesAlreadyUpdated(CustomBaseException):
+    """Exception to control the toe lines has not been updated"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - The toe lines has been updated by another operation"
+        super(ToeLinesAlreadyUpdated, self).__init__(msg)
+
+
 class ToeLinesNotFound(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Toe lines has not been found"

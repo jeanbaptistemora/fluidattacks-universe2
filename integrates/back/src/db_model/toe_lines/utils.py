@@ -27,11 +27,11 @@ def format_toe_lines(item: Item) -> ToeLines:
 
 
 def format_toe_lines_item(
-    key: PrimaryKey, key_structure: PrimaryKey, toe_lines: ToeLines
+    primary_key: PrimaryKey, key_structure: PrimaryKey, toe_lines: ToeLines
 ) -> Item:
     return {
-        key_structure.partition_key: key.partition_key,
-        key_structure.sort_key: key.sort_key,
+        key_structure.partition_key: primary_key.partition_key,
+        key_structure.sort_key: primary_key.sort_key,
         "attacked_at": toe_lines.attacked_at,
         "attacked_by": toe_lines.attacked_by,
         "attacked_lines": toe_lines.attacked_lines,

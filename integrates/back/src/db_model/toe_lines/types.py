@@ -8,7 +8,7 @@ class ToeLines(NamedTuple):
     attacked_at: str
     attacked_by: str
     attacked_lines: int
-    be_present: str
+    be_present: bool
     comments: str
     filename: str
     first_attack_at: str
@@ -28,7 +28,7 @@ class ToeLinesMetadataToUpdate(NamedTuple):
     attacked_at: Optional[str] = None
     attacked_by: Optional[str] = None
     attacked_lines: Optional[int] = None
-    be_present: Optional[str] = None
+    be_present: Optional[bool] = None
     comments: Optional[str] = None
     first_attack_at: Optional[str] = None
     loc: Optional[int] = None
