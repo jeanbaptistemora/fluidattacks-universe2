@@ -1716,7 +1716,7 @@
           ]
         },
         {
-          "FacetName": "root_toe_lines",
+          "FacetName": "toe_lines_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "GROUP#group_name",
             "SortKeyAlias": "LINES#ROOT#root_id#FILENAME#filename"
