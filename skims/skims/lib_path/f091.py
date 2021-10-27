@@ -1,6 +1,9 @@
 from aioextensions import (
     in_process,
 )
+from aws.model import (
+    AWSCTrail,
+)
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     get_vulnerabilities_from_aws_iterator_blocking,
@@ -35,9 +38,9 @@ from utils.function import (
 )
 
 
-def _log_files_not_validated_iterate_vulnerabilities(
-    trails_iterator: Iterator[Union[Any, Node]]
-) -> Iterator[Union[Any, Node]]:
+def cfn_log_files_not_validated_iterate_vulnerabilities(
+    trails_iterator: Iterator[Union[AWSCTrail, Node]]
+) -> Iterator[Union[AWSCTrail, Node]]:
     values = ["true", "True", True, "1", 1]
     for trail in trails_iterator:
         log_file_val = get_node_by_keys(trail, ["EnableLogFileValidation"])
@@ -45,10 +48,14 @@ def _log_files_not_validated_iterate_vulnerabilities(
             if log_file_val.raw not in values:
                 yield log_file_val
         else:
-            yield trail
+            yield AWSCTrail(
+                data=trail.data,
+                column=trail.start_column,
+                line=trail.start_line - 1,
+            )
 
 
-def _log_files_not_validated(
+def _cfn_log_files_not_validated(
     content: str,
     path: str,
     template: Any,
@@ -58,8 +65,10 @@ def _log_files_not_validated(
         description_key="src.lib_path.f091.cfn_log_files_not_validated",
         finding=core_model.FindingEnum.F091,
         path=path,
-        statements_iterator=_log_files_not_validated_iterate_vulnerabilities(
-            trails_iterator=iter_cloudtrail_trail(template=template)
+        statements_iterator=(
+            cfn_log_files_not_validated_iterate_vulnerabilities(
+                trails_iterator=iter_cloudtrail_trail(template=template)
+            )
         ),
     )
 
@@ -73,7 +82,7 @@ async def cfn_log_files_not_validated(
     template: Any,
 ) -> core_model.Vulnerabilities:
     return await in_process(
-        _log_files_not_validated,
+        _cfn_log_files_not_validated,
         content=content,
         path=path,
         template=template,

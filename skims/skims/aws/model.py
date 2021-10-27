@@ -34,3 +34,9 @@ class AWSCloudfrontDistribution(NamedTuple):
     column: int
     data: str
     line: int
+
+
+class AWSCTrail(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int

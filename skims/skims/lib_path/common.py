@@ -1,5 +1,6 @@
 import ast
 from aws.model import (
+    AWSCTrail,
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
     AWSS3Acl,
@@ -207,6 +208,7 @@ def get_vulnerabilities_from_aws_iterator_blocking(
     path: str,
     statements_iterator: Iterator[
         Union[
+            AWSCTrail,
             AWSIamManagedPolicyArns,
             AWSIamPolicyStatement,
             AWSS3Acl,
