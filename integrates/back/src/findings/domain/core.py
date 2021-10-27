@@ -763,7 +763,6 @@ async def update_description(
         affected_systems=description.affected_systems,
         attack_vector_description=description.attack_vector_description,
         compromised_attributes=description.compromised_attributes,
-        compromised_records=description.compromised_records,
         description=description.description,
         recommendation=description.recommendation,
         sorts=description.sorts,

@@ -615,8 +615,6 @@ type Mutation {
     """Information that will be compromised or disclosed by exploiting the
     vulnerability"""
     records: String
-    "Number of compromised records"
-    recordsNumber: Int!
     "Did Sorts guide you to the file where the vulnerability was found?"
     sorts: Sorts
     "Actor and scenery where the vulnerability can be exploited"

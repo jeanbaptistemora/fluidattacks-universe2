@@ -75,7 +75,6 @@ VulnTable = TypedDict(
     {
         "resume": List[List[Union[float, int, str]]],
         "top": List[List[Union[int, str]]],
-        "num_reg": int,
     },
 )
 Context = TypedDict(
@@ -187,7 +186,6 @@ async def format_finding(
         affected_systems=finding.affected_systems,
         attack_vector_description=finding.attack_vector_description,
         closed_vulnerabilities=closed_vulnerabilities,
-        compromised_records=finding.compromised_records,
         description=finding.description,
         evidence_set=evidence_set,
         grouped_inputs_vulnerabilities=(
@@ -301,7 +299,7 @@ def make_vuln_table(
         ["Total", len(context_findings), "100.00%", 0],
     ]
     top_table: List[List[Union[int, str]]] = []
-    ttl_vulns, ttl_num_reg, top = 0, 0, 1
+    ttl_vulns, top = 0, 1
     for finding in context_findings:
         crit_as_text = words["crit_l"]
         vuln_amount = finding.open_vulnerabilities
@@ -321,7 +319,6 @@ def make_vuln_table(
         else:
             vuln_table[3][1] = int(vuln_table[3][1]) + 1
             vuln_table[3][3] = int(vuln_table[3][3]) + vuln_amount
-        ttl_num_reg += finding.compromised_records
         if top <= 5:
             top_table.append(
                 [
@@ -357,7 +354,7 @@ def make_vuln_table(
     vuln_table[2][2] = "{0:.2f}%".format(float(vuln_table[2][2]))
     vuln_table[3][2] = "{0:.2f}%".format(float(vuln_table[3][2]))
     vuln_table[4][3] = ttl_vulns
-    return {"resume": vuln_table, "top": top_table, "num_reg": ttl_num_reg}
+    return {"resume": vuln_table, "top": top_table}
 
 
 # pylint: disable=too-many-instance-attributes
