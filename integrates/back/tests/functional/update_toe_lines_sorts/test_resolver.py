@@ -32,10 +32,10 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
             "servicesToeLines": [
                 {
                     "filename": "test/test#.config",
-                    "modifiedDate": "2019-08-01T00:00:00-05:00",
+                    "modifiedDate": "2019-08-01T05:00:00+00:00",
                     "modifiedCommit": "983466z",
                     "loc": 8,
-                    "testedDate": "2021-02-28T00:00:00-05:00",
+                    "testedDate": "2021-02-28T05:00:00+00:00",
                     "testedLines": 4,
                     "comments": "comment test",
                     "sortsRiskLevel": 0,
@@ -47,20 +47,20 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
             "servicesToeLines": [
                 {
                     "filename": "test2/test.sh",
-                    "modifiedDate": "2020-11-19T00:00:00-05:00",
+                    "modifiedDate": "2020-11-19T05:00:00+00:00",
                     "modifiedCommit": "273412t",
                     "loc": 120,
-                    "testedDate": "2021-01-20T00:00:00-05:00",
+                    "testedDate": "2021-01-20T05:00:00+00:00",
                     "testedLines": 172,
                     "comments": "comment test",
                     "sortsRiskLevel": 10,
                 },
                 {
                     "filename": "test3/test.config",
-                    "modifiedDate": "2020-11-19T00:00:00-05:00",
+                    "modifiedDate": "2020-11-19T05:00:00+00:00",
                     "modifiedCommit": "g545435i",
                     "loc": 55,
-                    "testedDate": "2021-01-20T00:00:00-05:00",
+                    "testedDate": "2021-01-20T05:00:00+00:00",
                     "testedLines": 33,
                     "comments": "comment test",
                     "sortsRiskLevel": 0,

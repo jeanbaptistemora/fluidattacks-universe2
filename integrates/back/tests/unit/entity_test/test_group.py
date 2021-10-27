@@ -597,10 +597,10 @@ async def test_get_toe_lines() -> None:
             "servicesToeLines": [
                 {
                     "filename": "test/test#.config",
-                    "modifiedDate": "2019-08-01T00:00:00-05:00",
+                    "modifiedDate": "2019-08-01T05:00:00+00:00",
                     "modifiedCommit": "983466z",
                     "loc": 8,
-                    "testedDate": "2021-02-28T00:00:00-05:00",
+                    "testedDate": "2021-02-28T05:00:00+00:00",
                     "testedLines": 4,
                     "comments": "comment test",
                 }
@@ -611,10 +611,10 @@ async def test_get_toe_lines() -> None:
             "servicesToeLines": [
                 {
                     "filename": "test2/test.sh",
-                    "modifiedDate": "2020-11-19T00:00:00-05:00",
+                    "modifiedDate": "2020-11-19T05:00:00+00:00",
                     "modifiedCommit": "273412t",
                     "loc": 172,
-                    "testedDate": "2021-01-20T00:00:00-05:00",
+                    "testedDate": "2021-01-20T05:00:00+00:00",
                     "testedLines": 120,
                     "comments": "comment test",
                 }

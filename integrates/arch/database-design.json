@@ -1654,7 +1654,7 @@
                 "S": "SERVICESLINES#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#test/test#.config"
               },
               "modified_date": {
-                "S": "2019-08-01T00:00:00-05:00"
+                "S": "2019-08-01T05:00:00+00:00"
               },
               "comments": {
                 "S": "comment test"
@@ -1666,7 +1666,7 @@
                 "S": "983466z"
               },
               "tested_date": {
-                "S": "2021-02-28T00:00:00-05:00"
+                "S": "2021-02-28T05:00:00+00:00"
               },
               "tested_lines": {
                 "N": "4"
@@ -1683,7 +1683,7 @@
                 "S": "SERVICESLINES#ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#FILENAME#test2/test.sh"
               },
               "modified_date": {
-                "S": "2020-11-19T00:00:00-05:00"
+                "S": "2020-11-19T05:00:00+00:00"
               },
               "comments": {
                 "S": "comment test"
@@ -1695,7 +1695,7 @@
                 "S": "273412t"
               },
               "tested_date": {
-                "S": "2021-01-20T00:00:00-05:00"
+                "S": "2021-01-20T05:00:00+00:00"
               },
               "tested_lines": {
                 "N": "120"
