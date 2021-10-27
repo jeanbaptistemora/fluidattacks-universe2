@@ -28,3 +28,9 @@ class AWSS3Acl(NamedTuple):
     column: int
     data: str
     line: int
+
+
+class AWSCloudfrontDistribution(NamedTuple):
+    column: int
+    data: str
+    line: int

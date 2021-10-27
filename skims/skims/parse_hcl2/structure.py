@@ -2,6 +2,7 @@ from aws.iam.utils import (
     yield_statements_from_policy_document,
 )
 from aws.model import (
+    AWSCloudfrontDistribution,
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
     AWSS3Bucket,
@@ -214,6 +215,18 @@ def iter_s3_buckets(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_s3_bucket")
     for bucket in iterator:
         yield AWSS3Bucket(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_cloudfront_distribution(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(
+        model, "resource", "aws_cloudfront_distribution"
+    )
+    for bucket in iterator:
+        yield AWSCloudfrontDistribution(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,
