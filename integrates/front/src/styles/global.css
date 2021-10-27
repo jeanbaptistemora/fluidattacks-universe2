@@ -56,11 +56,11 @@ label {
 }
 
 :global div.row.react-bootstrap-table-pagination > div {
-  width: 30%;
+  width: 50%;
 }
 
 :global div.row.react-bootstrap-table-pagination > div + div {
-  width: 70%;
+  width: 50%;
 }
 
 :global .pagination {
