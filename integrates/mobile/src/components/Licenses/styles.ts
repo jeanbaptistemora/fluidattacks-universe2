@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
     justifyContent: "flex-start",
     marginBottom: 40,
     marginHorizontal: 20,
-    marginTop: 30,
+    marginTop: 40,
     padding: 10,
     shadowColor: "gray",
     shadowOffset: {

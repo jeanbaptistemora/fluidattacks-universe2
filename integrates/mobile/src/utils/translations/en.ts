@@ -8,6 +8,7 @@ export const enTranslations: ResourceLanguage = {
     licenses: {
       btn: "Done",
       text: "Licenses",
+      title: "Third-party licenses",
     },
   },
   common: {

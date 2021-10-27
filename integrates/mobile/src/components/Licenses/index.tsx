@@ -72,7 +72,7 @@ export const Licenses: React.FC<ILicenses> = ({
         >
           <View style={styles.buttonContainer}>
             <Text style={{ ...styles.text, color: colors.text }}>
-              {t("about.licenses.text")}
+              {t("about.licenses.title")}
             </Text>
             <Pressable onPress={changeModalVisibility} style={styles.button}>
               <Text
