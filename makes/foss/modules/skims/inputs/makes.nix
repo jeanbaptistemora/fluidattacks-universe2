@@ -62,10 +62,10 @@
       sha256 = "nU0mVkGG6Sr4OstRFCIrbUGJnAHMZ9+lCDTJAFf392c=";
     };
     skimsTreeSitterKotlin = fetchGithub {
-      owner = "tree-sitter";
+      owner = "fwcd";
       repo = "tree-sitter-kotlin";
       rev = "48bfb38abd93f8d617877d7bb7f92a6bb1166285";
-      sha256 = "5thm7nYOZLDUsb/2KGV2fZg35uId8nZEMdyLUsdTPT0=";
+      sha256 = "0g9xag3m52yw6527dwhxwbk3g63xfrjjixmzn7ab0r0ffvp6dn76";
     };
     skimsTreeSitterPhp = fetchGithub {
       owner = "tree-sitter";

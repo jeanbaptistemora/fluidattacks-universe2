@@ -48,3 +48,9 @@ What is the impact of not doing this? -->
 would be implied
 or impacted by this feature
 without being directly part of the work? -->
+
+---
+
+<!-- Template inspired on: https://github.com/NixOS/rfcs -->
+
+/label ~request-for-comments
