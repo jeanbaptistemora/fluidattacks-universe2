@@ -8264,7 +8264,7 @@
       details: __empty__
 "145":
   en:
-    title: Insecure encryption algorithm - Unused components
+    title: Free
     description: >
       __empty__
     impact: >
@@ -8274,7 +8274,7 @@
     threat: >
       __empty__
   es:
-    title: Insecure encryption algorithm - Unused components
+    title: Free
     description: >
       __empty__
     impact: >
@@ -13294,7 +13294,7 @@
       details: __empty__
 "266":
   en:
-    title: Insecure encryption algorithm - TLS
+    title: Free
     description: >
       __empty__
     impact: >
@@ -13304,7 +13304,7 @@
     threat: >
       __empty__
   es:
-    title: Insecure encryption algorithm - TLS
+    title: Free
     description: >
       __empty__
     impact: >
@@ -13334,7 +13334,7 @@
       details: __empty__
 "267":
   en:
-    title: Insecure encryption algorithm - SSL
+    title: Free
     description: >
       __empty__
     impact: >
@@ -13344,7 +13344,7 @@
     threat: >
       __empty__
   es:
-    title: Insecure encryption algorithm - SSL
+    title: Free
     description: >
       __empty__
     impact: >
@@ -13374,7 +13374,7 @@
       details: __empty__
 "268":
   en:
-    title: Insecure encryption algorithm - DES
+    title: Free
     description: >
       __empty__
     impact: >
@@ -13384,7 +13384,7 @@
     threat: >
       __empty__
   es:
-    title: Insecure encryption algorithm - DES
+    title: Free
     description: >
       __empty__
     impact: >
