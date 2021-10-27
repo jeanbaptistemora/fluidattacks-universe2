@@ -5943,6 +5943,30 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   26 |         },
      ^ Col 6
 "
+F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,37,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP.,"
+  27 |     target_origin_id = local.s3_origin_id
+  28 |
+  29 |     forwarded_values {
+  30 |       query_string = false
+  31 |
+  32 |       cookies {
+  33 |         forward = ""none""
+  34 |       }
+  35 |     }
+  36 |
+> 37 |     viewer_protocol_policy = ""allow-all""
+  38 |     min_ttl                = 0
+  39 |     default_ttl            = 3600
+  40 |     max_ttl                = 86400
+  41 |   }
+  42 |
+  43 |   ordered_cache_behavior {
+  44 |     path_pattern     = ""/content/immutable/*""
+  45 |     allowed_methods  = [""GET"", ""HEAD"", ""OPTIONS""]
+  46 |     cached_methods   = [""GET"", ""HEAD"", ""OPTIONS""]
+  47 |     target_origin_id = local.s3_origin_id
+     ^ Col 0
+"
 F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,38,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP.,"
   28 |       ""PathPattern"": ""images1/*.jpg""
   29 |     },
@@ -5966,6 +5990,30 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   47 | roperties"": {
   48 | ""DistributionConfig"": {
      ^ Col 8
+"
+F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,62,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP.,"
+  52 |
+  53 |       cookies {
+  54 |         forward = ""none""
+  55 |       }
+  56 |     }
+  57 |
+  58 |     min_ttl                = 0
+  59 |     default_ttl            = 86400
+  60 |     max_ttl                = 31536000
+  61 |     compress               = true
+> 62 |     viewer_protocol_policy = ""allow-all""
+  63 |   }
+  64 |
+  65 |   tags = {
+  66 |     Environment = ""production""
+  67 |   }
+  68 |
+  69 |   viewer_certificate {
+  70 |     cloudfront_default_certificate = true
+  71 |   }
+  72 | }
+     ^ Col 0
 "
 F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,69,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP.,"
   59 |   },
