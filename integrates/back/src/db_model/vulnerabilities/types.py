@@ -54,7 +54,6 @@ class Vulnerability(NamedTuple):
     id: str
     specific: str
     state: VulnerabilityState
-    treatment: VulnerabilityTreatment
     type: VulnerabilityType
     where: str
     bug_tracking_system_url: Optional[str] = None
@@ -64,6 +63,7 @@ class Vulnerability(NamedTuple):
     repo: Optional[str] = None
     stream: Optional[List[str]] = None
     tags: Optional[List[str]] = None
+    treatment: Optional[VulnerabilityTreatment] = None
     verification: Optional[VulnerabilityVerification] = None
     zero_risk: Optional[VulnerabilityZeroRisk] = None
 

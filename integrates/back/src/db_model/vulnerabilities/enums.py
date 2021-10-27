@@ -12,8 +12,9 @@ class VulnerabilityType(Enum):
 class VulnerabilityDeletionJustification(Enum):
     DUPLICATED: str = "DUPLICATED"
     FALSE_POSITIVE: str = "FALSE_POSITIVE"
-    REPORTING_ERROR: str = "REPORTING_ERROR"
     NO_JUSTIFICATION: str = "NO_JUSTIFICATION"
+    NOT_REQUIRED: str = "NOT_REQUIRED"
+    REPORTING_ERROR: str = "REPORTING_ERROR"
 
 
 class VulnerabilityStateStatus(Enum):
