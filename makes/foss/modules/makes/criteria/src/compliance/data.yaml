@@ -2738,4 +2738,31 @@
     "787":
       title: Out-of-bounds Write
       link: https://cwe.mitre.org/data/definitions/787.html
+    "79":
+      title: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
+      link: https://cwe.mitre.org/data/definitions/79.html
+    "125":
+      title: Out-of-bounds Read
+      link: https://cwe.mitre.org/data/definitions/125.html
+    "20":
+      title: Improper Input Validation
+      link: https://cwe.mitre.org/data/definitions/20.html
+    "78":
+      title: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+      link: https://cwe.mitre.org/data/definitions/78.html
+    "89":
+      title: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
+      link: https://cwe.mitre.org/data/definitions/89.html
+    "416":
+      title: User After Free
+      link: https://cwe.mitre.org/data/definitions/416.html
+    "22":
+      title: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')
+      link: https://cwe.mitre.org/data/definitions/22.html
+    "352":
+      title: Cross-Site Request Forgery (CSRF)
+      link: https://cwe.mitre.org/data/definitions/352.html
+    "434":
+      title: Unrestricted Upload of File with Dangerous Type
+      link: https://cwe.mitre.org/data/definitions/434.html
   metadata: {}
