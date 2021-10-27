@@ -50,6 +50,11 @@
       "<1.7.9"
     ]
   },
+  "ansi-html": {
+    "CVE-2021-23424": [
+      "<=0.0.7"
+    ]
+  },
   "ansi-regex": {
     "CVE-2018-1002204": [
       ">=3.0.0,<5.0.1",
@@ -243,6 +248,9 @@
     ]
   },
   "decompress": {
+    "CVE-2020-12265": [
+      "<4.2.1"
+    ],
     "github.com/kevva/decompress/issues/71": [
       "<4.2.1"
     ],
@@ -390,6 +398,11 @@
   },
   "fs.realpath": {},
   "fsevents": {},
+  "fstream": {
+    "CVE-2019-13173": [
+      "<1.0.12"
+    ]
+  },
   "function-bind": {},
   "get-caller-file": {},
   "get-stream": {},
@@ -677,12 +690,26 @@
   },
   "loader-utils": {},
   "locate-path": {},
+  "locutus": {
+    "SNYK-JS-LOCUTUS-1009836": [
+      "<2.0.15"
+    ],
+    "CVE-2020-7719": [
+      "<2.0.12"
+    ],
+    "CVE-2020-13619": [
+      "<=2.0.11"
+    ]
+  },
   "lodahs": {
     "CVE-2019-19771": [
       ">=0.0.0"
     ]
   },
   "lodash": {
+    "SNYK-JS-LODASH-608086": [
+      "<4.17.17"
+    ],
     "CVE-2021-23337": [
       "<4.17.21"
     ],
@@ -1039,6 +1066,11 @@
   "spdx-expression-parse": {},
   "spdx-license-ids": {},
   "split-string": {},
+  "sshpk": {
+    "CVE-2018-7651": [
+      "==1.13.1"
+    ]
+  },
   "ssri": {
     "CVE-2018-7651": [
       "<5.2.2"
