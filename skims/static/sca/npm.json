@@ -182,8 +182,11 @@
   "color-convert": {},
   "color-name": {},
   "color-string": {
+    "CVE-2021-29060": [
+      "<1.5.5"
+    ],
     "SNYK-JS-COLORSTRING-1082939": [
-      "<<1.5.5"
+      "<1.5.5"
     ]
   },
   "connect": {
@@ -751,6 +754,9 @@
   "merge": {
     "CVE-2018-16469": [
       "<1.2.1"
+    ],
+    "github.com/yeikos/js.merge/pull/38": [
+      "<=2.1.1"
     ]
   },
   "merge-deep": {
@@ -794,6 +800,11 @@
     ],
     "github.com/mochajs/mocha/pull/3686": [
       "<6.0.0"
+    ]
+  },
+  "moment": {
+    "CVE-2017-18214": [
+      ">=2.19.2"
     ]
   },
   "mongoose": {
@@ -863,6 +874,9 @@
     "CVE-2019-18797": [
       "<=6.0.1"
     ],
+    "CVE-2018-11499": [
+      "<=6.0.1"
+    ],
     "CVE-2018-20822": [
       "<=6.0.1"
     ],
@@ -895,6 +909,9 @@
     ],
     "SNYK-JS-NODESASS-540996": [
       "<=6.0.1"
+    ],
+    "www.npmjs.com/advisories/961": [
+      "<4.13.1"
     ]
   },
   "normalize-package-data": {},
