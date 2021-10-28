@@ -11,7 +11,7 @@ All our applications and services have industry-standard
 - The [`Fluid Attacks`](https://fluidattacks.com/) domain
   uses the latest [TLSv1.3](/criteria/requirements/181)
   cryptographic protocol
-  for a maximum in transit protection.
+  for maximum protection of data in transit.
 
 - We maintain an SSL A+ score from
   [SSL Labs](https://www.ssllabs.com/ssltest/analyze.html?d=fluidattacks.com&latest).
@@ -31,7 +31,7 @@ All our applications and services have industry-standard
 
 - [Attack Surface Manager's (ASM)](https://app.fluidattacks.com/)
   database uses TLSv1.2
-  for in transit protection.
+  for the protection of data in transit.
 
 - We possess fully dedicated network channels
   with some of our biggest clients,

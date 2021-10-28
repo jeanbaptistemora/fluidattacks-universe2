@@ -60,5 +60,5 @@ have industry-standard
   to this policy.
 
 - All our Linux laptops have their hard drives encrypted
-  from bootloader
+  from the bootloader
   using LUKS.

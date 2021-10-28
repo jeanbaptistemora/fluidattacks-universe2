@@ -8,7 +8,7 @@ slug: /about/security
 As a security company,
 `Fluid Attacks` is aware of the importance of
 
-- having honesty, teamwork,
+- having honesty, teamwork
   and discipline as immovable principles
   (our full manifest can be found
   [here](https://fluidattacks.com/about-us/values/));

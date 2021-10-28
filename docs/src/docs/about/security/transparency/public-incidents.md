@@ -10,7 +10,7 @@ and keep stakeholders informed,
 we report all news and incidents
 related to our software
 on our
-[News Site](https://news.fluidattacks.com/?label=15603).
+[News site](https://news.fluidattacks.com/?label=15603).
 
 Each incident report contains the following items:
 

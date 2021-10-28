@@ -6,8 +6,8 @@ slug: /about/security/transparency/open-source
 ---
 
 The source code of all our applications is available
-all over the Internet.
-Two security advantages
+on the Internet.
+The security advantages
 of having open-source code
 are the following:
 
@@ -17,10 +17,11 @@ are the following:
   about the quality of the source code we publish.
   This is why we avoid common bad practices
   such as backdoors,
-  exposed secrets,
+  exposed secrets
   and the use of vulnerable dependencies.
 
-- **Transparency:** The complete history of our source code appears found
+- **Transparency:** The complete history of our source code
+  can be found
   [here](https://gitlab.com/fluidattacks/product/-/commits/master).
   By publishing it,
   we let interested parties know exactly

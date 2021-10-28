@@ -28,5 +28,6 @@ if users lose their corporate email,
 to their ASM account.
 In addition,
 customers can [easily manage](/criteria/requirements/034)
-who has and who does not have
-access to their projects.
+who does
+and who does not have access
+to their projects.

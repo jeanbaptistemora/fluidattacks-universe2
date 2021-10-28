@@ -14,7 +14,7 @@ any of the passwords
 of the managed applications;
 they only know their own IAM passphrases.
 Once they log in to IAM,
-they can access applications
+they can access the applications
 [assigned to them](/criteria/requirements/096).
 
 Some of our IAM specifications
@@ -45,10 +45,10 @@ and requirements are listed below:
 - We use both
   [SAML](https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language)
   and [Oauth2](https://oauth.net/2/)
-  for logging in.
+  for authentication.
   These two protocols allow us to log in
   to external applications
-  by only having our IAM active account.
+  with only our IAM active account.
   No passwords or users are needed.
 
 - In case a mobile phone supports

@@ -6,7 +6,7 @@ slug: /about/security/confidentiality/hire-directly
 ---
 
 All our employees have indefinite-term contracts
-directly with the company.
+directly with our company.
 Due to our business nature,
 we never hire through contractors,
 freelancers,

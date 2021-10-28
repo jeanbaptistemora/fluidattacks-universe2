@@ -15,4 +15,5 @@ These emails contain information about
   (to the extent this information is available).
 
 For a breach that exposes the private data of many users,
-we take care to inform the public via email.
+we take care to inform the public
+via email.
