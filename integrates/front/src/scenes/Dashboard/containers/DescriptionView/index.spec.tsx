@@ -104,7 +104,6 @@ describe("Finding Description", (): void => {
     affectedSystems: "BWAPP Server",
     attackVectorDescription: "Run a reverse shell",
     compromisedAttributes: "Server files",
-    compromisedRecords: 204,
     description: "It's possible to execute shell commands from the site",
     id: "413372600",
     openVulnerabilities: 0,

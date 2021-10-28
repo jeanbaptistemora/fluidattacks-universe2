@@ -75,7 +75,6 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         "analyst_email": finding.hacker_email,
         "attack_vector_description": finding.attack_vector_description,
         "compromised_attributes": finding.compromised_attributes,
-        "compromised_records": finding.compromised_records,
         "cvss_version": cvss_version.value,
         "description": finding.description,
         "evidences": metadata_evidences_item,

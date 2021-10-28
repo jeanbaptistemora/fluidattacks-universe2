@@ -155,7 +155,6 @@ class Finding(NamedTuple):
     approval: Optional[FindingState] = None
     compromised_attributes: str = ""
     creation: Optional[FindingState] = None
-    compromised_records: int = 0
     description: str = ""
     evidences: FindingEvidences = FindingEvidences()
     severity: Union[Finding20Severity, Finding31Severity] = Finding31Severity()
@@ -180,7 +179,6 @@ class FindingMetadataToUpdate(NamedTuple):
     affected_systems: Optional[str] = None
     attack_vector_description: Optional[str] = None
     compromised_attributes: Optional[str] = None
-    compromised_records: Optional[int] = None
     description: Optional[str] = None
     evidences: Optional[FindingEvidences] = None
     recommendation: Optional[str] = None
