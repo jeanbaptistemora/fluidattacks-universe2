@@ -1,7 +1,4 @@
 import aioboto3
-from aioextensions import (
-    collect,
-)
 import aiohttp
 import asyncio
 from back.src.context import (
@@ -15,6 +12,7 @@ from back.src.settings.logger import (
 from batch.dal import (
     Job,
     JobStatus,
+    list_queues_jobs,
 )
 import boto3
 from datetime import (
@@ -22,10 +20,6 @@ from datetime import (
 )
 import hashlib
 import hmac
-from itertools import (
-    chain,
-    product,
-)
 import json
 import logging
 import logging.config
@@ -105,16 +99,13 @@ async def list_(
     if include_urgent:
         queues.append(get_queue_for_finding(finding_code, urgent=True))
 
-    filters = (f"process-{group_name}-{finding_code}-*",)
-    jobs = list(
-        chain.from_iterable(
-            await collect(
-                [
-                    _list_jobs_by_name(queue, status, filters=filters)
-                    for queue, status in product(queues, statuses)
-                ]
-            )
-        )
+    jobs = await list_queues_jobs(
+        filters=(
+            lambda job: parse_name(job.name).finding_code == finding_code,
+            lambda job: parse_name(job.name).group_name == group_name,
+        ),
+        queues=queues,
+        statuses=statuses,
     )
 
     return sorted(
