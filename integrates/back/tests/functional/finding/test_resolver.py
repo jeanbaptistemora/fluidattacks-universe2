@@ -114,6 +114,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     recommendation: str = "Updated recommendation"
     affected_systems: str = "Server bWAPP"
     compromised_attributes: str = "Clave plana"
+    records_number: int = 12
     tracking: List[Dict[str, Any]] = [
         {
             "cycle": 0,
@@ -173,6 +174,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
         result["data"]["finding"]["compromisedAttributes"]
         == compromised_attributes
     )
+    assert result["data"]["finding"]["compromisedRecords"] == records_number
     assert result["data"]["finding"]["consulting"] == [
         {
             "content": (
@@ -323,6 +325,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     recommendation: str = "Updated recommendation"
     affected_systems: str = "Server bWAPP"
     compromised_attributes: str = "Clave plana"
+    records_number: int = 12
     tracking: List[Dict[str, Any]] = [
         {
             "cycle": 0,
@@ -381,6 +384,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
         result["data"]["finding"]["compromisedAttributes"]
         == compromised_attributes
     )
+    assert result["data"]["finding"]["compromisedRecords"] == records_number
     assert result["data"]["finding"]["consulting"] == [
         {
             "content": (

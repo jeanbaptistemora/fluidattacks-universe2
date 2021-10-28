@@ -152,6 +152,7 @@ def format_finding(
         approval=approval,
         attack_vector_description=metadata["attack_vector_description"],
         compromised_attributes=metadata["compromised_attributes"],
+        compromised_records=int(metadata["compromised_records"]),
         creation=creation,
         description=metadata["description"],
         evidences=evidences,

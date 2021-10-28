@@ -73,8 +73,8 @@
 {% for finding in findings %}
 ==== {{finding.title + "\n"}}
 |===
-|{{severity_title}}|{{cardinality_title}}|{{state_title}}
-{{"|"+finding.severity_score|string+"|"+finding.open_vulnerabilities|string+"|"+finding.state}}
+|{{severity_title}}|{{cardinality_title}}|{{records_title}}|{{state_title}}
+{{"|"+finding.severity_score|string+"|"+finding.open_vulnerabilities|string+"|"+finding.compromised_records|string+"|"+finding.state}}
 |===
 ===== {{description_title}}
 {{finding.title + "\n"}}

@@ -16,6 +16,8 @@ type Finding {
   closedVulnerabilities: Int
   "Compromised client DB attributes extracted through the vulnerability"
   compromisedAttributes: String
+  "Number of compromised records extracted through the vulnerability"
+  compromisedRecords: Int
   "Information about the Finding shared by the stakeholders via comments"
   consulting: [Consult]
   "Current status of the Finding"

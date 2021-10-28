@@ -62,6 +62,7 @@ async def mutate(
                 kwargs, "attack_vector_description", "attack_vector_desc"
             ),
             compromised_attributes=kwargs.get("records"),
+            compromised_records=kwargs["records_number"],
             description=kwargs["description"],
             recommendation=kwargs["recommendation"],
             sorts=FindingSorts[kwargs["sorts"]]

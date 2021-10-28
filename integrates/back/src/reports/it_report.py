@@ -250,6 +250,7 @@ class ITReport:
             "Threat": finding.threat,
             "Recommendation": finding.recommendation,
             "Compromised Attributes": finding.compromised_attributes,
+            "# Compromised records": str(finding.compromised_records),
         }
         for key, value in finding_data.items():
             self.row_values[self.vulnerability[key]] = value

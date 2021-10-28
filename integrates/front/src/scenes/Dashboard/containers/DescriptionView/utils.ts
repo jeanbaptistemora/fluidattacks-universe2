@@ -7,4 +7,8 @@ const formatFindingType: (type: string) => string = (type: string): string =>
     ? "-"
     : translate.t(`searchFindings.tabDescription.type.${type.toLowerCase()}`);
 
-export { formatFindingType };
+const formatCompromisedRecords: (records: number) => string = (
+  records: number
+): string => records.toString();
+
+export { formatFindingType, formatCompromisedRecords };

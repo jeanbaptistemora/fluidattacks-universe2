@@ -106,6 +106,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
       await updateDescription({
         variables: {
           ...values,
+          compromisedRecords: Number(values.compromisedRecords),
           findingId,
         },
       });

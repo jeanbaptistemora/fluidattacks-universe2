@@ -58,6 +58,9 @@ class GroupVulnsReportHeader(GenericHeader):
     COMPROMISED_ATTRS: ColumnConfig = ColumnConfig(
         label="Compromised Attributes", width=35
     )
+    N_COMPROMISED_RECORDS: ColumnConfig = ColumnConfig(
+        label="# Compromised records", width=30
+    )
     TAGS: ColumnConfig = ColumnConfig(label="Tags", width=60)
     BUSINESS_CRITICALLY: ColumnConfig = ColumnConfig(
         label="Business Critically", width=25
@@ -154,6 +157,7 @@ class PdfFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
     affected_systems: str
     attack_vector_description: str
     closed_vulnerabilities: int
+    compromised_records: int
     description: str
     evidence_set: List[Dict[str, str]]
     grouped_inputs_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]

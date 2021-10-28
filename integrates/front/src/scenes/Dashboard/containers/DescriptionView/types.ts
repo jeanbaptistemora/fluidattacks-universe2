@@ -12,6 +12,7 @@ interface IFinding {
   affectedSystems: string;
   attackVectorDescription: string;
   compromisedAttributes: string;
+  compromisedRecords: number;
   description: string;
   hacker?: string;
   id: string;
