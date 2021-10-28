@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 
 import { HandleAcceptanceModalForm } from "./form";
 import {
-  acceptationProps,
+  acceptanceProps,
   confirmZeroRiskProps,
   isAcceptedUndefinedSelectedHelper,
   isConfirmZeroRiskSelectedHelper,
@@ -81,7 +81,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     // GraphQL operations
     const [handleAcceptation, { loading: handlingAcceptation }] = useMutation(
       HANDLE_VULNS_ACCEPTANCE,
-      acceptationProps(
+      acceptanceProps(
         refetchData,
         handleCloseModal,
         canRetrieveHacker,

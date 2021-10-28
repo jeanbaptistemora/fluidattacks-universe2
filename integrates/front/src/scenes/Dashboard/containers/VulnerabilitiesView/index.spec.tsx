@@ -236,7 +236,7 @@ describe("VulnerabilitiesView", (): void => {
 
         expect(wrapper).toHaveLength(1);
 
-        wrapper.find("Button#handleAcceptationButton").simulate("click");
+        wrapper.find("Button#handleAcceptanceButton").simulate("click");
 
         expect(
           wrapper

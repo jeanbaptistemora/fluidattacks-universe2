@@ -26,7 +26,7 @@ import { translate } from "utils/translations/translate";
 const onTreatmentChangeHelper = (
   isAcceptedUndefinedSelected: boolean,
   vulns: IVulnerabilitiesAttr[],
-  setAcceptationVulns: (
+  setAcceptanceVulns: (
     pendingVulnsToHandleAcceptation: IVulnDataAttr[]
   ) => void,
   isConfirmRejectZeroRiskSelected: boolean
@@ -34,17 +34,17 @@ const onTreatmentChangeHelper = (
   if (isAcceptedUndefinedSelected) {
     const pendingVulnsToHandleAcceptation: IVulnDataAttr[] =
       getVulnsPendingOfAcceptance(vulns);
-    setAcceptationVulns(pendingVulnsToHandleAcceptation);
+    setAcceptanceVulns(pendingVulnsToHandleAcceptation);
   } else if (isConfirmRejectZeroRiskSelected) {
     const requestedZeroRiskVulns: IVulnDataAttr[] =
       getRequestedZeroRiskVulns(vulns);
-    setAcceptationVulns([...requestedZeroRiskVulns]);
+    setAcceptanceVulns([...requestedZeroRiskVulns]);
   } else {
-    setAcceptationVulns([]);
+    setAcceptanceVulns([]);
   }
 };
 
-const acceptationProps = (
+const acceptanceProps = (
   refetchData: () => void,
   handleCloseModal: () => void,
   canRetrieveHacker: boolean,
@@ -209,7 +209,7 @@ const rejectZeroRiskProps = (
 
 const isAcceptedUndefinedSelectedHelper = (
   isAcceptedUndefinedSelected: boolean,
-  handleAcceptation: (
+  handleAcceptance: (
     options?: MutationFunctionOptions | undefined
   ) => Promise<FetchResult>,
   acceptedVulnIds: string[],
@@ -222,7 +222,7 @@ const isAcceptedUndefinedSelectedHelper = (
   if (isAcceptedUndefinedSelected) {
     // Exception: FP(void operator is necessary)
     // eslint-disable-next-line
-    void handleAcceptation({ //NOSONAR
+    void handleAcceptance({ //NOSONAR
       variables: {
         acceptedVulnerabilities: acceptedVulnIds,
         findingId,
@@ -284,7 +284,7 @@ const isRejectZeroRiskSelectedHelper = (
 };
 
 export {
-  acceptationProps,
+  acceptanceProps,
   confirmZeroRiskProps,
   isAcceptedUndefinedSelectedHelper,
   isConfirmZeroRiskSelectedHelper,

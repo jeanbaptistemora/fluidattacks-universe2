@@ -79,10 +79,10 @@ export const VulnsView: React.FC = (): JSX.Element => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
   }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
-  const [isHandleAcceptationModalOpen, setHandleAcceptationModalOpen] =
+  const [isHandleAcceptanceModalOpen, setHandleAcceptanceModalOpen] =
     useState(false);
-  function toggleHandleAcceptationModal(): void {
-    setHandleAcceptationModalOpen(!isHandleAcceptationModalOpen);
+  function toggleHandleAcceptanceModal(): void {
+    setHandleAcceptanceModalOpen(!isHandleAcceptanceModalOpen);
   }
 
   const [remediationModalConfig, setRemediationModalConfig] = useState<{
@@ -327,7 +327,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     {
       defaultValue: treatmentCurrentStatusFilter,
       onChangeSelect: onTreatmentStatusChange,
-      placeholder: "Treatment Acceptation",
+      placeholder: "Treatment Acceptance",
       selectOptions: {
         false: "Accepted",
         true: "Pending",
@@ -380,7 +380,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
               onEdit={toggleEdit}
               onRequestReattack={toggleRequestVerify}
               onVerify={toggleVerify}
-              openHandleAcceptation={toggleHandleAcceptationModal}
+              openHandleAcceptance={toggleHandleAcceptanceModal}
               openModal={toggleModal}
               state={data.finding.state}
               subscription={data.group.subscription}
@@ -434,11 +434,11 @@ export const VulnsView: React.FC = (): JSX.Element => {
             vulns={remediationModalConfig.vulnerabilities}
           />
         ) : undefined}
-        {isHandleAcceptationModalOpen ? (
+        {isHandleAcceptanceModalOpen ? (
           <HandleAcceptanceModal
             findingId={findingId}
             groupName={groupName}
-            handleCloseModal={toggleHandleAcceptationModal}
+            handleCloseModal={toggleHandleAcceptanceModal}
             refetchData={refetch}
             vulns={resultVulnerabilities}
           />

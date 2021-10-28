@@ -9,7 +9,7 @@ import waitForExpect from "wait-for-expect";
 import { HandleAcceptanceButton } from ".";
 import { authzPermissionsContext } from "utils/authz/config";
 
-describe("HandleAcceptationButtons", (): void => {
+describe("HandleAcceptanceButtons", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof HandleAcceptanceButton).toStrictEqual("function");
@@ -19,17 +19,17 @@ describe("HandleAcceptationButtons", (): void => {
     expect.hasAssertions();
 
     const { t } = useTranslation();
-    const openHandleAcceptation: jest.Mock = jest.fn();
+    const openHandleAcceptance: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_handle_vulnerabilities_acceptance_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <HandleAcceptanceButton
-        areVulnerabilitiesPendingToAcceptation={true}
+        areVulnerabilitiesPendingToAcceptance={true}
         isEditing={true}
         isRequestingReattack={false}
         isVerifying={false}
-        openHandleAcceptation={openHandleAcceptation}
+        openHandleAcceptance={openHandleAcceptance}
       />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
@@ -44,14 +44,14 @@ describe("HandleAcceptationButtons", (): void => {
         expect(wrapper.find("Button")).toHaveLength(0);
 
         wrapper.setProps({
-          areVulnerabilitiesPendingToAcceptation: false,
+          areVulnerabilitiesPendingToAcceptance: false,
           isEditing: false,
         });
         wrapper.update();
 
         expect(wrapper.find("Button")).toHaveLength(0);
 
-        wrapper.setProps({ areVulnerabilitiesPendingToAcceptation: true });
+        wrapper.setProps({ areVulnerabilitiesPendingToAcceptance: true });
         wrapper.update();
         const buttons: ReactWrapper = wrapper.find("Button");
 
@@ -65,7 +65,7 @@ describe("HandleAcceptationButtons", (): void => {
 
         buttons.simulate("click");
 
-        expect(openHandleAcceptation).toHaveBeenCalledTimes(1);
+        expect(openHandleAcceptance).toHaveBeenCalledTimes(1);
       });
     });
   });

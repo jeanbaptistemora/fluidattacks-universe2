@@ -11,16 +11,16 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import { authzPermissionsContext } from "utils/authz/config";
 
 const HandleAcceptanceButton: React.FC<IHandleAcceptanceButtonProps> = ({
-  areVulnerabilitiesPendingToAcceptation,
+  areVulnerabilitiesPendingToAcceptance,
   isEditing,
   isRequestingReattack,
   isVerifying,
-  openHandleAcceptation,
+  openHandleAcceptance,
 }: IHandleAcceptanceButtonProps): JSX.Element => {
   const { t } = useTranslation();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canHandleVulnsAcceptation: boolean = permissions.can(
+  const canHandleVulnsAcceptance: boolean = permissions.can(
     "api_mutations_handle_vulnerabilities_acceptance_mutate"
   );
   const canConfirmZeroRiskVuln: boolean = permissions.can(
@@ -30,26 +30,23 @@ const HandleAcceptanceButton: React.FC<IHandleAcceptanceButtonProps> = ({
     "api_mutations_reject_vulnerabilities_zero_risk_mutate"
   );
 
-  const shouldRenderHandleAcceptationBtn: boolean =
-    (canHandleVulnsAcceptation ||
+  const shouldRenderHandleAcceptanceBtn: boolean =
+    (canHandleVulnsAcceptance ||
       canConfirmZeroRiskVuln ||
       canRejectZeroRiskVuln) &&
     !(isEditing || isRequestingReattack || isVerifying) &&
-    areVulnerabilitiesPendingToAcceptation;
+    areVulnerabilitiesPendingToAcceptance;
 
   return (
     <React.StrictMode>
-      {shouldRenderHandleAcceptationBtn ? (
+      {shouldRenderHandleAcceptanceBtn ? (
         <TooltipWrapper
           displayClass={"dib"}
           id={"searchFindings.tabVuln.buttonsTooltip.handleAcceptance.id"}
           message={t("searchFindings.tabVuln.buttonsTooltip.handleAcceptance")}
           placement={"top"}
         >
-          <Button
-            id={"handleAcceptationButton"}
-            onClick={openHandleAcceptation}
-          >
+          <Button id={"handleAcceptanceButton"} onClick={openHandleAcceptance}>
             <React.Fragment>
               <FluidIcon icon={"verified"} />
               &nbsp;

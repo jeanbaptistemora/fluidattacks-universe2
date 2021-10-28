@@ -1,7 +1,7 @@
 export interface IHandleAcceptanceButtonProps {
-  areVulnerabilitiesPendingToAcceptation: boolean;
+  areVulnerabilitiesPendingToAcceptance: boolean;
   isEditing: boolean;
   isRequestingReattack: boolean;
   isVerifying: boolean;
-  openHandleAcceptation: () => void;
+  openHandleAcceptance: () => void;
 }

@@ -25,7 +25,7 @@ interface IActionButtonsProps {
   onEdit: () => void;
   onRequestReattack: () => void;
   onVerify: () => void;
-  openHandleAcceptation: () => void;
+  openHandleAcceptance: () => void;
   openModal: () => void;
 }
 
@@ -44,7 +44,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   onEdit,
   onRequestReattack,
   onVerify,
-  openHandleAcceptation,
+  openHandleAcceptance,
   openModal,
 }: IActionButtonsProps): JSX.Element => {
   const displayMessage: () => void = (): void => {
@@ -59,13 +59,13 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   return (
     <ButtonToolbarRow>
       <HandleAcceptanceButton
-        areVulnerabilitiesPendingToAcceptation={
+        areVulnerabilitiesPendingToAcceptance={
           areVulnerabilitiesPendingToAcceptance
         }
         isEditing={isEditing}
         isRequestingReattack={isRequestingReattack}
         isVerifying={isVerifying}
-        openHandleAcceptation={openHandleAcceptation}
+        openHandleAcceptance={openHandleAcceptance}
       />
       <VerifyVunButton
         areVulnsSelected={areVulnsSelected}
