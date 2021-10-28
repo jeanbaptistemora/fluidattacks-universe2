@@ -66,8 +66,13 @@
     {%-  endfor %}
 {%- endfor %}
 |===
+.{{resume_regi_title}}
+[cols="<,^", options="header"]
+|===
+|{{"*"+records_title+"*"}}|{{main_tables['num_reg']}}
+|===
 
-//Septima en adelante - Resumen hallazgos
+//Septima en adleante - Resumen hallazgos
 <<<
 === {{finding_section_title}}
 {% for finding in findings %}
