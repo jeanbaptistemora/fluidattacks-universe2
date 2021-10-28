@@ -1,0 +1,17 @@
+closure:
+  python-dateutil: 2.8.1
+  six: 1.16.0
+links:
+  - name: python_dateutil-2.8.1-py2.py3-none-any.whl
+    sha256: 0answacgnckybm5iyfnaqsgval3mdbpak4i6fsbi2vv8x8qkzfvm
+    url: https://files.pythonhosted.org/packages/d4/70/d60450c3dd48ef87586924207ae8907090de0b306af2bce5d134d78615cb/python_dateutil-2.8.1-py2.py3-none-any.whl
+  - name: python-dateutil-2.8.1.tar.gz
+    sha256: 0g42w7k5007iv9dam6gnja2ry8ydwirh99mgdll35s12pyfzxsvk
+    url: https://files.pythonhosted.org/packages/be/ed/5bbc91f03fa4c839c4c7360375da77f9659af5f7086b7a7bdda65771c8e0/python-dateutil-2.8.1.tar.gz
+  - name: six-1.16.0-py2.py3-none-any.whl
+    sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
+    url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl
+  - name: six-1.16.0.tar.gz
+    sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
+    url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
+python: "3.8"

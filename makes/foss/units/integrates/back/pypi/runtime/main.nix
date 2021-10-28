@@ -1,6 +1,6 @@
-{ inputs
-, makeTemplate
+{ makeTemplate
 , makePythonPypiEnvironment
+, outputs
 , projectPath
 , ...
 }:
@@ -21,7 +21,7 @@ makeTemplate {
     ];
     source = [
       pythonRequirements
-      inputs.product.makes-python-safe-pickle
+      outputs."/makes/python/safe-pickle"
     ];
   };
 }

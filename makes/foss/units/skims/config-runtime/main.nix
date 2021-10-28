@@ -20,7 +20,7 @@ makeTemplate {
       (projectPath "/skims/skims")
     ];
     source = [
-      inputs.product.makes-python-safe-pickle
+      outputs."/makes/python/safe-pickle"
       outputs."/skims/config-runtime/pypi"
       (makeTemplate {
         replace = {
