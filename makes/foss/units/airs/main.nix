@@ -20,7 +20,7 @@ makeScript {
       inputs.nixpkgs.nodejs
       inputs.nixpkgs.python37
       inputs.nixpkgs.utillinux
-      inputs.product.makes-announce-bugsnag
+      outputs."/makes/announce/bugsnag"
       inputs.product.makes-bugsnag-source-map-uploader
     ];
   };
