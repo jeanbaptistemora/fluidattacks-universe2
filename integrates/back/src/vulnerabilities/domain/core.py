@@ -27,6 +27,12 @@ from custom_types import (
     User as UserType,
     Vulnerability as VulnerabilityType,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from dynamodb.operations_legacy import (
     start_context,
 )
@@ -169,38 +175,38 @@ async def remove_vulnerability_tags(
 
 
 async def remove_vulnerability(  # pylint: disable=too-many-arguments
-    context: Any,
+    loaders: Any,
     finding_id: str,
-    vuln_id: str,
+    vulnerability_id: str,
     justification: str,
     user_email: str,
     source: str,
     include_closed_vuln: bool = False,
 ) -> bool:
-    vulnerability_loader = context.vulnerability
-    vulnerability = await vulnerability_loader.load(vuln_id)
-    success = False
-    if vulnerability and vulnerability["historic_state"]:
-        all_states = cast(
-            List[Dict[str, str]], vulnerability["historic_state"]
+    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+        vulnerability_id
+    )
+    if (
+        vulnerability.state.status == VulnerabilityStateStatus.OPEN
+        or include_closed_vuln
+    ):
+        await vulns_dal.append(
+            finding_id=finding_id,
+            vulnerability_id=vulnerability_id,
+            elements={
+                "historic_state": (
+                    {
+                        "analyst": user_email,
+                        "date": datetime_utils.get_now_as_str(),
+                        "justification": justification,
+                        "source": source,
+                        "state": "DELETED",
+                    },
+                )
+            },
         )
-        current_state = all_states[-1].get("state")
-        if current_state == "open" or include_closed_vuln:
-            current_day = datetime_utils.get_now_as_str()
-            new_state = {
-                "analyst": user_email,
-                "date": current_day,
-                "justification": justification,
-                "source": source,
-                "state": "DELETED",
-            }
-            all_states.append(new_state)
-            success = await vulns_dal.update(
-                finding_id,
-                str(vulnerability["id"]),
-                {"historic_state": all_states},
-            )
-    return success
+        return True
+    return False
 
 
 def filter_closed_vulnerabilities(

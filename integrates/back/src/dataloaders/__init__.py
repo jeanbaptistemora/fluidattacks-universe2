@@ -30,6 +30,7 @@ from .organization_tags import (
 )
 from .vulnerability import (
     VulnerabilityLoader,
+    VulnerabilityTypedLoader,
 )
 from collections import (
     defaultdict,
@@ -103,6 +104,7 @@ class Dataloaders(NamedTuple):
     root_toe_lines: RootToeLinesLoader
     toe_lines: ToeLinesLoader
     vulnerability: VulnerabilityLoader
+    vulnerability_typed: VulnerabilityTypedLoader
     vuln_historic_state_new: VulnHistoricStateNewLoader
     vuln_historic_treatment_new: VulnHistoricTreatmentNewLoader
     vuln_historic_verification_new: VulnHistoricVerificationNewLoader
@@ -160,6 +162,7 @@ def get_new_context() -> Dataloaders:
         root_toe_lines=RootToeLinesLoader(),
         toe_lines=ToeLinesLoader(),
         vulnerability=VulnerabilityLoader(),
+        vulnerability_typed=VulnerabilityTypedLoader(),
         vuln_historic_state_new=VulnHistoricStateNewLoader(),
         vuln_historic_treatment_new=VulnHistoricTreatmentNewLoader(),
         vuln_historic_verification_new=VulnHistoricVerificationNewLoader(),

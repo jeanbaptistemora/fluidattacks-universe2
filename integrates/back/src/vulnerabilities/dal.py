@@ -282,7 +282,7 @@ async def append(
     )
     expression_names = {f"#{attr}": attr for attr in elements}
     expression_values = {
-        f":{attr}": values for attr, values in elements.items()
+        f":{attr}": list(values) for attr, values in elements.items()
     }
     await dynamodb_ops.update_item(
         TABLE_NAME,
