@@ -5,7 +5,7 @@ function main {
 
   pushd "${out}" \
     && aws_login_dev_new \
-    && sops_export_vars __envAirsSecrets__/dev.yaml \
+    && sops_export_vars __argAirsSecrets__/dev.yaml \
       CLOUDINARY_API_SECRET \
       CLOUDINARY_API_KEY \
       CLOUDINARY_CLOUD_NAME \
@@ -17,7 +17,7 @@ function main {
       sed -i "s|pathPrefix: '/front'|pathPrefix: '/${CI_COMMIT_REF_NAME}'|g" gatsby-config.js \
         && sed -i "s|https://fluidattacks.com|https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" gatsby-config.js
     fi \
-    && copy __envAirsNpm__ 'node_modules' \
+    && copy __argAirsNpm__ 'node_modules' \
     && install_scripts \
     && install_fontawesome_pro "" \
     && if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"; then
