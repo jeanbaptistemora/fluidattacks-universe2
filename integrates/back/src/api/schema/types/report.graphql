@@ -1,5 +1,5 @@
 "Report type definition"
 type Report {
-  "Succeeds only if user has the mobile app"
+  "Indicates that report was requested successfully"
   success: Boolean!
 }

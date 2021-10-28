@@ -4,6 +4,8 @@ type Me {
   accessToken: String
   "Origin of the requests made to the endpoint by this user"
   callerOrigin: CallerOrigin
+  "Indicates if user has mobile app"
+  hasMobileApp: Boolean
   "Indicator to see if there's more than one open session currently"
   isConcurrentSession: Boolean
   "List of Organizations the user is a member of"
