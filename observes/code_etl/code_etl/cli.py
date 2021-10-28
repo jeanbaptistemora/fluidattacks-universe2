@@ -8,9 +8,13 @@ from code_etl import (
 from os.path import (
     abspath,
 )
+from returns.maybe import (
+    Maybe,
+)
 import sys
 from typing import (
     Iterator,
+    Optional,
     Tuple,
 )
 
@@ -37,12 +41,29 @@ def compute_bills(
     )
 
 
+mailmap_file = click.Path(
+    exists=True,
+    file_okay=True,
+    dir_okay=False,
+    writable=False,
+    readable=True,
+    resolve_path=True,
+    allow_dash=False,
+    path_type=str,
+)
+
+
 @click.command()
 @click.argument("namespace", type=str)
 @click.argument("repositories", type=str, nargs=-1)
-def upload_code(namespace: str, repositories: Tuple[str, ...]) -> None:
+@click.option("--mailmap", type=mailmap_file)
+def upload_code(
+    namespace: str, repositories: Tuple[str, ...], mailmap: Optional[str]
+) -> None:
     repos: Iterator[str] = map(abspath, repositories)
-    success: bool = asyncio.run(upload.main(namespace, *repos))
+    success: bool = asyncio.run(
+        upload.main(Maybe.from_optional(mailmap), namespace, *repos)
+    )
     sys.exit(0 if success else 1)
 
 

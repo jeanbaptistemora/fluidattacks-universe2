@@ -24,16 +24,12 @@ function job_code_upload {
       PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
       PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
       melts drills --pull-repos "${group}"; then
-      echo "[INFO] Apending mailmaps" \
+      echo "[INFO] Uploading ${group}" \
         && shopt -s nullglob \
-        && for repo in "groups/${group}/fusion/"*; do
-          cp -f '.groups-mailmap' "${repo}/.mailmap" \
-            || return 1
-        done \
-        && echo "[INFO] Executing ${group}" \
         && code-etl upload-code \
           "${group}" \
           "groups/${group}/fusion/"* \
+          --mailmap '.groups-mailmap' \
         && shopt -u nullglob \
         && rm -rf "groups/${group}/fusion/"
 

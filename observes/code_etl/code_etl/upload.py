@@ -11,6 +11,17 @@ from asyncio import (
     create_task,
     Queue,
 )
+from code_etl.amend import (
+    CommitDataAmend,
+)
+from code_etl.factories import (
+    CommitDataAdapters,
+    CommitDataFactory,
+)
+from code_etl.mailmap import (
+    Mailmap,
+    MailmapFactory,
+)
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
     DATE_NOW,
@@ -41,6 +52,9 @@ from psycopg2.extensions import (
 )
 from psycopg2.extras import (
     execute_batch,
+)
+from returns.maybe import (
+    Maybe,
 )
 import sys
 from typing import (
@@ -101,7 +115,9 @@ async def worker(identifier: int, queue: Queue) -> None:
                 queue.task_done()
 
 
-async def main(namespace: str, *repositories: str) -> bool:
+async def main(
+    mailmap_path: Maybe[str], namespace: str, *repositories: str
+) -> bool:
     await initialize()
 
     queue: Queue = Queue(maxsize=2 * WORKERS_PAGE_SIZE * WORKERS_COUNT)
@@ -109,8 +125,8 @@ async def main(namespace: str, *repositories: str) -> bool:
         create_task(worker(identifier, queue))
         for identifier in range(WORKERS_COUNT)
     ]
-
-    success: bool = await manager(queue, namespace, *repositories)
+    mailmap = mailmap_path.map(MailmapFactory.from_file_path)
+    success: bool = await manager(mailmap, queue, namespace, *repositories)
 
     await queue.join()
 
@@ -137,25 +153,17 @@ def cli() -> None:
     sys.exit(0 if success else 1)
 
 
-def get_commit_data(commit: Commit) -> Dict[str, Any]:
-    return dict(
-        author_email=truncate_bytes(commit.author.email, 0, 256),
-        author_name=truncate_bytes(commit.author.name, 0, 256),
-        authored_at=commit.authored_datetime,
-        committer_email=truncate_bytes(commit.committer.email, 0, 256),
-        committer_name=truncate_bytes(commit.committer.name, 0, 256),
-        committed_at=commit.committed_datetime,
-        hash=commit.hexsha,
-        message=truncate_bytes(commit.message, 0, 4096),
-        summary=truncate_bytes(commit.summary, 0, 256),
-        total_insertions=commit.stats.total["insertions"],
-        total_deletions=commit.stats.total["deletions"],
-        total_lines=commit.stats.total["lines"],
-        total_files=commit.stats.total["files"],
-    )
+def get_commit_data(mailmap: Maybe[Mailmap], commit: Commit) -> Dict[str, Any]:
+    _id, _data = CommitDataFactory.from_commit(commit)
+    data = mailmap.map(
+        lambda mmap: CommitDataAmend.amend_users(mmap, _data)
+    ).value_or(_data)
+    return CommitDataAdapters.to_raw_dict(_id, data)
 
 
-async def manager(queue: Queue, namespace: str, *repositories: str) -> bool:
+async def manager(
+    mailmap: Maybe[Mailmap], queue: Queue, namespace: str, *repositories: str
+) -> bool:
     commit: Commit
     success: bool = True
     with db_cursor() as cursor:
@@ -188,7 +196,7 @@ async def manager(queue: Queue, namespace: str, *repositories: str) -> bool:
                             namespace=namespace,
                             repository=repo_name,
                             seen_at=DATE_SENTINEL if repo_is_new else DATE_NOW,
-                            **get_commit_data(commit),
+                            **get_commit_data(mailmap, commit),
                         )
                     )
             except ValueError:
