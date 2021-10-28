@@ -58,6 +58,7 @@ from db_model.toe_inputs.get import (
 from db_model.toe_lines.get import (
     GroupToeLinesLoader,
     RootToeLinesLoader,
+    ToeLinesLoader,
 )
 from db_model.vulnerabilities.get import (
     VulnHistoricStateNewLoader,
@@ -100,6 +101,7 @@ class Dataloaders(NamedTuple):
     root_states: RootStatesLoader
     root_services_toe_lines: RootServicesToeLinesLoader
     root_toe_lines: RootToeLinesLoader
+    toe_lines: ToeLinesLoader
     vulnerability: VulnerabilityLoader
     vuln_historic_state_new: VulnHistoricStateNewLoader
     vuln_historic_treatment_new: VulnHistoricTreatmentNewLoader
@@ -156,6 +158,7 @@ def get_new_context() -> Dataloaders:
         root_services_toe_lines=RootServicesToeLinesLoader(),
         root_states=RootStatesLoader(),
         root_toe_lines=RootToeLinesLoader(),
+        toe_lines=ToeLinesLoader(),
         vulnerability=VulnerabilityLoader(),
         vuln_historic_state_new=VulnHistoricStateNewLoader(),
         vuln_historic_treatment_new=VulnHistoricTreatmentNewLoader(),

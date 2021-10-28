@@ -13,6 +13,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from custom_exceptions import (
+    ToeLinesNotFound,
+)
 from dynamodb import (
     keys,
     operations,
@@ -24,6 +27,39 @@ from typing import (
     List,
     Tuple,
 )
+
+
+async def _get_toe_lines(
+    group_name: str, root_id: str, filename: str
+) -> ToeLines:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["toe_lines_metadata"],
+        values={
+            "group_name": group_name,
+            "root_id": root_id,
+            "filename": filename,
+        },
+    )
+    key_structure = TABLE.primary_key
+    items = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).eq(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["toe_lines_metadata"],),
+        table=TABLE,
+    )
+    if not items:
+        raise ToeLinesNotFound()
+    return format_toe_lines(item=items[0])
+
+
+class ToeLinesLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, lines_keys: List[Tuple[str, str, str]]
+    ) -> Tuple[ToeLines, ...]:
+        return await collect(tuple(map(_get_toe_lines, *zip(*lines_keys))))
 
 
 async def _get_toe_lines_by_group(
