@@ -3,6 +3,7 @@ from decimal import (
 )
 from typing import (
     NamedTuple,
+    Optional,
 )
 
 
@@ -18,3 +19,17 @@ class ToeLinesAttributesToAdd(NamedTuple):
     modified_date: str
     seen_at: str
     sorts_risk_level: Decimal
+
+
+class ToeLinesAttributesToUpdate(NamedTuple):
+    attacked_at: Optional[str] = None
+    attacked_by: Optional[str] = None
+    attacked_lines: Optional[int] = None
+    be_present: Optional[bool] = None
+    comments: Optional[str] = None
+    first_attack_at: Optional[str] = None
+    loc: Optional[int] = None
+    modified_commit: Optional[str] = None
+    modified_date: Optional[str] = None
+    seen_at: Optional[str] = None
+    sorts_risk_level: Optional[Decimal] = None
