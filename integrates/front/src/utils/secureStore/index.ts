@@ -95,6 +95,20 @@ const retrieveBlob: (identifier: string) => string = (
   return url;
 };
 
+const removeIframeContent: (reference: Readonly<iFrameReferenceType>) => void =
+  (reference: Readonly<iFrameReferenceType>): void => {
+    const contents: string | undefined =
+      reference.current?.contentDocument?.documentElement.outerHTML;
+    const identifier: string | undefined =
+      reference.current?.contentWindow?.location.href;
+
+    if (contents !== undefined && identifier !== undefined) {
+      const blob: Blob = new Blob([contents], { type: "text/html" });
+      const url: string = URL.createObjectURL(blob).toString();
+      URL.revokeObjectURL(url);
+    }
+  };
+
 const storeIframeContent: (reference: Readonly<iFrameReferenceType>) => void = (
   reference: Readonly<iFrameReferenceType>
 ): void => {
@@ -120,6 +134,7 @@ interface ISecureStoreConfig {
   decrypt: (ciphertext: string) => string;
   encrypt: (plaintext: string) => string;
   hash: (input: string) => string;
+  removeIframeContent: (reference: Readonly<iFrameReferenceType>) => void;
   retrieveBlob: (identifier: string) => string;
   storeBlob: (identifier: string, contents: string, mime: string) => string;
   storeIframeContent: (reference: Readonly<iFrameReferenceType>) => void;
@@ -129,6 +144,7 @@ const secureStore: ISecureStoreConfig = {
   decrypt,
   encrypt,
   hash,
+  removeIframeContent,
   retrieveBlob,
   storeBlob,
   storeIframeContent,

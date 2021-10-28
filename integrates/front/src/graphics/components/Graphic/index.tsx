@@ -19,6 +19,7 @@ import { track as mixpanelTrack } from "mixpanel-browser";
 import React, {
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -46,6 +47,9 @@ import {
 import type { ISecureStoreConfig } from "utils/secureStore";
 import { secureStoreContext } from "utils/secureStore";
 import { translate } from "utils/translations/translate";
+
+const MAX_RETRIES: number = 5;
+const DELAY_BETWEEN_RETRIES_MS: number = 300;
 
 const glyphPadding: number = 15;
 const fontSize: number = 16;
@@ -134,6 +138,7 @@ export const Graphic: React.FC<IGraphicProps> = (
   const [expanded, setExpanded] = useState(reportMode);
   const [fullScreen, setFullScreen] = useState(false);
   const [iframeState, setIframeState] = useState("loading");
+  const [retries, setRetries] = useState(0);
 
   const secureStore: ISecureStoreConfig = useContext(secureStoreContext);
 
@@ -181,6 +186,7 @@ export const Graphic: React.FC<IGraphicProps> = (
   }
   function frameOnRefresh(): void {
     if (bodyRef.current?.contentWindow !== null) {
+      setRetries(0);
       setIframeState("loading");
       bodyRef.current?.contentWindow.location.reload();
     }
@@ -253,6 +259,14 @@ export const Graphic: React.FC<IGraphicProps> = (
     return "";
   }
 
+  function retryFrame(): void {
+    if (bodyRef.current?.contentWindow !== null) {
+      setIframeState("loading");
+      secureStore.removeIframeContent(bodyRef);
+      bodyRef.current?.contentWindow.location.reload();
+    }
+  }
+
   if (
     iframeState === "ready" &&
     bodyRef.current !== null &&
@@ -269,6 +283,16 @@ export const Graphic: React.FC<IGraphicProps> = (
   const track: () => void = useCallback((): void => {
     mixpanelTrack("DownloadGraphic", { currentDocumentName, entity });
   }, [currentDocumentName, entity]);
+
+  useEffect((): void => {
+    if (iframeState === "error" && retries < MAX_RETRIES) {
+      setTimeout((): void => {
+        setRetries((value: number): number => value + 1);
+        retryFrame();
+      }, DELAY_BETWEEN_RETRIES_MS);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [iframeState]);
 
   return (
     <React.Fragment>
@@ -453,6 +477,7 @@ export const Graphic: React.FC<IGraphicProps> = (
               <iframe
                 className={styles.frame}
                 frameBorder={"no"}
+                loading={reportMode ? "eager" : "lazy"}
                 onLoad={frameOnLoad}
                 ref={bodyRef}
                 scrolling={"no"}
