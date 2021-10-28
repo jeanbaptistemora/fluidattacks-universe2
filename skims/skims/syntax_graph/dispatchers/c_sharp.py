@@ -1,6 +1,7 @@
 from syntax_graph.syntax_readers.c_sharp import (
     argument as c_sharp_argument,
     argument_list as c_sharp_argument_list,
+    bracketed_argument_list as c_sharp_bracketed_argument_list,
     class_declaration as c_sharp_class_declaration,
     compilation_unit as c_sharp_compilation_unit,
     local_declaration_statement as c_sharp_local_declaration_statement,
@@ -30,6 +31,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "argument_list",
         },
         syntax_reader=c_sharp_argument_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "bracketed_argument_list",
+        },
+        syntax_reader=c_sharp_bracketed_argument_list.reader,
     ),
     Dispatcher(
         applicable_types={
