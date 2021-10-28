@@ -37,9 +37,6 @@ SCHEDULE: Dict[PartialCron, List[str]] = {
     PartialCron.new((11, 18), AnyTime(), work_days): [
         os.environ["formstackEtl"],
     ],
-    PartialCron.new(range(7, 21, 4), AnyTime(), work_days): [
-        os.environ["codeEtlAmend"],
-    ],
     PartialCron.new(range(0, 16, 5), AnyTime(), work_days): [
         os.environ["dynamoDbForcesEtl"],
     ],

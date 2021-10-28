@@ -16,7 +16,6 @@ makeTemplate {
         announceKitEtl = outputs."/computeOnAwsBatch/observesAnnounceKitEtl";
         bugsnagEtl = outputs."/computeOnAwsBatch/observesBugsnagEtl";
         checklyEtl = outputs."/computeOnAwsBatch/observesChecklyEtl";
-        codeEtlAmend = outputs."/computeOnAwsBatch/observesCodeEtlAmend";
         delightedEtl = outputs."/computeOnAwsBatch/observesDelightedEtl";
         dynamoDbForcesEtl = outputs."/computeOnAwsBatch/observesDynamoDbForcesEtl";
         formstackEtl = outputs."/computeOnAwsBatch/observesFormstackEtl";

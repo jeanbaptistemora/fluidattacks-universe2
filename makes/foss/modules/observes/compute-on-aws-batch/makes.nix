@@ -29,16 +29,6 @@ in
       command = [ "m" "f" "/observes/job/checkly-etl" ];
     };
 
-    observesCodeEtlAmend = sharedConfiguration // {
-      attemptDurationSeconds = 18000;
-      command = [ "m" "f" "/observes/scheduled/job/code-etl-amend" ];
-      environment = [
-        "INTEGRATES_API_TOKEN"
-        "PRODUCT_API_TOKEN"
-        "SERVICES_API_TOKEN"
-      ];
-    };
-
     observesGitlabEtlChallenges = sharedConfiguration // {
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/job/gitlab-etl/challenges" ];
