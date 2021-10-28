@@ -3,8 +3,11 @@ slug: about-us/events/breaking-the-build/
 title: Breaking the Build
 subtitle: Our SecDevOps Habits
 :category: events
-description: The conference Breaking the Build presents Fluid Attacks' SecDevOps habits that allow us to keep improving every day, and how to implement them in your company.
-keywords: Fluid Attacks, SecDevOps, Habits, Breaking the Build, CI-CD, Conference, Pentesting, Ethical Hacking
+description: The conference Breaking the Build presents Fluid Attacks'
+  SecDevOps habits that allow us to keep improving every day,
+  and how to implement them in your company.
+keywords: Fluid Attacks, SecDevOps, Habits, Breaking the Build,
+  CI-CD, Conference, Pentesting, Ethical Hacking
 eventspage: yes
 banner: events-bg
 ---
@@ -54,71 +57,71 @@ the first step to reach this configuration, we also explain all the work
 habits that have allowed us to reach this point and keep improving
 daily. These include topics such as:
 
-  - Source code management inside repositories, following a **monorepo**
-    structure (say goodbye to multirepo)
+- Source code management inside repositories, following a **monorepo**
+  structure (say goodbye to multirepo)
 
-  - Keep a clean and small environment for the developers, including the
-    changes to the master branch, avoiding code accumulation and
-    reaching **zero inventory** (leaving `gitflow` behind)
+- Keep a clean and small environment for the developers, including the
+  changes to the master branch, avoiding code accumulation and
+  reaching **zero inventory** (leaving `gitflow` behind)
 
-  - Generate daily value to the customers through a **micro changes**
-    methodology (instead of big changes every `3` weeks or more).
+- Generate daily value to the customers through a **micro changes**
+  methodology (instead of big changes every `3` weeks or more).
 
-  - Migrate and manage all the infrastructure as versioned source code,
-    turning it into **immutable infrastructure** (avoiding management
-    consoles and unauthorized changes).
+- Migrate and manage all the infrastructure as versioned source code,
+  turning it into **immutable infrastructure** (avoiding management
+  consoles and unauthorized changes).
 
-  - Define Continuous Integration environments as source code, `pipeline
-    as code`, in a way that can easily be configured and modified for
-    all kinds of tests (avoiding graphical interface limitations for
-    pipeline configurations).
+- Define Continuous Integration environments as source code, `pipeline
+  as code`, in a way that can easily be configured and modified for
+  all kinds of tests (avoiding graphical interface limitations for
+  pipeline configurations).
 
-  - Avoid servers at any cost, migrating to cloud services and reaching
-    a **serverless** infrastructure.
+- Avoid servers at any cost, migrating to cloud services and reaching
+  a **serverless** infrastructure.
 
-  - Safe password management when deploying an application, avoiding
-    sensitive information disclosure in source code and **keeping the
-    secrets protected**.
+- Safe password management when deploying an application, avoiding
+  sensitive information disclosure in source code and **keeping the
+  secrets protected**.
 
-  - Deploy **ephemeral environments** that allow testing all the
-    developed features before passing to production (reducing project
-    complexity by avoiding development environments, testing, `QA`, and
-    others).
+- Deploy **ephemeral environments** that allow testing all the
+  developed features before passing to production (reducing project
+  complexity by avoiding development environments, testing, `QA`, and
+  others).
 
-  - **Breaking the build** even before making a `commit` to the
-    repository using `pre-commit` to check the source code.
+- **Breaking the build** even before making a `commit` to the
+  repository using `pre-commit` to check the source code.
 
-  - Perform tests over the source code and over the deployment that
-    **break the build** as a result of the smallest error (instead of
-    only notifying and allowing the error to keep evolving/growing):
+- Perform tests over the source code and over the deployment that
+  **break the build** as a result of the smallest error (instead of
+  only notifying and allowing the error to keep evolving/growing):
 
-      - Multiplatform integration
+    - Multiplatform integration
 
-      - Unit testing
+    - Unit testing
 
-      - Coverage
+    - Coverage
 
-      - Strict `Linters`
+    - Strict `Linters`
 
-      - `Security Gates (SAST y DAST)`
+    - `Security Gates (SAST y DAST)`
 
-  - Extreme reduction of `build` times by using the **cache** correctly.
+- Extreme reduction of `build` times by using the **cache** correctly.
 
-  - Take advantage of the features presented in the version control
-    client `Git`:
+- Take advantage of the features presented in the version control
+  client `Git`:
 
-      - `Peer Review`
+    - `Peer Review`
 
-      - `Squashing`
+    - `Squashing`
 
-      - `Rebasing`
+    - `Rebasing`
 
-      - `Rollback`
+    - `Rollback`
 
-      - `Trigger builds`
+    - `Trigger builds`
 
-  - **Telemetry** accessible to developers (not logs, only available for
-    infrastructure area).
+- **Telemetry** accessible to developers (not logs, only available for
+  infrastructure area).
 
 Each above-mentioned point is explained while accessing `Fluid Attacks'`
 systems to look at its implementation and operation. According to the
@@ -172,12 +175,12 @@ scheduled in agreement between the participants and `Fluid Attacks`.
 
 ## 7\. Details
 
-1.  **Investment**: The space and food for this workshop are completely
+1. **Investment**: The space and food for this workshop are completely
     covered by `Fluid Attacks`. The attendees must commit their time and
     cover their transportation expenses including vehicles parking costs
     in case the facility exceeds its capacity.
 
-2.  **Material**: As with all events offered by `Fluid Attacks`, the
+2. **Material**: As with all events offered by `Fluid Attacks`, the
     event material is sent to the attendees once they complete the
     [online satisfaction
     survey](https://fluidattacks.formstack.com/forms/talk).
@@ -196,8 +199,8 @@ Attacks'` side.
 
 ## 9\. Speakers
 
-  - Juan Restrepo
+- Juan Restrepo
 
-  - [Rafael Álvarez](../../people/ralvarez/)
+- [Rafael Álvarez](../../people/ralvarez/)
 
-  - Daniel Salazar
+- Daniel Salazar
