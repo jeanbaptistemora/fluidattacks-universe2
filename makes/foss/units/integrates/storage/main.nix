@@ -3,6 +3,7 @@
 , makeDerivation
 , makeScript
 , inputs
+, outputs
 , projectPath
 , ...
 }:
@@ -30,7 +31,7 @@ makeScript {
   name = "integrates-storage";
   searchPaths = {
     bin = [
-      inputs.product.makes-done
+      outputs."/makes/done"
       inputs.product.makes-kill-port
       inputs.product.makes-wait
     ];

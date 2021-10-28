@@ -1,15 +1,16 @@
-{ makes
+{ makeNodeJsEnvironment
+, makeScript
 , ...
 }:
 let
-  nodeJsEnvironment = makes.makeNodeJsEnvironment {
+  nodeJsEnvironment = makeNodeJsEnvironment {
     name = "makes-bugsnag-source-map-uploader";
     nodeJsVersion = "12";
     packageJson = ./npm/package.json;
     packageLockJson = ./npm/package-lock.json;
   };
 in
-makes.makeScript {
+makeScript {
   name = "makes-bugsnag-source-map-uploader";
   searchPaths = {
     source = [ nodeJsEnvironment ];

@@ -1,6 +1,7 @@
 { fetchUrl
 , inputs
 , makeScript
+, outputs
 , projectPath
 , ...
 }:
@@ -23,7 +24,7 @@ makeScript {
       inputs.nixpkgs.openjdk_headless
       inputs.nixpkgs.terraform
       inputs.nixpkgs.unzip
-      inputs.product.makes-done
+      outputs."/makes/done"
       inputs.product.makes-kill-port
       inputs.product.makes-wait
     ];

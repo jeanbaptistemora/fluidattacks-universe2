@@ -1,6 +1,4 @@
 makes.attrs
-makes.bugsnag.source-map-uploader
-makes.done
 makes.kill-port
 makes.kill-tree
 makes.wait

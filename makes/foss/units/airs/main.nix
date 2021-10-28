@@ -21,7 +21,7 @@ makeScript {
       inputs.nixpkgs.python37
       inputs.nixpkgs.utillinux
       outputs."/makes/announce/bugsnag"
-      inputs.product.makes-bugsnag-source-map-uploader
+      outputs."/makes/bugsnag/source-map-uploader"
     ];
   };
   entrypoint = ./entrypoint.sh;

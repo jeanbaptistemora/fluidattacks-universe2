@@ -1,4 +1,5 @@
 { inputs
+, outputs
 , makeScript
 , ...
 }:
@@ -7,7 +8,7 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.redis
-      inputs.product.makes-done
+      outputs."/makes/done"
       inputs.product.makes-kill-port
       inputs.product.makes-wait
     ];
