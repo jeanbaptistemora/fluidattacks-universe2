@@ -23,12 +23,3 @@ def test_has_not_private_access_control():
     assert result.get_vulns_number() == 2 * 1
     assert cloudtrail.trails_not_multiregion(SAFE).is_closed()
     assert cloudtrail.trails_not_multiregion(NOT_EXISTS).is_unknown()
-
-
-def test_log_files_not_validated():
-    """test cloudtrail.log_files_not_validated."""
-    result = cloudtrail.log_files_not_validated(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 1
-    assert cloudtrail.log_files_not_validated(SAFE).is_closed()
-    assert cloudtrail.log_files_not_validated(NOT_EXISTS).is_unknown()
