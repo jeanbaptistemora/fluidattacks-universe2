@@ -94,7 +94,7 @@ function sync_files {
 function deploy_dev {
   local src="${1}"
 
-  __argAirsDevelopment__/bin/airs-development "${src}" \
+  __argAirsDevelopment__/bin/airs-config-development "${src}" \
     || return 1
 }
 
