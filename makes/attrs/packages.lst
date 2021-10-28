@@ -1,4 +1,3 @@
-makes.commitlint
 makes.python.safe-pickle
 makes.test
 makes.test.airs

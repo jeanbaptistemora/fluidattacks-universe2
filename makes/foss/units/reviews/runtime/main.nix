@@ -1,6 +1,7 @@
 { inputs
 , makePythonPypiEnvironment
 , makeTemplate
+, outputs
 , projectPath
 , ...
 }:
@@ -13,7 +14,7 @@ makeTemplate {
     bin = [ inputs.nixpkgs.python38 ];
     pythonPackage = [ (projectPath "/reviews/src") ];
     source = [
-      (inputs.product.makes-commitlint)
+      (outputs."/makes/commitlint")
       (makePythonPypiEnvironment {
         name = "reviews-runtime";
         sourcesYaml = ./pypi-sources.yaml;

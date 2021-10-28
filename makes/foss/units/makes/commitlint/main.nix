@@ -1,7 +1,7 @@
-{ makes
+{ makeNodeJsEnvironment
 , ...
 }:
-makes.makeNodeJsEnvironment {
+makeNodeJsEnvironment {
   name = "commitlint";
   nodeJsVersion = "12";
   packageJson = ./npm/package.json;
