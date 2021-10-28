@@ -33,6 +33,9 @@
   "adm-zip": {
     "CVE-2018-1002204": [
       "<0.4.9"
+    ],
+    "SNYK-JS-ADMZIP-1065796": [
+      "<0.5.2"
     ]
   },
   "agent-base": {},
@@ -111,6 +114,11 @@
   "babel-runtime": {},
   "babel-types": {},
   "balanced-match": {},
+  "bcrypt": {
+    "SNYK-JS-BCRYPT-575033": [
+      "<5.0.0"
+    ]
+  },
   "bluebird": {},
   "bn.js": {},
   "bootstrap": {
@@ -646,6 +654,11 @@
       "<1.6.3"
     ]
   },
+  "jquery-validation": {
+    "CVE-2021-21252": [
+      "<1.19.3"
+    ]
+  },
   "js-tokens": {},
   "js-yaml": {
     "CVE-2013-4660": [
@@ -1036,6 +1049,9 @@
   "semver": {
     "CVE-2015-8855": [
       "<4.3.2"
+    ],
+    "SNYK-JS-SEMVERREGEX-1047770": [
+      "<3.1.2"
     ]
   },
   "serialize-javascript": {
@@ -1194,6 +1210,11 @@
       "<1.0.0"
     ]
   },
+  "trim": {
+    "CVE-2021-33623": [
+      "<=1.0.1"
+    ]
+  },
   "trim-newlines": {
     "CVE-2021-33623": [
       "<3.0.1",
@@ -1222,6 +1243,12 @@
       "<=2.5.0"
     ]
   },
+  "underscore": {
+    "CVE-2021-23358": [
+      ">=1.3.2,<1.12.1",
+      "<=1.13.0-0,1.13.0-2"
+    ]
+  },
   "url-parse": {
     "CVE-2021-27515": [
       "<1.5.0"
@@ -1231,6 +1258,11 @@
     ]
   },
   "util-deprecate": {},
+  "utils-extend": {
+    "CVE-2020-8147": [
+      "<=1.0.8"
+    ]
+  },
   "uuid": {},
   "useragent": {
     "https://github.com/3rd-Eden/useragent/pull/140": [
@@ -1270,6 +1302,11 @@
     ],
     "CVE-2016-10518": [
       "<1.0.1"
+    ]
+  },
+  "xmldom": {
+    "CVE-2021-21366": [
+      "<0.5.0"
     ]
   },
   "xmlhttprequest-ssl": {
