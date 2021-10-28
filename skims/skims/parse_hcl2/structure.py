@@ -41,6 +41,17 @@ def get_block_block(block: Block, namespace: str) -> Optional[Block]:
     return None
 
 
+def get_attribute_by_block(
+    block: Block, namespace: str, key: str
+) -> Optional[Attribute]:
+    for nested_block in iterate_block_blocks(block):
+        if nested_block.namespace and nested_block.namespace[0] == namespace:
+            for attribute in iterate_block_attributes(nested_block):
+                if attribute.key == key:
+                    return attribute
+    return None
+
+
 def iterate_resources(
     model: Any,
     expected_source: str,

@@ -32,7 +32,7 @@ class AWSS3Acl(NamedTuple):
 
 class AWSCloudfrontDistribution(NamedTuple):
     column: int
-    data: str
+    data: List[Any]
     line: int
 
 
