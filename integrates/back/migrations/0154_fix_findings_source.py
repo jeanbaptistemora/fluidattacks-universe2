@@ -23,10 +23,7 @@ from custom_exceptions import (
 from custom_types import (
     DynamoQuery,
     Finding as FindingType,
-)
-from dataloaders import (
-    Dataloaders,
-    get_new_context,
+    Historic as HistoricType,
 )
 from datetime import (
     datetime,
@@ -36,9 +33,6 @@ from db_model import (
 )
 from db_model.enums import (
     Source,
-)
-from db_model.findings.types import (
-    Finding,
 )
 from dynamodb import (
     keys,
@@ -68,7 +62,7 @@ def _map_source(source: str) -> str:
         source = "asm"
     elif source == "skims":
         source = "machine"
-    if source not in {"asm", "machine"}:
+    if source not in {"asm", "machine", "escape"}:
         raise InvalidSource()
     return source
 
@@ -88,8 +82,9 @@ def _filter_non_deleted_findings(
     ]
 
 
-async def _get_finding_states(
-    *, group_name: str, finding_id: str
+async def _get_finding_milestones(
+    group_name: str,
+    finding_id: str,
 ) -> List[Item]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
@@ -117,7 +112,7 @@ async def _get_finding_states(
     return [item for item in results if "source" in item]
 
 
-async def _get_finding_historic_states(*, finding_id: str) -> List[Item]:
+async def _get_finding_historic_states(finding_id: str) -> List[Item]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_historic_state"],
         values={"id": finding_id},
@@ -152,58 +147,127 @@ async def _update_state_source(
     )
 
 
+# Some legacy findings did not have a CREATED state
+# We are adding it before the historics comparison is done
+def _validate_state_created(
+    analyst: str,
+    historic: HistoricType,
+) -> HistoricType:
+    current_state = str(historic[0]["state"]).upper()
+    if current_state == "CREATED":
+        return historic
+    creation_state = {
+        "date": "",
+        "analyst": historic[0].get("analyst", "") or analyst,
+        "state": "CREATED",
+        "source": historic[0]["source"],
+    }
+    return [creation_state, *historic]
+
+
+def _compare_state_sources(
+    current_states: List[Item],  # Facet finding_historic_state
+    finding_id: str,
+    old_historic: HistoricType,
+) -> bool:
+    for old, current in zip(old_historic, current_states):
+        if old["state"] != current["status"]:
+            print(f"ERROR {finding_id} - Inconsistency for status")
+            return False
+        if old["source"] != current["source"]:
+            print(f"ERROR {finding_id} - Inconsistency for source")
+            return False
+    return True
+
+
+async def _fix_historic_state(
+    current_milestones: List[Item],  # Approval, creation, submission, state
+    current_states: List[Item],  # Facet finding_historic_state
+    old_historic: HistoricType,
+) -> None:
+    # Identify milestone for easier comparison
+    current_milestones = [
+        {
+            "milestone": str(item["pk"]).split("#")[2],
+            **item,
+        }
+        for item in current_milestones
+    ]
+    for old, current in zip(old_historic, current_states):
+        if old["source"] != current["source"]:
+            # Fix entry in historic state
+            await _update_state_source(
+                new_source=_format_source(old["source"]),
+                state=current,
+            )
+            # Fix milestone
+            milestone = next(
+                (
+                    state
+                    for state in current_milestones
+                    if state["milestone"] == old["state"]
+                ),
+                None,
+            )
+            if milestone:
+                await _update_state_source(
+                    new_source=_format_source(old["source"]),
+                    state=milestone,
+                )
+
+
 async def _proccess_finding(
-    loaders: Dataloaders,
     old_finding: FindingType,
 ) -> None:
     finding_id: str = old_finding["finding_id"]
     group_name: str = old_finding["project_name"]
 
-    try:
-        old_source: str = old_finding.get("historic_state", [{}])[-1].get(
-            "source", ""
-        )
-        formatted_source: Source = _format_source(old_source)
-        new_finding: Finding = await loaders.finding.load(finding_id)
+    if "historic_state" not in old_finding:
+        print(f"ERROR {group_name} - {finding_id} - NO historic_state")
+        return
 
-        if formatted_source != new_finding.state.source:
-            print(
-                f"ERROR {group_name} - {finding_id} >> "
-                f"{formatted_source} != {new_finding.state.source}"
-            )
+    try:
+        old_historic = _validate_state_created(
+            old_finding.get("analyst", ""),
+            old_finding["historic_state"],
+        )
+
+        current_states: List[Item] = await _get_finding_historic_states(
+            finding_id
+        )
+
+        if _compare_state_sources(current_states, finding_id, old_historic):
+            # No update needed
+            return
+
+        if PROD:
             # Approval, creation, submission, state
-            states_to_update: List[Item] = await _get_finding_states(
-                group_name=group_name, finding_id=finding_id
+            current_milestones: List[Item] = await _get_finding_milestones(
+                group_name, finding_id
             )
-            # Facet finding_historic_state
-            states_to_update.extend(
-                await _get_finding_historic_states(finding_id=finding_id)
+            await _fix_historic_state(
+                current_milestones=current_milestones,
+                current_states=current_states,
+                old_historic=old_historic,
             )
-            if PROD:
-                await collect(
-                    _update_state_source(
-                        new_source=Source.MACHINE,
-                        state=state,
-                    )
-                    for state in states_to_update
-                )
+            print(f"UPDATED {group_name} - {finding_id}")
+        else:
+            print(f"PENDING {group_name} - {finding_id} - Inconsistency found")
+
     except FindingNotFound as ex:
         print(f"NOT_FOUND {group_name} - {finding_id} - {ex}")
 
 
 async def main() -> None:
-    loaders: Dataloaders = get_new_context()
-
-    # Scan old findings table
     start_time = datetime.now()
     scan_attrs: DynamoQuery = {}
     findings = await dynamodb_ops.scan(FINDING_TABLE, scan_attrs)
     print(f"--- scan in {datetime.now() - start_time} ---")
     print(f"Scan findings: {len(findings)}")
 
-    alive_groups = {
+    alive_groups = [
         group["project_name"] for group in await groups_dal.get_alive_groups()
-    }
+    ]
     print(f"Alive groups: {len(alive_groups)}")
 
     non_deleted_findings = [
@@ -213,8 +277,9 @@ async def main() -> None:
     ]
     print(f"Non deleted findings: {len(non_deleted_findings)}")
 
-    for old_finding in non_deleted_findings:
-        await _proccess_finding(loaders, old_finding)
+    await collect(
+        _proccess_finding(old_finding) for old_finding in non_deleted_findings
+    )
 
     print("Done!")
 
