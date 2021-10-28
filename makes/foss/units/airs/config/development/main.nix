@@ -1,12 +1,13 @@
 { inputs
 , makeScript
+, outputs
 , projectPath
 , ...
 }:
 makeScript {
   replace = {
     __argAirsSecrets__ = projectPath "/airs/secrets";
-    __argAirsNpm__ = inputs.product.airs-npm;
+    __argAirsNpm__ = outputs."/airs/npm";
   };
   entrypoint = ./entrypoint.sh;
   name = "airs-config-development";
@@ -18,8 +19,8 @@ makeScript {
       inputs.nixpkgs.utillinux
     ];
     source = [
-      inputs.product.airs-npm-env
-      inputs.product.airs-npm-runtime
+      outputs."/airs/npm/env"
+      outputs."/airs/npm/runtime"
       (inputs.legacy.importUtility "aws")
       (inputs.legacy.importUtility "sops")
     ];
