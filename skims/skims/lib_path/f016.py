@@ -1,8 +1,12 @@
 from aioextensions import (
     in_process,
 )
+from aws.model import (
+    AWSCloudfrontDistribution,
+)
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
+    EXTENSIONS_TERRAFORM,
     get_vulnerabilities_from_aws_iterator_blocking,
     SHIELD,
 )
@@ -17,6 +21,15 @@ from parse_cfn.loader import (
 )
 from parse_cfn.structure import (
     iter_cloudfront_distributions,
+)
+from parse_hcl2.loader import (
+    load as load_terraform,
+)
+from parse_hcl2.structure import (
+    get_argument,
+    get_attribute_by_block,
+    get_block_attribute,
+    iter_aws_cloudfront_distribution,
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -44,7 +57,7 @@ def helper_insecure_protocols(
             yield ssl_prot
 
 
-def _serves_content_over_insecure_protocols_iterate_vulnerabilities(
+def cfn_content_over_insecure_protocols_iterate_vulnerabilities(
     distributions_iterator: Iterator[Union[Any, Node]]
 ) -> Iterator[Union[Any, Node]]:
     vulnerable_origin_ssl_protocols = ["SSLv3", "TLSv1", "TLSv1.1"]
@@ -77,6 +90,51 @@ def _serves_content_over_insecure_protocols_iterate_vulnerabilities(
                         )
 
 
+def tfm_content_over_insecure_protocols_iterate_vulnerabilities(
+    buckets_iterator: Iterator[Union[AWSCloudfrontDistribution, Node]]
+) -> Iterator[Union[Any, Node]]:
+    vulnerable_origin_ssl_protocols = ["SSLv3", "TLSv1", "TLSv1.1"]
+    vulnerable_min_prot_versions = [
+        "SSLv3",
+        "TLSv1",
+        "TLSv1_2016",
+        "TLSv1.1_2016",
+    ]
+    for bucket in buckets_iterator:
+        if isinstance(bucket, AWSCloudfrontDistribution):
+            if v_cert := get_argument(
+                key="viewer_certificate",
+                body=bucket.data,
+            ):
+                if min_prot := get_block_attribute(
+                    v_cert, "minimum_protocol_version"
+                ):
+                    if any(
+                        True
+                        for protocol in vulnerable_min_prot_versions
+                        if protocol == min_prot.val
+                    ):
+                        yield min_prot
+            if origin := get_argument(
+                key="origin",
+                body=bucket.data,
+            ):
+                if ssl_prot := get_attribute_by_block(
+                    block=origin,
+                    namespace="custom_origin_config",
+                    key="origin_ssl_protocols",
+                ):
+                    if (
+                        len(
+                            set(ssl_prot.val).intersection(
+                                vulnerable_origin_ssl_protocols
+                            )
+                        )
+                        > 0
+                    ):
+                        yield ssl_prot
+
+
 def _cfn_serves_content_over_insecure_protocols(
     content: str,
     path: str,
@@ -90,10 +148,28 @@ def _cfn_serves_content_over_insecure_protocols(
         finding=core_model.FindingEnum.F016,
         path=path,
         statements_iterator=(
-            _serves_content_over_insecure_protocols_iterate_vulnerabilities(
+            cfn_content_over_insecure_protocols_iterate_vulnerabilities(
                 distributions_iterator=iter_cloudfront_distributions(
                     template=template
                 )
+            )
+        ),
+    )
+
+
+def _tfm_serves_content_over_insecure_protocols(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_aws_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f372.serves_content_over_http",
+        finding=core_model.FindingEnum.F372,
+        path=path,
+        statements_iterator=(
+            tfm_content_over_insecure_protocols_iterate_vulnerabilities(
+                buckets_iterator=iter_aws_cloudfront_distribution(model=model)
             )
         ),
     )
@@ -112,6 +188,19 @@ async def cfn_serves_content_over_insecure_protocols(
         content=content,
         path=path,
         template=template,
+    )
+
+
+async def tfm_serves_content_over_insecure_protocols(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_serves_content_over_insecure_protocols,
+        content=content,
+        path=path,
+        model=model,
     )
 
 
@@ -135,5 +224,15 @@ async def analyze(
                     template=template,
                 )
             )
+    if file_extension in EXTENSIONS_TERRAFORM:
+        content = await content_generator()
+        model = await load_terraform(stream=content, default=[])
+        coroutines.append(
+            tfm_serves_content_over_insecure_protocols(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
 
     return coroutines
