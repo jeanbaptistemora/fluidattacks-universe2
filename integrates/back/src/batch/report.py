@@ -81,7 +81,10 @@ async def send_report(
         "XLS": "Technical",
     }
     is_in_db = await is_action_by_key(key=item.key)
-    if is_in_db:
+    enforcer = await authz.get_group_level_enforcer(item.subject)
+    if is_in_db and enforcer(
+        item.entity, "api_resolvers_query_report__get_url_group_report"
+    ):
         message = (
             f"Send {item.additional_info} report requested by "
             f"{item.subject} for group {item.entity}"
