@@ -164,8 +164,10 @@ def _tfm_serves_content_over_insecure_protocols(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key="src.lib_path.f372.serves_content_over_http",
-        finding=core_model.FindingEnum.F372,
+        description_key=(
+            "src.lib_path.f016.serves_content_over_insecure_protocols"
+        ),
+        finding=core_model.FindingEnum.F016,
         path=path,
         statements_iterator=(
             tfm_content_over_insecure_protocols_iterate_vulnerabilities(
