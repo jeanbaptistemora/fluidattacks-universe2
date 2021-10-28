@@ -30,9 +30,11 @@ from starlette.datastructures import (
     UploadFile,
 )
 from typing import (
+    Any,
     cast,
     Dict,
     List,
+    Tuple,
     Union,
 )
 
@@ -267,6 +269,30 @@ async def update(
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return success
+
+
+async def append(
+    *,
+    finding_id: str,
+    vulnerability_id: str,
+    elements: Dict[str, Tuple[Dict[str, Any], ...]],
+) -> None:
+    expression = ",".join(
+        (f"#{attr} = list_append(#{attr}, :{attr})" for attr in elements)
+    )
+    expression_names = {f"#{attr}": attr for attr in elements}
+    expression_values = {
+        f":{attr}": values for attr, values in elements.items()
+    }
+    await dynamodb_ops.update_item(
+        TABLE_NAME,
+        {
+            "Key": {"finding_id": finding_id, "UUID": vulnerability_id},
+            "UpdateExpression": f"SET {expression}",
+            "ExpressionAttributeNames": expression_names,
+            "ExpressionAttributeValues": expression_values,
+        },
+    )
 
 
 async def upload_file(vuln_file: UploadFile) -> str:
