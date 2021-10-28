@@ -66,7 +66,7 @@ def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
                 modified_by=current_treatment["user"],
                 modified_date=current_treatment["date"],
                 status=VulnerabilityTreatmentStatus(
-                    current_treatment["treatment"].upper()
+                    current_treatment["treatment"].replace(" ", "_").upper()
                 ),
                 accepted_until=current_treatment.get("acceptance_date"),
                 acceptance_status=(

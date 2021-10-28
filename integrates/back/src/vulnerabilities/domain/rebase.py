@@ -4,6 +4,9 @@ from custom_exceptions import (
 from custom_types import (
     Vulnerability,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityType,
+)
 from typing import (
     List,
 )
@@ -26,9 +29,9 @@ async def rebase(
     vulnerability_id: str,
     vulnerability_where: str,
     vulnerability_specific: str,
-    vulnerability_type: str,
+    vulnerability_type: VulnerabilityType,
 ) -> bool:
-    if vulnerability_type != "lines":
+    if vulnerability_type != VulnerabilityType.LINES:
         raise ExpectedVulnToBeOfLinesType.new()
 
     validate_commit_hash(vulnerability_commit)

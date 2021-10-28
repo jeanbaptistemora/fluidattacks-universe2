@@ -8,6 +8,9 @@ from custom_exceptions import (
 from custom_types import (
     Vulnerability,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityType,
+)
 import re
 from string import (
     hexdigits,
@@ -35,14 +38,14 @@ def validate_uniqueness(
     finding_vulns_data: List[Vulnerability],
     vulnerability_where: str,
     vulnerability_specific: str,
-    vulnerability_type: str,
+    vulnerability_type: VulnerabilityType,
 ) -> None:
     finding_vulns_hashes: Set[int] = set(
         map(get_hash_from_dict, finding_vulns_data)
     )
     vuln_hash: int = get_hash(
         specific=vulnerability_specific,
-        type_=vulnerability_type,
+        type_=str(vulnerability_type.value).lower(),
         where=vulnerability_where,
     )
 
