@@ -15,6 +15,6 @@ makeScript {
       (inputs.legacy.importUtility "sops")
     ];
   };
-  name = "observes-scheduled-job-code-etl-mirror";
+  name = "observes-job-code-etl-mirror";
   entrypoint = ./entrypoint.sh;
 }

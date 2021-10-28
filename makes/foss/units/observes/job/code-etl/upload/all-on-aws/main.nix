@@ -1,7 +1,6 @@
 { inputs
 , outputs
 , makeScript
-, projectPath
 , ...
 }:
 let
@@ -19,6 +18,6 @@ makeScript {
     {
       __argCodeEtlUpload__ = "${uploadGroup}/bin/${uploadGroup.name}";
     };
-  name = "observes-scheduled-on-aws-code-etl-upload";
-  entrypoint = projectPath "/makes/foss/units/observes/scheduled/on-aws/code-etl-upload/entrypoint.sh";
+  name = "observes-job-code-etl-upload-all-on-aws";
+  entrypoint = ./entrypoint.sh;
 }

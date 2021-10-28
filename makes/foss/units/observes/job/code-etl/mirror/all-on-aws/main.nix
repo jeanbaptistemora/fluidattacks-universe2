@@ -1,7 +1,6 @@
 { inputs
 , makeScript
 , outputs
-, projectPath
 , ...
 }:
 let
@@ -18,6 +17,6 @@ makeScript {
   replace = {
     __argCodeEtlMirror__ = "${mirrorGroup}/bin/${mirrorGroup.name}";
   };
-  name = "observes-scheduled-on-aws-code-etl-mirror";
-  entrypoint = projectPath "/makes/foss/units/observes/scheduled/on-aws/code-etl-mirror/entrypoint.sh";
+  name = "observes-job-code-etl-mirror-all-on-aws";
+  entrypoint = ./entrypoint.sh;
 }

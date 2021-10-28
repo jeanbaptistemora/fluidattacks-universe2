@@ -7,14 +7,12 @@ makeScript {
   searchPaths = {
     bin = [
       outputs."/observes/bin/code-etl"
-      outputs."/melts"
     ];
     source = [
       (inputs.legacy.importUtility "aws")
-      (inputs.legacy.importUtility "git")
       (inputs.legacy.importUtility "sops")
     ];
   };
-  name = "observes-scheduled-job-code-etl-upload";
+  name = "observes-job-code-etl-compute-bills";
   entrypoint = ./entrypoint.sh;
 }

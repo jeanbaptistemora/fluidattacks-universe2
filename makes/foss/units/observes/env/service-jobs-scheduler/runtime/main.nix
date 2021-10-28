@@ -25,8 +25,8 @@ makeTemplate {
         gitlabEtlProduct = outputs."/computeOnAwsBatch/observesGitlabEtlProduct";
         gitlabEtlServices = outputs."/computeOnAwsBatch/observesGitlabEtlServices";
         batchStability = outputs."/observes/job/batch-stability";
-        codeEtlMirror = outputs."/observes/scheduled/on-aws/code-etl-mirror";
-        codeEtlUpload = outputs."/observes/scheduled/on-aws/code-etl-upload";
+        codeEtlMirror = outputs."/observes/job/code-etl/mirror/all-on-aws";
+        codeEtlUpload = outputs."/observes/job/code-etl/upload/all-on-aws";
         dynamoDbIntegratesEtl = outputs."/observes/scheduled/on-aws/dynamodb-integrates-etl";
       });
     pythonMypy = [ self ];
