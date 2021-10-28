@@ -73,13 +73,8 @@ If you are reading this report and you are not {{user}}, you are not authorized 
     {%-  endfor %}
 {%- endfor %}
 |===
-.{{resume_regi_title}}
-[cols="<,^", options="header"]
-|===
-|{{"*"+records_title+"*"}}|{{main_tables['num_reg']}}
-|===
 
-//Septima en adleante - Resumen hallazgos
+//Septima en adelante - Resumen hallazgos
 <<<
 === {{finding_section_title}}
 {% for finding in findings %}
