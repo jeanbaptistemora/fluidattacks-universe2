@@ -1,6 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import { PureAbility } from "@casl/ability";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import { GraphQLError } from "graphql";
@@ -15,7 +14,7 @@ import { CustomToggleList } from "components/DataTableNext/customToggleList";
 import type { ITableProps } from "components/DataTableNext/types";
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView";
 import { GET_FINDINGS } from "scenes/Dashboard/containers/GroupFindingsView/queries";
-import { authzPermissionsContext } from "utils/authz/config";
+import { ReportsModal } from "scenes/Dashboard/containers/GroupFindingsView/reportsModal";
 
 describe("GroupFindingsView", (): void => {
   const apolloDataMock: readonly MockedResponse[] = [
@@ -141,34 +140,17 @@ describe("GroupFindingsView", (): void => {
     expect(wrapper).toHaveLength(1);
   });
 
-  it("should render a svg", async (): Promise<void> => {
+  it("should render a svg", (): void => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_resolvers_query_report__get_url_group_report" },
-    ]);
+    const handleClose: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
-        <MockedProvider addTypename={true} mocks={mocksFindings}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Route
-              component={GroupFindingsView}
-              path={"/groups/:groupName/vulns"}
-            />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
+        <ReportsModal hasMobileApp={true} isOpen={true} onClose={handleClose} />
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-
-    const reportsModal: ReactWrapper = wrapper.find("Button#reports");
-
-    // Open Modal
-    reportsModal.simulate("click");
+    expect(wrapper).toHaveLength(1);
 
     // Find buttons
     const reportPdf: ReactWrapper = wrapper

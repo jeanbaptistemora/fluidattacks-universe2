@@ -1,25 +1,17 @@
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import {
-  faFileArchive,
-  faFileExcel,
-  faFilePdf,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
-import { Trans } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
-import { setReportType } from "./helpers";
 import {
   formatFindings,
   formatState,
@@ -50,19 +42,14 @@ import {
 } from "components/DataTableNext/utils";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import AppstoreBadge from "resources/appstore_badge.svg";
-import GoogleplayBadge from "resources/googleplay_badge.svg";
-import {
-  GET_FINDINGS,
-  REQUEST_GROUP_REPORT,
-} from "scenes/Dashboard/containers/GroupFindingsView/queries";
+import { GET_FINDINGS } from "scenes/Dashboard/containers/GroupFindingsView/queries";
+import { ReportsModal } from "scenes/Dashboard/containers/GroupFindingsView/reportsModal";
 import type {
   IFindingAttr,
   IGroupFindingsAttr,
 } from "scenes/Dashboard/containers/GroupFindingsView/types";
 import {
   ButtonToolbar,
-  ButtonToolbarCenter,
   Col100,
   ControlLabel,
   FormGroup,
@@ -101,19 +88,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const closeReportsModal: () => void = useCallback((): void => {
     setReportsModalOpen(false);
   }, []);
-
-  const [requestGroupReport] = useLazyQuery(REQUEST_GROUP_REPORT, {
-    onCompleted: (): void => {
-      msgSuccess(
-        translate.t("groupAlerts.reportRequested"),
-        translate.t("groupAlerts.titleSuccess")
-      );
-    },
-    onError: (error: ApolloError): void => {
-      msgError(translate.t("groupAlerts.errorTextsad"));
-      Logger.warning("An error occurred requesting group report", error);
-    },
-  });
 
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
@@ -284,26 +258,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     onError: handleQryErrors,
     variables: { groupName },
   });
-
-  const handleRequestGroupReport: (
-    event: React.MouseEvent<HTMLElement>
-  ) => void = (event: React.MouseEvent<HTMLElement>): void => {
-    const target: HTMLElement = event.currentTarget as HTMLElement;
-    const icon: SVGElement | null = target.querySelector("svg");
-    if (icon !== null) {
-      const reportType: string = setReportType(icon);
-
-      track("GroupReportRequest", { reportType });
-
-      requestGroupReport({
-        variables: {
-          groupName,
-          reportType,
-        },
-      });
-      setReportsModalOpen(false);
-    }
-  };
 
   const findings: IFindingAttr[] =
     data === undefined ? [] : formatFindings(data.group.findings);
@@ -702,103 +656,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           striped={true}
         />
       </TooltipWrapper>
-      <Modal
-        headerTitle={translate.t("group.findings.report.modalTitle")}
-        onEsc={closeReportsModal}
-        open={isReportsModalOpen}
-      >
-        <div className={"flex flex-wrap tc"}>
-          <Col100>
-            <Trans>
-              <p>{translate.t("group.findings.report.techDescription")}</p>
-            </Trans>
-            <p>
-              <a
-                href={"https://apps.apple.com/us/app/integrates/id1470450298"}
-                rel={"nofollow noopener noreferrer"}
-                target={"_blank"}
-              >
-                <img
-                  alt={"App Store"}
-                  height={"40"}
-                  src={AppstoreBadge}
-                  width={"140"}
-                />
-              </a>
-              <a
-                href={
-                  "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates"
-                }
-                rel={"nofollow noopener noreferrer"}
-                target={"_blank"}
-              >
-                <img
-                  alt={"Google Play"}
-                  height={"40"}
-                  src={GoogleplayBadge}
-                  width={"140"}
-                />
-              </a>
-            </p>
-            <br />
-            <Row>
-              <Col100>
-                <ButtonToolbarCenter>
-                  <TooltipWrapper
-                    id={"group.findings.report.pdfTooltip.id"}
-                    message={translate.t("group.findings.report.pdfTooltip")}
-                  >
-                    <Button
-                      id={"report-pdf"}
-                      // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
-                      onClick={handleRequestGroupReport}
-                    >
-                      <FontAwesomeIcon icon={faFilePdf} />
-                      {translate.t("group.findings.report.pdf")}
-                    </Button>
-                  </TooltipWrapper>
-                  <TooltipWrapper
-                    id={"group.findings.report.xlsTooltip.id"}
-                    message={translate.t("group.findings.report.xlsTooltip")}
-                  >
-                    <Button
-                      id={"report-excel"}
-                      // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
-                      onClick={handleRequestGroupReport}
-                    >
-                      <FontAwesomeIcon icon={faFileExcel} />
-                      {translate.t("group.findings.report.xls")}
-                    </Button>
-                  </TooltipWrapper>
-                  <TooltipWrapper
-                    id={"group.findings.report.dataTooltip.id"}
-                    message={translate.t("group.findings.report.dataTooltip")}
-                  >
-                    <Button
-                      id={"report-zip"}
-                      // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
-                      onClick={handleRequestGroupReport}
-                    >
-                      <FontAwesomeIcon icon={faFileArchive} />
-                      {translate.t("group.findings.report.data")}
-                    </Button>
-                  </TooltipWrapper>
-                </ButtonToolbarCenter>
-              </Col100>
-            </Row>
-          </Col100>
-        </div>
-        <hr />
-        <Row>
-          <Col100>
-            <ButtonToolbar>
-              <Button onClick={closeReportsModal}>
-                {translate.t("group.findings.report.modalClose")}
-              </Button>
-            </ButtonToolbar>
-          </Col100>
-        </Row>
-      </Modal>
+      <ReportsModal
+        hasMobileApp={true}
+        isOpen={isReportsModalOpen}
+        onClose={closeReportsModal}
+      />
       <Modal
         headerTitle={translate.t("searchFindings.delete.title")}
         onEsc={closeDeleteModal}
