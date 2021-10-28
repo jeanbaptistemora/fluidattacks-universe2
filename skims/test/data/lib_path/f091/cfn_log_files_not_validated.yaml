@@ -1,0 +1,18 @@
+Resources:
+  trail1:
+    Type: AWS::CloudTrail::Trail
+    Properties:
+      IsLogging: true
+      S3BucketName: bk1
+      EnableLogFileValidation: true
+  trail2:
+    Type: AWS::CloudTrail::Trail
+    Properties:
+      IsLogging: true
+      S3BucketName: bk2
+      EnableLogFileValidation: false
+  trail3:
+    Type: AWS::CloudTrail::Trail
+    Properties:
+      IsLogging: true
+      S3BucketName: bk3

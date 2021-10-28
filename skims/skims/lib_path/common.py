@@ -201,6 +201,10 @@ def str_to_number(token: str, default: float = math.nan) -> float:
         return default
 
 
+def get_line_by_extension(line: int, file_ext: str) -> int:
+    return line - 1 if file_ext in EXTENSIONS_YAML else line
+
+
 def get_vulnerabilities_from_aws_iterator_blocking(
     content: str,
     description_key: str,

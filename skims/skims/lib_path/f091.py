@@ -6,6 +6,7 @@ from aws.model import (
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
+    get_line_by_extension,
     get_vulnerabilities_from_aws_iterator_blocking,
     SHIELD,
 )
@@ -39,7 +40,8 @@ from utils.function import (
 
 
 def cfn_log_files_not_validated_iterate_vulnerabilities(
-    trails_iterator: Iterator[Union[AWSCTrail, Node]]
+    file_ext: str,
+    trails_iterator: Iterator[Union[AWSCTrail, Node]],
 ) -> Iterator[Union[AWSCTrail, Node]]:
     values = ["true", "True", True, "1", 1]
     for trail in trails_iterator:
@@ -51,12 +53,13 @@ def cfn_log_files_not_validated_iterate_vulnerabilities(
             yield AWSCTrail(
                 data=trail.data,
                 column=trail.start_column,
-                line=trail.start_line - 1,
+                line=get_line_by_extension(trail.start_line, file_ext),
             )
 
 
 def _cfn_log_files_not_validated(
     content: str,
+    file_ext: str,
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
@@ -67,7 +70,8 @@ def _cfn_log_files_not_validated(
         path=path,
         statements_iterator=(
             cfn_log_files_not_validated_iterate_vulnerabilities(
-                trails_iterator=iter_cloudtrail_trail(template=template)
+                file_ext=file_ext,
+                trails_iterator=iter_cloudtrail_trail(template=template),
             )
         ),
     )
@@ -78,12 +82,14 @@ def _cfn_log_files_not_validated(
 @TIMEOUT_1MIN
 async def cfn_log_files_not_validated(
     content: str,
+    file_ext: str,
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _cfn_log_files_not_validated,
         content=content,
+        file_ext=file_ext,
         path=path,
         template=template,
     )
@@ -105,6 +111,7 @@ async def analyze(
             coroutines.append(
                 cfn_log_files_not_validated(
                     content=content,
+                    file_ext=file_extension,
                     path=path,
                     template=template,
                 )
