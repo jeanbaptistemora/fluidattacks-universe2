@@ -2811,3 +2811,51 @@
       title: Improper Neutralization of Special Elements used in a Command ('Command Injection')
       link: https://cwe.mitre.org/data/definitions/77.html
   metadata: {}
+"017":
+  title: OWASP-M TOP 10
+  en:
+    description: >
+      OWASP Mobile Security Project is a
+      centralized resource intended to give
+      developers and security teams the
+      resources they need to build and
+      maintain secure mobile applications.
+      OWASP-M Top Ten classify mobile security
+      risks and provide developmental
+      controls to reduce their impact or
+      likelihood of exploitation.
+      The last version reviewed is 2016.
+  es:
+    description: __empty__
+  definitions:
+    "M1":
+      title: Improper Platform Usage
+      link: https://owasp.org/www-project-mobile-top-10/2016-risks/m1-improper-platform-usage
+    "M2":
+      title: Insecure Data Storage
+      link: https://owasp.org/www-project-mobile-top-10/2016-risks/m2-insecure-data-storage
+    "M3":
+      title: Insecure Communication Threat Agents
+      link: https://owasp.org/www-project-mobile-top-10/2016-risks/m3-insecure-communication
+    "M4":
+      title: Insecure Authentication
+      link: https://owasp.org/www-project-mobile-top-10/2016-risks/m4-insecure-authentication
+    "M5":
+      title: Insufficient Cryptography
+      link: https://owasp.org/www-project-mobile-top-10/2016-risks/m5-insufficient-cryptography
+    "M6":
+      title: Insecure Authorization
+      link: https://owasp.org/www-project-mobile-top-10/2016-risks/m6-insecure-authorization
+    "M7":
+      title: Poor Code Quality
+      link: https://owasp.org/www-project-mobile-top-10/2016-risks/m7-client-code-quality
+    "M8":
+      title: Code Tampering
+      link: https://owasp.org/www-project-mobile-top-10/2016-risks/m8-code-tampering
+    "M9":
+      title: Reverse Engineering
+      link: https://owasp.org/www-project-mobile-top-10/2016-risks/m9-reverse-engineering
+    "M10":
+      title: Extraneous Functionality Threat Agents
+      link: https://owasp.org/www-project-mobile-top-10/2016-risks/m10-extraneous-functionality
+  metadata: {}
