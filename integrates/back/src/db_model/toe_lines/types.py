@@ -1,3 +1,6 @@
+from decimal import (
+    Decimal,
+)
 from typing import (
     NamedTuple,
     Optional,
@@ -18,7 +21,7 @@ class ToeLines(NamedTuple):
     modified_date: str
     root_id: str
     seen_at: str
-    sorts_risk_level: float
+    sorts_risk_level: Decimal
 
     def get_hash(self) -> int:
         return hash((self.group_name, self.root_id, self.filename))
@@ -35,4 +38,4 @@ class ToeLinesMetadataToUpdate(NamedTuple):
     modified_commit: Optional[str] = None
     modified_date: Optional[str] = None
     seen_at: Optional[str] = None
-    sorts_risk_level: Optional[float] = None
+    sorts_risk_level: Optional[Decimal] = None
