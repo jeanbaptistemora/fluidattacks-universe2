@@ -1,8 +1,12 @@
 from aioextensions import (
     in_process,
 )
+from aws.model import (
+    AWSCloudfrontDistribution,
+)
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
+    get_line_by_extension,
     get_vulnerabilities_from_aws_iterator_blocking,
     SHIELD,
 )
@@ -36,18 +40,26 @@ from utils.function import (
 
 
 def _has_logging_disabled_iterate_vulnerabilities(
-    distributions_iterator: Iterator[Union[Any, Node]]
-) -> Iterator[Union[Any, Node]]:
+    file_ext: str,
+    distributions_iterator: Iterator[Union[AWSCloudfrontDistribution, Node]],
+) -> Iterator[Union[AWSCloudfrontDistribution, Node]]:
     for dist in distributions_iterator:
         dist_config = dist.inner["DistributionConfig"]
         if isinstance(dist_config, Node):
             logging = get_node_by_keys(dist_config, ["Logging"])
             if not isinstance(logging, Node):
-                yield dist_config
+                yield AWSCloudfrontDistribution(
+                    column=dist_config.start_column,
+                    data=dist_config.data,
+                    line=get_line_by_extension(
+                        dist_config.start_line, file_ext
+                    ),
+                )
 
 
 def _cfn_has_logging_disabled(
     content: str,
+    file_ext: str,
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
@@ -57,9 +69,10 @@ def _cfn_has_logging_disabled(
         finding=core_model.FindingEnum.F200,
         path=path,
         statements_iterator=_has_logging_disabled_iterate_vulnerabilities(
+            file_ext=file_ext,
             distributions_iterator=iter_cloudfront_distributions(
                 template=template
-            )
+            ),
         ),
     )
 
@@ -69,12 +82,14 @@ def _cfn_has_logging_disabled(
 @TIMEOUT_1MIN
 async def cfn_has_logging_disabled(
     content: str,
+    file_ext: str,
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _cfn_has_logging_disabled,
         content=content,
+        file_ext=file_ext,
         path=path,
         template=template,
     )
@@ -96,6 +111,7 @@ async def analyze(
             coroutines.append(
                 cfn_has_logging_disabled(
                     content=content,
+                    file_ext=file_extension,
                     path=path,
                     template=template,
                 )

@@ -6271,13 +6271,13 @@ F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Ina
   19 | }
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,6,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,5,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
    1 | Resources:
    2 |   distribution1:
    3 |     Type: AWS::CloudFront::Distribution
    4 |     Properties:
-   5 |       DistributionConfig:
->  6 |         Enabled: 'true'
+>  5 |       DistributionConfig:
+   6 |         Enabled: 'true'
    7 |         DefaultCacheBehavior:
    8 |           TargetOriginId: def1
    9 |           ForwardedValues:
@@ -6295,13 +6295,13 @@ F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   21 |           PathPattern: images1/*.jpg
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,6,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,5,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
    1 | Resources:
    2 |   distribution1:
    3 |     Type: AWS::CloudFront::Distribution
    4 |     Properties:
-   5 |       DistributionConfig:
->  6 |         Enabled: 'true'
+>  5 |       DistributionConfig:
+   6 |         Enabled: 'true'
    7 |         DefaultCacheBehavior:
    8 |           TargetOriginId: def1
    9 |           ForwardedValues:
@@ -6319,7 +6319,7 @@ F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   21 |     Type: AWS::CloudFront::Distribution
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f200/cfn_has_logging_disabled.yaml,19,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_has_logging_disabled.yaml,18,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
    5 |       DistributionConfig:
    6 |         Enabled: 'true'
    7 |         DefaultCacheBehavior:
@@ -6333,8 +6333,8 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_has_logging_disabled.yaml
   15 |   distribution2:
   16 |     Type: AWS::CloudFront::Distribution
   17 |     Properties:
-  18 |       DistributionConfig:
-> 19 |         Enabled: 'true'
+> 18 |       DistributionConfig:
+  19 |         Enabled: 'true'
   20 |         DefaultCacheBehavior:
   21 |           TargetOriginId: def2
   22 |           ForwardedValues:
@@ -6343,7 +6343,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_has_logging_disabled.yaml
   25 |               Forward: all
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,24,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,23,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
   12 |               Forward: all
   13 |         Origins:
   14 |         - CustomOriginConfig:
@@ -6355,8 +6355,8 @@ F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   20 |   distribution2:
   21 |     Type: AWS::CloudFront::Distribution
   22 |     Properties:
-  23 |       DistributionConfig:
-> 24 |         Enabled: 'true'
+> 23 |       DistributionConfig:
+  24 |         Enabled: 'true'
   25 |         DefaultCacheBehavior:
   26 |           TargetOriginId: def2
   27 |           ForwardedValues:
@@ -6367,7 +6367,8 @@ F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   32 |           MinimumProtocolVersion: TLSv1
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,33,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,32,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+  22 |         - TargetOriginId: cache12
   23 |           ForwardedValues:
   24 |             QueryString: 'true'
   25 |             Cookies:
@@ -6377,8 +6378,8 @@ F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   29 |   distribution2:
   30 |     Type: AWS::CloudFront::Distribution
   31 |     Properties:
-  32 |       DistributionConfig:
-> 33 |         Enabled: 'true'
+> 32 |       DistributionConfig:
+  33 |         Enabled: 'true'
   34 |         DefaultCacheBehavior:
   35 |           TargetOriginId: def2
   36 |           ForwardedValues:
@@ -6388,7 +6389,6 @@ F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   40 |           ViewerProtocolPolicy: https-only
   41 |         CacheBehaviors:
   42 |         - TargetOriginId: cache21
-  43 |           ForwardedValues:
      ^ Col 0
 "
 F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,6,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
