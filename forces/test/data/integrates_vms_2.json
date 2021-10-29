@@ -147,9 +147,6 @@
               }
             }
           },
-          "compromised_records": {
-            "N": "0"
-          },
           "attack_vector_description": {
             "S": "Un usuario puede aprovecharse de que el servidor no valida el tipo de car\u00e1cter en los campos de entrada y lograr as\u00ed una inyecci\u00f3n ya sea XSS, SQLi para tener un vector de ataque m\u00e1s amplio."
           },
@@ -447,9 +444,6 @@
                 }
               }
             }
-          },
-          "compromised_records": {
-            "N": "0"
           },
           "attack_vector_description": {
             "S": "Lose the traceability necessary to identify and fix unexpected errors.\n"

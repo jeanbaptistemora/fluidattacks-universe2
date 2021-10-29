@@ -65,9 +65,6 @@
               }
             }
           },
-          "compromised_records": {
-            "N": "0"
-          },
           "attack_vector_description": {
             "S": "Make the software resolve the pathname to a location that is outside of the intended target, for instance: /etc/passwd.\n"
           },
@@ -365,9 +362,6 @@
                 }
               }
             }
-          },
-          "compromised_records": {
-            "N": "0"
           },
           "attack_vector_description": {
             "S": "- Perform malicious actions within the application and leave no trace about it.\n- Make auditing and debugging difficult, as it is not possible to\n  correctly identify the errors generated.\n"

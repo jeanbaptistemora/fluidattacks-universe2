@@ -339,10 +339,6 @@
           "AttributeType": "M"
         },
         {
-          "AttributeName": "compromised_records",
-          "AttributeType": "N"
-        },
-        {
           "AttributeName": "attack_vector_description",
           "AttributeType": "S"
         },
@@ -2278,9 +2274,6 @@
               "sk": {
                 "S": "GROUP#asgard"
               },
-              "compromised_records": {
-                "N": "12"
-              },
               "pk": {
                 "S": "FIN#436712859"
               },
@@ -2400,9 +2393,6 @@
               },
               "sk": {
                 "S": "GROUP#asgard"
-              },
-              "compromised_records": {
-                "N": "12"
               },
               "pk": {
                 "S": "FIN#683100860"
@@ -2524,9 +2514,6 @@
               "sk": {
                 "S": "GROUP#asgard"
               },
-              "compromised_records": {
-                "N": "12"
-              },
               "pk": {
                 "S": "FIN#997868246"
               },
@@ -2646,9 +2633,6 @@
               },
               "sk": {
                 "S": "GROUP#continuoustesting"
-              },
-              "compromised_records": {
-                "N": "0"
               },
               "pk": {
                 "S": "FIN#475041524"
@@ -2797,9 +2781,6 @@
               "sk": {
                 "S": "GROUP#continuoustesting"
               },
-              "compromised_records": {
-                "N": "0"
-              },
               "pk": {
                 "S": "FIN#836530833"
               },
@@ -2934,9 +2915,6 @@
               "sk": {
                 "S": "GROUP#continuoustesting"
               },
-              "compromised_records": {
-                "N": "0"
-              },
               "pk": {
                 "S": "REMOVED#FIN#991607942"
               },
@@ -3057,9 +3035,6 @@
               "sk": {
                 "S": "GROUP#lubbock"
               },
-              "compromised_records": {
-                "N": "0"
-              },
               "pk": {
                 "S": "FIN#818828206"
               },
@@ -3179,9 +3154,6 @@
               },
               "sk": {
                 "S": "GROUP#oneshottest"
-              },
-              "compromised_records": {
-                "N": "0"
               },
               "pk": {
                 "S": "FIN#457497318"
@@ -3343,9 +3315,6 @@
               "sk": {
                 "S": "GROUP#oneshottest"
               },
-              "compromised_records": {
-                "N": "0"
-              },
               "pk": {
                 "S": "FIN#475041513"
               },
@@ -3493,9 +3462,6 @@
               "sk": {
                 "S": "GROUP#oneshottest"
               },
-              "compromised_records": {
-                "N": "0"
-              },
               "pk": {
                 "S": "FIN#475041535"
               },
@@ -3642,9 +3608,6 @@
               },
               "sk": {
                 "S": "GROUP#unittesting"
-              },
-              "compromised_records": {
-                "N": "12"
               },
               "pk": {
                 "S": "FIN#422286126"
@@ -3871,9 +3834,6 @@
               "sk": {
                 "S": "GROUP#unittesting"
               },
-              "compromised_records": {
-                "N": "5"
-              },
               "pk": {
                 "S": "FIN#436992569"
               },
@@ -4086,9 +4046,6 @@
               "sk": {
                 "S": "GROUP#unittesting"
               },
-              "compromised_records": {
-                "N": "0"
-              },
               "pk": {
                 "S": "FIN#457497316"
               },
@@ -4235,9 +4192,6 @@
               },
               "sk": {
                 "S": "GROUP#unittesting"
-              },
-              "compromised_records": {
-                "N": "1"
               },
               "pk": {
                 "S": "FIN#463461507"
@@ -4411,9 +4365,6 @@
               },
               "sk": {
                 "S": "GROUP#unittesting"
-              },
-              "compromised_records": {
-                "N": "0"
               },
               "pk": {
                 "S": "FIN#463558592"
@@ -4601,9 +4552,6 @@
               "sk": {
                 "S": "GROUP#unittesting"
               },
-              "compromised_records": {
-                "N": "1"
-              },
               "pk": {
                 "S": "FIN#560175507"
               },
@@ -4724,9 +4672,6 @@
               "sk": {
                 "S": "GROUP#unittesting"
               },
-              "compromised_records": {
-                "N": "0"
-              },
               "pk": {
                 "S": "FIN#988493279"
               },
@@ -4776,7 +4721,6 @@
             "compromised_attributes",
             "group_name",
             "severity",
-            "compromised_records",
             "attack_vector_description"
           ]
         },
