@@ -42,7 +42,6 @@ async def get_result(  # pylint: disable=too-many-locals
                     hacker
                     attackVectorDescription
                     closedVulnerabilities
-                    compromisedAttributes
                     consulting {{
                         content
                     }}

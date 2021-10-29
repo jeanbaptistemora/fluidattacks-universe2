@@ -151,7 +151,6 @@ def format_finding(
         hacker_email=metadata["analyst_email"],
         approval=approval,
         attack_vector_description=metadata["attack_vector_description"],
-        compromised_attributes=metadata["compromised_attributes"],
         creation=creation,
         description=metadata["description"],
         evidences=evidences,

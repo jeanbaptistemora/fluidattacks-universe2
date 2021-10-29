@@ -26,7 +26,6 @@ async def get_result(
                 attackVectorDesc
                 attackVectorDescription
                 closedVulnerabilities
-                compromisedAttributes
                 consulting {{
                     content
                 }}

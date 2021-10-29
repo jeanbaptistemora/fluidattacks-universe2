@@ -265,7 +265,6 @@ async def test_mask_finding() -> None:
     masked_finding: Finding = await loaders.finding.load(finding_id)
     assert masked_finding.affected_systems == MASKED
     assert masked_finding.attack_vector_description == MASKED
-    assert masked_finding.compromised_attributes == MASKED
     assert masked_finding.description == MASKED
     assert masked_finding.recommendation == MASKED
     assert masked_finding.threat == MASKED

@@ -11,7 +11,6 @@ interface IHistoricTreatment {
 interface IFinding {
   affectedSystems: string;
   attackVectorDescription: string;
-  compromisedAttributes: string;
   description: string;
   hacker?: string;
   id: string;

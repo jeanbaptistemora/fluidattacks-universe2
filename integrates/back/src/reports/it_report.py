@@ -249,7 +249,6 @@ class ITReport:
             "Affected System": finding.affected_systems,
             "Threat": finding.threat,
             "Recommendation": finding.recommendation,
-            "Compromised Attributes": finding.compromised_attributes,
         }
         for key, value in finding_data.items():
             self.row_values[self.vulnerability[key]] = value

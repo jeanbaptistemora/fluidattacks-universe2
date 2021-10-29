@@ -153,7 +153,6 @@ class Finding(NamedTuple):
     affected_systems: str = ""
     attack_vector_description: str = ""
     approval: Optional[FindingState] = None
-    compromised_attributes: str = ""
     creation: Optional[FindingState] = None
     description: str = ""
     evidences: FindingEvidences = FindingEvidences()
@@ -178,7 +177,6 @@ class FindingEvidenceToUpdate(NamedTuple):
 class FindingMetadataToUpdate(NamedTuple):
     affected_systems: Optional[str] = None
     attack_vector_description: Optional[str] = None
-    compromised_attributes: Optional[str] = None
     description: Optional[str] = None
     evidences: Optional[FindingEvidences] = None
     recommendation: Optional[str] = None

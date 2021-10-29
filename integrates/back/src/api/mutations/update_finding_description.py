@@ -61,7 +61,6 @@ async def mutate(
             attack_vector_description=get_key_or_fallback(
                 kwargs, "attack_vector_description", "attack_vector_desc"
             ),
-            compromised_attributes=kwargs.get("records"),
             description=kwargs["description"],
             recommendation=kwargs["recommendation"],
             sorts=FindingSorts[kwargs["sorts"]]

@@ -10,7 +10,6 @@ const GET_FINDING_DESCRIPTION: DocumentNode = gql`
     finding(identifier: $findingId) {
       affectedSystems
       attackVectorDescription
-      compromisedAttributes
       description
       hacker @include(if: $canRetrieveHacker)
       id
@@ -39,7 +38,6 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
   mutation UpdateFindingDescription(
     $affectedSystems: String!
     $attackVectorDescription: String!
-    $compromisedAttributes: String
     $description: String!
     $findingId: String!
     $recommendation: String!
@@ -52,7 +50,6 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
       attackVectorDescription: $attackVectorDescription
       description: $description
       findingId: $findingId
-      records: $compromisedAttributes
       recommendation: $recommendation
       sorts: $sorts
       threat: $threat

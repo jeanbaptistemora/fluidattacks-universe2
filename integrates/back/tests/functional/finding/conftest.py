@@ -84,7 +84,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=FindingStateStatus.CREATED,
                     ),
                     title="001. SQL injection - C Sharp SQL API",
-                    compromised_attributes="Clave plana",
                     recommendation="Updated recommendation",
                     description="I just have updated the description",
                     hacker_email="test1@gmail.com",

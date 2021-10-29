@@ -143,7 +143,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
           threat
           recommendation
           affectedSystems
-          compromisedAttributes
           remediated
           age
           isExploitable
@@ -217,7 +216,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
     assert "threat" in result["data"]["finding"]
     assert "recommendation" in result["data"]["finding"]
     assert "affectedSystems" in result["data"]["finding"]
-    assert "compromisedAttributes" in result["data"]["finding"]
     assert "remediated" in result["data"]["finding"]
     assert "age" in result["data"]["finding"]
     assert "isExploitable" in result["data"]["finding"]
@@ -455,7 +453,6 @@ async def test_update_description() -> None:
         mutation UpdateFindingDescription(
             $affectedSystems: String!,
             $attackVectorDescription: String!,
-            $compromisedAttributes: String,
             $description: String!,
             $findingId: String!,
             $recommendation: String!,
@@ -467,7 +464,6 @@ async def test_update_description() -> None:
             attackVectorDescription: $attackVectorDescription,
             description: $description,
             findingId: $findingId,
-            records: $compromisedAttributes,
             recommendation: $recommendation,
             threat: $threat,
             title: $title,
@@ -479,7 +475,6 @@ async def test_update_description() -> None:
     variables = {
         "affectedSystems": "Server bWAPP",
         "attackVectorDescription": "This is an updated attack vector",
-        "compromisedAttributes": "Clave plana",
         "description": "I just have updated the description",
         "findingId": "422286126",
         "recommendation": "Updated recommendation",
