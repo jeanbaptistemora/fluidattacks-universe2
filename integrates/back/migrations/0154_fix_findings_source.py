@@ -5,8 +5,8 @@ This migration aims to fix the source for findings reported by Machine.
 The source was incorrectly assigned after the findings migration to the
 single table model.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2021-10-28 at 23:27:11 UTC
+Finalization Time:  2021-10-29 at 00:20:00 UTC
 """
 
 from aioextensions import (
@@ -51,7 +51,7 @@ from typing import (
 )
 
 FINDING_TABLE: str = "FI_findings"  # Before migration
-PROD: bool = False
+PROD: bool = True
 
 
 def _map_source(source: str) -> str:
