@@ -37,7 +37,7 @@ makeScript {
       inputs.nixpkgs.openjdk8_headless
       inputs.nixpkgs.python39
       outputs."/makes/kill-port"
-      inputs.product.makes-wait
+      outputs."/makes/wait"
     ];
     nodeModule = [ "." ];
     source = [

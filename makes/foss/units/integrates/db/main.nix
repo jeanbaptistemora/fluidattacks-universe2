@@ -26,7 +26,7 @@ makeScript {
       inputs.nixpkgs.unzip
       outputs."/makes/done"
       outputs."/makes/kill-port"
-      inputs.product.makes-wait
+      outputs."/makes/wait"
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/db/entrypoint.sh";

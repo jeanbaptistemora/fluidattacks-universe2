@@ -1,5 +1,4 @@
-{ inputs
-, makeScript
+{ makeScript
 , outputs
 , ...
 }:
@@ -12,7 +11,7 @@ makeScript {
   searchPaths.bin = [
     outputs."/makes/done"
     outputs."/makes/kill-port"
-    inputs.product.makes-wait
+    outputs."/makes/wait"
   ];
   entrypoint = ./entrypoint.sh;
 }

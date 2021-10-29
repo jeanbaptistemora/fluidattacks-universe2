@@ -10,7 +10,7 @@ makeScript {
       inputs.nixpkgs.redis
       outputs."/makes/done"
       outputs."/makes/kill-port"
-      inputs.product.makes-wait
+      outputs."/makes/wait"
     ];
   };
   entrypoint = ./entrypoint.sh;
