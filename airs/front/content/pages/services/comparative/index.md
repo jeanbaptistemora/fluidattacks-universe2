@@ -1,8 +1,10 @@
 ---
 slug: services/comparative/
 title: Comparative
-description: Know the differences between continuous hacking and one-shot hacking offered by Fluid Attacks.
-keywords: Fluid Attacks, Ethical Hacking, Pentesting, Comparison, Company, Continuous Hacking, One-Shot Hacking
+description: Know the differences between continuous hacking
+  and one-shot hacking offered by Fluid Attacks.
+keywords: Fluid Attacks, Ethical Hacking, Pentesting, Comparison,
+  Company, Continuous Hacking, One-Shot Hacking
 banner: comparative-bg
 ---
 
