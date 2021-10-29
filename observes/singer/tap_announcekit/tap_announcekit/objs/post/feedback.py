@@ -29,7 +29,7 @@ class ActionSource(Enum):
 @dataclass(frozen=True)
 class Feedback:
     reaction: Optional[str]
-    feedback: Optional[str]
+    comment: Optional[str]
     source: ActionSource
     created_at: datetime
     external_user_id: ExtUserId

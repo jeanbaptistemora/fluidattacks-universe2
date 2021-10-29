@@ -61,7 +61,7 @@ def _to_json(f_obj: FeedbackObj) -> JsonObj:
         "project_id": f_obj.id_obj.post.proj.id_str,
         "post_id": f_obj.id_obj.post.id_str,
         "reaction": f_obj.obj.reaction,
-        "feedback": f_obj.obj.feedback,
+        "comment": f_obj.obj.comment,
         "source": f_obj.obj.source.value,
         "created_at": f_obj.obj.created_at.isoformat(),
         "external_user_id": f_obj.obj.external_user_id.id_str,

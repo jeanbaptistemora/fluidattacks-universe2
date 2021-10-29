@@ -38,6 +38,11 @@ class FeedbackPageQuery:
     proj_id: ProjectId
     page: int
 
+    @staticmethod
+    def _attr_map(attr: str) -> str:
+        mapping = {"comment": "feedback"}
+        return mapping.get(attr, attr)
+
     def _select_fields(self, query: Operation) -> IO[None]:
         fb_page = query.feedbacks(
             project_id=self.proj_id.id_str, page=self.page
@@ -46,7 +51,7 @@ class FeedbackPageQuery:
         items.id()
         items.post_id()
         for attr in Feedback.__annotations__:
-            getattr(items, attr)()
+            getattr(items, self._attr_map(attr))()
         props = FeedbackPage.__annotations__.copy()
         del props["items"]
         for attr in props:
