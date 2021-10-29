@@ -12,8 +12,17 @@ For each vulnerability:
     - If multiple duplicates have treatment defined, the treatment is merged
       into the oldest duplicate and the rest are deleted.
 
-Execution Time:
-Finalization Time:
+Vulnerabilities without treatment:
+    Execution Time:     2021-10-28 at 01:13:01 UTC
+    Finalization Time:  2021-10-28 at 02:19:26 UTC
+
+Vulnerabilities with one treatment:
+    Execution Time:     2021-10-28 at 16:44:40 UTC
+    Finalization Time:  2021-10-28 at 17:18:29 UTC
+
+Vulnerabilities with multiple treatments
+    Execution Time:     2021-10-29 at 17:49:43 UTC
+    Finalization Time:  2021-10-29 at 18:23:22 UTC
 """
 from aioextensions import (
     collect,
@@ -37,11 +46,15 @@ from functools import (
 from groups import (
     domain as groups_domain,
 )
+from itertools import (
+    chain,
+)
 from newutils import (
     datetime as datetime_utils,
 )
 import time
 from typing import (
+    Any,
     Dict,
     List,
 )
@@ -53,6 +66,17 @@ from vulnerabilities.domain import (
 )
 
 DuplicatedVulnsIdx = Dict[int, Dict[int, Dict[int, List[int]]]]
+
+
+class Reversor:
+    def __init__(self, obj: str) -> None:
+        self.obj: str = obj
+
+    def __eq__(self, other: Any) -> bool:
+        return other.obj == self.obj
+
+    def __lt__(self, other: Any) -> bool:
+        return other.obj < self.obj
 
 
 async def _delete_vulnerability(vuln: VulnerabilityType) -> None:
@@ -98,18 +122,73 @@ def _remove_empty_keys(obj: DuplicatedVulnsIdx) -> DuplicatedVulnsIdx:
     return obj
 
 
+async def delete_duplicate_vulns_multiple_treatments(
+    vulns: List[VulnerabilityType],
+) -> None:
+    sorted_vulns = sorted(
+        vulns, key=lambda x: datetime_utils.get_from_str(x["report_date"])
+    )
+    all_treatments = sorted_vulns[0]["historic_treatment"] + list(
+        chain.from_iterable(
+            vuln["historic_treatment"][1:] for vuln in sorted_vulns[1:]
+        )
+    )
+    sorted_treatments = sorted(
+        all_treatments,
+        key=lambda x: (
+            datetime_utils.get_from_str(x["date"]),
+            Reversor(x["treatment"]),
+        ),
+    )
+    vuln_ids_to_delete: str = "\n[INFO]\t\t\t".join(
+        [vuln["UUID"] for vuln in sorted_vulns[1:]]
+    )
+    print(
+        "[INFO]\t\tMultiple Treatments - Deleting:\n[INFO]\t\t\t"
+        f"{vuln_ids_to_delete}"
+        "\n[INFO]\t\t\tin favor of "
+        f"{sorted_vulns[0]['UUID']}"
+    )
+    await vulns_dal.update(
+        sorted_vulns[0]["finding_id"],
+        str(sorted_vulns[0]["UUID"]),
+        {"historic_treatment": sorted_treatments},
+    )
+    await collect(_delete_vulnerability(vuln) for vuln in sorted_vulns[1:])
+
+
 async def delete_duplicate_vulns_no_treatment(
     vulns: List[VulnerabilityType],
 ) -> None:
     sorted_vulns = sorted(
         vulns, key=lambda x: datetime_utils.get_from_str(x["report_date"])
     )
-    vuln_ids_to_delete: str = "\n\t\t\t".join(
+    vuln_ids_to_delete: str = "\n[INFO]\t\t\t".join(
         [vuln["UUID"] for vuln in sorted_vulns[1:]]
     )
     print(
-        "\t\tNo Treatment - Deleting:\n\t\t\t"
-        f"{vuln_ids_to_delete} in favor of {sorted_vulns[0]['UUID']}"
+        "[INFO]\t\tNo Treatment - Deleting:\n[INFO]\t\t\t"
+        f"{vuln_ids_to_delete}"
+        "\n[INFO]\t\t\tin favor of "
+        f"{sorted_vulns[0]['UUID']}"
+    )
+    await collect(_delete_vulnerability(vuln) for vuln in sorted_vulns[1:])
+
+
+async def delete_duplicate_vulns_one_treatment(
+    vulns: List[VulnerabilityType],
+) -> None:
+    sorted_vulns = sorted(
+        vulns, key=lambda x: len(x["historic_treatment"]), reverse=True
+    )
+    vuln_ids_to_delete: str = "\n[INFO]\t\t\t".join(
+        [vuln["UUID"] for vuln in sorted_vulns[1:]]
+    )
+    print(
+        "[INFO]\t\tOne Treatment - Deleting:\n[INFO]\t\t\t"
+        f"{vuln_ids_to_delete}"
+        "\n[INFO]\t\t\tin favor of "
+        f"{sorted_vulns[0]['UUID']}"
     )
     await collect(_delete_vulnerability(vuln) for vuln in sorted_vulns[1:])
 
@@ -145,6 +224,7 @@ def get_duplicated_vulns_idx(
                         duplicated_vulns[group_idx][finding_idx][vuln_key] = [
                             vuln_idx
                         ]
+    print("[INFO] Removing empty entries from dictionary...")
     return _remove_empty_keys(duplicated_vulns)
 
 
@@ -154,19 +234,19 @@ async def main() -> None:
     vulns_loader = dataloaders.finding_vulns
     groups = await groups_domain.get_active_groups()
     groups_findings = await findings_loader.load_many(groups)
-    findings_vulns = list(
-        await collect(
-            vulns_loader.load_many([finding.id for finding in findings])
-            for findings in groups_findings
-        )
-    )
+    print("[INFO] Loading findings vulnerabilities...")
+    findings_vulns = [
+        await vulns_loader.load_many([finding.id for finding in findings])
+        for findings in groups_findings
+    ]
 
+    print("[INFO] Detecting duplicate vulnerabilities...")
     duplicated_vulns_idx = get_duplicated_vulns_idx(findings_vulns)
     for group_idx, findings in duplicated_vulns_idx.items():
-        print(f"\nProcessing group {groups[group_idx]}...")
+        print(f"\n[INFO] Processing group {groups[group_idx]}...")
         for finding_idx, vulns in findings.items():
             print(
-                "\tProcessing finding "
+                "[INFO]\tProcessing finding "
                 f"{groups_findings[group_idx][finding_idx].title}..."
             )
             for vulns_idx in vulns.values():
@@ -177,6 +257,20 @@ async def main() -> None:
                         has_treatment += 1
                 if has_treatment == 0:
                     await delete_duplicate_vulns_no_treatment(
+                        [
+                            findings_vulns[group_idx][finding_idx][vuln_idx]
+                            for vuln_idx in vulns_idx
+                        ]
+                    )
+                if has_treatment == 1:
+                    await delete_duplicate_vulns_one_treatment(
+                        [
+                            findings_vulns[group_idx][finding_idx][vuln_idx]
+                            for vuln_idx in vulns_idx
+                        ]
+                    )
+                if has_treatment > 1:
+                    await delete_duplicate_vulns_multiple_treatments(
                         [
                             findings_vulns[group_idx][finding_idx][vuln_idx]
                             for vuln_idx in vulns_idx
