@@ -23,13 +23,18 @@ def test_schema() -> None:
     assert len(jschema.raw_schema["properties"]) == len(jrecord.keys())
 
 
-query = FeedbackPageQuery(mock_data.mock_proj_id, 0).query()
+queries = (
+    FeedbackPageQuery(0).query(mock_data.mock_proj_id),
+    FeedbackPageQuery(0).query_2(mock_data.mock_post_id),
+)
 
 
 def test_query() -> None:
-    assert query.operation()
+    for query in queries:
+        assert query.operation()
 
 
 def test_from_data() -> None:
     raw_data = {"data": mock_raw_data.mock_feedbacks}
-    assert ApiClient.from_data(query, raw_data)
+    for query in queries:
+        assert ApiClient.from_data(query, raw_data)
