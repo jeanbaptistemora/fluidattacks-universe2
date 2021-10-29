@@ -10,6 +10,7 @@ from typing import (
     List,
     NamedTuple,
     Set,
+    Tuple,
 )
 
 EdgeAttrs = Dict[str, str]
@@ -29,3 +30,6 @@ GenericType = Callable[
 class Walker(NamedTuple):
     applicable_node_label_types: Set[str]
     walk_fun: Callable[[Graph, str, Stack, GenericType], None]
+
+
+Walkers = Tuple[Walker, ...]
