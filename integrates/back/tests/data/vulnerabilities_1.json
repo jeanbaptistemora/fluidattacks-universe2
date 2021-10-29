@@ -526,8 +526,14 @@
             "L": [
               {
                 "M": {
+                  "comment_id": {
+                    "S": "123456"
+                  },
                   "date": {
                     "S": "2018-09-28 10:32:58"
+                  },
+                  "email": {
+                    "S": "test@gmail.com"
                   },
                   "status": {
                     "S": "REQUESTED"
@@ -536,8 +542,14 @@
               },
               {
                 "M": {
+                  "comment_id": {
+                    "S": "123456"
+                  },
                   "date": {
                     "S": "2020-09-09 16:01:26"
+                  },
+                  "email": {
+                    "S": "test@gmail.com"
                   },
                   "status": {
                     "S": "CONFIRMED"

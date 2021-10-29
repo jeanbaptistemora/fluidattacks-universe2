@@ -817,16 +817,15 @@ async def update_historics_dates(
 
 
 async def update_treatment_vuln(
-    vuln_info: VulnerabilityType,
+    vulnerability: Vulnerability,
     finding_id: str,
     updated_values: Dict[str, FindingType],
     info: GraphQLResolveInfo,
 ) -> bool:
     success = True
-    vulnerability = vuln_info["id"]
     new_info = copy.copy(updated_values)
     if new_info.get("tag"):
-        new_info["tag"] = cast(List[str], vuln_info["tags"])
+        new_info["tag"] = vulnerability.tags or []
         tags = str(updated_values["tag"]).split(",")
         validations.validate_fields(tags)
         for tag in tags:
@@ -847,20 +846,20 @@ async def update_treatment_vuln(
         utils.camelcase_to_snakecase(k): new_info.get(k) for k in new_info
     }
     result_update_vuln = await vulns_dal.update(
-        finding_id, str(vulnerability), new_info
+        finding_id, vulnerability.id, new_info
     )
     if not result_update_vuln:
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Attempted to update vulnerability: "
-            f"{vulnerability} from finding:{finding_id}",
+            f"{vulnerability.id} from finding:{finding_id}",
         )
         success = False
     else:
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Updated vulnerability: "
-            f"{vulnerability} from finding: {finding_id} successfully",
+            f"{vulnerability.id} from finding: {finding_id} successfully",
         )
     return success
 
@@ -872,9 +871,12 @@ async def update_treatment_vulns(
     info: GraphQLResolveInfo,
 ) -> bool:
     del updated_values["finding_id"]
-    vuln_info = await info.context.loaders.vulnerability.load(vulnerability_id)
+    loaders = info.context.loaders
+    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+        vulnerability_id
+    )
     success: bool = await update_treatment_vuln(
-        cast(VulnerabilityType, vuln_info), finding_id, updated_values, info
+        vulnerability, finding_id, updated_values, info
     )
     return success
 
