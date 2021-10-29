@@ -58,9 +58,8 @@ class MailmapFactory:
         mailmap_dict = {}
         for line in lines:
             item = cls.from_line(line).value_or(None)
-            if item:
-                if item.canon != item.alias:
-                    mailmap_dict[item.alias] = item.canon
+            if item and item.canon != item.alias:
+                mailmap_dict[item.alias] = item.canon
         return Mailmap(FrozenDict(mailmap_dict))
 
     @classmethod
