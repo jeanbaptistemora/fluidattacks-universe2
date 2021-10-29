@@ -6,8 +6,8 @@ Findings migrated from FI_findings, had their historic state populated via a
 collect, which introduced some inconsistencies for historics with several
 SUBMISSION states.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2021-10-29 at 20:35:23 UTC
+Finalization Time:  2021-10-29 at 22:22:41 UTC
 """
 
 from aioextensions import (
@@ -60,7 +60,7 @@ from typing import (
     List,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def _get_finding_milestones(
@@ -197,11 +197,7 @@ async def _fix_submission_state_milestone(
         return
 
     submission_milestone = next(
-        (
-            state
-            for state in reversed(milestones)
-            if state["status"] == "SUBMITTED"
-        ),
+        (state for state in milestones if state["status"] == "SUBMITTED"),
         None,
     )
 
@@ -216,7 +212,7 @@ async def _fix_submission_state_milestone(
 
     submission_state["pk"] = f'{submission_state["pk"]}#SUBMISSION'
     submission_state["sk"] = f"GROUP#{group_name}"
-    await _update_state_item(submission_state)
+    await _update_state_item(submission_state, check_if_exists=False)
 
 
 async def _fix_lastest_state_milestone(
@@ -245,7 +241,7 @@ async def _fix_lastest_state_milestone(
 
     latest_state["pk"] = f'{latest_state["pk"]}#STATE'
     latest_state["sk"] = f"GROUP#{group_name}"
-    await _update_state_item(latest_state, check_if_exists=False)
+    await _update_state_item(latest_state, check_if_exists=True)
 
 
 async def _proccess_finding(
@@ -270,9 +266,12 @@ async def _proccess_finding(
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
 
-    group_names = [
-        group["project_name"] for group in await groups_dal.get_alive_groups()
-    ]
+    group_names = sorted(
+        [
+            group["project_name"]
+            for group in await groups_dal.get_alive_groups()
+        ]
+    )
     print(f"Alive groups: {len(group_names)}")
 
     findings: List[Finding] = list(
