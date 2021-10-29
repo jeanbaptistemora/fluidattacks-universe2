@@ -552,6 +552,9 @@
     ],
     "github.com/http-party/node-http-proxy/issues/1328": [
       "<1.18.1"
+    ],
+    "www.npmjs.com/advisories/1486": [
+      "<1.18.1"
     ]
   },
   "https-proxy-agent": {
@@ -950,6 +953,12 @@
     ]
   },
   "npm-package-arg": {},
+  "npm-registry-fetch": {
+    "SNYK-JS-NPMREGISTRYFETCH-575432": [
+      "<4.0.5",
+      ">=5.0.0,<8.1.1"
+    ]
+  },
   "number-is-nan": {},
   "object-assign": {},
   "object-keys": {},
@@ -1140,6 +1149,11 @@
   "statuses": {},
   "string-width": {},
   "string_decoder": {},
+  "stringstream": {
+    "CVE-2018-21270": [
+      "<0.0.6"
+    ]
+  },
   "strip-ansi": {},
   "strip-bom": {},
   "superagent": {
@@ -1265,6 +1279,9 @@
     ],
     "CVE-2020-8124": [
       "<=1.4.4"
+    ],
+    "CVE-2018-3774": [
+      "<1.4.3"
     ]
   },
   "util-deprecate": {},
