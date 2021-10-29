@@ -281,6 +281,8 @@ async def add_ip_root(
     )
     await roots_model.add(root=root)
 
+    return root.id
+
 
 async def add_url_root(
     loaders: Any,

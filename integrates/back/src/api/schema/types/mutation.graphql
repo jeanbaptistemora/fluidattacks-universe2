@@ -225,7 +225,7 @@ type Mutation {
     nickname: String!
     "Indicates the port to test. Zero means all ports"
     port: Int!
-  ): SimplePayload!
+  ): AddRootPayload!
 
   "Adds a new Organization"
   addOrganization(
