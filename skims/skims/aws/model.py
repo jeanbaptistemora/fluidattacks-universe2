@@ -40,3 +40,9 @@ class AWSCTrail(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSFsxWindowsFileSystem(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int

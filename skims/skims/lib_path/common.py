@@ -2,6 +2,7 @@ import ast
 from aws.model import (
     AWSCloudfrontDistribution,
     AWSCTrail,
+    AWSFsxWindowsFileSystem,
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
     AWSS3Acl,
@@ -219,6 +220,7 @@ def get_vulnerabilities_from_aws_iterator_blocking(
             AWSS3Acl,
             AWSS3Bucket,
             AWSCloudfrontDistribution,
+            AWSFsxWindowsFileSystem,
             Node,
         ]
     ],
