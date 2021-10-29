@@ -46,8 +46,13 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
     },
     onError: ({ graphQLErrors }): void => {
       graphQLErrors.forEach((error): void => {
-        msgError(t("groupAlerts.errorTextsad"));
-        Logger.error("Couldn't deactivate root", error);
+        if (error.message === "Exception - Error empty value is not valid") {
+          msgError(t("group.scope.common.deactivation.errors.changed"));
+          onUpdate();
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't deactivate root", error);
+        }
       });
     },
   });

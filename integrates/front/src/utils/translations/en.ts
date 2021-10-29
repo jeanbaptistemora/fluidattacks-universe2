@@ -559,6 +559,10 @@ export const enTranslations: ResourceKey = {
         deactivation: {
           confirm:
             "Deactivating this root takes it out of scope, therefore it will no longer be tested.",
+          errors: {
+            changed:
+              "This root was just updated, please review the changes and try again",
+          },
           reason: {
             label: "Reason",
             mistake: "Registered by mistake",
