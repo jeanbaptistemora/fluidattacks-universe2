@@ -4,6 +4,9 @@ from back.src.db_model.enums import (
 from back.src.machine.jobs import (
     get_finding_code_from_title,
 )
+from back.src.newutils.env import (
+    guess_environment,
+)
 from datetime import (
     datetime,
     timedelta,
@@ -45,11 +48,16 @@ class AvailabilityEnum(Enum):
         if self == AvailabilityEnum.NEVER:
             return False
         if self == AvailabilityEnum.WORKING_HOURS:
-            in_working_days: bool = 0 <= now.weekday() <= 5  # Monday to Friday
-            in_working_hours: bool = 9 <= now.hour < 16  # [9:00, 15:59] Col
-            is_holiday: bool = now.strftime("%y-%m-%d") in holidays.CO()
-            return in_working_days and in_working_hours and not is_holiday
-
+            if guess_environment() == "production":
+                in_working_days: bool = (
+                    0 <= now.weekday() <= 5
+                )  # Monday to Friday
+                in_working_hours: bool = (
+                    9 <= now.hour < 16
+                )  # [9:00, 15:59] Col
+                is_holiday: bool = now.strftime("%y-%m-%d") in holidays.CO()
+                return in_working_days and in_working_hours and not is_holiday
+            return True
         raise NotImplementedError()
 
 
@@ -69,3 +77,15 @@ def operation_can_be_executed(context: Any, finding_title: str) -> bool:
         if finding_code := get_finding_code_from_title(finding_title):
             return is_check_available(finding_code)
     return True
+
+
+def get_available_queues() -> Dict[str, Dict[str, str]]:
+    return {
+        queue: data
+        for queue, data in QUEUES.items()
+        if AvailabilityEnum(data["availability"]).is_available_right_now()
+    }
+
+
+def print_available_queues() -> None:
+    print(json.dumps(get_available_queues(), indent=2, sort_keys=True))
