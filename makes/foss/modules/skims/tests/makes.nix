@@ -25,8 +25,8 @@
         searchPaths = {
           bin = [
             inputs.product.makes-wait
-            inputs.product.makes-kill-port
-            inputs.product.makes-kill-tree
+            outputs."/makes/kill-port"
+            outputs."/makes/kill-tree"
             outputs."/skims/test/mocks/http"
             outputs."/skims/test/mocks/ssl/safe"
             outputs."/skims/test/mocks/ssl/unsafe"

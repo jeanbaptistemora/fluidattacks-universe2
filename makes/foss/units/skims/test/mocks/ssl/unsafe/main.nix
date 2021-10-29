@@ -1,6 +1,7 @@
 { inputs
 , makeScript
 , makeTemplate
+, outputs
 , ...
 }:
 makeScript {
@@ -39,7 +40,7 @@ makeScript {
   name = "skims-test-mocks-ssl-unsafe";
   searchPaths = {
     bin = [
-      inputs.product.makes-kill-port
+      outputs."/makes/kill-port"
       inputs.nixpkgs.nginxLocal
     ];
   };

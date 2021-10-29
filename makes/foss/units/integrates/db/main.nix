@@ -25,7 +25,7 @@ makeScript {
       inputs.nixpkgs.terraform
       inputs.nixpkgs.unzip
       outputs."/makes/done"
-      inputs.product.makes-kill-port
+      outputs."/makes/kill-port"
       inputs.product.makes-wait
     ];
   };

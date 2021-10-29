@@ -1,4 +1,2 @@
 makes.attrs
-makes.kill-port
-makes.kill-tree
 makes.wait

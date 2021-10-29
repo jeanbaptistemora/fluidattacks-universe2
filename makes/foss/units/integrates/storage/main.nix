@@ -32,7 +32,7 @@ makeScript {
   searchPaths = {
     bin = [
       outputs."/makes/done"
-      inputs.product.makes-kill-port
+      outputs."/makes/kill-port"
       inputs.product.makes-wait
     ];
     source = [

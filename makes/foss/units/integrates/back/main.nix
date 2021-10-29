@@ -11,7 +11,7 @@ makeScript {
   name = "integrates-back";
   searchPaths.bin = [
     outputs."/makes/done"
-    inputs.product.makes-kill-port
+    outputs."/makes/kill-port"
     inputs.product.makes-wait
   ];
   entrypoint = ./entrypoint.sh;

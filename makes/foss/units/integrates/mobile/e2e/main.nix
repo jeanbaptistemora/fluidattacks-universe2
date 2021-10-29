@@ -2,6 +2,7 @@
 , makeNodeJsModules
 , makePythonPypiEnvironment
 , makeScript
+, outputs
 , projectPath
 , ...
 } @ _:
@@ -35,7 +36,7 @@ makeScript {
       inputs.nixpkgs.nodejs-12_x
       inputs.nixpkgs.openjdk8_headless
       inputs.nixpkgs.python39
-      inputs.product.makes-kill-port
+      outputs."/makes/kill-port"
       inputs.product.makes-wait
     ];
     nodeModule = [ "." ];
