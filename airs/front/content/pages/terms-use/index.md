@@ -1,8 +1,11 @@
 ---
 slug: terms-use/
 title: Terms of Use
-description: The following are restrictions, intellectual property rights, limitations, agreements, and all related to the Terms of Use of Fluid Attacks website content.
-keywords: Fluid Attacks, Terms, Use, Website, Rights, Restrictions, Terms of Use, Ethical Hacking, Pentesting
+description: The following are restrictions, intellectual property rights,
+  limitations, agreements, and all related to the Terms of Use of
+  Fluid Attacks website content.
+keywords: Fluid Attacks, Terms, Use, Website, Rights, Restrictions,
+  Terms of Use, Ethical Hacking, Pentesting
 ---
 
 ### Introduction
@@ -29,24 +32,24 @@ its authorities.
 
 You are expressly and emphatically restricted from all of the following:
 
-  - Selling, sublicensing and/or otherwise commercializing any Website
-    material;
+- Selling, sublicensing and/or otherwise commercializing any Website
+  material;
 
-  - Using this Website in any way that is, or may be, damaging to this
-    Website;
+- Using this Website in any way that is, or may be, damaging to this
+  Website;
 
-  - Using this Website in any way that impacts user access to this
-    Website;
+- Using this Website in any way that impacts user access to this
+  Website;
 
-  - Using this Website contrary to applicable laws and regulations, or
-    in a way that causes, or may cause, harm to the Website, or to any
-    person or business entity;
+- Using this Website contrary to applicable laws and regulations, or
+  in a way that causes, or may cause, harm to the Website, or to any
+  person or business entity;
 
-  - Engaging in any data mining, data harvesting, data extracting or any
-    other similar activity in relation to this Website, or while using
-    this Website;
+- Engaging in any data mining, data harvesting, data extracting or any
+  other similar activity in relation to this Website, or while using
+  this Website;
 
-  - Using this Website to engage in any advertising or marketing;
+- Using this Website to engage in any advertising or marketing;
 
 Certain areas of this Website are restricted from access by you and
 `Fluid Attacks` may further restrict access by you to any areas of this
@@ -124,7 +127,7 @@ this Website, constitute the entire agreement between `Fluid Attacks`
 and you in relation to your use of this Website, and supersede all prior
 agreements and understandings with respect to the same.
 
-### Governing Law & Jurisdiction.
+### Governing Law & Jurisdiction
 
 These Terms will be governed by and construed in accordance with the
 laws of the Country of Colombia, and you submit to the non-exclusive
