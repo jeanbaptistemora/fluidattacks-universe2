@@ -14,11 +14,11 @@ from purity.v1._frozen import (
 from purity.v1._patch import (
     Patch,
 )
-from purity.v1._pure_iter._iter_factory import (
+from purity.v1.pure_iter._iter_factory import (
     IterableFactory,
     IterableFactoryIO,
 )
-from purity.v1._pure_iter._obj import (
+from purity.v1.pure_iter._obj import (
     _PureIter,
     PureIter,
 )

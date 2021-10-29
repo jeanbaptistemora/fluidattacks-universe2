@@ -1,8 +1,8 @@
-from purity.v1._pure_iter._factory import (
+from purity.v1.pure_iter._factory import (
     PureIterFactory,
     PureIterIOFactory,
 )
-from purity.v1._pure_iter._obj import (
+from purity.v1.pure_iter._obj import (
     PureIter,
 )
 

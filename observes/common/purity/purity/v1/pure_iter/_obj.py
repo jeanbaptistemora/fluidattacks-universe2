@@ -50,3 +50,7 @@ class PureIter(_PureIter[_I]):
     def consume(p_iter: PureIter[IO[None]]) -> IO[None]:
         deque(p_iter, maxlen=0)
         return IO(None)
+
+    def map(self, function: Callable[[_I], _R]) -> PureIter[_R]:
+        draft = _PureIter(Patch(lambda: iter(map(function, self))))
+        return PureIter(draft)

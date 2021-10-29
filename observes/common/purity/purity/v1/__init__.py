@@ -25,17 +25,17 @@ from purity.v1._json._primitive import (
 from purity.v1._patch import (
     Patch,
 )
-from purity.v1._pure_iter import (
-    PureIter,
-    PureIterFactory,
-    PureIterIOFactory,
-)
 from purity.v1._temp_file import (
     OpenStrFile,
     TempFile,
 )
 from purity.v1._transform import (
     Transform,
+)
+from purity.v1.pure_iter import (
+    PureIter,
+    PureIterFactory,
+    PureIterIOFactory,
 )
 
 __all__ = [
