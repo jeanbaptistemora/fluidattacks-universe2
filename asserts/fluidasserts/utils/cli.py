@@ -1007,9 +1007,6 @@ def exec_cloudformation_package(
     )
 
     source: Dict[str, str] = {
-        ("dynamodb", "DynamoDB (NoSQL Database Service)"): [
-            "dynamodb.has_not_point_in_time_recovery",
-        ],
         ("ec2", "EC2 (Elastic Cloud Compute)"): [
             "ec2.allows_all_outbound_traffic",
             "ec2.has_not_an_iam_instance_profile",
