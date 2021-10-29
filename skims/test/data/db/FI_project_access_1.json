@@ -1,0 +1,59 @@
+{
+  "FI_project_access": [
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Forces service user"
+          },
+          "project_name": {
+            "S": "jessup"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "invitation": {
+            "M": {
+              "url_token": {
+                "S": "zL6KLQIYTy-vEiVrnAPOwv_aUVPRjHXVkf9jiBG7sVN8gZyKs49q5uv4ObBIC_TLgYfu7CTFmyfz6sWPvtjSUg"
+              },
+              "phone_number": {
+                "S": ""
+              },
+              "role": {
+                "S": "service_forces"
+              },
+              "responsibility": {
+                "S": "Forces service user"
+              },
+              "is_used": {
+                "BOOL": true
+              }
+            }
+          },
+          "user_email": {
+            "S": "forces.jessup@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Skims Test"
+          },
+          "project_name": {
+            "S": "jessup"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "unittest@fluidattacks.com"
+          }
+        }
+      }
+    }
+  ]
+}

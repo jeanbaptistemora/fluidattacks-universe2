@@ -1,0 +1,201 @@
+{
+  "FI_findings": [
+    {
+      "PutRequest": {
+        "Item": {
+          "project_name": {
+            "S": "jessup"
+          },
+          "cvss_temporal": {
+            "N": "2.4"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:53"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "CREATED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:58"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "SUBMITTED"
+                  }
+                }
+              }
+            ]
+          },
+          "finding_id": {
+            "S": "a4254dc5-a6d8-419c-94f1-a34f9c34aa0c"
+          },
+          "finding": {
+            "S": "133. Insecure encryption algorithm - Perfect Forward Secrecy"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "project_name": {
+            "S": "jessup"
+          },
+          "cvss_temporal": {
+            "N": "2.4"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:40"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "CREATED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:44"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "SUBMITTED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:53"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "DELETED"
+                  },
+                  "justification": {
+                    "S": "NOT_REQUIRED"
+                  },
+                  "source": {
+                    "S": "machine"
+                  }
+                }
+              }
+            ]
+          },
+          "finding_id": {
+            "S": "0438c22f-775a-481c-bbae-a2aa0633034d"
+          },
+          "finding": {
+            "S": "133. Insecure encryption algorithm - Perfect Forward Secrecy"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "project_name": {
+            "S": "jessup"
+          },
+          "cvss_temporal": {
+            "N": "4"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:40"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "CREATED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:44"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "SUBMITTED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:45"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "APPROVED"
+                  }
+                }
+              }
+            ]
+          },
+          "finding_id": {
+            "S": "2fadfc84-cde6-4e3f-81f1-915f703e2b73"
+          },
+          "finding": {
+            "S": "117. Unverifiable files"
+          }
+        }
+      }
+    }
+  ]
+}

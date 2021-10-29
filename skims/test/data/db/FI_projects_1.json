@@ -1,0 +1,341 @@
+{
+  "FI_projects": [
+    {
+      "PutRequest": {
+        "Item": {
+          "exposed_over_time_cvssf": {
+            "L": [
+              {
+                "L": []
+              },
+              {
+                "L": []
+              },
+              {
+                "L": []
+              },
+              {
+                "L": []
+              }
+            ]
+          },
+          "remediated_over_time_month_cvssf": {
+            "L": [
+              {
+                "L": [
+                  {
+                    "M": {
+                      "x": {
+                        "S": "Oct 1 - 31, 2021"
+                      },
+                      "y": {
+                        "N": "6"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "L": [
+                  {
+                    "M": {
+                      "x": {
+                        "S": "Oct 1 - 31, 2021"
+                      },
+                      "y": {
+                        "N": "6"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "L": [
+                  {
+                    "M": {
+                      "x": {
+                        "S": "Oct 1 - 31, 2021"
+                      },
+                      "y": {
+                        "N": "0"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "L": [
+                  {
+                    "M": {
+                      "x": {
+                        "S": "Oct 1 - 31, 2021"
+                      },
+                      "y": {
+                        "N": "6"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "L": [
+                  {
+                    "M": {
+                      "x": {
+                        "S": "Oct 1 - 31, 2021"
+                      },
+                      "y": {
+                        "N": "0"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "mean_remediate_medium_severity": {
+            "N": "0"
+          },
+          "open_vulnerabilities": {
+            "N": "0"
+          },
+          "last_closing_date": {
+            "N": "9"
+          },
+          "mean_remediate_low_severity": {
+            "N": "0"
+          },
+          "mean_remediate_non_treated": {
+            "N": "0"
+          },
+          "mean_remediate_critical_severity": {
+            "N": "0"
+          },
+          "language": {
+            "S": "en"
+          },
+          "last_closing_vuln_finding": {
+            "S": "23f7e5c1-5e1e-4167-976a-06b86ac501c2"
+          },
+          "total_treatment": {
+            "M": {
+              "accepted": {
+                "N": "0"
+              },
+              "inProgress": {
+                "N": "0"
+              },
+              "acceptedUndefined": {
+                "N": "0"
+              },
+              "undefined": {
+                "N": "0"
+              }
+            }
+          },
+          "max_open_severity_finding": {
+            "S": ""
+          },
+          "closed_vulnerabilities": {
+            "N": "6"
+          },
+          "open_findings": {
+            "N": "0"
+          },
+          "remediated_over_time_90": {
+            "L": [
+              {
+                "L": [
+                  {
+                    "M": {
+                      "x": {
+                        "S": "Oct 18 - 24, 2021"
+                      },
+                      "y": {
+                        "N": "6"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "exposed_over_time_month_cvssf": {
+            "L": [
+              {
+                "L": []
+              },
+              {
+                "L": []
+              },
+              {
+                "L": []
+              },
+              {
+                "L": []
+              }
+            ]
+          },
+          "remediated_over_time_30": {
+            "L": [
+              {
+                "L": [
+                  {
+                    "M": {
+                      "x": {
+                        "S": "Oct 18 - 24, 2021"
+                      },
+                      "y": {
+                        "N": "6"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "remediated_over_time": {
+            "L": [
+              {
+                "L": [
+                  {
+                    "M": {
+                      "x": {
+                        "S": "Oct 18 - 24, 2021"
+                      },
+                      "y": {
+                        "N": "6"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "historic_configuration": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-02-24 14:52:38"
+                  },
+                  "requester": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "has_forces": {
+                    "BOOL": true
+                  },
+                  "has_machine": {
+                    "BOOL": true
+                  },
+                  "has_drills": {
+                    "BOOL": true
+                  },
+                  "has_skims": {
+                    "BOOL": true
+                  },
+                  "type": {
+                    "S": "continuous"
+                  }
+                }
+              }
+            ]
+          },
+          "remediated_over_time_month": {
+            "L": [
+              {
+                "L": [
+                  {
+                    "M": {
+                      "x": {
+                        "S": "Oct 1 - 31, 2021"
+                      },
+                      "y": {
+                        "N": "6"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "remediated_over_time_cvssf_90": {
+            "L": [
+              {
+                "L": [
+                  {
+                    "M": {
+                      "x": {
+                        "S": "Oct 18 - 24, 2021"
+                      },
+                      "y": {
+                        "N": "6"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "project_name": {
+            "S": "jessup"
+          },
+          "project_status": {
+            "S": "ACTIVE"
+          },
+          "max_open_severity": {
+            "N": "0"
+          },
+          "remediated_over_time_cvssf": {
+            "L": [
+              {
+                "L": [
+                  {
+                    "M": {
+                      "x": {
+                        "S": "Oct 18 - 24, 2021"
+                      },
+                      "y": {
+                        "N": "6"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "remediated_over_time_cvssf_30": {
+            "L": [
+              {
+                "L": [
+                  {
+                    "M": {
+                      "x": {
+                        "S": "Oct 18 - 24, 2021"
+                      },
+                      "y": {
+                        "N": "6"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "description": {
+            "S": "local skims test group"
+          },
+          "mean_remediate_high_severity": {
+            "N": "0"
+          },
+          "mean_remediate": {
+            "N": "0"
+          }
+        }
+      }
+    }
+  ]
+}

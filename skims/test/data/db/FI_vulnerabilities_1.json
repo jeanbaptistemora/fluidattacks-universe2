@@ -1,0 +1,780 @@
+{
+  "FI_vulnerabilities": [
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "server refuses connections with PFS support"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:56"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "inputs"
+          },
+          "where": {
+            "S": "localhost:4446 (namespace2)"
+          },
+          "repo_nickname": {
+            "S": "namespace2"
+          },
+          "finding_id": {
+            "S": "a4254dc5-a6d8-419c-94f1-a34f9c34aa0c"
+          },
+          "source": {
+            "S": "asm"
+          },
+          "stream": {
+            "S": "home,socket-send,socket-response"
+          },
+          "UUID": {
+            "S": "f1d3019a-15bc-4c1f-9ecb-dec18a6df305"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:56"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:25:13"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "closed"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-10-15 17:49:03"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "justification": {
+                    "S": "NOT_REQUIRED"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "DELETED"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "server refuses connections with PFS support"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:43"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "inputs"
+          },
+          "where": {
+            "S": "localhost:4446 (namespace)"
+          },
+          "repo_nickname": {
+            "S": "namespace"
+          },
+          "finding_id": {
+            "S": "0438c22f-775a-481c-bbae-a2aa0633034d"
+          },
+          "source": {
+            "S": "asm"
+          },
+          "stream": {
+            "S": "home,socket-send,socket-response"
+          },
+          "UUID": {
+            "S": "d5687fb6-884b-4de3-8607-a3e11a70c103"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:43"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:53"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "justification": {
+                    "S": "NOT_REQUIRED"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "DELETED"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "1"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:53"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "namespace2/skims/test/data/lib_path/f117/.project"
+          },
+          "repo_nickname": {
+            "S": "namespace2"
+          },
+          "finding_id": {
+            "S": "2fadfc84-cde6-4e3f-81f1-915f703e2b73"
+          },
+          "source": {
+            "S": "asm"
+          },
+          "UUID": {
+            "S": "0db02aa6-eb0f-40c0-a37c-48dbde066243"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:53"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:25:13"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "closed"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-10-15 17:49:03"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "justification": {
+                    "S": "NOT_REQUIRED"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "DELETED"
+                  }
+                }
+              }
+            ]
+          },
+          "commit_hash": {
+            "S": "0000000000000000000000000000000000000000"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "1"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:53"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "namespace2/skims/test/data/lib_path/f117/MyJar.class"
+          },
+          "repo_nickname": {
+            "S": "namespace2"
+          },
+          "finding_id": {
+            "S": "2fadfc84-cde6-4e3f-81f1-915f703e2b73"
+          },
+          "source": {
+            "S": "asm"
+          },
+          "UUID": {
+            "S": "7e8d41af-574b-46d5-bbfa-bdb405e59331"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:53"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:25:13"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "closed"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-10-15 17:49:03"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "justification": {
+                    "S": "NOT_REQUIRED"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "DELETED"
+                  }
+                }
+              }
+            ]
+          },
+          "commit_hash": {
+            "S": "0000000000000000000000000000000000000000"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "1"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:45"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "namespace/skims/test/data/lib_path/f117/MyJar.class"
+          },
+          "repo_nickname": {
+            "S": "namespace"
+          },
+          "finding_id": {
+            "S": "2fadfc84-cde6-4e3f-81f1-915f703e2b73"
+          },
+          "source": {
+            "S": "asm"
+          },
+          "UUID": {
+            "S": "a6a05278-9d76-48c0-be2c-a2b87d3a776e"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:45"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:25:07"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "closed"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-10-15 17:49:03"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "justification": {
+                    "S": "NOT_REQUIRED"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "DELETED"
+                  }
+                }
+              }
+            ]
+          },
+          "commit_hash": {
+            "S": "0000000000000000000000000000000000000000"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "1"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:45"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "namespace/skims/test/data/lib_path/f117/.project"
+          },
+          "repo_nickname": {
+            "S": "namespace"
+          },
+          "finding_id": {
+            "S": "2fadfc84-cde6-4e3f-81f1-915f703e2b73"
+          },
+          "source": {
+            "S": "asm"
+          },
+          "UUID": {
+            "S": "ae299ccd-66b9-481e-9018-9ccbcec9b182"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:45"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:25:07"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "closed"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-10-15 17:49:03"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "justification": {
+                    "S": "NOT_REQUIRED"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "DELETED"
+                  }
+                }
+              }
+            ]
+          },
+          "commit_hash": {
+            "S": "0000000000000000000000000000000000000000"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "1"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:45"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "namespace/skims/test/data/lib_path/f117/MyJar.jar"
+          },
+          "repo_nickname": {
+            "S": "namespace"
+          },
+          "finding_id": {
+            "S": "2fadfc84-cde6-4e3f-81f1-915f703e2b73"
+          },
+          "source": {
+            "S": "asm"
+          },
+          "UUID": {
+            "S": "e77c832d-7a85-4d4f-b591-5f6a49031e63"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:45"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:25:07"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "closed"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-10-15 17:49:03"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "justification": {
+                    "S": "NOT_REQUIRED"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "DELETED"
+                  }
+                }
+              }
+            ]
+          },
+          "commit_hash": {
+            "S": "0000000000000000000000000000000000000000"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "1"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:54"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "lines"
+          },
+          "where": {
+            "S": "namespace2/skims/test/data/lib_path/f117/MyJar.jar"
+          },
+          "repo_nickname": {
+            "S": "namespace2"
+          },
+          "finding_id": {
+            "S": "2fadfc84-cde6-4e3f-81f1-915f703e2b73"
+          },
+          "source": {
+            "S": "asm"
+          },
+          "UUID": {
+            "S": "ea40b292-65ec-4ab6-832c-4540dc56a62c"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:24:54"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-09-30 16:25:13"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "closed"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2021-10-15 17:49:03"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "justification": {
+                    "S": "NOT_REQUIRED"
+                  },
+                  "source": {
+                    "S": "machine"
+                  },
+                  "state": {
+                    "S": "DELETED"
+                  }
+                }
+              }
+            ]
+          },
+          "commit_hash": {
+            "S": "0000000000000000000000000000000000000000"
+          }
+        }
+      }
+    }
+  ]
+}

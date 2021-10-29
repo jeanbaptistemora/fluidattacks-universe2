@@ -1,0 +1,69 @@
+{
+  "FI_users": [
+    {
+      "PutRequest": {
+        "Item": {
+          "email": {
+            "S": "forces.jessup@fluidattacks.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "access_token": {
+            "M": {
+              "iat": {
+                "N": "1635527402"
+              },
+              "jti": {
+                "S": "593175b3cfff428ad7c8d6575e606f3e40f0446c7d123a1e2ba08d7a3b9593b2"
+              },
+              "salt": {
+                "S": "9aa1fa75254741959d087650d87bd98992c52da3e876369686d03f7d30e06892"
+              }
+            }
+          },
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "last_name": {
+            "S": "de Orellana"
+          },
+          "first_name": {
+            "S": "Miguel"
+          },
+          "date_joined": {
+            "S": "2019-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "email": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "push_tokens": {
+            "L": [
+              {
+                "S": "ExponentPushToken[dummy]"
+              }
+            ]
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    }
+  ]
+}
