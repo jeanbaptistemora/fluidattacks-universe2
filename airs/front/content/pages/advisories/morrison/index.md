@@ -61,7 +61,7 @@ acl localnet src
 Run `squid` as:
 
 ``` shell
-$ /usr/sbin/squid -f heap.conf
+/usr/sbin/squid -f heap.conf
 ```
 
 These are the values of the CPU registers at the moment of the crash
@@ -126,19 +126,19 @@ Team of `Fluid Attacks`.
 
 ## Timeline
 
--   2021-02-08: Vulnerability discovered.
+- 2021-02-08: Vulnerability discovered.
 
--   2021-02-09: Vendor contacted.
+- 2021-02-09: Vendor contacted.
 
--   2021-02-10: Vendor replied asking to test for the vulnerability once
-    the patch is available.
+- 2021-02-10: Vendor replied asking to test for the vulnerability once
+  the patch is available.
 
--   2021-02-22: Vendor contacted again to check for updates.
+- 2021-02-22: Vendor contacted again to check for updates.
 
--   2021-02-22: Vendor replied that, although this bug is not worth
-    hiding because of the nature of the exploitation environment.
+- 2021-02-22: Vendor replied that, although this bug is not worth
+  hiding because of the nature of the exploitation environment.
 
--   2021-02-24: Public disclosure
+- 2021-02-24: Public disclosure
 
 ## References
 
