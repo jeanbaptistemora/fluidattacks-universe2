@@ -15,6 +15,7 @@ makeScript {
       outputs."/integrates/cache"
       outputs."/integrates/db"
       outputs."/integrates/storage"
+      outputs."/melts"
     ];
     source = [
       (inputs.legacy.importUtility "aws")
