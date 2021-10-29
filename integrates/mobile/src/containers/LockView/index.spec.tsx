@@ -1,6 +1,10 @@
 import { mount } from "enzyme";
 import type { ReactWrapper } from "enzyme";
-import { authenticateAsync } from "expo-local-authentication";
+import {
+  SecurityLevel,
+  authenticateAsync,
+  getEnrolledLevelAsync,
+} from "expo-local-authentication";
 import { getItemAsync } from "expo-secure-store";
 import React from "react";
 import { act } from "react-dom/test-utils";
@@ -65,6 +69,9 @@ describe("LockView", (): void => {
     (authenticateAsync as jest.Mock).mockResolvedValue({
       success: true,
     });
+    (getEnrolledLevelAsync as jest.Mock).mockResolvedValue(
+      SecurityLevel.BIOMETRIC
+    );
 
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
@@ -85,6 +92,37 @@ describe("LockView", (): void => {
     // ESLint suggested the change from toBeCalled to the current method
     expect(authenticateAsync).toHaveBeenCalledWith();
     expect(mockHistoryReplace).toHaveBeenCalledWith("/Dashboard", {});
+
+    jest.clearAllMocks();
+  });
+
+  it("should not prompt for biometric unlock", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    (getItemAsync as jest.Mock).mockResolvedValueOnce(JSON.stringify({}));
+    (authenticateAsync as jest.Mock).mockResolvedValue({
+      success: true,
+    });
+    (getEnrolledLevelAsync as jest.Mock).mockResolvedValue(SecurityLevel.NONE);
+
+    const wrapper: ReactWrapper = mount(
+      <PaperProvider>
+        <I18nextProvider i18n={i18next}>
+          <NativeRouter initialEntries={["/"]}>
+            <LockView />
+          </NativeRouter>
+        </I18nextProvider>
+      </PaperProvider>
+    );
+
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
+
+    expect(wrapper).toHaveLength(1);
+    expect(authenticateAsync).not.toHaveBeenCalled();
+    expect(mockHistoryReplace).toHaveBeenCalledWith("/Login");
 
     jest.clearAllMocks();
   });
