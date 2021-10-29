@@ -92,9 +92,13 @@ async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
 
 
 async def _resolve_from_vuln_id(context: Any, identifier: str) -> str:
-    vuln_loader = context.loaders.vulnerability
-    vuln = await vuln_loader.load(identifier)
-    group_name = await _resolve_from_finding_id(context, vuln["finding_id"])
+    loaders = context.loaders
+    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+        identifier
+    )
+    group_name = await _resolve_from_finding_id(
+        context, vulnerability.finding_id
+    )
     return group_name
 
 
