@@ -47,7 +47,7 @@ const ZeroRiskConfirmationTable: React.FC<IZeroRiskConfirmationTableProps> = (
       changeFunction: handleUpdateZeroRiskConfirmation,
       dataField: "acceptation",
       formatter: changeZeroRiskConfirmationFormatter,
-      header: "Acceptation",
+      header: "Acceptance",
       width: "30%",
       wrapped: true,
     },
@@ -61,7 +61,7 @@ const ZeroRiskConfirmationTable: React.FC<IZeroRiskConfirmationTableProps> = (
           dataset={acceptanceVulns}
           exportCsv={false}
           headers={vulnsHeader}
-          id={"vulnsToHandleAcceptation"}
+          id={"vulnsToHandleAcceptance"}
           pageSize={10}
           search={false}
         />

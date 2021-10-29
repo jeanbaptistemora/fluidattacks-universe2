@@ -26,15 +26,13 @@ import { translate } from "utils/translations/translate";
 const onTreatmentChangeHelper = (
   isAcceptedUndefinedSelected: boolean,
   vulns: IVulnerabilitiesAttr[],
-  setAcceptanceVulns: (
-    pendingVulnsToHandleAcceptation: IVulnDataAttr[]
-  ) => void,
+  setAcceptanceVulns: (pendingVulnsToHandleAcceptance: IVulnDataAttr[]) => void,
   isConfirmRejectZeroRiskSelected: boolean
 ): void => {
   if (isAcceptedUndefinedSelected) {
-    const pendingVulnsToHandleAcceptation: IVulnDataAttr[] =
+    const pendingVulnsToHandleAcceptance: IVulnDataAttr[] =
       getVulnsPendingOfAcceptance(vulns);
-    setAcceptanceVulns(pendingVulnsToHandleAcceptation);
+    setAcceptanceVulns(pendingVulnsToHandleAcceptance);
   } else if (isConfirmRejectZeroRiskSelected) {
     const requestedZeroRiskVulns: IVulnDataAttr[] =
       getRequestedZeroRiskVulns(vulns);

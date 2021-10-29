@@ -52,21 +52,19 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       "api_mutations_confirm_vulnerabilities_zero_risk_mutate"
     );
 
-    const [acceptationVulns, setAcceptationVulns] = useState<IVulnDataAttr[]>(
-      []
-    );
+    const [acceptanceVulns, setAcceptanceVulns] = useState<IVulnDataAttr[]>([]);
     const [acceptedVulns, setAcceptedVulns] = useState<IVulnDataAttr[]>([]);
     const [rejectedVulns, setRejectedVulns] = useState<IVulnDataAttr[]>([]);
     const [hasAcceptedVulns, setHasAcceptedVulns] = useState<boolean>(false);
     const [hasRejectedVulns, setHasRejectedVulns] = useState<boolean>(false);
 
-    const onAcceptationVulnsChange: () => void = (): void => {
-      const newAcceptedVulns: IVulnDataAttr[] = acceptationVulns.reduce(
+    const onAcceptanceVulnsChange: () => void = (): void => {
+      const newAcceptedVulns: IVulnDataAttr[] = acceptanceVulns.reduce(
         (acc: IVulnDataAttr[], vuln: IVulnDataAttr): IVulnDataAttr[] =>
           vuln.acceptation === "APPROVED" ? [...acc, vuln] : acc,
         []
       );
-      const newRejectedVulns: IVulnDataAttr[] = acceptationVulns.reduce(
+      const newRejectedVulns: IVulnDataAttr[] = acceptanceVulns.reduce(
         (acc: IVulnDataAttr[], vuln: IVulnDataAttr): IVulnDataAttr[] =>
           vuln.acceptation === "REJECTED" ? [...acc, vuln] : acc,
         []
@@ -76,10 +74,10 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       setHasAcceptedVulns(newAcceptedVulns.length !== 0);
       setHasRejectedVulns(newRejectedVulns.length !== 0);
     };
-    useEffect(onAcceptationVulnsChange, [acceptationVulns]);
+    useEffect(onAcceptanceVulnsChange, [acceptanceVulns]);
 
     // GraphQL operations
-    const [handleAcceptation, { loading: handlingAcceptation }] = useMutation(
+    const [handleAcceptance, { loading: handlingAcceptance }] = useMutation(
       HANDLE_VULNS_ACCEPTANCE,
       acceptanceProps(
         refetchData,
@@ -144,7 +142,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       );
       isAcceptedUndefinedSelectedHelper(
         isAcceptedUndefinedSelected,
-        handleAcceptation,
+        handleAcceptance,
         acceptedVulnIds,
         findingId,
         formValues,
@@ -192,16 +190,16 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
             onSubmit={handleSubmit}
           >
             <HandleAcceptanceModalForm
-              acceptanceVulnerabilities={acceptationVulns}
+              acceptanceVulnerabilities={acceptanceVulns}
               acceptedVulnerabilities={acceptedVulns}
               confirmingZeroRisk={confirmingZeroRisk}
               handleCloseModal={handleCloseModal}
-              handlingAcceptance={handlingAcceptation}
+              handlingAcceptance={handlingAcceptance}
               hasAcceptedVulns={hasAcceptedVulns}
               hasRejectedVulns={hasRejectedVulns}
               rejectedVulnerabilities={rejectedVulns}
               rejectingZeroRisk={rejectingZeroRisk}
-              setAcceptanceVulns={setAcceptationVulns}
+              setAcceptanceVulns={setAcceptanceVulns}
               vulns={vulns}
             />
           </Formik>
