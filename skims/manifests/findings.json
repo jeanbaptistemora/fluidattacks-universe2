@@ -463,7 +463,14 @@
       "title": "247. Non-encrypted confidential information - AWS"
     }
   },
-
+  "F259": {
+    "EN": {
+      "title": "Lack of protection against deletion - DynamoDB"
+    },
+    "ES": {
+      "title": "Lack of protection against deletion - DynamoDB"
+    }
+  },
   "F320": {
     "EN": {
       "title": "320. Insecure service configuration - LDAP"
