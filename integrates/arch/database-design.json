@@ -327,10 +327,6 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "compromised_attributes",
-          "AttributeType": "S"
-        },
-        {
           "AttributeName": "group_name",
           "AttributeType": "S"
         },
@@ -2268,9 +2264,6 @@
               "affected_systems": {
                 "S": "System"
               },
-              "compromised_attributes": {
-                "S": "Server"
-              },
               "sk": {
                 "S": "GROUP#asgard"
               },
@@ -2387,9 +2380,6 @@
               },
               "affected_systems": {
                 "S": "Front"
-              },
-              "compromised_attributes": {
-                "S": "Login"
               },
               "sk": {
                 "S": "GROUP#asgard"
@@ -2508,9 +2498,6 @@
               "affected_systems": {
                 "S": "Cloud storage"
               },
-              "compromised_attributes": {
-                "S": "Login"
-              },
               "sk": {
                 "S": "GROUP#asgard"
               },
@@ -2627,9 +2614,6 @@
               },
               "affected_systems": {
                 "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
-              },
-              "compromised_attributes": {
-                "S": ""
               },
               "sk": {
                 "S": "GROUP#continuoustesting"
@@ -2775,9 +2759,6 @@
               "affected_systems": {
                 "S": ""
               },
-              "compromised_attributes": {
-                "S": ""
-              },
               "sk": {
                 "S": "GROUP#continuoustesting"
               },
@@ -2909,9 +2890,6 @@
               "affected_systems": {
                 "S": ""
               },
-              "compromised_attributes": {
-                "S": ""
-              },
               "sk": {
                 "S": "GROUP#continuoustesting"
               },
@@ -3027,9 +3005,6 @@
                 "S": "3.1"
               },
               "affected_systems": {
-                "S": ""
-              },
-              "compromised_attributes": {
                 "S": ""
               },
               "sk": {
@@ -3148,9 +3123,6 @@
               },
               "affected_systems": {
                 "S": "Sistema"
-              },
-              "compromised_attributes": {
-                "S": ""
               },
               "sk": {
                 "S": "GROUP#oneshottest"
@@ -3309,9 +3281,6 @@
               "affected_systems": {
                 "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
               },
-              "compromised_attributes": {
-                "S": ""
-              },
               "sk": {
                 "S": "GROUP#oneshottest"
               },
@@ -3456,9 +3425,6 @@
               "affected_systems": {
                 "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
               },
-              "compromised_attributes": {
-                "S": ""
-              },
               "sk": {
                 "S": "GROUP#oneshottest"
               },
@@ -3602,9 +3568,6 @@
               },
               "affected_systems": {
                 "S": "Server bWAPP\nAnother Server"
-              },
-              "compromised_attributes": {
-                "S": "Clave plana\nLogin"
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -3828,9 +3791,6 @@
               "affected_systems": {
                 "S": "System"
               },
-              "compromised_attributes": {
-                "S": "Apellido(s)\nArchivo(s)\nCódigo de identificación"
-              },
               "sk": {
                 "S": "GROUP#unittesting"
               },
@@ -4040,9 +4000,6 @@
               "affected_systems": {
                 "S": "Sistema"
               },
-              "compromised_attributes": {
-                "S": ""
-              },
               "sk": {
                 "S": "GROUP#unittesting"
               },
@@ -4186,9 +4143,6 @@
               },
               "affected_systems": {
                 "S": "test"
-              },
-              "compromised_attributes": {
-                "S": "0"
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -4359,9 +4313,6 @@
               },
               "affected_systems": {
                 "S": "test"
-              },
-              "compromised_attributes": {
-                "S": ""
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -4546,9 +4497,6 @@
               "affected_systems": {
                 "S": "test"
               },
-              "compromised_attributes": {
-                "S": "0"
-              },
               "sk": {
                 "S": "GROUP#unittesting"
               },
@@ -4666,9 +4614,6 @@
               "affected_systems": {
                 "S": ""
               },
-              "compromised_attributes": {
-                "S": ""
-              },
               "sk": {
                 "S": "GROUP#unittesting"
               },
@@ -4718,7 +4663,6 @@
             "title",
             "id",
             "sorts",
-            "compromised_attributes",
             "group_name",
             "severity",
             "attack_vector_description"

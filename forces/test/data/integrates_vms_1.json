@@ -30,9 +30,6 @@
           "requirements": {
             "S": "R173. Discard unsafe inputs"
           },
-          "compromised_attributes": {
-            "S": ""
-          },
           "sorts": {
             "S": "NO"
           },
@@ -327,9 +324,6 @@
         "Item": {
           "requirements": {
             "S": "R075. Record exceptional events in logs.\n"
-          },
-          "compromised_attributes": {
-            "S": ""
           },
           "sorts": {
             "S": "NO"

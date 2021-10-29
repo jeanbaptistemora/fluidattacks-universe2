@@ -112,9 +112,6 @@
           "requirements": {
             "S": "REQ.0173. El sistema debe descartar toda la informaci\u00f3n potencialmente insegura que sea recibida por entradas de datos.\nREQ.0320. El sistema debe aplicar los controles de acceso en puntos de aplicaci\u00f3n confiables, nunca del lado del cliente."
           },
-          "compromised_attributes": {
-            "S": ""
-          },
           "sorts": {
             "S": "NO"
           },
@@ -409,9 +406,6 @@
         "Item": {
           "requirements": {
             "S": "R359. Avoid using generic exceptions.\n"
-          },
-          "compromised_attributes": {
-            "S": ""
           },
           "sorts": {
             "S": "NO"
