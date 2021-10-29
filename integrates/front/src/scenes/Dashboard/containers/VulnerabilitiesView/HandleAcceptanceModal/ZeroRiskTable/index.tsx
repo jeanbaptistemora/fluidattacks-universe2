@@ -25,7 +25,7 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
           vuln.id === vulnInfo.id
             ? {
                 ...vuln,
-                acceptation: vuln.acceptation === "REJECTED" ? "" : "REJECTED",
+                acceptance: vuln.acceptance === "REJECTED" ? "" : "REJECTED",
               }
             : vuln
       );
@@ -42,7 +42,7 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
           vuln.id === vulnInfo.id
             ? {
                 ...vuln,
-                acceptation: vuln.acceptation === "APPROVED" ? "" : "APPROVED",
+                acceptance: vuln.acceptance === "APPROVED" ? "" : "APPROVED",
               }
             : vuln
       );

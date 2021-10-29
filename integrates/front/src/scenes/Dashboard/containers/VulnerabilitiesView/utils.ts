@@ -19,7 +19,7 @@ const getVulnsPendingOfAcceptance: (
 
       return lastTreatment.treatment === "ACCEPTED_UNDEFINED" &&
         lastTreatment.acceptanceStatus === "SUBMITTED"
-        ? [...pendingVulns, { acceptation: "APPROVED", ...vuln }]
+        ? [...pendingVulns, { acceptance: "APPROVED", ...vuln }]
         : pendingVulns;
     },
     []
@@ -36,7 +36,7 @@ const getRequestedZeroRiskVulns: (
       vuln: IVulnerabilitiesAttr
     ): IVulnDataAttr[] => {
       return vuln.zeroRisk === "Requested"
-        ? [...requestedZeroRiskVulns, { acceptation: "", ...vuln }]
+        ? [...requestedZeroRiskVulns, { acceptance: "", ...vuln }]
         : requestedZeroRiskVulns;
     },
     []

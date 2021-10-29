@@ -21,7 +21,7 @@ const ZeroRiskConfirmationTable: React.FC<IZeroRiskConfirmationTableProps> = (
         vuln.id === vulnInfo.id
           ? {
               ...vuln,
-              acceptation: vuln.acceptation === "APPROVED" ? "" : "APPROVED",
+              acceptance: vuln.acceptance === "APPROVED" ? "" : "APPROVED",
             }
           : vuln
     );
@@ -45,7 +45,7 @@ const ZeroRiskConfirmationTable: React.FC<IZeroRiskConfirmationTableProps> = (
     {
       align: "left",
       changeFunction: handleUpdateZeroRiskConfirmation,
-      dataField: "acceptation",
+      dataField: "acceptance",
       formatter: changeZeroRiskConfirmationFormatter,
       header: "Acceptance",
       width: "30%",

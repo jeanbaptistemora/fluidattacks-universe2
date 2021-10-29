@@ -21,8 +21,8 @@ const AcceptedUndefinedTable: React.FC<IAcceptedUndefinedTableProps> = (
         vuln.id === vulnInfo.id
           ? {
               ...vuln,
-              acceptation:
-                vuln.acceptation === "APPROVED" ? "REJECTED" : "APPROVED",
+              acceptance:
+                vuln.acceptance === "APPROVED" ? "REJECTED" : "APPROVED",
             }
           : vuln
     );

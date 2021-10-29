@@ -20,7 +20,7 @@ const ZeroRiskRejectionTable: React.FC<IZeroRiskRejectionTableProps> = (
           vuln.id === vulnInfo.id
             ? {
                 ...vuln,
-                acceptation: vuln.acceptation === "REJECTED" ? "" : "REJECTED",
+                acceptance: vuln.acceptance === "REJECTED" ? "" : "REJECTED",
               }
             : vuln
       );
@@ -44,9 +44,9 @@ const ZeroRiskRejectionTable: React.FC<IZeroRiskRejectionTableProps> = (
     {
       align: "left",
       changeFunction: handleUpdateZeroRiskRejection,
-      dataField: "acceptation",
+      dataField: "acceptance",
       formatter: changeZeroRiskRejectionFormatter,
-      header: "Acceptation",
+      header: "Acceptance",
       width: "30%",
       wrapped: true,
     },

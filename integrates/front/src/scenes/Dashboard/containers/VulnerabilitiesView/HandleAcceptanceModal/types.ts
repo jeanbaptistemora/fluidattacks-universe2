@@ -1,7 +1,7 @@
 import type { IVulnerabilitiesAttr } from "../types";
 
 interface IVulnDataAttr {
-  acceptation: "" | "APPROVED" | "REJECTED";
+  acceptance: "" | "APPROVED" | "REJECTED";
   id: string;
   specific: string;
   where: string;

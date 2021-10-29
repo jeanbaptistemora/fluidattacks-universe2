@@ -22,7 +22,7 @@ export const changeVulnTreatmentFormatter: (
 
   return (
     <SwitchButton
-      checked={!("acceptation" in row) || row.acceptation !== "REJECTED"}
+      checked={!("acceptance" in row) || row.acceptance !== "REJECTED"}
       id={"vulnTreatmentSwitch"}
       offlabel={"REJECTED"}
       onChange={handleOnChange}

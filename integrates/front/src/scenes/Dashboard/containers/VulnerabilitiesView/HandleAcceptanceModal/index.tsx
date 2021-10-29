@@ -61,12 +61,12 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     const onAcceptanceVulnsChange: () => void = (): void => {
       const newAcceptedVulns: IVulnDataAttr[] = acceptanceVulns.reduce(
         (acc: IVulnDataAttr[], vuln: IVulnDataAttr): IVulnDataAttr[] =>
-          vuln.acceptation === "APPROVED" ? [...acc, vuln] : acc,
+          vuln.acceptance === "APPROVED" ? [...acc, vuln] : acc,
         []
       );
       const newRejectedVulns: IVulnDataAttr[] = acceptanceVulns.reduce(
         (acc: IVulnDataAttr[], vuln: IVulnDataAttr): IVulnDataAttr[] =>
-          vuln.acceptation === "REJECTED" ? [...acc, vuln] : acc,
+          vuln.acceptance === "REJECTED" ? [...acc, vuln] : acc,
         []
       );
       setAcceptedVulns(newAcceptedVulns);
