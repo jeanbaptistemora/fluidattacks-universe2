@@ -501,6 +501,13 @@ $gray-120: rgba(120, 120, 145, 1);
   margin: 0 !important;
 }
 
+.plans-title > h3 > p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1.5rem;
+  margin: 0;
+}
+
 .bl-red {
   border-left: 9px solid $red-255;
   content: '';

@@ -1,16 +1,25 @@
 ---
 slug: plans/
 title: Plans
-description: Fluid Attacks offers 'Machine' and 'Squad' plans within the Continuous Hacking service to provide you with flexibility in managing your vulnerabilities.
-keywords: Fluid Attacks, Continuous Hacking, Plan, Machine, Squad, Vulnerability, Ethical Hacking, Pentesting
-phrase: Fluid Attacks' plans offer flexibility for your vulnerability management program
+description: Fluid Attacks offers 'Machine' and 'Squad' plans within
+  the Continuous Hacking service to provide you with flexibility
+  in managing your vulnerabilities.
+keywords: Fluid Attacks, Continuous Hacking, Plan, Machine, Squad,
+  Vulnerability, Ethical Hacking, Pentesting
+phrase: Fluid Attacks' plans offer flexibility for your
+  vulnerability management program
 template: plans
 banner: clients-bg
 ---
 
-<div class="sect2">
+<div class="sect2 plans-title">
 
-### ![Logo](https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_25/v1619617792/airs/logo-fluid-mobile_cml7pr.webp) Machine
+<h3>
+
+![Logo](https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_25/v1619617792/airs/logo-fluid-mobile_cml7pr.webp)
+Machine
+
+</h3>
 
 <div class="paragraph">
 
@@ -31,9 +40,14 @@ CI/CD DevSecOps<br>
 
 </div>
 
-<div class="sect2">
+<div class="sect2 plans-title">
 
-### ![Logo](https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_25/v1619617792/airs/logo-fluid-mobile_cml7pr.webp) Squad
+<h3>
+
+![Logo](https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_25/v1619617792/airs/logo-fluid-mobile_cml7pr.webp)
+Squad
+
+</h3>
 
 <div class="paragraph">
 
