@@ -58,3 +58,9 @@ class AWSDynamoDBTable(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSInstance(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int

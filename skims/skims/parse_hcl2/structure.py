@@ -7,6 +7,7 @@ from aws.model import (
     AWSFsxWindowsFileSystem,
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
+    AWSInstance,
     AWSS3Bucket,
 )
 from itertools import (
@@ -262,6 +263,16 @@ def iter_aws_ebs_volume(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_ebs_volume")
     for bucket in iterator:
         yield AWSEbsVolume(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_instance(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_instance")
+    for bucket in iterator:
+        yield AWSInstance(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,

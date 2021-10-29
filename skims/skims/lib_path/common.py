@@ -7,6 +7,7 @@ from aws.model import (
     AWSFsxWindowsFileSystem,
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
+    AWSInstance,
     AWSS3Acl,
     AWSS3Bucket,
 )
@@ -225,6 +226,7 @@ def get_vulnerabilities_from_aws_iterator_blocking(
             AWSCloudfrontDistribution,
             AWSFsxWindowsFileSystem,
             AWSEbsVolume,
+            AWSInstance,
             Node,
         ]
     ],
