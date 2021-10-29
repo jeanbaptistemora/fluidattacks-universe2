@@ -60,6 +60,8 @@ from typing import (
     List,
 )
 
+PROD: bool = False
+
 
 async def _get_finding_milestones(
     group_name: str,
@@ -113,7 +115,7 @@ async def _get_finding_historic_states(finding_id: str) -> List[Item]:
 async def _update_state_item(
     state: Item,
     check_if_exists: bool = True,
-) -> bool:
+) -> None:
     primary_key = PrimaryKey(
         partition_key=state.pop("pk"), sort_key=state.pop("sk")
     )
@@ -122,21 +124,25 @@ async def _update_state_item(
         Attr(key_structure.partition_key).not_exists()
         & Attr(key_structure.sort_key).not_exists()
     )
-    try:
-        await operations.update_item(
-            condition_expression=condition_expression
-            if check_if_exists
-            else None,
-            item=state,
-            key=primary_key,
-            table=TABLE,
-        )
-        return True
-    except ConditionalCheckFailedException:
-        return False
+    if PROD:
+        try:
+            await operations.update_item(
+                condition_expression=condition_expression
+                if check_if_exists
+                else None,
+                item=state,
+                key=primary_key,
+                table=TABLE,
+            )
+            success = True
+        except ConditionalCheckFailedException:
+            success = False
+        print(f'_PROCESSED,{primary_key},{state["status"]},{success}')
+    else:
+        print(f'_PENDING,{primary_key},{state["status"]},{False}')
 
 
-async def _fix_submitted_state_missing(historic_state: List[Item]) -> bool:
+async def _fix_submitted_state_missing(historic_state: List[Item]) -> None:
     approval = next(
         (
             state
@@ -146,7 +152,7 @@ async def _fix_submitted_state_missing(historic_state: List[Item]) -> bool:
         None,
     )
     if not approval:
-        return True
+        return
 
     submission = next(
         (
@@ -157,7 +163,7 @@ async def _fix_submitted_state_missing(historic_state: List[Item]) -> bool:
         None,
     )
     if submission:
-        return True
+        return
 
     creation = next(
         state for state in historic_state if state["status"] == "CREATED"
@@ -166,19 +172,19 @@ async def _fix_submitted_state_missing(historic_state: List[Item]) -> bool:
     submission["modified_date"] = get_as_utc_iso_format(
         get_plus_delta(
             datetime.fromisoformat(creation["modified_date"]),
-            seconds=1,
+            milliseconds=500,
         )
     )
     submission["status"] = "SUBMITTED"
     submission["sk"] = f'STATE#{submission["modified_date"]}'
-    return await _update_state_item(submission)
+    await _update_state_item(submission)
 
 
 async def _fix_submission_state_milestone(
     group_name: str,
     historic_state: List[Item],
     milestones: List[Item],
-) -> bool:
+) -> None:
     submission_state = next(
         (
             state
@@ -188,7 +194,7 @@ async def _fix_submission_state_milestone(
         None,
     )
     if not submission_state:
-        return True
+        return
 
     submission_milestone = next(
         (
@@ -206,25 +212,25 @@ async def _fix_submission_state_milestone(
         and submission_state["modified_by"]
         == submission_milestone["modified_by"]
     ):
-        return True
+        return
 
     submission_state["pk"] = f'{submission_state["pk"]}#SUBMISSION'
     submission_state["sk"] = f"GROUP#{group_name}"
-    return await _update_state_item(submission_state)
+    await _update_state_item(submission_state)
 
 
 async def _fix_lastest_state_milestone(
     group_name: str,
     historic_state: List[Item],
     milestones: List[Item],
-) -> bool:
+) -> None:
     latest_state = historic_state[-1]
 
     latest_milestone = next(
         (
             state
             for state in milestones
-            if state["pk"] == f"{latest_state}#STATE"
+            if state["pk"] == f'{latest_state["pk"]}#STATE'
         ),
         None,
     )
@@ -235,11 +241,11 @@ async def _fix_lastest_state_milestone(
         and latest_state["modified_date"] == latest_milestone["modified_date"]
         and latest_state["modified_by"] == latest_milestone["modified_by"]
     ):
-        return True
+        return
 
     latest_state["pk"] = f'{latest_state["pk"]}#STATE'
     latest_state["sk"] = f"GROUP#{group_name}"
-    return await _update_state_item(latest_state, check_if_exists=False)
+    await _update_state_item(latest_state, check_if_exists=False)
 
 
 async def _proccess_finding(
@@ -250,32 +256,15 @@ async def _proccess_finding(
 
     # Fix finding_historic_state facet
     states = await _get_finding_historic_states(finding_id)
-    if not await _fix_submitted_state_missing(states):
-        print(
-            f"ERROR,{group_name},{finding_id},"
-            f"{len(states)},submitted_state"
-        )
-        return
+    await _fix_submitted_state_missing(states)
 
     # Fix finding_submission facet
     states = await _get_finding_historic_states(finding_id)
     milestones = await _get_finding_milestones(group_name, finding_id)
-    if not await _fix_submission_state_milestone(
-        group_name, states, milestones
-    ):
-        print(
-            f"ERROR,{group_name},{finding_id},"
-            f"{len(states)},submitted_milestone"
-        )
-        return
+    await _fix_submission_state_milestone(group_name, states, milestones)
 
     # Fix finding_state facet
-    if not await _fix_lastest_state_milestone(group_name, states, milestones):
-        print(
-            f"ERROR,{group_name},{finding_id},"
-            f"{len(states)},state_milestone"
-        )
-        return
+    await _fix_lastest_state_milestone(group_name, states, milestones)
 
 
 async def main() -> None:
