@@ -4938,6 +4938,27 @@ F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.y
   32 |         ""Size"": 100,
      ^ Col 0
 "
+F247,lines,namespace/skims/test/data/lib_path/f247/test_ebs.tf,10,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
+","
+   1 | resource ""aws_ebs_volume"" ""example"" {
+   2 |   availability_zone = ""us-west-2a""
+   3 |   size              = 40
+   4 |   encrypted         = true
+   5 |   tags = {
+   6 |     Name = ""HelloWorld""
+   7 |   }
+   8 | }
+   9 |
+> 10 | resource ""aws_ebs_volume"" ""example"" {
+  11 |   availability_zone = ""us-west-2a""
+  12 |   size              = 40
+  13 |
+  14 |   tags = {
+  15 |     Name = ""HelloWorld""
+  16 |   }
+  17 | }
+     ^ Col 0
+"
 F247,lines,namespace/skims/test/data/lib_path/f247/test_fsx.tf,1,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
 ","
 >  1 | resource ""aws_fsx_windows_file_system"" ""example"" {
