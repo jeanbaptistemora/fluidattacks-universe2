@@ -11,6 +11,9 @@ from contextvars import (
 from typing import (
     AsyncIterator,
 )
+from utils.env import (
+    guess_environment,
+)
 import utils.http
 
 # State
@@ -28,7 +31,12 @@ async def client() -> AsyncIterator[GraphQLClient]:
         ) as session:
             # Exception: WF(AsyncIterator is subtype of iterator)
             yield GraphQLClient(  # NOSONAR
-                endpoint="https://app.fluidattacks.com/api", session=session
+                endpoint=(
+                    "https://app.fluidattacks.com/api"
+                    if guess_environment() == "production"
+                    else "https://127.0.0.1:8001/api"
+                ),
+                session=session,
             )
     else:
         raise RuntimeError("create_session() must be called first")

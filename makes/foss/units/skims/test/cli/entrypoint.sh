@@ -11,7 +11,8 @@ function assert {
 function main {
   local output
 
-  output="$(mktemp)" \
+  export CI_COMMIT_REF_NAME="master" \
+    && output="$(mktemp)" \
     && assert skims expected-code-date --finding-code F117 --group continuoustest --namespace services |& tee "${output}" \
     && assert grep -HnP '^(0|1622\d+)$' "${output}" \
     && assert grep -HnP 'Success' "${output}" \

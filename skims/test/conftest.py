@@ -21,7 +21,6 @@ from test_helpers import (
 )
 from typing import (
     Any,
-    Dict,
     Iterator,
     List,
     Set,
@@ -82,32 +81,8 @@ def pytest_runtest_setup(item: Any) -> None:
 
 
 @pytest.fixture(autouse=True, scope="session")
-def test_branch() -> Iterator[str]:
-    yield os.environ["CI_COMMIT_REF_NAME"]
-
-
-@pytest.fixture(autouse=True, scope="session")
-def test_group(
-    test_branch: str,  # pylint: disable=redefined-outer-name
-) -> Iterator[str]:
-    # Create 2 groups on Integrates and assign them to your branch
-    mapping: Dict[str, str] = (
-        {
-            "drestrepoatfluid": "tacna",
-            "kamadoatfluid": "worcester",
-            "asalgadoatfluid": "manhattan",
-            "master": "wausau",
-        }
-        if os.environ.get("CI")
-        else {
-            "drestrepoatfluid": "jessup",
-            "kamadoatfluid": "magdalena",
-            "asalgadoatfluid": "lufkin",
-            "master": "djibo",
-        }
-    )
-
-    yield mapping.get(test_branch, "wayne")
+def test_group() -> Iterator[str]:
+    yield "jessup"
 
 
 @pytest.fixture(autouse=True, scope="session")

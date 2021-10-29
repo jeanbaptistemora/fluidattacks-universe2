@@ -2,6 +2,7 @@
 , libGit
 , makeTemplate
 , outputs
+, projectPath
 , ...
 }:
 {
@@ -37,12 +38,38 @@
             outputs."/skims/env/development"
             (makeTemplate {
               name = "extra";
-              searchPaths.source = [ libGit ];
+              searchPaths = {
+                source = [
+                  libGit
+                  (inputs.legacy.importUtility "sops")
+                  (inputs.legacy.importUtility "aws")
+                ];
+                bin = [ ] ++ (if builtins.elem category [
+                  "functional"
+                  "cli"
+                  "unittesting"
+                ] then [
+                  outputs."/integrates/batch"
+                  outputs."/integrates/cache"
+                  outputs."/integrates/db"
+                  outputs."/integrates/storage"
+                  outputs."/integrates/back"
+                ] else [ ]);
+              };
+              replace = {
+                __argSecretsFile__ = projectPath "/skims/secrets/dev.yaml";
+                __argDbData__ = projectPath "/skims/test/data/db";
+                __argShouldMock__ = builtins.elem category [
+                  "functional"
+                  "cli"
+                  "unittesting"
+                ];
+              };
               template = ./template.sh;
             })
           ];
         };
-        extraFlags = [ "--reruns" "10" "--skims-test-group" category ];
+        extraFlags = [ "--reruns" "1" "--skims-test-group" category ];
       };
     })
     inputs.skimsTestPythonCategories);
