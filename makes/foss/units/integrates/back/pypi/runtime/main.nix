@@ -21,7 +21,7 @@ makeTemplate {
     ];
     source = [
       pythonRequirements
-      outputs."/makes/python/safe-pickle"
+      outputs."/makes/python/safe-pickle-39"
     ];
   };
 }
