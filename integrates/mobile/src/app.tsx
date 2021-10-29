@@ -1,8 +1,12 @@
 import { registerRootComponent } from "expo";
 import { isRootedExperimentalAsync } from "expo-device";
+import {
+  SecurityLevel,
+  getEnrolledLevelAsync,
+} from "expo-local-authentication";
 import { getItemAsync } from "expo-secure-store";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { I18nextProvider, useTranslation } from "react-i18next";
 import { Alert, StatusBar, View, useColorScheme } from "react-native";
 import type { ColorSchemeName } from "react-native";
@@ -25,6 +29,8 @@ import { LoginView } from "./containers/LoginView";
 import { WelcomeView } from "./containers/WelcomeView";
 import { ApolloProvider } from "./utils/apollo";
 import { BugsnagErrorBoundary } from "./utils/bugsnagErrorBoundary";
+import type { ISessionTokenContext } from "./utils/sessionToken/context";
+import { SessionToken } from "./utils/sessionToken/context";
 import { i18next } from "./utils/translations/translate";
 
 const lightTheme: ReactNativePaper.Theme = {
@@ -52,17 +58,38 @@ const App: React.FunctionComponent = (): JSX.Element => {
 
   // State management
   const [isLoggedIn, setLoggedIn] = useState<boolean | undefined>(undefined);
+  const [sessionToken, setSessionToken] = useState<string>("");
+  const sessionTokenValue = useMemo(
+    (): ISessionTokenContext => [sessionToken, setSessionToken],
+    [sessionToken, setSessionToken]
+  );
 
   // Side effects
-  const checkAuth: () => void = async (): Promise<void> => {
+  const checkAuth: () => void = useCallback(async (): Promise<void> => {
     try {
-      const token: string | null = await getItemAsync("session_token");
+      // eslint-disable-next-line fp/no-let
+      let token: string | null = _.isEmpty(sessionToken) ? null : sessionToken;
       const authState: string | null = await getItemAsync("authState");
+
+      if (_.isNil(token)) {
+        await getEnrolledLevelAsync().then(
+          async (value: SecurityLevel): Promise<void> => {
+            if (value === SecurityLevel.BIOMETRIC) {
+              // eslint-disable-next-line fp/no-mutation
+              token = await getItemAsync("session_token");
+              if (!_.isNil(token)) {
+                setSessionToken(token);
+              }
+            }
+          }
+        );
+      }
+
       setLoggedIn(!(_.isNil(token) || _.isNil(authState)));
     } catch {
       setLoggedIn(false);
     }
-  };
+  }, [sessionToken]);
 
   useEffect((): void => {
     const onMount = async (): Promise<void> => {
@@ -73,7 +100,7 @@ const App: React.FunctionComponent = (): JSX.Element => {
       }
     };
     void onMount();
-  }, [t]);
+  }, [checkAuth, t]);
 
   const theme: ReactNativePaper.Theme =
     colorScheme === "dark" ? darkTheme : lightTheme;
@@ -100,27 +127,33 @@ const App: React.FunctionComponent = (): JSX.Element => {
                 }
                 translucent={true}
               />
-              <ApolloProvider>
-                <BackButton>
-                  <Switch>
-                    <Route exact={true} path={"/"}>
-                      {rootView}
-                    </Route>
-                    <Route component={LockView} exact={true} path={"/Lock"} />
-                    <Route component={LoginView} exact={true} path={"/Login"} />
-                    <Route
-                      component={WelcomeView}
-                      exact={true}
-                      path={"/Welcome"}
-                    />
-                    <Route
-                      component={DashboardView}
-                      exact={true}
-                      path={"/Dashboard"}
-                    />
-                  </Switch>
-                </BackButton>
-              </ApolloProvider>
+              <SessionToken.Provider value={sessionTokenValue}>
+                <ApolloProvider>
+                  <BackButton>
+                    <Switch>
+                      <Route exact={true} path={"/"}>
+                        {rootView}
+                      </Route>
+                      <Route component={LockView} exact={true} path={"/Lock"} />
+                      <Route
+                        component={LoginView}
+                        exact={true}
+                        path={"/Login"}
+                      />
+                      <Route
+                        component={WelcomeView}
+                        exact={true}
+                        path={"/Welcome"}
+                      />
+                      <Route
+                        component={DashboardView}
+                        exact={true}
+                        path={"/Dashboard"}
+                      />
+                    </Switch>
+                  </BackButton>
+                </ApolloProvider>
+              </SessionToken.Provider>
             </I18nextProvider>
           </PaperProvider>
         </NativeRouter>

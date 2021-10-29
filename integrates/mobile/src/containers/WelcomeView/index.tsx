@@ -1,5 +1,9 @@
 import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import {
+  SecurityLevel,
+  getEnrolledLevelAsync,
+} from "expo-local-authentication";
 import { setItemAsync } from "expo-secure-store";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -14,6 +18,7 @@ import type { ISignInResult } from "./types";
 import { Avatar } from "../../components/Avatar";
 import { Preloader } from "../../components/Preloader";
 import { LOGGER } from "../../utils/logger";
+import { useSessionToken } from "../../utils/sessionToken/context";
 import type { IAuthState } from "../../utils/socialAuth";
 import { logout } from "../../utils/socialAuth";
 
@@ -23,9 +28,10 @@ const WelcomeView: React.FunctionComponent = (): JSX.Element => {
     .state as IAuthState;
   const { colors } = useTheme();
   const { t } = useTranslation();
+  const [, setSessionToken] = useSessionToken();
 
   const handleLogout: () => void = async (): Promise<void> => {
-    await logout();
+    await logout(setSessionToken);
     history.replace("/Login");
   };
 
@@ -33,7 +39,14 @@ const WelcomeView: React.FunctionComponent = (): JSX.Element => {
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION, {
     onCompleted: async (result: ISignInResult): Promise<void> => {
       if (result.signIn.success) {
-        await setItemAsync("session_token", result.signIn.sessionJwt);
+        setSessionToken(result.signIn.sessionJwt);
+        await getEnrolledLevelAsync().then(
+          async (value: SecurityLevel): Promise<void> => {
+            if (value === SecurityLevel.BIOMETRIC) {
+              await setItemAsync("session_token", result.signIn.sessionJwt);
+            }
+          }
+        );
         history.replace("/Dashboard", { user });
       } else {
         LOGGER.error("Unsuccessful API auth", result);

@@ -1,6 +1,10 @@
 // Needed to override styles
 /* eslint-disable react/forbid-component-props */
-import { authenticateAsync } from "expo-local-authentication";
+import {
+  SecurityLevel,
+  authenticateAsync,
+  getEnrolledLevelAsync,
+} from "expo-local-authentication";
 import { getItemAsync } from "expo-secure-store";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -11,20 +15,36 @@ import { useHistory } from "react-router-native";
 import { styles } from "./styles";
 
 import FluidIcon from "../../../assets/notification.png";
+import { useSessionToken } from "../../utils/sessionToken/context";
+import { logout } from "../../utils/socialAuth";
 
 const LockView: React.FC = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();
   const { colors } = useTheme();
   const { t } = useTranslation();
+  const [, setSessionToken] = useSessionToken();
+
+  async function handleLogout(): Promise<void> {
+    await logout(setSessionToken);
+    history.replace("/Login");
+  }
 
   // Side effects
   const promptBiometricAuth: () => void = async (): Promise<void> => {
-    const authState: string = (await getItemAsync("authState")) as string;
-    const { success } = await authenticateAsync();
+    await getEnrolledLevelAsync().then(
+      async (value: SecurityLevel): Promise<void> => {
+        if (value === SecurityLevel.BIOMETRIC) {
+          const authState: string = (await getItemAsync("authState")) as string;
+          const { success } = await authenticateAsync();
 
-    if (success) {
-      history.replace("/Dashboard", JSON.parse(authState));
-    }
+          if (success) {
+            history.replace("/Dashboard", JSON.parse(authState));
+          }
+        } else {
+          await handleLogout();
+        }
+      }
+    );
   };
 
   const onMount: () => void = (): void => {

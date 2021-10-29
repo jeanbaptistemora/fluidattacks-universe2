@@ -29,6 +29,7 @@ import { useHistory } from "react-router-native";
 
 import { getEnvironment } from "./environment";
 import { LOGGER } from "./logger";
+import { useSessionToken } from "./sessionToken/context";
 import { logout } from "./socialAuth";
 import { i18next } from "./translations/translate";
 
@@ -152,8 +153,12 @@ const statusCodeAlert = (
 };
 
 // Top-level error handling
-const errorLink: (history: History) => ApolloLink = (
-  history: History
+const errorLink: (
+  history: History,
+  setSessionToken: React.Dispatch<React.SetStateAction<string>>
+) => ApolloLink = (
+  history: History,
+  setSessionToken: React.Dispatch<React.SetStateAction<string>>
 ): ApolloLink =>
   onError(
     ({
@@ -174,7 +179,7 @@ const errorLink: (history: History) => ApolloLink = (
                   skipForwarding();
                 }
               }
-              await logout();
+              await logout(setSessionToken);
               Alert.alert(
                 i18next.t("common.sessionExpired.title"),
                 i18next.t("common.sessionExpired.msg")
@@ -187,10 +192,22 @@ const errorLink: (history: History) => ApolloLink = (
     }
   );
 
-const getToken = async (): Promise<string> => {
+const getToken: (
+  sessionToken: string,
+  setSessionToken: React.Dispatch<React.SetStateAction<string>>
+) => Promise<string> = async (
+  sessionToken: string,
+  setSessionToken: React.Dispatch<React.SetStateAction<string>>
+): Promise<string> => {
   const key = "session_token";
+
+  if (!_.isEmpty(sessionToken)) {
+    return sessionToken;
+  }
+
   try {
     const token = await getItemAsync(key);
+    setSessionToken(token === null ? "" : token);
 
     return token === null ? "" : token;
   } catch (exception: unknown) {
@@ -200,17 +217,22 @@ const getToken = async (): Promise<string> => {
   }
 };
 
-const authLink: ApolloLink = setContext(
-  async (): Promise<Record<string, unknown>> => {
-    const token = await getToken();
+const authLink: (
+  sessionToken: string,
+  setSessionToken: React.Dispatch<React.SetStateAction<string>>
+) => ApolloLink = (
+  sessionToken: string,
+  setSessionToken: React.Dispatch<React.SetStateAction<string>>
+): ApolloLink =>
+  setContext(async (): Promise<Record<string, unknown>> => {
+    const token = await getToken(sessionToken, setSessionToken);
 
     return {
       headers: {
         authorization: `Bearer ${token}`,
       },
     };
-  }
-);
+  });
 
 interface ISecureFetchOptions extends RequestInit {
   pkPinning: ReactNativeSSLPinning.Options["pkPinning"];
@@ -264,18 +286,19 @@ const ApolloProvider: React.FC<ProviderProps> = (
   props: ProviderProps
 ): JSX.Element => {
   const history: History = useHistory();
+  const [sessionToken, setSessionToken] = useSessionToken();
   const client: ApolloClient<NormalizedCacheObject> = useMemo(
     (): ApolloClient<NormalizedCacheObject> =>
       new ApolloClient({
         cache: new InMemoryCache(),
         link: ApolloLink.from([
-          errorLink(history),
+          errorLink(history, setSessionToken),
           retryLink,
-          authLink,
+          authLink(sessionToken, setSessionToken),
           apiLink,
         ]),
       }),
-    [history]
+    [history, sessionToken, setSessionToken]
   );
 
   return createElement(BaseApolloProvider, { client, ...props });

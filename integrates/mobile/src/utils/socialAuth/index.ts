@@ -27,7 +27,12 @@ interface IAuthState {
 // eslint-disable-next-line @typescript-eslint/no-type-alias
 type IAuthResult = { type: "cancel" } | (IAuthState & { type: "success" });
 
-const logout: () => Promise<void> = async (): Promise<void> => {
+const logout: (
+  setSessionToken: React.Dispatch<React.SetStateAction<string>>
+) => Promise<void> = async (
+  setSessionToken: React.Dispatch<React.SetStateAction<string>>
+): Promise<void> => {
+  setSessionToken("");
   await deleteItemAsync("session_token");
   const authState: string | null = await getItemAsync("authState");
   const { authProvider, authToken }: Record<string, string> = _.isNil(authState)

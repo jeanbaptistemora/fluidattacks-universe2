@@ -39,6 +39,7 @@ import { About } from "../../components/About";
 import { Preloader } from "../../components/Preloader";
 import { LOGGER } from "../../utils/logger";
 import { getPushToken } from "../../utils/notifications";
+import { useSessionToken } from "../../utils/sessionToken/context";
 import { logout } from "../../utils/socialAuth";
 import type { IAuthState } from "../../utils/socialAuth";
 
@@ -61,6 +62,7 @@ const DashboardView: React.FunctionComponent = (): JSX.Element => {
   const { colors } = useTheme();
   const { t } = useTranslation();
   const { width } = Dimensions.get("window");
+  const [, setSessionToken] = useSessionToken();
 
   // State management
   const scrollPosition: Animated.Value = useRef(new Animated.Value(0)).current;
@@ -181,7 +183,7 @@ const DashboardView: React.FunctionComponent = (): JSX.Element => {
 
   // Event handlers
   const handleLogout: () => void = async (): Promise<void> => {
-    await logout();
+    await logout(setSessionToken);
     client.stop();
     await client.clearStore();
     history.replace("/Login");
