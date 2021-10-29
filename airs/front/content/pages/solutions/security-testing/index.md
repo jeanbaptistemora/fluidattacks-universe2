@@ -1,10 +1,23 @@
 ---
 slug: solutions/security-testing/
 title: Security Testing
-description: Thanks to our comprehensive Security Testing, your IT systems’ vulnerabilities will be found with very low rates of false positives and false negatives.
-keywords: Fluid Attacks, Solutions, Security, Testing, Ethical Hacking, Vulnerability, SDLC
+description: Thanks to our comprehensive Security Testing, your IT systems’
+  vulnerabilities will be found with very low rates
+  of false positives and false negatives.
+keywords: Fluid Attacks, Solutions, Security, Testing,
+  Ethical Hacking, Vulnerability, SDLC
 image: security-testing
-solution: Fluid Attacks’ Security Testing solution allows the comprehensive and accurate detection of security vulnerabilities in your IT infrastructure, applications, or source code. Our security testing team consists of certified ethical hackers who work on diverse environments, both with automated tools and manual exploitation. We prioritize all findings according to their severity and provide you with recommendations and guidance on their remediation in order to mitigate the risks of cyberattacks from internal and external sources. Our security testing, which is available for your entire software development lifecycle, succeeds in identifying both known and unknown vulnerabilities while guaranteeing reports with minimal rates of false positives (lies) and false negatives (omissions).
+solution: Fluid Attacks’ Security Testing solution allows the comprehensive
+  and accurate detection of security vulnerabilities in your IT infrastructure,
+  applications, or source code. Our security testing team consists of certified
+  ethical hackers who work on diverse environments, both with automated tools
+  and manual exploitation. We prioritize all findings according
+  to their severity and provide you with recommendations and guidance on their
+  remediation in order to mitigate the risks of cyberattacks from internal
+  and external sources. Our security testing, which is available for your
+  entire software development lifecycle, succeeds in identifying both known
+  and unknown vulnerabilities while guaranteeing reports with minimal rates
+  of false positives (lies) and false negatives (omissions).
 template: solution
 ---
 

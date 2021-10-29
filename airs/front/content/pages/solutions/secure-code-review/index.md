@@ -1,10 +1,24 @@
 ---
 slug: solutions/secure-code-review/
 title: Secure Code Review
-description: Through the Fluid Attacks’ Secure Code Review solution, you will know if your code fulfills the required standards and if it has vulnerabilities to be remediated.
-keywords: Fluid Attacks, Solutions, Code Audit, Ethical Hacking, Secure Code Review, Security, Standards
+description: Through the Fluid Attacks’ Secure Code Review solution,
+  you will know if your code fulfills the required standards
+  and if it has vulnerabilities to be remediated.
+keywords: Fluid Attacks, Solutions, Code Audit, Ethical Hacking,
+  Secure Code Review, Security, Standards
 image: secure-code-review
-solution: Fluid Attacks’ Secure Code Review solution provides you with a comprehensive review of your software’s source code. Specifically, this solution is intended to identify whether your lines of code are following required coding standards and whether there are security flaws or vulnerabilities that need to be remediated promptly to prevent any cyberattack. We employ a diverse set of security testing techniques, including SAST and SCA, always using a combination of automatic and manual processes to achieve these objectives. Contrary to common practice, the Secure Code Review solution should be applied to your applications’ code from the early stages of the Software Development Lifecycle and at a continuous pace, reducing security risks before the software is released and avoiding future costs of remediation.
+solution: Fluid Attacks’ Secure Code Review solution provides you
+  with a comprehensive review of your software’s source code. Specifically,
+  this solution is intended to identify whether your lines of code are
+  following required coding standards and whether there are security
+  flaws or vulnerabilities that need to be remediated promptly to prevent
+  any cyberattack. We employ a diverse set of security testing techniques,
+  including SAST and SCA, always using a combination of automatic and manual
+  processes to achieve these objectives. Contrary to common practice,
+  the Secure Code Review solution should be applied to your applications’ code
+  from the early stages of the Software Development Lifecycle and
+  at a continuous pace, reducing security risks before the software is
+  released and avoiding future costs of remediation.
 template: solution
 ---
 

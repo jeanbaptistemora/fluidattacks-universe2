@@ -1,10 +1,23 @@
 ---
 slug: solutions/penetration-testing/
 title: Penetration Testing
-description: Fluid Attacks’ skilled and experienced ethical hackers simulate real attacks on your IT systems to discover complex and deep vulnerabilities.
-keywords: Fluid Attacks, Solutions, Pentesting, Security, Penetration, Testing, Ethical Hacking
+description: Fluid Attacks’ skilled and experienced ethical hackers
+  simulate real attacks on your IT systems
+  to discover complex and deep vulnerabilities.
+keywords: Fluid Attacks, Solutions, Pentesting,
+  Security, Penetration, Testing, Ethical Hacking
 image: penetration-testing
-solution: Fluid Attacks’ comprehensive Penetration Testing is based on our certified pentesters’ ability to simulate real-world cyberattacks in order to infiltrate companies’ software and information assets. Our pentesters look for and try to exploit security vulnerabilities in your systems and then provide you with detailed reports for their proper elimination. Pentesting is not an automated activity; the professionals make use of security and penetration testing tools as well as relying on their expertise to apply manual techniques. Therefore, this kind of testing focuses more on vulnerabilities that cannot be discovered through automated scanning methods that are more oriented to known weaknesses.
+solution: Fluid Attacks’ comprehensive Penetration Testing is based
+  on our certified pentesters’ ability to simulate real-world cyberattacks
+  in order to infiltrate companies’ software and information assets.
+  Our pentesters look for and try to exploit security vulnerabilities
+  in your systems and then provide you with detailed reports for their
+  proper elimination. Pentesting is not an automated activity;
+  the professionals make use of security and penetration testing tools as well
+  as relying on their expertise to apply manual techniques. Therefore,
+  this kind of testing focuses more on vulnerabilities that cannot be
+  discovered through automated scanning methods that are more oriented
+  to known weaknesses.
 template: solution
 ---
 
