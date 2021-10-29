@@ -159,3 +159,14 @@ def iter_cloudtrail_trail(template: Node) -> Iterator[Node]:
             exact=True,
         )
     )
+
+
+def iter_dynamodb_table(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::DynamoDB::Table",
+            exact=True,
+        )
+    )
