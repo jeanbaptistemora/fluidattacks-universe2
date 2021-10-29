@@ -26,9 +26,9 @@ BASE_URL: str = "https://app.fluidattacks.com"
 
 def get_subs_unverified_findings(group: str = "all") -> Response:
 
-    project_info_query = """
+    project_info_query: str = """
         name
-        findings(filters: {verified: False}) {
+        findings(filters: {verified: false}) {
             id
             vulnerabilitiesToReattack {
                 id
@@ -37,7 +37,6 @@ def get_subs_unverified_findings(group: str = "all") -> Response:
                 }
             }
         }
-
     """
 
     if group == "all":
