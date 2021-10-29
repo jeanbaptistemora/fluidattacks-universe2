@@ -189,6 +189,106 @@ F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.y
   27 | }
      ^ Col 0
 "
+F091,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,24,117,skims,091. Log injection,"'PointInTimeRecoveryEnabled' property is not enabled.
+","
+   9 |         KeyType: String
+  10 |       PointInTimeRecoverySpecification:
+  11 |         PointInTimeRecoveryEnabled: True
+  12 |   table2:
+  13 |     Type: AWS::DynamoDB::Table
+  14 |     Properties:
+  15 |       KeySchema:
+  16 |       - AttributeName: attr1
+  17 |         KeyType: String
+  18 |       - AttributeName: attr2
+  19 |         KeyType: String
+  20 |       PointInTimeRecoverySpecification:
+  21 |         PointInTimeRecoveryEnabled: False
+  22 |   table3:
+  23 |     Type: AWS::DynamoDB::Table
+> 24 |     Properties:
+  25 |       KeySchema:
+  26 |       - AttributeName: attr1
+  27 |         KeyType: String
+  28 |       - AttributeName: attr2
+  29 |         KeyType: String
+     ^ Col 0
+"
+F091,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,21,117,skims,091. Log injection,"'PointInTimeRecoveryEnabled' property is not enabled.
+","
+   9 |   KeyType: String
+  10 | PointInTimeRecoverySpecification:
+  11 |   PointInTimeRecoveryEnabled: True
+  12 | e2:
+  13 | pe: AWS::DynamoDB::Table
+  14 | operties:
+  15 | KeySchema:
+  16 | - AttributeName: attr1
+  17 |   KeyType: String
+  18 | - AttributeName: attr2
+  19 |   KeyType: String
+  20 | PointInTimeRecoverySpecification:
+> 21 |   PointInTimeRecoveryEnabled: False
+  22 | e3:
+  23 | pe: AWS::DynamoDB::Table
+  24 | operties:
+  25 | KeySchema:
+  26 | - AttributeName: attr1
+  27 |   KeyType: String
+  28 | - AttributeName: attr2
+  29 |   KeyType: String
+     ^ Col 6
+"
+F091,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json,35,117,skims,091. Log injection,"'PointInTimeRecoveryEnabled' property is not enabled.
+","
+  25 | {
+  26 |   ""AttributeName"": ""attr1"",
+  27 |   ""KeyType"": ""String""
+  28 | },
+  29 | {
+  30 |   ""AttributeName"": ""attr2"",
+  31 |   ""KeyType"": ""String""
+  32 | }
+  33 |
+  34 | ointInTimeRecoverySpecification"": {
+> 35 | ""PointInTimeRecoveryEnabled"": false
+  36 |
+  37 |
+  38 |
+  39 | 3"": {
+  40 | e"": ""AWS::DynamoDB::Table"",
+  41 | perties"": {
+  42 | eySchema"": [
+  43 | {
+  44 |   ""AttributeName"": ""attr1"",
+  45 |   ""KeyType"": ""String""
+     ^ Col 10
+"
+F091,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json,41,117,skims,091. Log injection,"'PointInTimeRecoveryEnabled' property is not enabled.
+","
+  31 |             ""KeyType"": ""String""
+  32 |           }
+  33 |         ],
+  34 |         ""PointInTimeRecoverySpecification"": {
+  35 |           ""PointInTimeRecoveryEnabled"": false
+  36 |         }
+  37 |       }
+  38 |     },
+  39 |     ""table3"": {
+  40 |       ""Type"": ""AWS::DynamoDB::Table"",
+> 41 |       ""Properties"": {
+  42 |         ""KeySchema"": [
+  43 |           {
+  44 |             ""AttributeName"": ""attr1"",
+  45 |             ""KeyType"": ""String""
+  46 |           },
+  47 |           {
+  48 |             ""AttributeName"": ""attr2"",
+  49 |             ""KeyType"": ""String""
+  50 |           }
+  51 |         ]
+     ^ Col 0
+"
 F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services,"
    1 | Resources:
    2 |   EC2Instance:

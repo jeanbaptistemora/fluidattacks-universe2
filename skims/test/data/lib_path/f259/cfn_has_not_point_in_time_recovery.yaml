@@ -1,0 +1,29 @@
+Resources:
+  table1:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+      - AttributeName: attr1
+        KeyType: String
+      - AttributeName: attr2
+        KeyType: String
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: True
+  table2:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+      - AttributeName: attr1
+        KeyType: String
+      - AttributeName: attr2
+        KeyType: String
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: False
+  table3:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+      - AttributeName: attr1
+        KeyType: String
+      - AttributeName: attr2
+        KeyType: String
