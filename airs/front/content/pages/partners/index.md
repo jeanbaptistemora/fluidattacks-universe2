@@ -2,8 +2,10 @@
 slug: partners/
 title: Partners
 category: about-us
-description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
-keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
+description: Our partners allow us to complete our portfolio and offer better
+  security testing services. Get to know them and become one of them.
+keywords: Fluid Attacks, Partners, Services, Security Testing,
+  Software Development, Pentesting, Ethical Hacking
 banner: partners-bg
 template: about-us/cardsgen
 partnersindex: yes

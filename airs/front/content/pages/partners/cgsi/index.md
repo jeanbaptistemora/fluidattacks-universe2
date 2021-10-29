@@ -1,8 +1,10 @@
 ---
 slug: partners/cgsi/
 title: CGSI
-description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
-keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
+description: Our partners allow us to complete our portfolio and offer better
+  security testing services. Get to know them and become one of them.
+keywords: Fluid Attacks, Partners, Services, Security Testing,
+  Software Development, Pentesting, Ethical Hacking
 partnerlogo: logo-cgsi
 alt: Logo CGSI
 partner: yes

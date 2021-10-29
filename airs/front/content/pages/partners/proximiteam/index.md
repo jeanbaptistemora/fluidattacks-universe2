@@ -1,9 +1,10 @@
 ---
 slug: partners/proximiteam/
 title: Proximiteam
-description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
-keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
-:canada: image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226924/airs/icons/canada-flag_usun5s.webp[Canada Flag]
+description: Our partners allow us to complete our portfolio and offer better
+  security testing services. Get to know them and become one of them.
+keywords: Fluid Attacks, Partners, Services, Security Testing,
+  Software Development, Pentesting, Ethical Hacking
 partnerlogo: logo-proximiteam
 alt: Logo Proximiteam
 partner: yes

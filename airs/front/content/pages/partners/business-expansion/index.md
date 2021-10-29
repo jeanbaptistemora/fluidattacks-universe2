@@ -1,8 +1,10 @@
 ---
 slug: partners/business-expansion/
 title: Business Expansion
-description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
-keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
+description: Our partners allow us to complete our portfolio and offer
+  better security testing services. Get to know them and become one of them.
+keywords: Fluid Attacks, Partners, Services, Security Testing,
+  Software Development, Pentesting, Ethical Hacking
 partnerlogo: logo-business-expansion
 alt: Logo Business Expansion
 partner: yes

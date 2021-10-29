@@ -1,11 +1,13 @@
 ---
 slug: partners/rsec/
 title: RSec
-description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
-keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
+description: Our partners allow us to complete our portfolio and offer better
+  security testing services. Get to know them and become one of them.
+keywords: Fluid Attacks, Partners, Services, Security Testing,
+  Software Development, Pentesting, Ethical Hacking
 partnerlogo: logo-rsec
 alt: Logo RSec
-partner: yes 
+partner: yes
 ---
 
 [RSec](https://www.rsecgroup.com/) is a leading-edge company focused on
