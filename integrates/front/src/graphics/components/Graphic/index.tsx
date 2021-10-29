@@ -100,6 +100,7 @@ function buildUrl(
     : url.toString();
 }
 
+// eslint-disable-next-line complexity
 export const Graphic: React.FC<IGraphicProps> = (
   props: Readonly<IGraphicProps>
 ): JSX.Element => {
@@ -132,6 +133,8 @@ export const Graphic: React.FC<IGraphicProps> = (
   const bodySize: ComponentSize = useComponentSize(bodyRef);
   const modalSize: ComponentSize = useComponentSize(modalBodyRef);
 
+  const [modalRetries, setModalRetries] = useState(0);
+  const [modalIframeState, setModalIframeState] = useState("loading");
   const [subjectName, setSubjectName] = useState(subject);
   const [currentDocumentName, setCurrentDocumentName] = useState(documentName);
   const [currentTitle, setCurrentTitle] = useState(title);
@@ -192,10 +195,13 @@ export const Graphic: React.FC<IGraphicProps> = (
     }
   }
   function modalFrameOnLoad(): void {
+    setModalIframeState("ready");
     secureStore.storeIframeContent(modalBodyRef);
   }
   function modalFrameOnRefresh(): void {
     if (modalBodyRef.current?.contentWindow !== null) {
+      setModalIframeState("loading");
+      setModalRetries(0);
       modalBodyRef.current?.contentWindow.location.reload();
     }
   }
@@ -262,8 +268,14 @@ export const Graphic: React.FC<IGraphicProps> = (
   function retryFrame(): void {
     if (bodyRef.current?.contentWindow !== null) {
       setIframeState("loading");
-      secureStore.removeIframeContent(bodyRef);
       bodyRef.current?.contentWindow.location.reload();
+    }
+  }
+
+  function retryModalIFrame(): void {
+    if (modalBodyRef.current?.contentWindow !== null) {
+      setModalIframeState("loading");
+      modalBodyRef.current?.contentWindow.location.reload();
     }
   }
 
@@ -274,6 +286,15 @@ export const Graphic: React.FC<IGraphicProps> = (
     bodyRef.current.contentDocument.title.toLowerCase().includes("error")
   ) {
     setIframeState("error");
+  }
+
+  if (
+    modalIframeState === "ready" &&
+    modalBodyRef.current !== null &&
+    modalBodyRef.current.contentDocument !== null &&
+    modalBodyRef.current.contentDocument.title.toLowerCase().includes("error")
+  ) {
+    setModalIframeState("error");
   }
 
   const glyphSize: number = Math.min(bodySize.height, bodySize.width) / 2;
@@ -287,12 +308,42 @@ export const Graphic: React.FC<IGraphicProps> = (
   useEffect((): void => {
     if (iframeState === "error" && retries < MAX_RETRIES) {
       setTimeout((): void => {
+        secureStore.removeBlob(
+          buildUrl(
+            {
+              ...props,
+              documentName: currentDocumentName,
+              subject: subjectName,
+            },
+            bodySize,
+            subjectName,
+            currentDocumentName
+          )
+        );
         setRetries((value: number): number => value + 1);
         retryFrame();
       }, DELAY_BETWEEN_RETRIES_MS);
     }
+    if (modalIframeState === "error" && modalRetries < MAX_RETRIES) {
+      setTimeout((): void => {
+        secureStore.removeBlob(
+          buildUrl(
+            {
+              ...props,
+              documentName: currentDocumentName,
+              subject: subjectName,
+            },
+            modalSize,
+            subjectName,
+            currentDocumentName
+          )
+        );
+        setModalRetries((value: number): number => value + 1);
+        retryModalIFrame();
+      }, DELAY_BETWEEN_RETRIES_MS);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [iframeState]);
+  }, [iframeState, modalIframeState]);
 
   return (
     <React.Fragment>
@@ -376,8 +427,26 @@ export const Graphic: React.FC<IGraphicProps> = (
             ref={modalBodyRef}
             scrolling={"no"}
             src={modalIframeSrc}
+            style={{
+              opacity: modalIframeState === "ready" ? 1 : 0,
+            }}
             title={currentTitle}
           />
+          {modalIframeState !== "ready" && (
+            <div
+              className={styles.loadingComponent}
+              style={{
+                fontSize: glyphSize,
+                top: glyphSizeTop,
+              }}
+            >
+              {modalIframeState === "loading" ? (
+                <FontAwesomeIcon icon={faHourglassHalf} />
+              ) : (
+                <div />
+              )}
+            </div>
+          )}
         </div>
         {_.isUndefined(footer) ? undefined : (
           <React.Fragment>
