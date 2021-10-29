@@ -52,3 +52,9 @@ class AWSEbsVolume(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSDynamoDBTable(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int
