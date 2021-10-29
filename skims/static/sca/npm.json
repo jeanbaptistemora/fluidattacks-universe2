@@ -283,6 +283,11 @@
       ">=0.3.0,<0.3.2"
     ]
   },
+  "deep-extend": {
+    "CVE-2018-3750": [
+      "<=0.5.0"
+    ]
+  },
   "define-properties": {},
   "define-property": {},
   "depd": {},
@@ -826,6 +831,11 @@
   "mongoose": {
     "snyk.io/vuln/npm:mongoose:20150925": [
       ">=4.0.0,<4.1.10"
+    ]
+  },
+  "morgan": {
+    "CVE-2019-5413": [
+      "<1.9.1"
     ]
   },
   "ms": {
