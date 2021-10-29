@@ -3,6 +3,7 @@ from aws.iam.utils import (
 )
 from aws.model import (
     AWSCloudfrontDistribution,
+    AWSEbsVolume,
     AWSFsxWindowsFileSystem,
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
@@ -251,6 +252,16 @@ def iter_aws_fsx_windows_file_system(model: Any) -> Iterator[Any]:
     )
     for bucket in iterator:
         yield AWSFsxWindowsFileSystem(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_ebs_volume(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_ebs_volume")
+    for bucket in iterator:
+        yield AWSEbsVolume(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,
