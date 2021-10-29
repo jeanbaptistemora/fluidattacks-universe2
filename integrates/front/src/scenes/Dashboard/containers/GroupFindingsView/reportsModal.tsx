@@ -89,36 +89,6 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                 <Trans>
                   <p>{translate.t("group.findings.report.techDescription")}</p>
                 </Trans>
-                <p>
-                  <a
-                    href={
-                      "https://apps.apple.com/us/app/integrates/id1470450298"
-                    }
-                    rel={"nofollow noopener noreferrer"}
-                    target={"_blank"}
-                  >
-                    <img
-                      alt={"App Store"}
-                      height={"40"}
-                      src={AppstoreBadge}
-                      width={"140"}
-                    />
-                  </a>
-                  <a
-                    href={
-                      "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates"
-                    }
-                    rel={"nofollow noopener noreferrer"}
-                    target={"_blank"}
-                  >
-                    <img
-                      alt={"Google Play"}
-                      height={"40"}
-                      src={GoogleplayBadge}
-                      width={"140"}
-                    />
-                  </a>
-                </p>
                 <br />
                 <Row>
                   <Col100>
@@ -175,7 +145,9 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
             ) : (
               <React.Fragment>
                 <Trans>
-                  <p>{translate.t("group.findings.report.techDescription")}</p>
+                  <p>
+                    {translate.t("group.findings.report.noMobileAppWarning")}
+                  </p>
                 </Trans>
                 <p>
                   <a

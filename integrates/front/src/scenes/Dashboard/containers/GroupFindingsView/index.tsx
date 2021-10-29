@@ -42,7 +42,10 @@ import {
 } from "components/DataTableNext/utils";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { GET_FINDINGS } from "scenes/Dashboard/containers/GroupFindingsView/queries";
+import {
+  GET_FINDINGS,
+  GET_HAS_MOBILE_APP,
+} from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/GroupFindingsView/reportsModal";
 import type {
   IFindingAttr,
@@ -63,6 +66,12 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { composeValidators, required } from "utils/validations";
+
+interface IDataResult {
+  me: {
+    hasMobileApp: boolean;
+  };
+}
 
 const GroupFindingsView: React.FC = (): JSX.Element => {
   const TIMEZONE_OFFSET = 60000;
@@ -88,6 +97,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const closeReportsModal: () => void = useCallback((): void => {
     setReportsModalOpen(false);
   }, []);
+  const [hasMobileApp, setHasMobileApp] = useState(false);
 
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
@@ -257,6 +267,19 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const { data } = useQuery<IGroupFindingsAttr>(GET_FINDINGS, {
     onError: handleQryErrors,
     variables: { groupName },
+  });
+
+  const { data: userData } = useQuery<IDataResult>(GET_HAS_MOBILE_APP, {
+    fetchPolicy: "no-cache",
+    onCompleted: (): void => {
+      if (userData?.me.hasMobileApp ?? false) {
+        setHasMobileApp(true);
+      }
+    },
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("groupAlerts.errorTextsad"));
+      Logger.warning("An error occurred getting user info", error);
+    },
   });
 
   const findings: IFindingAttr[] =
@@ -657,7 +680,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         />
       </TooltipWrapper>
       <ReportsModal
-        hasMobileApp={true}
+        hasMobileApp={hasMobileApp}
         isOpen={isReportsModalOpen}
         onClose={closeReportsModal}
       />

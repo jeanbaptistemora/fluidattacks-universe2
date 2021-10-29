@@ -43,4 +43,12 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
   }
 `;
 
-export { GET_FINDINGS, REQUEST_GROUP_REPORT };
+const GET_HAS_MOBILE_APP: DocumentNode = gql`
+  query GetHasMobileApp {
+    me {
+      hasMobileApp
+    }
+  }
+`;
+
+export { GET_FINDINGS, GET_HAS_MOBILE_APP, REQUEST_GROUP_REPORT };

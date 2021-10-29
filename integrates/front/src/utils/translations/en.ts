@@ -454,6 +454,12 @@ export const enTranslations: ResourceKey = {
           "of this group",
         modalClose: "Close",
         modalTitle: "Reports",
+        noMobileAppWarning:
+          "Reports are created on-demand and are protected by a <strong>passphrase</strong>. " +
+          "The <strong>passphrase</strong> is generated randomly and will be " +
+          "sent through a notification to your mobile device. In order to receive it, " +
+          "you will need to download and set up the ASM mobile app, please " +
+          "download it and try again.",
         pdf: "  Executive",
         pdfTooltip:
           "Receive a pdf file with an executive report that gives you summarized information " +
