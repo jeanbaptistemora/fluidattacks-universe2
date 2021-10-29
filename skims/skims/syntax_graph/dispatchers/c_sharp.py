@@ -13,6 +13,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     member_access_expression as c_sharp_member_access_expression,
     method_declaration as c_sharp_method_declaration,
     namespace_declaration as c_sharp_namespace_declaration,
+    object_creation_expression as c_sharp_object_creation_expression,
     parameter as c_sharp_parameter,
     parameter_list as c_sharp_parameter_list,
     prefix_expression as c_sharp_prefix_expression,
@@ -138,6 +139,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "null_literal",
         },
         syntax_reader=common_null_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "object_creation_expression",
+        },
+        syntax_reader=c_sharp_object_creation_expression.reader,
     ),
     Dispatcher(
         applicable_types={
