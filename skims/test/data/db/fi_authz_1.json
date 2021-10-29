@@ -4,6 +4,24 @@
       "PutRequest": {
         "Item": {
           "subject": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "role": {
+            "S": "admin"
+          },
+          "level": {
+            "S": "group"
+          },
+          "object": {
+            "S": "jessup"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "subject": {
             "S": "forces.jessup@fluidattacks.com"
           },
           "role": {
@@ -40,6 +58,24 @@
       "PutRequest": {
         "Item": {
           "subject": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "role": {
+            "S": "customeradmin"
+          },
+          "level": {
+            "S": "organization"
+          },
+          "object": {
+            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "subject": {
             "S": "forces.jessup@fluidattacks.com"
           },
           "role": {
@@ -50,6 +86,24 @@
           },
           "object": {
             "S": "self"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "admin"
           }
         }
       }
