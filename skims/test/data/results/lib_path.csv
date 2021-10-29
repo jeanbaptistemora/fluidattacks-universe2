@@ -4938,6 +4938,23 @@ F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.y
   32 |         ""Size"": 100,
      ^ Col 0
 "
+F247,lines,namespace/skims/test/data/lib_path/f247/test_fsx.tf,1,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
+","
+>  1 | resource ""aws_fsx_windows_file_system"" ""example"" {
+   2 |
+   3 |   storage_capacity    = 300
+   4 |   subnet_ids          = [aws_subnet.example.id]
+   5 |   throughput_capacity = 1024
+   6 |
+   7 |   self_managed_active_directory {
+   8 |     dns_ips     = [""10.0.0.111"", ""10.0.0.222""]
+   9 |     domain_name = ""corp.example.com""
+  10 |     password    = ""avoid-plaintext-passwords""
+  11 |     username    = ""Admin""
+  12 |   }
+  13 | }
+     ^ Col 0
+"
 F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,6,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption.,"
    1 | Resources:
    2 |   S3Bucket:
