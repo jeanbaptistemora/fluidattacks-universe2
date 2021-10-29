@@ -193,6 +193,9 @@ async def cfn_serves_content_over_insecure_protocols(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
 async def tfm_serves_content_over_insecure_protocols(
     content: str,
     path: str,

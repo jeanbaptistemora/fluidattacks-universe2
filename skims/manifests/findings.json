@@ -455,6 +455,15 @@
       "title": "211. Asymmetric denial of service - ReDoS"
     }
   },
+  "F247": {
+    "EN": {
+      "title": "247. Non-encrypted confidential information - AWS"
+    },
+    "ES": {
+      "title": "247. Non-encrypted confidential information - AWS"
+    }
+  },
+
   "F320": {
     "EN": {
       "title": "320. Insecure service configuration - LDAP"
