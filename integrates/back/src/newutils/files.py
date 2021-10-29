@@ -1,3 +1,6 @@
+from binaryornot.check import (
+    is_binary,
+)
 import magic
 import os
 from starlette.concurrency import (
@@ -45,3 +48,12 @@ async def get_uploaded_file_mime(file_instance: UploadFile) -> str:
     mime_type: str = magic.from_buffer(await file_instance.read(), mime=True)
     await file_instance.seek(0)
     return mime_type
+
+
+def get_lines_count(file_path: str) -> int:
+    """Get the number of lines in a file if is non binary."""
+    if not is_binary(file_path):
+        with open(file_path, encoding="latin-1") as content:
+            num_lines = len(content.readlines())
+        return num_lines
+    return 0
