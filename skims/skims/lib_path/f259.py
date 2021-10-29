@@ -69,7 +69,7 @@ def _cfn_has_not_point_in_time_recovery(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f259.has_not_point_in_time_recovery",
-        finding=core_model.FindingEnum.F091,
+        finding=core_model.FindingEnum.F259,
         path=path,
         statements_iterator=(
             cfn_has_not_point_in_time_recovery_iterate_vulnerabilities(
