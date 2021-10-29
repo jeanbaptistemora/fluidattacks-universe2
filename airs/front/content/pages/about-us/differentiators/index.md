@@ -2,8 +2,11 @@
 slug: about-us/differentiators/
 title: Differentiators
 category: about-us
-description: We're an Ethical Hacking and Pentesting company offering services to identify cybersecurity vulnerabilities. Find here what differentiates us from competitors.
-keywords: Fluid Attacks, Ethical Hacking, Pentesting, Differentiators, Cybersecurity
+description: We're an Ethical Hacking and Pentesting company offering services
+  to identify cybersecurity vulnerabilities. Find here what differentiates us
+  from competitors.
+keywords: Fluid Attacks, Ethical Hacking, Pentesting,
+  Differentiators, Cybersecurity
 banner: differentiators-bg
 ---
 

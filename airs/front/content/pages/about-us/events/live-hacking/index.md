@@ -2,8 +2,11 @@
 slug: about-us/events/live-hacking/
 title: Live Hacking
 category: events
-description: The Live Hacking event shows the process of finding and exploiting security vulnerabilities, explaining how they're generated from the source code.
-keywords: Fluid Attacks, Live Hacking, Security, BWAPP, Event, Vulnerabilities, Source Code, Ethical Hacking, Pentesting
+description: The Live Hacking event shows the process of finding
+  and exploiting security vulnerabilities, explaining how they're
+  generated from the source code.
+keywords: Fluid Attacks, Live Hacking, Security, BWAPP, Event,
+  Vulnerabilities, Source Code, Ethical Hacking, Pentesting
 eventspage: yes
 banner: events-bg
 ---
@@ -77,4 +80,4 @@ knowledge. The audience limit is `30` participants.
 
 ## 7\. Speakers
 
-  - [Jonathan Armas](../../people/jarmas)
+- [Jonathan Armas](../../people/jarmas)
