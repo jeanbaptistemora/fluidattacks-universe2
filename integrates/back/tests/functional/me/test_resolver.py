@@ -38,6 +38,7 @@ async def test_get_me(
     assert "errors" not in result
     assert '{"hasAccessToken": false' in result["data"]["me"]["accessToken"]
     assert result["data"]["me"]["callerOrigin"] == "API"
+    assert not result["data"]["me"]["hasMobileApp"]
     assert not result["data"]["me"]["isConcurrentSession"]
     assert result["data"]["me"]["organizations"] == [{"name": org_name}]
     assert len(result["data"]["me"]["permissions"]) == permissions

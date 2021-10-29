@@ -19,6 +19,7 @@ async def get_result(
         me(callerOrigin: "API") {{
             accessToken
             callerOrigin
+            hasMobileApp
             isConcurrentSession
             organizations {{
                 name
