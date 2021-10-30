@@ -1,16 +1,12 @@
-from functools import (
-    partial,
-)
 from model.graph_model import (
     Graph,
     GraphShardMetadataLanguage,
 )
 from sast_transformations.control_flow.generate import (
     args_generic,
-    generic,
 )
 from sast_transformations.control_flow.javascript import (
-    add as javascript_add,
+    unnamed_function as javascript_unnamed_function,
 )
 from sast_transformations.control_flow.types import (
     CfgArgs,
@@ -76,6 +72,20 @@ def java_add(graph: Graph) -> None:
         args_generic(args, stack=[])
 
 
+def javascript_add(graph: Graph) -> None:
+    language = GraphShardMetadataLanguage.JAVASCRIPT
+    args = CfgArgs(args_generic, graph, g.ROOT_NODE, language, g.ALWAYS)
+    args_generic(args, stack=[])
+
+    # some nodes must be post-processed
+    for n_id, node in graph.nodes.items():
+        if g.pred_has_labels(label_type="arrow_function")(
+            node
+        ) or g.pred_has_labels(label_type="function")(node):
+            args = CfgArgs(args_generic, graph, n_id, language, g.ALWAYS)
+            javascript_unnamed_function(args, stack=[])
+
+
 def kotlin_add(graph: Graph) -> None:
     def _predicate(n_id: str) -> bool:
         return (
@@ -99,12 +109,10 @@ def add(
     graph: Graph,
     language: GraphShardMetadataLanguage,
 ) -> None:
-    lang_generic = partial(generic, language=language)
-
     if language == GraphShardMetadataLanguage.JAVA:
         java_add(graph)
     elif language == GraphShardMetadataLanguage.JAVASCRIPT:
-        javascript_add(graph, lang_generic)
+        javascript_add(graph)
     elif language == GraphShardMetadataLanguage.CSHARP:
         c_sharp_add(graph)
     elif language == GraphShardMetadataLanguage.GO:

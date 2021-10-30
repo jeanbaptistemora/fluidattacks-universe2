@@ -13,6 +13,7 @@ from sast_transformations.control_flow.common import (
     set_next_id,
 )
 from sast_transformations.control_flow.types import (
+    CfgArgs,
     EdgeAttrs,
     GenericType,
     Stack,
@@ -153,62 +154,40 @@ def switch_statement(
         javascript_generic(graph, match_case[-1], stack, edge_attrs=g.ALWAYS)
 
 
-def _unnamed_function(
-    graph: Graph,
-    n_id: str,
-    stack: Stack,
-    javascript_generic: GenericType,
-) -> None:
-    current_node_adj = g.adj_cfg(graph, n_id)
-    node_attrs = graph.nodes[n_id]
+def unnamed_function(args: CfgArgs, stack: Stack) -> None:
+    current_node_adj = g.adj_cfg(args.graph, args.n_id)
+    node_attrs = args.graph.nodes[args.n_id]
     if "label_field_body" not in node_attrs:
         return
 
-    for pred_id in g.pred_ast_lazy(graph, n_id, depth=-1):
-        adj_ids = g.adj_cfg(graph, pred_id)
-        if not (adj_ids or g.pred_cfg(graph, pred_id)):
+    for pred_id in g.pred_ast_lazy(args.graph, args.n_id, depth=-1):
+        adj_ids = g.adj_cfg(args.graph, pred_id)
+        if not (adj_ids or g.pred_cfg(args.graph, pred_id)):
             continue
 
         last_statement: Optional[str] = None
-        if len(adj_ids) == 1 and adj_ids[0] != n_id:
+        if len(adj_ids) == 1 and adj_ids[0] != args.n_id:
             last_statement = adj_ids[0]
 
         # remove cfg attrs
         for adj_id in adj_ids:
-            g.remove_cfg(graph, pred_id, adj_id)
+            g.remove_cfg(args.graph, pred_id, adj_id)
         for adj_id in current_node_adj:
             # remove cfg attrs
-            g.remove_cfg(graph, n_id, adj_id)
+            g.remove_cfg(args.graph, args.n_id, adj_id)
 
         # add edge with first cfp parent
-        graph.add_edge(pred_id, n_id, **g.ALWAYS)
+        args.graph.add_edge(pred_id, args.n_id, **g.ALWAYS)
 
-        graph.add_edge(n_id, node_attrs["label_field_body"], **g.ALWAYS)
-        javascript_generic(
-            graph,
-            node_attrs["label_field_body"],
-            stack,
-            edge_attrs=g.ALWAYS,
-        )
+        body_id = node_attrs["label_field_body"]
+        args.graph.add_edge(args.n_id, body_id, **g.ALWAYS)
+        args.generic(args.fork_n_id(body_id), stack)
 
         # get last statement in edge block statements
-        function_statements = g.adj_cfg(
-            graph, node_attrs["label_field_body"], depth=-1
-        )
+        *_, last_fun_statement = g.adj_cfg(args.graph, body_id, depth=-1)
         for adj in current_node_adj:
-            graph.add_edge(function_statements[-1], adj, **g.ALWAYS)
+            args.graph.add_edge(last_fun_statement, adj, **g.ALWAYS)
         if last_statement:
-            graph.add_edge(function_statements[-1], last_statement, **g.ALWAYS)
+            args.graph.add_edge(last_fun_statement, last_statement, **g.ALWAYS)
 
         break
-
-
-def add(graph: Graph, javascript_generic: GenericType) -> None:
-    javascript_generic(graph, g.ROOT_NODE, [], edge_attrs=g.ALWAYS)
-
-    # some nodes must be post-processed
-    for n_id, node in graph.nodes.items():
-        if g.pred_has_labels(label_type="arrow_function")(
-            node
-        ) or g.pred_has_labels(label_type="function")(node):
-            _unnamed_function(graph, n_id, [], javascript_generic)
