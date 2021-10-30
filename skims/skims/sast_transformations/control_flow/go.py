@@ -56,17 +56,3 @@ def switch_statement(
 
             propagate_next_id_from_parent(stack)
             go_generic(graph, case_steps[-1], stack, edge_attrs=g.ALWAYS)
-
-
-def add(graph: Graph, go_generic: GenericType) -> None:
-    def _predicate(n_id: str) -> bool:
-        return g.pred_has_labels(label_type="function_declaration")(
-            n_id
-        ) or g.pred_has_labels(label_type="method_declaration")(n_id)
-
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=_predicate,
-    ):
-        go_generic(graph, n_id, [], edge_attrs=g.ALWAYS)

@@ -9,9 +9,6 @@ from sast_transformations.control_flow.generate import (
     args_generic,
     generic,
 )
-from sast_transformations.control_flow.go import (
-    add as go_add,
-)
 from sast_transformations.control_flow.javascript import (
     add as javascript_add,
 )
@@ -35,6 +32,23 @@ def c_sharp_add(graph: Graph) -> None:
         )
 
     language = GraphShardMetadataLanguage.CSHARP
+
+    for n_id in g.filter_nodes(
+        graph,
+        graph.nodes,
+        predicate=_predicate,
+    ):
+        args = CfgArgs(args_generic, graph, n_id, language, g.ALWAYS)
+        args_generic(args, stack=[])
+
+
+def go_add(graph: Graph) -> None:
+    def _predicate(n_id: str) -> bool:
+        return g.pred_has_labels(label_type="function_declaration")(
+            n_id
+        ) or g.pred_has_labels(label_type="method_declaration")(n_id)
+
+    language = GraphShardMetadataLanguage.GO
 
     for n_id in g.filter_nodes(
         graph,
@@ -78,6 +92,6 @@ def add(
     elif language == GraphShardMetadataLanguage.CSHARP:
         c_sharp_add(graph)
     elif language == GraphShardMetadataLanguage.GO:
-        go_add(graph, lang_generic)
+        go_add(graph)
     elif language == GraphShardMetadataLanguage.KOTLIN:
         kotlin_add(graph, lang_generic)
