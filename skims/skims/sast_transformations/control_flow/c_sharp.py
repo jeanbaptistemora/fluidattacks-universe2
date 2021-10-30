@@ -86,19 +86,3 @@ def lambda_expression(
     body_id = node_attrs["label_field_body"]
     graph.add_edge(n_id, body_id, **g.ALWAYS)
     c_sharp_generic(graph, body_id, stack, edge_attrs=g.ALWAYS)
-
-
-def add(graph: Graph, c_sharp_generic: GenericType) -> None:
-    def _predicate(n_attrs: str) -> bool:
-        return (
-            g.pred_has_labels(label_type="method_declaration")(n_attrs)
-            or g.pred_has_labels(label_type="constructor_declaration")(n_attrs)
-            or g.pred_has_labels(label_type="lambda_expression")(n_attrs)
-        )
-
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=_predicate,
-    ):
-        c_sharp_generic(graph, n_id, [], edge_attrs=g.ALWAYS)
