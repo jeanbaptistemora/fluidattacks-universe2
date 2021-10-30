@@ -12,7 +12,7 @@ def build_binary_operation_node(
         left_id=left_id,
         right_id=right_id,
         danger=False,
-        label_type="BinaryExpression",
+        label_type="BinaryOperation",
     )
 
     args.syntax_graph.add_edge(

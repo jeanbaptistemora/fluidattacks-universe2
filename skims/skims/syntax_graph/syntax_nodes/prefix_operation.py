@@ -13,7 +13,7 @@ def build_prefix_node(
         prefix=prefix,
         expression_id=expression_id,
         danger=False,
-        label_type="PrefixExpression",
+        label_type="PrefixOperation",
     )
 
     args.syntax_graph.add_edge(
