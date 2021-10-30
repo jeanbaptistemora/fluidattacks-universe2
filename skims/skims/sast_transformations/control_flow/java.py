@@ -128,20 +128,3 @@ def try_with_resources_statement(
         _generic=java_generic,
         last_node=last_resource,
     )
-
-
-def add(graph: Graph, java_generic: GenericType) -> None:
-    def _predicate(n_id: str) -> bool:
-        return (
-            g.pred_has_labels(
-                label_type="method_declaration",
-            )(n_id)
-            or g.pred_has_labels(label_type="constructor_declaration")(n_id)
-        )
-
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=_predicate,
-    ):
-        java_generic(graph, n_id, [], edge_attrs=g.ALWAYS)
