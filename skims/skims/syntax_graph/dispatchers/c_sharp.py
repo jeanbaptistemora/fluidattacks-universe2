@@ -21,7 +21,8 @@ from syntax_graph.syntax_readers.c_sharp import (
     variable_declaration as c_sharp_variable_declaration,
 )
 from syntax_graph.syntax_readers.common import (
-    block as common_block,
+    declaration_block as common_declaration_block,
+    execution_block as common_execution_block,
     identifier as common_identifier,
     null_literal as common_null_literal,
     string_literal as common_string_literal,
@@ -60,7 +61,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "block",
         },
-        syntax_reader=common_block.reader,
+        syntax_reader=common_execution_block.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -78,7 +79,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "declaration_list",
         },
-        syntax_reader=common_block.reader,
+        syntax_reader=common_declaration_block.reader,
     ),
     Dispatcher(
         applicable_types={

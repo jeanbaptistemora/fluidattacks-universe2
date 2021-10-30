@@ -6,11 +6,13 @@ from typing import (
 )
 
 
-def build_block_node(args: SyntaxGraphArgs, c_ids: Iterator[str]) -> str:
+def build_declaration_block_node(
+    args: SyntaxGraphArgs, c_ids: Iterator[str]
+) -> str:
     args.syntax_graph.add_node(
         args.n_id,
         danger=False,
-        label_type="Block",
+        label_type="DeclarationBlock",
     )
 
     for c_id in c_ids:
