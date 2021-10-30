@@ -12,9 +12,6 @@ from sast_transformations.control_flow.generate import (
 from sast_transformations.control_flow.javascript import (
     add as javascript_add,
 )
-from sast_transformations.control_flow.kotlin import (
-    add as kotlin_add,
-)
 from sast_transformations.control_flow.types import (
     CfgArgs,
 )
@@ -79,6 +76,25 @@ def java_add(graph: Graph) -> None:
         args_generic(args, stack=[])
 
 
+def kotlin_add(graph: Graph) -> None:
+    def _predicate(n_id: str) -> bool:
+        return (
+            g.pred_has_labels(label_type="function_declaration")(n_id)
+            or g.pred_has_labels(label_type="class_declaration")(n_id)
+            or g.pred_has_labels(label_type="companion_object")(n_id)
+        )
+
+    language = GraphShardMetadataLanguage.KOTLIN
+
+    for n_id in g.filter_nodes(
+        graph,
+        graph.nodes,
+        predicate=_predicate,
+    ):
+        args = CfgArgs(args_generic, graph, n_id, language, g.ALWAYS)
+        args_generic(args, stack=[])
+
+
 def add(
     graph: Graph,
     language: GraphShardMetadataLanguage,
@@ -94,4 +110,4 @@ def add(
     elif language == GraphShardMetadataLanguage.GO:
         go_add(graph)
     elif language == GraphShardMetadataLanguage.KOTLIN:
-        kotlin_add(graph, lang_generic)
+        kotlin_add(graph)

@@ -172,19 +172,3 @@ def when_statement(
                     kotlin_generic(
                         graph, option_stmts[-1], stack, edge_attrs=g.ALWAYS
                     )
-
-
-def add(graph: Graph, kotlin_generic: GenericType) -> None:
-    def _predicate(n_id: str) -> bool:
-        return (
-            g.pred_has_labels(label_type="function_declaration")(n_id)
-            or g.pred_has_labels(label_type="class_declaration")(n_id)
-            or g.pred_has_labels(label_type="companion_object")(n_id)
-        )
-
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=_predicate,
-    ):
-        kotlin_generic(graph, n_id, [], edge_attrs=g.ALWAYS)
