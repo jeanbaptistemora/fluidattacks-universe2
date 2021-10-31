@@ -1,6 +1,7 @@
 from syntax_cfg.dispatchers import (
     connect_to_block,
     connect_to_next,
+    if_node,
     step_by_step,
 )
 from syntax_cfg.types import (
@@ -32,6 +33,12 @@ DISPATCHERS: Dispatchers = (
             "File",
         },
         cfg_builder=step_by_step.build,
+    ),
+    Dispatcher(
+        applicable_types={
+            "If",
+        },
+        cfg_builder=if_node.build,
     ),
     Dispatcher(
         applicable_types={
