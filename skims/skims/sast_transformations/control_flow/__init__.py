@@ -3,7 +3,7 @@ from model.graph_model import (
     GraphShardMetadataLanguage,
 )
 from sast_transformations.control_flow.generate import (
-    args_generic,
+    generic,
 )
 from sast_transformations.control_flow.javascript import (
     unnamed_function as javascript_unnamed_function,
@@ -31,8 +31,8 @@ def c_sharp_add(graph: Graph) -> None:
         graph.nodes,
         predicate=_predicate,
     ):
-        args = CfgArgs(args_generic, graph, n_id, language, g.ALWAYS)
-        args_generic(args, stack=[])
+        args = CfgArgs(generic, graph, n_id, language, g.ALWAYS)
+        generic(args, stack=[])
 
 
 def go_add(graph: Graph) -> None:
@@ -48,8 +48,8 @@ def go_add(graph: Graph) -> None:
         graph.nodes,
         predicate=_predicate,
     ):
-        args = CfgArgs(args_generic, graph, n_id, language, g.ALWAYS)
-        args_generic(args, stack=[])
+        args = CfgArgs(generic, graph, n_id, language, g.ALWAYS)
+        generic(args, stack=[])
 
 
 def java_add(graph: Graph) -> None:
@@ -68,21 +68,21 @@ def java_add(graph: Graph) -> None:
         graph.nodes,
         predicate=_predicate,
     ):
-        args = CfgArgs(args_generic, graph, n_id, language, g.ALWAYS)
-        args_generic(args, stack=[])
+        args = CfgArgs(generic, graph, n_id, language, g.ALWAYS)
+        generic(args, stack=[])
 
 
 def javascript_add(graph: Graph) -> None:
     language = GraphShardMetadataLanguage.JAVASCRIPT
-    args = CfgArgs(args_generic, graph, g.ROOT_NODE, language, g.ALWAYS)
-    args_generic(args, stack=[])
+    args = CfgArgs(generic, graph, g.ROOT_NODE, language, g.ALWAYS)
+    generic(args, stack=[])
 
     # some nodes must be post-processed
     for n_id, node in graph.nodes.items():
         if g.pred_has_labels(label_type="arrow_function")(
             node
         ) or g.pred_has_labels(label_type="function")(node):
-            args = CfgArgs(args_generic, graph, n_id, language, g.ALWAYS)
+            args = CfgArgs(generic, graph, n_id, language, g.ALWAYS)
             javascript_unnamed_function(args, stack=[])
 
 
@@ -101,8 +101,8 @@ def kotlin_add(graph: Graph) -> None:
         graph.nodes,
         predicate=_predicate,
     ):
-        args = CfgArgs(args_generic, graph, n_id, language, g.ALWAYS)
-        args_generic(args, stack=[])
+        args = CfgArgs(generic, graph, n_id, language, g.ALWAYS)
+        generic(args, stack=[])
 
 
 def add(

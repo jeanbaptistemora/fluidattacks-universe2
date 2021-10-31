@@ -2,9 +2,6 @@ from model.graph_model import (
     Graph,
     GraphShardMetadataLanguage,
 )
-from mypy_extensions import (
-    NamedArg,
-)
 from typing import (
     Any,
     Callable,
@@ -18,15 +15,6 @@ from typing import (
 EdgeAttrs = Dict[str, str]
 Frame = Dict[str, str]  # {type: node_type, next_id: n_id}
 Stack = List[Frame]
-GenericType = Callable[
-    [
-        Graph,
-        str,
-        Stack,
-        NamedArg(EdgeAttrs, "edge_attrs"),  # noqa
-    ],
-    None,
-]
 
 
 CFG_ARGS = Any
@@ -54,7 +42,7 @@ CfgBuilder = Callable[[CfgArgs, Stack], None]
 
 class Walker(NamedTuple):
     applicable_node_label_types: Set[str]
-    walk_fun: Callable[[Graph, str, Stack, GenericType], None]
+    walk_fun: CfgBuilder
 
 
 Walkers = Tuple[Walker, ...]

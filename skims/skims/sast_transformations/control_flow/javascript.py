@@ -15,7 +15,6 @@ from sast_transformations.control_flow.common import (
 from sast_transformations.control_flow.types import (
     CfgArgs,
     EdgeAttrs,
-    GenericType,
     Stack,
 )
 from typing import (
@@ -53,35 +52,27 @@ def _next_declaration(
                 graph.add_edge(n_id, next_id, **edge_attrs)
 
 
-def function_declaration(
-    graph: Graph,
-    n_id: str,
-    stack: Stack,
-    javascript_generic: GenericType,
-) -> None:
+def function_declaration(args: CfgArgs, stack: Stack) -> None:
     match = g.match_ast(
-        graph,
-        n_id,
+        args.graph,
+        args.n_id,
         "statement_block",
     )
     if block := match.get("statement_block"):
-        for pred_id in g.pred_cfg(graph, n_id):
-            graph.add_edge(pred_id, n_id, **g.ALWAYS)
-            graph.add_edge(n_id, block, **g.ALWAYS)
-            javascript_generic(graph, block, [], edge_attrs=g.ALWAYS)
-            _next_declaration(graph, n_id, stack, edge_attrs=g.ALWAYS)
+        for pred_id in g.pred_cfg(args.graph, args.n_id):
+            args.graph.add_edge(pred_id, args.n_id, **g.ALWAYS)
+            args.graph.add_edge(args.n_id, block, **g.ALWAYS)
+            args.generic(args.fork_n_id(block), [])
+            _next_declaration(
+                args.graph, args.n_id, stack, edge_attrs=g.ALWAYS
+            )
 
 
-def if_statement(
-    graph: Graph,
-    n_id: str,
-    stack: Stack,
-    javascript_generic: GenericType,
-) -> None:
+def if_statement(args: CfgArgs, stack: Stack) -> None:
     # if ( __0__ ) __1__ else
     match = g.match_ast(
-        graph,
-        n_id,
+        args.graph,
+        args.n_id,
         "if",
         "(",
         ")",
@@ -92,43 +83,38 @@ def if_statement(
 
     if then_id := match["__1__"]:
         # Link `if` to `then` statement
-        graph.add_edge(n_id, then_id, **g.TRUE)
+        args.graph.add_edge(args.n_id, then_id, **g.TRUE)
 
         # Link whatever is inside the `then` to the next statement in chain
         propagate_next_id_from_parent(stack)
-        javascript_generic(graph, then_id, stack, edge_attrs=g.ALWAYS)
+        args.generic(args.fork_n_id(then_id), stack)
 
     if else_id := match["else_clause"]:
-        graph.add_edge(n_id, else_id, **g.FALSE)
-        match_else = g.match_ast(graph, else_id, "else", "__0__")
+        args.graph.add_edge(args.n_id, else_id, **g.FALSE)
+        match_else = g.match_ast(args.graph, else_id, "else", "__0__")
         # Link `if` to `else` statement
         other_id = match_else["__0__"]
-        graph.add_edge(else_id, other_id, **g.ALWAYS)
+        args.graph.add_edge(else_id, other_id, **g.ALWAYS)
 
         # Link whatever is inside the `then` to the next statement in chain
         propagate_next_id_from_parent(stack)
-        javascript_generic(graph, other_id, stack, edge_attrs=g.ALWAYS)
+        args.generic(args.fork_n_id(other_id), stack)
 
     # Link whatever is inside the `then` to the next statement in chain
-    elif (next_id := get_next_id(stack)) and next_id != n_id:
+    elif (next_id := get_next_id(stack)) and next_id != args.n_id:
         # Link `if` to the next statement after the `if`
-        for statement in g.pred_cfg_lazy(graph, n_id, depth=-1):
+        for statement in g.pred_cfg_lazy(args.graph, args.n_id, depth=-1):
             if statement == next_id:
                 break
         else:
-            graph.add_edge(n_id, next_id, **g.FALSE)
+            args.graph.add_edge(args.n_id, next_id, **g.FALSE)
 
 
-def switch_statement(
-    graph: Graph,
-    n_id: str,
-    stack: Stack,
-    javascript_generic: GenericType,
-) -> None:
-    switch_body = g.match_ast(graph, n_id, "switch_body")["switch_body"]
+def switch_statement(args: CfgArgs, stack: Stack) -> None:
+    switch_body = g.match_ast_d(args.graph, args.n_id, "switch_body")
 
     switch_cases = g.match_ast_group(
-        graph,
+        args.graph,
         switch_body,
         "switch_case",
         "switch_default",
@@ -137,21 +123,21 @@ def switch_statement(
         *switch_cases["switch_case"],
         *switch_cases["switch_default"],
     ]:
-        graph.add_edge(n_id, switch_case, **g.MAYBE)
-        match_case = g.adj_ast(graph, switch_case)[3:]
+        args.graph.add_edge(args.n_id, switch_case, **g.MAYBE)
+        match_case = g.adj_ast(args.graph, switch_case)[3:]
         if not match_case:
             continue
         # Link to the first statement in the block
-        graph.add_edge(switch_case, match_case[0], **g.ALWAYS)
+        args.graph.add_edge(switch_case, match_case[0], **g.ALWAYS)
 
         for stmt_a_id, stmt_b_id in pairwise(match_case):
             # Mark as next_id the next statement in chain
             set_next_id(stack, stmt_b_id)
-            javascript_generic(graph, stmt_a_id, stack, edge_attrs=g.ALWAYS)
+            args.generic(args.fork_n_id(stmt_a_id), stack)
 
         # Link recursively the last statement in the block
         propagate_next_id_from_parent(stack)
-        javascript_generic(graph, match_case[-1], stack, edge_attrs=g.ALWAYS)
+        args.generic(args.fork_n_id(match_case[-1]), stack)
 
 
 def unnamed_function(args: CfgArgs, stack: Stack) -> None:
