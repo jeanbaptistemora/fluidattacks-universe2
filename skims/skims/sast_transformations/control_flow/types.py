@@ -12,7 +12,6 @@ from typing import (
     Tuple,
 )
 
-EdgeAttrs = Dict[str, str]
 Frame = Dict[str, str]  # {type: node_type, next_id: n_id}
 Stack = List[Frame]
 
@@ -25,7 +24,6 @@ class CfgArgs(NamedTuple):
     graph: Graph
     n_id: str
     language: GraphShardMetadataLanguage
-    edge_attrs: EdgeAttrs
 
     def fork_n_id(self, n_id: str) -> CFG_ARGS:
         return CfgArgs(
@@ -33,7 +31,6 @@ class CfgArgs(NamedTuple):
             graph=self.graph,
             n_id=n_id,
             language=self.language,
-            edge_attrs=self.edge_attrs,
         )
 
 

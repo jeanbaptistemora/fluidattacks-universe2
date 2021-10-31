@@ -31,7 +31,7 @@ def _next_declaration(args: CfgArgs, stack: Stack) -> None:
                     break
             else:
                 # add following statement to cfg
-                args.graph.add_edge(args.n_id, next_id, **args.edge_attrs)
+                args.graph.add_edge(args.n_id, next_id, **g.ALWAYS)
 
 
 def generic(args: CfgArgs, stack: Stack) -> None:

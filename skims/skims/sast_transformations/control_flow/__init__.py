@@ -31,8 +31,7 @@ def c_sharp_add(graph: Graph) -> None:
         graph.nodes,
         predicate=_predicate,
     ):
-        args = CfgArgs(generic, graph, n_id, language, g.ALWAYS)
-        generic(args, stack=[])
+        generic(args=CfgArgs(generic, graph, n_id, language), stack=[])
 
 
 def go_add(graph: Graph) -> None:
@@ -48,8 +47,7 @@ def go_add(graph: Graph) -> None:
         graph.nodes,
         predicate=_predicate,
     ):
-        args = CfgArgs(generic, graph, n_id, language, g.ALWAYS)
-        generic(args, stack=[])
+        generic(args=CfgArgs(generic, graph, n_id, language), stack=[])
 
 
 def java_add(graph: Graph) -> None:
@@ -68,21 +66,19 @@ def java_add(graph: Graph) -> None:
         graph.nodes,
         predicate=_predicate,
     ):
-        args = CfgArgs(generic, graph, n_id, language, g.ALWAYS)
-        generic(args, stack=[])
+        generic(args=CfgArgs(generic, graph, n_id, language), stack=[])
 
 
 def javascript_add(graph: Graph) -> None:
     language = GraphShardMetadataLanguage.JAVASCRIPT
-    args = CfgArgs(generic, graph, g.ROOT_NODE, language, g.ALWAYS)
-    generic(args, stack=[])
+    generic(args=CfgArgs(generic, graph, g.ROOT_NODE, language), stack=[])
 
     # some nodes must be post-processed
     for n_id, node in graph.nodes.items():
         if g.pred_has_labels(label_type="arrow_function")(
             node
         ) or g.pred_has_labels(label_type="function")(node):
-            args = CfgArgs(generic, graph, n_id, language, g.ALWAYS)
+            args = CfgArgs(generic, graph, n_id, language)
             javascript_unnamed_function(args, stack=[])
 
 
@@ -101,8 +97,7 @@ def kotlin_add(graph: Graph) -> None:
         graph.nodes,
         predicate=_predicate,
     ):
-        args = CfgArgs(generic, graph, n_id, language, g.ALWAYS)
-        generic(args, stack=[])
+        generic(args=CfgArgs(generic, graph, n_id, language), stack=[])
 
 
 def add(

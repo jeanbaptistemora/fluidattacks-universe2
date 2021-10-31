@@ -1,9 +1,6 @@
 from contextlib import (
     suppress,
 )
-from model.graph_model import (
-    Graph,
-)
 from more_itertools import (
     pairwise,
 )
@@ -14,7 +11,6 @@ from sast_transformations.control_flow.common import (
 )
 from sast_transformations.control_flow.types import (
     CfgArgs,
-    EdgeAttrs,
     Stack,
 )
 from typing import (
@@ -25,13 +21,7 @@ from utils import (
 )
 
 
-def _next_declaration(
-    graph: Graph,
-    n_id: str,
-    stack: Stack,
-    *,
-    edge_attrs: EdgeAttrs,
-) -> None:
+def _next_declaration(args: CfgArgs, stack: Stack) -> None:
     with suppress(IndexError):
         # check if a following stmt is pending in parent entry of the stack
         next_id = stack[-2].pop("next_id", None)
@@ -40,16 +30,16 @@ def _next_declaration(
         # as child and they are not the same
         if (
             next_id
-            and n_id != next_id
-            and n_id not in g.adj_cfg(graph, next_id)
+            and args.n_id != next_id
+            and args.n_id not in g.adj_cfg(args.graph, next_id)
         ):
             # check that the next node is not already part of this cfg branch
-            for statement in g.pred_cfg_lazy(graph, n_id, depth=-1):
+            for statement in g.pred_cfg_lazy(args.graph, args.n_id, depth=-1):
                 if statement == next_id:
                     break
             else:
                 # add following statement to cfg
-                graph.add_edge(n_id, next_id, **edge_attrs)
+                args.graph.add_edge(args.n_id, next_id, **g.ALWAYS)
 
 
 def function_declaration(args: CfgArgs, stack: Stack) -> None:
@@ -63,9 +53,7 @@ def function_declaration(args: CfgArgs, stack: Stack) -> None:
             args.graph.add_edge(pred_id, args.n_id, **g.ALWAYS)
             args.graph.add_edge(args.n_id, block, **g.ALWAYS)
             args.generic(args.fork_n_id(block), [])
-            _next_declaration(
-                args.graph, args.n_id, stack, edge_attrs=g.ALWAYS
-            )
+            _next_declaration(args, stack)
 
 
 def if_statement(args: CfgArgs, stack: Stack) -> None:
