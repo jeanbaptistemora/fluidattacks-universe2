@@ -1,5 +1,6 @@
 from syntax_cfg.dispatchers import (
     connect_to_block,
+    connect_to_next,
     step_by_step,
 )
 from syntax_cfg.types import (
@@ -40,8 +41,26 @@ DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "MethodInvocation",
+        },
+        cfg_builder=connect_to_next.build,
+    ),
+    Dispatcher(
+        applicable_types={
             "Namespace",
         },
         cfg_builder=connect_to_block.build,
+    ),
+    Dispatcher(
+        applicable_types={
+            "ThrowStatement",
+        },
+        cfg_builder=connect_to_next.build,
+    ),
+    Dispatcher(
+        applicable_types={
+            "VariableDeclaration",
+        },
+        cfg_builder=connect_to_next.build,
     ),
 )
