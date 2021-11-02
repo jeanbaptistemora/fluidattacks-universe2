@@ -13,6 +13,7 @@ from purity.v1.pure_iter.factory import (
 )
 from purity.v1.pure_iter.transform.io import (
     chain,
+    consume,
 )
 from returns.curry import (
     partial,
@@ -108,7 +109,7 @@ class StreamEmitterFactory:
         emits_io = stream.records.map_each(
             partial(self._emit_record, stream.schema)
         )
-        return PureIter.consume(emits_io)
+        return consume(emits_io)
 
     def _emit_io_streams(self, streams: PureIter[IO[StreamData]]) -> IO[None]:
         first_emitted = False

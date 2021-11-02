@@ -2,18 +2,12 @@ from __future__ import (
     annotations,
 )
 
-from collections import (
-    deque,
-)
 from dataclasses import (
     dataclass,
 )
 import more_itertools
 from purity.v1._patch import (
     Patch,
-)
-from returns.io import (
-    IO,
 )
 from returns.primitives.hkt import (
     SupportsKind1,
@@ -42,11 +36,6 @@ class PureIter(_PureIter[_I]):
 
     def __iter__(self) -> Iterator[_I]:
         return iter(self._iter_obj.unwrap())
-
-    @staticmethod
-    def consume(p_iter: PureIter[IO[None]]) -> IO[None]:
-        deque(p_iter, maxlen=0)
-        return IO(None)
 
     def map(self, function: Callable[[_I], _R]) -> PureIter[_R]:
         draft = _PureIter(Patch(lambda: iter(map(function, self))))

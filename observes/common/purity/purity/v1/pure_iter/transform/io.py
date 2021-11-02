@@ -1,3 +1,6 @@
+from collections import (
+    deque,
+)
 from purity.v1._patch import (
     Patch,
 )
@@ -30,6 +33,11 @@ def chain(
 ) -> PureIter[IO[_I]]:
     function = partial(IterableFactoryIO.chain_io, unchained)
     return PureIter(_PureIter(Patch(function)))
+
+
+def consume(p_iter: PureIter[IO[None]]) -> IO[None]:
+    deque(p_iter, maxlen=0)
+    return IO(None)
 
 
 def until_none(items: PureIter[IO[Optional[_I]]]) -> PureIter[IO[_I]]:

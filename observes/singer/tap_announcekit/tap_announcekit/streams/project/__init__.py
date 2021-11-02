@@ -5,6 +5,9 @@ from purity.v1 import (
     PureIter,
     Transform,
 )
+from purity.v1.pure_iter.transform.io import (
+    consume,
+)
 from returns.io import (
     IO,
 )
@@ -41,4 +44,4 @@ class ProjectStreams:
             ProjectEncoders.encoder(self._name), Transform(factory.get), ids
         )
         emissions = streams.map_each(lambda s_io: s_io.bind(self.emitter.emit))
-        return PureIter.consume(emissions)
+        return consume(emissions)
