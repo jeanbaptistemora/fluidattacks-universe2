@@ -120,15 +120,7 @@ async def main() -> None:
             ),
             path=dict(
                 include=sorted(["."]),
-                exclude=sorted(
-                    [
-                        "glob(**/.git)",
-                        "glob(**/.idea)",
-                        "glob(**/*.launch)",
-                        "glob(**/.cproject)",
-                        "glob(**/.buildpath)",
-                    ]
-                ),
+                exclude=sorted(["glob(**/.git)"]),
             ),
             ssl=dict(
                 include=[
