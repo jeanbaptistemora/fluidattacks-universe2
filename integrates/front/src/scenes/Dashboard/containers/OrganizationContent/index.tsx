@@ -98,9 +98,11 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
           );
         }
         permissions.update(
-          permData.organization.permissions.map((action: string):
-            | ClaimRawRule<string>
-            | LegacyClaimRawRule<string> => ({ action }))
+          permData.organization.permissions.map(
+            (
+              action: string
+            ): ClaimRawRule<string> | LegacyClaimRawRule<string> => ({ action })
+          )
         );
         setUserRole(permData.organization.userRole);
       }

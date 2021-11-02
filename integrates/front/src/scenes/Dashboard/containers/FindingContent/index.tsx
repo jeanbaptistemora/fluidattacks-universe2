@@ -66,12 +66,11 @@ import { translate } from "utils/translations/translate";
 import { composeValidators, required } from "utils/validations";
 
 const findingContent: React.FC = (): JSX.Element => {
-  const { findingId, groupName, organizationName } =
-    useParams<{
-      findingId: string;
-      groupName: string;
-      organizationName: string;
-    }>();
+  const { findingId, groupName, organizationName } = useParams<{
+    findingId: string;
+    groupName: string;
+    organizationName: string;
+  }>();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { replace } = useHistory();

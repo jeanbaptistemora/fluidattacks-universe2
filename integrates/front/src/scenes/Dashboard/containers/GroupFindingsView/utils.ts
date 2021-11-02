@@ -131,18 +131,19 @@ const getResults = async (
 ): Promise<RemoveFindingResult[]> => {
   const chunkSize = 10;
   const vulnChunks = _.chunk(findings, chunkSize);
-  const updateChunks = vulnChunks.map((chunk): (() => Promise<
-    RemoveFindingResult[]
-  >) => async (): Promise<RemoveFindingResult[]> => {
-    const updates = chunk.map(
-      async (finding): Promise<RemoveFindingResult> =>
-        removeFinding({
-          variables: { findingId: finding.id, justification },
-        })
-    );
+  const updateChunks = vulnChunks.map(
+    (chunk): (() => Promise<RemoveFindingResult[]>) =>
+      async (): Promise<RemoveFindingResult[]> => {
+        const updates = chunk.map(
+          async (finding): Promise<RemoveFindingResult> =>
+            removeFinding({
+              variables: { findingId: finding.id, justification },
+            })
+        );
 
-    return Promise.all(updates);
-  });
+        return Promise.all(updates);
+      }
+  );
 
   // Sequentially execute chunks
   return updateChunks.reduce(

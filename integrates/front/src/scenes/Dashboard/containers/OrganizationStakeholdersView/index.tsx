@@ -104,8 +104,9 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
   // State management
   const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
   const [isStakeholderModalOpen, setStakeholderModalOpen] = useState(false);
-  const [stakeholderModalAction, setStakeholderModalAction] =
-    useState<"add" | "edit">("add");
+  const [stakeholderModalAction, setStakeholderModalAction] = useState<
+    "add" | "edit"
+  >("add");
   const [searchTextFilter, setSearchTextFilter] = useState("");
 
   const openAddStakeholderModal: () => void = useCallback((): void => {

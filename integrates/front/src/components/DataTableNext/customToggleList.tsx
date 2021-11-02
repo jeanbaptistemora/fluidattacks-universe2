@@ -60,12 +60,16 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
             data-toggle={"buttons"}
           >
             {columns
-              .map((column: ColumnDescription): ColumnDescription & {
-                toggle: boolean;
-              } => ({
-                ...column,
-                toggle: toggles[column.dataField as number],
-              }))
+              .map(
+                (
+                  column: ColumnDescription
+                ): ColumnDescription & {
+                  toggle: boolean;
+                } => ({
+                  ...column,
+                  toggle: toggles[column.dataField as number],
+                })
+              )
               .map((column): JSX.Element => {
                 function handleClick(): void {
                   onColumnToggle(column.dataField as string);

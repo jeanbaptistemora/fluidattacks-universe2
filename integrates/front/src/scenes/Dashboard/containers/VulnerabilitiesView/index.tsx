@@ -45,11 +45,10 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
 export const VulnsView: React.FC = (): JSX.Element => {
-  const { findingId, groupName } =
-    useParams<{
-      findingId: string;
-      groupName: string;
-    }>();
+  const { findingId, groupName } = useParams<{
+    findingId: string;
+    groupName: string;
+  }>();
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRetrieveHacker: boolean = permissions.can(

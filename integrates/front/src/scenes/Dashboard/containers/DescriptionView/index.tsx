@@ -26,11 +26,10 @@ import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const DescriptionView: React.FC = (): JSX.Element => {
-  const { findingId, groupName } =
-    useParams<{
-      findingId: string;
-      groupName: string;
-    }>();
+  const { findingId, groupName } = useParams<{
+    findingId: string;
+    groupName: string;
+  }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   const [isEditing, setEditing] = useState(false);

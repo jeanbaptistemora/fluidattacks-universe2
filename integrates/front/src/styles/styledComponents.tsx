@@ -533,13 +533,17 @@ const StickyContainer = styled.div.attrs({
 const Switch: StyledComponent<
   "div",
   Record<string, unknown>
-> = styled.div.attrs((props: { theme: { on: boolean; color: string } }): {
-  className: string;
-} => ({
-  className: `ba br0 db overflow-hidden ph3 pointer pv2 relative switch-mh tc w-100 ${
-    props.theme.on ? props.theme.color : "bg-white b--moon-gray"
-  }`,
-}))``;
+> = styled.div.attrs(
+  (props: {
+    theme: { on: boolean; color: string };
+  }): {
+    className: string;
+  } => ({
+    className: `ba br0 db overflow-hidden ph3 pointer pv2 relative switch-mh tc w-100 ${
+      props.theme.on ? props.theme.color : "bg-white b--moon-gray"
+    }`,
+  })
+)``;
 
 const SwitchHandle: StyledComponent<
   "span",
@@ -551,13 +555,17 @@ const SwitchHandle: StyledComponent<
 const SwitchGroup: StyledComponent<
   "div",
   Record<string, unknown>
-> = styled.div.attrs((props: { theme: { on: boolean } }): {
-  className: string;
-} => ({
-  className: `absolute bottom-0 top-0 right-0 switch-transition tc w-200 ${
-    props.theme.on ? "left-0 " : "left--100"
-  }`,
-}))``;
+> = styled.div.attrs(
+  (props: {
+    theme: { on: boolean };
+  }): {
+    className: string;
+  } => ({
+    className: `absolute bottom-0 top-0 right-0 switch-transition tc w-200 ${
+      props.theme.on ? "left-0 " : "left--100"
+    }`,
+  })
+)``;
 
 const SwitchOff: StyledComponent<
   "span",

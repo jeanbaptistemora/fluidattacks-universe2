@@ -57,38 +57,40 @@ const getResults = async (
 ): Promise<VulnUpdateResult[]> => {
   const chunkSize = 10;
   const vulnChunks = _.chunk(vulnerabilities, chunkSize);
-  const updateChunks = vulnChunks.map((chunk): (() => Promise<
-    VulnUpdateResult[]
-  >) => async (): Promise<VulnUpdateResult[]> => {
-    const updates = chunk.map(
-      async (vuln): Promise<VulnUpdateResult> =>
-        updateVuln({
-          variables: {
-            acceptanceDate: dataTreatment.acceptanceDate,
-            externalBugTrackingSystem: dataTreatment.externalBugTrackingSystem,
-            findingId,
-            isVulnInfoChanged: !isEditPristine,
-            isVulnTreatmentChanged: !isTreatmentPristine,
-            justification: dataTreatment.justification,
-            severity: _.isEmpty(String(dataTreatment.severity))
-              ? -1
-              : Number(dataTreatment.severity),
-            tag: dataTreatment.tag,
-            treatment: isTreatmentPristine
-              ? "IN_PROGRESS"
-              : dataTreatment.treatment,
-            treatmentManager:
-              _.isEmpty(dataTreatment.treatmentManager) ||
-              dataTreatment.treatment !== "IN_PROGRESS"
-                ? undefined
-                : dataTreatment.treatmentManager,
-            vulnerabilityId: vuln.id,
-          },
-        })
-    );
+  const updateChunks = vulnChunks.map(
+    (chunk): (() => Promise<VulnUpdateResult[]>) =>
+      async (): Promise<VulnUpdateResult[]> => {
+        const updates = chunk.map(
+          async (vuln): Promise<VulnUpdateResult> =>
+            updateVuln({
+              variables: {
+                acceptanceDate: dataTreatment.acceptanceDate,
+                externalBugTrackingSystem:
+                  dataTreatment.externalBugTrackingSystem,
+                findingId,
+                isVulnInfoChanged: !isEditPristine,
+                isVulnTreatmentChanged: !isTreatmentPristine,
+                justification: dataTreatment.justification,
+                severity: _.isEmpty(String(dataTreatment.severity))
+                  ? -1
+                  : Number(dataTreatment.severity),
+                tag: dataTreatment.tag,
+                treatment: isTreatmentPristine
+                  ? "IN_PROGRESS"
+                  : dataTreatment.treatment,
+                treatmentManager:
+                  _.isEmpty(dataTreatment.treatmentManager) ||
+                  dataTreatment.treatment !== "IN_PROGRESS"
+                    ? undefined
+                    : dataTreatment.treatmentManager,
+                vulnerabilityId: vuln.id,
+              },
+            })
+        );
 
-    return Promise.all(updates);
-  });
+        return Promise.all(updates);
+      }
+  );
 
   // Sequentially execute chunks
   return updateChunks.reduce(

@@ -141,29 +141,35 @@ const ServicesForm: React.FC<IServicesFormProps> = (
       ),
     },
   ].concat(
-    servicesList.map((element: IServicesDataSet): {
-      service: JSX.Element;
-      status: JSX.Element;
-    } => ({
-      service: (
-        <p>{translate.t(`searchFindings.servicesTable.${element.service}`)}</p>
-      ),
-      status: (
-        <FormGroup>
-          <Field
-            component={FormikSwitchButton}
-            id={element.id}
-            name={element.service}
-            offlabel={translate.t("searchFindings.servicesTable.inactive")}
-            onChange={
-              _.isUndefined(element.onChange) ? undefined : element.onChange
-            }
-            onlabel={translate.t("searchFindings.servicesTable.active")}
-            type={"checkbox"}
-          />
-        </FormGroup>
-      ),
-    }))
+    servicesList.map(
+      (
+        element: IServicesDataSet
+      ): {
+        service: JSX.Element;
+        status: JSX.Element;
+      } => ({
+        service: (
+          <p>
+            {translate.t(`searchFindings.servicesTable.${element.service}`)}
+          </p>
+        ),
+        status: (
+          <FormGroup>
+            <Field
+              component={FormikSwitchButton}
+              id={element.id}
+              name={element.service}
+              offlabel={translate.t("searchFindings.servicesTable.inactive")}
+              onChange={
+                _.isUndefined(element.onChange) ? undefined : element.onChange
+              }
+              onlabel={translate.t("searchFindings.servicesTable.active")}
+              type={"checkbox"}
+            />
+          </FormGroup>
+        ),
+      })
+    )
   );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {

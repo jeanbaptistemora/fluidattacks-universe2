@@ -28,11 +28,10 @@ import { translate } from "utils/translations/translate";
 
 const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
   const { setUserRole } = props;
-  const { organizationName, groupName } =
-    useParams<{
-      organizationName: string;
-      groupName: string;
-    }>();
+  const { organizationName, groupName } = useParams<{
+    organizationName: string;
+    groupName: string;
+  }>();
   const { path } = useRouteMatch();
 
   const attributes: PureAbility<string> = useContext(authzGroupContext);
@@ -51,11 +50,15 @@ const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
       group: { permissions: string[]; userRole: string | undefined };
     }): void => {
       permissions.update(
-        permData.group.permissions.map((action: string): {
-          action: string;
-        } => ({
-          action,
-        }))
+        permData.group.permissions.map(
+          (
+            action: string
+          ): {
+            action: string;
+          } => ({
+            action,
+          })
+        )
       );
       if (permData.group.permissions.length === 0) {
         Logger.error(
@@ -78,11 +81,15 @@ const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
   const { data, error } = useQuery<IGroupData>(GET_GROUP_DATA, {
     onCompleted: ({ group }: IGroupData): void => {
       attributes.update(
-        group.serviceAttributes.map((attribute: string): {
-          action: string;
-        } => ({
-          action: attribute,
-        }))
+        group.serviceAttributes.map(
+          (
+            attribute: string
+          ): {
+            action: string;
+          } => ({
+            action: attribute,
+          })
+        )
       );
     },
     onError: ({ graphQLErrors }: ApolloError): void => {

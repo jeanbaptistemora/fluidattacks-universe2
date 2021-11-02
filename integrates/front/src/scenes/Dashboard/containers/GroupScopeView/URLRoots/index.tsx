@@ -34,8 +34,9 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
 }: IURLRootsProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const [isManagingRoot, setManagingRoot] =
-    useState<false | { mode: "ADD" }>(false);
+  const [isManagingRoot, setManagingRoot] = useState<false | { mode: "ADD" }>(
+    false
+  );
   const openAddModal = useCallback((): void => {
     setManagingRoot({ mode: "ADD" });
   }, []);

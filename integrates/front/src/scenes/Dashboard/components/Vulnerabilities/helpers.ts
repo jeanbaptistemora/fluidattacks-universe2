@@ -94,7 +94,7 @@ function setNonSelectable(
 
 const onRemoveVulnResultHelper = (
   removeVulnResult: IRemoveVulnAttr,
-  t: UseTranslationResponse<"translation">["t"]
+  t: UseTranslationResponse<"translation", undefined>["t"]
 ): void => {
   if (removeVulnResult.removeVulnerability.success) {
     msgSuccess(
