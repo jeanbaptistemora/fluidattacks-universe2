@@ -1,5 +1,5 @@
 {
-  "junit/junit": {
+  "junit:junit": {
     "CVE-2020-15250": [
       ">=4.7.0,<4.13.1"
     ],
@@ -7,7 +7,19 @@
       ">=4.7.0,<4.13.1"
     ]
   },
-  "taglibs/standard": {
+  "org.springframework.security:spring-security-core": {
+    "CVE-2021-22112": [
+      ">=5.2.0,<5.2.9",
+      ">=5.3.0,<5.3.8",
+      ">=5.4.0,<5.4.4"
+    ]
+  },
+  "org.springframework:spring-websocket": {
+    "CVE-2015-0201": [
+      ">=4.1.0,<4.1.5.RELEASE"
+    ]
+  },
+  "taglibs:standard": {
     "CVE-2015-0254": [
       "<1.2.3"
     ]

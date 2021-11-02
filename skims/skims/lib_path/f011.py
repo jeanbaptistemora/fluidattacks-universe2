@@ -122,7 +122,7 @@ def _pom_xml(
             line = version.sourceline
 
             yield (
-                {"column": column, "line": line, "item": f"{g_text}/{a_text}"},
+                {"column": column, "line": line, "item": f"{g_text}:{a_text}"},
                 {"column": column, "line": line, "item": v_text},
             )
 

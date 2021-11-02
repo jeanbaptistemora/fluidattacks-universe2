@@ -9317,7 +9317,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jszip v3.6.0) [
    76 |     ""ng-packagr"": ""12.2.2"",
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit/junit v4.12) [CVE-2020-15250],21,937,skims,011. Use of software with known vulnerabilities,Use of junit/junit at version 4.12 with CVE-2020-15250 in skims/test/data/lib_path/f011/pom.xml,"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [CVE-2020-15250],21,937,skims,011. Use of software with known vulnerabilities,Use of junit:junit at version 4.12 with CVE-2020-15250 in skims/test/data/lib_path/f011/pom.xml,"
   11 |     <junit.version>4.12</junit.version>
   12 |     <mockito.version>2.0.31-beta</mockito.version>
   13 |     <slf4j.version>1.7.12</slf4j.version>
@@ -9341,7 +9341,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit/junit v4.12) [
   31 |       <groupId>org.springframework</groupId>
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit/junit v4.12) [CVE-2020-15250],27,937,skims,011. Use of software with known vulnerabilities,Use of junit/junit at version 4.12 with CVE-2020-15250 in skims/test/data/lib_path/f011/pom.xml,"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [CVE-2020-15250],27,937,skims,011. Use of software with known vulnerabilities,Use of junit:junit at version 4.12 with CVE-2020-15250 in skims/test/data/lib_path/f011/pom.xml,"
   17 |   <dependencies>
   18 |     <dependency>
   19 |       <groupId>junit</groupId>
@@ -9365,7 +9365,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit/junit v4.12) [
   37 |       <groupId>org.mockito</groupId>
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit/junit v4.12) [github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp],21,937,skims,011. Use of software with known vulnerabilities,Use of junit/junit at version 4.12 with github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp in skims/test/data/lib_path/f011/pom.xml,"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp],21,937,skims,011. Use of software with known vulnerabilities,Use of junit:junit at version 4.12 with github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp in skims/test/data/lib_path/f011/pom.xml,"
   11 |     <junit.version>4.12</junit.version>
   12 |     <mockito.version>2.0.31-beta</mockito.version>
   13 |     <slf4j.version>1.7.12</slf4j.version>
@@ -9389,7 +9389,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit/junit v4.12) [
   31 |       <groupId>org.springframework</groupId>
      ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit/junit v4.12) [github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp],27,937,skims,011. Use of software with known vulnerabilities,Use of junit/junit at version 4.12 with github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp in skims/test/data/lib_path/f011/pom.xml,"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp],27,937,skims,011. Use of software with known vulnerabilities,Use of junit:junit at version 4.12 with github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp in skims/test/data/lib_path/f011/pom.xml,"
   17 |   <dependencies>
   18 |     <dependency>
   19 |       <groupId>junit</groupId>
