@@ -43,5 +43,5 @@ class ProjectStreams:
         streams = StreamFactory.new_stream(
             ProjectEncoders.encoder(self._name), Transform(factory.get), ids
         )
-        emissions = streams.map_each(lambda s_io: s_io.bind(self.emitter.emit))
+        emissions = streams.map(lambda s_io: s_io.bind(self.emitter.emit))
         return consume(emissions)

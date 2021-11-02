@@ -3,6 +3,7 @@ from dataclasses import (
 )
 import logging
 from purity.v1 import (
+    Flattener,
     FrozenList,
     Patch,
     PureIter,
@@ -106,7 +107,7 @@ class StreamEmitterFactory:
     def _emit(self, stream: Stream[_R], schema: bool) -> IO[None]:
         if schema:
             self._emit_schema(stream.schema)
-        emits_io = stream.records.map_each(
+        emits_io = stream.records.map(
             partial(self._emit_record, stream.schema)
         )
         return consume(emits_io)
@@ -133,11 +134,15 @@ class StreamFactory:
         get: Transform[_ID, IO[_D]],
         ids: PureIter[_ID],
     ) -> PureIter[IO[StreamData]]:
-        result = ids.map(get).map(
-            lambda p_io: p_io.map(
-                lambda p: Stream(
-                    encoder.schema,
-                    from_flist((p,)).map(encoder.to_singer),
+        result = (
+            ids.map(get)
+            .chunked(10)
+            .map(
+                lambda items: Flattener.list_io(tuple(items)).map(
+                    lambda p: Stream(
+                        encoder.schema,
+                        from_flist(p).map(encoder.to_singer),
+                    )
                 )
             )
         )

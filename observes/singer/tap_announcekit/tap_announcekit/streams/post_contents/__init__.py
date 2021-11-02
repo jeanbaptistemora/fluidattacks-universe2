@@ -40,7 +40,7 @@ class PostContentStreams:
 
     def stream(self, items: PureIter[PostContentObj]) -> StreamData:
         encoder = PostContentEncoders.encoder(self._name)
-        return Stream(encoder.schema, items.map_each(encoder.to_singer))
+        return Stream(encoder.schema, items.map(encoder.to_singer))
 
     def emit(
         self,
@@ -50,8 +50,8 @@ class PostContentStreams:
         # for correct type checking lambda is necessary
         factory = PostContentFactory(self.client)
         result = (
-            post_ids.map_each(factory.get)
-            .map_each(lambda i: i.map(lambda x: from_flist(x)))
-            .map_each(lambda i: i.map(self.stream))
+            post_ids.map(factory.get)
+            .map(lambda i: i.map(lambda x: from_flist(x)))
+            .map(lambda i: i.map(self.stream))
         )
         return self.emitter.emit_io_streams(result)
