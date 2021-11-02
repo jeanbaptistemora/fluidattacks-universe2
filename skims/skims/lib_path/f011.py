@@ -88,13 +88,13 @@ def _pom_xml(
     platform: core_model.Platform,
 ) -> core_model.Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
-        root = BeautifulSoup(content, features="xml")
+        root = BeautifulSoup(content, features="html.parser")
 
         for group, artifact, version in [
             (group, artifact, version)
             for dependency in root.find_all("dependency")
-            for group in dependency.find_all("groupId")
-            for artifact in dependency.find_all("artifactId")
+            for group in dependency.find_all("groupid")
+            for artifact in dependency.find_all("artifactid")
             for version in dependency.find_all("version")
         ]:
             product_text = f"{group.get_text()}/{artifact.get_text()}"
