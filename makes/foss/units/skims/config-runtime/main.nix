@@ -18,6 +18,7 @@ makeTemplate {
     ];
     pythonPackage = [
       (projectPath "/skims/skims")
+      (projectPath "/makes/foss/units/bugsnag-client")
     ];
     source = [
       outputs."/makes/python/safe-pickle"

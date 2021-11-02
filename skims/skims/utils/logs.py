@@ -5,13 +5,15 @@ import bugsnag
 from bugsnag import (
     legacy as bugsnag_legacy,
 )
+from bugsnag_client import (
+    CustomBugsnagClient,
+)
 import logging
 import sys
 from typing import (
     Any,
 )
 from utils.bugs import (
-    CustomBugsnagClient,
     META as BUGS_META,
 )
 
