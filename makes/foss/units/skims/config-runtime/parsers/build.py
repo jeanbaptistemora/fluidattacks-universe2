@@ -8,6 +8,7 @@ from typing import (
 
 GRAMMARS: Dict[str, str] = dict(
     c_sharp=os.environ["envTreeSitterCSharp"],
+    dart=os.environ["envTreeSitterDart"],
     go=os.environ["envTreeSitterGo"],
     java=os.environ["envTreeSitterJava"],
     javascript=os.environ["envTreeSitterJavaScript"],

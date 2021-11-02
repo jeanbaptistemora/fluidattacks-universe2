@@ -43,6 +43,12 @@
       rev = "851ac4735f66ec9c479096cc21bf58519da49faa";
       sha256 = "UHw5JQ++iYLTyqL8KH1impRxXJ2oJAQRoD79nLVQgMw=";
     };
+    skimsTreeSitterDart = fetchGithub {
+      owner = "UserNobody14";
+      repo = "tree-sitter-dart";
+      rev = "6a25376685d1d47968c2cef06d4db8d84a70025e";
+      sha256 = "0z06sphmgjggx5j2rjfy3f85fh1m9s79sql8a7d4kvsamz9rwakl";
+    };
     skimsTreeSitterGo = fetchGithub {
       owner = "tree-sitter";
       repo = "tree-sitter-go";

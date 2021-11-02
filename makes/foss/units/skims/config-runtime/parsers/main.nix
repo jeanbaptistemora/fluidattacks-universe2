@@ -17,6 +17,7 @@ makeDerivation {
   env = {
     envBuildPy = ./build.py;
     envTreeSitterCSharp = inputs.skimsTreeSitterCSharp;
+    envTreeSitterDart = inputs.skimsTreeSitterDart;
     envTreeSitterGo = inputs.skimsTreeSitterGo;
     envTreeSitterJava = inputs.skimsTreeSitterJava;
     envTreeSitterJavaScript = inputs.skimsTreeSitterJavaScript;
