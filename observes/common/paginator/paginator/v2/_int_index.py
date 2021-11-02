@@ -10,8 +10,14 @@ from purity.v1 import (
     FrozenList,
     Patch,
     PureIter,
-    PureIterFactory,
-    PureIterIOFactory,
+)
+from purity.v1.pure_iter.factory import (
+    from_flist,
+    infinite_range,
+)
+from purity.v1.pure_iter.transform.io import (
+    chain,
+    until_empty,
 )
 from returns.io import (
     IO,
@@ -65,9 +71,9 @@ class IntIndexGetter(
                 start + (n_chunk + 1) * pages_chunk,
             )
 
-        ranges = PureIterFactory.infinite_map(page_range, 0, 1)
-        chunks = PureIterFactory.map(self.get_pages, ranges).map_each(
-            lambda x: x.map(lambda i: PureIterFactory.from_flist(i))
+        ranges = infinite_range(0, 1).map(page_range)
+        chunks = ranges.map(self.get_pages).map(
+            lambda x: x.map(lambda i: from_flist(i))
         )
-        chained = PureIterIOFactory.chain(chunks)
-        return PureIterIOFactory.until_empty(chained)
+        chained = chain(chunks)
+        return until_empty(chained)

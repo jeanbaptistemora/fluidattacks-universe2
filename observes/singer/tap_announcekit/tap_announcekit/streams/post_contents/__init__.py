@@ -3,7 +3,9 @@ from dataclasses import (
 )
 from purity.v1 import (
     PureIter,
-    PureIterFactory,
+)
+from purity.v1.pure_iter.factory import (
+    from_flist,
 )
 from returns.io import (
     IO,
@@ -49,7 +51,7 @@ class PostContentStreams:
         factory = PostContentFactory(self.client)
         result = (
             post_ids.map_each(factory.get)
-            .map_each(lambda i: i.map(lambda x: PureIterFactory.from_flist(x)))
+            .map_each(lambda i: i.map(lambda x: from_flist(x)))
             .map_each(lambda i: i.map(self.stream))
         )
         return self.emitter.emit_io_streams(result)

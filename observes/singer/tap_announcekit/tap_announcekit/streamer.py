@@ -5,8 +5,8 @@ from enum import (
     auto,
     Enum,
 )
-from purity.v1 import (
-    PureIterFactory,
+from purity.v1.pure_iter.factory import (
+    from_flist,
 )
 from returns.io import (
     IO,
@@ -82,7 +82,7 @@ class Streamer(_Streamer):
     def start(self) -> IO[None]:
         if self.selection in (SupportedStream.PROJECTS, SupportedStream.ALL):
             ProjectStreams(self.client, self.emitter).emit(
-                PureIterFactory.from_flist((self.proj,))
+                from_flist((self.proj,))
             )
         if self.selection in (
             SupportedStream.POSTS,

@@ -6,9 +6,13 @@ from purity.v1 import (
     FrozenList,
     Patch,
     PureIter,
-    PureIterFactory,
-    PureIterIOFactory,
     Transform,
+)
+from purity.v1.pure_iter.factory import (
+    from_flist,
+)
+from purity.v1.pure_iter.transform.io import (
+    chain,
 )
 from returns.curry import (
     partial,
@@ -128,13 +132,11 @@ class StreamFactory:
         get: Transform[_ID, IO[_D]],
         ids: PureIter[_ID],
     ) -> PureIter[IO[StreamData]]:
-        result = ids.map_each(get).map_each(
+        result = ids.map(get).map(
             lambda p_io: p_io.map(
                 lambda p: Stream(
                     encoder.schema,
-                    PureIterFactory.from_flist((p,)).map_each(
-                        encoder.to_singer
-                    ),
+                    from_flist((p,)).map(encoder.to_singer),
                 )
             )
         )
@@ -148,10 +150,10 @@ class StreamFactory:
     ) -> StreamIO:
         # pylint: disable=unnecessary-lambda
         # for correct type checking lambda is necessary
-        items = ids.map_each(get)
-        records = items.map_each(
+        items = ids.map(get)
+        records = items.map(
             lambda p: p.map(
                 lambda items: tuple(encoder.to_singer(i) for i in items)
-            ).map(lambda i: PureIterFactory.from_flist(i))
+            ).map(lambda i: from_flist(i))
         )
-        return Stream(encoder.schema, PureIterIOFactory.chain(records))
+        return Stream(encoder.schema, chain(records))

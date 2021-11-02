@@ -6,8 +6,14 @@ from paginator.v2 import (
 )
 from purity.v1 import (
     PureIter,
-    PureIterFactory,
     Transform,
+)
+from purity.v1.pure_iter.factory import (
+    from_flist,
+)
+from purity.v1.pure_iter.transform import (
+    chain,
+    until_empty,
 )
 from returns.io import (
     IO,
@@ -54,13 +60,9 @@ class PostIdGetters:
         id_pages: IO[PureIter[PostId]] = (
             self._get_page_range()
             .bind(getter.get_pages)
-            .map(lambda x: PureIterFactory.from_flist(x))
-            .map(lambda x: PureIterFactory.until_empty(x))
-            .map(lambda p: PureIterFactory.map(lambda i: i.data, p))
-            .map(
-                lambda x: PureIterFactory.chain(
-                    x.map_each(PureIterFactory.from_flist)
-                )
-            )
+            .map(lambda x: from_flist(x))
+            .map(lambda x: until_empty(x))
+            .map(lambda p: p.map(lambda i: i.data))
+            .map(lambda x: chain(x.map(from_flist)))
         )
         return id_pages
