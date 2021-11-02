@@ -23,7 +23,6 @@ from typing import (
 )
 
 _I = TypeVar("_I")
-_R = TypeVar("_R")
 
 
 def chain(

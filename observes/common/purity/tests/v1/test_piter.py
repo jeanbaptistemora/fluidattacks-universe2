@@ -1,3 +1,4 @@
+import functools
 from purity.v1 import (
     FrozenList,
     PureIter,
@@ -17,6 +18,7 @@ from returns.maybe import (
     Maybe,
 )
 from typing import (
+    List,
     Optional,
     TypeVar,
 )
@@ -67,13 +69,29 @@ class TestFactory:
         assert_immutability_inf(piter)
 
 
-class TestiTransforms:
+class TestSelfTransforms:
     @staticmethod
     def test_map() -> None:
         items = factory.from_flist((1, 2, 3))
         piter = items.map(lambda x: x)
         assert_immutability(piter)
 
+    @staticmethod
+    def test_chunked() -> None:
+        items = factory.from_range(range(15))
+        piter = items.chunked(5)
+        assert_immutability(piter)
+        assert sum(1 for _ in piter) == 3
+        for sub_piter in piter:
+            assert_immutability(sub_piter)
+            assert sum(1 for _ in sub_piter) == 5
+        module: List[int] = []
+        assert functools.reduce(
+            lambda a, b: list(a) + list(b), piter, module
+        ) == list(items)
+
+
+class TestTransforms:
     @staticmethod
     def test_chain() -> None:
         items = factory.from_flist(

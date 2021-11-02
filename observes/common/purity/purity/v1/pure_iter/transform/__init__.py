@@ -15,13 +15,11 @@ from returns.maybe import (
     Maybe,
 )
 from typing import (
-    Callable,
     Optional,
     TypeVar,
 )
 
 _I = TypeVar("_I")
-_R = TypeVar("_R")
 
 
 def chain(

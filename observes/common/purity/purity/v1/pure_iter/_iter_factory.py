@@ -13,14 +13,12 @@ from returns.unsafe import (
     unsafe_perform_io,
 )
 from typing import (
-    Callable,
     Iterable,
     Optional,
     TypeVar,
 )
 
 _I = TypeVar("_I")
-_R = TypeVar("_R")
 
 
 class IterableFactory:

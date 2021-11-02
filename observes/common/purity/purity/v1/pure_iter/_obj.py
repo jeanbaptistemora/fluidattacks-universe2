@@ -8,6 +8,7 @@ from collections import (
 from dataclasses import (
     dataclass,
 )
+import more_itertools
 from purity.v1._patch import (
     Patch,
 )
@@ -49,4 +50,19 @@ class PureIter(_PureIter[_I]):
 
     def map(self, function: Callable[[_I], _R]) -> PureIter[_R]:
         draft = _PureIter(Patch(lambda: iter(map(function, self))))
+        return PureIter(draft)
+
+    def chunked(self, size: int) -> PureIter[PureIter[_I]]:
+        draft = _PureIter(
+            Patch(
+                lambda: iter(
+                    map(
+                        lambda items: PureIter(
+                            _PureIter(Patch(lambda: items))
+                        ),
+                        more_itertools.chunked(self, size),
+                    )
+                )
+            )
+        )
         return PureIter(draft)
