@@ -1,9 +1,8 @@
 from aioextensions import (
     in_process,
 )
-from bs4 import (
-    BeautifulSoup,
-)
+import bs4
+import bs4.element
 from frozendict import (  # type: ignore
     frozendict,
 )
@@ -29,6 +28,7 @@ from state.cache import (
 from typing import (
     Awaitable,
     Callable,
+    Dict,
     Iterator,
     List,
     Pattern,
@@ -82,29 +82,48 @@ RE_MAVEN_B: Pattern[str] = re.compile(
 # | yarn.lock         | 47     | yes
 
 
+def _pom_xml_get_properties(root: bs4.BeautifulSoup) -> Dict[str, str]:
+    return {
+        property.name.lower(): property.get_text()
+        for properties in root.find_all("properties", limit=2)
+        for property in properties.children
+        if isinstance(property, bs4.element.Tag)
+    }
+
+
+def _pom_xml_interpolate(properties: Dict[str, str], value: str) -> str:
+    for var, var_value in properties.items():
+        value = value.replace(f"${{{var}}}", var_value)
+
+    return value
+
+
 def _pom_xml(
     content: str,
     path: str,
     platform: core_model.Platform,
 ) -> core_model.Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
-        root = BeautifulSoup(content, features="html.parser")
+        root = bs4.BeautifulSoup(content, features="html.parser")
+
+        properties = _pom_xml_get_properties(root)
 
         for group, artifact, version in [
             (group, artifact, version)
-            for dependency in root.find_all("dependency")
-            for group in dependency.find_all("groupid")
-            for artifact in dependency.find_all("artifactid")
-            for version in dependency.find_all("version")
+            for dependency in root.find_all("dependency", limit=2)
+            for group in dependency.find_all("groupid", limit=1)
+            for artifact in dependency.find_all("artifactid", limit=1)
+            for version in dependency.find_all("version", limit=1)
         ]:
-            product_text = f"{group.get_text()}/{artifact.get_text()}"
-            version_text = version.get_text()
+            g_text = _pom_xml_interpolate(properties, group.get_text())
+            a_text = _pom_xml_interpolate(properties, artifact.get_text())
+            v_text = _pom_xml_interpolate(properties, version.get_text())
             column = version.sourcepos
             line = version.sourceline
 
             yield (
-                {"column": column, "line": line, "item": product_text},
-                {"column": column, "line": line, "item": version_text},
+                {"column": column, "line": line, "item": f"{g_text}/{a_text}"},
+                {"column": column, "line": line, "item": v_text},
             )
 
     return translate_dependencies_to_vulnerabilities(
