@@ -13,8 +13,8 @@
             __argIntegratesBackEnv__ = outputs."/integrates/back/env";
           };
           template = ''
-            require_env_var INTEGRATES_DEV_AWS_ACCESS_KEY_ID
-            require_env_var INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY
+            require_env_var DEV_AWS_ACCESS_KEY_ID
+            require_env_var DEV_AWS_SECRET_ACCESS_KEY
             source __argIntegratesBackEnv__/template dev
           '';
         })

@@ -11,7 +11,7 @@ function main {
     export CI='false'
   fi
 
-  aws_login_dev 'integrates' \
+  aws_login_dev_new \
     && sops_export_vars __argSecretsDev__ "${secrets[@]}" \
     && pushd integrates/mobile \
     && copy __argSetupIntegratesMobileDevRuntime__ node_modules \

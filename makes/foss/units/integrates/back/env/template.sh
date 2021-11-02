@@ -5,9 +5,9 @@ function main {
 
   true \
     && case "${env}" in
-      dev) aws_login_dev 'integrates' ;;
-      dev-mobile) aws_login_dev 'integrates' ;;
-      eph) aws_login_dev 'integrates' ;;
+      dev) aws_login_dev_new ;;
+      dev-mobile) aws_login_dev_new ;;
+      eph) aws_login_dev_new ;;
       prod) aws_login_prod 'integrates' ;;
       prod-local) aws_login_prod 'integrates' ;;
       *) abort '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod, prod-local' ;;

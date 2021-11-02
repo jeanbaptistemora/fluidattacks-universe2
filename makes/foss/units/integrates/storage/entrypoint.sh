@@ -21,7 +21,7 @@ function serve {
   local port='9000'
   local state_path='.Storage'
 
-  aws_login_dev integrates \
+  aws_login_dev_new \
     && sops_export_vars __argDevSecrets__ \
       TEST_PROJECTS \
     && mkdir -p "${state_path}" \

@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  aws_login_dev integrates \
+  aws_login_dev_new \
     && pushd integrates \
     && sops_export_vars secrets-development.yaml CODECOV_TOKEN \
     && codecov -b "${CI_COMMIT_REF_NAME}" \

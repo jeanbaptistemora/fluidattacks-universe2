@@ -55,7 +55,7 @@ function main {
         ;;
       dev)
         env='development' \
-          && aws_login_dev integrates \
+          && aws_login_dev_new \
           && sops_export_vars __argSecretsDev__ "${secrets[@]}"
         ;;
       *) critical First argument must be one of: dev, prod ;;
