@@ -1,4 +1,10 @@
 import bugsnag
+from bugsnag import (
+    legacy as bugsnag_legacy,
+)
+from bugsnag_client import (
+    CustomBugsnagClient,
+)
 from context import (
     BASE_URL,
     FI_BUGSNAG_API_KEY_SCHEDULER,
@@ -13,3 +19,4 @@ def start_scheduler_session() -> None:
         release_stage=FI_ENVIRONMENT,
     )
     bugsnag.start_session()
+    bugsnag_legacy.default_client = CustomBugsnagClient()

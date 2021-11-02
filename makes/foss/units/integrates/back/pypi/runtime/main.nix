@@ -22,6 +22,7 @@ makeTemplate {
     pythonPackage = [
       (projectPath "/integrates/back/src")
       (projectPath "/integrates")
+      (projectPath "/makes/foss/units/bugsnag-client")
     ];
     source = [
       pythonRequirements
