@@ -3598,55 +3598,25 @@
         and the exploitability metric.
 "061":
   en:
-    title: Errors without traceability
+    title: Free
     description: >
-      Application errors are handled
-      neither by throwing an exception
-      nor by triggering a logging event,
-      which causes a loss of traceability.
+      __empty__
     impact: >
-      - Perform malicious actions
-      within the application
-      and leave no trace about it.
-
-      - Make auditing and debugging difficult,
-      as it is not possible to
-      correctly identify the errors generated.
+      __empty__
     recommendation: >
-      - Use a centralized logging mechanism
-      that supports several levels of detail.
-
-      - Make sure all events related
-      to successes and failures are recorded.
+      __empty__
     threat: >
-      Authenticated attacker
-      from the Internet.
+      __empty__
   es:
-    title: Errors without traceability
+    title: Free
     description: >
-      Los errores generados en la aplicación
-      no lanzan ninguna excepción o
-      guardado en logs
-      para saber donde se generaron.
+      __empty__
     impact: >
-      - Realizar acciones maliciosas
-      en la aplicación
-      sin dejar ningún rastro.
-
-      - Dificultar las labores de auditoría y debug,
-      ya que no es posible identificar
-      correctamente los errores generados.
+      __empty__
     recommendation: >
-      - Utilizar un mecanismo
-      de registro centralizado
-      que admita varios niveles de detalle.
-
-      - Asegurarse de que se registren
-      todos los eventos relacionados
-      con éxitos y fracasos.
+      __empty__
     threat: >
-      Atacante autenticado
-      desde Internet.
+      __empty__
   category: Abuse Functionality
   score:
     base:
@@ -4192,65 +4162,25 @@
       details: __empty__
 "070":
   en:
-    title: Inappropriate coding practices - Wildcard import
+    title: Free
     description: >
-      When importing libraries
-      the wildcard operator (asterisk) is used
-      which imports
-      all the components of said library.
-      This is a bad practice
-      because components that are loaded
-      will not be used,
-      and you can get into naming conflicts
-      if two packages have components
-      with the same name.
+      __empty__
     impact: >
-      - Load functions and procedures
-      that will not be used.
-
-      - Cause a suboptimal operation
-      of the application.
-
-      - Cause naming conflicts in components
-      with the same name.
+      __empty__
     recommendation: >
-      Explicitly import the libraries
-      and necessary packages
-      for the right functioning
-      of the application.
+      __empty__
     threat: >
-      Authorized attacker
-      with access to the application.
+      __empty__
   es:
-    title: Inappropriate coding practices - Wildcard import
+    title: Free
     description: >
-      Al importar librerías
-      se hace uso del operador comodín (asterisco)
-      lo cual importa
-      la totalidad de componentes de dicha librería.
-      Esta es una mala práctica
-      debido a que se cargan componentes
-      que no serán utilizados,
-      y se puede entrar en conflictos de nomenclatura
-      si dos paquetes tienen componentes
-      con el mismo nombre.
+      __empty__
     impact: >
-      - Cargar funciones y procedimientos
-      que no serán utilizados.
-
-      - Ocasionar un funcionamiento subóptimo
-      de la aplicación.
-
-      - Ocasionar conflictos de nomenclatura
-      en componentes con el mismo nombre.
+     __empty__
     recommendation: >
-      Explicitly import the libraries
-      and necessary packages
-      for the right functioning
-      of the application.
+      __empty__
     threat: >
-      Atacante autorizado
-      con acceso a la aplicación.
+      __empty__
   category: Abuse Functionality
   score:
     base:
@@ -4379,42 +4309,25 @@
       details: __empty__
 "073":
   en:
-    title: Conditional statement without a default option
+    title: Free
     description: >
-      The source code
-      has conditional statements
-      without a default option.
-      E.g. there is a switch statement
-      without a default case.
+      __empty__
     impact: >
-      Drive the application
-      into unexpected behaviors
-      due to the missing default options.
+      __empty__
     recommendation: >
-      Define a default option for statements
-      that do not yet have it.
+      __empty__
     threat: >
-      Authenticated attacker
-      from the Internet.
+     __empty__
   es:
-    title: Conditional statement without a default option
+    title: Free
     description: >
-      El código presenta condicionales
-      sin ninguna opción por defecto.
-      Ejemplo: se tiene un switch
-      que no contempla un caso por defecto.
+      __empty__
     impact: >
-      Conducir la aplicación
-      a comportamientos inesperados
-      debido a la clausula
-      por defecto faltante.
+     __empty__.
     recommendation: >
-      Definir una opción por defecto
-      para las sentencias
-      que aún no cuentan con esta.
+      __empty__
     threat: >
-      Atacante autenticado
-      desde Internet.
+      __empty__
   category: Abuse Functionality
   score:
     base:
@@ -6335,54 +6248,25 @@
       details: __empty__
 "109":
   en:
-    title: Insecure functionality - Float currency
+    title: Free
     description: >
-      Representing currency
-      using data types
-      like float or double may result
-      in accuracy issues the more operations
-      are performed using
-      inexact representations of a value;
-      besides unexpected behaviors
-      if special values like NaN
-      or Infinite are not taken into account.
+      __empty__
     impact: >
-      Money operations
-      may have incorrect results.
+      __empty__
     recommendation: >
-      - Use integer to represent currency
-      and count in cents.
-
-      - Use data types specially made
-      to represent currency.
+      __empty__
     threat: >
-      Authenticated attacker
-      from the Internet.
+      __empty__
   es:
-    title: Insecure functionality - Float currency
+    title: Free
     description: >
-      Representar moneda
-      utilizando tipos de dato
-      como float o double puede resultar
-      en problemas de precisión
-      a medida que se hacen
-      más y más operaciones
-      sobre representaciones inexactas de un valor;
-      además de comportamientos inesperados
-      si no se tiene en cuenta
-      valores especiales como NaN e infinitos.
+      __empty__
     impact: >
-      Operaciones sobre moneda
-      pueden tener resultados incorrectos.
+      __empty__
     recommendation: >
-      - Usar enteros para representar moneda
-      y contar en centavos.
-
-      - Usar tipos de datos hechos específicamente
-      para representar moneda.
+      __empty__
     threat: >
-      Atacante autenticado
-      desde Internet.
+      __empty__
   category: Abuse Functionality
   score:
     base:
