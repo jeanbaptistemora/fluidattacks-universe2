@@ -58,6 +58,7 @@ async def mutate(
         entity=target_group_name,
         subject=user_email,
         additional_info=f"{group_name}/{root_id}",
+        queue="dedicated_soon",
     )
 
     logs_utils.cloudwatch_log(

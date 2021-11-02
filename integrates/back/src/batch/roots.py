@@ -148,22 +148,21 @@ async def process_finding(
                 threat=source_finding.threat,
             )
         )
-        if source_finding.submission:
-            await findings_model.update_state(
-                current_value=initial_state,
-                finding_id=target_finding_id,
-                group_name=target_group_name,
-                state=source_finding.submission,
-            )
         await findings_model.update_state(
-            current_value=(
-                source_finding.submission
-                if source_finding.submission
-                else initial_state
-            ),
+            current_value=initial_state,
             finding_id=target_finding_id,
             group_name=target_group_name,
-            state=source_finding.approval,
+            state=source_finding.submission._replace(
+                modified_by=datetime_utils.get_iso_date()
+            ),
+        )
+        await findings_model.update_state(
+            current_value=source_finding.submission,
+            finding_id=target_finding_id,
+            group_name=target_group_name,
+            state=source_finding.approval._replace(
+                modified_by=datetime_utils.get_iso_date()
+            ),
         )
 
     await process_vulns(vulns, target_finding_id)
