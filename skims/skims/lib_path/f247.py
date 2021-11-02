@@ -191,9 +191,9 @@ async def tfm_ebs_unencrypted_volumes(
     )
 
 
-# @CACHE_ETERNALLY
-# @SHIELD
-# @TIMEOUT_1MIN
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
 async def tfm_ec2_unencrypted_volumes(
     content: str,
     path: str,

@@ -39,25 +39,6 @@ def _any_to_list(_input):
     return res
 
 
-def _get_unencrypted_vulns(res_name, res_props, yaml_path):
-    vulnerabilities: list = []
-    for vol_type in ["root_block_device", "ebs_block_device"]:
-        if vol_type in res_props:
-            volumes = _any_to_list(res_props.get(vol_type))
-            for volume in volumes:
-                vol_name = volume.get("device_name", "unnamed")
-                if not helper.to_boolean(volume.get("encrypted", False)):
-                    vulnerabilities.append(
-                        Vulnerability(
-                            path=yaml_path,
-                            entity=vol_type,
-                            identifier=res_name + "." + vol_name,
-                            reason="is not encrypted",
-                        )
-                    )
-    return vulnerabilities
-
-
 def _tipify_rules(res_props):
     rules: list = []
     if res_props.get("type") == "aws_security_group":
@@ -68,40 +49,6 @@ def _tipify_rules(res_props):
     else:
         rules.append(res_props)
     return rules
-
-
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError)
-def has_unencrypted_volumes(
-    path: str, exclude: Optional[List[str]] = None
-) -> tuple:
-    """
-    Check if there are EC2 instances with unencrypted volumes.
-
-    Verify if ``ebs_root_device`` or ``ebs_block_device``
-    has the encryption attribute set to **true**.
-
-    :param path: Location of Terraform template file.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if the volume is not encrypted.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    vulns: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-        starting_path=path,
-        resource_types=[
-            "aws_instance",
-        ],
-        exclude=exclude,
-    ):
-        vulns += _get_unencrypted_vulns(res_name, res_props, yaml_path)
-    return _get_result_as_tuple(
-        vulnerabilities=vulns,
-        msg_open="EC2 volumes are not encrypted",
-        msg_closed="EC2 volumes are encrypted",
-    )
 
 
 @api(risk=MEDIUM, kind=SAST)
