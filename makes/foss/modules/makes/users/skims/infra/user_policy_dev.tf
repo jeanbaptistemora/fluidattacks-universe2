@@ -85,6 +85,20 @@ data "aws_iam_policy_document" "skims_dev_policy_data" {
     ]
   }
 
+  statement {
+    effect = "Allow"
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey",
+    ]
+    resources = [
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/skims_dev"
+    ]
+  }
+
   # S3 access to skims buckets
   statement {
     effect = "Allow"
