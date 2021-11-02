@@ -1213,6 +1213,25 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
+    F241: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F241",
+        cwe=306,
+        requirements=[227, 228, 229, 231, 235, 264, 319],
+        score=cvss3_model.Score(
+            attack_complexity=cvss3_model.AttackComplexity.low,
+            attack_vector=cvss3_model.AttackVector.network,
+            availability_impact=cvss3_model.AvailabilityImpact.none,
+            confidentiality_impact=cvss3_model.ConfidentialityImpact.low,
+            exploitability=cvss3_model.Exploitability.poc,
+            integrity_impact=cvss3_model.IntegrityImpact.low,
+            privileges_required=cvss3_model.PrivilegesRequired.none,
+            remediation_level=cvss3_model.RemediationLevel.unavailable,
+            report_confidence=cvss3_model.ReportConfidence.unknown,
+            severity_scope=cvss3_model.SeverityScope.unchanged,
+            user_interaction=cvss3_model.UserInteraction.none,
+        ),
+    )
     F247: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F247",

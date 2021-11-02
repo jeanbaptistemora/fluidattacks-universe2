@@ -455,6 +455,14 @@
       "title": "211. Asymmetric denial of service - ReDoS"
     }
   },
+  "F241": {
+    "EN": {
+      "title": "241. Authentication mechanism absence or evasion - AWS"
+    },
+    "ES": {
+      "title": "241. Authentication mechanism absence or evasion - AWS"
+    }
+  },
   "F247": {
     "EN": {
       "title": "247. Non-encrypted confidential information - AWS"
