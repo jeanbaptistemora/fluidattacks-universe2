@@ -60,6 +60,10 @@ in
           gitlabExtra = gitlabLintJob;
         }
         {
+          output = "/lintMarkdown/airs";
+          gitlabExtra = gitlabLintJob;
+        }
+        {
           output = "/deployTerraform/airsInfra";
           gitlabExtra = {
             resource_group = "$CI_JOB_NAME";
