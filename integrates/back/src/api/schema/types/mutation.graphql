@@ -458,6 +458,10 @@ type Mutation {
     tag: String!
   ): SimpleGroupPayload!
 
+
+  "Removes/deletes your access to ASM"
+  removeStakeholder: SimplePayload!
+
   "Removes a stakeholder's access from a Group"
   removeStakeholderAccess(
     "Deprecated. Use `groupName` instead"
