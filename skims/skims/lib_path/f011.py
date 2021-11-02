@@ -1,6 +1,9 @@
 from aioextensions import (
     in_process,
 )
+from bs4 import (
+    BeautifulSoup,
+)
 from frozendict import (  # type: ignore
     frozendict,
 )
@@ -77,6 +80,51 @@ RE_MAVEN_B: Pattern[str] = re.compile(
 # | package-lock.json | 555    | yes
 # | bower.json        | 158    |
 # | yarn.lock         | 47     | yes
+
+
+def _pom_xml(
+    content: str,
+    path: str,
+    platform: core_model.Platform,
+) -> core_model.Vulnerabilities:
+    def resolve_dependencies() -> Iterator[DependencyType]:
+        root = BeautifulSoup(content, features="xml")
+
+        for group, artifact, version in [
+            (group, artifact, version)
+            for dependency in root.find_all("dependency")
+            for group in dependency.find_all("groupId")
+            for artifact in dependency.find_all("artifactId")
+            for version in dependency.find_all("version")
+        ]:
+            product_text = f"{group.get_text()}/{artifact.get_text()}"
+            version_text = version.get_text()
+            column = version.sourcepos
+            line = version.sourceline
+
+            yield (
+                {"column": column, "line": line, "item": product_text},
+                {"column": column, "line": line, "item": version_text},
+            )
+
+    return translate_dependencies_to_vulnerabilities(
+        content=content,
+        dependencies=resolve_dependencies(),
+        path=path,
+        platform=platform,
+    )
+
+
+async def pom_xml(
+    content: str,
+    path: str,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _pom_xml,
+        content=content,
+        path=path,
+        platform=core_model.Platform.MAVEN,
+    )
 
 
 def _build_gradle(
@@ -338,6 +386,13 @@ async def analyze(
     elif (file_name, file_extension) == ("package-lock", "json"):
         coroutines.append(
             npm_package_lock_json(
+                content=await content_generator(),
+                path=path,
+            )
+        )
+    elif (file_name, file_extension) == ("pom", "xml"):
+        coroutines.append(
+            pom_xml(
                 content=await content_generator(),
                 path=path,
             )
