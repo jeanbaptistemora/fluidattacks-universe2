@@ -1,0 +1,53 @@
+"Vulnerability Severity type definition"
+type Severity {
+  """Measure of the effort and resources needed for an attacker to put
+  in to successfully breach the system"""
+  attackComplexity: String!
+  "Level of access needed for an attack to succeed"
+  attackVector: String!
+  """Hypothetical impact on resource (webpages, content etc...) availability
+  and possibility of service denial"""
+  availabilityImpact: String!
+  "Availability requirement for the impacted systems"
+  availabilityRequirement: String!
+  """Measure of the sensible/restricted information (e.g. password,
+  encryption keys) the attacker could gather from the breached component"""
+  confidentialityImpact: String!
+  "Confidentiality requirement for the impacted systems"
+  confidentialityRequirement: String!
+  """Measure of the availability of resources and details, both theoretical
+  and practical, available for a malicious actor to build and/or automate an
+  attack"""
+  exploitability: String!
+  """How vulnerable for malicious modification are the files in the impacted
+  components"""
+  integrityImpact: String!
+  "Integrity requirement for the impacted systems"
+  integrityRequirement: String!
+  "Modified Attack Complexity"
+  modifiedAttackComplexity: String!
+  "Modified Attack Vector"
+  modifiedAttackVector: String!
+  "Modified Availability Impact"
+  modifiedAvailabilityImpact: String!
+  "Modified Confidentiality Impact"
+  modifiedConfidentialityImpact: String!
+  "Modified Integrity Impact"
+  modifiedIntegrityImpact: String!
+  "Modified Privileges Required"
+  modifiedPrivilegesRequired: String!
+  "Modified Scope"
+  modifiedSeverityScope: String!
+  "Modified User Interaction"
+  modifiedUserInteraction: String!
+  "Privileges required by the attacker to exploit the vulnerabilities"
+  privilegesRequired: String!
+  "Availability of a fix"
+  remediationLevel: String!
+  "Report Confidence"
+  reportConfidence: String!
+  "Security scope of the affected resources by the exploited vulnerabilities"
+  severityScope: String!
+  "User involvement needed for a successful attack"
+  userInteraction: String!
+}

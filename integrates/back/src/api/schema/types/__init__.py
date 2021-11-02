@@ -61,6 +61,9 @@ from .root import (
 from .services_toe_lines import (
     SERVICESTOELINES,
 )
+from .severity import (
+    SEVERITY,
+)
 from .stakeholder import (
     STAKEHOLDER,
 )
@@ -110,6 +113,7 @@ TYPES: Tuple[ObjectType, ...] = (
     QUERY,
     REPORT,
     RESOURCE,
+    SEVERITY,
     STAKEHOLDER,
     TAG,
     TOEINPUTS,
