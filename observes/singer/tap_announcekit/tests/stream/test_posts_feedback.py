@@ -25,7 +25,7 @@ def test_schema() -> None:
 
 queries = (
     FeedbackPageQuery(0).query(mock_data.mock_proj_id),
-    FeedbackPageQuery(0).query_2(mock_data.mock_post_id),
+    FeedbackPageQuery(0).query(mock_data.mock_post_id),
 )
 
 

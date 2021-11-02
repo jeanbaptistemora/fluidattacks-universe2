@@ -32,7 +32,10 @@ from tap_announcekit.streams.feedback._factory import (
 from typing import (
     Any,
     cast,
+    Union,
 )
+
+_FeedbackId = Union[ProjectId, PostId]
 
 
 def _attr_map(attr: str) -> str:
@@ -54,24 +57,24 @@ def _select_item_fields(items: Any) -> IO[None]:
     return IO(None)
 
 
-def _select_fields(proj: ProjectId, page: int, query: Operation) -> IO[None]:
-    fb_page = query.feedbacks(project_id=proj.id_str, page=page)
+def _fb_page(id_obj: _FeedbackId, page: int, operation: Operation) -> Any:
+    if isinstance(id_obj, PostId):
+        return operation.feedbacks(
+            project_id=id_obj.proj.id_str, post_id=id_obj.id_str, page=page
+        )
+    return operation.feedbacks(project_id=id_obj.id_str, page=page)
+
+
+def _select_fields(
+    id_obj: _FeedbackId, page: int, operation: Operation
+) -> IO[None]:
+    fb_page = _fb_page(id_obj, page, operation)
     items = fb_page.items()
     _select_page_fields(fb_page)
     _select_item_fields(items)
     items.id()
-    items.post_id()
-    return IO(None)
-
-
-def _select_fields_2(post: PostId, page: int, query: Operation) -> IO[None]:
-    fb_page = query.feedbacks(
-        project_id=post.proj.id_str, post_id=post.id_str, page=page
-    )
-    items = fb_page.items()
-    _select_page_fields(fb_page)
-    _select_item_fields(items)
-    items.id()
+    if isinstance(id_obj, ProjectId):
+        items.post_id()
     return IO(None)
 
 
@@ -79,23 +82,12 @@ def _select_fields_2(post: PostId, page: int, query: Operation) -> IO[None]:
 class FeedbackPageQuery:
     page: int
 
-    def query(self, proj: ProjectId) -> Query[FeedbackPage]:
+    def query(self, id_obj: _FeedbackId) -> Query[FeedbackPage]:
         return QueryFactory.select(
-            partial(_select_fields, proj, self.page),
+            partial(_select_fields, id_obj, self.page),
             Transform(
                 lambda p: _from_raw.to_page(
-                    Transform(partial(_from_raw.to_obj, proj)),
-                    cast(RawFeedbackPage, p.feedbacks),
-                )
-            ),
-        )
-
-    def query_2(self, post: PostId) -> Query[FeedbackPage]:
-        return QueryFactory.select(
-            partial(_select_fields_2, post, self.page),
-            Transform(
-                lambda p: _from_raw.to_page(
-                    Transform(partial(_from_raw.to_obj_2, post)),
+                    Transform(partial(_from_raw.to_obj, id_obj)),
                     cast(RawFeedbackPage, p.feedbacks),
                 )
             ),

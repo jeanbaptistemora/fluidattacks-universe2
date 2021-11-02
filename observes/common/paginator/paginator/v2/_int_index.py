@@ -31,6 +31,7 @@ from returns.primitives.hkt import (
 from typing import (
     Callable,
     TypeVar,
+    Union,
 )
 
 _DataTVar = TypeVar("_DataTVar")
@@ -55,10 +56,13 @@ class IntIndexGetter(
 
     def get_pages(
         self,
-        page_range: range,
+        page_range: Union[range, FrozenList[int]],
     ) -> IO[FrozenList[Maybe[_DataTVar]]]:
         getter: ParallelGetter[int, _DataTVar] = ParallelGetter(self.getter)
-        return getter.get_pages(tuple(page_range))
+        pages = (
+            tuple(page_range) if isinstance(page_range, range) else page_range
+        )
+        return getter.get_pages(pages)
 
     def get_until_end(
         self,

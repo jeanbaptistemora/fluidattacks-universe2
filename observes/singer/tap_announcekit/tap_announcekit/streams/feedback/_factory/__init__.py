@@ -9,10 +9,10 @@ from purity.v1 import (
 )
 from purity.v1.pure_iter.factory import (
     from_flist,
+    infinite_range,
 )
 from purity.v1.pure_iter.transform import (
-    chain,
-    until_empty,
+    io as io_transform,
 )
 from returns.curry import (
     partial,
@@ -50,19 +50,23 @@ class FeedbackFactory:
         query = FeedbackPageQuery(page).query(proj)
         return self.client.get(query).map(self._filter_empty)
 
-    def get_feedbacks(
-        self, proj: ProjectId, p_range: IO[range]
-    ) -> IO[PureIter[FeedbackObj]]:
+    def get_feedbacks(self, proj: ProjectId) -> PureIter[IO[FeedbackObj]]:
+        # pylint: disable=unnecessary-lambda
+        # for correct type checking lambda is necessary
         getter: IntIndexGetter[FeedbackPage] = IntIndexGetter(
             partial(self.get_page, proj)
         )
-        # pylint: disable=unnecessary-lambda
-        # for correct type checking lambda is necessary
-        id_pages = (
-            p_range.bind(getter.get_pages)
-            .map(lambda x: from_flist(x))
-            .map(lambda x: until_empty(x))
-            .map(lambda p: p.map(lambda i: i.items))
-            .map(lambda x: chain(x.map(lambda i: from_flist(i))))
+        pages = (
+            infinite_range(0, 1)
+            .chunked(100)
+            .map(lambda i: tuple(i))
+            .map(getter.get_pages)
+        ).map(
+            lambda io_items: io_items.map(
+                lambda i: from_flist(i).map(lambda p: p.map(lambda x: x.items))
+            )
         )
-        return id_pages
+        result = io_transform.until_empty(io_transform.chain(pages)).map(
+            lambda i: i.map(lambda j: from_flist(j))
+        )
+        return io_transform.chain(result)

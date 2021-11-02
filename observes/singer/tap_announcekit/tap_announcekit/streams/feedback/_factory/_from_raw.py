@@ -22,9 +22,13 @@ from tap_announcekit.objs.post import (
 from tap_announcekit.utils import (
     CastUtils,
 )
+from typing import (
+    Union,
+)
 
 _to_primitive = PrimitiveFactory.to_primitive
 _to_opt_primitive = PrimitiveFactory.to_opt_primitive
+_FeedbackId = Union[ProjectId, PostId]
 
 
 def to_feedback(proj: ProjectId, raw: RawFeedback) -> Feedback:
@@ -37,18 +41,18 @@ def to_feedback(proj: ProjectId, raw: RawFeedback) -> Feedback:
     )
 
 
-def to_obj(proj: ProjectId, raw: RawFeedback) -> FeedbackObj:
+def to_obj(id_obj: _FeedbackId, raw: RawFeedback) -> FeedbackObj:
+    proj = id_obj if isinstance(id_obj, ProjectId) else id_obj.proj
     feedback = to_feedback(proj, raw)
+    post_id = (
+        PostId(id_obj, _to_primitive(raw.post_id, str))
+        if isinstance(id_obj, ProjectId)
+        else id_obj
+    )
     _id = FeedbackId(
-        PostId(proj, _to_primitive(raw.post_id, str)),
+        post_id,
         _to_primitive(raw.id, str),
     )
-    return IndexedObj(_id, feedback)
-
-
-def to_obj_2(post: PostId, raw: RawFeedback) -> FeedbackObj:
-    feedback = to_feedback(post.proj, raw)
-    _id = FeedbackId(post, _to_primitive(raw.id, str))
     return IndexedObj(_id, feedback)
 
 
