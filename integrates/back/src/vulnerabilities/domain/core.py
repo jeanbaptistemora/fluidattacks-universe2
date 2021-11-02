@@ -23,7 +23,7 @@ from custom_exceptions import (
 )
 from custom_types import (
     Finding as FindingType,
-    Historic,
+    Historic as HistoricType,
     User as UserType,
     Vulnerability as VulnerabilityType,
 )
@@ -225,7 +225,7 @@ def filter_confirmed_zero_risk(
     return [
         vulnerability
         for vulnerability in vulnerabilities
-        if cast(Historic, vulnerability.get("historic_zero_risk", [{}]))[
+        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
             -1
         ].get("status", "")
         == "CONFIRMED"
@@ -278,7 +278,7 @@ def filter_requested_zero_risk(
     return [
         vulnerability
         for vulnerability in vulnerabilities
-        if cast(Historic, vulnerability.get("historic_zero_risk", [{}]))[
+        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
             -1
         ].get("status", "")
         == "REQUESTED"
@@ -642,18 +642,22 @@ async def list_vulnerabilities_async(
     return result
 
 
-async def mask_vuln(finding_id: str, vuln_id: str) -> bool:
-    success = await vulns_dal.update(
-        finding_id,
-        vuln_id,
+async def mask_vuln(vuln: VulnerabilityType) -> bool:
+    historic_treatment: HistoricType = vuln["historic_treatment"]
+    for state in historic_treatment:
+        if "treatment_manager" in state:
+            state["treatment_manager"] = "Masked"
+        if "justification" in state:
+            state["justification"] = "Masked"
+    return await vulns_dal.update(
+        vuln["finding_id"],
+        vuln["UUID"],
         {
             "specific": "Masked",
             "where": "Masked",
-            "treatment_manager": "Masked",
-            "treatment_justification": "Masked",
+            "historic_treatment": historic_treatment,
         },
     )
-    return success
 
 
 async def reject_vulnerabilities_zero_risk(
@@ -799,10 +803,10 @@ async def update_historics_dates(
     finding_id: str, vuln: Dict[str, FindingType], date: str
 ) -> bool:
     """Set historic dates to finding's discovery date"""
-    historic_state = cast(Historic, vuln["historic_state"])
+    historic_state = cast(HistoricType, vuln["historic_state"])
     for state_info in historic_state:
         state_info["date"] = date
-    historic_treatment = cast(Historic, vuln["historic_treatment"])
+    historic_treatment = cast(HistoricType, vuln["historic_treatment"])
     for treatment_info in historic_treatment:
         treatment_info["date"] = date
     success = await vulns_dal.update(

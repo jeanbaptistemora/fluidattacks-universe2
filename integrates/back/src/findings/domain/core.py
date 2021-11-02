@@ -651,10 +651,10 @@ async def mask_finding(  # pylint: disable=too-many-locals
     ]
     mask_finding_coroutines.extend(comments_coroutines)
     finding_all_vulns_loader = loaders.finding_vulns_all
-    vulns = await finding_all_vulns_loader.load(finding.id)
-    mask_vulns_coroutines = [
-        vulns_domain.mask_vuln(finding.id, str(vuln["UUID"])) for vuln in vulns
-    ]
+    vulns: List[VulnerabilityType] = await finding_all_vulns_loader.load(
+        finding.id
+    )
+    mask_vulns_coroutines = [vulns_domain.mask_vuln(vuln) for vuln in vulns]
     mask_finding_coroutines.extend(mask_vulns_coroutines)
     await collect(mask_new_finding_coroutines)
     return all(await collect(mask_finding_coroutines))
