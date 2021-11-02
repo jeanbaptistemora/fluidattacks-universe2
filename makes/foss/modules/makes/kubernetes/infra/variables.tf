@@ -38,13 +38,23 @@ variable "map_roles" {
 
   default = [
     {
+      rolearn  = "arn:aws:iam::205810638802:role/dev"
+      username = "dev"
+      groups   = ["system:masters"]
+    },
+    {
       rolearn  = "arn:aws:iam::205810638802:role/integrates-prod"
-      username = "role-integrates-prod"
+      username = "integrates-prod"
       groups   = ["system:masters"]
     },
     {
       rolearn  = "arn:aws:iam::205810638802:role/integrates-dev"
-      username = "role-integrates-dev"
+      username = "integrates-dev"
+      groups   = ["system:masters"]
+    },
+    {
+      rolearn  = "arn:aws:iam::205810638802:role/makes_prod"
+      username = "makes_prod"
       groups   = ["system:masters"]
     },
   ]
@@ -59,23 +69,28 @@ variable "map_users" {
 
   default = [
     {
+      userarn  = "arn:aws:iam::205810638802:user/dev"
+      username = "dev"
+      groups   = ["system:masters"]
+    },
+    {
       userarn  = "arn:aws:iam::205810638802:user/user-provision/serves-prod"
-      username = "user-serves-prod"
+      username = "serves-prod"
       groups   = ["system:masters"]
     },
     {
       userarn  = "arn:aws:iam::205810638802:user/user-provision/serves-dev"
-      username = "user-serves-dev"
+      username = "serves-dev"
       groups   = ["system:masters"]
     },
     {
       userarn  = "arn:aws:iam::205810638802:user/user-provision/integrates-prod"
-      username = "user-integrates-prod"
+      username = "integrates-prod"
       groups   = ["system:masters"]
     },
     {
       userarn  = "arn:aws:iam::205810638802:user/user-provision/integrates-dev"
-      username = "user-integrates-dev"
+      username = "integrates-dev"
       groups   = ["system:masters"]
     },
   ]
