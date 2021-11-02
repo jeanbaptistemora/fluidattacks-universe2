@@ -5,6 +5,13 @@
 , projectPath
 , ...
 }:
+let
+  categories = [
+    "functional"
+    "cli"
+    "unittesting"
+  ];
+in
 {
   testPython = builtins.listToAttrs (builtins.map
     (category: {
@@ -44,26 +51,14 @@
                   (inputs.legacy.importUtility "sops")
                   (inputs.legacy.importUtility "aws")
                 ];
-                bin = [ ] ++ (if builtins.elem category [
-                  "functional"
-                  "cli"
-                  "unittesting"
-                ] then [
-                  outputs."/integrates/batch"
-                  outputs."/integrates/cache"
-                  outputs."/integrates/db"
-                  outputs."/integrates/storage"
-                  outputs."/integrates/back"
+                bin = [ ] ++ (if builtins.elem category categories then [
+                  (outputs."/integrates/mock")
                 ] else [ ]);
               };
               replace = {
                 __argSecretsFile__ = projectPath "/skims/secrets/dev.yaml";
                 __argDbData__ = projectPath "/skims/test/data/db";
-                __argShouldMock__ = builtins.elem category [
-                  "functional"
-                  "cli"
-                  "unittesting"
-                ];
+                __argShouldMock__ = builtins.elem category categories;
               };
               template = ./template.sh;
             })
