@@ -9674,6 +9674,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (mocha v5.2.0) [
    79 |     ""postcss"": ""7.0.0"",
       ^ Col 0
 "
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (moment v2.9.0) [CVE-2017-18214],71,937,skims,011. Use of software with known vulnerabilities,Use of moment at version 2.9.0 with CVE-2017-18214 in skims/test/data/lib_path/f011/package.json,"
+   61 |     ""jquery-validation"": ""1.17.0"",
+   62 |     ""jspdf"": ""2.2.0"",
+   63 |     ""jsrsasign"": ""8.0.0"",
+   64 |     ""jszip"": ""3.6.0"",
+   65 |     ""just-extend"": ""3.0.0"",
+   66 |     ""mem"": ""1.1.0"",
+   67 |     ""merge"": ""1.2.0"",
+   68 |     ""merge-deep"": ""3.0.2"",
+   69 |     ""mocha"": ""5.2.0"",
+   70 |     ""mongoose"": ""4.0.0"",
+>  71 |     ""moment"": ""2.9.0"",
+   72 |     ""morgan"": ""1.9.0"",
+   73 |     ""ng-packagr"": ""12.2.2"",
+   74 |     ""node-forge"": ""0.9.0"",
+   75 |     ""node-sass"": ""^5.0.0"",
+   76 |     ""node-notifier"": ""5.4.2"",
+   77 |     ""normalize-url"": ""4.3.0"",
+   78 |     ""npm-registry-fetch"": ""4.0.3"",
+   79 |     ""postcss"": ""7.0.0"",
+   80 |     ""prismjs"": ""1.20.0"",
+   81 |     ""react-adal"": ""0.4.22"",
+      ^ Col 0
+"
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (mongoose v4.0.0) [snyk.io/vuln/npm:mongoose:20150925],70,937,skims,011. Use of software with known vulnerabilities,Use of mongoose at version 4.0.0 with snyk.io/vuln/npm:mongoose:20150925 in skims/test/data/lib_path/f011/package.json,"
    60 |     ""jquery"": ""0.*"",
    61 |     ""jquery-validation"": ""1.17.0"",
