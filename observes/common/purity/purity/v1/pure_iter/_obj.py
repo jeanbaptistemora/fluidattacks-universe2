@@ -42,10 +42,6 @@ class PureIter(_PureIter[_I]):
     def __iter__(self) -> Iterator[_I]:
         return iter(self._iter_obj.unwrap())
 
-    def map_each(self, function: Callable[[_I], _R]) -> PureIter[_R]:
-        draft = _PureIter(Patch(lambda: map(function, self)))
-        return PureIter(draft)
-
     @staticmethod
     def consume(p_iter: PureIter[IO[None]]) -> IO[None]:
         deque(p_iter, maxlen=0)

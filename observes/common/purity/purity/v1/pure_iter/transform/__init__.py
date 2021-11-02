@@ -36,13 +36,6 @@ def filter_opt(items: PureIter[Optional[_I]]) -> PureIter[_I]:
     return PureIter(draft)
 
 
-def map_range(function: Callable[[int], _R], items: range) -> PureIter[_R]:
-    draft = _PureIter(
-        Patch(lambda: iter(IterableFactory.map_range(function, items)))
-    )
-    return PureIter(draft)
-
-
 def until_none(items: PureIter[Optional[_I]]) -> PureIter[_I]:
     draft = _PureIter(Patch(lambda: iter(IterableFactory.until_none(items))))
     return PureIter(draft)

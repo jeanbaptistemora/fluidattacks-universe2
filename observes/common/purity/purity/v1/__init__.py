@@ -34,8 +34,6 @@ from purity.v1._transform import (
 )
 from purity.v1.pure_iter import (
     PureIter,
-    PureIterFactory,
-    PureIterIOFactory,
 )
 
 __all__ = [
@@ -55,8 +53,6 @@ __all__ = [
     "Patch",
     # Pure iter lib
     "PureIter",
-    "PureIterFactory",
-    "PureIterIOFactory",
     # Flat lib
     "Flattener",
     # Frozen lib

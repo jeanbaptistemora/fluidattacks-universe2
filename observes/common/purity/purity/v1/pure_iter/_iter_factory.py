@@ -35,14 +35,6 @@ class IterableFactory:
         return (i for i in items if i is not None)
 
     @staticmethod
-    def map(function: Callable[[_I], _R], items: PureIter[_I]) -> Iterable[_R]:
-        return (function(i) for i in items)
-
-    @staticmethod
-    def map_range(function: Callable[[int], _R], items: range) -> Iterable[_R]:
-        return (function(i) for i in items)
-
-    @staticmethod
     def until_none(items: PureIter[Optional[_I]]) -> Iterable[_I]:
         for item in items:
             if item is None:
