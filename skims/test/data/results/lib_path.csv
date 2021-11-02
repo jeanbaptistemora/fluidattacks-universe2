@@ -4959,6 +4959,56 @@ F247,lines,namespace/skims/test/data/lib_path/f247/test_ebs.tf,10,311,skims,247.
   17 | }
      ^ Col 0
 "
+F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,13,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
+","
+   3 |   instance_type               = lookup(var.awsprops, ""itype"")
+   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
+   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
+   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
+   7 |
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+> 13 |   root_block_device {
+  14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+  21 |   ebs_block_device {
+  22 |     delete_on_termination = true
+  23 |     iops                  = 150
+     ^ Col 0
+"
+F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,21,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
+","
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+  13 |   root_block_device {
+  14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+> 21 |   ebs_block_device {
+  22 |     delete_on_termination = true
+  23 |     iops                  = 150
+  24 |     volume_size           = 50
+  25 |     volume_type           = ""gp2""
+  26 |   }
+  27 |
+  28 | }
+     ^ Col 0
+"
 F247,lines,namespace/skims/test/data/lib_path/f247/test_fsx.tf,1,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
 ","
 >  1 | resource ""aws_fsx_windows_file_system"" ""example"" {

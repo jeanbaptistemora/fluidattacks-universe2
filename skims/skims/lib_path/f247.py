@@ -4,6 +4,7 @@ from aioextensions import (
 from aws.model import (
     AWSEbsVolume,
     AWSFsxWindowsFileSystem,
+    AWSInstance,
 )
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
@@ -20,8 +21,11 @@ from parse_hcl2.loader import (
     load as load_terraform,
 )
 from parse_hcl2.structure import (
+    get_argument,
+    get_block_attribute,
     iter_aws_ebs_volume,
     iter_aws_fsx_windows_file_system,
+    iter_aws_instance,
 )
 from parse_hcl2.tokens import (
     Attribute,
@@ -70,6 +74,37 @@ def tfm_ebs_unencrypted_volumes_iterate_vulnerabilities(
             yield bucket
 
 
+def tfm_ec2_unencrypted_volumes_iterate_vulnerabilities(
+    buckets_iterator: Iterator[AWSInstance],
+) -> Iterator[Union[Any, Node]]:
+    for bucket in buckets_iterator:
+        root_encrypted = False
+        ebs_encrypted = False
+        if root_device := get_argument(
+            key="root_block_device",
+            body=bucket.data,
+        ):
+            if root_encrypted_attr := get_block_attribute(
+                block=root_device, key="encrypted"
+            ):
+                if root_encrypted_attr.val is True:
+                    root_encrypted = True
+        if ebs_device := get_argument(
+            key="ebs_block_device",
+            body=bucket.data,
+        ):
+            if ebs_encrypted_attr := get_block_attribute(
+                block=ebs_device, key="encrypted"
+            ):
+                if ebs_encrypted_attr.val is True:
+                    ebs_encrypted = True
+
+        if not root_encrypted:
+            yield root_device
+        if not ebs_encrypted:
+            yield ebs_device
+
+
 def _tfm_fsx_unencrypted_volumes(
     content: str,
     path: str,
@@ -101,6 +136,24 @@ def _tfm_ebs_unencrypted_volumes(
         statements_iterator=(
             tfm_ebs_unencrypted_volumes_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_ebs_volume(model=model)
+            )
+        ),
+    )
+
+
+def _tfm_ec2_unencrypted_volumes(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_aws_iterator_blocking(
+        content=content,
+        description_key="F247.title",
+        finding=core_model.FindingEnum.F247,
+        path=path,
+        statements_iterator=(
+            tfm_ec2_unencrypted_volumes_iterate_vulnerabilities(
+                buckets_iterator=iter_aws_instance(model=model)
             )
         ),
     )
@@ -138,6 +191,22 @@ async def tfm_ebs_unencrypted_volumes(
     )
 
 
+# @CACHE_ETERNALLY
+# @SHIELD
+# @TIMEOUT_1MIN
+async def tfm_ec2_unencrypted_volumes(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_ec2_unencrypted_volumes,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -158,6 +227,13 @@ async def analyze(
         )
         coroutines.append(
             tfm_ebs_unencrypted_volumes(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
+        coroutines.append(
+            tfm_ec2_unencrypted_volumes(
                 content=content,
                 path=path,
                 model=model,
