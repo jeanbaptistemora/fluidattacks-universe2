@@ -1,3 +1,5 @@
+# pylint: disable=unnecessary-lambda
+# for correct type checking lambda is necessary
 from dataclasses import (
     dataclass,
 )
@@ -149,13 +151,27 @@ class StreamFactory:
         return result
 
     @staticmethod
+    def from_io_data(
+        encoder: SingerEncoder[_D],
+        data: PureIter[IO[_D]],
+    ) -> PureIter[IO[StreamData]]:
+        chunks = (
+            data.map(lambda i: i.map(encoder.to_singer))
+            .chunked(100)
+            .map(
+                lambda i: Flattener.list_io(tuple(i)).map(
+                    lambda i: from_flist(i)
+                )
+            )
+        )
+        return chunks.map(lambda i: i.map(lambda l: Stream(encoder.schema, l)))
+
+    @staticmethod
     def multi_stream(
         encoder: SingerEncoder[_D],
         get: Transform[_ID, IO[FrozenList[_D]]],
         ids: PureIter[_ID],
     ) -> StreamIO:
-        # pylint: disable=unnecessary-lambda
-        # for correct type checking lambda is necessary
         items = ids.map(get)
         records = items.map(
             lambda p: p.map(

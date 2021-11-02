@@ -3,7 +3,6 @@ from purity.v1 import (
     Transform,
 )
 from tap_announcekit.api.gql_schema import (
-    ActionSource,
     Feedback as RawFeedback,
     PageOfFeedback as RawFeedbackPage,
 )
@@ -18,6 +17,9 @@ from tap_announcekit.objs.post import (
     Feedback,
     FeedbackObj,
     FeedbackPage,
+)
+from tap_announcekit.objs.post.feedback import (
+    ActionSource,
 )
 from tap_announcekit.utils import (
     CastUtils,

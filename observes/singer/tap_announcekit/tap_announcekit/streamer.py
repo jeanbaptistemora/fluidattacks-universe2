@@ -26,6 +26,7 @@ from tap_announcekit.stream import (
     StreamEmitterFactory,
 )
 from tap_announcekit.streams import (
+    FeedbackStreams,
     PostContentStreams,
     PostStreams,
     ProjectStreams,
@@ -50,6 +51,7 @@ class SupportedStream(AutoName):
     PROJECTS = auto()
     POSTS = auto()
     POST_CONTENTS = auto()
+    FEEDBACKS = auto()
     ALL = auto()
 
 
@@ -97,4 +99,8 @@ class Streamer(_Streamer):
                 SupportedStream.ALL,
             ):
                 ids_io.bind(PostContentStreams(self.client, self.emitter).emit)
+        if self.selection in (SupportedStream.FEEDBACKS, SupportedStream.ALL):
+            FeedbackStreams(self.client, self.emitter).proj_feedbacks(
+                self.proj
+            )
         return IO(None)

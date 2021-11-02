@@ -1,3 +1,6 @@
+from tap_announcekit.streams.feedback import (
+    FeedbackStreams,
+)
 from tap_announcekit.streams.post_contents import (
     PostContentStreams,
 )
@@ -12,4 +15,5 @@ __all__ = [
     "PostStreams",
     "PostContentStreams",
     "ProjectStreams",
+    "FeedbackStreams",
 ]

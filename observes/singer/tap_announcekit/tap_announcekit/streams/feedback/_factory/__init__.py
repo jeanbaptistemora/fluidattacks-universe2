@@ -58,7 +58,7 @@ class FeedbackFactory:
         )
         pages = (
             infinite_range(0, 1)
-            .chunked(100)
+            .chunked(10)
             .map(lambda i: tuple(i))
             .map(getter.get_pages)
         ).map(
