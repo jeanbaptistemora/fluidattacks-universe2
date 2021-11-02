@@ -32,6 +32,9 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from typing import (
     Any,
     Awaitable,
@@ -113,9 +116,11 @@ async def _validate_number_acceptances(
     valid: bool = True
     if values["treatment"] == "ACCEPTED":
         organization_data = await loaders.organization.load(organization_id)
-        max_acceptances: Optional[Decimal] = organization_data[
-            "max_number_acceptations"
-        ]
+        max_acceptances: Optional[Decimal] = get_key_or_fallback(
+            organization_data,
+            "max_number_acceptances",
+            "max_number_acceptations",
+        )
         current_acceptances: int = sum(
             1 for item in historic_treatment if item["treatment"] == "ACCEPTED"
         )

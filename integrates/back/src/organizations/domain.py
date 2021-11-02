@@ -34,6 +34,9 @@ from names import (
 from newutils import (
     datetime as datetime_utils,
 )
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from organizations import (
     dal as orgs_dal,
 )
@@ -106,7 +109,9 @@ async def _add_updated_max_number_acceptances(
     email: str,
     date: str,
 ) -> OrganizationType:
-    new_max_number_acceptances = values.get("max_number_acceptations")
+    new_max_number_acceptances = get_key_or_fallback(
+        values, "max_number_acceptances", "max_number_acceptations"
+    )
     organization_data = await loaders.organization.load(organization_id)
     max_number_acceptances: Optional[Decimal] = organization_data[
         "max_number_acceptations"
@@ -115,10 +120,12 @@ async def _add_updated_max_number_acceptances(
         new_max_number_acceptances is not None
         and new_max_number_acceptances != max_number_acceptances
     ):
-        historic_max_number_acceptation = organization_data[
-            "historic_max_number_acceptations"
-        ]
-        historic_max_number_acceptation.append(
+        historic_max_number_acceptances = get_key_or_fallback(
+            organization_data,
+            "historic_max_number_acceptances",
+            "historic_max_number_acceptations",
+        )
+        historic_max_number_acceptances.append(
             {
                 "date": date,
                 "max_number_acceptations": new_max_number_acceptances,
@@ -126,7 +133,7 @@ async def _add_updated_max_number_acceptances(
             }
         )
         return {
-            "historic_max_number_acceptations": historic_max_number_acceptation
+            "historic_max_number_acceptations": historic_max_number_acceptances
         }
     return {}
 
