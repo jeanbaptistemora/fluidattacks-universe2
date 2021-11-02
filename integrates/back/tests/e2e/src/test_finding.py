@@ -4,6 +4,9 @@ from model import (
 from selenium.webdriver.remote.webdriver import (
     WebDriver,
 )
+from selenium.webdriver.support.ui import (
+    Select,
+)
 import utils
 
 
@@ -212,6 +215,22 @@ def test_finding_reattack(
         timeout,
     )
     finding.click()
+
+    # Configure filter to show closed vulnerabilities
+    filter_button = utils.wait_for_id(
+        driver,
+        "filter-config",
+        timeout,
+    )
+    filter_button.click()
+    status_filter = Select(
+        utils.wait_for_id(
+            driver,
+            "select.searchFindings.tabVuln.statusTooltip.id",
+            timeout,
+        )
+    )
+    status_filter.select_by_visible_text("--All options--")
 
     # Reattack all vulnerabilities
     start_reattack = utils.wait_for_id(

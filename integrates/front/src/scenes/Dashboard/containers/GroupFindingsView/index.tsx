@@ -120,7 +120,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     useStoredState<boolean>("findingsCustomFilters", false);
 
   const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [currentStatusFilter, setCurrentStatusFilter] = useState("");
+  const [currentStatusFilter, setCurrentStatusFilter] = useState("open");
   const [currentTreatmentFilter, setCurrentTreatmentFilter] = useState("");
   const [reattackFilter, setReattackFilter] = useState("");
   const [whereFilter, setWhereFilter] = useState("");

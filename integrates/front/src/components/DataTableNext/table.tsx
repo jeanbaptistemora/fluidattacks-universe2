@@ -130,6 +130,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
       rangeProps,
       selectOptions,
       placeholder = "",
+      tooltipId,
       type,
     } = filter;
 
@@ -170,6 +171,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
       return (
         <Select
           defaultValue={defaultValue === "" ? "__placeholder__" : defaultValue}
+          id={`select.${tooltipId}`}
           onChange={handleChangeSelect}
         >
           {defaultValue === "" ? (
@@ -306,7 +308,10 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                       id={"CustomFilterTooltip"}
                       message={t("dataTableNext.tooltip")}
                     >
-                      <Button onClick={handleUpdateEnableCustomFilter}>
+                      <Button
+                        id={"filter-config"}
+                        onClick={handleUpdateEnableCustomFilter}
+                      >
                         {isCustomFilterEnabled ? (
                           <FontAwesomeIcon icon={faSearchMinus} />
                         ) : (
@@ -362,15 +367,13 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           </TableOptionsColBar>
         )}
       </div>
-      {!_.isUndefined(isCustomFilterEnabled) &&
-        isCustomFilterEnabled &&
-        resultSize && (
-          <ControlLabel>
-            {`${t("dataTableNext.filterRes1")}: ${resultSize.current} ${t(
-              "dataTableNext.filterRes2"
-            )} ${resultSize.total}`}
-          </ControlLabel>
-        )}
+      {resultSize && (
+        <ControlLabel>
+          {`${t("dataTableNext.filterRes1")}: ${resultSize.current} ${t(
+            "dataTableNext.filterRes2"
+          )} ${resultSize.total}`}
+        </ControlLabel>
+      )}
       <BootstrapTable
         {...baseProps}
         bootstrap4={true}

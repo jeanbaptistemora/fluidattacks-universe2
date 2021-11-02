@@ -69,7 +69,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     min: "",
   });
   const [tagFilter, setTagFilter] = useState("");
-  const [currentStatusFilter, setCurrentStatusFilter] = useState("");
+  const [currentStatusFilter, setCurrentStatusFilter] = useState("open");
   const [treatmentCurrentStatusFilter, setTreatmentCurrentStatusFilter] =
     useState("");
   const [verificationFilter, setVerificationFilter] = useState("");
