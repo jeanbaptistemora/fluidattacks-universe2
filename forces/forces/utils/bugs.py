@@ -3,6 +3,12 @@ from aiohttp.client_exceptions import (
     ClientResponseError,
 )
 import bugsnag
+from bugsnag import (
+    legacy as bugsnag_legacy,
+)
+from bugsnag_client import (
+    CustomBugsnagClient,
+)
 from contextvars import (
     ContextVar,
 )
@@ -81,4 +87,4 @@ def configure_bugsnag(**data: str) -> None:
         project_root=BASE_DIR,
     )
     bugsnag.start_session()
-    bugsnag.send_sessions()
+    bugsnag_legacy.default_client = CustomBugsnagClient()

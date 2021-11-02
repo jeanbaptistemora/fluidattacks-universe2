@@ -21,6 +21,7 @@ makeTemplate {
       })
     ];
     pythonPackage = [
+      (projectPath "/makes/foss/units/bugsnag-client")
       (projectPath "/forces")
     ];
   };

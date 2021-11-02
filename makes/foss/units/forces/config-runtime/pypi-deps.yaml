@@ -1,7 +1,7 @@
 aioextensions: 20.8.2087641
 aiogqlc: 2.0.0b1
 aiohttp: 3.6.2
-bugsnag: 3.7.1
+bugsnag: 4.0.3
 click: 7.1.2
 GitPython: 3.1.7
 more-itertools: 8.5.0
