@@ -110,7 +110,7 @@ def _pom_xml(
 
         for group, artifact, version in [
             (group, artifact, version)
-            for dependency in root.find_all("dependency", limit=2)
+            for dependency in root.find_all("dependency", recursive=True)
             for group in dependency.find_all("groupid", limit=1)
             for artifact in dependency.find_all("artifactid", limit=1)
             for version in dependency.find_all("version", limit=1)
