@@ -35,5 +35,4 @@ async def remove_user_all_organizations(*, email: str) -> None:
         )
     )
 
-    if not bool(await get_user_organizations(email)):
-        await delete(email)
+    await delete(email)
