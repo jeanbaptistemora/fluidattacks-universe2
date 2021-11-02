@@ -1,21 +1,16 @@
 import _ from "lodash";
 import moment from "moment";
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
+
+import { commentContext } from "./context";
 
 import { CommentEditor } from "scenes/Dashboard/components/Comments/components/CommentEditor";
 import { NestedComment } from "scenes/Dashboard/components/Comments/components/NestedComment";
 import type {
   ICommentStructure,
-  ILoadCallback,
-  IPostCallback,
+  ICommentsProps,
 } from "scenes/Dashboard/components/Comments/types";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
@@ -36,24 +31,7 @@ const Small: StyledComponent<
   className: "f5 black-60 db",
 })``;
 
-interface ICommentsProps {
-  onLoad: (callbackFn: ILoadCallback) => void;
-  onPostComment: (
-    comment: ICommentStructure,
-    callbackFn: IPostCallback
-  ) => void;
-}
-
-interface ICommentContext {
-  replying: number;
-  setReplying?: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const commentContext: React.Context<ICommentContext> = createContext({
-  replying: 0,
-});
-
-const Comments: React.FC<ICommentsProps> = (
+export const Comments: React.FC<ICommentsProps> = (
   props: ICommentsProps
 ): JSX.Element => {
   const { onLoad, onPostComment } = props;
@@ -155,5 +133,3 @@ const Comments: React.FC<ICommentsProps> = (
     </React.StrictMode>
   );
 };
-
-export { Comments, commentContext, ICommentContext, ICommentsProps };

@@ -18,12 +18,22 @@ interface IPostCallback {
 }
 
 interface ICommentsProps {
-  id: string;
-  onLoad: (callbackFn: (comments: ICommentStructure[]) => void) => void;
+  onLoad: (callbackFn: ILoadCallback) => void;
   onPostComment: (
     comment: ICommentStructure,
-    callbackFn: (comments: ICommentStructure) => void
+    callbackFn: IPostCallback
   ) => void;
 }
 
-export { ICommentStructure, ICommentsProps, ILoadCallback, IPostCallback };
+interface ICommentContext {
+  replying: number;
+  setReplying?: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export {
+  ICommentStructure,
+  ICommentContext,
+  ICommentsProps,
+  ILoadCallback,
+  IPostCallback,
+};

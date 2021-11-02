@@ -3,10 +3,12 @@ import _ from "lodash";
 import React, { useCallback, useContext } from "react";
 import Linkify from "react-linkify";
 
-import type { ICommentContext } from "scenes/Dashboard/components/Comments";
-import { commentContext } from "scenes/Dashboard/components/Comments";
 import { CommentEditor } from "scenes/Dashboard/components/Comments/components/CommentEditor";
-import type { ICommentStructure } from "scenes/Dashboard/components/Comments/types";
+import { commentContext } from "scenes/Dashboard/components/Comments/context";
+import type {
+  ICommentContext,
+  ICommentStructure,
+} from "scenes/Dashboard/components/Comments/types";
 import "scenes/Dashboard/components/Comments/index.css";
 import { translate } from "utils/translations/translate";
 

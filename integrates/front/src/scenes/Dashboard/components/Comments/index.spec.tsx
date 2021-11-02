@@ -5,9 +5,10 @@ import TextArea from "react-textarea-autosize";
 import wait from "waait";
 
 import { Button } from "components/Button";
-import { Comments, commentContext } from "scenes/Dashboard/components/Comments";
+import { Comments } from "scenes/Dashboard/components/Comments";
 import { CommentEditor } from "scenes/Dashboard/components/Comments/components/CommentEditor";
 import { NestedComment } from "scenes/Dashboard/components/Comments/components/NestedComment";
+import { commentContext } from "scenes/Dashboard/components/Comments/context";
 import type { ICommentStructure } from "scenes/Dashboard/components/Comments/types";
 
 describe("Comments section", (): void => {
