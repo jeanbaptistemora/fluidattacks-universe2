@@ -15,7 +15,7 @@ We are committed to using our clients' data
 exclusively for vulnerability scanning
 in the context of the service we provide.
 No other activities will be executed
-over the given information.
+over the information provided.
 
 ## Data retention policy
 

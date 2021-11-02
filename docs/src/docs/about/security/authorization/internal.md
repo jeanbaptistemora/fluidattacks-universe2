@@ -21,12 +21,12 @@ Some examples are the following:
   if the need arises
   without leaking users/passwords.
   These tools
-  also let us keep application production secrets
+  also allow us to keep application production secrets
   hidden from developers
   (separation of production-development secrets).
 
 - **Infrastructure:** Infrastructure components
-  always provide minimum privileges
+  always grant minimum privileges
   only to the applications that need to use them.
   We never give any service full permissions
   over our entire infrastructure.

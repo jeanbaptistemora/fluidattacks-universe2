@@ -8,13 +8,13 @@ slug: /about/security/authorization/access-revocation
 When employees go on vacation
 or leave the company,
 it is essential to revoke their access
-to the systems and information
-that are accessible to them.
+to the information and systems
+that are available to them.
 At `Fluid Attacks`,
 we have a two-step process
 for access revocation:
 
-1. **Deactivating IAM account:**
+1. **Deactivating the IAM account:**
   By doing this,
   users lose access to all company applications
   and client data.
@@ -30,7 +30,7 @@ for access revocation:
   etc.
 
 It is worth noting
-that ease of access revocation is fundamental
+that easy access revocation is fundamental
 when dealing with sensitive data in an organization.
 That is why we have put so much effort
 into making this process as simple as possible.

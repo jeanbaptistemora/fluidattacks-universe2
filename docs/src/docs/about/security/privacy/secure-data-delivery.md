@@ -33,7 +33,7 @@ who requested the download.
 ## Onion routing
 
 The [`Fluid Attacks` domain](https://fluidattacks.com/)
-supports [Onion routing](https://en.wikipedia.org/wiki/Onion_routing),
+supports [onion routing](https://en.wikipedia.org/wiki/Onion_routing),
 which enhances user privacy
 and enables more fine-grained protection.
 
@@ -47,8 +47,9 @@ This applies to both XLS and PDF formats.
 
 ## Watermarked reports
 
-Every report downloaded via ASM comes with a watermark
-on all its pages,
+Every report
+that is downloaded via ASM
+comes with a watermark on all pages,
 specifying that only the individual who generated it
 is allowed to read it.
 This is used as a measure to identify

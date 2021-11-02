@@ -28,7 +28,7 @@ we store logs for:
   These logs never expire and cannot be modified.
 
 - **Redundant data centers:**
-  They store comprehensive logs of all
+  These store comprehensive logs of all
   our infrastructure components.
   Logs here never expire and cannot be modified.
 
@@ -41,7 +41,7 @@ we store logs for:
   vulnerability status,
   and other relevant data are uploaded
   to our data centers.
-  This allows us always to know
+  This allows us to always know
   the current status of our client's DevSecOps service.
   These logs never expire and cannot be modified.
 

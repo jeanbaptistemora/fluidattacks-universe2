@@ -15,18 +15,18 @@ Our rotation cycles are as follows:
 
 - **JWT tokens:** daily
 
-- **Digital certificates:** every thirty days.
+- **Digital certificates:** every 30 days
 
-- **IAM passphrases:** [every three months](/criteria/requirements/089).
+- **IAM passphrases:** [every three months](/criteria/requirements/089)
 
-We make rotations in these two different ways:
+We make rotations in the following two ways:
 
 - **Automatic rotation:**
   Some secrets are stored in secret vaults.
   They are only accessible by administrators
   and are rotated daily.
   These secrets include JWT tokens,
-  IAM passphrases,
+  IAM passphrases
   and digital certificates.
 
 - **Manual rotation:**
