@@ -1,5 +1,9 @@
 import asyncio
+from batch.types import (
+    BatchProcessing,
+)
 import os
+import tempfile
 
 
 async def apply_git_config(repo_path: str) -> None:
@@ -17,7 +21,17 @@ def make_group_dir(tmpdir: str, group_name: str) -> None:
 def pull_repositories(tmpdir: str, group_name: str) -> None:
     make_group_dir(tmpdir, group_name)
     os.system(  # nosec
-        f"PROD_AWS_ACCESS_KEY_ID=$SERVICES_PROD_AWS_ACCESS_KEY_ID "
-        f"PROD_AWS_SECRET_ACCESS_KEY=$SERVICES_PROD_AWS_SECRET_ACCESS_KEY "
+        "PROD_AWS_ACCESS_KEY_ID=$SERVICES_PROD_AWS_ACCESS_KEY_ID "
+        "PROD_AWS_SECRET_ACCESS_KEY=$SERVICES_PROD_AWS_SECRET_ACCESS_KEY "
         f"melts drills --pull-repos {group_name}"
     )
+
+
+async def refresh_toe_lines(*, item: BatchProcessing) -> None:
+    group_name: str = item.entity
+    current_dir = os.getcwd()
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        os.chdir(tmpdir)
+        pull_repositories(tmpdir, group_name)
+        os.chdir(current_dir)

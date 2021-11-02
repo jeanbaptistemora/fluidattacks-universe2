@@ -17,6 +17,9 @@ from batch.report import (
 from batch.roots import (
     move_root,
 )
+from batch.toe_lines import (
+    refresh_toe_lines,
+)
 import logging
 import logging.config
 from settings import (
@@ -55,6 +58,8 @@ async def main() -> None:
             await handle_finding_policy(item=item)
         elif action == "handle_virus_scan":
             await handle_virus_scan(item=item)
+        elif action == "refresh_toe_lines":
+            await refresh_toe_lines(item=item)
         else:
             LOGGER.error("Invalid action", extra=dict(extra=locals()))
             await delete_action(
