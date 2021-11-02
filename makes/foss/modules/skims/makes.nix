@@ -81,6 +81,7 @@
     skimsDev = {
       accessKeyId = "SKIMS_DEV_AWS_ACCESS_KEY_ID";
       secretAccessKey = "SKIMS_DEV_AWS_SECRET_ACCESS_KEY";
+      sessionToken = "AWS_SESSION_TOKEN";
     };
     skimsProd = {
       accessKeyId = "SKIMS_PROD_AWS_ACCESS_KEY_ID";
