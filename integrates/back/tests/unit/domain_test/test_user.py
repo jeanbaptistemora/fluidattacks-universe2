@@ -1,7 +1,23 @@
+from api.mutations.sign_in import (
+    autoenroll_user,
+)
+from context import (
+    FI_DEFAULT_ORG,
+)
 from custom_exceptions import (
     InvalidPushToken,
 )
+from organizations.domain import (
+    get_id_by_name,
+    get_user_organizations,
+)
 import pytest
+from remove_user.domain import (
+    remove_user_all_organizations,
+)
+from subscriptions.domain import (
+    get_user_subscriptions,
+)
 from users import (
     domain as users_domain,
 )
@@ -40,3 +56,23 @@ async def test_remove_push_token() -> None:
         user_email, ["push_tokens"]
     )
     assert token not in attrs_after["push_tokens"]
+
+
+@pytest.mark.asyncio
+@pytest.mark.changes_db
+async def test_remove_user() -> None:
+    organization_id: str = await get_id_by_name(FI_DEFAULT_ORG)
+    email: str = "testanewuser@test.test"
+    await autoenroll_user(email)
+    subscriptions = await get_user_subscriptions(user_email=email)
+
+    assert await users_domain.get_data(email, "email") == email
+    assert await get_user_organizations(email) == [organization_id]
+    assert len(subscriptions) == 1
+    assert subscriptions[0]["sk"]["entity"] == "DIGEST"
+
+    await remove_user_all_organizations(email=email)
+
+    assert await users_domain.get_data(email, "email") == ""
+    assert await get_user_organizations(email) == []
+    assert await get_user_subscriptions(user_email=email) == []
