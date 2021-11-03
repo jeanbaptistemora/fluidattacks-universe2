@@ -2,12 +2,12 @@
 
 function main {
   local db_data="${1}"
+  local integrates_daemon="${2:-true}"
   export CI_COMMIT_REF_NAME
   local host="127.0.0.1"
   local port="8022"
 
-  DAEMON=true integrates-back dev \
-    && DAEMON=true POPULATE=false integrates-db \
+  DAEMON=true POPULATE=false integrates-db \
     && DAEMON=true POPULATE=false integrates-storage \
     && DAEMON=true integrates-cache \
     && for data in "${db_data}/"*'.json'; do
@@ -16,7 +16,8 @@ function main {
           --endpoint-url "http://${host}:${port}" \
           --request-items "file://${data}" \
         || return 1
-    done
+    done \
+    && DAEMON="${integrates_daemon}" integrates-back dev
 }
 
 main "${@}"

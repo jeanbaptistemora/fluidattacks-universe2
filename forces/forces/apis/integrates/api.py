@@ -141,7 +141,9 @@ async def get_finding(finding: str, **kwargs: str) -> Dict[str, Any]:
             title
             id
             state
-            severity
+            severity {
+              exploitability
+            }
             severityScore
           }
         }

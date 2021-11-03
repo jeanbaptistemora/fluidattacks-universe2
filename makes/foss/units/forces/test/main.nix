@@ -13,11 +13,7 @@ makeScript {
   };
   searchPaths = {
     bin = [
-      outputs."/integrates/batch"
-      outputs."/integrates/cache"
-      outputs."/integrates/db"
-      outputs."/integrates/storage"
-      outputs."/integrates/back"
+      outputs."/integrates/mock"
     ];
     source = [
       outputs."/forces/config-development"
