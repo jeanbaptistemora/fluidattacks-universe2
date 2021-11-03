@@ -7,6 +7,7 @@ from integrates.dal import (
     get_finding_vulnerabilities,
     get_group_findings,
     get_group_level_role,
+    get_group_open_severity,
 )
 from integrates.domain import (
     do_build_and_upload_vulnerabilities,
@@ -291,6 +292,13 @@ async def persist_finding(
     else:
         await log("critical", "could not find or create finding: %s", finding)
         success = False
+
+    await log(
+        "info",
+        "Current %s's CVSSF: %s",
+        group,
+        await get_group_open_severity(group),
+    )
 
     return success
 
