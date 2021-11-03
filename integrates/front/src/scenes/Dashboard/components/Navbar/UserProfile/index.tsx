@@ -1,3 +1,5 @@
+import { useMutation } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import {
   faAngleDown,
   faKey,
@@ -5,16 +7,21 @@ import {
   faUserCircle,
   faUserCog,
   faUserPlus,
+  faUserSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { reset, track } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 
 import { APITokenModal } from "./APITokenModal";
 import { GlobalConfigModal } from "./GlobalConfigModal";
+import { REMOVE_STAKEHOLDER_MUTATION } from "./queries";
+import type { IRemoveStakeholderAttr } from "./types";
 
 import { AddUserModal } from "../../AddUserModal";
 import {
@@ -26,8 +33,10 @@ import {
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
+import { Alert, ControlLabel } from "styles/styledComponents";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
+import { Logger } from "utils/logger";
 
 interface IUserProfileProps {
   userRole: string | undefined;
@@ -38,6 +47,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
 }: IUserProfileProps): JSX.Element => {
   const { userEmail, userName } = useContext(authContext);
   const { t } = useTranslation();
+  const { push } = useHistory();
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = useCallback((): void => {
@@ -80,6 +90,23 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
   const closeStakeholderModal = useCallback((): void => {
     setStakeholderModalOpen(false);
   }, [setStakeholderModalOpen]);
+
+  const [removeStakeholder] = useMutation(REMOVE_STAKEHOLDER_MUTATION, {
+    onCompleted: (mtResult: IRemoveStakeholderAttr): void => {
+      if (mtResult.removeStakeholder.success) {
+        reset();
+        location.assign("/logout");
+      } else {
+        push("/home");
+      }
+    },
+    onError: (removeError: ApolloError): void => {
+      removeError.graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("An error occurred while deleting account", error);
+      });
+      push("/home");
+    },
+  });
 
   return (
     <div ref={ref}>
@@ -156,6 +183,40 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
               ) : undefined}
             </li>
           </Can>
+          <li>
+            <ConfirmDialog
+              message={
+                <React.Fragment>
+                  <ControlLabel>
+                    {t("navbar.deleteAccount.modal.warning")}
+                  </ControlLabel>
+                  <Alert>{t("navbar.deleteAccount.modal.text")}</Alert>
+                </React.Fragment>
+              }
+              title={t("navbar.deleteAccount.text")}
+            >
+              {(confirm): React.ReactNode => {
+                function handleLogoutClick(): void {
+                  confirm((): void => {
+                    void removeStakeholder();
+                  });
+                }
+
+                return (
+                  <TooltipWrapper
+                    id={"deleteAccount"}
+                    message={t("navbar.deleteAccount.tooltip")}
+                  >
+                    <DropdownButton onClick={handleLogoutClick}>
+                      <FontAwesomeIcon icon={faUserSlash} />
+                      &nbsp;
+                      {t("navbar.deleteAccount.text")}
+                    </DropdownButton>
+                  </TooltipWrapper>
+                );
+              }}
+            </ConfirmDialog>
+          </li>
           <DropdownDivider />
           <li>
             <ConfirmDialog title={t("navbar.logout.text")}>

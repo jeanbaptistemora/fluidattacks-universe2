@@ -872,6 +872,17 @@ export const enTranslations: ResourceKey = {
       text: "Configuration",
       tooltip: "Some additional configurations here",
     },
+    deleteAccount: {
+      modal: {
+        text:
+          "This action will immediately delete the account. " +
+          "This will remove all of its data." +
+          "This is a destructive action and cannot be undone.",
+        warning: "Warning!",
+      },
+      text: "Delete Account",
+      tooltip: "Delete account and all associated data",
+    },
     help: {
       chat: "Live Chat",
       expert: "Talk to an expert",
