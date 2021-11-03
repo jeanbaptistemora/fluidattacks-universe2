@@ -8,6 +8,42 @@
     ]
   },
   "org.springframework.security:spring-security-core": {
+    "CVE-2011-2731": [
+      "<2.0.7.RELEASE",
+      ">=3.0.0.RELEASE,<3.0.6.RELEASE"
+    ],
+    "CVE-2011-2732": [
+      ">=2.0.0,<2.0.7.RELEASE",
+      ">=3.0.0.RELEASE,<3.0.6.RELEASE"
+    ],
+    "CVE-2011-2894": [
+      ">=2.0.0.RELEASE,<2.0.7.RELEASE",
+      ">=3.0.0.RELEASE,<3.0.6.RELEASE"
+    ],
+    "CVE-2012-5055": [
+      "<2.0.8.RELEASE",
+      ">=3.0.0.RELEASE,<3.0.8.RELEASE",
+      ">=3.1.0.RELEASE,<3.1.3.RELEASE"
+    ],
+    "CVE-2014-0097": [
+      ">=3.1.0.RELEASE,<3.1.6.RELEASE",
+      ">=3.2.0.RELEASE,<3.2.2.RELEASE"
+    ],
+    "CVE-2017-4995": [
+      ">=4.2.0.RELEASE,<4.2.3.RELEASE"
+    ],
+    "CVE-2019-11272": [
+      ">=4.2.0.RELEASE,<4.2.13.RELEASE"
+    ],
+    "CVE-2019-3795": [
+      ">=4.2.0.RELEASE,<4.2.12.RELEASE",
+      ">=5.0.0.RELEASE,<5.0.12.RELEASE",
+      ">=5.1.0.RELEASE,<5.1.5.RELEASE"
+    ],
+    "CVE-2020-3700": [
+      ">=2.0.0.RELEASE,<2.0.6.RELEASE",
+      ">=3.0.0.RELEASE,<3.0.4.RELEASE"
+    ],
     "CVE-2020-5408": [
       ">=4.2.0.RELEASE,<4.2.16.RELEASE",
       ">=5.0.0.RELEASE,<5.0.16.RELEASE",
