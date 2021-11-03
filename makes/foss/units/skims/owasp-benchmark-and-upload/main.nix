@@ -1,5 +1,4 @@
-{ inputs
-, makeScript
+{ makeScript
 , outputs
 , ...
 }:
@@ -13,7 +12,7 @@ makeScript {
     ];
     source = [
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   entrypoint = ./entrypoint.sh;

@@ -15,7 +15,7 @@ makeScript {
     ];
     source = [
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   replace = {

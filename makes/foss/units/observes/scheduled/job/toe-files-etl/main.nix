@@ -13,7 +13,7 @@ makeScript {
     source = [
       (outputs."/utils/aws")
       (inputs.legacy.importUtility "git")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   name = "observes-scheduled-job-toe-files-etl";

@@ -1,5 +1,4 @@
-{ inputs
-, makeScript
+{ makeScript
 , outputs
 , ...
 }:
@@ -10,7 +9,7 @@ makeScript {
     ];
     source = [
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   name = "observes-job-gitlab-etl-challenges";

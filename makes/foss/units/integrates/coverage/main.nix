@@ -14,7 +14,7 @@ makeScript {
     ];
     source = [
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/coverage/entrypoint.sh";

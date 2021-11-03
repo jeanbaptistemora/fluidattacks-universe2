@@ -48,7 +48,7 @@ in
               searchPaths = {
                 source = [
                   libGit
-                  (inputs.legacy.importUtility "sops")
+                  (outputs."/utils/sops")
                   (outputs."/utils/aws")
                 ];
                 bin = [ ] ++ (if builtins.elem category categories then [

@@ -13,7 +13,7 @@ makeScript {
     source = [
       outputs."/melts/lib"
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   name = "forces-process-groups-break";

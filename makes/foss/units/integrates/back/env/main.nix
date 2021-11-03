@@ -37,7 +37,7 @@ makeTemplate {
       outputs."/integrates/secrets/list"
       libGit
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   template = projectPath "/makes/foss/units/integrates/back/env/template.sh";

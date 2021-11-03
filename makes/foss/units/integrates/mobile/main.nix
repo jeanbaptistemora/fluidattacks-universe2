@@ -20,7 +20,7 @@ makeScript {
     ];
     source = [
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
       outputs."/integrates/mobile/config/dev-runtime-env"
     ];
   };

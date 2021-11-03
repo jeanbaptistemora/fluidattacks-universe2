@@ -20,7 +20,7 @@ makeTemplate {
       libGit
       (outputs."/utils/aws")
       (inputs.legacy.importUtility "cloudflare")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   template = projectPath "/makes/foss/units/integrates/front/deploy/template.sh";

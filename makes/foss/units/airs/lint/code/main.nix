@@ -21,7 +21,7 @@ makeScript {
       outputs."/airs/npm/env"
       (outputs."/utils/aws")
       (inputs.legacy.importUtility "lint-typescript")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
 }

@@ -2,7 +2,6 @@
 , libGit
 , makeDerivation
 , makeScript
-, inputs
 , outputs
 , projectPath
 , ...
@@ -38,7 +37,7 @@ makeScript {
     source = [
       libGit
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/storage/entrypoint.sh";

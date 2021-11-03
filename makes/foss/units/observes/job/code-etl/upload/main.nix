@@ -12,7 +12,7 @@ makeScript {
     source = [
       (outputs."/utils/aws")
       (inputs.legacy.importUtility "git")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   name = "observes-job-code-etl-upload";

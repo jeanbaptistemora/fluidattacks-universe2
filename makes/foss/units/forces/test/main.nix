@@ -1,6 +1,5 @@
 { makeScript
 , outputs
-, inputs
 , projectPath
 , ...
 }:
@@ -18,8 +17,8 @@ makeScript {
     source = [
       outputs."/forces/config-development"
       outputs."/forces/config-runtime"
-      (inputs.legacy.importUtility "sops")
-      (outputs."/utils/aws")
+      outputs."/utils/sops"
+      outputs."/utils/aws"
     ];
   };
   entrypoint = projectPath "/makes/foss/units/forces/test/entrypoint.sh";

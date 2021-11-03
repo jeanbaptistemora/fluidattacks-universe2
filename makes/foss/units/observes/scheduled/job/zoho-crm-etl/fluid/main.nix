@@ -1,5 +1,4 @@
 { makeScript
-, inputs
 , outputs
 , ...
 }:
@@ -8,7 +7,7 @@ makeScript {
     bin = [ outputs."/observes/job/zoho-crm-etl" ];
     source = [
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   name = "observes-scheduled-job-zoho-crm-etl-fluid";

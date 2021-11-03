@@ -26,7 +26,7 @@ makeScript {
       outputs."/airs/npm/runtime"
       outputs."/airs/npm/env"
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
 }

@@ -16,7 +16,7 @@ makeScript {
     source = [
       (outputs."/utils/aws")
       (inputs.legacy.importUtility "gitlab")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   name = "observes-scheduled-job-timedoctor-etl";

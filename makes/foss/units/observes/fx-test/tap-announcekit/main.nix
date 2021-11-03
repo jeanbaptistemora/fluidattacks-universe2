@@ -1,5 +1,4 @@
 { makeScript
-, inputs
 , outputs
 , projectPath
 , ...
@@ -14,7 +13,7 @@ makeScript {
       outputs."/observes/common/tester"
       outputs."/observes/env/tap-announcekit/development"
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   name = "observes-fx-test-tap-announcekit";

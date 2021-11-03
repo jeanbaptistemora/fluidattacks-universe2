@@ -19,7 +19,7 @@ makeScript {
       outputs."/integrates/mobile/tools"
       (outputs."/utils/aws")
       (inputs.legacy.importUtility "git")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/mobile/deploy/playstore/entrypoint.sh";

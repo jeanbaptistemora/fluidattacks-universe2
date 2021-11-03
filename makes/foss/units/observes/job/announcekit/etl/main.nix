@@ -1,6 +1,5 @@
 { makeScript
 , outputs
-, inputs
 , ...
 }:
 makeScript {
@@ -13,7 +12,7 @@ makeScript {
     ];
     source = [
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   name = "observes-job-announcekit-etl";

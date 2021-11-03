@@ -12,7 +12,7 @@ makeScript {
       outputs."/sorts/config-runtime"
       (outputs."/utils/aws")
       (inputs.legacy.importUtility "git")
-      (inputs.legacy.importUtility "sops")
+      (outputs."/utils/sops")
     ];
   };
   entrypoint = projectPath "/makes/foss/units/sorts/execute/entrypoint.sh";
