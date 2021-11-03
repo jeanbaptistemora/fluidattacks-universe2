@@ -35,7 +35,30 @@ async def get_result(
             severity: "2.9", severityScope: "0", userInteraction: "0.85"
             ) {{
                  finding {{
-                    severity
+                    severity {{
+                        attackComplexity
+                        attackVector
+                        availabilityImpact
+                        availabilityRequirement
+                        confidentialityImpact
+                        confidentialityRequirement
+                        exploitability
+                        integrityImpact
+                        integrityRequirement
+                        modifiedAttackComplexity
+                        modifiedAttackVector
+                        modifiedAvailabilityImpact
+                        modifiedConfidentialityImpact
+                        modifiedIntegrityImpact
+                        modifiedPrivilegesRequired
+                        modifiedSeverityScope
+                        modifiedUserInteraction
+                        privilegesRequired
+                        remediationLevel
+                        reportConfidence
+                        severityScope
+                        userInteraction
+                    }}
                 }}
                 success
             }}

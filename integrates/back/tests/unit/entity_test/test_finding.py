@@ -122,7 +122,30 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
           closedVulnerabilities
           tracking
           records
-          severity
+          severity {
+            attackComplexity
+            attackVector
+            availabilityImpact
+            availabilityRequirement
+            confidentialityImpact
+            confidentialityRequirement
+            exploitability
+            integrityImpact
+            integrityRequirement
+            modifiedAttackComplexity
+            modifiedAttackVector
+            modifiedAvailabilityImpact
+            modifiedConfidentialityImpact
+            modifiedIntegrityImpact
+            modifiedPrivilegesRequired
+            modifiedSeverityScope
+            modifiedUserInteraction
+            privilegesRequired
+            remediationLevel
+            reportConfidence
+            severityScope
+            userInteraction
+          }
           cvssVersion
           evidence
           consulting {
@@ -388,7 +411,30 @@ async def test_update_severity() -> None:
                 success
                 finding {
                   cvssVersion
-                  severity
+                  severity {
+                    attackComplexity
+                    attackVector
+                    availabilityImpact
+                    availabilityRequirement
+                    confidentialityImpact
+                    confidentialityRequirement
+                    exploitability
+                    integrityImpact
+                    integrityRequirement
+                    modifiedAttackComplexity
+                    modifiedAttackVector
+                    modifiedAvailabilityImpact
+                    modifiedConfidentialityImpact
+                    modifiedIntegrityImpact
+                    modifiedPrivilegesRequired
+                    modifiedSeverityScope
+                    modifiedUserInteraction
+                    privilegesRequired
+                    remediationLevel
+                    reportConfidence
+                    severityScope
+                    userInteraction
+                  }
                 }
               }
             }

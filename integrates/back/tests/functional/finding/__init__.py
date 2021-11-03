@@ -69,7 +69,30 @@ async def get_result(
                 remediated
                 reportDate
                 requirements
-                severity
+                severity {{
+                    attackComplexity
+                    attackVector
+                    availabilityImpact
+                    availabilityRequirement
+                    confidentialityImpact
+                    confidentialityRequirement
+                    exploitability
+                    integrityImpact
+                    integrityRequirement
+                    modifiedAttackComplexity
+                    modifiedAttackVector
+                    modifiedAvailabilityImpact
+                    modifiedConfidentialityImpact
+                    modifiedIntegrityImpact
+                    modifiedPrivilegesRequired
+                    modifiedSeverityScope
+                    modifiedUserInteraction
+                    privilegesRequired
+                    remediationLevel
+                    reportConfidence
+                    severityScope
+                    userInteraction
+                }}
                 severityScore
                 sorts
                 state

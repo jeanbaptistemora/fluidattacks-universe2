@@ -7,7 +7,30 @@ const GET_SEVERITY: DocumentNode = gql`
       id
       cvssVersion
       severityScore
-      severity
+      severity {
+        attackComplexity
+        attackVector
+        availabilityImpact
+        availabilityRequirement
+        confidentialityImpact
+        confidentialityRequirement
+        exploitability
+        integrityImpact
+        integrityRequirement
+        modifiedAttackComplexity
+        modifiedAttackVector
+        modifiedAvailabilityImpact
+        modifiedConfidentialityImpact
+        modifiedIntegrityImpact
+        modifiedPrivilegesRequired
+        modifiedSeverityScope
+        modifiedUserInteraction
+        privilegesRequired
+        remediationLevel
+        reportConfidence
+        severityScope
+        userInteraction
+      }
     }
   }
 `;
