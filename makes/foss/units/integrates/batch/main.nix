@@ -19,6 +19,7 @@ makeScript {
     ];
     source = [
       (inputs.legacy.importUtility "aws")
+      (inputs.legacy.importUtility "env")
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/batch/entrypoint.sh";

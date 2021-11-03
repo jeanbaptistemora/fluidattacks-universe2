@@ -21,9 +21,11 @@ def make_group_dir(tmpdir: str, group_name: str) -> None:
 def pull_repositories(tmpdir: str, group_name: str) -> None:
     make_group_dir(tmpdir, group_name)
     os.system(  # nosec
+        "CI=true "
+        "CI_COMMIT_REF_NAME=master "
         "PROD_AWS_ACCESS_KEY_ID=$SERVICES_PROD_AWS_ACCESS_KEY_ID "
         "PROD_AWS_SECRET_ACCESS_KEY=$SERVICES_PROD_AWS_SECRET_ACCESS_KEY "
-        f"melts drills --pull-repos {group_name}"
+        f"melts drills --pull-repos {group_name} "
     )
 
 
