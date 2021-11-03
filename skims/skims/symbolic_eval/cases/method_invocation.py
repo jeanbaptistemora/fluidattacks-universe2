@@ -1,6 +1,15 @@
+from model.core_model import (
+    FindingEnum,
+)
 from symbolic_eval.types import (
+    Evaluator,
     SymbolicEvalArgs,
 )
+from typing import (
+    Dict,
+)
+
+FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
 
 
 def evaluate(args: SymbolicEvalArgs) -> bool:
@@ -12,6 +21,7 @@ def evaluate(args: SymbolicEvalArgs) -> bool:
 
     args.graph.nodes[args.n_id]["danger"] = d_expression or d_arguments
 
-    # finding specific check
+    if finding_evaluator := FINDING_EVALUATORS.get(args.finding):
+        args.graph.nodes[args.n_id]["danger"] = finding_evaluator(args)
 
     return args.graph.nodes[args.n_id]["danger"]
