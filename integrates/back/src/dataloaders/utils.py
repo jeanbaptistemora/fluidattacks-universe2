@@ -71,6 +71,28 @@ def format_vulnerability_treatment(
     )
 
 
+def format_vulnerability_verification(
+    verification: Dict[str, str]
+) -> VulnerabilityVerification:
+    return VulnerabilityVerification(
+        comment_id="",
+        modified_by="",
+        modified_date=verification["date"],
+        status=VulnerabilityVerificationStatus(verification["status"]),
+    )
+
+
+def format_vulnerability_zero_risk(
+    zero_risk: Dict[str, str]
+) -> VulnerabilityZeroRisk:
+    return VulnerabilityZeroRisk(
+        comment_id=zero_risk["comment_id"],
+        modified_by=zero_risk["email"],
+        modified_date=zero_risk["date"],
+        status=VulnerabilityZeroRiskStatus(zero_risk["status"]),
+    )
+
+
 def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
     current_state: Dict[str, str] = item["historic_state"][-1]
     current_treatment: Optional[Dict[str, str]] = (
@@ -112,26 +134,12 @@ def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
         stream=item["stream"].split(",") if exists("stream", item) else None,
         tags=get_optional("tag", item),
         verification=(
-            VulnerabilityVerification(
-                comment_id="",
-                modified_by="",
-                modified_date=current_verification["date"],
-                status=VulnerabilityVerificationStatus(
-                    current_verification["status"]
-                ),
-            )
+            format_vulnerability_verification(current_verification)
             if current_verification
             else None
         ),
         zero_risk=(
-            VulnerabilityZeroRisk(
-                comment_id=current_zero_risk["comment_id"],
-                modified_by=current_zero_risk["email"],
-                modified_date=current_zero_risk["date"],
-                status=VulnerabilityZeroRiskStatus(
-                    current_zero_risk["status"]
-                ),
-            )
+            format_vulnerability_zero_risk(current_zero_risk)
             if current_zero_risk
             else None
         ),
