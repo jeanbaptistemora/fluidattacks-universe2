@@ -63,6 +63,12 @@ try:
     PRODUCT_API_TOKEN: Optional[str] = os.environ.get("PRODUCT_API_TOKEN")
     SERVICES_GITLAB_API_TOKEN = os.environ["SERVICES_GITLAB_API_TOKEN"]
     SERVICES_GITLAB_API_USER = os.environ["SERVICES_GITLAB_API_USER"]
+    SERVICES_PROD_AWS_ACCESS_KEY_ID: Optional[str] = os.environ.get(
+        "SERVICES_PROD_AWS_ACCESS_KEY_ID"
+    )
+    SERVICES_PROD_AWS_SECRET_ACCESS_KEY: Optional[str] = os.environ.get(
+        "SERVICES_PROD_AWS_SECRET_ACCESS_KEY"
+    )
     SQS_QUEUE_URL = os.environ["SQS_QUEUE_URL"]
     STARTDIR = os.environ["STARTDIR"]
 

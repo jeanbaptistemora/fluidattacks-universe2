@@ -19,6 +19,8 @@ from context import (
     FI_AWS_SESSION_TOKEN,
     FI_ENVIRONMENT,
     PRODUCT_API_TOKEN,
+    SERVICES_PROD_AWS_ACCESS_KEY_ID,
+    SERVICES_PROD_AWS_SECRET_ACCESS_KEY,
 )
 from custom_types import (
     DynamoDelete,
@@ -298,6 +300,14 @@ async def put_action_to_batch(
                         {
                             "name": "PRODUCT_API_TOKEN",
                             "value": PRODUCT_API_TOKEN,
+                        },
+                        {
+                            "name": "SERVICES_PROD_AWS_ACCESS_KEY_ID",
+                            "value": SERVICES_PROD_AWS_ACCESS_KEY_ID,
+                        },
+                        {
+                            "name": "SERVICES_PROD_AWS_SECRET_ACCESS_KEY",
+                            "value": SERVICES_PROD_AWS_SECRET_ACCESS_KEY,
                         },
                     ],
                     "memory": 7200,
