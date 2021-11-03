@@ -58,6 +58,12 @@
       ">=5.4.0,<5.4.4"
     ]
   },
+  "org.springframework:spring-beans": {
+    "CVE-2010-1622": [
+      ">=2.5.0,<2.5.6",
+      ">=3.0.0,<3.0.3"
+    ]
+  },
   "org.springframework:spring-web": {
     "CVE-2011-2730": [
       "<2.5.6",
