@@ -17,7 +17,7 @@ makeScript {
     ];
     source = [
       outputs."/integrates/mobile/tools"
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "git")
       (inputs.legacy.importUtility "sops")
     ];

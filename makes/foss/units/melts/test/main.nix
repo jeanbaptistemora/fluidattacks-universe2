@@ -9,7 +9,7 @@ makeScript {
     source = [
       outputs."/melts/config-development"
       outputs."/melts/config-runtime"
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "git")
     ];
     bin = [

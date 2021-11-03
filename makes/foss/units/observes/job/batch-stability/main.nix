@@ -1,5 +1,4 @@
 { makeScript
-, inputs
 , outputs
 , ...
 }:
@@ -9,7 +8,7 @@ makeScript {
       outputs."/observes/bin/service/batch-stability"
     ];
     source = [
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
     ];
   };
   name = "observes-job-batch-stability";

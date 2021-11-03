@@ -23,7 +23,7 @@ makeScript {
       outputs."/forces/config-development"
       outputs."/forces/config-runtime"
       (inputs.legacy.importUtility "sops")
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
     ];
   };
   entrypoint = projectPath "/makes/foss/units/forces/test/entrypoint.sh";

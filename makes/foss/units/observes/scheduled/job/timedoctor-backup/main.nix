@@ -13,7 +13,7 @@ makeScript {
       outputs."/observes/bin/service/job-last-success"
     ];
     source = [
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "gitlab")
       (inputs.legacy.importUtility "sops")
     ];

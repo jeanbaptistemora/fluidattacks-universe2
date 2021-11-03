@@ -13,7 +13,7 @@ makeScript {
     source = [
       outputs."/observes/common/tester"
       outputs."/observes/env/tap-announcekit/development"
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "sops")
     ];
   };

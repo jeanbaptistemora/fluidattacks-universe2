@@ -19,7 +19,7 @@ makeScript {
       inputs.nixpkgs.xdg_utils
     ];
     source = [
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "sops")
       outputs."/integrates/mobile/config/dev-runtime-env"
     ];

@@ -1,5 +1,6 @@
 { inputs
 , makeScript
+, outputs
 , projectPath
 , ...
 }:
@@ -12,7 +13,7 @@ makeScript {
       inputs.nixpkgs.python39Packages.codecov
     ];
     source = [
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "sops")
     ];
   };

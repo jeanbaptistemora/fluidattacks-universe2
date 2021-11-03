@@ -11,7 +11,7 @@ makeScript {
     source = [
       outputs."/sorts/config-development"
       outputs."/sorts/config-runtime"
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "sops")
     ];
   };

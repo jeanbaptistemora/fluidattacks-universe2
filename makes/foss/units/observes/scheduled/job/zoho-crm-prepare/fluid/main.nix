@@ -7,7 +7,7 @@ makeScript {
   searchPaths = {
     bin = [ outputs."/observes/job/zoho-crm-prepare" ];
     source = [
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "sops")
     ];
   };

@@ -18,7 +18,7 @@ makeTemplate {
     ];
     source = [
       libGit
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "cloudflare")
       (inputs.legacy.importUtility "sops")
     ];

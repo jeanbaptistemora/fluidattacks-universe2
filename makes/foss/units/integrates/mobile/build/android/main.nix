@@ -26,7 +26,7 @@ makeScript {
     ];
     source = [
       libGit
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "git")
       (inputs.legacy.importUtility "sops")
       outputs."/integrates/mobile/config/dev-runtime-env"

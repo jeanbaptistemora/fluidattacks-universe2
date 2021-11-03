@@ -19,7 +19,7 @@ makeScript {
     ];
     source = [
       outputs."/integrates/back/charts/pypi"
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/charts/documents/entrypoint.sh";

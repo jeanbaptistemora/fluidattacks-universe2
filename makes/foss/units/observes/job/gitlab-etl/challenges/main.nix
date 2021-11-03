@@ -9,7 +9,7 @@ makeScript {
       outputs."/observes/job/gitlab-etl"
     ];
     source = [
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "sops")
     ];
   };

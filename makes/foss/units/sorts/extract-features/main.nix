@@ -10,7 +10,7 @@ makeScript {
     source = [
       outputs."/melts/lib"
       outputs."/sorts/config-runtime"
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "git")
       (inputs.legacy.importUtility "sops")
     ];

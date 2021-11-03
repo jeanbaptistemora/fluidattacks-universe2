@@ -9,7 +9,7 @@ makeScript {
       outputs."/observes/bin/service/timedoctor-tokens"
     ];
     source = [
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "sops")
     ];
   };

@@ -12,7 +12,7 @@ makeScript {
     ];
     source = [
       outputs."/melts/lib"
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "sops")
     ];
   };

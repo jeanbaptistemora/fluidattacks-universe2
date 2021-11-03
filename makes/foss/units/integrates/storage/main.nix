@@ -37,7 +37,7 @@ makeScript {
     ];
     source = [
       libGit
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "sops")
     ];
   };

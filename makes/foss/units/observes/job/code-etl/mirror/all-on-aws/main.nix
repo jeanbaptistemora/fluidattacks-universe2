@@ -9,7 +9,7 @@ in
 makeScript {
   searchPaths = {
     source = [
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "git")
       (inputs.legacy.importUtility "sops")
     ];

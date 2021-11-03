@@ -12,7 +12,7 @@ makeScript {
       outputs."/observes/bin/target-redshift"
     ];
     source = [
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "sops")
     ];
   };

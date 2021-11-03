@@ -1,7 +1,6 @@
 { libGit
 , makeScript
 , outputs
-, inputs
 , ...
 }:
 makeScript {
@@ -9,7 +8,7 @@ makeScript {
   searchPaths = {
     source = [
       libGit
-      (inputs.legacy.importUtility "aws")
+      outputs."/utils/aws"
     ];
     bin = [
       outputs."/integrates/batch"

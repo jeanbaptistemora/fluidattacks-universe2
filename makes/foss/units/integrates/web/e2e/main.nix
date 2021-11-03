@@ -14,7 +14,7 @@ makeScript {
     ];
     source = [
       outputs."/integrates/web/e2e/pypi"
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "sops")
     ];
   };

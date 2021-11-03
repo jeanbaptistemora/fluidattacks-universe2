@@ -16,7 +16,7 @@ makeScript {
       outputs."/skims"
     ];
     source = [
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "env")
       (inputs.legacy.importUtility "git")
       (inputs.legacy.importUtility "sops")

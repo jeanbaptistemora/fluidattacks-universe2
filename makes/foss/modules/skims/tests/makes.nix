@@ -49,7 +49,7 @@ in
                 source = [
                   libGit
                   (inputs.legacy.importUtility "sops")
-                  (inputs.legacy.importUtility "aws")
+                  (outputs."/utils/aws")
                 ];
                 bin = [ ] ++ (if builtins.elem category categories then [
                   (outputs."/integrates/mock")

@@ -9,7 +9,7 @@ makeScript {
       outputs."/observes/bin/tap-announcekit"
     ];
     source = [
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "sops")
     ];
   };

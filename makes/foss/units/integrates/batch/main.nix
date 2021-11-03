@@ -18,7 +18,7 @@ makeScript {
       outputs."/melts"
     ];
     source = [
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "env")
     ];
   };

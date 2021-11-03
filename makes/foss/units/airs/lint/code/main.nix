@@ -19,7 +19,7 @@ makeScript {
     source = [
       outputs."/airs/npm/runtime"
       outputs."/airs/npm/env"
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "lint-typescript")
       (inputs.legacy.importUtility "sops")
     ];

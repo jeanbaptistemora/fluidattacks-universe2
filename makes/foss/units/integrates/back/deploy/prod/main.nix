@@ -1,5 +1,6 @@
 { inputs
 , makeScript
+, outputs
 , projectPath
 , ...
 }:
@@ -17,7 +18,7 @@ makeScript {
       inputs.nixpkgs.yq
     ];
     source = [
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "sops")
     ];
   };

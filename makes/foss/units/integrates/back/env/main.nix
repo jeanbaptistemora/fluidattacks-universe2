@@ -36,7 +36,7 @@ makeTemplate {
       outputs."/integrates/back/pypi/runtime"
       outputs."/integrates/secrets/list"
       libGit
-      (inputs.legacy.importUtility "aws")
+      (outputs."/utils/aws")
       (inputs.legacy.importUtility "sops")
     ];
   };
