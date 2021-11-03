@@ -26,6 +26,9 @@ from redis_cluster.operations import (
 from remove_user.domain import (
     remove_user_all_organizations,
 )
+from sessions.dal import (
+    remove_session_key,
+)
 from typing import (
     Any,
 )
@@ -63,5 +66,13 @@ async def mutate(_: Any, info: GraphQLResolveInfo) -> SimplePayloadType:
 
     msg = f"Security: Removed stakeholder: {stakeholder_email}"
     logs_utils.cloudwatch_log(info.context, msg)
+
+    await collect(
+        [
+            remove_session_key(stakeholder_email, "jti"),
+            remove_session_key(stakeholder_email, "web"),
+            remove_session_key(stakeholder_email, "jwt"),
+        ]
+    )
 
     return SimplePayloadType(success=True)
