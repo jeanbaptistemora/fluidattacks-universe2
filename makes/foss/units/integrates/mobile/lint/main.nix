@@ -18,7 +18,7 @@ makeDerivation {
       inputs.nixpkgs.nodejs-12_x
     ];
     source = [
-      (inputs.legacy.importUtility "lint-typescript")
+      outputs."/utils/lint-typescript"
       outputs."/integrates/mobile/config/dev-runtime-env"
     ];
   };

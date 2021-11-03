@@ -15,7 +15,7 @@ makeDerivation {
   searchPaths = {
     bin = [ inputs.nixpkgs.nodejs ];
     source = [
-      (inputs.legacy.importUtility "lint-typescript")
+      outputs."/utils/lint-typescript"
       outputs."/integrates/front/config/dev-runtime-env"
     ];
   };
