@@ -1,0 +1,28 @@
+src.lib_path.f203.cfn_has_not_private_access_control:
+  en: >
+    'AccessControl' property value is not 'Private'.
+  es: >
+    El valor de la propiedad 'AccessControl' no es 'Private'.
+F203.title:
+  en: >
+    Unauthorized access to files - S3 Bucket
+  es: >
+    Unauthorized access to files - S3 Bucket
+F203.description:
+  en: >
+    __empty__
+  es: >
+    __empty__
+F203.impact:
+  en: |
+    __empty__
+  es: >
+    __empty__
+F203.recommendation:
+  en: >
+    __empty__
+  es: >
+    __empty__
+F203.threat:
+  en: __empty__
+  es: __empty__

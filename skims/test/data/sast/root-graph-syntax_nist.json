@@ -1731,6 +1731,12 @@
     "skims/test/data/benchmark/nist/StudentController.cs": {},
     "skims/test/data/benchmark/nist/block_chaining_insecure.cs": {}
   },
+  "F203": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {},
+    "skims/test/data/benchmark/nist/block_chaining_insecure.cs": {}
+  },
   "F207": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
