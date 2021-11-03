@@ -5069,6 +5069,30 @@ F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.y
   21 |             }
      ^ Col 0
 "
+F080,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,14,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption.,"
+   2 |   bucket = ""s3-website-test.hashicorp.com""
+   3 |   acl    = ""public-read""
+   4 |
+   5 |   cors_rule {
+   6 |     allowed_headers = [""*""]
+   7 |     allowed_methods = [""PUT"", ""POST""]
+   8 |     allowed_origins = [""https://s3-website-test.hashicorp.com""]
+   9 |     expose_headers  = [""ETag""]
+  10 |     max_age_seconds = 3000
+  11 |   }
+  12 | }
+  13 |
+> 14 | resource ""aws_s3_bucket"" ""test"" {
+  15 |   bucket = ""my-tf-test-bucket""
+  16 |   acl    = ""log-delivery-write""
+  17 |
+  18 |   logging {
+  19 |     target_bucket = aws_s3_bucket.log_bucket.id
+  20 |     target_prefix = ""log/""
+  21 |   }
+  22 | }
+     ^ Col 0
+"
 F080,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption.,"
   14 |       apply_server_side_encryption_by_default {
   15 |         kms_master_key_id = aws_kms_key.mykey.arn
@@ -5114,6 +5138,30 @@ F080,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_unencrypted_buckets.
   18 |         sse_algorithm     = ""aws:kms""
   19 |       }
   20 |     }
+  21 |   }
+     ^ Col 0
+"
+F080,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,1,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption.,"
+>  1 | resource ""aws_s3_bucket"" ""example"" {
+   2 |   bucket = ""s3-website-test.hashicorp.com""
+   3 |   acl    = ""public-read""
+   4 |
+   5 |   cors_rule {
+   6 |     allowed_headers = [""*""]
+   7 |     allowed_methods = [""PUT"", ""POST""]
+   8 |     allowed_origins = [""https://s3-website-test.hashicorp.com""]
+   9 |     expose_headers  = [""ETag""]
+  10 |     max_age_seconds = 3000
+  11 |   }
+  12 | }
+  13 |
+  14 | resource ""aws_s3_bucket"" ""test"" {
+  15 |   bucket = ""my-tf-test-bucket""
+  16 |   acl    = ""log-delivery-write""
+  17 |
+  18 |   logging {
+  19 |     target_bucket = aws_s3_bucket.log_bucket.id
+  20 |     target_prefix = ""log/""
   21 |   }
      ^ Col 0
 "
@@ -7362,6 +7410,81 @@ F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Ser
   19 |         }
   20 |     }
   21 | }
+     ^ Col 0
+"
+F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,3,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+","
+   1 | resource ""aws_s3_bucket"" ""example"" {
+   2 |   bucket = ""s3-website-test.hashicorp.com""
+>  3 |   acl    = ""public-read""
+   4 |
+   5 |   cors_rule {
+   6 |     allowed_headers = [""*""]
+   7 |     allowed_methods = [""PUT"", ""POST""]
+   8 |     allowed_origins = [""https://s3-website-test.hashicorp.com""]
+   9 |     expose_headers  = [""ETag""]
+  10 |     max_age_seconds = 3000
+  11 |   }
+  12 | }
+  13 |
+  14 | resource ""aws_s3_bucket"" ""test"" {
+  15 |   bucket = ""my-tf-test-bucket""
+  16 |   acl    = ""log-delivery-write""
+  17 |
+  18 |   logging {
+  19 |     target_bucket = aws_s3_bucket.log_bucket.id
+  20 |     target_prefix = ""log/""
+  21 |   }
+     ^ Col 0
+"
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,3,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+","
+   1 | resource ""aws_s3_bucket"" ""web_site"" {
+   2 |   bucket = ""s3-website-test.hashicorp.com""
+>  3 |   acl    = ""public-read""
+   4 |
+   5 |   cors_rule {
+   6 |     allowed_headers = [""*""]
+   7 |     allowed_methods = [""PUT"", ""POST""]
+   8 |     allowed_origins = [""https://s3-website-test.hashicorp.com""]
+   9 |     expose_headers  = [""ETag""]
+  10 |     max_age_seconds = 3000
+  11 |   }
+  12 |   server_side_encryption_configuration {
+  13 |     rule {
+  14 |       apply_server_side_encryption_by_default {
+  15 |         kms_master_key_id = aws_kms_key.mykey.arn
+  16 |         sse_algorithm     = ""aws:kms""
+  17 |       }
+  18 |     }
+  19 |   }
+  20 | }
+  21 |
+     ^ Col 0
+"
+F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,16,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+","
+   2 |   bucket = ""s3-website-test.hashicorp.com""
+   3 |   acl    = ""public-read""
+   4 |
+   5 |   cors_rule {
+   6 |     allowed_headers = [""*""]
+   7 |     allowed_methods = [""PUT"", ""POST""]
+   8 |     allowed_origins = [""https://s3-website-test.hashicorp.com""]
+   9 |     expose_headers  = [""ETag""]
+  10 |     max_age_seconds = 3000
+  11 |   }
+  12 | }
+  13 |
+  14 | resource ""aws_s3_bucket"" ""test"" {
+  15 |   bucket = ""my-tf-test-bucket""
+> 16 |   acl    = ""log-delivery-write""
+  17 |
+  18 |   logging {
+  19 |     target_bucket = aws_s3_bucket.log_bucket.id
+  20 |     target_prefix = ""log/""
+  21 |   }
+  22 | }
      ^ Col 0
 "
 F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,6,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in skims/test/data/lib_path/f085/react.jsx,"
