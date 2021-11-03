@@ -1,11 +1,11 @@
 { toBashMap
 , calculateCvss3
+, fetchUrl
 , fromJson
 , fromYaml
 , inputs
 , makeScript
 , makeTemplate
-, projectPath
 , stringCapitalize
 , ...
 }:
@@ -13,15 +13,30 @@ let
   lib = inputs.nixpkgs.lib;
 
   # Model data
-  vulnerabilities = fromYaml (
-    builtins.readFile (
-      projectPath "/makes/foss/modules/makes/criteria/src/vulnerabilities/data.yaml"));
-  requirements = fromYaml (
-    builtins.readFile (
-      projectPath "/makes/foss/modules/makes/criteria/src/requirements/data.yaml"));
   compliance = fromYaml (
     builtins.readFile (
-      projectPath "/makes/foss/modules/makes/criteria/src/compliance/data.yaml"));
+      fetchUrl {
+        url = "https://gitlab.com/fluidattacks/product/-/raw/700b71ab76635cb96c673710a1a575b4b16c9543/makes/foss/modules/makes/criteria/src/compliance/data.yaml";
+        sha256 = "0k1rfx1jd43z3rsj3511hsc073vmmliqchp9qlknz39xxkg623k1";
+      }
+    )
+  );
+  requirements = fromYaml (
+    builtins.readFile (
+      fetchUrl {
+        url = "https://gitlab.com/fluidattacks/product/-/raw/700b71ab76635cb96c673710a1a575b4b16c9543/makes/foss/modules/makes/criteria/src/requirements/data.yaml";
+        sha256 = "0sn74cvg652fn6pwb747xrsvjh2ih7ilky7qxig73apwmxzfqm3q";
+      }
+    )
+  );
+  vulnerabilities = fromYaml (
+    builtins.readFile (
+      fetchUrl {
+        url = "https://gitlab.com/fluidattacks/product/-/raw/700b71ab76635cb96c673710a1a575b4b16c9543/makes/foss/modules/makes/criteria/src/vulnerabilities/data.yaml";
+        sha256 = "1l80dsfxrfcgwd4wlf5q22j0bc7z32ivfxp997xymdg9kyqxasa2";
+      }
+    )
+  );
 
   # Title and content
   section = { title, content }:
