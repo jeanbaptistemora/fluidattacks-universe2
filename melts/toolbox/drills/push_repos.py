@@ -40,8 +40,7 @@ def s3_ls(
 ) -> List[str]:
     client = boto3.client("s3", endpoint_url=endpoint_url)
 
-    if not path.endswith("/"):
-        path = f"{path}/"
+    path = f"{path}/" if not path.endswith("/") else path
 
     response = client.list_objects_v2(
         Bucket=bucket,
@@ -49,7 +48,7 @@ def s3_ls(
         Prefix=path,
     )
     try:
-        return list(map(lambda x: x["Prefix"], response["CommonPrefixes"]))
+        return [x["Prefix"] for x in response.get("CommonPrefixes", [])]
     except KeyError as key_error:
         LOGGER.error("Looks like response does not have Common Prefixes:")
         LOGGER.error(key_error)
@@ -60,19 +59,18 @@ def s3_ls(
 
 
 def fill_empty_folders(path: str) -> None:
-    empty_folders = []
-    for root, dirs, files in os.walk(path):
-        if not dirs and not files:
-            empty_folders.append(root)
+    empty_folders = [
+        root for root, dirs, files in os.walk(path) if not dirs and not files
+    ]
     for folder in empty_folders:
         LOGGER.info("Adding .keep at %s", folder)
         Path(folder, ".keep").touch()
 
 
 def git_optimize_all(path: str) -> None:
-    git_files = Path(path).glob("**/.git")
-    LOGGER.info("Git files: %s", tuple(git_files))
-    git_folders = set(map(lambda x: x.parent, git_files))
+    git_files = tuple(Path(path).glob("**/.git"))
+    LOGGER.info("Git files: %s", git_files)
+    git_folders = {x.parent for x in git_files}
     for folder in git_folders:
         LOGGER.info("Git optimize at %s", folder)
         try:
