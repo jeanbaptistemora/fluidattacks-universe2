@@ -82,8 +82,8 @@ class Dataloaders(NamedTuple):
     finding: FindingLoader
     finding_historic_state: FindingHistoricStateLoader
     finding_historic_verification: FindingHistoricVerificationLoader
-    finding_vulns: FindingVulnsLoader  # All vulns except deleted
-    finding_vulns_all: FindingVulnsNonDeletedLoader  # All vulns
+    finding_vulns: FindingVulnsNonDeletedLoader  # All vulns except deleted
+    finding_vulns_all: FindingVulnsLoader  # All vulns
     finding_vulns_nzr: FindingVulnsNonZeroRiskLoader
     finding_vulns_zr: FindingVulnsOnlyZeroRiskLoader
     group: GroupLoader
