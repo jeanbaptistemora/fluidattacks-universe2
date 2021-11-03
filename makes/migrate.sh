@@ -16,7 +16,6 @@ function main {
   sed -Ei 's|envSources|source|g' "${path}"
   sed -Ei 's|path "/makes/applications/(.*)"|projectPath "/makes/foss/units/\1"|g' "${path}"
   sed -Ei 's|path "(.*)"|projectPath "\1"|g' "${path}"
-  sed -Ei 's|"/makes/utils/(.*)"|(inputs.legacy.importUtility "\1")|g' "${path}"
   sed -Ei 's|envUtils = |source =|g' "${path}"
   sed -Ei 's|env([A-z].*) = |__arg\1__ =|g' "${path}"
   sed -Ei 's|env([A-z].*)|arg\1|g' "${path}"

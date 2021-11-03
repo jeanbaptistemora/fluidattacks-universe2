@@ -37,15 +37,15 @@ function use_git_repo {
   if test -e "${target}"; then
     echo "[INFO] Updating local repository copy at: ${target}" \
       && pushd "${target}" \
-      && __envGit__ remote set-url origin "${source}" \
-      && __envGit__ fetch \
-      && __envGit__ reset --hard "${rev}" \
+      && __argGit__ remote set-url origin "${source}" \
+      && __argGit__ fetch \
+      && __argGit__ reset --hard "${rev}" \
       || return 1
   else
     echo "[INFO] Creating local repository copy at: ${target}" \
-      && __envGit__ clone --single-branch "${source}" "${target}" \
+      && __argGit__ clone --single-branch "${source}" "${target}" \
       && pushd "${target}" \
-      && __envGit__ reset --hard "${rev}" \
+      && __argGit__ reset --hard "${rev}" \
       || return 1
   fi
 }

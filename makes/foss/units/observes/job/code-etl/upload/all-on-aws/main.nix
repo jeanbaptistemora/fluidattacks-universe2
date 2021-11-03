@@ -1,5 +1,4 @@
-{ inputs
-, outputs
+{ outputs
 , makeScript
 , ...
 }:
@@ -10,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "git")
+      (outputs."/utils/git")
       (outputs."/utils/sops")
     ];
   };

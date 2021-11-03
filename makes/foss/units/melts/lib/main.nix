@@ -1,5 +1,4 @@
-{ inputs
-, makeTemplate
+{ makeTemplate
 , outputs
 , ...
 }:
@@ -9,7 +8,7 @@ makeTemplate {
     bin = [ outputs."/melts" ];
     source = [
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "git")
+      (outputs."/utils/git")
     ];
   };
   template = ./template.sh;

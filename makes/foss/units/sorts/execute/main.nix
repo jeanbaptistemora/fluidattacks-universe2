@@ -1,5 +1,4 @@
 { makeScript
-, inputs
 , outputs
 , projectPath
 , ...
@@ -8,10 +7,10 @@ makeScript {
   name = "sorts-execute";
   searchPaths = {
     source = [
-      outputs."/melts/lib"
-      outputs."/sorts/config-runtime"
+      (outputs."/melts/lib")
+      (outputs."/sorts/config-runtime")
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "git")
+      (outputs."/utils/git")
       (outputs."/utils/sops")
     ];
   };

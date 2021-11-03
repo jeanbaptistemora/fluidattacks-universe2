@@ -18,7 +18,7 @@ makeScript {
     source = [
       (outputs."/utils/aws")
       (inputs.legacy.importUtility "env")
-      (inputs.legacy.importUtility "git")
+      (outputs."/utils/git")
       (outputs."/utils/sops")
       (inputs.legacy.importUtility "time")
       outputs."/skims/config-runtime"
