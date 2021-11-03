@@ -487,6 +487,14 @@
       "title": "320. Insecure service configuration - LDAP"
     }
   },
+  "F335": {
+    "EN": {
+      "title": "335. Insecure service configuration - S3"
+    },
+    "ES": {
+      "title": "335. Insecure service configuration - S3"
+    }
+  },
   "F338": {
     "EN": {
       "title": "338. Insecure service configuration - Salt"
