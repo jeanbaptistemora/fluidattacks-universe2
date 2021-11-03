@@ -5067,7 +5067,7 @@ F247,lines,namespace/skims/test/data/lib_path/f247/test_fsx.tf,1,311,skims,247. 
   13 | }
      ^ Col 0
 "
-F080,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,10,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption.,"
+F080,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,9,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption.,"
    1 | Resources:
    2 |   S3Bucket1:
    3 |     Type: AWS::S3::Bucket
@@ -5076,20 +5076,20 @@ F080,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabl
    6 |       BucketName: bk1
    7 |   S3Bucket2:
    8 |     Type: AWS::S3::Bucket
-   9 |     Properties:
-> 10 |       AccessControl: PublicReadWrite
+>  9 |     Properties:
+  10 |       AccessControl: PublicReadWrite
   11 |       BucketName: bucket2
   12 |       LoggingConfiguration:
   13 |         DestinationBucketName: bucket_destination
   14 |         LogFilePrefix: log_prefix
      ^ Col 0
 "
-F080,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,5,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption.,"
+F080,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,4,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption.,"
    1 | Resources:
    2 |   S3Bucket1:
    3 |     Type: AWS::S3::Bucket
-   4 |     Properties:
->  5 |       AccessControl: bucket1
+>  4 |     Properties:
+   5 |       AccessControl: bucket1
    6 |       BucketName: bk1
    7 |   S3Bucket2:
    8 |     Type: AWS::S3::Bucket
@@ -5101,13 +5101,13 @@ F080,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabl
   14 |         LogFilePrefix: log_prefix
      ^ Col 0
 "
-F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,6,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption.,"
+F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,5,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption.,"
    1 | Resources:
    2 |   S3Bucket:
    3 |     Type: AWS::S3::Bucket
    4 |     DeletionPolicy: Retain
-   5 |     Properties:
->  6 |       BucketName: SKIMS-EXAMPLE-BUCKET
+>  5 |     Properties:
+   6 |       BucketName: SKIMS-EXAMPLE-BUCKET
    7 |   EncryptedS3Bucket:
    8 |     Type: AWS::S3::Bucket
    9 |     Properties:

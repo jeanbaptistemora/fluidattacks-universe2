@@ -8,6 +8,7 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
+    get_line_by_extension,
     get_vulnerabilities_from_aws_iterator_blocking,
     SHIELD,
 )
@@ -44,6 +45,7 @@ from typing import (
     Union,
 )
 from utils.function import (
+    get_node_by_keys,
     TIMEOUT_1MIN,
 )
 
@@ -103,6 +105,20 @@ def _unencrypted_buckets_iterate_vulnerabilities(
             yield bucket
 
 
+def _cfn_unencrypted_buckets_iterate_vulnerabilities(
+    file_ext: str,
+    buckets_iterator: Iterator[Union[AWSS3Bucket, Node]],
+) -> Iterator[Union[AWSS3Bucket, Node]]:
+    for bucket in buckets_iterator:
+        logging = get_node_by_keys(bucket, ["BucketEncryption"])
+        if not isinstance(logging, Node):
+            yield AWSS3Bucket(
+                column=bucket.start_column,
+                data=bucket.data,
+                line=get_line_by_extension(bucket.start_line, file_ext),
+            )
+
+
 def _cfn_unencrypted_volumes(
     content: str,
     path: str,
@@ -123,6 +139,7 @@ def _cfn_unencrypted_volumes(
 
 def _cfn_unencrypted_buckets(
     content: str,
+    file_ext: str,
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
@@ -131,10 +148,9 @@ def _cfn_unencrypted_buckets(
         description_key="src.lib_path.f055_aws.unencrypted_buckets",
         finding=core_model.FindingEnum.F080,
         path=path,
-        statements_iterator=(
-            bucket
-            for bucket in iter_s3_buckets(template)
-            if not bucket.raw.get("BucketEncryption", None)
+        statements_iterator=_cfn_unencrypted_buckets_iterate_vulnerabilities(
+            file_ext=file_ext,
+            buckets_iterator=iter_s3_buckets(template=template),
         ),
     )
 
@@ -176,6 +192,7 @@ def _terraform_public_buckets(
 @TIMEOUT_1MIN
 async def cfn_unencrypted_buckets(
     content: str,
+    file_ext: str,
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
@@ -183,6 +200,7 @@ async def cfn_unencrypted_buckets(
     return await in_process(
         _cfn_unencrypted_buckets,
         content=content,
+        file_ext=file_ext,
         path=path,
         template=template,
     )
@@ -258,6 +276,7 @@ async def analyze(
             coroutines.append(
                 cfn_unencrypted_buckets(
                     content=content,
+                    file_ext=file_extension,
                     path=path,
                     template=template,
                 )
