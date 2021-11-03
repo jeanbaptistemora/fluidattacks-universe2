@@ -25,15 +25,6 @@ def test_has_not_private_access_control():
     assert s3.has_not_private_access_control(NOT_EXISTS).is_unknown()
 
 
-def test_has_access_logging_disabled():
-    """test s3.has_access_logging_disabled."""
-    result = s3.has_access_logging_disabled(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 1
-    assert s3.has_access_logging_disabled(SAFE).is_closed()
-    assert s3.has_access_logging_disabled(NOT_EXISTS).is_unknown()
-
-
 def test_has_encryption_disabled():
     """test s3.has_encryption_disabled."""
     result = s3.has_encryption_disabled(VULN)

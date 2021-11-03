@@ -136,55 +136,6 @@ def has_not_private_access_control(
     )
 
 
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError)
-def has_access_logging_disabled(
-    path: str, exclude: Optional[List[str]] = None
-) -> tuple:
-    """
-    Check if any ``S3 Bucket`` has **Logging** disabled.
-
-    :param path: Location of CloudFormation's template file.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if **AccessLoggingPolicy/Enabled** attribute is not
-                set or set to **false**.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    vulnerabilities: List[Vulnerability] = []
-    graph: DiGraph = get_graph(path, exclude)
-    templates: List[int] = get_templates(graph, path, exclude)
-    buckets: List[int] = get_resources(
-        graph,
-        map(lambda x: x[0], templates),
-        {"AWS", "S3", "Bucket"},
-        num_labels=3,
-        info=True,
-    )
-    for bucket, resource, template in buckets:
-        _logging: int = helper.get_index(
-            get_resources(graph, bucket, "LoggingConfiguration", depth=4), 0
-        )
-
-        if not _logging:
-            vulnerabilities.append(
-                Vulnerability(
-                    path=template["path"],
-                    entity=(f"AWS::S3::Bucket/" f"LoggingConfiguration/"),
-                    identifier=resource["name"],
-                    line=resource["line"],
-                    reason="has logging disabled.",
-                )
-            )
-
-    return _get_result_as_tuple(
-        vulnerabilities=vulnerabilities,
-        msg_open="S3 buckets have logging disabled",
-        msg_closed="S3 Buckets have logging enabled",
-    )
-
-
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_encryption_disabled(
