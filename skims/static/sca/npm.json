@@ -53,6 +53,11 @@
       "<1.7.9"
     ]
   },
+  "ammo": {
+    "www.npmjs.com/advisories/1472": [
+      "<=3.0.3"
+    ]
+  },
   "ansi-html": {
     "CVE-2021-23424": [
       "<=0.0.7"
@@ -351,6 +356,11 @@
       "<=5.1.0"
     ]
   },
+  "ejs": {
+    "github.com/mde/ejs/issues/571": [
+      "<3.1.6"
+    ]
+  },
   "elliptic": {
     "CVE-2020-28498": [
       "<6.5.4"
@@ -609,6 +619,9 @@
   },
   "ip": {
     "github.com/indutny/node-ip/commit/b2b4469255a624619bda71e52fd1f05dc0dd621f": [
+      "<1.1.5"
+    ],
+    "npm:ip:20170304": [
       "<1.1.5"
     ]
   },
@@ -974,6 +987,11 @@
     ],
     "www.npmjs.com/advisories/961": [
       "<4.13.1"
+    ]
+  },
+  "nodemailer": {
+    "CVE-2020-7769": [
+      "<6.4.16"
     ]
   },
   "normalize-package-data": {},
