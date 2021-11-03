@@ -5,6 +5,9 @@ from model.graph_model import (
     Graph,
     GraphShardMetadataLanguage as GraphLanguage,
 )
+from symbolic_eval.cases import (
+    method_invocation,
+)
 from symbolic_eval.types import (
     Evaluator,
     MissingSymbolicEval,
@@ -16,7 +19,9 @@ from typing import (
     Optional,
 )
 
-EVALUATORS: Dict[str, Evaluator] = {}
+EVALUATORS: Dict[str, Evaluator] = {
+    "MethodInvocation": method_invocation.evaluate,
+}
 
 
 def generic(args: SymbolicEvalArgs) -> bool:
