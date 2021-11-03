@@ -6,8 +6,8 @@ These indicators were left out in the previous findings migration.
 We need to populate them now for consistency and avoiding a StopIteration
 when masked findings are needed to be read.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2021-11-03 at 03:00:26 UTC
+Finalization Time:  2021-11-03 at 03:22:55 UTC
 """
 
 from aioextensions import (
@@ -68,7 +68,7 @@ from unreliable_indicators.operations import (
     _format_unreliable_treatment_summary,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 # Get both drafts and findings
@@ -205,7 +205,7 @@ async def _process_group(
     loaders: Dataloaders,
 ) -> None:
     finding_ids = await _get_finding_ids_by_group(group_name)
-    print(f"{str(group_name).upper()}: {len(finding_ids)} ids")
+    print(f"{str(group_name)} : {len(finding_ids)} findings")
     await collect(
         _proccess_finding(
             finding_id=finding_id,
@@ -222,10 +222,12 @@ async def main() -> None:
         | Attr("project_status").eq("FINISHED")
         | Attr("project_status").eq("PENDING_DELETION")
     )
-    masked_groups = [
-        group["project_name"]
-        for group in await groups_dal.get_all(filtering_exp=filtering_exp)
-    ]
+    masked_groups = sorted(
+        [
+            group["project_name"]
+            for group in await groups_dal.get_all(filtering_exp=filtering_exp)
+        ]
+    )
     print(f"Masked groups: {len(masked_groups)}")
 
     start_time = datetime.now()
