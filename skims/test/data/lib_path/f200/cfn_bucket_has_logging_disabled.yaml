@@ -1,0 +1,14 @@
+Resources:
+  S3Bucket1:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: bucket1
+      BucketName: bk1
+  S3Bucket2:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicReadWrite
+      BucketName: bucket2
+      LoggingConfiguration:
+        DestinationBucketName: bucket_destination
+        LogFilePrefix: log_prefix
