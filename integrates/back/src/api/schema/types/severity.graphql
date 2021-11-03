@@ -2,52 +2,52 @@
 type Severity {
   """Measure of the effort and resources needed for an attacker to put
   in to successfully breach the system"""
-  attackComplexity: String!
+  attackComplexity: Float
   "Level of access needed for an attack to succeed"
-  attackVector: String!
+  attackVector: Float
   """Hypothetical impact on resource (webpages, content etc...) availability
   and possibility of service denial"""
-  availabilityImpact: String!
+  availabilityImpact: Float
   "Availability requirement for the impacted systems"
-  availabilityRequirement: String!
+  availabilityRequirement: Float
   """Measure of the sensible/restricted information (e.g. password,
   encryption keys) the attacker could gather from the breached component"""
-  confidentialityImpact: String!
+  confidentialityImpact: Float
   "Confidentiality requirement for the impacted systems"
-  confidentialityRequirement: String!
+  confidentialityRequirement: Float
   """Measure of the availability of resources and details, both theoretical
   and practical, available for a malicious actor to build and/or automate an
   attack"""
-  exploitability: String!
+  exploitability: Float
   """How vulnerable for malicious modification are the files in the impacted
   components"""
-  integrityImpact: String!
+  integrityImpact: Float
   "Integrity requirement for the impacted systems"
-  integrityRequirement: String!
+  integrityRequirement: Float
   "Modified Attack Complexity"
-  modifiedAttackComplexity: String!
+  modifiedAttackComplexity: Float
   "Modified Attack Vector"
-  modifiedAttackVector: String!
+  modifiedAttackVector: Float
   "Modified Availability Impact"
-  modifiedAvailabilityImpact: String!
+  modifiedAvailabilityImpact: Float
   "Modified Confidentiality Impact"
-  modifiedConfidentialityImpact: String!
+  modifiedConfidentialityImpact: Float
   "Modified Integrity Impact"
-  modifiedIntegrityImpact: String!
+  modifiedIntegrityImpact: Float
   "Modified Privileges Required"
-  modifiedPrivilegesRequired: String!
+  modifiedPrivilegesRequired: Float
   "Modified Scope"
-  modifiedSeverityScope: String!
+  modifiedSeverityScope: Float
   "Modified User Interaction"
-  modifiedUserInteraction: String!
+  modifiedUserInteraction: Float
   "Privileges required by the attacker to exploit the vulnerabilities"
-  privilegesRequired: String!
+  privilegesRequired: Float
   "Availability of a fix"
-  remediationLevel: String!
+  remediationLevel: Float
   "Report Confidence"
-  reportConfidence: String!
+  reportConfidence: Float
   "Security scope of the affected resources by the exploited vulnerabilities"
-  severityScope: String!
+  severityScope: Float
   "User involvement needed for a successful attack"
-  userInteraction: String!
+  userInteraction: Float
 }

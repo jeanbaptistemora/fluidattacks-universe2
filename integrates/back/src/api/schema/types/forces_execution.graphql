@@ -19,7 +19,7 @@ type ForcesExecution {
   gitRepo: String
   "Name of the Group where the Forces log will be in"
   groupName: String
-  "Applied kind of application security testing technique"
+  "Kind of application security testing technique applied"
   kind: String
   "Forces execution log"
   log: String
