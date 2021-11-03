@@ -64,3 +64,9 @@ class AWSInstance(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSElb(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int

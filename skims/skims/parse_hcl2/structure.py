@@ -4,6 +4,7 @@ from aws.iam.utils import (
 from aws.model import (
     AWSCloudfrontDistribution,
     AWSEbsVolume,
+    AWSElb,
     AWSFsxWindowsFileSystem,
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
@@ -273,6 +274,16 @@ def iter_aws_instance(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_instance")
     for bucket in iterator:
         yield AWSInstance(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def elb(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_elb")
+    for bucket in iterator:
+        yield AWSElb(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,
