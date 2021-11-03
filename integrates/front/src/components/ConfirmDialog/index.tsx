@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React, { useState } from "react";
 
 import { Button } from "components/Button";
@@ -11,7 +10,7 @@ interface IConfirmFn {
 }
 
 interface IConfirmDialogProps {
-  message?: string;
+  message?: React.ReactNode;
   title: string;
   children: (confirm: IConfirmFn) => React.ReactNode;
 }
@@ -49,18 +48,10 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
     confirmCallback();
   }
 
-  const messageLines: string[] = (
-    _.isUndefined(message) ? translate.t("confirmmodal.message") : message
-  ).split("\n");
-
   return (
     <React.Fragment>
       <Modal headerTitle={title} onEsc={handleClose} open={isOpen}>
-        {messageLines.map(
-          (line: string): JSX.Element => (
-            <p key={line}>{line}</p>
-          )
-        )}
+        {message}
         <hr />
         <Row>
           <Col100>
