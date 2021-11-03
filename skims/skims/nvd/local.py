@@ -70,6 +70,14 @@ def remove_constraints(version: str) -> str:
     )
 
 
+def remove_spurious_tags(version: str) -> str:
+    return (
+        version
+        # org.springframework.security:spring-security-core @ 5.3.12.RELEASE
+        .replace(".release", "")
+    )
+
+
 def query(
     platform: core_model.Platform,
     product: str,
@@ -78,7 +86,10 @@ def query(
     """
     Search a product and a version in the database and return a list of CVE.
     """
-    version = normalize(remove_constraints(version.strip().lower()))
+    version = version.strip().lower()
+    version = remove_spurious_tags(version)
+    version = remove_constraints(version)
+    version = normalize(version)
     database = getattr(modules[__name__], f"DATABASE_{platform.value}")
 
     references: List[str] = [
