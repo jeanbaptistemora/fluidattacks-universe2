@@ -18,6 +18,9 @@ from typing import (
 from utils.ctx import (
     STATIC,
 )
+from utils.logs import (
+    log_blocking,
+)
 
 # Constants
 with open(f"{STATIC}/sca/npm.json", encoding="utf-8") as _FILE:
@@ -34,8 +37,15 @@ def does_version_match(version: str, condition: str) -> bool:
     Given a version and a condition return True if version match condition.
     """
     result: bool = False
-    with suppress(ValueError):
+    try:
         result = match(version, condition)
+    except ValueError as exc:
+        log_blocking(
+            "warning",
+            "Unable to recognize version constraint: %s, %s",
+            condition,
+            exc,
+        )
 
     return result
 
