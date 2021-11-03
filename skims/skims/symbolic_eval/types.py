@@ -7,3 +7,4 @@ from typing import (
 )
 
 Analyzer = Callable[[GraphLanguage, Graph], None]
+LanguageAnalyzer = Callable[[Graph], None]

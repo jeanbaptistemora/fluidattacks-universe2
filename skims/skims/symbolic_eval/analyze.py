@@ -5,6 +5,9 @@ from model.graph_model import (
     Graph,
     GraphShardMetadataLanguage as GraphLanguage,
 )
+from symbolic_eval.f008.analyze import (
+    analyze as analyze_f008,
+)
 from symbolic_eval.types import (
     Analyzer,
 )
@@ -15,7 +18,9 @@ from utils import (
     ctx,
 )
 
-ANALYZERS: Dict[FindingEnum, Analyzer] = {}
+ANALYZERS: Dict[FindingEnum, Analyzer] = {
+    FindingEnum.F008: analyze_f008,
+}
 
 
 def analyze(language: GraphLanguage, graph: Graph) -> None:
