@@ -219,6 +219,29 @@ async def get_group_language(group: str) -> core_model.LocalesEnum:
     return core_model.LocalesEnum(result["data"]["group"]["language"])
 
 
+@SHIELD
+async def get_group_open_severity(group: str) -> float:
+    result = await _execute(
+        query="""
+            query SkimsGetGroupOpenSeverity($group: String!) {
+                group(groupName: $group) {
+                    findings {
+                        openVulnerabilities
+                        severityScore
+                    }
+                }
+            }
+        """,
+        operation="SkimsGetGroupOpenSeverity",
+        variables=dict(group=group),
+    )
+
+    return sum(
+        finding["openVulnerabilities"] * (4 ** (finding["severityScore"] - 4))
+        for finding in result["data"]["group"]["findings"]
+    )
+
+
 class ResultGetGroupRoots(NamedTuple):
     environment_urls: List[str]
     nickname: str
