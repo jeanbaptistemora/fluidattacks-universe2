@@ -30,6 +30,7 @@ from .organization_tags import (
 )
 from .vulnerability import (
     VulnerabilityHistoricStateLoader,
+    VulnerabilityHistoricTreatmentLoader,
     VulnerabilityLoader,
     VulnerabilityTypedLoader,
 )
@@ -108,6 +109,7 @@ class Dataloaders(NamedTuple):
     vulnerability: VulnerabilityLoader
     vulnerability_typed: VulnerabilityTypedLoader
     vulnerability_historic_state: VulnerabilityHistoricStateLoader
+    vulnerability_historic_treatment: VulnerabilityHistoricTreatmentLoader
     vuln_historic_state_new: VulnHistoricStateNewLoader
     vuln_historic_treatment_new: VulnHistoricTreatmentNewLoader
     vuln_historic_verification_new: VulnHistoricVerificationNewLoader
@@ -164,6 +166,9 @@ def get_new_context() -> Dataloaders:
         vulnerability=vulnerability_loader,
         vulnerability_typed=VulnerabilityTypedLoader(),
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(
+            vulnerability_loader
+        ),
+        vulnerability_historic_treatment=VulnerabilityHistoricTreatmentLoader(
             vulnerability_loader
         ),
         vuln_historic_state_new=VulnHistoricStateNewLoader(),

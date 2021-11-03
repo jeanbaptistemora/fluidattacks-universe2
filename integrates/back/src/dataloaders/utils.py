@@ -51,6 +51,26 @@ def format_vulnerability_state(state: Dict[str, Any]) -> VulnerabilityState:
     )
 
 
+def format_vulnerability_treatment(
+    treatment: Dict[str, Any]
+) -> VulnerabilityTreatment:
+    return VulnerabilityTreatment(
+        modified_by=treatment["user"],
+        modified_date=treatment["date"],
+        status=VulnerabilityTreatmentStatus(
+            treatment["treatment"].replace(" ", "_").upper()
+        ),
+        accepted_until=get_optional("acceptance_date", treatment),
+        acceptance_status=(
+            VulnerabilityAcceptanceStatus[treatment["acceptance_status"]]
+            if exists("acceptance_status", treatment)
+            else None
+        ),
+        justification=get_optional("justification", treatment),
+        manager=get_optional("treatment_manager", treatment),
+    )
+
+
 def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
     current_state: Dict[str, str] = item["historic_state"][-1]
     current_treatment: Optional[Dict[str, str]] = (
@@ -75,25 +95,7 @@ def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
         specific=item["specific"],
         state=format_vulnerability_state(current_state),
         treatment=(
-            VulnerabilityTreatment(
-                modified_by=current_treatment["user"],
-                modified_date=current_treatment["date"],
-                status=VulnerabilityTreatmentStatus(
-                    current_treatment["treatment"].replace(" ", "_").upper()
-                ),
-                accepted_until=get_optional(
-                    "acceptance_date", current_treatment
-                ),
-                acceptance_status=(
-                    VulnerabilityAcceptanceStatus[
-                        current_treatment["acceptance_status"]
-                    ]
-                    if exists("acceptance_status", current_treatment)
-                    else None
-                ),
-                justification=get_optional("justification", current_treatment),
-                manager=get_optional("treatment_manager", current_treatment),
-            )
+            format_vulnerability_treatment(current_treatment)
             if current_treatment
             and current_treatment["treatment"].upper() != "NEW"
             else None
