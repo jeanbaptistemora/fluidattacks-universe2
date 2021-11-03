@@ -93,7 +93,30 @@ const UPDATE_SEVERITY_MUTATION: DocumentNode = gql`
       success
       finding {
         cvssVersion
-        severity
+        severity {
+          attackComplexity
+          attackVector
+          availabilityImpact
+          availabilityRequirement
+          confidentialityImpact
+          confidentialityRequirement
+          exploitability
+          integrityImpact
+          integrityRequirement
+          modifiedAttackComplexity
+          modifiedAttackVector
+          modifiedAvailabilityImpact
+          modifiedConfidentialityImpact
+          modifiedIntegrityImpact
+          modifiedPrivilegesRequired
+          modifiedSeverityScope
+          modifiedUserInteraction
+          privilegesRequired
+          remediationLevel
+          reportConfidence
+          severityScope
+          userInteraction
+        }
       }
     }
   }
