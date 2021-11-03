@@ -6,6 +6,7 @@ from model.graph_model import (
     GraphShardMetadataLanguage as GraphLanguage,
 )
 from symbolic_eval.cases import (
+    member_access,
     method_invocation,
 )
 from symbolic_eval.types import (
@@ -21,6 +22,7 @@ from typing import (
 
 EVALUATORS: Dict[str, Evaluator] = {
     "MethodInvocation": method_invocation.evaluate,
+    "MemberAccess": member_access.evaluate,
 }
 
 
