@@ -27,8 +27,21 @@ from typing import (
 )
 
 
+def format_vulnerability_state(state: Dict[str, Any]) -> VulnerabilityState:
+    return VulnerabilityState(
+        modified_by=state["analyst"],
+        modified_date=state["date"],
+        source=Source[map_source(state["source"]).upper()],
+        status=VulnerabilityStateStatus[state["state"].upper()],
+        justification=(
+            VulnerabilityDeletionJustification[state["justification"]]
+            if "justification" in state
+            else None
+        ),
+    )
+
+
 def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
-    first_state: Dict[str, str] = item["historic_state"][0]
     current_state: Dict[str, str] = item["historic_state"][-1]
     current_treatment: Dict[str, str] = item["historic_treatment"][-1]
     current_verification: Optional[Dict[str, str]] = (
@@ -46,19 +59,7 @@ def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
         finding_id=item["finding_id"],
         id=item["UUID"],
         specific=item["specific"],
-        state=VulnerabilityState(
-            modified_by=current_state["analyst"],
-            modified_date=current_state["date"],
-            source=Source[map_source(first_state["source"]).upper()],
-            status=VulnerabilityStateStatus[current_state["state"].upper()],
-            justification=(
-                VulnerabilityDeletionJustification[
-                    current_state["justification"]
-                ]
-                if "justification" in current_state
-                else None
-            ),
-        ),
+        state=format_vulnerability_state(current_state),
         treatment=(
             None
             if current_treatment["treatment"].upper() == "NEW"
@@ -86,7 +87,7 @@ def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
         commit=item.get("commit_hash"),
         custom_severity=int(item["severity"]) if "severity" in item else None,
         hash=None,
-        repo=None,
+        repo=item.get("repo_nickname"),
         stream=item["stream"].split(",") if "stream" in item else None,
         tags=item.get("tag"),
         verification=(

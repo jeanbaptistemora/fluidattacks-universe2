@@ -29,6 +29,7 @@ from .organization_tags import (
     OrganizationTagsLoader,
 )
 from .vulnerability import (
+    VulnerabilityHistoricStateLoader,
     VulnerabilityLoader,
     VulnerabilityTypedLoader,
 )
@@ -106,6 +107,7 @@ class Dataloaders(NamedTuple):
     toe_lines: ToeLinesLoader
     vulnerability: VulnerabilityLoader
     vulnerability_typed: VulnerabilityTypedLoader
+    vulnerability_historic_state: VulnerabilityHistoricStateLoader
     vuln_historic_state_new: VulnHistoricStateNewLoader
     vuln_historic_treatment_new: VulnHistoricTreatmentNewLoader
     vuln_historic_verification_new: VulnHistoricVerificationNewLoader
@@ -124,17 +126,11 @@ def apply_context_attrs(
 
 def get_new_context() -> Dataloaders:
     group_drafts_and_findings_loader = GroupDraftsAndFindingsLoader()
-    group_stakeholders_loader = GroupStakeholdersLoader()
     finding_vulns_loader = FindingVulnsLoader()
     finding_vulns_non_deleted_loader = FindingVulnsNonDeletedLoader(
         finding_vulns_loader
     )
-    finding_vulns_nzr_loader = FindingVulnsNonZeroRiskLoader(
-        finding_vulns_non_deleted_loader
-    )
-    finding_vulns_zr_loader = FindingVulnsOnlyZeroRiskLoader(
-        finding_vulns_loader
-    )
+    vulnerability_loader = VulnerabilityLoader()
 
     return Dataloaders(
         event=EventLoader(),
@@ -143,8 +139,10 @@ def get_new_context() -> Dataloaders:
         finding=FindingLoader(),
         finding_vulns=finding_vulns_non_deleted_loader,
         finding_vulns_all=finding_vulns_loader,
-        finding_vulns_nzr=finding_vulns_nzr_loader,
-        finding_vulns_zr=finding_vulns_zr_loader,
+        finding_vulns_nzr=FindingVulnsNonZeroRiskLoader(
+            finding_vulns_non_deleted_loader
+        ),
+        finding_vulns_zr=FindingVulnsOnlyZeroRiskLoader(finding_vulns_loader),
         group=GroupLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
@@ -152,7 +150,7 @@ def get_new_context() -> Dataloaders:
         group_removed_findings=GroupRemovedFindingsLoader(),
         group_roots=GroupRootsLoader(),
         group_services_toe_lines=GroupServicesToeLinesLoader(),
-        group_stakeholders=group_stakeholders_loader,
+        group_stakeholders=GroupStakeholdersLoader(),
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
         organization=OrganizationLoader(),
@@ -163,8 +161,11 @@ def get_new_context() -> Dataloaders:
         root_states=RootStatesLoader(),
         root_toe_lines=RootToeLinesLoader(),
         toe_lines=ToeLinesLoader(),
-        vulnerability=VulnerabilityLoader(),
+        vulnerability=vulnerability_loader,
         vulnerability_typed=VulnerabilityTypedLoader(),
+        vulnerability_historic_state=VulnerabilityHistoricStateLoader(
+            vulnerability_loader
+        ),
         vuln_historic_state_new=VulnHistoricStateNewLoader(),
         vuln_historic_treatment_new=VulnHistoricTreatmentNewLoader(),
         vuln_historic_verification_new=VulnHistoricVerificationNewLoader(),
