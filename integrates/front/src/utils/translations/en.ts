@@ -875,13 +875,12 @@ export const enTranslations: ResourceKey = {
     deleteAccount: {
       modal: {
         text:
-          "This action will immediately delete the account. " +
-          "This will remove all of its data." +
-          "This is a destructive action and cannot be undone.",
+          "This action will immediately delete the account from ASM. " +
+          "This is a destructive action.",
         warning: "Warning!",
       },
       text: "Delete Account",
-      tooltip: "Delete account and all associated data",
+      tooltip: "Delete account from ASM",
     },
     help: {
       chat: "Live Chat",
