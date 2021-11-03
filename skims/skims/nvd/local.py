@@ -75,6 +75,10 @@ def remove_spurious_tags(version: str) -> str:
         version
         # org.springframework.security:spring-security-core @ 5.3.12.RELEASE
         .replace(".release", "")
+        # org.springframework:spring-web @ 2.5.6.SEC03
+        .replace(".sec03", "")
+        # org.springframework:spring-web @ 4.0.0.M2
+        .replace(".m2", "")
     )
 
 
