@@ -2,6 +2,7 @@ from __future__ import (
     annotations,
 )
 
+import logging
 import requests  # type: ignore
 from returns.curry import (
     partial,
@@ -9,6 +10,9 @@ from returns.curry import (
 from singer_io.singer2.json import (
     JsonFactory,
     JsonObj,
+)
+from tap_checkly.api.common.raw import (
+    LOG,
 )
 from tap_checkly.api.common.raw.auth import (
     Credentials,
@@ -21,6 +25,7 @@ from typing import (
 )
 
 API_URL_BASE = "https://api.checklyhq.com"
+LOG = logging.getLogger(__name__)
 
 
 def _get(creds: Credentials, endpoint: str, **kwargs: Any) -> List[JsonObj]:
@@ -30,6 +35,7 @@ def _get(creds: Credentials, endpoint: str, **kwargs: Any) -> List[JsonObj]:
         **kwargs,
     )
     response.raise_for_status()
+    LOG.debug("API call: %s\nkwargs = %s", endpoint, kwargs)
     return JsonFactory.build_json_list(response.json())
 
 
