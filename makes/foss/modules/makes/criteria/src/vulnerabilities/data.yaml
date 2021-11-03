@@ -3598,41 +3598,56 @@
         and the exploitability metric.
 "061":
   en:
-    title: Free
+    title: Remote File Inclusion
     description: >
-      __empty__
+      The application allows to load and execute
+      malicious files from remote locations.
+      This practice may allow an attacker
+      to retrieve sensitive data from the server
+      or execute commands remotely
     impact: >
-      __empty__
+      - Obtain sensitive data from the server
+
+      - Execute commands remotely
     recommendation: >
-      __empty__
+      Avoid the usage of dangerous functions
+      such as include, exec, eval, file, readfile among others
+      using non-sanitized data
     threat: >
-      __empty__
+      Authenticated attacker from the Internet
   es:
-    title: Free
+    title: Remote File Inclusion
     description: >
-      __empty__
+      La aplicación permite cargar y ejecutar archivos maliciosos
+      desde ubicaciones remotas.
+      Esto permitiría a un atacante filtrar información sensible
+      del servidor, o ejecutar comandos dentro del mismo
     impact: >
-      __empty__
+      - Obtener información sensible del servidor
+
+      - Ejecutar comandos remotamente
     recommendation: >
-      __empty__
+      Evitar utilizar llamados de funciones peligrosas
+      como include, exec, eval, file, readfile entre otras
+      con datos no sanitizados
     threat: >
-      __empty__
+      Atacante autenticado desde Internet
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      scope: "C"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: ["075", "161"]
+      exploit_code_maturity: "H"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["173", "265", "266"]
   metadata:
     en:
       details: __empty__
