@@ -39,7 +39,7 @@ from db_model.findings.get import (
     FindingHistoricStateLoader,
     FindingHistoricVerificationLoader,
     FindingLoader,
-    GroupDraftsAndFindingsNewLoader,
+    GroupDraftsAndFindingsLoader,
     GroupDraftsLoader,
     GroupFindingsLoader,
     GroupRemovedFindingsLoader,
@@ -88,6 +88,7 @@ class Dataloaders(NamedTuple):
     finding_vulns_zr: FindingVulnsOnlyZeroRiskLoader
     group: GroupLoader
     group_drafts: GroupDraftsLoader
+    group_drafts_and_findings: GroupDraftsAndFindingsLoader
     group_findings: GroupFindingsLoader
     group_removed_findings: GroupRemovedFindingsLoader
     group_roots: GroupRootsLoader
@@ -122,7 +123,7 @@ def apply_context_attrs(
 
 
 def get_new_context() -> Dataloaders:
-    group_drafts_and_findings_loader = GroupDraftsAndFindingsNewLoader()
+    group_drafts_and_findings_loader = GroupDraftsAndFindingsLoader()
     group_stakeholders_loader = GroupStakeholdersLoader()
     finding_vulns_loader = FindingVulnsLoader()
     finding_vulns_non_deleted_loader = FindingVulnsNonDeletedLoader(
@@ -146,6 +147,7 @@ def get_new_context() -> Dataloaders:
         finding_vulns_zr=finding_vulns_zr_loader,
         group=GroupLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
+        group_drafts_and_findings=group_drafts_and_findings_loader,
         group_findings=GroupFindingsLoader(group_drafts_and_findings_loader),
         group_removed_findings=GroupRemovedFindingsLoader(),
         group_roots=GroupRootsLoader(),

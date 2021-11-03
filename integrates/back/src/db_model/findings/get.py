@@ -122,7 +122,7 @@ async def _get_drafts_and_findings_by_group(
     )
 
 
-class GroupDraftsAndFindingsNewLoader(DataLoader):
+class GroupDraftsAndFindingsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: List[str]
