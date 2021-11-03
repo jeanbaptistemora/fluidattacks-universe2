@@ -957,6 +957,9 @@
     "SNYK-JS-NODESASS-540996": [
       "<=6.0.1"
     ],
+    "SNYK-JS-NODESASS-542662": [
+      ">=3.3.0,<4.13.1"
+    ],
     "www.npmjs.com/advisories/961": [
       "<4.13.1"
     ]
@@ -1070,6 +1073,10 @@
   "redis": {
     "CVE-2021-29469": [
       "<3.1.1"
+    ],
+    "CVE-2018-11218": [
+      "<3.2.12",
+      ">=4.0,<4.0.10"
     ]
   },
   "regex-not": {},
@@ -1100,6 +1107,11 @@
     ],
     "SNYK-JS-SEMVERREGEX-1047770": [
       "<3.1.2"
+    ]
+  },
+  "semver-regex": {
+    "https://github.com/sindresorhus/semver-regex/commit/6baf2cc1d470c2fb63666bdebeef06822be7ba8c": [
+      "<4.0.2"
     ]
   },
   "serialize-javascript": {
@@ -1185,6 +1197,11 @@
   },
   "strip-ansi": {},
   "strip-bom": {},
+  "subtext": {
+    "SNYK-JS-SUBTEXT-467257": [
+      "<=6.0.12"
+    ]
+  },
   "superagent": {
     "CVE-2017-16129": [
       "<3.7.0"
