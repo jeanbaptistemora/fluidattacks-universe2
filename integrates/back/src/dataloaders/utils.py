@@ -27,6 +27,16 @@ from typing import (
 )
 
 
+def exists(key: str, item: Dict[str, Any]) -> bool:
+    return key in item and item[key] is not None
+
+
+def get_optional(key: str, item: Dict[str, Any], fallback: Any = None) -> Any:
+    if exists(key, item):
+        return item[key]
+    return fallback
+
+
 def format_vulnerability_state(state: Dict[str, Any]) -> VulnerabilityState:
     return VulnerabilityState(
         modified_by=state["analyst"],
@@ -35,7 +45,7 @@ def format_vulnerability_state(state: Dict[str, Any]) -> VulnerabilityState:
         status=VulnerabilityStateStatus[state["state"].upper()],
         justification=(
             VulnerabilityDeletionJustification[state["justification"]]
-            if "justification" in state
+            if exists("justification", state)
             else None
         ),
     )
@@ -43,15 +53,19 @@ def format_vulnerability_state(state: Dict[str, Any]) -> VulnerabilityState:
 
 def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
     current_state: Dict[str, str] = item["historic_state"][-1]
-    current_treatment: Dict[str, str] = item["historic_treatment"][-1]
+    current_treatment: Optional[Dict[str, str]] = (
+        item["historic_treatment"][-1]
+        if exists("historic_treatment", item)
+        else None
+    )
     current_verification: Optional[Dict[str, str]] = (
         item["historic_verification"][-1]
-        if "historic_verification" in item
+        if exists("historic_verification", item)
         else None
     )
     current_zero_risk: Optional[Dict[str, str]] = (
         item["historic_zero_risk"][-1]
-        if "historic_zero_risk" in item
+        if exists("historic_zero_risk", item)
         else None
     )
 
@@ -61,35 +75,40 @@ def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
         specific=item["specific"],
         state=format_vulnerability_state(current_state),
         treatment=(
-            None
-            if current_treatment["treatment"].upper() == "NEW"
-            else VulnerabilityTreatment(
+            VulnerabilityTreatment(
                 modified_by=current_treatment["user"],
                 modified_date=current_treatment["date"],
                 status=VulnerabilityTreatmentStatus(
                     current_treatment["treatment"].replace(" ", "_").upper()
                 ),
-                accepted_until=current_treatment.get("acceptance_date"),
+                accepted_until=get_optional(
+                    "acceptance_date", current_treatment
+                ),
                 acceptance_status=(
                     VulnerabilityAcceptanceStatus[
                         current_treatment["acceptance_status"]
                     ]
-                    if "acceptance_status" in current_treatment
+                    if exists("acceptance_status", current_treatment)
                     else None
                 ),
-                justification=current_treatment.get("justification"),
-                manager=current_treatment.get("treatment_manager"),
+                justification=get_optional("justification", current_treatment),
+                manager=get_optional("treatment_manager", current_treatment),
             )
+            if current_treatment
+            and current_treatment["treatment"].upper() != "NEW"
+            else None
         ),
         type=VulnerabilityType(item["vuln_type"].upper()),
         where=item["where"],
-        bug_tracking_system_url=item.get("external_bts"),
-        commit=item.get("commit_hash"),
-        custom_severity=int(item["severity"]) if "severity" in item else None,
+        bug_tracking_system_url=get_optional("external_bts", item),
+        commit=get_optional("commit_hash", item),
+        custom_severity=(
+            int(item["severity"]) if exists("severity", item) else None
+        ),
         hash=None,
-        repo=item.get("repo_nickname"),
-        stream=item["stream"].split(",") if "stream" in item else None,
-        tags=item.get("tag"),
+        repo=get_optional("repo_nickname", item),
+        stream=item["stream"].split(",") if exists("stream", item) else None,
+        tags=get_optional("tag", item),
         verification=(
             VulnerabilityVerification(
                 comment_id="",
