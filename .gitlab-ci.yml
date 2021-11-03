@@ -9,11 +9,8 @@ include:
   - local: makes/foss/modules/skims/gitlab-ci.yaml
   - local: makes/foss/modules/sorts/gitlab-ci.yaml
 
-  - local: airs/.gitlab-ci.yml
-  - local: asserts/.gitlab-ci.yml
   - local: docs/.gitlab-ci.yml
   - local: forces/.gitlab-ci.yml
-  - local: observes/.gitlab-ci.yml
 
 stages:
   - rotation
@@ -159,14 +156,6 @@ workflow:
         "/etc/nix/nix.conf"
     - nix-channel --add https://nixos.org/channels/nixpkgs-unstable
     - nix-channel --update
-
-makes.test.instantiate:
-  <<: *makes
-  <<: *common_in_dev_branch
-  <<: *nix_get_pkgs
-  script:
-    - nix-instantiate .
-  stage: test-code
 
 common_forces:
   <<: *common_in_master_branch
