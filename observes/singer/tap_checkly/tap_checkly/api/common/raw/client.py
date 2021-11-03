@@ -11,9 +11,6 @@ from singer_io.singer2.json import (
     JsonFactory,
     JsonObj,
 )
-from tap_checkly.api.common.raw import (
-    LOG,
-)
 from tap_checkly.api.common.raw.auth import (
     Credentials,
 )
