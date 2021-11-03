@@ -1,6 +1,3 @@
-from contextlib import (
-    suppress,
-)
 import json
 from model import (
     core_model,
