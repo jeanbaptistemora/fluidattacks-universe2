@@ -14,6 +14,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
+    Dict,
     List,
 )
 
@@ -21,9 +22,10 @@ from typing import (
 async def resolve(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[TrackingItem]:
-    tracking = []
+    tracking_list: List[Dict] = []
     finding_vulns_loader: DataLoader = info.context.loaders.finding_vulns
     if parent.approval:
         vulns = await finding_vulns_loader.load(parent.id)
-        tracking = findings_domain.get_tracking_vulnerabilities(vulns)
-    return tracking
+        tracking_list = findings_domain.get_tracking_vulnerabilities(vulns)
+
+    return tracking_list

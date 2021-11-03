@@ -100,7 +100,16 @@ async def get_result(  # pylint: disable=too-many-locals
                     state
                     threat
                     title
-                    tracking
+                    tracking {{
+                        accepted
+                        acceptedUndefined
+                        closed
+                        cycle
+                        date
+                        justification
+                        manager
+                        open
+                    }}
                     verified
                     vulnerabilities {{
                         id

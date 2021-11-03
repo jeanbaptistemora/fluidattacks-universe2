@@ -109,7 +109,7 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
             "justification": "",
             "date": "2020-01-03",
             "accepted": 0,
-            "accepted_undefined": 0,
+            "acceptedUndefined": 0,
             "manager": "",
         }
     ]
@@ -120,7 +120,16 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
           releaseDate
           openVulnerabilities
           closedVulnerabilities
-          tracking
+          tracking {
+            accepted
+            acceptedUndefined
+            closed
+            cycle
+            date
+            justification
+            manager
+            open
+          }
           records
           severity {
             attackComplexity

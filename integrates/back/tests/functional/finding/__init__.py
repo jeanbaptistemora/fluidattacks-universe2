@@ -98,7 +98,16 @@ async def get_result(
                 state
                 threat
                 title
-                tracking
+                tracking {{
+                    accepted
+                    acceptedUndefined
+                    closed
+                    cycle
+                    date
+                    justification
+                    manager
+                    open
+                }}
                 treatmentSummary {{
                     accepted
                     acceptedUndefined

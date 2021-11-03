@@ -13,10 +13,9 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-interface IClosing {
+interface ITracking {
   accepted: number;
-  // eslint-disable-next-line camelcase -- It is possibly required for the API
-  accepted_undefined?: number;
+  acceptedUndefined?: number;
   closed: number;
   cycle: number;
   date: string;
@@ -28,7 +27,7 @@ interface IClosing {
 interface IGetFindingTrackingAttr {
   finding: {
     id: string;
-    tracking: IClosing[];
+    tracking: ITracking[];
   };
 }
 
@@ -57,10 +56,10 @@ const TrackingView: React.FC = (): JSX.Element => {
         <Col80 className={style.trackGraph}>
           <ul className={style.timelineContainer}>
             {data.finding.tracking.map(
-              (closing: IClosing): JSX.Element => (
+              (closing: ITracking): JSX.Element => (
                 <TrackingItem
                   accepted={closing.accepted}
-                  acceptedUndefined={closing.accepted_undefined}
+                  acceptedUndefined={closing.acceptedUndefined}
                   closed={closing.closed}
                   cycle={closing.cycle}
                   date={closing.date}
@@ -78,4 +77,4 @@ const TrackingView: React.FC = (): JSX.Element => {
   );
 };
 
-export { IClosing, IGetFindingTrackingAttr, TrackingView };
+export { ITracking as IClosing, IGetFindingTrackingAttr, TrackingView };

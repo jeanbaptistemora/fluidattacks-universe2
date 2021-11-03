@@ -91,7 +91,7 @@ type Finding {
   "Finding number and name"
   title: String
   "Timeline of actions in this Finding"
-  tracking: [GenericScalar]
+  tracking: [Tracking]
   "Summary of the number of vulnerabilities in every treatment status"
   treatmentSummary: TreatmentSummary
   "Is it verified i.e. with open and no remediated vulnerabilities?"

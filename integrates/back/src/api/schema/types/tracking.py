@@ -3,4 +3,3 @@ from ariadne import (
 )
 
 TRACKING = ObjectType("Tracking")
-TRACKING.set_alias("acceptedUndefined", "accepted_undefined")

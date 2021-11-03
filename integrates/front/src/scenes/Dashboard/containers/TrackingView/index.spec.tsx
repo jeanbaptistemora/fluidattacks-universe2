@@ -23,8 +23,7 @@ describe("TrackingView", (): void => {
           tracking: [
             {
               accepted: 0,
-              // eslint-disable-next-line camelcase -- It is possibly required for the API
-              accepted_undefined: 0,
+              acceptedUndefined: 0,
               closed: 0,
               cycle: 0,
               date: "2018-09-28",
@@ -32,8 +31,7 @@ describe("TrackingView", (): void => {
             },
             {
               accepted: 1,
-              // eslint-disable-next-line camelcase -- It is possibly required for the API
-              accepted_undefined: 0,
+              acceptedUndefined: 0,
               closed: 0,
               cycle: 1,
               date: "2019-01-08",
