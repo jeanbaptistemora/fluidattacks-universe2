@@ -7952,7 +7952,7 @@
       A race condition occurs
       when a code sequence requires
       exclusive access to a resource
-      but another code sequence]
+      but another code sequence
       can modify the same resource
       before the first one has released it.
       This can have security implications
