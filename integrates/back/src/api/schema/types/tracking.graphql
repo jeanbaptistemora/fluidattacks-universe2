@@ -1,0 +1,19 @@
+"Finding Tracking type definition"
+type Tracking {
+  "Number of temporarily accepted vulnerabilities in this cycle"
+  accepted: Int
+  "Number of permanently accepted vulnerabilities in this cycle"
+  acceptedUndefined: Int
+  "Number of closed vulnerabilities in this cycle"
+  closed: Int
+  "Cycle number"
+  cycle: Int
+  "Date of the cycle"
+  date: String
+  "Treatment change justification"
+  justification: String
+  "Email of the person requesting the treatment change(s)"
+  manager: String
+  "Number of open vulnerabilities in this cycle"
+  open: Int
+}

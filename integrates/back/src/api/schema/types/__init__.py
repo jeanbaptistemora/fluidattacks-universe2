@@ -73,6 +73,9 @@ from .tag import (
 from .toe_inputs import (
     TOEINPUTS,
 )
+from .tracking import (
+    TRACKING,
+)
 from .treatment import (
     TREATMENT,
 )
@@ -115,9 +118,10 @@ TYPES: Tuple[ObjectType, ...] = (
     RESOURCE,
     SEVERITY,
     STAKEHOLDER,
+    SERVICESTOELINES,
     TAG,
     TOEINPUTS,
-    SERVICESTOELINES,
+    TRACKING,
     TREATMENT,
     TREATMENT_SUMMARY,
     VERIFICATION,
