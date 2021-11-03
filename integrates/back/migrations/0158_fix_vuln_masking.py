@@ -2,8 +2,8 @@
 """
 This migration aims to mask the correct attrs in vulns for removed groups.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2021-11-03 at 15:46:49 UTC
+Finalization Time:  2021-11-03 at 16:42:06 UTC
 """
 
 from aioextensions import (
@@ -38,7 +38,7 @@ from vulnerabilities import (
     domain as vulns_domain,
 )
 
-PROD: bool = False
+PROD: bool = True
 MASKED: str = "Masked"
 
 
@@ -88,8 +88,6 @@ async def main() -> None:
         ]
     )
     print(f"Masked groups: {len(masked_groups)}")
-
-    masked_groups = masked_groups[:10]
 
     findings: List[Finding] = list(
         chain.from_iterable(
