@@ -532,6 +532,10 @@
     "CVE-2018-3728": [
       ">=0.0.0,<4.2.0",
       ">=5.0.0,<5.0.3"
+    ],
+    "npm:hoek:20180212": [
+      "<4.2.1",
+      ">=5.0.0,<5.0.3"
     ]
   },
   "hosted-git-info": {
@@ -630,6 +634,9 @@
   "jasmine-core": {
     "npm:jasmine-core:20180216": [
       "<3.1.0"
+    ],
+    "github.com/jasmine/jasmine/commit/3b77f3818846ea68bcdcd7b0b734b48cb1f69cc1": [
+      "<3.10.1"
     ]
   },
   "jquery": {
@@ -684,6 +691,11 @@
   "jsesc": {},
   "json-parse-better-errors": {},
   "json-schema-traverse": {},
+  "jsonpointer": {
+    "github.com/janl/node-jsonpointer/commit/234e3437019c6c07537ed2ad1e03b3e132b85e34": [
+      "<5.0.0"
+    ]
+  },
   "jspdf": {
     "CVE-2021-23353": [
       "<2.3.1"
@@ -1014,6 +1026,11 @@
   "path-parse": {
     "CVE-2021-23343": [
       "<1.0.7"
+    ]
+  },
+  "pathval": {
+    "CVE-2020-7751": [
+      "<1.1.1"
     ]
   },
   "pify": {},
