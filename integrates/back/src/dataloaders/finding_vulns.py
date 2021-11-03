@@ -1,7 +1,8 @@
-# pylint: disable=method-hidden
-
 from aiodataloader import (
     DataLoader,
+)
+from aioextensions import (
+    collect,
 )
 from collections import (
     defaultdict,
@@ -10,6 +11,12 @@ from custom_types import (
     Historic as HistoricType,
     Vulnerability as VulnerabilityType,
 )
+from dataloaders.utils import (
+    format_vulnerability,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from newutils.requests import (
     map_source,
 )
@@ -17,8 +24,10 @@ from typing import (
     cast,
     Dict,
     List,
+    Tuple,
 )
 from vulnerabilities import (
+    dal as vulns_dal,
     domain as vulns_domain,
 )
 
@@ -109,8 +118,27 @@ async def batch_load_fn_vulns(
 
 
 class FindingVulnsLoader(DataLoader):
-    # pylint: disable=no-self-use
+    # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, finding_ids: List[str]
     ) -> List[List[VulnerabilityType]]:
         return await batch_load_fn_vulns(finding_ids)
+
+
+async def _get_vulnerabilities_by_finding(
+    finding_id: str,
+) -> Tuple[Vulnerability, ...]:
+    items: List[VulnerabilityType] = await vulns_dal.get_by_finding(
+        finding_id=finding_id
+    )
+    return tuple(map(format_vulnerability, items))
+
+
+class FindingVulnsTypedLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, finding_ids: List[str]
+    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
+        return await collect(
+            tuple(map(_get_vulnerabilities_by_finding, finding_ids))
+        )

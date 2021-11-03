@@ -3,6 +3,7 @@ from .event import (
 )
 from .finding_vulns import (
     FindingVulnsLoader,
+    FindingVulnsTypedLoader,
 )
 from .finding_vulns_non_deleted import (
     FindingVulnsNonDeletedLoader,
@@ -86,6 +87,7 @@ class Dataloaders(NamedTuple):
     finding_historic_verification: FindingHistoricVerificationLoader
     finding_vulns: FindingVulnsNonDeletedLoader  # All vulns except deleted
     finding_vulns_all: FindingVulnsLoader  # All vulns
+    finding_vulns_all_typed: FindingVulnsTypedLoader
     finding_vulns_nzr: FindingVulnsNonZeroRiskLoader
     finding_vulns_zr: FindingVulnsOnlyZeroRiskLoader
     group: GroupLoader
@@ -141,6 +143,7 @@ def get_new_context() -> Dataloaders:
         finding=FindingLoader(),
         finding_vulns=finding_vulns_non_deleted_loader,
         finding_vulns_all=finding_vulns_loader,
+        finding_vulns_all_typed=FindingVulnsTypedLoader(),
         finding_vulns_nzr=FindingVulnsNonZeroRiskLoader(
             finding_vulns_non_deleted_loader
         ),
