@@ -30,6 +30,7 @@ function main {
     && export INTEGRATES_CHARTS_LOGO_PATH='__argIntegrates__/back/src/reports/resources/themes/logo.png' \
     && export INTEGRATES_MAILER_TEMPLATES='__argIntegrates__/back/src/mailer/email_templates' \
     && export STARTDIR="${PWD}" \
+    && export TOE_LINES_RULES='__argIntegrates__/back/src/toe/lines/rules.def' \
     && export TZ=UTC \
     && if test -z "${CI_COMMIT_REF_NAME:-}"; then
       # Local environments specific
