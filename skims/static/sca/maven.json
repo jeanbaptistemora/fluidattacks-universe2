@@ -64,6 +64,17 @@
       ">=3.0.0,<3.0.3"
     ]
   },
+  "org.springframework:spring-context": {
+    "github.com/spring-projects/spring-framework/issues/17469": [
+      ">=3.2.13,<3.2.14",
+      ">=4.1.6,<4.1.7"
+    ]
+  },
+  "org.springframework:spring-context-support": {},
+  "org.springframework:spring-core": {},
+  "org.springframework:spring-jdbc": {},
+  "org.springframework:spring-orm": {},
+  "org.springframework:spring-tx": {},
   "org.springframework:spring-web": {
     "CVE-2011-2730": [
       "<2.5.6",
