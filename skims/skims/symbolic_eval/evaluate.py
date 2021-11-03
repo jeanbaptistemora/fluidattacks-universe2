@@ -8,6 +8,7 @@ from model.graph_model import (
 from symbolic_eval.cases import (
     member_access,
     method_invocation,
+    symbol_lookup,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -23,6 +24,7 @@ from typing import (
 EVALUATORS: Dict[str, Evaluator] = {
     "MethodInvocation": method_invocation.evaluate,
     "MemberAccess": member_access.evaluate,
+    "SymbolLookup": symbol_lookup.evaluate,
 }
 
 
