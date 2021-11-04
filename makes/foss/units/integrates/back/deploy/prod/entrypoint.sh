@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function hpa_replicas {
-  local namespace='development'
-  local name="integrates-${CI_COMMIT_REF_NAME}"
+  local namespace="production"
+  local name="integrates-master"
   local replicas
 
   function hpa_desired_replicas {
