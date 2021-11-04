@@ -1,9 +1,27 @@
+import aiofiles  # type: ignore
 import asyncio
 from batch.types import (
     BatchProcessing,
 )
+from context import (
+    FI_TOE_LINES_RULES,
+)
 import os
 import tempfile
+from typing import (
+    Set,
+)
+
+CLOC_ENV = os.environ.copy()
+CLOC_ENV["LC_ALL"] = "C"
+CLOC_DOC_LANGS = ["Markdown"]
+CLOC_STYLE_LANGS = ["CSS", "SASS", "LESS", "Stylus"]
+CLOC_FORMAT_LANGS = ["XML", "XAML"]
+CLOC_FORCE_LANG_DEF = "--force-lang-def=" + FI_TOE_LINES_RULES
+CLOC_EXCLUDE_LIST = ",".join(
+    CLOC_DOC_LANGS + CLOC_STYLE_LANGS + CLOC_FORMAT_LANGS
+)
+CLOC_EXCLUDE_LANG = "--exclude-lang=" + CLOC_EXCLUDE_LIST
 
 
 async def apply_git_config(repo_path: str) -> None:
@@ -11,6 +29,18 @@ async def apply_git_config(repo_path: str) -> None:
     await asyncio.create_subprocess_exec(
         "git", f"--git-dir={repo_path}/.git", "config", "core.quotepath", "off"
     )
+
+
+async def get_ignored_files(repo_path: str) -> Set[str]:
+    ignored_files = set()
+    call_cloc = ["cloc", CLOC_FORCE_LANG_DEF, CLOC_EXCLUDE_LANG]
+    call_cloc += [repo_path, "--ignored", "ignored.txt", "--timeout", "900"]
+    await asyncio.create_subprocess_exec(*call_cloc, env=CLOC_ENV)
+    async with aiofiles.open("ignored.txt", "r", encoding="utf8") as outfile:
+        lines = await outfile.readlines()
+        ignored_files = {line.split(":  ")[0] for line in lines}
+
+    return ignored_files
 
 
 def make_group_dir(tmpdir: str, group_name: str) -> None:
