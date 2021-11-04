@@ -15,13 +15,13 @@ from model import (
 from more_itertools import (
     windowed,
 )
-from nvd.local import (
-    query,
-)
 from parse_json import (
     loads_blocking as json_loads_blocking,
 )
 import re
+from sca import (
+    get_vulnerabilities,
+)
 from state.cache import (
     CACHE_ETERNALLY,
 )
@@ -372,7 +372,9 @@ def translate_dependencies_to_vulnerabilities(
             ),
         )
         for product, version in dependencies
-        for cve in query(platform, product["item"], version["item"])
+        for cve in get_vulnerabilities(
+            platform, product["item"], version["item"]
+        )
     )
 
     return results
