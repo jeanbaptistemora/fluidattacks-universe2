@@ -20,3 +20,8 @@ def clone_services_repository(path: str) -> None:
             "--depth=1",
         ],
     )
+
+
+def get_last_hash(repo: Repo, filename: str) -> str:
+    """Get last hash of a file in the repo"""
+    return repo.git.log("--max-count", "1", "--format=%H", "--", filename)
