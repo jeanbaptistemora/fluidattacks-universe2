@@ -18,9 +18,8 @@ makeScript {
       outputs."/integrates/storage"
     ];
     source = [
-      (outputs."/integrates/back/charts/pypi")
+      outputs."/integrates/back/charts/pypi"
       (outputs."/utils/aws")
-      (outputs."/utils/common")
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/charts/documents/entrypoint.sh";

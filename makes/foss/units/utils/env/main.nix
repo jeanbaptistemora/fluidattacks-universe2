@@ -1,6 +1,5 @@
 { inputs
 , makeTemplate
-, outputs
 , ...
 }:
 makeTemplate {
@@ -11,7 +10,7 @@ makeTemplate {
       inputs.nixpkgs.jq
     ];
     source = [
-      (outputs."/utils/gitlab")
+      (inputs.legacy.importUtility "gitlab")
     ];
   };
   template = ./template.sh;

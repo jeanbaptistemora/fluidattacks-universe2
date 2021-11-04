@@ -15,7 +15,7 @@ makeScript {
     ];
     source = [
       (outputs."/utils/aws")
-      (outputs."/utils/gitlab")
+      (inputs.legacy.importUtility "gitlab")
       (outputs."/utils/sops")
     ];
   };

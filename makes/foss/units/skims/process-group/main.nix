@@ -20,7 +20,7 @@ makeScript {
       (outputs."/utils/env")
       (outputs."/utils/git")
       (outputs."/utils/sops")
-      (outputs."/utils/time")
+      (inputs.legacy.importUtility "time")
       outputs."/skims/config-runtime"
     ];
   };
