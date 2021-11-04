@@ -720,6 +720,20 @@ type Mutation {
     subscription: SubscriptionType!
   ): SimplePayload!
 
+  "Update the information on how to access group TOE"
+  updateGroupAccessInfo(
+    "How to access the group envs"
+    dastAccess: String
+    "Necessary clarifications on what should be tested"
+    disambiguation: String
+    "Name of the group to be updated"
+    groupName: String!
+    "How to access the mobile envs"
+    mobileAccess: String
+    "How to access the group repos"
+    sastAccess: String
+  ): SimplePayload!
+
   "Updates a group's general information"
   updateGroupInfo(
     "Description of the group"
