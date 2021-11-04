@@ -46,13 +46,6 @@
       "F052"
     ]
   },
-  "skims_exception": {
-    "availability": "ALWAYS",
-    "findings": [
-      "F060",
-      "F061"
-    ]
-  },
   "skims_f011": {
     "availability": "ALWAYS",
     "findings": [
@@ -65,7 +58,6 @@
       "F091",
       "F096",
       "F100",
-      "F109",
       "F320",
       "F338",
       "F366",
@@ -76,18 +68,6 @@
     "availability": "ALWAYS",
     "findings": [
       "F022"
-    ]
-  },
-  "skims_f070": {
-    "availability": "ALWAYS",
-    "findings": [
-      "F070"
-    ]
-  },
-  "skims_f073": {
-    "availability": "ALWAYS",
-    "findings": [
-      "F073"
     ]
   },
   "skims_f117": {

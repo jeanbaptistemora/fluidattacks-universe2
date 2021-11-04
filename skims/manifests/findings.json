@@ -193,10 +193,10 @@
   },
   "F061": {
     "EN": {
-      "title": "061. Errors without traceability"
+      "title": "061. Remote File Inclusion"
     },
     "ES": {
-      "title": "061. Errors without traceability"
+      "title": "061. Remote File Inclusion"
     }
   },
   "F063": {
@@ -217,10 +217,10 @@
   },
   "F070": {
     "EN": {
-      "title": "070. Inappropriate coding practices - Wildcard import"
+      "title": "070. Insecure service configuration - ELB"
     },
     "ES": {
-      "title": "070. Inappropriate coding practices - Wildcard import"
+      "title": "070. Insecure service configuration - ELB"
     }
   },
   "F071": {
@@ -341,14 +341,6 @@
     },
     "ES": {
       "title": "107. LDAP injection"
-    }
-  },
-  "F109": {
-    "EN": {
-      "title": "109. Insecure functionality - Float currency"
-    },
-    "ES": {
-      "title": "109. Insecure functionality - Float currency"
     }
   },
   "F112": {
@@ -489,10 +481,10 @@
   },
   "F335": {
     "EN": {
-      "title": "335. Insecure service configuration - S3"
+      "title": "335. Insecure service configuration - Bucket"
     },
     "ES": {
-      "title": "335. Insecure service configuration - S3"
+      "title": "335. Insecure service configuration - Bucket"
     }
   },
   "F338": {
