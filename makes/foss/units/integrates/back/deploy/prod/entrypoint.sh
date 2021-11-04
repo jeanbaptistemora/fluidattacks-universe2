@@ -1,18 +1,29 @@
 # shellcheck shell=bash
 
 function hpa_replicas {
-  local namespace='production'
-  local name="integrates-master"
-  local hpas
+  local namespace='development'
+  local name="integrates-${CI_COMMIT_REF_NAME}"
+  local replicas
 
   function hpa_desired_replicas {
-    echo "${hpas}" \
+    kubectl get hpa -n "${namespace}" -o yaml \
       | yq -er ".items[] | select(.metadata.name==\"${name}\") | .status.desiredReplicas"
   }
 
-  hpas=$(kubectl get hpa -n "${namespace}" -o yaml) \
-    && if hpa_desired_replicas > /dev/null; then
-      hpa_desired_replicas
+  function is_int {
+    local input="${1}"
+    local regex="^[0-9]+$"
+
+    if [[ ${input} =~ ${regex} ]]; then
+      return 0
+    else
+      return 1
+    fi
+  }
+
+  replicas="$(hpa_desired_replicas)" \
+    && if is_int "${replicas}" && test "${replicas}" != "0"; then
+      echo "${replicas}"
     else
       echo 1
     fi
