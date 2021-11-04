@@ -1226,7 +1226,7 @@ OKTA_DATA_RAW:
           preconfigured_app: null
           credentials_scheme: ENC[AES256_GCM,data:P6rfW8XQ8p4JaRTggLtRglMU7ebOokX7RwMoUg==,iv:D54S9+bHDNO8UO9T3XOwogGCR2+NfkAb+OPgFSyhUZo=,tag:FEl6OdPqsT2G48LK8gtVBw==,type:str]
           shared_username: ENC[AES256_GCM,data:oH2Nj3CfySbozI2YdejlN31i93XFlqr1U6fr,iv:MHJikmqdBR6NMIBdLmlFVRDiR5XtfxXOD8n4MR2Va3I=,tag:c5CLeiLPX/7ervMXJhZDbA==,type:str]
-          shared_password: ENC[AES256_GCM,data:+RW+cAkOwZe5FFLpkjA8/orL7pwm8dKdnLMFwZr0Lwha3UAINU0Sfw==,iv:45ZTf3Q6yWtMikmgFbdzL350re18T8zenTYl32UyzBw=,tag:k/b0FrRaf1qpe0WIfwGL3Q==,type:str]
+          shared_password: ENC[AES256_GCM,data:UdGMXotkLNb9wYnbZfvIE9DSKhRo6W0t4ohgcP05dYlvclG5RTb2Dg==,iv:9Vx0oiK9pKhLGuXpol4hGm7xBEVKO0u8E/Sm5PIMvag=,tag:/BGfU40rCIJCNU+V4irRmw==,type:str]
           sign_on_url: ENC[AES256_GCM,data:f2LGRk4K9qP6vmyOQaVGAGIDf758K1PJDQ==,iv:S/hYgBiDs6mgAO5MmYVgZFApWcR5YdcH/T/bwptzp0A=,tag:dCv3LmFJhFRwszqj+3oZ+Q==,type:str]
           app_settings_json: {}
         - id: ENC[AES256_GCM,data:vTlLfKJS,iv:mkWJGchajmngZXG6rupFgAZ+btrOltW4Z1qht5Lh8rY=,tag:tw5TTczwF28/XC5KF58ssA==,type:str]
@@ -3107,8 +3107,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-11-04T15:32:08Z"
-    mac: ENC[AES256_GCM,data:zUCxPpR050JJpH/GNj7+bCaSGU1NfAJzuCaiPk1p74uABeunspYCwgrJwYuUdJMwz1944SLe3nfqCd2D+c+ytVxQF3L1DVg+HfN/OMQcPbrDK43T8KOqKHA8uy10iWcsj7LzPPKMYbTQiB5fqYDxC/isalmFDXYjTsUGr/qdRD0=,iv:SpYkl0pHfmcn0qkh5tN/B2mNOZyNHfWuawIle/uesMU=,tag:TOpb1UQQFbYDlVMDbZN18w==,type:str]
+    lastmodified: "2021-11-04T20:46:59Z"
+    mac: ENC[AES256_GCM,data:d1k96YvqRIFtOyGDJ0dnj8Wq45mH7DNWkN9m+ECkJ5UdctvVuBnMOt7W2Tcq0E2dVoNgbGg2ewsjP+QRY13xdWJO7/clYyhv0alSGfIhWDAZB/6z38r7ItDu/lNE6Xd7D7NFjBhfZjLGWbw4V6mcRvMxZILjJ0al+fR5wBF2SmQ=,iv:M91r3K/J2PwcA6X5xDIAM15m1TaTua8s4mj++9LBXBw=,tag:LRquj3yKfQznqQbyXB6UIQ==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.1
