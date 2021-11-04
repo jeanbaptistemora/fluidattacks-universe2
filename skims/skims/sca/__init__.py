@@ -28,7 +28,7 @@ with open(f"{STATIC}/sca/maven.json", encoding="utf-8") as _FILE:
 
 
 def semver_match(left: str, right: str) -> bool:
-    code, out, err = read_blocking(TOOLS_SEMVER_MATCH, left, right)
+    code, out, _ = read_blocking(TOOLS_SEMVER_MATCH, left, right)
 
     if code == 0:
         data = json.loads(out)
@@ -39,7 +39,7 @@ def semver_match(left: str, right: str) -> bool:
             "error", "Semver match %s to %s: %s", left, right, data["error"]
         )
     else:
-        log_blocking("error", "Semver match %s to %s: %s", left, right, err)
+        log_blocking("error", "Semver match %s to %s", left, right)
 
     return False
 

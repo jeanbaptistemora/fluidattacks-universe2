@@ -37,9 +37,6 @@ from typing import (
 from utils.ctx import (
     CTX,
 )
-from utils.function import (
-    TIMEOUT_1MIN,
-)
 from utils.string import (
     make_snippet,
     SnippetViewport,
@@ -183,7 +180,6 @@ def _build_gradle(
 
 @CACHE_ETERNALLY
 @SHIELD
-@TIMEOUT_1MIN
 async def build_gradle(
     content: str,
     path: str,
@@ -220,7 +216,6 @@ def _npm_package_json(
 
 @CACHE_ETERNALLY
 @SHIELD
-@TIMEOUT_1MIN
 async def npm_package_json(
     content: str,
     path: str,
@@ -259,7 +254,6 @@ def _npm_package_lock_json(
 
 @CACHE_ETERNALLY
 @SHIELD
-@TIMEOUT_1MIN
 async def npm_package_lock_json(
     content: str,
     path: str,
@@ -319,7 +313,6 @@ def _yarn_lock(
 
 @CACHE_ETERNALLY
 @SHIELD
-@TIMEOUT_1MIN
 async def yarn_lock(
     content: str,
     path: str,
