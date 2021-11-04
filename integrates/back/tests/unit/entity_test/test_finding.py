@@ -49,7 +49,6 @@ async def _get_result(
     loaders: Optional[Dataloaders] = None,
 ) -> Dict[str, Any]:
     """Get result."""
-    # pylint: disable=unsubscriptable-object
     request = await create_dummy_session(username=user)
     request = apply_context_attrs(request, loaders or get_new_context())
     _, result = await graphql(SCHEMA, data, context_value=request)
@@ -74,7 +73,7 @@ async def test_finding_age() -> None:
     assert result["data"]["finding"]["openAge"] == 332
 
 
-async def test_finding() -> None:  # pylint: disable=too-many-statements
+async def test_finding() -> None:
     """Check for finding query."""
     expected_vuln = {
         "id": "0a848781-b6a4-422e-95fa-692151e6a98z",

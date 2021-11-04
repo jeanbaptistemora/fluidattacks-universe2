@@ -35,7 +35,7 @@ def create_dummy_simple_session(
         "session",
         dict(username=username, session_key=str(uuid.uuid4())),
     )
-    setattr(request, "cookies", dict())
+    setattr(request, "cookies", {})
 
     return request
 
@@ -43,7 +43,6 @@ def create_dummy_simple_session(
 async def create_dummy_session(
     username: str = "unittest", session_jwt: Optional[str] = None
 ) -> Response:
-    # pylint: disable=unsubscriptable-object
     request = create_dummy_simple_session(username)
     payload = {
         "user_email": username,

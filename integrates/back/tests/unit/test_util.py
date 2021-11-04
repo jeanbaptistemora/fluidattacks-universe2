@@ -338,7 +338,6 @@ async def test_create_user() -> None:
     async def get_user_attrs(
         email: str, attrs: List[str]
     ) -> Dict[str, Union[str, datetime]]:
-        # pylint: disable=unsubscriptable-object
         user_attrs = await users_domain.get_attributes(email, attrs)
         if "last_login" in user_attrs:
             user_attrs["last_login"] = timezone.localize(

@@ -72,7 +72,7 @@ async def test_add_system_owner_fail() -> None:
     groups_users = await collect(
         group_access_domain.get_group_users(group) for group in groups
     )
-    assert all([user not in group_users for group_users in groups_users])
+    assert all(user not in group_users for group_users in groups_users)
 
 
 @pytest.mark.changes_db
@@ -90,7 +90,7 @@ async def test_add_system_owner_good() -> None:
     groups_users = await collect(
         group_access_domain.get_group_users(group) for group in groups
     )
-    assert all([user in group_users for group_users in groups_users])
+    assert all(user in group_users for group_users in groups_users)
 
 
 @pytest.mark.changes_db

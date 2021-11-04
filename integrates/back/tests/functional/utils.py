@@ -44,7 +44,6 @@ async def get_graphql_result(
     context: Optional[Dataloaders] = None,
 ) -> Dict[str, Any]:
     """Get graphql result."""
-    # pylint: disable=unsubscriptable-object
     request = await create_dummy_session(stakeholder, session_jwt)
     request = apply_context_attrs(
         request, loaders=context if context else get_new_context()

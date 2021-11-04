@@ -7,7 +7,6 @@ from dataloaders import (
 from typing import (
     Any,
     Dict,
-    Optional,
 )
 
 
@@ -18,7 +17,6 @@ async def get_result(
     identifier: str,
     reason: str,
 ) -> Dict[str, Any]:
-    # pylint: disable=unsubscriptable-object
     query: str = f"""
         mutation {{
             deactivateRoot(

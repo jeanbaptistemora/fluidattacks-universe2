@@ -10,7 +10,7 @@ from typing import (
 )
 
 
-async def get_result(  # pylint: disable=too-many-locals
+async def get_result(
     *,
     user: str,
 ) -> Dict[str, Any]:

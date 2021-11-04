@@ -36,7 +36,6 @@ async def test_deactivate_root(
     root_id: str,
     reason: str,
 ) -> None:
-    # pylint: disable=unsubscriptable-object
     assert populate
     result = await get_result(
         email="admin@gmail.com",
