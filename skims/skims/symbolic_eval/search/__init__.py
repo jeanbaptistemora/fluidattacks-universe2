@@ -7,6 +7,7 @@ from symbolic_eval.search.cases import (
     method_declaration,
     parameter,
     parameter_list,
+    prefix_operation,
     variable_declaration,
 )
 from symbolic_eval.types import (
@@ -25,6 +26,7 @@ SEARCHERS: Dict[str, Searcher] = {
     "MethodDeclaration": method_declaration.search,
     "Parameter": parameter.search,
     "ParameterList": parameter_list.search,
+    "PrefixOperation": prefix_operation.search,
     "VariableDeclaration": variable_declaration.search,
 }
 
