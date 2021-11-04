@@ -33,6 +33,8 @@ makeTemplate {
             outputs."/computeOnAwsBatch/skimsProcessGroup";
           __argSrcTreeSitterParsers__ = outputs."/skims/config-runtime/parsers";
           __argSrcSkimsStatic__ = projectPath "/skims/static";
+          __argSrcSkimsToolsSemverMatch__ =
+            outputs."/skims/config-runtime/tools/semver-match";
           __argSrcSkimsVendor__ = projectPath "/skims/vendor";
         };
         name = "skims-config-context-file";
@@ -47,6 +49,7 @@ makeTemplate {
           export SKIMS_PROCESS_GROUP_ON_AWS='__argSkimsProcessGroupOnAws__/bin/compute-on-aws-batch-for-skimsProcessGroup'
           export SKIMS_ROBOTO_FONT='__argSrcSkimsVendor__/fonts/roboto_mono_from_google/regular.ttf'
           export SKIMS_STATIC='__argSrcSkimsStatic__'
+          export SKIMS_TOOLS_SEMVER_MATCH='__argSrcSkimsToolsSemverMatch__/bin/semver-match'
           export SKIMS_TREE_SITTER_PARSERS='__argSrcTreeSitterParsers__'
           export SKIMS_VENDOR='__argSrcSkimsVendor__'
         '';
