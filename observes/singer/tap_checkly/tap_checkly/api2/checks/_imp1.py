@@ -4,9 +4,13 @@ from dataclasses import (
 from purity.v1 import (
     FrozenList,
     JsonObj,
+    Patch,
 )
 from returns.io import (
     IO,
+)
+from tap_checkly.api2.checks._obj import (
+    ChecksApi,
 )
 from tap_checkly.api2.objs.check.result import (
     RolledUpResult,
@@ -39,17 +43,17 @@ def _to_rolled_up(raw: JsonObj) -> RolledUpResultObj:
 
 
 @dataclass(frozen=True)
-class ChecksApi:
+class _ChecksApi1:
     _client: Client
     _per_page: int
 
-    def ids(self, page: int) -> IO[FrozenList[CheckId]]:
+    def _ids(self, page: int) -> IO[FrozenList[CheckId]]:
         result = self._client.get(
             "/v1/checks", params={"limit": self._per_page, "page": page}
         )
         return IO(tuple(_to_check_id(r) for r in result))
 
-    def rolled_up_results(
+    def _rolled_up_results(
         self, check: CheckId, page: int
     ) -> IO[FrozenList[RolledUpResultObj]]:
         result = self._client.get(
@@ -57,3 +61,13 @@ class ChecksApi:
             params={"limit": self._per_page, "page": page},
         )
         return IO(tuple(_to_rolled_up(r) for r in result))
+
+    def api(self) -> ChecksApi:
+        return ChecksApi(
+            Patch(self._ids),
+            Patch(self._rolled_up_results),
+        )
+
+
+def checks_api_1(client: Client, per_page: int) -> ChecksApi:
+    return _ChecksApi1(client, per_page).api()
