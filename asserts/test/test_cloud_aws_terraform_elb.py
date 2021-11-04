@@ -14,15 +14,6 @@ VULN: str = "test/static/terraform/vulnerable"
 NOT_EXISTS: str = "test/static/terraform/not-exists"
 
 
-def test_has_access_logging_disabled():
-    """test elb.has_access_logging_disabled."""
-    result = elb.has_access_logging_disabled(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 1
-    assert elb.has_access_logging_disabled(SAFE).is_closed()
-    assert elb.has_access_logging_disabled(NOT_EXISTS).is_unknown()
-
-
 def test_uses_insecure_port():
     """test elb.uses_insecure_port."""
     result = elb.uses_insecure_port(VULN)
