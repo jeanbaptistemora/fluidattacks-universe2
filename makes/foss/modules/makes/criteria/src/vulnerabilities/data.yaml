@@ -913,7 +913,9 @@
       A functionality that is part of the system
       can be leveraged by an attacker
       in order to negatively impact it.
-    impact: __empty__
+    impact: >
+      Changing the password after the
+      security code has been compromised.
     recommendation: __empty__
     threat: __empty__
   es:
