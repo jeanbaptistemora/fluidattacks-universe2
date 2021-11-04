@@ -237,7 +237,7 @@ async def add_ip_root(
     user_email: str,
     ensure_org_uniqueness: bool = True,
     **kwargs: Any,
-) -> None:
+) -> str:
     group_name: str = kwargs["group_name"].lower()
     address: str = kwargs["address"]
     port = str(kwargs["port"])
@@ -289,7 +289,7 @@ async def add_url_root(
     user_email: str,
     ensure_org_uniqueness: bool = True,
     **kwargs: Any,
-) -> None:
+) -> str:
     group_name: str = kwargs["group_name"].lower()
 
     try:
@@ -344,6 +344,8 @@ async def add_url_root(
         ),
     )
     await roots_model.add(root=root)
+
+    return root.id
 
 
 def _get_nickname_from_url(url: str) -> str:
