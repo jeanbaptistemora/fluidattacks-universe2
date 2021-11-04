@@ -439,14 +439,6 @@
       "title": "200. Traceability loss"
     }
   },
-  "F203": {
-    "EN": {
-      "title": "Unauthorized access to files - S3 Bucket"
-    },
-    "ES": {
-      "title": "Unauthorized access to files - S3 Bucket"
-    }
-  },
   "F207": {
     "EN": {
       "title": "207. Security controls bypass or absence - SSLPinning"
