@@ -634,12 +634,6 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
 
     source: Dict[str, str] = {
         (
-            "cloudfront",
-            "CloudFront",
-        ): """
-            cloudfront.has_not_geo_restrictions('{key}', '{secret}')
-            """,
-        (
             "cloudtrail",
             "CloudTrail",
         ): """
