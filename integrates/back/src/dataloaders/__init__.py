@@ -11,9 +11,11 @@ from .finding_vulns_non_deleted import (
 )
 from .finding_vulns_non_zero_risk import (
     FindingVulnsNonZeroRiskLoader,
+    FindingVulnsNonZeroRiskTypedLoader,
 )
 from .finding_vulns_only_zero_risk import (
     FindingVulnsOnlyZeroRiskLoader,
+    FindingVulnsOnlyZeroRiskTypedLoader,
 )
 from .group import (
     GroupLoader,
@@ -91,7 +93,9 @@ class Dataloaders(NamedTuple):
     finding_vulns_all: FindingVulnsLoader  # All vulns
     finding_vulns_all_typed: FindingVulnsTypedLoader  # Migration
     finding_vulns_nzr: FindingVulnsNonZeroRiskLoader
+    finding_vulns_nzr_typed: FindingVulnsNonZeroRiskTypedLoader  # Migration
     finding_vulns_zr: FindingVulnsOnlyZeroRiskLoader
+    finding_vulns_zr_typed: FindingVulnsOnlyZeroRiskTypedLoader
     group: GroupLoader
     group_drafts: GroupDraftsLoader
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
@@ -143,6 +147,12 @@ def get_new_context() -> Dataloaders:
     finding_vulns_non_deleted_typed_loader = FindingVulnsNonDeletedTypedLoader(
         finding_vulns_typed_loader
     )
+    finding_vulns_nzr_typed_loader = FindingVulnsNonZeroRiskTypedLoader(
+        finding_vulns_non_deleted_typed_loader
+    )
+    finding_vulns_zr_typed_loader = FindingVulnsOnlyZeroRiskTypedLoader(
+        finding_vulns_typed_loader
+    )
 
     return Dataloaders(
         event=EventLoader(),
@@ -156,7 +166,9 @@ def get_new_context() -> Dataloaders:
         finding_vulns_nzr=FindingVulnsNonZeroRiskLoader(
             finding_vulns_non_deleted_loader
         ),
+        finding_vulns_nzr_typed=finding_vulns_nzr_typed_loader,
         finding_vulns_zr=FindingVulnsOnlyZeroRiskLoader(finding_vulns_loader),
+        finding_vulns_zr_typed=finding_vulns_zr_typed_loader,
         group=GroupLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
