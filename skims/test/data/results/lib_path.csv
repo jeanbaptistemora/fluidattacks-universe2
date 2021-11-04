@@ -7669,7 +7669,7 @@ F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Ser
   21 | }
      ^ Col 0
 "
-F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,10,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,10,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
 ","
    1 | Resources:
    2 |   S3Bucket1:
@@ -7687,7 +7687,7 @@ F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabl
   14 |         LogFilePrefix: log_prefix
      ^ Col 0
 "
-F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,6,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,6,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
 ","
    1 | Resources:
    2 |   S3Bucket:
@@ -7712,7 +7712,7 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,6
   21 |               SSEAlgorithm: aws:kms
      ^ Col 0
 "
-F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,3,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,3,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
 ","
    1 | resource ""aws_s3_bucket"" ""example"" {
    2 |   bucket = ""s3-website-test.hashicorp.com""
@@ -7737,7 +7737,7 @@ F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,3,922,skims,335. I
   21 |   }
      ^ Col 0
 "
-F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,3,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,3,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
 ","
    1 | resource ""aws_s3_bucket"" ""web_site"" {
    2 |   bucket = ""s3-website-test.hashicorp.com""
@@ -7762,7 +7762,7 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,3,
   21 |
      ^ Col 0
 "
-F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,7,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,7,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
 ","
    1 | {
    2 |   ""Resources"": {
@@ -7787,7 +7787,7 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.j
   21 |     ""S3Bucket1"": {
      ^ Col 0
 "
-F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,13,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,13,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
 ","
    2 |   ""Resources"": {
    3 |     ""S3Bucket1"": {
@@ -7812,7 +7812,7 @@ F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabl
   22 | }
      ^ Col 0
 "
-F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,16,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,16,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
 ","
    2 |   bucket = ""s3-website-test.hashicorp.com""
    3 |   acl    = ""public-read""
@@ -7837,7 +7837,7 @@ F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,16,922,skims,335. 
   22 | }
      ^ Col 0
 "
-F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,16,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,16,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
 ","
    6 |       AccessControl: PublicReadWrite
    7 |       BucketName: SKIMS-PUBLIC-BUCKET
@@ -7862,7 +7862,7 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,1
   26 |     Properties:
      ^ Col 0
 "
-F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,24,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,24,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
 ","
   14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
   15 |               }
