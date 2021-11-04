@@ -17,6 +17,10 @@ from db_model.vulnerabilities.types import (
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
+from newutils.datetime import (
+    get_as_utc_iso_format,
+    get_from_str,
+)
 from newutils.requests import (
     map_source,
 )
@@ -40,7 +44,7 @@ def get_optional(key: str, item: Dict[str, Any], fallback: Any = None) -> Any:
 def format_vulnerability_state(state: Dict[str, Any]) -> VulnerabilityState:
     return VulnerabilityState(
         modified_by=state["analyst"],
-        modified_date=state["date"],
+        modified_date=get_as_utc_iso_format(get_from_str(state["date"])),
         source=Source[map_source(state["source"]).upper()],
         status=VulnerabilityStateStatus[state["state"].upper()],
         justification=(
@@ -54,13 +58,16 @@ def format_vulnerability_state(state: Dict[str, Any]) -> VulnerabilityState:
 def format_vulnerability_treatment(
     treatment: Dict[str, Any]
 ) -> VulnerabilityTreatment:
+    accepted_until: Optional[str] = get_optional("acceptance_date", treatment)
+    if accepted_until:
+        accepted_until = get_as_utc_iso_format(get_from_str(accepted_until))
     return VulnerabilityTreatment(
         modified_by=treatment["user"],
-        modified_date=treatment["date"],
+        modified_date=get_as_utc_iso_format(get_from_str(treatment["date"])),
         status=VulnerabilityTreatmentStatus(
             treatment["treatment"].replace(" ", "_").upper()
         ),
-        accepted_until=get_optional("acceptance_date", treatment),
+        accepted_until=accepted_until,
         acceptance_status=(
             VulnerabilityAcceptanceStatus[treatment["acceptance_status"]]
             if exists("acceptance_status", treatment)
@@ -77,7 +84,9 @@ def format_vulnerability_verification(
     return VulnerabilityVerification(
         comment_id="",
         modified_by="",
-        modified_date=verification["date"],
+        modified_date=get_as_utc_iso_format(
+            get_from_str(verification["date"])
+        ),
         status=VulnerabilityVerificationStatus(verification["status"]),
     )
 
@@ -88,7 +97,7 @@ def format_vulnerability_zero_risk(
     return VulnerabilityZeroRisk(
         comment_id=zero_risk["comment_id"],
         modified_by=zero_risk["email"],
-        modified_date=zero_risk["date"],
+        modified_date=get_as_utc_iso_format(get_from_str(zero_risk["date"])),
         status=VulnerabilityZeroRiskStatus(zero_risk["status"]),
     )
 
