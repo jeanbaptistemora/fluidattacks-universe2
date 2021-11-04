@@ -86,7 +86,7 @@
   "async": {},
   "atob": {
     "CVE-2018-3745": [
-      "<2.0.3"
+      "<=2.0.3"
     ],
     "hackerone.com/reports/321686": [
       "<2.1.0"
@@ -704,6 +704,9 @@
     ],
     "SNYK-JS-JSYAML-174129": [
       "<3.13.1"
+    ],
+    "SNYK-JS-JSYAML-173999": [
+      ">=3.0.0,<3.13.0"
     ]
   },
   "jsesc": {},
@@ -1000,6 +1003,9 @@
   "nodemailer": {
     "CVE-2020-7769": [
       "<6.4.16"
+    ],
+    "CVE-2021-23400": [
+      "<6.6.1"
     ]
   },
   "normalize-package-data": {},
@@ -1016,6 +1022,9 @@
     "SNYK-JS-NPMREGISTRYFETCH-575432": [
       "<4.0.5",
       ">=5.0.0,<8.1.1"
+    ],
+    "github.com/npm/npm-registry-fetch/commit/18bf9b97fb1deecdba01ffb05580370846255c88": [
+      "<11.0.0"
     ]
   },
   "number-is-nan": {},
@@ -1239,12 +1248,18 @@
   "stringstream": {
     "CVE-2018-21270": [
       "<0.0.6"
+    ],
+    "npm:stringstream:20180511": [
+      "<0.0.6"
     ]
   },
   "strip-ansi": {},
   "strip-bom": {},
   "subtext": {
     "SNYK-JS-SUBTEXT-467257": [
+      "<=6.0.12"
+    ],
+    "www.npmjs.com/advisories/1168": [
       "<=6.0.12"
     ]
   },
@@ -1427,6 +1442,11 @@
     ],
     "npm:ws:20160920": [
       "<1.1.2"
+    ]
+  },
+  "xlsx": {
+    "CVE-2021-32014": [
+      "<=0.16.9"
     ]
   },
   "xmldom": {

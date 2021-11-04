@@ -115,6 +115,7 @@
     "url-parse": "1.4.7",
     "useragent": "2.3.0",
     "utils-extend": "1.0.8",
+    "xlsx": "0.15.5",
     "xmldom": "0.4.0",
     "xmlhttprequest-ssl": "1.5.4",
     "ws": "0.8.1",
