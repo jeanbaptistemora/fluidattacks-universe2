@@ -12108,7 +12108,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [CV
   118 |     ""xmldom"": ""0.4.0"",
       ^ Col 0
 "
-"
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [CVE-2021-32804],108,937,skims,011. Use of software with known vulnerabilities,Use of tar at version 2.2.1 with CVE-2021-32804 in skims/test/data/lib_path/f011/package.json,"
    98 |     ""semver-regex"": ""2.0.0"",
    99 |     ""serverless-offline"": ""3.3.0"",
@@ -12133,7 +12132,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [CV
   118 |     ""xmldom"": ""0.4.0"",
       ^ Col 0
 "
-
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [SNYK-JS-TAR-1536758],108,937,skims,011. Use of software with known vulnerabilities,Use of tar at version 2.2.1 with SNYK-JS-TAR-1536758 in skims/test/data/lib_path/f011/package.json,"
    98 |     ""semver-regex"": ""2.0.0"",
    99 |     ""serverless-offline"": ""3.3.0"",
