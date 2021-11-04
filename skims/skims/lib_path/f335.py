@@ -1,7 +1,12 @@
 from aioextensions import (
     in_process,
 )
+from aws.model import (
+    AWSS3Acl,
+    AWSS3Bucket,
+)
 from lib_path.common import (
+    EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
     get_vulnerabilities_from_aws_iterator_blocking,
     SHIELD,
@@ -12,10 +17,17 @@ from metaloaders.model import (
 from model import (
     core_model,
 )
+from parse_cfn.loader import (
+    load_templates,
+)
+from parse_cfn.structure import (
+    iter_s3_buckets as cfn_iter_s3_buckets,
+)
 from parse_hcl2.loader import (
     load as load_terraform,
 )
 from parse_hcl2.structure import (
+    get_attribute,
     iter_s3_buckets,
 )
 from parse_hcl2.tokens import (
@@ -58,6 +70,23 @@ def tfm_s3_not_private_access_iterate_vulnerabilities(
                 yield elem
 
 
+def _public_buckets_iterate_vulnerabilities(
+    buckets_iterator: Iterator[Union[AWSS3Bucket, Node]]
+) -> Iterator[Union[AWSS3Acl, Node]]:
+    for bucket in buckets_iterator:
+        if isinstance(bucket, Node):
+            if bucket.raw.get("AccessControl", "Private") == "PublicReadWrite":
+                yield bucket.inner["AccessControl"]
+        elif isinstance(bucket, AWSS3Bucket):
+            acl = get_attribute(body=bucket.data, key="acl")
+            if acl and acl.val == "public-read-write":
+                yield AWSS3Acl(
+                    data=acl.val,
+                    column=acl.column,
+                    line=acl.line,
+                )
+
+
 def _tfm_s3_not_private_access(
     content: str,
     path: str,
@@ -73,6 +102,40 @@ def _tfm_s3_not_private_access(
                 buckets_iterator=iter_s3_buckets(model=model)
             )
         ),
+    )
+
+
+def _cfn_public_buckets(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_aws_iterator_blocking(
+        content=content,
+        description_key="F335.title",
+        finding=core_model.FindingEnum.F335,
+        path=path,
+        statements_iterator=_public_buckets_iterate_vulnerabilities(
+            buckets_iterator=cfn_iter_s3_buckets(template=template)
+        ),
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_public_buckets(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    # cfn_nag F14 S3 Bucket should not have a public read-write acl
+    # cfn_nag W31 S3 Bucket likely should not have a public read acl
+    return await in_process(
+        _cfn_public_buckets,
+        content=content,
+        path=path,
+        template=template,
     )
 
 
@@ -110,4 +173,16 @@ async def analyze(
                 model=model,
             )
         )
+    if file_extension in EXTENSIONS_CLOUDFORMATION:
+        content = await content_generator()
+        async for template in load_templates(
+            content=content, fmt=file_extension
+        ):
+            coroutines.append(
+                cfn_public_buckets(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
     return coroutines

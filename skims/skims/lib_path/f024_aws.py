@@ -1,10 +1,6 @@
 from aioextensions import (
     in_process,
 )
-from aws.model import (
-    AWSS3Acl,
-    AWSS3Bucket,
-)
 from contextlib import (
     suppress,
 )
@@ -31,10 +27,6 @@ from parse_cfn.structure import (
     iter_ec2_ingress_egress,
     iter_ec2_instances,
     iter_ec2_security_groups,
-    iter_s3_buckets,
-)
-from parse_hcl2.structure import (
-    get_attribute,
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -99,23 +91,6 @@ def _groups_without_egress_iter_vulnerabilities(
     )
 
 
-def _public_buckets_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Union[AWSS3Bucket, Node]]
-) -> Iterator[Union[AWSS3Acl, Node]]:
-    for bucket in buckets_iterator:
-        if isinstance(bucket, Node):
-            if bucket.raw.get("AccessControl", "Private") == "PublicReadWrite":
-                yield bucket.inner["AccessControl"]
-        elif isinstance(bucket, AWSS3Bucket):
-            acl = get_attribute(body=bucket.data, key="acl")
-            if acl and acl.val == "public-read-write":
-                yield AWSS3Acl(
-                    data=acl.val,
-                    column=acl.column,
-                    line=acl.line,
-                )
-
-
 def _cfn_instances_without_profile(
     content: str,
     path: str,
@@ -128,22 +103,6 @@ def _cfn_instances_without_profile(
         path=path,
         statements_iterator=_instances_without_role_iter_vulns(
             instaces_iterator=iter_ec2_instances(template=template)
-        ),
-    )
-
-
-def _cfn_public_buckets(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f024_aws.public_buckets",
-        finding=core_model.FindingEnum.F024,
-        path=path,
-        statements_iterator=_public_buckets_iterate_vulnerabilities(
-            buckets_iterator=iter_s3_buckets(template=template)
         ),
     )
 
@@ -344,24 +303,6 @@ async def cfn_groups_without_egress(
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
-async def cfn_public_buckets(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    # cfn_nag F14 S3 Bucket should not have a public read-write acl
-    # cfn_nag W31 S3 Bucket likely should not have a public read acl
-    return await in_process(
-        _cfn_public_buckets,
-        content=content,
-        path=path,
-        template=template,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
 async def cfn_instances_without_profile(
     content: str,
     path: str,
@@ -462,13 +403,6 @@ async def analyze(
         async for template in load_templates(
             content=content, fmt=file_extension
         ):
-            coroutines.append(
-                cfn_public_buckets(
-                    content=content,
-                    path=path,
-                    template=template,
-                )
-            )
             coroutines.append(
                 cfn_instances_without_profile(
                     content=content,

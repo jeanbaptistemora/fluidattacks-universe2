@@ -237,143 +237,6 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   21 |           }
      ^ Col 0
 "
-F024,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,10,16,skims,024. Unrestricted access between network segments - AWS,S3 buckets are publicly accessible for read or write operations.,"
-   1 | Resources:
-   2 |   S3Bucket1:
-   3 |     Type: AWS::S3::Bucket
-   4 |     Properties:
-   5 |       AccessControl: bucket1
-   6 |       BucketName: bk1
-   7 |   S3Bucket2:
-   8 |     Type: AWS::S3::Bucket
-   9 |     Properties:
-> 10 |       AccessControl: PublicReadWrite
-  11 |       BucketName: bucket2
-  12 |       LoggingConfiguration:
-  13 |         DestinationBucketName: bucket_destination
-  14 |         LogFilePrefix: log_prefix
-     ^ Col 0
-"
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,6,16,skims,024. Unrestricted access between network segments - AWS,S3 buckets are publicly accessible for read or write operations.,"
-   1 | Resources:
-   2 |   S3Bucket:
-   3 |     Type: AWS::S3::Bucket
-   4 |     DeletionPolicy: Retain
-   5 |     Properties:
->  6 |       AccessControl: PublicReadWrite
-   7 |       BucketName: SKIMS-PUBLIC-BUCKET
-   8 |       BucketEncryption:
-   9 |         ServerSideEncryptionConfiguration:
-  10 |           - ServerSideEncryptionByDefault:
-  11 |               SSEAlgorithm: aws:kms
-  12 |               KMSMasterKeyID: KMS-KEY-ARN
-  13 |   S3Bucket1:
-  14 |     Type: AWS::S3::Bucket
-  15 |     Properties:
-  16 |       AccessControl: PublicReadWrite
-  17 |       BucketName: SKIMS-PUBLIC-BUCKET-2
-  18 |       BucketEncryption:
-  19 |         ServerSideEncryptionConfiguration:
-  20 |           - ServerSideEncryptionByDefault:
-  21 |               SSEAlgorithm: aws:kms
-     ^ Col 0
-"
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,7,16,skims,024. Unrestricted access between network segments - AWS,S3 buckets are publicly accessible for read or write operations.,"
-   1 | {
-   2 |   ""Resources"": {
-   3 |     ""S3Bucket"": {
-   4 |       ""Type"": ""AWS::S3::Bucket"",
-   5 |       ""DeletionPolicy"": ""Retain"",
-   6 |       ""Properties"": {
->  7 |         ""AccessControl"": ""PublicReadWrite"",
-   8 |         ""BucketName"": ""SKIMS-PUBLIC-BUCKET"",
-   9 |         ""BucketEncryption"": {
-  10 |           ""ServerSideEncryptionConfiguration"": [
-  11 |             {
-  12 |               ""ServerSideEncryptionByDefault"": {
-  13 |                 ""SSEAlgorithm"": ""aws:kms"",
-  14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
-  15 |               }
-  16 |             }
-  17 |           ]
-  18 |         }
-  19 |       }
-  20 |     },
-  21 |     ""S3Bucket1"": {
-     ^ Col 0
-"
-F024,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,13,16,skims,024. Unrestricted access between network segments - AWS,S3 buckets are publicly accessible for read or write operations.,"
-   2 |   ""Resources"": {
-   3 |     ""S3Bucket1"": {
-   4 |       ""Type"": ""AWS::S3::Bucket"",
-   5 |       ""Properties"": {
-   6 |         ""AccessControl"": ""bucket1"",
-   7 |         ""BucketName"": ""bk1""
-   8 |       }
-   9 |     },
-  10 |     ""S3Bucket2"": {
-  11 |       ""Type"": ""AWS::S3::Bucket"",
-  12 |       ""Properties"": {
-> 13 |         ""AccessControl"": ""PublicReadWrite"",
-  14 |         ""BucketName"": ""bucket2"",
-  15 |         ""LoggingConfiguration"": {
-  16 |           ""DestinationBucketName"": ""bucket_destination"",
-  17 |           ""LogFilePrefix"": ""log_prefix""
-  18 |         }
-  19 |       }
-  20 |     }
-  21 |   }
-  22 | }
-     ^ Col 0
-"
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,16,16,skims,024. Unrestricted access between network segments - AWS,S3 buckets are publicly accessible for read or write operations.,"
-   6 |       AccessControl: PublicReadWrite
-   7 |       BucketName: SKIMS-PUBLIC-BUCKET
-   8 |       BucketEncryption:
-   9 |         ServerSideEncryptionConfiguration:
-  10 |           - ServerSideEncryptionByDefault:
-  11 |               SSEAlgorithm: aws:kms
-  12 |               KMSMasterKeyID: KMS-KEY-ARN
-  13 |   S3Bucket1:
-  14 |     Type: AWS::S3::Bucket
-  15 |     Properties:
-> 16 |       AccessControl: PublicReadWrite
-  17 |       BucketName: SKIMS-PUBLIC-BUCKET-2
-  18 |       BucketEncryption:
-  19 |         ServerSideEncryptionConfiguration:
-  20 |           - ServerSideEncryptionByDefault:
-  21 |               SSEAlgorithm: aws:kms
-  22 |               KMSMasterKeyID: KMS-KEY-ARN
-  23 |     DeletionPolicy: Delete
-  24 |   PrivateS3Bucket:
-  25 |     Type: AWS::S3::Bucket
-  26 |     Properties:
-     ^ Col 0
-"
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,24,16,skims,024. Unrestricted access between network segments - AWS,S3 buckets are publicly accessible for read or write operations.,"
-  14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
-  15 |               }
-  16 |             }
-  17 |           ]
-  18 |         }
-  19 |       }
-  20 |     },
-  21 |     ""S3Bucket1"": {
-  22 |       ""Type"": ""AWS::S3::Bucket"",
-  23 |       ""Properties"": {
-> 24 |         ""AccessControl"": ""PublicReadWrite"",
-  25 |         ""BucketName"": ""SKIMS-PUBLIC-BUCKET-2"",
-  26 |         ""BucketEncryption"": {
-  27 |           ""ServerSideEncryptionConfiguration"": [
-  28 |             {
-  29 |               ""ServerSideEncryptionByDefault"": {
-  30 |                 ""SSEAlgorithm"": ""aws:kms"",
-  31 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
-  32 |               }
-  33 |             }
-  34 |           ]
-     ^ Col 0
-"
 F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,9,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone.
 ","
    1 | Resources:
@@ -7806,6 +7669,49 @@ F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Ser
   21 | }
      ^ Col 0
 "
+F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,10,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+","
+   1 | Resources:
+   2 |   S3Bucket1:
+   3 |     Type: AWS::S3::Bucket
+   4 |     Properties:
+   5 |       AccessControl: bucket1
+   6 |       BucketName: bk1
+   7 |   S3Bucket2:
+   8 |     Type: AWS::S3::Bucket
+   9 |     Properties:
+> 10 |       AccessControl: PublicReadWrite
+  11 |       BucketName: bucket2
+  12 |       LoggingConfiguration:
+  13 |         DestinationBucketName: bucket_destination
+  14 |         LogFilePrefix: log_prefix
+     ^ Col 0
+"
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,6,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+","
+   1 | Resources:
+   2 |   S3Bucket:
+   3 |     Type: AWS::S3::Bucket
+   4 |     DeletionPolicy: Retain
+   5 |     Properties:
+>  6 |       AccessControl: PublicReadWrite
+   7 |       BucketName: SKIMS-PUBLIC-BUCKET
+   8 |       BucketEncryption:
+   9 |         ServerSideEncryptionConfiguration:
+  10 |           - ServerSideEncryptionByDefault:
+  11 |               SSEAlgorithm: aws:kms
+  12 |               KMSMasterKeyID: KMS-KEY-ARN
+  13 |   S3Bucket1:
+  14 |     Type: AWS::S3::Bucket
+  15 |     Properties:
+  16 |       AccessControl: PublicReadWrite
+  17 |       BucketName: SKIMS-PUBLIC-BUCKET-2
+  18 |       BucketEncryption:
+  19 |         ServerSideEncryptionConfiguration:
+  20 |           - ServerSideEncryptionByDefault:
+  21 |               SSEAlgorithm: aws:kms
+     ^ Col 0
+"
 F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,3,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
 ","
    1 | resource ""aws_s3_bucket"" ""example"" {
@@ -7856,6 +7762,56 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,3,
   21 |
      ^ Col 0
 "
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,7,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+","
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""DeletionPolicy"": ""Retain"",
+   6 |       ""Properties"": {
+>  7 |         ""AccessControl"": ""PublicReadWrite"",
+   8 |         ""BucketName"": ""SKIMS-PUBLIC-BUCKET"",
+   9 |         ""BucketEncryption"": {
+  10 |           ""ServerSideEncryptionConfiguration"": [
+  11 |             {
+  12 |               ""ServerSideEncryptionByDefault"": {
+  13 |                 ""SSEAlgorithm"": ""aws:kms"",
+  14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  15 |               }
+  16 |             }
+  17 |           ]
+  18 |         }
+  19 |       }
+  20 |     },
+  21 |     ""S3Bucket1"": {
+     ^ Col 0
+"
+F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,13,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+","
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket1"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""Properties"": {
+   6 |         ""AccessControl"": ""bucket1"",
+   7 |         ""BucketName"": ""bk1""
+   8 |       }
+   9 |     },
+  10 |     ""S3Bucket2"": {
+  11 |       ""Type"": ""AWS::S3::Bucket"",
+  12 |       ""Properties"": {
+> 13 |         ""AccessControl"": ""PublicReadWrite"",
+  14 |         ""BucketName"": ""bucket2"",
+  15 |         ""LoggingConfiguration"": {
+  16 |           ""DestinationBucketName"": ""bucket_destination"",
+  17 |           ""LogFilePrefix"": ""log_prefix""
+  18 |         }
+  19 |       }
+  20 |     }
+  21 |   }
+  22 | }
+     ^ Col 0
+"
 F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,16,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
 ","
    2 |   bucket = ""s3-website-test.hashicorp.com""
@@ -7879,6 +7835,56 @@ F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,16,922,skims,335. 
   20 |     target_prefix = ""log/""
   21 |   }
   22 | }
+     ^ Col 0
+"
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,16,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+","
+   6 |       AccessControl: PublicReadWrite
+   7 |       BucketName: SKIMS-PUBLIC-BUCKET
+   8 |       BucketEncryption:
+   9 |         ServerSideEncryptionConfiguration:
+  10 |           - ServerSideEncryptionByDefault:
+  11 |               SSEAlgorithm: aws:kms
+  12 |               KMSMasterKeyID: KMS-KEY-ARN
+  13 |   S3Bucket1:
+  14 |     Type: AWS::S3::Bucket
+  15 |     Properties:
+> 16 |       AccessControl: PublicReadWrite
+  17 |       BucketName: SKIMS-PUBLIC-BUCKET-2
+  18 |       BucketEncryption:
+  19 |         ServerSideEncryptionConfiguration:
+  20 |           - ServerSideEncryptionByDefault:
+  21 |               SSEAlgorithm: aws:kms
+  22 |               KMSMasterKeyID: KMS-KEY-ARN
+  23 |     DeletionPolicy: Delete
+  24 |   PrivateS3Bucket:
+  25 |     Type: AWS::S3::Bucket
+  26 |     Properties:
+     ^ Col 0
+"
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,24,922,skims,335. Insecure service configuration - S3,"Insecure service configuration - S3
+","
+  14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  15 |               }
+  16 |             }
+  17 |           ]
+  18 |         }
+  19 |       }
+  20 |     },
+  21 |     ""S3Bucket1"": {
+  22 |       ""Type"": ""AWS::S3::Bucket"",
+  23 |       ""Properties"": {
+> 24 |         ""AccessControl"": ""PublicReadWrite"",
+  25 |         ""BucketName"": ""SKIMS-PUBLIC-BUCKET-2"",
+  26 |         ""BucketEncryption"": {
+  27 |           ""ServerSideEncryptionConfiguration"": [
+  28 |             {
+  29 |               ""ServerSideEncryptionByDefault"": {
+  30 |                 ""SSEAlgorithm"": ""aws:kms"",
+  31 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  32 |               }
+  33 |             }
+  34 |           ]
      ^ Col 0
 "
 F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,6,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in skims/test/data/lib_path/f085/react.jsx,"
