@@ -2,6 +2,7 @@ from model.graph_model import (
     Graph,
 )
 from symbolic_eval.search.cases import (
+    if_statement,
     method_declaration,
     parameter,
     parameter_list,
@@ -18,6 +19,7 @@ from typing import (
 )
 
 SEARCHERS: Dict[str, Searcher] = {
+    "If": if_statement.search,
     "MethodDeclaration": method_declaration.search,
     "Parameter": parameter.search,
     "ParameterList": parameter_list.search,
