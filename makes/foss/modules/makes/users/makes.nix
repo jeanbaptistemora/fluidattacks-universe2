@@ -25,6 +25,7 @@
   secretsForTerraformFromEnv = {
     makesUsers = {
       gitlab_token = "PRODUCT_API_TOKEN";
+      gitlab_token_services = "SERVICES_API_TOKEN";
       region = "AWS_DEFAULT_REGION";
     };
   };

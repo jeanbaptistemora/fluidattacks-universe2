@@ -44,3 +44,13 @@ module "publish_credentials" {
   prefix       = "DEV"
   protected    = false
 }
+
+module "publish_credentials_services" {
+  source       = "../../modules/publish_credentials"
+  gitlab_token = var.gitlab_token_services
+  key_1        = module.aws.keys.1
+  key_2        = module.aws.keys.2
+  prefix       = "INTEGRATES_DEV"
+  project_id   = "4603023"
+  protected    = false
+}
