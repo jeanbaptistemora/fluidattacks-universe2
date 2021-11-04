@@ -22,6 +22,11 @@ def clone_services_repository(path: str) -> None:
     )
 
 
-def get_last_hash(repo: Repo, filename: str) -> str:
+def get_last_file_hash(repo: Repo, filename: str) -> str:
     """Get last hash of a file in the repo"""
     return repo.git.log("--max-count", "1", "--format=%H", "--", filename)
+
+
+def get_last_file_date(repo: Repo, filename: str) -> str:
+    """Get last modified date of a file in the repo"""
+    return repo.git.log("--max-count", "1", "--format=%cI", "--", filename)
