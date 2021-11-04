@@ -1,3 +1,7 @@
+from aioextensions import (
+    collect,
+    in_thread,
+)
 import aiofiles  # type: ignore
 import asyncio
 from batch.types import (
@@ -6,11 +10,28 @@ from batch.types import (
 from context import (
     FI_TOE_LINES_RULES,
 )
+from git.exc import (
+    InvalidGitRepositoryError,
+)
+from git.repo.base import (
+    Repo,
+)
+import logging
+import logging.config
 import os
+from settings import (
+    LOGGING,
+)
 import tempfile
 from typing import (
     Set,
 )
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
+
 
 CLOC_ENV = os.environ.copy()
 CLOC_ENV["LC_ALL"] = "C"
@@ -31,14 +52,69 @@ async def apply_git_config(repo_path: str) -> None:
     )
 
 
-async def get_ignored_files(repo_path: str) -> Set[str]:
+async def get_present_filenames(
+    group_name: str, group_path: str, repo_nickname: str
+) -> Set[str]:
+    try:
+        repo = Repo(repo_nickname)
+    except InvalidGitRepositoryError:
+        LOGGER.info(
+            "Invalid repository",
+            extra={
+                "extra": {
+                    "group_name": group_name,
+                    "repository": repo_nickname,
+                }
+            },
+        )
+        return set()
+    trees = repo.head.commit.tree.traverse()
+    ignored_files = await get_ignored_files(group_path, repo_nickname)
+    included_head_filenames = tuple(
+        tree.path
+        for tree in trees
+        if tree.type == "blob" and tree.path not in ignored_files
+    )
+
+    file_exists = await collect(
+        in_thread(os.path.exists, f"{repo_nickname}/{filenames}")
+        for filenames in included_head_filenames
+    )
+
+    file_islink = await collect(
+        in_thread(os.path.islink, f"{repo_nickname}/{filenames}")
+        for filenames in included_head_filenames
+    )
+
+    return {
+        filename
+        for filename, exists, islink in zip(
+            included_head_filenames, file_exists, file_islink
+        )
+        if exists and not islink
+    }
+
+
+async def get_ignored_files(group_path: str, repo_nickname: str) -> Set[str]:
+    ignored_filename = f"{group_path}/{repo_nickname}_ignored.txt"
     ignored_files = set()
     call_cloc = ["cloc", CLOC_FORCE_LANG_DEF, CLOC_EXCLUDE_LANG]
-    call_cloc += [repo_path, "--ignored", "ignored.txt", "--timeout", "900"]
+    call_cloc += [
+        repo_nickname,
+        "--ignored",
+        ignored_filename,
+        "--timeout",
+        "900",
+    ]
     await asyncio.create_subprocess_exec(*call_cloc, env=CLOC_ENV)
-    async with aiofiles.open("ignored.txt", "r", encoding="utf8") as outfile:
+    repo_nickname_len = len(repo_nickname) + 1
+    async with aiofiles.open(
+        ignored_filename, "r", encoding="utf8"
+    ) as outfile:
         lines = await outfile.readlines()
-        ignored_files = {line.split(":  ")[0] for line in lines}
+        ignored_files = {
+            line.split(":  ")[0][repo_nickname_len:] for line in lines
+        }
 
     return ignored_files
 
