@@ -304,6 +304,9 @@
   "diff": {
     "npm:diff:20180305": [
       ">=3.0.0 <3.5.0"
+    ],
+    "github.com/kpdecker/jsdiff/commit/2aec4298639bf30fb88a00b356bf404d3551b8c0": [
+      "<5.0.0"
     ]
   },
   "dijit": {
@@ -598,6 +601,9 @@
     ],
     "https://github.com/TooTallNate/node-https-proxy-agent/issues/78": [
       "<2.2.3"
+    ],
+    "npm:https-proxy-agent:20180402": [
+      "<2.2.0"
     ]
   },
   "https-signature": {
@@ -1277,6 +1283,9 @@
       "<=6.0.12"
     ],
     "www.npmjs.com/advisories/1168": [
+      "<=6.0.12"
+    ],
+    "www.npmjs.com/advisories/1479": [
       "<=6.0.12"
     ]
   },
