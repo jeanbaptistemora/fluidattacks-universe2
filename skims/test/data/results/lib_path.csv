@@ -8016,6 +8016,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (adm-zip v0.4.11
    21 |     ""csv-parse"": ""1.3.3"",
       ^ Col 0
 "
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (adm-zip v0.4.11) [github.com/cthackers/adm-zip/commit/119dcad6599adccc77982feb14a0c7440fa63013],5,937,skims,011. Use of software with known vulnerabilities,Use of adm-zip at version 0.4.11 with github.com/cthackers/adm-zip/commit/119dcad6599adccc77982feb14a0c7440fa63013 in skims/test/data/lib_path/f011/package.json,"
+    1 | {
+    2 |   ""dependencies"": {
+    3 |     ""@angular/core"": ""11.0.4"",
+    4 |     ""acorn"": ""7.1.0"",
+>   5 |     ""adm-zip"": ""0.4.11"",
+    6 |     ""angular"": ""1.6.5"",
+    7 |     ""ansi-html"": ""0.0.7"",
+    8 |     ""ansi-regex"": ""5.0.0"",
+    9 |     ""ammo"": ""2.0.4"",
+   10 |     ""apexcharts"": ""3.17.0"",
+   11 |     ""axios"": ""0.18.0"",
+   12 |     ""aws-sdk"": ""2.813.0"",
+   13 |     ""bcrypt"": ""3.0.8"",
+   14 |     ""browserslist"": ""4.12.0"",
+   15 |     ""class-validator"": ""0.10.2"",
+   16 |     ""chart"": ""2.9.3"",
+   17 |     ""cookies"": ""0.4.0"",
+   18 |     ""color-string"": ""1.1.4"",
+   19 |     ""connect"": ""2.8.0"",
+   20 |     ""css-what"": ""3.4.2"",
+   21 |     ""csv-parse"": ""1.3.3"",
+      ^ Col 0
+"
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ammo v2.0.4) [www.npmjs.com/advisories/1472],9,937,skims,011. Use of software with known vulnerabilities,Use of ammo at version 2.0.4 with www.npmjs.com/advisories/1472 in skims/test/data/lib_path/f011/package.json,"
     1 | {
     2 |   ""dependencies"": {
@@ -9054,6 +9078,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (flat v2.0.0) [S
    48 |     ""http-auth"": ""3.1.3"",
       ^ Col 0
 "
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (flat v2.0.0) [github.com/hughsk/flat/issues/105],38,937,skims,011. Use of software with known vulnerabilities,Use of flat at version 2.0.0 with github.com/hughsk/flat/issues/105 in skims/test/data/lib_path/f011/package.json,"
+   28 |     ""dijit"": ""1.13.0"",
+   29 |     ""dns-packet"": ""1.3.1"",
+   30 |     ""dojo"": ""1.13.0"",
+   31 |     ""dojox"": ""1.6.5"",
+   32 |     ""dot-prop"": ""5.0.0"",
+   33 |     ""hot-object"": ""1.7.0"",
+   34 |     ""ejs"": ""2.6.1"",
+   35 |     ""engine.io"": ""3.4.2"",
+   36 |     ""eslint-utils"": ""1.4.0"",
+   37 |     ""express"": ""2.5.11"",
+>  38 |     ""flat"": ""2.0.0"",
+   39 |     ""fresh"": ""xxxxwhasdflaskdjfasdf"",
+   40 |     ""fstream"": ""1.0.11"",
+   41 |     ""glob-parent"": ""5.1.1"",
+   42 |     ""growl"": ""1.0.2"",
+   43 |     ""hapi"": ""16.7.0"",
+   44 |     ""hawk"": ""2.3.1"",
+   45 |     ""hoek"": ""^5.0.0"",
+   46 |     ""hosted-git-info"": ""2.8.5"",
+   47 |     ""html-parse-stringify"": ""2.0.0"",
+   48 |     ""http-auth"": ""3.1.3"",
+      ^ Col 0
+"
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (fstream v1.0.11) [CVE-2019-13173],40,937,skims,011. Use of software with known vulnerabilities,Use of fstream at version 1.0.11 with CVE-2019-13173 in skims/test/data/lib_path/f011/package.json,"
    30 |     ""dojo"": ""1.13.0"",
    31 |     ""dojox"": ""1.6.5"",
@@ -9997,6 +10045,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jsrsasign v8.0.
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jsrsasign v8.0.0) [CVE-2021-30246],72,937,skims,011. Use of software with known vulnerabilities,Use of jsrsasign at version 8.0.0 with CVE-2021-30246 in skims/test/data/lib_path/f011/package.json,"
+   62 |     ""openssl"": ""1.1.1"",
+   63 |     ""path-parse"": ""1.0.6"",
+   64 |     ""pathval"": ""1.1.0"",
+   65 |     ""qs"": ""0.4.2"",
+   66 |     ""jasmine-core"": ""2.99.1"",
+   67 |     ""jquery"": ""0.*"",
+   68 |     ""jquery-validation"": ""1.17.0"",
+   69 |     ""js-yaml"": ""3.13.0"",
+   70 |     ""jsonpointer"": ""4.9.0"",
+   71 |     ""jspdf"": ""2.2.0"",
+>  72 |     ""jsrsasign"": ""8.0.0"",
+   73 |     ""jszip"": ""3.6.0"",
+   74 |     ""just-extend"": ""3.0.0"",
+   75 |     ""mem"": ""1.1.0"",
+   76 |     ""merge"": ""1.2.0"",
+   77 |     ""merge-deep"": ""3.0.2"",
+   78 |     ""mocha"": ""5.2.0"",
+   79 |     ""mongoose"": ""4.0.0"",
+   80 |     ""moment"": ""2.9.0"",
+   81 |     ""morgan"": ""1.9.0"",
+   82 |     ""mysql"": ""2.18.1"",
+      ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jsrsasign v8.0.0) [github.com/kjur/jsrsasign/issues/411],72,937,skims,011. Use of software with known vulnerabilities,Use of jsrsasign at version 8.0.0 with github.com/kjur/jsrsasign/issues/411 in skims/test/data/lib_path/f011/package.json,"
    62 |     ""openssl"": ""1.1.1"",
    63 |     ""path-parse"": ""1.0.6"",
    64 |     ""pathval"": ""1.1.0"",
@@ -12702,6 +12774,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ws v0.8.1) [npm
   120 |     ""xmldom"": ""0.4.0"",
   121 |     ""xmlhttprequest-ssl"": ""1.5.4"",
 > 122 |     ""ws"": ""0.8.1"",
+  123 |     ""y18n"": ""4.0.0"",
+  124 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  125 |   }
+  126 | }
+      ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xlsx v0.15.5) [CVE-2021-32012],119,937,skims,011. Use of software with known vulnerabilities,Use of xlsx at version 0.15.5 with CVE-2021-32012 in skims/test/data/lib_path/f011/package.json,"
+  106 |     ""stringstream"": ""0.0.5"",
+  107 |     ""subtext"": ""4.4.1"",
+  108 |     ""through"": ""2.3.6"",
+  109 |     ""tar"": ""2.2.1"",
+  110 |     ""trim"": ""1.0.1"",
+  111 |     ""trim-newlines"": ""1.0.0"",
+  112 |     ""tunnel-agent"": ""0.4.3"",
+  113 |     ""ua-parser"": ""0.7.20"",
+  114 |     ""uglify-js"": ""2.5.0"",
+  115 |     ""underscore"": ""1.12.0"",
+  116 |     ""url-parse"": ""1.4.7"",
+  117 |     ""useragent"": ""2.3.0"",
+  118 |     ""utils-extend"": ""1.0.8"",
+> 119 |     ""xlsx"": ""0.15.5"",
+  120 |     ""xmldom"": ""0.4.0"",
+  121 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  122 |     ""ws"": ""0.8.1"",
   123 |     ""y18n"": ""4.0.0"",
   124 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
   125 |   }
