@@ -8,6 +8,7 @@ from model.graph_model import (
 from symbolic_eval.cases import (
     argument_list,
     binary_operation,
+    element_access,
     literal,
     member_access,
     method_invocation,
@@ -29,6 +30,7 @@ from typing import (
 EVALUATORS: Dict[str, Evaluator] = {
     "ArgumentList": argument_list.evaluate,
     "BinaryOperation": binary_operation.evaluate,
+    "ElementAccess": element_access.evaluate,
     "Literal": literal.evaluate,
     "MethodInvocation": method_invocation.evaluate,
     "MemberAccess": member_access.evaluate,
