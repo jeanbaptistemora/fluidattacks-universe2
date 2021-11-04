@@ -2,6 +2,7 @@ from model.graph_model import (
     Graph,
 )
 from symbolic_eval.search.cases import (
+    method_declaration,
     variable_declaration,
 )
 from symbolic_eval.types import (
@@ -15,6 +16,7 @@ from typing import (
 )
 
 SEARCHERS: Dict[str, Searcher] = {
+    "MethodDeclaration": method_declaration.search,
     "VariableDeclaration": variable_declaration.search,
 }
 
