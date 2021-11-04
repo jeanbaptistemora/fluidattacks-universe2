@@ -128,6 +128,17 @@ def iter_s3_buckets(template: Node) -> Iterator[Node]:
     )
 
 
+def iter_s3_bucket_policies(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::S3::BucketPolicy",
+            exact=True,
+        )
+    )
+
+
 def iter_ec2_instances(template: Node) -> Iterator[Node]:
     yield from (
         props
