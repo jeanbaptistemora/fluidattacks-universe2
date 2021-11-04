@@ -4177,7 +4177,7 @@
       details: __empty__
 "070":
   en:
-    title: Free
+    title: Insecure service configuration - ELB
     description: >
       __empty__
     impact: >
@@ -4187,7 +4187,7 @@
     threat: >
       __empty__
   es:
-    title: Free
+    title: Insecure service configuration - ELB
     description: >
       __empty__
     impact: >
@@ -4211,7 +4211,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["158"]
+  requirements: ["266"]
   metadata:
     en:
       details: __empty__
@@ -15969,7 +15969,7 @@
       details: __empty__
 "335":
   en:
-    title: Insecure service configuration - S3
+    title: Insecure service configuration - Bucket
     description: >
       __empty__
     impact: >
@@ -15979,7 +15979,7 @@
     threat: >
       __empty__
   es:
-    title: Insecure service configuration - S3
+    title: Insecure service configuration - Bucket
     description: >
       __empty__
     impact: >
