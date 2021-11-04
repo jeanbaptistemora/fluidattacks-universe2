@@ -7,6 +7,7 @@ from .finding_vulns import (
 )
 from .finding_vulns_non_deleted import (
     FindingVulnsNonDeletedLoader,
+    FindingVulnsNonDeletedTypedLoader,
 )
 from .finding_vulns_non_zero_risk import (
     FindingVulnsNonZeroRiskLoader,
@@ -86,8 +87,9 @@ class Dataloaders(NamedTuple):
     finding_historic_state: FindingHistoricStateLoader
     finding_historic_verification: FindingHistoricVerificationLoader
     finding_vulns: FindingVulnsNonDeletedLoader  # All vulns except deleted
+    finding_vulns_typed: FindingVulnsNonDeletedTypedLoader  # Migration
     finding_vulns_all: FindingVulnsLoader  # All vulns
-    finding_vulns_all_typed: FindingVulnsTypedLoader
+    finding_vulns_all_typed: FindingVulnsTypedLoader  # Migration
     finding_vulns_nzr: FindingVulnsNonZeroRiskLoader
     finding_vulns_zr: FindingVulnsOnlyZeroRiskLoader
     group: GroupLoader
@@ -136,14 +138,21 @@ def get_new_context() -> Dataloaders:
     )
     vulnerability_loader = VulnerabilityLoader()
 
+    # Migration
+    finding_vulns_typed_loader = FindingVulnsTypedLoader()
+    finding_vulns_non_deleted_typed_loader = FindingVulnsNonDeletedTypedLoader(
+        finding_vulns_typed_loader
+    )
+
     return Dataloaders(
         event=EventLoader(),
         finding_historic_state=FindingHistoricStateLoader(),
         finding_historic_verification=(FindingHistoricVerificationLoader()),
         finding=FindingLoader(),
         finding_vulns=finding_vulns_non_deleted_loader,
+        finding_vulns_typed=finding_vulns_non_deleted_typed_loader,
         finding_vulns_all=finding_vulns_loader,
-        finding_vulns_all_typed=FindingVulnsTypedLoader(),
+        finding_vulns_all_typed=finding_vulns_typed_loader,
         finding_vulns_nzr=FindingVulnsNonZeroRiskLoader(
             finding_vulns_non_deleted_loader
         ),
