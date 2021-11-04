@@ -1,11 +1,11 @@
 { makeScript
-, inputs
+, outputs
 , ...
 }:
 makeScript {
   searchPaths = {
     source = [
-      (inputs.legacy.importUtility "gitlab")
+      (outputs."/utils/gitlab")
     ];
   };
   name = "observes-bin-update-project-variable";
