@@ -7,6 +7,7 @@ from aws.model import (
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
+    EXTENSIONS_TERRAFORM,
     get_line_by_extension,
     get_vulnerabilities_from_aws_iterator_blocking,
     SHIELD,
@@ -23,6 +24,14 @@ from parse_cfn.loader import (
 from parse_cfn.structure import (
     iter_cloudfront_distributions,
     iter_s3_buckets,
+)
+from parse_hcl2.loader import (
+    load as load_terraform,
+)
+from parse_hcl2.structure import (
+    get_argument,
+    iter_aws_elb,
+    iterate_block_attributes,
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -73,6 +82,36 @@ def _has_logging_disabled_iterate_vulnerabilities(
                 )
 
 
+def tfm_elb_logging_disabled_iterate_vulnerabilities(
+    buckets_iterator: Iterator[Any],
+) -> Iterator[Union[Any, Node]]:
+    for bucket in buckets_iterator:
+        if access_logs := get_argument(body=bucket.data, key="access_logs"):
+            for elem in iterate_block_attributes(access_logs):
+                if elem.key == "enabled" and elem.val is False:
+                    yield elem
+        else:
+            yield bucket
+
+
+def _tfm_elb_logging_disabled(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_aws_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f200.has_logging_disabled",
+        finding=core_model.FindingEnum.F200,
+        path=path,
+        statements_iterator=(
+            tfm_elb_logging_disabled_iterate_vulnerabilities(
+                buckets_iterator=iter_aws_elb(model=model)
+            )
+        ),
+    )
+
+
 def _cfn_has_logging_disabled(
     content: str,
     file_ext: str,
@@ -110,6 +149,22 @@ def _cfn_bucket_has_access_logging_disabled(
                 buckets_iterator=iter_s3_buckets(template=template),
             )
         ),
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_elb_logging_disabled(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_elb_logging_disabled,
+        content=content,
+        path=path,
+        model=model,
     )
 
 
@@ -178,5 +233,15 @@ async def analyze(
                     template=template,
                 )
             )
+    if file_extension in EXTENSIONS_TERRAFORM:
+        content = await content_generator()
+        model = await load_terraform(stream=content, default=[])
+        coroutines.append(
+            tfm_elb_logging_disabled(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
 
     return coroutines

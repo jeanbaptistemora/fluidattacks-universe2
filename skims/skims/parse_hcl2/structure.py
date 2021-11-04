@@ -280,7 +280,7 @@ def iter_aws_instance(model: Any) -> Iterator[Any]:
         )
 
 
-def elb(model: Any) -> Iterator[Any]:
+def iter_aws_elb(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_elb")
     for bucket in iterator:
         yield AWSElb(

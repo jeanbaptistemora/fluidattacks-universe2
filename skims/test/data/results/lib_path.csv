@@ -6675,6 +6675,30 @@ F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.y
   16 |     DeletionPolicy: Delete
      ^ Col 0
 "
+F200,lines,namespace/skims/test/data/lib_path/f200/elb_test.tf,9,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+   1 | resource ""aws_elb"" ""bar"" {
+   2 |   name               = ""foobar-terraform-elb""
+   3 |   availability_zones = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
+   4 |
+   5 |   access_logs {
+   6 |     bucket        = ""foo""
+   7 |     bucket_prefix = ""bar""
+   8 |     interval      = 60
+>  9 |     enabled       = false
+  10 |   }
+  11 |
+  12 |   listener {
+  13 |     instance_port      = 8000
+  14 |     instance_protocol  = ""http""
+  15 |     lb_port            = 443
+  16 |     lb_protocol        = ""https""
+  17 |     ssl_certificate_id = ""arn:aws:iam::123456789012:server-certificate/certName""
+  18 |   }
+  19 |
+  20 |   health_check {
+  21 |     healthy_threshold   = 2
+     ^ Col 0
+"
 F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,6,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
    1 | {
    2 |   ""Resources"": {
