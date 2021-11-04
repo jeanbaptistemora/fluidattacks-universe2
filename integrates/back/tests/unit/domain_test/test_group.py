@@ -1,4 +1,3 @@
-# pylint: disable=too-many-lines
 from back.tests.unit.utils import (
     create_dummy_session,
 )
@@ -490,12 +489,12 @@ async def test_get_reattackers() -> None:
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (None, Decimal("19")),
-        (30, Decimal("11")),
-        (90, Decimal("12")),
+        (None, Decimal("8")),
+        (30, Decimal("0")),
+        (90, Decimal("1")),
     ),
 )
-async def test_get_mean_remediate_severity_low(
+async def test_get_mean_remediate_severity_low_min_days(
     min_days: Optional[int], expected_output: Decimal
 ) -> None:
     loaders = get_new_context()
