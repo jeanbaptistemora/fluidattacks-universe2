@@ -642,16 +642,19 @@ async def list_vulnerabilities_async(
     return result
 
 
-async def mask_vuln(vuln: VulnerabilityType) -> bool:
-    historic_treatment: HistoricType = vuln["historic_treatment"]
-    for state in historic_treatment:
-        if "treatment_manager" in state:
-            state["treatment_manager"] = "Masked"
-        if "justification" in state:
-            state["justification"] = "Masked"
+async def mask_vuln(vuln: Vulnerability) -> bool:
+    items: List[VulnerabilityType] = await vulns_dal.get(vuln.id)
+    item: VulnerabilityType = items[0]
+    historic_treatment: Optional[HistoricType] = item.get("historic_treatment")
+    if historic_treatment:
+        for state in historic_treatment:
+            if "treatment_manager" in state:
+                state["treatment_manager"] = "Masked"
+            if "justification" in state:
+                state["justification"] = "Masked"
     return await vulns_dal.update(
-        vuln["finding_id"],
-        vuln["UUID"],
+        vuln.finding_id,
+        vuln.id,
         {
             "specific": "Masked",
             "where": "Masked",

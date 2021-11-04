@@ -48,6 +48,9 @@ from db_model.findings.types import (
     FindingState,
     FindingVerification,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from decimal import (
     Decimal,
 )
@@ -650,8 +653,8 @@ async def mask_finding(  # pylint: disable=too-many-locals
         for comment in comments_and_observations
     ]
     mask_finding_coroutines.extend(comments_coroutines)
-    finding_all_vulns_loader = loaders.finding_vulns_all
-    vulns: List[VulnerabilityType] = await finding_all_vulns_loader.load(
+    finding_all_vulns_loader = loaders.finding_vulns_all_typed
+    vulns: Tuple[Vulnerability, ...] = await finding_all_vulns_loader.load(
         finding.id
     )
     mask_vulns_coroutines = [vulns_domain.mask_vuln(vuln) for vuln in vulns]
