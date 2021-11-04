@@ -1047,9 +1047,6 @@ def exec_cloudformation_package(
             "rds.is_not_inside_a_db_subnet_group",
             "rds.is_publicly_accessible",
         ],
-        ("s3", "Simple Storage Service"): [
-            "s3.has_not_private_access_control",
-        ],
         ("secretsmanager", "Secrets Manager"): [
             "secretsmanager.insecure_generate_secret_string",
         ],
