@@ -1,17 +1,17 @@
 { inputs
 , makeTemplate
-, outputs
 , ...
 }:
 makeTemplate {
+  name = "utils-env";
   searchPaths = {
     bin = [
-      inputs.nixpkgs.awscli
+      inputs.nixpkgs.curl
+      inputs.nixpkgs.jq
     ];
     source = [
-      (outputs."/utils/env")
+      (inputs.legacy.importUtility "gitlab")
     ];
   };
-  name = "utils-bash-lib-aws";
   template = ./template.sh;
 }

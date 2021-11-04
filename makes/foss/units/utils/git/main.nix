@@ -1,5 +1,6 @@
 { inputs
 , makeTemplate
+, outputs
 , ...
 }:
 makeTemplate {
@@ -12,7 +13,7 @@ makeTemplate {
       inputs.nixpkgs.git
     ];
     source = [
-      (inputs.legacy.importUtility "env")
+      (outputs."/utils/env")
     ];
   };
   template = ./template.sh;

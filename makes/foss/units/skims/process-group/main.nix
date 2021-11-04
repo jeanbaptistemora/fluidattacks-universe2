@@ -17,7 +17,7 @@ makeScript {
     ];
     source = [
       (outputs."/utils/aws")
-      (inputs.legacy.importUtility "env")
+      (outputs."/utils/env")
       (outputs."/utils/git")
       (outputs."/utils/sops")
       (inputs.legacy.importUtility "time")
