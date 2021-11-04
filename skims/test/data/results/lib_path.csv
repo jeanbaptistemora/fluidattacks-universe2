@@ -12060,6 +12060,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (subtext v4.4.1)
   116 |     ""useragent"": ""2.3.0"",
       ^ Col 0
 "
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [CVE-2018-20834],108,937,skims,011. Use of software with known vulnerabilities,Use of tar at version 2.2.1 with CVE-2018-20834 in skims/test/data/lib_path/f011/package.json,"
+   98 |     ""semver-regex"": ""2.0.0"",
+   99 |     ""serverless-offline"": ""3.3.0"",
+  100 |     ""sheetjs"": ""0.16.9"",
+  101 |     ""socket.io"": ""2.3.0"",
+  102 |     ""socket.io-parser"": ""3.4.0"",
+  103 |     ""sshpk"": ""1.13.1"",
+  104 |     ""ssri"": ""6.0.1"",
+  105 |     ""stringstream"": ""0.0.5"",
+  106 |     ""subtext"": ""4.4.1"",
+  107 |     ""through"": ""2.3.6"",
+> 108 |     ""tar"": ""2.2.1"",
+  109 |     ""trim"": ""1.0.1"",
+  110 |     ""trim-newlines"": ""1.0.0"",
+  111 |     ""tunnel-agent"": ""0.4.3"",
+  112 |     ""ua-parser"": ""0.7.20"",
+  113 |     ""uglify-js"": ""2.5.0"",
+  114 |     ""underscore"": ""1.12.0"",
+  115 |     ""url-parse"": ""1.4.7"",
+  116 |     ""useragent"": ""2.3.0"",
+  117 |     ""utils-extend"": ""1.0.8"",
+  118 |     ""xmldom"": ""0.4.0"",
+      ^ Col 0
+"
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [CVE-2021-32803],108,937,skims,011. Use of software with known vulnerabilities,Use of tar at version 2.2.1 with CVE-2021-32803 in skims/test/data/lib_path/f011/package.json,"
    98 |     ""semver-regex"": ""2.0.0"",
    99 |     ""serverless-offline"": ""3.3.0"",
@@ -12083,6 +12107,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [CV
   117 |     ""utils-extend"": ""1.0.8"",
   118 |     ""xmldom"": ""0.4.0"",
       ^ Col 0
+"
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [CVE-2021-32804],108,937,skims,011. Use of software with known vulnerabilities,Use of tar at version 2.2.1 with CVE-2021-32804 in skims/test/data/lib_path/f011/package.json,"
    98 |     ""semver-regex"": ""2.0.0"",
@@ -12108,6 +12133,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [CV
   118 |     ""xmldom"": ""0.4.0"",
       ^ Col 0
 "
+
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [SNYK-JS-TAR-1536758],108,937,skims,011. Use of software with known vulnerabilities,Use of tar at version 2.2.1 with SNYK-JS-TAR-1536758 in skims/test/data/lib_path/f011/package.json,"
    98 |     ""semver-regex"": ""2.0.0"",
    99 |     ""serverless-offline"": ""3.3.0"",
