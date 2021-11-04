@@ -30,7 +30,16 @@ async def test_remove_stakeholder(
     result_stakeholder_query: Dict[
         str, Any
     ] = await get_result_stakeholder_query(
-        user=admin_email, stakeholder=email, group=group_name
+        user=admin_email, stakeholder=email, group_name=group_name
+    )
+    result_organization_stakeholder_query: Dict[
+        str, Any
+    ] = await get_result_stakeholder_query(
+        user=admin_email,
+        stakeholder=email,
+        group_name=group_name,
+        organization_id=organization_id,
+        entity="ORGANIZATION",
     )
 
     assert not result_me_query["data"]["me"]["remember"]
@@ -38,13 +47,20 @@ async def test_remove_stakeholder(
     assert result_stakeholder_query["data"]["stakeholder"]["email"] == email
     assert result_stakeholder_query["data"]["stakeholder"]["role"] == role
     assert (
+        len(
+            result_organization_stakeholder_query["data"]["stakeholder"][
+                "groups"
+            ]
+        )
+        == 1
+    )
+    assert (
         result_stakeholder_query["data"]["stakeholder"]["responsibility"] == ""
     )
 
     result: Dict[str, Any] = await get_result_mutation(
         user=email,
     )
-
     assert "errors" not in result
     assert result["data"]["removeStakeholder"]["success"]
 
@@ -52,13 +68,25 @@ async def test_remove_stakeholder(
         user=email, organization_id=organization_id
     )
     result_stakeholder_query = await get_result_stakeholder_query(
-        user=admin_email, stakeholder=email, group=group_name
+        user=admin_email, stakeholder=email, group_name=group_name
     )
-
     assert "errors" in result_me_query
     assert "errors" in result_stakeholder_query
     assert result_me_query["errors"][0]["message"] == "Access denied"
     assert (
         result_stakeholder_query["errors"][0]["message"]
+        == "Access denied or stakeholder not found"
+    )
+
+    result_organization_stakeholder_query = await get_result_stakeholder_query(
+        user=admin_email,
+        stakeholder=email,
+        group_name=group_name,
+        organization_id=organization_id,
+        entity="ORGANIZATION",
+    )
+    assert "errors" in result_organization_stakeholder_query
+    assert (
+        result_organization_stakeholder_query["errors"][0]["message"]
         == "Access denied or stakeholder not found"
     )

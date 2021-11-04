@@ -15,7 +15,7 @@ async def get_result_mutation(
     user: str,
 ) -> Dict[str, Any]:
     query: str = """
-        mutation {
+        mutation RemoveStakeholder {
             removeStakeholder {
                 success
             }
@@ -34,20 +34,24 @@ async def get_result_me_query(
     user: str,
     organization_id: str,
 ) -> Dict[str, Any]:
-    query: str = f"""
-        query {{
-            me(callerOrigin: "API") {{
+    query: str = """
+        query GetUser ($organizationId: String!, $callerOrigin: String!) {
+            me(callerOrigin: $callerOrigin) {
                 remember
                 role
-                tags(organizationId: "${organization_id}") {{
+                tags(organizationId: $organizationId) {
                     organization
-                }}
+                }
                 __typename
-            }}
-        }}
+            }
+        }
     """
-    data: Dict[str, str] = {
+    data: Dict[str, Any] = {
         "query": query,
+        "variables": {
+            "callerOrigin": "API",
+            "organizationId": organization_id,
+        },
     }
     return await get_graphql_result(
         data,
@@ -57,27 +61,46 @@ async def get_result_me_query(
 
 
 async def get_result_stakeholder_query(
-    *, user: str, stakeholder: str, group: str
+    *,
+    user: str,
+    stakeholder: str,
+    group_name: str = "",
+    organization_id: str = "",
+    entity: str = "GROUP",
 ) -> Dict[str, Any]:
-    query: str = f"""
-        query {{
-            stakeholder(entity: GROUP,
-                    groupName: "{group}",
-                    userEmail: "{stakeholder}") {{
+    query: str = """
+        query getGroupStakeholder (
+            $entity: StakeholderEntity!
+            $groupName: String
+            $organizationId: String
+            $userEmail: String!
+        ) {
+            stakeholder(
+                entity: $entity,
+                groupName: $groupName,
+                userEmail: $userEmail,
+                organizationId: $organizationId
+            ) {
                 email
                 role
                 responsibility
                 firstLogin
                 lastLogin
-                groups {{
+                groups {
                     name
-                }}
+                }
                 __typename
-            }}
-        }}
+            }
+        }
     """
-    data: Dict[str, str] = {
+    data: Dict[str, Any] = {
         "query": query,
+        "variables": {
+            "entity": entity,
+            "groupName": group_name,
+            "organizationId": organization_id,
+            "userEmail": stakeholder,
+        },
     }
     return await get_graphql_result(
         data,
