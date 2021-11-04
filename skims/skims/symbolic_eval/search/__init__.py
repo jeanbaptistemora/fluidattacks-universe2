@@ -1,6 +1,9 @@
 from model.graph_model import (
     Graph,
 )
+from symbolic_eval.search.cases import (
+    variable_declaration,
+)
 from symbolic_eval.types import (
     Path,
     Searcher,
@@ -11,7 +14,9 @@ from typing import (
     Optional,
 )
 
-SEARCHERS: Dict[str, Searcher] = {}
+SEARCHERS: Dict[str, Searcher] = {
+    "VariableDeclaration": variable_declaration.search,
+}
 
 
 def generic(args: SymbolicSearchArgs) -> Optional[str]:
