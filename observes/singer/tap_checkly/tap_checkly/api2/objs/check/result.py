@@ -4,7 +4,7 @@ from dataclasses import (
 from purity.v1 import (
     FrozenList,
 )
-from tap_checkly.api.objs.id_objs import (
+from tap_checkly.api2.objs.id_objs import (
     CheckId,
     IndexedObj,
 )

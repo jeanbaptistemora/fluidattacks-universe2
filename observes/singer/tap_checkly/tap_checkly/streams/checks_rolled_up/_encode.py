@@ -1,3 +1,6 @@
+from dataclasses import (
+    dataclass,
+)
 from purity.v1 import (
     FrozenDict,
     FrozenList,
@@ -7,14 +10,20 @@ from purity.v1 import (
 from singer_io.singer2 import (
     SingerRecord,
 )
-from tap_checkly.api.objs.check.result import (
+from tap_checkly.api2.objs.check.result import (
     RolledUpResultObj,
 )
 
 
+@dataclass(frozen=True)
+class _EncodedObj:
+    main: FrozenDict[str, Primitive]
+    times: FrozenList[FrozenDict[str, Primitive]]
+
+
 def encode(
     result: RolledUpResultObj,
-) -> FrozenList[FrozenDict[str, Primitive]]:
+) -> _EncodedObj:
     main: FrozenDict[str, Primitive] = FrozenDict(
         {
             "check_id": result.id_obj.id_str,
@@ -31,11 +40,17 @@ def encode(
         )
         for i, r in enumerate(result.obj.response_times)
     )
-    return (main,) + times
+    return _EncodedObj(main, times)
 
 
-def to_singer(stream: str, obj: RolledUpResultObj) -> FrozenList[SingerRecord]:
-    return tuple(
-        SingerRecord(stream, JsonFactory.from_prim_dict(dict(r)))
-        for r in encode(obj)
+def _to_singer(stream: str, obj: FrozenDict[str, Primitive]) -> SingerRecord:
+    return SingerRecord(stream, JsonFactory.from_prim_dict(dict(obj)))
+
+
+def to_singer(
+    main_stream: str, times_stream: str, obj: RolledUpResultObj
+) -> FrozenList[SingerRecord]:
+    encoded = encode(obj)
+    return (_to_singer(main_stream, encoded.main),) + tuple(
+        _to_singer(times_stream, r) for r in encoded.times
     )

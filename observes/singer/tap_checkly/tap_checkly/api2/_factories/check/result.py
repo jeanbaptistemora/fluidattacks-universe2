@@ -8,16 +8,16 @@ from purity.v1 import (
 from returns.io import (
     IO,
 )
-from tap_checkly.api.common.raw.client import (
-    Client,
-)
-from tap_checkly.api.objs.check.result import (
+from tap_checkly.api2.objs.check.result import (
     RolledUpResult,
     RolledUpResultObj,
 )
-from tap_checkly.api.objs.id_objs import (
+from tap_checkly.api2.objs.id_objs import (
     CheckId,
     IndexedObj,
+)
+from tap_checkly.api.common.raw.client import (
+    Client,
 )
 
 
@@ -34,7 +34,7 @@ def _to_rolled_up(raw: JsonObj) -> RolledUpResultObj:
     return IndexedObj(id_obj, obj)
 
 
-def list_check_results(
+def list_check_results_rolled(
     client: Client, check: CheckId, page: PageId
 ) -> IO[FrozenList[RolledUpResultObj]]:
     result = client.get(
