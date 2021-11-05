@@ -130,9 +130,9 @@ resource "aws_kms_key" "key-forces-dev" {
   enable_key_rotation     = true
 
   tags = {
-    "Name"               = "forces-development"
-    "management:type"    = "development"
-    "management:product" = "forces"
+    "Name"            = "forces-development"
+    "management:area" = "innovation"
+    "management:type" = "product"
   }
 }
 
