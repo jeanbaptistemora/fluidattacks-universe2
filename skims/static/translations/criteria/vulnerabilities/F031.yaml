@@ -1,3 +1,6 @@
+src.lib_path.f031.bucket_policy_allows_public_access:
+  en: S3 buckets allow unauthorized public access via bucket policies
+  es: Los buckets de S3 permiten el acceso público no autorizado a través de políticas del bucket
 src.lib_path.f031_aws.open_passrole:
   en: iam:PassRole with wildcard resource allows an elevation of privileges, {path}
   es: iam:PassRole con recurso no especifico permite una elevación de privilegios, {path}
