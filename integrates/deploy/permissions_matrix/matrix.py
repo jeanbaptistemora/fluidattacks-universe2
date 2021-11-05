@@ -1,5 +1,7 @@
 import authz
-from pandas import DataFrame  # pylint: disable=import-error
+from pandas import (
+    DataFrame,
+)
 from typing import (
     Dict,
     List,

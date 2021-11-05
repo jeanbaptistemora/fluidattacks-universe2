@@ -74,6 +74,7 @@ closure:
   oauth2client: 4.1.3
   oauthlib: 3.1.1
   packaging: "21.0"
+  pandas: 1.3.4
   pillow: 8.3.2
   pyasn1: 0.4.8
   pyasn1-modules: 0.2.8
@@ -765,6 +766,21 @@ links:
   - name: packaging-21.0.tar.gz
     sha256: 1rzvq94xyygpf5s7px23nc5xs1hi52j402b7q32wwk1symln5jbx
     url: https://files.pythonhosted.org/packages/df/86/aef78bab3afd461faecf9955a6501c4999933a48394e90f03cd512aad844/packaging-21.0.tar.gz
+  - name: pandas-1.3.4-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 1yddvd92vw412gfjxzvng4ki8wv21pkinir3hifvbrny0z7m0xyl
+    url: https://files.pythonhosted.org/packages/3b/52/d5475578dc252c13e0823b9a715c2e17002dcdaee9defba0d2b2659112df/pandas-1.3.4-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: pandas-1.3.4-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 1aqv5j6zs51sygf96p5rg8jzd6jzawdxcx258ykzmn0k02fc079d
+    url: https://files.pythonhosted.org/packages/31/29/1d4fa5419507150b3c68404970615c37e56f9b6855da73b182c3024414d0/pandas-1.3.4-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: pandas-1.3.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 1ad49g5an5gwrzw70ll8caqq60ynli15hg8chdpayyfv4wjhmq8h
+    url: https://files.pythonhosted.org/packages/48/b4/1081d66b71c4dfc1bc1e19d6f2abbf93ed42f69df7703eb323742d45423e/pandas-1.3.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: pandas-1.3.4-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+    sha256: 0hy1sb30c2b7samimpg8ma3irlvh3k0y1fj1v8bxbr6jmh4pdirm
+    url: https://files.pythonhosted.org/packages/4a/71/b78cb9d1d88f0177da9a6ca6548244d52540a22cf730492231287a5eb93f/pandas-1.3.4-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+  - name: pandas-1.3.4.tar.gz
+    sha256: 1z3gm521wpm3j13rwhlb4f2x0645zvxkgxij37i3imdpy39iiam2
+    url: https://files.pythonhosted.org/packages/58/58/b729eda34f78060e14cb430c91d4f7ba3cf1e34797976877a3a1125ea5b2/pandas-1.3.4.tar.gz
   - name: Pillow-8.3.2-cp39-cp39-macosx_10_10_x86_64.whl
     sha256: 1sf3v4mc3gi4bfyq4q1lshh96xx0xqrjn07xw71lp40jxxl5x0q4
     url: https://files.pythonhosted.org/packages/23/e6/15517f03a6b96c7beae6ba3875588d6ce50c12b4e09d184c7803baa7aad3/Pillow-8.3.2-cp39-cp39-macosx_10_10_x86_64.whl
