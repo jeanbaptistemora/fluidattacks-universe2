@@ -158,7 +158,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     },
                 ],
                 "historic_zero_risk": [
-                    {"date": "2018-09-28 10:32:58", "status": "REQUESTED"},
+                    {
+                        "comment_id": "123456",
+                        "date": "2018-09-28 10:32:58",
+                        "email": "requested@zr.com",
+                        "status": "REQUESTED",
+                    },
                 ],
                 "vuln_type": "ports",
                 # FP: local testing
@@ -183,7 +188,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     },
                 ],
                 "historic_zero_risk": [
-                    {"date": "2019-09-28 10:32:58", "status": "REQUESTED"},
+                    {
+                        "comment_id": "123456",
+                        "date": "2018-09-28 10:32:58",
+                        "email": "requested@zr.com",
+                        "status": "REQUESTED",
+                    },
                 ],
                 "vuln_type": "ports",
                 # FP: local testing
@@ -208,7 +218,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     },
                 ],
                 "historic_zero_risk": [
-                    {"date": "2020-09-28 10:32:58", "status": "REQUESTED"},
+                    {
+                        "comment_id": "123456",
+                        "date": "2018-09-28 10:32:58",
+                        "email": "requested@zr.com",
+                        "status": "REQUESTED",
+                    },
                 ],
                 "vuln_type": "ports",
                 # FP: local testing
@@ -233,7 +248,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     },
                 ],
                 "historic_zero_risk": [
-                    {"date": "2021-09-28 10:32:58", "status": "REQUESTED"},
+                    {
+                        "comment_id": "123456",
+                        "date": "2018-09-28 10:32:58",
+                        "email": "requested@zr.com",
+                        "status": "REQUESTED",
+                    },
                 ],
                 "vuln_type": "ports",
                 # FP: local testing
