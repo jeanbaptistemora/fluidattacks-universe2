@@ -2697,7 +2697,7 @@
       to modify the application's appearance
       in order to trick its users
       into performing undesired actions.
-    impact: __empty__
+    impact: Welcome mail
     recommendation: >
       Filter the information
       that comes from text fields
@@ -2715,7 +2715,7 @@
       engañando a las víctimas
       una vez consultada
       la funcionalidad afectada.
-    impact: __empty__
+    impact: Correo de bienvenida.
     recommendation: >
       Filtrar la información
       que venga de los campos de texto
@@ -2728,15 +2728,15 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["173"]
   metadata:
