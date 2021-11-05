@@ -924,7 +924,9 @@
       Una funcionalidad que es parte del sistema
       puede ser ejecutada por un atacante
       con el fin de impactarlo negativamente.
-    impact: __empty__
+    impact: >
+      Cambiar la contraseña una vez se haya
+      comprometido el código de seguridad.
     recommendation: __empty__
     threat: __empty__
   category: Abuse Functionality
