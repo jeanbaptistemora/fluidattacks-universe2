@@ -201,14 +201,14 @@ async def get_present_toe_lines_to_add(
 
 
 async def get_present_toe_lines_to_update(
-    preset_filenames: Set[str],
+    present_filenames: Set[str],
     repo: Repo,
     repo_nickname: str,
     repo_toe_lines: Dict[str, ToeLines],
 ) -> Tuple[Tuple[ToeLines, ToeLinesAttributesToUpdate], ...]:
     db_filenames = tuple(
         filename
-        for filename in preset_filenames
+        for filename in present_filenames
         if repo_toe_lines.get(filename)
     )
     last_locs = await collect(
@@ -259,6 +259,22 @@ async def get_present_toe_lines_to_update(
             repo_toe_lines[filename].modified_commit,
             repo_toe_lines[filename].modified_date,
         )
+    )
+
+
+def get_non_present_toe_lines_to_update(
+    present_filenames: Set[str],
+    repo_toe_lines: Dict[str, ToeLines],
+) -> Tuple[Tuple[ToeLines, ToeLinesAttributesToUpdate], ...]:
+    return tuple(
+        (
+            repo_toe_lines[db_filename],
+            ToeLinesAttributesToUpdate(
+                be_present=False,
+            ),
+        )
+        for db_filename in repo_toe_lines
+        if db_filename not in present_filenames
     )
 
 
