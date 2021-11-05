@@ -52,10 +52,7 @@
           outputs."/secretsForEnvFromSops/makesUsersIntegratesProd"
           outputs."/secretsForTerraformFromEnv/makesUsersIntegrates"
         ];
-        resources = [
-          "aws_iam_access_key.integrates-dev-key-1"
-          "aws_iam_access_key.integrates-prod-key-1"
-        ];
+        resources = [ "aws_iam_access_key.integrates-prod-key-1" ];
         reDeploy = true;
         src = "/makes/foss/modules/makes/users/integrates/infra";
         version = "1.0";
@@ -66,10 +63,7 @@
           outputs."/secretsForEnvFromSops/makesUsersIntegratesProd"
           outputs."/secretsForTerraformFromEnv/makesUsersIntegrates"
         ];
-        resources = [
-          "aws_iam_access_key.integrates-dev-key-2"
-          "aws_iam_access_key.integrates-prod-key-2"
-        ];
+        resources = [ "aws_iam_access_key.integrates-prod-key-2" ];
         reDeploy = true;
         src = "/makes/foss/modules/makes/users/integrates/infra";
         version = "1.0";
