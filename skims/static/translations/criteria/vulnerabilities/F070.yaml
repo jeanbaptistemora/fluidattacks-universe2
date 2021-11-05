@@ -1,47 +1,5 @@
-src.lib_path.f070_wildcard_import.wildcard_import:
-  en: Use of wildcard import
-  es: Uso del operator comodín para importar librerías
-F070.description:
+F070.title:
   en: >
-    When importing libraries
-    the wildcard operator (asterisk) is used
-    which imports
-    all the components of said library.
-    This is a bad practice
-    because components that are loaded
-    will not be used,
-    and you can get into naming conflicts
-    if two packages have components with the same name.
+    Insecure service configuration - ELB
   es: >
-    Al importar librerías
-    se hace uso del operador comodín (asterisco)
-    lo cual importa
-    la totalidad de componentes de dicha librería.
-    Esta es una mala práctica
-    debido a que se cargan componentes
-    que no serán utilizados,
-    y se puede entrar en conflictos de nomenclatura
-    si dos paquetes tienen componentes con el mismo nombre.
-F070.impact:
-  en: |
-    - Load functions and procedures that will not be used.
-    - Cause a suboptimal operation of the application.
-    - Cause naming conflicts in components with the same name.
-  es: |
-    - Cargar funciones y procedimientos que no serán utilizados.
-    - Ocasionar un funcionamiento subóptimo de la aplicación.
-    - Ocasionar conflictos de nomenclatura en componentes con el mismo nombre.
-F070.recommendation:
-  en: >
-    Explicitly import the libraries
-    and necessary packages
-    for the right functioning
-    of the application.
-  es: >
-    Importar explícitamente las librerías
-    y paquetes necesarios
-    para el correcto funcionamiento
-    de la aplicación.
-F070.threat:
-  en: Authorized attacker with access to the application.
-  es: Atacante autorizado con acceso a la aplicación.
+    Insecure service configuration - ELB

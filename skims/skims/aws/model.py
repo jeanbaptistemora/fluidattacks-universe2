@@ -70,3 +70,9 @@ class AWSElb(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSLbTargetGroup(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int
