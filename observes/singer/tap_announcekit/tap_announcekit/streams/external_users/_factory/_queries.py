@@ -13,7 +13,11 @@ from tap_announcekit.api.client import (
     QueryFactory,
 )
 from tap_announcekit.api.gql_schema import (
+    ExternalUser as RawExtUser,
     PageOfExternalUsers as RawExtUsersPage,
+)
+from tap_announcekit.objs.ext_user import (
+    ExternalUser,
 )
 from tap_announcekit.objs.id_objs import (
     ExtUserId,
@@ -59,6 +63,40 @@ class ExtUserIdsQuery:
             Transform(
                 lambda p: self._to_obj(
                     cast(RawExtUsersPage, p.externalUsers),
+                )
+            ),
+        )
+
+
+@dataclass(frozen=True)
+class ExtUserQuery:
+    _to_obj: Transform[RawExtUser, ExternalUser]
+    id_obj: ExtUserId
+
+    @staticmethod
+    def _select_page_fields(page_selection: Any) -> IO[None]:
+        props = ExternalUser.__annotations__.copy()
+        for attr in props:
+            getattr(page_selection, attr)()
+        return IO(None)
+
+    def _select_fields(self, operation: Operation) -> IO[None]:
+        page_selection = operation.externalUser(
+            project_id=self.id_obj.proj.id_str,
+            external_user_id=self.id_obj.id_str,
+        )
+        self._select_page_fields(page_selection)
+        return IO(None)
+
+    @property
+    def query(
+        self,
+    ) -> Query[ExternalUser]:
+        return QueryFactory.select(
+            self._select_fields,
+            Transform(
+                lambda p: self._to_obj(
+                    cast(RawExtUsersPage, p.externalUser),
                 )
             ),
         )
