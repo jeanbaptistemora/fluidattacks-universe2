@@ -29,6 +29,9 @@ from returns.maybe import (
 from tap_announcekit.api.client import (
     ApiClient,
 )
+from tap_announcekit.objs.ext_user import (
+    ExternalUser,
+)
 from tap_announcekit.objs.id_objs import (
     ExtUserId,
     ProjectId,
@@ -75,3 +78,7 @@ class ExtUserFactory:
                 lambda i: i.map(lambda p: from_flist(p.items))
             )
         )
+
+    def get(self, user: ExtUserId) -> IO[ExternalUser]:
+        query = _queries.ExtUserQuery(Transform(_from_raw.to_user), user).query
+        return self._client.get(query)

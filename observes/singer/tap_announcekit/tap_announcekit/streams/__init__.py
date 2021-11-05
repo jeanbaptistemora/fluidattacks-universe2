@@ -1,3 +1,6 @@
+from tap_announcekit.streams.external_users import (
+    ExtUsersStream,
+)
 from tap_announcekit.streams.feedback import (
     FeedbackStreams,
 )
@@ -12,8 +15,9 @@ from tap_announcekit.streams.project import (
 )
 
 __all__ = [
+    "ExtUsersStream",
+    "FeedbackStreams",
     "PostStreams",
     "PostContentStreams",
     "ProjectStreams",
-    "FeedbackStreams",
 ]
