@@ -28,9 +28,9 @@ spec:
           command: [sh]
           args:
           - -c
-          - m f /integrates/back/deploy/probes/liveness;
-            m f /integrates/back/deploy/probes/readiness;
-            m f /integrates/back prod
+          - m f@${CI_COMMIT_SHA} /integrates/back/deploy/probes/liveness;
+            m f@${CI_COMMIT_SHA} /integrates/back/deploy/probes/readiness;
+            m f@${CI_COMMIT_SHA} /integrates/back prod
           env:
           - name: MAKES_K8S_COMPAT
             value: "1"

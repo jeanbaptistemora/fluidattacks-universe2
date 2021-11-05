@@ -24,9 +24,9 @@ spec:
           command: [sh]
           args:
           - -c
-          - m f@${CI_COMMIT_REF_NAME} /integrates/back/deploy/probes/liveness;
-            m f@${CI_COMMIT_REF_NAME} /integrates/back/deploy/probes/readiness;
-            m f@${CI_COMMIT_REF_NAME} /integrates/back eph
+          - m f@${CI_COMMIT_SHA} /integrates/back/deploy/probes/liveness;
+            m f@${CI_COMMIT_SHA} /integrates/back/deploy/probes/readiness;
+            m f@${CI_COMMIT_SHA} /integrates/back eph
           env:
             - name: MAKES_K8S_COMPAT
               value: "1"
@@ -78,7 +78,7 @@ spec:
           imagePullPolicy: Always
           command: [m]
           args:
-            - f@${CI_COMMIT_REF_NAME}
+            - f@${CI_COMMIT_SHA}
             - /integrates/db
           env:
             - name: MAKES_K8S_COMPAT
@@ -102,7 +102,7 @@ spec:
           imagePullPolicy: Always
           command: [m]
           args:
-            - f@${CI_COMMIT_REF_NAME}
+            - f@${CI_COMMIT_SHA}
             - /integrates/cache
           env:
             - name: MAKES_K8S_COMPAT
@@ -126,7 +126,7 @@ spec:
           imagePullPolicy: Always
           command: [m]
           args:
-            - f@${CI_COMMIT_REF_NAME}
+            - f@${CI_COMMIT_SHA}
             - /integrates/storage
           env:
             - name: MAKES_K8S_COMPAT
