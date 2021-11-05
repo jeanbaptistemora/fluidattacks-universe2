@@ -13,7 +13,7 @@ from tap_announcekit.api.client import (
     QueryFactory,
 )
 from tap_announcekit.api.gql_schema import (
-    PageOfFeedback as RawFeedbackPage,
+    PageOfExternalUsers as RawExtUsersPage,
 )
 from tap_announcekit.objs.id_objs import (
     ExtUserId,
@@ -30,7 +30,7 @@ from typing import (
 
 @dataclass(frozen=True)
 class ExtUserIdsQuery:
-    _to_obj: Transform[RawFeedbackPage, DataPage[ExtUserId]]
+    _to_obj: Transform[RawExtUsersPage, DataPage[ExtUserId]]
     proj: ProjectId
     page: int
 
@@ -58,7 +58,7 @@ class ExtUserIdsQuery:
             self._select_fields,
             Transform(
                 lambda p: self._to_obj(
-                    cast(RawFeedbackPage, p.externalUsers),
+                    cast(RawExtUsersPage, p.externalUsers),
                 )
             ),
         )
