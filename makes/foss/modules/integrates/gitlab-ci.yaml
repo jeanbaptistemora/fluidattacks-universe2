@@ -240,7 +240,7 @@
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs:
-    - /taintTerraform/makesUsersIntegratesKeys1
+    - /taintTerraform/makesUsersProdIntegratesKeys1
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never
@@ -262,7 +262,7 @@
   image: ghcr.io/fluidattacks/makes:21.11
   interruptible: true
   needs:
-    - /taintTerraform/makesUsersIntegratesKeys2
+    - /taintTerraform/makesUsersProdIntegratesKeys2
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never
