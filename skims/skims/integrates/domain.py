@@ -53,6 +53,8 @@ VulnStreamType = Dict[
 def _build_vulnerabilities_stream(
     results: core_model.Vulnerabilities,
 ) -> VulnStreamType:
+    commit_hash: str = get_repo_head_hash(CTX.config.working_dir)
+
     data: VulnStreamType = {
         core_model.VulnerabilityKindEnum.INPUTS: tuple(
             core_model.IntegratesVulnerabilitiesInputs(
@@ -68,7 +70,7 @@ def _build_vulnerabilities_stream(
         ),
         core_model.VulnerabilityKindEnum.LINES: tuple(
             core_model.IntegratesVulnerabilitiesLines(
-                commit_hash=get_repo_head_hash(result.what),
+                commit_hash=commit_hash,
                 line=result.where,
                 path=result.what_on_integrates,
                 repo_nickname=CTX.config.namespace,

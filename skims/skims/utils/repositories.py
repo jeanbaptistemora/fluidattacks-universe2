@@ -1,4 +1,3 @@
-import contextlib
 from git import (
     GitError,
     Repo,
@@ -16,6 +15,9 @@ from unidiff import (
     PatchedFile,
     PatchSet,
 )
+from utils.logs import (
+    log_blocking,
+)
 
 # Constants
 DEFAULT_COMMIT: str = "0000000000000000000000000000000000000000"
@@ -26,10 +28,12 @@ def get_repo(path: str, search_parent_directories: bool = True) -> Repo:
 
 
 def get_repo_head_hash(path: str) -> str:
-    with contextlib.suppress(GitError):
+    try:
         repo: Repo = get_repo(path)
         head_hash: str = repo.head.commit.hexsha
         return head_hash
+    except GitError as exc:
+        log_blocking("error", "Computing commit hash: %s ", exc)
 
     return DEFAULT_COMMIT
 

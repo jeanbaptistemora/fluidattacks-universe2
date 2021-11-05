@@ -17,6 +17,12 @@ import pytest
 from textwrap import (
     dedent,
 )
+from utils.ctx import (
+    CTX,
+)
+from utils.repositories import (
+    get_repo_head_hash,
+)
 
 
 @run_decorator
@@ -36,6 +42,10 @@ async def test_client(
 @run_decorator
 @pytest.mark.skims_test_group("unittesting")
 async def test_build_vulnerabilities_stream() -> None:
+    commit_hash = get_repo_head_hash(CTX.config.working_dir)
+    if commit_hash[0].isdigit():
+        commit_hash = f"'{commit_hash}'"
+
     assert (
         await build_vulnerabilities_stream(
             results=(
@@ -69,7 +79,7 @@ async def test_build_vulnerabilities_stream() -> None:
             )
         )
         == dedent(
-            """
+            f"""
         inputs:
         - field: test
           repo_nickname: test
@@ -77,7 +87,7 @@ async def test_build_vulnerabilities_stream() -> None:
           stream: a,b,c
           url: https://example.com (test)
         lines:
-        - commit_hash: '0000000000000000000000000000000000000000'
+        - commit_hash: {commit_hash}
           line: '123'
           path: test/what
           repo_nickname: test
