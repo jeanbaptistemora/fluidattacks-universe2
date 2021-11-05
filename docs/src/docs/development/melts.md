@@ -86,7 +86,7 @@ which is more familiar for developers,
 you only need to follow the steps
 described in this
 [guide](/development/stack/aws#get-development-keys)
-but instead of using the `integrates-dev` role
+but instead of using the `dev` role
 you should use the `continuous-admin` role
 which will allow you to use the functionalities
 with admin privileges,

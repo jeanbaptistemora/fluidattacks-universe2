@@ -151,7 +151,7 @@ to generate a key pair:
     Make sure you replace the parameters:
         - `<user-email>`: Email.
         - `<user-password>`.
-        - `<default-role>`: Use `integrates-dev` or another role.
+        - `<default-role>`: Use `dev` or another role.
 
 1. Source your profile:
 
