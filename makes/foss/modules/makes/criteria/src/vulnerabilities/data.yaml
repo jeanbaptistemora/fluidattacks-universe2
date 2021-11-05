@@ -2825,7 +2825,12 @@
       system information such as open ports,
       available services
       and users' personal data.
-    impact: __empty__
+    impact: >
+      - Obtaining information from
+      internal users.
+
+      - Obtain account information
+      from partners and suppliers.
     recommendation: >
       Filter the information
       that is received through the ports
@@ -2840,7 +2845,12 @@
       e información de los usuarios
       mediante scripts o herramientas automatizadas
       que utilicen fuerza bruta.
-    impact: __empty__
+    impact: >
+      - Obtener información de los usuarios
+      internos.
+
+      - Obtener información de cuentas de
+      socios y proveedores.
     recommendation: >
       Filtrar la información
       que se recibe por los puertos
@@ -2853,10 +2863,10 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
