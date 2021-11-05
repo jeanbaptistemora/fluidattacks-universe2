@@ -24,6 +24,12 @@ class AWSS3Bucket(NamedTuple):
     line: int
 
 
+class AWSS3BucketPolicy(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int
+
+
 class AWSS3Acl(NamedTuple):
     column: int
     data: str

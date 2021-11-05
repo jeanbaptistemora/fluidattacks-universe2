@@ -11,6 +11,7 @@ from aws.iam.utils import (
 from aws.model import (
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
+    AWSS3BucketPolicy,
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
@@ -28,6 +29,7 @@ from parse_cfn.loader import (
     load_templates,
 )
 from parse_cfn.structure import (
+    iter_s3_bucket_policies,
     iterate_iam_policy_documents as cfn_iterate_iam_policy_documents,
     iterate_managed_policy_arns as cnf_iterate_managed_policy_arns,
 )
@@ -50,6 +52,7 @@ from typing import (
     Union,
 )
 from utils.function import (
+    get_node_by_keys,
     TIMEOUT_1MIN,
 )
 
@@ -185,6 +188,18 @@ def _admin_policies_attached_iterate_vulnerabilities(
             policy in elevated_policies for policy in policies.data or []
         ):
             yield policies
+
+
+def _cfn_bucket_policy_allows_public_access_iterate_vulnerabilities(
+    policies_iterator: Iterator[Union[AWSS3BucketPolicy, Node]],
+) -> Iterator[Union[AWSS3BucketPolicy, Node]]:
+    for policy in policies_iterator:
+        statements = get_node_by_keys(policy, ["PolicyDocument", "Statement"])
+        for statement in statements.data:
+            effect = statement.raw.get("Effect", "")
+            principal = statement.raw.get("Principal", "")
+            if effect == "Allow" and principal == "*":
+                yield statement.inner["Principal"]
 
 
 def _cfn_negative_statement(
@@ -488,6 +503,24 @@ def _terraform_admin_policy_attached(
     )
 
 
+def _cfn_bucket_policy_allows_public_access(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_aws_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f031.bucket_policy_allows_public_access",
+        finding=core_model.FindingEnum.F031,
+        path=path,
+        statements_iterator=(
+            _cfn_bucket_policy_allows_public_access_iterate_vulnerabilities(
+                policies_iterator=iter_s3_bucket_policies(template=template),
+            )
+        ),
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -502,6 +535,22 @@ async def terraform_admin_policy_attached(
         content=content,
         path=path,
         model=model,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_bucket_policy_allows_public_access(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_bucket_policy_allows_public_access,
+        content=content,
+        path=path,
+        template=template,
     )
 
 
