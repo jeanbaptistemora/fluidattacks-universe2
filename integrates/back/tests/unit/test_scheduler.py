@@ -493,7 +493,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
         ToeInput(
             commit="hh66uu5",
             component="test.com/api/Test",
-            created_date="2000-01-01T00:00:00-05:00",  # NOSONAR
+            created_date="2000-01-01T05:00:00+00:00",  # NOSONAR
             entry_point="idTest",
             group_name="unittesting",
             seen_first_time_by="",
@@ -534,11 +534,11 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
         ToeInput(
             commit="hh66uu5",
             component="test.com/api/Test",
-            created_date="2000-01-01T00:00:00-05:00",
+            created_date="2000-01-01T05:00:00+00:00",
             entry_point="idTest",
             group_name="unittesting",
             seen_first_time_by="",
-            tested_date="2020-01-02T00:00:00-05:00",
+            tested_date="2020-01-02T05:00:00+00:00",
             unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
             verified="Yes",
             vulns="FIN.S.0001.Test",
@@ -546,11 +546,11 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
         ToeInput(
             commit="r44432f",
             component="test.com/test/test.aspx",
-            created_date="2000-01-01T00:00:00-05:00",
+            created_date="2000-01-01T05:00:00+00:00",
             entry_point="",
             group_name="unittesting",
             seen_first_time_by="",
-            tested_date="2021-02-11T00:00:00-05:00",
+            tested_date="2021-02-11T05:00:00+00:00",
             unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
             verified="Yes",
             vulns="FIN.S.0002.Test",
@@ -558,11 +558,11 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
         ToeInput(
             commit="e91320h",
             component="test.com/test/test.aspx",
-            created_date="2020-03-14T00:00:00-05:00",
+            created_date="2020-03-14T05:00:00+00:00",
             entry_point="btnTest",
             group_name="unittesting",
             seen_first_time_by="test@test.com",
-            tested_date="2000-01-01T00:00:00-05:00",
+            tested_date="2000-01-01T05:00:00+00:00",
             unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
             verified="No",
             vulns="",

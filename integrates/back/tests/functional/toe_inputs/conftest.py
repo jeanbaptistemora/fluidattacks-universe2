@@ -94,7 +94,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             ToeInput(
                 commit="hh66uu5",
                 component="test.com/api/Test",
-                created_date="2000-01-01T00:00:00-05:00",
+                created_date="2000-01-01T05:00:00+00:00",
                 entry_point="idTest",
                 group_name="group1",
                 seen_first_time_by="",

@@ -21,7 +21,7 @@ async def test_add() -> None:
     toe_input = ToeInput(
         commit="g42343f",
         component="test.com/test/new.aspx",
-        created_date="2000-01-01T00:00:00-05:00",
+        created_date="2000-01-01T05:00:00+00:00",
         entry_point="btnTest",
         group_name=group_name,
         seen_first_time_by="new@test.com",
@@ -58,7 +58,7 @@ async def test_update() -> None:
     toe_input = ToeInput(
         commit="edited",
         component="test.com/test/test.aspx",
-        created_date="2000-01-01T00:00:00-05:00",
+        created_date="2000-01-01T05:00:00+00:00",
         entry_point="btnTest",
         group_name=group_name,
         seen_first_time_by="edited@test.com",

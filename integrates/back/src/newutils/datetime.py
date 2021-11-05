@@ -10,7 +10,7 @@ from settings import (
 )
 
 DEFAULT_DATE_FORMAT: str = "%Y-%m-%d %H:%M:%S"
-DEFAULT_ISO_STR = "2000-01-01T00:00:00-05:00"
+DEFAULT_ISO_STR = "2000-01-01T05:00:00+00:00"
 DEFAULT_STR = "2000-01-01 00:00:00"
 TZ = pytz.timezone(TIME_ZONE)
 

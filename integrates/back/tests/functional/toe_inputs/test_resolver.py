@@ -31,7 +31,7 @@ async def test_get_toe_inputs(populate: bool, email: str) -> None:
         {
             "commit": "hh66uu5",
             "component": "test.com/api/Test",
-            "createdDate": "2000-01-01T00:00:00-05:00",
+            "createdDate": "2000-01-01T05:00:00+00:00",
             "entryPoint": "idTest",
             "seenFirstTimeBy": "",
             "testedDate": "2020-01-02T00:00:00-05:00",
