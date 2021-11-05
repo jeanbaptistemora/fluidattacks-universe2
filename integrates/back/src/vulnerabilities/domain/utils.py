@@ -13,6 +13,7 @@ from db_model.roots.types import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
+import html
 from typing import (
     Any,
     cast,
@@ -30,13 +31,19 @@ def get_hash(specific: str, type_: str, where: str) -> int:
     return hash((specific, type_, where))
 
 
-def get_hash_from_dict(vuln: Dict[str, Any]) -> int:
+def get_hash_from_dict(vuln: Dict[str, Any], from_yaml: bool = False) -> int:
     nonce: str = uuid().hex
-    return get_hash(
-        specific=vuln.get("specific", nonce),
-        type_=vuln.get("vuln_type", nonce),
-        where=vuln.get("where", nonce),
-    )
+
+    specific = vuln.get("specific", nonce)
+    type_ = vuln.get("vuln_type", nonce)
+    where = vuln.get("where", nonce)
+
+    if from_yaml:
+        # https://gitlab.com/fluidattacks/product/-/issues/5556#note_725588290
+        specific = html.escape(specific, quote=False)
+        where = html.escape(where, quote=False)
+
+    return get_hash(specific=specific, type_=type_, where=where)
 
 
 def get_hash_from_typed(vuln: Vulnerability) -> int:
