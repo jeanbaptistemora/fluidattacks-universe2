@@ -111,9 +111,9 @@ resource "aws_iam_user" "dev" {
   path = "/user-provision/"
 
   tags = {
-    "Name"               = "observes-dev"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "observes-dev"
+    "management:area" = "innovation"
+    "management:type" = "product"
   }
 }
 

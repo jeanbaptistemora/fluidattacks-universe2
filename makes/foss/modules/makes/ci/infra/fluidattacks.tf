@@ -13,8 +13,9 @@ module "fluidattacks_ci_cache" {
   cache_bucket_prefix                  = "fluidattacks-ci-cache"
 
   tags = {
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "fluidattacks-ci-cache"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -98,8 +99,8 @@ module "fluidattacks_ci" {
     name_iam_objects            = "",
   }
   tags = {
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -182,7 +183,7 @@ module "fluidattacks_ci_large" {
     name_iam_objects            = "",
   }
   tags = {
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }

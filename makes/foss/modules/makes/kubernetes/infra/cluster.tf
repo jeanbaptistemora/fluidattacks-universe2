@@ -16,12 +16,12 @@ module "eks" {
   ]
 
   tags = {
-    "Name"               = "makes-k8s"
-    "Environment"        = "production"
-    "GithubRepo"         = "terraform-aws-eks"
-    "GithubOrg"          = "terraform-aws-modules"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "makes-k8s"
+    "Environment"     = "production"
+    "GithubRepo"      = "terraform-aws-eks"
+    "GithubOrg"       = "terraform-aws-modules"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 
   vpc_id = var.fluid_vpc_id

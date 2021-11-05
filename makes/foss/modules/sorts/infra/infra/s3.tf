@@ -22,9 +22,9 @@ resource "aws_s3_bucket" "sorts_bucket" {
   }
 
   tags = {
-    "Name"               = "sorts"
-    "management:type"    = "production"
-    "management:product" = "sorts"
+    "Name"            = "sorts"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 
   versioning {

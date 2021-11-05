@@ -3,9 +3,9 @@ resource "aws_iam_policy" "main" {
   policy = var.policy
 
   tags = {
-    "Name"               = var.name
-    "management:type"    = var.type
-    "management:product" = var.product
+    "Name"            = var.name
+    "management:area" = var.area
+    "management:type" = var.type
   }
 }
 

@@ -59,9 +59,9 @@ resource "aws_iam_user" "melts-prod" {
   path = "/user-provision/"
 
   tags = {
-    "Name"               = "melts-prod"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "melts-prod"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 

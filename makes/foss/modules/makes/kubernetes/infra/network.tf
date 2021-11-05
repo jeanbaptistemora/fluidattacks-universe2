@@ -8,8 +8,8 @@ resource "aws_subnet" "region_a" {
     "Name"                                      = "makes-k8s-1"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
-    "management:type"                           = "production"
-    "management:product"                        = "makes"
+    "management:area"                           = "cost"
+    "management:type"                           = "product"
   }
 }
 
@@ -23,8 +23,8 @@ resource "aws_subnet" "region_b" {
     "Name"                                      = "makes-k8s-2"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
-    "management:type"                           = "production"
-    "management:product"                        = "makes"
+    "management:area"                           = "cost"
+    "management:type"                           = "product"
   }
 }
 
@@ -38,7 +38,7 @@ resource "aws_subnet" "region_d" {
     "Name"                                      = "makes-k8s-3"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
-    "management:type"                           = "production"
-    "management:product"                        = "makes"
+    "management:area"                           = "cost"
+    "management:type"                           = "product"
   }
 }

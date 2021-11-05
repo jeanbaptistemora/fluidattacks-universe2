@@ -9,9 +9,9 @@ resource "aws_subnet" "default" {
   vpc_id                  = var.batch_vpc_id
 
   tags = {
-    "Name"               = "batch"
-    "management:type"    = "production"
-    "management:product" = "common"
+    "Name"            = "batch"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -35,9 +35,9 @@ resource "aws_iam_role" "aws_ecs_instance_role" {
   name = "aws_ecs_instance_role"
 
   tags = {
-    "Name"               = "aws_ecs_instance_role"
-    "management:type"    = "production"
-    "management:product" = "common"
+    "Name"            = "aws_ecs_instance_role"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -70,9 +70,9 @@ resource "aws_iam_role" "aws_batch_service_role" {
   name = "aws_batch_service_role"
 
   tags = {
-    "Name"               = "aws_batch_service_role"
-    "management:type"    = "production"
-    "management:product" = "common"
+    "Name"            = "aws_batch_service_role"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -102,9 +102,9 @@ resource "aws_security_group" "aws_batch_compute_environment_security_group" {
   }
 
   tags = {
-    "Name"               = "aws_batch_compute_environment_security_group"
-    "management:type"    = "production"
-    "management:product" = "common"
+    "Name"            = "aws_batch_compute_environment_security_group"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -116,9 +116,9 @@ resource "aws_launch_template" "batch_instance" {
   key_name = "gitlab"
   name     = "batch_instance"
   tags = {
-    "Name"               = "batch_instance"
-    "management:type"    = "production"
-    "management:product" = "common"
+    "Name"            = "batch_instance"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
   user_data = filebase64("${path.module}/aws_batch_user_data")
 }
@@ -207,9 +207,9 @@ resource "aws_batch_compute_environment" "default" {
     ]
     type = each.value.type
     tags = {
-      "Name"               = each.key
-      "management:type"    = "production"
-      "management:product" = "common"
+      "Name"            = each.key
+      "management:area" = "cost"
+      "management:type" = "product"
     }
 
     launch_template {
@@ -221,9 +221,9 @@ resource "aws_batch_compute_environment" "default" {
     create_before_destroy = true
   }
   tags = {
-    "Name"               = "default"
-    "management:type"    = "production"
-    "management:product" = "common"
+    "Name"            = "default"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -246,18 +246,18 @@ resource "aws_batch_job_queue" "default" {
   priority = each.value.priority
   state    = "ENABLED"
   tags = {
-    "Name"               = "default"
-    "management:type"    = "production"
-    "management:product" = "common"
+    "Name"            = "default"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
 resource "aws_batch_job_definition" "default" {
   name = "default"
   tags = {
-    "Name"               = "default"
-    "management:type"    = "production"
-    "management:product" = "common"
+    "Name"            = "default"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
   type = "container"
 
@@ -282,8 +282,8 @@ resource "aws_batch_job_definition" "makes" {
   })
 
   tags = {
-    "Name"               = "makes"
-    "management:type"    = "production"
-    "management:product" = "common"
+    "Name"            = "makes"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }

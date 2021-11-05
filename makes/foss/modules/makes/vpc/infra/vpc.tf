@@ -4,9 +4,9 @@ resource "aws_vpc" "fluid-vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    "Name"               = "fluid-vpc"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "fluid-vpc"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -14,9 +14,9 @@ resource "aws_internet_gateway" "fluid-vpc" {
   vpc_id = aws_vpc.fluid-vpc.id
 
   tags = {
-    "Name"               = "fluid-vpc"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "fluid-vpc"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 

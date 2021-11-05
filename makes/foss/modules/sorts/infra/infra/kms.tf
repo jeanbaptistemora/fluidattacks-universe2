@@ -71,9 +71,9 @@ resource "aws_kms_key" "key_sorts" {
   enable_key_rotation     = true
 
   tags = {
-    "Name"               = "sorts-kms"
-    "management:type"    = "production"
-    "management:product" = "sorts"
+    "Name"            = "sorts-kms"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 

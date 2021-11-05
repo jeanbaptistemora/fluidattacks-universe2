@@ -9,7 +9,7 @@ terraform {
   }
 }
 
+variable "area" {}
 variable "name" {}
-variable "type" {}
-variable "product" {}
 variable "policy" {}
+variable "type" {}

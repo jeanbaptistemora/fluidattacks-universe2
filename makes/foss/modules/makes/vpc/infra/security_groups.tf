@@ -21,8 +21,8 @@ resource "aws_security_group" "cloudflare" {
   }
 
   tags = {
-    "Name"               = "CloudFlare"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "CloudFlare"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }

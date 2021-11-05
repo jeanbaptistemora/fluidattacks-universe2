@@ -6,9 +6,9 @@ resource "aws_iam_role" "airs_prod" {
   max_session_duration = "32400"
 
   tags = {
-    "Name"               = "airs_prod"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "airs_prod"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -26,9 +26,9 @@ resource "aws_iam_role" "docs_prod" {
   max_session_duration = "32400"
 
   tags = {
-    "Name"               = "docs_prod"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "docs_prod"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -67,9 +67,9 @@ resource "aws_iam_role" "finance-role" {
   assume_role_policy = data.aws_iam_policy_document.okta-assume-role-policy-data.json
 
   tags = {
-    "Name"               = "finance"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "finance"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -117,9 +117,9 @@ resource "aws_iam_role" "helpdesk-role" {
   assume_role_policy = data.aws_iam_policy_document.okta-assume-role-policy-data.json
 
   tags = {
-    "Name"               = "helpdesk"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "helpdesk"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -142,9 +142,9 @@ resource "aws_iam_role" "makes_prod" {
   max_session_duration = "32400"
 
   tags = {
-    "Name"               = "makes_prod"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "makes_prod"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -161,9 +161,9 @@ resource "aws_iam_role" "observes_dev" {
   max_session_duration = "32400"
 
   tags = {
-    "Name"               = "observes_dev"
-    "management:type"    = "production"
-    "management:product" = "observes"
+    "Name"            = "observes_dev"
+    "management:area" = "innovation"
+    "management:type" = "product"
   }
 }
 
@@ -178,9 +178,9 @@ resource "aws_iam_role" "observes_prod" {
   max_session_duration = "32400"
 
   tags = {
-    "Name"               = "observes_prod"
-    "management:type"    = "production"
-    "management:product" = "observes"
+    "Name"            = "observes_prod"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -197,9 +197,9 @@ resource "aws_iam_role" "skims_dev" {
   max_session_duration = "32400"
 
   tags = {
-    "Name"               = "skims_dev"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "skims_dev"
+    "management:area" = "innovation"
+    "management:type" = "product"
   }
 }
 
@@ -214,9 +214,9 @@ resource "aws_iam_role" "skims_prod" {
   max_session_duration = "32400"
 
   tags = {
-    "Name"               = "skims_prod"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "skims_prod"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -270,9 +270,9 @@ resource "aws_iam_role" "sorts_prod" {
   max_session_duration = "32400"
 
   tags = {
-    "Name"               = "sorts_prod"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "sorts_prod"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 

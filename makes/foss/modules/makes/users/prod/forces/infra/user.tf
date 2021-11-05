@@ -3,9 +3,9 @@ resource "aws_iam_user" "forces_prod" {
   path = "/user_provision/"
 
   tags = {
-    "Name"               = "forces_prod"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "forces_prod"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 

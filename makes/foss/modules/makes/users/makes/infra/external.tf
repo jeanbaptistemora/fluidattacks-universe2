@@ -5,9 +5,9 @@ resource "aws_iam_user" "clouxter_erika_bayona" {
   path = "/user-provision/"
 
   tags = {
-    "Name"               = "erika.bayona"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "erika.bayona"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -32,9 +32,9 @@ resource "aws_iam_user" "clouxter_michelle_hernandez" {
   path = "/user-provision/"
 
   tags = {
-    "Name"               = "michelle.hernandez"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "michelle.hernandez"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 

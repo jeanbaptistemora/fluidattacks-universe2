@@ -23,11 +23,12 @@ terraform {
 }
 
 module "aws" {
-  source  = "../../modules/aws"
-  name    = "dev"
-  type    = "production"
-  product = "makes"
-  policy  = jsonencode(local.aws)
+  source = "../../modules/aws"
+
+  area   = "innovation"
+  name   = "dev"
+  policy = jsonencode(local.aws)
+  type   = "product"
 }
 
 module "cloudflare" {
