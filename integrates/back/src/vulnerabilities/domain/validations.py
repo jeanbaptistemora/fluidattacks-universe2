@@ -5,26 +5,26 @@ from custom_exceptions import (
     InvalidVulnSpecific,
     InvalidVulnWhere,
 )
-from custom_types import (
-    Vulnerability,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
 )
 import re
 from string import (
     hexdigits,
 )
 from typing import (
-    List,
     Set,
+    Tuple,
 )
 from urllib.parse import (
     urlparse,
 )
 from vulnerabilities.domain.utils import (
     get_hash,
-    get_hash_from_dict,
+    get_hash_from_typed,
 )
 
 
@@ -35,17 +35,17 @@ def validate_specific(specific: str) -> None:
 
 def validate_uniqueness(
     *,
-    finding_vulns_data: List[Vulnerability],
+    finding_vulns_data: Tuple[Vulnerability, ...],
     vulnerability_where: str,
     vulnerability_specific: str,
     vulnerability_type: VulnerabilityType,
 ) -> None:
     finding_vulns_hashes: Set[int] = set(
-        map(get_hash_from_dict, finding_vulns_data)
+        map(get_hash_from_typed, finding_vulns_data)
     )
     vuln_hash: int = get_hash(
         specific=vulnerability_specific,
-        type_=str(vulnerability_type.value).lower(),
+        type_=vulnerability_type.value,
         where=vulnerability_where,
     )
 

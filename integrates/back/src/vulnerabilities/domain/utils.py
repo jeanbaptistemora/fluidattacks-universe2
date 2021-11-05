@@ -10,6 +10,9 @@ from custom_types import (
 from db_model.roots.types import (
     GitRootItem,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from typing import (
     Any,
     cast,
@@ -33,6 +36,14 @@ def get_hash_from_dict(vuln: Dict[str, Any]) -> int:
         specific=vuln.get("specific", nonce),
         type_=vuln.get("vuln_type", nonce),
         where=vuln.get("where", nonce),
+    )
+
+
+def get_hash_from_typed(vuln: Vulnerability) -> int:
+    return get_hash(
+        specific=vuln.specific,
+        type_=vuln.type.value,
+        where=vuln.where,
     )
 
 

@@ -1,14 +1,14 @@
 from custom_exceptions import (
     ExpectedVulnToBeOfLinesType,
 )
-from custom_types import (
-    Vulnerability,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from typing import (
-    List,
+    Tuple,
 )
 from vulnerabilities.dal import (
     update,
@@ -24,7 +24,7 @@ from vulnerabilities.domain.validations import (
 async def rebase(
     *,
     finding_id: str,
-    finding_vulns_data: List[Vulnerability],
+    finding_vulns_data: Tuple[Vulnerability, ...],
     vulnerability_commit: str,
     vulnerability_id: str,
     vulnerability_where: str,
