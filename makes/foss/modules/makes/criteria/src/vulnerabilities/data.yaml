@@ -3217,7 +3217,7 @@
       (possibly on the internet),
       which may lead
       to unauthorized access attempts.
-    impact: __empty__
+    impact: Attempt to access the administrative site.
     recommendation: >
       Restrict the access
       to the administrative consoles,
@@ -3234,7 +3234,7 @@
       lo cual puede permitir
       intentos de acceso administrativo
       no autorizados.
-    impact: __empty__
+    impact: Intentar acceder al sitio administrativo.
     recommendation: >
       Restringir el acceso
       a las consolas administrativas a direcciones IP
@@ -3250,7 +3250,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
