@@ -9,7 +9,7 @@
         setup = [
           outputs."/secretsForAwsFromEnv/makesProd"
           outputs."/secretsForEnvFromSops/makesUsersProd"
-          outputs."/secretsForTerraformFromEnv/makesUsersProdIntegrates"
+          outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         src = "/makes/foss/modules/makes/users/prod/integrates/infra";
         version = "1.0";
