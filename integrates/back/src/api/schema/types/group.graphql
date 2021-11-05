@@ -17,10 +17,14 @@ type Group {
   closedVulnerabilities: Int
   "Information about the group shared by the stakeholders via comments"
   consulting: [Consult!]
+  "How to access the group envs"
+  dastAccess: String
   "Removal date of the group from ASM if applicable"
   deletionDate: String
   "Brief description to identify the group"
   description: String
+  "Necessary clarifications on what should be tested"
+  disambiguation: String
   "New findings yet to be approved"
   drafts: [Finding!]
   "Situations affecting the group"
@@ -80,6 +84,8 @@ type Group {
   meanRemediateLowSeverity: Int
   "Mean time to remediate medium-severity vulnerabilities in days"
   meanRemediateMediumSeverity: Int
+  "How to access the mobile envs"
+  mobileAccess: String
   "Name of the group"
   name: String
   "Amount of currently open Findings in the group"
@@ -92,6 +98,8 @@ type Group {
   permissions: [String]
   "Group roots, can be IP, URL or Git Roots"
   roots: [Root!]
+  "How to access the group repos"
+  sastAccess: String
   "Black or White box type of hacking service"
   service: ServiceType!
   "Currently active service attributes"

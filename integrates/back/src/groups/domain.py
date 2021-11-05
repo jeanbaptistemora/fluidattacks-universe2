@@ -105,6 +105,7 @@ from newutils.validations import (
     validate_field_length,
     validate_fields,
     validate_group_name,
+    validate_markdown,
     validate_string_length_between,
 )
 from notifications import (
@@ -811,6 +812,10 @@ async def update_group_access_info(
         "mobile_access": mobile_access,
         "sast_access": sast_access,
     }
+
+    for value in new_data.values():
+        value = validate_markdown(value)
+
     success = await update(group_name, new_data)
 
     return success

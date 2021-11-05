@@ -474,6 +474,14 @@ class InvalidJustificationMaxLength(CustomBaseException):
         super(InvalidJustificationMaxLength, self).__init__(msg)
 
 
+class InvalidMarkdown(CustomBaseException):
+    """Exception to control invalid markdown fields"""
+
+    def __init__(self) -> None:
+        msg = "Exception - Invalid markdown"
+        super(InvalidMarkdown, self).__init__(msg)
+
+
 class InvalidNumberAcceptances(CustomBaseException):
     def __init__(self, expr: str = "") -> None:
         if expr:

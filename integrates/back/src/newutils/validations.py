@@ -1,9 +1,11 @@
+import bleach  # type: ignore
 from custom_exceptions import (
     IncompleteSeverity,
     InvalidChar,
     InvalidCvssVersion,
     InvalidField,
     InvalidFieldLength,
+    InvalidMarkdown,
 )
 from db_model.findings.enums import (
     FindingCvssVersion,
@@ -101,6 +103,58 @@ def validate_finding_id(finding_id: str) -> None:
 def validate_group_name(group_name: str) -> None:
     if not group_name.isalnum():
         raise InvalidField("group name")
+
+
+def validate_markdown(text: str) -> str:
+    """
+    Escapes special characters and accepts only
+    the use of certain html tags
+    """
+    md_special_chars = r"\`*_{}[]()#+-.!"
+    for char in md_special_chars:
+        text = text.replace(char, "\\" + char)
+    allowed_tags = [
+        "a",
+        "b",
+        "br",
+        "div",
+        "dl",
+        "dt",
+        "em",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "img",
+        "li",
+        "ol",
+        "p",
+        "small",
+        "strong",
+        "table",
+        "tbody",
+        "td",
+        "tfoot",
+        "th",
+        "tr",
+        "tt",
+        "ul",
+    ]
+    allowed_attrs = {
+        "a": ["href", "rel", "target"],
+        "img": ["src", "alt", "width", "height"],
+    }
+    cleaned = bleach.clean(
+        text,
+        tags=allowed_tags,
+        attributes=allowed_attrs,
+    )
+    if text != cleaned:
+        raise InvalidMarkdown()
+
+    return cleaned
 
 
 def validate_missing_severity_field_names(
