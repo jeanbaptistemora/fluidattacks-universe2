@@ -25,9 +25,9 @@ resource "aws_s3_bucket" "development" {
   }
 
   tags = {
-    "Name"               = "integrates.front.development.fluidattacks.com"
-    "management:type"    = "development"
-    "management:product" = "integrates"
+    "Name"            = "integrates.front.development.fluidattacks.com"
+    "management:area" = "innovation"
+    "management:type" = "product"
   }
 }
 

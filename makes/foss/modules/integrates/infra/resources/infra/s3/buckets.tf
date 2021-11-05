@@ -4,9 +4,9 @@ resource "aws_s3_bucket" "fi_analytics_bucket" {
   request_payer = "BucketOwner"
 
   tags = {
-    "Name"               = "fluidintegrates.analytics"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "fluidintegrates.analytics"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 
   server_side_encryption_configuration {

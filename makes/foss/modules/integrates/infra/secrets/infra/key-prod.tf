@@ -106,9 +106,9 @@ resource "aws_kms_key" "integrates-prod-key" {
   enable_key_rotation     = true
 
   tags = {
-    "Name"               = "integrates-prod"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "integrates-prod"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 

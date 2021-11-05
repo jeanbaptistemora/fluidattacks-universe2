@@ -4,9 +4,9 @@ resource "aws_iam_role" "integrates-prod" {
   max_session_duration = "32400"
 
   tags = {
-    "Name"               = "integrates-prod"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "integrates-prod"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 

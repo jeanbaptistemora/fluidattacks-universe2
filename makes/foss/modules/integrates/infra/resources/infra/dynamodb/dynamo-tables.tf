@@ -13,9 +13,9 @@ resource "aws_dynamodb_table" "async_processing" {
   }
 
   tags = {
-    "Name"               = "fi_async_processing"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "fi_async_processing"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -39,9 +39,9 @@ resource "aws_dynamodb_table" "authz" {
   }
 
   tags = {
-    "Name"               = "fi_authz"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "fi_authz"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -90,9 +90,9 @@ resource "aws_dynamodb_table" "subscriptions" {
   }
 
   tags = {
-    "Name"               = "fi_subscriptions"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "fi_subscriptions"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -117,9 +117,9 @@ resource "aws_dynamodb_table" "project_comments" {
   }
 
   tags = {
-    "Name"               = "fi_project_comments"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "fi_project_comments"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -149,9 +149,9 @@ resource "aws_dynamodb_table" "events" {
   }
 
   tags = {
-    "Name"               = "fi_events"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "fi_events"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -170,9 +170,9 @@ resource "aws_dynamodb_table" "toe" {
   }
 
   tags = {
-    "Name"               = "FI_toe"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "FI_toe"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -191,9 +191,9 @@ resource "aws_dynamodb_table" "projects" {
   }
 
   tags = {
-    "Name"               = "FI_projects"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "FI_projects"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -212,9 +212,9 @@ resource "aws_dynamodb_table" "users" {
   }
 
   tags = {
-    "Name"               = "FI_users"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "FI_users"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -251,9 +251,9 @@ resource "aws_dynamodb_table" "project_access" {
   }
 
   tags = {
-    "Name"               = "FI_project_access"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "FI_project_access"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 
   ttl {
@@ -296,9 +296,9 @@ resource "aws_dynamodb_table" "findings" {
   }
 
   tags = {
-    "Name"               = "project_findings"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "project_findings"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -323,9 +323,9 @@ resource "aws_dynamodb_table" "finding_comments" {
   }
 
   tags = {
-    "Name"               = "fi_finding_comments"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "fi_finding_comments"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -368,9 +368,9 @@ resource "aws_dynamodb_table" "vulnerabilities" {
   }
 
   tags = {
-    "Name"               = "FI_vulnerabilities"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "FI_vulnerabilities"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -395,9 +395,9 @@ resource "aws_dynamodb_table" "portfolios" {
   }
 
   tags = {
-    "Name"               = "fi_portfolios"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "fi_portfolios"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -429,9 +429,9 @@ resource "aws_dynamodb_table" "organizations" {
   }
 
   tags = {
-    "Name"               = "fi_organizations"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "fi_organizations"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
 
@@ -456,8 +456,8 @@ resource "aws_dynamodb_table" "forces" {
   }
 
   tags = {
-    "Name"               = "FI_forces"
-    "management:type"    = "production"
-    "management:product" = "integrates"
+    "Name"            = "FI_forces"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 }
