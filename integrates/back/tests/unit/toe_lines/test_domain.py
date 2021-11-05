@@ -7,6 +7,9 @@ from db_model.toe_lines.types import (
 from decimal import (
     Decimal,
 )
+from freezegun import (  # type: ignore
+    freeze_time,
+)
 import pytest
 from toe.lines import (
     domain as toe_lines_domain,
@@ -22,6 +25,7 @@ pytestmark = [
 ]
 
 
+@freeze_time("2018-08-01T05:00:00+00:00")
 @pytest.mark.changes_db
 async def test_add() -> None:
     group_name = "unittesting"
@@ -37,7 +41,6 @@ async def test_add() -> None:
         loc=1000,
         modified_commit="983466z",
         modified_date="2019-08-01T05:00:00+00:00",
-        seen_at="2018-08-01T05:00:00+00:00",
         sorts_risk_level=Decimal("1"),
     )
     await toe_lines_domain.add(group_name, root_id, filename, attributes)

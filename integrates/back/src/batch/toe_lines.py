@@ -10,11 +10,26 @@ from batch.types import (
 from context import (
     FI_TOE_LINES_RULES,
 )
+from dataloaders import (
+    get_new_context,
+)
+from db_model.roots.types import (
+    RootItem,
+)
 from db_model.toe_lines.types import (
     ToeLines,
 )
 from decimal import (
     Decimal,
+)
+from decorators import (
+    retry_on_exceptions,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
+)
+from git.exc import (
+    InvalidGitRepositoryError,
 )
 from git.repo.base import (
     Repo,
@@ -22,20 +37,26 @@ from git.repo.base import (
 import logging
 import logging.config
 from newutils import (
-    datetime as datetime_utils,
     files as files_utils,
     git as git_utils,
 )
 import os
+from roots import (
+    domain as roots_domain,
+)
 from settings import (
     LOGGING,
 )
 import tempfile
+from toe.lines import (
+    domain as toe_lines_domain,
+)
 from toe.lines.types import (
     ToeLinesAttributesToAdd,
     ToeLinesAttributesToUpdate,
 )
 from typing import (
+    cast,
     Dict,
     Set,
     Tuple,
@@ -57,6 +78,11 @@ CLOC_EXCLUDE_LIST = ",".join(
     CLOC_DOC_LANGS + CLOC_STYLE_LANGS + CLOC_FORMAT_LANGS
 )
 CLOC_EXCLUDE_LANG = "--exclude-lang=" + CLOC_EXCLUDE_LIST
+
+
+toe_lines_add = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=10
+)(toe_lines_domain.add)
 
 
 async def apply_git_config(repo_path: str) -> None:
@@ -103,14 +129,16 @@ async def get_present_filenames(
 async def get_ignored_files(group_path: str, repo_nickname: str) -> Set[str]:
     ignored_filename = f"{group_path}/{repo_nickname}_ignored.txt"
     ignored_files = set()
-    call_cloc = ["cloc", CLOC_FORCE_LANG_DEF, CLOC_EXCLUDE_LANG]
-    call_cloc += [
+    call_cloc = (
+        "cloc",
+        CLOC_FORCE_LANG_DEF,
+        CLOC_EXCLUDE_LANG,
         repo_nickname,
         "--ignored",
         ignored_filename,
         "--timeout",
         "900",
-    ]
+    )
     await asyncio.create_subprocess_exec(*call_cloc, env=CLOC_ENV)
     repo_nickname_len = len(repo_nickname) + 1
     async with aiofiles.open(
@@ -182,7 +210,6 @@ async def get_present_toe_lines_to_add(
                 loc=last_loc,
                 modified_commit=last_modified_commit,
                 modified_date=last_modified_date,
-                seen_at=datetime_utils.get_iso_date(),
                 sorts_risk_level=Decimal("-1"),
             ),
         )
@@ -275,6 +302,52 @@ def get_non_present_toe_lines_to_update(
         )
         for db_filename in repo_toe_lines
         if db_filename not in present_filenames
+    )
+
+
+async def refresh_repo_toe_lines(
+    group_name: str, group_path: str, repo_nickname: str
+) -> None:
+    try:
+        repo = Repo(repo_nickname)
+    except InvalidGitRepositoryError:
+        LOGGER.error(
+            "Invalid repository",
+            extra={
+                "extra": {
+                    "group_name": group_name,
+                    "repository": repo_nickname,
+                }
+            },
+        )
+        return
+
+    loaders = get_new_context()
+    await apply_git_config(repo_nickname)
+    roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
+    root_id = roots_domain.get_root_id_by_nickname(repo_nickname, roots)
+    repo_toe_lines = {
+        toe_lines.filename: toe_lines
+        for toe_lines in cast(
+            Tuple[ToeLines, ...],
+            await loaders.root_toe_lines.load((group_name, root_id)),
+        )
+    }
+    present_filenames = await get_present_filenames(
+        group_path, repo, repo_nickname
+    )
+    present_toe_lines_to_add = await get_present_toe_lines_to_add(
+        present_filenames,
+        repo,
+        repo_nickname,
+        repo_toe_lines,
+    )
+    await collect(
+        tuple(
+            toe_lines_add(group_name, root_id, filename, toe_lines_to_add)
+            for filename, toe_lines_to_add in present_toe_lines_to_add
+        ),
+        workers=500,
     )
 
 

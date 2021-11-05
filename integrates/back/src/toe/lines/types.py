@@ -17,7 +17,6 @@ class ToeLinesAttributesToAdd(NamedTuple):
     loc: int
     modified_commit: str
     modified_date: str
-    seen_at: str
     sorts_risk_level: Decimal
 
 

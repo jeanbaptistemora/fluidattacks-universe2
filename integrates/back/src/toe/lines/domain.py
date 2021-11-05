@@ -9,6 +9,9 @@ from db_model.toe_lines.types import (
     ToeLines,
     ToeLinesMetadataToUpdate,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 
 
 async def add(
@@ -30,7 +33,7 @@ async def add(
         modified_commit=attributes.modified_commit,
         modified_date=attributes.modified_date,
         root_id=root_id,
-        seen_at=attributes.seen_at,
+        seen_at=datetime_utils.get_iso_date(),
         sorts_risk_level=attributes.sorts_risk_level,
     )
     await toe_lines_model.add(toe_lines=toe_lines)
