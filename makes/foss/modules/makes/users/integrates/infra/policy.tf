@@ -303,3 +303,18 @@ resource "aws_iam_user_policy_attachment" "integrates-prod-attach-policy" {
   user       = "integrates-prod"
   policy_arn = aws_iam_policy.integrates-prod-policy.arn
 }
+
+resource "aws_iam_user_policy_attachment" "integrates-prod-attach-policy-dynamodb" {
+  user       = "integrates-prod"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+}
+
+resource "aws_iam_user_policy_attachment" "integrates-prod-attach-policy-cloudwatch-logs" {
+  user       = "integrates-prod"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+}
+
+resource "aws_iam_user_policy_attachment" "integrates-prod-attach-policy-backup" {
+  user       = "integrates-prod"
+  policy_arn = "arn:aws:iam::aws:policy/AWSBackupFullAccess"
+}
