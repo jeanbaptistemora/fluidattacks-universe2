@@ -51,12 +51,11 @@ basic architecture of `AMSI` is the following:
 
 <div class="imgblock">
 
-![Source:
-[Microsoft](https://docs.microsoft.com/en-us/windows/win32/amsi/how-amsi-helps)](https://res.cloudinary.com/fluid-attacks/image/upload/v1625837511/blog/amsi-bypass/amsi7archi_hlwvqp.png)
+![AMSI Architecture](https://res.cloudinary.com/fluid-attacks/image/upload/v1625837511/blog/amsi-bypass/amsi7archi_hlwvqp.png)
 
 <div class="title">
 
-Figure 1. Source: Microsoft
+Figure 1. Source: [Microsoft](https://docs.microsoft.com/en-us/windows/win32/amsi/how-amsi-helps)
 
 </div>
 
@@ -233,7 +232,7 @@ Bypass](https://res.cloudinary.com/fluid-attacks/image/upload/v1625837515/blog/a
 
 </div>
 
-# Conclusion
+## Conclusion
 
 Memory patching is a nice trick to use to modify the behavior of running
 applications. Keep in mind that this technique is not persistent. The
