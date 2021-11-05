@@ -1100,7 +1100,7 @@
       through a channel or method
       which does not guarantee its confidentiality
       or integrity.
-    impact: __empty__
+    impact: Attacker authenticated in the application
     recommendation: >
       Guarantee that credentials be sent
       through a more secure channel,
@@ -1115,7 +1115,7 @@
       a través de un canal o método
       que no garantiza su confidencialidad
       o integridad.
-    impact: __empty__
+    impact: Atacante autenticado en la aplicación
     recommendation: >
       Garantizar que las credenciales
       sean enviadas por un canal más seguro
