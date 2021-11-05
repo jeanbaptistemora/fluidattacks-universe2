@@ -1531,24 +1531,24 @@
       It is possible to intercept calls made
       using the VoIP platform
       because the communication is not encrypted.
-    impact: __empty__
+    impact: Get call information
     recommendation: >
       Configure the channel
       with TLS or SRTP and TLS,
       or configure a firewall to cipher calls.
-    threat: __empty__
+    threat: Attacker authenticated from the Internet.
   es:
     title: Call interception
     description: >
       Es posible interceptar las llamadas realizadas
       y recibidas a través de la plataforma VoIP
       debido a que la comunicación no viaja cifrada.
-    impact: __empty__
+    impact: Obtener información de llamadas
     recommendation: >
       Configurar el canal con TLS o SRTP
       y TLS o configurar un firewall
       para cifrar las llamadas.
-    threat: __empty__
+    threat: Atacante autenticado desde Internet
   category: Collect Information
   score:
     base:
