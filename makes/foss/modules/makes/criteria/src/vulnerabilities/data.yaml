@@ -3393,36 +3393,60 @@
   en:
     title: Asymmetric denial of service - Content length
     description: >
-      __empty__
+      Opening temporary files without
+      appropriate measures or controls can
+      leave the file, its contents and any
+      functions that consume it vulnerable
+      to attack.
     impact: >
-      __empty__
+      - Get access to the temporary files
+      created.
+
+      - Manipulate the data contained
+      in the temporary files.
     recommendation: >
-      __empty__
+      Create the temporary files in a
+      different directory than the one
+      provided by default in the operating
+      system and ensure that they have a
+      permission mask of 0600.
     threat: >
-      __empty__
+      Anonymous attacker with local access.
   es:
     title: Asymmetric denial of service - Content length
     description: >
-      __empty__
+      Abrir archivos temporales sin las
+      medidas o controles adecuados puede
+      dejar el archivo, su contenido y
+      cualquier función que lo consuma
+      vulnerable a ataques.
     impact: >
-      __empty__
+      - Obtener acceso a los archivos temporales
+      creados.
+
+      - Manipular los datos contenidos en los
+      archivos temporales.
     recommendation: >
-      __empty__
+      Crear los archivos temporales en un
+      directorio diferente al provisto por
+      defecto en el sistema operativo y
+      asegurarque estos tienen una máscara
+      de permisos 0600.
     threat: >
-      __empty__
+      __empAtacante anónimo con acceso local.ty__
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
+      attack_vector: "L"
+      attack_complexity: "H"
+      privileges_required: "H"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
+      confidentiality: "L"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["072","327"]
