@@ -7,7 +7,7 @@ function hpa_replicas {
 
   function hpa_desired_replicas {
     kubectl get hpa -n "${namespace}" -o yaml \
-      | yq -er ".items[] | select(.metadata.name==\"${name}\") | .status.desiredReplicas"
+      | yq -r ".items[] | select(.metadata.name==\"${name}\") | .status.desiredReplicas"
   }
 
   function is_int {
