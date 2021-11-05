@@ -3158,7 +3158,9 @@
       appropriate protection mechanisms
       against automated attacks designed
       to guess credentials.
-    impact: __empty__
+    impact: >
+      Obtaining the passwords of the
+      application users.
     recommendation: >
       Implement a control
       to avoid this type of attacks
@@ -3174,7 +3176,9 @@
       La aplicación no tiene protección
       contra ataques automatizados
       para adivinar credenciales válidas.
-    impact: __empty__
+    impact: >
+      Obtener las contraseñas de los
+      usuarios de la aplicación.
     recommendation: >
       Implementar un control
       para evitar este tipo de ataques
@@ -3193,7 +3197,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
