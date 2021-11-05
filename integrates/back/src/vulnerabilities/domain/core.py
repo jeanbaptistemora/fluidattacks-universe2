@@ -1035,7 +1035,11 @@ async def verify_vulnerability(vulnerability: Dict[str, FindingType]) -> bool:
 
 async def close_by_exclusion(vuln: Dict[str, Any]) -> None:
     current_state = vuln["historic_state"][-1]["state"]
-    current_treatment = vuln["historic_treatment"][-1]["treatment"]
+    current_treatment = (
+        vuln["historic_treatment"][-1]["treatment"]
+        if vuln.get("historic_treatment")
+        else ""
+    )
     if (
         current_state not in {"closed", "DELETED"}
         and current_treatment != "ACCEPTED_UNDEFINED"
