@@ -2,9 +2,9 @@ resource "aws_s3_bucket" "skims_data" {
   acl    = "private"
   bucket = "skims.data"
   tags = {
-    "Name"               = "skims.data"
-    "management:type"    = "production"
-    "management:product" = "skims"
+    "Name"            = "skims.data"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 
   lifecycle_rule {

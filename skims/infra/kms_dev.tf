@@ -73,9 +73,9 @@ resource "aws_kms_key" "key_skims_dev" {
   enable_key_rotation     = true
 
   tags = {
-    "Name"               = "skims-development"
-    "management:type"    = "development"
-    "management:product" = "skims"
+    "Name"            = "skims-development"
+    "management:area" = "innovation"
+    "management:type" = "product"
   }
 }
 
