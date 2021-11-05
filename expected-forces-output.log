@@ -1,0 +1,323 @@
+/nix/store/8xhxxp5b2ckfl47xfp1977nby5airvxh-forces
+
+   ‎ ‎ ‎ ‎ ‎‎  ‎
+   ‎  ›››  Fluid Attacks
+      ‎    We hack your software
+    ‎‎   ‎ ‎
+
+      ____            _____           ____
+     / __ \___ _   __/ ___/___  _____/ __ \____  _____
+    / / / / _ \ | / /\__ \/ _ \/ ___/ / / / __ \/ ___/
+   / /_/ /  __/ |/ /___/ /  __/ /__/ /_/ / /_/ (__  )
+  /_____/\___/|___//____/\___/\___/\____/ .___/____/
+                                       /_/
+
+INFO     Running DevSecOps agent in lax mode
+INFO     Running DevSecOps agent in all kind
+WARNING  If the repository name is not specified, it will run on all the existing
+         repositories in ASM
+INFO     repository detected
+INFO     repository name obtained from origin
+WARNING  The vulnerabilities of all repositories will be scanned
+INFO     Resolving repo: Complete
+INFO     Gathering findings data: Complete
+INFO     Processing findings data: Complete
+INFO     Formatting findings data: Complete
+                                Findings Report
+           ╷
+  title    │ 037. Technical information leak
+  state    │ closed
+  exploit  │ Proof of concept
+  severity │ 3.9
+  open     │ 0
+  closed   │ 1
+  accepted │ 0
+  vulns    │            ╷
+           │   type     │ DAST
+           │   where    │ https://10.1.1.1/
+           │   specific │ userToken
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/457497316
+           │   state    │ closed
+           │            ╵
+╶──────────┼───────────────────────────────────────────────────────────────────╴
+  title    │ 083. XML injection (XXE)
+  state    │ open
+  exploit  │ Proof of concept
+  severity │ 3.2
+  open     │ 1
+  closed   │ 0
+  accepted │ 1
+  vulns    │            ╷
+           │   type     │ DAST
+           │   where    │ 192.168.100.105
+           │   specific │ 3636
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/463461507
+           │   state    │ open
+           │            ╵
+╶──────────┼───────────────────────────────────────────────────────────────────╴
+  title    │ 014. Insecure functionality
+  state    │ open
+  exploit  │ Proof of concept
+  severity │ 6.3
+  open     │ 0
+  closed   │ 0
+  accepted │ 2
+  vulns    │ None currently open or closed
+╶──────────┼───────────────────────────────────────────────────────────────────╴
+  title    │ 060. Insecure exceptions
+  state    │ open
+  exploit  │ Unproven
+  severity │ 2.9
+  open     │ 1
+  closed   │ 0
+  accepted │ 0
+  vulns    │            ╷
+           │   type     │ SAST
+           │   where    │ test/data/lib_path/f060/csharp.cs
+           │   specific │ 12
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/422286126
+           │   state    │ open
+           │            ╵
+╶──────────┼───────────────────────────────────────────────────────────────────╴
+  title    │ 007. Cross-site request forgery
+  state    │ open
+  exploit  │ Unproven
+  severity │ 4.3
+  open     │ 0
+  closed   │ 1
+  accepted │ 1
+  vulns    │            ╷
+           │   type     │ SAST
+           │   where    │ path/to/file2.ext
+           │   specific │ 12456
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/463558592
+           │   state    │ closed
+           │            ╵
+╶──────────┼───────────────────────────────────────────────────────────────────╴
+  title    │ 038. Business information leak
+  state    │ open
+  exploit  │ Functional
+  severity │ 2.7
+  open     │ 24
+  closed   │ 4
+  accepted │ 0
+  vulns    │            ╷
+           │   type     │ DAST
+           │   where    │ 192.168.100.101
+           │   specific │ 333
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.12
+           │   specific │ 1111
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.4
+           │   specific │ 3333
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.17
+           │   specific │ 6666
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.15
+           │   specific │ 4444
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.6
+           │   specific │ 5555
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.10
+           │   specific │ 9999
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.100.112
+           │   specific │ 1111
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.100.105
+           │   specific │ 333
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.100.111
+           │   specific │ 1111
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.100.101
+           │   specific │ 4444
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ closed
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.5
+           │   specific │ 4444
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.100.104
+           │   specific │ 333
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.100.107
+           │   specific │ 333
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ closed
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.9
+           │   specific │ 8888
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.100.122
+           │   specific │ 888
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.7
+           │   specific │ 6666
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.2
+           │   specific │ 1111
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.3
+           │   specific │ 2222
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.13
+           │   specific │ 2222
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.8
+           │   specific │ 7777
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.100.109
+           │   specific │ 333
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ closed
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.16
+           │   specific │ 5555
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.1.14
+           │   specific │ 3333
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.100.108
+           │   specific │ 333
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ testing
+           │   specific │ asserts
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.100.113
+           │   specific │ 1111
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ open
+           │ ╶──────────┼────────────────────────────────────────────────────╴
+           │   type     │ DAST
+           │   where    │ 192.168.100.103
+           │   specific │ 333
+           │   URL      │ https://app.fluidattacks.com/groups/unittesting/vu
+           │            │ lns/436992569
+           │   state    │ closed
+           │            ╵
+           ╵
+              Summary
+                ╷           ╷
+  open          │ DAST      │ 25
+                │ SAST      │ 1
+                │ total     │ 26
+╶───────────────┼───────────┼─────╴
+  closed        │ DAST      │ 5
+                │ SAST      │ 1
+                │ total     │ 6
+╶───────────────┼───────────┼─────╴
+  accepted      │ DAST      │ 3
+                │ SAST      │ 1
+                │ total     │ 4
+                ╵           ╵
+       Total: 36 finding(s)
+   Time elapsed: 1.3593 seconds
+INFO     Uploading Report to ASM: Complete
+INFO     Success execution: True
