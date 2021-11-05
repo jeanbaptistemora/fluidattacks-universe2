@@ -19,7 +19,8 @@ resource "aws_s3_bucket" "prod" {
 
   tags = {
     "Name"               = "fluidattacks.com"
-    "management:type"    = "production"
+    "management:area"    = "cost"
+    "management:type"    = "product"
     "management:product" = "airs"
   }
 }
@@ -83,7 +84,8 @@ resource "aws_s3_bucket" "dev" {
 
   tags = {
     "Name"               = "web.eph.fluidattacks.com"
-    "management:type"    = "development"
+    "management:area"    = "innovation"
+    "management:type"    = "product"
     "management:product" = "airs"
   }
 }

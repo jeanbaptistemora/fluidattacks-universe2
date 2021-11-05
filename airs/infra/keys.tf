@@ -109,8 +109,9 @@ resource "aws_kms_key" "prod" {
   enable_key_rotation     = true
 
   tags = {
-    "Name"               = "web-production"
-    "management:type"    = "production"
+    "Name"               = "airs-production"
+    "management:area"    = "cost"
+    "management:type"    = "product"
     "management:product" = "airs"
   }
 }
@@ -238,8 +239,9 @@ resource "aws_kms_key" "dev" {
   enable_key_rotation     = true
 
   tags = {
-    "Name"               = "web-development"
-    "management:type"    = "development"
+    "Name"               = "airs-development"
+    "management:area"    = "innovation"
+    "management:type"    = "product"
     "management:product" = "airs"
   }
 }
