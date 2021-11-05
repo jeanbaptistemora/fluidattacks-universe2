@@ -37,6 +37,7 @@ import { Alert, ControlLabel } from "styles/styledComponents";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
 
 interface IUserProfileProps {
   userRole: string | undefined;
@@ -103,6 +104,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
     onError: (removeError: ApolloError): void => {
       removeError.graphQLErrors.forEach((error: GraphQLError): void => {
         Logger.error("An error occurred while deleting account", error);
+        msgError(t("groupAlerts.errorTextsad"));
       });
       push("/home");
     },
