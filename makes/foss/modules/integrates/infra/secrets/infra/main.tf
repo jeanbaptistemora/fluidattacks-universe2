@@ -23,19 +23,16 @@ module "external" {
 
   aws_iam_roles = [
     "dev",
-    "integrates-dev",
     "integrates-prod",
     "makes_prod",
   ]
   aws_iam_policies = {
     "dynamodb-admin"         = ["aws", "AmazonDynamoDBFullAccess"]
     "cloudwatch-push"        = ["aws", "service-role/AmazonAPIGatewayPushToCloudWatchLogs"]
-    "integrates-dev-policy"  = ["us", "user-provision/integrates-dev-policy"]
     "integrates-prod-policy" = ["us", "user-provision/integrates-prod-policy"]
   }
   aws_iam_users = [
     "dev",
-    "integrates-dev",
     "integrates-prod",
   ]
 }
