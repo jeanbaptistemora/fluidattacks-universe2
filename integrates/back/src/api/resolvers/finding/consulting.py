@@ -51,5 +51,8 @@ async def resolve_no_cache(
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     return await comments_domain.get_comments(
-        parent.group_name, parent.id, user_email, info
+        loaders=info.context.loaders,
+        group_name=parent.group_name,
+        finding_id=parent.id,
+        user_email=user_email,
     )

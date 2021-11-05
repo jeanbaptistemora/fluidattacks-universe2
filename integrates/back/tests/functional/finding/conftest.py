@@ -244,8 +244,18 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     },
                 ],
                 "historic_zero_risk": [
-                    {"date": "2018-09-28 10:32:58", "status": "REQUESTED"},
-                    {"date": "2020-09-09 16:01:26", "status": "CONFIRMED"},
+                    {
+                        "comment_id": "123456",
+                        "date": "2018-09-28 10:32:58",
+                        "email": "requested@zr.com",
+                        "status": "REQUESTED",
+                    },
+                    {
+                        "comment_id": "123456",
+                        "date": "2020-09-09 16:01:26",
+                        "email": "confirmed@zr.com",
+                        "status": "CONFIRMED",
+                    },
                 ],
                 "vuln_type": "ports",
                 # FP: local testing

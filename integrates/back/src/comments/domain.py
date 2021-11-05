@@ -7,7 +7,6 @@ from comments import (
 )
 from custom_types import (
     Comment as CommentType,
-    Finding as FindingType,
     User as UserType,
 )
 from datetime import (
@@ -16,8 +15,8 @@ from datetime import (
 from db_model.findings.types import (
     FindingVerification,
 )
-from graphql.type.definition import (
-    GraphQLResolveInfo,
+from db_model.vulnerabilities.types import (
+    Vulnerability,
 )
 from itertools import (
     filterfalse,
@@ -26,6 +25,7 @@ from newutils import (
     datetime as datetime_utils,
 )
 from typing import (
+    Any,
     cast,
     Dict,
     List,
@@ -38,13 +38,11 @@ from typing import (
 def _fill_vuln_info(
     comment: Dict[str, str],
     vulns_ids: Set[str],
-    vulns: List[Dict[str, FindingType]],
+    vulns: Tuple[Vulnerability, ...],
 ) -> CommentType:
     """Adds the «Regarding vulnerabilities...» header to comments answering a
     solicited reattack"""
-    selected_vulns = [
-        vuln.get("where") for vuln in vulns if vuln.get("UUID") in vulns_ids
-    ]
+    selected_vulns = [vuln.where for vuln in vulns if vuln.id in vulns_ids]
     selected_vulns = list(set(selected_vulns))
     wheres = ", ".join(cast(List[str], selected_vulns))
     # Avoid needless repetition of the header if the comment is answering more
@@ -134,12 +132,13 @@ async def get(comment_type: str, element_id: str) -> List[CommentType]:
 
 
 async def get_comments(
-    group_name: str, finding_id: str, user_email: str, info: GraphQLResolveInfo
+    loaders: Any,
+    group_name: str,
+    finding_id: str,
+    user_email: str,
 ) -> Tuple[CommentType, ...]:
-    historic_verification_loader = (
-        info.context.loaders.finding_historic_verification
-    )
-    finding_vulns_loader = info.context.loaders.finding_vulns
+    historic_verification_loader = loaders.finding_historic_verification
+    finding_vulns_loader = loaders.finding_vulns_typed
     comments = await _get_comments("comment", finding_id)
     historic_verification: Tuple[
         FindingVerification, ...
@@ -153,7 +152,9 @@ async def get_comments(
         verification_comment_ids: Set[str] = {
             verification.comment_id for verification in verified
         }
-        vulns = await finding_vulns_loader.load(finding_id)
+        vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
+            finding_id
+        )
         reattack_comments, non_reattack_comments = filter_reattack_comments(
             comments, verification_comment_ids
         )

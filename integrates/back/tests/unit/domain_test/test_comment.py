@@ -22,7 +22,10 @@ async def test_list_comments() -> None:
         None, None, None, None, None, None, None, None, None, None, request
     )
     test_data = await comments_domain.get_comments(
-        "unittesting", finding_id, user_email, info
+        loaders=info.context.loaders,
+        group_name="unittesting",
+        finding_id=finding_id,
+        user_email=user_email,
     )
     expected_output = [
         {
