@@ -1,3 +1,7 @@
+from aioextensions import (
+    in_thread,
+)
+import aiofiles  # type: ignore
 from binaryornot.check import (
     is_binary,
 )
@@ -50,10 +54,10 @@ async def get_uploaded_file_mime(file_instance: UploadFile) -> str:
     return mime_type
 
 
-def get_lines_count(file_path: str) -> int:
+async def get_lines_count(filename: str) -> int:
     """Get the number of lines in a file if is non binary."""
-    if not is_binary(file_path):
-        with open(file_path, encoding="latin-1") as content:
-            num_lines = len(content.readlines())
+    if not await in_thread(is_binary, filename):
+        async with aiofiles.open(filename, encoding="latin-1") as content:
+            num_lines = len(await content.readlines())
         return num_lines
     return 0

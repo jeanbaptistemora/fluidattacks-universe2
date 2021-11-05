@@ -1,3 +1,6 @@
+from aioextensions import (
+    in_thread,
+)
 from context import (
     SERVICES_GITLAB_API_TOKEN,
     SERVICES_GITLAB_API_USER,
@@ -22,11 +25,25 @@ def clone_services_repository(path: str) -> None:
     )
 
 
-def get_last_file_hash(repo: Repo, filename: str) -> str:
+async def get_last_commit_hash(repo: Repo, filename: str) -> str:
     """Get last hash of a file in the repo"""
-    return repo.git.log("--max-count", "1", "--format=%H", "--", filename)
+    return str(
+        await in_thread(
+            repo.git.log, "--max-count", "1", "--format=%H", "--", filename
+        )
+    )
 
 
-def get_last_file_date(repo: Repo, filename: str) -> str:
+async def get_last_modified_date(repo: Repo, filename: str) -> str:
     """Get last modified date of a file in the repo"""
-    return repo.git.log("--max-count", "1", "--format=%cI", "--", filename)
+    return str(
+        await in_thread(
+            repo.git.log,
+            "--max-count",
+            "1",
+            "--format=%cI",
+            "--",
+            filename,
+            "TZ=UTC",
+        )
+    )

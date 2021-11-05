@@ -10,21 +10,31 @@ from batch.types import (
 from context import (
     FI_TOE_LINES_RULES,
 )
-from git.exc import (
-    InvalidGitRepositoryError,
+from decimal import (
+    Decimal,
 )
 from git.repo.base import (
     Repo,
 )
 import logging
 import logging.config
+from newutils import (
+    datetime as datetime_utils,
+    files as files_utils,
+    git as git_utils,
+)
 import os
 from settings import (
     LOGGING,
 )
 import tempfile
+from toe.lines.types import (
+    ToeLinesAttributesToAdd,
+)
 from typing import (
+    Dict,
     Set,
+    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -53,21 +63,8 @@ async def apply_git_config(repo_path: str) -> None:
 
 
 async def get_present_filenames(
-    group_name: str, group_path: str, repo_nickname: str
+    group_path: str, repo: Repo, repo_nickname: str
 ) -> Set[str]:
-    try:
-        repo = Repo(repo_nickname)
-    except InvalidGitRepositoryError:
-        LOGGER.info(
-            "Invalid repository",
-            extra={
-                "extra": {
-                    "group_name": group_name,
-                    "repository": repo_nickname,
-                }
-            },
-        )
-        return set()
     trees = repo.head.commit.tree.traverse()
     ignored_files = await get_ignored_files(group_path, repo_nickname)
     included_head_filenames = tuple(
@@ -77,13 +74,13 @@ async def get_present_filenames(
     )
 
     file_exists = await collect(
-        in_thread(os.path.exists, f"{repo_nickname}/{filenames}")
-        for filenames in included_head_filenames
+        in_thread(os.path.exists, f"{repo_nickname}/{filename}")
+        for filename in included_head_filenames
     )
 
     file_islink = await collect(
-        in_thread(os.path.islink, f"{repo_nickname}/{filenames}")
-        for filenames in included_head_filenames
+        in_thread(os.path.islink, f"{repo_nickname}/{filename}")
+        for filename in included_head_filenames
     )
 
     return {
@@ -132,6 +129,58 @@ def pull_repositories(tmpdir: str, group_name: str) -> None:
         "PROD_AWS_ACCESS_KEY_ID=$SERVICES_PROD_AWS_ACCESS_KEY_ID "
         "PROD_AWS_SECRET_ACCESS_KEY=$SERVICES_PROD_AWS_SECRET_ACCESS_KEY "
         f"melts drills --pull-repos {group_name} "
+    )
+
+
+async def get_present_toe_lines_to_create(
+    present_filenames: Set[str],
+    repo: Repo,
+    repo_nickname: str,
+    repo_toe_lines: Dict[str, str],
+) -> Tuple[Tuple[str, ToeLinesAttributesToAdd], ...]:
+    non_db_filenames = tuple(
+        filename
+        for filename in present_filenames
+        if not repo_toe_lines.get(filename)
+    )
+    lines = await collect(
+        tuple(
+            files_utils.get_lines_count(f"{repo_nickname}/{filename}")
+            for filename in non_db_filenames
+        )
+    )
+    last_modified_dates = await collect(
+        tuple(
+            git_utils.get_last_modified_date(repo, filename)
+            for filename in non_db_filenames
+        )
+    )
+    last_hashes = await collect(
+        tuple(
+            git_utils.get_last_commit_hash(repo, filename)
+            for filename in non_db_filenames
+        )
+    )
+    return tuple(
+        (
+            filename,
+            ToeLinesAttributesToAdd(
+                attacked_at="",
+                attacked_by="",
+                attacked_lines=0,
+                be_present=True,
+                comments="",
+                first_attack_at="",
+                loc=lines,
+                modified_commit=last_hash,
+                modified_date=last_modified_date,
+                seen_at=datetime_utils.get_iso_date(),
+                sorts_risk_level=Decimal("-1"),
+            ),
+        )
+        for filename, lines, last_modified_date, last_hash in zip(
+            non_db_filenames, lines, last_modified_dates, last_hashes
+        )
     )
 
 
