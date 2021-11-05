@@ -1,9 +1,9 @@
 from db_model.enums import (
     Source,
+    StateRemovalJustification,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
-    VulnerabilityDeletionJustification,
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
     VulnerabilityType,
@@ -48,7 +48,7 @@ def format_vulnerability_state(state: Dict[str, Any]) -> VulnerabilityState:
         source=Source[map_source(state["source"]).upper()],
         status=VulnerabilityStateStatus[state["state"].upper()],
         justification=(
-            VulnerabilityDeletionJustification[state["justification"]]
+            StateRemovalJustification[state["justification"]]
             if exists("justification", state)
             else None
         ),

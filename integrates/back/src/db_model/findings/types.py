@@ -1,12 +1,12 @@
 from .enums import (
     FindingSorts,
-    FindingStateJustification,
     FindingStateStatus,
     FindingStatus,
     FindingVerificationStatus,
 )
 from db_model.enums import (
     Source,
+    StateRemovalJustification,
 )
 from decimal import (
     Decimal,
@@ -24,8 +24,8 @@ class FindingState(NamedTuple):
     modified_date: str
     source: Source
     status: FindingStateStatus
-    justification: FindingStateJustification = (
-        FindingStateJustification.NO_JUSTIFICATION
+    justification: StateRemovalJustification = (
+        StateRemovalJustification.NO_JUSTIFICATION
     )
 
 

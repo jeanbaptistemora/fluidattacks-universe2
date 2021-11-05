@@ -10,8 +10,8 @@ from ariadne.utils import (
 from custom_types import (
     SimplePayload,
 )
-from db_model.findings.enums import (
-    FindingStateJustification,
+from db_model.enums import (
+    StateRemovalJustification,
 )
 from db_model.findings.types import (
     Finding,
@@ -58,7 +58,7 @@ async def mutate(
         finding_loader = info.context.loaders.finding
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
-        state_justification = FindingStateJustification[justification]
+        state_justification = StateRemovalJustification[justification]
         finding: Finding = await finding_loader.load(finding_id)
         await findings_domain.remove_finding(
             info.context,

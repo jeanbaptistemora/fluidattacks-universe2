@@ -1,6 +1,5 @@
 from .enums import (
     VulnerabilityAcceptanceStatus,
-    VulnerabilityDeletionJustification,
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
     VulnerabilityType,
@@ -9,6 +8,7 @@ from .enums import (
 )
 from db_model.enums import (
     Source,
+    StateRemovalJustification,
 )
 from typing import (
     List,
@@ -22,7 +22,7 @@ class VulnerabilityState(NamedTuple):
     modified_date: str
     source: Source
     status: VulnerabilityStateStatus
-    justification: Optional[VulnerabilityDeletionJustification] = None
+    justification: Optional[StateRemovalJustification] = None
 
 
 class VulnerabilityTreatment(NamedTuple):

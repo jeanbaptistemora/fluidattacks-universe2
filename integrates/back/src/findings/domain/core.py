@@ -34,8 +34,10 @@ from db_model import (
     findings as findings_model,
     MASKED,
 )
+from db_model.enums import (
+    StateRemovalJustification,
+)
 from db_model.findings.enums import (
-    FindingStateJustification,
     FindingStateStatus,
     FindingVerificationStatus,
 )
@@ -157,7 +159,7 @@ async def add_comment(
 async def remove_finding(
     context: Any,
     finding_id: str,
-    justification: FindingStateJustification,
+    justification: StateRemovalJustification,
     user_email: str,
 ) -> None:
     finding_loader = context.loaders.finding

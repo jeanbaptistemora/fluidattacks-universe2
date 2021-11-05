@@ -1,7 +1,6 @@
 from .enums import (
     FindingCvssVersion,
     FindingSorts,
-    FindingStateJustification,
     FindingStateStatus,
     FindingStatus,
     FindingVerificationStatus,
@@ -22,6 +21,7 @@ from datetime import (
 )
 from db_model.enums import (
     Source,
+    StateRemovalJustification,
 )
 from decimal import (
     Decimal,
@@ -171,7 +171,7 @@ def format_finding(
 
 def format_state(state_item: Item) -> FindingState:
     return FindingState(
-        justification=FindingStateJustification[state_item["justification"]],
+        justification=StateRemovalJustification[state_item["justification"]],
         modified_by=state_item["modified_by"],
         modified_date=state_item["modified_date"],
         source=Source[state_item["source"]],

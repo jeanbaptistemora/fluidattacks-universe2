@@ -12,8 +12,8 @@ from custom_types import (
     Comment as CommentType,
     MailContent as MailContentType,
 )
-from db_model.findings.enums import (
-    FindingStateJustification,
+from db_model.enums import (
+    StateRemovalJustification,
 )
 from group_access import (
     domain as group_access_domain,
@@ -72,13 +72,14 @@ async def send_mail_remove_finding(
     finding_name: str,
     group_name: str,
     discoverer_email: str,
-    justification: FindingStateJustification,
+    justification: StateRemovalJustification,
 ) -> None:
     justification_dict = {
-        FindingStateJustification.DUPLICATED: "It is duplicated",
-        FindingStateJustification.FALSE_POSITIVE: "It is a false positive",
-        FindingStateJustification.NOT_REQUIRED: "Finding not required",
-        FindingStateJustification.NO_JUSTIFICATION: "",
+        StateRemovalJustification.DUPLICATED: "It is duplicated",
+        StateRemovalJustification.FALSE_POSITIVE: "It is a false positive",
+        StateRemovalJustification.NO_JUSTIFICATION: "",
+        StateRemovalJustification.NOT_REQUIRED: "Finding not required",
+        StateRemovalJustification.REPORTING_ERROR: "It is a reporting error",
     }
     recipients = FI_MAIL_REVIEWERS.split(",")
     mail_context = {

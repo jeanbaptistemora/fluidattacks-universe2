@@ -25,13 +25,6 @@ class FindingSorts(Enum):
     YES: str = "YES"
 
 
-class FindingStateJustification(Enum):
-    DUPLICATED: str = "DUPLICATED"
-    FALSE_POSITIVE: str = "FALSE_POSITIVE"
-    NOT_REQUIRED: str = "NOT_REQUIRED"
-    NO_JUSTIFICATION: str = "NO_JUSTIFICATION"
-
-
 class FindingStateStatus(Enum):
     APPROVED: str = "APPROVED"
     CREATED: str = "CREATED"

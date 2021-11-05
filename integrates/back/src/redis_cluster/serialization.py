@@ -1,9 +1,9 @@
 from db_model.enums import (
     Source,
+    StateRemovalJustification,
 )
 from db_model.findings.enums import (
     FindingSorts,
-    FindingStateJustification,
     FindingStateStatus,
     FindingStatus,
     FindingVerificationStatus,
@@ -52,11 +52,11 @@ def set_load(*args: Serialized) -> Set[Any]:
 # Side effects
 safe_pickle.register(set, set_dump, set_load)
 safe_pickle.register_enum(FindingSorts)
-safe_pickle.register_enum(FindingStateJustification)
 safe_pickle.register_enum(FindingStateStatus)
 safe_pickle.register_enum(FindingStatus)
 safe_pickle.register_enum(FindingVerificationStatus)
 safe_pickle.register_enum(Source)
+safe_pickle.register_enum(StateRemovalJustification)
 safe_pickle.register_namedtuple(Finding)
 safe_pickle.register_namedtuple(Finding20Severity)
 safe_pickle.register_namedtuple(Finding31Severity)

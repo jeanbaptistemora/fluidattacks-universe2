@@ -1,6 +1,5 @@
 from .enums import (
     VulnerabilityAcceptanceStatus,
-    VulnerabilityDeletionJustification,
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
     VulnerabilityType,
@@ -19,6 +18,7 @@ from db_model import (
 )
 from db_model.enums import (
     Source,
+    StateRemovalJustification,
 )
 from dynamodb import (
     historics,
@@ -115,7 +115,7 @@ def format_vulnerability(
 
 def format_state(item: Item) -> VulnerabilityState:
     return VulnerabilityState(
-        justification=VulnerabilityDeletionJustification[item["justification"]]
+        justification=StateRemovalJustification[item["justification"]]
         if item.get("justification", None)
         else None,
         modified_by=item["modified_by"],
