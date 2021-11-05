@@ -421,10 +421,20 @@
     ]
   },
   "extend-shallow": {},
+  "fast-csv": {
+    "CVE-2020-26256": [
+      "<4.3.6"
+    ]
+  },
   "fast-deep-equal": {},
   "fast-json-stable-stringify": {},
   "figgy-pudding": {},
   "fill-range": {},
+  "find-process": {
+    "github.com/yibn2008/find-process/pull/44": [
+      "<1.4.5"
+    ]
+  },
   "find-up": {},
   "flat": {
     "SNYK-JS-FLAT-596927": [

@@ -35,6 +35,8 @@
     "engine.io": "3.4.2",
     "eslint-utils": "1.4.0",
     "express": "2.5.11",
+    "fast-csv": "3.7.0",
+    "find-process": "1.4.4",
     "flat": "2.0.0",
     "fresh": "xxxxwhasdflaskdjfasdf",
     "fstream": "1.0.11",
