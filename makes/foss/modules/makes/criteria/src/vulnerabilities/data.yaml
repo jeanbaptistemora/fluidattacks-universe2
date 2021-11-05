@@ -2467,7 +2467,7 @@
       default credentials
       to access system resources,
       such as the database.
-    impact: __empty__
+    impact: Attacker in local network.
     recommendation: >
       Eliminate the credentials
       from the storage manager
@@ -2481,7 +2481,7 @@
       por defecto de baja fortaleza
       las cuales aún están presentes
       en la base de datos de la aplicación.
-    impact: __empty__
+    impact: Atacante en red local.
     recommendation: >
       Eliminar las credenciales
       del gestor de almacenamiento
@@ -2491,17 +2491,17 @@
   category: Probabilistic Techniques
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "H"
       integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["142"]
   metadata:
