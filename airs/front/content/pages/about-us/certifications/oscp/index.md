@@ -11,8 +11,12 @@ certification: yes
 certificationid: 6
 ---
 
-OSCP is a professional certification in ethical hacking developed by
-Offensive Security. It is the first fully hands-on offensive information
-security certification in the world. It requires the professionals to
-prove that they have a clear understanding of the penetration testing
-process and lifecycle through an arduous 24-hour exam.
+[OSCP](https://www.offensive-security.com/pwk-oscp/)
+is a professional certification in ethical hacking
+developed by Offensive Security.
+It is the first fully hands-on offensive information security certification
+in the world.
+It requires the professionals to prove
+that they have a clear understanding of the penetration testing process
+and lifecycle
+through an arduous 24-hour exam.

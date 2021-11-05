@@ -8,14 +8,17 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-ewptv1
 alt: Logo ewptv1
 certification: yes
-certificationid: 11
+certificationid: 10
 ---
 
-eWPTv1 is a certification created by eLearnSecurity. It is the only
-certification for Web Application Penetration testers that evaluates the
-ability to attack a target. It assesses a cybersecurity professional’s
-web application penetration testing skills. The eWPTv1 certification
-assesses the expertise of a person in two main aspects:
+[eWPTv1](https://elearnsecurity.com/product/ewpt-certification/)
+is a certification created by eLearnSecurity.
+It is the only certification for Web Application Penetration testers
+that evaluates the ability to attack a target.
+It assesses
+a cybersecurity professional's web application penetration testing skills.
+The eWPTv1 certification assesses the expertise of a person
+in two main aspects:
 
 - Penetration testing processes and methodologies
 

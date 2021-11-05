@@ -11,8 +11,13 @@ certification: yes
 certificationid: 2
 ---
 
-OSCE is a certification focused on advanced penetration testing skills,
-created by Offensive Security. In an intense 48-hour exam, the
-professionals prove they can develop exploits, execute attacks, and
-obtain administrative access. OSCEs can think outside the box and
-perform with persistence, even under pressure.
+[OSCE](https://www.offensive-security.com/ctp-osce/)
+is a certification focused on advanced penetration testing skills,
+created by Offensive Security.
+In an intense 48-hour exam,
+the professionals prove they can develop exploits,
+execute attacks
+and obtain administrative access.
+OSCEs can think outside the box
+and perform with persistence,
+even under pressure.

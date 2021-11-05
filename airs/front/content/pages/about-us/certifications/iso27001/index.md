@@ -8,9 +8,12 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-auditor27001
 alt: Logo auditor27001
 certification: yes
-certificationid: 17
+certificationid: 18
 ---
 
-ISO27001 is an international certification. It evaluates the candidate’s
-expertise to perform an Information Security Management System audit. To
-do so, it applies audit principles, procedures and techniques.
+ISO27001 is an international certification.
+It evaluates the candidate's expertise
+to perform an Information Security Management System audit.
+To do so,
+it applies audit principles,
+procedures and techniques.

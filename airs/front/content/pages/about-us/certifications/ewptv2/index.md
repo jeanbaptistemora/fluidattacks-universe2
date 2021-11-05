@@ -8,13 +8,15 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-ewptv2
 alt: Logo ewptv2
 certification: yes
-certificationid: 9
+certificationid: 11
 ---
 
-eWPTv2 is a certification created by eLearnSecurity. This is the most
-advanced web application pentesting certification. It evaluates the
-candidate’s skills to perform an expert-level penetration test. eWPTv2
-assesses a person’s expertise in two main aspects:
+[eWPTXv2](https://elearnsecurity.com/product/ewptxv2-certification/)
+is a certification created by eLearnSecurity.
+This is the most advanced web application pentesting certification.
+It evaluates the candidate's skills
+to perform an expert-level penetration test.
+eWPTXv2 assesses a person's expertise in two main aspects:
 
 - Advanced reporting skills and remediation
 

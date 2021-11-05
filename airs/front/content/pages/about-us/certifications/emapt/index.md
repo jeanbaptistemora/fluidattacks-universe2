@@ -8,12 +8,16 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-emapt
 alt: Logo emapt
 certification: yes
-certificationid: 10
+certificationid: 9
 ---
 
-eMAPT is a certification created by eLearnSecurity. This certification
-is intended to be achieved by cybersecurity experts with advanced mobile
-application security knowledge. It evaluates the candidate’s skills to
-perform an expert-level analysis and penetration test. To do so,
-candidates must perform manual exploitation, reverse engineering and
-decryption in two Android applications.
+[eMAPT](https://elearnsecurity.com/product/emapt-certification/)
+is a certification created by eLearnSecurity.
+This certification is intended to be achieved
+by cybersecurity experts with advanced mobile application security knowledge.
+It evaluates the candidate's skills
+to perform an expert-level analysis and penetration test.
+To do so,
+they must perform manual exploitation,
+reverse engineering
+and decryption in two Android applications.

@@ -11,8 +11,10 @@ certification: yes
 certificationid: 4
 ---
 
-OSWE is a certification designed to demonstrate the ability to exploit
-web apps, which is recommended to be obtained after OSCP. In a 48-hour
-exam within an isolated VPN, professionals assess and attack different
-web apps and operating systems. They must prove their skills by
-identifying vulnerabilities and then exploiting them.
+[OSWE](https://www.offensive-security.com/awae-oswe/)
+is a certification designed to demonstrate the ability to exploit web apps,
+which is recommended to be obtained after OSCP.
+In a 48-hour exam within an isolated VPN,
+professionals assess and attack different web apps and operating systems.
+They must prove their skills by identifying vulnerabilities
+and then exploiting them.

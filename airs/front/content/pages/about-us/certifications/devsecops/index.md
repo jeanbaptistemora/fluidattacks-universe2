@@ -8,10 +8,15 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-devsecops
 alt: Logo DevSecOps
 certification: yes
-certificationid: 16
+certificationid: 17
 ---
 
-The CDP credential validates the practical expertise to understand,
-implement and manage the DevSecOps program in a firm. A CDP can assess
-the current state of DevSecOps, embed security as part of DevOps, manage
-vulnerabilities and improve the overall maturity level.
+The [CDP](https://www.practical-devsecops.com/certified-devsecops-professional/)
+credential
+validates the practical expertise to understand,
+implement
+and manage the DevSecOps program in a firm.
+A CDP can assess the current state of DevSecOps,
+embed security as part of DevOps,
+manage vulnerabilities
+and improve the overall maturity level.

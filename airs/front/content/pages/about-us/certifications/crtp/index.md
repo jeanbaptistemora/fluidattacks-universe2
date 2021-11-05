@@ -11,9 +11,12 @@ certification: yes
 certificationid: 8
 ---
 
-The Certified Red Team Professional (CRTP) is a fully hands-on
-certification given by the Pentester Academy. This certification
-guarantees that the person has the expertise to assess the security of
-an Active Directory environment. Professionals compromise Active
-Directory by abusing features and functionalities without relying on
-patchable exploits.
+The [Certified Red Team Professional](https://www.pentesteracademy.com/activedirectorylab)
+is a fully hands-on certification
+given by the Pentester Academy.
+This certification guarantees
+that the person has the expertise
+to assess the security of an Active Directory environment.
+Professionals compromise Active Directory
+by abusing features and functionalities
+without relying on patchable exploits.

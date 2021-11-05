@@ -11,9 +11,14 @@ certification: yes
 certificationid: 13
 ---
 
-eCPTX is the most advanced pentesting certification created by
-eLearnSecurity, which is now in its second version. Individuals under
-evaluation must conduct a penetration test on a corporate network based
-on a real-world scenario. They have to apply several sophisticated
-methodologies, stay under the radar the entire time, and give solid
-evidence of their findings to obtain this certification.
+[eCPTX](https://elearnsecurity.com/product/ecptx-certification/)
+is the most advanced pentesting certification
+created by eLearnSecurity
+and is now in its second version.
+Individuals under evaluation must conduct a penetration test
+on a corporate network
+based on a real-world scenario.
+They have to apply several sophisticated methodologies,
+stay under the radar the entire time
+and give solid evidence of their findings
+to obtain this certification.

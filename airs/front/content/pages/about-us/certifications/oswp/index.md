@@ -11,7 +11,9 @@ certification: yes
 certificationid: 5
 ---
 
-OSWP is the only professional certification in practical wireless
-attacks in the security field today. In a hands-on exam, an OSWP must
-prove they have the skills to do 802.11 wireless audits using open
-source tools.
+[OSWP](https://www.offensive-security.com/wifu-oswp/)
+is the only professional certification in practical wireless attacks
+in the security field today.
+In a hands-on exam,
+an OSWP must prove they have the skills to do 802.11 wireless audits
+using open source tools.
