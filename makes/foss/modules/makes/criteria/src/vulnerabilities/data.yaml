@@ -2415,8 +2415,14 @@
       The system's WSDL file
       contains sensitive information
       and is exposed to a larger audience than required.
-    impact: __empty__
-    recommendation: __empty__
+    impact: >
+      - Obtain information from the application
+      services.
+
+      - Expand the attack surface.
+    recommendation: >
+      Restrict access to /_vti_bin resource
+      to unauthorised users.
     threat: Anonymous attacker from the Internet
   es:
     title: Exposed web services
@@ -2425,8 +2431,14 @@
       información sensible
       y se encuentra expuesto
       para una audiencia mayor que la necesaria.
-    impact: __empty__
-    recommendation: __empty__
+    impact: >
+      - Obtener información de los servicios de
+      la aplicación.
+
+      - Ampliar la superficie de ataque.
+    recommendation: >
+      Restringir el acceso al recurso /_vti_bin
+      para usuarios no autorizados.
     threat: Atacante anónimo desde Internet
   category: Collect Information
   score:
@@ -2436,7 +2448,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
