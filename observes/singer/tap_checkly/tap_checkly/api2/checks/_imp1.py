@@ -37,7 +37,7 @@ def _to_rolled_up(raw: JsonObj) -> RolledUpResultObj:
         raw["failureCount"].to_primitive(int),
         raw["resultsCount"].to_primitive(int),
         raw["hour"].to_primitive(str),
-        tuple(raw["responseTimes"].to_list_of(str)),
+        tuple(raw["responseTimes"].to_list_of(int)),
     )
     return IndexedObj(id_obj, obj)
 

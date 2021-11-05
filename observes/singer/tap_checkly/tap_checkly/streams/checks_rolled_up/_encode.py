@@ -36,7 +36,13 @@ def encode(
     )
     times: FrozenList[FrozenDict[str, Primitive]] = tuple(
         FrozenDict(
-            {"check_id": result.id_obj.id_str, "response_time": r, "index": i}
+            {
+                "check_id": result.id_obj.id_str,
+                "run_location": result.obj.run_location,
+                "hour": result.obj.hour,
+                "response_time": r,
+                "index": i,
+            }
         )
         for i, r in enumerate(result.obj.response_times)
     )

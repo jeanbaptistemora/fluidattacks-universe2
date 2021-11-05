@@ -63,7 +63,7 @@ class ChkRollStream:
             lambda p: self._get_page(check, p)
         )
         pages = (
-            infinite_range(0, 1)
+            infinite_range(1, 1)
             .chunked(10)
             .map(lambda i: tuple(i))
             .map(getter.get_pages)
@@ -91,7 +91,7 @@ class ChkRollStream:
             )
         )
         pages = (
-            infinite_range(0, 1)
+            infinite_range(1, 1)
             .chunked(10)
             .map(lambda i: tuple(i))
             .map(getter.get_pages)

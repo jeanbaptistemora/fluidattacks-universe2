@@ -17,7 +17,7 @@ class RolledUpResult:
     failure_count: int
     results_count: int
     hour: str
-    response_times: FrozenList[str]
+    response_times: FrozenList[int]
 
 
 RolledUpResultObj = IndexedObj[CheckId, RolledUpResult]

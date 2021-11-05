@@ -1,4 +1,7 @@
 import click
+from returns.maybe import (
+    Maybe,
+)
 from tap_checkly import (
     executor,
 )
@@ -26,10 +29,15 @@ from typing import (
 )
 def stream(name: Optional[str], api_key: str, all_streams: bool) -> None:
     creds = Credentials.new(api_key)
-    if all_streams:
-        executor.stream_all(creds)
-    elif name:
-        executor.stream(creds, name)
+    selection = (
+        tuple(SupportedStreams)
+        if all_streams
+        else Maybe.from_optional(name)
+        .map(SupportedStreams)
+        .map(lambda i: (i,))
+        .unwrap()
+    )
+    executor.emit_streams(creds, selection)
 
 
 @click.group()

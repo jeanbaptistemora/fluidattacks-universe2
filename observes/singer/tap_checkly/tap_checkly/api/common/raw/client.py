@@ -32,8 +32,9 @@ def _get(creds: Credentials, endpoint: str, **kwargs: Any) -> List[JsonObj]:
         **kwargs,
     )
     response.raise_for_status()
+    data = response.json()
     LOG.debug("API call: %s\nkwargs = %s", endpoint, kwargs)
-    return JsonFactory.build_json_list(response.json())
+    return JsonFactory.build_json_list(data)
 
 
 class Client(NamedTuple):
