@@ -7,6 +7,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
     actions = [
       "access-analyzer:*",
       "batch:*",
+      "budgets:*",
       "sns:*",
       "rds:*",
       "s3:*",
@@ -26,6 +27,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
       "lambda:*",
       "route53:*",
       "ec2:*",
+      "pricing:*",
       "ecr:*",
       "ecs:*",
       "eks:*",
