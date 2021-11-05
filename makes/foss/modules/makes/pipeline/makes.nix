@@ -249,6 +249,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/makes/criteria/skims-sync";
+          gitlabExtra = gitlabTestCode;
+        }
+        {
           output = "/makes/criteria/test";
           gitlabExtra = gitlabTestCode;
         }

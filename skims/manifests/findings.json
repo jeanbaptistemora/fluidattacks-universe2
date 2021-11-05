@@ -231,14 +231,6 @@
       "title": "071. Insecure or unset HTTP headers - Referrer-Policy"
     }
   },
-  "F073": {
-    "EN": {
-      "title": "073. Conditional statement without a default option"
-    },
-    "ES": {
-      "title": "073. Conditional statement without a default option"
-    }
-  },
   "F075": {
     "EN": {
       "title": "075. Unauthorized access to files - APK Content Provider"
@@ -465,10 +457,10 @@
   },
   "F259": {
     "EN": {
-      "title": "Lack of protection against deletion - DynamoDB"
+      "title": "259. Lack of protection against deletion - DynamoDB"
     },
     "ES": {
-      "title": "Lack of protection against deletion - DynamoDB"
+      "title": "259. Lack of protection against deletion - DynamoDB"
     }
   },
   "F320": {
