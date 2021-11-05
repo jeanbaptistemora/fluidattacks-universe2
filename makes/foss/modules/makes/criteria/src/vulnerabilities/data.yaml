@@ -3346,7 +3346,7 @@
       it is possible
       to make anonymous connections to it
       and access otherwise protected resources.
-    impact: __empty__
+    impact: Read and/or modify files within the service.
     recommendation: >
       Configure the services
       to avoid services' enumeration
@@ -3363,7 +3363,7 @@
       es posible conectarse anónimamente
       y acceder a recursos y funcionalidades
       que normalmente estarían protegidos.
-    impact: __empty__
+    impact: Leer y/o modificar archivos dentro del servicio.
     recommendation: >
       Configurar los servicios
       para que no se pueda enumerar los servicios
@@ -3373,17 +3373,17 @@
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
+      confidentiality: "L"
+      integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["142", "264", "265", "266", "319"]
   metadata:
