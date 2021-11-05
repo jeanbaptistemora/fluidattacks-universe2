@@ -10257,7 +10257,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [
   34 |       <scope>test</scope>
   35 |     </dependency>
   36 |     <dependency>
-  37 |       <groupId>org.mockito</groupId>
+  37 |       <groupId>org.springframework.security</groupId>
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp],21,937,skims,011. Use of software with known vulnerabilities,Use of junit:junit at version 4.12 with github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp in skims/test/data/lib_path/f011/pom.xml,"
@@ -10305,7 +10305,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [
   34 |       <scope>test</scope>
   35 |     </dependency>
   36 |     <dependency>
-  37 |       <groupId>org.mockito</groupId>
+  37 |       <groupId>org.springframework.security</groupId>
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (just-extend v3.0.0) [CVE-2018-16489],74,937,skims,011. Use of software with known vulnerabilities,Use of just-extend at version 3.0.0 with CVE-2018-16489 in skims/test/data/lib_path/f011/package.json,"
@@ -11628,6 +11628,270 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (openssl v1.1.1)
    72 |     ""jsrsasign"": ""8.0.0"",
       ^ Col 0
 "
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2011-2731],38,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2011-2731 in skims/test/data/lib_path/f011/pom.xml,"
+  28 |       <scope>test</scope>
+  29 |     </dependency>
+  30 |     <dependency>
+  31 |       <groupId>org.springframework.security</groupId>
+  32 |       <artifactId>spring-security-core</artifactId>
+  33 |       <version>${spring.version}</version>
+  34 |       <scope>test</scope>
+  35 |     </dependency>
+  36 |     <dependency>
+  37 |       <groupId>org.springframework.security</groupId>
+> 38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
+  44 |       <version>${mockito.version}</version>
+  45 |       <scope>test</scope>
+  46 |     </dependency>
+  47 |     <dependency>
+  48 |       <groupId>org.slf4j</groupId>
+     ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2011-2732],38,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2011-2732 in skims/test/data/lib_path/f011/pom.xml,"
+  28 |       <scope>test</scope>
+  29 |     </dependency>
+  30 |     <dependency>
+  31 |       <groupId>org.springframework.security</groupId>
+  32 |       <artifactId>spring-security-core</artifactId>
+  33 |       <version>${spring.version}</version>
+  34 |       <scope>test</scope>
+  35 |     </dependency>
+  36 |     <dependency>
+  37 |       <groupId>org.springframework.security</groupId>
+> 38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
+  44 |       <version>${mockito.version}</version>
+  45 |       <scope>test</scope>
+  46 |     </dependency>
+  47 |     <dependency>
+  48 |       <groupId>org.slf4j</groupId>
+     ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2011-2894],38,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2011-2894 in skims/test/data/lib_path/f011/pom.xml,"
+  28 |       <scope>test</scope>
+  29 |     </dependency>
+  30 |     <dependency>
+  31 |       <groupId>org.springframework.security</groupId>
+  32 |       <artifactId>spring-security-core</artifactId>
+  33 |       <version>${spring.version}</version>
+  34 |       <scope>test</scope>
+  35 |     </dependency>
+  36 |     <dependency>
+  37 |       <groupId>org.springframework.security</groupId>
+> 38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
+  44 |       <version>${mockito.version}</version>
+  45 |       <scope>test</scope>
+  46 |     </dependency>
+  47 |     <dependency>
+  48 |       <groupId>org.slf4j</groupId>
+     ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2012-5055],38,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2012-5055 in skims/test/data/lib_path/f011/pom.xml,"
+  28 |       <scope>test</scope>
+  29 |     </dependency>
+  30 |     <dependency>
+  31 |       <groupId>org.springframework.security</groupId>
+  32 |       <artifactId>spring-security-core</artifactId>
+  33 |       <version>${spring.version}</version>
+  34 |       <scope>test</scope>
+  35 |     </dependency>
+  36 |     <dependency>
+  37 |       <groupId>org.springframework.security</groupId>
+> 38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
+  44 |       <version>${mockito.version}</version>
+  45 |       <scope>test</scope>
+  46 |     </dependency>
+  47 |     <dependency>
+  48 |       <groupId>org.slf4j</groupId>
+     ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2014-0097],38,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2014-0097 in skims/test/data/lib_path/f011/pom.xml,"
+  28 |       <scope>test</scope>
+  29 |     </dependency>
+  30 |     <dependency>
+  31 |       <groupId>org.springframework.security</groupId>
+  32 |       <artifactId>spring-security-core</artifactId>
+  33 |       <version>${spring.version}</version>
+  34 |       <scope>test</scope>
+  35 |     </dependency>
+  36 |     <dependency>
+  37 |       <groupId>org.springframework.security</groupId>
+> 38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
+  44 |       <version>${mockito.version}</version>
+  45 |       <scope>test</scope>
+  46 |     </dependency>
+  47 |     <dependency>
+  48 |       <groupId>org.slf4j</groupId>
+     ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2017-4995],38,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2017-4995 in skims/test/data/lib_path/f011/pom.xml,"
+  28 |       <scope>test</scope>
+  29 |     </dependency>
+  30 |     <dependency>
+  31 |       <groupId>org.springframework.security</groupId>
+  32 |       <artifactId>spring-security-core</artifactId>
+  33 |       <version>${spring.version}</version>
+  34 |       <scope>test</scope>
+  35 |     </dependency>
+  36 |     <dependency>
+  37 |       <groupId>org.springframework.security</groupId>
+> 38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
+  44 |       <version>${mockito.version}</version>
+  45 |       <scope>test</scope>
+  46 |     </dependency>
+  47 |     <dependency>
+  48 |       <groupId>org.slf4j</groupId>
+     ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2019-11272],38,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2019-11272 in skims/test/data/lib_path/f011/pom.xml,"
+  28 |       <scope>test</scope>
+  29 |     </dependency>
+  30 |     <dependency>
+  31 |       <groupId>org.springframework.security</groupId>
+  32 |       <artifactId>spring-security-core</artifactId>
+  33 |       <version>${spring.version}</version>
+  34 |       <scope>test</scope>
+  35 |     </dependency>
+  36 |     <dependency>
+  37 |       <groupId>org.springframework.security</groupId>
+> 38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
+  44 |       <version>${mockito.version}</version>
+  45 |       <scope>test</scope>
+  46 |     </dependency>
+  47 |     <dependency>
+  48 |       <groupId>org.slf4j</groupId>
+     ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2019-3795],38,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2019-3795 in skims/test/data/lib_path/f011/pom.xml,"
+  28 |       <scope>test</scope>
+  29 |     </dependency>
+  30 |     <dependency>
+  31 |       <groupId>org.springframework.security</groupId>
+  32 |       <artifactId>spring-security-core</artifactId>
+  33 |       <version>${spring.version}</version>
+  34 |       <scope>test</scope>
+  35 |     </dependency>
+  36 |     <dependency>
+  37 |       <groupId>org.springframework.security</groupId>
+> 38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
+  44 |       <version>${mockito.version}</version>
+  45 |       <scope>test</scope>
+  46 |     </dependency>
+  47 |     <dependency>
+  48 |       <groupId>org.slf4j</groupId>
+     ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2020-3700],38,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2020-3700 in skims/test/data/lib_path/f011/pom.xml,"
+  28 |       <scope>test</scope>
+  29 |     </dependency>
+  30 |     <dependency>
+  31 |       <groupId>org.springframework.security</groupId>
+  32 |       <artifactId>spring-security-core</artifactId>
+  33 |       <version>${spring.version}</version>
+  34 |       <scope>test</scope>
+  35 |     </dependency>
+  36 |     <dependency>
+  37 |       <groupId>org.springframework.security</groupId>
+> 38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
+  44 |       <version>${mockito.version}</version>
+  45 |       <scope>test</scope>
+  46 |     </dependency>
+  47 |     <dependency>
+  48 |       <groupId>org.slf4j</groupId>
+     ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2020-5408],38,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2020-5408 in skims/test/data/lib_path/f011/pom.xml,"
+  28 |       <scope>test</scope>
+  29 |     </dependency>
+  30 |     <dependency>
+  31 |       <groupId>org.springframework.security</groupId>
+  32 |       <artifactId>spring-security-core</artifactId>
+  33 |       <version>${spring.version}</version>
+  34 |       <scope>test</scope>
+  35 |     </dependency>
+  36 |     <dependency>
+  37 |       <groupId>org.springframework.security</groupId>
+> 38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
+  44 |       <version>${mockito.version}</version>
+  45 |       <scope>test</scope>
+  46 |     </dependency>
+  47 |     <dependency>
+  48 |       <groupId>org.slf4j</groupId>
+     ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2021-22112],38,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2021-22112 in skims/test/data/lib_path/f011/pom.xml,"
+  28 |       <scope>test</scope>
+  29 |     </dependency>
+  30 |     <dependency>
+  31 |       <groupId>org.springframework.security</groupId>
+  32 |       <artifactId>spring-security-core</artifactId>
+  33 |       <version>${spring.version}</version>
+  34 |       <scope>test</scope>
+  35 |     </dependency>
+  36 |     <dependency>
+  37 |       <groupId>org.springframework.security</groupId>
+> 38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
+  44 |       <version>${mockito.version}</version>
+  45 |       <scope>test</scope>
+  46 |     </dependency>
+  47 |     <dependency>
+  48 |       <groupId>org.slf4j</groupId>
+     ^ Col 0
+"
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2017-4995],33,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with CVE-2017-4995 in skims/test/data/lib_path/f011/pom.xml,"
   23 |     </dependency>
   24 |     <dependency>
@@ -11643,13 +11907,13 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   34 |       <scope>test</scope>
   35 |     </dependency>
   36 |     <dependency>
-  37 |       <groupId>org.mockito</groupId>
-  38 |       <artifactId>mockito-core</artifactId>
-  39 |       <version>${mockito.version}</version>
-  40 |       <scope>test</scope>
-  41 |     </dependency>
-  42 |     <dependency>
-  43 |       <groupId>org.slf4j</groupId>
+  37 |       <groupId>org.springframework.security</groupId>
+  38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2019-11272],33,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with CVE-2019-11272 in skims/test/data/lib_path/f011/pom.xml,"
@@ -11667,13 +11931,13 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   34 |       <scope>test</scope>
   35 |     </dependency>
   36 |     <dependency>
-  37 |       <groupId>org.mockito</groupId>
-  38 |       <artifactId>mockito-core</artifactId>
-  39 |       <version>${mockito.version}</version>
-  40 |       <scope>test</scope>
-  41 |     </dependency>
-  42 |     <dependency>
-  43 |       <groupId>org.slf4j</groupId>
+  37 |       <groupId>org.springframework.security</groupId>
+  38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2019-3795],33,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with CVE-2019-3795 in skims/test/data/lib_path/f011/pom.xml,"
@@ -11691,13 +11955,13 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   34 |       <scope>test</scope>
   35 |     </dependency>
   36 |     <dependency>
-  37 |       <groupId>org.mockito</groupId>
-  38 |       <artifactId>mockito-core</artifactId>
-  39 |       <version>${mockito.version}</version>
-  40 |       <scope>test</scope>
-  41 |     </dependency>
-  42 |     <dependency>
-  43 |       <groupId>org.slf4j</groupId>
+  37 |       <groupId>org.springframework.security</groupId>
+  38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2020-5408],33,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with CVE-2020-5408 in skims/test/data/lib_path/f011/pom.xml,"
@@ -11715,13 +11979,13 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   34 |       <scope>test</scope>
   35 |     </dependency>
   36 |     <dependency>
-  37 |       <groupId>org.mockito</groupId>
-  38 |       <artifactId>mockito-core</artifactId>
-  39 |       <version>${mockito.version}</version>
-  40 |       <scope>test</scope>
-  41 |     </dependency>
-  42 |     <dependency>
-  43 |       <groupId>org.slf4j</groupId>
+  37 |       <groupId>org.springframework.security</groupId>
+  38 |       <artifactId>spring-security-core</artifactId>
+  39 |       <scope>test</scope>
+  40 |     </dependency>
+  41 |     <dependency>
+  42 |       <groupId>org.mockito</groupId>
+  43 |       <artifactId>mockito-core</artifactId>
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (path-parse v1.0.6) [CVE-2021-23343],63,937,skims,011. Use of software with known vulnerabilities,Use of path-parse at version 1.0.6 with CVE-2021-23343 in skims/test/data/lib_path/f011/package.json,"

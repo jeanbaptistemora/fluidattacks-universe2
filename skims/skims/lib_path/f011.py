@@ -110,13 +110,18 @@ def _pom_xml(
             for dependency in root.find_all("dependency", recursive=True)
             for group in dependency.find_all("groupid", limit=1)
             for artifact in dependency.find_all("artifactid", limit=1)
-            for version in dependency.find_all("version", limit=1)
+            for version in (dependency.find_all("version", limit=1) or [None])
         ]:
             g_text = _pom_xml_interpolate(properties, group.get_text())
             a_text = _pom_xml_interpolate(properties, artifact.get_text())
-            v_text = _pom_xml_interpolate(properties, version.get_text())
-            column = version.sourcepos
-            line = version.sourceline
+            if version is None:
+                v_text = _pom_xml_interpolate(properties, "*")
+                column = artifact.sourcepos
+                line = artifact.sourceline
+            else:
+                v_text = _pom_xml_interpolate(properties, version.get_text())
+                column = version.sourcepos
+                line = version.sourceline
 
             yield (
                 {"column": column, "line": line, "item": f"{g_text}:{a_text}"},
