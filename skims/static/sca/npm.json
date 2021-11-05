@@ -203,6 +203,9 @@
     ],
     "SNYK-JS-COLORSTRING-1082939": [
       "<1.5.5"
+    ],
+    "github.com/Qix-/color-string/commit/0789e21284c33d89ebc4ab4ca6f759b9375ac9d3": [
+      "<1.6.0"
     ]
   },
   "combined-stream": {},
@@ -1290,6 +1293,9 @@
     ],
     "www.npmjs.com/advisories/1479": [
       "<=6.0.12"
+    ],
+    "www.npmjs.com/advisories/1478": [
+      ">=4.1.0"
     ]
   },
   "superagent": {
@@ -1481,6 +1487,9 @@
       "<=0.16.9"
     ],
     "CVE-2021-32012": [
+      "<=0.16.9"
+    ],
+    "github.com/SheetJS/sheetjs/issues/1904": [
       "<=0.16.9"
     ]
   },

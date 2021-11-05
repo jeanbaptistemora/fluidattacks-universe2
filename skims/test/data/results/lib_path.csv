@@ -8424,6 +8424,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (color-string v1
    28 |     ""dijit"": ""1.13.0"",
       ^ Col 0
 "
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (color-string v1.1.4) [github.com/Qix-/color-string/commit/0789e21284c33d89ebc4ab4ca6f759b9375ac9d3],18,937,skims,011. Use of software with known vulnerabilities,Use of color-string at version 1.1.4 with github.com/Qix-/color-string/commit/0789e21284c33d89ebc4ab4ca6f759b9375ac9d3 in skims/test/data/lib_path/f011/package.json,"
+    8 |     ""ansi-regex"": ""5.0.0"",
+    9 |     ""ammo"": ""2.0.4"",
+   10 |     ""apexcharts"": ""3.17.0"",
+   11 |     ""axios"": ""0.18.0"",
+   12 |     ""aws-sdk"": ""2.813.0"",
+   13 |     ""bcrypt"": ""3.0.8"",
+   14 |     ""browserslist"": ""4.12.0"",
+   15 |     ""class-validator"": ""0.10.2"",
+   16 |     ""chart"": ""2.9.3"",
+   17 |     ""cookies"": ""0.4.0"",
+>  18 |     ""color-string"": ""1.1.4"",
+   19 |     ""connect"": ""2.8.0"",
+   20 |     ""css-what"": ""3.4.2"",
+   21 |     ""csv-parse"": ""1.3.3"",
+   22 |     ""crypto-js"": ""3.3.0"",
+   23 |     ""deap"": ""1.0.0"",
+   24 |     ""decompress"": ""4.2.0"",
+   25 |     ""decompress-tar"": ""4.1.1"",
+   26 |     ""deep-extend"": ""0.5.0"",
+   27 |     ""diff"": ""3.3.1"",
+   28 |     ""dijit"": ""1.13.0"",
+      ^ Col 0
+"
 F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (connect v2.8) [CVE-2013-7370],13,937,skims,011. Use of software with known vulnerabilities,Use of connect at version 2.8 with CVE-2013-7370 in skims/test/data/lib_path/f011/yarn.lock,"
    1 | ""@apollo/react-common@3.1.4"", ""@apollo/react-common@^3.0.0"", ""@apollo/react-common@^3.1.4"":
    2 |   version ""3.1.4""
@@ -12660,6 +12684,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (subtext v4.4.1)
   117 |     ""useragent"": ""2.3.0"",
       ^ Col 0
 "
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (subtext v4.4.1) [www.npmjs.com/advisories/1478],107,937,skims,011. Use of software with known vulnerabilities,Use of subtext at version 4.4.1 with www.npmjs.com/advisories/1478 in skims/test/data/lib_path/f011/package.json,"
+   97 |     ""randomatic"": ""2.5.5"",
+   98 |     ""semver"": ""4.3.1"",
+   99 |     ""semver-regex"": ""2.0.0"",
+  100 |     ""serverless-offline"": ""3.3.0"",
+  101 |     ""sheetjs"": ""0.16.9"",
+  102 |     ""socket.io"": ""2.3.0"",
+  103 |     ""socket.io-parser"": ""3.4.0"",
+  104 |     ""sshpk"": ""1.13.1"",
+  105 |     ""ssri"": ""6.0.1"",
+  106 |     ""stringstream"": ""0.0.5"",
+> 107 |     ""subtext"": ""4.4.1"",
+  108 |     ""through"": ""2.3.6"",
+  109 |     ""tar"": ""2.2.1"",
+  110 |     ""trim"": ""1.0.1"",
+  111 |     ""trim-newlines"": ""1.0.0"",
+  112 |     ""tunnel-agent"": ""0.4.3"",
+  113 |     ""ua-parser"": ""0.7.20"",
+  114 |     ""uglify-js"": ""2.5.0"",
+  115 |     ""underscore"": ""1.12.0"",
+  116 |     ""url-parse"": ""1.4.7"",
+  117 |     ""useragent"": ""2.3.0"",
+      ^ Col 0
+"
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (subtext v4.4.1) [www.npmjs.com/advisories/1479],107,937,skims,011. Use of software with known vulnerabilities,Use of subtext at version 4.4.1 with www.npmjs.com/advisories/1479 in skims/test/data/lib_path/f011/package.json,"
    97 |     ""randomatic"": ""2.5.5"",
    98 |     ""semver"": ""4.3.1"",
@@ -13189,6 +13237,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xlsx v0.15.5) [
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xlsx v0.15.5) [CVE-2021-32014],119,937,skims,011. Use of software with known vulnerabilities,Use of xlsx at version 0.15.5 with CVE-2021-32014 in skims/test/data/lib_path/f011/package.json,"
+  106 |     ""stringstream"": ""0.0.5"",
+  107 |     ""subtext"": ""4.4.1"",
+  108 |     ""through"": ""2.3.6"",
+  109 |     ""tar"": ""2.2.1"",
+  110 |     ""trim"": ""1.0.1"",
+  111 |     ""trim-newlines"": ""1.0.0"",
+  112 |     ""tunnel-agent"": ""0.4.3"",
+  113 |     ""ua-parser"": ""0.7.20"",
+  114 |     ""uglify-js"": ""2.5.0"",
+  115 |     ""underscore"": ""1.12.0"",
+  116 |     ""url-parse"": ""1.4.7"",
+  117 |     ""useragent"": ""2.3.0"",
+  118 |     ""utils-extend"": ""1.0.8"",
+> 119 |     ""xlsx"": ""0.15.5"",
+  120 |     ""xmldom"": ""0.4.0"",
+  121 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  122 |     ""ws"": ""0.8.1"",
+  123 |     ""y18n"": ""4.0.0"",
+  124 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  125 |   }
+  126 | }
+      ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xlsx v0.15.5) [github.com/SheetJS/sheetjs/issues/1904],119,937,skims,011. Use of software with known vulnerabilities,Use of xlsx at version 0.15.5 with github.com/SheetJS/sheetjs/issues/1904 in skims/test/data/lib_path/f011/package.json,"
   106 |     ""stringstream"": ""0.0.5"",
   107 |     ""subtext"": ""4.4.1"",
   108 |     ""through"": ""2.3.6"",
