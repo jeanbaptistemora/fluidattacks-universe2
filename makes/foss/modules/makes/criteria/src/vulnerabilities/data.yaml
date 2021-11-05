@@ -1692,9 +1692,13 @@
       Alternatively,
       the system deploys sensitive temporary files
       to the production environment.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: Stealing server secrets.
+    recommendation: >
+      Avoid saving sensitive information
+      in server files.
+    threat: >
+      Authenticated attacker with
+      local access to the server.
   es:
     title: Insecure temporary files
     description: >
@@ -1704,9 +1708,11 @@
       el sistema despliega
       archivos temporales sensibles
       en ambiente de protección.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: Robar los secretos del servidor.
+    recommendation: >
+      Evitar guardar información sensible
+      en archivos del servidor.
+    threat: Atacante autenticado con acceso local al servidor.
   category: Collect Information
   score:
     base:
