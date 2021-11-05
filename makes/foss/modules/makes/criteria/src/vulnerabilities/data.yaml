@@ -916,8 +916,12 @@
     impact: >
       Changing the password after the
       security code has been compromised.
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Validate on the server side that the
+      answers to the questions are correct.
+    threat: >
+      Any customer of the organization
+      authorized from the Internet.
   es:
     title: Insecure functionality
     description: >
@@ -927,8 +931,12 @@
     impact: >
       Cambiar la contraseña una vez se haya
       comprometido el código de seguridad.
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Validar del lado del servidor que las
+      respuestas a las preguntas sean correctas.
+    threat: >
+      Cualquier cliente de la organización
+      autorizado desde Internet.
   category: Abuse Functionality
   score:
     base:
