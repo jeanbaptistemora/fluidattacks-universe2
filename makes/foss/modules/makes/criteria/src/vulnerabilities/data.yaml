@@ -2633,7 +2633,13 @@
       These methods may allow an attacker
       to include and/or delete files,
       or perform cross-site tracing attacks.
-    impact: __empty__
+    impact: >
+      - Include content, scripts, binaries or
+      images from potentially malicious sources.
+
+      - Increase the probability of carrying
+      out attacks such as Cross-Site Scripting,
+      Cross-Site Leaks, and others.
     recommendation: >
       Configure secure methods
       for server's requests.
@@ -2649,7 +2655,14 @@
       permite saber cuales otros métodos
       son permitidos o usar la depuración
       en las página que lo permiten.
-    impact: __empty__
+    impact: >
+      - Incluir contenido, scripts, binarios o
+      imagenes desde fuentes potencialmente
+      maliciosas.
+
+      - Aumentar la probabilidad de llevar
+      a cabo ataques como Cross-Site Scripting,
+      Cross-Site Leaks, entre otros.
     recommendation: >
       Configurar los métodos seguros
       para las peticiones en el servidor.
@@ -2660,15 +2673,15 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
+      privileges_required: "H"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
+      confidentiality: "L"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
