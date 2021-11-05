@@ -4,6 +4,10 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
+from tap_announcekit.objs.id_objs import (
+    ExtUserId,
+    IndexedObj,
+)
 from typing import (
     Optional,
 )
@@ -24,3 +28,6 @@ class ExternalUser:
     is_email_verified: bool
     avatar: Optional[str]
     is_app: Optional[bool]
+
+
+ExtUserObj = IndexedObj[ExtUserId, ExternalUser]
