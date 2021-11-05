@@ -10,6 +10,9 @@ from batch.types import (
 from context import (
     FI_TOE_LINES_RULES,
 )
+from db_model.toe_lines.types import (
+    ToeLines,
+)
 from decimal import (
     Decimal,
 )
@@ -30,6 +33,7 @@ from settings import (
 import tempfile
 from toe.lines.types import (
     ToeLinesAttributesToAdd,
+    ToeLinesAttributesToUpdate,
 )
 from typing import (
     Dict,
@@ -58,7 +62,11 @@ CLOC_EXCLUDE_LANG = "--exclude-lang=" + CLOC_EXCLUDE_LIST
 async def apply_git_config(repo_path: str) -> None:
     """apply config in the git repository"""
     await asyncio.create_subprocess_exec(
-        "git", f"--git-dir={repo_path}/.git", "config", "core.quotepath", "off"
+        "git",
+        f"--git-dir={repo_path}/.git",
+        "config",
+        "core.quotepath",
+        "off",
     )
 
 
@@ -132,32 +140,32 @@ def pull_repositories(tmpdir: str, group_name: str) -> None:
     )
 
 
-async def get_present_toe_lines_to_create(
+async def get_present_toe_lines_to_add(
     present_filenames: Set[str],
     repo: Repo,
     repo_nickname: str,
-    repo_toe_lines: Dict[str, str],
+    repo_toe_lines: Dict[str, ToeLines],
 ) -> Tuple[Tuple[str, ToeLinesAttributesToAdd], ...]:
     non_db_filenames = tuple(
         filename
         for filename in present_filenames
         if not repo_toe_lines.get(filename)
     )
-    lines = await collect(
+    last_locs = await collect(
         tuple(
             files_utils.get_lines_count(f"{repo_nickname}/{filename}")
+            for filename in non_db_filenames
+        )
+    )
+    last_modified_commits = await collect(
+        tuple(
+            git_utils.get_last_commit_hash(repo, filename)
             for filename in non_db_filenames
         )
     )
     last_modified_dates = await collect(
         tuple(
             git_utils.get_last_modified_date(repo, filename)
-            for filename in non_db_filenames
-        )
-    )
-    last_hashes = await collect(
-        tuple(
-            git_utils.get_last_commit_hash(repo, filename)
             for filename in non_db_filenames
         )
     )
@@ -171,15 +179,85 @@ async def get_present_toe_lines_to_create(
                 be_present=True,
                 comments="",
                 first_attack_at="",
-                loc=lines,
-                modified_commit=last_hash,
+                loc=last_loc,
+                modified_commit=last_modified_commit,
                 modified_date=last_modified_date,
                 seen_at=datetime_utils.get_iso_date(),
                 sorts_risk_level=Decimal("-1"),
             ),
         )
-        for filename, lines, last_modified_date, last_hash in zip(
-            non_db_filenames, lines, last_modified_dates, last_hashes
+        for (
+            filename,
+            last_loc,
+            last_modified_commit,
+            last_modified_date,
+        ) in zip(
+            non_db_filenames,
+            last_locs,
+            last_modified_commits,
+            last_modified_dates,
+        )
+    )
+
+
+async def get_present_toe_lines_to_update(
+    preset_filenames: Set[str],
+    repo: Repo,
+    repo_nickname: str,
+    repo_toe_lines: Dict[str, ToeLines],
+) -> Tuple[Tuple[ToeLines, ToeLinesAttributesToUpdate], ...]:
+    db_filenames = tuple(
+        filename
+        for filename in preset_filenames
+        if repo_toe_lines.get(filename)
+    )
+    last_locs = await collect(
+        tuple(
+            files_utils.get_lines_count(f"{repo_nickname}/{filename}")
+            for filename in db_filenames
+        )
+    )
+    last_modified_commits = await collect(
+        tuple(
+            git_utils.get_last_commit_hash(repo, filename)
+            for filename in db_filenames
+        )
+    )
+    last_modified_dates = await collect(
+        tuple(
+            git_utils.get_last_modified_date(repo, filename)
+            for filename in db_filenames
+        )
+    )
+    return tuple(
+        (
+            repo_toe_lines[filename],
+            ToeLinesAttributesToUpdate(
+                loc=last_loc,
+                modified_commit=last_modified_commit,
+                modified_date=last_modified_date,
+            ),
+        )
+        for (
+            filename,
+            last_loc,
+            last_modified_commit,
+            last_modified_date,
+        ) in zip(
+            db_filenames,
+            last_locs,
+            last_modified_commits,
+            last_modified_dates,
+        )
+        if (
+            last_loc,
+            last_modified_commit,
+            last_modified_date,
+        )
+        != (
+            repo_toe_lines[filename].loc,
+            repo_toe_lines[filename].modified_commit,
+            repo_toe_lines[filename].modified_date,
         )
     )
 
