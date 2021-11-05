@@ -2370,8 +2370,11 @@
       The system's web services
       do not have an authorization control mechanism
       or the one in place can be bypassed.
-    impact: __empty__
-    recommendation: __empty__
+    impact: Obtaining confidential information from users.
+    recommendation: >
+      Validate through session cookies or
+      tokens that users trying to access
+      certain information are authenticated.
     threat: Anonymous attacker from the Internet.
   es:
     title: Improper authorization control for web services
@@ -2380,8 +2383,11 @@
       pueden ser accedidos sin autorización
       o el mecanismo de control de acceso presente
       puede ser evitado.
-    impact: __empty__
-    recommendation: __empty__
+    impact: Obtener información confidencial de los usuarios.
+    recommendation: >
+      Validar mediante cookies de sesión o tokens
+      que los usuarios que intentan acceder a
+      cierta información se encuentren autenticados.
     threat: Atacante anónimo desde Internet.
   category: Subvert Access
   score:
@@ -2391,7 +2397,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
