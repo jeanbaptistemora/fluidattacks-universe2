@@ -212,16 +212,6 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     return False
 
 
-def filter_closed_vulnerabilities(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
-    return [
-        vulnerability
-        for vulnerability in vulnerabilities
-        if vulnerability["current_state"] == "closed"
-    ]
-
-
 def filter_confirmed_zero_risk(
     vulnerabilities: List[Dict[str, FindingType]],
 ) -> List[Dict[str, FindingType]]:
@@ -252,16 +242,6 @@ def filter_non_requested_zero_risk_vuln(
         vulnerability
         for vulnerability in vulnerabilities
         if vulnerability["zero_risk"] != "Requested"
-    ]
-
-
-def filter_open_vulnerabilities(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
-    return [
-        vulnerability
-        for vulnerability in vulnerabilities
-        if vulnerability["current_state"] == "open"
     ]
 
 
@@ -333,9 +313,7 @@ async def get_by_finding_and_uuids(
     if len(fin_vulns) != len(vuln_ids):
         raise VulnNotInFinding()
 
-    vulns = [
-        vuln for vuln in fin_vulns if vulns_utils.filter_deleted_status(vuln)
-    ]
+    vulns = vulns_utils.filter_non_deleted(fin_vulns)
     if len(vulns) != len(vuln_ids):
         raise VulnNotFound()
     return vulns

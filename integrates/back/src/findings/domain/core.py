@@ -224,23 +224,12 @@ async def remove_vulnerabilities(
     )
 
 
-def filter_zero_risk_vulns(
-    vulns: List[Dict[str, FindingType]]
-) -> List[Dict[str, FindingType]]:
-    vulns_filter_non_confirm_zero = vulns_utils.filter_non_confirmed_zero_risk(
-        vulns
-    )
-    return vulns_utils.filter_non_requested_zero_risk(
-        vulns_filter_non_confirm_zero
-    )
-
-
 async def get_closed_vulnerabilities(loaders: Any, finding_id: str) -> int:
     finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
     vulns: List[VulnerabilityType] = await finding_vulns_loader.load(
         finding_id
     )
-    vulns = vulns_domain.filter_closed_vulnerabilities(vulns)
+    vulns = vulns_utils.filter_closed_vulns(vulns)
     return len(vulns)
 
 
@@ -320,7 +309,7 @@ async def get_is_verified(loaders: Any, finding_id: str) -> bool:
     vulns: List[VulnerabilityType] = await finding_vulns_loader.load(
         finding_id
     )
-    vulns = vulns_domain.filter_open_vulnerabilities(vulns)
+    vulns = vulns_utils.filter_open_vulns(vulns)
     remediated_vulns = vulns_domain.filter_remediated(vulns)
     return len(remediated_vulns) == 0
 
@@ -374,7 +363,7 @@ async def get_open_vulnerabilities(loaders: Any, finding_id: str) -> int:
     vulns: List[VulnerabilityType] = await finding_vulns_loader.load(
         finding_id
     )
-    vulns = vulns_domain.filter_open_vulnerabilities(vulns)
+    vulns = vulns_utils.filter_open_vulns(vulns)
     return len(vulns)
 
 
@@ -433,7 +422,7 @@ def get_severity_score(
 async def get_status(loaders: Any, finding_id: str) -> str:
     finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
     vulns = await finding_vulns_loader.load(finding_id)
-    open_vulns = vulns_domain.filter_open_vulnerabilities(vulns)
+    open_vulns = vulns_utils.filter_open_vulns(vulns)
     return "open" if open_vulns else "closed"
 
 
@@ -482,14 +471,14 @@ def get_tracking_vulnerabilities(
 ) -> List[TrackingItem]:
     """get tracking vulnerabilities dictionary"""
     filter_deleted_status = [
-        vulns_utils.filter_deleted_status(vuln) for vuln in vulnerabilities
+        vulns_utils.is_non_deleted(vuln) for vuln in vulnerabilities
     ]
     vulns_filtered = [
         findings_utils.clean_deleted_state(vuln)
         for vuln, filter_deleted in zip(vulnerabilities, filter_deleted_status)
         if filter_deleted
     ]
-    vulns_filtered_zero = filter_zero_risk_vulns(vulns_filtered)
+    vulns_filtered_zero = vulns_utils.filter_zero_risk_vulns(vulns_filtered)
     states_actions = findings_utils.get_state_actions(vulns_filtered_zero)
     treatments_actions = findings_utils.get_treatment_actions(
         vulns_filtered_zero
@@ -525,9 +514,7 @@ async def get_treatment_summary(loaders: Any, finding_id: str) -> Treatments:
     vulnerabilities: List[VulnerabilityType] = await finding_vulns_loader.load(
         finding_id
     )
-    open_vulnerabilities = vulns_domain.filter_open_vulnerabilities(
-        vulnerabilities
-    )
+    open_vulnerabilities = vulns_utils.filter_open_vulns(vulnerabilities)
     return vulns_utils.get_treatments(open_vulnerabilities)
 
 
@@ -545,9 +532,7 @@ async def get_wheres(
     vulnerabilities: List[VulnerabilityType] = await finding_vulns_loader.load(
         finding_id
     )
-    open_vulnerabilities = vulns_domain.filter_open_vulnerabilities(
-        vulnerabilities
-    )
+    open_vulnerabilities = vulns_utils.filter_open_vulns(vulnerabilities)
     wheres = sorted(
         set(
             map(

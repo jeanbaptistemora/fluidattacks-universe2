@@ -282,11 +282,8 @@ async def handle_vulnerabilities_acceptance(
     if not vulnerabilities or len(
         [
             vuln
-            for vuln in vulnerabilities
-            if (
-                vuln["id"] in vuln_ids
-                and vulns_utils.filter_deleted_status(vuln)
-            )
+            for vuln in vulns_utils.filter_non_deleted(vulnerabilities)
+            if vuln["id"] in vuln_ids
         ]
     ) != len(vuln_ids):
         raise VulnNotFound()

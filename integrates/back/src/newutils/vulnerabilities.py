@@ -10,6 +10,7 @@ from custom_exceptions import (
 from custom_types import (
     Finding as FindingType,
     Historic as HistoricType,
+    Vulnerability as VulnerabilityType,
 )
 from datetime import (
     date as datetype,
@@ -74,16 +75,34 @@ def as_range(iterable: Iterable[Any]) -> str:
     return range_value
 
 
-def filter_deleted_status(vuln: Dict[str, FindingType]) -> bool:
-    historic_state = cast(List[Dict[str, str]], vuln["historic_state"])
+def is_non_deleted(vuln: VulnerabilityType) -> bool:
+    historic_state: HistoricType = vuln["historic_state"]
     if historic_state[-1].get("state") == "DELETED":
         return False
     return True
 
 
+def is_last_reattack_requested(vuln: VulnerabilityType) -> bool:
+    historic_verification: HistoricType = vuln.get("historic_verification")
+    if historic_verification:
+        last_historic = historic_verification[-1]
+        return last_historic.get("status") == "REQUESTED"
+    return False
+
+
+def filter_non_deleted(
+    vulnerabilities: List[VulnerabilityType],
+) -> List[VulnerabilityType]:
+    return [
+        vuln
+        for vuln in vulnerabilities
+        if vuln["historic_state"][-1]["state"] != "DELETED"
+    ]
+
+
 def filter_non_confirmed_zero_risk(
-    vulnerabilities: List[Dict[str, FindingType]],
-) -> List[Dict[str, FindingType]]:
+    vulnerabilities: List[VulnerabilityType],
+) -> List[VulnerabilityType]:
     return [
         vulnerability
         for vulnerability in vulnerabilities
@@ -95,8 +114,8 @@ def filter_non_confirmed_zero_risk(
 
 
 def filter_non_requested_zero_risk(
-    vulnerabilities: List[Dict[str, FindingType]],
-) -> List[Dict[str, FindingType]]:
+    vulnerabilities: List[VulnerabilityType],
+) -> List[VulnerabilityType]:
     return [
         vulnerability
         for vulnerability in vulnerabilities
@@ -107,18 +126,10 @@ def filter_non_requested_zero_risk(
     ]
 
 
-def filter_last_reattack_requested(vuln: Dict[str, FindingType]) -> bool:
-    historic_verification: HistoricType = vuln.get("historic_verification")
-    if historic_verification:
-        last_historic = historic_verification[-1]
-        return last_historic.get("status") == "REQUESTED"
-    return False
-
-
 def filter_open_vulns(
-    vulnerabilities: List[Dict[str, FindingType]],
-) -> List[Dict[str, FindingType]]:
-    open_vulns = [
+    vulnerabilities: List[VulnerabilityType],
+) -> List[VulnerabilityType]:
+    return [
         vuln
         for vuln in vulnerabilities
         if cast(HistoricType, vuln.get("historic_state", [{}]))[-1].get(
@@ -126,7 +137,38 @@ def filter_open_vulns(
         )
         == "open"
     ]
-    return open_vulns
+
+
+def filter_closed_vulns(
+    vulnerabilities: List[VulnerabilityType],
+) -> List[VulnerabilityType]:
+    return [
+        vuln
+        for vuln in vulnerabilities
+        if cast(HistoricType, vuln.get("historic_state", [{}]))[-1].get(
+            "state"
+        )
+        == "closed"
+    ]
+
+
+def filter_zero_risk_vulns(
+    vulns: List[VulnerabilityType],
+) -> List[VulnerabilityType]:
+    vulns_filter_non_confirm_zero = filter_non_confirmed_zero_risk(vulns)
+    return filter_non_requested_zero_risk(vulns_filter_non_confirm_zero)
+
+
+def filter_historic_date(
+    historic: HistoricType,
+    min_date: datetime,
+) -> HistoricType:
+    """Filter historics since a given date"""
+    return [
+        entry
+        for entry in historic
+        if min_date and datetime_utils.get_from_str(entry["date"]) >= min_date
+    ]
 
 
 def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
@@ -589,18 +631,6 @@ def get_treatment_from_org_finding_policy(
             "treatment_manager": user_email,
             "acceptance_status": "APPROVED",
         },
-    ]
-
-
-def filter_historic_date(
-    historic: HistoricType,
-    min_date: datetime,
-) -> HistoricType:
-    """Filter historics since a given date"""
-    return [
-        entry
-        for entry in historic
-        if min_date and datetime_utils.get_from_str(entry["date"]) >= min_date
     ]
 
 

@@ -83,9 +83,7 @@ async def process_finding(context: Dataloaders, finding_id: str) -> bool:
 
     finding_vulns_nzr_loader = context.finding_vulns_nzr
     vulns_nzr = await finding_vulns_nzr_loader.load(finding_id)
-    has_vulns = [
-        vuln for vuln in vulns_nzr if vulns_utils.filter_deleted_status(vuln)
-    ]
+    has_vulns = vulns_utils.filter_non_deleted(vulns_nzr)
     if has_vulns:
         print(f"   --- WARNING: finding {finding_id} has vulns. NO deletion")
         return True

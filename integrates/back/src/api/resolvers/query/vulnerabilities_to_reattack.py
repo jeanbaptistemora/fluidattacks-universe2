@@ -20,14 +20,12 @@ from groups.domain import (
 )
 import itertools
 from newutils.vulnerabilities import (
-    filter_last_reattack_requested,
+    filter_open_vulns,
+    is_last_reattack_requested,
 )
 from typing import (
     List,
     Tuple,
-)
-from vulnerabilities.domain import (
-    filter_open_vulnerabilities,
 )
 
 
@@ -59,9 +57,9 @@ async def resolve(
         itertools.chain.from_iterable(vulns)
     )
     vulnerabilities_to_reattack: List[Vulnerability] = list(
-        filter(filter_last_reattack_requested, vulns_flatten)
+        filter(is_last_reattack_requested, vulns_flatten)
     )
-    vulnerabilities_to_reattack = filter_open_vulnerabilities(
+    vulnerabilities_to_reattack = filter_open_vulns(
         vulnerabilities_to_reattack
     )
 

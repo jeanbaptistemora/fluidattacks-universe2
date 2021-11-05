@@ -71,9 +71,7 @@ async def approve_draft(
         raise NotSubmitted()
 
     nzr_vulns = await finding_nzr_vulns_loader.load(finding_id)
-    has_vulns = bool(
-        [vuln for vuln in nzr_vulns if vulns_utils.filter_deleted_status(vuln)]
-    )
+    has_vulns = bool(vulns_utils.filter_non_deleted(nzr_vulns))
     if not has_vulns:
         raise DraftWithoutVulns()
 
