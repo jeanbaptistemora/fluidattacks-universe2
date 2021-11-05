@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 from aioextensions import (
     collect,
 )
@@ -43,8 +44,14 @@ from newutils import (
     findings as findings_utils,
     vulnerabilities as vulns_utils,
 )
+from pandas import (
+    Timestamp,
+)
 from settings import (
     LOGGING,
+)
+from time import (
+    strptime,
 )
 from typing import (
     cast,
@@ -81,6 +88,9 @@ class RegisterByTime(NamedTuple):
     vulnerabilities: List[List[Dict[str, Union[str, Decimal]]]]
     vulnerabilities_cvssf: List[List[Dict[str, Union[str, Decimal]]]]
     exposed_cvssf: List[List[Dict[str, Union[str, Decimal]]]]
+    vulnerabilities_yearly: List[List[Dict[str, Union[str, Decimal]]]]
+    vulnerabilities_cvssf_yearly: List[List[Dict[str, Union[str, Decimal]]]]
+    exposed_cvssf_yearly: List[List[Dict[str, Union[str, Decimal]]]]
 
 
 class CvssfExposureByTimeRange(NamedTuple):
@@ -122,8 +132,77 @@ def format_exposed_chart(
     for week, dict_status in list(all_registers.items()):
         for key, value in plot_points.items():
             value.append({"x": week, "y": dict_status[key]})
-    for _, value in plot_points.items():
+    for key, value in plot_points.items():
         result_data.append(value)
+    return result_data
+
+
+def translate_date_last(date_str: str) -> datetime:
+    parts = date_str.replace(",", "").replace("- ", "").split(" ")
+
+    if len(parts) == 6:
+        date_year, date_month, date_day = parts[5], parts[3], parts[4]
+    elif len(parts) == 5:
+        date_year, date_month, date_day = parts[4], parts[2], parts[3]
+    elif len(parts) == 4:
+        date_year, date_month, date_day = parts[3], parts[0], parts[2]
+    else:
+        raise ValueError(f"Unexpected number of parts: {parts}")
+
+    return datetime(
+        int(date_year), strptime(date_month, "%b").tm_mon, int(date_day)
+    )
+
+
+def get_yearly(x_date: str) -> str:
+    data_date = translate_date_last(x_date)
+    yearly_day = Timestamp(data_date).to_period("Y").end_time.date()
+
+    if yearly_day < datetime.now().date():
+        return datetime.combine(yearly_day, datetime.min.time()).strftime(
+            "%Y - %m - %d"
+        )
+
+    return datetime.combine(
+        datetime.now(),
+        datetime.min.time(),
+    ).strftime("%Y - %m - %d")
+
+
+def format_data_chart_yearly(
+    all_registers: Dict[str, Dict[str, Decimal]]
+) -> List[List[Dict[str, Union[str, Decimal]]]]:
+    result_data = []
+    plot_points: Dict[str, List[Dict[str, Union[str, Decimal]]]] = {
+        "found": [],
+        "closed": [],
+        "accepted": [],
+        "assumed_closed": [],
+        "opened": [],
+    }
+    for week, dict_status in list(all_registers.items()):
+        for key, value in plot_points.items():
+            value.append({"x": get_yearly(week), "y": dict_status[key]})
+    for _, value in plot_points.items():
+        result_data.append(list({data["x"]: data for data in value}.values()))
+    return result_data
+
+
+def format_exposed_chart_yearly(
+    all_registers: Dict[str, Dict[str, Decimal]]
+) -> List[List[Dict[str, Union[str, Decimal]]]]:
+    result_data = []
+    plot_points: Dict[str, List[Dict[str, Union[str, Decimal]]]] = {
+        "low": [],
+        "medium": [],
+        "high": [],
+        "critical": [],
+    }
+    for week, dict_status in list(all_registers.items()):
+        for key, value in plot_points.items():
+            value.append({"x": get_yearly(week), "y": dict_status[key]})
+    for key, value in plot_points.items():
+        result_data.append(list({data["x"]: data for data in value}.values()))
     return result_data
 
 
@@ -266,6 +345,9 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
         vulnerabilities=create_data_format_chart(all_registers),
         vulnerabilities_cvssf=create_data_format_chart(all_registers_cvsff),
         exposed_cvssf=format_exposed_chart(all_registers_exposed_cvsff),
+        vulnerabilities_yearly=[],
+        vulnerabilities_cvssf_yearly=[],
+        exposed_cvssf_yearly=[],
     )
 
 
@@ -418,6 +500,13 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
         vulnerabilities=create_data_format_chart(all_registers),
         vulnerabilities_cvssf=create_data_format_chart(all_registers_cvsff),
         exposed_cvssf=format_exposed_chart(all_registers_exposed_cvsff),
+        vulnerabilities_yearly=format_data_chart_yearly(all_registers),
+        vulnerabilities_cvssf_yearly=format_data_chart_yearly(
+            all_registers_cvsff
+        ),
+        exposed_cvssf_yearly=format_exposed_chart_yearly(
+            all_registers_exposed_cvsff
+        ),
     )
 
 
@@ -745,14 +834,23 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         "total_treatment": total_treatment,
         "remediated_over_time": remediated_over_time.vulnerabilities[-18:],
         "remediated_over_time_month": over_time_month.vulnerabilities[-80:],
+        "remediated_over_time_year": over_time_month.vulnerabilities_yearly[
+            -18:
+        ],
         "remediated_over_time_cvssf": (
             remediated_over_time.vulnerabilities_cvssf[-18:]
         ),
         "remediated_over_time_month_cvssf": (
             over_time_month.vulnerabilities_cvssf[-80:]
         ),
+        "remediated_over_time_year_cvssf": (
+            over_time_month.vulnerabilities_cvssf_yearly[-18:]
+        ),
         "exposed_over_time_cvssf": remediated_over_time.exposed_cvssf[-18:],
         "exposed_over_time_month_cvssf": over_time_month.exposed_cvssf[-80:],
+        "exposed_over_time_year_cvssf": over_time_month.exposed_cvssf_yearly[
+            -18:
+        ],
         "remediated_over_time_30": remediated_over_thirty_days.vulnerabilities,
         "remediated_over_time_cvssf_30": (
             remediated_over_thirty_days.vulnerabilities_cvssf

@@ -308,7 +308,18 @@ async def put_action_to_batch(
                 timeout={"attemptDurationSeconds": 3600},
             )
     except ClientError as exc:
-        LOGGER.exception(exc, extra=dict(extra=locals()))
+        LOGGER.exception(
+            exc,
+            extra=dict(
+                extra=dict(
+                    action_name=action_name,
+                    subject=subject,
+                    entity=entity,
+                    time=time,
+                    additional_info=additional_info,
+                )
+            ),
+        )
         return False
     else:
         return True
