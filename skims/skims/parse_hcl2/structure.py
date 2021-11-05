@@ -9,6 +9,7 @@ from aws.model import (
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
     AWSInstance,
+    AWSLbTargetGroup,
     AWSS3Bucket,
 )
 from itertools import (
@@ -284,6 +285,16 @@ def iter_aws_elb(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_elb")
     for bucket in iterator:
         yield AWSElb(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_lb_target_group(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_lb_target_group")
+    for bucket in iterator:
+        yield AWSLbTargetGroup(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,
