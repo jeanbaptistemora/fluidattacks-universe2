@@ -3054,7 +3054,7 @@
       of the hashes stored in the database
       considerably reduces the amount of time
       required to crack them.
-    impact: __empty__
+    impact: Inside attacker.
     recommendation: >
       Ensure that functions
       of password summary
@@ -3070,7 +3070,7 @@
       en la base de datos
       reduce significativamente
       el tiempo del proceso para revertirlos.
-    impact: __empty__
+    impact: Atacante interno.
     recommendation: >
       Asegurarse de que las funciones
       de resumen de contraseñas
@@ -3081,17 +3081,17 @@
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["134", "135", "150"]
   metadata:
