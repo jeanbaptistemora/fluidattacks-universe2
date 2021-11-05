@@ -11,10 +11,14 @@ certification: yes
 certificationid: 1
 ---
 
-OSEE is the most complicated exploit development certification. It was
-created by Offensive Security. The exam evaluates the content of the
-Advanced Windows Exploitation course (EXP-401), as well as
-professionals' lateral thinking and adaptability to challenges. They
-have 72 hours to perform a thorough pentest on vulnerable software and
-report it with sufficient detail, including the exploit methods
-employed.
+[OSEE](https://www.offensive-security.com/awe-osee/)
+is the most complicated exploit development certification.
+It was created by Offensive Security.
+The exam evaluates
+the content of the Advanced Windows Exploitation course (EXP-401),
+as well as professionals' lateral thinking
+and adaptability to challenges.
+They have 72 hours
+to perform a thorough pentest on vulnerable software
+and report it with sufficient detail,
+including the exploit methods employed.
