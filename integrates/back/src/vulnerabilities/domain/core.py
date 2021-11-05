@@ -27,6 +27,9 @@ from custom_types import (
     User as UserType,
     Vulnerability as VulnerabilityType,
 )
+from db_model.enums import (
+    StateRemovalJustification,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -178,7 +181,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     loaders: Any,
     finding_id: str,
     vulnerability_id: str,
-    justification: str,
+    justification: StateRemovalJustification,
     user_email: str,
     source: str,
     include_closed_vuln: bool = False,
@@ -198,7 +201,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
                     {
                         "analyst": user_email,
                         "date": datetime_utils.get_now_as_str(),
-                        "justification": justification,
+                        "justification": justification.value,
                         "source": source,
                         "state": "DELETED",
                     },

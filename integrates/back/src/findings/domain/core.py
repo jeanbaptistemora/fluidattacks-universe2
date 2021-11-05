@@ -178,9 +178,7 @@ async def remove_finding(
         state=new_state,
     )
     schedule(
-        remove_vulnerabilities(
-            context, finding_id, justification.value, user_email
-        )
+        remove_vulnerabilities(context, finding_id, justification, user_email)
     )
     file_names = await findings_storage.search_evidence(
         f"{finding.group_name}/{finding.id}"
@@ -200,17 +198,22 @@ async def remove_finding(
 
 
 async def remove_vulnerabilities(
-    context: Any, finding_id: str, justification: str, user_email: str
+    context: Any,
+    finding_id: str,
+    justification: StateRemovalJustification,
+    user_email: str,
 ) -> bool:
-    finding_vulns_loader = context.loaders.finding_vulns
-    vulnerabilities = await finding_vulns_loader.load(finding_id)
+    finding_vulns_loader = context.loaders.finding_vulns_typed
+    vulnerabilities: Tuple[Vulnerability] = await finding_vulns_loader.load(
+        finding_id
+    )
     source = requests_utils.get_source(context)
     return all(
         await collect(
             vulns_domain.remove_vulnerability(
                 context.loaders,
                 finding_id,
-                str(vuln["UUID"]),
+                vuln.id,
                 justification,
                 user_email,
                 source,
