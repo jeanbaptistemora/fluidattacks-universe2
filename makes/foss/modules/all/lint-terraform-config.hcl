@@ -9,6 +9,7 @@ rule "aws_resource_missing_tags" {
   enabled = true
   tags = [
     "Name",
+    "management:area",
     "management:type",
   ]
   exclude = [
