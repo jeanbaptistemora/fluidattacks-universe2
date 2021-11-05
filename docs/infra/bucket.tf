@@ -18,9 +18,9 @@ resource "aws_s3_bucket" "bucket_prod" {
   }
 
   tags = {
-    "Name"               = "docs.fluidattacks.com"
-    "management:type"    = "production"
-    "management:product" = "makes"
+    "Name"            = "docs.fluidattacks.com"
+    "management:area" = "cost"
+    "management:type" = "product"
   }
 
   versioning {
@@ -77,9 +77,9 @@ resource "aws_s3_bucket" "bucket_dev" {
   }
 
   tags = {
-    "Name"               = "docs-dev.fluidattacks.com"
-    "management:type"    = "development"
-    "management:product" = "makes"
+    "Name"            = "docs-dev.fluidattacks.com"
+    "management:area" = "innovation"
+    "management:type" = "product"
   }
 }
 
