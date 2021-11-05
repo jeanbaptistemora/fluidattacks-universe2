@@ -19,7 +19,7 @@ makeTemplate {
     source = [
       (makePythonPypiEnvironment {
         name = "observes-env-job-last-success-runtime";
-        searchPaths.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
+        searchPathsRuntime.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
         sourcesYaml = ./pypi-sources.yaml;
       })
     ];

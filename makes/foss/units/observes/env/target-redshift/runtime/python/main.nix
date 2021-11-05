@@ -4,7 +4,7 @@
 }:
 makePythonPypiEnvironment {
   name = "observes-env-target-redshift-runtime-python";
-  searchPaths.bin = [
+  searchPathsRuntime.bin = [
     inputs.nixpkgs.gcc
     inputs.nixpkgs.postgresql
   ];

@@ -9,7 +9,7 @@ let
   pythonRequirements = makePythonPypiEnvironment {
     name = "integrates-back-runtime";
     sourcesYaml = ./pypi-sources.yaml;
-    searchPaths = {
+    searchPathsBuild = {
       bin = [ inputs.nixpkgs.gcc ];
     };
     withSetuptools_57_4_0 = true;

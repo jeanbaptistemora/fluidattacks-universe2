@@ -24,7 +24,7 @@ makeTemplate {
       (makePythonPypiEnvironment {
         name = "observes-env-code-etl-runtime";
         sourcesYaml = ./pypi-sources.yaml;
-        searchPaths.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
+        searchPathsRuntime.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
       })
       outputs."/observes/env/purity/runtime"
       outputs."/observes/env/singer-io/runtime"

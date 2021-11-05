@@ -8,7 +8,7 @@
 let
   pythonRequirements = makePythonPypiEnvironment {
     name = "sorts-runtime";
-    searchPaths.bin = [
+    searchPathsRuntime.bin = [
       inputs.nixpkgs.gcc
       inputs.nixpkgs.postgresql
     ];

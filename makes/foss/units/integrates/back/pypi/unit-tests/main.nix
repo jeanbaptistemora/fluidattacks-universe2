@@ -4,7 +4,7 @@
 }:
 makePythonPypiEnvironment {
   name = "integrates-back-unit-tests";
-  searchPaths = {
+  searchPathsBuild = {
     bin = [ inputs.nixpkgs.gcc ];
   };
   sourcesYaml = ./pypi-sources.yaml;

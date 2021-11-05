@@ -23,7 +23,7 @@ makeTemplate {
     source = [
       (makePythonPypiEnvironment {
         name = "observes-env-postgres-client-development";
-        searchPaths.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
+        searchPathsRuntime.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
         sourcesYaml = ./pypi-sources.yaml;
       })
       outputs."/observes/env/utils-logger/runtime"

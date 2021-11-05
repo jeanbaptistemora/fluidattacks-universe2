@@ -19,13 +19,13 @@
     "makes": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-zTEAeu2seMvPPve8lHeUhi+KT9XuGIyT8uRzpPtHNr8=",
+        "narHash": "sha256:0imzrf218bgxj33x6z49pzp64zqkxax74w2cf75ala3s5rrhlcwx",
         "type": "tarball",
-        "url": "https://github.com/fluidattacks/makes/archive/d4a5025ab4ae17a498f118bf26dece6b77867e35.tar.gz"
+        "url": "https://github.com/fluidattacks/makes/archive/4c95c568f14fb84bc0f7af8bd2bceeafffdf7dc2.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/fluidattacks/makes/archive/d4a5025ab4ae17a498f118bf26dece6b77867e35.tar.gz"
+        "url": "https://github.com/fluidattacks/makes/archive/4c95c568f14fb84bc0f7af8bd2bceeafffdf7dc2.tar.gz"
       }
     },
     "nixpkgsSource": {

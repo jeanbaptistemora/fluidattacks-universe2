@@ -8,7 +8,7 @@ let
   pythonRequirements = makePythonPypiEnvironment {
     name = "melts-development";
     sourcesYaml = ./pypi-sources.yaml;
-    searchPaths.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
+    searchPathsRuntime.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
   };
 in
 makeTemplate {
