@@ -6255,7 +6255,7 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
@@ -6354,14 +6354,14 @@
   category: Manipulate System
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "P"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
@@ -6379,9 +6379,21 @@
       without validating untrusted inputs
       and without using parameterized statements
       or stored procedures.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      - Obtain information linking a
+      user to a Wallet ID.
+
+      - Obtain balances on users' accounts.
+
+      - Overwriting files with
+      manipulated information.
+    recommendation: >
+      Perform database queries through the JSON
+      endpoints provided by Apache Lucene.
+      Additionally, sanitise user input
+      before involving them in queries.
+    threat: >
+      Unauthorised attacker on the Internet.
   es:
     title: Apache lucene query injection
     description: >
@@ -6390,12 +6402,24 @@
       sin la validación requerida de datos
       y sin utilizar sentencias parametrizadas
       o procedimientos almacenados.
-    impact: __empty__
+    impact: >
+      - Obtener información que relacione
+      a un usuario con un Wallet ID.
+
+      - Obtener saldo en las cuentas de
+      los usuarios.
+
+      - Sobrescribir archivos con
+      información manipulada.
     recommendation: >
-      Realizar las consultas a la base de datos
-      por medio de sentencias
-      o procedimientos parametrizados.
-    threat: __empty__
+      Realizar las consultas a la base de
+      datos a través de los endpoints para
+      JSON que Apache Lucene suministra.
+      Adicionalmente, sanitizar las entradas
+      de los usuarios antes de hacerlas
+      partícipes de las consultas.
+    threat: >
+      Atacante no autorizado en Internet.
   category: Inject Unexpected
   score:
     base:
@@ -6404,8 +6428,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
+      confidentiality: "H"
+      integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
@@ -6423,23 +6447,28 @@
       NoSQL queries dynamically
       and without validating
       untrusted inputs.
-    impact: __empty__
+    impact: >
+      Obtain information from the environment
+      by means of malicious statements.
     recommendation: >
       Validate and escape data
       that will be included in sentences
       generated dinamically.
-    threat: __empty__
+    threat: Anonymous attacker from the Internet.
   es:
     title: NoSQL injection
     description: >
       Se generan sentencias NoSQL dinámicas
       sin la validación requerida de datos.
-    impact: __empty__
+    impact: >
+      Obtener información del ambiente por
+      medio de sentencias maliciosas.
     recommendation: >
       Validar y escapar los datos
       que serán incluidos en sentencias
       generadas dinámicamente.
-    threat: __empty__
+    threat: >
+      Atacante anónimo desde Internet.
   category: Inject Unexpected
   score:
     base:
@@ -6448,7 +6477,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
@@ -6495,17 +6524,17 @@
   category: Inject Unexpected
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
+      confidentiality: "L"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["173"]
   metadata:
@@ -6520,9 +6549,19 @@
       that a user can post
       to the server
       in a short period of time.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      - Filling the application logs with
+      junk information.
+
+      - Saturate the server with multiple
+      requests causing a possible denial
+      of service.
+    recommendation: >
+      Limit the number of requests that
+      can be made by the same host in
+      defined time slots.
+    threat: >
+      Anonymous attacker from the Internet.
   es:
     title: Improper control of interaction frequency
     description: >
@@ -6530,12 +6569,19 @@
       la cantidad de peticiones
       (rate limit) que puede realizar un cliente
       en un intervalo reducido de tiempo.
-    impact: __empty__
+    impact: >
+      - Llenar los registros de la aplicación
+      con información basura.
+
+      - Saturar el servidor con múltiples
+      peticiones ocasionando una posible
+      denegación de servicio.
     recommendation: >
       Limitar la cantidad de peticiones
       que puede realizar un mismo host
       en espacios de tiempo definidos.
-    threat: __empty__
+    threat: >
+      Atacante anónimo desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -6545,8 +6591,8 @@
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      integrity: "L"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
