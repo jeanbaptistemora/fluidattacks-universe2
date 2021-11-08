@@ -300,6 +300,19 @@ def get_last_closing_date(
     return last_closing_date
 
 
+def get_last_closing_date_new(
+    vulnerability: Vulnerability, min_date: Optional[datetype] = None
+) -> Optional[datetype]:
+    last_closing_date = None
+    if vulnerability.state.status == VulnerabilityStateStatus.CLOSED:
+        last_closing_date = datetime.fromisoformat(
+            vulnerability.state.modified_date
+        ).date()
+        if min_date and min_date > last_closing_date:
+            return None
+    return last_closing_date
+
+
 def get_last_status(vuln: Dict[str, FindingType]) -> str:
     historic_state = cast(HistoricType, vuln.get("historic_state", [{}]))
     return historic_state[-1].get("state", "")
@@ -571,11 +584,6 @@ def is_reattack_requested(vuln: Dict[str, FindingType]) -> bool:
 def is_sequence(specific: str) -> bool:
     """Validate if a specific field has secuence value."""
     return "," in specific
-
-
-def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
-    """Return if a vulnerability is closed."""
-    return get_last_status(vuln) == "closed"
 
 
 def sort_vulnerabilities(item: List[Dict[str, str]]) -> List[Dict[str, str]]:

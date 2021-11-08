@@ -6,6 +6,7 @@ from custom_exceptions import (
     RepeatedValues,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from datetime import (
@@ -72,7 +73,6 @@ from newutils import (
 from newutils.vulnerabilities import (
     get_last_closing_date,
     get_open_vulnerability_date,
-    is_vulnerability_closed,
 )
 import pytest
 from pytz import (  # type: ignore
@@ -137,19 +137,22 @@ async def test_get_vulnerabilities_with_pending_attacks() -> None:
     assert test_data == expected_output
 
 
-async def test_get_last_closing_vuln() -> None:
+async def test_get_last_closing_vulnerability() -> None:
     findings_to_get = ["463558592", "422286126"]
-    loaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
     findings: Tuple[Finding, ...] = await loaders.finding.load_many(
         findings_to_get
     )
-    test_data = await get_last_closed_vulnerability_info(loaders, findings)
+    (
+        vuln_closed_days,
+        last_closed_vuln,
+    ) = await get_last_closed_vulnerability_info(loaders, findings)
     tzn = timezone(TIME_ZONE)
     actual_date = datetime.now(tz=tzn).date()
     initial_date = datetime(2019, 1, 15).date()
-    assert test_data[0] == (actual_date - initial_date).days
-    assert test_data[1]["UUID"] == "242f848c-148a-4028-8e36-c7d995502590"
-    assert test_data[1]["finding_id"] == "463558592"
+    assert vuln_closed_days == (actual_date - initial_date).days
+    assert last_closed_vuln.id == "242f848c-148a-4028-8e36-c7d995502590"
+    assert last_closed_vuln.finding_id == "463558592"
 
 
 async def test_get_last_closing_date() -> None:
@@ -176,28 +179,6 @@ async def test_get_last_closing_date() -> None:
 
     test_data = get_last_closing_date(open_vulnerability[0])
     assert test_data is None
-
-
-async def test_is_vulnerability_closed() -> None:
-    closed_vulnerability = {
-        "specific": "phone",
-        "finding_id": "422286126",
-        "UUID": "80d6a69f-a376-46be-98cd-2fdedcffdcc0",
-        "historic_state": [
-            {"date": "2018-09-28 10:32:58", "state": "open"},
-            {"date": "2019-01-08 16:01:26", "state": "closed"},
-        ],
-        "vuln_type": "inputs",
-        "where": "https://example.com",
-        "hacker": "testanalyst@test.com",
-    }
-
-    open_vulnerability = await vulns_dal.get(
-        "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
-    )
-
-    assert is_vulnerability_closed(closed_vulnerability)
-    assert not is_vulnerability_closed(open_vulnerability[0])
 
 
 async def test_get_max_open_severity() -> None:

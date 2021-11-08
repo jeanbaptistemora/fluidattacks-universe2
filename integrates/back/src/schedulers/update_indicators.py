@@ -753,7 +753,7 @@ async def _get_group_indicators(
 
     return {
         "last_closing_date": last_closing_vuln_days,
-        "last_closing_vuln_finding": last_closing_vuln.get("finding_id", ""),
+        "last_closing_vuln_finding": last_closing_vuln.finding_id,
         "max_open_severity": max_open_severity,
         "max_open_severity_finding": max_open_severity_finding.id
         if max_open_severity_finding

@@ -250,30 +250,24 @@ async def get_finding_open_age(context: Any, finding_id: str) -> int:
 async def get_last_closed_vulnerability_info(
     loaders: Any,
     findings: Tuple[Finding, ...],
-) -> Tuple[Decimal, VulnerabilityType]:
-    """Get days since the last closed vulnerability"""
-    finding_vulns_loader = loaders.finding_vulns_nzr
+) -> Tuple[Decimal, Vulnerability]:
+    """Get days since the last closed vulnerability."""
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
     valid_findings_ids = [
         finding.id for finding in findings if not is_deleted(finding)
     ]
-    vulns = await finding_vulns_loader.load_many_chained(valid_findings_ids)
-    are_vuln_closed = [
-        vulns_utils.is_vulnerability_closed(vuln) for vuln in vulns
-    ]
-    closed_vulnerabilities = [
-        vuln
-        for vuln, is_vuln_closed in zip(vulns, are_vuln_closed)
-        if is_vuln_closed
-    ]
+    vulns: Tuple[
+        Vulnerability, ...
+    ] = await finding_vulns_loader.load_many_chained(valid_findings_ids)
+    closed_vulns = vulns_utils.filter_closed_vulns(vulns)
     closing_vuln_dates = [
-        vulns_utils.get_last_closing_date(vuln)
-        for vuln in closed_vulnerabilities
+        vulns_utils.get_last_closing_date_new(vuln) for vuln in closed_vulns
     ]
     if closing_vuln_dates:
         current_date, date_index = max(
             (v, i) for i, v in enumerate(closing_vuln_dates)
         )
-        last_closed_vuln = closed_vulnerabilities[date_index]
+        last_closed_vuln: Vulnerability = closed_vulns[date_index]
         current_date = max(closing_vuln_dates)
         last_closed_days = Decimal(
             (datetime_utils.get_now().date() - current_date).days
@@ -281,7 +275,7 @@ async def get_last_closed_vulnerability_info(
     else:
         last_closed_days = Decimal(0)
         last_closed_vuln = {}
-    return last_closed_days, cast(VulnerabilityType, last_closed_vuln)
+    return last_closed_days, last_closed_vuln
 
 
 async def get_is_verified(loaders: Any, finding_id: str) -> bool:
