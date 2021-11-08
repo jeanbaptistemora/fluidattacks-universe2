@@ -5396,11 +5396,11 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
@@ -5418,7 +5418,9 @@
       into fields that are later exported
       as part of CSV files
       and can be interpreted by Excel.
-    impact: __empty__
+    impact: >
+      Inject code into fields to create
+      malicious formulas.
     recommendation: >
       Sanitize all the fields
       that will be exported
@@ -5434,7 +5436,9 @@
       fórmulas en los campos
       que luego son exportados
       en CSV e interpretados por Excel.
-    impact: __empty__
+    impact: >
+      Inyectar código en los campos para
+      crear fórmulas maliciosas.
     recommendation: >
       Sanitizar todos los campos
       a exportar en el servidor
@@ -5444,14 +5448,14 @@
   category: Inject Unexpected
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
@@ -5506,15 +5510,15 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["080", "173"]
@@ -5681,13 +5685,13 @@
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
@@ -5730,16 +5734,16 @@
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["148", "149", "150", "181", "336"]
@@ -5785,17 +5789,17 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "H"
+      attack_complexity: "L"
       privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "P"
-      remediation_level: "O"
-      report_confidence: "C"
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
   requirements: ["134", "135", "185", "227", "229", "264", "300"]
   metadata:
     en:
@@ -5807,7 +5811,9 @@
       The system deserializes objects
       without first validating their content
       nor casting them to a specific type.
-    impact: __empty__
+    impact: >
+      Enable to control the application
+      execution flow.
     recommendation: >
       Validate the incoming serialized objects
       and only deserialize them
@@ -5820,7 +5826,9 @@
       Se deserializan objetos
       sin validar su contenido
       ni forzar su tipo.
-    impact: __empty__
+    impact: >
+      Permitir controlar el flujo de
+      ejecución de la aplicación.
     recommendation: >
       Validar los objetos serializados entrantes
       y solo deserializarlos si cumplen
@@ -5831,15 +5839,15 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173", "321"]
