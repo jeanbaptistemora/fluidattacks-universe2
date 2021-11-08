@@ -116,7 +116,6 @@ class Dataloaders(NamedTuple):
     root_services_toe_lines: RootServicesToeLinesLoader
     root_toe_lines: RootToeLinesLoader
     toe_lines: ToeLinesLoader
-    vulnerability: VulnerabilityLoader
     vulnerability_typed: VulnerabilityTypedLoader
     vulnerability_historic_state: VulnerabilityHistoricStateLoader
     vulnerability_historic_treatment: VulnerabilityHistoricTreatmentLoader
@@ -193,8 +192,7 @@ def get_new_context() -> Dataloaders:
         root_states=RootStatesLoader(),
         root_toe_lines=RootToeLinesLoader(),
         toe_lines=ToeLinesLoader(),
-        vulnerability=vulnerability_loader,
-        vulnerability_typed=VulnerabilityTypedLoader(),
+        vulnerability_typed=VulnerabilityTypedLoader(vulnerability_loader),
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(
             vulnerability_loader
         ),
