@@ -158,22 +158,6 @@ async def get_ignored_files(group_path: str, repo_nickname: str) -> Set[str]:
     return ignored_files
 
 
-def make_group_dir(tmpdir: str, group_name: str) -> None:
-    group_dir = os.path.join(tmpdir, "groups", group_name)
-    os.makedirs(group_dir, exist_ok=True)
-
-
-def pull_repositories(tmpdir: str, group_name: str) -> None:
-    make_group_dir(tmpdir, group_name)
-    os.system(  # nosec
-        "CI=true "
-        "CI_COMMIT_REF_NAME=master "
-        "PROD_AWS_ACCESS_KEY_ID=$SERVICES_PROD_AWS_ACCESS_KEY_ID "
-        "PROD_AWS_SECRET_ACCESS_KEY=$SERVICES_PROD_AWS_SECRET_ACCESS_KEY "
-        f"melts drills --pull-repos {group_name} "
-    )
-
-
 async def get_present_toe_lines_to_add(
     present_filenames: Set[str],
     repo: Repo,
@@ -313,8 +297,24 @@ def get_non_present_toe_lines_to_update(
     )
 
 
+def make_group_dir(tmpdir: str, group_name: str) -> None:
+    group_dir = os.path.join(tmpdir, "groups", group_name)
+    os.makedirs(group_dir, exist_ok=True)
+
+
+def pull_repositories(tmpdir: str, group_name: str) -> None:
+    make_group_dir(tmpdir, group_name)
+    os.system(  # nosec
+        "CI=true "
+        "CI_COMMIT_REF_NAME=master "
+        "PROD_AWS_ACCESS_KEY_ID=$SERVICES_PROD_AWS_ACCESS_KEY_ID "
+        "PROD_AWS_SECRET_ACCESS_KEY=$SERVICES_PROD_AWS_SECRET_ACCESS_KEY "
+        f"melts drills --pull-repos {group_name} "
+    )
+
+
 @retry_on_exceptions(
-    exceptions=(ToeLinesAlreadyUpdated),
+    exceptions=(ToeLinesAlreadyUpdated,),
 )
 async def refresh_repo_toe_lines(
     group_name: str, group_path: str, repo_nickname: str
@@ -383,8 +383,20 @@ async def refresh_repo_toe_lines(
 async def refresh_toe_lines(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
     current_dir = os.getcwd()
-
     with tempfile.TemporaryDirectory() as tmpdir:
         os.chdir(tmpdir)
         pull_repositories(tmpdir, group_name)
+        group_path = tmpdir + f"/groups/{group_name}"
+        os.chdir(f"{group_path}/fusion")
+        fusion_files = os.listdir()
+        is_dir = await collect(
+            tuple(in_thread(os.path.isdir, file) for file in fusion_files)
+        )
+        await collect(
+            tuple(
+                refresh_repo_toe_lines(group_name, group_path, fusion_file)
+                for fusion_file, is_dir in zip(fusion_files, is_dir)
+                if is_dir
+            )
+        )
         os.chdir(current_dir)
