@@ -190,6 +190,23 @@ def _admin_policies_attached_iterate_vulnerabilities(
             yield policies
 
 
+def check_actions_start_with(actions: Union[AWSS3BucketPolicy, Node]) -> bool:
+    action_start_with = [
+        "Copy",
+        "Create",
+        "Delete",
+        "Put",
+        "Restore",
+        "Update",
+        "Upload",
+        "Write",
+    ]
+    for action in actions.data:
+        if any(atw in action.raw for atw in action_start_with):
+            return True
+    return False
+
+
 def _cfn_bucket_policy_allows_public_access_iterate_vulnerabilities(
     policies_iterator: Iterator[Union[AWSS3BucketPolicy, Node]],
 ) -> Iterator[Union[AWSS3BucketPolicy, Node]]:
@@ -199,7 +216,8 @@ def _cfn_bucket_policy_allows_public_access_iterate_vulnerabilities(
             effect = statement.raw.get("Effect", "")
             principal = statement.raw.get("Principal", "")
             if effect == "Allow" and principal == "*":
-                yield statement.inner["Principal"]
+                if check_actions_start_with(statement.inner["Action"]):
+                    yield statement.inner["Principal"]
 
 
 def _cfn_negative_statement(
