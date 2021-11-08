@@ -10942,6 +10942,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [S
    72 |     ""jquery-validation"": ""1.17.0"",
       ^ Col 0
 "
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [SNYK-JS-LODASH-73639],62,937,skims,011. Use of software with known vulnerabilities,Use of lodash at version 0. with SNYK-JS-LODASH-73639 in skims/test/data/lib_path/f011/package.json,"
+   52 |     ""http-signature"": ""0.11.0"",
+   53 |     ""http-proxy"": ""1.17.0"",
+   54 |     ""https-proxy-agent"": ""1.0.0"",
+   55 |     ""i18next"": ""19.8.4"",
+   56 |     ""immer"": ""8.0.1"",
+   57 |     ""ini"": ""1.3.5"",
+   58 |     ""ip"": ""1.0.1"",
+   59 |     ""is-my-json-valid"": ""2.16.0"",
+   60 |     ""is-svg"": ""3.0.0"",
+   61 |     ""locutus"": ""2.0.11"",
+>  62 |     ""lodash"": ""0.*"",
+   63 |     ""netmask"": ""1.0.6"",
+   64 |     ""ngx-bootstrap"": ""6.2.0"",
+   65 |     ""object-path"": ""0.11.4"",
+   66 |     ""openssl"": ""1.1.1"",
+   67 |     ""path-parse"": ""1.0.6"",
+   68 |     ""pathval"": ""1.1.0"",
+   69 |     ""qs"": ""0.4.2"",
+   70 |     ""jasmine-core"": ""2.99.1"",
+   71 |     ""jquery"": ""0.*"",
+   72 |     ""jquery-validation"": ""1.17.0"",
+      ^ Col 0
+"
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874],62,937,skims,011. Use of software with known vulnerabilities,Use of lodash at version 0. with github.com/lodash/lodash/issues/4874 in skims/test/data/lib_path/f011/package.json,"
    52 |     ""http-signature"": ""0.11.0"",
    53 |     ""http-proxy"": ""1.17.0"",
@@ -10991,6 +11015,78 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (macaddress v0.2
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (marked v0.3.6) [CVE-2017-1000427],80,937,skims,011. Use of software with known vulnerabilities,Use of marked at version 0.3.6 with CVE-2017-1000427 in skims/test/data/lib_path/f011/package.json,"
+   70 |     ""jasmine-core"": ""2.99.1"",
+   71 |     ""jquery"": ""0.*"",
+   72 |     ""jquery-validation"": ""1.17.0"",
+   73 |     ""js-yaml"": ""3.13.0"",
+   74 |     ""jsonpointer"": ""4.9.0"",
+   75 |     ""jspdf"": ""2.2.0"",
+   76 |     ""jsrsasign"": ""8.0.0"",
+   77 |     ""jszip"": ""3.6.0"",
+   78 |     ""just-extend"": ""3.0.0"",
+   79 |     ""macaddress"": ""0.2.8"",
+>  80 |     ""marked"": ""0.3.6"",
+   81 |     ""mem"": ""1.1.0"",
+   82 |     ""merge"": ""1.2.0"",
+   83 |     ""merge-deep"": ""3.0.2"",
+   84 |     ""mocha"": ""5.2.0"",
+   85 |     ""mongoose"": ""4.0.0"",
+   86 |     ""moment"": ""2.9.0"",
+   87 |     ""morgan"": ""1.9.0"",
+   88 |     ""mysql"": ""2.18.1"",
+   89 |     ""ng-packagr"": ""12.2.2"",
+   90 |     ""no-case"": ""2.3.1"",
+      ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (marked v0.3.6) [CVE-2017-16114],80,937,skims,011. Use of software with known vulnerabilities,Use of marked at version 0.3.6 with CVE-2017-16114 in skims/test/data/lib_path/f011/package.json,"
+   70 |     ""jasmine-core"": ""2.99.1"",
+   71 |     ""jquery"": ""0.*"",
+   72 |     ""jquery-validation"": ""1.17.0"",
+   73 |     ""js-yaml"": ""3.13.0"",
+   74 |     ""jsonpointer"": ""4.9.0"",
+   75 |     ""jspdf"": ""2.2.0"",
+   76 |     ""jsrsasign"": ""8.0.0"",
+   77 |     ""jszip"": ""3.6.0"",
+   78 |     ""just-extend"": ""3.0.0"",
+   79 |     ""macaddress"": ""0.2.8"",
+>  80 |     ""marked"": ""0.3.6"",
+   81 |     ""mem"": ""1.1.0"",
+   82 |     ""merge"": ""1.2.0"",
+   83 |     ""merge-deep"": ""3.0.2"",
+   84 |     ""mocha"": ""5.2.0"",
+   85 |     ""mongoose"": ""4.0.0"",
+   86 |     ""moment"": ""2.9.0"",
+   87 |     ""morgan"": ""1.9.0"",
+   88 |     ""mysql"": ""2.18.1"",
+   89 |     ""ng-packagr"": ""12.2.2"",
+   90 |     ""no-case"": ""2.3.1"",
+      ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (marked v0.3.6) [SNYK-JS-MARKED-174116],80,937,skims,011. Use of software with known vulnerabilities,Use of marked at version 0.3.6 with SNYK-JS-MARKED-174116 in skims/test/data/lib_path/f011/package.json,"
+   70 |     ""jasmine-core"": ""2.99.1"",
+   71 |     ""jquery"": ""0.*"",
+   72 |     ""jquery-validation"": ""1.17.0"",
+   73 |     ""js-yaml"": ""3.13.0"",
+   74 |     ""jsonpointer"": ""4.9.0"",
+   75 |     ""jspdf"": ""2.2.0"",
+   76 |     ""jsrsasign"": ""8.0.0"",
+   77 |     ""jszip"": ""3.6.0"",
+   78 |     ""just-extend"": ""3.0.0"",
+   79 |     ""macaddress"": ""0.2.8"",
+>  80 |     ""marked"": ""0.3.6"",
+   81 |     ""mem"": ""1.1.0"",
+   82 |     ""merge"": ""1.2.0"",
+   83 |     ""merge-deep"": ""3.0.2"",
+   84 |     ""mocha"": ""5.2.0"",
+   85 |     ""mongoose"": ""4.0.0"",
+   86 |     ""moment"": ""2.9.0"",
+   87 |     ""morgan"": ""1.9.0"",
+   88 |     ""mysql"": ""2.18.1"",
+   89 |     ""ng-packagr"": ""12.2.2"",
+   90 |     ""no-case"": ""2.3.1"",
+      ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (marked v0.3.6) [npm:marked:20170815],80,937,skims,011. Use of software with known vulnerabilities,Use of marked at version 0.3.6 with npm:marked:20170815 in skims/test/data/lib_path/f011/package.json,"
    70 |     ""jasmine-core"": ""2.99.1"",
    71 |     ""jquery"": ""0.*"",
    72 |     ""jquery-validation"": ""1.17.0"",
@@ -13099,7 +13195,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (sshpk v1.13.1) 
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ssri v6.0.1) [CVE-2021-27290],112,937,skims,011. Use of software with known vulnerabilities,Use of ssri at version 6.0.1 with CVE-2021-27290 in skims/test/data/lib_path/f011/package.json,"
@@ -13122,8 +13218,8 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ssri v6.0.1) [C
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (stringstream v0.0.5) [CVE-2018-21270],113,937,skims,011. Use of software with known vulnerabilities,Use of stringstream at version 0.0.5 with CVE-2018-21270 in skims/test/data/lib_path/f011/package.json,"
@@ -13145,9 +13241,9 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (stringstream v0
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (stringstream v0.0.5) [npm:stringstream:20180511],113,937,skims,011. Use of software with known vulnerabilities,Use of stringstream at version 0.0.5 with npm:stringstream:20180511 in skims/test/data/lib_path/f011/package.json,"
@@ -13169,9 +13265,9 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (stringstream v0
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (subtext v4.4.1) [SNYK-JS-SUBTEXT-467257],114,937,skims,011. Use of software with known vulnerabilities,Use of subtext at version 4.4.1 with SNYK-JS-SUBTEXT-467257 in skims/test/data/lib_path/f011/package.json,"
@@ -13192,10 +13288,10 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (subtext v4.4.1)
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (subtext v4.4.1) [www.npmjs.com/advisories/1168],114,937,skims,011. Use of software with known vulnerabilities,Use of subtext at version 4.4.1 with www.npmjs.com/advisories/1168 in skims/test/data/lib_path/f011/package.json,"
@@ -13216,10 +13312,10 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (subtext v4.4.1)
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (subtext v4.4.1) [www.npmjs.com/advisories/1478],114,937,skims,011. Use of software with known vulnerabilities,Use of subtext at version 4.4.1 with www.npmjs.com/advisories/1478 in skims/test/data/lib_path/f011/package.json,"
@@ -13240,10 +13336,10 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (subtext v4.4.1)
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (subtext v4.4.1) [www.npmjs.com/advisories/1479],114,937,skims,011. Use of software with known vulnerabilities,Use of subtext at version 4.4.1 with www.npmjs.com/advisories/1479 in skims/test/data/lib_path/f011/package.json,"
@@ -13264,10 +13360,10 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (subtext v4.4.1)
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [CVE-2018-20834],116,937,skims,011. Use of software with known vulnerabilities,Use of tar at version 2.2.1 with CVE-2018-20834 in skims/test/data/lib_path/f011/package.json,"
@@ -13286,12 +13382,12 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [CV
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [CVE-2021-32803],116,937,skims,011. Use of software with known vulnerabilities,Use of tar at version 2.2.1 with CVE-2021-32803 in skims/test/data/lib_path/f011/package.json,"
@@ -13310,12 +13406,12 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [CV
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [CVE-2021-32804],116,937,skims,011. Use of software with known vulnerabilities,Use of tar at version 2.2.1 with CVE-2021-32804 in skims/test/data/lib_path/f011/package.json,"
@@ -13334,12 +13430,12 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [CV
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [SNYK-JS-TAR-1536758],116,937,skims,011. Use of software with known vulnerabilities,Use of tar at version 2.2.1 with SNYK-JS-TAR-1536758 in skims/test/data/lib_path/f011/package.json,"
@@ -13358,12 +13454,12 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tar v2.2.1) [SN
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (through v2.3.6) [CVE-2021-29940],115,937,skims,011. Use of software with known vulnerabilities,Use of through at version 2.3.6 with CVE-2021-29940 in skims/test/data/lib_path/f011/package.json,"
@@ -13383,11 +13479,11 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (through v2.3.6)
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (trim v1.0.1) [CVE-2021-33623],117,937,skims,011. Use of software with known vulnerabilities,Use of trim at version 1.0.1 with CVE-2021-33623 in skims/test/data/lib_path/f011/package.json,"
@@ -13405,13 +13501,13 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (trim v1.0.1) [C
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (trim-newlines v1.0.0) [CVE-2021-33623],118,937,skims,011. Use of software with known vulnerabilities,Use of trim-newlines at version 1.0.0 with CVE-2021-33623 in skims/test/data/lib_path/f011/package.json,"
@@ -13428,14 +13524,14 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (trim-newlines v
 > 118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tunnel-agent v0.4.3) [npm:tunnel-agent:20170305],119,937,skims,011. Use of software with known vulnerabilities,Use of tunnel-agent at version 0.4.3 with npm:tunnel-agent:20170305 in skims/test/data/lib_path/f011/package.json,"
@@ -13451,15 +13547,15 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (tunnel-agent v0
   118 |     ""trim-newlines"": ""1.0.0"",
 > 119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ua-parser v0.7.20) [CVE-2020-7733],120,937,skims,011. Use of software with known vulnerabilities,Use of ua-parser at version 0.7.20 with CVE-2020-7733 in skims/test/data/lib_path/f011/package.json,"
@@ -13474,16 +13570,16 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ua-parser v0.7.
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
 > 120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ua-parser v0.7.20) [CVE-2020-7793],120,937,skims,011. Use of software with known vulnerabilities,Use of ua-parser at version 0.7.20 with CVE-2020-7793 in skims/test/data/lib_path/f011/package.json,"
@@ -13498,16 +13594,16 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ua-parser v0.7.
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
 > 120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ua-parser v0.7.20) [CVE-2021-27292],120,937,skims,011. Use of software with known vulnerabilities,Use of ua-parser at version 0.7.20 with CVE-2021-27292 in skims/test/data/lib_path/f011/package.json,"
@@ -13522,16 +13618,16 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ua-parser v0.7.
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
 > 120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ua-parser v0.7.20) [npm:ua-parser-js:20171012],120,937,skims,011. Use of software with known vulnerabilities,Use of ua-parser at version 0.7.20 with npm:ua-parser-js:20171012 in skims/test/data/lib_path/f011/package.json,"
@@ -13546,19 +13642,19 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ua-parser v0.7.
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
 > 120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (uglify-js v2.5.0) [CVE-2015-8858],121,937,skims,011. Use of software with known vulnerabilities,Use of uglify-js at version 2.5.0 with CVE-2015-8858 in skims/test/data/lib_path/f011/package.json,"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ua-parser-js v0.7.12) [npm:ua-parser-js:20180227],121,937,skims,011. Use of software with known vulnerabilities,Use of ua-parser-js at version 0.7.12 with npm:ua-parser-js:20180227 in skims/test/data/lib_path/f011/package.json,"
   111 |     ""sshpk"": ""1.13.1"",
   112 |     ""ssri"": ""6.0.1"",
   113 |     ""stringstream"": ""0.0.5"",
@@ -13569,20 +13665,20 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (uglify-js v2.5.
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-> 121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+> 121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (underscore v1.12.0) [CVE-2021-23358],122,937,skims,011. Use of software with known vulnerabilities,Use of underscore at version 1.12.0 with CVE-2021-23358 in skims/test/data/lib_path/f011/package.json,"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (uglify-js v2.5.0) [CVE-2015-8858],122,937,skims,011. Use of software with known vulnerabilities,Use of uglify-js at version 2.5.0 with CVE-2015-8858 in skims/test/data/lib_path/f011/package.json,"
   112 |     ""ssri"": ""6.0.1"",
   113 |     ""stringstream"": ""0.0.5"",
   114 |     ""subtext"": ""4.4.1"",
@@ -13592,21 +13688,21 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (underscore v1.1
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-> 122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+> 122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (url-parse v1.4.7) [CVE-2021-27515],123,937,skims,011. Use of software with known vulnerabilities,Use of url-parse at version 1.4.7 with CVE-2021-27515 in skims/test/data/lib_path/f011/package.json,"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (underscore v1.12.0) [CVE-2021-23358],123,937,skims,011. Use of software with known vulnerabilities,Use of underscore at version 1.12.0 with CVE-2021-23358 in skims/test/data/lib_path/f011/package.json,"
   113 |     ""stringstream"": ""0.0.5"",
   114 |     ""subtext"": ""4.4.1"",
   115 |     ""through"": ""2.3.6"",
@@ -13615,23 +13711,22 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (url-parse v1.4.
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-> 123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
-  133 | }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+> 123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (useragent v2.3.0) [SNYK-JS-USERAGENT-174737],124,937,skims,011. Use of software with known vulnerabilities,Use of useragent at version 2.3.0 with SNYK-JS-USERAGENT-174737 in skims/test/data/lib_path/f011/package.json,"
-  113 |     ""stringstream"": ""0.0.5"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (url-parse v1.4.7) [CVE-2021-27515],124,937,skims,011. Use of software with known vulnerabilities,Use of url-parse at version 1.4.7 with CVE-2021-27515 in skims/test/data/lib_path/f011/package.json,"
   114 |     ""subtext"": ""4.4.1"",
   115 |     ""through"": ""2.3.6"",
   116 |     ""tar"": ""2.2.1"",
@@ -13639,306 +13734,379 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (useragent v2.3.
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-> 124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
-  133 | }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+> 124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (useragent v2.3.0) [https://github.com/3rd-Eden/useragent/pull/140],124,937,skims,011. Use of software with known vulnerabilities,Use of useragent at version 2.3.0 with https://github.com/3rd-Eden/useragent/pull/140 in skims/test/data/lib_path/f011/package.json,"
-  113 |     ""stringstream"": ""0.0.5"",
-  114 |     ""subtext"": ""4.4.1"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (useragent v2.3.0) [SNYK-JS-USERAGENT-174737],125,937,skims,011. Use of software with known vulnerabilities,Use of useragent at version 2.3.0 with SNYK-JS-USERAGENT-174737 in skims/test/data/lib_path/f011/package.json,"
   115 |     ""through"": ""2.3.6"",
   116 |     ""tar"": ""2.2.1"",
   117 |     ""trim"": ""1.0.1"",
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-> 124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
-  133 | }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+> 125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (utils-extend v1.0.8) [CVE-2020-8147],125,937,skims,011. Use of software with known vulnerabilities,Use of utils-extend at version 1.0.8 with CVE-2020-8147 in skims/test/data/lib_path/f011/package.json,"
-  113 |     ""stringstream"": ""0.0.5"",
-  114 |     ""subtext"": ""4.4.1"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (useragent v2.3.0) [https://github.com/3rd-Eden/useragent/pull/140],125,937,skims,011. Use of software with known vulnerabilities,Use of useragent at version 2.3.0 with https://github.com/3rd-Eden/useragent/pull/140 in skims/test/data/lib_path/f011/package.json,"
   115 |     ""through"": ""2.3.6"",
   116 |     ""tar"": ""2.2.1"",
   117 |     ""trim"": ""1.0.1"",
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-> 125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
-  133 | }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+> 125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ws v0.8.1) [CVE-2016-10518],129,937,skims,011. Use of software with known vulnerabilities,Use of ws at version 0.8.1 with CVE-2016-10518 in skims/test/data/lib_path/f011/package.json,"
-  113 |     ""stringstream"": ""0.0.5"",
-  114 |     ""subtext"": ""4.4.1"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (utils-extend v1.0.8) [CVE-2020-8147],126,937,skims,011. Use of software with known vulnerabilities,Use of utils-extend at version 1.0.8 with CVE-2020-8147 in skims/test/data/lib_path/f011/package.json,"
   115 |     ""through"": ""2.3.6"",
   116 |     ""tar"": ""2.2.1"",
   117 |     ""trim"": ""1.0.1"",
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-> 129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
-  133 | }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+> 126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ws v0.8.1) [CVE-2016-10542],129,937,skims,011. Use of software with known vulnerabilities,Use of ws at version 0.8.1 with CVE-2016-10542 in skims/test/data/lib_path/f011/package.json,"
-  113 |     ""stringstream"": ""0.0.5"",
-  114 |     ""subtext"": ""4.4.1"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ws v0.8.1) [CVE-2016-10518],131,937,skims,011. Use of software with known vulnerabilities,Use of ws at version 0.8.1 with CVE-2016-10518 in skims/test/data/lib_path/f011/package.json,"
   115 |     ""through"": ""2.3.6"",
   116 |     ""tar"": ""2.2.1"",
   117 |     ""trim"": ""1.0.1"",
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-> 129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
-  133 | }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+> 131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ws v0.8.1) [npm:ws:20160920],129,937,skims,011. Use of software with known vulnerabilities,Use of ws at version 0.8.1 with npm:ws:20160920 in skims/test/data/lib_path/f011/package.json,"
-  113 |     ""stringstream"": ""0.0.5"",
-  114 |     ""subtext"": ""4.4.1"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ws v0.8.1) [CVE-2016-10542],131,937,skims,011. Use of software with known vulnerabilities,Use of ws at version 0.8.1 with CVE-2016-10542 in skims/test/data/lib_path/f011/package.json,"
   115 |     ""through"": ""2.3.6"",
   116 |     ""tar"": ""2.2.1"",
   117 |     ""trim"": ""1.0.1"",
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-> 129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
-  133 | }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+> 131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xlsx v0.15.5) [CVE-2021-32012],126,937,skims,011. Use of software with known vulnerabilities,Use of xlsx at version 0.15.5 with CVE-2021-32012 in skims/test/data/lib_path/f011/package.json,"
-  113 |     ""stringstream"": ""0.0.5"",
-  114 |     ""subtext"": ""4.4.1"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ws v0.8.1) [npm:ws:20160920],131,937,skims,011. Use of software with known vulnerabilities,Use of ws at version 0.8.1 with npm:ws:20160920 in skims/test/data/lib_path/f011/package.json,"
   115 |     ""through"": ""2.3.6"",
   116 |     ""tar"": ""2.2.1"",
   117 |     ""trim"": ""1.0.1"",
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-> 126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
-  133 | }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+> 131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xlsx v0.15.5) [CVE-2021-32014],126,937,skims,011. Use of software with known vulnerabilities,Use of xlsx at version 0.15.5 with CVE-2021-32014 in skims/test/data/lib_path/f011/package.json,"
-  113 |     ""stringstream"": ""0.0.5"",
-  114 |     ""subtext"": ""4.4.1"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ws v0.8.1) [npm:ws:20171108],131,937,skims,011. Use of software with known vulnerabilities,Use of ws at version 0.8.1 with npm:ws:20171108 in skims/test/data/lib_path/f011/package.json,"
   115 |     ""through"": ""2.3.6"",
   116 |     ""tar"": ""2.2.1"",
   117 |     ""trim"": ""1.0.1"",
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-> 126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
-  133 | }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+> 131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xlsx v0.15.5) [github.com/SheetJS/sheetjs/issues/1904],126,937,skims,011. Use of software with known vulnerabilities,Use of xlsx at version 0.15.5 with github.com/SheetJS/sheetjs/issues/1904 in skims/test/data/lib_path/f011/package.json,"
-  113 |     ""stringstream"": ""0.0.5"",
-  114 |     ""subtext"": ""4.4.1"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xcode v3.0.1) [CVE-2015-3187],127,937,skims,011. Use of software with known vulnerabilities,Use of xcode at version 3.0.1 with CVE-2015-3187 in skims/test/data/lib_path/f011/package.json,"
   115 |     ""through"": ""2.3.6"",
   116 |     ""tar"": ""2.2.1"",
   117 |     ""trim"": ""1.0.1"",
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-> 126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
-  133 | }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+> 127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xmldom v0.4.0) [CVE-2021-21366],127,937,skims,011. Use of software with known vulnerabilities,Use of xmldom at version 0.4.0 with CVE-2021-21366 in skims/test/data/lib_path/f011/package.json,"
-  113 |     ""stringstream"": ""0.0.5"",
-  114 |     ""subtext"": ""4.4.1"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xlsx v0.15.5) [CVE-2021-32012],128,937,skims,011. Use of software with known vulnerabilities,Use of xlsx at version 0.15.5 with CVE-2021-32012 in skims/test/data/lib_path/f011/package.json,"
   115 |     ""through"": ""2.3.6"",
   116 |     ""tar"": ""2.2.1"",
   117 |     ""trim"": ""1.0.1"",
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-> 127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
-  133 | }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+> 128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xmlhttprequest-ssl v1.5.4) [CVE-2020-28502],128,937,skims,011. Use of software with known vulnerabilities,Use of xmlhttprequest-ssl at version 1.5.4 with CVE-2020-28502 in skims/test/data/lib_path/f011/package.json,"
-  113 |     ""stringstream"": ""0.0.5"",
-  114 |     ""subtext"": ""4.4.1"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xlsx v0.15.5) [CVE-2021-32014],128,937,skims,011. Use of software with known vulnerabilities,Use of xlsx at version 0.15.5 with CVE-2021-32014 in skims/test/data/lib_path/f011/package.json,"
   115 |     ""through"": ""2.3.6"",
   116 |     ""tar"": ""2.2.1"",
   117 |     ""trim"": ""1.0.1"",
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-> 128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
-  133 | }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+> 128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xmlhttprequest-ssl v1.5.4) [CVE-2021-31597],128,937,skims,011. Use of software with known vulnerabilities,Use of xmlhttprequest-ssl at version 1.5.4 with CVE-2021-31597 in skims/test/data/lib_path/f011/package.json,"
-  113 |     ""stringstream"": ""0.0.5"",
-  114 |     ""subtext"": ""4.4.1"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xlsx v0.15.5) [github.com/SheetJS/sheetjs/issues/1904],128,937,skims,011. Use of software with known vulnerabilities,Use of xlsx at version 0.15.5 with github.com/SheetJS/sheetjs/issues/1904 in skims/test/data/lib_path/f011/package.json,"
   115 |     ""through"": ""2.3.6"",
   116 |     ""tar"": ""2.2.1"",
   117 |     ""trim"": ""1.0.1"",
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-> 128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-  130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
-  133 | }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+> 128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (y18n v4.0.0) [CVE-2020-7774],130,937,skims,011. Use of software with known vulnerabilities,Use of y18n at version 4.0.0 with CVE-2020-7774 in skims/test/data/lib_path/f011/package.json,"
-  113 |     ""stringstream"": ""0.0.5"",
-  114 |     ""subtext"": ""4.4.1"",
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xmldom v0.4.0) [CVE-2021-21366],129,937,skims,011. Use of software with known vulnerabilities,Use of xmldom at version 0.4.0 with CVE-2021-21366 in skims/test/data/lib_path/f011/package.json,"
   115 |     ""through"": ""2.3.6"",
   116 |     ""tar"": ""2.2.1"",
   117 |     ""trim"": ""1.0.1"",
   118 |     ""trim-newlines"": ""1.0.0"",
   119 |     ""tunnel-agent"": ""0.4.3"",
   120 |     ""ua-parser"": ""0.7.20"",
-  121 |     ""uglify-js"": ""2.5.0"",
-  122 |     ""underscore"": ""1.12.0"",
-  123 |     ""url-parse"": ""1.4.7"",
-  124 |     ""useragent"": ""2.3.0"",
-  125 |     ""utils-extend"": ""1.0.8"",
-  126 |     ""xlsx"": ""0.15.5"",
-  127 |     ""xmldom"": ""0.4.0"",
-  128 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  129 |     ""ws"": ""0.8.1"",
-> 130 |     ""y18n"": ""4.0.0"",
-  131 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
-  132 |   }
-  133 | }
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+> 129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
+      ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xmlhttprequest-ssl v1.5.4) [CVE-2020-28502],130,937,skims,011. Use of software with known vulnerabilities,Use of xmlhttprequest-ssl at version 1.5.4 with CVE-2020-28502 in skims/test/data/lib_path/f011/package.json,"
+  115 |     ""through"": ""2.3.6"",
+  116 |     ""tar"": ""2.2.1"",
+  117 |     ""trim"": ""1.0.1"",
+  118 |     ""trim-newlines"": ""1.0.0"",
+  119 |     ""tunnel-agent"": ""0.4.3"",
+  120 |     ""ua-parser"": ""0.7.20"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+> 130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
+      ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xmlhttprequest-ssl v1.5.4) [CVE-2021-31597],130,937,skims,011. Use of software with known vulnerabilities,Use of xmlhttprequest-ssl at version 1.5.4 with CVE-2021-31597 in skims/test/data/lib_path/f011/package.json,"
+  115 |     ""through"": ""2.3.6"",
+  116 |     ""tar"": ""2.2.1"",
+  117 |     ""trim"": ""1.0.1"",
+  118 |     ""trim-newlines"": ""1.0.0"",
+  119 |     ""tunnel-agent"": ""0.4.3"",
+  120 |     ""ua-parser"": ""0.7.20"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+> 130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
+  132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
+      ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (y18n v4.0.0) [CVE-2020-7774],132,937,skims,011. Use of software with known vulnerabilities,Use of y18n at version 4.0.0 with CVE-2020-7774 in skims/test/data/lib_path/f011/package.json,"
+  115 |     ""through"": ""2.3.6"",
+  116 |     ""tar"": ""2.2.1"",
+  117 |     ""trim"": ""1.0.1"",
+  118 |     ""trim-newlines"": ""1.0.0"",
+  119 |     ""tunnel-agent"": ""0.4.3"",
+  120 |     ""ua-parser"": ""0.7.20"",
+  121 |     ""ua-parser-js"": ""0.7.12"",
+  122 |     ""uglify-js"": ""2.5.0"",
+  123 |     ""underscore"": ""1.12.0"",
+  124 |     ""url-parse"": ""1.4.7"",
+  125 |     ""useragent"": ""2.3.0"",
+  126 |     ""utils-extend"": ""1.0.8"",
+  127 |     ""xcode"": ""3.0.1"",
+  128 |     ""xlsx"": ""0.15.5"",
+  129 |     ""xmldom"": ""0.4.0"",
+  130 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  131 |     ""ws"": ""0.8.1"",
+> 132 |     ""y18n"": ""4.0.0"",
+  133 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  134 |   }
+  135 | }
       ^ Col 0
 "
