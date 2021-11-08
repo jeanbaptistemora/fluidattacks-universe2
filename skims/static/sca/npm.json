@@ -448,6 +448,11 @@
       "<4.1.1"
     ]
   },
+  "forwarded": {
+    "CVE-2017-16118": [
+      "<0.1.2"
+    ]
+  },
   "fragment-cache": {},
   "fresh": {
     "CVE-2017-16119": [
@@ -458,6 +463,9 @@
   "fsevents": {},
   "fstream": {
     "CVE-2019-13173": [
+      "<1.0.12"
+    ],
+    "SNYK-JS-FSTREAM-174725": [
       "<1.0.12"
     ]
   },
@@ -666,6 +674,12 @@
   "is-extglob": {},
   "is-fullwidth-code-point": {},
   "is-glob": {},
+  "is-my-json-valid": {
+    "npm:is-my-json-valid:20180214": [
+      "<1.4.1",
+      ">=2.0.0 <2.17.2"
+    ]
+  },
   "is-number": {},
   "is-plain-object": {},
   "is-stream": {},
@@ -847,7 +861,20 @@
     ]
   },
   "lru-cache": {},
+  "macaddress": {
+    "CVE-2018-13797": [
+      "<0.2.9"
+    ]
+  },
   "make-dir": {},
+  "marked": {
+    "CVE-2017-1000427": [
+      "<=0.3.6"
+    ],
+    "npm:marked:20180225": [
+      "<0.3.18"
+    ]
+  },
   "mem": {
     "npm:mem:20180117": [
       "<4.0.0"
@@ -950,6 +977,11 @@
   "ngx-bootstrap": {
     "SNYK-JS-NGXBOOTSTRAP-174319": [
       "<=7.1.0"
+    ]
+  },
+  "no-case": {
+    "CVE-2017-16099": [
+      "<2.3.2"
     ]
   },
   "node-fetch": {
@@ -1413,6 +1445,9 @@
     ],
     "CVE-2021-27292": [
       ">=0.7.14 <0.7.24"
+    ],
+    "npm:ua-parser-js:20171012": [
+      "<0.7.26"
     ]
   },
   "uglify-js": {
