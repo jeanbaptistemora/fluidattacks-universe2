@@ -2225,6 +2225,13 @@ OKTA_DATA_RAW:
           status: ENC[AES256_GCM,data:8t9GMj6G,iv:u5p4Rja7PmascXdOR1qnJK/ltrp8qle8nrUqc38f4a4=,tag:JEca012us6khyFPMFtIv3A==,type:str]
           admin_roles: []
           apps: []
+        - id: ENC[AES256_GCM,data:BxCcM5isZV4=,iv:3s0vZKiftIZSouwSOAl4ZV2EjmfTKaqgB6syzXwcPro=,tag:HSApFhNdUQM1AV5VxaHxfw==,type:str]
+          first_name: ENC[AES256_GCM,data:O2eCPsnWxQ==,iv:EP4BskyoQpCZausHYKZJGCN0mCxf743slDHQH6acYbI=,tag:6kRpOgU1rksToX77Fa+/0w==,type:str]
+          last_name: ENC[AES256_GCM,data:PTPsNLJKIJM=,iv:17q3bJ+rhO+REI8eKBvEEUBqa+eYGk37g9c+HVHWvNA=,tag:iRa1Ixb5lHVK28DQags01g==,type:str]
+          email: ENC[AES256_GCM,data:ccmqiDwc8PdBLram2wQd60/QbfTDXcJKaamy,iv:bt+9IN2VmAwRCQAwwrpuhSuqswq5qgexEH5dP+sg9ro=,tag:bbpwC7PudK0DddN1vV8FcA==,type:str]
+          status: ENC[AES256_GCM,data:8t9GMj6G,iv:u5p4Rja7PmascXdOR1qnJK/ltrp8qle8nrUqc38f4a4=,tag:JEca012us6khyFPMFtIv3A==,type:str]
+          admin_roles: []
+          apps: []
         - id: ENC[AES256_GCM,data:WHaYwyfY1Js=,iv:d+nhAj2YjCY0FM9nZHjln0D/2q5BZm9pNJ+RPwyR6/k=,tag:Hfe6CEkRtHGX+upsx5wAng==,type:str]
           first_name: ENC[AES256_GCM,data:eUxU+2A=,iv:ym1Tsu03R56rnoiUExRcjPmgMaQwS8YXH7fMgmQK/yA=,tag:M6AASMRQY+BPukwC3AVH5w==,type:str]
           last_name: ENC[AES256_GCM,data:lY0kTlKjPA==,iv:MHPvc72juY9sv60n0kkXejQ72kbPaT9hYwvG/olsgdI=,tag:uMU5eicvLxYqD7Xev0+tTA==,type:str]
@@ -3112,8 +3119,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-11-05T22:18:27Z"
-    mac: ENC[AES256_GCM,data:LIoYCBDbCbhjPtz2ZHVcB8P6HIHr3v9JHaY+6VmviGqSk3k4dSCi99xnptISbpsWHojklnliBvzZA1sI+X8r66QZ9pEhlFnda7EKUU6513xyWb86UAvVu7JjMSsWhKU3BiTpNjrNBfj52MzfmFOfQRJbEcoe/DY+bJloFh12K2Y=,iv:D5lJv5TGL+gktEsY7/2Fv656Dk1omxNydPQbIb/0Lts=,tag:6QL6Z4OYHkewqeEJbF5rDA==,type:str]
+    lastmodified: "2021-11-08T20:52:34Z"
+    mac: ENC[AES256_GCM,data:prhwcL3SrFaRxdFpdx3N8TQSmqS6P065kN3ZC4lDbP4dl4Nd86q9epeMcD35EEYsgJ0cCXI+x6AUkfESpAaBj4L+mrGsvhTVcuXczPPxmLZoVV9MxrkfRedrBvI3PaQbR6qL3reYSNErPtmrJ/NNmksrP32YOHYFAzFYk+0o0PM=,iv:LZn31uh9VW/XVfaWXBbYmQKitlU9vaS9mQe9RJ9rEJw=,tag:Wp2YWgK101nS+RLJKsnaNA==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.1
