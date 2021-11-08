@@ -305,11 +305,11 @@
   "define-property": {},
   "depd": {},
   "diff": {
-    "npm:diff:20180305": [
-      ">=3.0.0 <3.5.0"
-    ],
     "github.com/kpdecker/jsdiff/commit/2aec4298639bf30fb88a00b356bf404d3551b8c0": [
       "<5.0.0"
+    ],
+    "npm:diff:20180305": [
+      ">=3.0.0 <3.5.0"
     ]
   },
   "dijit": {
@@ -559,6 +559,7 @@
     ]
   },
   "has": {},
+  "has-ansi": {},
   "has-flag": {},
   "has-symbols": {},
   "hawk": {
@@ -1178,11 +1179,11 @@
     "CVE-2018-18074": [
       "<2.20.0"
     ],
-    "npmjs.com/advisories/309": [
-      ">2.2.5 <2.68.0"
-    ],
     "github.com/request/request/pull/3385": [
       "<=2.88.2"
+    ],
+    "npmjs.com/advisories/309": [
+      ">2.2.5 <2.68.0"
     ]
   },
   "require-directory": {},
@@ -1301,11 +1302,11 @@
     "www.npmjs.com/advisories/1168": [
       "<=6.0.12"
     ],
-    "www.npmjs.com/advisories/1479": [
-      "<=6.0.12"
-    ],
     "www.npmjs.com/advisories/1478": [
       ">=4.1.0"
+    ],
+    "www.npmjs.com/advisories/1479": [
+      "<=6.0.12"
     ]
   },
   "superagent": {
@@ -1415,11 +1416,11 @@
     ]
   },
   "uglify-js": {
-    "CVE-2015-8858": [
-      "<=2.5.0"
-    ],
     "CVE-2015-8857": [
       "<2.4.24"
+    ],
+    "CVE-2015-8858": [
+      "<=2.5.0"
     ]
   },
   "underscore": {
@@ -1493,10 +1494,10 @@
     ]
   },
   "xlsx": {
-    "CVE-2021-32014": [
+    "CVE-2021-32012": [
       "<=0.16.9"
     ],
-    "CVE-2021-32012": [
+    "CVE-2021-32014": [
       "<=0.16.9"
     ],
     "github.com/SheetJS/sheetjs/issues/1904": [
