@@ -10,6 +10,9 @@ from batch.types import (
 from context import (
     FI_TOE_LINES_RULES,
 )
+from custom_exceptions import (
+    ToeLinesAlreadyUpdated,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -310,6 +313,9 @@ def get_non_present_toe_lines_to_update(
     )
 
 
+@retry_on_exceptions(
+    exceptions=(ToeLinesAlreadyUpdated),
+)
 async def refresh_repo_toe_lines(
     group_name: str, group_path: str, repo_nickname: str
 ) -> None:

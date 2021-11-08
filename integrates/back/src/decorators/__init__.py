@@ -585,7 +585,7 @@ def retry_on_exceptions(
     *,
     exceptions: Tuple[Type[Exception], ...],
     max_attempts: int = 10,
-    sleep_seconds: float = 1,
+    sleep_seconds: float = 0,
 ) -> Callable[[TVar], TVar]:
     def decorator(func: TVar) -> TVar:
         _func = cast(Callable[..., Any], func)
