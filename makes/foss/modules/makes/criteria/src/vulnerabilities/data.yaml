@@ -6163,32 +6163,59 @@
     description: >
       The system does not prevent critical objects
       from being deleted accidentally.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      - Loss of information in case of
+      accidental modification or deletion.
+
+      - Loss information in the case
+      of a security incident.
+    recommendation: >
+      Set up automatic backup on DynamoDB
+      tables and enable protection against
+      accidental deletion.
+    threat: >
+      - Database administrator user.
+
+      - Attacker in any scenario that
+      modifies or deletes information
+      from databases.
   es:
     title: Lack of protection against deletion
     description: >
       El sistema no tiene protecciones
       que impidan que recursos críticos
       sean borrados accidentalmente.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      - Perder información en caso de una
+      modificación o borrado accidental.
+
+      - Perder información en caso de un
+      incidente de seguridad.
+    recommendation: >
+      Configurar backup automático en las
+      tablas de DynamoDB y habilitar protección
+      contra borrado accidental.
+    threat: >
+      - Usuario administrador de la base
+      de datos.
+
+      - Atacante en cualquier escenario
+      que llegue a modificar o borrar la
+      información de las bases de datos.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
+      privileges_required: "L"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      integrity: "H"
+      availability: "H"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "U"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["186", "265"]
   metadata:
