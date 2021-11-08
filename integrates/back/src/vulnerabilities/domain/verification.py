@@ -20,6 +20,7 @@ from newutils.vulnerabilities import (
 from typing import (
     cast,
     Dict,
+    Optional,
     Tuple,
 )
 
@@ -57,14 +58,16 @@ def get_last_reattack_date(vuln: Dict[str, Finding]) -> str:
 
 def get_last_reattack_date_new(
     historic: Tuple[VulnerabilityVerification, ...],
-    vuln: Vulnerability,
-) -> str:
+) -> Optional[str]:
     """Get last reattack date in ISO8601 UTC format"""
-    if vuln.verification.status == VulnerabilityVerificationStatus.VERIFIED:
-        return vuln.verification.modified_date
-    if historic and len(historic) >= 2:
-        return list(historic)[-2].modified_date
-    return ""
+    return next(
+        (
+            verification.modified_date
+            for verification in historic
+            if verification.status == VulnerabilityVerificationStatus.VERIFIED
+        ),
+        None,
+    )
 
 
 def get_last_requested_reattack_date(vuln: Dict[str, Finding]) -> str:
