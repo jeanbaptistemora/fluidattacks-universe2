@@ -1,6 +1,10 @@
 from datetime import (
     datetime,
 )
+from tap_announcekit.objs.ext_user import (
+    ExternalUser,
+    ExtUserObj,
+)
 from tap_announcekit.objs.id_objs import (
     ExtUserId,
     FeedbackId,
@@ -84,6 +88,7 @@ mock_post_content_obj = IndexedObj(
     ),
 )
 
+mock_external_user_id = ExtUserId(mock_proj_id, "extUser100")
 mock_feedback_obj: FeedbackObj = IndexedObj(
     FeedbackId(mock_post_id, "feedback99"),
     Feedback(
@@ -91,6 +96,22 @@ mock_feedback_obj: FeedbackObj = IndexedObj(
         "comment",
         ActionSource.EMAIL,
         datetime(2000, 1, 1),
-        ExtUserId(mock_proj_id, "extUser100"),
+        mock_external_user_id,
+    ),
+)
+
+mock_external_user: ExtUserObj = IndexedObj(
+    mock_external_user_id,
+    ExternalUser(
+        mock_datetime,
+        mock_datetime,
+        "name",
+        None,
+        "",
+        False,
+        False,
+        False,
+        None,
+        None,
     ),
 )

@@ -1,9 +1,6 @@
 from dataclasses import (
     dataclass,
 )
-from returns.io import (
-    IO,
-)
 from tap_announcekit.api.client import (
     ApiClient,
 )
