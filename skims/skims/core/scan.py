@@ -23,6 +23,9 @@ from lib_ssl.analyze import (
 from model import (
     core_model,
 )
+from model.value_model import (
+    VALUE_TO_ADD,
+)
 import os
 from state.ephemeral import (
     EphemeralStore,
@@ -79,6 +82,8 @@ async def execute_skims(token: Optional[str]) -> bool:
         await notify_findings_as_csv(stores, CTX.config.output)
     else:
         await notify_findings_as_snippets(stores)
+
+    await log("info", "Value missing to add:\n%s", VALUE_TO_ADD)
 
     if CTX.config.group and token:
         msg = "Results will be synced to group: %s"
