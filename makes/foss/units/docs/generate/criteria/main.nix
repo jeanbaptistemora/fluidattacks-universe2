@@ -25,7 +25,7 @@ let
     builtins.readFile (
       fetchUrl {
         url = "https://gitlab.com/fluidattacks/product/-/raw/bd3cd59489f577963546fecb7d37d5f6b502909d/makes/foss/modules/makes/criteria/src/requirements/data.yaml";
-        sha256 = "0sn74cvg652fn6pwb747xrsvjh2ih7ilky7qxig73apwmxzfqm3q";
+        sha256 = "13a1p42ymm51rjsybz9dxa9jsc85v3qir7k56p6kiabbcixp3q7x";
       }
     )
   );
@@ -33,7 +33,7 @@ let
     builtins.readFile (
       fetchUrl {
         url = "https://gitlab.com/fluidattacks/product/-/raw/bd3cd59489f577963546fecb7d37d5f6b502909d/makes/foss/modules/makes/criteria/src/vulnerabilities/data.yaml";
-        sha256 = "1l80dsfxrfcgwd4wlf5q22j0bc7z32ivfxp997xymdg9kyqxasa2";
+        sha256 = "1znhw4iiv7zs3yq8yy6xqr5lz98v7cmgxdkkyqj6gj1xbl5g8gil";
       }
     )
   );
