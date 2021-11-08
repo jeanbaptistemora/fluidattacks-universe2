@@ -4512,14 +4512,14 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "N"
-      availability: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["171"]
@@ -4664,11 +4664,11 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
@@ -4726,17 +4726,17 @@
   category: Manipulate System
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_vector: "A"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      confidentiality: "H"
+      integrity: "H"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "W"
       report_confidence: "X"
   requirements: ["062", "273"]
   metadata:
@@ -4771,17 +4771,17 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
+      confidentiality: "L"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "R"
   requirements: ["224"]
   metadata:
     en:
@@ -4839,15 +4839,15 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["302"]
@@ -4885,18 +4885,18 @@
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "L"
+      attack_complexity: "H"
       privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "L"
+      confidentiality: "H"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "P"
+      exploit_code_maturity: "X"
       remediation_level: "O"
-      report_confidence: "C"
+      report_confidence: "X"
   requirements: ["176","177","261","300"]
   metadata:
     en:
@@ -4914,7 +4914,7 @@
       This makes it easier for an attacker
       who has compromised a user’s account
       to access those resources.
-    impact: __empty__
+    impact: External attacker.
     recommendation: >
       Implement a double factor authentication
       by software or hardware
@@ -4933,7 +4933,7 @@
       de múltiples factores,
       lo cual hace más fácil para un atacante
       con un usuario comprometido acceder a estos.
-    impact: __empty__
+    impact: Atacante externo.
     recommendation: >
       Implementar un doble factor de autenticación
       ya sea por software o hardware
@@ -4946,15 +4946,15 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      confidentiality: "H"
+      integrity: "L"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["229", "231", "264", "319", "328"]
   metadata:
@@ -5022,7 +5022,10 @@
       This could allow an attacker
       to perform data exfiltration
       or execute commands remotely.
-    impact: __empty__
+    impact: >
+      Perform various attacks that
+      compromise the confidentiality, integrity
+      and availability of the system.
     recommendation: >
       Filter the information
       that is received and sent
@@ -5038,7 +5041,10 @@
       que es ejecutado de forma remota
       y permite la exfiltración de archivos
       o ejecución remota de comandos.
-    impact: __empty__
+    impact: >
+      Realizar diversos ataques que comprometan
+      la confidencialidad, integridad y
+      disponibilidad del sistema.
     recommendation: >
       Filtrar la información que recibe
       y envía la aplicación
@@ -5050,15 +5056,15 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["173"]
   metadata:
@@ -5079,7 +5085,10 @@
       to mDNS services
       and obtain information
       about the connected devices.
-    impact: __empty__
+    impact: >
+      Attack vector because it is possible
+      to extract administrative credentials
+      from the process cache.
     recommendation: >
       Disable LLMR and NBT-NS.
       Configure the firewall
@@ -5096,7 +5105,10 @@
       de los hosts conectados
       debido a que no se cuenta
       con medidas de seguridad en la red.
-    impact: __empty__
+    impact: >
+      Vector de ataque porque es posible
+      extraer credenciales administrativas
+      desde la caché de los procesos.
     recommendation: >
       Deshabilitar LLMNR y NBT-NS.
       Configurar el firewall
@@ -5109,15 +5121,15 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "N"
+      scope: "C"
+      confidentiality: "L"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "T"
       report_confidence: "X"
   requirements: ["062", "273"]
   metadata:
@@ -5171,11 +5183,11 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
@@ -5222,15 +5234,15 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
+      attack_complexity: "H"
+      privileges_required: "H"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["178", "262", "330"]
@@ -5285,9 +5297,9 @@
       integrity: "N"
       availability: "L"
     temporal:
-      exploit_code_maturity: "H"
-      remediation_level: "U"
-      report_confidence: "C"
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
   requirements: ["226"]
   metadata:
     en:
@@ -5298,7 +5310,9 @@
     description: >
       The system violates one
       or more privacy requirements.
-    impact: __empty__
+    impact: >
+      Incur in legal trouble due to
+      a violation of user privacy.
     recommendation: >
       Abide by the privacy regulations
       in force.
@@ -5310,7 +5324,10 @@
     description: >
       El sistema viola una ó más
       requisitos de privacidad.
-    impact: __empty__
+    impact: >
+      Incurrir en problemas legales
+      debido a una violación de la
+      privacidad del usuario.
     recommendation: >
       Acatar las regulaciones
       de privacidad vigentes.
@@ -5322,12 +5339,12 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "N"
-      availability: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
