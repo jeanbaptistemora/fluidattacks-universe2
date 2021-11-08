@@ -1,6 +1,7 @@
 import json
 from model import (
     core_model,
+    value_model,
 )
 from sys import (
     modules,
@@ -50,12 +51,17 @@ def get_vulnerabilities(
     version: str,
 ) -> List[str]:
     database = getattr(modules[__name__], f"DATABASE_{platform.value}")
+    product = product.lower()
 
-    vulnerabilities: List[str] = [
-        ref
-        for ref, constraints in database.get(product.lower(), {}).items()
-        for constraint in constraints
-        if semver_match(version, constraint)
-    ]
+    if product in database:
+        vulnerabilities: List[str] = [
+            ref
+            for ref, constraints in database[product].items()
+            for constraint in constraints
+            if semver_match(version, constraint)
+        ]
 
-    return vulnerabilities
+        return vulnerabilities
+
+    value_model.VALUE_TO_ADD.add(f"{platform.name} - {product}")
+    return []
