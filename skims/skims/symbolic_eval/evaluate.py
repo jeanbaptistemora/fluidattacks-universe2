@@ -16,6 +16,7 @@ from symbolic_eval.cases import (
     method_invocation,
     parameter,
     parameter_list,
+    prefix_operation,
     symbol_lookup,
     variable_declaration,
 )
@@ -41,6 +42,7 @@ EVALUATORS: Dict[str, Evaluator] = {
     "MethodInvocation": method_invocation.evaluate,
     "Parameter": parameter.evaluate,
     "ParameterList": parameter_list.evaluate,
+    "PrefixOperation": prefix_operation.evaluate,
     "SymbolLookup": symbol_lookup.evaluate,
     "VariableDeclaration": variable_declaration.evaluate,
 }
