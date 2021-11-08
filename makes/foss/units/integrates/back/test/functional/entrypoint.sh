@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 function main {
+  export BATCH_BIN
   local resolver_test_group="${1}"
   local populate_db="${2:-false}"
   local pytest_args=(
@@ -20,6 +21,7 @@ function main {
     && DAEMON=true integrates-cache \
     && DAEMON=true integrates-storage \
     && DAEMON=true POPULATE="${populate_db}" integrates-db \
+    && BATCH_BIN="$(command -v integrates-batch)" \
     && echo "[INFO] Running tests for: ${resolver_test_group}" \
     && pushd integrates/back/tests/functional \
     && pytest "${pytest_args[@]}" \
