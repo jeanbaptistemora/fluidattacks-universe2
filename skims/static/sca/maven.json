@@ -14,6 +14,11 @@
       ">=0"
     ]
   },
+  "org.jboss.bom.wfk:jboss-javaee-6.0-with-spring4": {},
+  "org.jboss.bom.wfk:jboss-javaee-6.0-with-tools": {},
+  "org.jboss.spec.javax.servlet.jsp:jboss-jsp-api_2.2_spec": {},
+  "org.jboss.spec.javax.servlet.jstl:jboss-jstl-api_1.2_spec": {},
+  "org.jboss.spec.javax.servlet:jboss-servlet-api_3.0_spec": {},
   "org.springframework.security:spring-security-config": {
     "CVE-2016-5007": [
       ">=3.2.0.RELEASE <4.1.1.RELEASE"
@@ -115,6 +120,7 @@
   },
   "org.springframework:spring-context-support": {},
   "org.springframework:spring-core": {},
+  "org.springframework:spring-expression": {},
   "org.springframework:spring-jdbc": {},
   "org.springframework:spring-orm": {},
   "org.springframework:spring-test": {},
@@ -169,6 +175,19 @@
     "CVE-2021-22118": [
       ">=5.0.0 <5.2.15",
       ">=5.3.0 <5.3.7"
+    ]
+  },
+  "org.springframework:spring-webmvc": {
+    "CVE-2018-1271": [
+      ">=4.0.0 <4.3.15.RELEASE",
+      ">=5.0.0.RELEASE <5.0.5.RELEASE"
+    ],
+    "CVE-2018-1272": [
+      ">=4.3.0.RELEASE <4.3.14.RELEASE",
+      ">=5.0.0.RELEASE <5.0.5.RELEASE"
+    ],
+    "CVE-2020-5397": [
+      ">=5.2.0 <5.2.3"
     ]
   },
   "org.springframework:spring-websocket": {
