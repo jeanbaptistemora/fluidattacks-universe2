@@ -6661,13 +6661,16 @@
       is that the web server software
       each one uses
       delimits requests differently.
-    impact: __empty__
+    impact: >
+      An attacker might be able to send
+      an ambiguous HTTP request between
+      front-end and back-end system.
     recommendation: >
       Use the same web server's software
       on the front-end and back-end servers,
       making the delimiters
       among the requests coincide each other.
-    threat: __empty__
+    threat: Unauthorized attacker from the Internet.
   es:
     title: HTTP request smuggling
     description: >
@@ -6682,14 +6685,18 @@
       haga llegar una petición
       a un dispositivo
       sin que el otro se percate.
-    impact: __empty__
+    impact: >
+      Un atacante podría ser capaz de
+      enviar una petición HTTP ambigua
+      entre el sistema de front-end y
+      back-end.
     recommendation: >
       Usar el mismo software de web server
       en los servidores de front-end y back-end,
       de manera que concidan
       en los delimitadores
       entre las peticiones.
-    threat: __empty__
+    threat: Atacante no autorizado desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -6698,8 +6705,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
+      confidentiality: "L"
+      integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
@@ -6716,9 +6723,18 @@
       It is possible
       to make the system read data
       before or beyond the intended buffer.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      Get access to the system and get
+      control of the server.
+    recommendation: >
+      - Implement good security practices
+      in the software development life cycle.
+
+      - Disable de unsafe functions in
+      the system.
+    threat: >
+      External attacker with access
+      to the application.
   es:
     title: Out-of-bounds read
     description: >
@@ -6726,23 +6742,33 @@
       o antes del comienzo,
       del buffer o porción
       de memoria asignado originalmente.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      Acceder al sistema y obtener
+      el control del servidor.
+    recommendation: >
+      - Aplicar buenas prácticas de
+      seguridad en el ciclo de vida
+      del desarrollo de software.
+
+      - Desactivar las funciones
+      inseguras del sistema.
+    threat: >
+      Atacante externo con acceso
+      a la aplicación.
   category: Manipulate Data
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "H"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "F"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["062", "266"]
   metadata:
@@ -6795,17 +6821,17 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "R"
   requirements: ["169", "173"]
   metadata:
     en:
@@ -6821,9 +6847,17 @@
       as it becomes necessary
       to identify the variable’s data type
       and cast it every time it is used.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      Modification of that resource
+      by unintended parties.
+    recommendation: >
+      Check to see if the resource has insecure
+      permissions (such as being modifiable by
+      any regular user), and generate an error
+      or even exit the software if there is a
+      possibility that the resource could have
+      been modified by an unauthorized party.
+    threat: Authenticated external attacker.
   es:
     title: Improper type assignation
     description: >
@@ -6833,19 +6867,28 @@
       lo cual hace que se requira identificar
       y convertir el tipo de dato
       que será usado en cada interacción.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      Modificación de ese recurso
+      por parte de personas no deseadas.
+    recommendation: >
+      Comprobar si el recurso tiene permisos
+      inseguros (como ser modificable por
+      cualquier usuario normal), y generar un
+      error o incluso salir del software si
+      existe la posibilidad de que el recurso
+      haya sido modificado por alguien
+      no autorizado.
+    threat: Atacante externo autentificado.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
@@ -6870,9 +6913,16 @@
       These attacks are often possible
       due to improperly configured
       corporate email clients.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      Misleading users to
+      obtain information.
+    recommendation: >
+      - Use anti-spam controls to
+      prevent mail from arriving.
+
+      - Conduct awareness campaigns
+      with users.
+    threat: Anonymous attacker from the Internet.
   es:
     title: Phishing
     description: >
@@ -6884,18 +6934,25 @@
       para solicitarle a la misma
       que revele información confidencial
       (frecuentemente credenciales).
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      Engañar a los usuarios para
+      obtener información.
+    recommendation: >
+      - Utilizar controles antispam para
+      evitar que lleguen los correos.
+
+      - Realizar campañas de concientización
+      con los usuarios.
+    threat: Atacante anónimo desde Internet.
   category: Deceptive Interactions
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "H"
       integrity: "N"
       availability: "N"
     temporal:
