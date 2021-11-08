@@ -3236,6 +3236,16 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf,5,2
   21 |         ""Resource"": ""arn:aws:iam::*:role/EC2-roles-for-XYZ-*""
      ^ Col 0
 "
+F070,lines,namespace/skims/test/data/lib_path/f070/lb_test.tf,3,266,skims,070. Insecure service configuration - ELB,"Insecure service configuration - ELB
+","
+  1 | resource ""aws_lb_target_group"" ""test"" {
+  2 |   name     = ""tf-example-lb-tg""
+> 3 |   port     = 80
+  4 |   protocol = ""HTTP""
+  5 |   vpc_id   = aws_vpc.main.id
+  6 | }
+    ^ Col 0
+"
 F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,4,310 + 327,skims,052. Insecure encryption algorithm,Missing SSL in skims/test/data/lib_path/f052/java.properties,"
   1 | ibm.mq.use_ssl=true
   2 | ibm.mq.use_ssl=false
