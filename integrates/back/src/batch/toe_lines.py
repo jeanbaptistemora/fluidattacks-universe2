@@ -263,6 +263,7 @@ async def get_present_toe_lines_to_update(
         (
             repo_toe_lines[filename],
             ToeLinesAttributesToUpdate(
+                be_present=True,
                 loc=last_loc,
                 modified_commit=last_modified_commit,
                 modified_date=last_modified_date,
@@ -305,6 +306,7 @@ def get_non_present_toe_lines_to_update(
         )
         for db_filename in repo_toe_lines
         if db_filename not in present_filenames
+        and repo_toe_lines[db_filename].be_present
     )
 
 
@@ -358,10 +360,15 @@ async def refresh_repo_toe_lines(
         repo_nickname,
         repo_toe_lines,
     )
+    non_present_toe_lines_to_update = get_non_present_toe_lines_to_update(
+        present_filenames,
+        repo_toe_lines,
+    )
     await collect(
         tuple(
             toe_lines_update(current_value, attrs_to_update)
             for current_value, attrs_to_update in present_toe_lines_to_update
+            + non_present_toe_lines_to_update
         ),
         workers=500,
     )
