@@ -8,10 +8,10 @@ tags: android, cybersecurity, credential, flaw, social-engineering, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1633991486/blog/android-flubot-tanglebot/cover_android.webp
 alt: Photo by Markus Winkler on Unsplash
 description: Read this post to learn about two Android malware campaigns.
-    FluBot fools its victims using clever lures and
-    TangleBot can be used to spy on the victims.
+  FluBot fools its victims using clever lures and
+  TangleBot can be used to spy on the victims.
 keywords: Android, Flubot, Tanglebot, SMS, Malware, App,
-    Smishing, Ethical Hacking, Pentesting
+  Smishing, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
 name: Jason Chavarría
