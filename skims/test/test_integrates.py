@@ -43,8 +43,6 @@ async def test_client(
 @pytest.mark.skims_test_group("unittesting")
 async def test_build_vulnerabilities_stream() -> None:
     commit_hash = get_repo_head_hash(CTX.config.working_dir)
-    if commit_hash[0].isdigit():
-        commit_hash = f"'{commit_hash}'"
 
     assert (
         await build_vulnerabilities_stream(
