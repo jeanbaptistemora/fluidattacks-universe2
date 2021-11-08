@@ -9,6 +9,7 @@ let
     name = "melts-development";
     sourcesYaml = ./pypi-sources.yaml;
     searchPathsRuntime.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
+    searchPathsBuild.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
   };
 in
 makeTemplate {

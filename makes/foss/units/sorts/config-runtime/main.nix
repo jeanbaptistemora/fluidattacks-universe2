@@ -12,6 +12,10 @@ let
       inputs.nixpkgs.gcc
       inputs.nixpkgs.postgresql
     ];
+    searchPathsBuild.bin = [
+      inputs.nixpkgs.gcc
+      inputs.nixpkgs.postgresql
+    ];
     sourcesYaml = ./pypi-sources.yaml;
   };
 in
