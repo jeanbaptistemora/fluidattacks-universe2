@@ -4474,7 +4474,11 @@
       during maintenance,
       introducing vulnerabilities
       or causing unexpected behaviors.
-    impact: __empty__
+    impact: >
+      - Generate malfunctions in the
+      application.
+
+      - Modify production functions.
     recommendation: >
       Delete all lines
       of functional commented code
@@ -4492,7 +4496,11 @@
       puedan remover los comentarios
       de este código
       y desplegarlo en producción.
-    impact: __empty__
+    impact: >
+      - Generar mal funcionamiento en
+      la aplicación.
+
+      - Modificar funciones de producción.
     recommendation: >
       Eliminar todas las líneas
       de código funcional comentado
@@ -4608,7 +4616,18 @@
       when the user terminates the session
       and can be used
       to post requests afterwards.
-    impact: __empty__
+    impact: >
+      - Access the session of a
+      previously authenticated user.
+
+      - Make enquiries to obtain
+      confidential information.
+
+      - Create accompaniments without
+      prior authorization from a user.
+
+      - Obtain business information
+      with valid token.
     recommendation: >
       The session token does not expire
       when user closes session
@@ -4623,7 +4642,18 @@
       una vez que el usuario cierra la sesión
       y se puede reutilizar
       en futuras solicitudes.
-    impact: __empty__
+    impact: >
+      - Acceder a la sesión de un usuario
+      previamente autenticado.
+
+      - Realizar consultas que permitan
+      obtener información confidencial.
+
+      - Crear acompañamientos sin autorización
+      previa de un usuario.
+
+      - Obtener información de negocio con
+      el token válido.
     recommendation: >
       El token de sesión debe caducar
       cuando se cierra una sesión.
@@ -4659,11 +4689,18 @@
       because the associated switch
       lacks protection mechanisms,
       such as PortSecurity.
-    impact: __empty__
+    impact: >
+      ARP spoofing attacks are used to
+      steal sensitive information.
     recommendation: >
       Set network controls
       (PortSecurity) in the affected switches.
-    threat: __empty__
+    threat: >
+      ARP spoofing attacks are often used
+      to facilitate other attacks such as
+      Denial-of-Service DoS attacks, session
+      hijacking and Man-in-the-middle
+      MITM attacks.
   es:
     title: ARP spoofing
     description: >
@@ -4672,11 +4709,20 @@
       debido a que el suiche asociado
       no cuenta con protecciones
       como PortSecurity.
-    impact: __empty__
+    impact: >
+      Los ataques de suplantación de ARP
+      se utilizan para robar información
+      sensible.
     recommendation: >
       Establecer controles de red
       (PortSecurity) en los switches afectados.
-    threat: __empty__
+    threat: >
+      Los ataques de suplantación de ARP
+      se utilizan a menudo para facilitar
+      otros ataques como los de denegación
+      de servicio (DoS), el secuestro de
+      sesiones y los ataques
+      MITM (Man-in-the-middle).
   category: Manipulate System
   score:
     base:
@@ -4705,7 +4751,7 @@
       and obtain the information it is masking
       because it is not generated
       using a secure cryptographic mechanism.
-    impact: __empty__
+    impact: Reuse session tokens after 14 days created.
     recommendation: >
       Generate a token with random components
       without sensitive information.
@@ -4716,7 +4762,7 @@
       Es posible revertir el hash del token
       y obtener la información que enmascara
       ya que no se usa un componente aleatorio seguro.
-    impact: __empty__
+    impact: Reutilizar tokens de sesión después de 14 días de creados.
     recommendation: >
       Generar un token con componentes aleatorios
       sin información sensible.
