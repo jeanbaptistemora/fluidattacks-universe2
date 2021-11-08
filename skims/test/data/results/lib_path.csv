@@ -2936,6 +2936,102 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf
   83 |   }
      ^ Col 0
 "
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml.json,59,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
+   49 |               ],
+   50 |               ""Effect"": ""Allow"",
+   51 |               ""Resource"": [
+   52 |                 """",
+   53 |                 [
+   54 |                   ""arn:aws:s3:::"",
+   55 |                   ""DOC-EXAMPLE-BUCKET"",
+   56 |                   ""/*""
+   57 |                 ]
+   58 |               ],
+>  59 |               ""Principal"": ""*"",
+   60 |               ""Condition"": {
+   61 |                 ""StringLike"": {
+   62 |                   ""aws:Referer"": [
+   63 |                     ""http://www.example.com/*"",
+   64 |                     ""http://example.net/*""
+   65 |                   ]
+   66 |                 }
+   67 |               }
+   68 |             }
+   69 |           ]
+      ^ Col 0
+"
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml.json,119,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
+  109 |               ],
+  110 |               ""Effect"": ""Allow"",
+  111 |               ""Resource"": [
+  112 |                 """",
+  113 |                 [
+  114 |                   ""arn:aws:s3:::"",
+  115 |                   ""DOC-EXAMPLE-BUCKET"",
+  116 |                   ""/*""
+  117 |                 ]
+  118 |               ],
+> 119 |               ""Principal"": ""*"",
+  120 |               ""Condition"": {
+  121 |                 ""StringLike"": {
+  122 |                   ""aws:Referer"": [
+  123 |                     ""http://www.example.com/*"",
+  124 |                     ""http://example.net/*""
+  125 |                   ]
+  126 |                 }
+  127 |               }
+  128 |             }
+  129 |           ]
+      ^ Col 0
+"
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,40,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
+  30 |           - Action:
+  31 |               - ""s3:DeleteObject""
+  32 |               - ""s3:DeleteObjectVersion""
+  33 |               - ""s3:PutLifecycleConfiguration""
+  34 |             Effect: Allow
+  35 |             Resource:
+  36 |               - ''
+  37 |               - - 'arn:aws:s3:::'
+  38 |                 - DOC-EXAMPLE-BUCKET
+  39 |                 - /*
+> 40 |             Principal: '*'
+  41 |             Condition:
+  42 |               StringLike:
+  43 |                 'aws:Referer':
+  44 |                   - 'http://www.example.com/*'
+  45 |                   - 'http://example.net/*'
+  46 |   BucketPolicy3:
+  47 |     Type: AWS::S3::BucketPolicy
+  48 |     Properties:
+  49 |       Bucket: DOC-EXAMPLE-BUCKET
+  50 |       PolicyDocument:
+     ^ Col 0
+"
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,78,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
+  63 |             Principal: '*'
+  64 |             Condition:
+  65 |               StringLike:
+  66 |                 'aws:Referer':
+  67 |                   - 'http://www.example.com/*'
+  68 |                   - 'http://example.net/*'
+  69 |           - Action:
+  70 |               - ""s3:RestoreObject""
+  71 |               - ""s3:WriteGetObjectResponse""
+  72 |             Effect: Allow
+  73 |             Resource:
+  74 |               - ''
+  75 |               - - 'arn:aws:s3:::'
+  76 |                 - DOC-EXAMPLE-BUCKET
+  77 |                 - /*
+> 78 |             Principal: '*'
+  79 |             Condition:
+  80 |               StringLike:
+  81 |                 'aws:Referer':
+  82 |                   - 'http://www.example.com/*'
+  83 |                   - 'http://example.net/*'
+     ^ Col 0
+"
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,18,250,skims,031. Excessive privileges - AWS,"iam:PassRole with wildcard resource allows an elevation of privileges, skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml","
    1 | Resources:
    2 |   AWS_IAM_Role_1:

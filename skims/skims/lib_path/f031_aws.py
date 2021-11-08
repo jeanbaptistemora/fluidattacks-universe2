@@ -614,6 +614,13 @@ async def analyze(
                     template=template,
                 )
             )
+            coroutines.append(
+                cfn_bucket_policy_allows_public_access(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
     elif file_extension in EXTENSIONS_TERRAFORM:
         content = await content_generator()
         model = await load_terraform(stream=content, default=[])

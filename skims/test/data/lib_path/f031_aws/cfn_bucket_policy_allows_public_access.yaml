@@ -1,0 +1,83 @@
+Resources:
+  BucketPolicy1:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: DOC-EXAMPLE-BUCKET
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 's3:GetObject'
+            Effect: Allow
+            Resource:
+              - ''
+              - - 'arn:aws:s3:::'
+                - DOC-EXAMPLE-BUCKET
+                - /*
+            Principal: '*'
+            Condition:
+              StringLike:
+                'aws:Referer':
+                  - 'http://www.example.com/*'
+                  - 'http://example.net/*'
+  BucketPolicy2:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: DOC-EXAMPLE-BUCKET
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - "s3:DeleteObject"
+              - "s3:DeleteObjectVersion"
+              - "s3:PutLifecycleConfiguration"
+            Effect: Allow
+            Resource:
+              - ''
+              - - 'arn:aws:s3:::'
+                - DOC-EXAMPLE-BUCKET
+                - /*
+            Principal: '*'
+            Condition:
+              StringLike:
+                'aws:Referer':
+                  - 'http://www.example.com/*'
+                  - 'http://example.net/*'
+  BucketPolicy3:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: DOC-EXAMPLE-BUCKET
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - "s3:DeleteObject"
+              - "s3:DeleteObjectVersion"
+              - "s3:PutLifecycleConfiguration"
+            Effect: Deny
+            Resource:
+              - ''
+              - - 'arn:aws:s3:::'
+                - DOC-EXAMPLE-BUCKET
+                - /*
+            Principal: '*'
+            Condition:
+              StringLike:
+                'aws:Referer':
+                  - 'http://www.example.com/*'
+                  - 'http://example.net/*'
+          - Action:
+              - "s3:RestoreObject"
+              - "s3:WriteGetObjectResponse"
+            Effect: Allow
+            Resource:
+              - ''
+              - - 'arn:aws:s3:::'
+                - DOC-EXAMPLE-BUCKET
+                - /*
+            Principal: '*'
+            Condition:
+              StringLike:
+                'aws:Referer':
+                  - 'http://www.example.com/*'
+                  - 'http://example.net/*'
