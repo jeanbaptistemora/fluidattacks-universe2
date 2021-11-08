@@ -1,10 +1,21 @@
 {
   "aopalliance:aopalliance": {},
+  "cglib:cglib-nodep": {},
   "com.google.code.gson:gson": {
     "github.com/google/gson/pull/1991": [
       ">=2.0.0 <2.8.9"
     ]
   },
+  "com.h2database:h2": {
+    "github.com/h2database/h2database/issues/1225": [
+      ">=1.0.0 <1.4.197"
+    ],
+    "github.com/h2database/h2database/issues/3195": [
+      ">=0"
+    ]
+  },
+  "com.jayway.jsonpath:json-path": {},
+  "com.oracle:ojdbc": {},
   "commons-logging:commons-logging": {},
   "javax.validation:validation-api": {},
   "junit:junit": {
@@ -28,13 +39,16 @@
       ">=0"
     ]
   },
+  "org.codehaus.jackson:jackson-xc": {},
   "org.jboss.bom.wfk:jboss-javaee-6.0-with-spring4": {},
   "org.jboss.bom.wfk:jboss-javaee-6.0-with-tools": {},
   "org.jboss.logging:jboss-logging": {},
   "org.jboss.spec.javax.servlet.jsp:jboss-jsp-api_2.2_spec": {},
   "org.jboss.spec.javax.servlet.jstl:jboss-jstl-api_1.2_spec": {},
   "org.jboss.spec.javax.servlet:jboss-servlet-api_3.0_spec": {},
+  "org.scala-lang:scala-library": {},
   "org.springframework.boot:spring-boot-starter-web": {},
+  "org.springframework.boot:spring-boot-starter-websocket": {},
   "org.springframework.security:spring-security-config": {
     "CVE-2016-5007": [
       ">=3.2.0.RELEASE <4.1.1.RELEASE"
