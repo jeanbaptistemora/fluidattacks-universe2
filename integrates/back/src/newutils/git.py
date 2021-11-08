@@ -31,6 +31,15 @@ def clone_services_repository(path: str) -> None:
     )
 
 
+async def get_last_commit_author(repo: Repo, filename: str) -> str:
+    """Get the last commiter's email of a file"""
+    return str(
+        await in_thread(
+            repo.git.log, "--max-count", "1", "--format=%ce", "--", filename
+        )
+    )
+
+
 async def get_last_commit_hash(repo: Repo, filename: str) -> str:
     """Get last hash of a file in the repo"""
     return str(
