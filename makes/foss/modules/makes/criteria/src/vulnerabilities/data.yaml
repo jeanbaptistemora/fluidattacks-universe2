@@ -4789,8 +4789,18 @@
 "079":
   en:
     title: Non-upgradable dependencies
-    description: __empty__
-    impact: __empty__
+    description: >
+      Dependencies are not explicitly declared
+      (name and version) within the source code.
+      They are copied directly into the
+      repositories.
+    impact: >
+      - Loss of maintainability because
+      dependencies are not maintained.
+
+      - Late update of units in case a
+      vulnerability is reported for one of
+      the reported vulnerabilities.
     recommendation: >
       All dependencies must be declared
       and must referenced
@@ -4807,7 +4817,14 @@
       (nombre y versión) dentro del código fuente.
       Se encuentran copiadas directamente
       en los repositorios.
-    impact: __empty__
+    impact: >
+      - Perder mantenibilidad porque no se
+      actualizan las dependencias.
+
+      - Actualizar tardíamente las
+      dependencias en caso que se reporte
+      unavulnerabilidad para una de las
+      que fueron reportadas.
     recommendation: >
       Todas las dependencias
       deben estar declaradas
