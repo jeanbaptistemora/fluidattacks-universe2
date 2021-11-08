@@ -30,10 +30,11 @@ export const enTranslations: ResourceLanguage = {
   dashboard: {
     diff: "Compared to last rolling week",
     remediated: "Remediated vulnerabilities",
-    vulnsFound: "of <0>{{totalVulns}}</0> found in <0>{{count}}</0> group",
+    vulnsFound:
+      "of <0>{{totalVulns}}</0> CVSSF found in <0>{{count}}</0> group",
     // eslint-disable-next-line camelcase -- Suffix "_plural" used by i18next lib
     vulnsFound_plural:
-      "of <0>{{totalVulns}}</0> found in <0>{{count}}</0> groups",
+      "of <0>{{totalVulns}}</0> CVSSF found in <0>{{count}}</0> groups",
   },
   lock: {
     btn: "Authenticate",

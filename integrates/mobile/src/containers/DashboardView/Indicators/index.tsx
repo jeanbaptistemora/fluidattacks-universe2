@@ -108,7 +108,11 @@ const Indicators: React.FC<IIndicatorsProps> = (
         </Headline>
         <Subheading>
           <Trans count={totalGroups} i18nKey={"dashboard.vulnsFound"}>
-            <Title>{{ totalVulns: current.total.toLocaleString() }}</Title>
+            <Title>
+              {{
+                totalVulns: Number(current.total.toFixed(1)).toLocaleString(),
+              }}
+            </Title>
           </Trans>
         </Subheading>
       </View>

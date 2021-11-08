@@ -101,7 +101,7 @@ describe("DashboardView", (): void => {
     expect(wrapper).toHaveLength(1);
     expect(wrapper.text()).toContain("58.3%");
     expect(wrapper.text()).toContain("0%Compared");
-    expect(wrapper.text()).toContain("of 12 found in 1 group");
+    expect(wrapper.text()).toContain("of 12 CVSSF found in 1 group");
 
     jest.clearAllMocks();
   });
@@ -144,7 +144,7 @@ describe("DashboardView", (): void => {
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.text()).toContain("0%");
-    expect(wrapper.text()).toContain("of 0 found in 0 groups");
+    expect(wrapper.text()).toContain("of 0 CVSSF found in 0 groups");
 
     jest.clearAllMocks();
   });
@@ -250,7 +250,7 @@ describe("DashboardView", (): void => {
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.text()).toContain("58.3%");
-    expect(wrapper.text()).toContain("of 12 found in 1 group");
+    expect(wrapper.text()).toContain("of 12 CVSSF found in 1 group");
     expect(Alert.alert).not.toHaveBeenCalled();
 
     jest.clearAllMocks();
@@ -384,7 +384,7 @@ describe("DashboardView", (): void => {
     expect(wrapper).toHaveLength(1);
     expect(wrapper.text()).toContain("58.3%");
     expect(wrapper.text()).toContain("-8.3%Compared");
-    expect(wrapper.text()).toContain("of 12 found in 1 group");
+    expect(wrapper.text()).toContain("of 12 CVSSF found in 1 group");
 
     await stateListener("background");
     await stateListener("active");
@@ -395,10 +395,10 @@ describe("DashboardView", (): void => {
 
     expect(wrapper.text()).toContain("91.7%");
     expect(wrapper.text()).toContain("+25%Compared");
-    expect(wrapper.text()).toContain("of 12 found in 1 group");
+    expect(wrapper.text()).toContain("of 12 CVSSF found in 1 group");
     expect(wrapper.text()).toContain("100%");
     expect(wrapper.text()).toContain("+37.5%Compared");
-    expect(wrapper.text()).toContain("of 8 found in 2 groups");
+    expect(wrapper.text()).toContain("of 8 CVSSF found in 2 groups");
 
     wrapper.unmount();
     jest.clearAllMocks();
