@@ -1,8 +1,6 @@
 from .core import (
     add_comment,
     get_closed_vulnerabilities,
-    get_finding_age,
-    get_finding_last_vuln_report,
     get_finding_open_age,
     get_is_verified,
     get_last_closed_vulnerability_info,
@@ -13,7 +11,6 @@ from .core import (
     get_oldest_vulnerability_report_date,
     get_open_vulnerabilities,
     get_pending_verification_findings,
-    get_report_date,
     get_report_days,
     get_severity_score,
     get_status,
@@ -51,8 +48,6 @@ __all__ = [
     # core
     "add_comment",
     "get_closed_vulnerabilities",
-    "get_finding_age",
-    "get_finding_last_vuln_report",
     "get_finding_open_age",
     "get_is_verified",
     "get_last_closed_vulnerability_info",
@@ -63,7 +58,6 @@ __all__ = [
     "get_open_vulnerabilities",
     "get_oldest_vulnerability_report_date",
     "get_pending_verification_findings",
-    "get_report_date",
     "get_report_days",
     "get_severity_score",
     "get_status",

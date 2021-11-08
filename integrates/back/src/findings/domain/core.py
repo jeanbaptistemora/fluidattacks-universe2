@@ -224,35 +224,15 @@ async def remove_vulnerabilities(
     )
 
 
-async def get_closed_vulnerabilities(loaders: Any, finding_id: str) -> int:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
-    vulns: List[VulnerabilityType] = await finding_vulns_loader.load(
+async def get_closed_vulnerabilities(
+    loaders: Any,
+    finding_id: str,
+) -> int:
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
-    vulns = vulns_utils.filter_closed_vulns(vulns)
-    return len(vulns)
-
-
-async def get_finding_age(context: Any, finding_id: str) -> int:
-    age = 0
-    finding_vulns_loader: DataLoader = context.finding_vulns_nzr
-    vulns = await finding_vulns_loader.load(finding_id)
-    report_dates = vulns_utils.get_report_dates(vulns)
-    if report_dates:
-        oldest_report_date = min(report_dates)
-        age = (datetime_utils.get_now() - oldest_report_date).days
-    return age
-
-
-async def get_finding_last_vuln_report(context: Any, finding_id: str) -> int:
-    last_vuln_report = 0
-    finding_vulns_loader = context.finding_vulns_nzr
-    vulns = await finding_vulns_loader.load(finding_id)
-    report_dates = vulns_utils.get_report_dates(vulns)
-    if report_dates:
-        newest_report_date = max(report_dates)
-        last_vuln_report = (datetime_utils.get_now() - newest_report_date).days
-    return last_vuln_report
+    return len(vulns_utils.filter_closed_vulns(vulns))
 
 
 async def get_finding_open_age(context: Any, finding_id: str) -> int:
@@ -394,18 +374,6 @@ def get_report_days(report_date: str) -> int:
         date = datetime.fromisoformat(report_date)
         days = (datetime_utils.get_now() - date).days
     return days
-
-
-async def get_report_date(loaders: Any, finding_id: str) -> Optional[str]:
-    iso_report_date = ""
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
-    vulns = await finding_vulns_loader.load(finding_id)
-    report_dates = vulns_utils.get_report_dates(vulns)
-    if report_dates:
-        report_date = min(report_dates)
-        iso_report_date = datetime_utils.get_as_utc_iso_format(report_date)
-
-    return iso_report_date
 
 
 def get_severity_score(

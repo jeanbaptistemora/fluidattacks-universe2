@@ -22,6 +22,12 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     FindingVerification,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from decimal import (
     Decimal,
     ROUND_CEILING,
@@ -114,16 +120,13 @@ def filter_open_vulns(
 
 
 def filter_closed_vulns(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
-    return [
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
         vuln
         for vuln in vulnerabilities
-        if cast(HistoricType, vuln.get("historic_state", [{}]))[-1].get(
-            "state"
-        )
-        == "closed"
-    ]
+        if vuln.state.status == VulnerabilityStateStatus.CLOSED
+    )
 
 
 def filter_confirmed_zero_risk(
@@ -424,7 +427,7 @@ def get_ranges(numberlist: List[int]) -> str:
 
 
 def get_reattack_requesters(
-    historic_verification: Tuple[FindingVerification],
+    historic_verification: Tuple[FindingVerification, ...],
     vulnerability_ids: Set[str],
 ) -> List[str]:
     reversed_historic_verification = tuple(reversed(historic_verification))
