@@ -9,6 +9,7 @@ def build_class_node(args: SyntaxGraphArgs, name: str, block_id: str) -> str:
         name=name,
         block_id=block_id,
         danger=False,
+        evaluated=False,
         label_type="Class",
     )
 

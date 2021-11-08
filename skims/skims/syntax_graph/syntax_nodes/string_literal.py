@@ -9,6 +9,7 @@ def build_string_literal_node(args: SyntaxGraphArgs, value: str) -> str:
         value=value,
         value_type="string",
         danger=False,
+        evaluated=False,
         label_type="Literal",
     )
 

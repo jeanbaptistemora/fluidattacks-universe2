@@ -12,6 +12,7 @@ def build_variable_declaration_node(
         variable_type=variable_type,
         value_id=value_id,
         danger=False,
+        evaluated=False,
         label_type="VariableDeclaration",
     )
 

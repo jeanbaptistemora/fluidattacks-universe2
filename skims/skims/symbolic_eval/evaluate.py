@@ -49,10 +49,19 @@ EVALUATORS: Dict[str, Evaluator] = {
 
 
 def generic(args: SymbolicEvalArgs) -> bool:
-    node_type = args.graph.nodes[args.n_id]["label_type"]
-    if evaluator := EVALUATORS.get(node_type):
-        return evaluator(args)
-    raise MissingSymbolicEval(f"Missing symbolic evaluator for {node_type}")
+    node_attr = args.graph.nodes[args.n_id]
+    node_type = node_attr["label_type"]
+    evaluator = EVALUATORS.get(node_type)
+
+    if not evaluator:
+        raise MissingSymbolicEval(f"Missing symbolic evaluator {node_type}")
+
+    if node_attr["evaluated"]:
+        return node_attr["danger"]
+
+    result = evaluator(args)
+    node_attr["evaluated"] = True
+    return result
 
 
 def evaluate(

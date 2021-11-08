@@ -9,6 +9,7 @@ def build_null_literal_node(args: SyntaxGraphArgs, value: str) -> str:
         value=value,
         value_type="null",
         danger=False,
+        evaluated=False,
         label_type="Literal",
     )
 

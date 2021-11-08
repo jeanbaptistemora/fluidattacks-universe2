@@ -11,6 +11,7 @@ def build_element_access_node(
         expression_id=expression_id,
         arguments_id=arguments_id,
         danger=False,
+        evaluated=False,
         label_type="ElementAccess",
     )
 

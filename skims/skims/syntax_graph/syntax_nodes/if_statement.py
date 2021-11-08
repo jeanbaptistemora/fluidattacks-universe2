@@ -17,6 +17,7 @@ def build_if_node(
         condition_id=condition_id,
         true_id=true_id,
         danger=False,
+        evaluated=False,
         label_type="If",
     )
 

@@ -13,6 +13,7 @@ def build_prefix_node(
         prefix=prefix,
         expression_id=expression_id,
         danger=False,
+        evaluated=False,
         label_type="PrefixOperation",
     )
 

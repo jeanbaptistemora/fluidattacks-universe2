@@ -12,6 +12,7 @@ def build_argument_list_node(
     args.syntax_graph.add_node(
         args.n_id,
         danger=False,
+        evaluated=False,
         label_type="ArgumentList",
     )
 

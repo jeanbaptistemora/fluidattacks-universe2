@@ -11,6 +11,7 @@ def build_namespace_node(
         name=name,
         block_id=block_id,
         danger=False,
+        evaluated=False,
         label_type="Namespace",
     )
 

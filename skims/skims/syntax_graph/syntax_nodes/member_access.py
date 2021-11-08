@@ -15,6 +15,7 @@ def build_member_access_node(
         expression=expression,
         expression_id=expression_id,
         danger=False,
+        evaluated=False,
         label_type="MemberAccess",
     )
 

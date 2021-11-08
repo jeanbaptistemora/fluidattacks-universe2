@@ -12,6 +12,7 @@ def build_method_declaration_node(
         block_id=block_id,
         parameters_id=parameters_id,
         danger=False,
+        evaluated=False,
         label_type="MethodDeclaration",
     )
 
