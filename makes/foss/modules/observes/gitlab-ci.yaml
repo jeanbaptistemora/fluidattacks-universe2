@@ -1,5 +1,5 @@
 /deployTerraform/observes:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -20,7 +20,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesArch:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -42,7 +42,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesCommonPaginator:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -64,7 +64,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesCommonPostgresClient:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -86,7 +86,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesCommonSingerIo:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -108,7 +108,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesServiceTimedoctorTokens:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -130,7 +130,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesTapAnnounceKit:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -152,7 +152,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesTapBugsnag:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -174,7 +174,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesTapCheckly:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -196,7 +196,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesTapCsv:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -218,7 +218,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesTapDelighted:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -240,7 +240,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesTapFormstack:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -262,7 +262,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesTapGitlab:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -284,7 +284,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesTapJson:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -306,7 +306,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesTapMailchimp:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -328,7 +328,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesTapMixpanel:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -350,7 +350,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesTapTimedoctor:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -372,7 +372,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesCodeEtl:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -394,7 +394,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesCodeEtlTests:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -416,7 +416,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesCommonPaginator:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -438,7 +438,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesCommonPostgresClient:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -460,7 +460,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesCommonPostgresClientTests:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -482,7 +482,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesCommonSingerIo:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -504,7 +504,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesCommonSingerIoTests:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -526,7 +526,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesJobLastSuccess:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -548,7 +548,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesJobLastSuccessTests:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -570,7 +570,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesServiceBatchStability:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -592,7 +592,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesServiceJobsScheduler:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -614,7 +614,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesServiceMigrateTables:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -636,7 +636,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesServiceTimedoctorTokens:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -658,7 +658,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesStreamerZohoCrm:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -680,7 +680,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesStreamerZohoCrmTests:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -702,7 +702,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTapAnnounceKit:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -724,7 +724,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTapAnnounceKitTests:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -746,7 +746,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTapBugsnag:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -768,7 +768,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTapCheckly:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -790,7 +790,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTapCsv:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -812,7 +812,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTapCsvTests:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -834,7 +834,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTapDelighted:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -856,7 +856,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTapFormstack:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -878,7 +878,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTapGitlab:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -900,7 +900,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTapGitlabTests:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -922,7 +922,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTapJson:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -944,7 +944,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTapMailchimp:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -966,7 +966,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTapMailchimpTests:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -988,7 +988,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTapTimedoctor:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -1010,7 +1010,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/observesTargetRedshift:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -1032,7 +1032,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/observes:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -1054,7 +1054,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/bin/jobs-scheduler:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
   rules:
@@ -1072,7 +1072,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/fx-test/tap-announcekit:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -1094,7 +1094,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/job/code-etl/compute-bills:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
   rules:
@@ -1112,7 +1112,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/job/mailchimp-etl:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
   rules:
@@ -1130,7 +1130,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/scheduled/job/dynamodb-centralize:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
   rules:
@@ -1148,7 +1148,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/scheduled/job/dynamodb-integrates-etl-vulns:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
   rules:
@@ -1166,7 +1166,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/scheduled/job/mixpanel-integrates-etl:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
   rules:
@@ -1184,7 +1184,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/scheduled/job/timedoctor-backup:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
   rules:
@@ -1202,7 +1202,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/scheduled/job/timedoctor-etl:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
   rules:
@@ -1220,7 +1220,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/scheduled/job/timedoctor-refresh-token:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
   rules:
@@ -1238,7 +1238,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/scheduled/job/toe-files-etl:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
   rules:
@@ -1256,7 +1256,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/scheduled/job/zoho-crm-etl/fluid:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
   rules:
@@ -1274,7 +1274,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/scheduled/job/zoho-crm-prepare/fluid:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
   rules:
@@ -1292,7 +1292,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/test/code-etl:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -1314,7 +1314,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/test/singer-io:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -1336,7 +1336,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/test/tap-announcekit:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -1358,7 +1358,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/test/tap-csv:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -1380,7 +1380,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/test/tap-gitlab:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -1402,7 +1402,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/test/tap-mailchimp:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -1424,7 +1424,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /observes/test/tap-mixpanel:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -1446,7 +1446,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /pipelineOnGitlab/observes:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
@@ -1468,7 +1468,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/observes:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
   rules:
