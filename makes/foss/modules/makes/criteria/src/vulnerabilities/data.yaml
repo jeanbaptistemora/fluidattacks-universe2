@@ -3433,7 +3433,7 @@
       asegurarque estos tienen una máscara
       de permisos 0600.
     threat: >
-      __empAtacante anónimo con acceso local.ty__
+      Atacante anónimo con acceso local.
   category: Subvert Access
   score:
     base:
@@ -3930,7 +3930,7 @@
       does not disable caching of input fields,
       thus the information will be stored
       in the browser’s cache.
-    impact: __empty__
+    impact: Obtain valid users of the application.
     recommendation: >
       The data cache to browser's level
       must be disabled
@@ -3952,7 +3952,7 @@
       la característica de autocompletado,
       por lo que la información quedará almacenada
       en el caché del navegador.
-    impact: __empty__
+    impact: Obtener usuarios válidos de la aplicación.
     recommendation: >
       El caché de datos a nivel de navegador
       se debe deshabilitar
@@ -4106,7 +4106,10 @@
       requests that consume
       an enormous amount of resources
       are processed without any restriction.
-    impact: __empty__
+    impact: >
+      Exhausting the server's resources
+      and thus preventing other users
+      from accessing the server.
     recommendation: >
       Use stable and optimized libraries
       to perform functions
@@ -4129,7 +4132,10 @@
       se procesan solicitudes que consumen
       una cantidad de recursos enormes
       sin ninguna restricción.
-    impact: __empty__
+    impact: >
+      Agotar los recursos del
+      servidor impidiendo así que otros
+      usuarios puedan acceder a él.
     recommendation: >
       Utilizar librerías estables
       y optimizadas para realizar funciones
@@ -4161,7 +4167,11 @@
     description: >
       User sessions do not expire
       after 5 minutes of inactivity.
-    impact: __empty__
+    impact: >
+      - Obtain user information.
+
+      - Uploading files to the application
+      without authorization.
     recommendation: >
       Close the sessions
       when they remain inactive
@@ -4175,7 +4185,11 @@
       La sesión de usuario
       de la aplicación no expira
       después de 5 minutos de inactividad.
-    impact: __empty__
+    impact: >
+      - Obtener información del usuario.
+
+      - Subir archivos a la aplicación
+      sin autorización.
     recommendation: >
       Cerrar las sesiones
       cuando permanezcan inactivas
