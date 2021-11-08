@@ -26,6 +26,7 @@ from tap_announcekit.stream import (
     StreamEmitterFactory,
 )
 from tap_announcekit.streams import (
+    ExtUsersStream,
     FeedbackStreams,
     PostContentStreams,
     PostStreams,
@@ -52,6 +53,7 @@ class SupportedStream(AutoName):
     POSTS = auto()
     POST_CONTENTS = auto()
     FEEDBACKS = auto()
+    EXT_USERS = auto()
     ALL = auto()
 
 
@@ -103,4 +105,6 @@ class Streamer(_Streamer):
             FeedbackStreams(self.client, self.emitter).proj_feedbacks(
                 self.proj
             )
+        if self.selection in (SupportedStream.EXT_USERS, SupportedStream.ALL):
+            self.emitter.emit(ExtUsersStream(self.client).stream(self.proj))
         return IO(None)

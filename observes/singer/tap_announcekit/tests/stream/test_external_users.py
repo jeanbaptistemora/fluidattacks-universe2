@@ -1,7 +1,6 @@
 from purity.v1 import (
     Transform,
 )
-import pytest
 from tap_announcekit.objs.page import (
     DataPage,
 )
@@ -25,7 +24,6 @@ def test_schema() -> None:
     utils.test_schema_record(schema, record)
 
 
-@pytest.mark.xfail(reason="in development")
 def test_query_ids() -> None:
     query = _queries.ExtUserIdsQuery(
         Transform(lambda _: DataPage(1, 1, 1, tuple())),
@@ -35,7 +33,6 @@ def test_query_ids() -> None:
     assert query.operation()
 
 
-@pytest.mark.xfail(reason="in development")
 def test_query_obj() -> None:
     query = _queries.ExtUserQuery(
         Transform(lambda _: mock_data.mock_external_user.obj),

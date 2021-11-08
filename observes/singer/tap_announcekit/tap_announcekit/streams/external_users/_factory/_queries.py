@@ -47,7 +47,7 @@ class ExtUserIdsQuery:
         return IO(None)
 
     def _select_fields(self, operation: Operation) -> IO[None]:
-        page_selection = operation.externalUsers(
+        page_selection = operation.external_users(
             project_id=self.proj.id_str, page=self.page
         )
         self._select_page_fields(page_selection)
@@ -62,7 +62,7 @@ class ExtUserIdsQuery:
             self._select_fields,
             Transform(
                 lambda p: self._to_obj(
-                    cast(RawExtUsersPage, p.externalUsers),
+                    cast(RawExtUsersPage, p.external_users),
                 )
             ),
         )
@@ -81,7 +81,7 @@ class ExtUserQuery:
         return IO(None)
 
     def _select_fields(self, operation: Operation) -> IO[None]:
-        page_selection = operation.externalUser(
+        page_selection = operation.external_user(
             project_id=self.id_obj.proj.id_str,
             external_user_id=self.id_obj.id_str,
         )
@@ -96,7 +96,7 @@ class ExtUserQuery:
             self._select_fields,
             Transform(
                 lambda p: self._to_obj(
-                    cast(RawExtUsersPage, p.externalUser),
+                    cast(RawExtUsersPage, p.external_user),
                 )
             ),
         )
