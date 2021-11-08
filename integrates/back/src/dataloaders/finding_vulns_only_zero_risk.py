@@ -8,13 +8,13 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityZeroRiskStatus,
 )
+from newutils import (
+    vulnerabilities as vulns_utils,
+)
 from typing import (
     cast,
     List,
     Tuple,
-)
-from vulnerabilities import (
-    domain as vulns_domain,
 )
 
 
@@ -30,9 +30,9 @@ class FindingVulnsOnlyZeroRiskLoader(DataLoader):
         findings_vulns = await self.dataloader.load_many(finding_ids)
 
         for index, finding_vulns in enumerate(findings_vulns):
-            finding_vulns = vulns_domain.filter_requested_zero_risk(
+            finding_vulns = vulns_utils.filter_requested_zero_risk(
                 finding_vulns
-            ) + vulns_domain.filter_confirmed_zero_risk(finding_vulns)
+            ) + vulns_utils.filter_confirmed_zero_risk(finding_vulns)
             findings_vulns[index] = finding_vulns
         return cast(List[List[VulnerabilityType]], findings_vulns)
 

@@ -310,7 +310,7 @@ async def get_is_verified(loaders: Any, finding_id: str) -> bool:
         finding_id
     )
     vulns = vulns_utils.filter_open_vulns(vulns)
-    remediated_vulns = vulns_domain.filter_remediated(vulns)
+    remediated_vulns = vulns_utils.filter_remediated(vulns)
     return len(remediated_vulns) == 0
 
 

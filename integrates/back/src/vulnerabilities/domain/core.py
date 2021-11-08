@@ -1,7 +1,3 @@
-"""Domain functions for vulnerabilities."""
-# pylint:disable=too-many-lines
-
-
 import aioboto3
 from aioextensions import (
     collect,
@@ -210,70 +206,6 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
         )
         return True
     return False
-
-
-def filter_confirmed_zero_risk(
-    vulnerabilities: List[Dict[str, FindingType]],
-) -> List[Dict[str, FindingType]]:
-    return [
-        vulnerability
-        for vulnerability in vulnerabilities
-        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
-            -1
-        ].get("status", "")
-        == "CONFIRMED"
-    ]
-
-
-def filter_non_confirmed_zero_risk_vuln(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
-    return [
-        vulnerability
-        for vulnerability in vulnerabilities
-        if vulnerability["zero_risk"] != "Confirmed"
-    ]
-
-
-def filter_non_requested_zero_risk_vuln(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
-    return [
-        vulnerability
-        for vulnerability in vulnerabilities
-        if vulnerability["zero_risk"] != "Requested"
-    ]
-
-
-def filter_remediated(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
-    return [
-        vulnerability
-        for vulnerability in vulnerabilities
-        if vulnerability["remediated"]
-    ]
-
-
-def filter_requested_zero_risk(
-    vulnerabilities: List[Dict[str, FindingType]],
-) -> List[Dict[str, FindingType]]:
-    return [
-        vulnerability
-        for vulnerability in vulnerabilities
-        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
-            -1
-        ].get("status", "")
-        == "REQUESTED"
-    ]
-
-
-def filter_zero_risk(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
-    vulnerabilities = filter_non_confirmed_zero_risk_vuln(vulnerabilities)
-    vulnerabilities = filter_non_requested_zero_risk_vuln(vulnerabilities)
-    return vulnerabilities
 
 
 async def get(vuln_id: str) -> Dict[str, FindingType]:

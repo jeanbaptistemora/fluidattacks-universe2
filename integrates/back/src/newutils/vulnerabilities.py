@@ -100,32 +100,6 @@ def filter_non_deleted(
     ]
 
 
-def filter_non_confirmed_zero_risk(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
-    return [
-        vulnerability
-        for vulnerability in vulnerabilities
-        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
-            -1
-        ].get("status", "")
-        != "CONFIRMED"
-    ]
-
-
-def filter_non_requested_zero_risk(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
-    return [
-        vulnerability
-        for vulnerability in vulnerabilities
-        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
-            -1
-        ].get("status", "")
-        != "REQUESTED"
-    ]
-
-
 def filter_open_vulns(
     vulnerabilities: List[VulnerabilityType],
 ) -> List[VulnerabilityType]:
@@ -152,11 +126,78 @@ def filter_closed_vulns(
     ]
 
 
-def filter_zero_risk_vulns(
-    vulns: List[VulnerabilityType],
+def filter_confirmed_zero_risk(
+    vulnerabilities: List[Dict[str, FindingType]],
+) -> List[Dict[str, FindingType]]:
+    return [
+        vulnerability
+        for vulnerability in vulnerabilities
+        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
+            -1
+        ].get("status", "")
+        == "CONFIRMED"
+    ]
+
+
+def filter_non_confirmed_zero_risk(
+    vulnerabilities: List[VulnerabilityType],
 ) -> List[VulnerabilityType]:
-    vulns_filter_non_confirm_zero = filter_non_confirmed_zero_risk(vulns)
+    return [
+        vulnerability
+        for vulnerability in vulnerabilities
+        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
+            -1
+        ].get("status", "")
+        != "CONFIRMED"
+    ]
+
+
+def filter_requested_zero_risk(
+    vulnerabilities: List[Dict[str, FindingType]],
+) -> List[Dict[str, FindingType]]:
+    return [
+        vulnerability
+        for vulnerability in vulnerabilities
+        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
+            -1
+        ].get("status", "")
+        == "REQUESTED"
+    ]
+
+
+def filter_non_requested_zero_risk(
+    vulnerabilities: List[VulnerabilityType],
+) -> List[VulnerabilityType]:
+    return [
+        vulnerability
+        for vulnerability in vulnerabilities
+        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
+            -1
+        ].get("status", "")
+        != "REQUESTED"
+    ]
+
+
+def filter_zero_risk_vulns(
+    vulnerabilities: List[VulnerabilityType],
+) -> List[VulnerabilityType]:
+    vulns_filter_non_confirm_zero = filter_non_confirmed_zero_risk(
+        vulnerabilities
+    )
     return filter_non_requested_zero_risk(vulns_filter_non_confirm_zero)
+
+
+def filter_remediated(
+    vulnerabilities: List[VulnerabilityType],
+) -> List[VulnerabilityType]:
+    return [
+        vulnerability
+        for vulnerability in vulnerabilities
+        if cast(
+            HistoricType, vulnerability.get("historic_verification", [{}])
+        )[-1].get("status")
+        == "REQUESTED"
+    ]
 
 
 def filter_historic_date(
