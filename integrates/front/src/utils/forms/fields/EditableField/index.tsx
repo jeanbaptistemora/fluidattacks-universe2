@@ -2,6 +2,7 @@ import type { FieldAttributes } from "formik";
 import { Field } from "formik";
 import _ from "lodash";
 import React from "react";
+import ReactMarkdown from "react-markdown";
 
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
@@ -25,6 +26,7 @@ interface IEditableFieldProps extends FieldAttributes<any> {
   infoLinkText?: string;
   label: string;
   renderAsEditable: boolean;
+  markdown?: boolean;
   tooltip?: string;
   type?: string;
   visibleWhileEditing?: boolean;
@@ -169,26 +171,72 @@ const renderVertical: (props: IEditableFieldProps) => JSX.Element = (
   );
 };
 
+const renderMarkdown: (props: IEditableFieldProps) => JSX.Element = (
+  props: IEditableFieldProps
+): JSX.Element => {
+  const {
+    id = "editableField",
+    currentValue,
+    renderAsEditable,
+    tooltip,
+    ...fieldProps // eslint-disable-line fp/no-rest-parameters
+  } = props;
+
+  return (
+    <FormGroup>
+      {_.isUndefined(tooltip) ? (
+        renderAsEditable ? (
+          <Field {...fieldProps} /> // eslint-disable-line react/jsx-props-no-spreading
+        ) : (
+          <ReactMarkdown>{currentValue}</ReactMarkdown>
+        )
+      ) : renderAsEditable ? (
+        <TooltipWrapper id={id} message={tooltip}>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <Field {...fieldProps} />{" "}
+        </TooltipWrapper>
+      ) : (
+        <TooltipWrapper
+          displayClass={"dib"}
+          id={id}
+          message={tooltip}
+          placement={"top"}
+        >
+          <ReactMarkdown>{currentValue}</ReactMarkdown>
+        </TooltipWrapper>
+      )}
+    </FormGroup>
+  );
+};
+
 const EditableField: React.FC<IEditableFieldProps> = (
   props: IEditableFieldProps
 ): JSX.Element => {
-  const { alignField, visibleWhileEditing, renderAsEditable, currentValue } =
-    props;
+  const {
+    alignField,
+    currentValue,
+    renderAsEditable,
+    markdown = false,
+    visibleWhileEditing,
+  } = props;
 
   function setRender(
     properties: IEditableFieldProps,
-    alignF: string
+    alignF: string,
+    renderM: boolean
   ): JSX.Element {
     if (alignF === "horizontal") {
       return renderHorizontal(properties);
     } else if (alignF === "horizontalWide") {
       return renderHorizontalWide(properties);
+    } else if (renderM) {
+      return renderMarkdown(properties);
     }
 
     return renderVertical(properties);
   }
 
-  const render: JSX.Element = setRender(props, alignField as string);
+  const render: JSX.Element = setRender(props, alignField as string, markdown);
 
   const isVisibleWhileEditing: boolean =
     visibleWhileEditing === true || _.isUndefined(visibleWhileEditing);

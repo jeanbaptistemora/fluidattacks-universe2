@@ -1,3 +1,24 @@
+const esModules = [
+  "react-syntax-highlighter",
+  "react-markdown",
+  "vfile",
+  "unist-.+",
+  "unified",
+  "bail",
+  "is-plain-obj",
+  "trough",
+  "remark-.+",
+  "mdast-util-.+",
+  "micromark",
+  "parse-entities",
+  "character-entities",
+  "property-information",
+  "comma-separated-tokens",
+  "hast-util-whitespace",
+  "remark-.+",
+  "space-separated-tokens",
+].join("|");
+
 module.exports = {
   collectCoverage: true,
   coverageDirectory: "coverage",
@@ -20,8 +41,10 @@ module.exports = {
   setupFilesAfterEnv: ["<rootDir>/jestSetup.ts"],
   testEnvironment: "jsdom",
   transform: {
-    "^.+\\.(j|t)sx?$": "ts-jest",
+    [`(${esModules}).+\\.js$`]: "babel-jest",
   },
-  transformIgnorePatterns: ["node_modules/(?!react-syntax-highlighter/.*)"],
+  transformIgnorePatterns: [
+    `[/\\\\]node_modules[/\\\\](?!${esModules}).+\\.(js|jsx|mjs|cjs|ts|tsx)$`,
+  ],
   verbose: true,
 };

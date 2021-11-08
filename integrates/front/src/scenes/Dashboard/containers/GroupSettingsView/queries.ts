@@ -1,6 +1,17 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
+const GET_GROUP_ACCESS_INFO: DocumentNode = gql`
+  query GetGroupAccessInfo($groupName: String!) {
+    group(groupName: $groupName) {
+      dastAccess
+      disambiguation
+      mobileAccess
+      sastAccess
+    }
+  }
+`;
+
 const GET_GROUP_DATA: DocumentNode = gql`
   query GetGroupData($groupName: String!) {
     group(groupName: $groupName) {
@@ -11,6 +22,26 @@ const GET_GROUP_DATA: DocumentNode = gql`
       name
       service
       subscription
+    }
+  }
+`;
+
+const UPDATE_GROUP_ACCESS_INFO: DocumentNode = gql`
+  mutation UpdateGroupAccessInfo(
+    $dastAccess: String
+    $disambiguation: String
+    $groupName: String!
+    $mobileAccess: String
+    $sastAccess: String
+  ) {
+    updateGroupAccessInfo(
+      dastAccess: $dastAccess
+      disambiguation: $disambiguation
+      groupName: $groupName
+      mobileAccess: $mobileAccess
+      sastAccess: $sastAccess
+    ) {
+      success
     }
   }
 `;
@@ -141,7 +172,9 @@ const ADD_FILES_TO_DB_MUTATION: DocumentNode = gql`
 `;
 
 export {
+  GET_GROUP_ACCESS_INFO,
   GET_GROUP_DATA,
+  UPDATE_GROUP_ACCESS_INFO,
   UPDATE_GROUP_DATA,
   REMOVE_GROUP_TAG_MUTATION,
   GET_TAGS,

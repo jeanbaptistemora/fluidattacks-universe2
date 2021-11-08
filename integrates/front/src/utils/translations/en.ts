@@ -1162,6 +1162,26 @@ export const enTranslations: ResourceKey = {
     findingDeleted: "Finding was deleted",
     findingRejected: "Finding {{findingId}} was rejected",
     findingsDeleted: "Findings were deleted",
+    groupAccessInfoSection: {
+      accessInfo: "Access Information",
+      dast: "DAST",
+      disambiguation: "Disambiguation",
+      mobile: "Mobile",
+      noAccessInfo:
+        "There is no information on how to access this group's ToE at the moment.",
+      noDisambiguation:
+        "There is no need for disambiguation in this group at the moment.",
+      sast: "SAST",
+      tooltips: {
+        dast: "Information on how to access the environments of this group",
+        disambiguation:
+          "Necessary clarifications on what should be tested in this group",
+        edit: "Edit group access information",
+        mobile:
+          "Information on how to access the mobile environments of this group",
+        sast: "Information on how to access the repositories of this group",
+      },
+    },
     highSeverity: "High",
     infoTable: {
       EN: "English",
@@ -2361,6 +2381,7 @@ export const enTranslations: ResourceKey = {
     invalidCommentParent: "The comment parent is invalid",
     invalidEmailInField: "The email address inserted is not valid",
     invalidFieldLength: "The value inserted in one of the fields is too large",
+    invalidMarkdown: "Invalid or malformed markdown",
     invalidTextBeginning:
       "Field cannot begin with the following character: {{ chars }}",
     invalidTextField:
