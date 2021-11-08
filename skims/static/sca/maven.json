@@ -8,6 +8,11 @@
       ">=4.7.0 <4.13.1"
     ]
   },
+  "org.codehaus.jackson:jackson-mapper-asl": {
+    "CVE-2019-10172": [
+      ">=0"
+    ]
+  },
   "org.springframework.security:spring-security-core": {
     "CVE-2011-2731": [
       "<2.0.7",
