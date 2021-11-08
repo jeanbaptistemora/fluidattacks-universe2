@@ -155,7 +155,7 @@ async def test_handle_organization_finding_policy_acceptance() -> None:
 
     finding_policy = await policies_domain.get_finding_policy_by_name(
         org_name=org_name,
-        finding_name=finding_name.split(".")[0].lower(),
+        finding_name=finding_name.split(".", maxsplit=1)[0].lower(),
     )
     hande_acceptance_data = {
         "query": handle_mutation,
@@ -268,7 +268,7 @@ async def test_deactivate_org_finding_policy() -> None:
     """
     finding_policy = await policies_domain.get_finding_policy_by_name(
         org_name=org_name,
-        finding_name=finding_name.split(".")[0].lower(),
+        finding_name=finding_name.split(".", maxsplit=1)[0].lower(),
     )
     hande_acceptance_data = {
         "query": handle_mutation,
@@ -489,7 +489,7 @@ async def test_submit_organization_finding_policy() -> None:
     """
     finding_policy = await policies_domain.get_finding_policy_by_name(
         org_name=organization_name,
-        finding_name=finding_name.split(".")[0].lower(),
+        finding_name=finding_name.split(".", maxsplit=1)[0].lower(),
     )
     hande_acceptance_rejected_data = {
         "query": handle_mutation,
