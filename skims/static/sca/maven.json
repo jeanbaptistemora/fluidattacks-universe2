@@ -1,4 +1,10 @@
 {
+  "aopalliance:aopalliance": {},
+  "com.google.code.gson:gson": {
+    "github.com/google/gson/pull/1991": [
+      ">=2.0.0 <2.8.9"
+    ]
+  },
   "commons-logging:commons-logging": {},
   "junit:junit": {
     "CVE-2020-15250": [
@@ -6,6 +12,12 @@
     ],
     "github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp": [
       ">=4.7.0 <4.13.1"
+    ]
+  },
+  "org.apache.commons:commons-collections4": {
+    "issues.apache.org/jira/browse/COLLECTIONS-580": [
+      ">=3.0 <3.2.2",
+      ">=4.0 <4.1"
     ]
   },
   "org.codehaus.jackson:jackson-core-asl": {},
@@ -178,6 +190,27 @@
     ]
   },
   "org.springframework:spring-webmvc": {
+    "CVE-2014-1904": [
+      ">=3.0.0.RELEASE <3.2.8.RELEASE",
+      ">=4.0.0.RELEASE <4.0.2.RELEASE"
+    ],
+    "CVE-2014-3625": [
+      ">=3.2.0.RELEASE <3.2.12.RELEASE",
+      ">=4.0.0.RELEASE <4.0.8.RELEASE",
+      ">=4.1.0.RELEASE <4.1.2.RELEASE"
+    ],
+    "CVE-2016-5007": [
+      ">=3.2.0.RELEASE <4.3.1.RELEASE"
+    ],
+    "CVE-2016-9878": [
+      ">=1.2.1 <3.2.18.RELEASE",
+      ">=4.2.0.RELEASE <4.2.9.RELEASE",
+      ">=4.3.0.RELEASE <4.3.5.RELEASE"
+    ],
+    "CVE-2018-11040": [
+      ">=4.3.0.RELEASE <4.3.18.RELEASE",
+      ">=5.0.0.RELEASE <5.0.7.RELEASE"
+    ],
     "CVE-2018-1271": [
       ">=4.0.0 <4.3.15.RELEASE",
       ">=5.0.0.RELEASE <5.0.5.RELEASE"
@@ -188,6 +221,9 @@
     ],
     "CVE-2020-5397": [
       ">=5.2.0 <5.2.3"
+    ],
+    "github.com/spring-projects/spring-framework/issues/12435": [
+      ">=3.0.0 <3.0.6.RELEASE"
     ]
   },
   "org.springframework:spring-websocket": {
