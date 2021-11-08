@@ -1,7 +1,6 @@
 import json
 from model import (
     core_model,
-    value_model,
 )
 from sys import (
     modules,
@@ -11,6 +10,7 @@ from typing import (
     List,
 )
 from utils.ctx import (
+    CTX,
     STATIC,
     TOOLS_SEMVER_MATCH,
 )
@@ -63,5 +63,5 @@ def get_vulnerabilities(
 
         return vulnerabilities
 
-    value_model.VALUE_TO_ADD.add(f"{platform.name} - {product}")
+    CTX.value_to_add.add(f"{platform.name} - {product}")
     return []

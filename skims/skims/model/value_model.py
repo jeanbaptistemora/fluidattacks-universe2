@@ -25,6 +25,3 @@ class ValueToAdd(NamedTuple):
             )
         ]
         return yaml.safe_dump(data)
-
-
-VALUE_TO_ADD = ValueToAdd({})

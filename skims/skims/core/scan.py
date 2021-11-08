@@ -22,9 +22,7 @@ from lib_ssl.analyze import (
 )
 from model import (
     core_model,
-)
-from model.value_model import (
-    VALUE_TO_ADD,
+    value_model,
 )
 import os
 from state.ephemeral import (
@@ -41,6 +39,7 @@ from utils.bugs import (
 )
 from utils.ctx import (
     CTX,
+    MANAGER,
 )
 from utils.logs import (
     log,
@@ -61,6 +60,7 @@ async def execute_skims(token: Optional[str]) -> bool:
     :rtype: bool
     """
     success: bool = True
+    CTX.value_to_add = value_model.ValueToAdd(MANAGER.dict())
 
     stores: Dict[core_model.FindingEnum, EphemeralStore] = {
         finding: get_ephemeral_store() for finding in core_model.FindingEnum
@@ -83,7 +83,7 @@ async def execute_skims(token: Optional[str]) -> bool:
     else:
         await notify_findings_as_snippets(stores)
 
-    await log("info", "Value missing to add:\n%s", VALUE_TO_ADD)
+    await log("info", "Value missing to add:\n%s", CTX.value_to_add)
 
     if CTX.config.group and token:
         msg = "Results will be synced to group: %s"
