@@ -11,6 +11,7 @@ from custom_types import (
     Vulnerability as VulnerabilityType,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from datetime import (
@@ -20,19 +21,27 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
-from itertools import (
-    chain,
+from decimal import (
+    Decimal,
+)
+from findings.domain.core import (
+    get_severity_score,
 )
 from typing import (
+    Dict,
     List,
     Tuple,
 )
 
 
 def had_state_by_then(
-    last_day: datetime, state: str, vuln: VulnerabilityType
-) -> bool:
-    historic_state = reversed(vuln["historic_state"])
+    *,
+    last_day: datetime,
+    findings_cvssf: Dict[str, Decimal],
+    state: str,
+    vulnerability: VulnerabilityType,
+) -> Decimal:
+    historic_state = reversed(vulnerability["historic_state"])
     last_state: dict = next(
         filter(
             lambda item: datetime.strptime(item["date"], "%Y-%m-%d %H:%M:%S")
@@ -42,34 +51,39 @@ def had_state_by_then(
         {},
     )
 
-    return last_state.get("state") == state
+    return (
+        findings_cvssf[str(vulnerability["finding_id"])]
+        if last_state.get("state") == state
+        else Decimal("0.0")
+    )
 
 
 def get_totals_by_week(
-    vulns: List[VulnerabilityType], last_day: datetime
-) -> Tuple[int, int]:
-    open_vulnerabilities = len(
-        tuple(
-            filter(
-                lambda vuln: had_state_by_then(
-                    last_day=last_day,
-                    state="open",
-                    vuln=vuln,
-                ),
-                vulns,
+    *,
+    vulnerabilities: List[VulnerabilityType],
+    findings_cvssf: Dict[str, Decimal],
+    last_day: datetime,
+) -> Tuple[Decimal, Decimal]:
+    open_vulnerabilities = Decimal(
+        sum(
+            had_state_by_then(
+                last_day=last_day,
+                state="open",
+                vulnerability=vulnerability,
+                findings_cvssf=findings_cvssf,
             )
+            for vulnerability in vulnerabilities
         )
     )
-    closed_vulnerabilities = len(
-        tuple(
-            filter(
-                lambda vuln: had_state_by_then(
-                    last_day=last_day,
-                    state="closed",
-                    vuln=vuln,
-                ),
-                vulns,
+    closed_vulnerabilities = Decimal(
+        sum(
+            had_state_by_then(
+                last_day=last_day,
+                state="closed",
+                vulnerability=vulnerability,
+                findings_cvssf=findings_cvssf,
             )
+            for vulnerability in vulnerabilities
         )
     )
 
@@ -77,33 +91,38 @@ def get_totals_by_week(
 
 
 async def generate_one(groups: Tuple[str, ...]) -> RemediationReport:
-    context = get_new_context()
-    finding_vulns_loader = context.finding_vulns_nzr
-    group_findings_loader = context.group_findings
-    groups_findings_new: Tuple[
+    loaders: Dataloaders = get_new_context()
+    groups_findings: Tuple[
         Tuple[Finding, ...], ...
-    ] = await group_findings_loader.load_many(groups)
+    ] = await loaders.group_findings.load_many(groups)
+    findings_cvssf: Dict[str, Decimal] = {
+        finding.id: utils.get_cvssf(get_severity_score(finding.severity))
+        for group_findings in groups_findings
+        for finding in group_findings
+    }
     finding_ids = [
         finding.id
-        for group_findings in groups_findings_new
+        for group_findings in groups_findings
         for finding in group_findings
     ]
 
     current_rolling_week = datetime.now()
     previous_rolling_week = current_rolling_week - timedelta(days=7)
 
-    vulns = list(
-        chain.from_iterable(await finding_vulns_loader.load_many(finding_ids))
-    )
+    vulnerabilities: List[
+        VulnerabilityType
+    ] = await loaders.finding_vulns_nzr.load_many_chained(finding_ids)
 
     total_previous_open, total_previous_closed = get_totals_by_week(
-        vulns,
-        previous_rolling_week,
+        vulnerabilities=vulnerabilities,
+        findings_cvssf=findings_cvssf,
+        last_day=previous_rolling_week,
     )
 
     total_current_open, total_current_closed = get_totals_by_week(
-        vulns,
-        current_rolling_week,
+        vulnerabilities=vulnerabilities,
+        findings_cvssf=findings_cvssf,
+        last_day=current_rolling_week,
     )
 
     return {
