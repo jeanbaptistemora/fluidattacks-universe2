@@ -14,6 +14,16 @@
       ">=0"
     ]
   },
+  "org.springframework.security:spring-security-config": {
+    "CVE-2016-5007": [
+      ">=3.2.0.RELEASE <4.1.1.RELEASE"
+    ],
+    "CVE-2018-1199": [
+      ">=4.1.0.RELEASE <4.1.5.RELEASE",
+      ">=4.2.0.RELEASE <4.2.4.RELEASE",
+      ">=5.0.0.RELEASE <5.0.3.RELEASE"
+    ]
+  },
   "org.springframework.security:spring-security-core": {
     "CVE-2011-2731": [
       "<2.0.7",
