@@ -5907,14 +5907,14 @@
       attack_vector: "N"
       attack_complexity: "L"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["173", "324"]
   metadata:
@@ -5926,19 +5926,26 @@
     description: >
       It is possible to modify the path
       to which an uploaded file will be saved.
-    impact: __empty__
+    impact: >
+      Saving files in paths other than
+      those expected by the application.
     recommendation: >
       Validate uploaded files names
       on the system and restrict
       the storage to destined folders only.
-    threat: __empty__
+    threat: >
+      Overwrite important files within the
+      system by referring to the path where
+      the upload is performed.
   es:
     title: External control of file name or path
     description: >
       Se puede modificar la ruta
       donde se almacenará un archivo cargado
       en el sistema.
-    impact: __empty__
+    impact: >
+      Guardar archivos en rutas diferentes a
+      las esperadas por la aplicación.
     recommendation: >
       Validar el nombre de los archivos cargados
       en el sistema y restringir
@@ -5951,15 +5958,15 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["037", "320"]
@@ -5982,9 +5989,19 @@
       Data protected by Server-Side Encryption
       is encrypted with 256-bit
       Advanced Encryption Standard (AES-256).
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      Attacker access to sensitive server data.
+    recommendation: >
+      Encrypt each object with a unique key.
+      As an additional safeguard, it encrypts
+      the key itself with a root key that it
+      regularly rotates.
+      Amazon S3 server-side encryption uses one
+      of the strongest block ciphers available,
+      256-bit Advanced Encryption Standard
+      (AES-256), to encrypt the data.
+    threat: >
+      Data interception over the network.
   es:
     title: Non-encrypted confidential information - S3 Server Side Encryption
     description: >
@@ -6001,9 +6018,20 @@
       Server-Side Encryption está cifrada
       con 256-bit Advanced Encryption Standard
       (AES-256).
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      Acceso de atacantes a datos
+      sensibles del servidor.
+    recommendation: >
+      Cifrar cada objeto con una clave única.
+      Como salvaguarda adicional, cifra la propia
+      clave con una clave raíz que rota regularmente.
+      El cifrado del lado del servidor de Amazon S3
+      utiliza uno de los cifrados en bloque más
+      potentes disponibles, el Advanced Encryption
+      Standard (AES-256) de 256 bits, para cifrar
+      los datos.
+    threat: >
+      Interceptación de datos en la red.
   category: Collect Information
   score:
     base:
@@ -6012,8 +6040,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
+      confidentiality: "H"
+      integrity: "H"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
