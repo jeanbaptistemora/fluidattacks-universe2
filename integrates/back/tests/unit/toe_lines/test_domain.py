@@ -86,9 +86,7 @@ async def test_update() -> None:
         seen_at="2019-08-01T05:00:00+00:00",
         sorts_risk_level=Decimal("0.5"),
     )
-    await toe_lines_domain.update(
-        current_value, group_name, root_id, filename, attributes
-    )
+    await toe_lines_domain.update(current_value, attributes)
     loaders = get_new_context()
     toe_lines = await loaders.toe_lines.load((group_name, root_id, filename))
     assert toe_lines == ToeLines(

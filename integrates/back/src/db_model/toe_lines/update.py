@@ -26,18 +26,15 @@ from dynamodb.model import (
 async def update_metadata(
     *,
     current_value: ToeLines,
-    group_name: str,
-    filename: str,
-    root_id: str,
     metadata: ToeLinesMetadataToUpdate,
 ) -> None:
     key_structure = TABLE.primary_key
     metadata_key = keys.build_key(
         facet=TABLE.facets["toe_lines_metadata"],
         values={
-            "filename": filename,
-            "group_name": group_name,
-            "root_id": root_id,
+            "filename": current_value.filename,
+            "group_name": current_value.group_name,
+            "root_id": current_value.root_id,
         },
     )
     current_value_item = format_toe_lines_item(

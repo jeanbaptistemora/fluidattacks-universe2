@@ -41,9 +41,6 @@ async def add(
 
 async def update(
     current_value: ToeLines,
-    group_name: str,
-    root_id: str,
-    filename: str,
     attributes: ToeLinesAttributesToUpdate,
 ) -> None:
     metadata = ToeLinesMetadataToUpdate(
@@ -61,8 +58,5 @@ async def update(
     )
     await toe_lines_model.update_metadata(
         current_value=current_value,
-        group_name=group_name,
-        filename=filename,
-        root_id=root_id,
         metadata=metadata,
     )

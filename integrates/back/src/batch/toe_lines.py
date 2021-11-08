@@ -83,6 +83,9 @@ CLOC_EXCLUDE_LANG = "--exclude-lang=" + CLOC_EXCLUDE_LIST
 toe_lines_add = retry_on_exceptions(
     exceptions=(UnavailabilityError,), sleep_seconds=10
 )(toe_lines_domain.add)
+toe_lines_update = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=10
+)(toe_lines_domain.update)
 
 
 async def apply_git_config(repo_path: str) -> None:
@@ -346,6 +349,19 @@ async def refresh_repo_toe_lines(
         tuple(
             toe_lines_add(group_name, root_id, filename, toe_lines_to_add)
             for filename, toe_lines_to_add in present_toe_lines_to_add
+        ),
+        workers=500,
+    )
+    present_toe_lines_to_update = await get_present_toe_lines_to_update(
+        present_filenames,
+        repo,
+        repo_nickname,
+        repo_toe_lines,
+    )
+    await collect(
+        tuple(
+            toe_lines_update(current_value, attrs_to_update)
+            for current_value, attrs_to_update in present_toe_lines_to_update
         ),
         workers=500,
     )

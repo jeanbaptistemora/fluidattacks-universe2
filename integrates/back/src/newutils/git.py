@@ -5,8 +5,14 @@ from context import (
     SERVICES_GITLAB_API_TOKEN,
     SERVICES_GITLAB_API_USER,
 )
+from datetime import (
+    datetime,
+)
 from git import (
     Repo,
+)
+from newutils import (
+    datetime as datetime_utils,
 )
 
 
@@ -36,14 +42,15 @@ async def get_last_commit_hash(repo: Repo, filename: str) -> str:
 
 async def get_last_modified_date(repo: Repo, filename: str) -> str:
     """Get last modified date of a file in the repo"""
-    return str(
-        await in_thread(
-            repo.git.log,
-            "--max-count",
-            "1",
-            "--format=%cI",
-            "--",
-            filename,
-            "TZ=UTC",
+    return datetime_utils.get_as_utc_iso_format(
+        datetime.fromisoformat(
+            await in_thread(
+                repo.git.log,
+                "--max-count",
+                "1",
+                "--format=%cI",
+                "--",
+                filename,
+            )
         )
     )
