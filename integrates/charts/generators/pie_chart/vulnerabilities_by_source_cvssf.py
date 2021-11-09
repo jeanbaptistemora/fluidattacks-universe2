@@ -20,6 +20,9 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityType,
+)
 from decimal import (
     Decimal,
 )
@@ -45,7 +48,7 @@ async def get_data_one_group(group: str) -> Counter[str]:
         for finding in group_findings
     }
 
-    vulnerabilities = await context.finding_vulns_nzr.load_many_chained(
+    vulnerabilities = await context.finding_vulns_nzr_typed.load_many_chained(
         finding_ids
     )
 
@@ -53,8 +56,8 @@ async def get_data_one_group(group: str) -> Counter[str]:
     for vulnerability in vulnerabilities:
         counter.update(
             {
-                str(vulnerability["vuln_type"]): Decimal(
-                    finding_cvssf[str(vulnerability["finding_id"])]
+                vulnerability.type: Decimal(
+                    finding_cvssf[vulnerability.finding_id]
                 ).quantize(Decimal("0.001"))
             }
         )
@@ -70,9 +73,9 @@ async def get_data_many_groups(groups: Tuple[str, ...]) -> Counter[str]:
 
 def format_data(counters: Counter[str]) -> dict:
     translations = {
-        "inputs": "app",
-        "lines": "code",
-        "ports": "infra",
+        VulnerabilityType.INPUTS: "app",
+        VulnerabilityType.LINES: "code",
+        VulnerabilityType.PORTS: "infra",
     }
 
     return {

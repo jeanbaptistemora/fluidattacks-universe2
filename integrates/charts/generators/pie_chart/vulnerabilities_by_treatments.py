@@ -12,14 +12,16 @@ from charts.generators.pie_chart.utils import (
     generate_all,
     MAX_GROUPS_DISPLAYED,
 )
-from custom_types import (
-    Vulnerability,
-)
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from db_model.findings.types import (
     Finding,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityTreatment,
 )
 from operator import (
     itemgetter,
@@ -33,26 +35,35 @@ from typing import (
 )
 
 
-def get_treatment_changes(vuln: Vulnerability) -> str:
-    return str(
-        len(vuln["historic_treatment"])
-        - (1 if vuln["historic_treatment"][0]["treatment"] == "NEW" else 0)
-    )
+async def get_treatment_changes(
+    loaders: Dataloaders, vuln: Vulnerability
+) -> int:
+    historic: Tuple[
+        VulnerabilityTreatment, ...
+    ] = await loaders.vulnerability_historic_treatment.load(vuln.id)
+
+    return len(historic)
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
-    context = get_new_context()
-    group_findings: Tuple[Finding, ...] = await context.group_findings.load(
+    loaders = get_new_context()
+    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
     finding_ids = [finding.id for finding in group_findings]
 
-    vulnerabilities = await context.finding_vulns_nzr.load_many_chained(
+    vulnerabilities = await loaders.finding_vulns_nzr_typed.load_many_chained(
         finding_ids
     )
+    treatment_changes = await collect(
+        tuple(
+            get_treatment_changes(loaders, vulnerability)
+            for vulnerability in vulnerabilities
+        )
+    )
 
-    return Counter(filter(None, map(get_treatment_changes, vulnerabilities)))
+    return Counter(filter(None, treatment_changes))
 
 
 async def get_data_many_groups(groups: Tuple[str, ...]) -> Counter[str]:

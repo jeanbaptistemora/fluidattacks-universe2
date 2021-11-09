@@ -20,6 +20,9 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityTreatmentStatus,
+)
 from decimal import (
     Decimal,
 )
@@ -56,29 +59,30 @@ async def get_data_one_group(group: str) -> Treatment:
         for finding in group_findings
     }
 
-    vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
+    vulnerabilities = await loaders.finding_vulns_nzr_typed.load_many_chained(
         finding_ids
     )
 
-    treatment: Counter[str] = Counter()
+    treatment: Counter = Counter()
     for vulnerability in vulnerabilities:
+        status = (
+            vulnerability.treatment.status if vulnerability.treatment else None
+        )
         treatment.update(
             {
-                str(
-                    vulnerability["historic_treatment"][-1]["treatment"]
-                ): Decimal(
-                    finding_cvssf[str(vulnerability["finding_id"])]
-                ).quantize(
-                    Decimal("0.001")
-                )
+                status: Decimal(
+                    finding_cvssf[vulnerability.finding_id]
+                ).quantize(Decimal("0.001"))
             }
         )
 
     return Treatment(
-        acceptedUndefined=treatment["ACCEPTED_UNDEFINED"],
-        accepted=treatment["ACCEPTED"],
-        inProgress=treatment["IN PROGRESS"],
-        undefined=treatment["NEW"],
+        acceptedUndefined=treatment[
+            VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+        ],
+        accepted=treatment[VulnerabilityTreatmentStatus.ACCEPTED],
+        inProgress=treatment[VulnerabilityTreatmentStatus.IN_PROGRESS],
+        undefined=treatment[None],
     )
 
 
