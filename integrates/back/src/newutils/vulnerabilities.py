@@ -505,7 +505,7 @@ def get_report_dates(
 def get_report_dates_new(
     historics: Tuple[Tuple[VulnerabilityState, ...]]
 ) -> Tuple[datetime, ...]:
-    """Get report date for vulnerabilities, given the state historics."""
+    """Get report dates for vulnerabilities, given the historic state."""
     return tuple(
         datetime.fromisoformat(historic[0].modified_date)
         for historic in historics

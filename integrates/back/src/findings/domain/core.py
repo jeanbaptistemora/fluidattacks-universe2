@@ -325,26 +325,28 @@ async def get_max_open_severity(
 
 
 async def get_newest_vulnerability_report_date(
-    context: Any, finding_id: str
+    loaders: Any, finding_id: str
 ) -> str:
-    last_vulnerability_report_date = ""
-    finding_vulns_loader = context.finding_vulns_nzr
-    vulns = await finding_vulns_loader.load(finding_id)
-    report_dates = vulns_utils.get_report_dates(vulns)
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
+        finding_id
+    )
+    vulns_historic_loader: DataLoader = loaders.vulnerability_historic_state
+    vulns_historic_state: Tuple[
+        Tuple[VulnerabilityState, ...]
+    ] = await vulns_historic_loader.load_many([vuln.id for vuln in vulns])
+    report_dates = vulns_utils.get_report_dates_new(vulns_historic_state)
     if report_dates:
-        last_vulnerability_report_date = datetime_utils.get_as_utc_iso_format(
-            max(report_dates)
-        )
-    return last_vulnerability_report_date
+        return datetime_utils.get_as_utc_iso_format(max(report_dates))
+    return ""
 
 
 async def get_open_vulnerabilities(loaders: Any, finding_id: str) -> int:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
-    vulns: List[VulnerabilityType] = await finding_vulns_loader.load(
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
-    vulns = vulns_utils.filter_open_vulns(vulns)
-    return len(vulns)
+    return len(vulns_utils.filter_open_vulns_new(vulns))
 
 
 async def get_pending_verification_findings(
