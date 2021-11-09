@@ -5,21 +5,20 @@ from aioextensions import (
 from charts import (
     utils,
 )
-from custom_types import (
-    Finding,
-)
 from dataloaders import (
     get_new_context,
 )
 from db_model.findings.types import (
-    Finding as FindingNew,
+    Finding,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
 )
 from itertools import (
     chain,
 )
 from typing import (
     Counter,
-    Dict,
     List,
     NamedTuple,
     Set,
@@ -38,15 +37,13 @@ FindingsTags = NamedTuple(
 
 
 async def get_data_finding(
-    finding_title: str, vulnerabilities: List[Dict[str, Finding]]
+    finding_title: str, vulnerabilities: Tuple[Vulnerability, ...]
 ) -> FindingsTags:
     title = finding_title.split(".")[0]
     tags: List[str] = list(
         filter(
             None,
-            chain.from_iterable(
-                map(lambda x: x["tag"].split(", "), vulnerabilities)
-            ),
+            chain.from_iterable(map(lambda x: x.tags or [], vulnerabilities)),
         )
     )
 
@@ -59,15 +56,17 @@ async def get_data_finding(
 
 
 async def get_data(group: str) -> FindingsTags:
-    context = get_new_context()
-    group_findings_loader = context.group_findings
-    group_findings: Tuple[FindingNew, ...] = await group_findings_loader.load(
+    loaders = get_new_context()
+    group_findings_loader = loaders.group_findings
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group.lower()
     )
     finding_ids = [finding.id for finding in group_findings]
     findings = [finding.title for finding in group_findings]
 
-    vulnerabilities = await context.finding_vulns_nzr.load_many(finding_ids)
+    vulnerabilities: Tuple[
+        Tuple[Vulnerability, ...], ...
+    ] = await loaders.finding_vulns_nzr_typed.load_many(finding_ids)
 
     findings_data = await collect(
         [

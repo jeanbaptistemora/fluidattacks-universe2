@@ -10,6 +10,12 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from findings import (
     domain as findings_domain,
 )
@@ -41,7 +47,9 @@ async def generate_one(group: str) -> dict:
     ]
 
     for finding_id, finding_title, finding_cvss in group_findings_data:
-        finding_vulns = await context.finding_vulns_nzr.load(finding_id)
+        finding_vulns: Tuple[
+            Vulnerability, ...
+        ] = await context.finding_vulns_nzr_typed.load(finding_id)
         for vulnerability in finding_vulns:
             source = utils.get_vulnerability_source(vulnerability)
             target = f"{finding_title} {source}"
@@ -60,7 +68,8 @@ async def generate_one(group: str) -> dict:
                         "group": "target",
                         "id": target,
                         "score": float(finding_cvss),
-                        "isOpen": vulnerability["current_state"] == "open",
+                        "isOpen": vulnerability.state.status
+                        == VulnerabilityStateStatus.OPEN,
                         "display": f"[{finding_cvss}] {finding_title}",
                     }
                 )

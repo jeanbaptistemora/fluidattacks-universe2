@@ -45,16 +45,14 @@ async def get_data_one_group(group: str) -> GroupsTags:
     )
     finding_ids = [finding.id for finding in group_findings]
 
-    vulnerabilities = await context.finding_vulns_nzr.load_many_chained(
+    vulnerabilities = await context.finding_vulns_nzr_typed.load_many_chained(
         finding_ids
     )
 
     tags: List[str] = list(
         filter(
             None,
-            chain.from_iterable(
-                map(lambda x: x["tag"].split(", "), vulnerabilities)
-            ),
+            chain.from_iterable(map(lambda x: x.tags or [], vulnerabilities)),
         )
     )
 

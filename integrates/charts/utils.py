@@ -12,6 +12,12 @@ from custom_types import (
 from datetime import (
     datetime,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityType,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from decimal import (
     Decimal,
 )
@@ -100,15 +106,14 @@ def get_repo_from_where(where: str) -> str:
     return repo
 
 
-def get_vulnerability_source(vulnerability: Dict[str, str]) -> str:
-    kind: str = vulnerability["vuln_type"]
-    where: str = vulnerability["where"].strip()
+def get_vulnerability_source(vulnerability: Vulnerability) -> str:
+    where = vulnerability.where.strip()
 
-    if kind == "lines":
+    if vulnerability.type == VulnerabilityType.LINES:
         root: str = get_repo_from_where(where)
-    elif kind == "ports":
+    elif vulnerability.type == VulnerabilityType.PORTS:
         root = where
-    elif kind == "inputs":
+    elif vulnerability.type == VulnerabilityType.INPUTS:
         try:
             url = urlparse(where)
         except ValueError:
