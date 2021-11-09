@@ -122,10 +122,12 @@ async def get_group_document(  # pylint: disable=too-many-locals
             weekly_size=weekly_data_size,
             monthly_size=monthly_data_size,
             quarterly_size=len(quarterly["date"]),
+            semesterly_size=len(semesterly["date"]),
         ),
         monthly=monthly,
         quarterly=quarterly,
         semesterly=semesterly,
+        yearly={},
         weekly={
             "date": {datum.date: 0 for datum in data},
             "Closed": {datum.date: datum.closed for datum in data},

@@ -80,6 +80,7 @@ class TimeRangeType(Enum):
     QUARTERLY: str = "QUARTERLY"
     SEMESTERLY: str = "SEMESTERLY"
     WEEKLY: str = "WEEKLY"
+    YEARLY: str = "YEARLY"
 
 
 class RiskOverTime(NamedTuple):
@@ -88,6 +89,7 @@ class RiskOverTime(NamedTuple):
     semesterly: Dict[str, Dict[datetime, float]]
     time_range: TimeRangeType
     weekly: Dict[str, Dict[datetime, float]]
+    yearly: Dict[str, Dict[datetime, float]]
 
 
 def translate_date(date_str: str) -> datetime:
@@ -501,6 +503,7 @@ def get_data_risk_over_time_group(  # pylint: disable=too-many-locals
             weekly_size=weekly_data_size,
             monthly_size=monthly_data_size,
             quarterly_size=len(quarterly["date"]),
+            semesterly_size=len(semesterly["date"]),
         ),
         monthly=monthly,
         quarterly=quarterly,
@@ -514,11 +517,16 @@ def get_data_risk_over_time_group(  # pylint: disable=too-many-locals
                 for datum in data
             },
         },
+        yearly={},
     )
 
 
 def get_time_range(
-    *, weekly_size: int, monthly_size: int = 0, quarterly_size: int = 0
+    *,
+    weekly_size: int,
+    monthly_size: int,
+    quarterly_size: int,
+    semesterly_size: int,
 ) -> TimeRangeType:
     if weekly_size <= 12:
         return TimeRangeType.WEEKLY
@@ -529,10 +537,13 @@ def get_time_range(
     if monthly_size <= 36:
         return TimeRangeType.QUARTERLY
 
+    if 12 < quarterly_size < 24:
+        return TimeRangeType.SEMESTERLY
+
     return (
         TimeRangeType.SEMESTERLY
-        if 12 < quarterly_size <= 24
-        else TimeRangeType.QUARTERLY
+        if semesterly_size <= 12
+        else TimeRangeType.YEARLY
     )
 
 
@@ -613,6 +624,10 @@ def get_current_time_range(
         group.time_range for group in group_documents
     }
 
+    if TimeRangeType.YEARLY in time_range:
+        return tuple(
+            group_document.yearly for group_document in group_documents
+        )
     if TimeRangeType.SEMESTERLY in time_range:
         return tuple(
             group_document.semesterly for group_document in group_documents
@@ -625,6 +640,7 @@ def get_current_time_range(
         return tuple(
             group_document.monthly for group_document in group_documents
         )
+
     return tuple(group_document.weekly for group_document in group_documents)
 
 

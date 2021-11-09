@@ -157,10 +157,12 @@ async def get_group_document(  # pylint: disable=too-many-locals
             weekly_size=weekly_data_size,
             monthly_size=monthly_data_size,
             quarterly_size=len(quarterly["date"]),
+            semesterly_size=len(semesterly["date"]),
         ),
         monthly=monthly,
         quarterly=quarterly,
         semesterly=semesterly,
+        yearly={},
         weekly={
             "date": {datum.data_date: Decimal("0.0") for datum in data},
             "Exposure": {
