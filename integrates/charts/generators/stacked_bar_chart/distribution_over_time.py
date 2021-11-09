@@ -9,6 +9,7 @@ from charts import (
     utils,
 )
 from charts.generators.stacked_bar_chart.utils import (
+    DATE_FMT,
     DISTRIBUTION_OVER_TIME,
     format_distribution_document,
     get_current_time_range,
@@ -43,11 +44,13 @@ async def get_group_document(  # pylint: disable=too-many-locals
 ) -> RiskOverTime:
     data: List[GroupDocumentData] = []
     data_monthly: List[GroupDocumentData] = []
+    data_yearly: List[GroupDocumentData] = []
     data_name = "remediated_over_time"
 
     group_data = await loaders.group.load(group)
     group_over_time = [elements[-12:] for elements in group_data[data_name]]
     group_over_time_monthly = group_data["remediated_over_time_month"]
+    group_over_time_yearly = group_data["remediated_over_time_year"]
 
     if group_over_time:
         group_found_over_time = group_over_time[0]
@@ -96,6 +99,34 @@ async def get_group_document(  # pylint: disable=too-many-locals
                 )
             )
 
+    if group_over_time_yearly:
+        group_found_over_time = group_over_time_yearly[0]
+        group_closed_over_time = group_over_time_yearly[1]
+        group_accepted_over_time = group_over_time_yearly[2]
+
+        for accepted, closed, found in zip(
+            group_accepted_over_time,
+            group_closed_over_time,
+            group_found_over_time,
+        ):
+            data_yearly.append(
+                GroupDocumentData(
+                    accepted=accepted["y"],
+                    closed=closed["y"],
+                    opened=found["y"] - closed["y"] - accepted["y"],
+                    date=(
+                        datetime.strptime(found["x"], DATE_FMT)
+                        if datetime.strptime(found["x"], DATE_FMT)
+                        < datetime.now()
+                        else datetime.combine(
+                            datetime.now(),
+                            datetime.min.time(),
+                        )
+                    ),
+                    total=found["y"],
+                )
+            )
+
     weekly_data_size: int = len(
         group_data[data_name][0] if group_data[data_name] else []
     )
@@ -116,6 +147,12 @@ async def get_group_document(  # pylint: disable=too-many-locals
     semesterly = get_distribution_over_rangetime(
         group_data=monthly, get_time=get_semester
     )
+    yearly = {
+        "date": {datum.date: 0 for datum in data_yearly},
+        "Closed": {datum.date: datum.closed for datum in data_yearly},
+        "Accepted": {datum.date: datum.accepted for datum in data_yearly},
+        "Open": {datum.date: datum.opened for datum in data_yearly},
+    }
 
     return RiskOverTime(
         time_range=get_time_range(
@@ -127,7 +164,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
         monthly=monthly,
         quarterly=quarterly,
         semesterly=semesterly,
-        yearly={},
+        yearly=yearly,
         weekly={
             "date": {datum.date: 0 for datum in data},
             "Closed": {datum.date: datum.closed for datum in data},
