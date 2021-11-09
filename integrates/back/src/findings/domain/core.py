@@ -345,23 +345,34 @@ async def get_open_vulnerabilities(loaders: Any, finding_id: str) -> int:
     return len(vulns_utils.filter_open_vulns_new(vulns))
 
 
+async def _is_pending_verification(
+    loaders: Any,
+    finding_id: str,
+) -> bool:
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    finding_vulns = await finding_vulns_loader.load(finding_id)
+    open_vulns = vulns_utils.filter_open_vulns_new(finding_vulns)
+    reattack_requested = vulns_utils.filter_remediated(open_vulns)
+    return len(reattack_requested) > 0
+
+
 async def get_pending_verification_findings(
     loaders: Any,
     group_name: str,
 ) -> Tuple[Finding, ...]:
-    """Gets findings pending for verification"""
+    """Gets findings pending for verification."""
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     are_pending_verifications = await collect(
-        [is_pending_verification(loaders, finding.id) for finding in findings]
+        _is_pending_verification(loaders, finding.id) for finding in findings
     )
     return tuple(
         finding
-        for finding, are_pending_verification in zip(
+        for finding, is_pending_verification in zip(
             findings, are_pending_verifications
         )
-        if are_pending_verification
+        if is_pending_verification
     )
 
 
@@ -488,33 +499,25 @@ async def get_treatment_summary(loaders: Any, finding_id: str) -> Treatments:
     return vulns_utils.get_treatments(open_vulnerabilities)
 
 
+async def _get_wheres(
+    loaders: Any, finding_id: str, limit: Optional[int] = None
+) -> List[str]:
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    finding_vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
+        finding_id
+    )
+    open_vulns = vulns_utils.filter_open_vulns_new(finding_vulns)
+    wheres: List[str] = sorted(set(vuln.where for vuln in open_vulns))
+    if limit:
+        wheres = wheres[:limit]
+    return wheres
+
+
 async def get_where(loaders: Any, finding_id: str) -> str:
     """
     General locations of the Vulnerabilities. It is limited to 20 locations.
     """
-    return ", ".join(await get_wheres(loaders, finding_id, limit=20))
-
-
-async def get_wheres(
-    loaders: Any, finding_id: str, limit: Optional[int] = None
-) -> List[str]:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
-    vulnerabilities: List[VulnerabilityType] = await finding_vulns_loader.load(
-        finding_id
-    )
-    open_vulnerabilities = vulns_utils.filter_open_vulns(vulnerabilities)
-    wheres = sorted(
-        set(
-            map(
-                lambda vulnerability: vulnerability["where"],
-                open_vulnerabilities,
-            )
-        )
-    )
-    if limit:
-        wheres = wheres[:limit]
-
-    return wheres
+    return ", ".join(await _get_wheres(loaders, finding_id, limit=20))
 
 
 async def has_access_to_finding(
@@ -528,24 +531,6 @@ async def has_access_to_finding(
 
 def is_deleted(finding: Finding) -> bool:
     return finding.state.status == FindingStateStatus.DELETED
-
-
-async def is_pending_verification(
-    loaders: Any,
-    finding_id: str,
-) -> bool:
-    finding_vulns_loader = loaders.finding_vulns_nzr
-    vulns = await finding_vulns_loader.load(finding_id)
-    open_vulns = vulns_utils.filter_open_vulns(vulns)
-    reattack_requested = [
-        vuln
-        for vuln in open_vulns
-        if cast(List[Dict[str, str]], vuln.get("historic_verification", [{}]))[
-            -1
-        ].get("status")
-        == "REQUESTED"
-    ]
-    return len(reattack_requested) > 0
 
 
 async def mask_finding(  # pylint: disable=too-many-locals
