@@ -3,7 +3,6 @@ from aiodataloader import (
 )
 from aioextensions import (
     collect,
-    in_process,
     schedule,
 )
 import authz
@@ -297,27 +296,24 @@ async def get_is_verified(loaders: Any, finding_id: str) -> bool:
 async def get_max_open_severity(
     loaders: Any, findings: Tuple[Finding, ...]
 ) -> Tuple[Decimal, Optional[Finding]]:
-    total_vulns = await collect(
-        [total_vulnerabilities(loaders, finding) for finding in findings]
+    open_vulns = await collect(
+        get_open_vulnerabilities(loaders, finding.id) for finding in findings
     )
-    opened_findings = [
+    open_findings = [
         finding
-        for finding, total_vuln in zip(findings, total_vulns)
-        if int(total_vuln.get("openVulnerabilities", "")) > 0
+        for finding, open_vulns_count in zip(findings, open_vulns)
+        if open_vulns_count > 0
     ]
-    total_severity: List[float] = cast(
-        List[float],
-        [
-            float(get_severity_score(finding.severity))
-            for finding in opened_findings
-        ],
-    )
+    total_severity: List[float] = [
+        float(get_severity_score(finding.severity))
+        for finding in open_findings
+    ]
     if total_severity:
         severity, severity_index = max(
             (v, i) for i, v in enumerate(total_severity)
         )
         max_severity = Decimal(severity).quantize(Decimal("0.1"))
-        max_severity_finding = opened_findings[severity_index]
+        max_severity_finding = open_findings[severity_index]
     else:
         max_severity = Decimal(0).quantize(Decimal("0.1"))
         max_severity_finding = None
@@ -688,27 +684,6 @@ async def request_vulnerabilities_verification(
             justification,
         )
     )
-
-
-async def total_vulnerabilities(
-    loaders: Any, finding: Finding
-) -> Dict[str, int]:
-    finding_stats = {"openVulnerabilities": 0, "closedVulnerabilities": 0}
-    finding_vulns_loader = loaders.finding_vulns_nzr
-    if not is_deleted(finding):
-        vulns = await finding_vulns_loader.load(finding.id)
-        last_approved_status = await collect(
-            [in_process(vulns_utils.get_last_status, vuln) for vuln in vulns]
-        )
-        for current_state in last_approved_status:
-            if current_state == "open":
-                finding_stats["openVulnerabilities"] += 1
-            elif current_state == "closed":
-                finding_stats["closedVulnerabilities"] += 1
-            else:
-                # Vulnerability does not have a valid state
-                pass
-    return finding_stats
 
 
 async def update_description(
