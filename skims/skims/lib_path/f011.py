@@ -22,9 +22,6 @@ import re
 from sca import (
     get_vulnerabilities,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Awaitable,
     Callable,
@@ -183,7 +180,6 @@ def _build_gradle(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD
 async def build_gradle(
     content: str,
@@ -219,7 +215,6 @@ def _npm_package_json(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD
 async def npm_package_json(
     content: str,
@@ -257,7 +252,6 @@ def _npm_package_lock_json(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD
 async def npm_package_lock_json(
     content: str,
@@ -316,7 +310,6 @@ def _yarn_lock(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD
 async def yarn_lock(
     content: str,
