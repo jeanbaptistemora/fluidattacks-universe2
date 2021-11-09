@@ -31,7 +31,7 @@ function serve {
       --cluster create "${cluster_addrs[@]}" \
       --cluster-replicas 0 \
       --cluster-yes \
-    && done_port 26379 \
+    && done_port "127.0.0.1" 26379 \
     && wait
 }
 

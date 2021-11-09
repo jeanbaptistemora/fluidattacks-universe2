@@ -63,7 +63,7 @@ function serve {
             || return 1
         done
     fi \
-    && done_port 29000 \
+    && done_port "${host}" 29000 \
     && echo '[INFO] Storage is ready' \
     && wait
 }

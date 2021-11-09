@@ -95,7 +95,7 @@ function serve {
     && if test "${POPULATE}" != 'false'; then
       populate "${@}"
     fi \
-    && done_port 28022 \
+    && done_port "${HOST}" 28022 \
     && echo '[INFO] Dynamo DB is ready' \
     && wait
 }
