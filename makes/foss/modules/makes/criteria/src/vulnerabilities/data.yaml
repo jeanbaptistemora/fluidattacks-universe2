@@ -8757,23 +8757,65 @@
   en:
     title: Inappropriate coding practices - Static Import
     description: >
-      __empty__
+      The static import declaration
+      could be analogous to a normal
+      import declaration.
+      Where the normal import declaration
+      imports classes from packages,
+      allowing them to be used without
+      package qualification, the static
+      import declaration imports static
+      members from classes, allowing them
+      to be used without class qualification.
     impact: >
-      __empty__
+      The static import construct allows
+      unqualified access to static members
+      without inheriting from the type
+      containing the static members.
     recommendation: >
-      __empty__
+      Use static import very
+      sparingly, if at all.
+      It's useful for situations when you
+      need frequent access to a few static
+      objects from one or two classes.
     threat: >
-      __empty__
+      Overusing static import can result
+      in code that is difficult to read
+      and maintain, since readers of the
+      code won't know which class defines
+      a particular static object.
   es:
     title: Inappropriate coding practices - Static Import
     description: >
-      __empty__
+      La declaración de importación estática
+      podría ser análoga a una declaración de
+      importación normal.
+      Mientras que la declaración de importación
+      normal importa clases de paquetes,
+      permitiendo su uso sin la calificación de
+      paquete, la declaración de importación
+      estática importa miembros estáticos de
+      clases, permitiendo su uso sin la
+      calificación de clase.
     impact: >
-      __empty__
+      La construcción de importación estática
+      permite el acceso no cualificado a los
+      miembros estáticos sin heredar del tipo
+      que contiene los miembros estáticos.
     recommendation: >
-      __empty__
+      Utilice la importación estática con
+      mucha moderación, si es que lo hace.
+      Es útil para situaciones en las que
+      se necesita un acceso frecuente
+      a unos pocos objetos estáticos
+      de una o dos clases.
     threat: >
-      __empty__
+      El uso excesivo de la importación
+      estática puede dar lugar a un código
+      difícil de leer y mantener, ya que
+      los lectores del código no sabrán
+      qué clase define un objeto
+      estático concreto.
   category: Abuse Functionality
   score:
     base:
