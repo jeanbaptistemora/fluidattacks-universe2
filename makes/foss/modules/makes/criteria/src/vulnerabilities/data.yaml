@@ -8386,32 +8386,40 @@
   en:
     title: Inappropriate coding practices
     description: >
-      __empty__
+      Classes are found with their fields
+      defined as public, which does not
+      respect the encapsulation principle.
     impact: >
-      __empty__
+      Obtain and modify attributes that
+      by definition should be private.
     recommendation: >
-      __empty__
+      Set attributes as private and generate
+      methods to access them.
     threat: >
-      __empty__
+      Authorized user from the Internet.
   es:
     title: Inappropriate coding practices
     description: >
-      __empty__
+      Se encuentran clases con sus campos
+      definidos como públicos, lo cual no
+      respeta el principio de encapsulación.
     impact: >
-      __empty__
+      Obtener y modificar atributos que por
+      definición deberían ser privados.
     recommendation: >
-      __empty__
+      Establecer los atributos como privados
+      y generar métodos para accederlos.
     threat: >
-      __empty__
+      Usuario autorizado desde internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "H"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
