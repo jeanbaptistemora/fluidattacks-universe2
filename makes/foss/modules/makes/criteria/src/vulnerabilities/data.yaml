@@ -8618,38 +8618,78 @@
   en:
     title: Sensitive information in source code - API Key
     description: >
-      __empty__
+      The encryption key is stored in the
+      source code in plain text and is not
+      obtained from a secure source that
+      guarantees its confidentiality.
     impact: >
-      __empty__
+      Information of a company is
+      at stake as their internal, web and
+      API security can easily be open to
+      sensitive data exposure.
     recommendation: >
-      __empty__
+      It is recommended to load encryption
+      keys from:
+
+      - A key vault service.
+
+      - A configuration file that is
+      properly encrypted.
+
+      - Administrative environment variables.
     threat: >
-      __empty__
+      An unauthorised user can obtain the
+      encryption key directly from the
+      application repository or an application
+      file and use it to generate a more
+      elaborate brute-force attack on the
+      application's encrypted messages.
   es:
     title: Sensitive information in source code - API Key
     description: >
-      __empty__
+      La llave de cifrado se encuentra
+      almacenada en el código fuente en
+      texto plano y no se obtiene de una
+      fuente segura que garantice su
+      confidencialidad.
     impact: >
-      __empty__
+      La información de una empresa está en
+      juego ya que su seguridad interna, web
+      y la seguridad de la API puede estar
+      fácilmente abierta a exposición de
+      datos sensibles.
     recommendation: >
-      __empty__
+      Se recomienda cargar las llaves de
+      cifrado desde:
+
+      - Un servicio de bóveda de claves.
+
+      - Un archivo de configuración que
+      esté debidamente cifrado.
+
+      - Variables de entorno administrativas.
     threat: >
-      __empty__
+      Un usuario no autorizado puede obtener
+      la llave de cifrado directamente del
+      repositorio de la aplicación o un archivo
+      de esta y utilizarlo para generar una
+      ataque más elaborado a los mensajes
+      cifrados de la aplicación o de fuerza bruta.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "H"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "P"
       remediation_level: "O"
-      report_confidence: "R"
+      report_confidence: "C"
   requirements: ["145" ,"156" ,"266"]
   metadata:
     en:
