@@ -8485,38 +8485,75 @@
   en:
     title: Insecure exceptions - Empty or no catch
     description: >
-      __empty__
+      The lifetime of objects containing
+      sensitive information should be more
+      limited than other variables, meaning
+      that objects with sensitive information
+      such as usernames and passwords should
+      be overwritten once used and not left in
+      memory until the garbage collector
+      deletes them.
     impact: >
-      __empty__
+      - Generate the crash of the
+      application due to errors that
+      are not being taken into account.
+
+      - Losing the traceability of the
+      errors presented.
     recommendation: >
-      __empty__
+      Use the libraries that allow to execute
+      the concatenation and storage functions in
+      collections in an optimised way.
+      (ArrayList and StringBuilder or
+      SyncronizedList).
     threat: >
-      __empty__
+      An attacker who has access to the
+      application and can debug it, will
+      be able to get sensitive information
+      stored in memory.
   es:
     title: Insecure exceptions - Empty or no catch
     description: >
-      __empty__
+      El tiempo de vida de las objetos que
+      contienen información sensible debe ser
+      más limitado que el resto de variables,
+      es decir que objetos con información
+      sensible como nombres de usuarios y
+      contraseña deben ser sobreescritas una
+      vez usadas y no dejarlas en memoria hasta
+      que el garbage collector las elimine.
     impact: >
-      __empty__
+      - Generar la caída de la aplicación
+      a causa de los errores que no están
+      siendo tenidos en cuenta.
+
+      - Perder la trazabilidad de los
+      errores presentados.
     recommendation: >
-      __empty__
+      Utilizar las librerías que permiten ejecutar
+      las funciones de concatenado y almacenamiento
+      en colecciones de manera optimizada.
+      (ArrayList y StringBuilder o SyncronizedList).
     threat: >
-      __empty__
+      Un atacante que tenga acceso a la
+      aplicación y pueda hacer debug sobre
+      esta, podrá conseguir información
+      sensible almacenada en memoria.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "P"
+      exploit_code_maturity: "F"
       remediation_level: "O"
-      report_confidence: "R"
+      report_confidence: "C"
   requirements: ["161" ,"266" ,"359"]
   metadata:
     en:
