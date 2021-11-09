@@ -382,9 +382,13 @@ def get_severity_score(
 
 
 async def get_status(loaders: Any, finding_id: str) -> str:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
-    vulns = await finding_vulns_loader.load(finding_id)
-    open_vulns = vulns_utils.filter_open_vulns(vulns)
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
+        finding_id
+    )
+    open_vulns: Tuple[Vulnerability, ...] = vulns_utils.filter_open_vulns_new(
+        vulns
+    )
     return "open" if open_vulns else "closed"
 
 

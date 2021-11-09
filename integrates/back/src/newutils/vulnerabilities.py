@@ -122,6 +122,16 @@ def filter_open_vulns(
     ]
 
 
+def filter_open_vulns_new(
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
+        vuln
+        for vuln in vulnerabilities
+        if vuln.state.status == VulnerabilityStateStatus.OPEN
+    )
+
+
 def filter_closed_vulns(
     vulnerabilities: Tuple[Vulnerability, ...],
 ) -> Tuple[Vulnerability, ...]:
