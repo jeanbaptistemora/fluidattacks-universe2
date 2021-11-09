@@ -66,8 +66,9 @@ from typing import (
 )
 
 # Constants
-INSERT_QUERY = """
-    INSERT INTO code.commits (
+SCHEMA_NAME = "code"
+INSERT_QUERY = f"""
+    INSERT INTO {SCHEMA_NAME}.commits (
         author_email, author_name, authored_at,
         committer_email, committer_name, committed_at,
         hash, message, summary,
@@ -86,12 +87,24 @@ INSERT_QUERY = """
         %(namespace)s, %(repository)s, %(seen_at)s
     WHERE NOT EXISTS (
         SELECT hash, namespace, repository
-        FROM code.commits
+        FROM {SCHEMA_NAME}.commits
         WHERE
             hash = %(hash)s
             and namespace = %(namespace)s
             and repository = %(repository)s
     )
+"""
+UPDATE_QUERY: str = f"""
+    UPDATE {SCHEMA_NAME}.commits
+    SET
+        author_email = %(author_email)s,
+        author_name = %(author_name)s,
+        committer_email = %(committer_email)s,
+        committer_name = %(committer_name)s
+    WHERE
+        hash = %(hash)s
+        and namespace = %(namespace)s
+        and repository = %(repository)s
 """
 WORKERS_COUNT: int = 8
 WORKERS_PAGE_SIZE: int = 1024
@@ -101,15 +114,31 @@ async def worker(identifier: int, queue: Queue) -> None:
     with db_cursor() as cursor:
         while True:
             items = await drain_queue(queue)
-
-            await log("info", "Worker[%s]: Sending %s", identifier, len(items))
-            await in_thread(
-                execute_batch,
-                cur=cursor,
-                sql=INSERT_QUERY,
-                argslist=items,
-                page_size=WORKERS_PAGE_SIZE,
-            )
+            insert = list(filter(lambda x: not x["update"], items))
+            update = list(filter(lambda x: x["update"], items))
+            await log("info", "Worker up[%s]", identifier)
+            if insert:
+                await log(
+                    "info", "Worker[%s]: Inserting %s", identifier, len(insert)
+                )
+                await in_thread(
+                    execute_batch,
+                    cur=cursor,
+                    sql=INSERT_QUERY,
+                    argslist=insert,
+                    page_size=WORKERS_PAGE_SIZE,
+                )
+            if update:
+                await log(
+                    "info", "Worker[%s]: Updating %s", identifier, len(update)
+                )
+                await in_thread(
+                    execute_batch,
+                    cur=cursor,
+                    sql=UPDATE_QUERY,
+                    argslist=update,
+                    page_size=WORKERS_PAGE_SIZE,
+                )
 
             for _ in items:
                 queue.task_done()
@@ -153,6 +182,18 @@ def cli() -> None:
     sys.exit(0 if success else 1)
 
 
+def get_commit_to_fix(
+    mailmap: Maybe[Mailmap], commit: Commit
+) -> Maybe[Dict[str, Any]]:
+    _id, _data = CommitDataFactory.from_commit(commit)
+    data = mailmap.map(
+        lambda mmap: CommitDataAmend.amend_users(mmap, _data)
+    ).value_or(_data)
+    if data != _data:
+        return Maybe.from_value(CommitDataAdapters.to_raw_dict(_id, data))
+    return Maybe.empty
+
+
 def get_commit_data(mailmap: Maybe[Mailmap], commit: Commit) -> Dict[str, Any]:
     _id, _data = CommitDataFactory.from_commit(commit)
     data = mailmap.map(
@@ -183,6 +224,7 @@ async def manager(
 
             try:
                 repo_obj: Repo = Repo(repo_path)
+                # iter_commits from newest to oldest
                 async for commit in generate_in_thread(
                     repo_obj.iter_commits,
                     no_merges=True,
@@ -193,12 +235,33 @@ async def manager(
 
                     await queue.put(
                         dict(
+                            update=False,
                             namespace=namespace,
                             repository=repo_name,
                             seen_at=DATE_SENTINEL if repo_is_new else DATE_NOW,
                             **get_commit_data(mailmap, commit),
                         )
                     )
+                async for commit in generate_in_thread(
+                    repo_obj.iter_commits,
+                    no_merges=True,
+                    topo_order=True,
+                ):
+                    commit_fixed = get_commit_to_fix(mailmap, commit).value_or(
+                        None
+                    )
+                    if commit_fixed:
+                        await queue.put(
+                            dict(
+                                update=True,
+                                namespace=namespace,
+                                repository=repo_name,
+                                seen_at=DATE_SENTINEL
+                                if repo_is_new
+                                else DATE_NOW,
+                                **commit_fixed,
+                            )
+                        )
             except ValueError:
                 await log("error", "Repository is possibly empty, ignoring")
                 success = False
@@ -222,9 +285,9 @@ async def does_commit_exist(
     """Return True if the repository is new for the provided namespace."""
     await in_thread(
         cursor.execute,
-        """
+        f"""
             SELECT hash, namespace, repository
-            FROM code.commits
+            FROM {SCHEMA_NAME}.commits
             WHERE
                 hash = %(commit_hash)s
                 and namespace = %(namespace)s
@@ -249,9 +312,9 @@ async def get_last_commit(
     """Return the last seen commit for the provided namespace/repository."""
     await in_thread(
         cursor.execute,
-        """
+        f"""
             SELECT hash
-            FROM code.commits
+            FROM {SCHEMA_NAME}.commits
             WHERE
                 hash != %(sentinel)s
                 and namespace = %(namespace)s
@@ -281,8 +344,9 @@ async def register_repository(
     await log("info", "Registering: %s/%s", namespace, repository)
     await in_thread(
         cursor.execute,
-        """
-            INSERT INTO code.commits (hash, seen_at, namespace, repository)
+        f"""
+            INSERT INTO {SCHEMA_NAME}.commits
+            (hash, seen_at, namespace, repository)
             VALUES (%(hash)s, %(seen_at)s, %(namespace)s, %(repository)s)
         """,
         dict(
@@ -298,11 +362,13 @@ async def initialize() -> None:
     with db_cursor() as cursor:
         # Initialize the table if not done yet
         with suppress(DuplicateTable):
-            await log("info", "Ensuring code.commits table exists...")
+            await log(
+                "info", f"Ensuring {SCHEMA_NAME}.commits table exists..."
+            )
             await in_thread(
                 cursor.execute,
-                """
-                    CREATE TABLE code.commits (
+                f"""
+                    CREATE TABLE {SCHEMA_NAME}.commits (
                         author_email VARCHAR(256),
                         author_name VARCHAR(256),
                         authored_at TIMESTAMPTZ,
