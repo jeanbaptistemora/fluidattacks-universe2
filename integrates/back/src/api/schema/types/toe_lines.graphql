@@ -1,0 +1,29 @@
+"ToeLines type definition"
+type ToeLines {
+  "Attack moment in iso format"
+  attackedAt: String!
+  "Hacker email"
+  attackedBy: String!
+  "Attacked lines"
+  attackedLines: Int!
+  "If the file is present in the repository"
+  bePresent: Boolean!
+  "ToE comment"
+  comments: String!
+  "Author of the commit"
+  commitAuthor: String!
+  "ToE Filename"
+  filename: String!
+  "First attack moment in iso format"
+  firstAttackAt: String!
+  "Lines of code"
+  loc: Int!
+  "SHA-1 commit hash in short form"
+  modifiedCommit: String!
+  "Modified date in iso format"
+  modifiedDate: String!
+  "First time the file was seen"
+  seenAt: String!
+  "Priority (IA/ML)"
+  sortsRiskLevel: Int!
+}

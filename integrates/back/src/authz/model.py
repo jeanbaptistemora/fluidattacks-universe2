@@ -558,6 +558,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_submit_machine_job_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_git_root_services_toe_lines_resolve",
+            "api_resolvers_git_root_toe_lines_resolve",
             "api_resolvers_group_toe_inputs_resolve",
         },
         tags={

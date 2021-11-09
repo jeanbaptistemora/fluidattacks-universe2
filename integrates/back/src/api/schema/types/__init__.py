@@ -88,6 +88,9 @@ from .verification import (
 from .vulnerability import (
     VULNERABILITY,
 )
+from api.schema.types.toe_lines import (
+    TOELINES,
+)
 from ariadne import (
     ObjectType,
 )
@@ -121,6 +124,7 @@ TYPES: Tuple[ObjectType, ...] = (
     SERVICESTOELINES,
     TAG,
     TOEINPUTS,
+    TOELINES,
     TRACKING,
     TREATMENT,
     TREATMENT_SUMMARY,

@@ -58,6 +58,8 @@ type GitRoot implements IRoot {
   servicesToeLines: [ServicesToeLines]
   "Whether the root is active or not"
   state: ResourceState!
+  "Toe lines for the repository"
+  toeLines: [ToeLines]
   "Repository URL"
   url: String!
 }
