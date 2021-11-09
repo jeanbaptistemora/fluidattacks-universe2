@@ -22,6 +22,10 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
+)
 from decimal import (
     Decimal,
 )
@@ -61,20 +65,20 @@ async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
             for finding in group_findings
         }
     )
-    vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
+    vulnerabilities = await loaders.finding_vulns_nzr_typed.load_many_chained(
         [finding.id for finding in group_findings]
     )
 
     counter: Counter[str] = Counter()
     for vulnerability in vulnerabilities:
         severity: Decimal = utils.get_cvssf(
-            finding_severity[str(vulnerability["finding_id"])]
+            finding_severity[str(vulnerability.finding_id)]
         )
         counter.update({"total": severity})
-        if vulnerability["current_state"] == "open":
-            if vulnerability["historic_treatment"][-1]["treatment"] in {
-                "ACCEPTED",
-                "ACCEPTED_UNDEFINED",
+        if vulnerability.state.status == VulnerabilityStateStatus.OPEN:
+            if vulnerability.treatment and vulnerability.treatment.status in {
+                VulnerabilityTreatmentStatus.ACCEPTED,
+                VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
             }:
                 counter.update({"accepted": severity})
             else:

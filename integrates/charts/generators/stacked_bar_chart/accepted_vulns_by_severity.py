@@ -18,6 +18,13 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from decimal import (
     Decimal,
 )
@@ -59,16 +66,18 @@ async def get_data_one_group(group: str) -> Counter[str]:
         for finding in group_findings
     ]
 
-    finding_vulns_loader = context.finding_vulns_nzr
-    finding_vulns = await finding_vulns_loader.load_many(finding_ids)
+    finding_vulns_loader = context.finding_vulns_nzr_typed
+    finding_vulns: Tuple[
+        Tuple[Vulnerability, ...], ...
+    ] = await finding_vulns_loader.load_many(finding_ids)
     severity_counter: Counter = Counter()
     for severity, vulns in zip(finding_severity_levels, finding_vulns):
         for vuln in vulns:
-            if vuln["current_state"] == "open":
+            if vuln.state.status == VulnerabilityStateStatus.OPEN:
                 severity_counter.update([f"{severity}_open"])
-                if vuln["historic_treatment"][-1]["treatment"] in {
-                    "ACCEPTED",
-                    "ACCEPTED_UNDEFINED",
+                if vuln.treatment and vuln.treatment.status in {
+                    VulnerabilityTreatmentStatus.ACCEPTED,
+                    VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
                 }:
                     severity_counter.update([severity])
 
