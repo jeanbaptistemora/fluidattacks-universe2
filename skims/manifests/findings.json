@@ -183,14 +183,6 @@
       "title": "058. Debugging enabled in production - APK"
     }
   },
-  "F060": {
-    "EN": {
-      "title": "060. Insecure exceptions"
-    },
-    "ES": {
-      "title": "060. Insecure exceptions"
-    }
-  },
   "F061": {
     "EN": {
       "title": "061. Remote File Inclusion"
