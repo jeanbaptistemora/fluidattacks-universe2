@@ -71,14 +71,31 @@ def format_resources(roots: List[GitRootItem]) -> Resources:
     )
 
 
-async def generate_all() -> None:
+async def generate_all() -> None:  # pylint: disable=too-many-locals
     alive_groups: Set[str] = set(
         sorted(await groups_domain.get_alive_group_names())
     )
+    context = get_new_context()
+    async for group in utils.iterate_groups():
+        group_roots = await context.group_roots.load(group)
+        utils.json_dump(
+            document=format_data(
+                data=format_resources(
+                    [
+                        root
+                        for root in group_roots
+                        if isinstance(root, GitRootItem)
+                        and root.state.status == "ACTIVE"
+                    ]
+                ),
+            ),
+            entity="group",
+            subject=group,
+        )
+
     async for org_id, org_name, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
-        context = get_new_context()
         grouped_roots = [
             [
                 root
