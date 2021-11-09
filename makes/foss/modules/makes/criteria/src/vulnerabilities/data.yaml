@@ -7693,26 +7693,49 @@
 "127":
   en:
     title: Lack of data validation - Type confusion
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      A field is interpreted on the
+      server-side, although it indicates
+      that it only accepts numbers, it
+      allows values in the form 0xff.
+    impact: >
+      - Get internal information about the
+      operation of the system.
+
+      - Inject code and get it interpreted
+      by the server.
+    recommendation: >
+      Validate on the server-side the data
+      types that are entered but prevent
+      them from being interpreted.
+    threat: Authorized user from intranet.
   es:
     title: Lack of data validation - Type confusion
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      Un campo se interpreta en el lado del
+      servidor, aunque indica que sólo acepta
+      números, permite valores de la forma 0xff.
+    impact: >
+      - Obtener información interna sobre
+      el funcionamiento del sistema.
+
+      - Inyectar código y conseguir que
+      sea interpretado por el servidor.
+    recommendation: >
+      Validar en el lado del servidor los
+      tipos de datos que se introducen
+      pero evitar que se interpreten.
+    threat: Usuario autorizado de la intranet.
   category: Inject Unexpected
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
