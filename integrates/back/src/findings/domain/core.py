@@ -52,6 +52,7 @@ from db_model.findings.types import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityState,
 )
 from decimal import (
     Decimal,
@@ -235,16 +236,21 @@ async def get_closed_vulnerabilities(
     return len(vulns_utils.filter_closed_vulns(vulns))
 
 
-async def get_finding_open_age(context: Any, finding_id: str) -> int:
-    open_age = 0
-    finding_vulns_loader = context.finding_vulns_nzr
-    vulns = await finding_vulns_loader.load(finding_id)
-    open_vulns = vulns_utils.filter_open_vulns(vulns)
-    report_dates = vulns_utils.get_report_dates(open_vulns)
+async def get_finding_open_age(loaders: Any, finding_id: str) -> int:
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
+        finding_id
+    )
+    open_vulns = vulns_utils.filter_open_vulns_new(vulns)
+    vulns_historic_loader: DataLoader = loaders.vulnerability_historic_state
+    vulns_historic_state: Tuple[
+        Tuple[VulnerabilityState, ...]
+    ] = await vulns_historic_loader.load_many([vuln.id for vuln in open_vulns])
+    report_dates = vulns_utils.get_report_dates_new(vulns_historic_state)
     if report_dates:
         oldest_report_date = min(report_dates)
-        open_age = (datetime_utils.get_now() - oldest_report_date).days
-    return open_age
+        return (datetime_utils.get_now() - oldest_report_date).days
+    return 0
 
 
 async def get_last_closed_vulnerability_info(
@@ -279,12 +285,12 @@ async def get_last_closed_vulnerability_info(
 
 
 async def get_is_verified(loaders: Any, finding_id: str) -> bool:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
-    vulns: List[VulnerabilityType] = await finding_vulns_loader.load(
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
-    vulns = vulns_utils.filter_open_vulns(vulns)
-    remediated_vulns = vulns_utils.filter_remediated(vulns)
+    open_vulns = vulns_utils.filter_open_vulns_new(vulns)
+    remediated_vulns = vulns_utils.filter_remediated(open_vulns)
     return len(remediated_vulns) == 0
 
 

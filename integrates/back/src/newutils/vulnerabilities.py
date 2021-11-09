@@ -25,6 +25,7 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
+    VulnerabilityVerificationStatus,
     VulnerabilityZeroRiskStatus,
 )
 from db_model.vulnerabilities.types import (
@@ -216,16 +217,15 @@ def filter_zero_risk_vulns(
 
 
 def filter_remediated(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
-    return [
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
         vulnerability
         for vulnerability in vulnerabilities
-        if cast(
-            HistoricType, vulnerability.get("historic_verification", [{}])
-        )[-1].get("status")
-        == "REQUESTED"
-    ]
+        if vulnerability.verification
+        and vulnerability.verification.status
+        == VulnerabilityVerificationStatus.REQUESTED
+    )
 
 
 def filter_historic_date(
@@ -500,6 +500,16 @@ def get_report_dates(
     ]
 
     return report_dates
+
+
+def get_report_dates_new(
+    historics: Tuple[Tuple[VulnerabilityState, ...]]
+) -> Tuple[datetime, ...]:
+    """Get report date for vulnerabilities, given the state historics."""
+    return tuple(
+        datetime.fromisoformat(historic[0].modified_date)
+        for historic in historics
+    )
 
 
 def get_specific(value: Dict[str, str]) -> int:

@@ -35,13 +35,13 @@ from typing import (
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
-    context = get_new_context()
-    group_findings: Tuple[Finding, ...] = await context.group_findings.load(
+    loaders = get_new_context()
+    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
     findings_open_age = await collect(
         [
-            get_finding_open_age(context, finding.id)
+            get_finding_open_age(loaders, finding.id)
             for finding in group_findings
         ]
     )
