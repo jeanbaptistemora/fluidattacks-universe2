@@ -85,3 +85,29 @@ mock_feedbacks = {
         "items": [_mock_feedback, _mock_feedback],
     }
 }
+
+mock_ext_users_ids = {
+    "externalUsers": {
+        "page": 0,
+        "pages": 1,
+        "count": 1,
+        "items": [
+            {"id": "extUser99"},
+            {"id": "extUser100"},
+        ],
+    }
+}
+mock_ext_user = {
+    "externalUser": {
+        "created_at": MOCK_DATE,
+        "seen_at": MOCK_DATE,
+        "name": "extUser99",
+        "email": None,
+        "fields": "",
+        "is_anon": False,
+        "is_following": False,
+        "is_email_verified": False,
+        "avatar": None,
+        "is_app": False,
+    }
+}
