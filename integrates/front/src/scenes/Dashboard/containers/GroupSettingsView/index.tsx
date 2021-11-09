@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { Unsubscribe } from "./Unsubscribe";
 
+import { AccessInfo } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo";
 import { AgentToken } from "scenes/Dashboard/containers/GroupSettingsView/AgentToken";
 import { DeleteGroup } from "scenes/Dashboard/containers/GroupSettingsView/DeleteGroup";
 import { Files } from "scenes/Dashboard/containers/GroupSettingsView/Files";
@@ -40,6 +41,8 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
             <AgentToken groupName={groupName} />
           </Have>
         </Can>
+        <hr />
+        <AccessInfo />
         <Can do={"api_mutations_unsubscribe_from_group_mutate"}>
           <React.Fragment>
             <hr />
