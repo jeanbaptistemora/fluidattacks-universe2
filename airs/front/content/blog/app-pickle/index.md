@@ -28,7 +28,7 @@ use-case scenarios.
 
 <div class="imgblock">
 
-![Behavior-driven development illustration](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330660/blog/app-pickle/bdd-cycle_a5xfdy.webp)
+![Behavior-driven development illustration](https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_400/v1620330660/blog/app-pickle/bdd-cycle_a5xfdy.webp)
 
 <div class="title">
 
