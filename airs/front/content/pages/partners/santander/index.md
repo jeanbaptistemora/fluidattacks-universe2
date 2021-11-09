@@ -11,7 +11,11 @@ partner: yes
 ---
 
 [Santander Technologies](https://www.santandertech.page/)
-is a company with Colombian and Salvadoran roots,
-whose mission is to be able to offer Solutions
-through the implementation of Technologies Innovators
-in the area of Health, Education and Cybersecurity.
+is a company with Colombian and Salvadoran roots
+whose mission is to offer solutions
+by implementing innovative technologies in neuroscience,
+health and education.
+They provide consulting in learning analytics,
+big data-driven decision making,
+e-commerce and educational robotics,
+among other methods.
