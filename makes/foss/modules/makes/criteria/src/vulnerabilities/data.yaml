@@ -8944,37 +8944,49 @@
   en:
     title: Insecure encryption algorithm - SSLContext
     description: >
-      __empty__
+      An SSLContext object implements the
+      specified secure socket protocol.
+      However, not all protocols are equal
+      and some legacy protocols, such as
+      SSL, have proven to be insecure.
     impact: >
-      __empty__
+      Decrypting traffic at the back-end level.
     recommendation: >
-      __empty__
+      Only secure encryption with secure
+      algorithms such as TLSv1.2 or higher
+      should be allowed.
     threat: >
-      __empty__
+      Unauthenticated internal attacker.
   es:
     title: Insecure encryption algorithm - SSLContext
     description: >
-      __empty__
+      Un objeto SSLContext implementa el
+      protocolo de socket seguro especificado.
+      Sin embargo, no todos los protocolos
+      son iguales y algunos de los heredados,
+      como SSL, han demostrado ser inseguros.
     impact: >
-      __empty__
+      Descifrar el tráfico a nivel de back-end.
     recommendation: >
-      __empty__
+      Solamente se debe de permitir
+      cifrados seguros con algoritmos
+      seguros como TLSv1.2 o Superior.
     threat: >
-      __empty__
+      Atacante interno sin autenticar.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["181","336"]
   metadata:
