@@ -1,12 +1,14 @@
 { inputs
 , makeSearchPaths
-, outputs
+, managePorts
 , ...
 }:
 makeSearchPaths {
   bin = [
-    outputs."/makes/kill-port"
     inputs.nixpkgs.python38Packages.flask
+  ];
+  source = [
+    managePorts
   ];
   pythonPackage38 = [
     inputs.nixpkgs.python38Packages.flask

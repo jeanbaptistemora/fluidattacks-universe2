@@ -5,7 +5,7 @@ function main {
   local port="${2:-48000}"
 
   pushd __argApp__ \
-    && makes-kill-port "${port}" \
+    && kill_port "${port}" \
     && flask run \
       --host "${host}" \
       --port "${port}" \

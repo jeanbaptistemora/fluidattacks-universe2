@@ -1,7 +1,7 @@
 { inputs
 , makeScript
 , makeTemplate
-, outputs
+, managePorts
 , ...
 }:
 makeScript {
@@ -40,8 +40,10 @@ makeScript {
   name = "skims-test-mocks-ssl-unsafe";
   searchPaths = {
     bin = [
-      outputs."/makes/kill-port"
       inputs.nixpkgs.nginxLocal
+    ];
+    source = [
+      managePorts
     ];
   };
   entrypoint = ./entrypoint.sh;
