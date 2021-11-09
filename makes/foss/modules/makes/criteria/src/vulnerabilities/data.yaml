@@ -8996,37 +8996,50 @@
   en:
     title: Use of an insecure channel - FTP
     description: >
-      __empty__
+      Customer information is transmitted
+      over a channel that does not use
+      encryption, so credentials and confidential
+      information can be captured in plain text.
     impact: >
-      __empty__
+      Capture user credentials after
+      a MiTM attack.
     recommendation: >
-      __empty__
+      Deploy the application over an
+      encrypted communication channel,
+      such as SFTP.
     threat: >
-      __empty__
+      Anonymous attacker from adjacent network.
   es:
     title: Use of an insecure channel - FTP
     description: >
-      __empty__
+      La información de los clientes es
+      transmitida por un canal que no usa
+      cifrado, por lo cual pueden ser
+      capturadas en texto plano credenciales
+      e información confidencial.
     impact: >
-      __empty__
+      Capturar credenciales de usuario
+      tras un ataque de MiTM.
     recommendation: >
-      __empty__
+      Desplegar la aplicación sobre un
+      canal de comunicación cifrado, como
+      por ejemplo: SFTP.
     threat: >
-      __empty__
+      Atacante anónimo desde red adyacente.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["181"]
   metadata:
