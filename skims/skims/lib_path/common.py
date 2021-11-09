@@ -2,6 +2,7 @@ import ast
 from aws.model import (
     AWSCloudfrontDistribution,
     AWSCTrail,
+    AWSDbInstance,
     AWSDynamoDBTable,
     AWSEbsVolume,
     AWSElb,
@@ -231,6 +232,7 @@ def get_vulnerabilities_from_aws_iterator_blocking(
             AWSInstance,
             AWSElb,
             AWSLbTargetGroup,
+            AWSDbInstance,
             Node,
         ]
     ],
