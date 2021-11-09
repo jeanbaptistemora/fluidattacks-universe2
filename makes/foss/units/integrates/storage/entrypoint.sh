@@ -17,7 +17,7 @@ function serve {
     "${buckets_by_group[@]}"
     "${buckets_by_root[@]}"
   )
-  local host='localhost'
+  local host='127.0.0.1'
   local port='9000'
   local state_path='.Storage'
 
@@ -27,7 +27,7 @@ function serve {
     && mkdir -p "${state_path}" \
     && echo -e "${TEST_PROJECTS//,/\\n}" > "${state_path}/projects" \
     && mapfile -t TEST_PROJECTS < "${state_path}/projects" \
-    && kill_port "${port}" 29000 \
+    && kill_port "${port}" \
     && {
       MINIO_ACCESS_KEY='test' \
         MINIO_SECRET_KEY='testtest' \

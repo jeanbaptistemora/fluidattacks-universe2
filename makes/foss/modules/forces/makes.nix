@@ -47,4 +47,14 @@
       secretAccessKey = "FORCES_PROD_AWS_SECRET_ACCESS_KEY";
     };
   };
+  dynamoDb = {
+    forces = {
+      host = "127.0.0.1";
+      port = "8022";
+      infra = "/makes/foss/units/integrates/db/infra";
+      data = [
+        "/forces/test/data"
+      ];
+    };
+  };
 }
