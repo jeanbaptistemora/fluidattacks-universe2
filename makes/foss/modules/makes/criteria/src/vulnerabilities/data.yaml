@@ -9049,36 +9049,50 @@
   en:
     title: Use of an insecure channel - SMTP
     description: >
-      __empty__
+      The configuration of the SMTP service
+      is set to not use SSL, so confidential
+      information traveling by this means that
+      can be viewed without any type of encryption.
     impact: >
-      __empty__
+      Obtain and modify confidential
+      information sent by SMTP.
     recommendation: >
-      __empty__
+      Deploy the application over an
+      encrypted communication channel,
+      use SSL secure protocols.
     threat: >
-      __empty__
+      Unauthorized internal attacker.
   es:
     title: Use of an insecure channel - SMTP
     description: >
-      __empty__
+      La configuración del servicio de SMTP
+      se encuentra configurada para que no
+      use SSL, de modo que la información
+      confidencial que viaje por este medio
+      podrá ser visualizarla sin ningún
+      tipo de cifrado.
     impact: >
-      __empty__
+      Obtener y modificar información
+      confidencial que sea enviada por SMTP.
     recommendation: >
-      __empty__
+      Desplegar la aplicación sobre un canal
+      de comunicación cifrado, utilizar
+      protocolos seguros de SSL.
     threat: >
-      __empty__
+      Atacante interno no autorizado.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["181"]
