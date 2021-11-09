@@ -1,6 +1,7 @@
 import asyncio
 import click
 from code_etl import (
+    amend_authors as amend,
     compute_bills as bills,
     upload,
 )
@@ -16,6 +17,12 @@ from typing import (
     Optional,
     Tuple,
 )
+
+
+@click.command()
+@click.argument("mailmap_path", type=str)
+def amend_authors(mailmap_path: str) -> None:
+    asyncio.run(amend.main(mailmap_path))
 
 
 @click.command()
@@ -66,5 +73,6 @@ def main() -> None:
     pass
 
 
+main.add_command(amend_authors)
 main.add_command(compute_bills)
 main.add_command(upload_code)
