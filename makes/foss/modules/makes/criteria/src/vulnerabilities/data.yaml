@@ -7244,7 +7244,13 @@
       does not make explicit
       the version of the libraries
       on which it depends.
-    impact: __empty__
+    impact: >
+      - Installing a dependency
+      containing a known vulnerability
+      and being unaware of it.
+
+      - Use a dependency version that is
+      not compatible with the application.
     recommendation: >
       All dependencies must be declared
       with a specific version
@@ -7266,7 +7272,13 @@
       En el código fuente
       no se declara la versión específica
       aceptada de algunas dependencias.
-    impact: __empty__
+    impact: >
+      - Instalar una dependencia que
+      contenga una vulnerabilidad conocida
+      y no tener conocimiento de ello.
+
+      - Usar una versión de la dependencia
+      que no sea compatible con la aplicación.
     recommendation: >
       Todas las dependencias
       deben estar declaradas
@@ -7288,15 +7300,15 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["302"]
@@ -7312,7 +7324,10 @@
       to HTTP communication protocol,
       this can cause unexpected behavior
       on the server.
-    impact: __empty__
+    impact: >
+      Make the application to read
+      malicious parameters and have
+      a wrong behavior.
     recommendation: >
       Make validations to guarantee
       that the quantity
@@ -7331,7 +7346,10 @@
       lo cual puede provocar
       comportamientos inesperados
       en el servidor.
-    impact: __empty__
+    impact: >
+      Hacer que la aplicación lea
+      parámetros maliciosos y tenga
+      un comportamiento erróneo.
     recommendation: >
       Garantizar mediante validaciones
       que la cantidad de parámetros recibidos
@@ -7346,15 +7364,15 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "H"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "W"
       report_confidence: "X"
   requirements: ["173", "342"]
   metadata:
@@ -7401,7 +7419,7 @@
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
@@ -7426,7 +7444,10 @@
       on the server
       through relative paths manipulation
       in the input fields.
-    impact: __empty__
+    impact: >
+      - Get sensitive data.
+
+      - Read system files.
     recommendation: >
       - Validate that
       the parameters received
@@ -7449,7 +7470,10 @@
       mediante la manipulación
       de rutas relativas
       en los campos de entrada.
-    impact: __empty__
+    impact: >
+      - Obtener información sensible.
+
+      - Leer archivos del sistema.
     recommendation: >
       - Validar que los parámetros recibidos
       por la aplicación
@@ -7469,8 +7493,8 @@
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
+      scope: "C"
+      confidentiality: "H"
       integrity: "N"
       availability: "N"
     temporal:
@@ -7490,13 +7514,17 @@
       when the inputs
       of a specific functionality
       do not arrive in the expected order.
-    impact: __empty__
+    impact: >
+      Overwrite, delete or read arbitrary
+      files from the system.
     recommendation: >
       Ensure that the verification
       and use of inputs
       must be realized at the same time
       or in an atomic way.
-    threat: __empty__
+    threat: >
+      Cause unexpected behaviour
+      in the application.
   es:
     title: Race condition
     description: >
@@ -7505,7 +7533,9 @@
       cuando las entradas
       a una funcionalidad específica
       no llegan en el orden esperado.
-    impact: __empty__
+    impact: >
+      Sobrescribir, borrar o leer archivos
+      arbitrarios del sistema.
     recommendation: >
       Garantizar que la verificacion
       y el uso de las entradas
@@ -7517,18 +7547,18 @@
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
+      confidentiality: "L"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "R"
   requirements: ["337"]
   metadata:
     en:
@@ -7542,7 +7572,9 @@
       allowing an attacker
       to know the content of the files stored
       on the server.
-    impact: __empty__
+    impact: >
+      Collect technical information
+      on the application.
     recommendation: >
       - Disable the configurations
       of the server that allow
@@ -7564,7 +7596,9 @@
       en los directorios de la aplicación
       permitiendo a un atacante
       conocer su contenido.
-    impact: __empty__
+    impact: >
+      Recopilar información técnica
+      del aplicativo.
     recommendation: >
       - Deshabilitar las configuraciones
       del servidor que permitan
@@ -7585,7 +7619,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
