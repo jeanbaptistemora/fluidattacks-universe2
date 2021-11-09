@@ -20,9 +20,11 @@ from typing import (
 
 
 @click.command()
+@click.argument("schema", type=str)
 @click.argument("mailmap_path", type=str)
-def amend_authors(mailmap_path: str) -> None:
-    asyncio.run(amend.main(mailmap_path))
+@click.argument("namespace", type=str)
+def amend_authors(schema: str, mailmap_path: str, namespace: str) -> None:
+    asyncio.run(amend.main(schema, mailmap_path, namespace))
 
 
 @click.command()

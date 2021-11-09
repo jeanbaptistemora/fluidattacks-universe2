@@ -242,26 +242,6 @@ async def manager(
                             **get_commit_data(mailmap, commit),
                         )
                     )
-                async for commit in generate_in_thread(
-                    repo_obj.iter_commits,
-                    no_merges=True,
-                    topo_order=True,
-                ):
-                    commit_fixed = get_commit_to_fix(mailmap, commit).value_or(
-                        None
-                    )
-                    if commit_fixed:
-                        await queue.put(
-                            dict(
-                                update=True,
-                                namespace=namespace,
-                                repository=repo_name,
-                                seen_at=DATE_SENTINEL
-                                if repo_is_new
-                                else DATE_NOW,
-                                **commit_fixed,
-                            )
-                        )
             except ValueError:
                 await log("error", "Repository is possibly empty, ignoring")
                 success = False
