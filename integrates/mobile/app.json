@@ -47,7 +47,7 @@
     },
     "name": "Fluid Attacks",
     "notification": {
-      "color": "#fe3435",
+      "color": "#FE3435",
       "icon": "./assets/notification.png"
     },
     "orientation": "portrait",
