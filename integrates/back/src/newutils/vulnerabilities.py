@@ -24,6 +24,8 @@ from db_model.findings.types import (
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
+    VulnerabilityZeroRiskStatus,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -154,6 +156,18 @@ def filter_non_confirmed_zero_risk(
         ].get("status", "")
         != "CONFIRMED"
     ]
+
+
+def filter_non_confirmed_zero_risk_new(
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
+        vulnerability
+        for vulnerability in vulnerabilities
+        if not vulnerability.zero_risk
+        or vulnerability.zero_risk.status
+        != VulnerabilityZeroRiskStatus.CONFIRMED
+    )
 
 
 def filter_requested_zero_risk(
@@ -314,13 +328,16 @@ def get_opening_date_new(
     open_state = next(
         (
             state
-            for state in historic
+            for state in reversed(historic)
             if state.status == VulnerabilityStateStatus.OPEN
         ),
         None,
     )
     if open_state:
-        opening_date = datetime.fromisoformat(open_state.modified_date).date()
+        iso8601utc_date = datetime.fromisoformat(open_state.modified_date)
+        opening_date = datetime_utils.get_from_str(
+            datetime_utils.get_as_str(iso8601utc_date)
+        ).date()
         if min_date and min_date > opening_date:
             opening_date = None
     return opening_date
@@ -346,14 +363,17 @@ def get_closing_date_new(
     vulnerability: Vulnerability,
     min_date: Optional[datetype] = None,
 ) -> Optional[datetype]:
-    last_closing_date: Optional[datetype] = None
+    closing_date: Optional[datetype] = None
     if vulnerability.state.status == VulnerabilityStateStatus.CLOSED:
-        last_closing_date = datetime.fromisoformat(
+        iso8601utc_date = datetime.fromisoformat(
             vulnerability.state.modified_date
+        )
+        closing_date = datetime_utils.get_from_str(
+            datetime_utils.get_as_str(iso8601utc_date)
         ).date()
-        if min_date and min_date > last_closing_date:
+        if min_date and min_date > closing_date:
             return None
-    return last_closing_date
+    return closing_date
 
 
 def get_last_status(vuln: Dict[str, FindingType]) -> str:
@@ -362,17 +382,21 @@ def get_last_status(vuln: Dict[str, FindingType]) -> str:
 
 
 def get_mean_remediate_vulnerabilities_cvssf(
-    vulns: List[Dict[str, FindingType]],
+    vulns: Tuple[Vulnerability, ...],
+    vulns_historic_state: Tuple[Tuple[VulnerabilityState, ...]],
     finding_cvssf: Dict[str, Decimal],
     min_date: Optional[datetype] = None,
 ) -> Decimal:
     total_days: Decimal = Decimal("0.0")
-    open_vuln_dates = [get_opening_date(vuln, min_date) for vuln in vulns]
-    filtered_open_vuln_dates = [vuln for vuln in open_vuln_dates if vuln]
+    open_vuln_dates = [
+        get_opening_date_new(historic, min_date)
+        for historic in vulns_historic_state
+    ]
+    filtered_open_vuln_dates = [date for date in open_vuln_dates if date]
     closed_vuln_dates: List[Tuple[Optional[datetype], Decimal]] = [
         (
-            get_closing_date(vuln, min_date),
-            finding_cvssf[vuln["finding_id"]],
+            get_closing_date_new(vuln, min_date),
+            finding_cvssf[vuln.finding_id],
         )
         for vuln, open_vuln in zip(vulns, open_vuln_dates)
         if open_vuln
@@ -392,7 +416,7 @@ def get_mean_remediate_vulnerabilities_cvssf(
     total_cvssf: Decimal = Decimal(
         sum(
             [
-                finding_cvssf[vuln["finding_id"]]
+                finding_cvssf[vuln.finding_id]
                 for vuln, open_date in zip(vulns, open_vuln_dates)
                 if open_date
             ]
@@ -409,7 +433,7 @@ def get_mean_remediate_vulnerabilities_cvssf(
 
 
 def get_mean_remediate_vulnerabilities(
-    vulns: Tuple[Vulnerability], min_date: Optional[datetype] = None
+    vulns: List[VulnerabilityType], min_date: Optional[datetype] = None
 ) -> Decimal:
     """Get mean time to remediate a vulnerability."""
     total_vuln = 0
@@ -583,6 +607,17 @@ def is_accepted_undefined_vulnerability(
     return (
         historic_treatment[-1]["treatment"] == "ACCEPTED_UNDEFINED"
         and get_last_status(vulnerability) == "open"
+    )
+
+
+def is_accepted_undefined_vulnerability_new(
+    vulnerability: Vulnerability,
+) -> bool:
+    return (
+        vulnerability.treatment
+        and vulnerability.treatment.status
+        == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+        and vulnerability.state.status == VulnerabilityStateStatus.OPEN
     )
 
 

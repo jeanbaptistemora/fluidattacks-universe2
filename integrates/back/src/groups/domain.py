@@ -49,6 +49,10 @@ from db_model.findings.types import (
 from db_model.roots.types import (
     RootItem,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityState,
+)
 from decimal import (
     Decimal,
 )
@@ -968,11 +972,19 @@ async def get_mean_remediate_severity_cvssf(
         )
         for finding in group_findings
     }
-    findings_vulns = await loaders.finding_vulns.load_many_chained(
-        group_findings_ids
+    findings_vulns: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_typed.load_many_chained(group_findings_ids)
+    vulns_historic_state: Tuple[
+        Tuple[VulnerabilityState, ...]
+    ] = await loaders.vulnerability_historic_state.load_many(
+        [vuln.id for vuln in findings_vulns]
     )
     return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
-        findings_vulns, finding_cvssf, min_date
+        findings_vulns,
+        vulns_historic_state,
+        finding_cvssf,
+        min_date,
     )
 
 
@@ -1002,19 +1014,25 @@ async def get_mean_remediate_non_treated_severity_cvssf(
         )
         for finding in group_findings
     }
-    all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
-        group_findings_ids
+    findings_vulns: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_typed.load_many_chained(group_findings_ids)
+    non_confirmed_zr_vulns = vulns_utils.filter_non_confirmed_zero_risk_new(
+        findings_vulns
     )
-    vulnerabilities = vulns_utils.filter_non_confirmed_zero_risk(
-        all_vulnerabilities
+    non_accepted_undefined_vulns = tuple(
+        vuln
+        for vuln in non_confirmed_zr_vulns
+        if not vulns_utils.is_accepted_undefined_vulnerability_new(vuln)
     )
-
+    vulns_historic_state: Tuple[
+        Tuple[VulnerabilityState, ...]
+    ] = await loaders.vulnerability_historic_state.load_many(
+        [vuln.id for vuln in non_accepted_undefined_vulns]
+    )
     return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
-        [
-            vuln
-            for vuln in vulnerabilities
-            if not vulns_utils.is_accepted_undefined_vulnerability(vuln)
-        ],
+        non_accepted_undefined_vulns,
+        vulns_historic_state,
         finding_cvssf,
         min_date,
     )
