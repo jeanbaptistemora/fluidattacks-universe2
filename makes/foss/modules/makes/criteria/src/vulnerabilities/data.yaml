@@ -8698,38 +8698,57 @@
   en:
     title: Inappropriate coding practices - Eval function
     description: >
-      __empty__
+      The eval function is used with the input
+      of request data, such as url params
+      or request headers, this data is not
+      properly validated and can lead to
+      python statements being injected to
+      execute commands on the server.
     impact: >
-      __empty__
+      - Execute commands on the server.
+
+      - Send expressions that saturate
+      the server.
     recommendation: >
-      __empty__
+      Perform validations over
+      user data entry.
     threat: >
-      __empty__
+      Attacker authenticated from the Internet.
   es:
     title: Inappropriate coding practices - Eval function
     description: >
-      __empty__
+      La función eval es usada con la entrada
+      de datos de las solicitudes, como
+      parámentros en la url o cabeceras en la
+      solicitud, estos datos no son correctamente
+      validados y puede llevar a que se inyecten
+      sentencias de python para ejecutar comandos
+      en el servidor.
     impact: >
-      __empty__
+      - Ejecutar comandos en el servidor.
+
+      - Enviar expresiones que hagan
+      saturar al servidor.
     recommendation: >
-      __empty__
+      Realizar validaciones sobre la
+      entrada de datos del usuario.
     threat: >
-      __empty__
+      Atacante autenticado desde Internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "H"
-      privileges_required: "N"
+      attack_complexity: "L"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "P"
-      remediation_level: "O"
-      report_confidence: "R"
+      remediation_level: "X"
+      report_confidence: "X"
   requirements: ["266"]
   metadata:
     en:
