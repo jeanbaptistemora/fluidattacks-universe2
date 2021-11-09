@@ -57,7 +57,7 @@ const AccessInfoForm: React.FC<IDescriptionViewFormProps> = ({
     <React.StrictMode>
       <Form id={"editGroupAccessInfo"}>
         <Flex>
-          <h2>{t("searchFindings.groupAccessInfoSection.accessInfo")}</h2>
+          <h2>{t("searchFindings.groupAccessInfoSection.groupContext")}</h2>
         </Flex>
         <Row>
           {hasAccessInfo || isEditing ? (

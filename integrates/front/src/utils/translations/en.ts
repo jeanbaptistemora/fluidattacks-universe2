@@ -1165,9 +1165,9 @@ export const enTranslations: ResourceKey = {
     findingRejected: "Finding {{findingId}} was rejected",
     findingsDeleted: "Findings were deleted",
     groupAccessInfoSection: {
-      accessInfo: "Access Information",
       dast: "DAST",
       disambiguation: "Disambiguation",
+      groupContext: "Group context",
       mobile: "Mobile",
       noAccessInfo:
         "There is no information on how to access this group's ToE at the moment.",

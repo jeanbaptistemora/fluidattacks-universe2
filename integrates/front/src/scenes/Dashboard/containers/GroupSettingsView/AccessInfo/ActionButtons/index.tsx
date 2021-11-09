@@ -26,10 +26,8 @@ const ActionButtons: React.FC<IActionButtonsProps> = (
       <Can do={"api_mutations_update_group_access_info_mutate"}>
         {isEditing ? (
           <TooltipWrapper
-            id={"searchFindings.groupAccessInfoSection.tooltips.edit.id"}
-            message={translate.t(
-              "searchFindings.groupAccessInfoSection.tooltips.edit"
-            )}
+            id={"searchFindings.tabDescription.save.tooltip.btn"}
+            message={translate.t("searchFindings.tabDescription.save.tooltip")}
           >
             <Button disabled={isPristine} onClick={onUpdate}>
               <FluidIcon icon={"loading"} />
@@ -39,14 +37,14 @@ const ActionButtons: React.FC<IActionButtonsProps> = (
           </TooltipWrapper>
         ) : undefined}
         <TooltipWrapper
-          id={"searchFindings.tabDescription.editable.cancelEditTooltip-btn"}
+          id={"searchFindings.groupAccessInfoSection.tooltips.edit.id"}
           message={
             isEditing
               ? translate.t(
                   "searchFindings.tabDescription.editable.cancelTooltip"
                 )
               : translate.t(
-                  "searchFindings.tabDescription.editable.editableTooltip"
+                  "searchFindings.groupAccessInfoSection.tooltips.edit"
                 )
           }
         >
