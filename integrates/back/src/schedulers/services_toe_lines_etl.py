@@ -71,7 +71,7 @@ IGNORED_SERVICES_REPO_GROUP = {
 INVALID_ABIDJAN_REPO = {
     "repo_2",
 }
-DEFAULT_RISK_LEVEL = 0
+DEFAULT_RISK_LEVEL = -1
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")

@@ -42,7 +42,7 @@ async def test_add() -> None:
         loc=1000,
         modified_commit="983466z",
         modified_date="2019-08-01T05:00:00+00:00",
-        sorts_risk_level=Decimal("1"),
+        sorts_risk_level=100,
     )
     await toe_lines_domain.add(group_name, root_id, filename, attributes)
     loaders = get_new_context()
@@ -62,7 +62,7 @@ async def test_add() -> None:
         modified_date="2019-08-01T05:00:00+00:00",
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
         seen_at="2018-08-01T05:00:00+00:00",
-        sorts_risk_level=Decimal("1"),
+        sorts_risk_level=100,
     )
 
 
@@ -87,7 +87,7 @@ async def test_update() -> None:
         modified_commit="993466z",
         modified_date="2020-08-01T05:00:00+00:00",
         seen_at="2019-08-01T05:00:00+00:00",
-        sorts_risk_level=Decimal("0.5"),
+        sorts_risk_level=50,
     )
     await toe_lines_domain.update(current_value, attributes)
     loaders = get_new_context()
@@ -107,5 +107,5 @@ async def test_update() -> None:
         modified_date="2020-08-01T05:00:00+00:00",
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
         seen_at="2019-08-01T05:00:00+00:00",
-        sorts_risk_level=Decimal("0.5"),
+        sorts_risk_level=50,
     )

@@ -22,9 +22,6 @@ from db_model.roots.types import (
 from db_model.toe_lines.types import (
     ToeLines,
 )
-from decimal import (
-    Decimal,
-)
 from decorators import (
     retry_on_exceptions,
 )
@@ -212,7 +209,7 @@ async def get_present_toe_lines_to_add(
                 loc=last_loc,
                 modified_commit=last_modified_commit,
                 modified_date=last_modified_date,
-                sorts_risk_level=Decimal("-1"),
+                sorts_risk_level=-1,
             ),
         )
         for (

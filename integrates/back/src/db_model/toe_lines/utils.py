@@ -23,7 +23,7 @@ def format_toe_lines(item: Item) -> ToeLines:
         modified_date=item["modified_date"],
         root_id=item["root_id"],
         seen_at=item["seen_at"],
-        sorts_risk_level=item["sorts_risk_level"],
+        sorts_risk_level=int(item["sorts_risk_level"]),
     )
 
 

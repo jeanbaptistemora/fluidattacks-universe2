@@ -36,7 +36,7 @@ async def test_get() -> None:
         modified_date="2020-11-15T15:41:04+00:00",
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
         seen_at="2020-02-01T15:41:04+00:00",
-        sorts_risk_level=Decimal("0.8"),
+        sorts_risk_level=80,
     )
     group_name = "unittesting"
     root_id = "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
@@ -57,7 +57,7 @@ async def test_get() -> None:
         modified_date="2020-11-16T15:41:04+00:00",
         root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
         seen_at="2020-01-01T15:41:04+00:00",
-        sorts_risk_level=Decimal("0.0"),
+        sorts_risk_level=0,
     )
 
 
@@ -81,7 +81,7 @@ async def test_get_by_group() -> None:
             modified_date="2020-11-15T15:41:04+00:00",
             root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
             seen_at="2020-02-01T15:41:04+00:00",
-            sorts_risk_level=Decimal("0.8"),
+            sorts_risk_level=80,
         ),
         ToeLines(
             attacked_at="2021-01-20T05:00:00+00:00",
@@ -98,7 +98,7 @@ async def test_get_by_group() -> None:
             modified_date="2020-11-16T15:41:04+00:00",
             root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
             seen_at="2020-01-01T15:41:04+00:00",
-            sorts_risk_level=Decimal("0.0"),
+            sorts_risk_level=0,
         ),
     )
 
@@ -124,7 +124,7 @@ async def test_get_by_root() -> None:
             modified_date="2020-11-15T15:41:04+00:00",
             root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
             seen_at="2020-02-01T15:41:04+00:00",
-            sorts_risk_level=Decimal("0.8"),
+            sorts_risk_level=80,
         ),
     )
     group_name = "unittesting"
@@ -146,6 +146,6 @@ async def test_get_by_root() -> None:
             modified_date="2020-11-16T15:41:04+00:00",
             root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
             seen_at="2020-01-01T15:41:04+00:00",
-            sorts_risk_level=Decimal("0.0"),
+            sorts_risk_level=0,
         ),
     )

@@ -47,7 +47,7 @@ async def mutate(
     group_name: str,
     root_nickname: str,
     filename: str,
-    sorts_risk_level: float,
+    sorts_risk_level: int,
 ) -> SimplePayloadType:
     try:
         group_roots_loader = info.context.loaders.group_roots

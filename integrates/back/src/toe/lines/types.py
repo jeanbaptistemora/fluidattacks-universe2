@@ -1,6 +1,3 @@
-from decimal import (
-    Decimal,
-)
 from typing import (
     NamedTuple,
     Optional,
@@ -18,7 +15,7 @@ class ToeLinesAttributesToAdd(NamedTuple):
     loc: int
     modified_commit: str
     modified_date: str
-    sorts_risk_level: Decimal
+    sorts_risk_level: int
 
 
 class ToeLinesAttributesToUpdate(NamedTuple):
@@ -33,4 +30,4 @@ class ToeLinesAttributesToUpdate(NamedTuple):
     modified_commit: Optional[str] = None
     modified_date: Optional[str] = None
     seen_at: Optional[str] = None
-    sorts_risk_level: Optional[Decimal] = None
+    sorts_risk_level: Optional[int] = None

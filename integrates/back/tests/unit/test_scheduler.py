@@ -468,7 +468,7 @@ async def test_toe_lines_etl() -> None:
             root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
             tested_date="2021-01-22T05:00:00+00:00",
             tested_lines=88,
-            sorts_risk_level=0,
+            sorts_risk_level=-1,
         ),
     )
 

@@ -46,7 +46,7 @@ async def update_risk_level(
     group_name: str,
     filename: str,
     root_id: str,
-    sorts_risk_level: float,
+    sorts_risk_level: int,
 ) -> None:
     metadata = ServicesToeLinesMetadataToUpdate(
         sorts_risk_level=sorts_risk_level

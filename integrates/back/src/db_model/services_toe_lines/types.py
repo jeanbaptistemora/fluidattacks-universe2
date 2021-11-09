@@ -14,7 +14,7 @@ class ServicesToeLines(NamedTuple):
     root_id: str
     tested_date: str
     tested_lines: int
-    sorts_risk_level: float
+    sorts_risk_level: int
 
     def get_hash(self) -> int:
         return hash((self.group_name, self.root_id, self.filename))
@@ -30,4 +30,4 @@ class ServicesToeLinesMetadataToUpdate(NamedTuple):
     root_id: Optional[str] = None
     tested_date: Optional[str] = None
     tested_lines: Optional[int] = None
-    sorts_risk_level: Optional[float] = None
+    sorts_risk_level: Optional[int] = None

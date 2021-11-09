@@ -26,5 +26,5 @@ def format_toe_lines(
         root_id=root_id,
         tested_date=item["tested_date"],
         tested_lines=int(item["tested_lines"]),
-        sorts_risk_level=item["sorts_risk_level"],
+        sorts_risk_level=int(item["sorts_risk_level"]),
     )
