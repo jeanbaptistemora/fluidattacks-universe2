@@ -423,11 +423,13 @@ def get_data_risk_over_time_group(  # pylint: disable=too-many-locals
     *,
     over_time_weekly: List[List[Dict[str, float]]],
     over_time_monthly: List[List[Dict[str, float]]],
+    over_time_yearly: List[List[Dict[str, float]]],
     weekly_data_size: int,
     limited_days: bool,
 ) -> RiskOverTime:
     data: List[GroupDocumentData] = []
     data_monthly: List[GroupDocumentData] = []
+    data_yearly: List[GroupDocumentData] = []
     if over_time_weekly:
         group_found_over_time = over_time_weekly[0]
         group_closed_over_time = over_time_weekly[1]
@@ -476,6 +478,34 @@ def get_data_risk_over_time_group(  # pylint: disable=too-many-locals
                 )
             )
 
+    if over_time_yearly:
+        group_found_over_time = over_time_yearly[0]
+        group_closed_over_time = over_time_yearly[1]
+        group_accepted_over_time = over_time_yearly[2]
+
+        for accepted, closed, found in zip(
+            group_accepted_over_time,
+            group_closed_over_time,
+            group_found_over_time,
+        ):
+            data_yearly.append(
+                GroupDocumentData(
+                    accepted=accepted["y"],
+                    closed=closed["y"],
+                    opened=found["y"] - closed["y"] - accepted["y"],
+                    date=(
+                        datetime.strptime(str(found["x"]), DATE_FMT)
+                        if datetime.strptime(str(found["x"]), DATE_FMT)
+                        < datetime.now()
+                        else datetime.combine(
+                            datetime.now(),
+                            datetime.min.time(),
+                        )
+                    ),
+                    total=found["y"],
+                )
+            )
+
     monthly_data_size: int = len(
         over_time_monthly[0] if over_time_monthly else []
     )
@@ -486,6 +516,15 @@ def get_data_risk_over_time_group(  # pylint: disable=too-many-locals
         "Found": {
             datum.date: datum.closed + datum.accepted + datum.opened
             for datum in data_monthly
+        },
+    }
+    yearly: Dict[str, Dict[datetime, float]] = {
+        "date": {datum.date: 0 for datum in data_yearly},
+        "Closed": {datum.date: datum.closed for datum in data_yearly},
+        "Accepted": {datum.date: datum.accepted for datum in data_yearly},
+        "Found": {
+            datum.date: datum.closed + datum.accepted + datum.opened
+            for datum in data_yearly
         },
     }
     quarterly = get_risk_over_rangetime(
@@ -517,7 +556,7 @@ def get_data_risk_over_time_group(  # pylint: disable=too-many-locals
                 for datum in data
             },
         },
-        yearly={},
+        yearly=yearly,
     )
 
 

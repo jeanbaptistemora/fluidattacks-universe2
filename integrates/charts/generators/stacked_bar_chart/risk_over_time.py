@@ -46,10 +46,12 @@ async def get_group_document(group: str, days: int) -> RiskOverTime:
     group_data = await group_loader.load(group)
     group_over_time = [elements[-12:] for elements in group_data[data_name]]
     group_over_time_monthly = group_data[data_name_monthly]
+    group_over_time_yearly = group_data["remediated_over_time_year"]
 
     return get_data_risk_over_time_group(
         over_time_weekly=group_over_time,
         over_time_monthly=group_over_time_monthly,
+        over_time_yearly=group_over_time_yearly,
         weekly_data_size=len(group_data[data_name][0])
         if group_data[data_name]
         else 0,
