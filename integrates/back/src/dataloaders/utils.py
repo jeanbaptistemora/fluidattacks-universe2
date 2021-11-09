@@ -136,7 +136,9 @@ def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
         bug_tracking_system_url=get_optional("external_bts", item),
         commit=get_optional("commit_hash", item),
         custom_severity=(
-            int(item["severity"]) if exists("severity", item) else None
+            int(item["severity"])
+            if exists("severity", item) and item["severity"]
+            else None
         ),
         hash=None,
         repo=get_optional("repo_nickname", item),

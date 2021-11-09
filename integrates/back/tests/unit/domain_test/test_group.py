@@ -13,8 +13,19 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model.enums import (
+    Source,
+)
 from db_model.findings.types import (
     Finding,
+)
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityType,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityState,
 )
 from decimal import (
     Decimal,
@@ -71,8 +82,8 @@ from newutils import (
     datetime as datetime_utils,
 )
 from newutils.vulnerabilities import (
-    get_last_closing_date,
-    get_open_vulnerability_date,
+    get_closing_date_new,
+    get_opening_date_new,
 )
 import pytest
 from pytz import (  # type: ignore
@@ -155,29 +166,29 @@ async def test_get_last_closing_vulnerability() -> None:
     assert last_closed_vuln.finding_id == "463558592"
 
 
-async def test_get_last_closing_date() -> None:
-    closed_vulnerability = {
-        "specific": "phone",
-        "finding_id": "422286126",
-        "UUID": "80d6a69f-a376-46be-98cd-2fdedcffdcc0",
-        "historic_state": [
-            {"date": "2018-09-28 10:32:58", "state": "open"},
-            {"date": "2019-01-08 16:01:26", "state": "closed"},
-        ],
-        "vuln_type": "inputs",
-        "where": "https://example.com",
-        "hacker": "testanalyst@test.com",
-    }
-
-    open_vulnerability = await vulns_dal.get(
-        "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
+async def test_get_vuln_closing_date() -> None:
+    closed_vulnerability = Vulnerability(
+        finding_id="422286126",
+        id="80d6a69f-a376-46be-98cd-2fdedcffdcc0",
+        specific="phone",
+        state=VulnerabilityState(
+            modified_by="test@test.com",
+            modified_date="2019-01-08T21:01:26+00:00",
+            source=Source.ASM,
+            status=VulnerabilityStateStatus.CLOSED,
+        ),
+        type=VulnerabilityType.INPUTS,
+        where="https://example.com",
     )
-
-    test_data = get_last_closing_date(closed_vulnerability)
+    test_data = get_closing_date_new(closed_vulnerability)
     closing_date = datetime(2019, 1, 8).date()
     assert test_data == closing_date
 
-    test_data = get_last_closing_date(open_vulnerability[0])
+    loaders: Dataloaders = get_new_context()
+    open_vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+        "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
+    )
+    test_data = get_closing_date_new(open_vulnerability)
     assert test_data is None
 
 
@@ -215,27 +226,27 @@ async def test_get_open_findings() -> None:
     assert open_findings == expected_output
 
 
-async def test_get_open_vulnerability_date() -> None:
-    closed_vulnerability = {
-        "specific": "phone",
-        "finding_id": "422286126",
-        "UUID": "80d6a69f-a376-46be-98cd-2fdedcffdcc0",
-        "historic_state": [{"date": "2019-01-08 16:01:26", "state": "closed"}],
-        "vuln_type": "inputs",
-        "where": "https://example.com",
-        "hacker": "testanalyst@test.com",
-    }
+async def test_get_vuln_opening_date() -> None:
+    closed_vuln_historic: Tuple[VulnerabilityState, ...] = [
+        VulnerabilityState(
+            modified_by="test@test.com",
+            modified_date="2019-01-08T21:01:26+00:00",
+            source=Source.ASM,
+            status=VulnerabilityStateStatus.CLOSED,
+        ),
+    ]
+    test_data = get_opening_date_new(closed_vuln_historic)
+    assert test_data is None
 
-    open_vulnerability = await vulns_dal.get(
+    loaders: Dataloaders = get_new_context()
+    open_vuln_historic: Tuple[
+        VulnerabilityState, ...
+    ] = await loaders.vulnerability_historic_state.load(
         "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
     )
-
-    test_data = get_open_vulnerability_date(open_vulnerability[0])
+    test_data = get_opening_date_new(open_vuln_historic)
     expected_output = datetime(2020, 9, 9).date()
     assert test_data == expected_output
-
-    test_data = get_open_vulnerability_date(closed_vulnerability)
-    assert test_data is None
 
 
 @freeze_time("2020-12-01")
