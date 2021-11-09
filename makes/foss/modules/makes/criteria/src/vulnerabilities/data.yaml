@@ -8881,8 +8881,8 @@
       availability: "N"
     temporal:
       exploit_code_maturity: "P"
-      remediation_level: "U"
-      report_confidence: "C"
+      remediation_level: "X"
+      report_confidence: "X"
   requirements: ["379"]
   metadata:
     en:
@@ -8926,14 +8926,14 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["169","173"]
