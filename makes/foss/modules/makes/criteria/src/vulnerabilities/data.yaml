@@ -7637,9 +7637,19 @@
       The system do not use
       isolation methods
       for running applications.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      Construction of covert
+      channel communication.
+    recommendation: >
+      - Use dedicated cloud servers rather
+      than VMs or cloud-based containers.
+
+      - Implement specific isolation
+      strategies, particularly between
+      hosts and the network.
+    threat: >
+      External attacker with access
+      to the application.
   es:
     title: Lack of isolation methods
     description: >
@@ -7647,9 +7657,20 @@
       métodos de aislamiento
       para las aplicaciones
       que están siendo ejecutadas.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      Construcción de un canal
+      encubierto de comunicación.
+    recommendation: >
+      - Utilizar servidores dedicados en la
+      nube en lugar de máquinas virtuales
+      o contenedores basados en la nube.
+
+      - Implementar estrategias específicas
+      de aislamiento, especialmente entre
+      los hosts y la red.
+    threat: >
+      Atacante externo con
+      acceso a la aplicación.
   category: Subvert Access
   score:
     base:
@@ -7658,8 +7679,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
+      confidentiality: "H"
+      integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
