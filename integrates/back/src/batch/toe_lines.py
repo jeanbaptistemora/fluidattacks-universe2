@@ -88,17 +88,6 @@ toe_lines_update = retry_on_exceptions(
 )(toe_lines_domain.update)
 
 
-async def apply_git_config(repo_path: str) -> None:
-    """apply config in the git repository"""
-    await asyncio.create_subprocess_exec(
-        "git",
-        f"--git-dir={repo_path}/.git",
-        "config",
-        "core.quotepath",
-        "off",
-    )
-
-
 async def get_present_filenames(
     group_path: str, repo: Repo, repo_nickname: str
 ) -> Set[str]:
@@ -359,7 +348,7 @@ async def refresh_repo_toe_lines(
         return
 
     loaders = get_new_context()
-    await apply_git_config(repo_nickname)
+    await git_utils.disable_quotepath(f"{repo_nickname}/.git")
     roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
     root_id = roots_domain.get_root_id_by_nickname(repo_nickname, roots)
     repo_toe_lines = {

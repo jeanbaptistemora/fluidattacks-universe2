@@ -1,6 +1,7 @@
 from aioextensions import (
     in_thread,
 )
+import asyncio
 from context import (
     SERVICES_GITLAB_API_TOKEN,
     SERVICES_GITLAB_API_USER,
@@ -28,6 +29,16 @@ def clone_services_repository(path: str) -> None:
         multi_options=[
             "--depth=1",
         ],
+    )
+
+
+async def disable_quotepath(git_path: str) -> None:
+    await asyncio.create_subprocess_exec(
+        "git",
+        f"--git-dir={git_path}",
+        "config",
+        "core.quotepath",
+        "off",
     )
 
 
