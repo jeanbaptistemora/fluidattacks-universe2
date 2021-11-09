@@ -3563,27 +3563,69 @@
       details: __empty__
 "060":
   en:
-    title: Free
+    title: Insecure exceptions
     description: >
-      __empty__
+      The system uses generic exceptions
+      as a mechanism to handle unexpected events.
+      Throwing and catching generic exceptions:
+
+      - Masks the original cause of the trouble,
+      hindering the log review in the presence of a security incident
+
+      - Defines a generic behaviour to all kinds of exceptions,
+      considering that some exceptions require a custom handling.
+
+      - Catches harmful or insecure exceptions
+      such as NullPointerException,
+      which may lead to DoS attacks.
     impact: >
-      __empty__
+      - Hinder the identification of the event source cause.
+
+      - Lead the application to an unstable state
+      when errors that cause unrecoverable states are generated.
+
     recommendation: >
-      __empty__
+      - Identify all possible types of exceptions
+      that the application may throw.
+
+      - Capture Specific and typified exceptions
+      and provide custom treatment to every exceptional event
+      (rollback, deauthentication, deauthorization, etc.)
 
     threat: >
-      __empty__
+      Authenticated attacker
+      from the Internet.
   es:
-    title: Free
+    title: Insecure exceptions
     description: >
-      __empty__
+      El sistema utiliza excepciones genéricas
+      como mecanismo para manejar eventos inesperados.
+      Arrojar y capturar excepciones genéricas:
+
+      - Enmascara el origen del problema,
+      dificultando la revisión de los logs ante un incidente de seguridad.
+
+      - Define un comportamiento genérico para todos los tipos de excepciones
+      considerando que algunas excepciones requieren un manejo personalizado.
+
+      - Captura excepciones inseguras o dañinas
+      como NullPointerException, la cual puede desencadenar en DoS.
 
     impact: >
-      __empty__
+      - Dificultar la identificación de la causa de los errores
+
+      - Llevar a la aplicación a un estado inestable
+      cuando se generen errores que causen estados irrecuperables
     recommendation: >
-      __empty__
+      - Identificar todos los posibles tipos de excepciones
+      que la aplicación puede arrojar
+
+      - Capturar excepciones específicas y tipificadas
+      y proveer un tratamiento personalizado a cada evento excepcional
+      (rollback, deautenticación, deautorización, etc)
     threat: >
-      __empty__
+      Atacante autenticado
+      desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -3602,7 +3644,45 @@
   requirements: ["161" ,"266" ,"359"]
   metadata:
     en:
-      details: __empty__
+      details: |
+        ### Why
+
+        When capturing generic exceptions:
+
+        1. The complete error's traceability
+        is not obtained neither what it generated.
+        1. The errors do not receive a customized treatment.
+        1. When capturing generic exceptions,
+        dangerous exceptions like NullPointerException
+        could be captured too.
+        1. The capture's moment is not controlled,
+        an exception can occur in different moments
+        (in loadtime, when the code is tested,
+        when something unexpected occurs
+        in asyncronous operations with generic
+        or non-existent callbacks, etc).
+
+        Following links can support our points:
+
+        - [CWE-395](https://cwe.mitre.org/data/definitions/395.html)
+        - [CWE-396](https://cwe.mitre.org/data/definitions/396.html)
+        - [CWE-397](https://cwe.mitre.org/data/definitions/397.html)
+        - [ERR07-J. Do not throw RuntimeException, Exception, or Throwable](https://wiki.sei.cmu.edu/confluence/display/java/ERR07-J.+Do+not+throw+RuntimeException%2C+Exception%2C+or+Throwable)
+        - [Generic exceptions should never be thrown](https://rules.sonarsource.com/java/RSPEC-112)
+
+        The ideal thing to avoid these scenarios,
+        where generic exceptions are being captured,
+        is to use typified exceptions
+        together with dynamic tests where the coverage
+        of execution branches is being done.
+        This guarantees a proper handling
+        of all possible events.
+
+        Not all the reports necessarily have
+        a severe exploitation case,
+        where all the resources can be compromised.
+        This can be evidenced in its CVSS score
+        and the exploitability metric.
 "061":
   en:
     title: Remote File Inclusion
@@ -9023,37 +9103,58 @@
   en:
     title: Use of an insecure channel - useSslProtocol()
     description: >
-      __empty__
+      The application uses useSslProtocol()
+      function, which allows the trust
+      manager to trust all server certificates
+      presented to it, this is convenient for
+      local development, but is not recommended
+      for use in production, as it does not
+      provide protection against
+      man-in-the-middle attacks.
     impact: >
-      __empty__
+      Intercepting sensitive information
+      traveling over an insecure channel.
     recommendation: >
-      __empty__
+      Preferably make use of
+      useSslProtocol(SSLContext).
     threat: >
-      __empty__
+      Atacante anónimo en la red interna
+      ejecutando un MitM.
   es:
     title: Use of an insecure channel - useSslProtocol()
     description: >
-      __empty__
+      La aplicación utiliza la función
+      useSslProtocol(), lo que permite al
+      administrador de confianza confiar en
+      todos los certificados de servidor que
+      se le presenten, esto es conveniente
+      para el desarrollo local, pero no se
+      recomienda su uso en producción, ya que
+      no brinda protección contra ataques de
+      man-in-the-middle.
     impact: >
-      __empty__
+      Interceptar información sensible
+      que viaja por un canal inseguro.
     recommendation: >
-      __empty__
+      Preferiblemente hacer uso de
+      useSslProtocol(SSLContext).
     threat: >
-      __empty__
+      Atacante anónimo en la red
+      interna ejecutando un MitM.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["181"]
   metadata:
