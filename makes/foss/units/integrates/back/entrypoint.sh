@@ -1,9 +1,9 @@
 # shellcheck shell=bash
 
 function serve_daemon {
-  makes-kill-port 28001 \
+  kill_port 28001 \
     && { serve "${@}" & } \
-    && makes-wait 300 localhost:28001
+    && wait_port 300 localhost:28001
 }
 
 function serve {
@@ -73,10 +73,10 @@ function serve {
       error First argument must be one of: dev, dev-mobile, eph, prod, prod-local
     fi \
     && pushd integrates \
-    && makes-kill-port "${PORT}" \
+    && kill_port "${PORT}" \
     && { gunicorn "${config[@]}" 'app.app:APP' & } \
-    && makes-wait 5 "${HOST}:${PORT}" \
-    && makes-done 28001 \
+    && wait_port 5 "${HOST}:${PORT}" \
+    && done_port 28001 \
     && info Back is ready \
     && wait \
     && popd \

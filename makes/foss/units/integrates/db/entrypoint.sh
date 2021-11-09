@@ -76,7 +76,7 @@ function serve {
     && unzip -u '__argDynamoZip__' \
     && popd \
     && echo '[INFO] Deleting old instance, if exists' \
-    && makes-kill-port "${PORT}" 28022 \
+    && kill_port "${PORT}" 28022 \
     && echo '[INFO] Launching DynamoDB' \
     && {
       java \
@@ -86,7 +86,7 @@ function serve {
         -port "${PORT}" \
         -sharedDb &
     } \
-    && makes-wait 10 "${HOST}:${PORT}" \
+    && wait_port 10 "${HOST}:${PORT}" \
     && copy __argDatabase__ "${STATE_PATH}/terraform" \
     && pushd "${STATE_PATH}/terraform" \
     && terraform init \
@@ -95,15 +95,15 @@ function serve {
     && if test "${POPULATE}" != 'false'; then
       populate "${@}"
     fi \
-    && makes-done 28022 \
+    && done_port 28022 \
     && echo '[INFO] Dynamo DB is ready' \
     && wait
 }
 
 function serve_daemon {
-  makes-kill-port 28022 \
+  kill_port 28022 \
     && { serve "${@}" & } \
-    && makes-wait 300 localhost:28022
+    && wait_port 300 localhost:28022
 }
 
 function main {

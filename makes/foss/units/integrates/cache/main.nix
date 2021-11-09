@@ -1,6 +1,6 @@
 { inputs
-, outputs
 , makeScript
+, managePorts
 , ...
 }:
 makeScript {
@@ -8,9 +8,9 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.redis
-      outputs."/makes/done"
-      outputs."/makes/kill-port"
-      outputs."/makes/wait"
+    ];
+    source = [
+      managePorts
     ];
   };
   entrypoint = ./entrypoint.sh;

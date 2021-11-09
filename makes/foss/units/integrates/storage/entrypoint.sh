@@ -27,13 +27,13 @@ function serve {
     && mkdir -p "${state_path}" \
     && echo -e "${TEST_PROJECTS//,/\\n}" > "${state_path}/projects" \
     && mapfile -t TEST_PROJECTS < "${state_path}/projects" \
-    && makes-kill-port "${port}" 29000 \
+    && kill_port "${port}" 29000 \
     && {
       MINIO_ACCESS_KEY='test' \
         MINIO_SECRET_KEY='testtest' \
         __argMinioLocal__ server "${state_path}" --address "${host}:${port}" &
     } \
-    && makes-wait 10 "${host}:${port}" \
+    && wait_port 10 "${host}:${port}" \
     && sleep 3 \
     && __argMinioCli__ alias set storage "http://${host}:${port}" 'test' 'testtest' \
     && __argMinioCli__ admin user add storage "${AWS_ACCESS_KEY_ID}" "${AWS_SECRET_ACCESS_KEY}" \
@@ -63,15 +63,15 @@ function serve {
             || return 1
         done
     fi \
-    && makes-done 29000 \
+    && done_port 29000 \
     && echo '[INFO] Storage is ready' \
     && wait
 }
 
 function serve_daemon {
-  makes-kill-port 29000 \
+  kill_port 29000 \
     && { serve "${@}" & } \
-    && makes-wait 300 localhost:29000
+    && wait_port 300 localhost:29000
 }
 
 function main {

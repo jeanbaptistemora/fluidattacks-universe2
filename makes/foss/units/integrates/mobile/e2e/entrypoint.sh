@@ -9,7 +9,7 @@ function main {
 
   pushd integrates/mobile/e2e \
     && echo '[INFO] Making sure ports are free...' \
-    && makes-kill-port "${port}" 4723 \
+    && kill_port "${port}" 4723 \
     && curl -sSo expoClient.apk '__argApkUrl__' \
     && echo '[INFO] Copying dependencies...' \
     && copy __argIntegratesMobileE2eNpm__ node_modules \
@@ -18,11 +18,11 @@ function main {
       'your mobile device to file transfer mode' \
     && "${ANDROID_SDK_ROOT}/platform-tools/adb" wait-for-device \
     && { npx --no-install appium --default-capabilities capabilities/android.json & } \
-    && makes-wait 10 "${host}:${port}" \
+    && wait_port 10 "${host}:${port}" \
     && pytest ./ \
       --exitfirst \
       --verbose \
-    && makes-kill-port "${port}" 4723 \
+    && kill_port "${port}" 4723 \
     && rm -rf node_modules \
     && popd \
     || return 1

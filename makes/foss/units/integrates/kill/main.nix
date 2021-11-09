@@ -1,11 +1,11 @@
 { makeScript
-, outputs
+, managePorts
 , ...
 }:
 makeScript {
   name = "integrates-kill";
-  searchPaths.bin = [
-    outputs."/makes/kill-port"
+  searchPaths.source = [
+    managePorts
   ];
   entrypoint = ./entrypoint.sh;
 }

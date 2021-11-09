@@ -2,8 +2,9 @@
 , libGit
 , makeDerivation
 , makeScript
-, outputs
 , projectPath
+, managePorts
+, outputs
 , ...
 }:
 let
@@ -28,17 +29,11 @@ makeScript {
     __argMinioLocal__ = chmodX "minio-local" minioLocalSrc;
   };
   name = "integrates-storage";
-  searchPaths = {
-    bin = [
-      outputs."/makes/done"
-      outputs."/makes/kill-port"
-      outputs."/makes/wait"
-    ];
-    source = [
-      libGit
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
-    ];
-  };
+  searchPaths.source = [
+    libGit
+    (outputs."/utils/aws")
+    (outputs."/utils/sops")
+    managePorts
+  ];
   entrypoint = projectPath "/makes/foss/units/integrates/storage/entrypoint.sh";
 }

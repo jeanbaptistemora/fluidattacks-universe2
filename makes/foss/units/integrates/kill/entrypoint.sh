@@ -11,7 +11,7 @@ function main {
     9000           # storage
   )
 
-  makes-kill-port "${ports[@]}"
+  kill_port "${ports[@]}"
 }
 
 main "${@}"

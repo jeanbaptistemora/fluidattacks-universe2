@@ -1,8 +1,8 @@
 { fetchUrl
 , inputs
 , makeScript
-, outputs
 , projectPath
+, managePorts
 , ...
 }:
 makeScript {
@@ -24,9 +24,9 @@ makeScript {
       inputs.nixpkgs.openjdk_headless
       inputs.nixpkgs.terraform
       inputs.nixpkgs.unzip
-      outputs."/makes/done"
-      outputs."/makes/kill-port"
-      outputs."/makes/wait"
+    ];
+    source = [
+      managePorts
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/db/entrypoint.sh";

@@ -1,5 +1,6 @@
 { makeScript
 , outputs
+, managePorts
 , ...
 }:
 makeScript {
@@ -8,10 +9,8 @@ makeScript {
     __argIntegratesBackEnv__ = outputs."/integrates/back/env";
   };
   name = "integrates-back";
-  searchPaths.bin = [
-    outputs."/makes/done"
-    outputs."/makes/kill-port"
-    outputs."/makes/wait"
+  searchPaths.source = [
+    managePorts
   ];
   entrypoint = ./entrypoint.sh;
 }

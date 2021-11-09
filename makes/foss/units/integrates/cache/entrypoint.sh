@@ -6,10 +6,10 @@ function serve {
 
   echo '[INFO] Launching Redis' \
     && rm -rf "${cluster_path}" \
-    && makes-kill-port 26379 \
+    && kill_port 26379 \
     && for port in 6379 6380 6381; do
       echo "[INFO] Configuring replica ${port}" \
-        && makes-kill-port "${port}" \
+        && kill_port "${port}" \
         && mkdir -p "${cluster_path}/${port}" \
         && pushd "${cluster_path}/${port}" \
         && {
@@ -26,19 +26,19 @@ function serve {
         && cluster_addrs+=("127.0.0.1:${port}") \
         || return 1
     done \
-    && makes-wait 10 "${cluster_addrs[@]}" \
+    && wait_port 10 "${cluster_addrs[@]}" \
     && redis-cli \
       --cluster create "${cluster_addrs[@]}" \
       --cluster-replicas 0 \
       --cluster-yes \
-    && makes-done 26379 \
+    && done_port 26379 \
     && wait
 }
 
 function serve_daemon {
-  makes-kill-port 26379 \
+  kill_port 26379 \
     && { serve "${@}" & } \
-    && makes-wait 60 localhost:26379
+    && wait_port 60 localhost:26379
 }
 
 function main {
