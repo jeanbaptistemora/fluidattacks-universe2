@@ -6969,17 +6969,27 @@
     description: >
       The system has security controls
       that can be bypassed.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      Send multiple requests to
+      the server without control.
+    recommendation: >
+      Limit the number of requests that
+      can be made by the same host in
+      defined time slots.
+    threat: Anonymous attacker from the Internet.
   es:
     title: Security controls bypass or absence
     description: >
       El sistema tiene controles de seguridad
       que pueden ser evadidos.
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      Enviar multiples solicitudes al
+      servidor sin control.
+    recommendation: >
+      Limitar la cantidad de peticiones
+      que puede realizar un mismo host
+      en espacios de tiempo definidos.
+    threat: Atacante anónimo desde Internet.
   category: Subvert Access
   score:
     base:
@@ -6988,7 +6998,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
@@ -7007,11 +7017,13 @@
       to use browser side-channels
       to obtain sensitive information
       from the users.
-    impact: __empty__
+    impact: >
+      To know the step in which the
+      user is at a given moment.
     recommendation: >
       Leak sensitive data
       of the user without authorization.
-    threat: __empty__
+    threat: Anonymous attacker from the Internet.
   es:
     title: XS-Leaks
     description: >
@@ -7019,20 +7031,20 @@
       del navegador
       para filtrar información sensible
       sobre el usuario.
-    impact: __empty__
+    impact: >
+      Conocer el paso en el que se encuentra
+      el usuario en un momento dado.
     recommendation: __empty__
-    threat: >
-      Filtrar datos sensibles
-      del usuario sin su autorización.
+    threat: Atacante anónimo desde Internet.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
@@ -7098,15 +7110,15 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["323"]
@@ -7120,7 +7132,13 @@
       The system violates regulations
       of a jurisdiction
       to which it is subject.
-    impact: __empty__
+    impact: >
+      - Use the application without
+      having accepted the terms and
+      conditions of the application.
+
+      - Incurring a fine or other
+      legal sanction.
     recommendation: >
       Consider the applicable regulations
       for the system.
@@ -7132,7 +7150,13 @@
     description: >
       El sistema incumple con regulaciones
       a las cuales está sujeto.
-    impact: __empty__
+    impact: >
+      - Usar la aplicación sin necesidad
+      de haber aceptado los términos y
+      condiciones de la misma.
+
+      - Incurrir en una multa o alguna
+      otra sanción legal.
     recommendation: >
       Tener en cuenta las regulaciones
       aplicables para el sistema.
@@ -7148,10 +7172,10 @@
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["331"]
@@ -7164,48 +7188,50 @@
     description: >
       The system exposes sensitive information
       through public files' metadata.
-    impact: __empty__
+    impact: >
+      - Obtain sensitive information.
+
+      - Obtain information that can be
+      used to compromise other systems.
     recommendation: >
       Delete files' metadata
       before sharing or publishing them.
     threat: >
-      - Obtain sensitive information.
-
-      - Obtain information
-      that can be used to compromise
-      other systems.
+      Attacker with access to the
+      repository from the Internet.
   es:
     title: Metadata with sensitive information
     description: >
       El sistema expone información sensible
       a través de metadatos
       de archivos públicos.
-    impact: __empty__
+    impact: >
+      - Obtener información sensible.
+
+      - Obtener información que pueda ser
+      utilizada para comprometer otros sistemas.
     recommendation: >
       Eliminar los metadatos de los archivos
       antes de compartirlos
       o hacerlos públicos.
     threat: >
-      - Obtener información sensible.
-
-      - Obtener información
-      que pueda ser utilizada
-      para comprometer otros sistemas.
+      Atacante con acceso al repositorio
+      desde Internet.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "R"
   requirements: ["045"]
   metadata:
     en:
