@@ -82,8 +82,8 @@ from newutils import (
     datetime as datetime_utils,
 )
 from newutils.vulnerabilities import (
-    get_closing_date_new,
-    get_opening_date_new,
+    get_closing_date,
+    get_opening_date,
 )
 import pytest
 from pytz import (  # type: ignore
@@ -96,9 +96,6 @@ import time
 from typing import (
     Optional,
     Tuple,
-)
-from vulnerabilities import (
-    dal as vulns_dal,
 )
 
 pytestmark = [
@@ -180,7 +177,7 @@ async def test_get_vuln_closing_date() -> None:
         type=VulnerabilityType.INPUTS,
         where="https://example.com",
     )
-    test_data = get_closing_date_new(closed_vulnerability)
+    test_data = get_closing_date(closed_vulnerability)
     closing_date = datetime(2019, 1, 8).date()
     assert test_data == closing_date
 
@@ -188,7 +185,7 @@ async def test_get_vuln_closing_date() -> None:
     open_vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
         "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
     )
-    test_data = get_closing_date_new(open_vulnerability)
+    test_data = get_closing_date(open_vulnerability)
     assert test_data is None
 
 
@@ -235,7 +232,7 @@ async def test_get_vuln_opening_date() -> None:
             status=VulnerabilityStateStatus.CLOSED,
         ),
     ]
-    test_data = get_opening_date_new(closed_vuln_historic)
+    test_data = get_opening_date(closed_vuln_historic)
     assert test_data is None
 
     loaders: Dataloaders = get_new_context()
@@ -244,7 +241,7 @@ async def test_get_vuln_opening_date() -> None:
     ] = await loaders.vulnerability_historic_state.load(
         "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
     )
-    test_data = get_opening_date_new(open_vuln_historic)
+    test_data = get_opening_date(open_vuln_historic)
     expected_output = datetime(2020, 9, 9).date()
     assert test_data == expected_output
 

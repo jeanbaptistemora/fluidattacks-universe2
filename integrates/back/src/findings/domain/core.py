@@ -261,7 +261,7 @@ async def get_last_closed_vulnerability_info(
     ] = await finding_vulns_loader.load_many_chained(valid_findings_ids)
     closed_vulns = vulns_utils.filter_closed_vulns(vulns)
     closing_vuln_dates = [
-        vulns_utils.get_closing_date_new(vuln) for vuln in closed_vulns
+        vulns_utils.get_closing_date(vuln) for vuln in closed_vulns
     ]
     if closing_vuln_dates:
         current_date, date_index = max(

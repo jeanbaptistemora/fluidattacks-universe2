@@ -301,29 +301,9 @@ def get_last_approved_state(vuln: Dict[str, FindingType]) -> Dict[str, str]:
 
 
 def get_opening_date(
-    vulnerability: Dict[str, FindingType],
-    min_date: Optional[datetype] = None,
-) -> Optional[datetype]:
-    """Get open vulnerability date of a vulnerability."""
-    open_vulnerability_date: Optional[datetype] = None
-    all_states = cast(
-        List[Dict[str, str]], vulnerability.get("historic_state", [{}])
-    )
-    open_states = [state for state in all_states if state["state"] == "open"]
-    if open_states:
-        open_vulnerability_date = datetime_utils.get_from_str(
-            open_states[-1]["date"].split(" ")[0], date_format="%Y-%m-%d"
-        ).date()
-        if min_date and min_date > open_vulnerability_date:
-            open_vulnerability_date = None
-    return open_vulnerability_date
-
-
-def get_opening_date_new(
     historic: Tuple[VulnerabilityState, ...],
     min_date: Optional[datetype] = None,
 ) -> Optional[datetype]:
-    """Get opening date of a vulnerability."""
     opening_date: Optional[datetype] = None
     open_state = next(
         (
@@ -344,22 +324,6 @@ def get_opening_date_new(
 
 
 def get_closing_date(
-    vulnerability: Dict[str, FindingType],
-    min_date: Optional[datetype] = None,
-) -> Optional[datetype]:
-    """Get last closing date of a vulnerability."""
-    current_state = get_last_approved_state(vulnerability)
-    last_closing_date = None
-    if current_state and current_state.get("state") == "closed":
-        last_closing_date = datetime_utils.get_from_str(
-            current_state.get("date", "").split(" ")[0], date_format="%Y-%m-%d"
-        ).date()
-        if min_date and min_date > last_closing_date:
-            return None
-    return last_closing_date
-
-
-def get_closing_date_new(
     vulnerability: Vulnerability,
     min_date: Optional[datetype] = None,
 ) -> Optional[datetype]:
@@ -389,13 +353,13 @@ def get_mean_remediate_vulnerabilities_cvssf(
 ) -> Decimal:
     total_days: Decimal = Decimal("0.0")
     open_vuln_dates = [
-        get_opening_date_new(historic, min_date)
+        get_opening_date(historic, min_date)
         for historic in vulns_historic_state
     ]
     filtered_open_vuln_dates = [date for date in open_vuln_dates if date]
     closed_vuln_dates: List[Tuple[Optional[datetype], Decimal]] = [
         (
-            get_closing_date_new(vuln, min_date),
+            get_closing_date(vuln, min_date),
             finding_cvssf[vuln.finding_id],
         )
         for vuln, open_vuln in zip(vulns, open_vuln_dates)
@@ -433,13 +397,18 @@ def get_mean_remediate_vulnerabilities_cvssf(
 
 
 def get_mean_remediate_vulnerabilities(
-    vulns: List[VulnerabilityType], min_date: Optional[datetype] = None
+    vulns: Tuple[Vulnerability, ...],
+    vulns_historic_state: Tuple[Tuple[VulnerabilityState, ...]],
+    min_date: Optional[datetype] = None,
 ) -> Decimal:
     """Get mean time to remediate a vulnerability."""
     total_vuln = 0
     total_days = 0
-    open_vuln_dates = [get_opening_date(vuln, min_date) for vuln in vulns]
-    filtered_open_vuln_dates = [vuln for vuln in open_vuln_dates if vuln]
+    open_vuln_dates = [
+        get_opening_date(historic, min_date)
+        for historic in vulns_historic_state
+    ]
+    filtered_open_vuln_dates = [date for date in open_vuln_dates if date]
     closed_vuln_dates = [
         get_closing_date(vuln, min_date)
         for vuln, open_vuln in zip(vulns, open_vuln_dates)
