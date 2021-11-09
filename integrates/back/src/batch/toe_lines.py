@@ -145,7 +145,12 @@ async def get_ignored_files(group_path: str, repo_nickname: str) -> Set[str]:
         "--timeout",
         "900",
     )
-    await asyncio.create_subprocess_exec(*call_cloc, env=CLOC_ENV)
+    await asyncio.create_subprocess_exec(
+        *call_cloc,
+        env=CLOC_ENV,
+        stdout=asyncio.subprocess.DEVNULL,
+        stderr=asyncio.subprocess.STDOUT,
+    )
     repo_nickname_len = len(repo_nickname) + 1
     async with aiofiles.open(
         ignored_filename, "r", encoding="utf8"
@@ -187,6 +192,12 @@ async def get_present_toe_lines_to_add(
             for filename in non_db_filenames
         )
     )
+    last_commit_authors = await collect(
+        tuple(
+            git_utils.get_last_commit_author(repo, filename)
+            for filename in non_db_filenames
+        )
+    )
     return tuple(
         (
             filename,
@@ -195,6 +206,7 @@ async def get_present_toe_lines_to_add(
                 attacked_by="",
                 attacked_lines=0,
                 be_present=True,
+                commit_author=last_commit_author,
                 comments="",
                 first_attack_at="",
                 loc=last_loc,
@@ -205,11 +217,13 @@ async def get_present_toe_lines_to_add(
         )
         for (
             filename,
+            last_commit_author,
             last_loc,
             last_modified_commit,
             last_modified_date,
         ) in zip(
             non_db_filenames,
+            last_commit_authors,
             last_locs,
             last_modified_commits,
             last_modified_dates,
@@ -246,11 +260,19 @@ async def get_present_toe_lines_to_update(
             for filename in db_filenames
         )
     )
+    last_commit_authors = await collect(
+        tuple(
+            git_utils.get_last_commit_author(repo, filename)
+            for filename in db_filenames
+        )
+    )
+    be_present = True
     return tuple(
         (
             repo_toe_lines[filename],
             ToeLinesAttributesToUpdate(
-                be_present=True,
+                be_present=be_present,
+                commit_author=last_commit_author,
                 loc=last_loc,
                 modified_commit=last_modified_commit,
                 modified_date=last_modified_date,
@@ -258,21 +280,27 @@ async def get_present_toe_lines_to_update(
         )
         for (
             filename,
+            last_commit_author,
             last_loc,
             last_modified_commit,
             last_modified_date,
         ) in zip(
             db_filenames,
+            last_commit_authors,
             last_locs,
             last_modified_commits,
             last_modified_dates,
         )
         if (
+            be_present,
+            last_commit_author,
             last_loc,
             last_modified_commit,
             last_modified_date,
         )
         != (
+            repo_toe_lines[filename].be_present,
+            repo_toe_lines[filename].commit_author,
             repo_toe_lines[filename].loc,
             repo_toe_lines[filename].modified_commit,
             repo_toe_lines[filename].modified_date,

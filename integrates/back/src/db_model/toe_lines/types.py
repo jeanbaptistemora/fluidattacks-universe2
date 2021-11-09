@@ -13,6 +13,7 @@ class ToeLines(NamedTuple):
     attacked_lines: int
     be_present: bool
     comments: str
+    commit_author: str
     filename: str
     first_attack_at: str
     group_name: str
@@ -33,6 +34,7 @@ class ToeLinesMetadataToUpdate(NamedTuple):
     attacked_lines: Optional[int] = None
     be_present: Optional[bool] = None
     comments: Optional[str] = None
+    commit_author: Optional[str] = None
     first_attack_at: Optional[str] = None
     loc: Optional[int] = None
     modified_commit: Optional[str] = None
