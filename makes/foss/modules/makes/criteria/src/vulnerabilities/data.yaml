@@ -8434,29 +8434,40 @@
   en:
     title: Use of deprecated components
     description: >
-      __empty__
+      Some dependencies used are obsolete.
     impact: >
-      __empty__
+      Exploit possible bugs and/or
+      vulnerabilities that cannot be
+      fixed by updating the dependency.
     recommendation: >
-      __empty__
+      Migrate obsolete units to their
+      updated equivalent.
     threat: >
-      __empty__
+      Anonymous attacker on the internet
+      with knowledge of the vulnerabilities
+      of the unit.
   es:
     title: Use of deprecated components
     description: >
-      __empty__
+      Algunas dependencias utilizadas
+      son obsoletas.
     impact: >
-      __empty__
+      Explotar posibles bugs y/o vulnerabilidades
+      que no podrán ser corregidas actualizando
+      la dependencia.
     recommendation: >
-      __empty__
+      Migrar las dependencias obsoletas
+      por su equivalente actualizado.
     threat: >
-      __empty__
+      Atacante anónimo en internet con
+      conocimiento de las vulnerabilidades
+      de la dependencia.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "H"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
