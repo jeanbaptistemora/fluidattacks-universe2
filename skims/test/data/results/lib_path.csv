@@ -9778,6 +9778,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (forwarded v0.1.
    51 |     ""http-auth"": ""3.1.3"",
       ^ Col 0
 "
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (forwarded v0.1.0) [GMS-2017-233],41,937,skims,011. Use of software with known vulnerabilities,Use of forwarded at version 0.1.0 with GMS-2017-233 in skims/test/data/lib_path/f011/package.json,"
+   31 |     ""dojox"": ""1.6.5"",
+   32 |     ""dot-prop"": ""5.0.0"",
+   33 |     ""hot-object"": ""1.7.0"",
+   34 |     ""ejs"": ""2.6.1"",
+   35 |     ""engine.io"": ""3.4.2"",
+   36 |     ""eslint-utils"": ""1.4.0"",
+   37 |     ""express"": ""2.5.11"",
+   38 |     ""fast-csv"": ""3.7.0"",
+   39 |     ""find-process"": ""1.4.4"",
+   40 |     ""flat"": ""2.0.0"",
+>  41 |     ""forwarded"": ""0.1.0"",
+   42 |     ""fresh"": ""xxxxwhasdflaskdjfasdf"",
+   43 |     ""fstream"": ""1.0.11"",
+   44 |     ""glob-parent"": ""5.1.1"",
+   45 |     ""growl"": ""1.0.2"",
+   46 |     ""hapi"": ""16.7.0"",
+   47 |     ""hawk"": ""2.3.1"",
+   48 |     ""hoek"": ""^5.0.0"",
+   49 |     ""hosted-git-info"": ""2.8.5"",
+   50 |     ""html-parse-stringify"": ""2.0.0"",
+   51 |     ""http-auth"": ""3.1.3"",
+      ^ Col 0
+"
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (fstream v1.0.11) [CVE-2019-13173],43,937,skims,011. Use of software with known vulnerabilities,Use of fstream at version 1.0.11 with CVE-2019-13173 in skims/test/data/lib_path/f011/package.json,"
    33 |     ""hot-object"": ""1.7.0"",
    34 |     ""ejs"": ""2.6.1"",
@@ -9920,6 +9944,69 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (hapi v16.7.0) [
    54 |     ""https-proxy-agent"": ""1.0.0"",
    55 |     ""i18next"": ""19.8.4"",
    56 |     ""immer"": ""8.0.1"",
+      ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (hawk v2.3.1) [CVE-2016-2515],47,937,skims,011. Use of software with known vulnerabilities,Use of hawk at version 2.3.1 with CVE-2016-2515 in skims/test/data/lib_path/f011/package.json,"
+   37 |     ""express"": ""2.5.11"",
+   38 |     ""fast-csv"": ""3.7.0"",
+   39 |     ""find-process"": ""1.4.4"",
+   40 |     ""flat"": ""2.0.0"",
+   41 |     ""forwarded"": ""0.1.0"",
+   42 |     ""fresh"": ""xxxxwhasdflaskdjfasdf"",
+   43 |     ""fstream"": ""1.0.11"",
+   44 |     ""glob-parent"": ""5.1.1"",
+   45 |     ""growl"": ""1.0.2"",
+   46 |     ""hapi"": ""16.7.0"",
+>  47 |     ""hawk"": ""2.3.1"",
+   48 |     ""hoek"": ""^5.0.0"",
+   49 |     ""hosted-git-info"": ""2.8.5"",
+   50 |     ""html-parse-stringify"": ""2.0.0"",
+   51 |     ""http-auth"": ""3.1.3"",
+   52 |     ""http-signature"": ""0.11.0"",
+   53 |     ""http-proxy"": ""1.17.0"",
+   54 |     ""https-proxy-agent"": ""1.0.0"",
+   55 |     ""i18next"": ""19.8.4"",
+   56 |     ""immer"": ""8.0.1"",
+   57 |     ""ini"": ""1.3.5"",
+      ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0) [CVE-2018-3728],6,937,skims,011. Use of software with known vulnerabilities,Use of hoek at version 5.0.0 with CVE-2018-3728 in skims/test/data/lib_path/f011/package-lock.json,"
+   1 | {
+   2 |   ""dependencies"": {
+   3 |     ""@babel/core"": {
+   4 |       ""version"": ""7.11.0"",
+   5 |       ""dependencies"": {
+>  6 |         ""hoek"": {
+   7 |           ""version"": ""5.0.0""
+   8 |         }
+   9 |       }
+  10 |     }
+  11 |   }
+  12 | }
+     ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (hoek v^5.0.0) [CVE-2018-3728],48,937,skims,011. Use of software with known vulnerabilities,Use of hoek at version 5.0.0 with CVE-2018-3728 in skims/test/data/lib_path/f011/package.json,"
+   38 |     ""fast-csv"": ""3.7.0"",
+   39 |     ""find-process"": ""1.4.4"",
+   40 |     ""flat"": ""2.0.0"",
+   41 |     ""forwarded"": ""0.1.0"",
+   42 |     ""fresh"": ""xxxxwhasdflaskdjfasdf"",
+   43 |     ""fstream"": ""1.0.11"",
+   44 |     ""glob-parent"": ""5.1.1"",
+   45 |     ""growl"": ""1.0.2"",
+   46 |     ""hapi"": ""16.7.0"",
+   47 |     ""hawk"": ""2.3.1"",
+>  48 |     ""hoek"": ""^5.0.0"",
+   49 |     ""hosted-git-info"": ""2.8.5"",
+   50 |     ""html-parse-stringify"": ""2.0.0"",
+   51 |     ""http-auth"": ""3.1.3"",
+   52 |     ""http-signature"": ""0.11.0"",
+   53 |     ""http-proxy"": ""1.17.0"",
+   54 |     ""https-proxy-agent"": ""1.0.0"",
+   55 |     ""i18next"": ""19.8.4"",
+   56 |     ""immer"": ""8.0.1"",
+   57 |     ""ini"": ""1.3.5"",
+   58 |     ""ip"": ""1.0.1"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0) [npm:hoek:20180212],6,937,skims,011. Use of software with known vulnerabilities,Use of hoek at version 5.0.0 with npm:hoek:20180212 in skims/test/data/lib_path/f011/package-lock.json,"
@@ -15458,6 +15545,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ws v0.8.1) [CVE
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ws v0.8.1) [CVE-2016-10542],135,937,skims,011. Use of software with known vulnerabilities,Use of ws at version 0.8.1 with CVE-2016-10542 in skims/test/data/lib_path/f011/package.json,"
+  119 |     ""tar"": ""2.2.1"",
+  120 |     ""trim"": ""1.0.1"",
+  121 |     ""trim-newlines"": ""1.0.0"",
+  122 |     ""tunnel-agent"": ""0.4.3"",
+  123 |     ""ua-parser"": ""0.7.20"",
+  124 |     ""ua-parser-js"": ""0.7.12"",
+  125 |     ""uglify-js"": ""2.5.0"",
+  126 |     ""underscore"": ""1.12.0"",
+  127 |     ""url-parse"": ""1.4.7"",
+  128 |     ""urijs"": ""1.19.2"",
+  129 |     ""useragent"": ""2.3.0"",
+  130 |     ""utils-extend"": ""1.0.8"",
+  131 |     ""xcode"": ""3.0.1"",
+  132 |     ""xlsx"": ""0.15.5"",
+  133 |     ""xmldom"": ""0.4.0"",
+  134 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+> 135 |     ""ws"": ""0.8.1"",
+  136 |     ""y18n"": ""4.0.0"",
+  137 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+=""
+  138 |   }
+  139 | }
+      ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ws v0.8.1) [GMS-2016-2],135,937,skims,011. Use of software with known vulnerabilities,Use of ws at version 0.8.1 with GMS-2016-2 in skims/test/data/lib_path/f011/package.json,"
   119 |     ""tar"": ""2.2.1"",
   120 |     ""trim"": ""1.0.1"",
   121 |     ""trim-newlines"": ""1.0.0"",
