@@ -8562,38 +8562,54 @@
   en:
     title: Lack of data validation - URL
     description: >
-      __empty__
+      Any user on the Internet can obtain
+      information on users who have sent
+      their documents through the portal by
+      sending as a parameter in the URL the
+      date on which the document was sent.
     impact: >
-      __empty__
+      Obtain information of the
+      platform users.
     recommendation: >
-      __empty__
+      Validate the right permissions
+      to access user information.
     threat: >
-      __empty__
+      External attacker with valid values
+      for the radicadoHours parameter.
   es:
     title: Lack of data validation - URL
     description: >
-      __empty__
+      Cualquier usuario en Internet puede
+      obtener información de usuarios que
+      han enviado sus documentos a través
+      del portal, enviando como parámetro
+      en la URL la fecha en que se realizó
+      el envío del documento.
     impact: >
-      __empty__
+      Obtener información de los usuarios
+      de la plataforma.
     recommendation: >
-      __empty__
+      Validar que se tengan los permisos
+      para acceder a información de los
+      usuarios.
     threat: >
-      __empty__
+      Atacante externo con valores válidos
+      para el parámetro radicadoHours.
   category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "H"
+      attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "P"
-      remediation_level: "O"
-      report_confidence: "R"
+      exploit_code_maturity: "X"
+      remediation_level: "W"
+      report_confidence: "X"
   requirements: ["173"]
   metadata:
     en:
