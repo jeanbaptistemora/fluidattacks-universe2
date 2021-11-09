@@ -46,6 +46,10 @@ const errorMessageHelper = (message: string): void => {
   } else if (message === "Expected vulnerability to have repo_nickname") {
     msgError(translate.t("groupAlerts.expectedVulnToHaveNickname"));
   } else if (
+    message === "Invalid, only New vulnerabilities with Open state are allowed"
+  ) {
+    msgError(translate.t("groupAlerts.onlyNewVulnerabilitiesOpenState"));
+  } else if (
     message === "Invalid, you cannot change the nickname while closing"
   ) {
     msgError(translate.t("groupAlerts.invalidCannotModifyNicknameWhenClosing"));

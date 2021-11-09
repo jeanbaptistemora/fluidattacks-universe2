@@ -800,6 +800,8 @@ export const enTranslations: ResourceKey = {
     noFileUpdate: "Failed to update the file",
     noFound: "Vulnerabilities in the request not found",
     noVerificationRequested: "No verification requested",
+    onlyNewVulnerabilitiesOpenState:
+      "Only new vulnerabilities with Open state are allowed",
     organizationPolicies: {
       exceedsAcceptanceDate:
         "Chosen date is either in the past or exceeds the maximum number of days allowed " +
