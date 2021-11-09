@@ -7784,16 +7784,16 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["029"]
   metadata:
@@ -7838,13 +7838,13 @@
       attack_vector: "N"
       attack_complexity: "L"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["029"]
@@ -7895,16 +7895,16 @@
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["029"]
@@ -7954,8 +7954,8 @@
   score:
     base:
       attack_vector: "A"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "H"
       user_interaction: "R"
       scope: "U"
       confidentiality: "L"
@@ -8074,12 +8074,12 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "H"
-      privileges_required: "N"
-      user_interaction: "N"
+      attack_complexity: "L"
+      privileges_required: "H"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "L"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "P"
@@ -8134,17 +8134,17 @@
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["148", "149", "150", "181", "336"]
   metadata:
@@ -8190,7 +8190,7 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "H"
+      attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "R"
       scope: "U"
@@ -8257,7 +8257,7 @@
     temporal:
       exploit_code_maturity: "P"
       remediation_level: "O"
-      report_confidence: "R"
+      report_confidence: "X"
   requirements: ["062", "175", "266", "349"]
   metadata:
     en:
@@ -8320,7 +8320,7 @@
     temporal:
       exploit_code_maturity: "P"
       remediation_level: "O"
-      report_confidence: "R"
+      report_confidence: "X"
   requirements: ["062", "177", "266", "349"]
   metadata:
     en:
@@ -8377,7 +8377,7 @@
     temporal:
       exploit_code_maturity: "P"
       remediation_level: "O"
-      report_confidence: "R"
+      report_confidence: "X"
   requirements: ["062" ,"266" ,"349"]
   metadata:
     en:
