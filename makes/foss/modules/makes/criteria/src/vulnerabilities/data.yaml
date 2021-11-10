@@ -10803,37 +10803,51 @@
   en:
     title: Insecure service configuration - Security Groups
     description: >
-      __empty__
+      EC2 Security Groups are not explicitly defined.
+      Security Group input/output rules are not defined.
     impact: >
-      __empty__
+      - Extract information from the server
+      without proper consent.
+
+      - Creating holes to gain remote access.
     recommendation: >
-      __empty__
+      Securely configure the vulnerable service by
+      explicitly defining the Security Groups.
     threat: >
-      __empty__
+      Anonymous attacker with access to an EC2
+      instance from an internal network.
   es:
     title: Insecure service configuration - Security Groups
     description: >
-      __empty__
+      No se definen explicitamente los Security
+      Groups de EC2.
+      No se definen las reglas de entrada/salida
+      de los Security Group.
     impact: >
-      __empty__
+      - Extraer información del servidor sin
+      el consentimiento adecuado.
+
+      - Crear agujeros para tener acceso remoto.
     recommendation: >
-      __empty__
+      Configurar de manera segura el servicio vulnerable
+      definiendo explicitamente los Security Groups.
     threat: >
-      __empty__
+      Atacante anónimo con acceso a una instancia
+      de EC2 desde una red interna.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
