@@ -10902,37 +10902,41 @@
   en:
     title: Insecure service configuration - SMB
     description: >
-      __empty__
+      SMBv1 is enabled, this version does not
+      support encryption and has multiple vulnerabilities.
     impact: >
-      __empty__
+      Exploit known vulnerabilities
+      found in the affected components.
     recommendation: >
-      __empty__
+      Disable SMBv1 and use SMBv3 version.
     threat: >
-      __empty__
+      Authenticated internal attacker.
   es:
     title: Insecure service configuration - SMB
     description: >
-      __empty__
+      SMBv1 se encuentra habilitado, esta versión
+      no admite cifrado y tiene múltipes vulnerabilidades.
     impact: >
-      __empty__
+      Explotar vulnerabilidades conocidas encontradas
+      en los componentes afectados.
     recommendation: >
-      __empty__
+      Deshabilitar SMBv1 y usar la versión SMBv3.
     threat: >
-      __empty__
+      Atacante interno autenticado.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
