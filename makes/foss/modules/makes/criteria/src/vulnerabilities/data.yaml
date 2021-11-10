@@ -10592,37 +10592,49 @@
   en:
     title: Insecure service configuration - Backup
     description: >
-      __empty__
+      The mobile application is allowed
+      to backup the application data
+      stored on the device, allowing
+      information leaks to occur.
     impact: >
-      __empty__
+      Obtain confidential information
+      from the application.
     recommendation: >
-      __empty__
+      Securely configure the service so
+      that it does not allow data backups.
     threat: >
-      __empty__
+      Unauthenticated attacker with
+      physical access to mobile device.
   es:
     title: Insecure service configuration - Backup
     description: >
-      __empty__
+      La aplicación móvil tiene permitido el
+      backup a los datos de la aplicación
+      almacenados en el dispositivo, permitiendo
+      que se den fugas de información.
     impact: >
-      __empty__
+      Obtener información confidencial
+      de la aplicación.
     recommendation: >
-      __empty__
+      Configurar de manera segura el servicio de
+      modo que no permita realizar un backup de los datos.
     threat: >
-      __empty__
+      Atacante sin autenticar con acceso
+      físico al dispositivo móvil.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "P"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
