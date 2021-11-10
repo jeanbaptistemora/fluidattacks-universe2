@@ -1,6 +1,7 @@
 { makeScript
 , outputs
 , projectPath
+, inputs
 , ...
 }:
 makeScript {
@@ -15,6 +16,9 @@ makeScript {
       outputs."/forces/config-runtime"
       outputs."/utils/sops"
       outputs."/utils/aws"
+    ];
+    bin = [
+      inputs.nixpkgs.kubectl
     ];
   };
   entrypoint = projectPath "/makes/foss/units/forces/test/entrypoint.sh";

@@ -18,6 +18,13 @@ function main {
     API_ENDPOINT="https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api"
   fi \
     && aws_login_dev_new \
+    && if test -n "${CI:-}"; then
+      aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
+        && kubectl rollout status \
+          "deploy/integrates-${CI_COMMIT_REF_NAME}" \
+          -n "development" \
+          --timeout="15m"
+    fi \
     && sops_export_vars __argSecretsFile__ "INTEGRATES_FORCES_API_TOKEN" \
     && pushd forces/ \
     && source __argForcesRuntime__/template \
