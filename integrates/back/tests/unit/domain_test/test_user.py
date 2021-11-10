@@ -7,6 +7,9 @@ from context import (
 from custom_exceptions import (
     InvalidPushToken,
 )
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
 from organizations.domain import (
     get_id_by_name,
     get_user_organizations,
@@ -71,8 +74,58 @@ async def test_remove_user() -> None:
     assert len(subscriptions) == 1
     assert subscriptions[0]["sk"]["entity"] == "DIGEST"
 
+    before_remove_authzs = await dynamodb_ops.scan("fi_authz", {})
+    before_remove_project_access = await dynamodb_ops.scan(
+        "FI_project_access", {}
+    )
+    assert (
+        len(
+            [
+                authz
+                for authz in before_remove_authzs
+                if authz["subject"] == email
+            ]
+        )
+        >= 1
+    )
+    assert (
+        len(
+            [
+                access
+                for access in before_remove_project_access
+                if access["user_email"] == email
+            ]
+        )
+        >= 1
+    )
+
     await remove_user_all_organizations(email=email)
 
     assert await users_domain.get_data(email, "email") == ""
     assert await get_user_organizations(email) == []
     assert await get_user_subscriptions(user_email=email) == []
+
+    after_remove_authzs = await dynamodb_ops.scan("fi_authz", {})
+    after_removed_project_access = await dynamodb_ops.scan(
+        "FI_project_access", {}
+    )
+    assert (
+        len(
+            [
+                authz
+                for authz in after_remove_authzs
+                if authz["subject"] == email
+            ]
+        )
+        == 0
+    )
+    assert (
+        len(
+            [
+                access
+                for access in after_removed_project_access
+                if access["user_email"] == email
+            ]
+        )
+        == 0
+    )
