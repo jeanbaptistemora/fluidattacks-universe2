@@ -10481,23 +10481,42 @@
   en:
     title: Insecure service configuration - Firewall
     description: >
-      __empty__
+      The server where the application is
+      hosted has port 8080 open running
+      the http-proxy service.
     impact: >
-      __empty__
+      Anonymous user from the Internet establishes
+      a connection with the port open.
     recommendation: >
-      __empty__
+      Securely configure the vulnerable service,
+      so that it can only be accessed by authorized users.
     threat: >
-      __empty__
+      An open proxy allows malicious clients to
+      mount attacks originating from the IP address of
+      the server running the proxy, without requiring
+      authentication from the attacker.
+      It can also allow an attacker to access the internal
+      network on which the server is located.
   es:
     title: Insecure service configuration - Firewall
     description: >
-      __empty__
+      El servidor donde se aloja la aplicación
+      tiene abierto el puerto 8080 corriendo el
+      servicio http-proxy.
     impact: >
-      __empty__
+      Usuario anónimo desde internet establece una
+      conexión con el puerto abierto.
     recommendation: >
-      __empty__
+      Configurar de manera segura el servicio
+      vulnerable permitiendo así que solo sea
+      accedido por usuarios autorizados.
     threat: >
-      __empty__
+      Un proxy abierto permite que clientes maliciosos
+      monten ataques que se originan desde la dirección
+      IP del servidor ejecutando el proxy, sin requerir
+      autenticación del atacante.
+      También puede permitir que un atacante acceda a la
+      red interna en la que está el servidor.
   category: Abuse Functionality
   score:
     base:
@@ -10510,9 +10529,9 @@
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "W"
+      report_confidence: "R"
   requirements: ["266"]
   metadata:
     en:
