@@ -29,6 +29,9 @@ from tap_announcekit.objs.project import (
     Project,
     ProjectObj,
 )
+from tap_announcekit.streams._query_utils import (
+    select_fields,
+)
 from tap_announcekit.utils import (
     CastUtils,
 )
@@ -73,9 +76,7 @@ class ProjectQuery:
 
     def _select_fields(self, query: Operation) -> IO[None]:
         proj = query.project(project_id=self.proj_id.id_str)
-        for attr, _ in Project.__annotations__.items():
-            getattr(proj, attr)()
-        return IO(None)
+        return select_fields(proj, frozenset(Project.__annotations__))
 
     def query(self) -> Query[ProjectObj]:
         return QueryFactory.select(

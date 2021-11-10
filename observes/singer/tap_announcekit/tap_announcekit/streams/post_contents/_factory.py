@@ -26,6 +26,9 @@ from tap_announcekit.objs.post.content import (
     PostContent,
     PostContentObj,
 )
+from tap_announcekit.streams._query_utils import (
+    select_fields,
+)
 from typing import (
     cast,
     List,
@@ -53,9 +56,7 @@ class PostContentQuery:
         contents = query.post(
             project_id=self.post.proj.id_str, post_id=self.post.id_str
         ).contents()
-        for attr, _ in PostContent.__annotations__.items():
-            getattr(contents, attr)()
-        return IO(None)
+        return select_fields(contents, frozenset(PostContent.__annotations__))
 
     def query(self) -> Query[FrozenList[PostContentObj]]:
         return QueryFactory.select(

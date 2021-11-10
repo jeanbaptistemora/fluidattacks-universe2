@@ -29,6 +29,9 @@ from tap_announcekit.objs.post import (
     PostIdPage,
     PostObj,
 )
+from tap_announcekit.streams._query_utils import (
+    select_fields,
+)
 from tap_announcekit.streams.posts._factory import (
     _from_raw,
 )
@@ -52,10 +55,7 @@ class PostQuery:
         proj = query.post(
             project_id=self.post.proj.id_str, post_id=self.post.id_str
         )
-        proj.project_id()
-        for attr, _ in Post.__annotations__.items():
-            _attr = "id" if attr == "obj_id" else attr
-            getattr(proj, _attr)()
+        select_fields(proj, frozenset(Post.__annotations__))
         return IO(None)
 
     def query(self) -> Query[PostObj]:

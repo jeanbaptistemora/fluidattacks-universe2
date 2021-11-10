@@ -26,8 +26,11 @@ from tap_announcekit.objs.id_objs import (
 from tap_announcekit.objs.page import (
     DataPage,
 )
+from tap_announcekit.streams._query_utils import (
+    select_fields,
+    select_page_fields,
+)
 from typing import (
-    Any,
     cast,
 )
 
@@ -38,19 +41,11 @@ class ExtUserIdsQuery:
     proj: ProjectId
     page: int
 
-    @staticmethod
-    def _select_page_fields(page_selection: Any) -> IO[None]:
-        props = DataPage.__annotations__.copy()
-        del props["items"]
-        for attr in props:
-            getattr(page_selection, attr)()
-        return IO(None)
-
     def _select_fields(self, operation: Operation) -> IO[None]:
         page_selection = operation.external_users(
             project_id=self.proj.id_str, page=self.page
         )
-        self._select_page_fields(page_selection)
+        select_page_fields(page_selection)
         page_selection.items().id()
         return IO(None)
 
@@ -73,19 +68,12 @@ class ExtUserQuery:
     _to_obj: Transform[RawExtUser, ExternalUser]
     id_obj: ExtUserId
 
-    @staticmethod
-    def _select_page_fields(page_selection: Any) -> IO[None]:
-        props = ExternalUser.__annotations__.copy()
-        for attr in props:
-            getattr(page_selection, attr)()
-        return IO(None)
-
     def _select_fields(self, operation: Operation) -> IO[None]:
-        page_selection = operation.external_user(
+        selection = operation.external_user(
             project_id=self.id_obj.proj.id_str,
             external_user_id=self.id_obj.id_str,
         )
-        self._select_page_fields(page_selection)
+        select_fields(selection, frozenset(ExternalUser.__annotations__))
         return IO(None)
 
     @property
