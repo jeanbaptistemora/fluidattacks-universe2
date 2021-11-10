@@ -10644,34 +10644,56 @@
   en:
     title: Insecure service configuration - Backdoor
     description: >
-      __empty__
+      Due a misconfiguration on services it is
+      possible to upload files and install backdoors
+      for later access, and leave them for public access.
     impact: >
-      __empty__
+      - Leave a shell for public access.
+
+      - Get access to server files.
+
+      - Upload and erase resources.
     recommendation: >
-      __empty__
+      Implement the secure configuration of the
+      vulnerable service, allowing it to only be
+      accessed by authorized users and execute
+      continuous monitoring on resources and  the server.
     threat: >
-      __empty__
+      Unauthorized external attacker with a
+      service that allow the upload of files.
   es:
     title: Insecure service configuration - Backdoor
     description: >
-      __empty__
+      Debido a una mala configuración en los servicios
+      es posible subir archivos e instalar puertas
+      traseras para su posterior acceso, y dejarlas
+      para el acceso público.
     impact: >
-      __empty__
+      - Dejar un shell para el acceso público.
+
+      - Obtener acceso a los archivos del servidor.
+
+      - Cargar y borrar recursos.
     recommendation: >
-      __empty__
+      Implementar la configuración segura del
+      servicio vulnerable, permitiendo que sólo
+      accedan a él los usuarios autorizados y
+      ejecutar una monitorización continua sobre
+      los recursos y el servidor.
     threat: >
-      __empty__
+      Atacante externo no autorizado con un servicio
+      que permite la subida de archivos.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      scope: "C"
+      confidentiality: "H"
+      integrity: "H"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
