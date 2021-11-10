@@ -10540,37 +10540,49 @@
   en:
     title: Insecure service configuration - App Backup
     description: >
-      __empty__
+      The application has the backup option active,
+      which allows an attacker who has access to a
+      user's device to obtain the information stored
+      by the application inside the device.
     impact: >
-      __empty__
+      Obtain confidential user and application information.
     recommendation: >
-      __empty__
+      Unless absolutely necessary, the application
+      should not allow to backup itself.
     threat: >
-      __empty__
+      Anonymous attacker with local access
+      to a user's device.
   es:
     title: Insecure service configuration - App Backup
     description: >
-      __empty__
+      La aplicación tiene la opción de backup activa,
+      lo que le permite a un atacante que tenga acceso
+      al dispositivo de un usuario, obtener la información
+      almacenada por la aplicación dentro del dispositivo.
     impact: >
-      __empty__
+      Obtener información confidencial del
+      usuario y la aplicación.
     recommendation: >
-      __empty__
+      A no ser que sea absolutamente necesario,
+      la aplicación no debe permitir realizar
+      un backup de si misma.
     threat: >
-      __empty__
+      Atacante anónimo con acceso local al
+      dispositivo de un usuario.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
