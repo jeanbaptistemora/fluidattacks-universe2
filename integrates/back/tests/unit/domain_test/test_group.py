@@ -145,7 +145,7 @@ async def test_get_vulnerabilities_with_pending_attacks() -> None:
     assert test_data == expected_output
 
 
-async def test_get_last_closing_vulnerability() -> None:
+async def test_get_last_closed_vulnerability() -> None:
     findings_to_get = ["463558592", "422286126"]
     loaders: Dataloaders = get_new_context()
     findings: Tuple[Finding, ...] = await loaders.finding.load_many(
@@ -224,15 +224,13 @@ async def test_get_open_findings() -> None:
 
 
 async def test_get_vuln_opening_date() -> None:
-    closed_vuln_historic: Tuple[VulnerabilityState, ...] = tuple(
-        [
-            VulnerabilityState(
-                modified_by="test@test.com",
-                modified_date="2019-01-08T21:01:26+00:00",
-                source=Source.ASM,
-                status=VulnerabilityStateStatus.CLOSED,
-            ),
-        ]
+    closed_vuln_historic: Tuple[VulnerabilityState, ...] = (
+        VulnerabilityState(
+            modified_by="test@test.com",
+            modified_date="2019-01-08T21:01:26+00:00",
+            source=Source.ASM,
+            status=VulnerabilityStateStatus.CLOSED,
+        ),
     )
     test_data = get_opening_date(closed_vuln_historic)
     assert test_data is None

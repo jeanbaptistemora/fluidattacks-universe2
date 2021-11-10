@@ -489,20 +489,6 @@ def get_reattack_requesters(
 
 
 def get_report_dates(
-    vulnerabilities: List[Dict[str, FindingType]]
-) -> List[datetime]:
-    """Get report dates for vulnerabilities."""
-    report_dates = [
-        datetime_utils.get_from_str(
-            cast(HistoricType, vuln["historic_state"])[0]["date"]
-        )
-        for vuln in vulnerabilities
-    ]
-
-    return report_dates
-
-
-def get_report_dates_new(
     historics: Tuple[Tuple[VulnerabilityState, ...]]
 ) -> Tuple[datetime, ...]:
     """Get report dates for vulnerabilities, given the historic state."""

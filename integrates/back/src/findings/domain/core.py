@@ -245,7 +245,7 @@ async def get_finding_open_age(loaders: Any, finding_id: str) -> int:
     vulns_historic_state: Tuple[
         Tuple[VulnerabilityState, ...]
     ] = await vulns_historic_loader.load_many([vuln.id for vuln in open_vulns])
-    report_dates = vulns_utils.get_report_dates_new(vulns_historic_state)
+    report_dates = vulns_utils.get_report_dates(vulns_historic_state)
     if report_dates:
         oldest_report_date = min(report_dates)
         return (datetime_utils.get_now() - oldest_report_date).days
@@ -255,7 +255,7 @@ async def get_finding_open_age(loaders: Any, finding_id: str) -> int:
 async def get_last_closed_vulnerability_info(
     loaders: Any,
     findings: Tuple[Finding, ...],
-) -> Tuple[Decimal, Vulnerability]:
+) -> Tuple[Decimal, Optional[Vulnerability]]:
     """Get days since the last closed vulnerability."""
     finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
     valid_findings_ids = [
@@ -279,7 +279,7 @@ async def get_last_closed_vulnerability_info(
         ).quantize(Decimal("0.1"))
     else:
         last_closed_days = Decimal(0)
-        last_closed_vuln = {}
+        last_closed_vuln = None
     return last_closed_days, last_closed_vuln
 
 
@@ -331,7 +331,7 @@ async def get_newest_vulnerability_report_date(
     vulns_historic_state: Tuple[
         Tuple[VulnerabilityState, ...]
     ] = await vulns_historic_loader.load_many([vuln.id for vuln in vulns])
-    report_dates = vulns_utils.get_report_dates_new(vulns_historic_state)
+    report_dates = vulns_utils.get_report_dates(vulns_historic_state)
     if report_dates:
         return datetime_utils.get_as_utc_iso_format(max(report_dates))
     return ""
@@ -377,7 +377,7 @@ async def get_pending_verification_findings(
 
 
 def get_report_days(report_date: str) -> int:
-    """Gets amount of days from a report date"""
+    """Gets amount of days from a report date."""
     days = 0
     if report_date:
         date = datetime.fromisoformat(report_date)
@@ -863,25 +863,37 @@ async def get_oldest_no_treatment(
 
 
 async def get_oldest_open_vulnerability_report_date(
-    context: Any, finding_id: str
+    loaders: Any,
+    finding_id: str,
 ) -> str:
-    open_date = ""
-    finding_vulns_loader = context.finding_vulns_nzr
-    vulns = await finding_vulns_loader.load(finding_id)
-    open_vulns = vulns_utils.filter_open_vulns(vulns)
-    report_dates = vulns_utils.get_report_dates(open_vulns)
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
+        finding_id
+    )
+    open_vulns = vulns_utils.filter_open_vulns_new(vulns)
+    vulns_historic_loader: DataLoader = loaders.vulnerability_historic_state
+    vulns_historic_state: Tuple[
+        Tuple[VulnerabilityState, ...]
+    ] = await vulns_historic_loader.load_many([vuln.id for vuln in open_vulns])
+    report_dates = vulns_utils.get_report_dates(vulns_historic_state)
     if report_dates:
-        open_date = datetime_utils.get_as_utc_iso_format(min(report_dates))
-    return open_date
+        return datetime_utils.get_as_utc_iso_format(min(report_dates))
+    return ""
 
 
 async def get_oldest_vulnerability_report_date(
-    context: Any, finding_id: str
+    loaders: Any,
+    finding_id: str,
 ) -> str:
-    date = ""
-    finding_vulns_loader: DataLoader = context.finding_vulns_nzr
-    vulns = await finding_vulns_loader.load(finding_id)
-    report_dates = vulns_utils.get_report_dates(vulns)
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
+        finding_id
+    )
+    vulns_historic_loader: DataLoader = loaders.vulnerability_historic_state
+    vulns_historic_state: Tuple[
+        Tuple[VulnerabilityState, ...]
+    ] = await vulns_historic_loader.load_many([vuln.id for vuln in vulns])
+    report_dates = vulns_utils.get_report_dates(vulns_historic_state)
     if report_dates:
-        date = datetime_utils.get_as_utc_iso_format(min(report_dates))
-    return date
+        return datetime_utils.get_as_utc_iso_format(min(report_dates))
+    return ""
