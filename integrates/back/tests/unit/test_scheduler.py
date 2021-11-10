@@ -6,6 +6,7 @@ from collections import (
     OrderedDict,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from db_model.findings.types import (
@@ -66,9 +67,6 @@ from users import (
 )
 from vulnerabilities.dal import (
     get as get_vuln,
-)
-from vulnerabilities.domain import (
-    list_vulnerabilities_async,
 )
 
 pytestmark = [
@@ -213,22 +211,18 @@ def test_create_data_format_chart() -> None:
 
 
 async def test_get_first_week_dates() -> None:
-    vulns = await list_vulnerabilities_async(
-        ["422286126"],
-        include_confirmed_zero_risk=True,
-        include_requested_zero_risk=True,
-    )
+    loaders: Dataloaders = get_new_context()
+    finding_id = "422286126"
+    vulns = await loaders.finding_vulns.load(finding_id)
     test_data = update_indicators.get_first_week_dates(vulns)
     expected_output = ("2019-12-30 00:00:00", "2020-01-05 23:59:59")
     assert test_data == expected_output
 
 
 async def test_get_date_last_vulns() -> None:
-    vulns = await list_vulnerabilities_async(
-        ["422286126"],
-        include_confirmed_zero_risk=True,
-        include_requested_zero_risk=True,
-    )
+    loaders: Dataloaders = get_new_context()
+    finding_id = "422286126"
+    vulns = await loaders.finding_vulns.load(finding_id)
     test_data = update_indicators.get_date_last_vulns(vulns)
     expected_output = "2020-09-07 16:01:26"
     assert test_data == expected_output

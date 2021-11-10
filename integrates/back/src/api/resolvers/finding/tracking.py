@@ -1,6 +1,3 @@
-from aiodataloader import (
-    DataLoader,
-)
 from custom_types import (
     Tracking as TrackingItem,
 )
@@ -25,11 +22,9 @@ async def resolve(
         return []
 
     loaders = info.context.loaders
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
-    historic_state_loader: DataLoader = loaders.vulnerability_historic_state
-    historic_treatment_loader: DataLoader = (
-        loaders.vulnerability_historic_treatment
-    )
+    finding_vulns_loader = loaders.finding_vulns_nzr_typed
+    historic_state_loader = loaders.vulnerability_historic_state
+    historic_treatment_loader = loaders.vulnerability_historic_treatment
 
     vulns = await finding_vulns_loader.load(parent.id)
     vulns_state = await historic_state_loader.load_many(

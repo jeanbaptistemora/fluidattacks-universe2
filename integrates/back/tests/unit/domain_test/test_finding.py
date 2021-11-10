@@ -54,7 +54,6 @@ from typing import (
     Tuple,
 )
 from vulnerabilities.domain import (
-    list_vulnerabilities_async,
     validate_treatment_change,
 )
 
@@ -416,15 +415,10 @@ async def test_approve_draft() -> None:
 
     expected_date = "2019-11-30 19:00:00"
     assert isinstance(approval_date, str)
-    assert approval_date == datetime_utils.get_as_utc_iso_format(
-        datetime_utils.get_from_str(expected_date)
-    )
-    all_vulns = await list_vulnerabilities_async(
-        [finding_id],
-        should_list_deleted=True,
-        include_requested_zero_risk=True,
-        include_confirmed_zero_risk=True,
-    )
+    assert approval_date == datetime_utils.convert_to_iso_str(expected_date)
+
+    loaders: Dataloaders = context.loaders
+    all_vulns = await loaders.finding_vulns_all.load(finding_id)
     for vuln in all_vulns:
         for state_info in vuln["historic_state"]:
             assert state_info["date"] == expected_date

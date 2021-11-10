@@ -314,10 +314,9 @@ def get_opening_date(
         None,
     )
     if open_state:
-        iso8601utc_date = datetime.fromisoformat(open_state.modified_date)
-        opening_date = datetime_utils.get_from_str(
-            datetime_utils.get_as_str(iso8601utc_date)
-        ).date()
+        opening_date = datetime_utils.get_date_from_iso_str(
+            open_state.modified_date
+        )
         if min_date and min_date > opening_date:
             opening_date = None
     return opening_date
@@ -329,12 +328,9 @@ def get_closing_date(
 ) -> Optional[datetype]:
     closing_date: Optional[datetype] = None
     if vulnerability.state.status == VulnerabilityStateStatus.CLOSED:
-        iso8601utc_date = datetime.fromisoformat(
+        closing_date = datetime_utils.get_date_from_iso_str(
             vulnerability.state.modified_date
         )
-        closing_date = datetime_utils.get_from_str(
-            datetime_utils.get_as_str(iso8601utc_date)
-        ).date()
         if min_date and min_date > closing_date:
             return None
     return closing_date
