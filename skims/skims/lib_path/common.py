@@ -85,6 +85,8 @@ DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"', escChar="\\")
 NUMBER: Word = Word("0123456789abcdefABCDEFxX.")
 VAR_NAME_JAVA: ParserElement = Word(alphas + "$_", alphanums + "$_")
 VAR_ATTR_JAVA: ParserElement = delimitedList(VAR_NAME_JAVA, ".", True)
+TRUE_OPTIONS: Set[Union[str, bool, int]] = {"true", "True", True, "1", 1}
+FALSE_OPTIONS: Set[Union[str, bool, int]] = {"false", "False", False, "0", 0}
 
 SHIELD: Callable[[TFun], TFun] = shield(on_error_return=())
 
