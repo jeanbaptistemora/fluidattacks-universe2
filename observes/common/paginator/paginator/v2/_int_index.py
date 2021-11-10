@@ -69,15 +69,14 @@ class IntIndexGetter(
         start: int,
         pages_chunk: int,
     ) -> PureIter[IO[_DataTVar]]:
-        def page_range(n_chunk: int) -> range:
-            return range(
-                start + n_chunk * pages_chunk,
-                start + (n_chunk + 1) * pages_chunk,
-            )
 
-        ranges = infinite_range(0, 1).map(page_range)
-        chunks = ranges.map(self.get_pages).map(
+        chunks = (
+            infinite_range(start, 1)
+            .chunked(pages_chunk)
+            .map(lambda i: tuple(i))
+        )
+        data = chunks.map(self.get_pages).map(
             lambda x: x.map(lambda i: from_flist(i))
         )
-        chained = chain(chunks)
+        chained = chain(data)
         return until_empty(chained)

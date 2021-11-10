@@ -38,10 +38,12 @@ from typing import (
 class ActivitiesQuery:
     _to_page: Transform[RawActivitiesPage, DataPage[ActivityObj]]
     proj: ProjectId
+    page: int
 
     def _select_fields(self, operation: Operation) -> IO[None]:
         page_selection = operation.activities(
             project_id=self.proj.id_str,
+            page=self.page,
         )
         items = page_selection.items()
         return select_page_fields(page_selection).bind(
