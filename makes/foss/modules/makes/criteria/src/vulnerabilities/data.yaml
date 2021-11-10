@@ -9919,23 +9919,56 @@
   en:
     title: Missing secure obfuscation - binary
     description: >
-      __empty__
+      An anonymous user from the Internet
+      can extract the .apk of the Android
+      application to decompile the binaries
+      in order to have access to the source
+      code and thus better understand the
+      logic of the application.
     impact: >
-      __empty__
+      - Attacker extracts the apk
+      from the application.
+
+      - Attacker decompiles the
+      binaries found in the apk.
+
+      - Attacker can understand the
+      logic of the application and
+      increases the attack surface.
     recommendation: >
-      __empty__
+      Obfuscate all source code files
+      in production.
     threat: >
-      __empty__
+      An anonymous user from the Internet
+      can have access to the application
+      logic by being able to view the
+      binaries and see the source code.
   es:
     title: Missing secure obfuscation - binary
     description: >
-      __empty__
+      Un usuario anónimo desde internet puede
+      extraer el .apk de la aplicación Android
+      para descompilar los binarios con el fin
+      de tener acceso a el código fuente y así
+      entender mejor la lógica de la aplicación.
     impact: >
-      __empty__
+      - Atacante extrae el apk de la
+      aplicación.
+
+      - Atacante descompila los binarios
+      encontrados en el apk.
+
+      - Atacante puede entender la lógica
+      de la aplicación y aumenta la
+      superficie de ataque.
     recommendation: >
-      __empty__
+      Ofuscar todos los archivos de código
+      fuente en producción.
     threat: >
-      __empty__
+      Un usuario anónimo desde internet
+      puede tener acceso a la lógica de
+      la aplicación al poder ver los
+      binarios y ver el código fuente.
   category: Collect Information
   score:
     base:
@@ -9944,13 +9977,13 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "R"
   requirements: ["159"]
   metadata:
     en:
