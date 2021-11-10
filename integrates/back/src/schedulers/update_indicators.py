@@ -232,7 +232,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
         for vulnerability in vulns
     ]
     historic_states = [
-        findings_utils.sort_historic_by_date(vulnerability["historic_state"])
+        vulns_utils.sort_historic_by_date(vulnerability["historic_state"])
         for vulnerability in vulns
     ]
 
@@ -376,7 +376,7 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
         for vulnerability in vulnerabilties
     ]
     historic_states = [
-        findings_utils.sort_historic_by_date(vulnerability["historic_state"])
+        vulns_utils.sort_historic_by_date(vulnerability["historic_state"])
         for vulnerability in vulnerabilties
     ]
 
@@ -552,7 +552,7 @@ def get_accepted_vulns(
     min_date: Optional[str] = None,
 ) -> VulnerabilityStatusByTimeRange:
     accepted_treatments = {"ACCEPTED", "ACCEPTED_UNDEFINED"}
-    sorted_treatment = findings_utils.sort_historic_by_date(
+    sorted_treatment = vulns_utils.sort_historic_by_date(
         vuln.get("historic_treatment", [])
     )
     treatments = findings_utils.filter_by_date(

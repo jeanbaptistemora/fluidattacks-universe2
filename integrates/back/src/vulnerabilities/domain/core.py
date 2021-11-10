@@ -13,9 +13,6 @@ from contextlib import (
 )
 import copy
 from custom_exceptions import (
-    AlreadyZeroRiskRequested,
-    InvalidJustificationMaxLength,
-    NotZeroRiskRequested,
     VulnNotFound,
     VulnNotInFinding,
 )
@@ -133,10 +130,11 @@ async def confirm_vulnerabilities_zero_risk(
     justification: str,
     vuln_ids: List[str],
 ) -> bool:
-    validate_justification_length(justification)
+    vulns_utils.validate_justification_length(justification)
     vulnerabilities = await get_by_finding_and_uuids(finding_id, set(vuln_ids))
     vulnerabilities = [
-        validate_requested_vuln_zero_risk(vuln) for vuln in vulnerabilities
+        vulns_utils.validate_requested_vuln_zero_risk(vuln)
+        for vuln in vulnerabilities
     ]
     if not vulnerabilities:
         raise VulnNotFound()
@@ -624,10 +622,11 @@ async def reject_vulnerabilities_zero_risk(
     justification: str,
     vuln_ids: List[str],
 ) -> bool:
-    validate_justification_length(justification)
+    vulns_utils.validate_justification_length(justification)
     vulnerabilities = await get_by_finding_and_uuids(finding_id, set(vuln_ids))
     vulnerabilities = [
-        validate_requested_vuln_zero_risk(vuln) for vuln in vulnerabilities
+        vulns_utils.validate_requested_vuln_zero_risk(vuln)
+        for vuln in vulnerabilities
     ]
     if not vulnerabilities:
         raise VulnNotFound()
@@ -698,10 +697,11 @@ async def request_vulnerabilities_zero_risk(
     justification: str,
     vuln_ids: List[str],
 ) -> bool:
-    validate_justification_length(justification)
+    vulns_utils.validate_justification_length(justification)
     vulnerabilities = await get_by_finding_and_uuids(finding_id, set(vuln_ids))
     vulnerabilities = [
-        validate_not_requested_zero_risk_vuln(vuln) for vuln in vulnerabilities
+        vulns_utils.validate_not_requested_zero_risk_vuln(vuln)
+        for vuln in vulnerabilities
     ]
     if not vulnerabilities:
         raise VulnNotFound()
@@ -952,37 +952,6 @@ async def update_vuln_state(
             finding_id, str(vulnerability.get("UUID")), data_to_update
         )
     return True
-
-
-def validate_justification_length(justification: str) -> None:
-    """Validate justification length"""
-    max_justification_length = 5000
-    if len(justification) > max_justification_length:
-        raise InvalidJustificationMaxLength(max_justification_length)
-
-
-def validate_not_requested_zero_risk_vuln(
-    vuln: Dict[str, FindingType]
-) -> Dict[str, FindingType]:
-    """Validate zero risk vuln is not already resquested"""
-    historic_zero_risk = cast(
-        List[Dict[str, FindingType]], vuln.get("historic_zero_risk", [{}])
-    )
-    if historic_zero_risk[-1].get("status", "") == "REQUESTED":
-        raise AlreadyZeroRiskRequested()
-    return vuln
-
-
-def validate_requested_vuln_zero_risk(
-    vuln: Dict[str, FindingType]
-) -> Dict[str, FindingType]:
-    """Validate zero risk vuln is already resquested"""
-    historic_zero_risk = cast(
-        List[Dict[str, FindingType]], vuln.get("historic_zero_risk", [{}])
-    )
-    if historic_zero_risk[-1].get("status", "") != "REQUESTED":
-        raise NotZeroRiskRequested()
-    return vuln
 
 
 async def verify(

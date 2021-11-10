@@ -209,7 +209,7 @@ async def add_vulnerability_treatment(
 def get_treatment_change(
     vulnerability: Dict[str, Finding], min_date: Datetime
 ) -> Optional[Tuple[str, Dict[str, Finding]]]:
-    historic_treatment = finding_utils.sort_historic_by_date(
+    historic_treatment = vulns_utils.sort_historic_by_date(
         vulnerability["historic_treatment"]
     )
     treatment_date: str = historic_treatment[-1]["date"]

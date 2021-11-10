@@ -52,6 +52,7 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
+    VulnerabilityTreatment,
 )
 from decimal import (
     Decimal,
@@ -448,23 +449,12 @@ async def get_total_treatment(
 
 @newrelic.agent.function_trace()
 def get_tracking_vulnerabilities(
-    vulnerabilities: List[Dict[str, FindingType]]
+    vulns_state: Tuple[Tuple[VulnerabilityState, ...], ...],
+    vulns_treatment: Tuple[Tuple[VulnerabilityTreatment, ...], ...],
 ) -> List[TrackingItem]:
-    """get tracking vulnerabilities dictionary"""
-    filter_deleted_status = [
-        vulns_utils.is_non_deleted(vuln) for vuln in vulnerabilities
-    ]
-    vulns_filtered = [
-        findings_utils.clean_deleted_state(vuln)
-        for vuln, filter_deleted in zip(vulnerabilities, filter_deleted_status)
-        if filter_deleted
-    ]
-    vulns_filtered_zero = vulns_utils.filter_zero_risk_vulns(vulns_filtered)
-    states_actions = findings_utils.get_state_actions(vulns_filtered_zero)
-    treatments_actions = findings_utils.get_treatment_actions(
-        vulns_filtered_zero
-    )
-
+    """Get tracking vulnerabilities dictionary."""
+    states_actions = vulns_utils.get_state_actions(vulns_state)
+    treatments_actions = vulns_utils.get_treatment_actions(vulns_treatment)
     tracking_actions = list(
         sorted(
             states_actions + treatments_actions,
@@ -476,8 +466,8 @@ def get_tracking_vulnerabilities(
     return [
         TrackingItem(
             cycle=index,
-            open=action.times if action.action == "open" else 0,
-            closed=action.times if action.action == "closed" else 0,
+            open=action.times if action.action == "OPEN" else 0,
+            closed=action.times if action.action == "CLOSED" else 0,
             date=action.date,
             accepted=action.times if action.action == "ACCEPTED" else 0,
             accepted_undefined=(

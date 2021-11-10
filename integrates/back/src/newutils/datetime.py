@@ -1,5 +1,6 @@
 # pylint: disable=too-many-arguments
 from datetime import (
+    date as datetype,
     datetime,
     timedelta,
     timezone,
@@ -176,3 +177,8 @@ def is_valid_format(date_str: str) -> bool:
     except ValueError:
         resp = False
     return resp
+
+
+def get_date_from_iso_str(iso8601utc_str: str) -> datetype:
+    iso8601utc = datetime.fromisoformat(iso8601utc_str)
+    return get_from_str(get_as_str(iso8601utc)).date()

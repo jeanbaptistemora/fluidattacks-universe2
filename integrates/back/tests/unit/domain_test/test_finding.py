@@ -64,9 +64,23 @@ pytestmark = [
 
 
 async def test_get_tracking_vulnerabilities() -> None:
+    loaders: Dataloaders = get_new_context()
+    finding_vulns_loader = loaders.finding_vulns_nzr_typed
+    historic_state_loader = loaders.vulnerability_historic_state
+    historic_treatment_loader = loaders.vulnerability_historic_treatment
+
     finding_id = "436992569"
-    vulnerabilities = await list_vulnerabilities_async([finding_id])
-    test_data = get_tracking_vulnerabilities(vulnerabilities)
+    vulns = await finding_vulns_loader.load(finding_id)
+    vulns_state = await historic_state_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    vulns_treatment = await historic_treatment_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    test_data = get_tracking_vulnerabilities(
+        vulns_state=vulns_state,
+        vulns_treatment=vulns_treatment,
+    )
     expected_output = [
         {
             "cycle": 0,
@@ -122,8 +136,17 @@ async def test_get_tracking_vulnerabilities() -> None:
     assert test_data == expected_output
 
     finding_id = "463461507"
-    vulnerabilities = await list_vulnerabilities_async([finding_id])
-    test_data = get_tracking_vulnerabilities(vulnerabilities)
+    vulns = await finding_vulns_loader.load(finding_id)
+    vulns_state = await historic_state_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    vulns_treatment = await historic_treatment_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    test_data = get_tracking_vulnerabilities(
+        vulns_state=vulns_state,
+        vulns_treatment=vulns_treatment,
+    )
     expected_output = [
         {
             "cycle": 0,
@@ -159,8 +182,17 @@ async def test_get_tracking_vulnerabilities() -> None:
     assert test_data == expected_output
 
     finding_id = "422286126"
-    vulnerabilities = await list_vulnerabilities_async([finding_id])
-    test_data = get_tracking_vulnerabilities(vulnerabilities)
+    vulns = await finding_vulns_loader.load(finding_id)
+    vulns_state = await historic_state_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    vulns_treatment = await historic_treatment_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    test_data = get_tracking_vulnerabilities(
+        vulns_state=vulns_state,
+        vulns_treatment=vulns_treatment,
+    )
     expected_output = [
         {
             "cycle": 0,
@@ -176,8 +208,17 @@ async def test_get_tracking_vulnerabilities() -> None:
     assert test_data == expected_output
 
     finding_id = "463558592"
-    vulnerabilities = await list_vulnerabilities_async([finding_id])
-    test_data = get_tracking_vulnerabilities(vulnerabilities)
+    vulns = await finding_vulns_loader.load(finding_id)
+    vulns_state = await historic_state_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    vulns_treatment = await historic_treatment_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    test_data = get_tracking_vulnerabilities(
+        vulns_state=vulns_state,
+        vulns_treatment=vulns_treatment,
+    )
     expected_output = [
         {
             "cycle": 0,

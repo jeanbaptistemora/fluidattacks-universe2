@@ -31,8 +31,8 @@ from groups import (
 )
 from newutils import (
     datetime as datetime_utils,
-    findings as findings_utils,
     git as git_utils,
+    vulnerabilities as vulns_utils,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -95,7 +95,7 @@ async def test_get_status_vulns_by_time_range() -> None:
         for vulnerability in vulns
     ]
     historic_states = [
-        findings_utils.sort_historic_by_date(vulnerability["historic_state"])
+        vulns_utils.sort_historic_by_date(vulnerability["historic_state"])
         for vulnerability in vulns
     ]
     test_data = update_indicators.get_status_vulns_by_time_range(
@@ -139,7 +139,7 @@ async def test_get_accepted_vulns() -> None:
         for vulnerability in vulnerabilties
     ]
     historic_states = [
-        findings_utils.sort_historic_by_date(vulnerability["historic_state"])
+        vulns_utils.sort_historic_by_date(vulnerability["historic_state"])
         for vulnerability in vulnerabilties
     ]
     test_data = sum(
@@ -165,7 +165,7 @@ async def test_get_by_time_range() -> None:
     finding: Finding = await loaders.finding.load(vulnerability["finding_id"])
     vulnerability_severity = get_severity_score(finding.severity)
     test_data = update_indicators.get_by_time_range(
-        findings_utils.sort_historic_by_date(vulnerability["historic_state"]),
+        vulns_utils.sort_historic_by_date(vulnerability["historic_state"]),
         vulnerability_severity,
         last_day,
     )

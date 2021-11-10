@@ -3,11 +3,15 @@ from . import (
 )
 from custom_exceptions import (
     AlreadyRequested,
+    AlreadyZeroRiskRequested,
+    InvalidJustificationMaxLength,
     InvalidRange,
     NotVerificationRequested,
+    NotZeroRiskRequested,
     VulnAlreadyClosed,
 )
 from custom_types import (
+    Action,
     Finding as FindingType,
     Historic as HistoricType,
     Vulnerability as VulnerabilityType,
@@ -23,6 +27,7 @@ from db_model.findings.types import (
     FindingVerification,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityAcceptanceStatus,
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
     VulnerabilityVerificationStatus,
@@ -31,6 +36,7 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
+    VulnerabilityTreatment,
 )
 from decimal import (
     Decimal,
@@ -83,13 +89,6 @@ def as_range(iterable: Iterable[Any]) -> str:
     else:
         range_value = f"{my_list[0]}"
     return range_value
-
-
-def is_non_deleted(vuln: VulnerabilityType) -> bool:
-    historic_state: HistoricType = vuln["historic_state"]
-    if historic_state[-1].get("state") == "DELETED":
-        return False
-    return True
 
 
 def is_last_reattack_requested(vuln: VulnerabilityType) -> bool:
@@ -205,15 +204,6 @@ def filter_non_requested_zero_risk(
         ].get("status", "")
         != "REQUESTED"
     ]
-
-
-def filter_zero_risk_vulns(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
-    vulns_filter_non_confirm_zero = filter_non_confirmed_zero_risk(
-        vulnerabilities
-    )
-    return filter_non_requested_zero_risk(vulns_filter_non_confirm_zero)
 
 
 def filter_remediated(
@@ -663,37 +653,6 @@ def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
     return updated_values
 
 
-def validate_closed(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
-    """Validate vuln closed"""
-    if (
-        cast(List[Dict[str, FindingType]], vuln.get("historic_state", [{}]))[
-            -1
-        ].get("state")
-        == "closed"
-    ):
-        raise VulnAlreadyClosed()
-    return vuln
-
-
-def validate_requested_verification(
-    vuln: Dict[str, FindingType]
-) -> Dict[str, FindingType]:
-    """Validate vuln is not resquested"""
-    historic_verification = cast(
-        List[Dict[str, FindingType]], vuln.get("historic_verification", [{}])
-    )
-    if historic_verification[-1].get("status", "") == "REQUESTED":
-        raise AlreadyRequested()
-    return vuln
-
-
-def validate_verify(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
-    """Validate vuln is resquested"""
-    if not is_reattack_requested(vuln):
-        raise NotVerificationRequested()
-    return vuln
-
-
 def get_treatment_from_org_finding_policy(
     *, current_day: str, user_email: str
 ) -> List[Dict[str, str]]:
@@ -809,3 +768,150 @@ async def get_total_reattacks_stats(
         else "",
         "pending_attacks": pending_attacks,
     }
+
+
+def sort_historic_by_date(historic: Any) -> HistoricType:
+    historic_sort = sorted(historic, key=lambda i: i["date"])
+    return historic_sort
+
+
+def _get_vuln_state_action(
+    historic_state: Tuple[VulnerabilityState, ...],
+) -> List[Action]:
+    actions: List[Action] = [
+        Action(
+            action=state.status.value,
+            date=str(
+                datetime_utils.get_date_from_iso_str(state.modified_date)
+            ),
+            justification="",
+            manager="",
+            times=1,
+        )
+        for state in historic_state
+    ]
+    return list({action.date: action for action in actions}.values())
+
+
+def get_state_actions(
+    vulns_state: Tuple[Tuple[VulnerabilityState, ...], ...],
+) -> List[Action]:
+    states_actions = list(
+        itertools.chain.from_iterable(
+            _get_vuln_state_action(historic_state)
+            for historic_state in vulns_state
+        )
+    )
+    actions = [
+        action._replace(times=times)
+        for action, times in Counter(states_actions).most_common()
+    ]
+    return actions
+
+
+def _get_vuln_treatment_actions(
+    historic_treatment: Tuple[VulnerabilityTreatment, ...],
+) -> List[Action]:
+    actions: List[Action] = [
+        Action(
+            action=treatment.status.value,
+            date=str(
+                datetime_utils.get_date_from_iso_str(treatment.modified_date)
+            ),
+            justification=treatment.justification,
+            manager=treatment.manager,
+            times=1,
+        )
+        for treatment in historic_treatment
+        if (
+            treatment.status
+            in {
+                VulnerabilityTreatmentStatus.ACCEPTED,
+                VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+            }
+            and treatment.acceptance_status
+            not in {
+                VulnerabilityAcceptanceStatus.REJECTED,
+                VulnerabilityAcceptanceStatus.SUBMITTED,
+            }
+        )
+    ]
+    return list({action.date: action for action in actions}.values())
+
+
+def get_treatment_actions(
+    vulns_treatment: Tuple[Tuple[VulnerabilityTreatment, ...], ...],
+) -> List[Action]:
+    treatments_actions = list(
+        itertools.chain.from_iterable(
+            _get_vuln_treatment_actions(historic_treatment)
+            for historic_treatment in vulns_treatment
+        )
+    )
+    actions = [
+        action._replace(times=times)
+        for action, times in Counter(treatments_actions).most_common()
+    ]
+    return actions
+
+
+def validate_closed(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
+    """Validate vuln closed."""
+    if (
+        cast(List[Dict[str, FindingType]], vuln.get("historic_state", [{}]))[
+            -1
+        ].get("state")
+        == "closed"
+    ):
+        raise VulnAlreadyClosed()
+    return vuln
+
+
+def validate_requested_verification(
+    vuln: Dict[str, FindingType]
+) -> Dict[str, FindingType]:
+    """Validate vuln is not resquested."""
+    historic_verification = cast(
+        List[Dict[str, FindingType]], vuln.get("historic_verification", [{}])
+    )
+    if historic_verification[-1].get("status", "") == "REQUESTED":
+        raise AlreadyRequested()
+    return vuln
+
+
+def validate_verify(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
+    """Validate vuln is resquested."""
+    if not is_reattack_requested(vuln):
+        raise NotVerificationRequested()
+    return vuln
+
+
+def validate_justification_length(justification: str) -> None:
+    """Validate justification length."""
+    max_justification_length = 5000
+    if len(justification) > max_justification_length:
+        raise InvalidJustificationMaxLength(max_justification_length)
+
+
+def validate_not_requested_zero_risk_vuln(
+    vuln: Dict[str, FindingType]
+) -> Dict[str, FindingType]:
+    """Validate zero risk vuln is not already resquested."""
+    historic_zero_risk = cast(
+        List[Dict[str, FindingType]], vuln.get("historic_zero_risk", [{}])
+    )
+    if historic_zero_risk[-1].get("status", "") == "REQUESTED":
+        raise AlreadyZeroRiskRequested()
+    return vuln
+
+
+def validate_requested_vuln_zero_risk(
+    vuln: Dict[str, FindingType]
+) -> Dict[str, FindingType]:
+    """Validate zero risk vuln is already resquested."""
+    historic_zero_risk = cast(
+        List[Dict[str, FindingType]], vuln.get("historic_zero_risk", [{}])
+    )
+    if historic_zero_risk[-1].get("status", "") != "REQUESTED":
+        raise NotZeroRiskRequested()
+    return vuln
