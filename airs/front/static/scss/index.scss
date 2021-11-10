@@ -1174,6 +1174,19 @@ $gray-120: rgba(120, 120, 145, 1);
   }
 }
 
+.questions-blog {
+  p strong {
+    border-bottom: 1px solid $red-255;
+    font-weight: 400;
+  }
+
+  ol li {
+    color: $black-gray;
+    font-style: normal;
+    list-style-type: none;
+  }
+}
+
 .fluid-question p strong {
   border-bottom: 1px solid $red-255;
   font-weight: 400;
