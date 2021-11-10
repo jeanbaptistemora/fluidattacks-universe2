@@ -10404,36 +10404,73 @@
   en:
     title: Insecure service configuration - Antivirus
     description: >
-      __empty__
+      It is possible to evade antivirus signatures
+      to upload and use hacking tools that are
+      commonly detected by any antivirus by
+      recompiling the binaries and source code of
+      the tools and using obfuscation.
+      This would allow an attacker to get information
+      in memory, perform attacks on the Kerberos service
+      or the organization's network, among others.
     impact: >
-      __empty__
+      - Evade the organization's security
+      controls to install malicious software.
+
+      - Exfiltrate data.
+
+      - Compromise data integrity.
+
+      - Affect server availability.
     recommendation: >
-      __empty__
+      - Use on-disk monitoring systems to
+      detect the use of malicious tools.
+
+      - Update detection and intelligence
+      tools periodically.
     threat: >
-      __empty__
+      Internal attacker in the network.
   es:
     title: Insecure service configuration - Antivirus
     description: >
-      __empty__
+      Es posible evadir las firmas del antivirus
+      para subir y usar herramientas de hacking que
+      comúnmente son detectadas por cualquier antivirus,
+      esto recompilando los binarios y el código fuente
+      de las herramientas y usando ofuscación.
+      Esto le permitiría a un atacante conseguir
+      información en memoria, realizar ataques al
+      servicio de Kerberos o a la red de la
+      organización, entre otros.
     impact: >
-      __empty__
+      - Evadir los controles de seguridad de la
+      organización para instalar software malicioso.
+
+      - Exfiltrar datos.
+
+      - Comprometer la integridad de la información.
+
+      - Afectar la disponibilidad del servidor.
     recommendation: >
-      __empty__
+      - Usar sistemas de monitoreo en disco para
+      detectar el uso de herramientas maliciosas.
+
+      - Actualizar las herramientas de detección
+      e inteligencia periódicamente.
     threat: >
-      __empty__
+      Atacante interno en la red.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      confidentiality: "L"
+      integrity: "H"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "F"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
