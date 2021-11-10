@@ -9992,37 +9992,69 @@
   en:
     title: Insecure digital certificates
     description: >
-      __empty__
+      The apk certificate was signed using
+      the SHA1 algorithm.
+      This algorithm is considered quite
+      insecure, so it should not be used
+      to sign certificates since it can
+      be reversed in order to obtain
+      the signing key.
+      On the other hand, there are URLs that,
+      just by accessing them, it is possible
+      to download the digital certificates
+      stored in them, thus exposing confidential
+      information of the organization.
     impact: >
-      __empty__
+      - Obtain the signing key of
+      the application's certificate.
+
+      - Change the application in the
+      appStore to a malicious one by
+      using the obtained signing keys.
     recommendation: >
-      __empty__
+      Sign the certificate with SHA2 or higher.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Insecure digital certificates
     description: >
-      __empty__
+      El certificado del apk fue firmado
+      usando el algoritmo SHA1.
+      Dicho algoritmo es considerado bastante
+      inseguro, por lo que no debería ser
+      usado para firmar los certificados
+      ya que puede ser revertido con el fin
+      de obtener la llave de firmado.
+      Por otro lado, existen URLs que, con
+      solo acceder a ellas, es posible descargar
+      los certificados digitales almacenados en
+      estas, exponiendo de esta forma información
+      confidencial de la organización.
     impact: >
-      __empty__
+      - Obtener la llave de firmado del
+      certificado de la aplicación.
+
+      - Cambiar la aplicación en la
+      appStore por una maliciosa al
+      usar las llaves de firmado obtenidas.
     recommendation: >
-      __empty__
+      Firmar el certificado con SHA2 o superior.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["088","089","090","091","092","093"]
   metadata:
