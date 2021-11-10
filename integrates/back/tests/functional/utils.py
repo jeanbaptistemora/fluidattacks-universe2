@@ -7,6 +7,12 @@ from ariadne import (
 from back.tests.unit.utils import (
     create_dummy_session,
 )
+from batch.dal import (
+    get_actions,
+)
+from batch.types import (
+    BatchProcessing,
+)
 from dataloaders import (
     apply_context_attrs,
     Dataloaders,
@@ -35,6 +41,11 @@ async def complete_register(
     )
 
     return success
+
+
+async def get_batch_job(*, entity: str) -> BatchProcessing:
+    all_actions = await get_actions()
+    return next((action for action in all_actions if action.entity == entity))
 
 
 async def get_graphql_result(
