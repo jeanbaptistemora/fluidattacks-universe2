@@ -9612,34 +9612,81 @@
   en:
     title: Excessive privileges
     description: >
-      __empty__
+      A user with access to the application
+      can generate an error within the
+      application to gain access to the
+      SharePoint platform.
+      From which they can create groups with
+      excessive privileges, to use functions
+      that were not possible to access initially.
+      Also, they can modify or remove
+      permissions that other users or groups
+      have on the application and share content
+      with users who initially did not have access.
     impact: >
-      __empty__
+      - Create groups within the application
+      with excessive permissions, to use
+      functions to which you did not have
+      access initially.
+
+      - Edit or remove permissions that
+      other users or groups have on
+      the application.
+
+      - Share application content with
+      unauthorized users.
     recommendation: >
-      __empty__
+      Configure the application so that
+      users cannot modify their permissions.
     threat: >
-      __empty__
+      Attacker with access to the
+      application from the Internet.
   es:
     title: Excessive privileges
     description: >
-      __empty__
+      Un usuario con acceso a la aplicación
+      puede generar un error dentro de la
+      misma para de esta manera obtener acceso
+      a la plataforma de SharePoint.
+      Desde esta puede crear grupos con
+      privilegios excesivos, para utilizar
+      funciones a las que no era posible
+      acceder de manera inicial.
+      De igual manera puede modificar o remover
+      los permisos que otros usuarios o grupos
+      tienen sobre la aplicación y compartir
+      contenido de con usuarios que inicialmente
+      no tenían acceso.
     impact: >
-      __empty__
+      - Crear grupos dentro de la aplicación
+      con permisos excesivos para utilizar
+      funciones a las que no se tenia acceso
+      de manera inicial.
+
+      - Editar o remover los permisos que
+      otros usuarios o grupos tienen sobre
+      la aplicación.
+
+      - Compartir contenido de la aplicación
+      con usuarios no autorizados.
     recommendation: >
-      __empty__
+      Configurar la aplicación de modo
+      tal que los usuarios no puedan
+      modificar sus permisos.
     threat: >
-      __empty__
+      Atacante con acceso a la
+      aplicación desde internet.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      scope: "C"
+      confidentiality: "L"
+      integrity: "H"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
