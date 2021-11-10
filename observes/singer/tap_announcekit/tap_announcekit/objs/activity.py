@@ -25,4 +25,4 @@ class Activity:
     feedback_id: Optional[FeedbackId]
 
 
-ExtUserObj = IndexedObj[ActivityId, Activity]
+ActivityObj = IndexedObj[ActivityId, Activity]
