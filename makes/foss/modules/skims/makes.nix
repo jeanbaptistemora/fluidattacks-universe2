@@ -1,5 +1,6 @@
 # https://github.com/fluidattacks/makes
 { outputs
+, projectPath
 , ...
 }:
 {
@@ -101,6 +102,16 @@
         src = "/skims/infra";
         version = "1.0";
       };
+    };
+  };
+  dynamoDb = {
+    skims = {
+      host = "127.0.0.1";
+      port = "8022";
+      infra = projectPath "/makes/foss/units/integrates/db/infra";
+      data = [
+        (projectPath "/skims/test/data/db")
+      ];
     };
   };
 }

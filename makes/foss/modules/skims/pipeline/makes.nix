@@ -43,11 +43,23 @@ let
     stage = "test-code";
     tags = [ "autoscaling" ];
   };
+  gitlabTestFuntional = {
+    rules = gitlabOnlyDev;
+    stage = "post-deploy";
+    tags = [ "autoscaling" ];
+    resource_group = "$CI_COMMIT_REF_NAME-$CI_JOB_NAME";
+    needs = [ "/integrates/back/deploy/dev" ];
+  };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
     tags = [ "autoscaling" ];
   };
+  categoriesIntegrates = [
+    "functional"
+    "cli"
+    "unittesting"
+  ];
 in
 {
   pipelines = {
@@ -100,25 +112,24 @@ in
         }
       ]
       ++ (builtins.map
-        (category: {
-          output = "/testPython/skims@${category}";
-          gitDepth =
-            if category == "unittesting"
-            then 0
-            else 1;
-          gitlabExtra = gitlabTest // (
-            if category == "functional"
-            then { resource_group = "$CI_COMMIT_REF_NAME-$CI_JOB_NAME"; }
-            else { }
-          );
-        })
+        (category:
+          {
+            output = "/testPython/skims@${category}";
+            gitDepth =
+              if category == "unittesting"
+              then 0
+              else 1;
+            gitlabExtra = (if builtins.elem category categoriesIntegrates
+            then gitlabTestFuntional
+            else gitlabTest);
+          })
         (builtins.filter
           (category: category != "_" && category != "all")
           (inputs.skimsTestPythonCategories)))
       ++ [
         {
           output = "/skims/test/cli";
-          gitlabExtra = gitlabTest;
+          gitlabExtra = gitlabTestFuntional;
         }
         {
           output = "/testTerraform/skims";

@@ -51,14 +51,13 @@ in
                   (outputs."/utils/sops")
                   (outputs."/utils/aws")
                 ];
-                bin = [ ] ++ (if builtins.elem category categories then [
-                  (outputs."/integrates/mock")
-                ] else [ ]);
+                bin = [
+                  inputs.nixpkgs.kubectl
+                ];
               };
               replace = {
                 __argSecretsFile__ = projectPath "/skims/secrets/dev.yaml";
-                __argDbData__ = projectPath "/skims/test/data/db";
-                __argShouldMock__ = builtins.elem category categories;
+                __argIsFunctionalTest__ = builtins.elem category categories;
               };
               template = ./template.sh;
             })

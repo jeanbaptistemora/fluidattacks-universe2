@@ -214,7 +214,9 @@
 /skims/test/cli:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
-  needs: []
+  needs:
+    - /integrates/back/deploy/dev
+  resource_group: $CI_COMMIT_REF_NAME-$CI_JOB_NAME
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
       when: never
@@ -227,7 +229,7 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
   script:
     - m . /skims/test/cli
-  stage: test-code
+  stage: post-deploy
   tags:
     - autoscaling
   variables:
@@ -478,7 +480,8 @@
 /testPython/skims@functional:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
-  needs: []
+  needs:
+    - /integrates/back/deploy/dev
   resource_group: $CI_COMMIT_REF_NAME-$CI_JOB_NAME
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
@@ -492,7 +495,7 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
   script:
     - m . /testPython/skims@functional
-  stage: test-code
+  stage: post-deploy
   tags:
     - autoscaling
   variables:
@@ -765,7 +768,9 @@
 /testPython/skims@unittesting:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
-  needs: []
+  needs:
+    - /integrates/back/deploy/dev
+  resource_group: $CI_COMMIT_REF_NAME-$CI_JOB_NAME
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
       when: never
@@ -778,7 +783,7 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
   script:
     - m . /testPython/skims@unittesting
-  stage: test-code
+  stage: post-deploy
   tags:
     - autoscaling
   variables:
