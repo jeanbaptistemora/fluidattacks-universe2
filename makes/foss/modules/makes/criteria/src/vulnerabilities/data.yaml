@@ -9261,9 +9261,9 @@
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "P"
+      exploit_code_maturity: "X"
       remediation_level: "O"
-      report_confidence: "R"
+      report_confidence: "X"
   requirements: ["062","175","266","349"]
   metadata:
     en:
@@ -9323,9 +9323,9 @@
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "U"
-      remediation_level: "U"
-      report_confidence: "R"
+      exploit_code_maturity: "P"
+      remediation_level: "X"
+      report_confidence: "X"
   requirements: ["062","266","349"]
   metadata:
     en:
@@ -9374,34 +9374,53 @@
   en:
     title: SQL Injection - Headers
     description: >
-      __empty__
+      The application allows injecting
+      SQL statements in the idClient
+      header and application fields.
     impact: >
-      __empty__
+      - Obtain confidential information
+      from the database.
+
+      - Modify and delete information
+      from the database.
     recommendation: >
-      __empty__
+      Perform database queries by
+      means of parameterized statements
+      or stored procedures.
     threat: >
-      __empty__
+      Authenticated internal attacker
+      in the application.
   es:
     title: SQL Injection - Headers
     description: >
-      __empty__
+      La aplicación permite inyectar
+      sentencias SQL en la cabecera
+      idCliente y campos de la aplicación.
     impact: >
-      __empty__
+      - Obtener información confidencial
+      de la base de datos.
+
+      - Modificar y eliminar información
+      de la base de datos.
     recommendation: >
-      __empty__
+      Realizar las consultas a la base
+      de datos por medio de sentencias
+      parametrizadas o procedimientos
+      almacenados.
     threat: >
-      __empty__
+      Atacante interno autenticado
+      en la aplicación.
   category: Inject Unexpected
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      confidentiality: "H"
+      integrity: "H"
+      availability: "H"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
