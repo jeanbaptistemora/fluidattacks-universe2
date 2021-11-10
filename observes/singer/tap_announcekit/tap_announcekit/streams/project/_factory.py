@@ -22,11 +22,12 @@ from tap_announcekit.api.gql_schema import (
 )
 from tap_announcekit.objs.id_objs import (
     ImageId,
+    IndexedObj,
     ProjectId,
 )
 from tap_announcekit.objs.project import (
-    _Project,
     Project,
+    ProjectObj,
 )
 from tap_announcekit.utils import (
     CastUtils,
@@ -41,8 +42,7 @@ JsonStr = str
 def _to_proj(raw: RawProject) -> Project:
     raw_image_id = to_opt_primitive(raw.image_id, str)
     raw_favicon_id = to_opt_primitive(raw.favicon_id, str)
-    draft = _Project(
-        ProjectId(to_primitive(raw.id, str)),
+    return Project(
         to_primitive(raw.encoded_id, str),
         to_primitive(raw.name, str),
         to_primitive(raw.slug, str),
@@ -65,7 +65,6 @@ def _to_proj(raw: RawProject) -> Project:
         CastUtils.to_datetime(raw.trial_until) if raw.trial_until else None,
         to_primitive(raw.metadata, str),
     )
-    return Project(draft)
 
 
 @dataclass(frozen=True)
@@ -74,15 +73,18 @@ class ProjectQuery:
 
     def _select_fields(self, query: Operation) -> IO[None]:
         proj = query.project(project_id=self.proj_id.id_str)
-        for attr, _ in _Project.__annotations__.items():
-            _attr = "id" if attr == "proj_id" else attr
-            getattr(proj, _attr)()
+        for attr, _ in Project.__annotations__.items():
+            getattr(proj, attr)()
         return IO(None)
 
-    def query(self) -> Query[Project]:
+    def query(self) -> Query[ProjectObj]:
         return QueryFactory.select(
             self._select_fields,
-            Transform(lambda q: _to_proj(cast(RawProject, q.project))),
+            Transform(
+                lambda q: IndexedObj(
+                    self.proj_id, _to_proj(cast(RawProject, q.project))
+                )
+            ),
         )
 
 
@@ -90,6 +92,6 @@ class ProjectQuery:
 class ProjectFactory:
     client: ApiClient
 
-    def get(self, proj: ProjectId) -> IO[Project]:
+    def get(self, proj: ProjectId) -> IO[ProjectObj]:
         query = ProjectQuery(proj).query()
         return self.client.get(query)

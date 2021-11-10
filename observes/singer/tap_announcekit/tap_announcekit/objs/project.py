@@ -6,6 +6,7 @@ from datetime import (
 )
 from tap_announcekit.objs.id_objs import (
     ImageId,
+    IndexedObj,
     ProjectId,
 )
 from typing import (
@@ -16,9 +17,8 @@ JsonStr = str
 
 
 @dataclass(frozen=True)
-class _Project:
+class Project:
     # pylint: disable=too-many-instance-attributes
-    proj_id: ProjectId
     encoded_id: str
     name: str
     slug: str
@@ -42,14 +42,7 @@ class _Project:
     metadata: JsonStr
 
 
-@dataclass(frozen=True)
-class Project(_Project):
-    def __init__(self, obj: _Project) -> None:
-        # pylint: disable=super-init-not-called
-        # calling super is tedious because the number of args
-        for key, val in obj.__dict__.items():
-            object.__setattr__(self, key, val)
-
+ProjectObj = IndexedObj[ProjectId, Project]
 
 __all__ = [
     "ImageId",

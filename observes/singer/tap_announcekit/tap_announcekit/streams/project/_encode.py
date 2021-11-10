@@ -1,12 +1,6 @@
 from dataclasses import (
     dataclass,
 )
-from purity.v1 import (
-    Transform,
-)
-from returns.curry import (
-    partial,
-)
 from singer_io.singer2 import (
     SingerRecord,
     SingerSchema,
@@ -21,9 +15,7 @@ from singer_io.singer2.json_schema import (
 )
 from tap_announcekit.objs.project import (
     Project,
-)
-from tap_announcekit.stream import (
-    SingerEncoder,
+    ProjectObj,
 )
 from tap_announcekit.streams._obj_encoder import (
     StreamsObjsEncoder,
@@ -36,49 +28,51 @@ _encoder = StreamsObjsEncoder.encoder()
 
 
 def _schema() -> JsonSchema:
-    return _encoder.to_jschema(Project.__annotations__)
+    props = Project.__annotations__.copy()
+    props["proj_id"] = str
+    return _encoder.to_jschema(props)
 
 
-def _to_json(proj: Project) -> JsonObj:
+def _to_json(obj: ProjectObj) -> JsonObj:
     json: Dict[str, Primitive] = {
-        "proj_id": proj.proj_id.id_str,
-        "encoded_id": proj.encoded_id,
-        "name": proj.name,
-        "slug": proj.slug,
-        "website": proj.website,
-        "is_authors_listed": proj.is_authors_listed,
-        "is_whitelabel": proj.is_whitelabel,
-        "is_subscribable": proj.is_subscribable,
-        "is_slack_subscribable": proj.is_slack_subscribable,
-        "is_feedback_enabled": proj.is_feedback_enabled,
-        "is_demo": proj.is_demo,
-        "is_readonly": proj.is_readonly,
-        "image_id": proj.image_id.id_str if proj.image_id else None,
-        "favicon_id": proj.favicon_id.id_str if proj.favicon_id else None,
-        "created_at": proj.created_at.isoformat(),
-        "ga_property": proj.ga_property,
-        "avatar": proj.avatar,
-        "locale": proj.locale,
-        "uses_new_feed_hostname": proj.uses_new_feed_hostname,
-        "payment_gateway": proj.payment_gateway,
-        "trial_until": proj.trial_until.isoformat()
-        if proj.trial_until
+        "proj_id": obj.id_obj.id_str,
+        "encoded_id": obj.obj.encoded_id,
+        "name": obj.obj.name,
+        "slug": obj.obj.slug,
+        "website": obj.obj.website,
+        "is_authors_listed": obj.obj.is_authors_listed,
+        "is_whitelabel": obj.obj.is_whitelabel,
+        "is_subscribable": obj.obj.is_subscribable,
+        "is_slack_subscribable": obj.obj.is_slack_subscribable,
+        "is_feedback_enabled": obj.obj.is_feedback_enabled,
+        "is_demo": obj.obj.is_demo,
+        "is_readonly": obj.obj.is_readonly,
+        "image_id": obj.obj.image_id.id_str if obj.obj.image_id else None,
+        "favicon_id": obj.obj.favicon_id.id_str
+        if obj.obj.favicon_id
         else None,
-        "metadata": proj.metadata,
+        "created_at": obj.obj.created_at.isoformat(),
+        "ga_property": obj.obj.ga_property,
+        "avatar": obj.obj.avatar,
+        "locale": obj.obj.locale,
+        "uses_new_feed_hostname": obj.obj.uses_new_feed_hostname,
+        "payment_gateway": obj.obj.payment_gateway,
+        "trial_until": obj.obj.trial_until.isoformat()
+        if obj.obj.trial_until
+        else None,
+        "metadata": obj.obj.metadata,
     }
     return JsonFactory.from_prim_dict(json)
 
 
-def _to_singer(stream_name: str, proj: Project) -> SingerRecord:
-    data = _to_json(proj)
-    return SingerRecord(stream_name, data)
-
-
 @dataclass(frozen=True)
-class ProjectEncoders:
-    @staticmethod
-    def encoder(stream_name: str) -> SingerEncoder[Project]:
-        schema = SingerSchema(stream_name, _schema(), frozenset([]))
-        return SingerEncoder(
-            schema, Transform(partial(_to_singer, stream_name))
-        )
+class ProjectEncoder:
+    stream_name: str
+
+    @property
+    def schema(self) -> SingerSchema:
+        p_keys = frozenset({"ext_user_id", "project_id"})
+        return SingerSchema(self.stream_name, _schema(), p_keys)
+
+    def to_singer(self, obj: ProjectObj) -> SingerRecord:
+        return SingerRecord(self.stream_name, _to_json(obj))

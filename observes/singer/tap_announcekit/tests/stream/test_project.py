@@ -5,7 +5,7 @@ from tap_announcekit.streams.project import (
     _factory,
 )
 from tap_announcekit.streams.project._encode import (
-    ProjectEncoders,
+    ProjectEncoder,
 )
 from tests.stream import (
     mock_data,
@@ -25,9 +25,9 @@ def test_from_data() -> None:
 
 
 def test_schema() -> None:
-    encoder = ProjectEncoders.encoder("stream_1")
+    encoder = ProjectEncoder("stream_1")
     jschema = encoder.schema.schema
-    jrecord = encoder.to_singer(mock_data.mock_proj).record
+    jrecord = encoder.to_singer(mock_data.mock_proj_obj).record
     assert frozenset(jschema.raw_schema["properties"].keys()) == frozenset(
         jrecord.keys()
     )

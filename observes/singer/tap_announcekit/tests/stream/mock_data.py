@@ -24,7 +24,6 @@ from tap_announcekit.objs.post.content import (
     PostContent,
 )
 from tap_announcekit.objs.project import (
-    _Project,
     Project,
 )
 
@@ -32,31 +31,29 @@ mock_datetime = datetime(2000, 1, 1)
 
 mock_proj_id = ProjectId("proj1234")
 mock_proj = Project(
-    _Project(
-        mock_proj_id,
-        "",
-        "name",
-        "slug",
-        None,
-        True,
-        True,
-        True,
-        False,
-        False,
-        True,
-        True,
-        None,
-        None,
-        mock_datetime,
-        None,
-        "avatar",
-        "locale",
-        None,
-        "payment",
-        None,
-        "",
-    )
+    "",
+    "name",
+    "slug",
+    None,
+    True,
+    True,
+    True,
+    False,
+    False,
+    True,
+    True,
+    None,
+    None,
+    mock_datetime,
+    None,
+    "avatar",
+    "locale",
+    None,
+    "payment",
+    None,
+    "",
 )
+mock_proj_obj = IndexedObj(mock_proj_id, mock_proj)
 
 mock_post_id = PostId(ProjectId("1234"), "post4321")
 mock_post_obj = IndexedObj(

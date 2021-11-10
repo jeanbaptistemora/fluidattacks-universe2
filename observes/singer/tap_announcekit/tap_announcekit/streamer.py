@@ -85,8 +85,8 @@ class Streamer(_Streamer):
 
     def start(self) -> IO[None]:
         if self.selection in (SupportedStream.PROJECTS, SupportedStream.ALL):
-            ProjectStreams(self.client, self.emitter).emit(
-                from_flist((self.proj,))
+            self.emitter.emit(
+                ProjectStreams(self.client).stream(from_flist((self.proj,)))
             )
         if self.selection in (
             SupportedStream.POSTS,
