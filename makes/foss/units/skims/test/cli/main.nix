@@ -1,13 +1,25 @@
 { inputs
 , makeScript
 , outputs
+, projectPath
 , ...
 }:
 makeScript {
   name = "skims-test-cli";
-  searchPaths.bin = [
-    inputs.nixpkgs.gnugrep
-    outputs."/skims"
-  ];
+  replace = {
+    __argSecretsFile__ = projectPath "/skims/secrets/dev.yaml";
+  };
+  searchPaths = {
+    bin = [
+      inputs.nixpkgs.gnugrep
+      outputs."/skims"
+      inputs.nixpkgs.kubectl
+    ];
+    source = [
+      outputs."/secretsForAwsFromEnv/skimsDev"
+      (outputs."/utils/sops")
+      (outputs."/utils/aws")
+    ];
+  };
   entrypoint = ./entrypoint.sh;
 }

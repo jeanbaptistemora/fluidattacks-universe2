@@ -33,11 +33,11 @@ async def client() -> AsyncIterator[GraphQLClient]:
             # Exception: WF(AsyncIterator is subtype of iterator)
             yield GraphQLClient(  # NOSONAR
                 endpoint=(
-                    "https://app.fluidattacks.com/api"
-                    if guess_environment() == "production"
-                    else (
-                        os.environ.get("INTEGRATES_API_ENDPOINT")
-                        or "https://127.0.0.1:8001/api"
+                    os.environ.get("INTEGRATES_API_ENDPOINT")
+                    or (
+                        "https://app.fluidattacks.com/api"
+                        if guess_environment() == "production"
+                        else "https://127.0.0.1:8001/api"
                     )
                 ),
                 session=session,
