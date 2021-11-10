@@ -30,6 +30,10 @@ function job_code_upload {
           "${group}" \
           "groups/${group}/fusion/"* \
           --mailmap '.groups-mailmap' \
+        && code-etl amend-authors \
+          'code' \
+          '.groups-mailmap' \
+          "${group}" \
         && shopt -u nullglob \
         && rm -rf "groups/${group}/fusion/"
 
