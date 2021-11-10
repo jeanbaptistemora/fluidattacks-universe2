@@ -455,6 +455,14 @@
       "title": "259. Lack of protection against deletion - DynamoDB"
     }
   },
+  "F281": {
+    "EN": {
+      "title": "Use of an insecure channel - AWS"
+    },
+    "ES": {
+      "title": "Use of an insecure channel - AWS"
+    }
+  },
   "F320": {
     "EN": {
       "title": "320. Insecure service configuration - LDAP"
