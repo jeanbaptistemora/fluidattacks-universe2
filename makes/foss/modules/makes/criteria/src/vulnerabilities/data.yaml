@@ -10946,23 +10946,30 @@
   en:
     title: Insecure service configuration - SMTP
     description: >
-      __empty__
+      The hosting server has an open port (SMTP 25)
+      which allows attackers to send emails using
+      the web server.
     impact: >
-      __empty__
+      Send emails as anyone using Fluid servers.
     recommendation: >
-      __empty__
+      Close unused ports to prevent SMTP relay attacks.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Insecure service configuration - SMTP
     description: >
-      __empty__
+      El servidor de alojamiento tiene un puerto
+      abierto (SMTP 25) que permite a los atacantes
+      enviar correos electrónicos utilizando
+      el servidor web.
     impact: >
-      __empty__
+      Envíe correos electrónicos como cualquier
+      persona utilizando los servidores de Fluid.
     recommendation: >
-      __empty__
+      Cierre los puertos no utilizados para
+      evitar ataques de retransmisión SMTP.
     threat: >
-      __empty__
+      Atacante anónimo de Internet.
   category: Abuse Functionality
   score:
     base:
