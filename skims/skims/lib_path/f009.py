@@ -457,7 +457,7 @@ async def analyze(
                 path=path,
             )
         )
-    elif file_extension in {"config", "httpsF5"}:
+    elif file_extension in {"config", "httpsF5", "json", "settings"}:
         content = await content_generator()
         coroutines.append(web_config_user_pass(content=content, path=path))
         coroutines.append(web_config_db_connection(content=content, path=path))
