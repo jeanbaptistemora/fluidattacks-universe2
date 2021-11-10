@@ -4,9 +4,6 @@ from dataloaders import (
 from db_model.toe_lines.types import (
     ToeLines,
 )
-from decimal import (
-    Decimal,
-)
 from freezegun import (  # type: ignore
     freeze_time,
 )

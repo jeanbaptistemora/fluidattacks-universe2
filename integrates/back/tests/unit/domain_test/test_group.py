@@ -224,14 +224,16 @@ async def test_get_open_findings() -> None:
 
 
 async def test_get_vuln_opening_date() -> None:
-    closed_vuln_historic: Tuple[VulnerabilityState, ...] = [
-        VulnerabilityState(
-            modified_by="test@test.com",
-            modified_date="2019-01-08T21:01:26+00:00",
-            source=Source.ASM,
-            status=VulnerabilityStateStatus.CLOSED,
-        ),
-    ]
+    closed_vuln_historic: Tuple[VulnerabilityState, ...] = tuple(
+        [
+            VulnerabilityState(
+                modified_by="test@test.com",
+                modified_date="2019-01-08T21:01:26+00:00",
+                source=Source.ASM,
+                status=VulnerabilityStateStatus.CLOSED,
+            ),
+        ]
+    )
     test_data = get_opening_date(closed_vuln_historic)
     assert test_data is None
 
