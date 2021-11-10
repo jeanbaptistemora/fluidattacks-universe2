@@ -49,6 +49,12 @@ class ExtUserId:
 
 
 @dataclass(frozen=True)
+class ActivityId:
+    proj: ProjectId
+    id_str: str
+
+
+@dataclass(frozen=True)
 class FeedbackId:
     post: PostId
     id_str: str

@@ -6,7 +6,6 @@ from datetime import (
 )
 from purity.v1 import (
     FrozenList,
-    PrimitiveFactory,
 )
 from tap_announcekit.objs.id_objs import (
     ImageId,
@@ -29,8 +28,6 @@ from typing import (
 )
 
 JsonStr = str
-to_primitive = PrimitiveFactory.to_primitive
-to_opt_primitive = PrimitiveFactory.to_opt_primitive
 
 
 @dataclass(frozen=True)
