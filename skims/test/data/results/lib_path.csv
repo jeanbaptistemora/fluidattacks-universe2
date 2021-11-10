@@ -6509,6 +6509,56 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   79 |       },
      ^ Col 8
 "
+F256,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,14,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
+","
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   instance_class       = ""db.t3.micro""
+   7 |   name                 = ""mydb""
+   8 |   username             = ""foo""
+   9 |   password             = ""foobarbaz""
+  10 |   parameter_group_name = ""default.mysql5.7""
+  11 |   skip_final_snapshot  = true
+  12 | }
+  13 |
+> 14 | resource ""aws_db_instance"" ""test"" {
+  15 |   allocated_storage    = 10
+  16 |   engine               = ""mysql""
+  17 |   engine_version       = ""5.7""
+  18 |   instance_class       = ""db.t3.micro""
+  19 |   name                 = ""mydb""
+  20 |   username             = ""user""
+  21 |   password             = ""useradmin""
+  22 |   parameter_group_name = ""default.mysql5.7""
+  23 |   skip_final_snapshot  = true
+  24 | }
+     ^ Col 0
+"
+F256,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,1,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
+","
+>  1 | resource ""aws_db_instance"" ""default"" {
+   2 |   allocated_storage    = 10
+   3 |   deletion_protection  = false
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   instance_class       = ""db.t3.micro""
+   7 |   name                 = ""mydb""
+   8 |   username             = ""foo""
+   9 |   password             = ""foobarbaz""
+  10 |   parameter_group_name = ""default.mysql5.7""
+  11 |   skip_final_snapshot  = true
+  12 | }
+  13 |
+  14 | resource ""aws_db_instance"" ""test"" {
+  15 |   allocated_storage    = 10
+  16 |   engine               = ""mysql""
+  17 |   engine_version       = ""5.7""
+  18 |   instance_class       = ""db.t3.micro""
+  19 |   name                 = ""mydb""
+  20 |   username             = ""user""
+  21 |   password             = ""useradmin""
+     ^ Col 0
+"
 F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
 ","
    1 | # Insecure
