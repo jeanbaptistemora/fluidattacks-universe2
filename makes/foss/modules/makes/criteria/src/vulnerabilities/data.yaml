@@ -10112,36 +10112,58 @@
   en:
     title: Insecure service configuration - AWS
     description: >
-      __empty__
+      Because of a misconfiguration in the
+      AWS services, it is possible to identify
+      and/or try to access resources,
+      functionalities, network segments and ports.
     impact: >
-      __empty__
+      - Identify ports, services and
+      network segments.
+
+      - Try to access the services found.
+
+      - Get credentials, services and
+      files information.
     recommendation: >
-      __empty__
+      Securely configure the vulnerable service
+      to be accessed only by authorized users.
     threat: >
-      __empty__
+      External attacker with credentials.
   es:
     title: Insecure service configuration - AWS
     description: >
-      __empty__
+      Debido a una mala configuración en los
+      servicios AWS, es posible identificar y/o
+      intentar acceder a recursos, funcionalidades,
+      segmentos de red y puertos.
     impact: >
-      __empty__
+      - Identificar puertos, servicios
+      y segmentos de red.
+
+      - Intentar acceder a los
+      servicios encontrados.
+
+      - Obtener información de credenciales,
+      servicios y archivos.
     recommendation: >
-      __empty__
+      Configurar de forma segura el servicio
+      vulnerable para que sólo puedan acceder
+      a él los usuarios autorizados.
     threat: >
-      __empty__
+      Atacante externo con credenciales.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["185","265","266"]
