@@ -2,6 +2,9 @@ from .types import (
     ToeLinesAttributesToAdd,
     ToeLinesAttributesToUpdate,
 )
+from datetime import (
+    datetime,
+)
 from db_model import (
     toe_lines as toe_lines_model,
 )
@@ -44,10 +47,19 @@ async def update(
     current_value: ToeLines,
     attributes: ToeLinesAttributesToUpdate,
 ) -> None:
+    attacked_at = attributes.attacked_at or current_value.attacked_at
+    modified_date = attributes.modified_date or current_value.modified_date
+    attacked_lines = (
+        attributes.attacked_lines or current_value.attacked_lines
+        if attacked_at
+        and datetime.fromisoformat(modified_date)
+        <= datetime.fromisoformat(attacked_at)
+        else 0
+    )
     metadata = ToeLinesMetadataToUpdate(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
-        attacked_lines=attributes.attacked_lines,
+        attacked_lines=attacked_lines,
         be_present=attributes.be_present,
         comments=attributes.comments,
         commit_author=attributes.commit_author,
