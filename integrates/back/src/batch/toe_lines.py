@@ -138,13 +138,14 @@ async def get_ignored_files(group_path: str, repo_nickname: str) -> Set[str]:
         stderr=asyncio.subprocess.STDOUT,
     )
     repo_nickname_len = len(repo_nickname) + 1
-    async with aiofiles.open(
-        ignored_filename, "r", encoding="utf8"
-    ) as outfile:
-        lines = await outfile.readlines()
-        ignored_files = {
-            line.split(":  ")[0][repo_nickname_len:] for line in lines
-        }
+    if await in_thread(os.path.exists, ignored_filename):
+        async with aiofiles.open(
+            ignored_filename, "r", encoding="utf8"
+        ) as outfile:
+            lines = await outfile.readlines()
+            ignored_files = {
+                line.split(":  ")[0][repo_nickname_len:] for line in lines
+            }
 
     return ignored_files
 
