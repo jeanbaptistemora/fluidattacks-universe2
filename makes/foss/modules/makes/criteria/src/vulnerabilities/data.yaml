@@ -10857,37 +10857,42 @@
   en:
     title: Insecure service configuration - RDP
     description: >
-      __empty__
+      The RDP service has enabled the RC4 cipher
+      suite considered outdated when is used in
+      conjunction with TLS/SSL.
     impact: >
-      __empty__
+      Obtain information derived from the encrypted channel.
     recommendation: >
-      __empty__
+      Disable the RC4 cipher suite on the server.
     threat: >
-      __empty__
+      Anonymous attacker in the intranet.
   es:
     title: Insecure service configuration - RDP
     description: >
-      __empty__
+      El servicio RDP tiene habilitado la suite de
+      cifrado RC4 considerada obsoleta cuando se
+      usa en conjunto con TLS/SSL.
     impact: >
-      __empty__
+      Obtener información derivada del canal cifrado.
     recommendation: >
-      __empty__
+      Deshabilitar la suite de cifrado
+      RC4 en el servidor.
     threat: >
-      __empty__
+      Atacante anónimo en la Intranet.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
