@@ -161,11 +161,11 @@ class Amend:
             cursor.itersize = 100
             await in_thread(
                 cursor.execute,
-                """ SELECT
+                f""" SELECT
                         hash, namespace, repository,
                         author_email, author_name,
                         committer_email, committer_name
-                    FROM code.commits
+                    FROM {self.schema}.commits
                     WHERE namespace = %(namespace)s
                     ORDER BY namespace
                 """,
