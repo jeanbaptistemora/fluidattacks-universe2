@@ -20,9 +20,16 @@ let
     gitlabCi.rules.notTriggers
     gitlabTitleMatchingMakes
   ];
+  gitlabDeployEphemeralRule = [
+    gitlabBranchNotMaster
+    gitlabCi.rules.notMrs
+    gitlabCi.rules.notSchedules
+    gitlabCi.rules.notTriggers
+    (gitlabCi.rules.titleMatching "^(all|integrates|skims|forces)")
+  ];
 
   gitlabDeployAppDev = {
-    rules = gitlabOnlyDev;
+    rules = gitlabDeployEphemeralRule;
     stage = "deploy-app";
     tags = [ "autoscaling" ];
   };

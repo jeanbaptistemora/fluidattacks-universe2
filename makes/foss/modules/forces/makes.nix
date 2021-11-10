@@ -1,5 +1,6 @@
 # https://github.com/fluidattacks/forces
 { outputs
+, projectPath
 , ...
 }:
 {
@@ -51,9 +52,9 @@
     forces = {
       host = "127.0.0.1";
       port = "8022";
-      infra = "/makes/foss/units/integrates/db/infra";
+      infra = projectPath "/makes/foss/units/integrates/db/infra";
       data = [
-        "/forces/test/data"
+        (projectPath "/forces/test/data")
       ];
     };
   };
