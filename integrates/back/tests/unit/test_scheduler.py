@@ -284,6 +284,11 @@ async def test_get_group_indicators() -> None:
             if vulnerability["historic_state"][-1].get("state") == "closed"
         ]
     )
+    test_imamura_data = await update_indicators.get_group_indicators(
+        "deleteimamura"
+    )
+    assert isinstance(test_imamura_data, dict)
+    assert len(test_imamura_data) == 26
 
 
 @pytest.mark.changes_db
