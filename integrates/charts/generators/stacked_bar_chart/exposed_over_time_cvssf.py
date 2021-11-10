@@ -74,11 +74,13 @@ async def get_group_document(  # pylint: disable=too-many-locals
 ) -> RiskOverTime:
     data: List[GroupDocumentCvssfData] = []
     data_monthly: List[GroupDocumentCvssfData] = []
+    data_yearly: List[GroupDocumentCvssfData] = []
     data_name = "exposed_over_time_cvssf"
 
     group_data = await loaders.group.load(group)
     group_over_time = [elements[-12:] for elements in group_data[data_name]]
     group_over_time_monthly = group_data["exposed_over_time_month_cvssf"]
+    group_over_time_yearly = group_data["exposed_over_time_year_cvssf"]
 
     if group_over_time:
         group_low_over_time = group_over_time[0]
@@ -131,6 +133,36 @@ async def get_group_document(  # pylint: disable=too-many-locals
                 )
             )
 
+    if group_over_time_yearly:
+        group_low_over_time = group_over_time_yearly[0]
+        group_medium_over_time = group_over_time_yearly[1]
+        group_high_over_time = group_over_time_yearly[2]
+        group_critical_over_time = group_over_time_yearly[3]
+
+        for low, medium, high, critical in zip(
+            group_low_over_time,
+            group_medium_over_time,
+            group_high_over_time,
+            group_critical_over_time,
+        ):
+            data_yearly.append(
+                GroupDocumentCvssfData(
+                    low=low["y"],
+                    medium=medium["y"],
+                    high=high["y"],
+                    critical=critical["y"],
+                    data_date=(
+                        datetime.strptime(low["x"], DATE_FMT)
+                        if datetime.strptime(low["x"], DATE_FMT)
+                        < datetime.now()
+                        else datetime.combine(
+                            datetime.now(),
+                            datetime.min.time(),
+                        )
+                    ),
+                )
+            )
+
     weekly_data_size: int = len(
         group_data[data_name][0] if group_data[data_name] else []
     )
@@ -149,6 +181,15 @@ async def get_group_document(  # pylint: disable=too-many-locals
             for datum in data_monthly
         },
     }
+    yearly = {
+        "date": {datum.data_date: Decimal("0.0") for datum in data_yearly},
+        "Exposure": {
+            datum.data_date: Decimal(
+                datum.low + datum.medium + datum.high + datum.critical
+            )
+            for datum in data_yearly
+        },
+    }
     quarterly = get_rangetime(group_data=monthly, get_time=get_quarter)
     semesterly = get_rangetime(group_data=monthly, get_time=get_semester)
 
@@ -162,7 +203,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
         monthly=monthly,
         quarterly=quarterly,
         semesterly=semesterly,
-        yearly={},
+        yearly=yearly,
         weekly={
             "date": {datum.data_date: Decimal("0.0") for datum in data},
             "Exposure": {
