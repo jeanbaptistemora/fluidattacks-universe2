@@ -333,6 +333,10 @@ in
           };
         }
         {
+          output = "/integrates/back/test/check-forces-output";
+          gitlabExtra = gitlabTest;
+        }
+        {
           args = [ "dev" ];
           output = "/integrates/charts/documents";
           gitlabExtra = chartsTemplate // {
