@@ -7,7 +7,6 @@ import type { ConfigurableValidator } from "revalidate";
 import type { IGroupAccessInfo } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo";
 import { ActionButtons } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/ActionButtons";
 import { Col40, Flex, GroupScopeText, Row } from "styles/styledComponents";
-import { Can } from "utils/authz/Can";
 import { EditableField, FormikTextArea } from "utils/forms/fields";
 import { maxLength } from "utils/validations";
 
@@ -17,17 +16,17 @@ const maxAccessInfoLength: ConfigurableValidator = maxLength(
   MAX_ACCESS_INFO_LENGTH
 );
 
-interface IDescriptionViewFormProps {
+interface IAccessInfoForm {
   data: IGroupAccessInfo | undefined;
   isEditing: boolean;
   setEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AccessInfoForm: React.FC<IDescriptionViewFormProps> = ({
+const AccessInfoForm: React.FC<IAccessInfoForm> = ({
   data,
   isEditing,
   setEditing,
-}: IDescriptionViewFormProps): JSX.Element => {
+}: IAccessInfoForm): JSX.Element => {
   const { dirty, resetForm, submitForm } = useFormikContext();
   const isGroupAccessInfoPristine = !dirty;
   const { t } = useTranslation();
@@ -67,30 +66,22 @@ const AccessInfoForm: React.FC<IDescriptionViewFormProps> = ({
                   <Flex>
                     <h3>{t("searchFindings.groupAccessInfoSection.sast")}</h3>
                   </Flex>
-                  <Can
-                    do={"api_mutations_update_group_access_info_mutate"}
-                    passThrough={true}
-                  >
-                    {(canEdit: boolean): JSX.Element => (
-                      <EditableField
-                        component={FormikTextArea}
-                        currentValue={dataset.sastAccess}
-                        id={
-                          "searchFindings.groupAccessInfoSection.tooltips.sast.id"
-                        }
-                        label={""}
-                        markdown={true}
-                        name={"sastAccess"}
-                        renderAsEditable={isEditing}
-                        tooltip={t(
-                          "searchFindings.groupAccessInfoSection.tooltips.sast"
-                        )}
-                        type={"text"}
-                        validate={maxAccessInfoLength}
-                        visibleWhileEditing={canEdit}
-                      />
+                  <EditableField
+                    component={FormikTextArea}
+                    currentValue={dataset.sastAccess}
+                    id={
+                      "searchFindings.groupAccessInfoSection.tooltips.sast.id"
+                    }
+                    label={""}
+                    markdown={true}
+                    name={"sastAccess"}
+                    renderAsEditable={isEditing}
+                    tooltip={t(
+                      "searchFindings.groupAccessInfoSection.tooltips.sast"
                     )}
-                  </Can>
+                    type={"text"}
+                    validate={maxAccessInfoLength}
+                  />
                 </React.Fragment>
               ) : undefined}
               {dataset.dastAccess || isEditing ? (
@@ -98,30 +89,22 @@ const AccessInfoForm: React.FC<IDescriptionViewFormProps> = ({
                   <Flex>
                     <h3>{t("searchFindings.groupAccessInfoSection.dast")}</h3>
                   </Flex>
-                  <Can
-                    do={"api_mutations_update_group_access_info_mutate"}
-                    passThrough={true}
-                  >
-                    {(canEdit: boolean): JSX.Element => (
-                      <EditableField
-                        component={FormikTextArea}
-                        currentValue={dataset.dastAccess}
-                        id={
-                          "searchFindings.groupAccessInfoSection.tooltips.dast.id"
-                        }
-                        label={""}
-                        markdown={true}
-                        name={"dastAccess"}
-                        renderAsEditable={isEditing}
-                        tooltip={t(
-                          "searchFindings.groupAccessInfoSection.tooltips.dast"
-                        )}
-                        type={"text"}
-                        validate={maxAccessInfoLength}
-                        visibleWhileEditing={canEdit}
-                      />
+                  <EditableField
+                    component={FormikTextArea}
+                    currentValue={dataset.dastAccess}
+                    id={
+                      "searchFindings.groupAccessInfoSection.tooltips.dast.id"
+                    }
+                    label={""}
+                    markdown={true}
+                    name={"dastAccess"}
+                    renderAsEditable={isEditing}
+                    tooltip={t(
+                      "searchFindings.groupAccessInfoSection.tooltips.dast"
                     )}
-                  </Can>
+                    type={"text"}
+                    validate={maxAccessInfoLength}
+                  />
                 </React.Fragment>
               ) : undefined}
               {dataset.mobileAccess || isEditing ? (
@@ -129,30 +112,22 @@ const AccessInfoForm: React.FC<IDescriptionViewFormProps> = ({
                   <Flex>
                     <h3>{t("searchFindings.groupAccessInfoSection.mobile")}</h3>
                   </Flex>
-                  <Can
-                    do={"api_mutations_update_group_access_info_mutate"}
-                    passThrough={true}
-                  >
-                    {(canEdit: boolean): JSX.Element => (
-                      <EditableField
-                        component={FormikTextArea}
-                        currentValue={dataset.mobileAccess}
-                        id={
-                          "searchFindings.groupAccessInfoSection.tooltips.mobile.id"
-                        }
-                        label={""}
-                        markdown={true}
-                        name={"mobileAccess"}
-                        renderAsEditable={isEditing}
-                        tooltip={t(
-                          "searchFindings.groupAccessInfoSection.tooltips.mobile"
-                        )}
-                        type={"text"}
-                        validate={maxAccessInfoLength}
-                        visibleWhileEditing={canEdit}
-                      />
+                  <EditableField
+                    component={FormikTextArea}
+                    currentValue={dataset.mobileAccess}
+                    id={
+                      "searchFindings.groupAccessInfoSection.tooltips.mobile.id"
+                    }
+                    label={""}
+                    markdown={true}
+                    name={"mobileAccess"}
+                    renderAsEditable={isEditing}
+                    tooltip={t(
+                      "searchFindings.groupAccessInfoSection.tooltips.mobile"
                     )}
-                  </Can>
+                    type={"text"}
+                    validate={maxAccessInfoLength}
+                  />
                 </React.Fragment>
               ) : undefined}
             </GroupScopeText>
@@ -163,49 +138,16 @@ const AccessInfoForm: React.FC<IDescriptionViewFormProps> = ({
           )}
           <Col40>
             <ActionButtons
+              editTooltip={t(
+                "searchFindings.groupAccessInfoSection.tooltips.editGroupAccessInfo"
+              )}
               isEditing={isEditing}
               isPristine={isGroupAccessInfoPristine}
               onEdit={toggleEdit}
               onUpdate={handleSubmit}
+              permission={"api_mutations_update_group_access_info_mutate"}
             />
           </Col40>
-        </Row>
-        <Flex>
-          <h2>{t("searchFindings.groupAccessInfoSection.disambiguation")}</h2>
-        </Flex>
-        <Row>
-          {dataset.disambiguation || isEditing ? (
-            <GroupScopeText>
-              <Can
-                do={"api_mutations_update_group_access_info_mutate"}
-                passThrough={true}
-              >
-                {(canEdit: boolean): JSX.Element => (
-                  <EditableField
-                    component={FormikTextArea}
-                    currentValue={dataset.disambiguation}
-                    id={
-                      "searchFindings.groupAccessInfoSection.tooltips.disambiguation.id"
-                    }
-                    label={""}
-                    markdown={true}
-                    name={"disambiguation"}
-                    renderAsEditable={isEditing}
-                    tooltip={t(
-                      "searchFindings.groupAccessInfoSection.tooltips.disambiguation"
-                    )}
-                    type={"text"}
-                    validate={maxAccessInfoLength}
-                    visibleWhileEditing={canEdit}
-                  />
-                )}
-              </Can>
-            </GroupScopeText>
-          ) : (
-            <GroupScopeText>
-              {t("searchFindings.groupAccessInfoSection.noDisambiguation")}
-            </GroupScopeText>
-          )}
         </Row>
       </Form>
     </React.StrictMode>

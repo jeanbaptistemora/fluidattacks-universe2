@@ -1178,7 +1178,8 @@ export const enTranslations: ResourceKey = {
         dast: "Information on how to access the environments of this group",
         disambiguation:
           "Necessary clarifications on what should be tested in this group",
-        edit: "Edit group access information",
+        editDisambiguationInfo: "Edit group disambiguation",
+        editGroupAccessInfo: "Edit group access information",
         mobile:
           "Information on how to access the mobile environments of this group",
         sast: "Information on how to access the repositories of this group",

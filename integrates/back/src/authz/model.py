@@ -1,3 +1,5 @@
+# pylint:disable=too-many-lines
+
 from typing import (
     Dict,
     Set,
@@ -32,6 +34,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_download_vulnerability_file_mutate",
             "api_mutations_update_group_mutate",
             "api_mutations_update_group_access_info_mutate",
+            "api_mutations_update_group_disambiguation_mutate",
             "api_mutations_update_group_info_mutate",
             "api_mutations_update_group_stakeholder_mutate",
             "api_mutations_grant_stakeholder_access_mutate",
@@ -137,6 +140,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_update_evidence_mutate",
             "api_mutations_update_finding_description_mutate",
             "api_mutations_update_group_access_info_mutate",
+            "api_mutations_update_group_disambiguation_mutate",
             "api_mutations_update_toe_lines_sorts_mutate",
             "api_mutations_update_vulnerability_treatment_mutate",
             "api_mutations_update_vulnerabilities_treatment_mutate",
@@ -189,6 +193,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_update_evidence_description_mutate",
             "api_mutations_update_evidence_mutate",
             "api_mutations_update_finding_description_mutate",
+            "api_mutations_update_group_access_info_mutate",
             "api_mutations_update_root_cloning_status_mutate",
             "api_mutations_update_toe_lines_sorts_mutate",
             "api_mutations_upload_file_mutate",
@@ -243,6 +248,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_unsubscribe_from_group_mutate",
             "api_mutations_update_git_environments_mutate",
             "api_mutations_update_git_root_mutate",
+            "api_mutations_update_group_access_info_mutate",
             "api_mutations_update_toe_lines_sorts_mutate",
             "api_mutations_update_vulnerability_treatment_mutate",
             "api_mutations_update_vulnerabilities_treatment_mutate",
@@ -286,6 +292,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_download_event_file_mutate",
             "api_mutations_download_file_mutate",
             "api_mutations_update_group_mutate",
+            "api_mutations_update_group_access_info_mutate",
             "api_mutations_update_group_info_mutate",
             "api_mutations_update_group_stakeholder_mutate",
             "api_mutations_grant_stakeholder_access_mutate",
@@ -358,6 +365,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_unsubscribe_from_group_mutate",
             "api_mutations_update_git_environments_mutate",
             "api_mutations_update_git_root_mutate",
+            "api_mutations_update_group_access_info_mutate",
             "api_mutations_update_toe_lines_sorts_mutate",
             "api_mutations_update_vulnerability_treatment_mutate",
             "api_mutations_update_vulnerabilities_treatment_mutate",
@@ -396,6 +404,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_download_event_file_mutate",
             "api_mutations_download_file_mutate",
             "api_mutations_update_group_mutate",
+            "api_mutations_update_group_access_info_mutate",
             "api_mutations_update_group_info_mutate",
             "api_mutations_update_group_stakeholder_mutate",
             "api_mutations_grant_stakeholder_access_mutate",
@@ -464,6 +473,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_update_git_environments_mutate",
             "api_mutations_update_git_root_mutate",
             "api_mutations_update_group_access_info_mutate",
+            "api_mutations_update_group_disambiguation_mutate",
             "api_mutations_update_root_cloning_status_mutate",
             "api_mutations_update_toe_lines_sorts_mutate",
             "api_resolvers_finding_consulting_resolve",
@@ -499,6 +509,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_remove_finding_mutate",
             "api_mutations_request_vulnerabilities_verification_mutate",
             "api_mutations_unsubscribe_from_group_mutate",
+            "api_mutations_update_group_access_info_mutate",
             "api_mutations_update_toe_lines_sorts_mutate",
             "api_resolvers_finding_consulting_resolve",
             "api_resolvers_finding_hacker_resolve",
@@ -559,6 +570,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_git_root_services_toe_lines_resolve",
             "api_resolvers_git_root_toe_lines_resolve",
+            "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
         },
         tags={
@@ -569,6 +581,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["hacker"]["actions"],
             "api_resolvers_git_root_services_toe_lines_resolve",
+            "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
         },
         tags={
@@ -581,6 +594,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_submit_machine_job_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_git_root_services_toe_lines_resolve",
+            "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
         },
         tags={
@@ -591,6 +605,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["customer"]["actions"],
             "api_resolvers_git_root_services_toe_lines_resolve",
+            "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
         },
         tags={
@@ -601,6 +616,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["customeradmin"]["actions"],
             "api_resolvers_git_root_services_toe_lines_resolve",
+            "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
         },
         tags={
@@ -611,6 +627,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["executive"]["actions"],
             "api_resolvers_git_root_services_toe_lines_resolve",
+            "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
         },
         tags={
@@ -623,6 +640,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_submit_machine_job_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_git_root_services_toe_lines_resolve",
+            "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
         },
         tags={
@@ -633,6 +651,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["resourcer"]["actions"],
             "api_resolvers_git_root_services_toe_lines_resolve",
+            "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
         },
         tags={
@@ -643,6 +662,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["reviewer"]["actions"],
             "api_resolvers_git_root_services_toe_lines_resolve",
+            "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
         },
         tags={

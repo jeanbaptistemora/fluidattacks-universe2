@@ -804,7 +804,6 @@ async def update_group_attrs(
 async def update_group_access_info(
     *,
     dast_access: str,
-    disambiguation: str,
     group_name: str,
     mobile_access: str,
     sast_access: str,
@@ -812,7 +811,6 @@ async def update_group_access_info(
     success: bool = False
     new_data: GroupType = {
         "dast_access": dast_access,
-        "disambiguation": disambiguation,
         "mobile_access": mobile_access,
         "sast_access": sast_access,
     }

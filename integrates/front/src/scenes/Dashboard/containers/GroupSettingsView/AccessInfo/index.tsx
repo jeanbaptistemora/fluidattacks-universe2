@@ -7,10 +7,13 @@ import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { AccessInfoForm } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/AccessInfoForm";
+import { DisambiguationForm } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/DisambiguationForm";
 import {
   GET_GROUP_ACCESS_INFO,
   UPDATE_GROUP_ACCESS_INFO,
+  UPDATE_GROUP_DISAMBIGUATION,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
+import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -26,7 +29,8 @@ interface IGroupAccessInfo {
 
 const AccessInfo: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
-  const [isEditing, setEditing] = useState(false);
+  const [isEditingGroupAccessInfo, setEditingGroupAccessInfo] = useState(false);
+  const [isEditingDisambiguation, setEditingDisambiguation] = useState(false);
 
   const { data, refetch } = useQuery<IGroupAccessInfo>(GET_GROUP_ACCESS_INFO, {
     fetchPolicy: "no-cache",
@@ -70,9 +74,38 @@ const AccessInfo: React.FC = (): JSX.Element => {
     },
   });
 
+  const [updateGroupDisambiguation] = useMutation(UPDATE_GROUP_DISAMBIGUATION, {
+    onCompleted: async (result: {
+      updateGroupDisambiguation: { success: boolean };
+    }): Promise<void> => {
+      if (result.updateGroupDisambiguation.success) {
+        msgSuccess(
+          translate.t("groupAlerts.updated"),
+          translate.t("groupAlerts.updatedTitle")
+        );
+        await refetch();
+      }
+    },
+    onError: (updateError: ApolloError): void => {
+      updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        switch (message) {
+          case "Exception - Invalid markdown":
+            msgError(translate.t("validations.invalidMarkdown"));
+            break;
+          default:
+            msgError(translate.t("groupAlerts.errorTextsad"));
+            Logger.warning(
+              "An error occurred updating group access info",
+              updateError
+            );
+        }
+      });
+    },
+  });
+
   const handleGroupAccessInfoSubmit = useCallback(
     async (values): Promise<void> => {
-      setEditing(false);
+      setEditingGroupAccessInfo(false);
       await updateGroupAccessInfo({
         variables: {
           ...values,
@@ -81,6 +114,19 @@ const AccessInfo: React.FC = (): JSX.Element => {
       });
     },
     [groupName, updateGroupAccessInfo]
+  );
+
+  const handleDisambiguationSubmit = useCallback(
+    async (values): Promise<void> => {
+      setEditingDisambiguation(false);
+      await updateGroupDisambiguation({
+        variables: {
+          ...values,
+          groupName,
+        },
+      });
+    },
+    [groupName, updateGroupDisambiguation]
   );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -99,10 +145,25 @@ const AccessInfo: React.FC = (): JSX.Element => {
       >
         <AccessInfoForm
           data={data}
-          isEditing={isEditing}
-          setEditing={setEditing}
+          isEditing={isEditingGroupAccessInfo}
+          setEditing={setEditingGroupAccessInfo}
         />
       </Formik>
+      <Can do={"api_resolvers_group_disambiguation_resolve"}>
+        <hr />
+        <Formik
+          enableReinitialize={true}
+          initialValues={{ ...dataset }}
+          name={"editDisambiguation"}
+          onSubmit={handleDisambiguationSubmit}
+        >
+          <DisambiguationForm
+            data={data}
+            isEditing={isEditingDisambiguation}
+            setEditing={setEditingDisambiguation}
+          />
+        </Formik>
+      </Can>
     </React.StrictMode>
   );
 };

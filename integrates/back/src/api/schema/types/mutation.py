@@ -69,6 +69,7 @@ from api.mutations import (
     update_git_root,
     update_group,
     update_group_access_info,
+    update_group_disambiguation,
     update_group_info,
     update_group_stakeholder,
     update_organization_policies,
@@ -196,6 +197,9 @@ MUTATION.set_field("updateGitEnvironments", update_git_environments.mutate)
 MUTATION.set_field("updateGitRoot", update_git_root.mutate)
 MUTATION.set_field("updateGroup", update_group.mutate)
 MUTATION.set_field("updateGroupAccessInfo", update_group_access_info.mutate)
+MUTATION.set_field(
+    "updateGroupDisambiguation", update_group_disambiguation.mutate
+)
 MUTATION.set_field("updateGroupInfo", update_group_info.mutate)
 MUTATION.set_field("updateGroupStakeholder", update_group_stakeholder.mutate)
 MUTATION.set_field(

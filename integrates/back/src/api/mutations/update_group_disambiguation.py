@@ -5,6 +5,7 @@ from custom_exceptions import (
     PermissionDenied,
 )
 from custom_types import (
+    Group as GroupType,
     SimplePayload as SimplePayloadType,
 )
 from decorators import (
@@ -21,6 +22,7 @@ from groups import (
 )
 from newutils import (
     logs as logs_utils,
+    validations as validations_utils,
 )
 from typing import (
     Any,
@@ -43,12 +45,13 @@ async def mutate(
     success = False
 
     try:
-        success = await groups_domain.update_group_access_info(
-            dast_access=kwargs.get("dast_access", ""),
-            group_name=group_name,
-            mobile_access=kwargs.get("mobile_access", ""),
-            sast_access=kwargs.get("sast_access", ""),
+        disambiguation = validations_utils.validate_markdown(
+            kwargs.get("disambiguation", "")
         )
+        new_data: GroupType = {
+            "disambiguation": disambiguation,
+        }
+        success = await groups_domain.update(group_name, new_data)
     except PermissionDenied:
         logs_utils.cloudwatch_log(
             info.context,

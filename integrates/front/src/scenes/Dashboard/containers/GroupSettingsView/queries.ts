@@ -29,14 +29,12 @@ const GET_GROUP_DATA: DocumentNode = gql`
 const UPDATE_GROUP_ACCESS_INFO: DocumentNode = gql`
   mutation UpdateGroupAccessInfo(
     $dastAccess: String
-    $disambiguation: String
     $groupName: String!
     $mobileAccess: String
     $sastAccess: String
   ) {
     updateGroupAccessInfo(
       dastAccess: $dastAccess
-      disambiguation: $disambiguation
       groupName: $groupName
       mobileAccess: $mobileAccess
       sastAccess: $sastAccess
@@ -70,6 +68,20 @@ const UPDATE_GROUP_DATA: DocumentNode = gql`
       reason: $reason
       service: $service
       subscription: $subscription
+    ) {
+      success
+    }
+  }
+`;
+
+const UPDATE_GROUP_DISAMBIGUATION: DocumentNode = gql`
+  mutation UpdateGroupDisambiguation(
+    $disambiguation: String
+    $groupName: String!
+  ) {
+    updateGroupDisambiguation(
+      disambiguation: $disambiguation
+      groupName: $groupName
     ) {
       success
     }
@@ -176,6 +188,7 @@ export {
   GET_GROUP_DATA,
   UPDATE_GROUP_ACCESS_INFO,
   UPDATE_GROUP_DATA,
+  UPDATE_GROUP_DISAMBIGUATION,
   REMOVE_GROUP_TAG_MUTATION,
   GET_TAGS,
   ADD_GROUP_TAGS_MUTATION,

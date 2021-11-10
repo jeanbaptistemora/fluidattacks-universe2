@@ -10,20 +10,23 @@ import { Can } from "utils/authz/Can";
 import { translate } from "utils/translations/translate";
 
 interface IActionButtonsProps {
+  editTooltip: string;
   isEditing: boolean;
   isPristine: boolean;
   onEdit: () => void;
   onUpdate: () => void;
+  permission: string;
 }
 
 const ActionButtons: React.FC<IActionButtonsProps> = (
   props: IActionButtonsProps
 ): JSX.Element => {
-  const { isEditing, isPristine, onEdit, onUpdate } = props;
+  const { editTooltip, isEditing, isPristine, onEdit, onUpdate, permission } =
+    props;
 
   return (
     <ButtonToolbarRow>
-      <Can do={"api_mutations_update_group_access_info_mutate"}>
+      <Can do={permission}>
         {isEditing ? (
           <TooltipWrapper
             id={"searchFindings.tabDescription.save.tooltip.btn"}
@@ -37,15 +40,13 @@ const ActionButtons: React.FC<IActionButtonsProps> = (
           </TooltipWrapper>
         ) : undefined}
         <TooltipWrapper
-          id={"searchFindings.groupAccessInfoSection.tooltips.edit.id"}
+          id={`${editTooltip}.id`}
           message={
             isEditing
               ? translate.t(
                   "searchFindings.tabDescription.editable.cancelTooltip"
                 )
-              : translate.t(
-                  "searchFindings.groupAccessInfoSection.tooltips.edit"
-                )
+              : editTooltip
           }
         >
           <Button onClick={onEdit}>
