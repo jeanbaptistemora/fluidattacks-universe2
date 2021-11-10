@@ -37,7 +37,7 @@ from utils.function import (
 )
 
 
-def tfm_rds_no_deletion_protection_iterate_vulnerabilities(
+def tfm_db_no_deletion_protection_iterate_vulnerabilities(
     buckets_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
     for bucket in buckets_iterator:
@@ -53,7 +53,7 @@ def tfm_rds_no_deletion_protection_iterate_vulnerabilities(
             yield bucket
 
 
-def _tfm_rds_no_deletion_protection(
+def _tfm_db_no_deletion_protection(
     content: str,
     path: str,
     model: Any,
@@ -64,7 +64,7 @@ def _tfm_rds_no_deletion_protection(
         finding=core_model.FindingEnum.F256,
         path=path,
         statements_iterator=(
-            tfm_rds_no_deletion_protection_iterate_vulnerabilities(
+            tfm_db_no_deletion_protection_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_db_instance(model=model)
             )
         ),
@@ -74,13 +74,13 @@ def _tfm_rds_no_deletion_protection(
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
-async def tfm_rds_no_deletion_protection(
+async def tfm_db_no_deletion_protection(
     content: str,
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
     return await in_process(
-        _tfm_rds_no_deletion_protection,
+        _tfm_db_no_deletion_protection,
         content=content,
         path=path,
         model=model,
@@ -99,7 +99,7 @@ async def analyze(
         content = await content_generator()
         model = await load_terraform(stream=content, default=[])
         coroutines.append(
-            tfm_rds_no_deletion_protection(
+            tfm_db_no_deletion_protection(
                 content=content,
                 path=path,
                 model=model,
