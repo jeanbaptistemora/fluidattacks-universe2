@@ -4,6 +4,7 @@ from aws.iam.utils import (
 from aws.model import (
     AWSCloudfrontDistribution,
     AWSDbInstance,
+    AWSEbsEncryptionByDefault,
     AWSEbsVolume,
     AWSElb,
     AWSFsxWindowsFileSystem,
@@ -306,6 +307,18 @@ def iter_aws_db_instance(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_db_instance")
     for bucket in iterator:
         yield AWSDbInstance(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_ebs_encryption_by_default(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(
+        model, "resource", "aws_ebs_encryption_by_default"
+    )
+    for bucket in iterator:
+        yield AWSEbsEncryptionByDefault(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,

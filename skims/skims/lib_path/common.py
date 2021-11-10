@@ -4,6 +4,7 @@ from aws.model import (
     AWSCTrail,
     AWSDbInstance,
     AWSDynamoDBTable,
+    AWSEbsEncryptionByDefault,
     AWSEbsVolume,
     AWSElb,
     AWSFsxWindowsFileSystem,
@@ -222,6 +223,7 @@ def get_vulnerabilities_from_aws_iterator_blocking(
         Union[
             AWSCTrail,
             AWSDynamoDBTable,
+            AWSEbsEncryptionByDefault,
             AWSIamManagedPolicyArns,
             AWSIamPolicyStatement,
             AWSS3Acl,
