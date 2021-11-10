@@ -131,12 +131,13 @@ async def get_ignored_files(group_path: str, repo_nickname: str) -> Set[str]:
         "--timeout",
         "900",
     )
-    await asyncio.create_subprocess_exec(
+    process = await asyncio.create_subprocess_exec(
         *call_cloc,
         env=CLOC_ENV,
         stdout=asyncio.subprocess.DEVNULL,
         stderr=asyncio.subprocess.STDOUT,
     )
+    await process.wait()
     repo_nickname_len = len(repo_nickname) + 1
     if await in_thread(os.path.exists, ignored_filename):
         async with aiofiles.open(
