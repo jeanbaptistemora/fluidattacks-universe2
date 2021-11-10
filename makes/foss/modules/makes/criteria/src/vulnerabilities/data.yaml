@@ -9485,37 +9485,59 @@
   en:
     title: Unrestricted access between network segments
     description: >
-      __empty__
+      The network does not currently
+      limit access between network
+      segments, so an employee can
+      access database servers from
+      the Internet.
     impact: >
-      __empty__
+      Internet user with credentials.
     recommendation: >
-      __empty__
+      Segment the corporate network
+      using the principle of least
+      privilege necessary to limit
+      access to the database.
     threat: >
-      __empty__
+      An attacker who obtains the
+      database credentials can access
+      the database from anywhere and
+      get, delete and/or modify data.
   es:
     title: Unrestricted access between network segments
     description: >
-      __empty__
+      La red no limita actualmente
+      el acceso entre segmentos de
+      red, por lo cual un empleado
+      desde internet puede acceder
+      a servidores de bases de datos.
     impact: >
-      __empty__
+      Usuario de Internet con credenciales.
     recommendation: >
-      __empty__
+      Segmentar la red corporativa
+      utilizando el principio de
+      mínimo privilegio necesario
+      para limitar los accesos a
+      la base de datos.
     threat: >
-      __empty__
+      Un atacante que obtenga las
+      credenciales de la base de datos
+      puede acceder desde cualquier
+      lugar a la misma y obtener,
+      eliminar y/o modificar datos.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
+      scope: "C"
+      confidentiality: "H"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["255"]
   metadata:
