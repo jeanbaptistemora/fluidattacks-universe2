@@ -137,6 +137,32 @@ const ResourcesPage: React.FC<IProps> = ({
       />
       <ResourcesCard
         buttonText={`${translate.t(
+          "resources.cardsText.buttons.downloadButton"
+        )}`}
+        cardType={"report-card"}
+        description={`${translate.t(
+          "resources.cardsText.reports.report4Description"
+        )}`}
+        image={"/resources/resource-card14n"}
+        language={"ENGLISH"}
+        title={`${translate.t("resources.cardsText.reports.report4Title")}`}
+        urlCard={"https://fluidattacks.docsend.com/view/g7zbsrdi8fbnd85m"}
+      />
+      <ResourcesCard
+        buttonText={`${translate.t(
+          "resources.cardsText.buttons.downloadButton"
+        )}`}
+        cardType={"report-card"}
+        description={`${translate.t(
+          "resources.cardsText.reports.report5Description"
+        )}`}
+        image={"/resources/resource-card15n"}
+        language={"ENGLISH"}
+        title={`${translate.t("resources.cardsText.reports.report5Title")}`}
+        urlCard={"https://fluidattacks.docsend.com/view/4k524b3gviwqubri"}
+      />
+      <ResourcesCard
+        buttonText={`${translate.t(
           "resources.cardsText.buttons.webinarButton"
         )}`}
         cardType={"webinar-card"}

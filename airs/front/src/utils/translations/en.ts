@@ -119,6 +119,14 @@ const pageTexts: ResourceKey = {
           "You can find here a list of languages and software " +
           "we are able to work with.",
         report3Title: "Supported Languages, CI/CDs and Infrastructures",
+        report4Description:
+          "Here you can find information about the OWASP Benchmark " +
+          "and Fluid Attacks' results.",
+        report4Title: "Fluid Attacks and the OWASP Benchmark",
+        report5Description:
+          "Here you can find information about the OWASP SAMM " +
+          "and some recommendations.",
+        report5Title: "Fluid Attacks and the OWASP SAMM",
       },
       webinars: {
         webinar1Description:
