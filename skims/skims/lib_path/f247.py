@@ -23,6 +23,7 @@ from parse_hcl2.loader import (
 from parse_hcl2.structure import (
     get_argument,
     get_block_attribute,
+    iter_aws_ebs_encryption_by_default,
     iter_aws_ebs_volume,
     iter_aws_fsx_windows_file_system,
     iter_aws_instance,
@@ -105,6 +106,19 @@ def tfm_ec2_unencrypted_volumes_iterate_vulnerabilities(
             yield ebs_device
 
 
+def tfm_ebs_unencrypted_by_default_iterate_vulnerabilities(
+    buckets_iterator: Iterator[Any],
+) -> Iterator[Union[Any, Node]]:
+    for bucket in buckets_iterator:
+        for elem in bucket.data:
+            if (
+                isinstance(elem, Attribute)
+                and elem.key == "enabled"
+                and elem.val is False
+            ):
+                yield elem
+
+
 def _tfm_fsx_unencrypted_volumes(
     content: str,
     path: str,
@@ -159,6 +173,26 @@ def _tfm_ec2_unencrypted_volumes(
     )
 
 
+def _tfm_ebs_unencrypted_by_default(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_aws_iterator_blocking(
+        content=content,
+        description_key="F247.title",
+        finding=core_model.FindingEnum.F247,
+        path=path,
+        statements_iterator=(
+            tfm_ebs_unencrypted_by_default_iterate_vulnerabilities(
+                buckets_iterator=iter_aws_ebs_encryption_by_default(
+                    model=model
+                )
+            )
+        ),
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -207,6 +241,22 @@ async def tfm_ec2_unencrypted_volumes(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_ebs_unencrypted_by_default(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_ebs_unencrypted_by_default,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -239,5 +289,11 @@ async def analyze(
                 model=model,
             )
         )
-
+        coroutines.append(
+            tfm_ebs_unencrypted_by_default(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
     return coroutines

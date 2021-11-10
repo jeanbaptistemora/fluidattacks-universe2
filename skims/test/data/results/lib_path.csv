@@ -5019,6 +5019,13 @@ F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,21,311,skims,247.
   28 | }
      ^ Col 0
 "
+F247,lines,namespace/skims/test/data/lib_path/f247/test_ebs_encryption_by_default.tf,2,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
+","
+  1 | resource ""aws_ebs_encryption_by_default"" ""example"" {
+> 2 |   enabled = false
+  3 | }
+    ^ Col 0
+"
 F247,lines,namespace/skims/test/data/lib_path/f247/test_fsx.tf,1,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
 ","
 >  1 | resource ""aws_fsx_windows_file_system"" ""example"" {
