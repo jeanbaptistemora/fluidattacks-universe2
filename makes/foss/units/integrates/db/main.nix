@@ -8,7 +8,7 @@
 makeScript {
   replace = {
     __argData__ = projectPath "/integrates/back/tests/data";
-    __argDatabase__ = projectPath "/makes/foss/units/integrates/db";
+    __argDatabase__ = projectPath "/makes/foss/units/integrates/db/infra";
     __argNewDbDesign__ = projectPath "/integrates/arch";
     __argDynamoZip__ = fetchUrl {
       url = "https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_2021-02-08.zip";

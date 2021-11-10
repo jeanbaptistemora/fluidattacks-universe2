@@ -15,6 +15,7 @@ makeScript {
       inputs.nixpkgs.kubectl
       inputs.nixpkgs.utillinux
       inputs.nixpkgs.yq
+      inputs.nixpkgs.gnugrep
     ];
     source = [
       (outputs."/utils/aws")

@@ -44,6 +44,7 @@ function main {
   export B64_DEV_AWS_SECRET_ACCESS_KEY
   export REPLICAS
   export UUID
+  export TARGET_PRODUCT
 
   aws_login_dev_new \
     && aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
@@ -51,6 +52,7 @@ function main {
     && B64_CI_COMMIT_SHA="$(b64 "${CI_COMMIT_SHA}")" \
     && B64_DEV_AWS_ACCESS_KEY_ID="$(b64 "${DEV_AWS_ACCESS_KEY_ID}")" \
     && B64_DEV_AWS_SECRET_ACCESS_KEY="$(b64 "${DEV_AWS_SECRET_ACCESS_KEY}")" \
+    && TARGET_PRODUCT="$(echo "${CI_COMMIT_TITLE}" | grep -oEi '^(airs|all|asserts|common|docs|forces|integrates|makes|melts|observes|reviews|skims|sorts|teaches)')" \
     && REPLICAS="$(hpa_replicas)" \
     && UUID="$(uuidgen)" \
     && for manifest in __argManifests__/*; do
