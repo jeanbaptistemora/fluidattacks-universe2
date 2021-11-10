@@ -89,7 +89,7 @@ in
     };
 
     observesCodeEtlUpload = sharedConfiguration // {
-      attemptDurationSeconds = 7200;
+      attemptDurationSeconds = 28800;
       command = [ "m" "f" "/observes/job/code-etl/upload" ];
       environment = [
         "INTEGRATES_API_TOKEN"
