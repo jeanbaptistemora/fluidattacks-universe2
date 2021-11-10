@@ -21,7 +21,6 @@ from tap_announcekit.objs.post.feedback import (
     ActionSource,
     Feedback,
     FeedbackObj,
-    FeedbackPage,
 )
 from typing import (
     Optional,
@@ -65,6 +64,5 @@ __all__ = [
     # feedback
     "ActionSource",
     "Feedback",
-    "FeedbackPage",
     "FeedbackObj",
 ]

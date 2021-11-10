@@ -13,10 +13,12 @@ from tap_announcekit.objs.id_objs import (
     PostId,
     ProjectId,
 )
+from tap_announcekit.objs.page import (
+    DataPage,
+)
 from tap_announcekit.objs.post import (
     Feedback,
     FeedbackObj,
-    FeedbackPage,
 )
 from tap_announcekit.objs.post.feedback import (
     ActionSource,
@@ -60,8 +62,8 @@ def to_obj(id_obj: _FeedbackId, raw: RawFeedback) -> FeedbackObj:
 
 def to_page(
     to_fb_obj: Transform[RawFeedback, FeedbackObj], raw: RawFeedbackPage
-) -> FeedbackPage:
-    return FeedbackPage(
+) -> DataPage[FeedbackObj]:
+    return DataPage(
         _to_primitive(raw.page, int),
         _to_primitive(raw.pages, int),
         _to_primitive(raw.count, int),

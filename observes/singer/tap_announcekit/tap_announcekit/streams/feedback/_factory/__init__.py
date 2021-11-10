@@ -29,9 +29,11 @@ from tap_announcekit.api.client import (
 from tap_announcekit.objs.id_objs import (
     ProjectId,
 )
+from tap_announcekit.objs.page import (
+    DataPage,
+)
 from tap_announcekit.objs.post.feedback import (
     FeedbackObj,
-    FeedbackPage,
 )
 from tap_announcekit.streams.feedback._factory._query import (
     FeedbackPageQuery,
@@ -43,17 +45,21 @@ class FeedbackFactory:
     client: ApiClient
 
     @staticmethod
-    def _filter_empty(page: FeedbackPage) -> Maybe[FeedbackPage]:
+    def _filter_empty(
+        page: DataPage[FeedbackObj],
+    ) -> Maybe[DataPage[FeedbackObj]]:
         return Maybe.from_optional(page if len(page.items) > 0 else None)
 
-    def get_page(self, proj: ProjectId, page: int) -> IO[Maybe[FeedbackPage]]:
+    def get_page(
+        self, proj: ProjectId, page: int
+    ) -> IO[Maybe[DataPage[FeedbackObj]]]:
         query = FeedbackPageQuery(page).query(proj)
         return self.client.get(query).map(self._filter_empty)
 
     def get_feedbacks(self, proj: ProjectId) -> PureIter[IO[FeedbackObj]]:
         # pylint: disable=unnecessary-lambda
         # for correct type checking lambda is necessary
-        getter: IntIndexGetter[FeedbackPage] = IntIndexGetter(
+        getter: IntIndexGetter[DataPage[FeedbackObj]] = IntIndexGetter(
             partial(self.get_page, proj)
         )
         pages = (

@@ -7,9 +7,6 @@ from datetime import (
 from enum import (
     Enum,
 )
-from purity.v1 import (
-    FrozenList,
-)
 from tap_announcekit.objs.id_objs import (
     ExtUserId,
     FeedbackId,
@@ -36,11 +33,3 @@ class Feedback:
 
 
 FeedbackObj = IndexedObj[FeedbackId, Feedback]
-
-
-@dataclass(frozen=True)
-class FeedbackPage:
-    page: int
-    pages: int
-    count: int
-    items: FrozenList[FeedbackObj]

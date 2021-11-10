@@ -22,9 +22,14 @@ from tap_announcekit.objs.id_objs import (
     PostId,
     ProjectId,
 )
+from tap_announcekit.objs.page import (
+    DataPage,
+)
 from tap_announcekit.objs.post import (
     Feedback,
-    FeedbackPage,
+)
+from tap_announcekit.objs.post.feedback import (
+    FeedbackObj,
 )
 from tap_announcekit.streams.feedback._factory import (
     _from_raw,
@@ -44,7 +49,7 @@ def _attr_map(attr: str) -> str:
 
 
 def _select_page_fields(fb_page: Any) -> IO[None]:
-    props = FeedbackPage.__annotations__.copy()
+    props = DataPage.__annotations__.copy()
     del props["items"]
     for attr in props:
         getattr(fb_page, attr)()
@@ -82,7 +87,7 @@ def _select_fields(
 class FeedbackPageQuery:
     page: int
 
-    def query(self, id_obj: _FeedbackId) -> Query[FeedbackPage]:
+    def query(self, id_obj: _FeedbackId) -> Query[DataPage[FeedbackObj]]:
         return QueryFactory.select(
             partial(_select_fields, id_obj, self.page),
             Transform(
