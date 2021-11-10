@@ -1,9 +1,6 @@
 from dataclasses import (
     dataclass,
 )
-from returns.io import (
-    IO,
-)
 from tap_announcekit.api.client import (
     ApiClient,
 )
@@ -11,11 +8,11 @@ from tap_announcekit.objs.id_objs import (
     ProjectId,
 )
 from tap_announcekit.stream import (
-    StreamEmitter,
-    StreamFactory,
+    Stream,
+    StreamIO,
 )
 from tap_announcekit.streams.feedback._encode import (
-    FeedbackObjEncoders,
+    FeedbackObjEncoder,
 )
 from tap_announcekit.streams.feedback._factory import (
     FeedbackFactory,
@@ -25,16 +22,15 @@ from tap_announcekit.streams.feedback._factory import (
 @dataclass(frozen=True)
 class FeedbackStreams:
     client: ApiClient
-    emitter: StreamEmitter
     _name: str = "feedback"
 
     def proj_feedbacks(
         self,
         proj: ProjectId,
-    ) -> IO[None]:
+    ) -> StreamIO:
         factory = FeedbackFactory(self.client)
-        streams = StreamFactory.from_io_data(
-            FeedbackObjEncoders.encoder(self._name),
-            factory.get_feedbacks(proj),
+        encoder = FeedbackObjEncoder(self._name)
+        data = factory.get_feedbacks(proj).map(
+            lambda i: i.map(encoder.to_singer)
         )
-        return self.emitter.emit_io_streams(streams)
+        return Stream(encoder.schema, data)

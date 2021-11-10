@@ -1,9 +1,6 @@
 from dataclasses import (
     dataclass,
 )
-from purity.v1 import (
-    Transform,
-)
 from singer_io.singer2 import (
     SingerRecord,
     SingerSchema,
@@ -22,9 +19,6 @@ from tap_announcekit.jschema import (
 from tap_announcekit.objs.ext_user import (
     ExternalUser,
     ExtUserObj,
-)
-from tap_announcekit.stream import (
-    SingerEncoder,
 )
 from typing import (
     Dict,
@@ -69,6 +63,3 @@ class ExtUserObjEncoders:
 
     def to_singer(self, obj: ExtUserObj) -> SingerRecord:
         return SingerRecord(self.stream_name, _to_json(obj))
-
-    def encoder(self) -> SingerEncoder[ExtUserObj]:
-        return SingerEncoder(self.schema, Transform(self.to_singer))

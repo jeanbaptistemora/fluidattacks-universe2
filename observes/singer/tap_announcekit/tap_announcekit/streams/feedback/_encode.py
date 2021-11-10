@@ -1,12 +1,6 @@
 from dataclasses import (
     dataclass,
 )
-from purity.v1 import (
-    Transform,
-)
-from returns.curry import (
-    partial,
-)
 from singer_io.singer2 import (
     SingerRecord,
     SingerSchema,
@@ -30,9 +24,6 @@ from tap_announcekit.objs.post.feedback import (
     ActionSource,
     Feedback,
     FeedbackObj,
-)
-from tap_announcekit.stream import (
-    SingerEncoder,
 )
 from typing import (
     Dict,
@@ -69,16 +60,14 @@ def _to_json(f_obj: FeedbackObj) -> JsonObj:
     return JsonFactory.from_prim_dict(json)
 
 
-def _to_singer(stream_name: str, obj: FeedbackObj) -> SingerRecord:
-    return SingerRecord(stream_name, _to_json(obj))
-
-
 @dataclass(frozen=True)
-class FeedbackObjEncoders:
-    @staticmethod
-    def encoder(stream_name: str) -> SingerEncoder[FeedbackObj]:
+class FeedbackObjEncoder:
+    stream_name: str
+
+    @property
+    def schema(self) -> SingerSchema:
         p_keys = frozenset({"feedback_id", "project_id", "post_id"})
-        schema = SingerSchema(stream_name, _schema(), p_keys)
-        return SingerEncoder(
-            schema, Transform(partial(_to_singer, stream_name))
-        )
+        return SingerSchema(self.stream_name, _schema(), p_keys)
+
+    def to_singer(self, obj: FeedbackObj) -> SingerRecord:
+        return SingerRecord(self.stream_name, _to_json(obj))

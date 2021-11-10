@@ -5,6 +5,9 @@ from enum import (
     auto,
     Enum,
 )
+from purity.v1 import (
+    FrozenDict,
+)
 from purity.v1.pure_iter.factory import (
     from_flist,
 )
@@ -22,6 +25,7 @@ from tap_announcekit.objs.id_objs import (
     ProjectId,
 )
 from tap_announcekit.stream import (
+    Stream,
     StreamEmitter,
     StreamEmitterFactory,
 )
@@ -83,11 +87,22 @@ class Streamer(_Streamer):
             ApiClient(creds), selection, proj, factory.new_emitter()
         )
 
+    @property
+    def stream_map(self) -> FrozenDict[SupportedStream, Stream[Any]]:
+        streams = {
+            SupportedStream.PROJECTS: ProjectStreams(self.client).stream(
+                from_flist((self.proj,))
+            ),
+            SupportedStream.FEEDBACKS: FeedbackStreams(
+                self.client
+            ).proj_feedbacks(self.proj),
+            SupportedStream.EXT_USERS: ExtUsersStream(self.client).stream(
+                self.proj
+            ),
+        }
+        return FrozenDict(streams)
+
     def start(self) -> IO[None]:
-        if self.selection in (SupportedStream.PROJECTS, SupportedStream.ALL):
-            self.emitter.emit(
-                ProjectStreams(self.client).stream(from_flist((self.proj,)))
-            )
         if self.selection in (
             SupportedStream.POSTS,
             SupportedStream.POST_CONTENTS,
@@ -101,10 +116,9 @@ class Streamer(_Streamer):
                 SupportedStream.ALL,
             ):
                 ids_io.bind(PostContentStreams(self.client, self.emitter).emit)
-        if self.selection in (SupportedStream.FEEDBACKS, SupportedStream.ALL):
-            FeedbackStreams(self.client, self.emitter).proj_feedbacks(
-                self.proj
-            )
-        if self.selection in (SupportedStream.EXT_USERS, SupportedStream.ALL):
-            self.emitter.emit(ExtUsersStream(self.client).stream(self.proj))
+        if self.selection == SupportedStream.ALL:
+            for _, stream in self.stream_map.items():
+                self.emitter.emit(stream)
+        elif self.selection in self.stream_map:
+            self.emitter.emit(self.stream_map[self.selection])
         return IO(None)
