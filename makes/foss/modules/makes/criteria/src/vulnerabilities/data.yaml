@@ -9547,37 +9547,62 @@
   en:
     title: Unrestricted access between network segments - Azure AD
     description: >
-      __empty__
+      Azure Active Directory Graph API
+      services can be accessed and used
+      from anywhere on the Internet.
+      Note: the URL of the service as
+      well as the credentials to use it
+      were found in the application code.
     impact: >
-      __empty__
+      - Access confidential information
+      from any computer on the Internet.
+
+      - Edit information from any
+      computer on the Internet.
     recommendation: >
-      __empty__
+      Verify Azure documentation regarding
+      Conditional Access policy and securely
+      configure the service by establishing
+      trusted locations to access the service.
     threat: >
-      __empty__
+      Authorized user from the Internet.
   es:
     title: Unrestricted access between network segments - Azure AD
     description: >
-      __empty__
+      Es posible acceder y utilizar los
+      servicios Azure Active Directory Graph
+      API desde cualquier punto de internet.
+      Nota: la URL del servicio como las
+      credenciales para utilizarlo se encontraron
+      en el código de la aplicación.
     impact: >
-      __empty__
+      - Acceder a información confidencial
+      desde cualquier equipo de internet.
+
+      - Editar información desde cualquier
+      equipo de internet.
     recommendation: >
-      __empty__
+      Verificar la documentación de Azure
+      con respecto a Conditional Access
+      policy y configurar de manera segura
+      el servicio estableciendo ubicaciones
+      confiables para acceder al servicio.
     threat: >
-      __empty__
+      Usuario autorizado desde internet.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
+      scope: "C"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["255"]
   metadata:
