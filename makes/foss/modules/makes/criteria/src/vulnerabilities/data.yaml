@@ -10706,34 +10706,42 @@
   en:
     title: Insecure service configuration - DNS
     description: >
-      __empty__
+      The DNS server has recursive DNS
+      functionality, which can allow an
+      attacker to perform an amplification
+      attack through it and cause another
+      server to crash.
     impact: >
-      __empty__
+      Realizar ataques de amplificación para causar DDos.
     recommendation: >
-      __empty__
+      Disable recursive DNS functionality on the server.
     threat: >
-      __empty__
+      Anonymous attacker from internal network.
   es:
     title: Insecure service configuration - DNS
     description: >
-      __empty__
+      El servidor DNS tiene la funcionalidad de
+      DNS recursivo, lo que puede permitir a un
+      atacante realizar un ataque de amplificación
+      por medio de él y causar la caída de otro servidor.
     impact: >
-      __empty__
+      Realizar ataques de amplificación para causar DDos.
     recommendation: >
-      __empty__
+      Deshabilitar la funcionalidad de DNS
+      recursivo en el servidor.
     threat: >
-      __empty__
+      Atacante anónimo desde red interna.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
