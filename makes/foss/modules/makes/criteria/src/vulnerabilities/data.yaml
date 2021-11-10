@@ -10262,37 +10262,91 @@
   en:
     title: Insecure service configuration - Keystore
     description: >
-      __empty__
+      Cryptographic key containers such as
+      keystores should have good security
+      practices, among them:
+
+      - The Secretkey and Keystore should
+      be in protected environments.
+
+      - The secrets should be aligned with
+      strong password policies (do not use
+      default passwords).
+
+      - The Secretkey should not be stored
+      in the source code.
+
+      - Passwords to access the Keystore
+      should not be the same as the
+      private password.
     impact: >
-      __empty__
+      Attacker in intranet.
     recommendation: >
-      __empty__
+      Implement good security practices
+      against Keystore containers.
+
+      - Do not store secrets in the
+      source code.
+
+      - Change default passwords.
     threat: >
-      __empty__
+      If an attacker gets access to the
+      Keystore, he will be able to obtain
+      the private keys of the debugging
+      certificates and thus be able to test
+      and debug the application to understand
+      its operation and create new attack vectors.
   es:
     title: Insecure service configuration - Keystore
     description: >
-      __empty__
+      Los contenedores de llaves criptográficas
+      como los Keystore deben contar con buenas
+      prácticas de seguridad, entre ellas:
+
+      - El Secretkey y el Keystore deben estar
+      en ambientes protegidos.
+
+      - Los secrets deben estar alineadas con
+      las políticas de contraseñas fuertes (no
+      utilizar contraseñas por defecto).
+
+      - No se debe almacenar el Secretkey
+      en el código fuente.
+
+      - Las contraseñas de acceso al Keystore
+      no debe ser igual al private password.
     impact: >
-      __empty__
+      Atacante en intranet.
     recommendation: >
-      __empty__
+      Implementar las buentas prácticas de
+      seguridad frente a contenedor Keystore.
+
+      - No almacenar los secrets en el
+      código fuente.
+
+      - Cambiar contraseñas por defecto.
     threat: >
-      __empty__
+      Si un atacante consigue acceso al
+      Keystore podrá obtener las llaves
+      privadas de los certificados de
+      depuración pudiendo así probar y
+      depurar la aplicación para comprender
+      su funcionamiento y crear nuevos
+      vectores de ataque.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_vector: "A"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
