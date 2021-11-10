@@ -1,3 +1,5 @@
+# pylint:disable=too-many-lines
+
 import aioboto3
 from aioextensions import (
     collect,
@@ -104,6 +106,27 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+async def _confirm_zero_risk(
+    user_email: str,
+    date: str,
+    comment_id: str,
+    vuln: VulnerabilityType,
+) -> bool:
+    historic_zero_risk: HistoricType = vuln.get("historic_zero_risk", [])
+    new_state = {
+        "comment_id": comment_id,
+        "date": date,
+        "email": user_email,
+        "status": "CONFIRMED",
+    }
+    historic_zero_risk.append(new_state)
+    return await vulns_dal.update(
+        vuln["finding_id"],
+        vuln["UUID"],
+        {"historic_zero_risk": historic_zero_risk},
+    )
+
+
 async def confirm_vulnerabilities_zero_risk(
     finding_id: str,
     user_info: Dict[str, str],
@@ -132,9 +155,7 @@ async def confirm_vulnerabilities_zero_risk(
     )
     confirm_zero_risk_vulns = await collect(
         [
-            vulns_dal.confirm_vulnerability_zero_risk(
-                user_email, today, comment_id, vuln
-            )
+            _confirm_zero_risk(user_email, today, comment_id, vuln)
             for vuln in vulnerabilities
         ]
     )
@@ -576,6 +597,27 @@ async def mask_vuln(vuln: Vulnerability) -> bool:
     )
 
 
+async def _reject_zero_risk(
+    user_email: str,
+    date: str,
+    comment_id: str,
+    vuln: VulnerabilityType,
+) -> bool:
+    historic_zero_risk: HistoricType = vuln.get("historic_zero_risk", [])
+    new_state = {
+        "comment_id": comment_id,
+        "date": date,
+        "email": user_email,
+        "status": "REJECTED",
+    }
+    historic_zero_risk.append(new_state)
+    return await vulns_dal.update(
+        vuln["finding_id"],
+        vuln["UUID"],
+        {"historic_zero_risk": historic_zero_risk},
+    )
+
+
 async def reject_vulnerabilities_zero_risk(
     finding_id: str,
     user_info: Dict[str, str],
@@ -604,9 +646,7 @@ async def reject_vulnerabilities_zero_risk(
     )
     reject_zero_risk_vulns = await collect(
         [
-            vulns_dal.reject_vulnerability_zero_risk(
-                user_email, today, str(comment_id), vuln
-            )
+            _reject_zero_risk(user_email, today, str(comment_id), vuln)
             for vuln in vulnerabilities
         ]
     )
@@ -616,8 +656,40 @@ async def reject_vulnerabilities_zero_risk(
     return success
 
 
-async def request_verification(vulnerability: Dict[str, FindingType]) -> bool:
-    return await vulns_dal.request_verification(vulnerability)
+async def request_verification(vuln: VulnerabilityType) -> bool:
+    today = datetime_utils.get_now_as_str()
+    historic_verification: HistoricType = vuln.get("historic_verification", [])
+    new_state = {
+        "date": today,
+        "status": "REQUESTED",
+    }
+    historic_verification.append(new_state)
+    return await vulns_dal.update(
+        vuln["finding_id"],
+        vuln["UUID"],
+        {"historic_verification": historic_verification},
+    )
+
+
+async def _request_zero_risk(
+    user_email: str,
+    date: str,
+    comment_id: str,
+    vuln: VulnerabilityType,
+) -> bool:
+    historic_zero_risk: HistoricType = vuln.get("historic_zero_risk", [])
+    new_state = {
+        "comment_id": comment_id,
+        "date": date,
+        "email": user_email,
+        "status": "REQUESTED",
+    }
+    historic_zero_risk.append(new_state)
+    return await vulns_dal.update(
+        vuln["finding_id"],
+        vuln["UUID"],
+        {"historic_zero_risk": historic_zero_risk},
+    )
 
 
 async def request_vulnerabilities_zero_risk(
@@ -649,9 +721,7 @@ async def request_vulnerabilities_zero_risk(
     )
     request_zero_risk_vulns = await collect(
         [
-            vulns_dal.request_zero_risk_vulnerability(
-                user_email, today, str(comment_id), vuln
-            )
+            _request_zero_risk(user_email, today, str(comment_id), vuln)
             for vuln in vulnerabilities
         ]
     )
@@ -961,8 +1031,19 @@ async def verify(
     return success
 
 
-async def verify_vulnerability(vulnerability: Dict[str, FindingType]) -> bool:
-    return await vulns_dal.verify_vulnerability(vulnerability)
+async def verify_vulnerability(vuln: VulnerabilityType) -> bool:
+    today = datetime_utils.get_now_as_str()
+    historic_verification: HistoricType = vuln.get("historic_verification", [])
+    new_state = {
+        "date": today,
+        "status": "VERIFIED",
+    }
+    historic_verification.append(new_state)
+    return await vulns_dal.update(
+        vuln["finding_id"],
+        vuln["UUID"],
+        {"historic_verification": historic_verification},
+    )
 
 
 async def close_by_exclusion(vuln: Dict[str, Any]) -> None:

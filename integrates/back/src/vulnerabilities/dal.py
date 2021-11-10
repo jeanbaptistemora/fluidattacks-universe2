@@ -17,9 +17,6 @@ from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
 import logging
-from newutils import (
-    datetime as datetime_utils,
-)
 from s3 import (
     operations as s3_ops,
 )
@@ -35,7 +32,6 @@ from typing import (
     Dict,
     List,
     Tuple,
-    Union,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -43,26 +39,6 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = "FI_vulnerabilities"
-
-
-async def confirm_vulnerability_zero_risk(
-    user_email: str, date: str, comment_id: str, vuln: Dict[str, FindingType]
-) -> bool:
-    historic_zero_risk = cast(
-        List[Dict[str, Union[int, str]]], vuln.get("historic_zero_risk", [])
-    )
-    new_state: Dict[str, Union[int, str]] = {
-        "comment_id": comment_id,
-        "date": date,
-        "email": user_email,
-        "status": "CONFIRMED",
-    }
-    historic_zero_risk.append(new_state)
-    return await update(
-        str(vuln.get("finding_id", "")),
-        str(vuln.get("UUID", "")),
-        {"historic_zero_risk": historic_zero_risk},
-    )
 
 
 async def create(data: Dict[str, FindingType]) -> bool:
@@ -170,63 +146,6 @@ async def get_vulnerabilities_async(
     ]
 
 
-async def reject_vulnerability_zero_risk(
-    user_email: str, date: str, comment_id: str, vuln: Dict[str, FindingType]
-) -> bool:
-    historic_zero_risk = cast(
-        List[Dict[str, Union[int, str]]], vuln.get("historic_zero_risk", [])
-    )
-    new_state: Dict[str, Union[int, str]] = {
-        "comment_id": comment_id,
-        "date": date,
-        "email": user_email,
-        "status": "REJECTED",
-    }
-    historic_zero_risk.append(new_state)
-    return await update(
-        str(vuln.get("finding_id", "")),
-        str(vuln.get("UUID", "")),
-        {"historic_zero_risk": historic_zero_risk},
-    )
-
-
-async def request_verification(vuln: Dict[str, FindingType]) -> bool:
-    today = datetime_utils.get_now_as_str()
-    historic_verification = cast(
-        List[Dict[str, str]], vuln.get("historic_verification", [])
-    )
-    new_state: Dict[str, str] = {
-        "date": today,
-        "status": "REQUESTED",
-    }
-    historic_verification.append(new_state)
-    return await update(
-        str(vuln.get("finding_id", "")),
-        str(vuln.get("UUID", "")),
-        {"historic_verification": historic_verification},
-    )
-
-
-async def request_zero_risk_vulnerability(
-    user_email: str, date: str, comment_id: str, vuln: Dict[str, FindingType]
-) -> bool:
-    historic_zero_risk = cast(
-        List[Dict[str, Union[int, str]]], vuln.get("historic_zero_risk", [])
-    )
-    new_state: Dict[str, Union[int, str]] = {
-        "comment_id": comment_id,
-        "date": date,
-        "email": user_email,
-        "status": "REQUESTED",
-    }
-    historic_zero_risk.append(new_state)
-    return await update(
-        str(vuln.get("finding_id", "")),
-        str(vuln.get("UUID", "")),
-        {"historic_zero_risk": historic_zero_risk},
-    )
-
-
 async def sign_url(vuln_file_name: str) -> str:
     return await s3_ops.sign_url(vuln_file_name, 10, VULNS_BUCKET)
 
@@ -304,20 +223,3 @@ async def upload_file(vuln_file: UploadFile) -> str:
         file_name,
     )
     return cast(str, file_name)
-
-
-async def verify_vulnerability(vuln: Dict[str, FindingType]) -> bool:
-    today = datetime_utils.get_now_as_str()
-    historic_verification = cast(
-        List[Dict[str, str]], vuln.get("historic_verification", [])
-    )
-    new_state: Dict[str, str] = {
-        "date": today,
-        "status": "VERIFIED",
-    }
-    historic_verification.append(new_state)
-    return await update(
-        str(vuln.get("finding_id", "")),
-        str(vuln.get("UUID", "")),
-        {"historic_verification": historic_verification},
-    )
