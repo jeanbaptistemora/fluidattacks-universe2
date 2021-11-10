@@ -62,7 +62,7 @@ def format_vulnerability_treatment(
     if accepted_until:
         accepted_until = get_as_utc_iso_format(get_from_str(accepted_until))
     return VulnerabilityTreatment(
-        modified_by=treatment["user"],
+        modified_by=get_optional("user", treatment),
         modified_date=get_as_utc_iso_format(get_from_str(treatment["date"])),
         status=VulnerabilityTreatmentStatus(
             treatment["treatment"].replace(" ", "_").upper()
@@ -128,7 +128,6 @@ def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
         treatment=(
             format_vulnerability_treatment(current_treatment)
             if current_treatment
-            and current_treatment["treatment"].upper() != "NEW"
             else None
         ),
         type=VulnerabilityType(item["vuln_type"].upper()),

@@ -63,7 +63,7 @@ async def get_data_one_group(group: str) -> Treatment:
         finding_ids
     )
 
-    treatment: Counter = Counter()
+    treatment: Counter[VulnerabilityTreatmentStatus] = Counter()
     for vulnerability in vulnerabilities:
         status = (
             vulnerability.treatment.status if vulnerability.treatment else None
@@ -82,7 +82,7 @@ async def get_data_one_group(group: str) -> Treatment:
         ],
         accepted=treatment[VulnerabilityTreatmentStatus.ACCEPTED],
         inProgress=treatment[VulnerabilityTreatmentStatus.IN_PROGRESS],
-        undefined=treatment[None],
+        undefined=treatment[VulnerabilityTreatmentStatus.NEW],
     )
 
 

@@ -19,6 +19,7 @@ class VulnerabilityTreatmentStatus(Enum):
     ACCEPTED: str = "ACCEPTED"
     ACCEPTED_UNDEFINED: str = "ACCEPTED_UNDEFINED"
     IN_PROGRESS: str = "IN_PROGRESS"
+    NEW: str = "NEW"
 
 
 class VulnerabilityAcceptanceStatus(Enum):
