@@ -10064,38 +10064,46 @@
   en:
     title: Insecure service configuration
     description: >
-      __empty__
+      No requestValidationMode is assigned
+      in the server configuration files,
+      which would allow XSS attacks.
     impact: >
-      __empty__
+      Obtain sensitive information
+      through XSS attacks.
     recommendation: >
-      __empty__
+      Activate the recommended protection
+      mechanisms as Request validation.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Insecure service configuration
     description: >
-      __empty__
+      En los archivos de configuración del
+      servidor no se asigna requestValidationMode,
+      lo que permitiría ataques XSS.
     impact: >
-      __empty__
+      Obtener información sensible
+      mediante ataques XSS.
     recommendation: >
-      __empty__
+      Activar los mecanismos de protección
+      recomendados como Request Validation.
     threat: >
-      __empty__
+      Atacante anónimo desde internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "R"
   requirements: ["185","266"]
   metadata:
     en:
