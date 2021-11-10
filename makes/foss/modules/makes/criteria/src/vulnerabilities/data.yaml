@@ -10174,33 +10174,41 @@
   en:
     title: Insecure service configuration - Kerberoast
     description: >
-      __empty__
+      Due to the operation of the Kerberoast
+      service it is possible to extract krbtgs
+      hashes of users within the domain.
     impact: >
-      __empty__
+      Obtain user's hashes.
     recommendation: >
-      __empty__
+      Configure a logger to alert
+      Kerberoast attacks.
     threat: >
-      __empty__
+      Domain user with valid credentials
+      in the internal network.
   es:
     title: Insecure service configuration - Kerberoast
     description: >
-      __empty__
+      Debido al funcionamiento del servicio
+      de Kerberoast es posible extraer hashes
+      krbtgs de usuarios dentro del dominio.
     impact: >
-      __empty__
+      Obtener hashes de usuarios.
     recommendation: >
-      __empty__
+      Configurar un logger que alerte
+      los ataques de Kerberoast.
     threat: >
-      __empty__
+      Usuario del dominio con credenciales
+      válidas en la red interna.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
