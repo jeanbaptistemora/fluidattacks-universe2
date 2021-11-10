@@ -165,7 +165,8 @@ async def get_present_toe_lines_to_add(
         tuple(
             files_utils.get_lines_count(f"{repo_nickname}/{filename}")
             for filename in non_db_filenames
-        )
+        ),
+        workers=1000,
     )
     last_modified_commits = await collect(
         tuple(
@@ -233,7 +234,8 @@ async def get_present_toe_lines_to_update(
         tuple(
             files_utils.get_lines_count(f"{repo_nickname}/{filename}")
             for filename in db_filenames
-        )
+        ),
+        workers=1000,
     )
     last_modified_commits = await collect(
         tuple(
@@ -331,8 +333,11 @@ def pull_repositories(tmpdir: str, group_name: str) -> None:
 @retry_on_exceptions(
     exceptions=(ToeLinesAlreadyUpdated,),
 )
-async def refresh_repo_toe_lines(
-    group_name: str, group_path: str, repo_nickname: str
+async def refresh_storage_repo_toe_lines(
+    group_name: str,
+    group_path: str,
+    roots: Tuple[RootItem, ...],
+    repo_nickname: str,
 ) -> None:
     try:
         repo = Repo(repo_nickname)
@@ -350,7 +355,6 @@ async def refresh_repo_toe_lines(
 
     loaders = get_new_context()
     await git_utils.disable_quotepath(f"{repo_nickname}/.git")
-    roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
     root_id = roots_domain.get_root_id_by_nickname(repo_nickname, roots)
     repo_toe_lines = {
         toe_lines.filename: toe_lines
@@ -395,9 +399,44 @@ async def refresh_repo_toe_lines(
     )
 
 
+@retry_on_exceptions(
+    exceptions=(ToeLinesAlreadyUpdated,),
+)
+async def refresh_non_storage_repo_toe_lines(
+    group_name: str,
+    roots: Tuple[RootItem, ...],
+    repo_nickname: str,
+) -> None:
+    loaders = get_new_context()
+    root_id = roots_domain.get_root_id_by_nickname(repo_nickname, roots)
+    repo_toe_lines = {
+        toe_lines.filename: toe_lines
+        for toe_lines in cast(
+            Tuple[ToeLines, ...],
+            await loaders.root_toe_lines.load((group_name, root_id)),
+        )
+    }
+    present_filenames: Set[str] = set()
+    non_present_toe_lines_to_update = get_non_present_toe_lines_to_update(
+        present_filenames,
+        repo_toe_lines,
+    )
+    await collect(
+        tuple(
+            toe_lines_update(current_value, attrs_to_update)
+            for current_value, attrs_to_update in (
+                non_present_toe_lines_to_update
+            )
+        ),
+        workers=500,
+    )
+
+
 async def refresh_toe_lines(*, item: BatchProcessing) -> None:
+    loaders = get_new_context()
     group_name: str = item.entity
     current_dir = os.getcwd()
+    roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
     with tempfile.TemporaryDirectory() as tmpdir:
         os.chdir(tmpdir)
         pull_repositories(tmpdir, group_name)
@@ -407,11 +446,26 @@ async def refresh_toe_lines(*, item: BatchProcessing) -> None:
         is_dir = await collect(
             tuple(in_thread(os.path.isdir, file) for file in fusion_files)
         )
+        storage_repo_nicknames = {
+            fusion_file
+            for fusion_file, is_dir in zip(fusion_files, is_dir)
+            if is_dir
+        }
         await collect(
             tuple(
-                refresh_repo_toe_lines(group_name, group_path, fusion_file)
-                for fusion_file, is_dir in zip(fusion_files, is_dir)
-                if is_dir
+                refresh_storage_repo_toe_lines(
+                    group_name, group_path, roots, repo_nickname
+                )
+                for repo_nickname in storage_repo_nicknames
+            )
+        )
+        await collect(
+            tuple(
+                refresh_non_storage_repo_toe_lines(
+                    group_name, roots, root.state.nickname
+                )
+                for root in roots
+                if root.state.nickname not in storage_repo_nicknames
             )
         )
         os.chdir(current_dir)
