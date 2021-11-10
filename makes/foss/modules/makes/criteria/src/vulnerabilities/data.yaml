@@ -9433,30 +9433,42 @@
   en:
     title: Uncontrolled external site redirect
     description: >
-      __empty__
+      Redirects made by the application
+      are not controlled and could be
+      manipulated by an attacker.
     impact: >
-      __empty__
+      Redirect users to sites
+      controlled by an attacker.
     recommendation: >
-      __empty__
+      Use predefined parameters and not
+      information that can be manipulated
+      by the user for redirection to web
+      sites in the application.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Uncontrolled external site redirect
     description: >
-      __empty__
+      Las redirecciones hechas por la
+      aplicación no son controladas y
+      pueden ser manipuladas por un atacante.
     impact: >
-      __empty__
+      Redirigir a usarios a sitios
+      controlados por un atacante.
     recommendation: >
-      __empty__
+      Usar parámetros predefinidos y no
+      información que pueda ser manipulada
+      por el usuario para la redirección
+      a sitios web en la aplicación.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   category: Deceptive Interactions
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
