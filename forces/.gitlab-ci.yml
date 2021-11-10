@@ -9,10 +9,13 @@ forces.test-container:
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|forces)/
-  stage: test-code
+  stage: post-deploy
   tags: [autoscaling-large]
   image: "fluidattacks/forces:${CI_COMMIT_REF_NAME}"
+  variables:
+    API_ENDPOINT: "https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api"
   script:
     - forces --token "${INTEGRATES_FORCES_API_TOKEN}" --lax
   needs:
     - /deployContainerImage/forcesDev
+    - /integrates/back/deploy/dev

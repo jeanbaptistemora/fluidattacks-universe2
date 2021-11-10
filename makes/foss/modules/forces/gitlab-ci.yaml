@@ -98,7 +98,8 @@
 /forces/test:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
-  needs: []
+  needs:
+    - /integrates/back/deploy/dev
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
       when: never
@@ -111,7 +112,7 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|forces)/
   script:
     - m . /forces/test
-  stage: test-code
+  stage: post-deploy
   tags:
     - autoscaling
   variables:

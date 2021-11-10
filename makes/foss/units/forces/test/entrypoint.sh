@@ -2,6 +2,7 @@
 
 function main {
   export INTEGRATES_FORCES_API_TOKEN
+  export API_ENDPOINT
 
   local args_pytest=(
     --cov-branch
@@ -13,9 +14,11 @@ function main {
     --disable-pytest-warnings
     --no-cov-on-fail
   )
-  aws_login_dev_new \
+  if ! test -z "${CI_COMMIT_REF_NAME:-}"; then
+    API_ENDPOINT="https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api"
+  fi \
+    && aws_login_dev_new \
     && sops_export_vars __argSecretsFile__ "INTEGRATES_FORCES_API_TOKEN" \
-    && integrates-mock '__argDbData__' \
     && pushd forces/ \
     && source __argForcesRuntime__/template \
     && pytest "${args_pytest[@]}" \

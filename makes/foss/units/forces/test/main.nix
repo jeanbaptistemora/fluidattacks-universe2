@@ -8,12 +8,8 @@ makeScript {
   replace = {
     __argForcesRuntime__ = outputs."/forces/config-runtime";
     __argSecretsFile__ = projectPath "/forces/secrets-dev.yaml";
-    __argDbData__ = projectPath "/forces/test/data";
   };
   searchPaths = {
-    bin = [
-      outputs."/integrates/mock"
-    ];
     source = [
       outputs."/forces/config-development"
       outputs."/forces/config-runtime"

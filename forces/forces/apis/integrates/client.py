@@ -21,6 +21,7 @@ from forces.utils.env import (
 from forces.utils.logs import (
     blocking_log,
 )
+import os
 from typing import (
     Any,
     AsyncIterator,
@@ -35,7 +36,7 @@ SESSION: ContextVar[GraphQLClient] = ContextVar("SESSION")
 ENDPOINT: str = (
     "https://app.fluidattacks.com/api"
     if guess_environment() == "production"
-    else "https://127.0.0.1:8001/api"
+    else (os.environ.get("API_ENDPOINT") or "https://127.0.0.1:8001/api")
 )
 TVar = TypeVar("TVar")
 

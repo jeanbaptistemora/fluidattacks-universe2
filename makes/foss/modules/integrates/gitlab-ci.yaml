@@ -175,7 +175,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates|skims|forces)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/back/authz-matrix
   stage: deploy-app
@@ -2257,7 +2257,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates|skims|forces)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/front/deploy/dev
   stage: deploy-app

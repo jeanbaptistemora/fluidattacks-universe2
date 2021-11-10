@@ -83,3 +83,23 @@ pipeline {
   }
 }
 ```
+
+
+## Development
+
+To run the local tests, the local integrates backend must be deployed.
+
+Run each command in a different terminal:
+
+```bash
+m . /integrates/back
+m . /integrates/cache
+m . /dynamoDb/forces
+m . /integrates/storage
+```
+
+to run the tests, run the command
+
+```bash
+m . /forces/test
+```

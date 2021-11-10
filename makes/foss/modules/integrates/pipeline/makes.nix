@@ -29,6 +29,11 @@ let
   ];
 
   gitlabDeployAppDev = {
+    rules = gitlabOnlyDev;
+    stage = "deploy-app";
+    tags = [ "autoscaling" ];
+  };
+  gitlabDeployAppDevInterested = {
     rules = gitlabDeployEphemeralRule;
     stage = "deploy-app";
     tags = [ "autoscaling" ];
@@ -163,7 +168,7 @@ in
         }
         {
           output = "/integrates/back/deploy/dev";
-          gitlabExtra = gitlabDeployAppDev // {
+          gitlabExtra = gitlabDeployAppDevInterested // {
             environment = {
               name = "development/$CI_COMMIT_REF_SLUG";
               url = "https://$CI_COMMIT_REF_SLUG.app.fluidattacks.com";

@@ -44,7 +44,7 @@ let
   };
   gitlabTest = {
     rules = gitlabOnlyDev;
-    stage = "test-code";
+    stage = "post-deploy";
     tags = [ "autoscaling" ];
   };
   gitlabTestInfra = {
@@ -90,7 +90,9 @@ in
         }
         {
           output = "/forces/test";
-          gitlabExtra = gitlabTest;
+          gitlabExtra = gitlabTest // {
+            needs = [ "/integrates/back/deploy/dev" ];
+          };
         }
         {
           output = "/lintPython/module/forces";
