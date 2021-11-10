@@ -9857,23 +9857,45 @@
   en:
     title: Missing secure obfuscation
     description: >
-      __empty__
+      It is possible to obtain source
+      code from the application since
+      it has not been securely obfuscated.
+      This could allow an attacker to
+      understand the inner workings of
+      the application or obtain technical
+      or sensitive information.
     impact: >
-      __empty__
+      Understand the inner workings of
+      the application to generate new
+      attack vectors.
     recommendation: >
-      __empty__
+      Obfuscate the application's JavaScript
+      to prevent leakage of technical
+      information that could reveal
+      vulnerable features.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Missing secure obfuscation
     description: >
-      __empty__
+      Es posible obtener código fuente de
+      la aplicación puesto que no ha sido
+      ofuscado de forma segura.
+      Esto podría permitirle a un atacante
+      entender el funcionamiento interno
+      de la aplicación u obtener información
+      técnica o sensible.
     impact: >
-      __empty__
+      Comprender el funcionamiento
+      interno de la aplicación para
+      generar nuevos vectores de ataque.
     recommendation: >
-      __empty__
+      Ofuscar los Javascript de la
+      aplicación para evitar la fuga
+      de información técnica que pueda
+      revelar funciones vulnerables.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   category: Collect Information
   score:
     base:
@@ -9882,12 +9904,12 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "U"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["159"]
   metadata:
