@@ -10754,23 +10754,32 @@
   en:
     title: Insecure service configuration - SSH
     description: >
-      __empty__
+      The SSH service is not filtered by the
+      Firewall to avoid external attacks and
+      possible intrusions through this service.
     impact: >
-      __empty__
+      Attempt to access the server through
+      brute force attacks or 0-day exploits.
     recommendation: >
-      __empty__
+      Securely configure the vulnerable service so
+      that it can only be accessed by authorized users.
     threat: >
-      __empty__
+      External attacker without credentials.
   es:
     title: Insecure service configuration - SSH
     description: >
-      __empty__
+      El servicio de SSH no se encuentra filtrado
+      por el Firewall para evitar ataques externos
+      y posibles intrusiones a traves de dicho servicio.
     impact: >
-      __empty__
+      Intentar acceder al servidor a traves de
+      ataques de fuerza bruta o exploits 0-day.
     recommendation: >
-      __empty__
+      Configurar de manera segura el servicio
+      vulnerable permitiendo así que solo sea
+      accedido por usuarios autorizados.
     threat: >
-      __empty__
+      Atacante externo sin credenciales.
   category: Abuse Functionality
   score:
     base:
@@ -10779,12 +10788,12 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
