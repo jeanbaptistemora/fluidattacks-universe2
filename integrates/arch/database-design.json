@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Nov 09, 2021, 09:58 AM",
+    "DateLastModified": "Nov 10, 2021, 05:05 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -464,6 +464,10 @@
         },
         {
           "AttributeName": "commit_author",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "be_present_until",
           "AttributeType": "S"
         }
       ],
@@ -1769,6 +1773,9 @@
               },
               "commit_author": {
                 "S": "customer@gmail.com"
+              },
+              "be_present_until": {
+                "S": ""
               }
             },
             {
@@ -1822,6 +1829,9 @@
               },
               "commit_author": {
                 "S": "customer@gmail.com"
+              },
+              "be_present_until": {
+                "S": "2021-01-01T15:41:04+00:00"
               }
             }
           ],
@@ -1840,7 +1850,8 @@
             "attacked_by",
             "filename",
             "root_id",
-            "commit_author"
+            "commit_author",
+            "be_present_until"
           ]
         },
         {

@@ -22,8 +22,8 @@ pytestmark = [
 ]
 
 
-@freeze_time("2018-08-01T05:00:00+00:00")
 @pytest.mark.changes_db
+@freeze_time("2018-08-01T05:00:00+00:00")
 async def test_add() -> None:
     group_name = "unittesting"
     root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
@@ -32,7 +32,6 @@ async def test_add() -> None:
         attacked_at="2020-08-01T05:00:00+00:00",
         attacked_by="hacker@test.com",
         attacked_lines=433,
-        be_present=True,
         comments="comment test",
         commit_author="customer@gmail.com",
         first_attack_at="2020-04-01T05:00:00+00:00",
@@ -49,6 +48,7 @@ async def test_add() -> None:
         attacked_by="hacker@test.com",
         attacked_lines=433,
         be_present=True,
+        be_present_until="",
         comments="comment test",
         commit_author="customer@gmail.com",
         filename="product/test/new#.new",
@@ -64,6 +64,7 @@ async def test_add() -> None:
 
 
 @pytest.mark.changes_db
+@freeze_time("2020-08-01T05:00:00+00:00")
 async def test_update() -> None:
     group_name = "unittesting"
     root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
@@ -94,6 +95,7 @@ async def test_update() -> None:
         attacked_by="hacker2@test.com",
         attacked_lines=434,
         be_present=False,
+        be_present_until="2020-08-01T05:00:00+00:00",
         comments="comment test 2",
         commit_author="customer2@gmail.com",
         filename="product/test/new#.new",

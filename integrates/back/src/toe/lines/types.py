@@ -8,7 +8,6 @@ class ToeLinesAttributesToAdd(NamedTuple):
     attacked_at: str
     attacked_by: str
     attacked_lines: int
-    be_present: bool
     comments: str
     commit_author: str
     first_attack_at: str

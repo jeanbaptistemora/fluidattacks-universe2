@@ -28,6 +28,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "attackedBy": "test2@test.com",
                     "attackedLines": 4,
                     "bePresent": True,
+                    "bePresentUntil": "",
                     "comments": "comment 2",
                     "commitAuthor": "customer2@gmail.com",
                     "filename": "test2/test#.config",
@@ -48,6 +49,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "attackedBy": "test@test.com",
                     "attackedLines": 23,
                     "bePresent": False,
+                    "bePresentUntil": "2021-01-19T15:41:04+00:00",
                     "comments": "comment 1",
                     "commitAuthor": "customer1@gmail.com",
                     "filename": "test1/test.sh",
@@ -63,6 +65,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "attackedBy": "test3@test.com",
                     "attackedLines": 120,
                     "bePresent": True,
+                    "bePresentUntil": "",
                     "comments": "comment 3",
                     "commitAuthor": "customer3@gmail.com",
                     "filename": "test3/test.sh",
@@ -104,7 +107,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
         ["service_forces@fluidattacks.com"],
     ],
 )
-async def test_get_toe_lines_error(populate: bool, email: str) -> None:
+async def test_get_toe_lines_fail(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await get_result(user=email, group_name="group1")
     assert result["errors"][0]["message"] == "Access denied"

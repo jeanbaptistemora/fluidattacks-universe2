@@ -194,7 +194,6 @@ async def get_present_toe_lines_to_add(
                 attacked_at="",
                 attacked_by="",
                 attacked_lines=0,
-                be_present=True,
                 commit_author=last_commit_author,
                 comments="",
                 first_attack_at="",

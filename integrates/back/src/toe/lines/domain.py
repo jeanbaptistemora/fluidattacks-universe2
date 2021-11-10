@@ -27,7 +27,8 @@ async def add(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
         attacked_lines=attributes.attacked_lines,
-        be_present=attributes.be_present,
+        be_present=True,
+        be_present_until="",
         comments=attributes.comments,
         commit_author=attributes.commit_author,
         filename=filename,
@@ -56,11 +57,19 @@ async def update(
         <= datetime.fromisoformat(attacked_at)
         else 0
     )
+    be_present_until = (
+        datetime_utils.get_iso_date()
+        if attributes.be_present is False
+        else ""
+        if attributes.be_present is True
+        else None
+    )
     metadata = ToeLinesMetadataToUpdate(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
         attacked_lines=attacked_lines,
         be_present=attributes.be_present,
+        be_present_until=be_present_until,
         comments=attributes.comments,
         commit_author=attributes.commit_author,
         first_attack_at=attributes.first_attack_at,

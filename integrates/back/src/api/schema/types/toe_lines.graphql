@@ -8,6 +8,8 @@ type ToeLines {
   attackedLines: Int!
   "If the file is present in the repository"
   bePresent: Boolean!
+  "Date until lines was present in ToE"
+  bePresentUntil: String!
   "ToE comment"
   comments: String!
   "Author of the commit"

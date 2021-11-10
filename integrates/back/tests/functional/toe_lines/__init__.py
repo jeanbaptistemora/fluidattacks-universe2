@@ -26,6 +26,7 @@ async def get_result(
                         attackedBy
                         attackedLines
                         bePresent
+                        bePresentUntil
                         comments
                         commitAuthor
                         filename
