@@ -11889,29 +11889,44 @@
   en:
     title: Lack of data validation - Out of range
     description: >
-      __empty__
+      Authenticated user in a domain that
+      restricts certain functionalities such
+      as Employee Management, can bypass the
+      restrictions by using absolute paths to
+      these functionalities.
     impact: >
-      __empty__
+      Accessing the employee management panel
+      from an unauthorized domain.
     recommendation: >
-      __empty__
+      Verify that domains that have restricted
+      certain functionalities cannot access them
+      through absolute paths of these functionalities.
     threat: >
-      __empty__
+      Authenticated user on the Internet.
   es:
     title: Lack of data validation - Out of range
     description: >
-      __empty__
+      Usuario autenticado en un dominio que
+      restrinja ciertas funcionalidades como
+      Gestión de Empleados, puede saltar las
+      restricciones al usar rutas absolutas de
+      estas funcionalidades.
     impact: >
-      __empty__
+      Acceder al panel de gestión empleados
+      desde un dominio no permitido.
     recommendation: >
-      __empty__
+      Verificar que los dominios que tienen
+      restringidas ciertas funcionalidades
+      no pueden acceder a ellas mediante
+      rutas absolutas de estas.
     threat: >
-      __empty__
+      Usuario autenticado en Internet.
   category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
@@ -11929,37 +11944,51 @@
   en:
     title: Lack of data validation - Emails
     description: >
-      __empty__
+      The application does not control on
+      the server side that the emails used
+      to register users do not belong to
+      disposable mailboxes such as yopmail.
     impact: >
-      __empty__
+      Reset passwords for registered users
+      with disposable mailboxes.
     recommendation: >
-      __empty__
+      Implement a blacklisting system with
+      disposable mailbox domains or implement
+      federated authentication.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet
+      using enumerated users.
   es:
     title: Lack of data validation - Emails
     description: >
-      __empty__
+      La aplicación no controla del lado de
+      servidor que los correos electrónicos
+      que se usan para registrar usuarios no
+      pertenezcan a buzones desechables como yopmail.
     impact: >
-      __empty__
+      Restablecer las contraseñas de los usuarios
+      registrados con buzones desechables.
     recommendation: >
-      __empty__
+      Implementar un sistema de listas negras
+      con los dominios de buzones desechables
+      o implementar autenticación federada.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet utilizando
+      usuarios enumerados.
   category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "W"
       report_confidence: "X"
   requirements: ["173","320","342"]
   metadata:
