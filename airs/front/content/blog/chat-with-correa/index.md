@@ -20,7 +20,7 @@ about2: Data scientist in training.
 source: https://unsplash.com/photos/cVMaxt672ss
 ---
 
-<div class="questions-blog">
+<div class="blog-questions">
 
 Daniel is a highly skilled security professional. His insights about the
 current cybersecurity landscape complements previous perspectives on our
