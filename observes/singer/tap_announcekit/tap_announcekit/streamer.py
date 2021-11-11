@@ -31,6 +31,7 @@ from tap_announcekit.stream import (
     StreamEmitterFactory,
 )
 from tap_announcekit.streams import (
+    ActivitiesStreams,
     ExtUsersStream,
     FeedbackStreams,
     PostContentStreams,
@@ -54,6 +55,7 @@ class AutoName(Enum):
 
 
 class SupportedStream(AutoName):
+    ACTIVITIES = auto()
     PROJECTS = auto()
     POSTS = auto()
     POST_CONTENTS = auto()
@@ -97,6 +99,9 @@ class Streamer(_Streamer):
             SupportedStream.FEEDBACKS: FeedbackStreams(
                 self.client
             ).proj_feedbacks(self.proj),
+            SupportedStream.ACTIVITIES: ActivitiesStreams(self.client).stream(
+                self.proj
+            ),
             SupportedStream.EXT_USERS: ExtUsersStream(self.client).stream(
                 self.proj
             ),
