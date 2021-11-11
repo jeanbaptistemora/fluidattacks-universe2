@@ -12159,23 +12159,35 @@
   en:
     title: Unauthorized access to files - S3 Bucket
     description: >
-      __empty__
+      When the strings of the files stored in
+      the device at the time of installing the
+      application are analyzed, there is evidence
+      of url access to buckets, where it is evident
+      that they can all be listed without any
+      type of authentication.
     impact: >
-      __empty__
+      Obtain information stored in the buckets.
     recommendation: >
-      __empty__
+      Securely configure the vulnerable service so
+      that it can only be accessed by authorized users.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Unauthorized access to files - S3 Bucket
     description: >
-      __empty__
+      Cuando se analizan los strings de los archivos
+      almacenados en el dispositivo al momento de
+      instalar la aplicación, se evidencia url de
+      acceso a buckets, donde se evidencia que pueden
+      ser listados todos sin ningún tipo de autenticación.
     impact: >
-      __empty__
+      Obtener información almacenada en los buckets.
     recommendation: >
-      __empty__
+      Configurar de manera segura el servicio
+      vulnerable permitiendo así que solo sea
+      accedido por usuarios autorizados.
     threat: >
-      __empty__
+      Anónimo desde Internet.
   category: Subvert Access
   score:
     base:
@@ -12184,8 +12196,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "H"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
