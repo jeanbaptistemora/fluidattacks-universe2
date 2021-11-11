@@ -4,6 +4,11 @@
     enable = true;
     targets = [ "/" ];
   };
+  formatMarkdown = {
+    enable = true;
+    doctocArgs = [ "--title" "# Contents" ];
+    targets = [ "/skims/LICENSE.md" ];
+  };
   formatNix = {
     enable = true;
     targets = [ "/" ];
