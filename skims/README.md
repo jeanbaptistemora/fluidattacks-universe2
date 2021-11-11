@@ -32,3 +32,13 @@ Changes made to the source code are reflected on each invocation
 
 - Run: `./m`, a list of available commands will be displayed.
   Relevant commands begin with `skims` prefix
+
+- Some tests require a local instance of integrates, to deploy a local instance of integrates,
+  run each command in a different terminal.
+
+  ```bash
+  m . /integrates/back
+  m . /integrates/cache
+  m . /dynamoDb/skims
+  m . /integrates/storage
+  ```

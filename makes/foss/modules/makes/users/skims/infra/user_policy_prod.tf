@@ -120,8 +120,17 @@ data "aws_iam_policy_document" "skims_prod_policy_data" {
       "kms:*"
     ]
     resources = [
-      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/skims_*"
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:key/*"
     ]
+    condition {
+      test     = "ForAnyValue:StringEquals"
+      variable = "kms:ResourceAliases"
+
+      values = [
+        "alias/skims_prod",
+        "alias/skims_dev",
+      ]
+    }
   }
 
   # S3 admin over skims buckets

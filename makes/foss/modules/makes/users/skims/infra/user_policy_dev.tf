@@ -95,8 +95,16 @@ data "aws_iam_policy_document" "skims_dev_policy_data" {
       "kms:DescribeKey",
     ]
     resources = [
-      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/skims_dev"
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:key/*"
     ]
+    condition {
+      test     = "ForAnyValue:StringEquals"
+      variable = "kms:ResourceAliases"
+
+      values = [
+        "alias/skims_dev",
+      ]
+    }
   }
 
   # S3 access to skims buckets
