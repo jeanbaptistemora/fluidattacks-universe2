@@ -65,16 +65,6 @@ RE_MAVEN_B: Pattern[str] = re.compile(
     fr".*$"
 )
 
-# Roadmap:
-# | package           | weight | Implemented
-# | build.gradle      | 3132   | yes
-# | package.json      | 2823   | yes
-# | packages.config   | 755    |
-# | pom.xml           | 672    |
-# | package-lock.json | 555    | yes
-# | bower.json        | 158    |
-# | yarn.lock         | 47     | yes
-
 
 def _pom_xml_get_properties(root: bs4.BeautifulSoup) -> Dict[str, str]:
     return {
@@ -142,6 +132,46 @@ async def pom_xml(
         content=content,
         path=path,
         platform=core_model.Platform.MAVEN,
+    )
+
+
+def _packages_config(
+    content: str,
+    path: str,
+    platform: core_model.Platform,
+) -> core_model.Vulnerabilities:
+    def resolve_dependencies() -> Iterator[DependencyType]:
+        root = bs4.BeautifulSoup(content, features="html.parser")
+
+        for package in root.find_all("package", recursive=True):
+            if (id_ := package.get("id")) and (
+                version := package.get("version")
+            ):
+                column = package.sourcepos
+                line = package.sourceline
+
+                yield (
+                    {"column": column, "line": line, "item": id_},
+                    {"column": column, "line": line, "item": version},
+                )
+
+    return translate_dependencies_to_vulnerabilities(
+        content=content,
+        dependencies=resolve_dependencies(),
+        path=path,
+        platform=platform,
+    )
+
+
+async def packages_config(
+    content: str,
+    path: str,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _packages_config,
+        content=content,
+        path=path,
+        platform=core_model.Platform.NUGET,
     )
 
 
@@ -398,6 +428,13 @@ async def analyze(
     elif (file_name, file_extension) == ("package-lock", "json"):
         coroutines.append(
             npm_package_lock_json(
+                content=await content_generator(),
+                path=path,
+            )
+        )
+    elif (file_name, file_extension) == ("packages", "config"):
+        coroutines.append(
+            packages_config(
                 content=await content_generator(),
                 path=path,
             )
