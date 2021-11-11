@@ -694,11 +694,11 @@
       to compromise the session
       of any user who enters the platform
       or to distribute malicious software.
-    impact: Inject malicious JavaScript code persistently
+    impact: Inject malicious JavaScript code persistently.
     recommendation: >
       Filter the information that receives
       and sends the application using white lists.
-    threat: Authorized attacker from the Internet
+    threat: Authorized attacker from the Internet.
   es:
     title: Stored cross-site scripting (XSS)
     description: >
@@ -1742,7 +1742,7 @@
       that can be uploaded to the server.
     impact: >
       - Consume server resources and storage
-      to upload large files
+      to upload large files.
 
       - Lead to denial of service attacks
       if the server storage capacity is overloaded.
@@ -12590,23 +12590,37 @@
   en:
     title: Asymmetric denial of service - ReDoS
     description: >
-      __empty__
+      Within the source code there is evidence
+      of the use of dangerous regular expressions,
+      because they make use of complex operations
+      to find matches, which can lead to an attacker
+      sending a specific string of data that could
+      cause the server to crash when evaluating the
+      string with the dangerous regular expression.
     impact: >
-      __empty__
+      Generate server crash.
     recommendation: >
-      __empty__
+      Use optimized regular expressions to perform
+      functions without much computational overhead.
     threat: >
-      __empty__
+      Anonymous attcker from the Internet.
   es:
     title: Asymmetric denial of service - ReDoS
     description: >
-      __empty__
+      Dentro del código fuente se evidencia el uso
+      de expresiones regulares peligrosas, porque
+      hacen uso de operaciones complejas para encontrar
+      coincidencias, lo que puede llevar a que un
+      atacante envíe una cadena de datos específica que
+      podría generar la caída del servidor al evaluar
+      la cadena con la expresión regular peligrosa.
     impact: >
-      __empty__
+      Generar la caída del servidor.
     recommendation: >
-      __empty__
+      Utilizar expresiones regulares optimizadas para
+      realizar funciones sin mucho gasto computacional.
     threat: >
-      __empty__
+      Anónimo desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -12616,12 +12630,12 @@
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "H"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "R"
   requirements: ["072","327"]
   metadata:
     en:
@@ -12630,23 +12644,45 @@
   en:
     title: Security controls bypass or absence - Cloudflare
     description: >
-      __empty__
+      It is possible to make requests
+      directly to the server's IP and
+      thus bypass Cloudflare.
     impact: >
-      __empty__
+      - Extract technical information
+      that Cloudflare masks and thus
+      expand the attack surface.
+
+      - Make malicious requests that
+      are rejected by Cloudflare.
+
+      - Perform DDoS attacks by evading
+      the service that protects against them.
     recommendation: >
-      __empty__
+      Redirect any request to the
+      server to the security service.
     threat: >
-      __empty__
+      User from the Internet.
   es:
     title: Security controls bypass or absence - Cloudflare
     description: >
-      __empty__
+      Es posible hacer peticiones
+      directamente a la IP del servidor
+      y de esta forma evadir Cloudflare.
     impact: >
-      __empty__
+      - Extraer información técnica que
+      Cloudflare enmascara y de esta forma
+      ampliar la superficie de ataque.
+
+      - Realizar peticiones maliciosas que
+      son rechazadas por Cloudflare.
+
+      - Hacer ataques DDoS al evadir el
+      servicio que protege de los mismos.
     recommendation: >
-      __empty__
+      Redirigir cualquier petición al servidor
+      hacia el servicio de seguridad.
     threat: >
-      __empty__
+      Usuario de Internet.
   category: Subvert Access
   score:
     base:
@@ -12655,13 +12691,13 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      confidentiality: "L"
+      integrity: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "R"
   requirements: ["062","266"]
   metadata:
     en:
