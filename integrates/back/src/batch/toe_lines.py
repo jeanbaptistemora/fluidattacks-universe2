@@ -17,6 +17,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.roots.types import (
+    GitRootItem,
     RootItem,
 )
 from db_model.toe_lines.types import (
@@ -41,9 +42,6 @@ from newutils import (
     git as git_utils,
 )
 import os
-from roots import (
-    domain as roots_domain,
-)
 from settings import (
     LOGGING,
 )
@@ -333,48 +331,44 @@ def pull_repositories(tmpdir: str, group_name: str) -> None:
 @retry_on_exceptions(
     exceptions=(ToeLinesAlreadyUpdated,),
 )
-async def refresh_storage_repo_toe_lines(
-    group_name: str,
-    group_path: str,
-    roots: Tuple[RootItem, ...],
-    repo_nickname: str,
+async def refresh_active_root_repo_toe_lines(
+    group_name: str, group_path: str, root_repo: GitRootItem
 ) -> None:
     try:
-        repo = Repo(repo_nickname)
+        repo = Repo(root_repo.state.nickname)
     except InvalidGitRepositoryError:
         LOGGER.error(
             "Invalid repository",
             extra={
                 "extra": {
                     "group_name": group_name,
-                    "repository": repo_nickname,
+                    "repository": root_repo.state.nickname,
                 }
             },
         )
         return
 
     loaders = get_new_context()
-    await git_utils.disable_quotepath(f"{repo_nickname}/.git")
-    root_id = roots_domain.get_root_id_by_nickname(repo_nickname, roots)
+    await git_utils.disable_quotepath(f"{root_repo.state.nickname}/.git")
     repo_toe_lines = {
         toe_lines.filename: toe_lines
         for toe_lines in cast(
             Tuple[ToeLines, ...],
-            await loaders.root_toe_lines.load((group_name, root_id)),
+            await loaders.root_toe_lines.load((group_name, root_repo.id)),
         )
     }
     present_filenames = await get_present_filenames(
-        group_path, repo, repo_nickname
+        group_path, repo, root_repo.state.nickname
     )
     present_toe_lines_to_add = await get_present_toe_lines_to_add(
         present_filenames,
         repo,
-        repo_nickname,
+        root_repo.state.nickname,
         repo_toe_lines,
     )
     await collect(
         tuple(
-            toe_lines_add(group_name, root_id, filename, toe_lines_to_add)
+            toe_lines_add(group_name, root_repo.id, filename, toe_lines_to_add)
             for filename, toe_lines_to_add in present_toe_lines_to_add
         ),
         workers=500,
@@ -382,7 +376,7 @@ async def refresh_storage_repo_toe_lines(
     present_toe_lines_to_update = await get_present_toe_lines_to_update(
         present_filenames,
         repo,
-        repo_nickname,
+        root_repo.state.nickname,
         repo_toe_lines,
     )
     non_present_toe_lines_to_update = get_non_present_toe_lines_to_update(
@@ -402,18 +396,15 @@ async def refresh_storage_repo_toe_lines(
 @retry_on_exceptions(
     exceptions=(ToeLinesAlreadyUpdated,),
 )
-async def refresh_non_storage_repo_toe_lines(
-    group_name: str,
-    roots: Tuple[RootItem, ...],
-    repo_nickname: str,
+async def refresh_inactive_root_repo_toe_lines(
+    group_name: str, root_repo: GitRootItem
 ) -> None:
     loaders = get_new_context()
-    root_id = roots_domain.get_root_id_by_nickname(repo_nickname, roots)
     repo_toe_lines = {
         toe_lines.filename: toe_lines
         for toe_lines in cast(
             Tuple[ToeLines, ...],
-            await loaders.root_toe_lines.load((group_name, root_id)),
+            await loaders.root_toe_lines.load((group_name, root_repo.id)),
         )
     }
     present_filenames: Set[str] = set()
@@ -437,35 +428,33 @@ async def refresh_toe_lines(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
     current_dir = os.getcwd()
     roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
+    active_root_repos = tuple(
+        root
+        for root in roots
+        if isinstance(root, GitRootItem) and root.state.status == "ACTIVE"
+    )
+    inactive_root_repos = tuple(
+        root
+        for root in roots
+        if isinstance(root, GitRootItem) and root.state.status == "INACTIVE"
+    )
     with tempfile.TemporaryDirectory() as tmpdir:
         os.chdir(tmpdir)
         pull_repositories(tmpdir, group_name)
         group_path = tmpdir + f"/groups/{group_name}"
         os.chdir(f"{group_path}/fusion")
-        fusion_files = os.listdir()
-        is_dir = await collect(
-            tuple(in_thread(os.path.isdir, file) for file in fusion_files)
-        )
-        storage_repo_nicknames = {
-            fusion_file
-            for fusion_file, is_dir in zip(fusion_files, is_dir)
-            if is_dir
-        }
         await collect(
             tuple(
-                refresh_storage_repo_toe_lines(
-                    group_name, group_path, roots, repo_nickname
+                refresh_active_root_repo_toe_lines(
+                    group_name, group_path, root_repo
                 )
-                for repo_nickname in storage_repo_nicknames
+                for root_repo in active_root_repos
             )
         )
         await collect(
             tuple(
-                refresh_non_storage_repo_toe_lines(
-                    group_name, roots, root.state.nickname
-                )
-                for root in roots
-                if root.state.nickname not in storage_repo_nicknames
+                refresh_inactive_root_repo_toe_lines(group_name, root_repo)
+                for root_repo in inactive_root_repos
             )
         )
         os.chdir(current_dir)
