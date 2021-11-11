@@ -11998,37 +11998,48 @@
   en:
     title: Traceability loss
     description: >
-      __empty__
+      The VPC Flow Logs are disabled thus any
+      security and access issues will pass
+      unnoticed such as rejected connection
+      requests or unusual levels of data transfer.
     impact: >
-      __empty__
+      Lose the tracking of exceptional events and
+      fail to detect potential security breaches.
     recommendation: >
-      __empty__
+      Enable VPC Flow Logs to record events
+      and messages from the VPC.
     threat: >
-      __empty__
+      Unauthorized internal attacker.
   es:
     title: Traceability loss
     description: >
-      __empty__
+      Los registros de flujo VPC están desactivados,
+      por lo que cualquier problema de seguridad y
+      acceso pasará desapercibido, como las solicitudes
+      de conexión rechazadas o los niveles inusuales
+      de transferencia de datos.
     impact: >
-      __empty__
+      Perder el seguimiento de eventos excepcionales
+      y no detectar posibles violaciones de la seguridad.
     recommendation: >
-      __empty__
+      Habilite los registros de flujo de la VPC
+      para registrar los eventos y mensajes de la VPC.
     threat: >
-      __empty__
+      Atacante interno no autorizado.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["075","320"]
   metadata:
