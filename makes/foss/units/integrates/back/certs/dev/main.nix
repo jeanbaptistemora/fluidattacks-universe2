@@ -1,9 +1,9 @@
-{ inputs
+{ makeSslCertificate
 , ...
 }:
-inputs.legacy.importUtility "ssl-certs" {
+makeSslCertificate {
   name = "integrates-back-certs-development";
-  options = builtins.concatLists [
+  options = [
     [ "-subj" "/C=CO" ]
     [ "-subj" "/CN=fluidattacks.com" ]
     [ "-subj" "/emailAddress=development@fluidattacks.com" ]

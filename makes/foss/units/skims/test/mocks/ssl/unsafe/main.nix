@@ -1,5 +1,6 @@
 { inputs
 , makeScript
+, makeSslCertificate
 , makeTemplate
 , managePorts
 , ...
@@ -8,9 +9,10 @@ makeScript {
   replace = {
     __argConfig__ = makeTemplate {
       replace = {
-        __argHttpServerSslCert__ = inputs.legacy.importUtility "ssl-certs" {
+        __argHttpServerSslCert__ = makeSslCertificate {
+          days = 365;
           name = "skims-test-mocks-ssl-unsafe";
-          options = [ "-subj" "/CN=localhost" ];
+          options = [ [ "-subj" "/CN=localhost" ] ];
         };
         __argHttpServerRoot__ = ../http/server/root;
       };
