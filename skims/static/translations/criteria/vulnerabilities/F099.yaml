@@ -1,4 +1,4 @@
-src.lib_path.f099.bucket_policy_has_server_side_encryption_disabled:
+src.lib_path.f099.bckp_has_server_side_encryption_disabled:
   en: Buckets have Server-Side Encryption disabled..
   es: Los Buckets tienen el cifrado del lado del servidor deshabilitado..
 F099.title:
