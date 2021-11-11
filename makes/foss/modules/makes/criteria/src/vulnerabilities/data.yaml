@@ -11467,32 +11467,44 @@
   en:
     title: Lack of data validation - Session Cookie
     description: >
-      __empty__
+      The Session Cookie is generated from any
+      value sent from the front end, allowing to
+      modify it and set an insecure session cookie.
     impact: >
-      __empty__
+      - Set any value as a session cookie.
+
+      - Consume reporting services without authorization.
     recommendation: >
-      __empty__
+      Prevent modification of the session cookie value.
     threat: >
-      __empty__
+      External attacker with internet
+      access and a valid token.
   es:
     title: Lack of data validation - Session Cookie
     description: >
-      __empty__
+      La Cookie de sesión en generada desde un
+      valor cualquiera enviado desde el front,
+      permitiendo así modificarlo y establecer
+      una cookie de sesión insegura.
     impact: >
-      __empty__
+      - Fijar cualquier valor como cookie de sesión.
+
+      - Consumir servicios de reportes sin autorización.
     recommendation: >
-      __empty__
+      Prevenir la modificación del valor de
+      la cookie de sesión.
     threat: >
-      __empty__
+      Atacante externo con acceso a internet
+      y con un token válido.
   category: Inject Unexpected
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
+      privileges_required: "L"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
