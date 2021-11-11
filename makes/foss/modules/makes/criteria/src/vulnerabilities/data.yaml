@@ -12265,33 +12265,40 @@
   en:
     title: Insuficient Phisical Access Controls
     description: >
-      __empty__
+      It is possible to access the
+      facilities by tailgating.
     impact: >
-      __empty__
+      Access to facilities and offices.
     recommendation: >
-      __empty__
+      Ask everyone who enters the office
+      for an access card.
+      Make employees aware of tailgating.
     threat: >
-      __empty__
+      Anonymous entering the branch.
   es:
     title: Insuficient Phisical Access Controls
     description: >
-      __empty__
+      Es posible acceder a las instalaciones
+      haciendo uso del tailgating.
     impact: >
-      __empty__
+      Acceder a las instalaciones y oficinas.
     recommendation: >
-      __empty__
+      - Solicitar a toda persona que entre en
+      la oficina carnet de acceso.
+      Concientizar a los empleados acerca
+      del tailgating.
     threat: >
-      __empty__
+      Anónimo entrando en la sucursal
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "P"
       attack_complexity: "L"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
@@ -12305,23 +12312,40 @@
   en:
     title: Security controls bypass or absence - Anti hooking
     description: >
-      __empty__
+      The application does not have anti-hooking
+      protections, allowing tools such as Frida
+      to work in its execution.
     impact: >
-      __empty__
+      - Evading security controls
+      such as SSL pinning.
+
+      - Intercepting function calls and
+      messages to alter the behavior of
+      the application.
     recommendation: >
-      __empty__
+      Enabling anti-hooking controls
+      in the application.
     threat: >
-      __empty__
+      Anonymous attcker from the Internet.
   es:
     title: Security controls bypass or absence - Anti hooking
     description: >
-      __empty__
+      El aplicativo no cuenta con
+      las protecciones anti-hooking,
+      permitiendo a herramientas como
+      Frida funcionar en su ejecución.
     impact: >
-      __empty__
+      - Evadir controles de seguridad
+      como SSL pinning.
+
+      - Interceptar llamadas a funciones
+      y mensajes para alterar el comportamiento
+      del aplicativo.
     recommendation: >
-      __empty__
+      Habilitar los controles anti-hooking
+      en el aplicativo.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   category: Subvert Access
   score:
     base:
@@ -12330,12 +12354,12 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["062","266","273"]
   metadata:
