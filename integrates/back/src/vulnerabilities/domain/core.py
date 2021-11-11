@@ -462,26 +462,7 @@ async def get_open_vulnerabilities_specific_by_type(
     }
 
 
-def get_treatments(
-    vulnerabilities: List[Dict[str, FindingType]]
-) -> Treatments:
-    treatment_counter = Counter(
-        [
-            vuln["historic_treatment"][-1]["treatment"]
-            for vuln in vulnerabilities
-            if vuln["historic_treatment"]
-            and vuln["historic_state"][-1]["state"] == "open"
-        ]
-    )
-    return Treatments(
-        accepted=treatment_counter["ACCEPTED"],
-        accepted_undefined=treatment_counter["ACCEPTED_UNDEFINED"],
-        in_progress=treatment_counter["IN PROGRESS"],
-        new=treatment_counter["NEW"],
-    )
-
-
-def get_treatments_new(
+def get_treatments_count(
     vulnerabilities: Tuple[Vulnerability, ...],
 ) -> Treatments:
     treatment_counter = Counter(

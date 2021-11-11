@@ -483,7 +483,7 @@ async def get_treatment_summary(
     finding_vulns_loader = loaders.finding_vulns_nzr_typed
     vulnerabilities = await finding_vulns_loader.load(finding_id)
     open_vulnerabilities = vulns_utils.filter_open_vulns_new(vulnerabilities)
-    return vulns_domain.get_treatments_new(open_vulnerabilities)
+    return vulns_domain.get_treatments_count(open_vulnerabilities)
 
 
 async def _get_wheres(
