@@ -1,5 +1,5 @@
 src.lib_path.f281.bucket_policy_has_secure_transport:
-  en: Bucket is not using checking whether the request was sent using SSL.
+  en: Bucket is not checking whether the request was sent using SSL.
   es: El Bucket no está comprobando si la solicitud se envió mediante SSL.
 F281.title:
   en: >
