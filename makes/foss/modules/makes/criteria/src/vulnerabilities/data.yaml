@@ -11033,23 +11033,36 @@
   en:
     title: Email spoofing
     description: >
-      __empty__
+      The sendEmail endpoint allows calls
+      without any authentication, allowing
+      anyone to send mails on behalf of the
+      bank with arbitrary content.
     impact: >
-      __empty__
+      Anonymous Internet attacker can send
+      mail using the sendEmail endpoint.
     recommendation: >
-      __empty__
+      Configure the sendEmail endpoint to
+      disallow anonymous connection.
     threat: >
-      __empty__
+      An attacker can use the sendEmail
+      endpoint to send emails from a business
+      address, which could impersonate users
+      and perform phishing attacks.
   es:
     title: Email spoofing
     description: >
-      __empty__
+      El endpoint sendEmail permite llamados
+      sin autenticación alguna, permitiendo
+      a cualquiera enviar correos a nombre del
+      banco con contenido arbitrario.
     impact: >
-      __empty__
+      Atacante anónimo en internet puede enviar
+      correos utilizando el endpoint sendEmail.
     recommendation: >
-      __empty__
+      Configurar el endpoint sendEmail para
+      que no permita una conexión anónima.
     threat: >
-      __empty__
+      Un atacatante puede utilizar el endpoint sendEmail para enviar correos electrónicos desde una dirección empresarial, con lo cual podría suplantar usuarios y realizar ataques de phishing.
   category: Deceptive Interactions
   score:
     base:
@@ -11058,12 +11071,12 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "W"
       report_confidence: "X"
   requirements: ["062","273"]
   metadata:
