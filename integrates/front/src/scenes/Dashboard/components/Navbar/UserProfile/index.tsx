@@ -7,7 +7,7 @@ import {
   faUserCircle,
   faUserCog,
   faUserPlus,
-  faUserSlash,
+  faUserTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
@@ -210,7 +210,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                     message={t("navbar.deleteAccount.tooltip")}
                   >
                     <DropdownButton onClick={handleLogoutClick}>
-                      <FontAwesomeIcon icon={faUserSlash} />
+                      <FontAwesomeIcon icon={faUserTimes} />
                       &nbsp;
                       {t("navbar.deleteAccount.text")}
                     </DropdownButton>
