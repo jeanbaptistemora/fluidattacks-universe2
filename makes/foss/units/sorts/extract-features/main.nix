@@ -12,6 +12,7 @@ makeScript {
       (outputs."/utils/aws")
       (outputs."/utils/git")
       (outputs."/utils/sops")
+      (outputs."/utils/common")
     ];
   };
   entrypoint = projectPath "/makes/foss/units/sorts/extract-features/entrypoint.sh";
