@@ -317,20 +317,22 @@ def make_group_dir(tmpdir: str, group_name: str) -> None:
     os.makedirs(group_dir, exist_ok=True)
 
 
-def pull_repositories(tmpdir: str, group_name: str) -> None:
+def pull_repositories(
+    tmpdir: str, group_name: str, optional_repo_nickname: str
+) -> None:
     make_group_dir(tmpdir, group_name)
-    os.system(  # nosec
-        "CI=true "
-        "CI_COMMIT_REF_NAME=master "
-        "PROD_AWS_ACCESS_KEY_ID=$SERVICES_PROD_AWS_ACCESS_KEY_ID "
-        "PROD_AWS_SECRET_ACCESS_KEY=$SERVICES_PROD_AWS_SECRET_ACCESS_KEY "
-        f"melts drills --pull-repos {group_name} "
-    )
+    call_melts = [
+        "CI=true",
+        "CI_COMMIT_REF_NAME=master",
+        "PROD_AWS_ACCESS_KEY_ID=$SERVICES_PROD_AWS_ACCESS_KEY_ID",
+        "PROD_AWS_SECRET_ACCESS_KEY=$SERVICES_PROD_AWS_SECRET_ACCESS_KEY",
+        f"melts drills --pull-repos {group_name}",
+    ]
+    if optional_repo_nickname:
+        call_melts.append(f"--name {optional_repo_nickname}")
+    os.system(" ".join(call_melts))  # nosec
 
 
-@retry_on_exceptions(
-    exceptions=(ToeLinesAlreadyUpdated,),
-)
 async def refresh_active_root_repo_toe_lines(
     group_name: str, group_path: str, root_repo: GitRootItem
 ) -> None:
@@ -393,9 +395,6 @@ async def refresh_active_root_repo_toe_lines(
     )
 
 
-@retry_on_exceptions(
-    exceptions=(ToeLinesAlreadyUpdated,),
-)
 async def refresh_inactive_root_repo_toe_lines(
     group_name: str, root_repo: GitRootItem
 ) -> None:
@@ -423,10 +422,13 @@ async def refresh_inactive_root_repo_toe_lines(
     )
 
 
-async def refresh_toe_lines(*, item: BatchProcessing) -> None:
+@retry_on_exceptions(
+    exceptions=(ToeLinesAlreadyUpdated,),
+)
+async def refresh_root_repo_toe_lines(
+    group_name: str, group_path: str, optional_repo_nickname: str
+) -> None:
     loaders = get_new_context()
-    group_name: str = item.entity
-    current_dir = os.getcwd()
     roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
     active_root_repos = tuple(
         root
@@ -438,23 +440,37 @@ async def refresh_toe_lines(*, item: BatchProcessing) -> None:
         for root in roots
         if isinstance(root, GitRootItem) and root.state.status == "INACTIVE"
     )
+    await collect(
+        tuple(
+            refresh_active_root_repo_toe_lines(
+                group_name, group_path, root_repo
+            )
+            for root_repo in active_root_repos
+            if not optional_repo_nickname
+            or root_repo.state.nickname == optional_repo_nickname
+        )
+    )
+    await collect(
+        tuple(
+            refresh_inactive_root_repo_toe_lines(group_name, root_repo)
+            for root_repo in inactive_root_repos
+            if not optional_repo_nickname
+            or root_repo.state.nickname == optional_repo_nickname
+        )
+    )
+
+
+async def refresh_toe_lines(*, item: BatchProcessing) -> None:
+    group_name: str = item.entity
+    optional_repo_nickname: str = item.additional_info
+    current_dir = os.getcwd()
+
     with tempfile.TemporaryDirectory() as tmpdir:
         os.chdir(tmpdir)
-        pull_repositories(tmpdir, group_name)
+        pull_repositories(tmpdir, group_name, optional_repo_nickname)
         group_path = tmpdir + f"/groups/{group_name}"
         os.chdir(f"{group_path}/fusion")
-        await collect(
-            tuple(
-                refresh_active_root_repo_toe_lines(
-                    group_name, group_path, root_repo
-                )
-                for root_repo in active_root_repos
-            )
-        )
-        await collect(
-            tuple(
-                refresh_inactive_root_repo_toe_lines(group_name, root_repo)
-                for root_repo in inactive_root_repos
-            )
+        await refresh_root_repo_toe_lines(
+            group_name, group_path, optional_repo_nickname
         )
         os.chdir(current_dir)
