@@ -2960,6 +2960,30 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_
    69 |           ]
       ^ Col 0
 "
+F031,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml.json,89,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
+   79 |               ],
+   80 |               ""Effect"": ""Allow"",
+   81 |               ""Resource"": [
+   82 |                 """",
+   83 |                 [
+   84 |                   ""arn:aws:s3:::"",
+   85 |                   ""DOC-EXAMPLE-BUCKET"",
+   86 |                   ""/*""
+   87 |                 ]
+   88 |               ],
+>  89 |               ""Principal"": ""*"",
+   90 |               ""Condition"": {
+   91 |                 ""StringLike"": {
+   92 |                   ""aws:Referer"": [
+   93 |                     ""http://www.example.com/*"",
+   94 |                     ""http://example.net/*""
+   95 |                   ]
+   96 |                 },
+   97 |                 ""Bool"": {
+   98 |                   ""aws:SecureTransport"": true
+   99 |                 },
+      ^ Col 0
+"
 F031,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml.json,89,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
    79 |               ],
    80 |               ""Effect"": ""Allow"",
@@ -3032,6 +3056,30 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_
   129 |           ]
       ^ Col 0
 "
+F031,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml.json,119,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
+  109 |               ],
+  110 |               ""Effect"": ""Allow"",
+  111 |               ""Resource"": [
+  112 |                 """",
+  113 |                 [
+  114 |                   ""arn:aws:s3:::"",
+  115 |                   ""DOC-EXAMPLE-BUCKET"",
+  116 |                   ""/*""
+  117 |                 ]
+  118 |               ],
+> 119 |               ""Principal"": ""*"",
+  120 |               ""Condition"": {
+  121 |                 ""StringLike"": {
+  122 |                   ""aws:Referer"": [
+  123 |                     ""http://www.example.com/*"",
+  124 |                     ""http://example.net/*""
+  125 |                   ]
+  126 |                 }
+  127 |               }
+  128 |             }
+  129 |           ]
+      ^ Col 0
+"
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,40,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
   30 |           - Action:
   31 |               - ""s3:DeleteObject""
@@ -3054,6 +3102,30 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_
   48 |     Properties:
   49 |       Bucket: DOC-EXAMPLE-BUCKET
   50 |       PolicyDocument:
+     ^ Col 0
+"
+F031,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml,59,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
+  49 |           - Action:
+  50 |               - ""s3:DeleteObject""
+  51 |               - ""s3:DeleteObjectVersion""
+  52 |               - ""s3:PutLifecycleConfiguration""
+  53 |             Effect: Allow
+  54 |             Resource:
+  55 |               - ''
+  56 |               - - 'arn:aws:s3:::'
+  57 |                 - DOC-EXAMPLE-BUCKET
+  58 |                 - /*
+> 59 |             Principal: '*'
+  60 |             Condition:
+  61 |               StringLike:
+  62 |                 'aws:Referer':
+  63 |                   - 'http://www.example.com/*'
+  64 |                   - 'http://example.net/*'
+  65 |               Bool:
+  66 |                 'aws:SecureTransport': True
+  67 |               ""Null"":
+  68 |                 's3:x-amz-server-side-encryption': True
+  69 |           - Action:
      ^ Col 0
 "
 F031,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml,59,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
@@ -3102,6 +3174,30 @@ F031,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_
   79 |                 'aws:Referer':
   80 |                   - 'http://www.example.com/*'
   81 |                   - 'http://example.net/*'
+     ^ Col 0
+"
+F031,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml,78,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
+  63 |                   - 'http://www.example.com/*'
+  64 |                   - 'http://example.net/*'
+  65 |               Bool:
+  66 |                 'aws:SecureTransport': True
+  67 |               ""Null"":
+  68 |                 's3:x-amz-server-side-encryption': True
+  69 |           - Action:
+  70 |               - ""s3:RestoreObject""
+  71 |               - ""s3:WriteGetObjectResponse""
+  72 |             Effect: Allow
+  73 |             Resource:
+  74 |               - ''
+  75 |               - - 'arn:aws:s3:::'
+  76 |                 - DOC-EXAMPLE-BUCKET
+  77 |                 - /*
+> 78 |             Principal: '*'
+  79 |             Condition:
+  80 |               StringLike:
+  81 |                 'aws:Referer':
+  82 |                   - 'http://www.example.com/*'
+  83 |                   - 'http://example.net/*'
      ^ Col 0
 "
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,78,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
@@ -4995,6 +5091,54 @@ F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_
   50 |      - ""s3:DeleteObject""
   51 |      - ""s3:DeleteObjectVersion""
      ^ Col 9
+"
+F099,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml.json,26,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Buckets have Server-Side Encryption disabled..,"
+   16 |
+   17 |
+   18 | aws:s3:::"",
+   19 | EXAMPLE-BUCKET"",
+   20 |
+   21 |
+   22 |
+   23 | l"": ""*"",
+   24 | n"": {
+   25 |  {
+>  26 | -amz-server-side-encryption"": false
+   27 |
+   28 |
+   29 |
+   30 |
+   31 |
+   32 |
+   33 |
+   34 |
+   35 | :BucketPolicy"",
+   36 |
+      ^ Col 23
+"
+F099,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml,20,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Buckets have Server-Side Encryption disabled..,"
+  10 | etObject'
+  11 | llow
+  12 |
+  13 |
+  14 | n:aws:s3:::'
+  15 | -EXAMPLE-BUCKET
+  16 |
+  17 | : '*'
+  18 | :
+  19 |
+> 20 | -amz-server-side-encryption': False
+  21 |
+  22 | cketPolicy
+  23 |
+  24 | MPLE-BUCKET
+  25 |
+  26 | -10-17
+  27 |
+  28 |
+  29 | eleteObject""
+  30 | eleteObjectVersion""
+     ^ Col 21
 "
 F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,6,311,skims,080. Business information leak - Customers or providers,EC2 volumes are not encrypted or do not use customer-managed keys.,"
    1 | Resources:
