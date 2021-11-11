@@ -11839,33 +11839,43 @@
   en:
     title: Lack of data validation - Numbers
     description: >
-      __empty__
+      There is insecure functionality that can
+      break the current business logic and
+      negatively impact the business.
     impact: >
-      __empty__
+      Carrying out transactions with a lower
+      value than it should be.
     recommendation: >
-      __empty__
+      Validate that the values of the transaction
+      drafts do not travel in the request or that
+      when they are modified, the request is cancelled.
     threat: >
-      __empty__
+      Authenticated attacker from the Internet.
   es:
     title: Lack of data validation - Numbers
     description: >
-      __empty__
+      Existe una funcionalidad insegura que
+      permite romper la lógica del negocio
+      actual e impactar negativamente en él.
     impact: >
-      __empty__
+      Realizar transacciones con valor de giro
+      menor al que debería ser.
     recommendation: >
-      __empty__
+      Validar que los valores de los giros de las
+      transacciones no viajen en la petición o que
+      cuando sean modificados, se cancele la petición.
     threat: >
-      __empty__
+      Atacante autenticado desde Internet.
   category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
+      integrity: "H"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
