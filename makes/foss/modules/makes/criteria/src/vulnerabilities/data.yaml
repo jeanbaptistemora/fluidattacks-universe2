@@ -11413,29 +11413,43 @@
   en:
     title: Lack of data validation - Content Spoofing
     description: >
-      __empty__
+      An unauthorized attacker generating a
+      token without credentials, due to a
+      misconfiguration in the file upload can
+      replace files already uploaded by a client
+      since the application does not validate if
+      these were already sent in the file upload request.
     impact: >
-      __empty__
+      Replace information sent by customers.
     recommendation: >
-      __empty__
+      Enable a mechanism to identify the status
+      of the procedure and restrict access to
+      objects to authorized users.
     threat: >
-      __empty__
+      Unauthorized external attacker with process ID.
   es:
     title: Lack of data validation - Content Spoofing
     description: >
-      __empty__
+      Un atacante no autorizado generando un token
+      sin credenciales, debido a una mala configuración
+      en la carga de archivos puede reemplazar los
+      archivos ya subidos por un cliente ya que la
+      aplicación no valida si estos ya fueron enviados
+      en la petición de carga de archivos.
     impact: >
-      __empty__
+      Reemplazar información enviada por los clientes.
     recommendation: >
-      __empty__
+      Habilitar un mecanismo para identificar en
+      qué estado se encuentra el procedimiento y
+      restringir el acceso a objetos a usuarios autorizados.
     threat: >
-      __empty__
+      Atacante externo no autorizado con ID de proceso.
   category: Inject Unexpected
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
