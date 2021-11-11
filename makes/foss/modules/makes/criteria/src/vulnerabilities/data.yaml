@@ -11519,29 +11519,46 @@
   en:
     title: Lack of data validation - Responses
     description: >
-      __empty__
+      The response data of some requests are
+      sent in subsequent requests, so when the
+      values of these responses are changed to
+      invalid data, subsequent requests take
+      this erroneous information without any
+      type of validation.
     impact: >
-      __empty__
+      Compromise the integrity of the information
+      requests that are processed by the server.
     recommendation: >
-      __empty__
+      Validate at all times from the server
+      the types of data that are entered into
+      different types of fields in the application.
     threat: >
-      __empty__
+      Attacker from intranet with access
+      to the application.
   es:
     title: Lack of data validation - Responses
     description: >
-      __empty__
+      Los datos de las respuestas de algunas
+      peticiones son enviados en request posteriores,
+      por lo que al cambiar los valores de dichas
+      respuestas por datos inválidos, las peticiones
+      siguientes toman esa información errónea sin
+      ningún tipo de validación.
     impact: >
-      __empty__
+      Comprometer la integridad de la información de
+      las peticiones que son procesadas por el servidor.
     recommendation: >
-      __empty__
+      Validar en todo momento desde el servidor los
+      tipos de datos que se ingresan a distintos tipos
+      de campos en la aplicación.
     threat: >
-      __empty__
+      Atacante desde intranet con acceso a la aplicación.
   category: Inject Unexpected
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
