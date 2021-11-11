@@ -21,6 +21,9 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+)
 from decimal import (
     Decimal,
 )
@@ -51,17 +54,17 @@ async def get_data_one_group(
         for finding in group_findings
     }
 
-    vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
+    vulnerabilities = await loaders.finding_vulns_nzr_typed.load_many_chained(
         finding_ids
     )
 
     counter: Counter[str] = Counter()
     for vulnerability in vulnerabilities:
-        if vulnerability["current_state"] == "open":
+        if vulnerability.state.status == VulnerabilityStateStatus.OPEN:
             counter.update(
                 {
                     "open": Decimal(
-                        finding_cvssf[str(vulnerability["finding_id"])]
+                        finding_cvssf[vulnerability.finding_id]
                     ).quantize(Decimal("0.001"))
                 }
             )

@@ -17,6 +17,10 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
+)
 from typing import (
     Counter,
     List,
@@ -32,16 +36,16 @@ async def get_data_one_group(group: str) -> Counter[str]:
     )
     finding_ids = [finding.id for finding in group_findings]
 
-    vulnerabilities = await context.finding_vulns_nzr.load_many_chained(
+    vulnerabilities = await context.finding_vulns_nzr_typed.load_many_chained(
         finding_ids
     )
 
     return Counter(
         [
-            vuln["historic_treatment"][-1]["user"]
+            vuln.treatment.modified_by
             for vuln in vulnerabilities
-            if vuln["historic_treatment"][-1]["treatment"] == "ACCEPTED"
-            and vuln["historic_state"][-1]["state"] == "open"
+            if vuln.treatment.status == VulnerabilityTreatmentStatus.ACCEPTED
+            and vuln.state.status == VulnerabilityStateStatus.OPEN
         ]
     )
 
