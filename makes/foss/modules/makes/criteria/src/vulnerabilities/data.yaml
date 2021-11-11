@@ -11724,38 +11724,53 @@
   en:
     title: Lack of data validation - Headers
     description: >
-      __empty__
+      In the source code the information of some
+      HTTP headers is not being validated, so
+      different values could be injected in order
+      to achieve some XSS attack or compromise the
+      integrity of the stored information.
     impact: >
-      __empty__
+      Inject potentially dangerous characters
+      into application fields.
     recommendation: >
-      __empty__
+      Validate on the server side the types of
+      data that are entered into different kind
+      of fields in the application.
     threat: >
-      __empty__
+      Authorized user from the Internet.
   es:
     title: Lack of data validation - Headers
     description: >
-      __empty__
+      En el código fuente no se está validando
+      la información de algunas cabeceras HTTP,
+      por lo que se podrían inyectar diferentes
+      valores con el fin de lograr algún ataque
+      tipo XSS o comprometer la integridad de
+      la información almacenada.
     impact: >
-      __empty__
+      Inyectar caracteres potencialmente peligrosos
+      en los campos de la aplicación.
     recommendation: >
-      __empty__
+      Validar en el lado del servidor los tipos de
+      datos que se ingresan a distintos tipos de
+      campos en la aplicación.
     threat: >
-      __empty__
+      Usuario autorizado desde internet.
   category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "R"
   requirements: ["173","320","342"]
   metadata:
     en:
