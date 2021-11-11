@@ -11779,23 +11779,43 @@
   en:
     title: Lack of data validation - Dates
     description: >
-      __empty__
+      The application does not control on the
+      server side that you have permission to
+      modify certain fields, on the front end
+      there are restrictions but it is possible
+      to ignore them and send requests that the
+      server does not validate and process as
+      valid requests.
     impact: >
-      __empty__
+      It is possible to generate the history of
+      all movements associated with a product number.
     recommendation: >
-      __empty__
+      Validate on the server side the data that is
+      entered before processing the received request.
     threat: >
-      __empty__
+      By means of a build request it is possible
+      to request the history of all the movements
+      associated with a product, in some cases it
+      could generate availability problems.
   es:
     title: Lack of data validation - Dates
     description: >
-      __empty__
+      La aplicación no controla del lado de servidor
+      que se tenga permiso de modificar ciertos campos,
+      en el front existen restricciones pero es posible
+      ignorarlas y enviar peticiones que el servidor no
+      valida y procesa como peticiones válidas.
     impact: >
-      __empty__
+      Es posible generar el histórico de todos los
+      movimientos asociados a un numero de producto.
     recommendation: >
-      __empty__
+      Validar en el lado del servidor los datos que se
+      ingresan antes de procesar la petición recibida.
     threat: >
-      __empty__
+      Mediante una petición forjada es posible solicitar
+      el histórico de todos los movimientos asociados a
+      un producto, en algún caso podría generar problemas
+      de disponibilidad.
   category: Inject Unexpected
   score:
     base:
@@ -11805,11 +11825,11 @@
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["173","320","342"]
   metadata:
