@@ -19,7 +19,7 @@ def main() -> None:
             # Versions must be lowercase
             for v_id, versions in vulnerabilities.items():
                 database_copy[project.lower()][v_id] = " || ".join(
-                    sorted(re.split(r"\s*\|\|\s*", versions))
+                    sorted(re.split(r"\s*\|\|\s*", versions.lower()))
                 )
 
         with open(database_path, encoding="utf-8", mode="w") as file:

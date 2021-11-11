@@ -111,7 +111,7 @@ def maven(data) -> None:
         print(f"vuln_ids: {vuln_ids}")
         for vuln_id in vuln_ids:
             data.setdefault(project, {})
-            data[project][vuln_id] = ranges_parsed
+            data[project][vuln_id] = " || ".join(ranges_parsed)
 
     return data
 
@@ -157,9 +157,9 @@ def npm(data):
         print(f"vuln_ids: {vuln_ids}")
         for vuln_id in vuln_ids:
             data.setdefault(project, {})
-            data[project][vuln_id] = [
+            data[project][vuln_id] = " || ".join(
                 range if range else ">=0" for range in ranges_raw.split(" || ")
-            ]
+            )
 
     return data
 
@@ -195,7 +195,7 @@ def nuget(data):
         print(f"vuln_ids: {vuln_ids}")
         for vuln_id in vuln_ids:
             data.setdefault(project, {})
-            data[project][vuln_id] = ranges_parsed
+            data[project][vuln_id] = " || ".join(ranges_parsed)
 
     return data
 
