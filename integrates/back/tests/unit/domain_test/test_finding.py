@@ -38,9 +38,6 @@ from graphql.type import (
 from newutils import (
     datetime as datetime_utils,
 )
-from newutils.vulnerabilities import (
-    Treatments,
-)
 import os
 import pytest
 from starlette.datastructures import (
@@ -55,6 +52,9 @@ from typing import (
 )
 from vulnerabilities.domain import (
     validate_treatment_change,
+)
+from vulnerabilities.types import (
+    Treatments,
 )
 
 pytestmark = [
@@ -447,9 +447,9 @@ async def test_get_treatment_summary() -> None:
     finding_id = "475041513"
     oldest_findings = await get_treatment_summary(loaders, finding_id)
     expected_output = Treatments(
-        ACCEPTED=0,
-        ACCEPTED_UNDEFINED=0,
-        IN_PROGRESS=0,
-        NEW=1,
+        accepted=0,
+        accepted_undefined=0,
+        in_progress=0,
+        new=1,
     )
     assert expected_output == oldest_findings

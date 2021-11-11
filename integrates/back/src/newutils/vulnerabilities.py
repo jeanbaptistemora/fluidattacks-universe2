@@ -58,7 +58,6 @@ from typing import (
     Dict,
     Iterable,
     List,
-    NamedTuple,
     Optional,
     Set,
     Tuple,
@@ -69,15 +68,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-Treatments = NamedTuple(
-    "Treatments",
-    [
-        ("ACCEPTED", int),
-        ("ACCEPTED_UNDEFINED", int),
-        ("IN_PROGRESS", int),
-        ("NEW", int),
-    ],
-)
 
 
 def as_range(iterable: Iterable[Any]) -> str:
@@ -497,25 +487,6 @@ def get_report_dates(
 def get_specific(value: Dict[str, str]) -> int:
     """Get specific value."""
     return int(value.get("specific", ""))
-
-
-def get_treatments(
-    vulnerabilities: List[Dict[str, FindingType]]
-) -> Treatments:
-    treatment_counter = Counter(
-        [
-            vuln["historic_treatment"][-1]["treatment"]
-            for vuln in vulnerabilities
-            if vuln["historic_treatment"]
-            and vuln["historic_state"][-1]["state"] == "open"
-        ]
-    )
-    return Treatments(
-        ACCEPTED=treatment_counter["ACCEPTED"],
-        ACCEPTED_UNDEFINED=treatment_counter["ACCEPTED_UNDEFINED"],
-        IN_PROGRESS=treatment_counter["IN PROGRESS"],
-        NEW=treatment_counter["NEW"],
-    )
 
 
 def group_specific(

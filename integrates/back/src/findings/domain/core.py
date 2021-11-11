@@ -24,7 +24,6 @@ from custom_types import (
     Comment as CommentType,
     Finding as FindingType,
     Tracking as TrackingItem,
-    Vulnerability as VulnerabilityType,
 )
 from datetime import (
     datetime,
@@ -83,9 +82,6 @@ from newutils import (
 from newutils.utils import (
     get_key_or_fallback,
 )
-from newutils.vulnerabilities import (
-    Treatments,
-)
 from settings import (
     LOGGING,
     NOEXTRA,
@@ -108,6 +104,9 @@ from users import (
 )
 from vulnerabilities import (
     domain as vulns_domain,
+)
+from vulnerabilities.types import (
+    Treatments,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -477,13 +476,14 @@ def get_tracking_vulnerabilities(
     ]
 
 
-async def get_treatment_summary(loaders: Any, finding_id: str) -> Treatments:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
-    vulnerabilities: List[VulnerabilityType] = await finding_vulns_loader.load(
-        finding_id
-    )
-    open_vulnerabilities = vulns_utils.filter_open_vulns(vulnerabilities)
-    return vulns_utils.get_treatments(open_vulnerabilities)
+async def get_treatment_summary(
+    loaders: Any,
+    finding_id: str,
+) -> Treatments:
+    finding_vulns_loader = loaders.finding_vulns_nzr_typed
+    vulnerabilities = await finding_vulns_loader.load(finding_id)
+    open_vulnerabilities = vulns_utils.filter_open_vulns_new(vulnerabilities)
+    return vulns_domain.get_treatments_new(open_vulnerabilities)
 
 
 async def _get_wheres(

@@ -31,9 +31,6 @@ from dynamodb.exceptions import (
 from findings import (
     domain as findings_domain,
 )
-from newutils.vulnerabilities import (
-    Treatments,
-)
 from typing import (
     Optional,
     Set,
@@ -43,6 +40,9 @@ from unreliable_indicators.enums import (
     EntityAttr,
     EntityDependency,
     EntityId,
+)
+from vulnerabilities.types import (
+    Treatments,
 )
 
 
@@ -61,10 +61,10 @@ def _format_unreliable_treatment_summary(
     unreliable_treatment_summary = None
     if treatment_summary:
         unreliable_treatment_summary = FindingTreatmentSummary(
-            accepted=treatment_summary.ACCEPTED,
-            accepted_undefined=treatment_summary.ACCEPTED_UNDEFINED,
-            in_progress=treatment_summary.IN_PROGRESS,
-            new=treatment_summary.NEW,
+            accepted=treatment_summary.accepted,
+            accepted_undefined=treatment_summary.accepted_undefined,
+            in_progress=treatment_summary.in_progress,
+            new=treatment_summary.new,
         )
     return unreliable_treatment_summary
 

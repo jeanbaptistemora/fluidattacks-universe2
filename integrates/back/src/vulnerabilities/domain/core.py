@@ -27,6 +27,7 @@ from db_model.enums import (
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -79,6 +80,7 @@ from typing import (
     Any,
     cast,
     Collection,
+    Counter,
     Dict,
     Iterable,
     List,
@@ -94,6 +96,7 @@ from vulnerabilities import (
 from vulnerabilities.types import (
     FindingGroupedVulnerabilitiesInfo,
     GroupedVulnerabilitiesInfo,
+    Treatments,
 )
 import yaml  # type: ignore
 
@@ -457,6 +460,50 @@ async def get_open_vulnerabilities_specific_by_type(
         "lines_vulnerabilities": tuple(lines_vulnerabilities),
         "inputs_vulnerabilities": tuple(inputs_vulnerabilities),
     }
+
+
+def get_treatments(
+    vulnerabilities: List[Dict[str, FindingType]]
+) -> Treatments:
+    treatment_counter = Counter(
+        [
+            vuln["historic_treatment"][-1]["treatment"]
+            for vuln in vulnerabilities
+            if vuln["historic_treatment"]
+            and vuln["historic_state"][-1]["state"] == "open"
+        ]
+    )
+    return Treatments(
+        accepted=treatment_counter["ACCEPTED"],
+        accepted_undefined=treatment_counter["ACCEPTED_UNDEFINED"],
+        in_progress=treatment_counter["IN PROGRESS"],
+        new=treatment_counter["NEW"],
+    )
+
+
+def get_treatments_new(
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Treatments:
+    treatment_counter = Counter(
+        [
+            vuln.treatment.status.value
+            for vuln in vulnerabilities
+            if vuln.treatment
+            and vuln.state.status == VulnerabilityStateStatus.OPEN
+        ]
+    )
+    return Treatments(
+        accepted=treatment_counter[
+            VulnerabilityTreatmentStatus.ACCEPTED.value
+        ],
+        accepted_undefined=treatment_counter[
+            VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED.value
+        ],
+        in_progress=treatment_counter[
+            VulnerabilityTreatmentStatus.IN_PROGRESS.value
+        ],
+        new=treatment_counter[VulnerabilityTreatmentStatus.NEW.value],
+    )
 
 
 async def get_vulnerabilities_async(

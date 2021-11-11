@@ -29,9 +29,6 @@ from jinja2 import (
 import logging
 import logging.config
 import matplotlib
-from newutils.vulnerabilities import (
-    get_treatments,
-)
 from pylab import (  # noqa
     axis,
     cla,
@@ -156,23 +153,23 @@ async def format_finding(
     )
     severity_score = findings_domain.get_severity_score(finding.severity)
 
-    treatments = get_treatments(vulnerabilities)
+    treatments = vulns_domain.get_treatments(vulnerabilities)
     formated_treatments: List[str] = []
-    if treatments.ACCEPTED > 0:
+    if treatments.accepted > 0:
         formated_treatments.append(
-            f'{words["treat_status_asu"]}: {treatments.ACCEPTED}'
+            f'{words["treat_status_asu"]}: {treatments.accepted}'
         )
-    if treatments.ACCEPTED_UNDEFINED > 0:
+    if treatments.accepted_undefined > 0:
         formated_treatments.append(
-            f'{words["treat_per_asu"]}: {treatments.ACCEPTED_UNDEFINED}'
+            f'{words["treat_per_asu"]}: {treatments.accepted_undefined}'
         )
-    if treatments.IN_PROGRESS > 0:
+    if treatments.in_progress > 0:
         formated_treatments.append(
-            f'{words["treat_status_rem"]}: {treatments.IN_PROGRESS}'
+            f'{words["treat_status_rem"]}: {treatments.in_progress}'
         )
-    if treatments.NEW > 0:
+    if treatments.new > 0:
         formated_treatments.append(
-            f'{words["treat_status_wor"]}: {treatments.NEW}'
+            f'{words["treat_status_wor"]}: {treatments.new}'
         )
 
     if open_vulnerabilities > 0:
