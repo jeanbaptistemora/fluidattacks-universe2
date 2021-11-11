@@ -1,0 +1,63 @@
+src.lib_path.f099.bucket_policy_has_server_side_encryption_disabled:
+  en: Buckets have Server-Side Encryption disabled..
+  es: Los Buckets tienen el cifrado del lado del servidor deshabilitado..
+F099.title:
+  en: >
+    Non-encrypted confidential information - S3 Server Side Encryption
+  es: >
+    Non-encrypted confidential information - S3 Server Side Encryption
+F099.description:
+  en: >
+    When dealing with sensitive data
+    that is crucial to your business,
+    it is required by regulations
+    to implement encryption in order
+    to protect it
+    from attackers or unauthorized personnel.
+    Using S3 Server-Side Encryption (SSE)
+    will enable Amazon
+    to encrypt your data at rest.
+    Data protected by Server-Side Encryption
+    is encrypted with 256-bit
+    Advanced Encryption Standard (AES-256).
+  es: >
+    Al tratar con datos sensibles
+    que son críticos para el negocio,
+    las regulaciones requieren
+    para implementar el cifrado
+    para protegerlo de atacantes
+    ó personal no autorizado.
+    El uso de S3 Server-Side Encryption (SSE)
+    permitirá a Amazon cifrar tus datos
+    en reposo.
+    La información protegida con
+    Server-Side Encryption está cifrada
+    con 256-bit Advanced Encryption Standard
+    (AES-256).
+F099.impact:
+  en: |
+    Attacker access to sensitive server data.
+  es: >
+    Acceso de atacantes a datos sensibles del servidor.
+F099.recommendation:
+  en: >
+    Encrypt each object with a unique key.
+    As an additional safeguard, it encrypts
+    the key itself with a root key that it
+    regularly rotates.
+    Amazon S3 server-side encryption uses one
+    of the strongest block ciphers available,
+    256-bit Advanced Encryption Standard
+    (AES-256), to encrypt the data.
+  es: >
+    Cifrar cada objeto con una clave única.
+    Como salvaguarda adicional, cifra la propia
+    clave con una clave raíz que rota regularmente.
+    El cifrado del lado del servidor de Amazon S3
+    utiliza uno de los cifrados en bloque más
+    potentes disponibles, el Advanced Encryption
+    Standard (AES-256) de 256 bits, para cifrar
+    los datos.
+F099.threat:
+  en: Data interception over the network.
+  es: Interceptación de datos en la red.

@@ -303,6 +303,14 @@
       "title": "096. Insecure deserialization"
     }
   },
+  "F099": {
+    "EN": {
+      "title": "099. Non-encrypted confidential information - S3 Server Side Encryption"
+    },
+    "ES": {
+      "title": "099. Non-encrypted confidential information - S3 Server Side Encryption"
+    }
+  },
   "F100": {
     "EN": {
       "title": "100. Server-side request forgery (SSRF)"
