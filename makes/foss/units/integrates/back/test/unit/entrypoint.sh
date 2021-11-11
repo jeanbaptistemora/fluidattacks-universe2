@@ -17,7 +17,7 @@ function main {
 
   source __argIntegratesBackEnv__/template dev \
     && DAEMON=true integrates-cache \
-    && DAEMON=true integrates-db \
+    && DAEMON=true dynamodb-for-integrates \
     && DAEMON=true integrates-storage \
     && pushd integrates \
     && BATCH_BIN="$(command -v integrates-batch)" \

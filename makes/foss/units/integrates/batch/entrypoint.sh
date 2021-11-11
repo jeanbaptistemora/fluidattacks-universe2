@@ -17,7 +17,7 @@ function main {
           SERVICES_PROD_AWS_SECRET_ACCESS_KEY
     elif test "${env}" == 'dev'; then
       DAEMON=true integrates-cache \
-        && DAEMON=true integrates-db \
+        && DAEMON=true dynamodb-for-integrates \
         && DAEMON=true integrates-storage
     fi \
     && pushd integrates \

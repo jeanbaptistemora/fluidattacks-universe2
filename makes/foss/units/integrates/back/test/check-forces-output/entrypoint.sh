@@ -21,7 +21,7 @@ function main {
       TEST_FORCES_TOKEN \
     && DAEMON=true integrates-cache \
     && DAEMON=true integrates-storage \
-    && DAEMON=true integrates-db \
+    && DAEMON=true dynamodb-for-integrates \
     && echo "[INFO] Running DevSecOps agent check..." \
     && mkdir "${out}" \
     && forces --token "${TEST_FORCES_TOKEN}" > "${out}/forces-output.log" || true \

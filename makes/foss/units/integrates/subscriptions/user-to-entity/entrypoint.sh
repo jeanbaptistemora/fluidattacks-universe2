@@ -8,7 +8,7 @@ function main {
       DAEMON=true integrates-cache
     else
       DAEMON=true integrates-cache \
-        && DAEMON=true integrates-db \
+        && DAEMON=true dynamodb-for-integrates \
         && DAEMON=true integrates-storage
     fi \
     && pushd integrates \

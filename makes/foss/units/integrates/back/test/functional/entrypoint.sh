@@ -20,7 +20,7 @@ function main {
   source __argIntegratesBackEnv__/template dev \
     && DAEMON=true integrates-cache \
     && DAEMON=true integrates-storage \
-    && DAEMON=true POPULATE="${populate_db}" integrates-db \
+    && DAEMON=true POPULATE="${populate_db}" dynamodb-for-integrates \
     && BATCH_BIN="$(command -v integrates-batch)" \
     && echo "[INFO] Running tests for: ${resolver_test_group}" \
     && pushd integrates/back/tests/functional \
