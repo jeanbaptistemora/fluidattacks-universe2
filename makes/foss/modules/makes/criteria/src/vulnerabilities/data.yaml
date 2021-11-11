@@ -12049,21 +12049,43 @@
   en:
     title: Unauthorized access to files
     description: >
-      In the functionality corresponding to update user data, it is possible to inject potentially dangerous characters that generate inappropriate behavior in the application, exposing the access to Sharepoint and allowing the user to access functionalities and files without authorization.
+      In the functionality corresponding to update
+      user data, it is possible to inject potentially
+      dangerous characters that generate inappropriate
+      behavior in the application, exposing the access
+      to Sharepoint and allowing the user to access
+      functionalities and files without authorization.
     impact: >
-      - Access the Sharepoint administrative center - Accessing files without authorization.
+      - Access the Sharepoint administrative center.
+
+      - Accessing files without authorization.
     recommendation: >
-      Validate on the server side the types of data that are entered into different types of fields in the application. Restrict file access to authenticated and authorized users only.
+      Validate on the server side the types of data
+      that are entered into different types of fields
+      in the application. Restrict file access to
+      authenticated and authorized users only.
     threat: >
       Attacker authenticated from the Internet.
   es:
     title: Unauthorized access to files
     description: >
-      En la funcionalidad correspondiente a actualizar datos de usuario, es posible inyectar caracteres potencialmente peligrosos que generar un comportamiento inadecuado en la aplicación, exponiendo el acceso a Sharepoint y permitiendo que el usuario accesa a funcionalidades y archivos sin autorización.
+      En la funcionalidad correspondiente a actualizar
+      datos de usuario, es posible inyectar caracteres
+      potencialmente peligrosos que generar un
+      comportamiento inadecuado en la aplicación,
+      exponiendo el acceso a Sharepoint y permitiendo
+      que el usuario accesa a funcionalidades y
+      archivos sin autorización.
     impact: >
-      - Acceder al centro administrativo de Sharepoint - Acceder a archivos sin autorización.
+      - Acceder al centro administrativo de Sharepoint.
+
+      - Acceder a archivos sin autorización.
     recommendation: >
-      Validar en el lado del servidor los tipos de datos que se ingresan a distintos tipos de campos en la aplicación. Restringir el acceso a archivos únicamente a usuarios autenticados y autorizados.
+      Validar en el lado del servidor los tipos
+      de datos que se ingresan a distintos tipos
+      de campos en la aplicación.
+      Restringir el acceso a archivos únicamente
+      a usuarios autenticados y autorizados.
     threat: >
       Atacante autenticado desde Internet.
   category: Subvert Access
@@ -12089,23 +12111,31 @@
   en:
     title: Unauthorized access to files - Debug APK
     description: >
-      __empty__
+      The debug APK is available to anyone
+      on the Internet.
     impact: >
-      __empty__
+      APK hosted in AWS.
     recommendation: >
-      __empty__
+      Protect the apk behind some kind of authentication.
     threat: >
-      __empty__
+      Anyone from the Internet can download the debug APK
+      without any authentication, making it easier to
+      analyze the application and find vulnerabilities easily.
   es:
     title: Unauthorized access to files - Debug APK
     description: >
-      __empty__
+      La APK de depuración está disponible
+      para cualquiera en internet.
     impact: >
-      __empty__
+      APK hosteada en AWS.
     recommendation: >
-      __empty__
+      Proteger la apk detrás de algún
+      tipo de autenticación.
     threat: >
-      __empty__
+      Cualquier persona desde internet puede descargar
+      la APK de depuración sin ningún tipo de autenticación,
+      pudiendo analizar más fácilmente la aplicación
+      y encontrar vulnerabilidades fácilmente.
   category: Subvert Access
   score:
     base:
@@ -12114,12 +12144,12 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["096","176","264","320"]
   metadata:
