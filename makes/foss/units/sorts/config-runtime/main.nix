@@ -35,6 +35,7 @@ makeTemplate {
     pythonPackage = [
       (projectPath "/sorts/sorts")
       (projectPath "/sorts")
+      (projectPath "/makes/foss/units/bugsnag-client")
     ];
     source = [
       (makeTemplate {

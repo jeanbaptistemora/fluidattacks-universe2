@@ -9,6 +9,9 @@ from boto3.session import (
     Session,
 )
 import bugsnag
+from bugsnag_client import (
+    remove_nix_hash as bugsnag_remove_nix_hash,
+)
 from context import (
     CI_COMMIT_SHA,
     CI_COMMIT_SHORT_SHA,
@@ -114,6 +117,7 @@ logging.config.dictConfig(LOGGING)
 
 
 # bugsnag
+bugsnag.before_notify(bugsnag_remove_nix_hash)
 bugsnag.configure(
     api_key=FI_BUGSNAG_ACCESS_TOKEN,
     app_version=CI_COMMIT_SHORT_SHA,

@@ -1,4 +1,8 @@
 import bugsnag
+from bugsnag_client import (
+    add_batch_metadata as bugsnag_add_batch_metadata,
+    remove_nix_hash as bugsnag_remove_nix_hash,
+)
 from contextvars import (
     ContextVar,
 )
@@ -28,6 +32,8 @@ def configure_bugsnag(**data: str) -> None:
     # Metadata configuration
     META.set(data)
     # Initialization
+    bugsnag.before_notify(bugsnag_add_batch_metadata)
+    bugsnag.before_notify(bugsnag_remove_nix_hash)
     bugsnag.configure(
         # There is no problem in making this key public
         # it's intentional so we can monitor Sorts stability in remote users

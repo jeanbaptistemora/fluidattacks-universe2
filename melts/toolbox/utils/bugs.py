@@ -1,4 +1,8 @@
 import bugsnag
+from bugsnag_client import (
+    add_batch_metadata as bugsnag_add_batch_metadata,
+    remove_nix_hash as bugsnag_remove_nix_hash,
+)
 from contextvars import (
     ContextVar,
 )
@@ -17,6 +21,9 @@ META: ContextVar[Optional[Dict[str, str]]] = ContextVar("META", default=None)
 def configure_bugsnag(**data: str) -> None:
     # Metadata configuration
     META.set(data)
+
+    bugsnag.before_notify(bugsnag_add_batch_metadata)
+    bugsnag.before_notify(bugsnag_remove_nix_hash)
     # Initialization
     bugsnag.configure(
         # There is no problem in making this key public

@@ -3,11 +3,8 @@ from aiohttp.client_exceptions import (
     ClientResponseError,
 )
 import bugsnag
-from bugsnag import (
-    legacy as bugsnag_legacy,
-)
 from bugsnag_client import (
-    CustomBugsnagClient,
+    remove_nix_hash as bugsnag_remove_nix_hash,
 )
 from contextvars import (
     ContextVar,
@@ -77,6 +74,7 @@ def configure_bugsnag(**data: str) -> None:
     META.set(data)
     # Add before handler
     bugsnag.before_notify(customize_bugsnag_error_reports)
+    bugsnag.before_notify(bugsnag_remove_nix_hash)
     # Initialization
     bugsnag.configure(
         # There is no problem in making this key public
@@ -87,4 +85,3 @@ def configure_bugsnag(**data: str) -> None:
         project_root=BASE_DIR,
     )
     bugsnag.start_session()
-    bugsnag_legacy.default_client = CustomBugsnagClient()

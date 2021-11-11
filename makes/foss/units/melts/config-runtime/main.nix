@@ -30,6 +30,7 @@ makeTemplate {
     ];
     pythonPackage = [
       (projectPath "/melts")
+      (projectPath "/makes/foss/units/bugsnag-client")
     ];
     source = [
       pythonRequirements
