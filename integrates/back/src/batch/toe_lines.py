@@ -4,6 +4,9 @@ from aioextensions import (
 )
 import aiofiles  # type: ignore
 import asyncio
+from batch.dal import (
+    delete_action,
+)
 from batch.types import (
     BatchProcessing,
 )
@@ -478,3 +481,11 @@ async def refresh_toe_lines(*, item: BatchProcessing) -> None:
             group_name, group_path, optional_repo_nickname
         )
         os.chdir(current_dir)
+
+    await delete_action(
+        action_name=item.action_name,
+        additional_info=item.additional_info,
+        entity=item.entity,
+        subject=item.subject,
+        time=item.time,
+    )
