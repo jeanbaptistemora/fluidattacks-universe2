@@ -32,9 +32,9 @@ function configure_tmp {
 
 function configure_product {
   mkdir -p "${out}/product" \
-    && mkdir -p "${out}/product/makes/utils/shopts" \
+    && mkdir -p "${out}/product/makes/units/utils/shopts" \
     && mirror "/m" \
-    && mirror "/makes/utils/shopts/template.sh"
+    && mirror "/makes/units/utils/shopts/template.sh"
 }
 
 function configure_users {

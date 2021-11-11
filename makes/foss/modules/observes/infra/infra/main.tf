@@ -19,7 +19,7 @@ terraform {
 }
 
 module "external" {
-  source = "../../../../../../makes/utils/terraform-modules/external-data"
+  source = "../../../../units/utils/terraform-modules/external-data"
 
   aws_iam_roles = [
     "observes_dev",
