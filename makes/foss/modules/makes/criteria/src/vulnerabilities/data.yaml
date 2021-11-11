@@ -12479,23 +12479,31 @@
   en:
     title: Security controls bypass or absence - Emulator
     description: >
-      __empty__
+      The application does not have a
+      control that detects if it is being
+      used in an emulator, allowing a wider
+      surface for reverse engineering.
     impact: >
-      __empty__
+      Reverse engineer to the application.
     recommendation: >
-      __empty__
+      Implement recommended security controls
+      for mobile applications.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Security controls bypass or absence - Emulator
     description: >
-      __empty__
+      La aplicación no cuenta con un control
+      que detecte si está siento utilizada en
+      un emulador, permitiendo tener una superficie
+      más amplia para realizar ingeniería inversa.
     impact: >
-      __empty__
+      Realizar ingeniería inversa a la aplicación.
     recommendation: >
-      __empty__
+      Implementar los controles de seguridad
+      recomendados para las aplicaciones móviles.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   category: Subvert Access
   score:
     base:
@@ -12504,12 +12512,12 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["062","266","273"]
   metadata:
@@ -12519,33 +12527,56 @@
   en:
     title: Security controls bypass or absence - Facial Recognition
     description: >
-      __empty__
+      By using the F015 finding to obtain
+      a token, it is possible to bypass
+      facial recognition processes to enter
+      application transactions, and likewise
+      to accept or deny authorizations from a user.
     impact: >
-      __empty__
+      - Log in to the allied portal as any user.
+
+      - Approve or reject a user's transactions.
     recommendation: >
-      __empty__
+      Put in place for every resource with
+      business-critical functionality a
+      strong authentication process and
+      ensure that every user attempting
+      to access it is logged in.
     threat: >
-      __empty__
+      Anonymous attacker from the
+      Internet with a valid token.
   es:
     title: Security controls bypass or absence - Facial Recognition
     description: >
-      __empty__
+      Usando el hallazgo F015 para obtener
+      un token, es posible evitar los procesos
+      de reconocimiento facial para ingresar a
+      las transacciones de la aplicación, y de
+      igual forma aceptar o denegar autorizaciones
+      de un usuario.
     impact: >
-      __empty__
+      - Iniciar sesión al portal aliados
+      como cualquier usuario.
+
+      - Aprobar o rechazar las
+      transacciones de un usuario.
     recommendation: >
-      __empty__
+      Poner para todo recurso con una funcionalidad
+      crítica para el negocio un proceso de autenticación
+      fuerte y asegurarse de que cada usuario que intente
+      acceder tenga una sesión iniciada.
     threat: >
-      __empty__
+      Atacante anónimo desde internet con un token válido.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "H"
+      integrity: "H"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
