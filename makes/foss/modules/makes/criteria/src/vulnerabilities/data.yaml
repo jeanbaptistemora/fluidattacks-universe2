@@ -12706,33 +12706,51 @@
   en:
     title: Business information leak - JWT
     description: >
-      __empty__
+      Business information is obtained
+      within the JWT, such as:
+
+      - Username
+
+      - Password
     impact: >
-      __empty__
+      - Get the username from the JWT.
+
+      - Get the encrypted password from the JWT.
     recommendation: >
-      __empty__
+      Remove the sensitive information from
+      the JWT and manage this kind of
+      information in the server-side.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Business information leak - JWT
     description: >
-      __empty__
+      La información comercial se obtiene
+      dentro del JWT, como por ejemplo:
+
+      - Nombre de usuario
+
+      - Contraseña
     impact: >
-      __empty__
+      - Obtener el nombre de usuario del JWT.
+
+      - Obtener la contraseña cifrada del JWT.
     recommendation: >
-      __empty__
+      Eliminar la información sensible del JWT
+      y gestionar este tipo de información en
+      el lado del servidor.
     threat: >
-      __empty__
+      Atacante anónimo desde internet.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
