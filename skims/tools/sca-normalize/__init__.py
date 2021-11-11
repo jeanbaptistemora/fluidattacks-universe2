@@ -1,6 +1,7 @@
 import copy
 import glob
 import json
+import re
 
 
 def main() -> None:
@@ -17,8 +18,8 @@ def main() -> None:
 
             # Versions must be lowercase
             for v_id, versions in vulnerabilities.items():
-                database_copy[project.lower()][v_id] = sorted(
-                    [version.lower() for version in versions]
+                database_copy[project.lower()][v_id] = " || ".join(
+                    sorted(re.split(r"\s*\|\|\s*", versions))
                 )
 
         with open(database_path, encoding="utf-8", mode="w") as file:

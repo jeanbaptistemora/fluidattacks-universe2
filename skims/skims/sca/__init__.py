@@ -78,8 +78,7 @@ def get_vulnerabilities(
         vulnerabilities: List[str] = [
             ref
             for ref, constraints in database[product].items()
-            for constraint in constraints
-            if semver_match(version, constraint)
+            if semver_match(version, constraints)
         ]
 
         return vulnerabilities
