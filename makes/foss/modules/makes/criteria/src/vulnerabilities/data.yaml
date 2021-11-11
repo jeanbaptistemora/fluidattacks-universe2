@@ -11658,7 +11658,7 @@
       privileges_required: "N"
       user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
@@ -11673,23 +11673,34 @@
   en:
     title: Lack of data validation - Input Length
     description: >
-      __empty__
+      Endpoints allow more content to be added
+      to the body than is usually allowed by
+      the endpoint, thus making it possible to
+      send massive amounts of characters and
+      expand attack vectors.
     impact: >
-      __empty__
+      Send massive information in the request body.
     recommendation: >
-      __empty__
+      Validate on the server side that user
+      entries comply with a character limit.
     threat: >
-      __empty__
+      Authorized attacker from the Internet.
   es:
     title: Lack of data validation - Input Length
     description: >
-      __empty__
+      Los endpoints permiten que en el cuerpo se
+      añada más contenido de lo que habitualmente
+      el endpoint permite, de esta manera es
+      posible enviar masivos carácteres y
+      expandir los vectores de ataque.
     impact: >
-      __empty__
+      Enviar masiva información en el body de request.
     recommendation: >
-      __empty__
+      Validar en el lado del servidor que las
+      entradas de los usuarios cumplan con un
+      límite de caracteres.
     threat: >
-      __empty__
+      Atacante autorizado desde internet.
   category: Inject Unexpected
   score:
     base:
@@ -11699,8 +11710,8 @@
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
