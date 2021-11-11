@@ -1,0 +1,8 @@
+0000000000000000000000000000000000000000 6e119ae968656c52bfe85f80329c6b8400fb7921 Test Author <authoremail@test.com> 1636561898 -0500	commit (initial): first commit
+6e119ae968656c52bfe85f80329c6b8400fb7921 3ca2ffbfeae4f2df16810359a9363231fabc1750 Test Author <authoremail@test.com> 1636561944 -0500	commit: second commit
+3ca2ffbfeae4f2df16810359a9363231fabc1750 fb2668f86d8b6425a8c32f0fe2e33db7bd497f25 Test Author <authoremail@test.com> 1636562882 -0500	commit: ignored file
+fb2668f86d8b6425a8c32f0fe2e33db7bd497f25 3ca2ffbfeae4f2df16810359a9363231fabc1750 Test Author <authoremail@test.com> 1636570508 -0500	reset: moving to 3ca2ffbfeae4f2df16810359a9363231fabc1750
+3ca2ffbfeae4f2df16810359a9363231fabc1750 85e9f731a6474c56868ab3f21fcc3de46b261992 Test Author <authoremail@test.com> 1636571117 -0500	commit: third commit
+85e9f731a6474c56868ab3f21fcc3de46b261992 a545e7817d0c893208348578ef138aa65c8c9b7c Test Author <authoremail@test.com> 1636574356 -0500	commit: fourth commit
+a545e7817d0c893208348578ef138aa65c8c9b7c 6e4a6706dff4332a73251e4f2e7fbf67025f369e Test Author <authoremail@test.com> 1636576844 -0500	commit: fifth commit
+6e4a6706dff4332a73251e4f2e7fbf67025f369e 50a516954a321f95c6fb8baccb640e87d2f5d193 Test Author <authoremail@test.com> 1636652506 -0500	commit: sixth commit

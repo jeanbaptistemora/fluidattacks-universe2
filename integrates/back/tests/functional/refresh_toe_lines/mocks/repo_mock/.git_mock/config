@@ -1,0 +1,10 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[user]
+	name = Test Author
+	email = authoremail@test.com
+[commit]
+	gpgsign = false

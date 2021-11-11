@@ -272,6 +272,7 @@ in
           [ "me" ]
           [ "organization" ]
           [ "organization_id" ]
+          [ "refresh_toe_lines" ]
           [ "reject_draft" ]
           [ "reject_vulnerabilities_zero_risk" ]
           [ "remove_event_evidence" ]
