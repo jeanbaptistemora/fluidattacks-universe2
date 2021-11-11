@@ -68,7 +68,12 @@ def maven_parse_range(text: str) -> str:
         constraint_left = ">="
         version_left = "0"
 
-    return f"{constraint_left}{version_left} {constraint_right}{version_right}"
+    if not version_right:
+        constraint_right = ""
+        version_right = ""
+
+    text = f"{constraint_left}{version_left} {constraint_right}{version_right}"
+    return text.strip()
 
 
 def maven_yield():
@@ -157,10 +162,47 @@ def npm(data):
     return data
 
 
+def nuget_yield():
+    root = os.path.join(BASE, "nuget")
+
+    for artifact in os.listdir(root):
+        artifact_path = os.path.join(root, artifact)
+
+        for vuln in os.listdir(artifact_path):
+            vuln_path = os.path.join(artifact_path, vuln)
+            with open(vuln_path, encoding="utf-8") as file:
+                vuln_data = yaml.safe_load(file)
+
+            yield artifact, vuln_data
+
+
+def nuget(data):
+    for project, vuln_data in nuget_yield():
+        project = project.lower()
+
+        affected_versions = vuln_data["affected_versions"]
+        vuln_ids = vuln_data["identifiers"]
+        ranges_raw = vuln_data["affected_range"]
+
+        print("---")
+        print(f"project: {project}")
+        print(f"affected: {affected_versions}")
+        print(f"ranges_raw: {ranges_raw}")
+        ranges_parsed = maven_parse_ranges(ranges_raw)
+        print(f"ranges_parsed: {ranges_parsed}")
+        print(f"vuln_ids: {vuln_ids}")
+        for vuln_id in vuln_ids:
+            data.setdefault(project, {})
+            data[project][vuln_id] = ranges_parsed
+
+    return data
+
+
 def main() -> None:
     for generator, path in [
         (maven, "skims/static/sca/maven.json"),
         (npm, "skims/static/sca/npm.json"),
+        (nuget, "skims/static/sca/nuget.json"),
     ]:
         with open(path, encoding="utf-8") as file:
             data = json.load(file)
