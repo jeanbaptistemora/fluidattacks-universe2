@@ -12369,23 +12369,39 @@
   en:
     title: Security controls bypass or absence - SSLPinning
     description: >
-      __empty__
+      It is possible for an attacker to bypass
+      the SSLPinning control by reverse engineering
+      the application and removing the control.
     impact: >
-      __empty__
+      - Intercept data from the app.
+
+      - Tamper  data from the app.
     recommendation: >
-      __empty__
+      Obfuscate the applications source code at
+      deploy time with tools like:
+      https://github.com/ClaudiuGeorgiu/Obfuscapk
+      in its strongest configuration.
+      Add tampering detection to the App.
     threat: >
-      __empty__
+      Anonymous attacker from the internet.
   es:
     title: Security controls bypass or absence - SSLPinning
     description: >
-      __empty__
+      Es posible que un atacante se salte el control
+      SSLPinning haciendo ingeniería inversa de la
+      aplicación y eliminando el control.
     impact: >
-      __empty__
+      - Interceptar datos de la aplicación.
+
+      - Manipular datos de la aplicación.
     recommendation: >
-      __empty__
+      Ofuscar el código fuente de las aplicaciones
+      en el momento del despliegue con herramientas
+      como: https://github.com/ClaudiuGeorgiu/Obfuscapk
+      en su configuración más fuerte.
+      Añade detección de manipulación a la App.
     threat: >
-      __empty__
+      Ataque anónimo desde Internet.
   category: Subvert Access
   score:
     base:
@@ -12395,8 +12411,8 @@
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
@@ -12409,34 +12425,48 @@
   en:
     title: Security controls bypass or absence - Antivirus
     description: >
-      __empty__
+      It is possible to modify files
+      that disable antivirus and DLP
+      so that protection settings against
+      various attacks are disabled.
     impact: >
-      __empty__
+      - Disabling antivirus and DLP policies.
+
+      - Accessing and modifying system
+      information and configurations.
     recommendation: >
-      __empty__
+      Implement mechanisms to avoid modifying
+      antivirus and DLP configurations.
     threat: >
-      __empty__
+      Unauthorized internal attacker.
   es:
     title: Security controls bypass or absence - Antivirus
     description: >
-      __empty__
+      Es posible modificar archivos que
+      desactivan el antivirus y DLP de modo
+      que las configuraciones de protección
+      contra varios ataques quedan deshabilitadas.
     impact: >
-      __empty__
+      - Desactivar las políticas de antivirus y DLP.
+
+      - Acceder y modificar información y
+      configuraciones del sistema.
     recommendation: >
-      __empty__
+      Implementar mecanismos que eviten modificar
+      las configuraciones del antivirus y DLP.
     threat: >
-      __empty__
+      Atacante interno no autorizado.
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "P"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "H"
+      availability: "H"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
