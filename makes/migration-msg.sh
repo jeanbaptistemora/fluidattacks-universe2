@@ -24,7 +24,7 @@ function main {
     && speed="$((migrated_loc / elapsed_days))" \
     && eta="$((remaining_loc * elapsed_days / migrated_loc))" \
     && msg="
-      all\\refac(build): #5408 migrate to makes
+      makes\\refac(build): #5408 migrate to makes
 
       - Speed: ${migrated_loc} loc / ${elapsed_days} days = ${speed} loc/day
       - TODO: ${remaining_loc} loc
