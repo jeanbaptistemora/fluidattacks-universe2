@@ -12,6 +12,7 @@ from aws.model import (
     AWSIamPolicyStatement,
     AWSInstance,
     AWSLbTargetGroup,
+    AWSRdsCluster,
     AWSS3Bucket,
 )
 from itertools import (
@@ -319,6 +320,16 @@ def iter_aws_ebs_encryption_by_default(model: Any) -> Iterator[Any]:
     )
     for bucket in iterator:
         yield AWSEbsEncryptionByDefault(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_rds_cluster(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_rds_cluster")
+    for bucket in iterator:
+        yield AWSRdsCluster(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,

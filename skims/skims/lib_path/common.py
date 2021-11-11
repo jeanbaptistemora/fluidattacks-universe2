@@ -12,6 +12,7 @@ from aws.model import (
     AWSIamPolicyStatement,
     AWSInstance,
     AWSLbTargetGroup,
+    AWSRdsCluster,
     AWSS3Acl,
     AWSS3Bucket,
 )
@@ -237,6 +238,7 @@ def get_vulnerabilities_from_aws_iterator_blocking(
             AWSElb,
             AWSLbTargetGroup,
             AWSDbInstance,
+            AWSRdsCluster,
             Node,
         ]
     ],

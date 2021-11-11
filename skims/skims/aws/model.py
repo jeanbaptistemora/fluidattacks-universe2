@@ -94,3 +94,9 @@ class AWSEbsEncryptionByDefault(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSRdsCluster(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int
