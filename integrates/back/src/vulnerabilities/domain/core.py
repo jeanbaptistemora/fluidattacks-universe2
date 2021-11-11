@@ -25,6 +25,9 @@ from custom_types import (
 from db_model.enums import (
     StateRemovalJustification,
 )
+from db_model.vulnerabilities import (
+    enums as vulns_enums,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -411,54 +414,42 @@ async def get_open_vulnerabilities_specific_by_type(
     loaders: Any,
     finding_id: str,
 ) -> Dict[str, Tuple[Dict[str, str], ...]]:
-    finding_vulns_loader = loaders.finding_vulns_nzr
-    vulnerabilities = await finding_vulns_loader.load(finding_id)
-    ports_vulnerabilities = []
-    lines_vulnerabilities = []
-    inputs_vulnerabilities = []
-    vulns_types = ["ports", "lines", "inputs"]
-    for vulnerability in vulnerabilities:
-        current_state = vulns_utils.get_last_status(vulnerability)
-        if current_state == "open":
-            vulnerability_info: Dict[str, str] = {
-                "where": vulnerability.get("where", ""),
-                "specific": vulnerability.get("specific", ""),
-                "commit_hash": vulnerability.get("commit_hash", ""),
-            }
-            if vulnerability.get("vuln_type") in vulns_types:
-                if vulnerability["vuln_type"] == "ports":
-                    ports_vulnerabilities.append(vulnerability_info)
-                if vulnerability["vuln_type"] == "lines":
-                    lines_vulnerabilities.append(vulnerability_info)
-                if vulnerability["vuln_type"] == "inputs":
-                    inputs_vulnerabilities.append(vulnerability_info)
-            else:
-                LOGGER.error(
-                    "Vulnerability does not have the right type",
-                    extra={
-                        "extra": {
-                            "vuln_uuid": vulnerability["UUID"],
-                            "finding_id": finding_id,
-                        }
-                    },
-                )
-        elif current_state == "closed":
-            pass
-        else:
-            LOGGER.error(
-                "Error: Vulnerability does not have the right state",
-                extra={
-                    "extra": {
-                        "vuln_uuid": vulnerability["UUID"],
-                        "finding_id": finding_id,
-                    }
-                },
-            )
-
+    finding_vulns_loader = loaders.finding_vulns_nzr_typed
+    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
+        finding_id
+    )
+    open_vulns = vulns_utils.filter_open_vulns_new(vulns)
+    ports_vulns = tuple(
+        {
+            "where": vuln.where,
+            "specific": vuln.specific,
+            "commit_hash": "",
+        }
+        for vuln in open_vulns
+        if vuln.type == vulns_enums.VulnerabilityType.PORTS
+    )
+    lines_vulns = tuple(
+        {
+            "where": vuln.where,
+            "specific": vuln.specific,
+            "commit_hash": vuln.commit if vuln.commit else "",
+        }
+        for vuln in open_vulns
+        if vuln.type == vulns_enums.VulnerabilityType.LINES
+    )
+    inputs_vulns = tuple(
+        {
+            "where": vuln.where,
+            "specific": vuln.specific,
+            "commit_hash": "",
+        }
+        for vuln in open_vulns
+        if vuln.type == vulns_enums.VulnerabilityType.INPUTS
+    )
     return {
-        "ports_vulnerabilities": tuple(ports_vulnerabilities),
-        "lines_vulnerabilities": tuple(lines_vulnerabilities),
-        "inputs_vulnerabilities": tuple(inputs_vulnerabilities),
+        "ports_vulnerabilities": ports_vulns,
+        "lines_vulnerabilities": lines_vulns,
+        "inputs_vulnerabilities": inputs_vulns,
     }
 
 
