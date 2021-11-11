@@ -11118,15 +11118,15 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "L"
-      integrity: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "W"
+      remediation_level: "X"
       report_confidence: "X"
   requirements: ["077","078"]
   metadata:
@@ -11136,29 +11136,43 @@
   en:
     title: Lack of data validation
     description: >
-      __empty__
+      The application does not control the
+      the server side where you have permission
+      to modify certain fields and allows the
+      use of invalid data in some fields, for
+      example, an ID composed of only letters.
     impact: >
-      __empty__
+      Inject potentially malicious characters
+      into application fields.
     recommendation: >
-      __empty__
+      Validate on the server side the data
+      types that are entered into different
+      kind of fields in the application.
     threat: >
-      __empty__
+      External attacker with access to the application.
   es:
     title: Lack of data validation
     description: >
-      __empty__
+      La aplicación no controla el lado del
+      servidor donde se tenga permiso de modificar
+      ciertos campos y permite utilizar datos
+      inválidos en algunos campos, por ejemplo
+      una cédula compuesta por solo letras.
     impact: >
-      __empty__
+      Inyectar caracteres potencialmente maliciosos
+      en los campos de la aplicación.
     recommendation: >
-      __empty__
+      Validar en el lado del servidor los tipos
+      de datos que se ingresan a distintos tipos
+      de campos en la aplicación.
     threat: >
-      __empty__
+      Atacante externo con acceso a la aplicación.
   category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
