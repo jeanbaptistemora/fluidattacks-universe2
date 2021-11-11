@@ -86,9 +86,6 @@ from newutils.utils import (
 from newutils.vulnerabilities import (
     Treatments,
 )
-from operator import (
-    itemgetter,
-)
 from settings import (
     LOGGING,
     NOEXTRA,
@@ -813,43 +810,37 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
 async def get_oldest_no_treatment(
     loaders: Any,
     findings: Tuple[Finding, ...],
-) -> Dict[str, str]:
-    """Get the finding with oldest "new treatment" vuln"""
-    finding_vulns_loader = loaders.finding_vulns_nzr
+) -> Optional[Dict[str, str]]:
+    """Get the finding with oldest "no treatment" vulnerability."""
+    finding_vulns_loader = loaders.finding_vulns_nzr_typed
     vulns = await finding_vulns_loader.load_many_chained(
-        [str(finding.id) for finding in findings]
+        [finding.id for finding in findings]
     )
-    new_vulns = [
-        {
-            **vuln,
-            "new_treatment_date": datetime_utils.get_from_str(
-                vuln["historic_treatment"][-1]["date"]
-            ),
-        }
-        for vuln in vulns
-        if vuln["historic_treatment"][-1]["treatment"] == "NEW"
-        and vuln["historic_state"][-1]["state"] == "open"
+    open_vulns = vulns_utils.filter_open_vulns_new(vulns)
+    no_treatment_vulns = vulns_utils.filter_no_treatment_vulns(open_vulns)
+
+    if not no_treatment_vulns:
+        return None
+
+    treatment_dates: List[datetime] = [
+        datetime.fromisoformat(vuln.treatment.modified_date)
+        for vuln in no_treatment_vulns
     ]
-
-    if new_vulns:
-        oldest_new_vuln = sorted(
-            new_vulns, key=itemgetter("new_treatment_date"), reverse=False
-        )[0]
-        oldest_finding: Finding = next(
-            finding
-            for finding in findings
-            if finding.id == oldest_new_vuln["finding_id"]
+    vulns_info = [
+        (
+            date,
+            vuln.finding_id,
         )
-
-        return {
-            "oldest_name": oldest_finding.title,
-            "oldest_age": (
-                datetime_utils.get_now()
-                - oldest_new_vuln["new_treatment_date"]
-            ).days,
-        }
-
-    return {}
+        for vuln, date in zip(no_treatment_vulns, treatment_dates)
+    ]
+    oldest_date, oldest_finding_id = min(vulns_info)
+    oldest_finding: Finding = next(
+        finding for finding in findings if finding.id == oldest_finding_id
+    )
+    return {
+        "oldest_name": oldest_finding.title,
+        "oldest_age": (datetime_utils.get_now() - oldest_date).days,
+    }
 
 
 async def get_oldest_open_vulnerability_report_date(

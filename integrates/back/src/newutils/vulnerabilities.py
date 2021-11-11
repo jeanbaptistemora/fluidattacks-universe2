@@ -99,6 +99,16 @@ def is_last_reattack_requested(vuln: VulnerabilityType) -> bool:
     return False
 
 
+def filter_no_treatment_vulns(
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
+        vuln
+        for vuln in vulnerabilities
+        if vuln.treatment.status == VulnerabilityTreatmentStatus.NEW
+    )
+
+
 def filter_non_deleted(
     vulnerabilities: List[VulnerabilityType],
 ) -> List[VulnerabilityType]:
