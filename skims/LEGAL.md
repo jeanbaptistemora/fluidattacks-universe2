@@ -1,3 +1,7 @@
+# Legal
+
+This document comprises legal information related to Skims as a software.
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 # Contents
@@ -11,7 +15,7 @@
 # Licenses
 
 Below you'll find the applicable licenses
-to skims and its dependencies:
+to skims and the software it's build upon.
 
 ## gitlab-org/advisories-community
 

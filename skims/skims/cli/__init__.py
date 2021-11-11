@@ -11,6 +11,7 @@ from model import (
     core_model,
 )
 import sys
+import textwrap
 from time import (
     time,
 )
@@ -23,6 +24,7 @@ from utils.bugs import (
 )
 from utils.ctx import (
     CTX,
+    LEGAL,
 )
 from utils.env import (
     guess_environment,
@@ -100,6 +102,11 @@ TOKEN = partial(
 
 @click.group(
     help="Deterministic vulnerability life-cycle reporting and closing tool.",
+    epilog=textwrap.dedent(
+        f"""
+            For legal information read {LEGAL}
+        """
+    ),
 )
 @click.option(
     "--debug",
