@@ -14,9 +14,6 @@ from charts.utils import (
     iterate_organizations_and_groups,
     json_dump,
 )
-from custom_types import (
-    Vulnerability,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -26,6 +23,12 @@ from datetime import (
 )
 from db_model.findings.types import (
     Finding,
+)
+from db_model.vulnerabilities.enums import (
+    VulnerabilityVerificationStatus,
+)
+from db_model.vulnerabilities.types import (
+    VulnerabilityVerification,
 )
 from decimal import (
     Decimal,
@@ -38,8 +41,7 @@ from groups.domain import (
     get_alive_group_names,
 )
 from newutils.datetime import (
-    DEFAULT_STR,
-    get_from_str,
+    get_date_from_iso_str,
     get_now_minus_delta,
 )
 from statistics import (
@@ -97,23 +99,26 @@ class Benchmarking(NamedTuple):
     number_of_reattacks: int
 
 
-def get_vulnerability_reattacks(*, vulnerability: Vulnerability) -> int:
+def get_vulnerability_reattacks(
+    *, historic_verification: Tuple[VulnerabilityVerification, ...]
+) -> int:
     return sum(
         1
-        for verification in vulnerability["historic_verification"]
-        if verification.get("status") == "REQUESTED"
+        for verification in historic_verification
+        if verification.status == VulnerabilityVerificationStatus.REQUESTED
     )
 
 
 def get_vulnerability_reattacks_date(
-    *, vulnerability: Vulnerability, min_date: datetype
+    *,
+    historic_verification: Tuple[VulnerabilityVerification, ...],
+    min_date: datetype,
 ) -> int:
     return sum(
         1
-        for verification in vulnerability["historic_verification"]
-        if verification.get("status") == "REQUESTED"
-        and get_from_str(verification.get("date", DEFAULT_STR)).date()
-        > min_date
+        for verification in historic_verification
+        if verification.status == VulnerabilityVerificationStatus.REQUESTED
+        and get_date_from_iso_str(verification.modified_date) > min_date
     )
 
 

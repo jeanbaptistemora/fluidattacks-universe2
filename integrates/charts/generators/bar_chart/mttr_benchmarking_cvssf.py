@@ -19,6 +19,10 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityVerification,
+)
 from decimal import (
     Decimal,
 )
@@ -38,21 +42,28 @@ async def get_data_one_group(
     group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
-    vulnerabilities = await loaders.finding_vulns.load_many_chained(
+    vulnerabilities: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_typed.load_many_chained(
         [finding.id for finding in group_findings]
+    )
+    historics: Tuple[
+        Tuple[VulnerabilityVerification, ...], ...
+    ] = await loaders.vulnerability_historic_verification.load_many(
+        [vuln.id for vuln in vulnerabilities]
     )
 
     if min_date:
         number_of_reattacks: int = sum(
             get_vulnerability_reattacks_date(
-                vulnerability=vulnerability, min_date=min_date
+                historic_verification=historic, min_date=min_date
             )
-            for vulnerability in vulnerabilities
+            for historic in historics
         )
     else:
         number_of_reattacks = sum(
-            get_vulnerability_reattacks(vulnerability=vulnerability)
-            for vulnerability in vulnerabilities
+            get_vulnerability_reattacks(historic_verification=historic)
+            for historic in historics
         )
 
     mttr: Decimal = await get_mean_remediate_severity_cvssf(

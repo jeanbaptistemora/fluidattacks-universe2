@@ -19,6 +19,10 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityVerification,
+)
 from decimal import (
     Decimal,
 )
@@ -26,8 +30,7 @@ from groups.domain import (
     get_mean_remediate_non_treated_severity_cvssf,
 )
 from newutils.vulnerabilities import (
-    filter_non_confirmed_zero_risk,
-    is_accepted_undefined_vulnerability,
+    is_accepted_undefined_vulnerability_new,
 )
 from typing import (
     Optional,
@@ -42,28 +45,34 @@ async def get_data_one_group(
     group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
-    all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
+    vulnerabilities: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_nzr_typed.load_many_chained(
         [finding.id for finding in group_findings]
     )
 
-    vulnerabilities = filter_non_confirmed_zero_risk(all_vulnerabilities)
     vulnerabilities_excluding_permanently_accepted = [
-        vulnerability
+        vulnerability.id
         for vulnerability in vulnerabilities
-        if not is_accepted_undefined_vulnerability(vulnerability)
+        if not is_accepted_undefined_vulnerability_new(vulnerability)
     ]
+    historics: Tuple[
+        Tuple[VulnerabilityVerification, ...], ...
+    ] = await loaders.vulnerability_historic_verification.load_many(
+        vulnerabilities_excluding_permanently_accepted
+    )
 
     if min_date:
         number_of_reattacks: int = sum(
             get_vulnerability_reattacks_date(
-                vulnerability=vulnerability, min_date=min_date
+                historic_verification=historic, min_date=min_date
             )
-            for vulnerability in vulnerabilities_excluding_permanently_accepted
+            for historic in historics
         )
     else:
         number_of_reattacks = sum(
-            get_vulnerability_reattacks(vulnerability=vulnerability)
-            for vulnerability in vulnerabilities_excluding_permanently_accepted
+            get_vulnerability_reattacks(historic_verification=historic)
+            for historic in historics
         )
 
     mttr: Decimal = await get_mean_remediate_non_treated_severity_cvssf(
