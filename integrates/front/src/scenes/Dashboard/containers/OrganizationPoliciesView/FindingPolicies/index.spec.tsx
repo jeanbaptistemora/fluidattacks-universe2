@@ -129,6 +129,7 @@ describe("Organization findings policies view", (): void => {
               lastStatusUpdate: "2021-05-20T15:16:48",
               name: "060. Insecure exceptions",
               status: "SUBMITTED",
+              tags: [],
             },
           ],
           maxAcceptanceDays: null,

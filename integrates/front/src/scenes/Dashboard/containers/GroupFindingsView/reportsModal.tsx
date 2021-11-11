@@ -55,9 +55,9 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
     },
   });
 
-  const handleRequestGroupReport: (
+  function handleRequestGroupReport(
     event: React.MouseEvent<HTMLElement>
-  ) => void = (event: React.MouseEvent<HTMLElement>): void => {
+  ): void {
     const target: HTMLElement = event.currentTarget as HTMLElement;
     const icon: SVGElement | null = target.querySelector("svg");
     if (icon !== null) {
@@ -73,7 +73,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
       });
       onClose();
     }
-  };
+  }
 
   return (
     <React.StrictMode>
@@ -101,7 +101,6 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                       >
                         <Button
                           id={"report-pdf"}
-                          // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
                           onClick={handleRequestGroupReport}
                         >
                           <FontAwesomeIcon icon={faFilePdf} />
@@ -116,7 +115,6 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                       >
                         <Button
                           id={"report-excel"}
-                          // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
                           onClick={handleRequestGroupReport}
                         >
                           <FontAwesomeIcon icon={faFileExcel} />
@@ -131,7 +129,6 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                       >
                         <Button
                           id={"report-zip"}
-                          // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
                           onClick={handleRequestGroupReport}
                         >
                           <FontAwesomeIcon icon={faFileArchive} />
