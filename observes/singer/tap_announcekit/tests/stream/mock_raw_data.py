@@ -111,3 +111,21 @@ mock_ext_user = {
         "is_app": False,
     }
 }
+
+_mock_activity = {
+    "id": "act6",
+    "type": "act_type",
+    "created_at": MOCK_DATE,
+    "project_id": "proj1",
+    "external_user_id": "user",
+    "post_id": "post1",
+    "feedback_id": "feedbk1",
+}
+mock_activities = {
+    "activities": {
+        "page": 0,
+        "pages": 1,
+        "count": 1,
+        "items": [_mock_activity],
+    }
+}

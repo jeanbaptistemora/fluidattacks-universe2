@@ -44,14 +44,13 @@ from tap_announcekit.streams.activities._factory._queries import (
 
 
 @dataclass(frozen=True)
-class FeedbackFactory:
+class ActivityFactory:
     client: ApiClient
+    proj: ProjectId
 
-    def get_page(
-        self, proj: ProjectId, page: int
-    ) -> IO[Maybe[DataPage[ActivityObj]]]:
+    def get_page(self, page: int) -> IO[Maybe[DataPage[ActivityObj]]]:
         query = ActivitiesQuery(
-            Transform(partial(to_page, proj)), proj, page
+            Transform(partial(to_page, self.proj)), self.proj, page
         ).query
         return self.client.get(query).map(
             lambda page: Maybe.from_optional(
@@ -59,9 +58,9 @@ class FeedbackFactory:
             )
         )
 
-    def get_activities(self, proj: ProjectId) -> PureIter[IO[ActivityObj]]:
+    def get_activities(self) -> PureIter[IO[ActivityObj]]:
         getter: IntIndexGetter[DataPage[ActivityObj]] = IntIndexGetter(
-            partial(self.get_page, proj)
+            self.get_page
         )
         return io_transform.chain(
             getter.get_until_end(0, 10).map(

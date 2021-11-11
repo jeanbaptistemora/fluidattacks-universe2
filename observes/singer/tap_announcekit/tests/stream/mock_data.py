@@ -1,11 +1,15 @@
 from datetime import (
     datetime,
 )
+from tap_announcekit.objs.activity import (
+    Activity,
+)
 from tap_announcekit.objs.ext_user import (
     ExternalUser,
     ExtUserObj,
 )
 from tap_announcekit.objs.id_objs import (
+    ActivityId,
     ExtUserId,
     FeedbackId,
     ImageId,
@@ -110,5 +114,16 @@ mock_external_user: ExtUserObj = IndexedObj(
         False,
         None,
         None,
+    ),
+)
+
+mock_act_obj = IndexedObj(
+    ActivityId(mock_proj_id, "act12"),
+    Activity(
+        "the_type",
+        mock_datetime,
+        mock_external_user_id,
+        mock_post_id,
+        mock_feedback_obj.id_obj,
     ),
 )
