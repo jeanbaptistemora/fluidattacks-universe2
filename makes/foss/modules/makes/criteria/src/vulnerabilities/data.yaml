@@ -11190,29 +11190,47 @@
   en:
     title: Lack of data validation - Header x-amzn-RequestId
     description: >
-      __empty__
+      The application does not control server side
+      permission to modify certain fields and allows
+      potentially dangerous character strings to be
+      entered in the x-amzn-RequestId Header.
     impact: >
-      __empty__
+      - Reflect dangerous character strings
+      to try to achieve an injection.
+
+      - Use very long character strings
+      to try to deny the service.
     recommendation: >
-      __empty__
+      Validate on the server side the types of
+      data that are entered into different kind
+      of fields in the application.
     threat: >
-      __empty__
+      Internet attacker with access to the service.
   es:
     title: Lack of data validation - Header x-amzn-RequestId
     description: >
-      __empty__
+      La aplicación no controla el lado de servidor
+      que se tenga permiso de modificar ciertos campos
+      y permite que se introduzcan cadenas de caracteres
+      potencialmente peligrosos en la Cabecera x-amzn-RequestId.
     impact: >
-      __empty__
+      - Reflejar cadenas de caracteres peligrosos
+      para tratar de lograr una inyección.
+
+      - Utilizar cadenas de caracteres muy largas
+      para tratar de denegar el servicio.
     recommendation: >
-      __empty__
+      Validar en el lado del servidor los tipos
+      de datos que se ingresan a distintos tipos
+      de campos en la aplicación.
     threat: >
-      __empty__
+      Atacante en Internet con acceso al servicio.
   category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
@@ -11230,34 +11248,64 @@
   en:
     title: Lack of data validation - Web Service
     description: >
-      __empty__
+      The application does not control on the server
+      side the data being sent in certain fields and
+      allows the use of special characters, which
+      leads to new attack vectors.
+      In addition, there is no adequate control
+      over the size of the fields that can be
+      sent to the server.
     impact: >
-      __empty__
+      - Exhaust server resources in the
+      file storage space.
+
+      - Achieve XSS, SQLi or HTML injection
+      to have a wider attack vector.
     recommendation: >
-      __empty__
+      - Validate on the server side, the types
+      of data that are entered by using white lists,
+      where a set of accepted characters is defined.
+
+      - Validate the minimum and maximum length for
+      the data entered by the user.
     threat: >
-      __empty__
+      Anonymous attacker from intranet.
   es:
     title: Lack of data validation - Web Service
     description: >
-      __empty__
+      La aplicación no controla del lado de servidor
+      los datos que se están enviando en ciertos campos
+      y permite utilizar caracteres especiales, que
+      conllevan a nuevos vectores de ataque.
+      Además no existe un control adecuado sobre
+      el tamaño de los campos que se pueden enviar al servidor.
     impact: >
-      __empty__
+      - Agotar recursos del servidor en el
+      espacio de almacenamiento de archivos.
+
+      - Lograr una inyección XSS, SQLi o HTML
+      para tener un vector de ataque más amplio.
     recommendation: >
-      __empty__
+      - Validar en el lado del servidor los tipos
+      de datos que se ingresan mediante el uso de
+      listas blancas, donde se defina un conjunto
+      de caracteres aceptados.
+
+      - Validar la longitud mínima y máxima para
+      los datos ingresados por el usuario.
     threat: >
-      __empty__
+      Atacante anónimo desde intranet.
   category: Inject Unexpected
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
