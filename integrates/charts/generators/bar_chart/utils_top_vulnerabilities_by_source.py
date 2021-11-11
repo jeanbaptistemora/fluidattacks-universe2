@@ -23,6 +23,13 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding as FindingNew,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityType,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from decimal import (
     Decimal,
 )
@@ -40,13 +47,15 @@ from typing import (
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(
-    group: str, loaders: Dataloaders, source: str
+    group: str, loaders: Dataloaders, source: VulnerabilityType
 ) -> Counter[str]:
     findings: Tuple[FindingNew, ...] = await loaders.group_findings.load(
         group.lower()
     )
     finding_ids = [finding.id for finding in findings]
-    findings_vulns = await loaders.finding_vulns_nzr.load_many(finding_ids)
+    findings_vulns: Tuple[
+        Tuple[Vulnerability, ...], ...
+    ] = await loaders.finding_vulns_nzr_typed.load_many(finding_ids)
     findings_cvssf = [
         utils.get_cvssf(get_severity_score(finding.severity))
         for finding in findings
@@ -58,8 +67,8 @@ async def get_data_one_group(
             findings, findings_vulns, findings_cvssf
         )
         for vulnerability in vulnerabilities
-        if vulnerability["historic_state"][-1]["state"] == "open"
-        and vulnerability["vuln_type"] == source
+        if vulnerability.state.status == VulnerabilityStateStatus.OPEN
+        and vulnerability.type == source
     ]
 
     return sum(
@@ -70,7 +79,7 @@ async def get_data_one_group(
 async def get_data_many_groups(
     groups: Tuple[str, ...],
     loaders: Dataloaders,
-    source: str,
+    source: VulnerabilityType,
 ) -> Counter[str]:
 
     groups_data = await collect(
@@ -80,11 +89,13 @@ async def get_data_many_groups(
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter[str], source: str) -> Dict[str, Any]:
+def format_data(
+    counters: Counter[str], source: VulnerabilityType
+) -> Dict[str, Any]:
     translations = {
-        "inputs": "App",
-        "lines": "Code",
-        "ports": "Infra",
+        VulnerabilityType.INPUTS: "App",
+        VulnerabilityType.LINES: "Code",
+        VulnerabilityType.PORTS: "Infra",
     }
     data: List[Tuple[str, int]] = counters.most_common()[:10]
     legend: str = f"{translations[source]} open severity (CVSSF)"
@@ -129,7 +140,7 @@ def format_data(counters: Counter[str], source: str) -> Dict[str, Any]:
 
 async def generate_all(
     *,
-    source: str,
+    source: VulnerabilityType,
 ) -> None:
     loaders = get_new_context()
     async for group in iterate_groups():

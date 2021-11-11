@@ -20,6 +20,12 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from itertools import (
     groupby,
 )
@@ -39,13 +45,15 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
         group.lower()
     )
     finding_ids = [finding.id for finding in group_findings]
-    finding_vulns = await loaders.finding_vulns_nzr.load_many(finding_ids)
+    finding_vulns: Tuple[
+        Tuple[Vulnerability, ...], ...
+    ] = await loaders.finding_vulns_nzr_typed.load_many(finding_ids)
     counter = Counter(
         [
             f"{finding.id}/{finding.title}"
             for finding, vulnerabilities in zip(group_findings, finding_vulns)
             for vulnerability in vulnerabilities
-            if vulnerability["current_state"] == "open"
+            if vulnerability.state.status == VulnerabilityStateStatus.OPEN
         ]
     )
 

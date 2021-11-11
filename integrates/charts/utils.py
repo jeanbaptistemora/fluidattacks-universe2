@@ -1,13 +1,10 @@
-from aioextensions import (
-    collect,
-)
 import asyncio
-from authz import (
-    get_cached_group_service_policies,
-)
 import contextlib
 from custom_types import (
     ForcesExecutions,
+)
+from dataloaders.group import (
+    GroupLoader,
 )
 from datetime import (
     datetime,
@@ -154,13 +151,10 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
     alive_groups: Set[str] = set(
         sorted(await groups_domain.get_alive_group_names())
     )
-    group_services = await collect(
-        [get_cached_group_service_policies(group) for group in alive_groups]
-    )
     groups: Set[str] = {
-        group
-        for group, services in zip(alive_groups, group_services)
-        if "continuous" in services
+        group["name"]
+        for group in await GroupLoader().load_many(alive_groups)
+        if group["subscription"] == "continuous"
     }
     async for org_id, org_name, org_groups in (
         orgs_domain.iterate_organizations_and_groups()
