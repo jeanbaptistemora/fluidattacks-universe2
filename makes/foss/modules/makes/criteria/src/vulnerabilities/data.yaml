@@ -11088,21 +11088,31 @@
     description: >
       __empty__
     impact: >
-      __empty__
+      Obtain sensitive information such as
+      stacktraces and versions of the systems used.
     recommendation: >
-      __empty__
+      Make sure that debugging mode is not
+      enabled in the production environment
+      and remove statements or portions of code
+      that are executing in debugging mode.
     threat: >
-      __empty__
+      External attacker with access to the application.
   es:
     title: Debugging enabled in production
     description: >
-      __empty__
+      El sistema tiene el modo debug activo
+      lo que genera una fuga de información
+      cuando se genera un error.
     impact: >
-      __empty__
+      Obtener información sensible como stacktraces
+      y versiones de los sistemas usados.
     recommendation: >
-      __empty__
+      Asegurarse que no esté habilitado el modo
+      depuración en el ambiente de producción y
+      remover las sentencias o porciones de código
+      que se ejecutan en modo depuración.
     threat: >
-      __empty__
+      Atacante externo con acceso a la aplicación.
   category: Abuse Functionality
   score:
     base:
@@ -11111,12 +11121,12 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "W"
       report_confidence: "X"
   requirements: ["077","078"]
   metadata:
