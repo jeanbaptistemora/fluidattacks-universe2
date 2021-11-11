@@ -391,6 +391,12 @@ type Mutation {
     targetGroupName: String!
   ): SimplePayload!
 
+  "Refresh the ToE Lines of a concrete group"
+  refreshToeLines(
+    "Name of the Group containing the ToE lines to be refreshed"
+    groupName: String
+  ): SimplePayload!
+
   "Rejects a drafted Finding"
   rejectDraft(
     "Identifier of the draft Finding to be rejected"

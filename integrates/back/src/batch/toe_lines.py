@@ -14,6 +14,7 @@ from custom_exceptions import (
     ToeLinesAlreadyUpdated,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from db_model.roots.types import (
@@ -334,7 +335,10 @@ def pull_repositories(
 
 
 async def refresh_active_root_repo_toe_lines(
-    group_name: str, group_path: str, root_repo: GitRootItem
+    loaders: Dataloaders,
+    group_name: str,
+    group_path: str,
+    root_repo: GitRootItem,
 ) -> None:
     try:
         repo = Repo(root_repo.state.nickname)
@@ -350,7 +354,6 @@ async def refresh_active_root_repo_toe_lines(
         )
         return
 
-    loaders = get_new_context()
     await git_utils.disable_quotepath(f"{root_repo.state.nickname}/.git")
     repo_toe_lines = {
         toe_lines.filename: toe_lines
@@ -396,9 +399,8 @@ async def refresh_active_root_repo_toe_lines(
 
 
 async def refresh_inactive_root_repo_toe_lines(
-    group_name: str, root_repo: GitRootItem
+    loaders: Dataloaders, group_name: str, root_repo: GitRootItem
 ) -> None:
-    loaders = get_new_context()
     repo_toe_lines = {
         toe_lines.filename: toe_lines
         for toe_lines in cast(
@@ -443,7 +445,7 @@ async def refresh_root_repo_toe_lines(
     await collect(
         tuple(
             refresh_active_root_repo_toe_lines(
-                group_name, group_path, root_repo
+                loaders, group_name, group_path, root_repo
             )
             for root_repo in active_root_repos
             if not optional_repo_nickname
@@ -452,7 +454,9 @@ async def refresh_root_repo_toe_lines(
     )
     await collect(
         tuple(
-            refresh_inactive_root_repo_toe_lines(group_name, root_repo)
+            refresh_inactive_root_repo_toe_lines(
+                loaders, group_name, root_repo
+            )
             for root_repo in inactive_root_repos
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
