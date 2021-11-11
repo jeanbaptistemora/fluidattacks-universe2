@@ -12049,33 +12049,33 @@
   en:
     title: Unauthorized access to files
     description: >
-      __empty__
+      In the functionality corresponding to update user data, it is possible to inject potentially dangerous characters that generate inappropriate behavior in the application, exposing the access to Sharepoint and allowing the user to access functionalities and files without authorization.
     impact: >
-      __empty__
+      - Access the Sharepoint administrative center - Accessing files without authorization.
     recommendation: >
-      __empty__
+      Validate on the server side the types of data that are entered into different types of fields in the application. Restrict file access to authenticated and authorized users only.
     threat: >
-      __empty__
+      Attacker authenticated from the Internet.
   es:
     title: Unauthorized access to files
     description: >
-      __empty__
+      En la funcionalidad correspondiente a actualizar datos de usuario, es posible inyectar caracteres potencialmente peligrosos que generar un comportamiento inadecuado en la aplicación, exponiendo el acceso a Sharepoint y permitiendo que el usuario accesa a funcionalidades y archivos sin autorización.
     impact: >
-      __empty__
+      - Acceder al centro administrativo de Sharepoint - Acceder a archivos sin autorización.
     recommendation: >
-      __empty__
+      Validar en el lado del servidor los tipos de datos que se ingresan a distintos tipos de campos en la aplicación. Restringir el acceso a archivos únicamente a usuarios autenticados y autorizados.
     threat: >
-      __empty__
+      Atacante autenticado desde Internet.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
