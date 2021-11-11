@@ -8624,6 +8624,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (angular v1.6.5)
    21 |     ""csv-parse"": ""1.3.3"",
       ^ Col 0
 "
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ansi-html v0.0.7) [CVE-2021-23424],7,937,skims,011. Use of software with known vulnerabilities,Use of ansi-html at version 0.0.7 with CVE-2021-23424 in skims/test/data/lib_path/f011/package.json,"
+    1 | {
+    2 |   ""dependencies"": {
+    3 |     ""@angular/core"": ""11.0.4"",
+    4 |     ""acorn"": ""7.1.0"",
+    5 |     ""adm-zip"": ""0.4.11"",
+    6 |     ""angular"": ""1.6.5"",
+>   7 |     ""ansi-html"": ""0.0.7"",
+    8 |     ""ansi-regex"": ""5.0.0"",
+    9 |     ""ammo"": ""2.0.4"",
+   10 |     ""apexcharts"": ""3.17.0"",
+   11 |     ""axios"": ""0.18.0"",
+   12 |     ""aws-sdk"": ""2.813.0"",
+   13 |     ""bcrypt"": ""3.0.8"",
+   14 |     ""browserslist"": ""4.12.0"",
+   15 |     ""class-validator"": ""0.10.2"",
+   16 |     ""chart"": ""2.9.3"",
+   17 |     ""cookies"": ""0.4.0"",
+   18 |     ""color-string"": ""1.1.4"",
+   19 |     ""connect"": ""2.8.0"",
+   20 |     ""css-what"": ""3.4.2"",
+   21 |     ""csv-parse"": ""1.3.3"",
+      ^ Col 0
+"
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ansi-regex v5.0.0) [CVE-2018-1002204],8,937,skims,011. Use of software with known vulnerabilities,Use of ansi-regex at version 5.0.0 with CVE-2018-1002204 in skims/test/data/lib_path/f011/package.json,"
     1 | {
     2 |   ""dependencies"": {
@@ -13406,30 +13430,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (object-path v0.
    75 |     ""jspdf"": ""2.2.0"",
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (openssl v1.1.1) [CVE-2018-0735],66,937,skims,011. Use of software with known vulnerabilities,Use of openssl at version 1.1.1 with CVE-2018-0735 in skims/test/data/lib_path/f011/package.json,"
-   56 |     ""immer"": ""8.0.1"",
-   57 |     ""ini"": ""1.3.5"",
-   58 |     ""ip"": ""1.0.1"",
-   59 |     ""is-my-json-valid"": ""2.16.0"",
-   60 |     ""is-svg"": ""3.0.0"",
-   61 |     ""locutus"": ""2.0.11"",
-   62 |     ""lodash"": ""0.*"",
-   63 |     ""netmask"": ""1.0.6"",
-   64 |     ""ngx-bootstrap"": ""6.2.0"",
-   65 |     ""object-path"": ""0.11.4"",
->  66 |     ""openssl"": ""1.1.1"",
-   67 |     ""path-parse"": ""1.0.6"",
-   68 |     ""pathval"": ""1.1.0"",
-   69 |     ""qs"": ""0.4.2"",
-   70 |     ""jasmine-core"": ""2.99.1"",
-   71 |     ""jquery"": ""0.*"",
-   72 |     ""jquery-validation"": ""1.17.0"",
-   73 |     ""js-yaml"": ""3.13.0"",
-   74 |     ""jsonpointer"": ""4.9.0"",
-   75 |     ""jspdf"": ""2.2.0"",
-   76 |     ""jsrsasign"": ""8.0.0"",
-      ^ Col 0
-"
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2011-2731],38,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2011-2731 in skims/test/data/lib_path/f011/pom.xml,"
   28 |       <scope>test</scope>
   29 |     </dependency>
@@ -14292,6 +14292,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (randomatic v2.5
   113 |     ""socket.io-parser"": ""3.4.0"",
   114 |     ""sshpk"": ""1.13.1"",
   115 |     ""ssri"": ""6.0.1"",
+      ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (react-adal v0.4.22) [CVE-2020-7787],101,937,skims,011. Use of software with known vulnerabilities,Use of react-adal at version 0.4.22 with CVE-2020-7787 in skims/test/data/lib_path/f011/package.json,"
+   91 |     ""node.extend"": ""1.0.8"",
+   92 |     ""node-forge"": ""0.9.0"",
+   93 |     ""node-sass"": ""^5.0.0"",
+   94 |     ""node-notifier"": ""5.4.2"",
+   95 |     ""nodemailer"": ""2.7.4"",
+   96 |     ""normalize-url"": ""4.3.0"",
+   97 |     ""npm"": ""6.0.0"",
+   98 |     ""npm-registry-fetch"": ""4.0.3"",
+   99 |     ""postcss"": ""7.0.0"",
+  100 |     ""prismjs"": ""1.20.0"",
+> 101 |     ""react-adal"": ""0.4.22"",
+  102 |     ""react-dev-utils"": ""8.0.0"",
+  103 |     ""redis"": ""2.8.0"",
+  104 |     ""request"": ""2.9.0"",
+  105 |     ""randomatic"": ""2.5.5"",
+  106 |     ""striptags"": ""3.1.1"",
+  107 |     ""semver"": ""4.3.1"",
+  108 |     ""semver-regex"": ""2.0.0"",
+  109 |     ""serverless-offline"": ""3.3.0"",
+  110 |     ""set-getter"": ""0.1.0"",
+  111 |     ""sheetjs"": ""0.16.9"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (react-dev-utils v8.0.0) [CVE-2017-16028],102,937,skims,011. Use of software with known vulnerabilities,Use of react-dev-utils at version 8.0.0 with CVE-2017-16028 in skims/test/data/lib_path/f011/package.json,"
@@ -15300,6 +15324,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (through v2.3.6)
   126 |     ""underscore"": ""1.12.0"",
   127 |     ""url-parse"": ""1.4.7"",
   128 |     ""urijs"": ""1.19.2"",
+      ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (trim v1.0.1) [CVE-2020-7753],120,937,skims,011. Use of software with known vulnerabilities,Use of trim at version 1.0.1 with CVE-2020-7753 in skims/test/data/lib_path/f011/package.json,"
+  110 |     ""set-getter"": ""0.1.0"",
+  111 |     ""sheetjs"": ""0.16.9"",
+  112 |     ""socket.io"": ""2.3.0"",
+  113 |     ""socket.io-parser"": ""3.4.0"",
+  114 |     ""sshpk"": ""1.13.1"",
+  115 |     ""ssri"": ""6.0.1"",
+  116 |     ""stringstream"": ""0.0.5"",
+  117 |     ""subtext"": ""4.4.1"",
+  118 |     ""through"": ""2.3.6"",
+  119 |     ""tar"": ""2.2.1"",
+> 120 |     ""trim"": ""1.0.1"",
+  121 |     ""trim-newlines"": ""1.0.0"",
+  122 |     ""tunnel-agent"": ""0.4.3"",
+  123 |     ""ua-parser"": ""0.7.20"",
+  124 |     ""ua-parser-js"": ""0.7.12"",
+  125 |     ""uglify-js"": ""2.5.0"",
+  126 |     ""underscore"": ""1.12.0"",
+  127 |     ""url-parse"": ""1.4.7"",
+  128 |     ""urijs"": ""1.19.2"",
+  129 |     ""useragent"": ""2.3.0"",
+  130 |     ""utils-extend"": ""1.0.8"",
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (trim-newlines v1.0.0) [CVE-2021-33623],121,937,skims,011. Use of software with known vulnerabilities,Use of trim-newlines at version 1.0.0 with CVE-2021-33623 in skims/test/data/lib_path/f011/package.json,"

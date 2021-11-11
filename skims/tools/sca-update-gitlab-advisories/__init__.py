@@ -157,7 +157,9 @@ def npm(data):
         print(f"vuln_ids: {vuln_ids}")
         for vuln_id in vuln_ids:
             data.setdefault(project, {})
-            data[project][vuln_id] = ranges_raw.split(" || ")
+            data[project][vuln_id] = [
+                range if range else ">=0" for range in ranges_raw.split(" || ")
+            ]
 
     return data
 
