@@ -12,8 +12,7 @@ from purity.v1.pure_iter.factory import (
     from_flist,
 )
 from purity.v1.pure_iter.transform import (
-    chain,
-    until_empty,
+    io as io_transform,
 )
 from returns.io import (
     IO,
@@ -53,16 +52,10 @@ class PostIdGetters:
     def _get_page_range(self) -> IO[range]:
         return self.client.get(self.total_query)
 
-    def get_ids(self) -> IO[PureIter[PostId]]:
+    def get_ids(self) -> PureIter[IO[PostId]]:
         getter: IntIndexGetter[PostIdPage] = IntIndexGetter(self.get_ids_page)
-        # pylint: disable=unnecessary-lambda
-        # for correct type checking lambda is necessary
-        id_pages: IO[PureIter[PostId]] = (
-            self._get_page_range()
-            .bind(getter.get_pages)
-            .map(lambda x: from_flist(x))
-            .map(lambda x: until_empty(x))
-            .map(lambda p: p.map(lambda i: i.data))
-            .map(lambda x: chain(x.map(from_flist)))
+        return io_transform.chain(
+            getter.get_until_end(0, 10).map(
+                lambda i: i.map(lambda x: from_flist(x.data))
+            )
         )
-        return id_pages

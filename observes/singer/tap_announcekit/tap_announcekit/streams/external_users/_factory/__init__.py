@@ -1,5 +1,3 @@
-# pylint: disable=unnecessary-lambda
-# for correct type checking lambda is necessary
 from dataclasses import (
     dataclass,
 )
@@ -12,7 +10,6 @@ from purity.v1 import (
 )
 from purity.v1.pure_iter.factory import (
     from_flist,
-    infinite_range,
 )
 from purity.v1.pure_iter.transform import (
     io as io_transform,
@@ -64,13 +61,7 @@ class ExtUserFactory:
         getter: IntIndexGetter[DataPage[ExtUserId]] = IntIndexGetter(
             self.get_page
         )
-        pages = (
-            infinite_range(0, 1)
-            .chunked(10)
-            .map(lambda i: tuple(i))
-            .map(getter.get_pages)
-        ).map(lambda io_items: io_items.map(lambda i: from_flist(i)))
-        return io_transform.until_empty(io_transform.chain(pages))
+        return getter.get_until_end(0, 10)
 
     def get_ids(self) -> PureIter[IO[ExtUserId]]:
         return io_transform.chain(

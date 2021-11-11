@@ -9,7 +9,6 @@ from purity.v1 import (
 )
 from purity.v1.pure_iter.factory import (
     from_flist,
-    infinite_range,
 )
 from purity.v1.pure_iter.transform import (
     io as io_transform,
@@ -57,22 +56,11 @@ class FeedbackFactory:
         return self.client.get(query).map(self._filter_empty)
 
     def get_feedbacks(self, proj: ProjectId) -> PureIter[IO[FeedbackObj]]:
-        # pylint: disable=unnecessary-lambda
-        # for correct type checking lambda is necessary
         getter: IntIndexGetter[DataPage[FeedbackObj]] = IntIndexGetter(
             partial(self.get_page, proj)
         )
-        pages = (
-            infinite_range(0, 1)
-            .chunked(10)
-            .map(lambda i: tuple(i))
-            .map(getter.get_pages)
-        ).map(
-            lambda io_items: io_items.map(
-                lambda i: from_flist(i).map(lambda p: p.map(lambda x: x.items))
+        return io_transform.chain(
+            getter.get_until_end(0, 10).map(
+                lambda i: i.map(lambda x: from_flist(x.items))
             )
         )
-        result = io_transform.until_empty(io_transform.chain(pages)).map(
-            lambda i: i.map(lambda j: from_flist(j))
-        )
-        return io_transform.chain(result)

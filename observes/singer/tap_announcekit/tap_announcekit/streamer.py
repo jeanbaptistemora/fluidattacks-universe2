@@ -6,6 +6,7 @@ from enum import (
     Enum,
 )
 from purity.v1 import (
+    Flattener,
     FrozenDict,
 )
 from purity.v1.pure_iter.factory import (
@@ -103,12 +104,16 @@ class Streamer(_Streamer):
         return FrozenDict(streams)
 
     def start(self) -> IO[None]:
+        # pylint: disable=unnecessary-lambda
+        # for correct type checking lambda is necessary
         if self.selection in (
             SupportedStream.POSTS,
             SupportedStream.POST_CONTENTS,
             SupportedStream.ALL,
         ):
-            ids_io = PostStreams.ids(self.client, self.proj)
+            ids_io = Flattener.list_io(
+                tuple(PostStreams.ids(self.client, self.proj))
+            ).map(lambda i: from_flist(i))
             if self.selection in (SupportedStream.POSTS, SupportedStream.ALL):
                 ids_io.bind(PostStreams(self.client, self.emitter).emit)
             if self.selection in (

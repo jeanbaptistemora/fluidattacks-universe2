@@ -35,7 +35,7 @@ class PostStreams:
     _name: str = "posts"
 
     @staticmethod
-    def ids(client: ApiClient, proj: ProjectId) -> IO[PureIter[PostId]]:
+    def ids(client: ApiClient, proj: ProjectId) -> PureIter[IO[PostId]]:
         factory = PostIdFactory(client, proj)
         return factory.get_ids()
 

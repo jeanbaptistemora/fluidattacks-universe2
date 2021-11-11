@@ -93,5 +93,5 @@ class PostIdFactory:
     def get_ids_page(self, page: int) -> IO[Maybe[PostIdPage]]:
         return self._getter.get_ids_page(page)
 
-    def get_ids(self) -> IO[PureIter[PostId]]:
+    def get_ids(self) -> PureIter[IO[PostId]]:
         return self._getter.get_ids()
