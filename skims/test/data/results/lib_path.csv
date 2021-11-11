@@ -6566,6 +6566,19 @@ F256,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,1,693,ski
   21 |   password             = ""useradmin""
      ^ Col 0
 "
+F256,lines,namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,1,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
+","
+> 1 | resource ""aws_rds_cluster"" ""example"" {
+  2 |   cluster_identifier   = ""example""
+  3 |   deletion_protection  = false
+  4 |   db_subnet_group_name = aws_db_subnet_group.example.name
+  5 |   engine_mode          = ""multimaster""
+  6 |   master_password      = ""barbarbarbar""
+  7 |   master_username      = ""foo""
+  8 |   skip_final_snapshot  = true
+  9 | }
+    ^ Col 0
+"
 F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
 ","
    1 | # Insecure
