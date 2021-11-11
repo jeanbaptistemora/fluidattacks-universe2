@@ -303,7 +303,7 @@ const Execution: React.FC<IExecution> = (
         </Route>
         <Route path={"/log"}>
           <SyntaxHighlighter
-            language={"yaml"}
+            language={"text"}
             // eslint-disable-next-line react/forbid-component-props
             style={monokaiSublime}
             wrapLines={true}

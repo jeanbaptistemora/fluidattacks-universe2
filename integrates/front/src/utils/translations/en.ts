@@ -541,7 +541,7 @@ export const enTranslations: ResourceKey = {
       tabs: {
         log: {
           text: "Execution Log",
-          tooltip: "Log record of the execution of forces in YAML format",
+          tooltip: "Log record of the DevSecOps execution in rich console format",
         },
         summary: {
           text: "Summary",

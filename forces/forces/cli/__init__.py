@@ -25,6 +25,9 @@ from io import (
     TextIOWrapper,
 )
 import re
+from rich.text import (
+    Text,
+)
 import sys
 import textwrap
 from typing import (
@@ -149,22 +152,31 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
 
     striccness = "strict" if strict else "lax"
     start_msg: str = "Running DevSecOps agent"
-    await log("info", f"{start_msg} in [bright_yellow]{striccness}[/] mode")
-    await log("info", f"{start_msg} in [bright_yellow]{kind}[/] kind")
+    await log(
+        "info",
+        Text.assemble(
+            f"{start_msg} in ", (striccness, "bright_yellow"), " mode"
+        ),
+    )
+    await log(
+        "info",
+        Text.assemble(f"{start_msg} in ", (kind, "bright_yellow"), " kind"),
+    )
     if repo_name:
         await log(
             "info",
-            (
-                f"{start_msg} for vulnerabilities in the repo: "
-                f"[bright_yellow]{repo_name}[/]"
+            Text.assemble(
+                f"{start_msg} for vulnerabilities in the repo: ",
+                (repo_name, "bright_yellow"),
             ),
         )
     else:
         await log(
             "warning",
-            (
-                "If the repository name is not specified, it will run on "
-                "[bright_yellow]all[/] the existing repositories in ASM"
+            Text.assemble(
+                "If the repository name is not specified, it will run on ",
+                ("all", "bright_yellow"),
+                " the existing repositories in ASM",
             ),
         )
 

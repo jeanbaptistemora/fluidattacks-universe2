@@ -29,6 +29,9 @@ from forces.utils.model import (
     KindEnum,
 )
 import os
+from rich.text import (
+    Text,
+)
 import uuid
 
 
@@ -55,15 +58,16 @@ async def entrypoint(
             "Formatting findings data",
             "Uploading Report to ASM",
         ]
-        footer: str = ": [green]Complete[/]"
+        footer: Text = Text.assemble(": ", ("Complete", "green"))
         while tasks:
             if config.kind in {KindEnum.STATIC, KindEnum.ALL}:
                 if not config.repository_name:
                     await log(
                         "warning",
-                        (
-                            "The vulnerabilities of [bright_yellow]all[/] "
-                            "repositories will be scanned"
+                        Text.assemble(
+                            "The vulnerabilities of ",
+                            ("all", "bright_yellow"),
+                            " repositories will be scanned",
                         ),
                     )
 
@@ -73,9 +77,9 @@ async def entrypoint(
                 if config.repository_name:
                     await log(
                         "info",
-                        (
-                            "Running forces on the repository: "
-                            f"[bright_yellow]{config.repository_name}[/]"
+                        Text.assemble(
+                            "Running forces on the repository: ",
+                            (config.repository_name, "bright_yellow"),
                         ),
                     )
 
@@ -86,9 +90,9 @@ async def entrypoint(
                     and config.kind != KindEnum.ALL
                 ):
                     return 1
-            await log("info", f"{tasks.pop(0)}{footer}")
+            await log("info", Text.assemble(tasks.pop(0), footer))
             report = await generate_report(config)
-            await log("info", f"{tasks.pop(0)}{footer}")
+            await log("info", Text.assemble(tasks.pop(0), footer))
 
             if report["summary"]["total"] > 0:
                 filtered_report = filter_report(
@@ -104,12 +108,13 @@ async def entrypoint(
             else:
                 tasks.pop(0)
                 tasks.pop(0)
+                no_vulns_msg: Text = Text(
+                    "The current repository has no reported vulnerabilities"
+                )
+                no_vulns_msg.stylize(style="green")
                 await log(
                     "info",
-                    (
-                        "[green]The current repository has no reported "
-                        "vulnerabilities[/]"
-                    ),
+                    no_vulns_msg,
                 )
 
             if output := config.output:
@@ -128,6 +133,6 @@ async def entrypoint(
                 git_metadata=metadata,
                 kind=config.kind.value,
             )
-            await log("info", f"{tasks.pop(0)}{footer}")
+            await log("info", Text.assemble(tasks.pop(0), footer))
             await log("info", f"Success execution: {exit_code == 0}")
     return exit_code
