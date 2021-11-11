@@ -11318,23 +11318,38 @@
   en:
     title: Lack of data validation - Source Code
     description: >
-      __empty__
+      Within the source code there is evidence
+      of the use of dangerous regular expressions,
+      because they make use of complex operations
+      to find matches, which can lead an attacker
+      to send a specific string of data that could
+      cause the server to crash when evaluating the
+      string with the dangerous regular expression.
     impact: >
-      __empty__
+      Generate server crash.
     recommendation: >
-      __empty__
+      Securely configure the vulnerable service so,
+      it can only be accessed by authorized users.
     threat: >
-      __empty__
+      Anonymous from the Internet.
   es:
     title: Lack of data validation - Source Code
     description: >
-      __empty__
+      Dentro del código fuente se evidencia el uso
+      de expresiones regulares peligrosas, porque
+      hacen uso de operaciones complejas para encontrar
+      coincidencias, lo que puede llevar a que un
+      atacante envíe una cadena de datos específica
+      que podria generar la caída del servidor al
+      evaluar la cadena con la expresión regular peligrosa.
     impact: >
-      __empty__
+      Generar la caída del servidor.
     recommendation: >
-      __empty__
+      Configurar de manera segura el servicio
+      vulnerable permitiendo así, que solo sea
+      accedido por usuarios autorizados.
     threat: >
-      __empty__
+      Anónimo desde Internet.
   category: Inject Unexpected
   score:
     base:
@@ -11345,11 +11360,11 @@
       scope: "U"
       confidentiality: "N"
       integrity: "L"
-      availability: "N"
+      availability: "H"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "R"
   requirements: ["173","320","342"]
   metadata:
     en:
