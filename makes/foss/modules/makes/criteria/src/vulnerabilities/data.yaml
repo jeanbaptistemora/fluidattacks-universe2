@@ -11576,38 +11576,49 @@
   en:
     title: Lack of data validation - Reflected Parameters
     description: >
-      __empty__
+      Included in the server error responses
+      is unvalidated user input containing
+      special characters, which can lead to
+      vulnerabilities such as XSS.
     impact: >
-      __empty__
+      Inject special characters in server responses.
     recommendation: >
-      __empty__
+      Validate on the server side the types
+      of data that are entered into different
+      kind of fields in the application.
     threat: >
-      __empty__
+      Authenticated attacker from the Internet.
   es:
     title: Lack of data validation - Reflected Parameters
     description: >
-      __empty__
+      Dentro de las respuestas de error del servidor
+      se incluye la entrada del usuario sin validar
+      que contenga caracteres especiales, lo que puede
+      dar lugar a que se presenten vulnerabilidades como XSS.
     impact: >
-      __empty__
+      Inyectar caracteres especiales en las
+      respuestas del servidor.
     recommendation: >
-      __empty__
+      Validar en el lado del servidor los tipos de
+      datos que se ingresan a distintos tipos de
+      campos en la aplicación.
     threat: >
-      __empty__
+      Atacante autenticado desde Internet.
   category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "R"
   requirements: ["173","320","342"]
   metadata:
     en:
