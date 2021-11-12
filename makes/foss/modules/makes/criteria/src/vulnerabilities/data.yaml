@@ -13093,33 +13093,41 @@
   en:
     title: Business information leak - Token
     description: >
-      __empty__
+      Some of the information of the user like
+      the username/email and full name is included
+      in the data contained in the session token.
     impact: >
-      __empty__
+      Obtain name and emails of users.
     recommendation: >
-      __empty__
+      Avoid to include sensitive user
+      information in the session token.
     threat: >
-      __empty__
+      External attacker with access to tokens.
   es:
     title: Business information leak - Token
     description: >
-      __empty__
+      Parte de la información del usuario, como
+      el nombre de usuario/correo electrónico y
+      el nombre completo, se incluye en los datos
+      contenidos en el token de sesión.
     impact: >
-      __empty__
+      Obtener el nombre y correos
+      electrónicos de los usuarios.
     recommendation: >
-      __empty__
+      Evite incluir información sensible del
+      usuario en el token de sesión.
     threat: >
-      __empty__
+      Atacante externo con acceso a los tokens.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
@@ -13133,37 +13141,51 @@
   en:
     title: Business information leak - Users
     description: >
-      __empty__
+      Business information is obtained, such as:
+
+      - List of valid users.
     impact: >
-      __empty__
+      Internal attacker with access to the code.
     recommendation: >
-      __empty__
+      According to the classification of the
+      information found, establish the necessary
+      controls so that the information is accessible
+      only to the indicated persons.
     threat: >
-      __empty__
+      An unauthorized user with access to the code
+      can identify that there is insufficiently
+      protected business information.
   es:
     title: Business information leak - Users
     description: >
-      __empty__
+      Se obtiene información de negocio, como:
+
+      - Lista de usuarios válidos.
     impact: >
-      __empty__
+      Atacante interno con acceso al código.
     recommendation: >
-      __empty__
+      De acuerdo a la clasificación de la información
+      encontrada, establecer los controles necesarios
+      para que la información sea accesible sólo a las
+      personas indicadas.
     threat: >
-      __empty__
+      Un usuario no autorizado con acceso al código
+      puede identificar que hay información de negocio
+      sin la protección suficiente.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "F"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["176","177","261","300"]
   metadata:
