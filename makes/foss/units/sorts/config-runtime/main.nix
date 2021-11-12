@@ -1,5 +1,4 @@
-{ fetchUrl
-, inputs
+{ inputs
 , makePythonPypiEnvironment
 , makeTemplate
 , projectPath
@@ -40,7 +39,7 @@ makeTemplate {
     source = [
       (makeTemplate {
         replace = {
-          __argSortsModel__ = fetchUrl {
+          __argSortsModel__ = inputs.nixpkgs.fetchurl {
             sha256 = "6QCH+jt8k8eGtu9ahSrsiypEwOAW86o42WvP+OSIbYE=";
             url = "https://sorts.s3.amazonaws.com/training-output/model.joblib?versionId=clsGZtxBJtqYdGgJsK9JOnaHpiBaD6to";
           };

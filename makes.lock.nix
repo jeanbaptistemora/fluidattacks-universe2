@@ -1,9 +1,6 @@
-let
-  lock = builtins.fromJSON (builtins.readFile ./flake.lock);
-in
 {
-  makesSrc = builtins.fetchTarball {
-    url = lock.nodes.makes.locked.url;
-    sha256 = lock.nodes.makes.locked.narHash;
+  makesSrc = builtins.fetchGit {
+    url = "https://github.com/fluidattacks/makes";
+    ref = "21.12";
   };
 }
