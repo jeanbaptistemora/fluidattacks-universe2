@@ -154,3 +154,22 @@ mock_feed = {
         "version": 2,
     }
 }
+
+mock_widgets_ids = {
+    "widgets": [
+        {"id": "widget1"},
+        {"id": "widget2"},
+    ]
+}
+mock_widget = {
+    "widget": {
+        "created_at": MOCK_DATE,
+        "name": "name",
+        "mode": "mode",
+        "action": "action",
+        "slug": "slug",
+        "options": "",
+        "theme": "",
+        "version": 63,
+    }
+}
