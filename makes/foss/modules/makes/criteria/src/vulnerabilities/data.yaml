@@ -13693,23 +13693,30 @@
   en:
     title: Business information leak - Firestore
     description: >
-      __empty__
+      When attempting to activate a plan, it
+      is evident that the responses to firestore
+      API requests contain user credentials.
     impact: >
-      __empty__
+      Obtain credentials from other services.
     recommendation: >
-      __empty__
+      Ensure that responses to requests do
+      not contain confidential information.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Business information leak - Firestore
     description: >
-      __empty__
+      Cuando se intenta activar un plan se
+      evidencia que las respuestas de las
+      solicitudes al API de firestore contienen
+      credenciales de usuario.
     impact: >
-      __empty__
+      Obtener credenciales de otros servicios.
     recommendation: >
-      __empty__
+      Asegurarse que las respuestas de las solicitudes
+      no contengan información confidencial
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   category: Collect Information
   score:
     base:
@@ -13718,13 +13725,13 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "R"
   requirements: ["176","177","261","300"]
   metadata:
     en:
@@ -13733,23 +13740,23 @@
   en:
     title: Message flooding
     description: >
-      __empty__
+      It is possible to send mass messages to the phones numbers and emails of the victims, causing saturation of the inbox and consuming resources of the user.
     impact: >
-      __empty__
+      - To flood the inbox of the victim - To increase abruptly the consumed resources of the device - To hide important information from other messages - To facilitate other attacks like phishing
     recommendation: >
-      __empty__
+      Restrict the consecutive sending of messages through mechanisms such as time delays or controls over the amount of messages sent
     threat: >
-      __empty__
+      External attacker with access to the code
   es:
     title: Message flooding
     description: >
-      __empty__
+      Es posible enviar mensajes masivos a los números de teléfono y correos electrónicos de las víctimas, provocando la saturación de la bandeja de entrada y consumiendo recursos del usuario.
     impact: >
-      __empty__
+      - Inundar la bandeja de entrada de la víctima - Aumentar bruscamente los recursos consumidos del dispositivo - Ocultar información importante de otros mensajes - Facilitar otros ataques como el phishing
     recommendation: >
-      __empty__
+      Restringir el envío consecutivo de mensajes a través de mecanismos como retrasos o controles sobre la cantidad de mensajes enviados
     threat: >
-      __empty__
+      Atacante externo con acceso al código.
   category: Abuse Functionality
   score:
     base:
