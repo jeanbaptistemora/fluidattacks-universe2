@@ -7,6 +7,9 @@ from tap_announcekit.streams.external_users import (
 from tap_announcekit.streams.feedback import (
     FeedbackStreams,
 )
+from tap_announcekit.streams.feeds import (
+    FeedStreams,
+)
 from tap_announcekit.streams.post_contents import (
     PostContentStreams,
 )
@@ -20,6 +23,7 @@ from tap_announcekit.streams.project import (
 __all__ = [
     "ActivitiesStreams",
     "ExtUsersStream",
+    "FeedStreams",
     "FeedbackStreams",
     "PostStreams",
     "PostContentStreams",
