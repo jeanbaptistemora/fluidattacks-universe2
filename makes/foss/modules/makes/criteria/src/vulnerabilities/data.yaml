@@ -14515,33 +14515,44 @@
   en:
     title: Non-encrypted confidential information - DB
     description: >
-      __empty__
+      The application stores information from
+      user queries within the database that is
+      stored on the device, allowing an attacker
+      to access the information.
     impact: >
-      __empty__
+      Obtain information from user queries.
     recommendation: >
-      __empty__
+      Encrypt all sensitive information that is
+      transported or stored within the application
+      according to the organization's policies.
     threat: >
-      __empty__
+      Unauthenticated attacker with access to the device.
   es:
     title: Non-encrypted confidential information - DB
     description: >
-      __empty__
+      La aplicación almacena información de las
+      consultas del usuario dentro de la base de
+      datos que se almacena en el dispositivo,
+      lo que permite que un atacante pueda
+      acceder a la información.
     impact: >
-      __empty__
+      Obtener información de las consultas de los usuarios.
     recommendation: >
-      __empty__
+      Cifrar toda información sensible que se
+      transporte o se guarde dentro la aplicación
+      de acuerdo a las políticas de la organización.
     threat: >
-      __empty__
+      Atacante sin autenticar con acceso al dispositivo.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
