@@ -21,7 +21,6 @@ import re
 from typing import (
     Awaitable,
     Callable,
-    Dict,
     Iterator,
     List,
     Pattern,
@@ -47,75 +46,6 @@ RE_MAVEN_B: Pattern[str] = re.compile(
     fr"{QUOTE}(?P<statement>{TEXT}){QUOTE}"
     fr".*$"
 )
-
-
-def _pom_xml_get_properties(root: bs4.BeautifulSoup) -> Dict[str, str]:
-    return {
-        property.name.lower(): property.get_text()
-        for properties in root.find_all("properties", limit=2)
-        for property in properties.children
-        if isinstance(property, bs4.element.Tag)
-    }
-
-
-def _pom_xml_interpolate(properties: Dict[str, str], value: str) -> str:
-    for var, var_value in properties.items():
-        value = value.replace(f"${{{var}}}", var_value)
-
-    return value
-
-
-def _pom_xml(
-    content: str,
-    path: str,
-    platform: core_model.Platform,
-) -> core_model.Vulnerabilities:
-    def resolve_dependencies() -> Iterator[DependencyType]:
-        root = bs4.BeautifulSoup(content, features="html.parser")
-
-        properties = _pom_xml_get_properties(root)
-
-        for group, artifact, version in [
-            (group, artifact, version)
-            for dependency in root.find_all("dependency", recursive=True)
-            for group in dependency.find_all("groupid", limit=1)
-            for artifact in dependency.find_all("artifactid", limit=1)
-            for version in (dependency.find_all("version", limit=1) or [None])
-        ]:
-            g_text = _pom_xml_interpolate(properties, group.get_text())
-            a_text = _pom_xml_interpolate(properties, artifact.get_text())
-            if version is None:
-                v_text = _pom_xml_interpolate(properties, "*")
-                column = artifact.sourcepos
-                line = artifact.sourceline
-            else:
-                v_text = _pom_xml_interpolate(properties, version.get_text())
-                column = version.sourcepos
-                line = version.sourceline
-
-            yield (
-                {"column": column, "line": line, "item": f"{g_text}:{a_text}"},
-                {"column": column, "line": line, "item": v_text},
-            )
-
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=resolve_dependencies(),
-        path=path,
-        platform=platform,
-    )
-
-
-async def pom_xml(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _pom_xml,
-        content=content,
-        path=path,
-        platform=core_model.Platform.MAVEN,
-    )
 
 
 def _packages_config(
@@ -312,13 +242,6 @@ async def analyze(
     elif (file_name, file_extension) == ("packages", "config"):
         coroutines.append(
             packages_config(
-                content=await content_generator(),
-                path=path,
-            )
-        )
-    elif (file_name, file_extension) == ("pom", "xml"):
-        coroutines.append(
-            pom_xml(
                 content=await content_generator(),
                 path=path,
             )
