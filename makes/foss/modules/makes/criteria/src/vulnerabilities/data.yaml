@@ -12910,37 +12910,71 @@
   en:
     title: Business information leak - Credit Cards
     description: >
-      __empty__
+      As a result of a misconfiguration in
+      the creditcarId variable, customer
+      credit card data can be seen through
+      the responses to the requests made.
+      Thus, it was possible to obtain business
+      information, such as:
+
+      - Strategic information.
+
+      - Customer information.
     impact: >
-      __empty__
+      -Obtain credit card information
+      of current users.
+
+      -List valid cards and their
+      expiration dates.
     recommendation: >
-      __empty__
+      According to the classification of
+      the information found, establish the
+      necessary controls so that the information
+      is accessible only to the indicated persons.
     threat: >
-      __empty__
+      External attacker with access to valid token.
   es:
     title: Business information leak - Credit Cards
     description: >
-      __empty__
+      Debido a una mala configuración en
+      la variable creditcarId se pueden
+      ver datos de tarjetas de crédito de
+      los clientes mediante las respuestas
+      a las peticiones realizadas.
+      Así, se pudo obtener información
+      de negocio, como:
+
+      - Información estratégica.
+
+      - Información de clientes.
     impact: >
-      __empty__
+      -Obtener información de las tarjetas
+      de crédito de los usuarios actuales.
+
+      -Listar tarjetas válidas y sus
+      fechas de expiración.
     recommendation: >
-      __empty__
+      De acuerdo a la clasificación de la
+      información encontrada, establecer
+      los controles necesarios para que
+      la información sea accesible sólo
+      a las personas indicadas.
     threat: >
-      __empty__
+      Atacante externo con acceso a token válido.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "F"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["176","177","261","300"]
   metadata:
