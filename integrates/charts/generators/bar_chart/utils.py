@@ -365,17 +365,17 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
             )
             for group in groups
         ],
-        workers=24,
+        workers=8,
     )
 
     all_groups_data_30: Tuple[Benchmarking, ...] = await collect(
         [get_data_one_group(group, loaders, dates[0]) for group in groups],
-        workers=24,
+        workers=8,
     )
 
     all_groups_data_90: Tuple[Benchmarking, ...] = await collect(
         [get_data_one_group(group, loaders, dates[1]) for group in groups],
-        workers=24,
+        workers=8,
     )
 
     all_organizations_data: Tuple[Benchmarking, ...] = await collect(
@@ -389,7 +389,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
             )
             for organization in organizations
         ],
-        workers=24,
+        workers=8,
     )
 
     all_organizations_data_30: Tuple[Benchmarking, ...] = await collect(
@@ -403,7 +403,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
             )
             for organization in organizations
         ],
-        workers=24,
+        workers=8,
     )
 
     all_organizations_data_90: Tuple[Benchmarking, ...] = await collect(
@@ -417,7 +417,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
             )
             for organization in organizations
         ],
-        workers=24,
+        workers=8,
     )
 
     all_portfolios_data: Tuple[Benchmarking, ...] = await collect(
@@ -431,7 +431,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
             )
             for portfolio in portfolios
         ],
-        workers=24,
+        workers=8,
     )
 
     all_portfolios_data_30: Tuple[Benchmarking, ...] = await collect(
@@ -445,7 +445,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
             )
             for portfolio in portfolios
         ],
-        workers=24,
+        workers=8,
     )
 
     all_portfolios_data_90: Tuple[Benchmarking, ...] = await collect(
@@ -459,7 +459,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
             )
             for portfolio in portfolios
         ],
-        workers=24,
+        workers=8,
     )
 
     best_mttr: Dict[str, Decimal] = {
