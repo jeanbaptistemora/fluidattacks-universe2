@@ -16,6 +16,9 @@ from aws.model import (
     AWSS3Acl,
     AWSS3Bucket,
 )
+from frozendict import (  # type: ignore
+    frozendict,
+)
 import math
 from metaloaders.model import (
     Node,
@@ -37,6 +40,9 @@ from pyparsing import (
     pythonStyleComment,
     QuotedString,
     Word,
+)
+from sca import (
+    get_vulnerabilities,
 )
 from typing import (
     Any,
@@ -64,6 +70,7 @@ from zone import (
 
 # Constants
 TFun = TypeVar("TFun", bound=Callable[..., Any])
+DependencyType = Tuple[frozendict, frozendict]
 
 # Reusable Components
 C_STYLE_COMMENT: ParserElement = cppStyleComment
@@ -260,3 +267,51 @@ def get_vulnerabilities_from_aws_iterator_blocking(
         ),
         path=path,
     )
+
+
+def translate_dependencies_to_vulnerabilities(
+    *,
+    content: str,
+    dependencies: Iterator[DependencyType],
+    path: str,
+    platform: core_model.Platform,
+) -> core_model.Vulnerabilities:
+    results: core_model.Vulnerabilities = tuple(
+        core_model.Vulnerability(
+            finding=core_model.FindingEnum.F011,
+            kind=core_model.VulnerabilityKindEnum.LINES,
+            namespace=CTX.config.namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            what=" ".join(
+                (
+                    path,
+                    f'({product["item"]} v{version["item"]})',
+                    f"[{cve}]",
+                )
+            ),
+            where=f'{product["line"]}',
+            skims_metadata=core_model.SkimsVulnerabilityMetadata(
+                cwe=("937",),
+                description=t(
+                    key="src.lib_path.f011.npm_package_json.description",
+                    path=path,
+                    product=product["item"],
+                    version=version["item"],
+                    cve=cve,
+                ),
+                snippet=make_snippet(
+                    content=content,
+                    viewport=SnippetViewport(
+                        column=product["column"],
+                        line=product["line"],
+                    ),
+                ),
+            ),
+        )
+        for product, version in dependencies
+        for cve in get_vulnerabilities(
+            platform, product["item"], version["item"]
+        )
+    )
+
+    return results

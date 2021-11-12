@@ -7,7 +7,9 @@ from frozendict import (  # type: ignore
     frozendict,
 )
 from lib_path.common import (
+    DependencyType,
     SHIELD,
+    translate_dependencies_to_vulnerabilities,
 )
 from model import (
     core_model,
@@ -19,9 +21,6 @@ from parse_json import (
     loads_blocking as json_loads_blocking,
 )
 import re
-from sca import (
-    get_vulnerabilities,
-)
 from typing import (
     Awaitable,
     Callable,
@@ -31,20 +30,8 @@ from typing import (
     Pattern,
     Tuple,
 )
-from utils.ctx import (
-    CTX,
-)
-from utils.string import (
-    make_snippet,
-    SnippetViewport,
-)
-from zone import (
-    t,
-)
 
 # Constants
-DependencyType = Tuple[frozendict, frozendict]
-
 QUOTE = r'["\']'
 TEXT = r'[^"\']+'
 WS = r"\s*"
@@ -351,54 +338,6 @@ async def yarn_lock(
         path=path,
         platform=core_model.Platform.NPM,
     )
-
-
-def translate_dependencies_to_vulnerabilities(
-    *,
-    content: str,
-    dependencies: Iterator[DependencyType],
-    path: str,
-    platform: core_model.Platform,
-) -> core_model.Vulnerabilities:
-    results: core_model.Vulnerabilities = tuple(
-        core_model.Vulnerability(
-            finding=core_model.FindingEnum.F011,
-            kind=core_model.VulnerabilityKindEnum.LINES,
-            namespace=CTX.config.namespace,
-            state=core_model.VulnerabilityStateEnum.OPEN,
-            what=" ".join(
-                (
-                    path,
-                    f'({product["item"]} v{version["item"]})',
-                    f"[{cve}]",
-                )
-            ),
-            where=f'{product["line"]}',
-            skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=("937",),
-                description=t(
-                    key="src.lib_path.f011.npm_package_json.description",
-                    path=path,
-                    product=product["item"],
-                    version=version["item"],
-                    cve=cve,
-                ),
-                snippet=make_snippet(
-                    content=content,
-                    viewport=SnippetViewport(
-                        column=product["column"],
-                        line=product["line"],
-                    ),
-                ),
-            ),
-        )
-        for product, version in dependencies
-        for cve in get_vulnerabilities(
-            platform, product["item"], version["item"]
-        )
-    )
-
-    return results
 
 
 @SHIELD
