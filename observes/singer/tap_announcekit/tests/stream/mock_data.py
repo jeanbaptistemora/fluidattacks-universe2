@@ -8,10 +8,14 @@ from tap_announcekit.objs.ext_user import (
     ExternalUser,
     ExtUserObj,
 )
+from tap_announcekit.objs.feed import (
+    Feed,
+)
 from tap_announcekit.objs.id_objs import (
     ActivityId,
     ExtUserId,
     FeedbackId,
+    FeedId,
     ImageId,
     IndexedObj,
     PostId,
@@ -125,5 +129,25 @@ mock_act_obj = IndexedObj(
         mock_external_user_id,
         mock_post_id,
         mock_feedback_obj.id_obj,
+    ),
+)
+
+mock_feed_obj = IndexedObj(
+    FeedId(mock_proj_id, "feed1"),
+    Feed(
+        "name",
+        "",
+        mock_datetime,
+        None,
+        None,
+        "blue",
+        "url",
+        False,
+        False,
+        False,
+        None,
+        "",
+        "",
+        2,
     ),
 )
