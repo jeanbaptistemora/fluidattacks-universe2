@@ -14345,32 +14345,48 @@
   en:
     title: Authentication mechanism absence or evasion - Admin Console
     description: >
-      __empty__
+      Some functions of the application
+      can be accessed without having to
+      be logged into the server.
+      Some only allow you to view and
+      others, to edit some values.
     impact: >
-      __empty__
+      - List confidential information in
+      the application.
+
+      - Edit information in the application.
     recommendation: >
-      __empty__
+      Protect resources that are not
+      authenticated for access.
     threat: >
-      __empty__
+      Unauthorized user from internal network.
   es:
     title: Authentication mechanism absence or evasion - Admin Console
     description: >
-      __empty__
+      Algunas funciones de la aplicación son
+      accedidas sin necesidad de tener una
+      sesión iniciada en el servidor.
+      Otras, solo permiten visualizar y
+      otros más, para editar algunos valores.
     impact: >
-      __empty__
+      - Enumerar información confidencial
+      en la aplicación.
+
+      - Editar información en la aplicación.
     recommendation: >
-      __empty__
+      Proteger los recursos a los cuales no se
+      les tiene una autenticación para ser accedidos.
     threat: >
-      __empty__
+      Usuario no autorizado desde red interna
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
