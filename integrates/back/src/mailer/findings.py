@@ -99,13 +99,13 @@ async def send_mail_remove_finding(
 
 
 async def send_mail_new_draft(
-    context: Any,
+    loaders: Any,
     finding_id: str,
     finding_title: str,
     group_name: str,
     hacker_email: str,
 ) -> None:
-    org_name = await get_organization_name(context, group_name)
+    org_name = await get_organization_name(loaders, group_name)
     recipients = FI_MAIL_REVIEWERS.split(",")
     email_context: MailContentType = {
         "hacker_email": hacker_email,
@@ -140,14 +140,14 @@ async def send_mail_new_remediated(
 
 
 async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
-    context: Any,
+    loaders: Any,
     draft_id: str,
     finding_name: str,
     group_name: str,
     discoverer_email: str,
     reviewer_email: str,
 ) -> None:
-    org_name = await get_organization_name(context, group_name)
+    org_name = await get_organization_name(loaders, group_name)
     recipients = FI_MAIL_REVIEWERS.split(",")
     recipients.append(discoverer_email)
     email_context: MailContentType = {
@@ -172,14 +172,14 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
 
 
 async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
-    context: Any,
+    loaders: Any,
     user_email: str,
     finding_id: str,
     finding_name: str,
     group_name: str,
     justification: str,
 ) -> None:
-    org_name = await get_organization_name(context, group_name)
+    org_name = await get_organization_name(loaders, group_name)
     recipients = await group_access_domain.get_reattackers(group_name)
     mail_context = {
         "group": group_name.lower(),

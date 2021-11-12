@@ -596,23 +596,25 @@ async def mask_finding(  # pylint: disable=too-many-locals
 
 
 async def request_vulnerabilities_verification(
-    context: Any,
+    loaders: Any,
     finding_id: str,
     user_info: Dict[str, str],
     justification: str,
     vulnerability_ids: Set[str],
 ) -> None:
-    finding_loader = context.loaders.finding
+    finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
-    vulnerabilities = await vulns_domain.get_by_finding_and_uuids(
-        finding_id, vulnerability_ids
+    vulnerabilities = await vulns_domain.get_by_finding_and_vuln_ids_new(
+        loaders,
+        finding_id,
+        vulnerability_ids,
     )
     vulnerabilities = [
         vulns_utils.validate_requested_verification(vuln)
         for vuln in vulnerabilities
     ]
     vulnerabilities = [
-        vulns_utils.validate_closed(vuln) for vuln in vulnerabilities
+        vulns_utils.validate_closed_new(vuln) for vuln in vulnerabilities
     ]
     if not vulnerabilities:
         raise VulnNotFound()
@@ -639,16 +641,16 @@ async def request_vulnerabilities_verification(
         "comment_id": comment_id,
     }
     await comments_domain.add(finding_id, comment_data, user_info)
-    update_vulns = await collect(
-        map(vulns_domain.request_verification, vulnerabilities)
+    success = all(
+        await collect(map(vulns_domain.request_verification, vulnerabilities))
     )
-    if not all(update_vulns):
+    if not success:
         LOGGER.error("An error occurred remediating", **NOEXTRA)
         raise NotVerificationRequested()
 
     schedule(
         findings_mail.send_mail_remediate_finding(
-            context.loaders,
+            loaders,
             user_email,
             finding.id,
             finding.title,

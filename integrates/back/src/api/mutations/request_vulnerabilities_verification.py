@@ -58,7 +58,7 @@ async def mutate(
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         await findings_domain.request_vulnerabilities_verification(
-            info.context,
+            info.context.loaders,
             finding_id,
             user_info,
             justification,

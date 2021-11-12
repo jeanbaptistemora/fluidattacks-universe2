@@ -844,16 +844,24 @@ def validate_closed(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
     return vuln
 
 
+def validate_closed_new(vulnerability: Vulnerability) -> Vulnerability:
+    """Validate if vulnerability is closed."""
+    if vulnerability.state.status == VulnerabilityStateStatus.CLOSED:
+        raise VulnAlreadyClosed()
+    return vulnerability
+
+
 def validate_requested_verification(
-    vuln: Dict[str, FindingType]
-) -> Dict[str, FindingType]:
-    """Validate vuln is not resquested."""
-    historic_verification = cast(
-        List[Dict[str, FindingType]], vuln.get("historic_verification", [{}])
-    )
-    if historic_verification[-1].get("status", "") == "REQUESTED":
+    vulnerability: Vulnerability,
+) -> Vulnerability:
+    """Validate if vulnerability is not resquested."""
+    if (
+        vulnerability.verification
+        and vulnerability.verification.status
+        == VulnerabilityVerificationStatus.REQUESTED
+    ):
         raise AlreadyRequested()
-    return vuln
+    return vulnerability
 
 
 def validate_verify(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:

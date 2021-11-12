@@ -1,3 +1,5 @@
+# pylint:disable=too-many-lines
+
 import aioboto3
 from aioextensions import (
     collect,
@@ -271,6 +273,22 @@ async def get_by_finding_and_uuids(
     if len(vulns) != len(vuln_ids):
         raise VulnNotFound()
     return vulns
+
+
+async def get_by_finding_and_vuln_ids_new(
+    loaders: Any,
+    finding_id: str,
+    vuln_ids: Set[str],
+) -> Tuple[Vulnerability, ...]:
+    finding_vulns: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_typed.load(finding_id)
+    filtered_vulns = tuple(
+        vuln for vuln in finding_vulns if vuln.id in vuln_ids
+    )
+    if len(filtered_vulns) != len(vuln_ids):
+        raise VulnNotInFinding()
+    return filtered_vulns
 
 
 async def get_by_ids(vulns_ids: List[str]) -> List[Dict[str, FindingType]]:
@@ -612,17 +630,19 @@ async def reject_vulnerabilities_zero_risk(
     return success
 
 
-async def request_verification(vuln: VulnerabilityType) -> bool:
+async def request_verification(vuln: Vulnerability) -> bool:
     today = datetime_utils.get_now_as_str()
-    historic_verification: HistoricType = vuln.get("historic_verification", [])
+    items: List[VulnerabilityType] = await vulns_dal.get(vuln.id)
+    item: VulnerabilityType = items[0]
+    historic_verification: HistoricType = item.get("historic_verification", [])
     new_state = {
         "date": today,
         "status": "REQUESTED",
     }
     historic_verification.append(new_state)
     return await vulns_dal.update(
-        vuln["finding_id"],
-        vuln["UUID"],
+        vuln.finding_id,
+        vuln.id,
         {"historic_verification": historic_verification},
     )
 
