@@ -13572,23 +13572,36 @@
   en:
     title: Business information leak - Analytics
     description: >
-      __empty__
+      Business insights from mobile app usage
+      analytics are obtained via a Swagger URL
+      exposed along with the APIKey.
     impact: >
-      __empty__
+      Obtain business information about the
+      analytics of the mobile application.
     recommendation: >
-      __empty__
+      According to the classification of
+      the found information, establish the
+      necessary controls so that the information
+      is accessible only to the indicated persons.
     threat: >
-      __empty__
+      Unauthenticated external attacker in the application.
   es:
     title: Business information leak - Analytics
     description: >
-      __empty__
+      Se obtiene información de negocio de
+      la analítica de uso de la app móvil
+      mediante una URL de Swagger expuesta
+      junto con el APIKey.
     impact: >
-      __empty__
+      Obtener información de negocio sobre
+      la analítica de la aplicación móvil.
     recommendation: >
-      __empty__
+      De acuerdo a la clasificación de la
+      información encontrada, establecer los
+      controles necesarios para que la información
+      sea accesible sólo a las personas indicadas.
     threat: >
-      __empty__
+      Atacante externo no autenticado en la aplicación.
   category: Collect Information
   score:
     base:
@@ -13597,8 +13610,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
@@ -13612,23 +13625,51 @@
   en:
     title: Business information leak - Power BI
     description: >
-      __empty__
+      Business information is obtained, such as:
+
+      - Strategic Information
+
+      - KIPS
+
+      - Sales Information
+
+      - Dispatch Information
     impact: >
-      __empty__
+      - Obtain strategic business information.
+
+      - Obtain KPI indicators.
+
+      - Obtain sales and dispatches information.
     recommendation: >
-      __empty__
+      Establish access controls to resources
+      with potentially sensitive information.
     threat: >
-      __empty__
+      User not authenticated in the
+      application from the Internet.
   es:
     title: Business information leak - Power BI
     description: >
-      __empty__
+      Se obtiene información de negocio, como:
+
+      - Información estratégica
+
+      - KIPS
+
+      - Información de ventas
+
+      - Informacion de despachos
     impact: >
-      __empty__
+      - Obtener información estratégica del negocio.
+
+      - Obtener indicadores KPI.
+
+      - Obtener información de ventas y despachos.
     recommendation: >
-      __empty__
+      Establecer controles de acceso a recursos
+      con información potencialmente sensible
     threat: >
-      __empty__
+      Usuario no autenticado en la
+      aplicación desde internet.
   category: Collect Information
   score:
     base:
@@ -13637,8 +13678,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
