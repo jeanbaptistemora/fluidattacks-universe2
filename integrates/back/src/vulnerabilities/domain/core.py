@@ -1,5 +1,3 @@
-# pylint:disable=too-many-lines
-
 import aioboto3
 from aioextensions import (
     collect,
@@ -90,7 +88,6 @@ from typing import (
     Optional,
     Set,
     Tuple,
-    Union,
 )
 import uuid
 from vulnerabilities import (
@@ -349,65 +346,6 @@ async def get_grouped_vulnerabilities_info(
         grouped_inputs_vulnerabilities=grouped_inputs_vulnerabilities,
     )
     return grouped_vulnerabilities_info
-
-
-async def get_open_vuln_by_type(
-    context: Any,
-    finding_id: str,
-) -> Dict[str, Union[int, List[Dict[str, str]]]]:
-    """Get open vulnerabilities group by type."""
-    finding_vulns_loader = context.finding_vulns_nzr
-    vulnerabilities = await finding_vulns_loader.load(finding_id)
-    finding: Dict[str, Union[int, List[Dict[str, str]]]] = {
-        "openVulnerabilities": 0,
-        "closedVulnerabilities": 0,
-        "portsVulns": [],
-        "linesVulns": [],
-        "inputsVulns": [],
-    }
-    vulns_types = ["ports", "lines", "inputs"]
-    for vuln in vulnerabilities:
-        current_state = vulns_utils.get_last_status(vuln)
-        if current_state == "open":
-            finding["openVulnerabilities"] = (
-                cast(int, finding["openVulnerabilities"]) + 1
-            )
-            if vuln.get("vuln_type") in vulns_types:
-                cast(
-                    List[Dict[str, str]],
-                    finding[f'{vuln.get("vuln_type", "")}Vulns'],
-                ).append(
-                    {
-                        "where": vuln.get("where"),
-                        "specific": vuln.get("specific"),
-                        "commit_hash": vuln.get("commit_hash"),
-                    }
-                )
-            else:
-                LOGGER.error(
-                    "Vulnerability does not have the right type",
-                    extra={
-                        "extra": {
-                            "vuln_uuid": vuln.get("UUID"),
-                            "finding_id": finding_id,
-                        }
-                    },
-                )
-        elif current_state == "closed":
-            finding["closedVulnerabilities"] = (
-                cast(int, finding["closedVulnerabilities"]) + 1
-            )
-        else:
-            LOGGER.error(
-                "Error: Vulnerability does not have the right state",
-                extra={
-                    "extra": {
-                        "vuln_uuid": vuln["UUID"],
-                        "finding_id": finding_id,
-                    }
-                },
-            )
-    return finding
 
 
 async def get_open_vulnerabilities_specific_by_type(
