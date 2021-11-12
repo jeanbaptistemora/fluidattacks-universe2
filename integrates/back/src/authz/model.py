@@ -651,7 +651,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     resourcer=dict(
         actions={
             *GROUP_LEVEL_ROLES["resourcer"]["actions"],
-            "api_mutations_refresh_toe_lines_mutate",
             "api_resolvers_git_root_services_toe_lines_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
