@@ -14401,34 +14401,57 @@
   en:
     title: Authentication mechanism absence or evasion - BIOS
     description: >
-      __empty__
+      The system lacks an authentication mechanism
+      or has one that can be bypassed.
+      Therefore, an attacker can access system
+      resources by logging into the BIOS.
     impact: >
-      __empty__
+      - Accessing disk information through other systems.
+
+      - Modifying and disabling machine configurations.
+
+      - Deleting all machine information by formatting the disk.
     recommendation: >
-      __empty__
+      Put in place for every resource with
+      business-critical functionality a strong
+      authentication process and ensure that
+      every user attempting to access it is logged in.
     threat: >
-      __empty__
+      Unauthorized internal attacker.
   es:
     title: Authentication mechanism absence or evasion - BIOS
     description: >
-      __empty__
+      El sistema carece de un mecanismo de autenticación
+      o tiene uno que puede ser evadido.
+      Por lo tanto, un atacante puede acceder a
+      recursos del sistema al ingresar en la BIOS.
     impact: >
-      __empty__
+      - Acceder a la información del disco a
+      través de otros sistemas.
+
+      - Modificar y deshabilitar configuraciones
+      de las máquinas.
+
+      - Eliminar toda la información de la máquina
+      al formatear el disco.
     recommendation: >
-      __empty__
+      Poner para todo recurso con una funcionalidad
+      crítica para el negocio un proceso de autenticación
+      fuerte y asegurarse de que cada usuario que intente
+      acceder tenga una sesión iniciada.
     threat: >
-      __empty__
+      Atacante interno no autorizado.
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "P"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      confidentiality: "H"
+      integrity: "H"
+      availability: "H"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
@@ -14441,33 +14464,44 @@
   en:
     title: Non-encrypted confidential information - Credit Cards
     description: >
-      __empty__
+      In alignment with the PCI DSS standard,
+      sensitive information regarding payment
+      cards must be masked and encrypted at
+      the user end and at the server end.
     impact: >
-      __empty__
+      Obtain credit card information.
     recommendation: >
-      __empty__
+      Encrypt all sensitive information
+      that is transported or stored within
+      the application according to the
+      organization's policies.
     threat: >
-      __empty__
+      - Unauthorized insider attacker performing a MitM.
   es:
     title: Non-encrypted confidential information - Credit Cards
     description: >
-      __empty__
+      En alineación con el estándar PCI DSS,
+      la información confidencial con respecto
+      a tarjetas de pago, debe estar enmascarada
+      y cifrada de cara al usuario y en el servidor.
     impact: >
-      __empty__
+      Obtener información de las tarjetas de crédito.
     recommendation: >
-      __empty__
+      Cifrar toda información sensible que se transporte
+      o se guarde dentro la aplicación de acuerdo a las
+      políticas de la organización.
     threat: >
-      __empty__
+      Atacante interno sin autorización realizando un MitM.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
