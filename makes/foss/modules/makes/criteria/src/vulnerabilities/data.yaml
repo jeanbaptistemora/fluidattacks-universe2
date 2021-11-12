@@ -13195,32 +13195,95 @@
   en:
     title: Business information leak - DB
     description: >
-      __empty__
+      From sensitive information stored in the source
+      code, business information is obtained, such as:
+
+      - Users who have made recent transactions, document
+      number and full name.
+
+      - Wallet Ids.
+
+      - Versions and operating system names.
+
+      - Transaction codes.
+
+      - Endpoints available to, and consumed by each user.
+
+      - Associated credit cards.
+
+      - Available balance.
     impact: >
-      __empty__
+      - Obtain information about users and
+      their common transactions.
+
+      - Obtain information about the
+      application's APIs, and the parameters
+      required to query them.
+
+      - Identify the devices a user uses to
+      access the application.
+
+      - Associate a user with an account number,
+      credit card number, and available balance.
     recommendation: >
-      __empty__
+      According to the classification of the
+      found information, establish the necessary
+      controls, so the information is accessible
+      only to the indicated persons.
     threat: >
-      __empty__
+      Authorized attacker with the credentials
+      obtained from the source code, on Internet.
   es:
     title: Business information leak - DB
     description: >
-      __empty__
+      De información sensible almacenada en el código
+      fuente, se obtiene información de negocio, como:
+
+      - Usuarios que han hecho transacciones recientes,
+      número de documento y nombre completo.
+
+      - Wallet Ids.
+
+      - Versiones y nombres de sistema operativo.
+
+      - Códigos de transacción.
+
+      - Endpoints disponibles para, y consumidos por cada usuario.
+
+      - Tarjetas de crédito asociadas.
+
+      - Saldo disponible.
     impact: >
-      __empty__
+      - Obtener información de los usuarios
+      y sus transacciones comunes.
+
+      - Obtener información sobre las API
+      de la aplicación, y los parámetros
+      requeridos para consultarlas.
+
+      - Identificar los dispositivos que un
+      usuario usa para acceder a la aplicación.
+
+      - Asociar a un usuario con un número de
+      cuenta, número de tarjeta de crédito, y
+      saldo disponible.
     recommendation: >
-      __empty__
+      De acuerdo a la clasificación de la
+      información encontrada, establecer los
+      controles necesarios para que la información
+      sea accesible sólo a las personas indicadas.
     threat: >
-      __empty__
+      Atacante autorizado con las credenciales
+      obtenidas desde el código fuente, en Internet.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "H"
       integrity: "L"
       availability: "N"
     temporal:
