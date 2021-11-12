@@ -42,6 +42,7 @@ class FeedIdQuery:
         items.id()
         return IO(None)
 
+    @property
     def query(self) -> Query[FrozenList[FeedId]]:
         return QueryFactory.select(
             self._select_fields,
@@ -66,6 +67,7 @@ class FeedQuery:
         select_fields(item, frozenset(Feed.__annotations__))
         return IO(None)
 
+    @property
     def query(self) -> Query[Feed]:
         return QueryFactory.select(
             self._select_fields,
