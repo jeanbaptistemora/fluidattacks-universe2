@@ -1,9 +1,6 @@
 from aioextensions import (
     in_process,
 )
-from frozendict import (  # type: ignore
-    frozendict,
-)
 from lib_path.common import (
     DependencyType,
     SHIELD,
@@ -11,9 +8,6 @@ from lib_path.common import (
 )
 from model import (
     core_model,
-)
-from parse_json import (
-    loads_blocking as json_loads_blocking,
 )
 import re
 from typing import (
@@ -94,43 +88,6 @@ async def build_gradle(
     )
 
 
-def _npm_package_lock_json(
-    content: str,
-    path: str,
-    platform: core_model.Platform,
-) -> core_model.Vulnerabilities:
-    def resolve_dependencies(obj: frozendict) -> Iterator[DependencyType]:
-        for key in obj:
-            if key["item"] in ("dependencies", "devDependencies"):
-                for product, spec in obj[key].items():
-                    for spec_key, spec_val in spec.items():
-                        if spec_key["item"] == "version":
-                            yield product, spec_val
-                            yield from resolve_dependencies(spec)
-
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=resolve_dependencies(
-            obj=json_loads_blocking(content, default={}),
-        ),
-        path=path,
-        platform=platform,
-    )
-
-
-@SHIELD
-async def npm_package_lock_json(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _npm_package_lock_json,
-        content=content,
-        path=path,
-        platform=core_model.Platform.NPM,
-    )
-
-
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -144,13 +101,6 @@ async def analyze(
     if (file_name, file_extension) == ("build", "gradle"):
         coroutines.append(
             build_gradle(
-                content=await content_generator(),
-                path=path,
-            )
-        )
-    elif (file_name, file_extension) == ("package-lock", "json"):
-        coroutines.append(
-            npm_package_lock_json(
                 content=await content_generator(),
                 path=path,
             )
