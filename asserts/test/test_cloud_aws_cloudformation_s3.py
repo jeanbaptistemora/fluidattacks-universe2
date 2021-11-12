@@ -16,15 +16,6 @@ VULN: str = "test/static/cloudformation/vulnerable"
 NOT_EXISTS: str = "test/static/cloudformation/not-exists"
 
 
-def test_has_server_side_encryption_disabled():
-    """test s3.has_server_side_encryption_disabled."""
-    result = s3.has_server_side_encryption_disabled(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 1
-    assert s3.has_server_side_encryption_disabled(SAFE).is_closed()
-    assert s3.has_server_side_encryption_disabled(NOT_EXISTS).is_unknown()
-
-
 def test_has_object_lock_disabled():
     """test s3.has_object_lock_disabled."""
     result = s3.has_object_lock_disabled(VULN)

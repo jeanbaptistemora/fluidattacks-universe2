@@ -41,65 +41,6 @@ ACCESS_CONTROLS = {
 }
 
 
-@api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError)
-def has_server_side_encryption_disabled(
-    path: str, exclude: Optional[List[str]] = None
-) -> tuple:
-    """
-    Check if S3 buckets have Server-Side Encryption disabled.
-
-    :param path: Location of CloudFormation's template file.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if policies disable server-side encryption.
-    """
-    vulnerabilities: List[Vulnerability] = []
-    graph: DiGraph = get_graph(path, exclude)
-    templates: List[int] = get_templates(graph, path, exclude)
-    bucket_policies: List[int] = get_resources(
-        graph,
-        map(lambda x: x[0], templates),
-        {"AWS", "S3", "BucketPolicy"},
-        num_labels=3,
-        info=True,
-    )
-    for bucket_policy, resource, template in bucket_policies:
-        vulnerable: List = []
-        stmts = get_list_node_items(graph, bucket_policy, "Statement", depth=8)
-        for stmt in stmts:
-            sse: List = has_values(
-                graph,
-                stmt,
-                "x-amz-server-side-encryption",
-                ["false", "False", False, "0", 0],
-                depth=19,
-            )
-            for item in sse:
-                if has_values(graph, stmt, "Effect", "Allow"):
-                    vulnerable.append(item)
-        vulnerabilities.extend(
-            Vulnerability(
-                path=template["path"],
-                entity=(
-                    f"AWS::S3::BucketPolicy/"
-                    f"PolicyDocument/Statement/"
-                    f"Condition/Null/"
-                    f"s3:x-amz-server-side-encryption"
-                ),
-                identifier=resource["name"],
-                line=graph.nodes.get(vuln)["line"],
-                reason="has serverside encryption disabled",
-            )
-            for vuln in vulnerable
-        )
-
-    return _get_result_as_tuple(
-        vulnerabilities=vulnerabilities,
-        msg_open="S3 bucket policy allows unencrypted objects",
-        msg_closed="S3 bucket policy does not allow unencrypted objects",
-    )
-
-
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_object_lock_disabled(
