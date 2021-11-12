@@ -13304,33 +13304,62 @@
   en:
     title: Business information leak - AWS
     description: >
-      __empty__
+      Business information is obtained, such as:
+
+      - Application flows, script and operation.
+
+      - User list.
+
+      - Employee information.
+
+      - Customer information Through the use of AWS
+      credentials found in plain text in the source code.
     impact: >
-      __empty__
+      Attacker with access to the code.
     recommendation: >
-      __empty__
+      According to the classification of the
+      information found, establish the necessary
+      controls so that the information is
+      accessible only to the indicated persons.
     threat: >
-      __empty__
+      An attacker gaining access to cloud
+      repositories will be able to gain
+      access to sensitive information.
   es:
     title: Business information leak - AWS
     description: >
-      __empty__
+      Se obtiene información de negocio, como:
+
+      - Flujos, script y funcionamiento de la aplicación.
+
+      - Lista de usuarios.
+
+      - Información de empleados.
+
+      - Información de clientes-
+
+      - Mediante el uso de credenciales de AWS que se
+      encuentran en texto plano en el código fuente.
     impact: >
-      __empty__
+      Atacante con acceso a código.
     recommendation: >
-      __empty__
+      De acuerdo a la clasificación de la
+      información encontrada, establecer los
+      controles necesarios para que la información
+      sea accesible sólo a las personas indicadas.
     threat: >
-      __empty__
+      Un atacante que consiga acceso a los repositorios
+      en la nube podrá obtener acceso a información sensible.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
