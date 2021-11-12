@@ -21,6 +21,7 @@ from tap_announcekit.objs.id_objs import (
     PostId,
     ProjectId,
     UserId,
+    WidgetId,
 )
 from tap_announcekit.objs.post import (
     ActionSource,
@@ -33,6 +34,9 @@ from tap_announcekit.objs.post.content import (
 )
 from tap_announcekit.objs.project import (
     Project,
+)
+from tap_announcekit.objs.widget import (
+    Widget,
 )
 
 mock_datetime = datetime(2000, 1, 1)
@@ -150,4 +154,9 @@ mock_feed_obj = IndexedObj(
         "",
         2,
     ),
+)
+
+mock_widget_obj = IndexedObj(
+    WidgetId(mock_proj_id, "widget1"),
+    Widget(mock_datetime, "name", "", "", "", "", "", 33),
 )
