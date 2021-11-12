@@ -14105,23 +14105,32 @@
   en:
     title: Technical information leak - API
     description: >
-      __empty__
+      An attacker is able to gather the
+      entire GraphQL API Schema Structure
+      (Both queries and mutations).
     impact: >
-      __empty__
+      An anonymous attacker from Internet
+      Network crafts an introspection query.
     recommendation: >
-      __empty__
+      Disable introspection queries.
     threat: >
-      __empty__
+      Once the knowledge of the Schema Structure
+      is achieved, a door for more dangerous attacks is open.
   es:
     title: Technical information leak - API
     description: >
-      __empty__
+      Un atacante es capaz de reunir toda la
+      estructura del esquema de la API GraphQL
+      (tanto las consultas como las mutaciones).
     impact: >
-      __empty__
+      Un atacante anónimo de la Red de Internet
+      realiza una consulta de introspección.
     recommendation: >
-      __empty__
+      Desactivar las consultas de introspección.
     threat: >
-      __empty__
+      Una vez que se conoce la estructura
+      del esquema, se abre una puerta
+      para ataques más peligrosos.
   category: Collect Information
   score:
     base:
@@ -14130,12 +14139,12 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "W"
       report_confidence: "X"
   requirements: ["077","176"]
   metadata:
