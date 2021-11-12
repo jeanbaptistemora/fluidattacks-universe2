@@ -44,6 +44,7 @@ def _check(
     )
 
 
+@SHIELD
 async def check(
     content: str,
     path: str,

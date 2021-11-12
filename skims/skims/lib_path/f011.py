@@ -14,9 +14,6 @@ from lib_path.common import (
 from model import (
     core_model,
 )
-from more_itertools import (
-    windowed,
-)
 from parse_json import (
     loads_blocking as json_loads_blocking,
 )
@@ -28,7 +25,6 @@ from typing import (
     Iterator,
     List,
     Pattern,
-    Tuple,
 )
 
 # Constants
@@ -282,64 +278,6 @@ async def npm_package_lock_json(
     )
 
 
-def _yarn_lock(
-    content: str,
-    path: str,
-    platform: core_model.Platform,
-) -> core_model.Vulnerabilities:
-    def resolve_dependencies() -> Iterator[DependencyType]:
-        windower: Iterator[
-            Tuple[Tuple[int, str], Tuple[int, str]],
-        ] = windowed(
-            fillvalue="",
-            n=2,
-            seq=tuple(enumerate(content.splitlines(), start=1)),
-            step=1,
-        )
-
-        # ((11479, 'zen-observable@^0.8.21:'), (11480, '  version "0.8.21"'))
-        for (product_line, product), (version_line, version) in windower:
-            product, version = product.strip(), version.strip()
-
-            if (
-                product.endswith(":")
-                and not product.startswith(" ")
-                and version.startswith("version")
-            ):
-                product = product.rstrip(":")
-                product = product.split(",", maxsplit=1)[0]
-                product = product.strip('"')
-                product = product.rsplit("@", maxsplit=1)[0]
-
-                version = version.split(" ", maxsplit=1)[1]
-                version = version.strip('"')
-
-                yield (
-                    {"column": 0, "line": product_line, "item": product},
-                    {"column": 0, "line": version_line, "item": version},
-                )
-
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=resolve_dependencies(),
-        path=path,
-        platform=platform,
-    )
-
-
-@SHIELD
-async def yarn_lock(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _yarn_lock,
-        content=content,
-        path=path,
-        platform=core_model.Platform.NPM,
-    )
-
-
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -381,13 +319,6 @@ async def analyze(
     elif (file_name, file_extension) == ("pom", "xml"):
         coroutines.append(
             pom_xml(
-                content=await content_generator(),
-                path=path,
-            )
-        )
-    elif (file_name, file_extension) == ("yarn", "lock"):
-        coroutines.append(
-            yarn_lock(
                 content=await content_generator(),
                 path=path,
             )

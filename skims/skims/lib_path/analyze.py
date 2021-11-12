@@ -5,6 +5,7 @@ from aioextensions import (
 from lib_path import (
     f009,
     f011,
+    f011_npm_yarn_lock,
     f011_nuget_csproj,
     f016,
     f022,
@@ -61,6 +62,7 @@ MAX_READ: int = 64 * MEBIBYTE
 CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F009, f009.analyze),
     (core_model.FindingEnum.F011, f011.analyze),
+    (core_model.FindingEnum.F011, f011_npm_yarn_lock.analyze),
     (core_model.FindingEnum.F011, f011_nuget_csproj.analyze),
     (core_model.FindingEnum.F016, f016.analyze),
     (core_model.FindingEnum.F022, f022.analyze),
