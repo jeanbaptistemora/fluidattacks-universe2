@@ -34,7 +34,7 @@ from typing import (
 
 @dataclass(frozen=True)
 class FeedIdQuery:
-    _to_obj: Transform[Tuple[ProjectId, RawFeed], FrozenList[FeedId]]
+    _to_obj: Transform[Tuple[ProjectId, RawFeed], FeedId]
     proj: ProjectId
 
     def _select_fields(self, operation: Operation) -> IO[None]:
@@ -46,7 +46,10 @@ class FeedIdQuery:
         return QueryFactory.select(
             self._select_fields,
             Transform(
-                lambda p: self._to_obj((self.proj, cast(RawFeed, p.feeds)))
+                lambda p: tuple(
+                    self._to_obj((self.proj, f))
+                    for f in cast(FrozenList[RawFeed], p.feeds)
+                )
             ),
         )
 
