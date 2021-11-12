@@ -13476,33 +13476,49 @@
   en:
     title: Business information leak - Personal Information
     description: >
-      __empty__
+      Real user information such as real ID
+      numbers and phone numbers are being
+      stored in the source code.
     impact: >
-      __empty__
+      Obtain personal information from the
+      user of the application in order to
+      use it in different attacks such as
+      social engineering, among others.
     recommendation: >
-      __empty__
+      Personal information should not be
+      exposed in the source code, and in
+      case it is necessary, the data used
+      should not correspond to reality.
     threat: >
-      __empty__
+      Attacker with access to the application's source code.
   es:
     title: Business information leak - Personal Information
     description: >
-      __empty__
+      En el código fuente se está almacenando
+      información real de los usuarios como
+      números de cédula y teléfonos reales.
     impact: >
-      __empty__
+      Conseguir información personal del usuario
+      de la aplicación con el fin de utilizarla
+      en diferentes ataques como ingeniería
+      social, entre otros.
     recommendation: >
-      __empty__
+      La información personal no debe ser
+      expuesta en el código fuente, y en
+      caso de ser necesaria los datos utilizados
+      no deben corresponder con la realidad.
     threat: >
-      __empty__
+      Atacante con acceso al código fuente de la aplicación.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
