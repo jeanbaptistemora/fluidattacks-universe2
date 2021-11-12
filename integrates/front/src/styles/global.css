@@ -916,3 +916,17 @@ label {
 :global .react-bootstrap-table .row-expand-slide-exit-active {
   transition: max-height 0.2s ease !important;
 }
+
+:global .w-md-editor-text-input {
+  border: 0 !important;
+}
+
+:global .w-md-editor-text-input::selection {
+  -webkit-text-fill-color: #fff;
+}
+
+:global .wmde-markdown {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  font-family: inherit !important;
+}

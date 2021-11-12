@@ -818,6 +818,7 @@ async def update_group_access_info(
 
     for value in new_data.values():
         value = validate_markdown(value)
+        validate_field_length(value, 10000)
 
     success = await update(group_name, new_data)
 

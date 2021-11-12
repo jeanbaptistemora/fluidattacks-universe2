@@ -1,16 +1,24 @@
-import { Form, useFormikContext } from "formik";
+import MDEditor from "@uiw/react-md-editor";
+import { ErrorMessage, Field, Form, useFormikContext } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
 import type { IGroupAccessInfo } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo";
+import type { IFieldProps } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/AccessInfoForm";
 import { ActionButtons } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/ActionButtons";
-import { Col40, Flex, GroupScopeText, Row } from "styles/styledComponents";
-import { EditableField, FormikTextArea } from "utils/forms/fields";
+import {
+  Alert,
+  Col25,
+  Flex,
+  GroupScopeTextWide,
+  Row,
+} from "styles/styledComponents";
+import { ValidationError } from "utils/forms/fields/styles";
 import { maxLength } from "utils/validations";
 
-const MAX_DISAMBIGUATION_INFO_LENGTH = 2000;
+const MAX_DISAMBIGUATION_INFO_LENGTH = 10000;
 
 const maxDisambiguationInfoLength: ConfigurableValidator = maxLength(
   MAX_DISAMBIGUATION_INFO_LENGTH
@@ -58,30 +66,51 @@ const DisambiguationForm: React.FC<IDisambiguationForm> = ({
         </Flex>
         <Row>
           {dataset.disambiguation || isEditing ? (
-            <GroupScopeText>
-              <EditableField
-                component={FormikTextArea}
-                currentValue={dataset.disambiguation}
-                id={
-                  "searchFindings.groupAccessInfoSection.tooltips.disambiguation.id"
-                }
-                label={""}
-                markdown={true}
-                name={"disambiguation"}
-                renderAsEditable={isEditing}
-                tooltip={t(
-                  "searchFindings.groupAccessInfoSection.tooltips.disambiguation"
-                )}
-                type={"text"}
-                validate={maxDisambiguationInfoLength}
-              />
-            </GroupScopeText>
+            <GroupScopeTextWide>
+              {isEditing ? (
+                <Field
+                  name={"disambiguation"}
+                  validate={maxDisambiguationInfoLength}
+                >
+                  {({
+                    field,
+                    form: { values, setFieldValue },
+                  }: IFieldProps): JSX.Element => {
+                    function handleMDChange(value: string | undefined): void {
+                      setFieldValue("disambiguation", value);
+                    }
+
+                    return (
+                      <React.Fragment>
+                        <MDEditor
+                          height={200}
+                          highlightEnable={false}
+                          onChange={handleMDChange}
+                          value={values.disambiguation}
+                        />
+                        <ValidationError>
+                          <ErrorMessage name={field.name} />
+                        </ValidationError>
+                        <Alert>
+                          {"*"}&nbsp;
+                          {t(
+                            "searchFindings.groupAccessInfoSection.markdownAlert"
+                          )}
+                        </Alert>
+                      </React.Fragment>
+                    );
+                  }}
+                </Field>
+              ) : (
+                <MDEditor.Markdown source={dataset.disambiguation} />
+              )}
+            </GroupScopeTextWide>
           ) : (
-            <GroupScopeText>
+            <GroupScopeTextWide>
               {t("searchFindings.groupAccessInfoSection.noDisambiguation")}
-            </GroupScopeText>
+            </GroupScopeTextWide>
           )}
-          <Col40>
+          <Col25>
             <ActionButtons
               editTooltip={t(
                 "searchFindings.groupAccessInfoSection.tooltips.editDisambiguationInfo"
@@ -90,9 +119,9 @@ const DisambiguationForm: React.FC<IDisambiguationForm> = ({
               isPristine={isDisambiguationInfoPristine}
               onEdit={toggleEdit}
               onUpdate={handleSubmit}
-              permission={"api_mutations_update_group_disambiguation_mutate"}
+              permission={"api_mutations_update_group_access_info_mutate"}
             />
-          </Col40>
+          </Col25>
         </Row>
       </Form>
     </React.StrictMode>

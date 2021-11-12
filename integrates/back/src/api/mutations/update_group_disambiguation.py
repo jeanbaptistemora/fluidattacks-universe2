@@ -48,6 +48,7 @@ async def mutate(
         disambiguation = validations_utils.validate_markdown(
             kwargs.get("disambiguation", "")
         )
+        validations_utils.validate_field_length(disambiguation, 10000)
         new_data: GroupType = {
             "disambiguation": disambiguation,
         }

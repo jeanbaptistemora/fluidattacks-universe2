@@ -413,6 +413,15 @@ const GroupScopeText: StyledComponent<
   className: "ph1-5 vertical-center w-60-ns fw2 f4",
 })``;
 
+const GroupScopeTextWide: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "ph1-5 vertical-center w-75 fw2 f4",
+})``;
+
 const QuestionButton: StyledComponent<
   "button",
   Record<string, unknown>
@@ -690,6 +699,7 @@ export {
   PanelCollapseHeader,
   ProgressBar,
   GroupScopeText,
+  GroupScopeTextWide,
   QuestionButton,
   RangeContainer,
   RemoveItem,

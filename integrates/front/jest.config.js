@@ -14,9 +14,21 @@ const esModules = [
   "character-entities",
   "property-information",
   "comma-separated-tokens",
-  "hast-util-whitespace",
-  "remark-.+",
   "space-separated-tokens",
+  "ccount",
+  "escape-string-regexp",
+  "markdown-table",
+  "hast-util-.+",
+  "rehype-.+",
+  "hastscript",
+  "web-namespaces",
+  "hast-to-hyperscript",
+  "zwitch",
+  "html-void-elements",
+  "direction",
+  "bcp-47-match",
+  "rehype",
+  "stringify-entities",
 ].join("|");
 
 module.exports = {

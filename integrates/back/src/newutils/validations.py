@@ -110,9 +110,6 @@ def validate_markdown(text: str) -> str:
     Escapes special characters and accepts only
     the use of certain html tags
     """
-    md_special_chars = r"\`*_{}[]()#+-.!"
-    for char in md_special_chars:
-        text = text.replace(char, "\\" + char)
     allowed_tags = [
         "a",
         "b",

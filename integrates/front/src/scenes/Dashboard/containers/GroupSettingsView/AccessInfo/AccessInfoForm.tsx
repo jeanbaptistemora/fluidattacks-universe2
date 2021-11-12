@@ -1,4 +1,6 @@
-import { Form, useFormikContext } from "formik";
+import MDEditor from "@uiw/react-md-editor";
+import type { FieldInputProps } from "formik";
+import { ErrorMessage, Field, Form, useFormikContext } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -6,11 +8,17 @@ import type { ConfigurableValidator } from "revalidate";
 
 import type { IGroupAccessInfo } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo";
 import { ActionButtons } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/ActionButtons";
-import { Col40, Flex, GroupScopeText, Row } from "styles/styledComponents";
-import { EditableField, FormikTextArea } from "utils/forms/fields";
+import {
+  Alert,
+  Col25,
+  Flex,
+  GroupScopeTextWide,
+  Row,
+} from "styles/styledComponents";
+import { ValidationError } from "utils/forms/fields/styles";
 import { maxLength } from "utils/validations";
 
-const MAX_ACCESS_INFO_LENGTH = 2000;
+const MAX_ACCESS_INFO_LENGTH = 10000;
 
 const maxAccessInfoLength: ConfigurableValidator = maxLength(
   MAX_ACCESS_INFO_LENGTH
@@ -21,6 +29,25 @@ interface IAccessInfoForm {
   isEditing: boolean;
   setEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+/* eslint-disable react/no-unused-prop-types */
+interface IFieldProps {
+  field: FieldInputProps<string>;
+  form: {
+    values: {
+      dastAccess: string;
+      disambiguation: string;
+      mobileAccess: string;
+      sastAccess: string;
+    };
+    setFieldValue: (
+      field: string,
+      value: string | undefined,
+      shouldValidate?: boolean | undefined
+    ) => void;
+  };
+}
+/* eslint-disable react/no-unused-prop-types */
 
 const AccessInfoForm: React.FC<IAccessInfoForm> = ({
   data,
@@ -60,28 +87,48 @@ const AccessInfoForm: React.FC<IAccessInfoForm> = ({
         </Flex>
         <Row>
           {hasAccessInfo || isEditing ? (
-            <GroupScopeText>
+            <GroupScopeTextWide>
               {dataset.sastAccess || isEditing ? (
                 <React.Fragment>
                   <Flex>
                     <h3>{t("searchFindings.groupAccessInfoSection.sast")}</h3>
                   </Flex>
-                  <EditableField
-                    component={FormikTextArea}
-                    currentValue={dataset.sastAccess}
-                    id={
-                      "searchFindings.groupAccessInfoSection.tooltips.sast.id"
-                    }
-                    label={""}
-                    markdown={true}
-                    name={"sastAccess"}
-                    renderAsEditable={isEditing}
-                    tooltip={t(
-                      "searchFindings.groupAccessInfoSection.tooltips.sast"
-                    )}
-                    type={"text"}
-                    validate={maxAccessInfoLength}
-                  />
+                  {isEditing ? (
+                    <Field name={"sastAccess"} validate={maxAccessInfoLength}>
+                      {({
+                        field,
+                        form: { values, setFieldValue },
+                      }: IFieldProps): JSX.Element => {
+                        function handleMDChange(
+                          value: string | undefined
+                        ): void {
+                          setFieldValue("sastAccess", value);
+                        }
+
+                        return (
+                          <React.Fragment>
+                            <MDEditor
+                              height={200}
+                              highlightEnable={false}
+                              onChange={handleMDChange}
+                              value={values.sastAccess}
+                            />
+                            <ValidationError>
+                              <ErrorMessage name={field.name} />
+                            </ValidationError>
+                            <Alert>
+                              {"*"}&nbsp;
+                              {t(
+                                "searchFindings.groupAccessInfoSection.markdownAlert"
+                              )}
+                            </Alert>
+                          </React.Fragment>
+                        );
+                      }}
+                    </Field>
+                  ) : (
+                    <MDEditor.Markdown source={dataset.sastAccess} />
+                  )}
                 </React.Fragment>
               ) : undefined}
               {dataset.dastAccess || isEditing ? (
@@ -89,22 +136,42 @@ const AccessInfoForm: React.FC<IAccessInfoForm> = ({
                   <Flex>
                     <h3>{t("searchFindings.groupAccessInfoSection.dast")}</h3>
                   </Flex>
-                  <EditableField
-                    component={FormikTextArea}
-                    currentValue={dataset.dastAccess}
-                    id={
-                      "searchFindings.groupAccessInfoSection.tooltips.dast.id"
-                    }
-                    label={""}
-                    markdown={true}
-                    name={"dastAccess"}
-                    renderAsEditable={isEditing}
-                    tooltip={t(
-                      "searchFindings.groupAccessInfoSection.tooltips.dast"
-                    )}
-                    type={"text"}
-                    validate={maxAccessInfoLength}
-                  />
+                  {isEditing ? (
+                    <Field name={"dastAccess"} validate={maxAccessInfoLength}>
+                      {({
+                        field,
+                        form: { values, setFieldValue },
+                      }: IFieldProps): JSX.Element => {
+                        function handleMDChange(
+                          value: string | undefined
+                        ): void {
+                          setFieldValue("dastAccess", value);
+                        }
+
+                        return (
+                          <React.Fragment>
+                            <MDEditor
+                              height={200}
+                              highlightEnable={false}
+                              onChange={handleMDChange}
+                              value={values.dastAccess}
+                            />
+                            <ValidationError>
+                              <ErrorMessage name={field.name} />
+                            </ValidationError>
+                            <Alert>
+                              {"*"}&nbsp;
+                              {t(
+                                "searchFindings.groupAccessInfoSection.markdownAlert"
+                              )}
+                            </Alert>
+                          </React.Fragment>
+                        );
+                      }}
+                    </Field>
+                  ) : (
+                    <MDEditor.Markdown source={dataset.dastAccess} />
+                  )}
                 </React.Fragment>
               ) : undefined}
               {dataset.mobileAccess || isEditing ? (
@@ -112,31 +179,51 @@ const AccessInfoForm: React.FC<IAccessInfoForm> = ({
                   <Flex>
                     <h3>{t("searchFindings.groupAccessInfoSection.mobile")}</h3>
                   </Flex>
-                  <EditableField
-                    component={FormikTextArea}
-                    currentValue={dataset.mobileAccess}
-                    id={
-                      "searchFindings.groupAccessInfoSection.tooltips.mobile.id"
-                    }
-                    label={""}
-                    markdown={true}
-                    name={"mobileAccess"}
-                    renderAsEditable={isEditing}
-                    tooltip={t(
-                      "searchFindings.groupAccessInfoSection.tooltips.mobile"
-                    )}
-                    type={"text"}
-                    validate={maxAccessInfoLength}
-                  />
+                  {isEditing ? (
+                    <Field name={"mobileAccess"} validate={maxAccessInfoLength}>
+                      {({
+                        field,
+                        form: { values, setFieldValue },
+                      }: IFieldProps): JSX.Element => {
+                        function handleMDChange(
+                          value: string | undefined
+                        ): void {
+                          setFieldValue("mobileAccess", value);
+                        }
+
+                        return (
+                          <React.Fragment>
+                            <MDEditor
+                              height={200}
+                              highlightEnable={false}
+                              onChange={handleMDChange}
+                              value={values.mobileAccess}
+                            />
+                            <ValidationError>
+                              <ErrorMessage name={field.name} />
+                            </ValidationError>
+                            <Alert>
+                              {"*"}&nbsp;
+                              {t(
+                                "searchFindings.groupAccessInfoSection.markdownAlert"
+                              )}
+                            </Alert>
+                          </React.Fragment>
+                        );
+                      }}
+                    </Field>
+                  ) : (
+                    <MDEditor.Markdown source={dataset.mobileAccess} />
+                  )}
                 </React.Fragment>
               ) : undefined}
-            </GroupScopeText>
+            </GroupScopeTextWide>
           ) : (
-            <GroupScopeText>
+            <GroupScopeTextWide>
               {t("searchFindings.groupAccessInfoSection.noAccessInfo")}
-            </GroupScopeText>
+            </GroupScopeTextWide>
           )}
-          <Col40>
+          <Col25>
             <ActionButtons
               editTooltip={t(
                 "searchFindings.groupAccessInfoSection.tooltips.editGroupAccessInfo"
@@ -147,11 +234,11 @@ const AccessInfoForm: React.FC<IAccessInfoForm> = ({
               onUpdate={handleSubmit}
               permission={"api_mutations_update_group_access_info_mutate"}
             />
-          </Col40>
+          </Col25>
         </Row>
       </Form>
     </React.StrictMode>
   );
 };
 
-export { AccessInfoForm };
+export { AccessInfoForm, IFieldProps };

@@ -1169,6 +1169,8 @@ export const enTranslations: ResourceKey = {
       dast: "DAST",
       disambiguation: "Disambiguation",
       groupContext: "Group context",
+      markdownAlert:
+        "Please use Markdown language for writing this information.",
       mobile: "Mobile",
       noAccessInfo:
         "There is no information on how to access this group's ToE at the moment.",
