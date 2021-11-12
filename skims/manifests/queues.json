@@ -110,7 +110,8 @@
   "skims_sca": {
     "availability": "ALWAYS",
     "findings": [
-      "F011"
+      "F011",
+      "F393"
     ]
   },
   "skims_sql": {

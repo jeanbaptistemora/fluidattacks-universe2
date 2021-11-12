@@ -21200,3 +21200,53 @@
   metadata:
     en:
       details: __empty__
+"393":
+  en:
+    # The difference with 011 is just the title
+    title: Use of software with known vulnerabilities in development
+    description: >
+      The system uses the version
+      of a software or dependency
+      with known vulnerabilities.
+    impact: >
+      Exploit found vulnerabilities
+      in the affected components.
+    recommendation: >
+      Update the affected software
+      to the versions recommended
+      by the vendor.
+    threat: Authenticated attacker from the Internet.
+  es:
+    # The difference with 011 is just the title
+    title: Use of software with known vulnerabilities in development
+    description: >
+      El sistema usa la versión
+      de un software o dependencia
+      con vulnerabilidades conocidas.
+    impact: >
+      Explotar vulnerabilidades encontradas
+      en los componentes afectados.
+    recommendation: >
+      Actualizar el software afectado
+      a las versiones recomendadas
+      por el fabricante.
+    threat: Atacante autenticado desde Internet.
+  category: Collect Information
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["262"]
+  metadata:
+    en:
+      details: __empty__

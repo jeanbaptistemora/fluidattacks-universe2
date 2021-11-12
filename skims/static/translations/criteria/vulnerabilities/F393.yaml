@@ -1,0 +1,23 @@
+F393.description:
+  en: >
+    The system uses the version of a software or dependency with known
+    vulnerabilities for development purposes.
+  es: >
+    El sistema usa la version de un software o dependencia con vulnerabilidades
+    conocidas.
+F393.impact:
+  en: >
+    Exploit found vulnerabilities in the affected components.
+  es: >
+    Explotar vulnerabilidades encontradas en los componentes afectados.
+F393.recommendation:
+  en: >
+    Update the affected software to the versions recommended by the vendor.
+  es: >
+    Actualizar el software afectado a las versiones recomendadas por el
+    fabricante.
+F393.threat:
+  en: >
+    Autenticated attacker from the Internet.
+  es: >
+    Atacante autenticado desde Internet.
