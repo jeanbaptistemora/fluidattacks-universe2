@@ -736,7 +736,6 @@
       details: __empty__
 "011":
   en:
-    # If you change something in this finding, please change 393 too
     title: Use of software with known vulnerabilities
     description: >
       The system uses the version
@@ -751,7 +750,6 @@
       by the vendor.
     threat: Authenticated attacker from the Internet.
   es:
-    # If you change something in this finding, please change 393 too
     title: Use of software with known vulnerabilities
     description: >
       El sistema usa la versión
@@ -767,7 +765,6 @@
     threat: Atacante autenticado desde Internet.
   category: Collect Information
   score:
-    # If you change something in this finding, please change 393 too
     base:
       attack_vector: "N"
       attack_complexity: "L"
@@ -783,7 +780,6 @@
       report_confidence: "X"
   requirements: ["262"]
   metadata:
-    # If you change something in this finding, please change 393 too
     en:
       details: __empty__
 "012":
@@ -14154,29 +14150,41 @@
   en:
     title: Technical information leak - Errors
     description: >
-      __empty__
+      It is possible to cause the server
+      to throw errors after analyzing the
+      endpoints with different techniques
+      such as: sending massive requests to
+      the endpoint, sending massive characters
+      in the body of the application.
     impact: >
-      __empty__
+      Obtain technical information from the server.
     recommendation: >
-      __empty__
+      Use generic messages to indicate server
+      errors and avoid sending technical information.
     threat: >
-      __empty__
+      Authorized attacker from the Internet.
   es:
     title: Technical information leak - Errors
     description: >
-      __empty__
+      Es posible hacer que el servidor arroje
+      errores despues de anlizar los endpoints
+      con diferentes tecnicas como: enviar masivas
+      peticiones al endpoint, enviar masivos
+      carácteres en el body de la aplicación.
     impact: >
-      __empty__
+      Obtener información técnica del servidor.
     recommendation: >
-      __empty__
+      Usar mensajes genericos para indicar
+      errores por parte del servidor y evitar
+      enviar información técnica.
     threat: >
-      __empty__
+      Atacante autorizado desde internet.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
@@ -20468,56 +20476,6 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["062", "266", "273"]
-  metadata:
-    en:
-      details: __empty__
-"393":
-  en:
-    # The difference with 011 is just the title
-    title: Use of software with known vulnerabilities in development
-    description: >
-      The system uses the version
-      of a software or dependency
-      with known vulnerabilities.
-    impact: >
-      Exploit found vulnerabilities
-      in the affected components.
-    recommendation: >
-      Update the affected software
-      to the versions recommended
-      by the vendor.
-    threat: Authenticated attacker from the Internet.
-  es:
-    # The difference with 011 is just the title
-    title: Use of software with known vulnerabilities in development
-    description: >
-      El sistema usa la versión
-      de un software o dependencia
-      con vulnerabilidades conocidas.
-    impact: >
-      Explotar vulnerabilidades encontradas
-      en los componentes afectados.
-    recommendation: >
-      Actualizar el software afectado
-      a las versiones recomendadas
-      por el fabricante.
-    threat: Atacante autenticado desde Internet.
-  category: Collect Information
-  score:
-    base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
-    temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: ["262"]
   metadata:
     en:
       details: __empty__
