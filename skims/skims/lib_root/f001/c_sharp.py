@@ -63,7 +63,11 @@ def secure_command(shard: graph_model.GraphShard, dependencies: list) -> bool:
 
     secure_chars = ("@", "{", "}", "[(]", "[)]")
 
+    if not dependencies:
+        return True
+
     secure_str = False
+
     for depend in dependencies:
         sql_str = get_variable_attribute(shard, depend, "text")
         for elem in secure_chars:
