@@ -13623,11 +13623,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (object-path v0.
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.apache.camel:camel-servlet v2.6.0) [CVE-2015-5348],61,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.camel:camel-servlet at version 2.6.0 with CVE-2015-5348 in skims/test/data/lib_path/f011/pom.xml,"
-  44 |       <artifactId>mockito-core</artifactId>
-  45 |       <version>${mockito.version}</version>
-  46 |       <scope>test</scope>
-  47 |     </dependency>
-  48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
   50 |       <artifactId>slf4j-simple</artifactId>
   51 |       <version>${slf4j.version}</version>
@@ -13642,8 +13637,37 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.apache.camel:cam
   60 |       <artifactId>camel-servlet</artifactId>
 > 61 |       <version>${apache.camel.version}</version>
   62 |     </dependency>
-  63 |   </dependencies>
-  64 | </project>
+  63 |     <dependency>
+  64 |       <groupId>org.apache.camel</groupId>
+  65 |       <artifactId>camel-xstream</artifactId>
+  66 |       <version>${apache.camel.version}</version>
+  67 |     </dependency>
+  68 |   </dependencies>
+  69 | </project>
+     ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.apache.camel:camel-xstream v2.6.0) [CVE-2015-5344],66,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.camel:camel-xstream at version 2.6.0 with CVE-2015-5344 in skims/test/data/lib_path/f011/pom.xml,"
+  49 |       <groupId>org.slf4j</groupId>
+  50 |       <artifactId>slf4j-simple</artifactId>
+  51 |       <version>${slf4j.version}</version>
+  52 |     </dependency>
+  53 |     <dependency>
+  54 |       <groupId>org.slf4j</groupId>
+  55 |       <artifactId>slf4j-api</artifactId>
+  56 |       <version>${slf4j.version}</version>
+  57 |     </dependency>
+  58 |     <dependency>
+  59 |       <groupId>org.apache.camel</groupId>
+  60 |       <artifactId>camel-servlet</artifactId>
+  61 |       <version>${apache.camel.version}</version>
+  62 |     </dependency>
+  63 |     <dependency>
+  64 |       <groupId>org.apache.camel</groupId>
+  65 |       <artifactId>camel-xstream</artifactId>
+> 66 |       <version>${apache.camel.version}</version>
+  67 |     </dependency>
+  68 |   </dependencies>
+  69 | </project>
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2011-2731],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2011-2731 in skims/test/data/lib_path/f011/pom.xml,"
