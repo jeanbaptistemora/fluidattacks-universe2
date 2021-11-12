@@ -13980,23 +13980,30 @@
   en:
     title: Technical information leak - SourceMap
     description: >
-      __empty__
+      The .map files are exposed, making
+      it easy for a malicious actor to
+      analyze the application.
     impact: >
-      __empty__
+      Understanding the inner workings of the
+      application to generate new attack vectors.
     recommendation: >
-      __empty__
+      Limit access of map files to authorized users and roles.
     threat: >
-      __empty__
+      Unauthorized user from the Internet.
   es:
     title: Technical information leak - SourceMap
     description: >
-      __empty__
+      Los archivos .map se encuentran expuestos
+      lo que facilita el análisis de la aplicación
+      por parte de un actor malintencionado.
     impact: >
-      __empty__
+      Comprender el funcionamiento interno de la
+      aplicación para generar nuevos vectores de ataque.
     recommendation: >
-      __empty__
+      Limitar el acceso a los archivos map
+      a usuarios y roles autorizados.
     threat: >
-      __empty__
+      Usuario no autorizado desde internet.
   category: Collect Information
   score:
     base:
@@ -14005,11 +14012,11 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["077","176"]
@@ -14020,36 +14027,70 @@
   en:
     title: Technical information leak - Print Functions
     description: >
-      __empty__
+      Technical information is obtained
+      from the application due to the use
+      of the System.out.println() function
+      whose outputs are normally shown in
+      the stdout (standard output).
+      In development environment it is acceptable
+      to use this function to see errors (Debug),
+      but using it in production environment is
+      the same as exposing yourself to show
+      sensitive information of the application.
     impact: >
-      __empty__
+      - Enlarge attack surface.
+
+      - Access to technical information of
+      the application.
     recommendation: >
-      __empty__
+      The application must securely report
+      all possible events that may occur, it
+      must not provide technical or sensitive
+      information to unauthorized users, as
+      they could exploit it to extend the
+      knowledge of the attack surface.
     threat: >
-      __empty__
+      Authenticated attacker on local network
+      with access to the server console.
   es:
     title: Technical information leak - Print Functions
     description: >
-      __empty__
+      Se obtiene información técnica de la
+      aplicación debido al uso de la función
+      System.out.println() cuya salidas normalmente
+      se muestran en el stdout (salida estándar).
+      En ambiente de desarrollo es aceptable utilizar
+      esta función para ver errores (Debug), pero
+      utilizarla en ambiente de producción es igual
+      a exponerse a mostrar información sensible
+      de la aplicación.
     impact: >
-      __empty__
+      - Ampliar superficie de ataque.
+
+      - Acceder a información técnica de la aplicación.
     recommendation: >
-      __empty__
+      La aplicación debe informar de forma segura
+      todos los posibles eventos que puedan ocurrir,
+      no debe proporcionar información técnica ni
+      sensible a usuarios no autorizados, ya que
+      podrían aprovecharla para ampliar el conocimiento
+      de la superficie de ataque.
     threat: >
-      __empty__
+      Atacante autenticado en red local con
+      acceso a la consola del servidor.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "H"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["077","176"]
