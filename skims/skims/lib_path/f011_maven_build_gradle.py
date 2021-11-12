@@ -40,7 +40,7 @@ RE_MAVEN_B: Pattern[str] = re.compile(
 )
 
 
-def _build_gradle(
+def _check(
     content: str,
     path: str,
     platform: core_model.Platform,
@@ -76,12 +76,12 @@ def _build_gradle(
 
 
 @SHIELD
-async def build_gradle(
+async def check(
     content: str,
     path: str,
 ) -> core_model.Vulnerabilities:
     return await in_process(
-        _build_gradle,
+        _check,
         content=content,
         path=path,
         platform=core_model.Platform.MAVEN,
@@ -96,14 +96,12 @@ async def analyze(
     path: str,
     **_: None,
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
-    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
-
     if (file_name, file_extension) == ("build", "gradle"):
-        coroutines.append(
-            build_gradle(
+        return [
+            check(
                 content=await content_generator(),
                 path=path,
             )
-        )
+        ]
 
-    return coroutines
+    return []

@@ -4,7 +4,7 @@ from aioextensions import (
 )
 from lib_path import (
     f009,
-    f011,
+    f011_maven_build_gradle,
     f011_maven_pom_xml,
     f011_npm_package_json,
     f011_npm_package_lock_json,
@@ -65,7 +65,7 @@ MAX_READ: int = 64 * MEBIBYTE
 
 CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F009, f009.analyze),
-    (core_model.FindingEnum.F011, f011.analyze),
+    (core_model.FindingEnum.F011, f011_maven_build_gradle.analyze),
     (core_model.FindingEnum.F011, f011_maven_pom_xml.analyze),
     (core_model.FindingEnum.F011, f011_npm_package_json.analyze),
     (core_model.FindingEnum.F011, f011_npm_package_lock_json.analyze),

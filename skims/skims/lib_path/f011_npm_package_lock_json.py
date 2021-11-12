@@ -1,13 +1,13 @@
 from aioextensions import (
     in_process,
 )
+from frozendict import (  # type: ignore
+    frozendict,
+)
 from lib_path.common import (
     DependencyType,
     SHIELD,
     translate_dependencies_to_vulnerabilities,
-)
-from frozendict import (  # type: ignore
-    frozendict,
 )
 from model import (
     core_model,
