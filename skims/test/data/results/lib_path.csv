@@ -8504,6 +8504,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (Wire v1.0.0)
   33 | </packages>
      ^ Col 0
 "
+F011,lines,namespace/skims/test/data/lib_path/f011/project.csproj (Wire v1.0.0) [CVE-2021-29508],17,937,skims,011. Use of software with known vulnerabilities,Use of Wire at version 1.0.0 with CVE-2021-29508 in skims/test/data/lib_path/f011/project.csproj,"
+   7 |   <ItemGroup>
+   8 |     <Compile Remove=""test\**"" />
+   9 |     <EmbeddedResource Remove=""test\**"" />
+  10 |     <None Remove=""test\**"" />
+  11 |   </ItemGroup>
+  12 |   <ItemGroup>
+  13 |     <PackageReference Include=""EntityFramework"" Version=""6.4.0"" />
+  14 |     <PackageReference Include=""Microsoft.Azure.WebJobs.Extensions"" Version=""3.0.5"" />
+  15 |     <PackageReference Include=""Microsoft.Azure.WebJobs.Extensions.Http"" Version=""3.0.2"" />
+  16 |     <PackageReference Include=""Microsoft.Azure.WebJobs.Host.Storage"" Version=""3.0.14"" />
+> 17 |     <PackageReference Include=""Wire"" Version=""1.0.0"" />
+  18 |     <PackageReference Include=""Microsoft.Azure.WebJobs.Logging"" Version=""3.0.14"" />
+  19 |     <PackageReference Include=""Microsoft.Azure.WebJobs.Logging.ApplicationInsights"" Version=""3.0.14"" />
+  20 |     <PackageReference Include=""Microsoft.CrmSdk.CoreAssemblies"" Version=""9.0.2.21"" />
+  21 |     <PackageReference Include=""Microsoft.Extensions.Configuration"" Version=""3.1.0"" />
+  22 |     <PackageReference Include=""Microsoft.Extensions.Logging"" Version=""3.1.0"" />
+  23 |     <PackageReference Include=""Microsoft.Extensions.Logging.Console"" Version=""3.1.0"" />
+  24 |     <PackageReference Include=""Newtonsoft.Json"" Version=""12.0.3"" />
+  25 |     <PackageReference Include=""System.ComponentModel.Annotations"" Version=""4.7.0"" />
+  26 |     <PackageReference Include=""System.Spatial"" Version=""5.8.4"" />
+  27 |     <PackageReference Include=""Microsoft.Data.Edm"" Version=""5.8.4"" />
+     ^ Col 0
+"
 F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (Wire v1.0.0) [GHSA-hpw7-3vq3-mmv6],32,937,skims,011. Use of software with known vulnerabilities,Use of Wire at version 1.0.0 with GHSA-hpw7-3vq3-mmv6 in skims/test/data/lib_path/f011/packages.config,"
   13 |   <package id=""Microsoft.Azure.Services.AppAuthentication"" version=""1.0.3"" targetFramework=""net472"" />
   14 |   <package id=""Microsoft.IdentityModel.Clients.ActiveDirectory"" version=""3.14.2"" targetFramework=""net472"" />
@@ -8526,6 +8550,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (Wire v1.0.0)
   31 |   <package id=""System.Security.Cryptography.X509Certificates"" version=""4.1.0"" targetFramework=""net472"" />
 > 32 |   <package id=""Wire"" version=""1.0.0"" targetFramework=""net472"" />
   33 | </packages>
+     ^ Col 0
+"
+F011,lines,namespace/skims/test/data/lib_path/f011/project.csproj (Wire v1.0.0) [GHSA-hpw7-3vq3-mmv6],17,937,skims,011. Use of software with known vulnerabilities,Use of Wire at version 1.0.0 with GHSA-hpw7-3vq3-mmv6 in skims/test/data/lib_path/f011/project.csproj,"
+   7 |   <ItemGroup>
+   8 |     <Compile Remove=""test\**"" />
+   9 |     <EmbeddedResource Remove=""test\**"" />
+  10 |     <None Remove=""test\**"" />
+  11 |   </ItemGroup>
+  12 |   <ItemGroup>
+  13 |     <PackageReference Include=""EntityFramework"" Version=""6.4.0"" />
+  14 |     <PackageReference Include=""Microsoft.Azure.WebJobs.Extensions"" Version=""3.0.5"" />
+  15 |     <PackageReference Include=""Microsoft.Azure.WebJobs.Extensions.Http"" Version=""3.0.2"" />
+  16 |     <PackageReference Include=""Microsoft.Azure.WebJobs.Host.Storage"" Version=""3.0.14"" />
+> 17 |     <PackageReference Include=""Wire"" Version=""1.0.0"" />
+  18 |     <PackageReference Include=""Microsoft.Azure.WebJobs.Logging"" Version=""3.0.14"" />
+  19 |     <PackageReference Include=""Microsoft.Azure.WebJobs.Logging.ApplicationInsights"" Version=""3.0.14"" />
+  20 |     <PackageReference Include=""Microsoft.CrmSdk.CoreAssemblies"" Version=""9.0.2.21"" />
+  21 |     <PackageReference Include=""Microsoft.Extensions.Configuration"" Version=""3.1.0"" />
+  22 |     <PackageReference Include=""Microsoft.Extensions.Logging"" Version=""3.1.0"" />
+  23 |     <PackageReference Include=""Microsoft.Extensions.Logging.Console"" Version=""3.1.0"" />
+  24 |     <PackageReference Include=""Newtonsoft.Json"" Version=""12.0.3"" />
+  25 |     <PackageReference Include=""System.ComponentModel.Annotations"" Version=""4.7.0"" />
+  26 |     <PackageReference Include=""System.Spatial"" Version=""5.8.4"" />
+  27 |     <PackageReference Include=""Microsoft.Data.Edm"" Version=""5.8.4"" />
      ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (acorn v7.1.0) [GMS-2020-1],4,937,skims,011. Use of software with known vulnerabilities,Use of acorn at version 7.1.0 with GMS-2020-1 in skims/test/data/lib_path/f011/package.json,"
