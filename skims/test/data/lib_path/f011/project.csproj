@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk;Microsoft.NET.Sdk.Publish">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="test\**" />
+    <EmbeddedResource Remove="test\**" />
+    <None Remove="test\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.0" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions" Version="3.0.5" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="3.0.2" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Host.Storage" Version="3.0.14" />
+    <PackageReference Include="Wire" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Logging" Version="3.0.14" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Logging.ApplicationInsights" Version="3.0.14" />
+    <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.21" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+    <PackageReference Include="System.Spatial" Version="5.8.4" />
+    <PackageReference Include="Microsoft.Data.Edm" Version="5.8.4" />
+    <PackageReference Include="Microsoft.Data.OData" Version="5.8.4" />
+    <PackageReference Include="Microsoft.Data.Services.Client" Version="5.8.4" />
+    <PackageReference Include="Microsoft.WindowsAzure.ConfigurationManager" Version="3.2.3" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Core" Version="3.0.14" />
+    <PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.14" />
+    <PackageReference Include="Microsoft.Azure.KeyVault.Core" Version="3.0.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Settings.job">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties settings_1job__JsonSchema="" /></VisualStudio></ProjectExtensions>
+</Project>
