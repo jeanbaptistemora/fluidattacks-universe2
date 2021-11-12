@@ -219,15 +219,17 @@ def filter_remediated(
 
 
 def filter_historic_date(
-    historic: HistoricType,
+    historic: Tuple[VulnerabilityTreatment, ...],
     min_date: datetime,
-) -> HistoricType:
+) -> Tuple[VulnerabilityTreatment, ...]:
     """Filter historics since a given date"""
-    return [
+    return tuple(
         entry
         for entry in historic
-        if min_date and datetime_utils.get_from_str(entry["date"]) >= min_date
-    ]
+        if min_date
+        and datetime_utils.get_date_from_iso_str(entry.modified_date)
+        >= min_date.date()
+    )
 
 
 def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
@@ -653,40 +655,37 @@ def get_treatment_from_org_finding_policy(
     ]
 
 
-async def get_total_treatment_date(
-    vulns: List[Dict[str, FindingType]],
+def get_total_treatment_date(
+    historics: Tuple[Tuple[VulnerabilityTreatment, ...], ...],
     min_date: datetime,
 ) -> Dict[str, int]:
     """Get the total treatment of all the vulns filtered by date"""
-    accepted_vuln: int = 0
-    accepted_undefined_submited_vuln: int = 0
-    accepted_undefined_approved_vuln: int = 0
-    undefined_treatment_vuln: int = 0
+    status_count: Counter[VulnerabilityTreatmentStatus] = Counter()
+    acceptance_count: Counter[VulnerabilityAcceptanceStatus] = Counter()
+    treatments = tuple(
+        treatment
+        for historic in historics
+        for treatment in filter_historic_date(historic, min_date)
+    )
 
-    for vuln in vulns:
-        filtered_historic_as_str = str(
-            filter_historic_date(
-                vuln.get("historic_treatment", [{}]), min_date
-            )
-        )
+    for treatment in treatments:
         # Check if any of these states occurred in the period
-        if "'ACCEPTED'" in filtered_historic_as_str:
-            accepted_vuln += 1
-        if "SUBMITTED" in filtered_historic_as_str:
-            accepted_undefined_submited_vuln += 1
-        if "APPROVED" in filtered_historic_as_str:
-            accepted_undefined_approved_vuln += 1
-        if "NEW" in filtered_historic_as_str:
-            undefined_treatment_vuln += 1
+        status_count.update([treatment.status])
+        acceptance_count.update([treatment.acceptance_status])
+
     return {
-        "accepted": accepted_vuln,
-        "accepted_undefined_submitted": accepted_undefined_submited_vuln,
-        "accepted_undefined_approved": accepted_undefined_approved_vuln,
-        "undefined_treatment": undefined_treatment_vuln,
+        "accepted": status_count[VulnerabilityTreatmentStatus.ACCEPTED],
+        "accepted_undefined_submitted": acceptance_count[
+            VulnerabilityAcceptanceStatus.SUBMITTED
+        ],
+        "accepted_undefined_approved": acceptance_count[
+            VulnerabilityAcceptanceStatus.APPROVED
+        ],
+        "undefined_treatment": status_count[VulnerabilityTreatmentStatus.NEW],
     }
 
 
-async def get_total_reattacks_stats(
+def get_total_reattacks_stats(
     vulns: List[Dict[str, FindingType]],
     min_date: datetime,
 ) -> Dict[str, Union[int, str]]:

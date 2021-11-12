@@ -52,6 +52,7 @@ from db_model.roots.types import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
+    VulnerabilityTreatment,
 )
 from decimal import (
     Decimal,
@@ -1465,12 +1466,14 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
         "vulns_len": 0,
     }
 
-    findings_loader = loaders.group_findings
-    findings: Tuple[Finding, ...] = await findings_loader.load(group_name)
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+        group_name
+    )
     findings_ids = [finding.id for finding in findings]
 
-    finding_vulns_loader = loaders.finding_vulns_nzr
-    group_vulns = await finding_vulns_loader.load_many_chained(findings_ids)
+    group_vulns = await loaders.finding_vulns_nzr.load_many_chained(
+        findings_ids
+    )
 
     if len(group_vulns) == 0:
         LOGGER_CONSOLE.info(f"NO vulns at {group_name}", **NOEXTRA)
@@ -1478,6 +1481,11 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
 
     content["vulns_len"] = len(group_vulns)
     last_day = datetime_utils.get_now_minus_delta(hours=24)
+    historics: Tuple[
+        Tuple[VulnerabilityTreatment, ...], ...
+    ] = await loaders.vulnerability_historic_treatment.load_many(
+        [vuln["UUID"] for vuln in group_vulns]
+    )
 
     oldest_finding = await get_oldest_no_treatment(loaders, findings)
     if oldest_finding:
@@ -1510,9 +1518,7 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
     )
     group_age = (datetime_utils.get_now() - historic_config_date).days
     content["main"]["group_age"] = group_age
-    treatments = await vulns_utils.get_total_treatment_date(
-        group_vulns, last_day
-    )
+    treatments = vulns_utils.get_total_treatment_date(historics, last_day)
     content["treatments"]["temporary_applied"] = treatments.get("accepted", 0)
     content["treatments"]["permanent_requested"] = treatments.get(
         "accepted_undefined_submitted", 0
@@ -1523,7 +1529,7 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
     content["treatments"]["undefined"] = treatments.get(
         "undefined_treatment", 0
     )
-    content["reattacks"] = await vulns_utils.get_total_reattacks_stats(
+    content["reattacks"] = vulns_utils.get_total_reattacks_stats(
         group_vulns, last_day
     )
     content["main"]["comments"] = await get_total_comments_date(
