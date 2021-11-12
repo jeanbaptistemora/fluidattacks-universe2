@@ -413,24 +413,20 @@ def get_treatments_count(
     vulnerabilities: Tuple[Vulnerability, ...],
 ) -> Treatments:
     treatment_counter = Counter(
-        [
-            vuln.treatment.status.value
-            for vuln in vulnerabilities
-            if vuln.treatment
-            and vuln.state.status == VulnerabilityStateStatus.OPEN
-        ]
+        vuln.treatment.status
+        for vuln in vulnerabilities
+        if vuln.treatment
+        and vuln.state.status == VulnerabilityStateStatus.OPEN
     )
     return Treatments(
-        accepted=treatment_counter[
-            VulnerabilityTreatmentStatus.ACCEPTED.value
-        ],
+        accepted=treatment_counter[VulnerabilityTreatmentStatus.ACCEPTED],
         accepted_undefined=treatment_counter[
-            VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED.value
+            VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
         ],
         in_progress=treatment_counter[
-            VulnerabilityTreatmentStatus.IN_PROGRESS.value
+            VulnerabilityTreatmentStatus.IN_PROGRESS
         ],
-        new=treatment_counter[VulnerabilityTreatmentStatus.NEW.value],
+        new=treatment_counter[VulnerabilityTreatmentStatus.NEW],
     )
 
 

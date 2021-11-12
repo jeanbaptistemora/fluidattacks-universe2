@@ -48,6 +48,10 @@ from db_model.findings.types import (
     FindingState,
     FindingVerification,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
@@ -91,7 +95,7 @@ from time import (
 )
 from typing import (
     Any,
-    cast,
+    Counter,
     Dict,
     List,
     Optional,
@@ -405,41 +409,34 @@ async def get_status(loaders: Any, finding_id: str) -> str:
 
 
 async def get_total_treatment(
-    loaders: Any, findings: Tuple[Finding, ...]
+    loaders: Any,
+    findings: Tuple[Finding, ...],
 ) -> Dict[str, int]:
-    """Get the total vulnerability treatment of all the findings"""
-    accepted_vuln: int = 0
-    indefinitely_accepted_vuln: int = 0
-    in_progress_vuln: int = 0
-    undefined_treatment: int = 0
-    finding_vulns_loader = loaders.finding_vulns_nzr
-
-    valid_findings = [
+    """Get the total vulnerability treatment of all the findings."""
+    finding_vulns_loader = loaders.finding_vulns_nzr_typed
+    non_deleted_findings = tuple(
         finding for finding in findings if not is_deleted(finding)
-    ]
-    vulns = await finding_vulns_loader.load_many_chained(
-        [finding.id for finding in valid_findings]
     )
-
-    for vuln in vulns:
-        vuln_treatment = cast(
-            List[Dict[str, str]], vuln.get("historic_treatment", [{}])
-        )[-1].get("treatment")
-        current_state = vulns_utils.get_last_status(vuln)
-        open_vuln: int = 1 if current_state == "open" else 0
-        if vuln_treatment == "ACCEPTED":
-            accepted_vuln += open_vuln
-        elif vuln_treatment == "ACCEPTED_UNDEFINED":
-            indefinitely_accepted_vuln += open_vuln
-        elif vuln_treatment == "IN PROGRESS":
-            in_progress_vuln += open_vuln
-        else:
-            undefined_treatment += open_vuln
+    vulns: Tuple[
+        Vulnerability, ...
+    ] = await finding_vulns_loader.load_many_chained(
+        [finding.id for finding in non_deleted_findings]
+    )
+    treatment_counter = Counter(
+        vuln.treatment.status
+        for vuln in vulns
+        if vuln.treatment
+        and vuln.state.status == VulnerabilityStateStatus.OPEN
+    )
     return {
-        "accepted": accepted_vuln,
-        "acceptedUndefined": indefinitely_accepted_vuln,
-        "inProgress": in_progress_vuln,
-        "undefined": undefined_treatment,
+        "accepted": treatment_counter[VulnerabilityTreatmentStatus.ACCEPTED],
+        "acceptedUndefined": treatment_counter[
+            VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+        ],
+        "inProgress": treatment_counter[
+            VulnerabilityTreatmentStatus.IN_PROGRESS
+        ],
+        "undefined": treatment_counter[VulnerabilityTreatmentStatus.NEW],
     }
 
 
