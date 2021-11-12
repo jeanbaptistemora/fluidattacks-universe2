@@ -13888,36 +13888,41 @@
   en:
     title: Technical information leak - Stacktrace
     description: >
-      __empty__
+      Inside the source code, the PrintStacktrace
+      function is used allowing the error trace
+      to be displayed to users.
     impact: >
-      __empty__
+      Exhibit technical information of the system.
     recommendation: >
-      __empty__
+      Remove the PrintStacktrace function
+      within the source code.
     threat: >
-      __empty__
+      Internal attacker with access to the server console.
   es:
     title: Technical information leak - Stacktrace
     description: >
-      __empty__
+      Dentro del código fuente, se hace uso
+      la función PrintStacktrace permitiendo
+      que la traza del error sea mostrada los usuarios.
     impact: >
-      __empty__
+      Exponer información técnica del sistema.
     recommendation: >
-      __empty__
+      Eliminar la funcion PrintStacktrace dentro del código fuente.
     threat: >
-      __empty__
+      Atacante interno con acceso a la consola del servidor.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["077","176"]
