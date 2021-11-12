@@ -129,3 +129,28 @@ mock_activities = {
         "items": [_mock_activity],
     }
 }
+
+mock_feed_ids = {
+    "feeds": [
+        {"id": "feed1"},
+        {"id": "feed2"},
+    ]
+}
+mock_feed = {
+    "feed": {
+        "name": "name",
+        "slug": "slug",
+        "created_at": MOCK_DATE,
+        "custom_host": None,
+        "website": None,
+        "color": "color",
+        "url": "url",
+        "is_unindexed": True,
+        "is_private": True,
+        "is_readmore": True,
+        "html_inject": None,
+        "metadata": "",
+        "theme": "",
+        "version": 2,
+    }
+}
