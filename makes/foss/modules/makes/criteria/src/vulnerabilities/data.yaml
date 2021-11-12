@@ -13780,36 +13780,45 @@
   en:
     title: Technical information leak - Angular
     description: >
-      __empty__
+      Get technical information about the
+      system, such as:
+
+      - Angular version (ng-version).
     impact: >
-      __empty__
+      - Display technical information of the system.
     recommendation: >
-      __empty__
+      Disable functionalities that give information
+      about the components used such as names and versions.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Technical information leak - Angular
     description: >
-      __empty__
+      Se obtiene información técnica del
+      sistema, como:
+
+      - Versión de Angular (ng-version).
     impact: >
-      __empty__
+      - Exponer información técnica del sistema.
     recommendation: >
-      __empty__
+      Deshabilitar las funcionalidades que
+      den información de los componentes
+      usados como nombres y versiones.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["077","176"]
@@ -13820,37 +13829,56 @@
   en:
     title: Incomplete funcional code
     description: >
-      __empty__
+      There are binary files in the repositories
+      without their corresponding source code,
+      which could be malicious in nature, have
+      vulnerabilities or store sensitive information.
+      Decompiling one of the binaries was found to
+      have unencrypted sensitive information.
     impact: >
-      __empty__
+      - Suffer an attack on binary vulnerabilities.
+
+      - Lose code maintainability.
     recommendation: >
-      __empty__
+      Include the source code of the binaries
+      in the security analysis to determine
+      the existence of vulnerabilities.
     threat: >
-      __empty__
+      Insider attacker with access to source code.
   es:
     title: Incomplete funcional code
     description: >
-      __empty__
+      Existen archivos binarios en los repositorios
+      sin su correspondiente código fuente, los
+      cuales podrían ser de naturaleza maliciosa,
+      tener vulnerabilidades o almacenar información sensible.
+      Descompilando uno de los binarios se encontró
+      que tenía información sensible sin cifrar.
     impact: >
-      __empty__
+      - Sufrir un ataque a las
+      vulnerabilidades de los binarios.
+
+      - Perder la mantenibilidad del código.
     recommendation: >
-      __empty__
+      Incluir el código fuente de los binarios
+      dentro del análisis de seguridad para
+      determinar la existencia de vulnerabilidades.
     threat: >
-      __empty__
+      Atacante interno con acceso al código fuente.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_vector: "A"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "W"
       report_confidence: "X"
   requirements: ["164"]
   metadata:
