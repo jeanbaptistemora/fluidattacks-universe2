@@ -76,27 +76,33 @@ async def get_totals_by_week(
 ) -> Tuple[Decimal, Decimal]:
     open_vulnerabilities = sum(
         await collect(
-            had_state_by_then(
-                last_day=last_day,
-                loaders=loaders,
-                state=VulnerabilityStateStatus.OPEN,
-                vulnerability=vulnerability,
-                findings_cvssf=findings_cvssf,
-            )
-            for vulnerability in vulnerabilities
+            tuple(
+                had_state_by_then(
+                    last_day=last_day,
+                    loaders=loaders,
+                    state=VulnerabilityStateStatus.OPEN,
+                    vulnerability=vulnerability,
+                    findings_cvssf=findings_cvssf,
+                )
+                for vulnerability in vulnerabilities
+            ),
+            workers=8,
         )
     )
 
     closed_vulnerabilities = sum(
         await collect(
-            had_state_by_then(
-                last_day=last_day,
-                loaders=loaders,
-                state=VulnerabilityStateStatus.CLOSED,
-                vulnerability=vulnerability,
-                findings_cvssf=findings_cvssf,
-            )
-            for vulnerability in vulnerabilities
+            tuple(
+                had_state_by_then(
+                    last_day=last_day,
+                    loaders=loaders,
+                    state=VulnerabilityStateStatus.CLOSED,
+                    vulnerability=vulnerability,
+                    findings_cvssf=findings_cvssf,
+                )
+                for vulnerability in vulnerabilities
+            ),
+            workers=8,
         )
     )
 
