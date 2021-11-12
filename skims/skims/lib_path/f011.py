@@ -94,41 +94,6 @@ async def build_gradle(
     )
 
 
-def _npm_package_json(
-    content: str,
-    path: str,
-    platform: core_model.Platform,
-) -> core_model.Vulnerabilities:
-    content_json = json_loads_blocking(content, default={})
-
-    dependencies: Iterator[DependencyType] = (
-        (product, version)
-        for key in content_json
-        if key["item"] == "dependencies"
-        for product, version in content_json[key].items()
-    )
-
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=dependencies,
-        path=path,
-        platform=platform,
-    )
-
-
-@SHIELD
-async def npm_package_json(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _npm_package_json,
-        content=content,
-        path=path,
-        platform=core_model.Platform.NPM,
-    )
-
-
 def _npm_package_lock_json(
     content: str,
     path: str,
@@ -179,13 +144,6 @@ async def analyze(
     if (file_name, file_extension) == ("build", "gradle"):
         coroutines.append(
             build_gradle(
-                content=await content_generator(),
-                path=path,
-            )
-        )
-    elif (file_name, file_extension) == ("package", "json"):
-        coroutines.append(
-            npm_package_json(
                 content=await content_generator(),
                 path=path,
             )
