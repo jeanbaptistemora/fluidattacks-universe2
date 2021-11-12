@@ -12804,37 +12804,45 @@
   en:
     title: Business information leak - Repository
     description: >
-      __empty__
+      JFrog Artifactory repositories are accessed,
+      with credentials stored in the source code.
     impact: >
-      __empty__
+      Access the repository with credentials
+      obtained in the source code.
     recommendation: >
-      __empty__
+      Establish the necessary controls to
+      ensure that the information is accessible
+      only to the indicated persons.
     threat: >
-      __empty__
+      Internal attacker with access to source code.
   es:
     title: Business information leak - Repository
     description: >
-      __empty__
+      Se accede a los repositorios JFrog Artifactory,
+      con credenciales almacenadas en el código fuente.
     impact: >
-      __empty__
+      Acceder al repositorio con credenciales
+      obtenidas en el código fuente.
     recommendation: >
-      __empty__
+      Establecer los controles necesarios para
+      que la información sea accesible sólo a
+      las personas indicadas.
     threat: >
-      __empty__
+      Atacante interno con acceso al código fuente.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
+      scope: "C"
+      confidentiality: "H"
       integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "W"
       report_confidence: "X"
   requirements: ["176","177","261","300"]
   metadata:
