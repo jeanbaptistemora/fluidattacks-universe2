@@ -13024,33 +13024,62 @@
   en:
     title: Business information leak - Redis
     description: >
-      __empty__
+      Due to a misconfiguration of the Redis
+      service, it is possible to connect to
+      the dictionary server and obtain business
+      information by deserializing objects
+      contained in the keys, from which the
+      following can be extracted:
+
+      - List of users.
+
+      - Employee information such as IDs and names.
+
+      - Customer information such as Nits, names and IDs.
     impact: >
-      __empty__
+      Obtain information from users,
+      customers and employees.
     recommendation: >
-      __empty__
+      According to the classification of the information
+      found, establish the necessary controls so that
+      the information is accessible only to the indicated
+      persons and from authorized segments.
     threat: >
-      __empty__
+      Internal attacker with Redis credentials.
   es:
     title: Business information leak - Redis
     description: >
-      __empty__
+      Debido a una mala configuración del servicio
+      Redis es posible conectarse al servidor de
+      diccionario y obtener información de negocio
+      al llevar acabo la deserializacion de objetos
+      contenidos en las llaves, de los cuales
+      se puede extraer:
+
+      - Lista de usuarios.
+
+      - Información de empleados como cedulas, nombres y IDs.
+
+      - Información de clientes como nits, nombres y IDs.
     impact: >
-      __empty__
+      Obtener información de usuarios clientes y empleados.
     recommendation: >
-      __empty__
+      De acuerdo a la clasificación de la información
+      encontrada, establecer los controles necesarios
+      para que la información sea accesible sólo a las
+      personas indicadas y desde segmentos autorizados.
     threat: >
-      __empty__
+      Atacante interno con credenciales Redis.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "H"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
