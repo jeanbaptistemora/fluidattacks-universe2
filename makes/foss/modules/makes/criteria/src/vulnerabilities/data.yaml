@@ -14566,34 +14566,50 @@
   en:
     title: Non-encrypted confidential information - AWS
     description: >
-      __empty__
+      AWS credentials are stored in plain
+      text within the source code.
     impact: >
-      __empty__
+      - Expose resources, processes and sensitive
+      information that could be compromised.
+
+      - Copy Sensitive Information from S3 Buckets.
+
+      - Remove Sensitive Information from S3 Buckets.
     recommendation: >
-      __empty__
+      Encrypt all sensitive information that is
+      transported or stored within the application
+      according to the organization's policies.
     threat: >
-      __empty__
+      Attacker with access to the code from the Internet.
   es:
     title: Non-encrypted confidential information - AWS
     description: >
-      __empty__
+      Dentro del código fuente se almacenan
+      credenciales de AWS en texto plano.
     impact: >
-      __empty__
+      - Exponer recursos, procesos e información
+      sensible que podrían ser comprometidos.
+
+      - Copiar Información sensible de los buckets de S3.
+
+      - Eliminar Información  Sensible de los buckets de S3.
     recommendation: >
-      __empty__
+      Cifrar toda información sensible que se
+      transporte o se guarde dentro la aplicación
+      de acuerdo a las políticas de la organización.
     threat: >
-      __empty__
+      Atacante con acceso al código desde Internet.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      scope: "C"
+      confidentiality: "H"
+      integrity: "H"
+      availability: "H"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
@@ -14606,36 +14622,43 @@
   en:
     title: Non-encrypted confidential information - LDAP
     description: >
-      __empty__
+      LDAP service credentials are exposed
+      in plain text in the code.
     impact: >
-      __empty__
+      Use secure encryption methods to
+      encrypt any sensitive information.
     recommendation: >
-      __empty__
+      Usar métodos de cifrado seguro, para
+      cifrar cualquier información sensible.
     threat: >
-      __empty__
+      An attacker with access to the code from the Internet.
   es:
     title: Non-encrypted confidential information - LDAP
     description: >
-      __empty__
+      Las credenciales del servicio LDAP
+      están expuestas en texto plano en el código.
     impact: >
-      __empty__
+      - Acceder al servicio de LDAP.
+
+      - Obtener información confidencial.
     recommendation: >
-      __empty__
+      Usar métodos de cifrado seguro, para cifrar
+      cualquier información sensible.
     threat: >
-      __empty__
+      Un atacante con acceso al código desde internet.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["134","135","185","229","264","300"]
