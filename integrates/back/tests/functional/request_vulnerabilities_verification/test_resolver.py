@@ -1,6 +1,22 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.findings.enums import (
+    FindingVerificationStatus,
+)
+from db_model.findings.types import (
+    Finding,
+)
+from db_model.vulnerabilities.enums import (
+    VulnerabilityVerificationStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 import pytest
 from typing import (
     Any,
@@ -34,3 +50,14 @@ async def test_request_verification_vuln(
     )
     assert "errors" not in result
     assert result["data"]["requestVulnerabilitiesVerification"]["success"]
+
+    loaders: Dataloaders = get_new_context()
+    finding: Finding = await loaders.finding.load(finding_id)
+    assert finding.verification.status == FindingVerificationStatus.REQUESTED
+    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+        vuln_id
+    )
+    assert (
+        vulnerability.verification.status
+        == VulnerabilityVerificationStatus.REQUESTED
+    )
