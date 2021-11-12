@@ -1,8 +1,6 @@
 from aioextensions import (
     in_process,
 )
-import bs4
-import bs4.element
 from frozendict import (  # type: ignore
     frozendict,
 )
@@ -46,46 +44,6 @@ RE_MAVEN_B: Pattern[str] = re.compile(
     fr"{QUOTE}(?P<statement>{TEXT}){QUOTE}"
     fr".*$"
 )
-
-
-def _packages_config(
-    content: str,
-    path: str,
-    platform: core_model.Platform,
-) -> core_model.Vulnerabilities:
-    def resolve_dependencies() -> Iterator[DependencyType]:
-        root = bs4.BeautifulSoup(content, features="html.parser")
-
-        for package in root.find_all("package", recursive=True):
-            if (id_ := package.get("id")) and (
-                version := package.get("version")
-            ):
-                column = package.sourcepos
-                line = package.sourceline
-
-                yield (
-                    {"column": column, "line": line, "item": id_},
-                    {"column": column, "line": line, "item": version},
-                )
-
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=resolve_dependencies(),
-        path=path,
-        platform=platform,
-    )
-
-
-async def packages_config(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _packages_config,
-        content=content,
-        path=path,
-        platform=core_model.Platform.NUGET,
-    )
 
 
 def _build_gradle(
@@ -235,13 +193,6 @@ async def analyze(
     elif (file_name, file_extension) == ("package-lock", "json"):
         coroutines.append(
             npm_package_lock_json(
-                content=await content_generator(),
-                path=path,
-            )
-        )
-    elif (file_name, file_extension) == ("packages", "config"):
-        coroutines.append(
-            packages_config(
                 content=await content_generator(),
                 path=path,
             )
