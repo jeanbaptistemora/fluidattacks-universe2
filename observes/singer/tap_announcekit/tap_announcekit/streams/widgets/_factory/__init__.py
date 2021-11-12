@@ -25,7 +25,7 @@ from tap_announcekit.streams.widgets._factory import (
 
 
 @dataclass(frozen=True)
-class FeedFactory:
+class WidgetFactory:
     _client: ApiClient
 
     def get_ids(self, proj: ProjectId) -> IO[FrozenList[WidgetId]]:

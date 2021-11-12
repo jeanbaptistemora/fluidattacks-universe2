@@ -37,6 +37,7 @@ from tap_announcekit.streams import (
     PostContentStreams,
     PostStreams,
     ProjectStreams,
+    WidgetStreams,
 )
 from tap_announcekit.streams.feeds import (
     FeedStreams,
@@ -62,9 +63,10 @@ class SupportedStream(AutoName):
     PROJECTS = auto()
     POSTS = auto()
     POST_CONTENTS = auto()
-    FEED = auto()
+    FEEDS = auto()
     FEEDBACKS = auto()
     EXT_USERS = auto()
+    WIDGETS = auto()
     ALL = auto()
 
 
@@ -109,7 +111,10 @@ class Streamer(_Streamer):
             SupportedStream.EXT_USERS: ExtUsersStream(self.client).stream(
                 self.proj
             ),
-            SupportedStream.FEED: FeedStreams(self.client).stream(self.proj),
+            SupportedStream.FEEDS: FeedStreams(self.client).stream(self.proj),
+            SupportedStream.WIDGETS: WidgetStreams(self.client).stream(
+                self.proj
+            ),
         }
         return FrozenDict(streams)
 

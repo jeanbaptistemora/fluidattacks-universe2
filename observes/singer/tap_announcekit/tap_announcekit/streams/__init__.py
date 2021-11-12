@@ -19,6 +19,9 @@ from tap_announcekit.streams.posts import (
 from tap_announcekit.streams.project import (
     ProjectStreams,
 )
+from tap_announcekit.streams.widgets import (
+    WidgetStreams,
+)
 
 __all__ = [
     "ActivitiesStreams",
@@ -28,4 +31,5 @@ __all__ = [
     "PostStreams",
     "PostContentStreams",
     "ProjectStreams",
+    "WidgetStreams",
 ]
