@@ -119,6 +119,14 @@
       "title": "034. Insecure generation of random numbers"
     }
   },
+  "F035": {
+    "EN": {
+      "title": "035. Weak credential policy"
+    },
+    "ES": {
+      "title": "035. Weak credential policy"
+    }
+  },
   "F036": {
     "EN": {
       "title": "036. ViewState not encrypted"
@@ -183,14 +191,6 @@
       "title": "058. Debugging enabled in production - APK"
     }
   },
-  "F061": {
-    "EN": {
-      "title": "061. Remote File Inclusion"
-    },
-    "ES": {
-      "title": "061. Remote File Inclusion"
-    }
-  },
   "F063": {
     "EN": {
       "title": "063. Lack of data validation - Path Traversal"
@@ -221,6 +221,14 @@
     },
     "ES": {
       "title": "071. Insecure or unset HTTP headers - Referrer-Policy"
+    }
+  },
+  "F074": {
+    "EN": {
+      "title": "074. Commented-out code"
+    },
+    "ES": {
+      "title": "074. Commented-out code"
     }
   },
   "F075": {
@@ -439,12 +447,12 @@
       "title": "211. Asymmetric denial of service - ReDoS"
     }
   },
-  "F241": {
+  "F234": {
     "EN": {
-      "title": "241. Authentication mechanism absence or evasion - AWS"
+      "title": "234. Technical information leak - Stacktrace"
     },
     "ES": {
-      "title": "241. Authentication mechanism absence or evasion - AWS"
+      "title": "234. Technical information leak - Stacktrace"
     }
   },
   "F247": {
@@ -453,6 +461,14 @@
     },
     "ES": {
       "title": "247. Non-encrypted confidential information - AWS"
+    }
+  },
+  "F256": {
+    "EN": {
+      "title": "256. Lack of protection against deletion - RDS"
+    },
+    "ES": {
+      "title": "256. Lack of protection against deletion - RDS"
     }
   },
   "F259": {

@@ -20,11 +20,11 @@
       "F080",
       "F099",
       "F200",
-      "F335",
       "F247",
       "F256",
       "F259",
       "F281",
+      "F335",
       "F372"
     ]
   },
@@ -50,15 +50,12 @@
       "F052"
     ]
   },
-  "skims_f011": {
-    "availability": "ALWAYS",
-    "findings": [
-      "F011"
-    ]
-  },
   "skims_f014": {
     "availability": "ALWAYS",
     "findings": [
+      "F022",
+      "F035",
+      "F074",
       "F091",
       "F096",
       "F100",
@@ -66,12 +63,6 @@
       "F338",
       "F366",
       "F380"
-    ]
-  },
-  "skims_f022": {
-    "availability": "ALWAYS",
-    "findings": [
-      "F022"
     ]
   },
   "skims_f117": {
@@ -112,7 +103,14 @@
     "availability": "ALWAYS",
     "findings": [
       "F009",
-      "F085"
+      "F085",
+      "F234"
+    ]
+  },
+  "skims_sca": {
+    "availability": "ALWAYS",
+    "findings": [
+      "F011"
     ]
   },
   "skims_sql": {
