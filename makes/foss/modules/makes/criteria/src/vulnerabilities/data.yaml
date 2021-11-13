@@ -4350,25 +4350,33 @@
       details: __empty__
 "073":
   en:
-    title: Free
+    title: Improper authorization control for web services - RDS
     description: >
-      __empty__
+      Some RDS instances can be publicly accessible,
+      which can compromise the stored information
     impact: >
-      __empty__
+      Obtain confidential information of the database
     recommendation: >
-      __empty__
+      Ensure that the relational databases
+      are accesible only by users and roles
+      authenticated and authorized
     threat: >
-     __empty__
+     Anonymous attacker on the Internet
   es:
-    title: Free
+    title: Improper authorization control for web services - RDS
     description: >
-      __empty__
+      Algunas instancias de RDS
+      pueden ser accedidas públicamente,
+      con lo cual es posible comprometer
+      la información allí almacenada
     impact: >
-     __empty__.
+     Obtener información confidencial de la base de datos
     recommendation: >
-      __empty__
+      Garantizar que las bases de datos relacionales
+      sean accesibles únicamente por usuarios
+      y roles autenticados y autorizados
     threat: >
-      __empty__
+      Atacante anónimo desde Internet
   category: Abuse Functionality
   score:
     base:
@@ -4377,14 +4385,14 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: ["161"]
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["096", "176", "265"]
   metadata:
     en:
       details: __empty__
@@ -6528,41 +6536,48 @@
       details: __empty__
 "109":
   en:
-    title: Free
+    title: Unrestricted access between network segments - RDS
     description: >
-      __empty__
+      Some RDS Cluster or Instances
+      are not defined inside a Database Subnet Group
     impact: >
-      __empty__
+      Access to RDS services in a insecure way
+      from the Internet
     recommendation: >
-      __empty__
+      Ensure that all RDS instances
+      belong to a Database Subnet Group
     threat: >
-      __empty__
+      Authenticated attacker from the Internet
   es:
     title: Free
     description: >
-      __empty__
+      Algunos cluster o instancias de RDS
+      no se encuentran definidos
+      dentro de un Subnet Group para Bases de datos
     impact: >
-      __empty__
+      Acceder a los servicios de RDS
+      de forma insegura desde Internet
     recommendation: >
-      __empty__
+      Asegurar que todas las instancias de RDS
+      pertenezcan un Database Subnet Group
     threat: >
-      __empty__
+      Atacante autenticado desde Internet
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: ["158"]
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["255"]
   metadata:
     en:
       details: __empty__
