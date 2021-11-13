@@ -15347,84 +15347,113 @@
       details: __empty__
 "266":
   en:
-    title: Free
+    title: Excessive Privieleges - Docker
     description: >
-      __empty__
+      The containers executed in the application
+      do not properly restrict the privileges of the users,
+      executing tasks with root user
+      instead of a custom user.
     impact: >
-      __empty__
+      Gain total control of the container
     recommendation: >
-      __empty__
+      - Restrict the privileges of the user
+      that execute instructions inside the container
+
+      - Avoid the use of the root user
+      as default user
     threat: >
-      __empty__
+      Authenticated attacker with local access to the container
   es:
-    title: Free
+    title: Excessive Privieleges - Docker
     description: >
-      __empty__
+      Los contenedores ejecutados en la aplicación
+      no limitan los permisos de los usuarios
+      ejecutando tareas como un usuario root
+      en lugar de un usuario personalizado.
     impact: >
-      __empty__
+      Obtener control total del contenedor
+      con el usuario por defecto
     recommendation: >
-      __empty__
+      - Limitar los permisos del usuario
+      con el que se ejecuta las instrucciones del contenedor
+
+      - Evitar utilizar el usuario root
+      como usuario por defecto
     threat: >
-      __empty__
+      Atacante autenticado con acceso local al contedor
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: ["148", "149", "150", "181" ,"336"]
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["095", "096", "186"]
   metadata:
     en:
-      details: __empty__
+      details: https://docs.docker.com/engine/reference/builder/#user
 "267":
   en:
-    title: Free
+    title: Excessive Privieleges - Kubernetes
     description: >
-      __empty__
+      Kubernetes default configuration
+      is overly permissive,
+      allowing users to escalate privileges
+      or execute commands as privileged users
     impact: >
-      __empty__
+      Gain total control over one or more PoDs
     recommendation: >
-      __empty__
+      Set strict security policy
+      disabling potentially harmful actions
+      and restricting the user permissions
     threat: >
       __empty__
   es:
-    title: Free
+    title: Excessive Privieleges - Kubernetes
     description: >
-      __empty__
+      La configuración por defecto de Kubernetes
+      es demasiado permisiva,
+      permitiendo a los usuarios elevar privilegios
+      o ejecutar comandos como usuarios con privilegios
+      administrativos
     impact: >
-      __empty__
+      Obtener control total de uno o más contenedores
     recommendation: >
-      __empty__
+      Establecer políticas de seguridad estrictas
+      en los Pods, restringiendo acciones potencialmente peligrosas
+      y limitando los permisos de los usuarios
     threat: >
-      __empty__
-  category: Collect Information
+      Atacante autenticado con acceso local al Pod
+      o contenedor
+  category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: ["148", "149", "150", "181" ,"336"]
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["095", "096", "186"]
   metadata:
     en:
-      details: __empty__
+      details: >
+        https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted
+        https://kubernetes.io/docs/concepts/policy/pod-security-policy/
 "268":
   en:
     title: Free
