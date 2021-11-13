@@ -3563,126 +3563,51 @@
       details: __empty__
 "060":
   en:
-    title: Insecure exceptions
+    title: Insecure service configuration - Host verification
     description: >
-      The system uses generic exceptions
-      as a mechanism to handle unexpected events.
-      Throwing and catching generic exceptions:
-
-      - Masks the original cause of the trouble,
-      hindering the log review in the presence of a security incident
-
-      - Defines a generic behaviour to all kinds of exceptions,
-      considering that some exceptions require a custom handling.
-
-      - Catches harmful or insecure exceptions
-      such as NullPointerException,
-      which may lead to DoS attacks.
+      The system do not properly restrict
+      incoming conections from unknown external hosts
     impact: >
-      - Hinder the identification of the event source cause.
-
-      - Lead the application to an unstable state
-      when errors that cause unrecoverable states are generated.
-
+      Establish conections with untrusted machines
     recommendation: >
-      - Identify all possible types of exceptions
-      that the application may throw.
-
-      - Capture Specific and typified exceptions
-      and provide custom treatment to every exceptional event
-      (rollback, deauthentication, deauthorization, etc.)
-
+      Validate that incoming conections
+      come from trusted hosts
+      already defined in the known_hosts file
     threat: >
-      Authenticated attacker
-      from the Internet.
+      Authenticated attacker from the Internet
   es:
-    title: Insecure exceptions
+    title: Insecure service configuration - Host verification
     description: >
-      El sistema utiliza excepciones genéricas
-      como mecanismo para manejar eventos inesperados.
-      Arrojar y capturar excepciones genéricas:
-
-      - Enmascara el origen del problema,
-      dificultando la revisión de los logs ante un incidente de seguridad.
-
-      - Define un comportamiento genérico para todos los tipos de excepciones
-      considerando que algunas excepciones requieren un manejo personalizado.
-
-      - Captura excepciones inseguras o dañinas
-      como NullPointerException, la cual puede desencadenar en DoS.
-
+      El sistema no limita adecuadamente
+      las conexiones entrantes con hosts externos desconocidos.
     impact: >
-      - Dificultar la identificación de la causa de los errores
-
-      - Llevar a la aplicación a un estado inestable
-      cuando se generen errores que causen estados irrecuperables
+      Establecer conexiones con máquinas
+      que no son de confianza
     recommendation: >
-      - Identificar todos los posibles tipos de excepciones
-      que la aplicación puede arrojar
-
-      - Capturar excepciones específicas y tipificadas
-      y proveer un tratamiento personalizado a cada evento excepcional
-      (rollback, deautenticación, deautorización, etc)
+      Validar que las conexiones entrantes
+      pertenezcan a un host de confianza
+      que ya esté definido en el archivo known_hosts
     threat: >
-      Atacante autenticado
-      desde Internet.
+      Atacante autenticado desde Internet
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "H"
+      attack_complexity: "L"
       privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "P"
       remediation_level: "O"
       report_confidence: "C"
-  requirements: ["161" ,"266" ,"359"]
+  requirements: ["266"]
   metadata:
     en:
-      details: |
-        ### Why
-
-        When capturing generic exceptions:
-
-        1. The complete error's traceability
-        is not obtained neither what it generated.
-        1. The errors do not receive a customized treatment.
-        1. When capturing generic exceptions,
-        dangerous exceptions like NullPointerException
-        could be captured too.
-        1. The capture's moment is not controlled,
-        an exception can occur in different moments
-        (in loadtime, when the code is tested,
-        when something unexpected occurs
-        in asyncronous operations with generic
-        or non-existent callbacks, etc).
-
-        Following links can support our points:
-
-        - [CWE-395](https://cwe.mitre.org/data/definitions/395.html)
-        - [CWE-396](https://cwe.mitre.org/data/definitions/396.html)
-        - [CWE-397](https://cwe.mitre.org/data/definitions/397.html)
-        - [ERR07-J. Do not throw RuntimeException, Exception, or Throwable](https://wiki.sei.cmu.edu/confluence/display/java/ERR07-J.+Do+not+throw+RuntimeException%2C+Exception%2C+or+Throwable)
-        - [Generic exceptions should never be thrown](https://rules.sonarsource.com/java/RSPEC-112)
-
-        The ideal thing to avoid these scenarios,
-        where generic exceptions are being captured,
-        is to use typified exceptions
-        together with dynamic tests where the coverage
-        of execution branches is being done.
-        This guarantees a proper handling
-        of all possible events.
-
-        Not all the reports necessarily have
-        a severe exploitation case,
-        where all the resources can be compromised.
-        This can be evidenced in its CVSS score
-        and the exploitability metric.
+      details: __empty__
 "061":
   en:
     title: Remote File Inclusion
