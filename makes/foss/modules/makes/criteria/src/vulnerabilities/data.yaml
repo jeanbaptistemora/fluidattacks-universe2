@@ -15368,36 +15368,44 @@
   en:
     title: Insecure encryption algorithm - MD5
     description: >
-      __empty__
+      The web application uses insecure
+      algorithms such as MD5 to hash passwords.
     impact: >
-      __empty__
+      Easily cracking captured credentials.
     recommendation: >
-      __empty__
+      Use secure hashing algorithms to store
+      passwords like PBKDF2.
     threat: >
-      __empty__
+      Authenticated attacker from the Internet
+      with compromised DB hashes.
   es:
     title: Insecure encryption algorithm - MD5
     description: >
-      __empty__
+      La aplicación web utiliza algoritmos
+      inseguros como MD5 para el hash de
+      las contraseñas.
     impact: >
-      __empty__
+      Facilidad para descifrar las
+      credenciales capturadas.
     recommendation: >
-      __empty__
+      Utilizar algoritmos hash seguros para
+      almacenar las contraseñas, como PBKDF2.
     threat: >
-      __empty__
+      Atacante autentificado desde Internet con
+      hashes de BD comprometidos.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["148","150","180"]
