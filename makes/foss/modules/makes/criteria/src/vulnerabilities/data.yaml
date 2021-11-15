@@ -15277,36 +15277,40 @@
   en:
     title: Insecure encryption algorithm - DSA
     description: >
-      __empty__
+      The server where the application is
+      stored supports insecure encryption.
     impact: >
-      __empty__
+      Decrypting the information transmitted
+      between the client and the server.
     recommendation: >
-      __empty__
+      Use algorithms considered cryptographically secure.
     threat: >
-      __empty__
+      Anonymous attacker from intranet.
   es:
     title: Insecure encryption algorithm - DSA
     description: >
-      __empty__
+      El servidor donde se almacena la aplicación
+      soporta cifrados inseguros.
     impact: >
-      __empty__
+      Descifrar la información transmitida
+      entre el cliente y el servidor.
     recommendation: >
-      __empty__
+      Usar algoritmos considerados criptograficámente seguros.
     threat: >
-      __empty__
+      Atacante anónimo desde intranet.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["148","150","180"]
@@ -15317,37 +15321,44 @@
   en:
     title: Insecure encryption algorithm - SHA1
     description: >
-      __empty__
+      The server where the application is stored
+      supports insecure ciphers - SHA1.
     impact: >
-      __empty__
+      Reverse a summary function to find
+      sensitive information.
     recommendation: >
-      __empty__
+      Use algorithms considered cryptographically secure.
     threat: >
-      __empty__
+      Unauthorized attacker from internal
+      network executing a MitM
   es:
     title: Insecure encryption algorithm - SHA1
     description: >
-      __empty__
+      El servidor donde se almacena la aplicación
+      soporta cifrados inseguros - SHA1.
     impact: >
-      __empty__
+      Reversar una función resumen para
+      encontrar información sensible.
     recommendation: >
-      __empty__
+      Utilizar algoritmos considerados
+      criptográficamente seguros.
     threat: >
-      __empty__
+      Atacante no autorizado desde red
+      interna ejecutando un MitM.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "R"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["148","150","180"]
   metadata:
