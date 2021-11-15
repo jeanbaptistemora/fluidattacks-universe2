@@ -15643,32 +15643,37 @@
   en:
     title: Insecure encryption algorithm - Blowfish
     description: >
-      __empty__
+      Insecure algorithms such as Blowfish
+      are used to encrypt the information
+      stored in the code.
     impact: >
-      __empty__
+      User with access to the code.
     recommendation: >
-      __empty__
+      Use secure algorithms such as AES or RSA.
     threat: >
-      __empty__
+      The credentials are stored encrypted with
+      blowfish so that an attacker could decrypt them.
   es:
     title: Insecure encryption algorithm - Blowfish
     description: >
-      __empty__
+      Se usan algoritmos inseguros como Blowfish
+      para cifrar la información almacenada en el código.
     impact: >
-      __empty__
+      Usuario con acceso al código.
     recommendation: >
-      __empty__
+      Utilizar algoritmos seguros como AES o RSA.
     threat: >
-      __empty__
+      Las credenciales se guardan cifradas con
+      blowfish con lo que un atacante podría descifrarlas.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
@@ -15683,33 +15688,44 @@
   en:
     title: Insecure functionality - File Creation
     description: >
-      __empty__
+      For an authenticated user with a profile
+      that restricts certain functions, the
+      restriction is performed on the front
+      end by disabling the corresponding button,
+      which can be bypassed and the query is
+      processed when it is sent.
     impact: >
-      __empty__
+      Access customer information on a massive scale.
     recommendation: >
-      __empty__
+      Verify on the server side that the user making
+      the request has sufficient permissions.
     threat: >
-      __empty__
+      Authenticated user from the Internet.
   es:
     title: Insecure functionality - File Creation
     description: >
-      __empty__
+      Para un usuario autenticado con un perfil
+      que restringe ciertas funciones la restricción
+      se realiza en el front deshabilitando el botón
+      correspondiente la cual es posible evadir y al
+      enviar la consulta esta es procesada.
     impact: >
-      __empty__
+      Acceder a información de los clientes de forma masiva.
     recommendation: >
-      __empty__
+      Verificar del lado del servidor que el usuario
+      que realiza la petición tenga los permisos suficientes.
     threat: >
-      __empty__
+      Usuario autenticado desde internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "H"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
