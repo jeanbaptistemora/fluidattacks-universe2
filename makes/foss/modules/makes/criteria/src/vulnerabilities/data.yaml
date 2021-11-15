@@ -16670,33 +16670,33 @@
   en:
     title: Insecure object reference - Financial information
     description: >
-      __empty__
+      Although the requests for inquiry of expenses and movements associated with a credit card send the encrypted product number, it is possible to make the inquiry from the session of an account other than the one associated with the credit card.
     impact: >
-      __empty__
+      - Obtain expense information from other users.
     recommendation: >
-      __empty__
+      Verify that the user who is trying to access the information has the necessary permissions to do so.
     threat: >
-      __empty__
+      Authorized user from the Internet with access to the encrypted product number.
   es:
     title: Insecure object reference - Financial information
     description: >
-      __empty__
+      Si bien las peticiones de consulta de gastos y movimientos asociados a una tarjeta de crédito envian el número del producto encriptado es posible hacer la consulta desde la sesión de una cuenta diferente a la asociada a la tarjeta de crédito.
     impact: >
-      __empty__
+      - Obtener información de gastos de otros usuarios.
     recommendation: >
-      __empty__
+      Verificar que el usuario que está intentando acceder a la información efectivamente tenga los permisos necesarios para hacerlo.
     threat: >
-      __empty__
+      Usuario autorizado desde internet con acceso al número de producto encriptado.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
