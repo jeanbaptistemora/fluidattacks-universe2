@@ -15029,37 +15029,49 @@
   en:
     title: Lack of protection against deletion - RDS
     description: >
-      __empty__
+      The current configuration has no
+      protection against deletion, this
+      can lead to the deletion of databases
+      in Amazon Web Services RDS.
     impact: >
-      __empty__
+      Delete a database by mistake or without
+      having to go through additional validations.
     recommendation: >
-      __empty__
+      Securely configure the Amazon Web
+      Services service, allowing protection
+      against accidental deletion.
     threat: >
-      __empty__
+      Attacker with access to the AWS console.
   es:
     title: Lack of protection against deletion - RDS
     description: >
-      __empty__
+      La configuración actual no posee protección
+      contra borrado, esto puede llevar a la
+      eliminación de bases  de datos en Amazon
+      Web Services RDS.
     impact: >
-      __empty__
+      Eliminar una base de datos por error o
+      sin tener que pasar por validaciones adicionales.
     recommendation: >
-      __empty__
+      Configurar de manera segura el servicio
+      de Amazon Web Services, permitiendo así que
+      exista protección en contra de borrado accidental.
     threat: >
-      __empty__
+      Atacante con acceso a la consola AWS.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
+      privileges_required: "H"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "H"
+      availability: "H"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["186","265"]
   metadata:
@@ -15069,36 +15081,46 @@
   en:
     title: Lack of protection against deletion - EC2
     description: >
-      __empty__
+      Instances do not have the termination/removal
+      protection option enabled.
     impact: >
-      __empty__
+      - Delete or terminate instances by accident.
+
+      - Lose of EBS  data.
     recommendation: >
-      __empty__
+      Ensure that instances have Termination
+      Protection safety feature enabled.
     threat: >
-      __empty__
+      External atacker with AWS credentials.
   es:
     title: Lack of protection against deletion - EC2
     description: >
-      __empty__
+      Las instancias no tienen activada la
+      opción de protección de terminación/eliminación.
     impact: >
-      __empty__
+      - Eliminación o finalización de
+      instancias por accidente.
+
+      - Pérdida de datos de EBS.
     recommendation: >
-      __empty__
+      Asegúrese de que las instancias tienen
+      activada la función de seguridad de
+      protección de la terminación.
     threat: >
-      __empty__
+      Ataque externo con credenciales de AWS.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["186","265"]
