@@ -16323,36 +16323,40 @@
   en:
     title: Insecure encryption algorithm - ECB
     description: >
-      __empty__
+      Encryption algorithms are handled in ECB
+      mode, which is insecure.
     impact: >
-      __empty__
+      Reverse ciphertext to find sensitive information.
     recommendation: >
-      __empty__
+      Use algorithms considered cryptographically secure.
     threat: >
-      __empty__
+      Authorized attacker from the internal network.
   es:
     title: Insecure encryption algorithm - ECB
     description: >
-      __empty__
+      Se manejan algoritmos de cifrado en modo
+      ECB, el cual es inseguro.
     impact: >
-      __empty__
+      Revertir el texto cifrado para encontrar
+      información sensible.
     recommendation: >
-      __empty__
+      Utilizar algoritmos considerados
+      criptográficamente seguros.
     threat: >
-      __empty__
+      Atacante autorizado desde la red interna.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_vector: "A"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["148","150","180"]
