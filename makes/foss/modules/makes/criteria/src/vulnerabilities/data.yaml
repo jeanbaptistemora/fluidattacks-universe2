@@ -15844,37 +15844,37 @@
   en:
     title: Insecure functionality - Fingerprint
     description: >
-      __empty__
+      The application allows unsolicited user data updates.
     impact: >
-      __empty__
+      - Update and consult information related to the user.
     recommendation: >
-      __empty__
+      - Make sure that the fields to be updated are the same as those requested from the user.
     threat: >
-      __empty__
+      Authenticated attacker on the Internet.
   es:
     title: Insecure functionality - Fingerprint
     description: >
-      __empty__
+      La aplicación permite la actualización de datos no solicitados del usuario.
     impact: >
-      __empty__
+      - Actualizar y consultar información relacionada con el usuario.
     recommendation: >
-      __empty__
+      - Cerciorarse de que los campos a actualizar sean los mismos que se le han solicitado al usuario.
     threat: >
-      __empty__
+      Atacante autenticado en Internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "W"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
