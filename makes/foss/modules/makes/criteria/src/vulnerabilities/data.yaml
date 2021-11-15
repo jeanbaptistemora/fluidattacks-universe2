@@ -16023,33 +16023,43 @@
   en:
     title: Sensitive information sent via URL parameters - Session
     description: >
-      __empty__
+      The JWT session token is sent by the URL,
+      which allows it to be cached by the browsing
+      history, allowing attackers with local access
+      to the machine to obtain it without any problem.
     impact: >
-      __empty__
+      Obtain the user's session.
     recommendation: >
-      __empty__
+      Use secure mechanisms to send sensitive
+      information between sites so that it cannot
+      be stolen by malicious actors.
     threat: >
-      __empty__
+      Unauthorized attacker with local access to the machine.
   es:
     title: Sensitive information sent via URL parameters - Session
     description: >
-      __empty__
+      El token de sesión JWT es enviado por el URL,
+      lo cual permite que sea cacheado por el historial
+      de navegación, permitiendo a atacantes con acceso
+      local a la máquina, obtenerlo sin ningún problema.
     impact: >
-      __empty__
+      Obtener la sesión del usuario.
     recommendation: >
-      __empty__
+      Usar mecanismos seguros para enviar información
+      sensible entre sitios para que esta no sea robada
+      por actores maliciosos.
     threat: >
-      __empty__
+      Atacante no autorizado con acceso local a la máquina.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
@@ -16063,23 +16073,40 @@
   en:
     title: Weak credential policy - Password Expiration
     description: >
-      __empty__
+      The AWS IAM (Identity and Access Management)
+      policy has the Enable password expiration flag
+      set to disable, good security practices suggest
+      that credentials should be renewed in 90 day periods.
     impact: >
-      __empty__
+      External attacker.
     recommendation: >
-      __empty__
+      Establish credential policies following
+      the requirements of the different security
+      and cloud standards.
     threat: >
-      __empty__
+      Credentials should have an expiration time
+      limit, this helps to mitigate possible leakage
+      and leakage of credentials that can be used
+      for further attacks.
   es:
     title: Weak credential policy - Password Expiration
     description: >
-      __empty__
+      La política de IAM (Identity and Access Management)
+      del AWS tiene configurado el flag "Enable password
+      expiration" como disable, las buenas practicas de
+      seguridad sugieren que las credenciales deben renovarse
+      en periodos de 90 días.
     impact: >
-      __empty__
+      Atacante externo.
     recommendation: >
-      __empty__
+      Establecer políticas de credenciales siguiendo
+      los requerimientos en los diferentes estándares
+      de seguridad y cloud.
     threat: >
-      __empty__
+      Las credenciales deben contar con un tiempo
+      límite de caducidad, esto ayuda a mitigar
+      posibles fugas y filtración de credenciales
+      que pueden ser usadas para posteriores ataques.
   category: Probabilistic Techniques
   score:
     base:
@@ -16093,7 +16120,7 @@
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["130","132","133","139","332"]
   metadata:
@@ -16103,36 +16130,49 @@
   en:
     title: Insecure exceptions - NullPointerException
     description: >
-      __empty__
+      Use is made of functions that perform _catch_
+      to Nullpointer exceptions, which can cause
+      unexpected behavior in the system.
     impact: >
-      __empty__
+      - Decrease application performance.
+
+      - Cause a possible denial of service.
     recommendation: >
-      __empty__
+      The _catch_ to _NullpointerException_
+      should only be used when test class
+      entries need to be tested.
     threat: >
-      __empty__
+      Unauthorized attacker from the Internet.
   es:
     title: Insecure exceptions - NullPointerException
     description: >
-      __empty__
+      Se hace uso funciones que realizan _catch_
+      a excepciones de Nullpointer, las cuales
+      pueden ocasionar comportamientos inesperados
+      en el sistema.
     impact: >
-      __empty__
+      - Disminuir el rendimiento de la aplicación.
+
+      - Ocasionar una posible denegación de servicio.
     recommendation: >
-      __empty__
+      Los _catch_ a _NullpointerException_ solo deben
+      ser usados cuando se necesitan realizar test a
+      las entradas de las clases de prueba.
     threat: >
-      __empty__
+      Atacante no autorizado desde internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["161","266","359"]
