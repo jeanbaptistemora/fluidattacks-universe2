@@ -15739,29 +15739,42 @@
   en:
     title: Insecure functionality - Password management
     description: >
-      __empty__
+      There is a possibility to change the
+      access password to a user's application
+      from a different user's session.
     impact: >
-      __empty__
+      Change the password to access the application
+      of one user from another user's session.
     recommendation: >
-      __empty__
+      Limit the permissions of each of the users
+      that have access to the application.
+      So that they cannot modify other user's
+      configurations within the application.
     threat: >
-      __empty__
+      Attacker with access to the
+      application from the Internet.
   es:
     title: Insecure functionality - Password management
     description: >
-      __empty__
+      Es posible cambiar la contraseña de acceso
+      al aplicativo de un usuario desde la sesión
+      de un usuario diferente.
     impact: >
-      __empty__
+      Cambiar la contraseña de acceso al aplicativo
+      de un usuario desde la sesión de otro.
     recommendation: >
-      __empty__
+      Limitar los permisos de cada uno de los usuarios
+      que tienen acceso a la aplicación.
+      Para que de esta forma no puedan modificar
+      configuraciones de otros usuarios dentro de la misma.
     threat: >
-      __empty__
+      Atacante con acceso a la aplicación desde internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
@@ -15779,36 +15792,48 @@
   en:
     title: Insecure functionality - Masking
     description: >
-      __empty__
+      The system is not masking the data in the
+      request and/or response, allowing sensitive
+      and confidential information to be known.
     impact: >
-      __empty__
+      Become aware of sensitive and/or
+      confidential user information.
     recommendation: >
-      __empty__
+      The system sends sensitive information
+      through a channel or method that does not
+      guarantee its confidentiality or integrity.
     threat: >
-      __empty__
+      Anonymous attacker from adjacent
+      network running a MitM.
   es:
     title: Insecure functionality - Masking
     description: >
-      __empty__
+      El sistema no está enmascarando los datos en
+      la petición y/o respuesta, permitiendo conocer
+      información sensible y confidencial.
     impact: >
-      __empty__
+      Conocer información sensible y/o
+      confidencial de los usuarios.
     recommendation: >
-      __empty__
+      El sistema envía información sensible a
+      través de un canal o método que no garantiza
+      su confidencialidad o integridad.
     threat: >
-      __empty__
+      Atacante anónimo desde red adyacente
+      ejecutando un MitM.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "H"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
