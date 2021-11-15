@@ -16234,36 +16234,45 @@
   en:
     title: Session Fixation
     description: >
-      __empty__
+      The cookie session doesnt change after
+      a valid login which allow an attacker
+      to hijack the user session by setting
+      the user cookie for one knew by the attacker.
     impact: >
-      __empty__
+      Hijack a valid user session.
     recommendation: >
-      __empty__
+      Invalidate the anonymous cookie and create
+      a new one after a successful login.
     threat: >
-      __empty__
+      Anonymous attacker from Internet.
   es:
     title: Session Fixation
     description: >
-      __empty__
+      La sesión de la cookie no cambia después
+      de un inicio de sesión válido, lo que
+      permite a un atacante secuestrar la sesión
+      del usuario estableciendo la cookie del
+      usuario por una conocida por el atacante.
     impact: >
-      __empty__
+      Secuestrar una sesión de usuario válida.
     recommendation: >
-      __empty__
+      Invalida la cookie anónima y crea una nueva
+      después de un inicio de sesión exitoso.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["030"]
