@@ -14770,34 +14770,48 @@
   en:
     title: Non-encrypted confidential information - JFROG
     description: >
-      __empty__
+      Confidential information is stored
+      in plain text allowing an attacker
+      to view it without any encryption.
     impact: >
-      __empty__
+      - Obtain confidential JFrog user information.
+
+      - Create, edit and delete JFrog user information.
     recommendation: >
-      __empty__
+      Encrypt all sensitive information that is
+      transported or stored within the application
+      according to the organization's policies.
     threat: >
-      __empty__
+      External attacker with access to source code.
   es:
     title: Non-encrypted confidential information - JFROG
     description: >
-      __empty__
+      La información confidencial es almacenada
+      en texto plano permitiendo a un atacante
+      visualizarla sin ningún tipo de cifrado.
     impact: >
-      __empty__
+      - Obtener información confidencial de
+      usuarios de JFrog.
+
+      - Crear, editar y eliminar información
+      de usuarios de JFrog.
     recommendation: >
-      __empty__
+      Cifrar toda información sensible que se
+      transporte o se guarde dentro la aplicación
+      de acuerdo a las políticas de la organización.
     threat: >
-      __empty__
+      Atacante externo con acceso al código fuente.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      scope: "C"
+      confidentiality: "H"
+      integrity: "H"
+      availability: "H"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
