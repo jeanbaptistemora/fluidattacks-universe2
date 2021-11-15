@@ -15416,36 +15416,49 @@
   en:
     title: Insecure encryption algorithm - TripleDES
     description: >
-      __empty__
+      The server where the application is stored
+      supports insecurely configured ciphers, in
+      addition to the ECB mode considered insecure:
+
+      - Data Encryption Standard (DES).
     impact: >
-      __empty__
+      Reverse a summary function to find
+      sensitive information.
     recommendation: >
-      __empty__
+      Use a secure encryption algorithm.
     threat: >
-      __empty__
+      Unauthorized attacker from internal
+      network executing a MitM.
   es:
     title: Insecure encryption algorithm - TripleDES
     description: >
-      __empty__
+      El servidor donde se almacena la
+      aplicación soporta cifrados configurados
+      de manera insegura, además del modo ECB
+      considerado inseguro:
+
+      - Data Encryption Standard (DES).
     impact: >
-      __empty__
+      Reversar una función resumen para
+      encontrar información sensible.
     recommendation: >
-      __empty__
+      Usar un algoritmo de cifrado seguro.
     threat: >
-      __empty__
+      Atacante no autorizado desde red
+      interna ejecutando un MitM.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["148","150","180"]
@@ -15456,37 +15469,51 @@
   en:
     title: Insecure encryption algorithm - AES
     description: >
-      __empty__
+      The source code uses RSA/ECB/PKCS1Padding
+      and AES/CBC/PKCS5PADDING encryption, both
+      of which are considered insecure.
     impact: >
-      __empty__
+      Attacker with access to the code.
     recommendation: >
-      __empty__
+      Only secure encryption with secure algorithms
+      such as RSA/NONE/OAEPwithSHA-256andMGF1Padding
+      should be allowed.
     threat: >
-      __empty__
+      An attacker can decrypt the information
+      encrypted with the algorithm because it
+      has vulnerabilities that make it easily
+      breakable.
   es:
     title: Insecure encryption algorithm - AES
     description: >
-      __empty__
+      En el código fuente se hace uso del cifrado
+      RSA/ECB/PKCS1Padding y AES/CBC/PKCS5PADDING
+      los cuales se consideran inseguros.
     impact: >
-      __empty__
+      Atacante con acceso al código.
     recommendation: >
-      __empty__
+      Solamente se debe de permitir cifrados
+      seguros con algoritmos seguros como
+      RSA/NONE/OAEPwithSHA-256andMGF1Padding.
     threat: >
-      __empty__
+      Un atacante puede descifrar la información
+      encriptada con el algoritmo debido a que
+      este presenta vulnerabilidades que lo hacen
+      fácilmente rompible.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["148","150","180"]
   metadata:
