@@ -14933,23 +14933,28 @@
   en:
     title: Automatic information enumeration - Credit Cards
     description: >
-      __empty__
+      It is possible to automatically list
+      credit card information, as the expiration
+      date and security code are not validated.
     impact: >
-      __empty__
+      List credit cards in payments.
     recommendation: >
-      __empty__
+      Filter the information received for payments.
     threat: >
-      __empty__
+      Attacker with access to the aplication
+      from the Internet.
   es:
     title: Automatic information enumeration - Credit Cards
     description: >
-      __empty__
+      Es posible enumerar automáticamente información
+      de tarjetas de crédito, ya que no se valida la
+      fecha de vencimiento y el código de seguridad.
     impact: >
-      __empty__
+      Enumerar tarjetas de crédito en los pagos.
     recommendation: >
-      __empty__
+      Filtrar la información que se recibe por los pagos.
     threat: >
-      __empty__
+      Atacante con acceso a la aplicación desde internet.
   category: Collect Information
   score:
     base:
@@ -14958,8 +14963,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "H"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
