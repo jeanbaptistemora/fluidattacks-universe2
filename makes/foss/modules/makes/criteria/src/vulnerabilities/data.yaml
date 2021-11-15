@@ -16034,7 +16034,8 @@
       information between sites so that it cannot
       be stolen by malicious actors.
     threat: >
-      Unauthorized attacker with local access to the machine.
+      Unauthorized attacker with local
+      access to the machine.
   es:
     title: Sensitive information sent via URL parameters - Session
     description: >
@@ -16092,10 +16093,10 @@
     title: Weak credential policy - Password Expiration
     description: >
       La política de IAM (Identity and Access Management)
-      del AWS tiene configurado el flag "Enable password
-      expiration" como disable, las buenas practicas de
+      del AWS tiene configurado el flag Enable password
+      expiration como disable, las buenas prácticas de
       seguridad sugieren que las credenciales deben renovarse
-      en periodos de 90 días.
+      en periodos de noventa días.
     impact: >
       Atacante externo.
     recommendation: >
