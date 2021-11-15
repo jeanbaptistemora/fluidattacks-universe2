@@ -15884,33 +15884,76 @@
   en:
     title: Restricted fields manipulation
     description: >
-      __empty__
+      From the self-management functionality
+      for the registration of an employee, it
+      is possible to change the information of
+      other employees from other companies.
+      An attacker can initiate a request to
+      confirm the registration of an employee
+      and change the DNI to different values so
+      that it replaces the existing data.
+      In this way the information sent will be
+      stored in the company, updating all the
+      information of the targeted employees such
+      as names, e-mail addresses, dates of birth,
+      addresses, telephone numbers, among others.
     impact: >
-      __empty__
+      - Attacker enters upon registration
+      confirmation request.
+
+      - Attacker changes employee's ID.
+
+      - Attacker modifies or replaces employee's information.
     recommendation: >
-      __empty__
+      Verify that the user who is trying
+      to modify the information has the
+      necessary permissions to access.
     threat: >
-      __empty__
+      Possibility for an external employee to modify
+      or replace the information of other employees
+      independently of your company.
   es:
     title: Restricted fields manipulation
     description: >
-      __empty__
+      Desde la funcionalidad de autogestión para
+      el registro de un empleado, se puede llevar
+      acabo el cambio de información de otros
+      empleados de otras empresas.
+      Un atacante puede iniciar una petición para
+      confirmar el registro de un empleado y cambiar
+      el DNI por diferentes valores de modo que
+      reemplace aquellos datos existentes.
+      De esta manera la información que se envíe
+      quedara almacenada en la empresa, actualizando
+      toda la información de los empleados objetivos
+      como nombres, correos fechas de nacimiento,
+      direcciones, teléfonos, entre otros.
     impact: >
-      __empty__
+      - Atacante entra a petición de
+      confirmación de registro.
+
+      - Atacante varia el DNI del empleado.
+
+      - Atacante modifica o reemplaza la
+      información del empleado.
     recommendation: >
-      __empty__
+      Verificar que el usuario que está intentando
+      modificar la información efectivamente tenga
+      los permisos necesarios para acceder.
     threat: >
-      __empty__
+      Posibilidad de que un empleado externo
+      modifique o reemplace la información de
+      otros empleados independientemente de su empresa.
   category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
+      integrity: "H"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
