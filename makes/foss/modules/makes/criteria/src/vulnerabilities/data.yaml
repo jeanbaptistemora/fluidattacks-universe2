@@ -15225,37 +15225,49 @@
   en:
     title: Insecure Binary compilation
     description: >
-      __empty__
+      The binary for the IOS platform has been compiled
+      without the Stack Smashing Protector (SSP) and
+      Automatic Reference Counting (ARC) flags which
+      provide protection against Stack Overflow attacks
+      and memory corruption.
     impact: >
-      __empty__
+      Overwrite registers in memory or cause a denial
+      of service through buffer overflow attacks.
     recommendation: >
-      __empty__
+      Compile binaries with ARC and fstack-protector-all flags.
     threat: >
-      __empty__
+      Internal attacker with access to the IPA.
   es:
     title: Insecure Binary compilation
     description: >
-      __empty__
+      El binario para la plataforma IOS ha sido
+      compilado sin las banderas Stack Smashing
+      Protector (SSP) y Automatic Reference Counting (ARC)
+      las cuales brindan protección contra ataques de
+      Stack Overflow y corrupción de memoria.
     impact: >
-      __empty__
+      Sobreescribir registros en memoria o causar
+      una denegación de servicio a través de ataques
+      buffer overflow.
     recommendation: >
-      __empty__
+      Compilar los binarios con las banderas ARC
+      y fstack-protector-all.
     threat: >
-      __empty__
+      Atacante interno con acceso al IPA.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_vector: "A"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
