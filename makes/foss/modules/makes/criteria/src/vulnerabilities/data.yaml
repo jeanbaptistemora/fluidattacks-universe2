@@ -14978,33 +14978,44 @@
   en:
     title: Insecure functionality - Pass the hash
     description: >
-      __empty__
+      It is possible to use the Pass The
+      Hash technique to access resources
+      within the domain.
     impact: >
-      __empty__
+      Use account hashes to access domain resources.
     recommendation: >
-      __empty__
+      Implement monitoring policies to detect
+      the use of lateral movement techniques
+      such as Pass The Hash.
     threat: >
-      __empty__
+      Attacker from internal network without
+      authentication with domain user hashes.
   es:
     title: Insecure functionality - Pass the hash
     description: >
-      __empty__
+      Es posible utilizar la técnica de Pass
+      The Hash para acceder a recursos dentro
+      del dominio.
     impact: >
-      __empty__
+      Utilizar los hashes de cuentas para
+      acceder a recursos del dominio.
     recommendation: >
-      __empty__
+      Implmentar políticas de monitoreo para
+      detectar el uso de técnicas de movimiento
+      lateral como Pass The Hash.
     threat: >
-      __empty__
+      Atacante desde red interna sin autenticación
+      con hashes de usuarios del dominio.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "H"
+      integrity: "H"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
