@@ -16429,33 +16429,56 @@
   en:
     title: Non-encrypted confidential information - Base 64
     description: >
-      __empty__
+      Base64 credentials are stored
+      in the source code.
     impact: >
-      __empty__
+      Obtain service credentials.
     recommendation: >
-      __empty__
+      - Change the login credentials
+      that were compromised.
+
+      - Purge git history of affected
+      sensitive data.
+
+      - Upload sensitive data from
+      secure sources such as: key vault
+      services, configuration files that
+      are properly encrypted.
     threat: >
-      __empty__
+      Attacker with access to source
+      code from the Internet.
   es:
     title: Non-encrypted confidential information - Base 64
     description: >
-      __empty__
+      En el código fuente se almacenan
+      credenciales en Base64.
     impact: >
-      __empty__
+      Obtener credenciales de los servicios.
     recommendation: >
-      __empty__
+      - Cambiar las credenciales de acceso
+      que se vieron comprometidas.
+
+      - Purgar el historial de git de la
+      información sensible afectada.
+
+      - Cargar los datos sensibles desde
+      fuentes seguras como: servicios
+      de bóveda de claves, archivos de
+      configuración que estén debidamente
+      cifrados.
     threat: >
-      __empty__
+      Atacante con acceso al código
+      fuente desde Internet.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
@@ -16469,37 +16492,53 @@
   en:
     title: Insecure service configuration - App Transport Security
     description: >
-      __empty__
+      The NSAppTransportSecurity function has
+      the NSAllowsArbitraryLoads option enabled
+      which allows insecure (HTTP) connections
+      to the application.
+      Good security practices state that insecure
+      connections from the app to external servers
+      should not be allowed.
     impact: >
-      __empty__
+      Conduct MiTM attacks over insecure channels
+      to obtain sensitive user information.
     recommendation: >
-      __empty__
+      Configure in the application's info.plist
+      following good security practices.
     threat: >
-      __empty__
+      Internal attacker on the same network segment.
   es:
     title: Insecure service configuration - App Transport Security
     description: >
-      __empty__
+      La función NSAppTransportSecurity
+      tiene habilitada la opción
+      NSAllowsArbitraryLoads que permite conexiones
+      inseguras (HTTP) a la aplicación.
+      Las buenas prácticas de seguridad establecen
+      que no se deben permitir conexiones inseguras
+      desde la app a servidores externos.
     impact: >
-      __empty__
+      Realizar ataques de MiTM sobre canales inseguros
+      para obtener información sensible de los usuarios.
     recommendation: >
-      __empty__
+      Configurar en el info.plist de la aplicación
+      siguiendo las buenas practicas de seguridad.
     threat: >
-      __empty__
+      Atacante interno en el mismo segmento de red.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
