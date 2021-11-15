@@ -15171,37 +15171,51 @@
   en:
     title: Lack of protection against deletion - DynamoDB
     description: >
-      __empty__
+      The current configuration has no protection
+      against deletion (recovery points in time).
+      The deletion of DynamoDB instances deletes
+      the information without the possibility of
+      recovery.
     impact: >
-      __empty__
+      Delete a DynamoDB instance by mistake or without
+      having to go through additional validations.
     recommendation: >
-      __empty__
+      Securely configure the Amazon Web Services
+      service, enabling protection against accidental
+      deletion with recovery points in time.
     threat: >
-      __empty__
+      Internet attacker with access to the AWS console.
   es:
     title: Lack of protection against deletion - DynamoDB
     description: >
-      __empty__
+      La configuración actual no posee protección contra
+      borrado (puntos de recuperación en el tiempo).
+      La eliminación de instancias de DynamoDB borra
+      la información sin posibilidad de recuperación.
     impact: >
-      __empty__
+      Eliminar una instancia de DynamoDB por error o
+      sin tener que pasar por validaciones adicionales.
     recommendation: >
-      __empty__
+      Configurar de manera segura el servicio de
+      Amazon Web Services,  permitiendo así que
+      exista protección en contra de borrado accidental
+      con puntos de recuperación en el tiempo.
     threat: >
-      __empty__
+      Atacante en Internet con acceso a la consola AWS.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
+      privileges_required: "H"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "H"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["186","265"]
   metadata:
