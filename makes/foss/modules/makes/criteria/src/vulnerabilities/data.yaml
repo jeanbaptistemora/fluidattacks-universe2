@@ -16184,28 +16184,38 @@
   en:
     title: Root detection control bypass
     description: >
-      __empty__
+      It is possible to reverse engineer
+      the application and disable detection
+      of rooted devices.
     impact: >
-      __empty__
+      Avoid the application's detection
+      of rooted devices.
     recommendation: >
-      __empty__
+      Implement an integrity check on the
+      application so that it cannot be used
+      if it has been modified.
     threat: >
-      __empty__
+      Attcker with access to APK.
   es:
     title: Root detection control bypass
     description: >
-      __empty__
+      Es posible hacerle ingeniería inversa a
+      la aplicación y desactivar la detección
+      de equipos rooteados.
     impact: >
-      __empty__
+      Evadir la detección de equipos
+      rooteados de la aplicación.
     recommendation: >
-      __empty__
+      Implementar un control de integridad en la
+      aplicación para que no pueda utilizarse
+      si ha sido modificada.
     threat: >
-      __empty__
+      Atacante con acceso a la APK.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
