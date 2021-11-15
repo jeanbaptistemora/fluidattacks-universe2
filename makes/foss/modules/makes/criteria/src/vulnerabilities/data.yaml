@@ -16367,33 +16367,55 @@
   en:
     title: Automatic information enumeration - Personal Information
     description: >
-      __empty__
+      It is possible to list information and
+      login method of the platform users, since
+      a token associated to the account is not
+      used to consult the information, thus
+      leaving open the possibility to consult
+      information of other users.
     impact: >
-      __empty__
+      - Identify user's login method.
+
+      - Obtain strategic information.
+      from user's accounts.
     recommendation: >
-      __empty__
+      Implement controls with cookies or
+      session tokens to limit the information
+      viewed by a user.
     threat: >
-      __empty__
+      Attacker authenticated from the Internet.
   es:
     title: Automatic information enumeration - Personal Information
     description: >
-      __empty__
+      Es posible enumerar información y método
+      de inicio de sesión de los usuarios de
+      la plataforma, debido a que para consultar
+      la información no se utiliza un token
+      asociado a la cuenta, con lo cual queda
+      abierta la posibilidad para consultar
+      información de otros usuarios.
     impact: >
-      __empty__
+      - Identificar el método de inicio
+      de sesión de los usuarios.
+
+      - Obtener información estratégica
+      de las cuentas de los usuarios.
     recommendation: >
-      __empty__
+      Implementar controles con cookies o tokens
+      de sesión para limitar la información
+      consultada por un usuario.
     threat: >
-      __empty__
+      Atacante autenticado desde Internet.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
