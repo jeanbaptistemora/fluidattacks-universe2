@@ -16710,38 +16710,53 @@
   en:
     title: Technical information leak - Logs
     description: >
-      __empty__
+      The application has an HTML file
+      that displays a LOG of the system.
     impact: >
-      __empty__
+      In the event that this page is accessible
+      by users, they will be able to know
+      information about the system.
     recommendation: >
-      __empty__
+      Avoid exposing system information in files
+      that can be accessed by third parties.
     threat: >
-      __empty__
+      An attacker who knows this information can
+      understand how the system works from the
+      messages stored in the Log and generate an
+      attack against the system based on this knowledge.
   es:
     title: Technical information leak - Logs
     description: >
-      __empty__
+      La aplicación tiene un archivo HTML
+      que despliega un LOG del sistema.
     impact: >
-      __empty__
+      En caso de que esa página sea accesible
+      por parte de los usuarios, estos podrán
+      conocer información del sistema.
     recommendation: >
-      __empty__
+      Evitar exponer información del sistema en
+      archivos que pueden ser accedidos por terceros.
     threat: >
-      __empty__
+      Un atacante que conozca dicha información
+      puede entender como funciona el sistema a
+      partir de los mensajes almacenados en el
+      Log y generar un ataque contra el sistema
+      a partir de dicho conocimiento.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "U"
   requirements: ["077","176"]
   metadata:
     en:
@@ -16750,23 +16765,27 @@
   en:
     title: Technical information leak - IPs
     description: >
-      __empty__
+      The web server exposes their internal
+      IP through the web page response.
     impact: >
-      __empty__
+      Obtain the internal IP of the server.
     recommendation: >
-      __empty__
+      Eliminar los servicios web que
+      exponen información técnica.
     threat: >
-      __empty__
+      Anonymous user from the internet.
   es:
     title: Technical information leak - IPs
     description: >
-      __empty__
+      El servidor web expone su IP interna a
+      través de la respuesta de la página web.
     impact: >
-      __empty__
+      Obtener la IP interna del servidor.
     recommendation: >
-      __empty__
+      Remove web services that exposes
+      technical information.
     threat: >
-      __empty__
+      Usuario anónimo de Internet.
   category: Collect Information
   score:
     base:
@@ -16775,8 +16794,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
