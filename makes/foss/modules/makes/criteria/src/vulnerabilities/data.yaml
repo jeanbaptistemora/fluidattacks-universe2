@@ -15967,38 +15967,54 @@
   en:
     title: Non-encrypted confidential information - Local data
     description: >
-      __empty__
+      Confidential firebase data is stored in
+      plain text on the device's local storage
+      allowing an attacker who has access to
+      the physical device and bypasses the device's
+      security mechanism to view it without any
+      encryption in case of theft or loss.
     impact: >
-      __empty__
+      Obtain firebase credentials to compromise
+      more resources or services.
     recommendation: >
-      __empty__
+      Encrypt all sensitive information that
+      is transported or stored within the application
+      according to the organization's policies.
     threat: >
-      __empty__
+      Unauthorized attacker with physical access to device.
   es:
     title: Non-encrypted confidential information - Local data
     description: >
-      __empty__
+      La información confidencial de firebase
+      es almacenada en texto plano en la almacenamiento
+      local del dispositivo permitiendo a un atacante que
+      tenga acceso al dispositivo físico y que sobrepase
+      el mecanismo de seguridad del dispositivo, visualizarla
+      sin ningún tipo de cifrado en caso de robo o pérdida.
     impact: >
-      __empty__
+      Obtener credenciales de firebase para comprometer
+      más recursos o servicios.
     recommendation: >
-      __empty__
+      Cifrar toda información sensible que se transporte
+      o se guarde dentro la aplicación de acuerdo a las
+      políticas de la organización.
     threat: >
-      __empty__
+      Atacante no autorizado con acceso físico al dispositivo.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "P"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "R"
   requirements: ["134","135","185","229","264"]
   metadata:
     en:
