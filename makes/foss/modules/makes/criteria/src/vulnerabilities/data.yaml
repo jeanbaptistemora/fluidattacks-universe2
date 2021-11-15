@@ -14695,7 +14695,7 @@
       sin ningún tipo de cifrado.
     impact: >
       Un usuario de la aplicación puede realizar
-      ingenieria inversa y poder visualizar estas claves.
+      ingeniería inversa y poder visualizar estas claves.
     recommendation: >
       Verificar que información sensible,
       llaves API y contraseñas no sean incluidas
@@ -14824,36 +14824,55 @@
   en:
     title: Automatic information enumeration - Open ports
     description: >
-      __empty__
+      The security group is configured to open
+      an unnecessarily large range of ports.
+      With the scan is possible to list the
+      services available on the servers to
+      know which one can be consumed.
     impact: >
-      __empty__
+      - Scan all the system ports and access
+      the services that are running on them.
+
+      - Install backdoors on the compromised
+      system through the open ports.
     recommendation: >
-      __empty__
+      Securely configure the vulnerable service
+      to be accessed only by authorized users.
     threat: >
-      __empty__
+      Internal attacker with access to the VPC.
   es:
     title: Automatic information enumeration - Open ports
     description: >
-      __empty__
+      El grupo de seguridad está configurado
+      para abrir un rango innecesario de puertos.
+      Con el escaneo es posible listar los servicios
+      disponibles en los servidores para saber
+      cuál puede ser consumido.
     impact: >
-      __empty__
+      - Escanear todos los puertos del sistema y
+      acceder a los servicios que se ejecutan en ellos.
+
+      - Instalar puertas traseras en el sistema
+      comprometido a través de los puertos abiertos.
     recommendation: >
-      __empty__
+      Configurar de forma segura el servicio
+      vulnerable para que sólo puedan acceder
+      a él los usuarios autorizados.
     threat: >
-      __empty__
+      Atacante interno con acceso al VPC.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["237","266","327"]
@@ -14864,36 +14883,46 @@
   en:
     title: Automatic information enumeration - AWS
     description: >
-      __empty__
+      The system exposes resources that are not
+      necessary for the operation of the application.
     impact: >
-      __empty__
+      Expose system resources that can be enumerated.
     recommendation: >
-      __empty__
+      The application should not expose resources
+      that are not explicitly necessary for the
+      operation of the application, exposing
+      unnecessary resources could expand the
+      attack surface.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Automatic information enumeration - AWS
     description: >
-      __empty__
+      El sistema expone recursos que no son necesarios
+      para el funcionamiento de la aplicación.
     impact: >
-      __empty__
+      Exponer recursos del sistema que pueden ser enumerados.
     recommendation: >
-      __empty__
+      La aplicación no debe exponer recursos que
+      no sean explícitamente necesarios para el
+      funcionamiento de la aplicación, la exposición
+      de recursos innecesarios podría ampliar la
+      superficie de ataque.
     threat: >
-      __empty__
+      Atacante anónimo desde internet.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["237","266","327"]
