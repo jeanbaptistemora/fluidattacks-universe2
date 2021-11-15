@@ -15353,8 +15353,8 @@
       privileges_required: "N"
       user_interaction: "R"
       scope: "U"
-      confidentiality: "R"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "P"
