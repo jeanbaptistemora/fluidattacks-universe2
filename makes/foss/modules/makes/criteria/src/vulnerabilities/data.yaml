@@ -16548,29 +16548,29 @@
   en:
     title: Insecure object reference - Personal information
     description: >
-      __empty__
+      The system allows bypassing authentication mechanisms and modifying other users' information by altering the unique identifiers that distinguish each user.
     impact: >
-      __empty__
+      Modify information of other users.
     recommendation: >
-      __empty__
+      - Validate that unprivileged users can only access and modify their own information. - Manage user operations using session objects.
     threat: >
-      __empty__
+      Attacker authenticated from the Internet
   es:
     title: Insecure object reference - Personal information
     description: >
-      __empty__
+      El sistema permite saltar mecanismos de autenticación y modificar información de otros usuarios al alterar los identificadores únicos que distinguen a cada usuario.
     impact: >
-      __empty__
+      Modificar información de otros usuarios
     recommendation: >
-      __empty__
+      - Validar que los usuarios sin privilegios solo puedan acceder y modificar su propia información. - Manejar las operaciones de los usuarios utilizando objetos de sesión.
     threat: >
-      __empty__
+      Atacante autenticado desde Internet.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
@@ -16588,33 +16588,75 @@
   en:
     title: Insecure object reference - Corporate information
     description: >
-      __empty__
+      It is possible to include or modify
+      employee information of third party
+      companies by uploading an excel file
+      and changing the payrollNumber.
+      An attacker can initiate a request to
+      upload an excel file containing information
+      on existing or non-existent employees and
+      change the company identifier (payrollnumber)
+      to one to which he does not have access.
+      In this way the information sent is stored
+      in the third party's company, associating
+      new employees or updating the information of
+      those that already existed.
     impact: >
-      __empty__
+      - Attacker starts file upload process.
+
+      - Attacker changes the payrollNumber
+      to not own.
+
+      - Attacker uploads or modifies information
+      to a third party company.
     recommendation: >
-      __empty__
+      Verify that the user who is trying to
+      modify the information has the necessary
+      permissions to access.
     threat: >
-      __empty__
+      Possibility for a user to modify or
+      include the information of employees
+      of third party companies.
   es:
     title: Insecure object reference - Corporate information
     description: >
-      __empty__
+      Se puede llevar acabo la inclusión o
+      modificación de la información de empleados
+      de empresas de terceros al subir un archivo
+      excel y variar el payrollNumber.
+      Un atacante puede iniciar una petición para
+      subir un archivo excel que contenga información
+      de empleados existentes o inexistentes y cambiar
+      el identificador de la empresa (payrollnumber)
+      por uno al que no tenga acceso.
+      De esta manera la información que se envíe quede
+      almacenada en la empresa del tercero, asociando
+      empleados nuevos o actualizando la información
+      de aquellos que ya existían.
     impact: >
-      __empty__
+      - Atacante comienza proceso de carga de archivo.
+
+      - Atacante cambiar el payrollNumber a uno no propio.
+
+      - Atacante sube o modifica información a una
+      empresa de un tercero.
     recommendation: >
-      __empty__
+      Verificar que el usuario que está intentando
+      modificar la información efectivamente tenga
+      los permisos necesarios para acceder.
     threat: >
-      __empty__
+      Posibilidad de que un usuario modifique o incluya
+      la información de empleados de empresas de terceros.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
+      integrity: "H"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
