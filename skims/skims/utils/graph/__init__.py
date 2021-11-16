@@ -180,6 +180,20 @@ def adj_ast(
     )
 
 
+def adj_ctx(
+    graph: Graph,
+    n_id: str,
+    depth: int = 1,
+    strict: bool = False,
+    **n_attrs: str,
+) -> Tuple[Any, ...]:
+    return tuple(
+        c_id
+        for c_id in adj(graph, n_id, depth, strict=strict, label_ctx="CTX")
+        if has_labels(graph.nodes[c_id], **n_attrs)
+    )
+
+
 def adj_cfg(
     graph: Graph,
     n_id: str,
