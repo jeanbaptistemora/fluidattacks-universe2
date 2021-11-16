@@ -32,7 +32,8 @@ def node_search(graph: Graph, cfg_id: str, symbol_id: str) -> Iterator[str]:
 
     # Search childs
     for c_id in g.adj_ctx(graph, cfg_id):
-        if graph.nodes[c_id]["symbol"] == symbol:
+        c_attrs = graph.nodes[c_id]
+        if symbol in (c_attrs.get("symbol"), c_attrs.get("variable")):
             yield c_id
 
     # Search current node
