@@ -18200,7 +18200,7 @@
       Within the code there are unsafe statements
       that can affect the performance and response
       time of the application.
-      See "https://rules.sonarsource.com/java/RSPEC-1149?search=stringbuffer"
+      See https://rules.sonarsource.com/java/RSPEC-1149?search=stringbuffer
       for more information.
     impact: >
       Affect application performance.
@@ -18217,7 +18217,7 @@
       Dentro del código existen sentencias inseguras
       que pueden afectar el rendimiento y el tiempo
       de respuesta de la aplicación.
-      Ver "https://rules.sonarsource.com/java/RSPEC-1149?search=stringbuffer"
+      Ver https://rules.sonarsource.com/java/RSPEC-1149?search=stringbuffer
       para más información.
     impact: >
       Afectar el rendimiento de la aplicación.
