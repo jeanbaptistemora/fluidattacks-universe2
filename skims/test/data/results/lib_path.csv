@@ -95,6 +95,27 @@ F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,15,1 + 3 + 9,skims,
   24 | }
      ^ Col 0
 "
+F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml,15,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
+","
+   1 | Resources:
+   2 |   trail1:
+   3 |     Type: AWS::CloudTrail::Trail
+   4 |     Properties:
+   5 |       IsLogging: true
+   6 |       EnableLogFileValidation: true
+   7 |   trail2:
+   8 |     Type: AWS::CloudTrail::Trail
+   9 |     Properties:
+  10 |       IsLogging: true
+  11 |       EnableLogFileValidation: false
+  12 |       IsMultiRegionTrail: False
+  13 |   trail3:
+  14 |     Type: AWS::CloudTrail::Trail
+> 15 |     Properties:
+  16 |       IsLogging: true
+  17 |       IsMultiRegionTrail: True
+     ^ Col 0
+"
 F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,16,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
 ","
    1 | Resources:
@@ -117,6 +138,27 @@ F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.y
   18 |       S3BucketName: bk3
      ^ Col 0
 "
+F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml,11,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
+","
+   1 | esources:
+   2 |  trail1:
+   3 |    Type: AWS::CloudTrail::Trail
+   4 |    Properties:
+   5 |      IsLogging: true
+   6 |      EnableLogFileValidation: true
+   7 |  trail2:
+   8 |    Type: AWS::CloudTrail::Trail
+   9 |    Properties:
+  10 |      IsLogging: true
+> 11 |      EnableLogFileValidation: false
+  12 |      IsMultiRegionTrail: False
+  13 |  trail3:
+  14 |    Type: AWS::CloudTrail::Trail
+  15 |    Properties:
+  16 |      IsLogging: true
+  17 |      IsMultiRegionTrail: True
+     ^ Col 1
+"
 F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,13,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
 ","
    1 | esources:
@@ -138,6 +180,56 @@ F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.y
   17 |      IsLogging: true
   18 |      S3BucketName: bk3
      ^ Col 1
+"
+F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml.json,14,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
+","
+   4 |  ""Type"": ""AWS::CloudTrail::Trail"",
+   5 |  ""Properties"": {
+   6 |    ""IsLogging"": true,
+   7 |    ""EnableLogFileValidation"": true
+   8 |  }
+   9 | ,
+  10 | trail2"": {
+  11 |  ""Type"": ""AWS::CloudTrail::Trail"",
+  12 |  ""Properties"": {
+  13 |    ""IsLogging"": true,
+> 14 |    ""EnableLogFileValidation"": false,
+  15 |    ""IsMultiRegionTrail"": false
+  16 |  }
+  17 | ,
+  18 | trail3"": {
+  19 |  ""Type"": ""AWS::CloudTrail::Trail"",
+  20 |  ""Properties"": {
+  21 |    ""IsLogging"": true,
+  22 |    ""IsMultiRegionTrail"": true
+  23 |  }
+  24 |
+     ^ Col 5
+"
+F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml.json,20,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
+","
+   6 |         ""IsLogging"": true,
+   7 |         ""EnableLogFileValidation"": true
+   8 |       }
+   9 |     },
+  10 |     ""trail2"": {
+  11 |       ""Type"": ""AWS::CloudTrail::Trail"",
+  12 |       ""Properties"": {
+  13 |         ""IsLogging"": true,
+  14 |         ""EnableLogFileValidation"": false,
+  15 |         ""IsMultiRegionTrail"": false
+  16 |       }
+  17 |     },
+  18 |     ""trail3"": {
+  19 |       ""Type"": ""AWS::CloudTrail::Trail"",
+> 20 |       ""Properties"": {
+  21 |         ""IsLogging"": true,
+  22 |         ""IsMultiRegionTrail"": true
+  23 |       }
+  24 |     }
+  25 |   }
+  26 | }
+     ^ Col 0
 "
 F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml.json,16,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
 ","
@@ -7521,6 +7613,229 @@ F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   56 |               }
   57 |             },
   58 |             ""ViewerProtocolPolicy"": ""https-only""
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml,12,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+   1 | Resources:
+   2 |   trail1:
+   3 |     Type: AWS::CloudTrail::Trail
+   4 |     Properties:
+   5 |       IsLogging: true
+   6 |       EnableLogFileValidation: true
+   7 |   trail2:
+   8 |     Type: AWS::CloudTrail::Trail
+   9 |     Properties:
+  10 |       IsLogging: true
+  11 |       EnableLogFileValidation: false
+> 12 |       IsMultiRegionTrail: False
+  13 |   trail3:
+  14 |     Type: AWS::CloudTrail::Trail
+  15 |     Properties:
+  16 |       IsLogging: true
+  17 |       IsMultiRegionTrail: True
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,16,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+   1 | Resources:
+   2 |   trail1:
+   3 |     Type: AWS::CloudTrail::Trail
+   4 |     Properties:
+   5 |       IsLogging: true
+   6 |       S3BucketName: bk1
+   7 |       EnableLogFileValidation: true
+   8 |   trail2:
+   9 |     Type: AWS::CloudTrail::Trail
+  10 |     Properties:
+  11 |       IsLogging: true
+  12 |       S3BucketName: bk2
+  13 |       EnableLogFileValidation: false
+  14 |   trail3:
+  15 |     Type: AWS::CloudTrail::Trail
+> 16 |     Properties:
+  17 |       IsLogging: true
+  18 |       S3BucketName: bk3
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,10,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+   1 | Resources:
+   2 |   trail1:
+   3 |     Type: AWS::CloudTrail::Trail
+   4 |     Properties:
+   5 |       IsLogging: true
+   6 |       S3BucketName: bk1
+   7 |       EnableLogFileValidation: true
+   8 |   trail2:
+   9 |     Type: AWS::CloudTrail::Trail
+> 10 |     Properties:
+  11 |       IsLogging: true
+  12 |       S3BucketName: bk2
+  13 |       EnableLogFileValidation: false
+  14 |   trail3:
+  15 |     Type: AWS::CloudTrail::Trail
+  16 |     Properties:
+  17 |       IsLogging: true
+  18 |       S3BucketName: bk3
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml,4,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+   1 | Resources:
+   2 |   trail1:
+   3 |     Type: AWS::CloudTrail::Trail
+>  4 |     Properties:
+   5 |       IsLogging: true
+   6 |       EnableLogFileValidation: true
+   7 |   trail2:
+   8 |     Type: AWS::CloudTrail::Trail
+   9 |     Properties:
+  10 |       IsLogging: true
+  11 |       EnableLogFileValidation: false
+  12 |       IsMultiRegionTrail: False
+  13 |   trail3:
+  14 |     Type: AWS::CloudTrail::Trail
+  15 |     Properties:
+  16 |       IsLogging: true
+  17 |       IsMultiRegionTrail: True
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,4,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+   1 | Resources:
+   2 |   trail1:
+   3 |     Type: AWS::CloudTrail::Trail
+>  4 |     Properties:
+   5 |       IsLogging: true
+   6 |       S3BucketName: bk1
+   7 |       EnableLogFileValidation: true
+   8 |   trail2:
+   9 |     Type: AWS::CloudTrail::Trail
+  10 |     Properties:
+  11 |       IsLogging: true
+  12 |       S3BucketName: bk2
+  13 |       EnableLogFileValidation: false
+  14 |   trail3:
+  15 |     Type: AWS::CloudTrail::Trail
+  16 |     Properties:
+  17 |       IsLogging: true
+  18 |       S3BucketName: bk3
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml.json,5,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""trail1"": {
+   4 |       ""Type"": ""AWS::CloudTrail::Trail"",
+>  5 |       ""Properties"": {
+   6 |         ""IsLogging"": true,
+   7 |         ""EnableLogFileValidation"": true
+   8 |       }
+   9 |     },
+  10 |     ""trail2"": {
+  11 |       ""Type"": ""AWS::CloudTrail::Trail"",
+  12 |       ""Properties"": {
+  13 |         ""IsLogging"": true,
+  14 |         ""EnableLogFileValidation"": false,
+  15 |         ""IsMultiRegionTrail"": false
+  16 |       }
+  17 |     },
+  18 |     ""trail3"": {
+  19 |       ""Type"": ""AWS::CloudTrail::Trail"",
+  20 |       ""Properties"": {
+  21 |         ""IsLogging"": true,
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml.json,5,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""trail1"": {
+   4 |       ""Type"": ""AWS::CloudTrail::Trail"",
+>  5 |       ""Properties"": {
+   6 |         ""IsLogging"": true,
+   7 |         ""S3BucketName"": ""bk1"",
+   8 |         ""EnableLogFileValidation"": true
+   9 |       }
+  10 |     },
+  11 |     ""trail2"": {
+  12 |       ""Type"": ""AWS::CloudTrail::Trail"",
+  13 |       ""Properties"": {
+  14 |         ""IsLogging"": true,
+  15 |         ""S3BucketName"": ""bk2"",
+  16 |         ""EnableLogFileValidation"": false
+  17 |       }
+  18 |     },
+  19 |     ""trail3"": {
+  20 |       ""Type"": ""AWS::CloudTrail::Trail"",
+  21 |       ""Properties"": {
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml.json,13,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+   3 |     ""trail1"": {
+   4 |       ""Type"": ""AWS::CloudTrail::Trail"",
+   5 |       ""Properties"": {
+   6 |         ""IsLogging"": true,
+   7 |         ""S3BucketName"": ""bk1"",
+   8 |         ""EnableLogFileValidation"": true
+   9 |       }
+  10 |     },
+  11 |     ""trail2"": {
+  12 |       ""Type"": ""AWS::CloudTrail::Trail"",
+> 13 |       ""Properties"": {
+  14 |         ""IsLogging"": true,
+  15 |         ""S3BucketName"": ""bk2"",
+  16 |         ""EnableLogFileValidation"": false
+  17 |       }
+  18 |     },
+  19 |     ""trail3"": {
+  20 |       ""Type"": ""AWS::CloudTrail::Trail"",
+  21 |       ""Properties"": {
+  22 |         ""IsLogging"": true,
+  23 |         ""S3BucketName"": ""bk3""
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml.json,15,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+   5 |       ""Properties"": {
+   6 |         ""IsLogging"": true,
+   7 |         ""EnableLogFileValidation"": true
+   8 |       }
+   9 |     },
+  10 |     ""trail2"": {
+  11 |       ""Type"": ""AWS::CloudTrail::Trail"",
+  12 |       ""Properties"": {
+  13 |         ""IsLogging"": true,
+  14 |         ""EnableLogFileValidation"": false,
+> 15 |         ""IsMultiRegionTrail"": false
+  16 |       }
+  17 |     },
+  18 |     ""trail3"": {
+  19 |       ""Type"": ""AWS::CloudTrail::Trail"",
+  20 |       ""Properties"": {
+  21 |         ""IsLogging"": true,
+  22 |         ""IsMultiRegionTrail"": true
+  23 |       }
+  24 |     }
+  25 |   }
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml.json,21,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+   7 |         ""S3BucketName"": ""bk1"",
+   8 |         ""EnableLogFileValidation"": true
+   9 |       }
+  10 |     },
+  11 |     ""trail2"": {
+  12 |       ""Type"": ""AWS::CloudTrail::Trail"",
+  13 |       ""Properties"": {
+  14 |         ""IsLogging"": true,
+  15 |         ""S3BucketName"": ""bk2"",
+  16 |         ""EnableLogFileValidation"": false
+  17 |       }
+  18 |     },
+  19 |     ""trail3"": {
+  20 |       ""Type"": ""AWS::CloudTrail::Trail"",
+> 21 |       ""Properties"": {
+  22 |         ""IsLogging"": true,
+  23 |         ""S3BucketName"": ""bk3""
+  24 |       }
+  25 |     }
+  26 |   }
+  27 | }
      ^ Col 0
 "
 F004,lines,namespace/skims/test/data/lib_path/f004/test.cs,16,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
