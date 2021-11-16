@@ -17267,33 +17267,50 @@
   en:
     title: Authentication mechanism absence or evasion - JFROG
     description: >
-      __empty__
+      The application functions are
+      accessed without the need to be
+      logged into the server.
     impact: >
-      __empty__
+      - Accessing Artifactory repositories.
+
+      - Uploading files to any repository
+      without authorization.
+
+      - Deleting files from any repository
+      without authentication.
     recommendation: >
-      __empty__
+      Protect resources that are not authenticated for access.
     threat: >
-      __empty__
+      Anonymous attacker from intranet.
   es:
     title: Authentication mechanism absence or evasion - JFROG
     description: >
-      __empty__
+      Las funciones de la aplicación son
+      accedidas sin necesidad de tener una
+      sesión iniciada en el servidor.
     impact: >
-      __empty__
+      - Acceder a los repositorios de Artifactory.
+
+      - Cargar archivos en algún repositorio
+      sin autorización.
+
+      - Eliminar archivos en algún repositorio
+      sin autenticación.
     recommendation: >
-      __empty__
+      Proteger los recursos a los cuales no se
+      les tiene una autenticación para ser accedidos.
     threat: >
-      __empty__
+      Atacante anónimo desde intranet.
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "H"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
