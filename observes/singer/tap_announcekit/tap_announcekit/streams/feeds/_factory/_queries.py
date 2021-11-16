@@ -28,6 +28,7 @@ from tap_announcekit.streams._query_utils import (
 )
 from typing import (
     cast,
+    List,
     Tuple,
 )
 
@@ -49,7 +50,7 @@ class FeedIdQuery:
             Transform(
                 lambda p: tuple(
                     self._to_obj((self.proj, f))
-                    for f in cast(FrozenList[RawFeed], p.feeds)
+                    for f in cast(List[RawFeed], p.feeds)
                 )
             ),
         )
