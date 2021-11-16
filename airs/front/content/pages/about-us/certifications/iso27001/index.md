@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-auditor27001
 alt: Logo auditor27001
 certification: yes
-certificationid: 18
+certificationid: 20
 ---
 
 ISO27001 is an international certification.

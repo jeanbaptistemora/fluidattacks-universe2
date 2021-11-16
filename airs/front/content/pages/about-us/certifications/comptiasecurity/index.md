@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-comptia-security
 alt: Logo comptiasecurity
 certification: yes
-certificationid: 16
+certificationid: 18
 ---
 
 [CompTIA](https://www.comptia.org/certifications/security)
