@@ -3563,51 +3563,126 @@
       details: __empty__
 "060":
   en:
-    title: Insecure service configuration - Host verification
+    title: Insecure exceptions
     description: >
-      The system do not properly restrict
-      incoming conections from unknown external hosts
+      The system uses generic exceptions
+      as a mechanism to handle unexpected events.
+      Throwing and catching generic exceptions:
+
+      - Masks the original cause of the trouble,
+      hindering the log review in the presence of a security incident
+
+      - Defines a generic behaviour to all kinds of exceptions,
+      considering that some exceptions require a custom handling.
+
+      - Catches harmful or insecure exceptions
+      such as NullPointerException,
+      which may lead to DoS attacks.
     impact: >
-      Establish conections with untrusted machines
+      - Hinder the identification of the event source cause.
+
+      - Lead the application to an unstable state
+      when errors that cause unrecoverable states are generated.
+
     recommendation: >
-      Validate that incoming conections
-      come from trusted hosts
-      already defined in the known_hosts file
+      - Identify all possible types of exceptions
+      that the application may throw.
+
+      - Capture Specific and typified exceptions
+      and provide custom treatment to every exceptional event
+      (rollback, deauthentication, deauthorization, etc.)
+
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker
+      from the Internet.
   es:
-    title: Insecure service configuration - Host verification
+    title: Insecure exceptions
     description: >
-      El sistema no limita adecuadamente
-      las conexiones entrantes con hosts externos desconocidos.
+      El sistema utiliza excepciones genéricas
+      como mecanismo para manejar eventos inesperados.
+      Arrojar y capturar excepciones genéricas:
+
+      - Enmascara el origen del problema,
+      dificultando la revisión de los logs ante un incidente de seguridad.
+
+      - Define un comportamiento genérico para todos los tipos de excepciones
+      considerando que algunas excepciones requieren un manejo personalizado.
+
+      - Captura excepciones inseguras o dañinas
+      como NullPointerException, la cual puede desencadenar en DoS.
+
     impact: >
-      Establecer conexiones con máquinas
-      que no son de confianza
+      - Dificultar la identificación de la causa de los errores
+
+      - Llevar a la aplicación a un estado inestable
+      cuando se generen errores que causen estados irrecuperables
     recommendation: >
-      Validar que las conexiones entrantes
-      pertenezcan a un host de confianza
-      que ya esté definido en el archivo known_hosts
+      - Identificar todos los posibles tipos de excepciones
+      que la aplicación puede arrojar
+
+      - Capturar excepciones específicas y tipificadas
+      y proveer un tratamiento personalizado a cada evento excepcional
+      (rollback, deautenticación, deautorización, etc)
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado
+      desde Internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "L"
+      confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "P"
       remediation_level: "O"
       report_confidence: "C"
-  requirements: ["266"]
+  requirements: ["161" ,"266" ,"359"]
   metadata:
     en:
-      details: __empty__
+      details: |
+        ### Why
+
+        When capturing generic exceptions:
+
+        1. The complete error's traceability
+        is not obtained neither what it generated.
+        1. The errors do not receive a customized treatment.
+        1. When capturing generic exceptions,
+        dangerous exceptions like NullPointerException
+        could be captured too.
+        1. The capture's moment is not controlled,
+        an exception can occur in different moments
+        (in loadtime, when the code is tested,
+        when something unexpected occurs
+        in asyncronous operations with generic
+        or non-existent callbacks, etc).
+
+        Following links can support our points:
+
+        - [CWE-395](https://cwe.mitre.org/data/definitions/395.html)
+        - [CWE-396](https://cwe.mitre.org/data/definitions/396.html)
+        - [CWE-397](https://cwe.mitre.org/data/definitions/397.html)
+        - [ERR07-J. Do not throw RuntimeException, Exception, or Throwable](https://wiki.sei.cmu.edu/confluence/display/java/ERR07-J.+Do+not+throw+RuntimeException%2C+Exception%2C+or+Throwable)
+        - [Generic exceptions should never be thrown](https://rules.sonarsource.com/java/RSPEC-112)
+
+        The ideal thing to avoid these scenarios,
+        where generic exceptions are being captured,
+        is to use typified exceptions
+        together with dynamic tests where the coverage
+        of execution branches is being done.
+        This guarantees a proper handling
+        of all possible events.
+
+        Not all the reports necessarily have
+        a severe exploitation case,
+        where all the resources can be compromised.
+        This can be evidenced in its CVSS score
+        and the exploitability metric.
 "061":
   en:
     title: Remote File Inclusion
@@ -4350,33 +4425,25 @@
       details: __empty__
 "073":
   en:
-    title: Improper authorization control for web services - RDS
+    title: Free
     description: >
-      Some RDS instances can be publicly accessible,
-      which can compromise the stored information
+      __empty__
     impact: >
-      Obtain confidential information of the database
+      __empty__
     recommendation: >
-      Ensure that the relational databases
-      are accesible only by users and roles
-      authenticated and authorized
+      __empty__
     threat: >
-     Anonymous attacker on the Internet
+     __empty__
   es:
-    title: Improper authorization control for web services - RDS
+    title: Free
     description: >
-      Algunas instancias de RDS
-      pueden ser accedidas públicamente,
-      con lo cual es posible comprometer
-      la información allí almacenada
+      __empty__
     impact: >
-     Obtener información confidencial de la base de datos
+     __empty__.
     recommendation: >
-      Garantizar que las bases de datos relacionales
-      sean accesibles únicamente por usuarios
-      y roles autenticados y autorizados
+      __empty__
     threat: >
-      Atacante anónimo desde Internet
+      __empty__
   category: Abuse Functionality
   score:
     base:
@@ -4385,14 +4452,14 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "L"
+      confidentiality: "N"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "P"
-      remediation_level: "O"
-      report_confidence: "C"
-  requirements: ["096", "176", "265"]
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["161"]
   metadata:
     en:
       details: __empty__
@@ -6536,48 +6603,41 @@
       details: __empty__
 "109":
   en:
-    title: Unrestricted access between network segments - RDS
+    title: Free
     description: >
-      Some RDS Cluster or Instances
-      are not defined inside a Database Subnet Group
+      __empty__
     impact: >
-      Access to RDS services in a insecure way
-      from the Internet
+      __empty__
     recommendation: >
-      Ensure that all RDS instances
-      belong to a Database Subnet Group
+      __empty__
     threat: >
-      Authenticated attacker from the Internet
+      __empty__
   es:
     title: Free
     description: >
-      Algunos cluster o instancias de RDS
-      no se encuentran definidos
-      dentro de un Subnet Group para Bases de datos
+      __empty__
     impact: >
-      Acceder a los servicios de RDS
-      de forma insegura desde Internet
+      __empty__
     recommendation: >
-      Asegurar que todas las instancias de RDS
-      pertenezcan un Database Subnet Group
+      __empty__
     threat: >
-      Atacante autenticado desde Internet
+      __empty__
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "H"
+      privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "L"
-      integrity: "L"
-      availability: "L"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
     temporal:
-      exploit_code_maturity: "P"
-      remediation_level: "O"
-      report_confidence: "C"
-  requirements: ["255"]
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["158"]
   metadata:
     en:
       details: __empty__
@@ -14609,37 +14669,58 @@
   en:
     title: Non-encrypted confidential information - Credentials
     description: >
-      __empty__
+      The passwords are in plain text in
+      the source code of the application
+      allowing an attacker to view it
+      without any encryption.
     impact: >
-      __empty__
+      A user of the application can reverse
+      engineer and be able to view these keys.
     recommendation: >
-      __empty__
+      Verify that sensitive information, API
+      keys and passwords are not included
+      in the source code, nor in online
+      code repositories.
     threat: >
-      __empty__
+      A user with access to the application
+      can compromise the application's operations
+      since the application is storing access
+      passwords without any encryption or bypassing.
   es:
     title: Non-encrypted confidential information - Credentials
     description: >
-      __empty__
+      Las contraseñas se encuentran en plano
+      en el código fuente de la aplicación
+      permitiendo a un atacante visualizarla
+      sin ningún tipo de cifrado.
     impact: >
-      __empty__
+      Un usuario de la aplicación puede realizar
+      ingeniería inversa y poder visualizar estas claves.
     recommendation: >
-      __empty__
+      Verificar que información sensible,
+      llaves API y contraseñas no sean incluidas
+      en el código fuente, ni en repositorios
+      en línea de código.
     threat: >
-      __empty__
+      Un usuario con acceso a la aplicación
+      puede comprometer las operaciones de
+      la aplicación ya que esta se está tiene
+      almacenadas las contraseñas de acceso sin
+      ningún tipo de cifrado o derivación.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["134","135","185","229","264","300"]
   metadata:
@@ -15440,113 +15521,84 @@
       details: __empty__
 "266":
   en:
-    title: Excessive Privieleges - Docker
+    title: Free
     description: >
-      The containers executed in the application
-      do not properly restrict the privileges of the users,
-      executing tasks with root user
-      instead of a custom user.
+      __empty__
     impact: >
-      Gain total control of the container
+      __empty__
     recommendation: >
-      - Restrict the privileges of the user
-      that execute instructions inside the container
-
-      - Avoid the use of the root user
-      as default user
-    threat: >
-      Authenticated attacker with local access to the container
-  es:
-    title: Excessive Privieleges - Docker
-    description: >
-      Los contenedores ejecutados en la aplicación
-      no limitan los permisos de los usuarios
-      ejecutando tareas como un usuario root
-      en lugar de un usuario personalizado.
-    impact: >
-      Obtener control total del contenedor
-      con el usuario por defecto
-    recommendation: >
-      - Limitar los permisos del usuario
-      con el que se ejecuta las instrucciones del contenedor
-
-      - Evitar utilizar el usuario root
-      como usuario por defecto
-    threat: >
-      Atacante autenticado con acceso local al contedor
-  category: Collect Information
-  score:
-    base:
-      attack_vector: "L"
-      attack_complexity: "L"
-      privileges_required: "L"
-      user_interaction: "N"
-      scope: "U"
-      confidentiality: "L"
-      integrity: "L"
-      availability: "L"
-    temporal:
-      exploit_code_maturity: "P"
-      remediation_level: "O"
-      report_confidence: "C"
-  requirements: ["095", "096", "186"]
-  metadata:
-    en:
-      details: https://docs.docker.com/engine/reference/builder/#user
-"267":
-  en:
-    title: Excessive Privieleges - Kubernetes
-    description: >
-      Kubernetes default configuration
-      is overly permissive,
-      allowing users to escalate privileges
-      or execute commands as privileged users
-    impact: >
-      Gain total control over one or more PoDs
-    recommendation: >
-      Set strict security policy
-      disabling potentially harmful actions
-      and restricting the user permissions
+      __empty__
     threat: >
       __empty__
   es:
-    title: Excessive Privieleges - Kubernetes
+    title: Free
     description: >
-      La configuración por defecto de Kubernetes
-      es demasiado permisiva,
-      permitiendo a los usuarios elevar privilegios
-      o ejecutar comandos como usuarios con privilegios
-      administrativos
+      __empty__
     impact: >
-      Obtener control total de uno o más contenedores
+      __empty__
     recommendation: >
-      Establecer políticas de seguridad estrictas
-      en los Pods, restringiendo acciones potencialmente peligrosas
-      y limitando los permisos de los usuarios
+      __empty__
     threat: >
-      Atacante autenticado con acceso local al Pod
-      o contenedor
-  category: Abuse Functionality
+      __empty__
+  category: Collect Information
   score:
     base:
-      attack_vector: "L"
+      attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "L"
+      privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "L"
+      confidentiality: "N"
       integrity: "L"
-      availability: "L"
+      availability: "N"
     temporal:
-      exploit_code_maturity: "P"
-      remediation_level: "O"
-      report_confidence: "C"
-  requirements: ["095", "096", "186"]
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["148", "149", "150", "181" ,"336"]
   metadata:
     en:
-      details: >
-        https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted
-        https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+      details: __empty__
+"267":
+  en:
+    title: Free
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  es:
+    title: Free
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Collect Information
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["148", "149", "150", "181" ,"336"]
+  metadata:
+    en:
+      details: __empty__
 "268":
   en:
     title: Free
@@ -17483,37 +17535,66 @@
   en:
     title: Inappropriate coding practices - Performance
     description: >
-      __empty__
+      Within the code there are unsafe statements
+      using a lot of machine resources, which affects
+      the performance and response time of the application.
+      Early Java API classes, such as Vector, Hashtable
+      and StringBuffer, were synchronized to make
+      them thread-safe.
+      Unfortunately, synchronization has a major negative
+      impact on performance, even when using these
+      collections from a single thread.
     impact: >
-      __empty__
+      User from the application.
     recommendation: >
-      __empty__
+      Use the libraries that allow to execute the
+      functions of concatenation and storage in
+      collections in an optimized way (ArrayList
+      and StringBuilder or SyncronizedList).
     threat: >
-      __empty__
+      A user can make requests to the system that
+      may affect process performance and response
+      times, since the system does not make use of
+      the most optimal components and libraries.
   es:
     title: Inappropriate coding practices - Performance
     description: >
-      __empty__
+      Dentro del código existen sentencias inseguras
+      usando muchos recursos de la máquina, lo cual
+      afecta el rendimiento y el tiempo de respuesta
+      de la aplicación.
+      Las primeras clases de la API de Java, como Vector,
+      Hashtable y StringBuffer, se sincronizaron para
+      hacerlas seguras para subprocesos.
+      Desafortunadamente, la sincronización tiene un
+      gran impacto negativo en el rendimiento, incluso
+      cuando se usan estas colecciones desde un solo hilo.
     impact: >
-      __empty__
+      Usuario de la aplicación.
     recommendation: >
-      __empty__
+      Utilizar las librerías que permiten ejecutar
+      las funciones de concatenado y almacenamiento
+      en colecciones de manera optimizada (ArrayList
+      y StringBuilder o SyncronizedList).
     threat: >
-      __empty__
+      Un usuario puede realizar peticiones al sistema
+      que puedan afectar el desempeño de procesos y
+      tiempos de respuesta, ya que el sistema no hace
+      uso de los componentes y librerías más óptimos.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["158"]
   metadata:
