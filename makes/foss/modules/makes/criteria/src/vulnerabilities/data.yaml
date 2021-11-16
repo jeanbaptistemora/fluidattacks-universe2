@@ -17502,37 +17502,66 @@
   en:
     title: Inappropriate coding practices - Performance
     description: >
-      __empty__
+      Within the code there are unsafe statements using
+      a lot of machine resources, which affects the
+      performance and response time of the application.
+      Early Java API classes, such as Vector,
+      Hashtable and StringBuffer, were synchronized
+      to make them thread-safe.
+      Unfortunately, synchronization has a major negative
+      impact on performance, even when using these
+      collections from a single thread.
     impact: >
-      __empty__
+      Application user.
     recommendation: >
-      __empty__
+      Use the libraries that allow to execute the
+      functions of concatenation and storage in
+      collections in an optimized way (ArrayList
+      and StringBuilder or SyncronizedList).
     threat: >
-      __empty__
+      A user can make requests to the system that
+      may affect process performance and response
+      times, since the system does not make use of
+      the most optimal components and libraries.
   es:
     title: Inappropriate coding practices - Performance
     description: >
-      __empty__
+      Dentro del código existen sentencias inseguras
+      usando muchos recursos de la máquina, lo cual
+      afecta el rendimiento y el tiempo de respuesta
+      de la aplicación.
+      Las primeras clases de la API de Java, como
+      Vector, Hashtable y StringBuffer, se sincronizaron
+      para hacerlas seguras para subprocesos.
+      Desafortunadamente, la sincronización tiene un
+      gran impacto negativo en el rendimiento, incluso
+      cuando se usan estas colecciones desde un solo hilo.
     impact: >
-      __empty__
+      Usuario de la aplicación.
     recommendation: >
-      __empty__
+      Utilizar las librerías que permiten ejecutar
+      las funciones de concatenado y almacenamiento
+      en colecciones de manera optimizada (ArrayList
+      y StringBuilder o SyncronizedList).
     threat: >
-      __empty__
+      Un usuario puede realizar peticiones al sistema
+      que puedan afectar el desempeño de procesos y
+      tiempos de respuesta, ya que el sistema no hace
+      uso de los componentes y librerías más óptimos.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["158"]
   metadata:
