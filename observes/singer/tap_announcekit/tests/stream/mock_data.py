@@ -39,6 +39,10 @@ from tap_announcekit.objs.post.content import (
 from tap_announcekit.objs.project import (
     Project,
 )
+from tap_announcekit.objs.segment import (
+    SegmentField,
+    SegmentProfile,
+)
 from tap_announcekit.objs.widget import (
     Widget,
 )
@@ -169,3 +173,6 @@ mock_label_obj = IndexedObj(
     LabelId(mock_proj_id, "label1"),
     Label("fix", "red"),
 )
+
+mock_segment_field = SegmentField(mock_proj_id, "the_field")
+mock_segment_prof = SegmentProfile(mock_proj_id, "title1", "rule1")

@@ -183,3 +183,16 @@ mock_labels = {
         }
     ]
 }
+
+mock_segments = {
+    "segments": [
+        "foo1",
+        "foo2",
+    ]
+}
+mock_segments_prof = {
+    "segmentProfiles": [
+        {"title": "All Users", "rules": "rule1"},
+        {"title": "Some Users", "rules": "rule2"},
+    ]
+}
