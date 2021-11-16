@@ -18139,37 +18139,55 @@
   en:
     title: Insecure service configuration - CloudDB
     description: >
-      __empty__
+      Sensitive information stored in the source code.
+      It is determined that non-JSON Apache Lucene
+      queries are enabled on the Cloudant database server.
     impact: >
-      __empty__
+      Obtain information from the logs in the database,
+      which in turn contain sensitive user data.
     recommendation: >
-      __empty__
+      - Securely configure the vulnerable service so
+      that it can only be accessed by authorized users.
+
+      - Disable queries via Query Parser.
     threat: >
-      __empty__
+      Authorized attacker using the credentials stored
+      in the source code from the Internet.
   es:
     title: Insecure service configuration - CloudDB
     description: >
-      __empty__
+      Información sensible almacenada en
+      el código fuente.
+      Se logra determinar que las consultas Apache
+      Lucene no-JSON están habilitadas en el servidor
+      de base de datos de Cloudant.
     impact: >
-      __empty__
+      Obtener información de los logs en la base de
+      datos, que a su vez contienen datos sensibles
+      del usuario.
     recommendation: >
-      __empty__
+      - Configurar de manera segura el servicio
+      vulnerable permitiendo así que solo sea
+      accedido por usuarios autorizados.
+
+      - Deshabilitar las consultas vía Query Parser.
     threat: >
-      __empty__
+      Atacante autorizado usando las credenciales
+      que yacen en el código fuente desde Internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "H"
       integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
