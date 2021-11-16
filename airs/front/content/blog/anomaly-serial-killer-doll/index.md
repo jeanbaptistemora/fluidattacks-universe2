@@ -215,7 +215,7 @@ not free of false positives and also that it doesn’t pretend to replace
 human auditing, only to accelerate it by aiding us in not having to
 review code that is most likely safe.
 
-# References
+## References
 
 1. F. Yamaguchi, C. Wressneger, H. Gascon, K. Rieck (2013). [*Chucky:
     exposing missing checks in source code for vulnerability

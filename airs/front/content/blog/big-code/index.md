@@ -266,7 +266,7 @@ do in terms of repetitions and scalability, as of yet, they do not have
 the malice or creativity which humans have in finding critical and
 interesting security vulnerabilities.
 
-# References
+## References
 
 1. V. Raychev. 2018. [DeepCode releases the first practical anomaly bug
     detector](https://medium.com/deepcode-ai/deepcode-releases-the-first-practical-anomaly-bug-detector-32bebc8cdf57).

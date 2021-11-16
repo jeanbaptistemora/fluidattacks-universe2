@@ -162,7 +162,7 @@ that was done randomly in this study. However, as was their purpose,
 they managed to show that it is actually feasible to learn to search for
 vulnerabilities in binaries at the operating sytem scale.
 
-# References
+## References
 
 1. G. Grieco, G. Grinblat, L. Uzal, S. Rawat, J. Feist, L. Mounier
     (2015). [*Toward large-scale vulnerability discovery using machine
