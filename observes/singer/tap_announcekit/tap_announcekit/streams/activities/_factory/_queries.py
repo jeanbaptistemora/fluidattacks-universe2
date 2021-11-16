@@ -46,6 +46,7 @@ class ActivitiesQuery:
             page=self.page,
         )
         items = page_selection.items()
+        items.id()
         return select_page_fields(page_selection).bind(
             lambda _: select_fields(items, frozenset(Activity.__annotations__))
         )
