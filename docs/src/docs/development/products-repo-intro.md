@@ -81,7 +81,7 @@ just run `$ rm -rf ~/.makes`.
 
 - A stable internet connection is required
 - A stable DNS resolver is required.
-  Please consider using:
+  Please consider using the following:
     - IPv4: `1.1.1.1`, `8.8.8.8`, `8.8.4.4`
     - IPv6: `2001:4860:4860::8888`, `2001:4860:4860::8844`
 
