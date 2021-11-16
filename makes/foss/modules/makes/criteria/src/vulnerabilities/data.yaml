@@ -17571,29 +17571,41 @@
   en:
     title: Security controls bypass or absence - Data creation
     description: >
-      __empty__
+      It is possible to bypass the restriction that
+      only allows the creation of four beneficiaries
+      when generating a policy, allowing the generation
+      of multiple beneficiaries associated to a request,
+      affecting the integrity of the data sent.
     impact: >
-      __empty__
+      Associate multiple users without restriction.
     recommendation: >
-      __empty__
+      Validate on the server side the types of data
+      that are entered into different types of
+      fields in the application.
     threat: >
-      __empty__
+      Authenticated attacker from the Internet.
   es:
     title: Security controls bypass or absence - Data creation
     description: >
-      __empty__
+      Es posible saltar la restricción que solo permite
+      crear cuatro beneficiarios cuando se esta generando
+      una póliza, permitiendo generar múltiples beneficiarios
+      asociados a una solicitud, afectando la integridad
+      de los datos enviados.
     impact: >
-      __empty__
+      Asociar múltiples usuarios sin restricción.
     recommendation: >
-      __empty__
+      Validar en el lado del servidor los tipos
+      de datos que se ingresan a distintos tipos
+      de campos en la aplicación.
     threat: >
-      __empty__
+      Atacante autenticado desde Internet.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
@@ -17602,7 +17614,7 @@
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "R"
   requirements: ["062","266"]
   metadata:
     en:
