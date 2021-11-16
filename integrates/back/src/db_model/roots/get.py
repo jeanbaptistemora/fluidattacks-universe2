@@ -163,7 +163,7 @@ async def _get_root(
 
     index = TABLE.indexes["inverted_index"]
     key_structure = index.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.sort_key)
             & Key(key_structure.sort_key).begins_with(
@@ -184,12 +184,12 @@ async def _get_root(
         table=TABLE,
     )
 
-    if results:
+    if response.items:
         return _build_root(
             group_name=group_name,
             item_id=primary_key.partition_key,
             key_structure=key_structure,
-            raw_items=results,
+            raw_items=response.items,
         )
 
     raise RootNotFound()
@@ -214,7 +214,7 @@ async def _get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
 
     index = TABLE.indexes["inverted_index"]
     key_structure = index.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.sort_key)
             & Key(key_structure.sort_key).begins_with(
@@ -236,7 +236,7 @@ async def _get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     )
 
     root_items = defaultdict(list)
-    for item in results:
+    for item in response.items:
         root_id = "#".join(item[key_structure.sort_key].split("#")[:2])
         root_items[root_id].append(item)
 
@@ -268,7 +268,7 @@ async def _get_historic_state(*, root_id: str) -> Tuple[RootState, ...]:
     )
 
     key_structure = TABLE.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
@@ -289,7 +289,7 @@ async def _get_historic_state(*, root_id: str) -> Tuple[RootState, ...]:
             reason=state.get("reason"),
             status=state["status"],
         )
-        for state in results
+        for state in response.items
     )
 
 

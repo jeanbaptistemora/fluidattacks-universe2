@@ -56,3 +56,13 @@ class GroupMetadata(NamedTuple):
     description: str
     language: str
     agent_token: Optional[str] = None
+
+
+class PageInfo(NamedTuple):
+    has_next_page: bool
+    end_cursor: str
+
+
+class QueryResponse(NamedTuple):
+    items: Tuple[Item, ...]
+    page_info: PageInfo

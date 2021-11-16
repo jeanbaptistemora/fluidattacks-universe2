@@ -33,7 +33,7 @@ async def _get_toe_inputs_by_group(group_name: str) -> Tuple[ToeInput, ...]:
     )
     key_structure = TABLE.primary_key
     inputs_key = primary_key.sort_key.split("#")[0]
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(inputs_key)
@@ -43,7 +43,8 @@ async def _get_toe_inputs_by_group(group_name: str) -> Tuple[ToeInput, ...]:
         table=TABLE,
     )
     return tuple(
-        format_toe_input(group_name=group_name, item=item) for item in results
+        format_toe_input(group_name=group_name, item=item)
+        for item in response.items
     )
 
 

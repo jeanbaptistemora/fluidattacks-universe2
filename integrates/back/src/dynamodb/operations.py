@@ -25,7 +25,9 @@ from dynamodb.types import (
     Facet,
     Index,
     Item,
+    PageInfo,
     PrimaryKey,
+    QueryResponse,
     Table,
 )
 from itertools import (
@@ -202,7 +204,7 @@ async def query(
     filter_expression: Optional[ConditionBase] = None,
     index: Optional[Index] = None,
     table: Table,
-) -> Tuple[Item, ...]:
+) -> QueryResponse:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
         query_args = _build_query_args(
@@ -224,7 +226,11 @@ async def query(
                 items += response.get("Items", [])
         except ClientError as error:
             handle_error(error=error)
-    return tuple(items)
+
+    return QueryResponse(
+        items=tuple(items),
+        page_info=PageInfo(has_next_page=False, end_cursor=""),
+    )
 
 
 @newrelic.agent.function_trace()

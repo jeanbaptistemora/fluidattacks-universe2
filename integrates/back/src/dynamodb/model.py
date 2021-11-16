@@ -75,7 +75,7 @@ async def get_org_finding_policy(
 
     index = TABLE.indexes["inverted_index"]
     key_structure = index.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.sort_key)
             & Key(key_structure.sort_key).begins_with(
@@ -90,12 +90,12 @@ async def get_org_finding_policy(
         table=TABLE,
     )
 
-    if results:
+    if response.items:
         return _build_org_policy_finding(
             org_name=org_name,
             item_id=primary_key.partition_key,
             key_structure=key_structure,
-            raw_items=results,
+            raw_items=response.items,
         )
 
     return None
@@ -111,7 +111,7 @@ async def get_org_finding_policies(
 
     index = TABLE.indexes["inverted_index"]
     key_structure = index.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.sort_key)
             & Key(key_structure.sort_key).begins_with(
@@ -127,7 +127,7 @@ async def get_org_finding_policies(
     )
 
     org_findings_policies_items = defaultdict(list)
-    for item in results:
+    for item in response.items:
         finding_policy_id = "#".join(
             item[key_structure.sort_key].split("#")[:2]
         )
@@ -240,7 +240,7 @@ async def get_agent_token(*, group_name: str) -> Optional[str]:
         values={"name": group_name},
     )
     key_structure = TABLE.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
@@ -248,7 +248,7 @@ async def get_agent_token(*, group_name: str) -> Optional[str]:
         facets=(TABLE.facets["group_metadata"],),
         table=TABLE,
     )
-    if results:
-        return results[0]["agent_token"]
+    if response.items:
+        return response.items[0]["agent_token"]
 
     return None

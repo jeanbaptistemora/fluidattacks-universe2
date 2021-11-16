@@ -43,7 +43,7 @@ async def _get_finding(*, vulnerability_id: str) -> str:
         values={"id": vulnerability_id},
     )
     key_structure = TABLE.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
@@ -51,14 +51,14 @@ async def _get_finding(*, vulnerability_id: str) -> str:
         facets=(TABLE.facets["vulnerability_metadata"],),
         table=TABLE,
     )
-    if not results:
+    if not response.items:
         raise VulnNotFound()
     inverted_index = TABLE.indexes["inverted_index"]
     inverted_key_structure = inverted_index.primary_key
     metadata = historics.get_metadata(
         item_id=primary_key.partition_key,
         key_structure=inverted_key_structure,
-        raw_items=results,
+        raw_items=response.items,
     )
 
     return metadata[inverted_key_structure.partition_key].split("#")[1]
@@ -74,7 +74,7 @@ async def _get_vulnerability(*, vulnerability_id: str) -> Vulnerability:
 
     index = TABLE.indexes["inverted_index"]
     key_structure = index.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.sort_key)
             & Key(key_structure.sort_key).begins_with(
@@ -92,13 +92,13 @@ async def _get_vulnerability(*, vulnerability_id: str) -> Vulnerability:
         table=TABLE,
     )
 
-    if not results:
+    if not response.items:
         raise VulnNotFound()
 
     return format_vulnerability(
         item_id=primary_key.partition_key,
         key_structure=key_structure,
-        raw_items=results,
+        raw_items=response.items,
     )
 
 
@@ -111,7 +111,7 @@ async def _get_historic_state(
         values={"id": vulnerability_id},
     )
     key_structure = TABLE.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
@@ -119,7 +119,7 @@ async def _get_historic_state(
         facets=(TABLE.facets["vulnerability_historic_state"],),
         table=TABLE,
     )
-    return tuple(map(format_state, results))
+    return tuple(map(format_state, response.items))
 
 
 async def _get_historic_treatment(
@@ -131,7 +131,7 @@ async def _get_historic_treatment(
         values={"id": vulnerability_id},
     )
     key_structure = TABLE.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
@@ -139,7 +139,7 @@ async def _get_historic_treatment(
         facets=(TABLE.facets["vulnerability_historic_treatment"],),
         table=TABLE,
     )
-    return tuple(map(format_treatment, results))
+    return tuple(map(format_treatment, response.items))
 
 
 async def _get_historic_verification(
@@ -151,7 +151,7 @@ async def _get_historic_verification(
         values={"id": vulnerability_id},
     )
     key_structure = TABLE.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
@@ -159,7 +159,7 @@ async def _get_historic_verification(
         facets=(TABLE.facets["vulnerability_historic_verification"],),
         table=TABLE,
     )
-    return tuple(map(format_verification, results))
+    return tuple(map(format_verification, response.items))
 
 
 async def _get_historic_zero_risk(
@@ -171,7 +171,7 @@ async def _get_historic_zero_risk(
         values={"id": vulnerability_id},
     )
     key_structure = TABLE.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
@@ -179,7 +179,7 @@ async def _get_historic_zero_risk(
         facets=(TABLE.facets["vulnerability_historic_zero_risk"],),
         table=TABLE,
     )
-    return tuple(map(format_zero_risk, results))
+    return tuple(map(format_zero_risk, response.items))
 
 
 class VulnNewLoader(DataLoader):

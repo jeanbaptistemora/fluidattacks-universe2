@@ -92,7 +92,7 @@ async def update_historic_verification(  # pylint: disable=too-many-locals
         facet=TABLE.facets["finding_historic_verification"],
         values={"id": finding_id},
     )
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
@@ -108,7 +108,7 @@ async def update_historic_verification(  # pylint: disable=too-many-locals
                 "id": finding_id,
             },
         )
-        for item in results
+        for item in response.items
     }
     verification_items = []
     verification_keys = set()

@@ -23,7 +23,7 @@ async def remove(*, group_name: str, finding_id: str) -> None:
         values={"group_name": group_name, "id": finding_id},
     )
     index = TABLE.indexes["inverted_index"]
-    items = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(index.primary_key.partition_key).eq(primary_key.sort_key)
             & Key(index.primary_key.sort_key).begins_with(
@@ -51,7 +51,7 @@ async def remove(*, group_name: str, finding_id: str) -> None:
                     f"REMOVED#{item[TABLE.primary_key.partition_key]}"
                 ),
             }
-            for item in items
+            for item in response.items
         ),
         table=TABLE,
     )
@@ -61,7 +61,7 @@ async def remove(*, group_name: str, finding_id: str) -> None:
                 partition_key=item[TABLE.primary_key.partition_key],
                 sort_key=item[TABLE.primary_key.sort_key],
             )
-            for item in items
+            for item in response.items
         ),
         table=TABLE,
     )

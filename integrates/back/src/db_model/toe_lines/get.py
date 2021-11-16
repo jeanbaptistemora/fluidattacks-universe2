@@ -41,7 +41,7 @@ async def _get_toe_lines(
         },
     )
     key_structure = TABLE.primary_key
-    items = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).eq(primary_key.sort_key)
@@ -49,9 +49,9 @@ async def _get_toe_lines(
         facets=(TABLE.facets["toe_lines_metadata"],),
         table=TABLE,
     )
-    if not items:
+    if not response.items:
         raise ToeLinesNotFound()
-    return format_toe_lines(item=items[0])
+    return format_toe_lines(item=response.items[0])
 
 
 class ToeLinesLoader(DataLoader):
@@ -71,7 +71,7 @@ async def _get_toe_lines_by_group(
     )
     key_structure = TABLE.primary_key
     lines_key = primary_key.sort_key.split("#")[0]
-    items = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(lines_key)
@@ -79,7 +79,7 @@ async def _get_toe_lines_by_group(
         facets=(TABLE.facets["toe_lines_metadata"],),
         table=TABLE,
     )
-    return tuple(format_toe_lines(item=item) for item in items)
+    return tuple(format_toe_lines(item=item) for item in response.items)
 
 
 class GroupToeLinesLoader(DataLoader):
@@ -98,7 +98,7 @@ async def _get_toe_lines_by_root(
         values={"group_name": group_name, "root_id": root_id},
     )
     key_structure = TABLE.primary_key
-    items = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
@@ -106,7 +106,7 @@ async def _get_toe_lines_by_root(
         facets=(TABLE.facets["toe_lines_metadata"],),
         table=TABLE,
     )
-    return tuple(format_toe_lines(item=item) for item in items)
+    return tuple(format_toe_lines(item=item) for item in response.items)
 
 
 class RootToeLinesLoader(DataLoader):

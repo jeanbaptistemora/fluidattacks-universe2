@@ -49,7 +49,7 @@ async def _get_finding(*, group_name: str, finding_id: str) -> Finding:
 
     index = TABLE.indexes["inverted_index"]
     key_structure = index.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.sort_key)
             & Key(key_structure.sort_key).begins_with(
@@ -69,13 +69,13 @@ async def _get_finding(*, group_name: str, finding_id: str) -> Finding:
         table=TABLE,
     )
 
-    if not results:
+    if not response.items:
         raise FindingNotFound()
 
     return format_finding(
         item_id=primary_key.partition_key,
         key_structure=key_structure,
-        raw_items=results,
+        raw_items=response.items,
     )
 
 
@@ -88,7 +88,7 @@ async def _get_drafts_and_findings_by_group(
     )
     index = TABLE.indexes["inverted_index"]
     key_structure = index.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.sort_key)
             & Key(key_structure.sort_key).begins_with(
@@ -108,7 +108,7 @@ async def _get_drafts_and_findings_by_group(
         table=TABLE,
     )
     finding_items = defaultdict(list)
-    for item in results:
+    for item in response.items:
         finding_id = "#".join(item[key_structure.sort_key].split("#")[:2])
         finding_items[finding_id].append(item)
 
@@ -186,7 +186,7 @@ async def _get_group(*, finding_id: str) -> str:
         values={"id": finding_id},
     )
     key_structure = TABLE.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
@@ -194,14 +194,14 @@ async def _get_group(*, finding_id: str) -> str:
         facets=(TABLE.facets["finding_metadata"],),
         table=TABLE,
     )
-    if not results:
+    if not response.items:
         raise FindingNotFound()
     inverted_index = TABLE.indexes["inverted_index"]
     inverted_key_structure = inverted_index.primary_key
     metadata = historics.get_metadata(
         item_id=primary_key.partition_key,
         key_structure=inverted_key_structure,
-        raw_items=results,
+        raw_items=response.items,
     )
 
     return metadata["group_name"]
@@ -230,7 +230,7 @@ async def _get_historic_verification(
         values={"id": finding_id},
     )
     key_structure = TABLE.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
@@ -238,7 +238,7 @@ async def _get_historic_verification(
         facets=(TABLE.facets["finding_historic_verification"],),
         table=TABLE,
     )
-    return tuple(map(format_verification, results))
+    return tuple(map(format_verification, response.items))
 
 
 class FindingHistoricVerificationLoader(DataLoader):
@@ -257,7 +257,7 @@ async def _get_historic_state(finding_id: str) -> Tuple[FindingState, ...]:
         values={"id": finding_id},
     )
     key_structure = TABLE.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
@@ -265,7 +265,7 @@ async def _get_historic_state(finding_id: str) -> Tuple[FindingState, ...]:
         facets=(TABLE.facets["finding_historic_state"],),
         table=TABLE,
     )
-    return tuple(map(format_state, results))
+    return tuple(map(format_state, response.items))
 
 
 class FindingHistoricStateLoader(DataLoader):
@@ -285,7 +285,7 @@ async def _get_removed_findings_by_group(
     )
     index = TABLE.indexes["inverted_index"]
     key_structure = index.primary_key
-    results = await operations.query(
+    response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.sort_key)
             & Key(key_structure.sort_key).begins_with(
@@ -305,7 +305,7 @@ async def _get_removed_findings_by_group(
         table=TABLE,
     )
     finding_items = defaultdict(list)
-    for item in results:
+    for item in response.items:
         finding_id = "#".join(item[key_structure.sort_key].split("#")[:3])
         finding_items[finding_id].append(item)
 
