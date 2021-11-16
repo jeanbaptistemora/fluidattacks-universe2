@@ -17364,29 +17364,39 @@
   en:
     title: Concurrent sessions control bypass
     description: >
-      __empty__
+      It is possible to bypass concurrent
+      session control by going to any valid
+      URL in the application when the error
+      that there is already a session started appears.
     impact: >
-      __empty__
+      Concurrent access to the application with
+      the same user causing loss of traceability.
     recommendation: >
-      __empty__
+      Immediately invalidate previous session
+      when logging in from a new location.
     threat: >
-      __empty__
+      Malicious actor from intranet.
   es:
     title: Concurrent sessions control bypass
     description: >
-      __empty__
+      Es posible saltarse el control de sesiones
+      concurrentes yendo a cualquier URL válida
+      de la aplicación al aparecer el error de
+      que ya hay una sesión iniciada.
     impact: >
-      __empty__
+      Acceder concurrentemente a la aplicación con
+      un mismo usuario ocasionando pérdida de trazabilidad.
     recommendation: >
-      __empty__
+      Invalidar inmediatamente sesión anterior
+      al loguearse desde una nueva ubicación.
     threat: >
-      __empty__
+      Actor malicioso desde intranet.
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
