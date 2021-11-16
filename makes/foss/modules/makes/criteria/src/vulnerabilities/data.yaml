@@ -16881,27 +16881,41 @@
   en:
     title: Inappropriate coding practices - Public variables
     description: >
-      __empty__
+      The code presents several classes whose
+      variables are declared as public.
     impact: >
       __empty__
     recommendation: >
-      __empty__
+      Unless strictly necessary, all variables
+      should be declared as private.
     threat: >
-      __empty__
+      An attacker can exploit the use of public
+      variables in the code by accessing them
+      through classes external to the application
+      in order to modify the values of these
+      variables and compromise the integrity
+      of the application.
   es:
     title: Inappropriate coding practices - Public variables
     description: >
-      __empty__
+      El código presenta varias clases cuyas
+      variables están declaradas como públicas.
     impact: >
       __empty__
     recommendation: >
-      __empty__
+      A no ser que sea estrictamente necesario,
+      todas las variables deben ser declaradas
+      como privadas.
     threat: >
-      __empty__
+      Un atacante puede aprovechar el uso de variables
+      públicas en el código accediendo a estás a través
+      de clases externas a la aplicación con el fin de
+      modificar los valores de dichas variables y
+      comprometer la integridad de la aplicación.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
@@ -16910,8 +16924,8 @@
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["158"]
   metadata:
@@ -16921,37 +16935,61 @@
   en:
     title: Insecure service configuration - Key pair
     description: >
-      __empty__
+      The credentials to access the Key pair
+      are the same to access the Keystore,
+      good practices with respect to containers
+      recommend that they are different because
+      in case one is compromised not both are
+      compromised keytool -genkey, -keyalg RSA,
+      -alias opkeystore, -keypass Kpassword,
+      -keystore opkeystore.jks, -storepass Spassword,
+      - validity 365.
+      The Kpassword must be different from the Spassword.
     impact: >
-      __empty__
+      Attacker in adjacent network.
     recommendation: >
-      __empty__
+      Implement best practices in cryptographic systems
+      Recommendation for Cryptographic Key Generation.
     threat: >
-      __empty__
+      If the keys of the keystore are the same
+      as those of the key pair in case they are
+      compromised you will have access to the files.
   es:
     title: Insecure service configuration - Key pair
     description: >
-      __empty__
+      Las credenciales de acceso al key pair son
+      las mismas para acceder al keystore, las buenas
+      prácticas con respecto a los contenedores
+      recomiendan que sean diferentes ya que en caso
+      de que se comprometa una no se comprometa ambas,
+      keytool -genkey, -keyalg RSA, -alias opkeystore,
+      -keypass Kpassword, -keystore opkeystore.jks,
+      -storepass Spassword, - validity 365.
+      El Kpassword debe ser diferente al Spassword.
     impact: >
-      __empty__
+      Atacante en red adyancente.
     recommendation: >
-      __empty__
+      Implementar buenas prácticas en cuanto a
+      sistemas criptográficos Recommendation for
+      Cryptographic Key Generation.
     threat: >
-      __empty__
+      Si las llaves del keystore son las mismas
+      que del key pair en caso de que se comprometan
+      se tendrá acceso a los archivos.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
