@@ -17207,33 +17207,53 @@
   en:
     title: Authentication mechanism absence or evasion - Redirect
     description: >
-      __empty__
+      An attacker can gain access to the application
+      by knowing a valid username by changing the
+      redirect with which the server responds.
     impact: >
-      __empty__
+      - Attacker knows a valid user.
+
+      - Attacker changes the redirect and
+      accesses the application.
     recommendation: >
-      __empty__
+      Put in place for every resource with
+      business-critical functionality a strong
+      authentication process and ensure that
+      every user attempting to access it is
+      logged in.
     threat: >
-      __empty__
+      Probability of an unauthorized attacker bypassing the authentication process by changing the page redirection and thus gaining access to the application's functionality.
   es:
     title: Authentication mechanism absence or evasion - Redirect
     description: >
-      __empty__
+      Un atacante puede ganar acceso a la aplicación
+      conociendo un nombre de usuario válido cambiando
+      la redirección con la que responde el servidor.
     impact: >
-      __empty__
+      - Atacante conoce un usuario válido.
+
+      - Atacante cambia la redirección
+      y accede a la aplicación.
     recommendation: >
-      __empty__
+      Poner para todo recurso con una funcionalidad
+      crítica para el negocio un proceso de autenticación
+      fuerte y asegurarse de que cada usuario que
+      intente acceder tenga una sesión iniciada.
     threat: >
-      __empty__
+      Probabilidad de que un atacante no autorizado
+      evite el proceso de autenticación cambiando la
+      redirección de la página y así logre acceder a
+      las funcionalidades de la aplicación.
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "H"
+      integrity: "H"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
