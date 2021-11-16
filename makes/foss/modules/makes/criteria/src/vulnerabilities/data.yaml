@@ -17056,33 +17056,41 @@
   en:
     title: Insecure session management - Change Password
     description: >
-      __empty__
+      After a password change the
+      session remains open.
     impact: >
-      __empty__
+      Keep the control of an account
+      whose session has been compromised.
     recommendation: >
-      __empty__
+      The open session must be closed
+      after a password change process.
     threat: >
-      __empty__
+      Unauthorized user from the Internet
+      with access to a user's session.
   es:
     title: Insecure session management - Change Password
     description: >
-      __empty__
+      Luego de un cambio de contraseña
+      la sesión continúa abierta.
     impact: >
-      __empty__
+      Conservar el control de una cuenta
+      cuya sesión ha sido comprometida.
     recommendation: >
-      __empty__
+      La sesión abierta se debe cerrar luego
+      de un proceso de cambio de contraseña.
     threat: >
-      __empty__
+      Usuario no autorizado desde internet
+      con acceso a la sesión de un usuario.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
