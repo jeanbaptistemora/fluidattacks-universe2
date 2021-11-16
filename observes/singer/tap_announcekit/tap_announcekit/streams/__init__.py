@@ -10,6 +10,9 @@ from tap_announcekit.streams.feedback import (
 from tap_announcekit.streams.feeds import (
     FeedStreams,
 )
+from tap_announcekit.streams.labels import (
+    LabelStreams,
+)
 from tap_announcekit.streams.post_contents import (
     PostContentStreams,
 )
@@ -32,4 +35,5 @@ __all__ = [
     "PostContentStreams",
     "ProjectStreams",
     "WidgetStreams",
+    "LabelStreams",
 ]

@@ -26,16 +26,16 @@ from tap_announcekit.streams.labels._factory import (
 
 
 @dataclass(frozen=True)
-class FeedStreams:
-    client: ApiClient
-    _name: str = "feed"
+class LabelStreams:
+    _client: ApiClient
+    _name: str
 
     def stream(
         self,
         proj: ProjectId,
     ) -> StreamIO:
         # pylint: disable=unnecessary-lambda
-        factory = LabelFactory(self.client)
+        factory = LabelFactory(self._client)
         encoder = LabelObjEncoders(self._name)
         data = io_transform.chain(
             from_flist((factory.get(proj).map(lambda i: from_flist(i)),))

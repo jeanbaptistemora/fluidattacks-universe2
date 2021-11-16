@@ -42,6 +42,9 @@ from tap_announcekit.streams import (
 from tap_announcekit.streams.feeds import (
     FeedStreams,
 )
+from tap_announcekit.streams.labels import (
+    LabelStreams,
+)
 from typing import (
     Any,
     List,
@@ -67,6 +70,7 @@ class SupportedStream(AutoName):
     FEEDBACKS = auto()
     EXT_USERS = auto()
     WIDGETS = auto()
+    LABELS = auto()
     ALL = auto()
 
 
@@ -99,22 +103,29 @@ class Streamer(_Streamer):
     @property
     def stream_map(self) -> FrozenDict[SupportedStream, Stream[Any]]:
         streams = {
-            SupportedStream.PROJECTS: ProjectStreams(self.client).stream(
-                from_flist((self.proj,))
-            ),
+            SupportedStream.PROJECTS: ProjectStreams(
+                self.client, SupportedStream.PROJECTS.value
+            ).stream(from_flist((self.proj,))),
             SupportedStream.FEEDBACKS: FeedbackStreams(
-                self.client
+                self.client, SupportedStream.FEEDBACKS.value
             ).proj_feedbacks(self.proj),
-            SupportedStream.ACTIVITIES: ActivitiesStreams(self.client).stream(
-                self.proj
+            SupportedStream.ACTIVITIES: ActivitiesStreams(
+                self.client, SupportedStream.ACTIVITIES.value
+            ).stream(
+                self.proj,
             ),
-            SupportedStream.EXT_USERS: ExtUsersStream(self.client).stream(
-                self.proj
-            ),
-            SupportedStream.FEEDS: FeedStreams(self.client).stream(self.proj),
-            SupportedStream.WIDGETS: WidgetStreams(self.client).stream(
-                self.proj
-            ),
+            SupportedStream.EXT_USERS: ExtUsersStream(
+                self.client, SupportedStream.EXT_USERS.value
+            ).stream(self.proj),
+            SupportedStream.FEEDS: FeedStreams(
+                self.client, SupportedStream.FEEDS.value
+            ).stream(self.proj),
+            SupportedStream.WIDGETS: WidgetStreams(
+                self.client, SupportedStream.WIDGETS.value
+            ).stream(self.proj),
+            SupportedStream.LABELS: LabelStreams(
+                self.client, SupportedStream.LABELS.value
+            ).stream(self.proj),
         }
         return FrozenDict(streams)
 
