@@ -17996,36 +17996,45 @@
   en:
     title: Insecure service configuration - Signatures
     description: >
-      __empty__
+      The application is signed with a V1
+      signing scheme, which makes it vulnerable
+      to the Janus vulnerability in Android.
     impact: >
-      __empty__
+      Precede a malicious DEX file to an APK
+      file, without affecting its signature.
     recommendation: >
-      __empty__
+      Securely configure the vulnerable service
+      so that it can only be accessed by authorized users.
     threat: >
-      __empty__
+      Unauthorized attacker from the Internet.
   es:
     title: Insecure service configuration - Signatures
     description: >
-      __empty__
+      La aplicación está firmada con un esquema
+      de firma V1, lo que la hace vulnerable a
+      la vulnerabilidad de Janus en Android.
     impact: >
-      __empty__
+      Anteponer un archivo DEX malicioso a un
+      archivo APK, sin afectar su firma.
     recommendation: >
-      __empty__
+      Configurar de manera segura el servicio
+      vulnerable permitiendo así que solo sea
+      accedido por usuarios autorizados.
     threat: >
-      __empty__
+      Atacante sin autorización desde internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
