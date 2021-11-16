@@ -141,12 +141,22 @@ class Streamer(_Streamer):
                 tuple(PostStreams.ids(self.client, self.proj))
             ).map(lambda i: from_flist(i))
             if self.selection in (SupportedStream.POSTS, SupportedStream.ALL):
-                ids_io.bind(PostStreams(self.client, self.emitter).emit)
+                ids_io.bind(
+                    PostStreams(
+                        self.client, self.emitter, SupportedStream.POSTS.value
+                    ).emit
+                )
             if self.selection in (
                 SupportedStream.POST_CONTENTS,
                 SupportedStream.ALL,
             ):
-                ids_io.bind(PostContentStreams(self.client, self.emitter).emit)
+                ids_io.bind(
+                    PostContentStreams(
+                        self.client,
+                        self.emitter,
+                        SupportedStream.POST_CONTENTS.value,
+                    ).emit
+                )
         if self.selection == SupportedStream.ALL:
             for _, stream in self.stream_map.items():
                 self.emitter.emit(stream)

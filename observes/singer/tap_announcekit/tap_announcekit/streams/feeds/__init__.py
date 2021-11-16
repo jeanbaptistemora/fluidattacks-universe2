@@ -28,15 +28,15 @@ from tap_announcekit.streams.feeds._factory import (
 
 @dataclass(frozen=True)
 class FeedStreams:
-    client: ApiClient
-    _name: str = "feed"
+    _client: ApiClient
+    _name: str
 
     def stream(
         self,
         proj: ProjectId,
     ) -> StreamIO:
         # pylint: disable=unnecessary-lambda
-        factory = FeedFactory(self.client)
+        factory = FeedFactory(self._client)
         encoder = FeedObjEncoders(self._name)
         data = io_transform.chain(
             from_flist((factory.get_ids(proj).map(lambda i: from_flist(i)),))

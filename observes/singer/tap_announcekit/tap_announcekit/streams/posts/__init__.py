@@ -30,9 +30,9 @@ from tap_announcekit.streams.posts._factory import (
 
 @dataclass(frozen=True)
 class PostStreams:
-    client: ApiClient
-    emitter: StreamEmitter
-    _name: str = "posts"
+    _client: ApiClient
+    _emitter: StreamEmitter
+    _name: str
 
     @staticmethod
     def ids(client: ApiClient, proj: ProjectId) -> PureIter[IO[PostId]]:
@@ -43,8 +43,8 @@ class PostStreams:
         self,
         ids: PureIter[PostId],
     ) -> IO[None]:
-        factory = PostFactory(self.client)
+        factory = PostFactory(self._client)
         streams = StreamFactory.new_stream(
             PostEncoders.encoder(self._name), Transform(factory.get_post), ids
         )
-        return self.emitter.emit_io_streams(streams)
+        return self._emitter.emit_io_streams(streams)

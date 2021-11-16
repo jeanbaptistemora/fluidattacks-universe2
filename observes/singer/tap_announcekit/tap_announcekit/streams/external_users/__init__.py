@@ -20,14 +20,14 @@ from tap_announcekit.streams.external_users import (
 
 @dataclass(frozen=True)
 class ExtUsersStream:
-    client: ApiClient
-    _name: str = "external_users"
+    _client: ApiClient
+    _name: str
 
     def stream(
         self,
         proj: ProjectId,
     ) -> StreamIO:
-        factory = _factory.ExtUserFactory(self.client, proj)
+        factory = _factory.ExtUserFactory(self._client, proj)
         data = factory.get_ids().map(
             lambda i: i.bind(
                 lambda uid: factory.get(uid).map(lambda u: IndexedObj(uid, u))

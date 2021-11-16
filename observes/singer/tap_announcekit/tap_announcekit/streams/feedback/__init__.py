@@ -21,14 +21,14 @@ from tap_announcekit.streams.feedback._factory import (
 
 @dataclass(frozen=True)
 class FeedbackStreams:
-    client: ApiClient
-    _name: str = "feedback"
+    _client: ApiClient
+    _name: str
 
     def proj_feedbacks(
         self,
         proj: ProjectId,
     ) -> StreamIO:
-        factory = FeedbackFactory(self.client)
+        factory = FeedbackFactory(self._client)
         encoder = FeedbackObjEncoder(self._name)
         data = factory.get_feedbacks(proj).map(
             lambda i: i.map(encoder.to_singer)

@@ -28,15 +28,15 @@ from tap_announcekit.streams.widgets._factory import (
 
 @dataclass(frozen=True)
 class WidgetStreams:
-    client: ApiClient
-    _name: str = "widgets"
+    _client: ApiClient
+    _name: str
 
     def stream(
         self,
         proj: ProjectId,
     ) -> StreamIO:
         # pylint: disable=unnecessary-lambda
-        factory = WidgetFactory(self.client)
+        factory = WidgetFactory(self._client)
         encoder = WidgetObjEncoders(self._name)
         data = io_transform.chain(
             from_flist((factory.get_ids(proj).map(lambda i: from_flist(i)),))

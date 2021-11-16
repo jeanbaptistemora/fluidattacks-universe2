@@ -24,14 +24,14 @@ from tap_announcekit.streams.project._factory import (
 
 @dataclass(frozen=True)
 class ProjectStreams:
-    client: ApiClient
-    _name: str = "project"
+    _client: ApiClient
+    _name: str
 
     def stream(
         self,
         ids: PureIter[ProjectId],
     ) -> StreamIO:
-        factory = ProjectFactory(self.client)
+        factory = ProjectFactory(self._client)
         encoder = ProjectEncoder(self._name)
         data = ids.map(factory.get).map(lambda i: i.map(encoder.to_singer))
         return Stream(encoder.schema, data)

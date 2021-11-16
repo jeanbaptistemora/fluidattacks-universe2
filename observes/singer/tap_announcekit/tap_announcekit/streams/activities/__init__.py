@@ -20,7 +20,7 @@ from tap_announcekit.streams.activities import (
 @dataclass(frozen=True)
 class ActivitiesStreams:
     _client: ApiClient
-    _name: str = "activities"
+    _name: str
 
     def stream(
         self,

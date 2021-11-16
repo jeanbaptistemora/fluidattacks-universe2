@@ -34,9 +34,9 @@ from tap_announcekit.streams.post_contents._factory import (
 
 @dataclass(frozen=True)
 class PostContentStreams:
-    client: ApiClient
-    emitter: StreamEmitter
-    _name: str = "post_contents"
+    _client: ApiClient
+    _emitter: StreamEmitter
+    _name: str
 
     def stream(self, items: PureIter[PostContentObj]) -> StreamData:
         encoder = PostContentEncoders.encoder(self._name)
@@ -48,10 +48,10 @@ class PostContentStreams:
     ) -> IO[None]:
         # pylint: disable=unnecessary-lambda
         # for correct type checking lambda is necessary
-        factory = PostContentFactory(self.client)
+        factory = PostContentFactory(self._client)
         result = (
             post_ids.map(factory.get)
             .map(lambda i: i.map(lambda x: from_flist(x)))
             .map(lambda i: i.map(self.stream))
         )
-        return self.emitter.emit_io_streams(result)
+        return self._emitter.emit_io_streams(result)
