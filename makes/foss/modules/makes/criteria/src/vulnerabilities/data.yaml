@@ -16999,33 +16999,50 @@
   en:
     title: Insecure service configuration - OTP
     description: >
-      __empty__
+      The OTP mock is still enabled in the application.
     impact: >
-      __empty__
+      - Attacker with information from a user
+      of the application gets to the point
+      where the OTP is requested.
+
+      - Attacker enters default otp and
+      successfully logs in to the application.
     recommendation: >
-      __empty__
+      Remove the OTP mock so that you can
+      only login to the application with the
+      OTP sent to the email.
     threat: >
-      __empty__
+      An unauthorized user can enter the
+      application by entering the default OTP.
   es:
     title: Insecure service configuration - OTP
     description: >
-      __empty__
+      El mock de OTP aún se encuentra
+      activado en la aplicación.
     impact: >
-      __empty__
+      - Atacante con información de un usuario
+      de la aplicación llega hasta el punto que
+      se solicita el OTP.
+
+      - Atacante ingresa OTP por defecto e ingresa
+      exitosamente a la aplicación.
     recommendation: >
-      __empty__
+      Eliminar el mock de OTP para así solo
+      poder ingresar a la aplicación con el
+      OTP enviado al correo electrónico.
     threat: >
-      __empty__
+      Un usuario no autorizado puede entrar a
+      la aplicación ingresando el OTP por defecto.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
