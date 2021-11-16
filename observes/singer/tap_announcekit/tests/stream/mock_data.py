@@ -18,10 +18,14 @@ from tap_announcekit.objs.id_objs import (
     FeedId,
     ImageId,
     IndexedObj,
+    LabelId,
     PostId,
     ProjectId,
     UserId,
     WidgetId,
+)
+from tap_announcekit.objs.label import (
+    Label,
 )
 from tap_announcekit.objs.post import (
     ActionSource,
@@ -159,4 +163,9 @@ mock_feed_obj = IndexedObj(
 mock_widget_obj = IndexedObj(
     WidgetId(mock_proj_id, "widget1"),
     Widget(mock_datetime, "name", "", "", "", "", "", 33),
+)
+
+mock_label_obj = IndexedObj(
+    LabelId(mock_proj_id, "label1"),
+    Label("fix", "red"),
 )

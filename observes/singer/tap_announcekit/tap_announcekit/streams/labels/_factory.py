@@ -52,6 +52,7 @@ class LabelsQuery:
 
     def _select_fields(self, operation: Operation) -> IO[None]:
         item = operation.labels(project_id=self.proj.id_str)
+        item.id()
         return select_fields(item, frozenset(Label.__annotations__))
 
     def to_label_obj(self, raw: RawLabel) -> LabelObj:

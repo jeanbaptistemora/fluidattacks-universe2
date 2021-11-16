@@ -173,3 +173,13 @@ mock_widget = {
         "version": 63,
     }
 }
+
+mock_labels = {
+    "labels": [
+        {
+            "id": "label12",
+            "name": "name",
+            "color": "blue",
+        }
+    ]
+}
