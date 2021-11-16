@@ -142,6 +142,8 @@ export const Graphic: React.FC<IGraphicProps> = (
   const [fullScreen, setFullScreen] = useState(false);
   const [iframeState, setIframeState] = useState("loading");
   const [retries, setRetries] = useState(0);
+  const [iFrameKey, setIFrameKey] = useState(0);
+  const [modalIFrameKey, setModalIFrameKey] = useState(0);
 
   const secureStore: ISecureStoreConfig = useContext(secureStoreContext);
 
@@ -191,7 +193,13 @@ export const Graphic: React.FC<IGraphicProps> = (
     if (bodyRef.current?.contentWindow !== null) {
       setRetries(0);
       setIframeState("loading");
-      bodyRef.current?.contentWindow.location.reload();
+      setIFrameKey((value: number): number => {
+        if (value >= DELAY_BETWEEN_RETRIES_MS) {
+          return 0;
+        }
+
+        return value + 1;
+      });
     }
   }
   function modalFrameOnLoad(): void {
@@ -202,7 +210,13 @@ export const Graphic: React.FC<IGraphicProps> = (
     if (modalBodyRef.current?.contentWindow !== null) {
       setModalIframeState("loading");
       setModalRetries(0);
-      modalBodyRef.current?.contentWindow.location.reload();
+      setModalIFrameKey((value: number): number => {
+        if (value >= DELAY_BETWEEN_RETRIES_MS) {
+          return 0;
+        }
+
+        return value + 1;
+      });
     }
   }
   function buildFileName(size: IComponentSizeProps): string {
@@ -268,14 +282,26 @@ export const Graphic: React.FC<IGraphicProps> = (
   function retryFrame(): void {
     if (bodyRef.current?.contentWindow !== null) {
       setIframeState("loading");
-      bodyRef.current?.contentWindow.location.reload();
+      setIFrameKey((value: number): number => {
+        if (value >= DELAY_BETWEEN_RETRIES_MS) {
+          return 0;
+        }
+
+        return value + 1;
+      });
     }
   }
 
   function retryModalIFrame(): void {
     if (modalBodyRef.current?.contentWindow !== null) {
       setModalIframeState("loading");
-      modalBodyRef.current?.contentWindow.location.reload();
+      setModalIFrameKey((value: number): number => {
+        if (value >= DELAY_BETWEEN_RETRIES_MS) {
+          return 0;
+        }
+
+        return value + 1;
+      });
     }
   }
 
@@ -423,6 +449,7 @@ export const Graphic: React.FC<IGraphicProps> = (
           <iframe
             className={styles.frame}
             frameBorder={"no"}
+            key={modalIFrameKey}
             onLoad={modalFrameOnLoad}
             ref={modalBodyRef}
             scrolling={"no"}
@@ -546,6 +573,7 @@ export const Graphic: React.FC<IGraphicProps> = (
               <iframe
                 className={styles.frame}
                 frameBorder={"no"}
+                key={iFrameKey}
                 loading={reportMode ? "eager" : "lazy"}
                 onLoad={frameOnLoad}
                 ref={bodyRef}
