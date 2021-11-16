@@ -1,8 +1,8 @@
 from model.core_model import (
     FindingEnum,
 )
-from symbolic_eval.search import (
-    lookup_search,
+from symbolic_eval.context import (
+    search,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -29,10 +29,9 @@ def evaluate(args: SymbolicEvalArgs) -> bool:
     graph = args.graph
     symbol = args.n_id
 
-    if v_id := lookup_search(graph, get_lookup_path(args), symbol):
-        graph.nodes[symbol]["danger"] = args.generic(args.fork_n_id(v_id))
-    else:
-        print("COULD NOT SOLVE SYMBOL LOOKUP", symbol)
+    for cfg_id, ref_id in search(graph, get_lookup_path(args), symbol):
+        args.generic(args.fork_n_id(cfg_id))
+        graph.nodes[symbol]["danger"] = args.graph.nodes[ref_id]["danger"]
 
     if finding_evaluator := FINDING_EVALUATORS.get(args.finding):
         args.graph.nodes[args.n_id]["danger"] = finding_evaluator(args)
