@@ -273,12 +273,13 @@ def translate_dependencies_to_vulnerabilities(
     *,
     content: str,
     dependencies: Iterator[DependencyType],
+    finding: core_model.FindingEnum,
     path: str,
     platform: core_model.Platform,
 ) -> core_model.Vulnerabilities:
     results: core_model.Vulnerabilities = tuple(
         core_model.Vulnerability(
-            finding=core_model.FindingEnum.F011,
+            finding=finding,
             kind=core_model.VulnerabilityKindEnum.LINES,
             namespace=CTX.config.namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,

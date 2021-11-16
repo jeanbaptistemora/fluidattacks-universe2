@@ -20,6 +20,7 @@ from typing import (
 
 def _check(
     content: str,
+    finding: core_model.FindingEnum,
     path: str,
     platform: core_model.Platform,
 ) -> core_model.Vulnerabilities:
@@ -39,6 +40,7 @@ def _check(
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=resolve_dependencies(),
+        finding=finding,
         path=path,
         platform=platform,
     )
@@ -47,11 +49,13 @@ def _check(
 @SHIELD
 async def check(
     content: str,
+    finding: core_model.FindingEnum,
     path: str,
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _check,
         content=content,
+        finding=finding,
         path=path,
         platform=core_model.Platform.NUGET,
     )
@@ -62,6 +66,7 @@ async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_name: str,
     file_extension: str,
+    finding: core_model.FindingEnum,
     path: str,
     **_: None,
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
@@ -69,6 +74,7 @@ async def analyze(
         return [
             check(
                 content=await content_generator(),
+                finding=finding,
                 path=path,
             )
         ]

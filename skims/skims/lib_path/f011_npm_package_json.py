@@ -22,8 +22,9 @@ from typing import (
 )
 
 
-def _check(
+def _check(  # pylint: disable=too-many-arguments
     content: str,
+    finding: core_model.FindingEnum,
     include_dev: bool,
     include_prod: bool,
     path: str,
@@ -47,6 +48,7 @@ def _check(
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=dependencies,
+        finding=finding,
         path=path,
         platform=platform,
     )
@@ -55,6 +57,7 @@ def _check(
 @SHIELD
 async def check(
     content: str,
+    finding: core_model.FindingEnum,
     include_dev: bool,
     include_prod: bool,
     path: str,
@@ -62,6 +65,7 @@ async def check(
     return await in_process(
         _check,
         content=content,
+        finding=finding,
         include_dev=include_dev,
         include_prod=include_prod,
         path=path,
@@ -73,6 +77,7 @@ def analyze(include_dev: bool, include_prod: bool) -> Any:
     @SHIELD
     async def _analyze(
         content_generator: Callable[[], Awaitable[str]],
+        finding: core_model.FindingEnum,
         file_name: str,
         file_extension: str,
         path: str,
@@ -82,6 +87,7 @@ def analyze(include_dev: bool, include_prod: bool) -> Any:
             return [
                 check(
                     content=await content_generator(),
+                    finding=finding,
                     include_dev=include_dev,
                     include_prod=include_prod,
                     path=path,

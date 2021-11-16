@@ -148,6 +148,7 @@ async def analyze_one_path(  # pylint: disable=too-many-locals
             content_generator=file_content_generator,
             file_extension=file_extension,
             file_name=file_name,
+            finding=finding,
             path=path,
             raw_content_generator=file_raw_content_generator,
         ):
