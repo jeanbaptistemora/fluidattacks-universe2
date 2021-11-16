@@ -18094,37 +18094,42 @@
   en:
     title: Insecure service configuration - DB
     description: >
-      __empty__
+      The database server has insecure configurations.
     impact: >
-      __empty__
+      Internet user with credentials.
     recommendation: >
-      __empty__
+      Correctly configure the MySQL server.
     threat: >
-      __empty__
+      An attacker can access the database
+      and exploit vulnerabilities in the
+      system configuration to affect the service.
   es:
     title: Insecure service configuration - DB
     description: >
-      __empty__
+      El servidor de base de datos cuenta
+      con configuraciones inseguras.
     impact: >
-      __empty__
+      Usuario de Internet con credenciales.
     recommendation: >
-      __empty__
+      Configurar correctamente el servidor MySQL.
     threat: >
-      __empty__
+      Un atacante puede acceder a la base de datos
+      y aprovechar las vulnerabilidades en la configuración
+      del sistema para afectar el servicio.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
+      scope: "C"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
