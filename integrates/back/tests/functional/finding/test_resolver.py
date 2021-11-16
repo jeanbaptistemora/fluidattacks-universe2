@@ -96,7 +96,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     verified: bool = False
     ports_vulnerabilities: List[Any] = [
         {"specific": "2321"},
-        {"specific": "77777"},
         {"specific": "9999"},
     ]
     inputs_vulnerabilities: List[Any] = []
@@ -300,7 +299,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     verified: bool = False
     ports_vulnerabilities: List[Any] = [
         {"specific": "2321"},
-        {"specific": "77777"},
         {"specific": "9999"},
     ]
     inputs_vulnerabilities: List[Any] = []

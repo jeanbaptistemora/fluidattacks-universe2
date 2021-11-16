@@ -36,6 +36,6 @@ async def resolve(
 async def resolve_no_cache(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Vulnerability]:
-    finding_vulns_loader: DataLoader = info.context.loaders.finding_vulns
+    finding_vulns_loader: DataLoader = info.context.loaders.finding_vulns_nzr
     vulns: List[Vulnerability] = await finding_vulns_loader.load(parent.id)
     return [vuln for vuln in vulns if vuln["vuln_type"] == "inputs"]
