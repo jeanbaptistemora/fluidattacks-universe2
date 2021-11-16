@@ -16809,37 +16809,69 @@
   en:
     title: Business information leak - Financial Information
     description: >
-      __empty__
+      Business information is obtained, such as:
+
+      - Mail
+
+      - Payment reference and description
+
+      - Total value
+
+      - Product information
+
+      - Collector's line of business
+
+      - Payer's role
     impact: >
-      __empty__
+      Obtain sensitive information to create
+      new attack vectors.
     recommendation: >
-      __empty__
+      According to the classification of the
+      information found, establish the necessary
+      controls so that the information is accessible
+      only to the indicated persons.
     threat: >
-      __empty__
+      An attacker authenticated from the Internet.
   es:
     title: Business information leak - Financial Information
     description: >
-      __empty__
+      Se obtiene información de negocio, como:
+
+      - Correo electrónico
+
+      - Referencia y descripción de pago
+
+      - Valor total
+
+      - Información del producto
+
+      - Línea de negocio del recaudador
+
+      - Rol del pagador
     impact: >
-      __empty__
+      Obtener información sensible para
+      crear nuevos vectores de ataque.
     recommendation: >
-      __empty__
+      De acuerdo a la clasificación de la
+      información encontrada, establecer los
+      controles necesarios para que la información
+      sea accesible sólo a las personas indicadas.
     threat: >
-      __empty__
+      Un atacante autenticado desde Internet.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "U"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["176","177","261","300"]
   metadata:
