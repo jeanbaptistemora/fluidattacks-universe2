@@ -23,6 +23,7 @@ from custom_types import (
     Vulnerability as VulnLegacyType,
 )
 from db_model.enums import (
+    Source,
     StateRemovalJustification,
 )
 from db_model.vulnerabilities import (
@@ -72,6 +73,7 @@ from notifications import (
     domain as notifications_domain,
 )
 from operator import (
+    attrgetter,
     itemgetter,
 )
 from settings import (
@@ -1085,6 +1087,59 @@ async def verify(
         )
     )
     return success
+
+
+async def verify_new(
+    *,
+    context: Any,
+    finding_id: str,
+    vulnerabilities: List[Vulnerability],
+    closed_vulnerabilities: List[str],
+    modified_date: str,
+    vulns_to_close_from_file: List[VulnerabilityMetadataToUpdate],
+) -> bool:
+    list_closed_vulns: List[Vulnerability] = sorted(
+        [
+            [vuln for vuln in vulnerabilities if vuln.id == closed_vuln][0]
+            for closed_vuln in closed_vulnerabilities
+        ],
+        key=attrgetter("id"),
+    )
+    source: Source = requests_utils.get_source_new(context)
+    user_data: UserType = await token_utils.get_jwt_content(context)
+    modified_by = str(user_data["user_email"])
+    return all(
+        await collect(
+            update_state_new(
+                vulnerability=vuln_to_close,
+                new_metadata=VulnerabilityMetadataToUpdate(
+                    commit=(
+                        close_item.commit
+                        if close_item
+                        and close_item.type == VulnerabilityType.LINES
+                        else None
+                    ),
+                    stream=(
+                        close_item.stream
+                        if close_item
+                        and close_item.type == VulnerabilityType.INPUTS
+                        else None
+                    ),
+                    type=close_item.type if close_item else None,
+                ),
+                new_state=VulnerabilityState(
+                    modified_by=modified_by,
+                    modified_date=modified_date,
+                    source=source,
+                    status=VulnerabilityStateStatus.CLOSED,
+                ),
+                finding_id=finding_id,
+            )
+            for vuln_to_close, close_item in zip_longest(
+                list_closed_vulns, vulns_to_close_from_file, fillvalue={}
+            )
+        )
+    )
 
 
 async def verify_vulnerability(vuln: VulnLegacyType) -> bool:
