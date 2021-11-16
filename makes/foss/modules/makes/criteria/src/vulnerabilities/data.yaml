@@ -14609,36 +14609,55 @@
   en:
     title: Non-encrypted confidential information - Credentials
     description: >
-      __empty__
+      The passwords are in plain text in
+      the source code of the application
+      allowing an attacker to view it
+      without any encryption.
     impact: >
-      __empty__
+      A user of the application can reverse-engineer
+      and be able to view these keys.
     recommendation: >
-      __empty__
+      Verify that sensitive information, API keys
+      and passwords are not included in the source
+      code, nor in online code repositories.
     threat: >
-      __empty__
+      A user with access to the application can
+      compromise the application's operations
+      since the application is storing access
+      passwords without any encryption or bypassing.
   es:
     title: Non-encrypted confidential information - Credentials
     description: >
-      __empty__
+      Las contraseñas se encuentran en plano en
+      el código fuente de la aplicación permitiendo
+      a un atacante visualizarla sin ningún tipo de cifrado.
     impact: >
-      __empty__
+      Un usuario de la aplicación puede realizar
+      ingeniería inversa y poder visualizar estas claves.
     recommendation: >
-      __empty__
+      Verificar que información sensible, llaves
+      API y contraseñas no sean incluidas en el
+      código fuente, ni en repositorios en línea
+      de código.
     threat: >
-      __empty__
+      Un usuario con acceso a la aplicación puede
+      comprometer las operaciones de la aplicación
+      ya que esta se está tiene almacenadas las
+      contraseñas de acceso sin ningún tipo de
+      cifrado o derivación.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "P"
+      exploit_code_maturity: "X"
       remediation_level: "O"
       report_confidence: "C"
   requirements: ["134","135","185","229","264","300"]
