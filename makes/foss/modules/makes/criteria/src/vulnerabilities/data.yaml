@@ -18402,37 +18402,57 @@
   en:
     title: Insecure service configuration - LDAP
     description: >
-      __empty__
+      Internal service information should not be
+      stored in the source code, especially AD
+      configurations, as it is obtained from the
+      admon-chanel configuration file.
     impact: >
-      __empty__
+      Internal attacker.
     recommendation: >
-      __empty__
+      Service configurations and credentials
+      must be in protected environments.
     threat: >
-      __empty__
+      An attacker can use these insecure service
+      configurations to gain access to the AD
+      and collect all kinds of information that
+      will be useful in later attacks, such as
+      internal network architecture recognition
+      or employee information.
   es:
     title: Insecure service configuration - LDAP
     description: >
-      __empty__
+      Información de los servicios internos no
+      deben almacenarce en el código fuente
+      especialmente configuraciones del AD,
+      como se obtiene de el archivo de
+      configuraciones admon-chanel.
     impact: >
-      __empty__
+      Atacante interno.
     recommendation: >
-      __empty__
+      Las configuraciones de los servicios y
+      credenciales de estos deben estar en
+      ambientes protegidos.
     threat: >
-      __empty__
+      Un atacante puede usar estas configuraciones
+      inseguras de los servicios para obtener acceso
+      al AD y asi recolectar todo tipo de infirmación
+      que le sera util en posteriores ataques, como
+      reconocimiento de la arquitectura interna de la
+      red o información de empleados.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
