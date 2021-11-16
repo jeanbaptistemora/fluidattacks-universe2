@@ -254,8 +254,14 @@ def format_vulnerabilities(
             "where": "host",
             "specific": "port",
         },
-        "lines": {"where": "path", "specific": "line"},
-        "inputs": {"where": "url", "specific": "field"},
+        "lines": {
+            "where": "path",
+            "specific": "line",
+        },
+        "inputs": {
+            "where": "url",
+            "specific": "field",
+        },
     }
     for vuln in vulnerabilities:
         all_states = cast(
@@ -543,18 +549,6 @@ def group_specific(
 
 
 def is_accepted_undefined_vulnerability(
-    vulnerability: Dict[str, FindingType]
-) -> bool:
-    historic_treatment = cast(
-        HistoricType, vulnerability["historic_treatment"]
-    )
-    return (
-        historic_treatment[-1]["treatment"] == "ACCEPTED_UNDEFINED"
-        and get_last_status(vulnerability) == "open"
-    )
-
-
-def is_accepted_undefined_vulnerability_new(
     vulnerability: Vulnerability,
 ) -> bool:
     return (

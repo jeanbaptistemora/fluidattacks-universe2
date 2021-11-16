@@ -1023,7 +1023,7 @@ async def get_mean_remediate_non_treated_severity_cvssf(
     non_accepted_undefined_vulns = tuple(
         vuln
         for vuln in non_confirmed_zr_vulns
-        if not vulns_utils.is_accepted_undefined_vulnerability_new(vuln)
+        if not vulns_utils.is_accepted_undefined_vulnerability(vuln)
     )
     vulns_historic_state: Tuple[
         Tuple[VulnerabilityState, ...]
@@ -1103,7 +1103,7 @@ async def get_mean_remediate_non_treated_severity(
     non_accepted_undefined_vulns = tuple(
         vuln
         for vuln in non_confirmed_zr_vulns
-        if not vulns_utils.is_accepted_undefined_vulnerability_new(vuln)
+        if not vulns_utils.is_accepted_undefined_vulnerability(vuln)
     )
     vulns_historic_state: Tuple[
         Tuple[VulnerabilityState, ...]

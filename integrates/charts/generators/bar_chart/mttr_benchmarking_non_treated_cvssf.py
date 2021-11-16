@@ -30,7 +30,7 @@ from groups.domain import (
     get_mean_remediate_non_treated_severity_cvssf,
 )
 from newutils.vulnerabilities import (
-    is_accepted_undefined_vulnerability_new,
+    is_accepted_undefined_vulnerability,
 )
 from typing import (
     Optional,
@@ -54,7 +54,7 @@ async def get_data_one_group(
     vulnerabilities_excluding_permanently_accepted = [
         vulnerability.id
         for vulnerability in vulnerabilities
-        if not is_accepted_undefined_vulnerability_new(vulnerability)
+        if not is_accepted_undefined_vulnerability(vulnerability)
     ]
     historics: Tuple[
         Tuple[VulnerabilityVerification, ...], ...

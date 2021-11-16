@@ -738,7 +738,7 @@ async def request_vulnerabilities_zero_risk(
     return success
 
 
-def set_updated_manager_mail_content(
+def get_updated_manager_mail_content(
     vulnerabilities: Dict[str, List[Dict[str, str]]]
 ) -> str:
     mail_content = ""
@@ -770,7 +770,7 @@ async def should_send_update_treatment(
         vulns_data = vulns_utils.format_vulnerabilities(
             cast(List[Dict[str, FindingType]], vulns_grouped)
         )
-        mail_content = set_updated_manager_mail_content(
+        mail_content = get_updated_manager_mail_content(
             cast(Dict[str, List[Dict[str, str]]], vulns_data)
         )
         schedule(

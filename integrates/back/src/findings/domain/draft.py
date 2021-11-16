@@ -159,8 +159,12 @@ async def reject_draft(context: Any, finding_id: str, user_email: str) -> None:
     )
 
 
-async def submit_draft(context: Any, finding_id: str, user_email: str) -> None:
-    finding_vulns_loader = context.loaders.finding_vulns_nzr
+async def submit_draft(
+    context: Any,
+    finding_id: str,
+    user_email: str,
+) -> None:
+    finding_vulns_loader = context.loaders.finding_vulns_nzr_typed
     finding_loader = context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     if not operation_can_be_executed(context, finding.title):
