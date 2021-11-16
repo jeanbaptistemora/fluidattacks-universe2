@@ -17362,32 +17362,44 @@
   en:
     title: Insecure functionality - Session management
     description: >
-      __empty__
+      It is possible to modify the expiration
+      time of an expired session token, making
+      it possible to make the token functional
+      again and continue to query the application.
     impact: >
-      __empty__
+      Perform queries to the application
+      with an expired Token(JWT).
     recommendation: >
-      __empty__
+      Once session tokens have expired, they
+      should not be reused in future requests.
     threat: >
-      __empty__
+      Attacker from the Internet with a session token.
   es:
     title: Insecure functionality - Session management
     description: >
-      __empty__
+      Es posible modificar el tiempo de
+      expiración de un Token de sesión
+      caducado, haciendo posible que el
+      Token vuelva a ser funcional y poder
+      continuar haciendo consultas a la aplicación.
     impact: >
-      __empty__
+      Realizar consultas a la aplicación
+      con un Token(JWT) expirado.
     recommendation: >
-      __empty__
+      Una vez los Token de sesión hallan
+      expirado, estos no deberían poderse
+      reutilizar en futuras peticiones.
     threat: >
-      __empty__
+      Atacante desde Internet con un token de sesión.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
@@ -17402,38 +17414,67 @@
   en:
     title: Inappropriate coding practices - Initialization
     description: >
-      __empty__
+      In a subroutine you can see how a
+      certain variable is used without
+      being assigned before.
+      You can also see that this variable
+      should be assigned by calling another
+      stored procedure but this line of code
+      is commented out, so the variable will
+      take values that have been defined in
+      other subroutines of the same object,
+      according to the scope of variables
+      used by Genexus.
     impact: >
-      __empty__
+      Cause side effects caused by other subroutines
+      where errors are reported that do not correspond
+      to the behavior of the system.
     recommendation: >
-      __empty__
+      The mentioned subroutine has no real
+      effect on the program logic until the
+      stored call is resolved.
+      We therefore suggest to remove this subroutine.
     threat: >
-      __empty__
+      Authenticated user from the Internet.
   es:
     title: Inappropriate coding practices - Initialization
     description: >
-      __empty__
+      En una subrutina puede verse como cierta variable
+      se usa sin ser asignada antes.
+      Puede verse además que esta variable debería
+      asignarse mediante la llamada a otro procedimiento
+      almacenado pero esta línea de código se encuentra
+      comentada, por lo que la variable tomará valores
+      que hayan sido definidos en otras subrutinas del
+      mismo objeto, de acuerdo al alcance de variables
+      que utiliza Genexus.
     impact: >
-      __empty__
+      Causar efectos secundarios ocasionados por
+      otras sub rutinas donde se reportan errores
+      que no corresponden con el comportamiento
+      del sistema.
     recommendation: >
-      __empty__
+      La subrutina mencionada no tiene efectos reales
+      en la lógica del programa hasta que no se
+      resuelva el llamado almacenado.
+      Por tanto, sugerimos retirar esta subrutina.
     threat: >
-      __empty__
+      Usuario autenticado desde internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "R"
   requirements: ["158"]
   metadata:
     en:
