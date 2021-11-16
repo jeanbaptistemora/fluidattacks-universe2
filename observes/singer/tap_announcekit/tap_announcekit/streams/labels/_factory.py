@@ -70,6 +70,10 @@ class LabelsQuery:
 class LabelFactory:
     _client: ApiClient
 
+    @staticmethod
+    def _get_query(proj: ProjectId) -> Query[FrozenList[Label]]:
+        return LabelsQuery(Transform(to_obj), proj).query
+
     def get(self, proj: ProjectId) -> IO[FrozenList[Label]]:
-        query = LabelsQuery(Transform(to_obj), proj).query
+        query = self._get_query(proj)
         return self._client.get(query)
