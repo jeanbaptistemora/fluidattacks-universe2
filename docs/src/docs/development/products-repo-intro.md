@@ -7,19 +7,18 @@ slug: /development
 
 ## Who we are
 
-We are a
-[cyber-security company](https://fluidattacks.com)
-whose only purpose is
-to make the world a safer place.
+We are a [cybersecurity company](https://fluidattacks.com)
+whose only purpose is to make the world
+a safer place.
 
 ## What we do
 
 - We perform comprehensive security testing
     over all of your assets.
-- We use cutting edge technologies
+- We use cutting-edge technologies
     and heavily trained **human hackers**.
 - We report vulnerabilities back to you
-    as accurate and fast as possible.
+    as accurately and quickly as possible.
 
 The source code of the technologies used
 is versioned in this repository
@@ -33,10 +32,10 @@ and is divided across many products.
 ## Installing
 
 1. Make sure that Nix is installed on your system.
-    If it is not, please follow
-    [this tutorial](https://nixos.org/download.html).
-
-    If everything went well you should be able to run:
+   If it is not,
+   please follow [this tutorial](https://nixos.org/download.html).
+   If everything goes well,
+   you should be able to run
 
     ```bash
     $ nix --version
@@ -44,13 +43,14 @@ and is divided across many products.
 
     We only support versions of Nix `>= 2.3` and `< 2.4`.
 
-1. Install [Makes](https://github.com/fluidattacks/makes) with:
+1. Install [Makes](https://github.com/fluidattacks/makes) with
 
     ```bash
     $ curl -L fluidattacks.com/install/m | sh
     ```
 
-    If everything went well you should be able to run:
+    If everything goes well,
+    you should be able to run
 
     ```bash
     $ m
@@ -68,42 +68,40 @@ and is divided across many products.
 
 ## Updating
 
-No actions are required from you.
-
-Updates are rolled out automatically to your machine
-with a delay of at most 1 day.
+No action is required on your part.
+Updates are automatically rolled out to your machine
+with a delay of at most one day.
 But anyway,
 if you want to force an update right away,
-just run `$ rm -rf ~/.makes`
+just run `$ rm -rf ~/.makes`.
 
 ## Troubleshooting
 
 ### General considerations
 
-1. A stable internet connection is required
-1. A stable DNS resolver is required. Please consider using:
+- A stable internet connection is required
+- A stable DNS resolver is required.
+  Please consider using:
     - IPv4: `1.1.1.1`, `8.8.8.8`, `8.8.4.4`
     - IPv6: `2001:4860:4860::8888`, `2001:4860:4860::8844`
 
 ### Checklist
 
-If the installation failed while installing Nix (step 1):
+1. If the installation failed while installing Nix,
 
-1. Checkout the
-    [Nix manual](https://nixos.org/manual/nix/stable/#chap-installation)
-    for more detailed installation instructions.
-1. If the problem persists,
-    please let us know at help@fluidattacks.com.
+    1. checkout the [Nix manual](https://nixos.org/manual/nix/stable/#chap-installation)
+       for more detailed installation instructions, and
+    1. if the problem persists,
+       please let us know at help@fluidattacks.com.
 
-If the installation failed while installing Makes (step 2):
+1. If the installation failed while installing Makes,
+   please let us know at help@fluidattacks.com.
 
-1. Please let us know at help@fluidattacks.com.
+1. If the process failed while using `$ m gitlab:xxx /yyy`,
 
-If the installation failed while using `$ m gitlab:xxx /yyy` (step 3):
+    1. repeat the installation of Makes and try again,
 
-1. Repeat step two (installing Makes) and try again.
+    1. refresh the cache with `$ rm -rf ~/.makes` and try again, and
 
-1. Refresh the cache: `$ rm -rf ~/.makes` and try again.
-
-1. If the problem persists,
-    please let us know at help@fluidattacks.com.
+    1. if the problem persists,
+       please let us know at help@fluidattacks.com.
