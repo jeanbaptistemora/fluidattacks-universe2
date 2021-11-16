@@ -18299,23 +18299,42 @@
   en:
     title: Insecurely generated token - Validation
     description: >
-      __empty__
+      The system does not properly validate
+      the token used for user creation.
+      For this reason, it is possible to modify
+      the header defining the algorithm with
+      which the token is encrypted, so that
+      it is not signed.
     impact: >
-      __empty__
+      Create users within the application
+      with tokens that are not signed.
     recommendation: >
-      __empty__
+      Avoid validating the token by taking the
+      algorithm found in the token header, since
+      an attacker could modify it, so that the
+      token signature is not properly validated.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Insecurely generated token - Validation
     description: >
-      __empty__
+      El sistema no válida adecuadamente el token
+      utilizado para la creación de usuarios.
+      Por tal motivo, es posible modificar la
+      cabecera en la que se define el algoritmo
+      con el cual se cifra el token, para que
+      de esta manera no se firme.
     impact: >
-      __empty__
+      Crear usuarios dentro de la aplicación con
+      tokens que no se encuentran firmados.
     recommendation: >
-      __empty__
+      Evitar validar el token tomando el algoritmo
+      que se encuentra en la cabecera del mismo,
+      ya que un atacante podria modificarla, para
+      que de esta manera no se valide la firma del
+      token de manera adecuada.
     threat: >
-      __empty__
+      Atacante anónimo desde internet.
   category: Deceptive Interactions
   score:
     base:
