@@ -62,15 +62,15 @@ from utils.logs import (
 # Constants
 MEBIBYTE: int = 1048576
 MAX_READ: int = 64 * MEBIBYTE
-ONLY_DEV: Dict[str, bool] = dict(include_dev=True, include_prod=False)
-ONLY_PROD: Dict[str, bool] = dict(include_dev=False, include_prod=True)
+DEV: Dict[str, bool] = dict(include_dev=True, include_prod=False)
+PROD: Dict[str, bool] = dict(include_dev=False, include_prod=True)
 
 CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F009, f009.analyze),
     (core_model.FindingEnum.F011, f011_maven_build_gradle.analyze),
     (core_model.FindingEnum.F011, f011_maven_pom_xml.analyze),
-    (core_model.FindingEnum.F011, f011_npm_package_json.analyze(**ONLY_PROD)),
-    (core_model.FindingEnum.F011, f011_npm_package_lock_json.analyze),
+    (core_model.FindingEnum.F011, f011_npm_package_json.analyze(**PROD)),
+    (core_model.FindingEnum.F011, f011_npm_package_lock_json.analyze(**PROD)),
     (core_model.FindingEnum.F011, f011_npm_yarn_lock.analyze),
     (core_model.FindingEnum.F011, f011_nuget_csproj.analyze),
     (core_model.FindingEnum.F011, f011_nuget_packages_config.analyze),
@@ -93,7 +93,8 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F281, f281.analyze),
     (core_model.FindingEnum.F372, f372.analyze),
     (core_model.FindingEnum.F380, f380.analyze),
-    (core_model.FindingEnum.F393, f011_npm_package_json.analyze(**ONLY_DEV)),
+    (core_model.FindingEnum.F393, f011_npm_package_json.analyze(**DEV)),
+    (core_model.FindingEnum.F393, f011_npm_package_lock_json.analyze(**DEV)),
 )
 
 
