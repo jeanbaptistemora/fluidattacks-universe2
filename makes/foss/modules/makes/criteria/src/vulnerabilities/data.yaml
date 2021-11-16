@@ -18358,37 +18358,41 @@
   en:
     title: Insecure service configuration - Roles
     description: >
-      __empty__
+      Through the bot of slack, all users that
+      have access to a project can be removed.
     impact: >
-      __empty__
+      Revoke access of legimate users.
     recommendation: >
-      __empty__
+      Define a time-out when a query or search
+      is taking a long time to process the information.
     threat: >
-      __empty__
+      External attacker with access to corporate slack.
   es:
     title: Insecure service configuration - Roles
     description: >
-      __empty__
+      A través del bot de slack, se pueden eliminar
+      todos los usuarios que tienen acceso a un proyecto.
     impact: >
-      __empty__
+      Revocar el acceso de los usuarios legítimos
     recommendation: >
-      __empty__
+      Defina un tiempo de espera cuando una consulta
+      o búsqueda esté tardando mucho en procesar la información.
     threat: >
-      __empty__
+      Atacante externo con acceso al slack corporativo.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "W"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
