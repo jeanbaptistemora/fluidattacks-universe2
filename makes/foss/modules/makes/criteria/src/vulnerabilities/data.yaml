@@ -17104,34 +17104,46 @@
   en:
     title: Weak credential policy - Password Change Limit
     description: >
-      __empty__
+      The application does not limit the
+      number of password change requests
+      that can be made in a day.
     impact: >
-      __empty__
+      Change the password multiple times in
+      a short period of time, denying access
+      to the original user.
     recommendation: >
-      __empty__
+      Implement a mechanism that rejects
+      multiple password change requests
+      on the same day.
     threat: >
-      __empty__
+      Internet user with access to the session.
   es:
     title: Weak credential policy - Password Change Limit
     description: >
-      __empty__
+      La aplicación no limita la cantidad de
+      peticiones de cambio de contraseña que
+      se pueden realizar en un día.
     impact: >
-      __empty__
+      Cambiar la contraseña múltiples veces
+      en un periodo corto de tiempo, denegando
+      el acceso al usuario original
     recommendation: >
-      __empty__
+      Implementar un mecanismo que rechace
+      múltiples peticiones de cambio de
+      contraseña el mismo día.
     threat: >
-      __empty__
+      Usuario  desde internet con acceso a la sesión.
   category: Probabilistic Techniques
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
