@@ -19,10 +19,13 @@ from tap_announcekit.api.gql_schema import (
     Label as RawLabel,
 )
 from tap_announcekit.objs.id_objs import (
+    IndexedObj,
+    LabelId,
     ProjectId,
 )
 from tap_announcekit.objs.label import (
     Label,
+    LabelObj,
 )
 from tap_announcekit.streams._query_utils import (
     select_fields,
@@ -51,14 +54,19 @@ class LabelsQuery:
         item = operation.labels(project_id=self.proj.id_str)
         return select_fields(item, frozenset(Label.__annotations__))
 
+    def to_label_obj(self, raw: RawLabel) -> LabelObj:
+        return IndexedObj(
+            LabelId(self.proj, _to_primitive(raw.id, str)), self._to_obj(raw)
+        )
+
     @property
-    def query(self) -> Query[FrozenList[Label]]:
+    def query(self) -> Query[FrozenList[LabelObj]]:
         return QueryFactory.select(
             self._select_fields,
             Transform(
                 lambda p: tuple(
                     map(
-                        self._to_obj,
+                        self.to_label_obj,
                         tuple(cast(List[RawLabel], p.labels)),
                     )
                 )
@@ -71,9 +79,9 @@ class LabelFactory:
     _client: ApiClient
 
     @staticmethod
-    def _get_query(proj: ProjectId) -> Query[FrozenList[Label]]:
+    def _get_query(proj: ProjectId) -> Query[FrozenList[LabelObj]]:
         return LabelsQuery(Transform(to_obj), proj).query
 
-    def get(self, proj: ProjectId) -> IO[FrozenList[Label]]:
+    def get(self, proj: ProjectId) -> IO[FrozenList[LabelObj]]:
         query = self._get_query(proj)
         return self._client.get(query)
