@@ -37,7 +37,8 @@ def test_finding_description(
     description.click()
     assert utils.wait_for_text(
         driver,
-        "359. The system should use typified exceptions instead of generic",
+        "266. The organization must disable or carefully control the insecure"
+        " functions of a system (system hardening).",
         timeout,
     )
 
