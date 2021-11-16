@@ -17747,23 +17747,36 @@
   en:
     title: Enabled default configuration
     description: >
-      __empty__
+      The server's default page is enabled,
+      which allows an attacker to access it
+      and obtain relevant technical information
+      about the server.
     impact: >
-      __empty__
+      Obtain technical information from the application
+      that can be used to augment the attack vector.
     recommendation: >
-      __empty__
+      Disable or modify the server's default
+      page in such a way that no information
+      can be obtained from it.
     threat: >
-      __empty__
+      Anonymous attacker from Internet.
   es:
     title: Enabled default configuration
     description: >
-      __empty__
+      La página por defecto del servidor está
+      activada, lo que le permite a un atacante
+      ingresar a ella y obtener información
+      técnica relevante sobre el servidor.
     impact: >
-      __empty__
+      Obtener información técnica de la
+      aplicación que puede ser usada para
+      incrementar el vector de ataque.
     recommendation: >
-      __empty__
+      Deshabilitar o modificar la página default
+      del servidor de tal manera que no se pueda
+      obtener ninguna información de ella.
     threat: >
-      __empty__
+      Atacante anónimo desde internet.
   category: Abuse Functionality
   score:
     base:
@@ -17772,8 +17785,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
