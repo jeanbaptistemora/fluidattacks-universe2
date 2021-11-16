@@ -17800,23 +17800,47 @@
   en:
     title: Insecurely generated token - JWT
     description: >
-      __empty__
+      The token used to consume the user
+      creation service in the application
+      is not generated securely, because the
+      key that signs the token is weak and was
+      easily found as indicated in the finding
+      of weak credentials.
+      For this reason, an attacker can modify
+      token parameters such as the expiration
+      date to consume the service, and perform
+      queries in the application.
     impact: >
-      __empty__
+      Use the user creation service within the
+      application with a token signed by an
+      attacker in a legitimate way.
     recommendation: >
-      __empty__
+      Use strong passwords for signing and
+      verification of the user creation token.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Insecurely generated token - JWT
     description: >
-      __empty__
+      El token utilizado para consumir el servicio
+      de creación de usuarios en la aplicación no se
+      genera de forma segura, debido a que la llave
+      que firma el token es débil y fue encontrada
+      fácilmente como se indica en el hallazgo de
+      credenciales débiles.
+      Por tal motivo, un atacante puede modificar
+      parámetros del token como la fecha de expiración
+      para consumir el servicio, y realizar consultas
+      en la aplicación.
     impact: >
-      __empty__
+      Utilizar el servicio de creación de usuarios
+      dentro de la aplicación con un tokens firmados
+      por un atacante de forma legítima.
     recommendation: >
-      __empty__
+      Usar contraseñas seguras para realizar la firma
+      y verificación del token de creación de usuarios.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   category: Deceptive Interactions
   score:
     base:
