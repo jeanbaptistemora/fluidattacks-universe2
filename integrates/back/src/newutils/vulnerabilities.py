@@ -650,6 +650,29 @@ def get_treatment_from_org_finding_policy(
     ]
 
 
+def get_treatment_from_org_finding_policy_new(
+    *, modified_date: str, user_email: str
+) -> List[VulnerabilityTreatment]:
+    return [
+        VulnerabilityTreatment(
+            acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
+            justification="From organization findings policy",
+            manager=user_email,
+            modified_by=user_email,
+            modified_date=modified_date,
+            status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+        ),
+        VulnerabilityTreatment(
+            acceptance_status=VulnerabilityAcceptanceStatus.APPROVED,
+            justification="From organization findings policy",
+            manager=user_email,
+            modified_by=user_email,
+            modified_date=modified_date,
+            status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+        ),
+    ]
+
+
 def get_total_treatment_date(
     historics: Tuple[Tuple[VulnerabilityTreatment, ...], ...],
     min_date: datetime,

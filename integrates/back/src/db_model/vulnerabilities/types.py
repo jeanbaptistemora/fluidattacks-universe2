@@ -69,13 +69,13 @@ class Vulnerability(NamedTuple):
 
 
 class VulnerabilityMetadataToUpdate(NamedTuple):
-    bug_tracking_system_url: Optional[str]
-    commit: Optional[str]
-    custom_severity: Optional[int]
-    hash: Optional[int]
-    repo: Optional[str]
-    specific: Optional[str]
-    stream: Optional[List[str]]
-    tags: Optional[List[str]]
-    type: Optional[VulnerabilityType]
-    where: Optional[str]
+    bug_tracking_system_url: Optional[str] = None
+    commit: Optional[str] = None
+    custom_severity: Optional[int] = None
+    hash: Optional[int] = None
+    repo: Optional[str] = None
+    specific: Optional[str] = None
+    stream: Optional[List[str]] = None
+    tags: Optional[List[str]] = None
+    type: Optional[VulnerabilityType] = None
+    where: Optional[str] = None

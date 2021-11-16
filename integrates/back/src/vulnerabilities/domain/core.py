@@ -20,7 +20,7 @@ from custom_types import (
     Finding as FindingType,
     Historic as HistoricType,
     User as UserType,
-    Vulnerability as VulnerabilityType,
+    Vulnerability as VulnLegacyType,
 )
 from db_model.enums import (
     StateRemovalJustification,
@@ -31,9 +31,13 @@ from db_model.vulnerabilities import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
+    VulnerabilityType,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityMetadataToUpdate,
+    VulnerabilityState,
+    VulnerabilityTreatment,
 )
 from dynamodb.operations_legacy import (
     start_context,
@@ -113,7 +117,7 @@ async def _confirm_zero_risk(
     user_email: str,
     date: str,
     comment_id: str,
-    vuln: VulnerabilityType,
+    vuln: VulnLegacyType,
 ) -> bool:
     historic_zero_risk: HistoricType = vuln.get("historic_zero_risk", [])
     new_state = {
@@ -573,8 +577,8 @@ async def list_vulnerabilities_async(
 
 
 async def mask_vuln(vuln: Vulnerability) -> bool:
-    items: List[VulnerabilityType] = await vulns_dal.get(vuln.id)
-    item: VulnerabilityType = items[0]
+    items: List[VulnLegacyType] = await vulns_dal.get(vuln.id)
+    item: VulnLegacyType = items[0]
     historic_treatment: Optional[HistoricType] = item.get("historic_treatment")
     if historic_treatment:
         for state in historic_treatment:
@@ -597,7 +601,7 @@ async def _reject_zero_risk(
     user_email: str,
     date: str,
     comment_id: str,
-    vuln: VulnerabilityType,
+    vuln: VulnLegacyType,
 ) -> bool:
     historic_zero_risk: HistoricType = vuln.get("historic_zero_risk", [])
     new_state = {
@@ -655,8 +659,8 @@ async def reject_vulnerabilities_zero_risk(
 
 async def request_verification(vuln: Vulnerability) -> bool:
     today = datetime_utils.get_now_as_str()
-    items: List[VulnerabilityType] = await vulns_dal.get(vuln.id)
-    item: VulnerabilityType = items[0]
+    items: List[VulnLegacyType] = await vulns_dal.get(vuln.id)
+    item: VulnLegacyType = items[0]
     historic_verification: HistoricType = item.get("historic_verification", [])
     new_state = {
         "date": today,
@@ -674,7 +678,7 @@ async def _request_zero_risk(
     user_email: str,
     date: str,
     comment_id: str,
-    vuln: VulnerabilityType,
+    vuln: VulnLegacyType,
 ) -> bool:
     historic_zero_risk: HistoricType = vuln.get("historic_zero_risk", [])
     new_state = {
@@ -954,6 +958,89 @@ async def update_vuln_state(
     return True
 
 
+async def update_state_new(
+    *,
+    vulnerability: Vulnerability,
+    new_metadata: VulnerabilityMetadataToUpdate,
+    new_state: VulnerabilityState,
+    finding_id: str,
+    finding_policy: Optional[OrgFindingPolicyItem] = None,
+) -> bool:
+    """Update vulnerability state."""
+    state_to_update: Optional[VulnerabilityState] = None
+    treatment_to_update: Optional[List[VulnerabilityTreatment]] = None
+    if (
+        vulnerability.state.source != new_state.source
+        or vulnerability.state.status != new_state.status
+    ):
+        state_to_update = VulnerabilityState(
+            modified_by=new_state.modified_by,
+            modified_date=new_state.modified_date,
+            source=new_state.source,
+            status=new_state.status,
+        )
+        if (
+            finding_policy
+            and new_state.status == VulnerabilityStateStatus.OPEN
+            and finding_policy.state.status == "APPROVED"
+            and vulnerability.treatment.status
+            != VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+        ):
+            treatment_to_update = (
+                vulns_utils.get_treatment_from_org_finding_policy_new(
+                    modified_date=new_state.modified_date,
+                    user_email=finding_policy.state.modified_by,
+                )
+            )
+
+    # Format to update in current entity model
+    items: List[VulnLegacyType] = await vulns_dal.get(vulnerability.id)
+    item: VulnLegacyType = items[0]
+    data_to_update: Dict[str, FindingType] = {}
+    if state_to_update:
+        data_to_update["historic_state"] = [
+            *item["historic_state"],
+            {
+                "analyst": state_to_update.modified_by,
+                "date": datetime_utils.convert_from_iso_str(
+                    state_to_update.modified_date
+                ),
+                "source": state_to_update.source.value,
+                "state": str(state_to_update.status.value).lower(),
+            },
+        ]
+    if treatment_to_update:
+        formatted_treatment = [
+            {
+                "treatment": treatment.status.value,
+                "justification": treatment.justification,
+                "user": treatment.modified_by,
+                "date": datetime_utils.convert_from_iso_str(
+                    treatment.modified_date
+                ),
+                "treatment_manager": treatment.manager,
+                "acceptance_status": treatment.acceptance_status.value,
+            }
+            for treatment in treatment_to_update
+        ]
+        data_to_update["historic_treatment"] = [
+            *item["historic_treatment"],
+            *formatted_treatment,
+        ]
+    if new_metadata.type == VulnerabilityType.INPUTS:
+        data_to_update["stream"] = new_metadata.stream
+    if new_metadata.type == VulnerabilityType.LINES:
+        data_to_update["commit_hash"] = new_metadata.commit
+    if new_metadata.repo:
+        data_to_update["repo_nickname"] = new_metadata.repo
+    if data_to_update:
+        return await vulns_dal.update(
+            finding_id, str(vulnerability.id), data_to_update
+        )
+
+    return True
+
+
 async def verify(
     *,
     info: GraphQLResolveInfo,
@@ -1000,7 +1087,7 @@ async def verify(
     return success
 
 
-async def verify_vulnerability(vuln: VulnerabilityType) -> bool:
+async def verify_vulnerability(vuln: VulnLegacyType) -> bool:
     today = datetime_utils.get_now_as_str()
     historic_verification: HistoricType = vuln.get("historic_verification", [])
     new_state = {
