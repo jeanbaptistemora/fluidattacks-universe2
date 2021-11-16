@@ -8,6 +8,7 @@ from tap_announcekit.streams.feeds import (
     _encode,
 )
 from tap_announcekit.streams.feeds._factory import (
+    _from_raw,
     _queries,
 )
 from tests.stream import (
@@ -25,29 +26,33 @@ def test_schema() -> None:
     utils.test_schema_record(schema, record)
 
 
-id_query = _queries.FeedIdQuery(
-    Transform(lambda _: mock_data.mock_feed_obj.id_obj),
-    mock_data.mock_proj_id,
-).query
-obj_query = _queries.FeedQuery(
-    Transform(lambda _: mock_data.mock_feed_obj.obj),
-    mock_data.mock_feed_obj.id_obj,
-).query
+def test_build_query_id() -> None:
+    assert _queries.FeedIdQuery(
+        Transform(lambda _: mock_data.mock_feed_obj.id_obj),
+        mock_data.mock_proj_id,
+    ).query.operation()
+
+
+def test_build_query_obj() -> None:
+    assert _queries.FeedQuery(
+        Transform(lambda _: mock_data.mock_feed_obj.obj),
+        mock_data.mock_feed_obj.id_obj,
+    ).query.operation()
 
 
 def test_query_id() -> None:
-    assert id_query.operation()
-
-
-def test_query_obj() -> None:
-    assert obj_query.operation()
-
-
-def test_from_data_ids() -> None:
     raw_data = {"data": mock_raw_data.mock_feed_ids}
+    id_query = _queries.FeedIdQuery(
+        Transform(lambda t: _from_raw.to_id(*t)),
+        mock_data.mock_proj_id,
+    ).query
     assert ApiClient.from_data(id_query, raw_data)
 
 
-def test_from_data_obj() -> None:
+def test_query_obj() -> None:
     raw_data = {"data": mock_raw_data.mock_feed}
+    obj_query = _queries.FeedQuery(
+        Transform(_from_raw.to_obj),
+        mock_data.mock_feed_obj.id_obj,
+    ).query
     assert ApiClient.from_data(obj_query, raw_data)

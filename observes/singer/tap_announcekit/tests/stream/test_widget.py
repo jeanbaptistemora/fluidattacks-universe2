@@ -8,6 +8,8 @@ from tap_announcekit.streams.widgets import (
     _encode,
 )
 from tap_announcekit.streams.widgets._factory import (
+    _get_ids_query,
+    _get_query,
     _queries,
 )
 from tests.stream import (
@@ -25,29 +27,29 @@ def test_schema() -> None:
     utils.test_schema_record(schema, record)
 
 
-id_query = _queries.WidgetIdQuery(
-    Transform(lambda _: mock_data.mock_widget_obj.id_obj),
-    mock_data.mock_proj_id,
-).query
-obj_query = _queries.WidgetQuery(
-    Transform(lambda _: mock_data.mock_widget_obj.obj),
-    mock_data.mock_widget_obj.id_obj,
-).query
+def test_build_query_id() -> None:
+    assert _queries.WidgetIdQuery(
+        Transform(lambda _: mock_data.mock_widget_obj.id_obj),
+        mock_data.mock_proj_id,
+    ).query.operation()
+
+
+def test_build_query_obj() -> None:
+    assert _queries.WidgetQuery(
+        Transform(lambda _: mock_data.mock_widget_obj.obj),
+        mock_data.mock_widget_obj.id_obj,
+    ).query.operation()
 
 
 def test_query_id() -> None:
-    assert id_query.operation()
+    raw_data = {"data": mock_raw_data.mock_widgets_ids}
+    assert ApiClient.from_data(
+        _get_ids_query(mock_data.mock_proj_id), raw_data
+    )
 
 
 def test_query_obj() -> None:
-    assert obj_query.operation()
-
-
-def test_from_data_ids() -> None:
-    raw_data = {"data": mock_raw_data.mock_widgets_ids}
-    assert ApiClient.from_data(id_query, raw_data)
-
-
-def test_from_data_obj() -> None:
     raw_data = {"data": mock_raw_data.mock_widget}
-    assert ApiClient.from_data(obj_query, raw_data)
+    assert ApiClient.from_data(
+        _get_query(mock_data.mock_widget_obj.id_obj), raw_data
+    )
