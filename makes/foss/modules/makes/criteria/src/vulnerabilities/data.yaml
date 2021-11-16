@@ -17864,33 +17864,55 @@
   en:
     title: Unauthorized access to screen
     description: >
-      __empty__
+      An advisor, through the GLIA application,
+      should not have access to client information.
+      However, the advisor can obtain different
+      client data (without the client being aware
+      of it), simply by logging into the user
+      window and following the flow that the user
+      goes through when opening an account.
     impact: >
-      __empty__
+      Obtain confidential information from
+      users without their approval.
     recommendation: >
-      __empty__
+      User information should not be exposed
+      to a third party in any part of the
+      account opening flow.
     threat: >
-      __empty__
+      Attacker from the Internet with
+      access to GLIA application.
   es:
     title: Unauthorized access to screen
     description: >
-      __empty__
+      Un asesor, a través de la aplicación
+      GLIA, no debería tener acceso a la
+      información del cliente.
+      No obstante, el asesor puede obtener diferentes
+      datos del cliente (sin que este se percate),
+      simplemente ingresando a la ventana del usuario
+      y siguiendo el flujo que este va realizando al
+      momento de abrir una cuenta.
     impact: >
-      __empty__
+      Obtener información confidencial de los
+      usuarios sin que estos hayan dado su
+      aprobación para ello.
     recommendation: >
-      __empty__
+      La información del usuario no debe ser
+      expuesta a un tercero en ninguna parte
+      del flujo de apertura de cuenta.
     threat: >
-      __empty__
+      Atacante desde Internet con acceso a
+      la aplicación de GLIA.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
+      privileges_required: "L"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
@@ -17904,23 +17926,53 @@
   en:
     title: Unrestricted access between network segments - JSch
     description: >
-      __empty__
+      The JSch StrictHostKeyChecking configuration
+      is set to NO, this indicates that connections
+      can be made to unknown servers or servers that
+      have changed their keys, generating new ones
+      and adding them by default to the known server files.
     impact: >
-      __empty__
+      - Initiate connections to untrusted servers.
+
+      - Increase the possibility of attacks
+      such as MitM and spoofing.
+
+      - Receive or send malicious data or files.
+
+      - Leak sensitive information such as
+      users and passwords.
     recommendation: >
-      __empty__
+      - Limit access to administrative services such as SSH.
+
+      - Implement safe values for the StricktHostKeyChecking
+      configuration in JSch.
     threat: >
-      __empty__
+      Unauthorized external attacker.
   es:
     title: Unrestricted access between network segments - JSch
     description: >
-      __empty__
+      La configuración de JSch StrictHostKeyChecking
+      está configurado con el valor NO, esto indica
+      que se podrán realizar conexiones con servidores
+      desconocidos o que hayan cambiado sus llaves,
+      generando nuevas  y añadiendolas por defecto
+      a los archivos de servidores conocidos.
     impact: >
-      __empty__
+      - Iniciar conexiones con servidores no confiables.
+
+      - Incrementar la posibilidad de ataques
+      como MitM y spoofing.
+
+      - Recibir o enviar  data o archivos maliciosos.
+
+      - Filtrar información sensible como usuarios y contraseñas.
     recommendation: >
-      __empty__
+      - Limitar los accesos a servicios administrativos como SSH.
+
+      - Implementar valores seguros para la configuración
+      StricktHostKeyChecking en JSch.
     threat: >
-      __empty__
+      Atacante externo no autorizado.
   category: Subvert Access
   score:
     base:
@@ -17929,12 +17981,12 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["255"]
   metadata:
