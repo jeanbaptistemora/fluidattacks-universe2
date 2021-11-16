@@ -18045,37 +18045,46 @@
   en:
     title: Insecure service configuration - Certificates
     description: >
-      __empty__
+      Due to a misconfiguration of X.509 certificates,
+      the application can accept invalid certificates,
+      making it possible to carry out Man in The
+      Middle attacks.
     impact: >
-      __empty__
+      Execute man-in-the-middle attacks.
     recommendation: >
-      __empty__
+      Throw typed exceptions in case of
+      detection of invalid certificates.
     threat: >
-      __empty__
+      Atacante sin autorización desde intranet.
   es:
     title: Insecure service configuration - Certificates
     description: >
-      __empty__
+      Debido a una mala configuracion de los
+      certificados X.509 la aplicación permite
+      aceptar certificados inválidos, con lo
+      cual es posible materializar ataques
+      de Man in The Middle
     impact: >
-      __empty__
+      Ejecutar ataques Man-in-the-middle.
     recommendation: >
-      __empty__
+      Arrojar excepciones typeadas en caso de
+      detectar certificados inválidos.
     threat: >
-      __empty__
+      Atacante sin autorización desde intranet.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
