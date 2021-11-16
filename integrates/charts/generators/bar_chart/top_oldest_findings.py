@@ -43,7 +43,8 @@ async def get_data_one_group(group: str) -> Counter[str]:
         [
             get_finding_open_age(loaders, finding.id)
             for finding in group_findings
-        ]
+        ],
+        workers=16,
     )
     counter: Counter[str] = Counter(
         {

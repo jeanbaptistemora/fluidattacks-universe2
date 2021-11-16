@@ -61,7 +61,7 @@ async def get_data_one_group(group: str) -> Counter[str]:
             get_treatment_changes(loaders, vulnerability)
             for vulnerability in vulnerabilities
         ),
-        workers=8,
+        workers=16,
     )
 
     return Counter(filter(None, treatment_changes))
