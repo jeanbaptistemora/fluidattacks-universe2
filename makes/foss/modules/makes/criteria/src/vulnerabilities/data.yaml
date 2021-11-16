@@ -18197,36 +18197,50 @@
   en:
     title: Improper resource allocation - Buffer overflow
     description: >
-      __empty__
+      Within the code there are unsafe statements
+      that can affect the performance and response
+      time of the application.
+      See "https://rules.sonarsource.com/java/RSPEC-1149?search=stringbuffer"
+      for more information.
     impact: >
-      __empty__
+      Affect application performance.
     recommendation: >
-      __empty__
+      Use the libraries that allow to execute the
+      functions of concatenation and storage in
+      collections in an optimized way (ArrayList
+      and StringBuilder or SyncronizedList).
     threat: >
-      __empty__
+      Attacker with access to the application.
   es:
     title: Improper resource allocation - Buffer overflow
     description: >
-      __empty__
+      Dentro del código existen sentencias inseguras
+      que pueden afectar el rendimiento y el tiempo
+      de respuesta de la aplicación.
+      Ver "https://rules.sonarsource.com/java/RSPEC-1149?search=stringbuffer"
+      para más información.
     impact: >
-      __empty__
+      Afectar el rendimiento de la aplicación.
     recommendation: >
-      __empty__
+      Utilizar las librerías que permiten ejecutar las
+      funciones de concatenado y almacenamiento en
+      colecciones de manera optimizada (ArrayList y
+      StringBuilder o SyncronizedList).
     threat: >
-      __empty__
+      Atacante con acceso a la aplicación.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_vector: "A"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["072","158","164","173"]
