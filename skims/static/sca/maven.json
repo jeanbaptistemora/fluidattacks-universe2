@@ -2339,7 +2339,8 @@
     "CVE-2011-4605": "5.0.3.ga_cp01"
   },
   "org.jboss.redhat-fuse:redhat-fuse": {
-    "CVE-2021-20218": "7.0.0"
+    "CVE-2021-20218": "7.0.0",
+    "CVE-2021-3642": "7.0.0"
   },
   "org.jboss.resteasy:resteasy-client": {
     "CVE-2020-25633": ">=0 <3.14.0 || >=4.5.0 <=4.5.6",
