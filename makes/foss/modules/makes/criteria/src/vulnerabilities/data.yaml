@@ -14644,7 +14644,7 @@
       comprometer las operaciones de la aplicación
       ya que esta se está tiene almacenadas las
       contraseñas de acceso sin ningún tipo de
-      cifrado o derivación.
+      cifrado o derivacion.
   category: Collect Information
   score:
     base:
