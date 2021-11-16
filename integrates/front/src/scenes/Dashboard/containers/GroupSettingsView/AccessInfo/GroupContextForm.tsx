@@ -1,4 +1,5 @@
 import MDEditor from "@uiw/react-md-editor";
+import type { FieldInputProps } from "formik";
 import { ErrorMessage, Field, Form, useFormikContext } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
@@ -7,7 +8,6 @@ import type { ConfigurableValidator } from "revalidate";
 
 import type { IGroupAccessInfo } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo";
 import { ActionButtons } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/ActionButtons";
-import type { IFieldProps } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/GroupContextForm";
 import {
   Alert,
   Col25,
@@ -18,39 +18,56 @@ import {
 import { ValidationError } from "utils/forms/fields/styles";
 import { maxLength } from "utils/validations";
 
-const MAX_DISAMBIGUATION_INFO_LENGTH = 10000;
+const MAX_GROUP_CONTEXT_LENGTH = 10000;
 
-const maxDisambiguationInfoLength: ConfigurableValidator = maxLength(
-  MAX_DISAMBIGUATION_INFO_LENGTH
+const maxGroupContextLength: ConfigurableValidator = maxLength(
+  MAX_GROUP_CONTEXT_LENGTH
 );
 
-interface IDisambiguationForm {
+interface IGroupContextForm {
   data: IGroupAccessInfo | undefined;
   isEditing: boolean;
   setEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DisambiguationForm: React.FC<IDisambiguationForm> = ({
+/* eslint-disable react/no-unused-prop-types */
+interface IFieldProps {
+  field: FieldInputProps<string>;
+  form: {
+    values: {
+      disambiguation: string;
+      sastAccess: string;
+    };
+    setFieldValue: (
+      field: string,
+      value: string | undefined,
+      shouldValidate?: boolean | undefined
+    ) => void;
+  };
+}
+/* eslint-disable react/no-unused-prop-types */
+
+const GroupContextForm: React.FC<IGroupContextForm> = ({
   data,
   isEditing,
   setEditing,
-}: IDisambiguationForm): JSX.Element => {
+}: IGroupContextForm): JSX.Element => {
   const { dirty, resetForm, submitForm } = useFormikContext();
-  const isDisambiguationInfoPristine = !dirty;
+  const isGroupAccessInfoPristine = !dirty;
   const { t } = useTranslation();
 
   const toggleEdit: () => void = useCallback((): void => {
-    if (!isDisambiguationInfoPristine) {
+    if (!isGroupAccessInfoPristine) {
       resetForm();
     }
     setEditing(!isEditing);
-  }, [isDisambiguationInfoPristine, isEditing, resetForm, setEditing]);
+  }, [isGroupAccessInfoPristine, isEditing, resetForm, setEditing]);
 
   const handleSubmit: () => void = useCallback((): void => {
-    if (!isDisambiguationInfoPristine) {
+    if (!isGroupAccessInfoPristine) {
       void submitForm();
     }
-  }, [isDisambiguationInfoPristine, submitForm]);
+  }, [isGroupAccessInfoPristine, submitForm]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -60,24 +77,21 @@ const DisambiguationForm: React.FC<IDisambiguationForm> = ({
 
   return (
     <React.StrictMode>
-      <Form id={"editDisambiguationInfo"}>
+      <Form id={"editGroupAccessInfo"}>
         <Flex>
-          <h2>{t("searchFindings.groupAccessInfoSection.disambiguation")}</h2>
+          <h2>{t("searchFindings.groupAccessInfoSection.groupContext")}</h2>
         </Flex>
         <Row>
-          {dataset.disambiguation || isEditing ? (
+          {dataset.sastAccess || isEditing ? (
             <GroupScopeTextWide>
               {isEditing ? (
-                <Field
-                  name={"disambiguation"}
-                  validate={maxDisambiguationInfoLength}
-                >
+                <Field name={"sastAccess"} validate={maxGroupContextLength}>
                   {({
                     field,
                     form: { values, setFieldValue },
                   }: IFieldProps): JSX.Element => {
                     function handleMDChange(value: string | undefined): void {
-                      setFieldValue("disambiguation", value);
+                      setFieldValue("sastAccess", value);
                     }
 
                     return (
@@ -86,7 +100,7 @@ const DisambiguationForm: React.FC<IDisambiguationForm> = ({
                           height={200}
                           highlightEnable={false}
                           onChange={handleMDChange}
-                          value={values.disambiguation}
+                          value={values.sastAccess}
                         />
                         <ValidationError>
                           <ErrorMessage name={field.name} />
@@ -102,24 +116,24 @@ const DisambiguationForm: React.FC<IDisambiguationForm> = ({
                   }}
                 </Field>
               ) : (
-                <MDEditor.Markdown source={dataset.disambiguation} />
+                <MDEditor.Markdown source={dataset.sastAccess} />
               )}
             </GroupScopeTextWide>
           ) : (
             <GroupScopeTextWide>
-              {t("searchFindings.groupAccessInfoSection.noDisambiguation")}
+              {t("searchFindings.groupAccessInfoSection.noGroupContext")}
             </GroupScopeTextWide>
           )}
           <Col25>
             <ActionButtons
               editTooltip={t(
-                "searchFindings.groupAccessInfoSection.tooltips.editDisambiguationInfo"
+                "searchFindings.groupAccessInfoSection.tooltips.editGroupContext"
               )}
               isEditing={isEditing}
-              isPristine={isDisambiguationInfoPristine}
+              isPristine={isGroupAccessInfoPristine}
               onEdit={toggleEdit}
               onUpdate={handleSubmit}
-              permission={"api_mutations_update_group_disambiguation_mutate"}
+              permission={"api_mutations_update_group_access_info_mutate"}
             />
           </Col25>
         </Row>
@@ -128,4 +142,4 @@ const DisambiguationForm: React.FC<IDisambiguationForm> = ({
   );
 };
 
-export { DisambiguationForm };
+export { GroupContextForm, IFieldProps };

@@ -1166,26 +1166,17 @@ export const enTranslations: ResourceKey = {
     findingRejected: "Finding {{findingId}} was rejected",
     findingsDeleted: "Findings were deleted",
     groupAccessInfoSection: {
-      dast: "DAST",
       disambiguation: "Disambiguation",
       groupContext: "Group context",
       markdownAlert:
         "Please use Markdown language for writing this information.",
-      mobile: "Mobile",
-      noAccessInfo:
-        "There is no information on how to access this group's ToE at the moment.",
       noDisambiguation:
         "There is no need for disambiguation in this group at the moment.",
-      sast: "SAST",
+      noGroupContext:
+        "There is no information on how to access this group's ToE at the moment.",
       tooltips: {
-        dast: "Information on how to access the environments of this group",
-        disambiguation:
-          "Necessary clarifications on what should be tested in this group",
         editDisambiguationInfo: "Edit group disambiguation",
-        editGroupAccessInfo: "Edit group access information",
-        mobile:
-          "Information on how to access the mobile environments of this group",
-        sast: "Information on how to access the repositories of this group",
+        editGroupContext: "Edit group context information",
       },
     },
     highSeverity: "High",

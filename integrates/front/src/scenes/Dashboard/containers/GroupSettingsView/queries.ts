@@ -4,9 +4,7 @@ import type { DocumentNode } from "graphql";
 const GET_GROUP_ACCESS_INFO: DocumentNode = gql`
   query GetGroupAccessInfo($groupName: String!) {
     group(groupName: $groupName) {
-      dastAccess
       disambiguation
-      mobileAccess
       sastAccess
     }
   }

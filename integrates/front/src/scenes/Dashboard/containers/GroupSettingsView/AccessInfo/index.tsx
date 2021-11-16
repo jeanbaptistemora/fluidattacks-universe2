@@ -6,8 +6,8 @@ import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { AccessInfoForm } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/AccessInfoForm";
 import { DisambiguationForm } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/DisambiguationForm";
+import { GroupContextForm } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/GroupContextForm";
 import {
   GET_GROUP_ACCESS_INFO,
   UPDATE_GROUP_ACCESS_INFO,
@@ -20,9 +20,7 @@ import { translate } from "utils/translations/translate";
 
 interface IGroupAccessInfo {
   group: {
-    dastAccess: string;
     disambiguation: string;
-    mobileAccess: string;
     sastAccess: string;
   };
 }
@@ -143,7 +141,7 @@ const AccessInfo: React.FC = (): JSX.Element => {
         name={"editGroupAccessInfo"}
         onSubmit={handleGroupAccessInfoSubmit}
       >
-        <AccessInfoForm
+        <GroupContextForm
           data={data}
           isEditing={isEditingGroupAccessInfo}
           setEditing={setEditingGroupAccessInfo}
