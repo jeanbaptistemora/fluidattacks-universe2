@@ -17,8 +17,6 @@ type Group {
   closedVulnerabilities: Int
   "Information about the group shared by the stakeholders via comments"
   consulting: [Consult!]
-  "How to access the group envs"
-  dastAccess: String
   "Removal date of the group from ASM if applicable"
   deletionDate: String
   "Brief description to identify the group"
@@ -37,6 +35,8 @@ type Group {
   ): [Finding]
   "Current DevSecOps (Forces) token to allow access to your CI/CD pipelines"
   forcesToken: String
+  "How to access the group ToE"
+  groupContext: String
   "State of ASM services. Either true or the Group will be deleted soon"
   hasAsm: Boolean
   "State of the Squad plan within the Group"
@@ -84,8 +84,6 @@ type Group {
   meanRemediateLowSeverity: Int
   "Mean time to remediate medium-severity vulnerabilities in days"
   meanRemediateMediumSeverity: Int
-  "How to access the mobile envs"
-  mobileAccess: String
   "Name of the group"
   name: String
   "Amount of currently open Findings in the group"
@@ -98,8 +96,6 @@ type Group {
   permissions: [String]
   "Group roots, can be IP, URL or Git Roots"
   roots: [Root!]
-  "How to access the group repos"
-  sastAccess: String
   "Black or White box type of hacking service"
   service: ServiceType!
   "Currently active service attributes"

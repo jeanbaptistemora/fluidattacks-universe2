@@ -18,7 +18,7 @@ import {
 import { ValidationError } from "utils/forms/fields/styles";
 import { maxLength } from "utils/validations";
 
-const MAX_GROUP_CONTEXT_LENGTH = 10000;
+const MAX_GROUP_CONTEXT_LENGTH = 20000;
 
 const maxGroupContextLength: ConfigurableValidator = maxLength(
   MAX_GROUP_CONTEXT_LENGTH
@@ -36,7 +36,7 @@ interface IFieldProps {
   form: {
     values: {
       disambiguation: string;
-      sastAccess: string;
+      groupContext: string;
     };
     setFieldValue: (
       field: string,
@@ -82,16 +82,16 @@ const GroupContextForm: React.FC<IGroupContextForm> = ({
           <h2>{t("searchFindings.groupAccessInfoSection.groupContext")}</h2>
         </Flex>
         <Row>
-          {dataset.sastAccess || isEditing ? (
+          {dataset.groupContext || isEditing ? (
             <GroupScopeTextWide>
               {isEditing ? (
-                <Field name={"sastAccess"} validate={maxGroupContextLength}>
+                <Field name={"groupContext"} validate={maxGroupContextLength}>
                   {({
                     field,
                     form: { values, setFieldValue },
                   }: IFieldProps): JSX.Element => {
                     function handleMDChange(value: string | undefined): void {
-                      setFieldValue("sastAccess", value);
+                      setFieldValue("groupContext", value);
                     }
 
                     return (
@@ -100,7 +100,7 @@ const GroupContextForm: React.FC<IGroupContextForm> = ({
                           height={200}
                           highlightEnable={false}
                           onChange={handleMDChange}
-                          value={values.sastAccess}
+                          value={values.groupContext}
                         />
                         <ValidationError>
                           <ErrorMessage name={field.name} />
@@ -116,7 +116,7 @@ const GroupContextForm: React.FC<IGroupContextForm> = ({
                   }}
                 </Field>
               ) : (
-                <MDEditor.Markdown source={dataset.sastAccess} />
+                <MDEditor.Markdown source={dataset.groupContext} />
               )}
             </GroupScopeTextWide>
           ) : (

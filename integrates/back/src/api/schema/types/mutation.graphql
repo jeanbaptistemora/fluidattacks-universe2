@@ -728,14 +728,10 @@ type Mutation {
 
   "Update the information on how to access group TOE"
   updateGroupAccessInfo(
-    "How to access the group envs"
-    dastAccess: String
+    "How to access the group ToE"
+    groupContext: String
     "Name of the group to be updated"
     groupName: String!
-    "How to access the mobile envs"
-    mobileAccess: String
-    "How to access the group repos"
-    sastAccess: String
   ): SimplePayload!
 
   "Update the necessary clarifications on what should be tested"

@@ -59,7 +59,6 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
 
         groups[group_name] = dict(
             closed_vulnerabilities=group.get("closed_vulnerabilities", 0),
-            dast_access=group.get("dast_access", ""),
             deletion_date=(
                 historic_deletion[-1].get("deletion_date", "")
                 if "historic_deletion" in group
@@ -68,6 +67,7 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
             description=group.get("description", ""),
             disambiguation=group.get("disambiguation", ""),
             files=group.get("files", []),
+            group_context=group.get("group_context", ""),
             has_forces=historic_configuration[-1].get("has_forces", False),
             language=group.get("language", "en"),
             last_closing_vuln=group.get("last_closing_date", 0),
@@ -87,7 +87,6 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
                 "mean_remediate_medium_severity", 0
             ),
             mean_remediate=group.get("mean_remediate", 0),
-            mobile_access=group.get("mobile_access", ""),
             name=group_name,
             open_findings=group.get("open_findings", 0),
             open_vulnerabilities=group.get("open_vulnerabilities", 0),
@@ -124,7 +123,6 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
             remediated_over_time_cvssf_90=group.get(
                 "remediated_over_time_cvssf_90", []
             ),
-            sast_access=group.get("sast_access", ""),
             service=historic_configuration[-1].get("service"),
             subscription=subscription,
             tags=group.get("tag", []),

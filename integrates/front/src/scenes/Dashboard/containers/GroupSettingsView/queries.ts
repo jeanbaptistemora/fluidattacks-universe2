@@ -5,7 +5,7 @@ const GET_GROUP_ACCESS_INFO: DocumentNode = gql`
   query GetGroupAccessInfo($groupName: String!) {
     group(groupName: $groupName) {
       disambiguation
-      sastAccess
+      groupContext
     }
   }
 `;
@@ -25,18 +25,8 @@ const GET_GROUP_DATA: DocumentNode = gql`
 `;
 
 const UPDATE_GROUP_ACCESS_INFO: DocumentNode = gql`
-  mutation UpdateGroupAccessInfo(
-    $dastAccess: String
-    $groupName: String!
-    $mobileAccess: String
-    $sastAccess: String
-  ) {
-    updateGroupAccessInfo(
-      dastAccess: $dastAccess
-      groupName: $groupName
-      mobileAccess: $mobileAccess
-      sastAccess: $sastAccess
-    ) {
+  mutation UpdateGroupAccessInfo($groupContext: String, $groupName: String!) {
+    updateGroupAccessInfo(groupContext: $groupContext, groupName: $groupName) {
       success
     }
   }

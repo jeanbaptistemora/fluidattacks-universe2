@@ -21,7 +21,7 @@ import { translate } from "utils/translations/translate";
 interface IGroupAccessInfo {
   group: {
     disambiguation: string;
-    sastAccess: string;
+    groupContext: string;
   };
 }
 
