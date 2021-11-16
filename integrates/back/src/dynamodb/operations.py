@@ -1,3 +1,7 @@
+from .utils import (
+    get_cursor,
+    get_key_from_cursor,
+)
 import aioboto3
 from aioboto3.dynamodb.table import (
     CustomTableResource,
@@ -197,12 +201,14 @@ async def put_item(
 
 
 @newrelic.agent.function_trace()
-async def query(
+async def query(  # pylint: disable=too-many-locals
     *,
+    after: Optional[str] = None,
     condition_expression: ConditionBase,
     facets: Tuple[Facet, ...],
     filter_expression: Optional[ConditionBase] = None,
     index: Optional[Index] = None,
+    paginate: bool = False,
     table: Table,
 ) -> QueryResponse:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
@@ -214,22 +220,33 @@ async def query(
             index=index,
             table=table,
         )
+        start_key = None
+        if after:
+            start_key = get_key_from_cursor(after)
+            if start_key:
+                query_args["ExclusiveStartKey"] = start_key
 
         try:
             response = await table_resource.query(**query_args)
             items: List[Item] = response.get("Items", [])
-            while response.get("LastEvaluatedKey"):
-                response = await table_resource.query(
-                    **query_args,
-                    ExclusiveStartKey=response.get("LastEvaluatedKey"),
-                )
-                items += response.get("Items", [])
+            if paginate:
+                cursor = get_cursor(table, items[-1] if items else start_key)
+                has_next_page = bool(response.get("LastEvaluatedKey"))
+            else:
+                while response.get("LastEvaluatedKey"):
+                    response = await table_resource.query(
+                        **query_args,
+                        ExclusiveStartKey=response.get("LastEvaluatedKey"),
+                    )
+                    items += response.get("Items", [])
+                cursor = get_cursor(table, None)
+                has_next_page = False
         except ClientError as error:
             handle_error(error=error)
 
     return QueryResponse(
         items=tuple(items),
-        page_info=PageInfo(has_next_page=False, end_cursor=""),
+        page_info=PageInfo(has_next_page=has_next_page, end_cursor=cursor),
     )
 
 
