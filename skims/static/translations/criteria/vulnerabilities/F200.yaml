@@ -1,3 +1,6 @@
+src.lib_path.f200.trails_not_multiregion:
+  en: The 'IsMultiRegionTrail' property must be enabled.
+  es: La propiedad 'IsMultiRegionTrail' debe estar habilitada.
 src.lib_path.f200.has_logging_disabled:
   en: Missing 'Logging' property to make traceability.
   es: Falta la propiedad 'Logging' para hacer trazabilidad

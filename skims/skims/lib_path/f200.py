@@ -3,11 +3,13 @@ from aioextensions import (
 )
 from aws.model import (
     AWSCloudfrontDistribution,
+    AWSCTrail,
     AWSS3Bucket,
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
+    FALSE_OPTIONS,
     get_line_by_extension,
     get_vulnerabilities_from_aws_iterator_blocking,
     SHIELD,
@@ -23,6 +25,7 @@ from parse_cfn.loader import (
 )
 from parse_cfn.structure import (
     iter_cloudfront_distributions,
+    iter_cloudtrail_trail,
     iter_s3_buckets,
 )
 from parse_hcl2.loader import (
@@ -62,6 +65,22 @@ def _cfn_bucket_has_access_logging_disabled_iterate_vulnerabilities(
                 data=bucket.data,
                 line=get_line_by_extension(bucket.start_line, file_ext),
             )
+
+
+def _cfn_trails_not_multiregion_iterate_vulnerabilities(
+    file_ext: str,
+    trails_iterator: Iterator[Union[AWSCTrail, Node]],
+) -> Iterator[Union[AWSCTrail, Node]]:
+    for trail in trails_iterator:
+        multi_reg = get_node_by_keys(trail, ["IsMultiRegionTrail"])
+        if not isinstance(multi_reg, Node):
+            yield AWSCTrail(
+                column=trail.start_column,
+                data=trail.data,
+                line=get_line_by_extension(trail.start_line, file_ext),
+            )
+        elif multi_reg.raw in FALSE_OPTIONS:
+            yield multi_reg
 
 
 def _has_logging_disabled_iterate_vulnerabilities(
@@ -152,6 +171,26 @@ def _cfn_bucket_has_access_logging_disabled(
     )
 
 
+def _cfn_trails_not_multiregion(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_aws_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f200.trails_not_multiregion",
+        finding=core_model.FindingEnum.F200,
+        path=path,
+        statements_iterator=(
+            _cfn_trails_not_multiregion_iterate_vulnerabilities(
+                file_ext=file_ext,
+                trails_iterator=iter_cloudtrail_trail(template=template),
+            )
+        ),
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -179,6 +218,24 @@ async def cfn_has_logging_disabled(
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _cfn_has_logging_disabled,
+        content=content,
+        file_ext=file_ext,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_trails_not_multiregion(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_trails_not_multiregion,
         content=content,
         file_ext=file_ext,
         path=path,
