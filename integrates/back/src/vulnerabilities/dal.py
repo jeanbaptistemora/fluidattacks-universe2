@@ -9,6 +9,9 @@ from botocore.exceptions import (
 from context import (
     FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET,
 )
+from custom_exceptions import (
+    VulnNotFound,
+)
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
     Finding as FindingType,
@@ -144,6 +147,36 @@ async def get_vulnerabilities_async(
             or should_list_deleted
         )
     ]
+
+
+async def get_vulnerability_by_id(
+    vulnerability_uuid: str,
+    table: aioboto3.session.Session.client,
+) -> List[Dict[str, FindingType]]:
+    hash_key = "UUID"
+    query_attrs = {
+        "IndexName": "gsi_uuid",
+        "KeyConditionExpression": Key(hash_key).eq(vulnerability_uuid),
+    }
+    response = await table.query(**query_attrs)
+    vulnerabilities = response.get("Items", [])
+    while "LastEvaluatedKey" in response:
+        query_attrs.update(
+            {"ExclusiveStartKey": response.get("LastEvaluatedKey")}
+        )
+        response = await table.query(**query_attrs)
+        vulnerabilities += response.get("Items", [])
+
+    if not vulnerabilities:
+        raise VulnNotFound()
+    first_vuln = cast(Dict[str, List[Dict[str, str]]], vulnerabilities[0])
+    if (
+        first_vuln.get("historic_state", [{}])[-1].get("state", "")
+        == "DELETED"
+    ):
+        raise VulnNotFound()
+
+    return [vulnerabilities[0]]
 
 
 async def sign_url(vuln_file_name: str) -> str:

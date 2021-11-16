@@ -47,6 +47,7 @@ from graphql.type.definition import (
 import html
 import html.parser
 from itertools import (
+    chain,
     zip_longest,
 )
 import logging
@@ -289,6 +290,32 @@ async def get_by_finding_and_vuln_ids_new(
     if len(filtered_vulns) != len(vuln_ids):
         raise VulnNotInFinding()
     return filtered_vulns
+
+
+async def get_by_vulnerabilities_ids(
+    vulnerabilities_ids: List[str],
+) -> Tuple[Dict[str, FindingType], ...]:
+    vulnerabilities: Tuple[Dict[str, FindingType], ...] = tuple()
+    async with AsyncExitStack() as stack:
+        resource = await stack.enter_async_context(start_context())
+        table = await resource.Table(vulns_dal.TABLE_NAME)
+        vulnerabilities = tuple(
+            chain.from_iterable(
+                await collect(
+                    tuple(
+                        vulns_dal.get_vulnerability_by_id(
+                            vulnerability_id, table
+                        )
+                        for vulnerability_id in vulnerabilities_ids
+                    )
+                )
+            )
+        )
+
+    if len(vulnerabilities) != len(vulnerabilities_ids):
+        raise VulnNotFound()
+
+    return vulnerabilities
 
 
 async def get_by_ids(vulns_ids: List[str]) -> List[Dict[str, FindingType]]:
