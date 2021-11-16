@@ -18,6 +18,11 @@
         registry = "registry.gitlab.com";
         tag = "fluidattacks/product/skims:latest";
       };
+      skimsProcessGroup = {
+        src = outputs."/skims/container/process-group";
+        registry = "docker.io";
+        tag = "fluidattacks/product/skims-process-group:latest";
+      };
     };
   };
   deployTerraform = {

@@ -26,7 +26,7 @@ from utils.repositories import (
 
 
 @run_decorator
-@pytest.mark.skims_test_group("unittesting")
+@pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_client(
     test_integrates_api_token: str,
@@ -40,7 +40,7 @@ async def test_client(
 
 
 @run_decorator
-@pytest.mark.skims_test_group("unittesting")
+@pytest.mark.skims_test_group("functional")
 async def test_build_vulnerabilities_stream() -> None:
     commit_hash = get_repo_head_hash(CTX.config.working_dir)
 

@@ -58,7 +58,6 @@ let
   categoriesIntegrates = [
     "functional"
     "cli"
-    "unittesting"
   ];
 in
 {

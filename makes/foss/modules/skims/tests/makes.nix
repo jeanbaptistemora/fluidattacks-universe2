@@ -9,7 +9,6 @@ let
   categories = [
     "functional"
     "cli"
-    "unittesting"
   ];
 in
 {

@@ -203,7 +203,7 @@ def test_config_with_extra_parameters() -> None:
     assert not stderr, stderr
 
 
-@pytest.mark.skims_test_group("unittesting")
+@pytest.mark.skims_test_group("functional")
 def test_bad_integrates_api_token(test_group: str) -> None:
     suite: str = "nothing_to_do"
     code, stdout, stderr = skims(
