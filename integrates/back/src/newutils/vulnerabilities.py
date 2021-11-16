@@ -893,7 +893,7 @@ def validate_closed(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
 
 
 def validate_closed_new(vulnerability: Vulnerability) -> Vulnerability:
-    """Validate if vulnerability is closed."""
+    """Validate if the vulnerability is closed."""
     if vulnerability.state.status == VulnerabilityStateStatus.CLOSED:
         raise VulnAlreadyClosed()
     return vulnerability
@@ -902,7 +902,7 @@ def validate_closed_new(vulnerability: Vulnerability) -> Vulnerability:
 def validate_requested_verification(
     vulnerability: Vulnerability,
 ) -> Vulnerability:
-    """Validate if vulnerability is not resquested."""
+    """Validate if the vulnerability is not resquested."""
     if (
         vulnerability.verification
         and vulnerability.verification.status
@@ -917,6 +917,19 @@ def validate_verify(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
     if not is_reattack_requested(vuln):
         raise NotVerificationRequested()
     return vuln
+
+
+def validate_reattack_requested(
+    vulnerability: Vulnerability,
+) -> Vulnerability:
+    """Validate if the vulnerability does not have a reattack resquested."""
+    if (
+        not vulnerability.verification
+        or vulnerability.verification.status
+        != VulnerabilityVerificationStatus.REQUESTED
+    ):
+        raise NotVerificationRequested()
+    return vulnerability
 
 
 def validate_justification_length(justification: str) -> None:

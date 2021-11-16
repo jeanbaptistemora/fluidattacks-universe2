@@ -659,6 +659,7 @@ async def reject_vulnerabilities_zero_risk(
     return success
 
 
+# TODO Remove this
 async def request_verification(vuln: Vulnerability) -> bool:
     today = datetime_utils.get_now_as_str()
     items: List[VulnLegacyType] = await vulns_dal.get(vuln.id)
@@ -1153,6 +1154,23 @@ async def verify_vulnerability(vuln: VulnLegacyType) -> bool:
     return await vulns_dal.update(
         vuln["finding_id"],
         vuln["UUID"],
+        {"historic_verification": historic_verification},
+    )
+
+
+async def verify_vulnerability_new(vuln: Vulnerability) -> bool:
+    today = datetime_utils.get_now_as_str()
+    items: List[VulnLegacyType] = await vulns_dal.get(vuln.id)
+    item: VulnLegacyType = items[0]
+    historic_verification: HistoricType = item.get("historic_verification", [])
+    new_state = {
+        "date": today,
+        "status": "VERIFIED",
+    }
+    historic_verification.append(new_state)
+    return await vulns_dal.update(
+        vuln.finding_id,
+        vuln.id,
         {"historic_verification": historic_verification},
     )
 
