@@ -380,15 +380,6 @@ class InvalidDateFormat(CustomBaseException):
         super(InvalidDateFormat, self).__init__(msg)
 
 
-class InvalidDraftTitle(CustomBaseException):
-    """Exception to control draft titles"""
-
-    def __init__(self) -> None:
-        """Constructor"""
-        msg = "Exception - The inserted title is invalid"
-        super(InvalidDraftTitle, self).__init__(msg)
-
-
 class InvalidExpirationTime(CustomBaseException):
     """Exception to control valid expiration time."""
 
@@ -443,6 +434,15 @@ class InvalidFileType(CustomBaseException):
         if detail:
             msg += f": {detail}"
         super(InvalidFileType, self).__init__(msg)
+
+
+class InvalidFindingTitle(CustomBaseException):
+    """Exception to control draft and finding titles"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - The inserted Draft/Finding title is invalid"
+        super(InvalidFindingTitle, self).__init__(msg)
 
 
 class InvalidGroupName(CustomBaseException):

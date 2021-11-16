@@ -22,7 +22,7 @@ async def get_result(
     recommendation: str = "edited recommendation"
     sorts: str = "YES"
     threat: str = "Updated threat"
-    title: str = "051. Weak passwords reversed"
+    title: str = "051. Cracked weak credentials"
     query: str = f"""
         mutation {{
             updateDescription(
