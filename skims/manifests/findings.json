@@ -534,5 +534,13 @@
     "ES": {
       "title": "380. Supply Chain Attack - Docker"
     }
+  },
+  "F393": {
+    "EN": {
+      "title": "393. Use of software with known vulnerabilities in development"
+    },
+    "ES": {
+      "title": "393. Use of software with known vulnerabilities in development"
+    }
   }
 }
