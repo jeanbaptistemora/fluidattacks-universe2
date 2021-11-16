@@ -18251,36 +18251,44 @@
   en:
     title: Improper resource allocation - Memory leak
     description: >
-      __empty__
+      The system may not be able to release
+      inbound and outbound flow resources that
+      have been opened, because they are not
+      explicitly closed within the source code.
     impact: >
-      __empty__
+      Exhausting server resources.
     recommendation: >
-      __empty__
+      Outflows must be explicitly shut down
+      immediately after use.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Improper resource allocation - Memory leak
     description: >
-      __empty__
+      Es posible que el sistema no pueda liberar
+      recursos del flujo de entrada y salida que
+      han sido abiertos, debido a que dentro del
+      código fuente no se cierran explícitamente.
     impact: >
-      __empty__
+      Agotar recursos del servidor.
     recommendation: >
-      __empty__
+      Los flujos de salida deben cerrarse de forma
+      explícita inmediatamente después de su uso.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["072","158","164","173"]
