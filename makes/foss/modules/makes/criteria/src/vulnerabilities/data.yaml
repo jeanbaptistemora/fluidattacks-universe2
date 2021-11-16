@@ -17623,29 +17623,47 @@
   en:
     title: Insecure object reference - Files
     description: >
-      __empty__
+      An unauthorized user can access or
+      manipulate information of other users
+      just by knowing the identifier that
+      differentiates them, since the application
+      does not validate the necessary permissions to access.
     impact: >
-      __empty__
+      An authenticated user tamper the payerUuid
+      parameter in the invoice upload function.
     recommendation: >
-      __empty__
+      Verify that the user who is trying to
+      access the information has the necessary
+      permissions to access.
     threat: >
-      __empty__
+      An attacker, knowing a victim's user ID, can
+      access or manipulate the victim's account information.
   es:
     title: Insecure object reference - Files
     description: >
-      __empty__
+      Un usuario no autorizado puede acceder
+      o manipular información de otros usuarios
+      solo con conocer el identificador que los
+      diferencia, ya que el aplicativo no valida
+      los permisos necesarios para acceder.
     impact: >
-      __empty__
+      Un usuario autenticado hace tampering
+      del parámetro payerUuid en la función
+      de carga de facturas.
     recommendation: >
-      __empty__
+      Verificar que el usuario que está intentando
+      acceder a la información efectivamente tenga
+      los permisos necesarios para acceder.
     threat: >
-      __empty__
+      Un atacante, al conocer la user ID de
+      una víctima, puede acceder o manipular
+      información de la cuenta de esta.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
@@ -17653,7 +17671,7 @@
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["176"]
   metadata:
