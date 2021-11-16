@@ -17603,34 +17603,60 @@
   en:
     title: Insecure object reference - Data
     description: >
-      __empty__
+      It is possible to access information about
+      other stores, obtain members registered in
+      other stores, modify members and add members
+      from other stores that a user has not been
+      assigned to just by knowing the identifier
+      that differentiates them, since the application
+      does not validate the necessary permissions to access.
     impact: >
-      __empty__
+      - Obtain membership information from other stores.
+
+      - Add members to other stores.
+
+      - Modify partners to other stores.
+
+      - Unsubscribe a partner.
     recommendation: >
-      __empty__
+      Verify that the user who is trying to access the
+      information has the necessary permissions to do so.
     threat: >
-      __empty__
+      User authenticated from the Internet.
   es:
     title: Insecure object reference - Data
     description: >
-      __empty__
+      Es posible acceder información acerca de otras
+      tiendas, obtener socios inscritos en otras tiendas,
+      modificar socios y agregar socios de otras tiendas
+      que un usuario no tiene asignado solo con conocer
+      el identificador que los diferencia, ya que el
+      aplicativo no valida los permisos necesarios para acceder.
     impact: >
-      __empty__
+      - Obtener información de socios de otras tiendas.
+
+      - Agregar socios a otras tiendas.
+
+      - Modificar socios a otras tiendas.
+
+      - Desuscribir un socio.
     recommendation: >
-      __empty__
+      Verificar que el usuario que está intentando
+      acceder a la información efectivamente tenga
+      los permisos necesarios para hacerlo.
     threat: >
-      __empty__
+      Usuario autenticado desde internet.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
