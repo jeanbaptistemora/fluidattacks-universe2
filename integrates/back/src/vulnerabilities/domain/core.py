@@ -1095,14 +1095,14 @@ async def verify_new(
     context: Any,
     finding_id: str,
     vulnerabilities: List[Vulnerability],
-    closed_vulnerabilities: List[str],
     modified_date: str,
+    closed_vulns_ids: List[str],
     vulns_to_close_from_file: List[VulnerabilityMetadataToUpdate],
 ) -> bool:
     list_closed_vulns: List[Vulnerability] = sorted(
         [
             [vuln for vuln in vulnerabilities if vuln.id == closed_vuln][0]
-            for closed_vuln in closed_vulnerabilities
+            for closed_vuln in closed_vulns_ids
         ],
         key=attrgetter("id"),
     )

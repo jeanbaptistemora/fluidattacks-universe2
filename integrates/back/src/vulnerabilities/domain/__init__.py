@@ -28,6 +28,7 @@ from .core import (
     verify,
     verify_new,
     verify_vulnerability,
+    verify_vulnerability_new,
 )
 from .treatment import (
     add_vulnerability_treatment,
@@ -76,6 +77,7 @@ __all__ = [
     "verify",
     "verify_new",
     "verify_vulnerability",
+    "verify_vulnerability_new",
     # treatment
     "add_vulnerability_treatment",
     "handle_vulnerabilities_acceptance",

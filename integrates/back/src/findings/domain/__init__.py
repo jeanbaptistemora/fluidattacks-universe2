@@ -26,6 +26,7 @@ from .core import (
     update_description,
     update_severity,
     verify_vulnerabilities,
+    verify_vulnerabilities_new,
 )
 from .draft import (
     add_draft,
@@ -71,6 +72,7 @@ __all__ = [
     "update_description",
     "update_severity",
     "verify_vulnerabilities",
+    "verify_vulnerabilities_new",
     # drafts
     "add_draft",
     "approve_draft",
