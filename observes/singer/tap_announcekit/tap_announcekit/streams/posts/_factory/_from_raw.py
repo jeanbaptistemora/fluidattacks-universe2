@@ -1,4 +1,3 @@
-# pylint: skip-file
 from purity.v1 import (
     PrimitiveFactory,
 )
@@ -8,14 +7,12 @@ from tap_announcekit.api.gql_schema import (
 )
 from tap_announcekit.objs.id_objs import (
     ImageId,
-    IndexedObj,
     PostId,
     UserId,
 )
 from tap_announcekit.objs.post import (
     Post,
     PostIdPage,
-    PostObj,
 )
 from tap_announcekit.utils import (
     CastUtils,
@@ -30,8 +27,8 @@ to_primitive = PrimitiveFactory.to_primitive
 to_opt_primitive = PrimitiveFactory.to_opt_primitive
 
 
-def to_post(id_obj: PostId, raw: RawPost) -> PostObj:
-    post = Post(
+def to_post(raw: RawPost) -> Post:
+    return Post(
         CastUtils.to_maybe_str(raw.user_id).map(UserId).value_or(None),
         CastUtils.to_datetime(raw.created_at),
         CastUtils.to_datetime(raw.visible_at),
@@ -45,7 +42,6 @@ def to_post(id_obj: PostId, raw: RawPost) -> PostObj:
         to_opt_primitive(raw.external_url, str),
         to_opt_primitive(raw.segment_filters, str),
     )
-    return IndexedObj(id_obj, post)
 
 
 def to_post_page(raw: RawPosts) -> PostIdPage:

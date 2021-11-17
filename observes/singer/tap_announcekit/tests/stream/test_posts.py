@@ -1,3 +1,6 @@
+from purity.v1 import (
+    Transform,
+)
 from tap_announcekit.api.client import (
     ApiClient,
 )
@@ -12,6 +15,7 @@ from tap_announcekit.streams.posts._factory import (
 )
 from tap_announcekit.streams.posts._factory._queries import (
     PostIdsQuery,
+    PostQuery,
 )
 from tests.stream import (
     mock_data,
@@ -19,16 +23,22 @@ from tests.stream import (
 )
 
 encoder = PostEncoders.encoder("stream_1")
-post_query = _factory.PostQuery(mock_data.mock_post_id).query()
 
 
-def test_post_query() -> None:
-    assert post_query.operation()
+def test_build_post_query() -> None:
+    query = PostQuery(
+        Transform(lambda _: mock_data.mock_post_obj.obj),
+        mock_data.mock_post_id,
+    ).query
+    assert query.operation()
 
 
 def test_post_from_data() -> None:
+    # pylint: disable=protected-access
+    # test should be able to call protected members
     raw_data = {"data": mock_raw_data.mock_post}
-    assert ApiClient.from_data(post_query, raw_data)
+    query = _factory._post_query(mock_data.mock_post_obj.id_obj)
+    assert ApiClient.from_data(query, raw_data)
 
 
 def test_post_page_query() -> None:
