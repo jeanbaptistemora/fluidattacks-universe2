@@ -20322,29 +20322,43 @@
   en:
     title: Insecure file upload - Files Limit
     description: >
-      __empty__
+      There is no limit to the number of files
+      that can be uploaded as avatar per unit
+      of time, and uploading a new one does not
+      delete the previous one from the server.
     impact: >
-      __empty__
+      Uploading large numbers of files over the
+      upload limit size one after another, using
+      up server storage resources indiscriminately.
     recommendation: >
-      __empty__
+      Delete previous avatar files when
+      uploading a new one, apply throttling.
     threat: >
-      __empty__
+      Attacker from the Internet with valid
+      session token to upload files.
   es:
     title: Insecure file upload - Files Limit
     description: >
-      __empty__
+      No hay límite en la cantidad de archivos que
+      se pueden subir como avatar por unidad de
+      tiempo, y al subir uno nuevo no se elimina
+      el anterior del servidor.
     impact: >
-      __empty__
+      Subir grandes cantidades archivos del tamaño
+      límite de subida uno tras otro, gastando recursos
+      de almacenamiento del servidor indiscriminadamente.
     recommendation: >
-      __empty__
+      Eliminar los archivos de avatar anteriores
+      cuando se suba uno nuevo, aplicar throttling.
     threat: >
-      __empty__
+      Atacante desde Internet con token de sesión
+      válido para subir archivos.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
@@ -20362,28 +20376,36 @@
   en:
     title: Insufficient data authenticity validation - Checksum verification
     description: >
-      __empty__
+      The application does not properly validate the
+      integrity of resources uploaded from external servers.
     impact: >
-      __empty__
+      Using third-party resources without verifying
+      that the integrity has not been compromised.
     recommendation: >
-      __empty__
+      Validate the integrity of all resources originating
+      from sources controlled by third parties.
     threat: >
-      __empty__
+      Anonymous attacker from Internet with write access
+      to a resource used by the application.
   es:
     title: Insufficient data authenticity validation - Checksum verification
     description: >
-      __empty__
+      La aplicación no valida adecuadamente la integridad
+      de los recursos cargados de servidores externos.
     impact: >
-      __empty__
+      Utilizar recursos de terceros sin verificar que
+      la integridad no haya sido comprometida.
     recommendation: >
-      __empty__
+      Validar la integridad de todos los recursos
+      que provengan de fuentes controladas por terceros.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet con acceso de
+      escritura a un recurso utilizado por la aplicación.
   category: Manipulate Data
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
@@ -20391,8 +20413,8 @@
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "U"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["122","173","178","320"]
   metadata:
