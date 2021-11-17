@@ -18525,36 +18525,41 @@
   en:
     title: Insecurely generated token - Lifespan
     description: >
-      __empty__
+      Session tokens are generated with an
+      expiration time of approximately 5 days.
     impact: >
-      __empty__
+      Leverage a session token to modify
+      user information.
     recommendation: >
-      __empty__
+      Decrease the life time of the tokens.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet
+      with a session token.
   es:
     title: Insecurely generated token - Lifespan
     description: >
-      __empty__
+      Los token de sesión se generan con un
+      tiempo de expiración aproximado de 5 días.
     impact: >
-      __empty__
+      Aprovechar un token de sesión para
+      modificar información del usuario.
     recommendation: >
-      __empty__
+      Disminuir el tiempo de vida de los token.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet con un Token de sesión.
   category: Deceptive Interactions
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["335","369"]
