@@ -443,6 +443,12 @@
           "description": {
             "S": "Integrates unit test group"
           },
+          "disambiguation": {
+            "S": "Disambiguation test"
+          },
+          "group_context": {
+            "S": "Group context test"
+          },
           "historic_configuration": {
             "L": [
               {

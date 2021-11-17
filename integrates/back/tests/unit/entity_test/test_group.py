@@ -63,6 +63,8 @@ async def test_group() -> None:
           userDeletion
           tags
           description
+          disambiguation
+          groupContext
           consulting {
             content
           }
@@ -112,6 +114,8 @@ async def test_group() -> None:
     assert (
         result["data"]["group"]["description"] == "Integrates unit test group"
     )
+    assert result["data"]["group"]["disambiguation"] == "Disambiguation test"
+    assert result["data"]["group"]["groupContext"] == "Group context test"
     assert len(result["data"]["group"]["drafts"]) == 1
     assert result["data"]["group"]["drafts"][0]["openVulnerabilities"] == 0
     assert len(result["data"]["group"]["events"]) == 5
