@@ -20572,34 +20572,69 @@
   en:
     title: Sensitive information in source code - Credentials
     description: >
-      __empty__
+      The repository stores sensitive information
+      such as users, passwords, emails, API
+      credentials, among others.
     impact: >
-      __empty__
+      - Obtain sensitive information such as
+      credentials to access services.
+
+      - Logging into databases.
+
+      - Perform queries on databases.
+
+      - Logging into GCP with credentials
+      stored in the database.
     recommendation: >
-      __empty__
+      - Remove sensitive information burned into source
+      code and purge GitLab history.
+
+      - Change login credentials that were compromised.
+
+      - Load sensitive data from secure sources such
+      as key vault, encrypted configuration files or
+      environment variables.
     threat: >
-      __empty__
+      External attacker with access to source code.
   es:
     title: Sensitive information in source code - Credentials
     description: >
-      __empty__
+      En el repositorio se encuentra almacenada
+      información sensible como usuarios, contraseñas,
+      correos electrónicos, credenciales de API, entre otros.
     impact: >
-      __empty__
+      - Obtener información sensible como credenciales
+      para ingresar a servicios.
+
+      - Ingresar a las bases de datos.
+
+      - Realizar consultas en las bases de datos.
+
+      - Ingresar a GCP con la credenciales
+      almacenadas en la base de datos.
     recommendation: >
-      __empty__
+      - Eliminar la información sensible quemada en el
+      código fuente y purgar el historial de GiLab.
+
+      - Cambiar las credenciales de acceso que
+      se vieron comprometidas.
+
+      - Cargar los datos sensibles desde fuentes
+      seguras como bóveda de claves, archivos de
+      configuración cifrados o variables de entorno.
     threat: >
-      __empty__
+      Atacante externo con acceso al código fuente.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      scope: "C"
+      confidentiality: "H"
+      integrity: "H"
+      availability: "H"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
