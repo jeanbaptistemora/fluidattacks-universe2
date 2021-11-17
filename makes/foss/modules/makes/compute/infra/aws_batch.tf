@@ -292,7 +292,7 @@ resource "aws_batch_job_definition" "skims_process_group" {
   name = "skims_process_group"
   type = "container"
   container_properties = jsonencode({
-    image = "ghcr.io/fluidattacks/product/skims-process-group:latest"
+    image = "registry.gitlab.com/fluidattacks/product/skims-process-group:latest"
 
     # Will be overridden on job submission
     memory = 1800
@@ -300,7 +300,7 @@ resource "aws_batch_job_definition" "skims_process_group" {
   })
 
   tags = {
-    "Name"            = "makes"
+    "Name"            = "skims_process_group"
     "management:area" = "cost"
     "management:type" = "product"
   }

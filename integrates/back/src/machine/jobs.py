@@ -310,13 +310,11 @@ async def queue_boto3(
         return await batch.submit_job(
             jobName=job_name,
             jobQueue=queue_name,
-            jobDefinition="makes",
+            jobDefinition="skims_process_group",
             containerOverrides={
                 "vcpus": 1,
                 "command": [
-                    "m",
-                    "f",
-                    "/skims/process-group",
+                    "skims-process-group",
                     group,
                     finding_code,
                     namespace,

@@ -16,6 +16,7 @@
     integrates = {
       host = "127.0.0.1";
       port = "8022";
+      daemon = false;
       infra = projectPath "/makes/foss/units/integrates/db/infra/";
       dataDerivation = [
         (outputs."/integrates/db/transformation")

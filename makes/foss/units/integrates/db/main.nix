@@ -12,5 +12,5 @@ makeDynamoDb
   dataDerivation = [
     (outputs."/integrates/db/transformation")
   ];
-  daemonMode = true;
+  daemonMode = false;
 }
