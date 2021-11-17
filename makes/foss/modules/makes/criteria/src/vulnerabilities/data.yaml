@@ -20424,34 +20424,43 @@
   en:
     title: Symmetric denial of service - SMTP
     description: >
-      __empty__
+      The server crashes with multiple requests
+      to the SMTP service that is responsible for
+      testing the sending of emails, since the
+      txtEmail attribute does not validate the
+      number of emails or characters that can be entered.
     impact: >
-      __empty__
+      Cause a denial of service.
     recommendation: >
-      __empty__
+      Define a character or email limit for the txtEmail field.
     threat: >
-      __empty__
+      Authenticated Internet attacker.
   es:
     title: Symmetric denial of service - SMTP
     description: >
-      __empty__
+      Se genera la caída del servidor con múltiples
+      peticiones al servicio SMTP que se encarga de
+      hacer el test de envío de correos, ya que para
+      el atributo txtEmail no se valida la cantidad
+      de emails ni caracteres que se pueden ingresar.
     impact: >
-      __empty__
+      Ocasionar una denegación de servicio.
     recommendation: >
-      __empty__
+      Definir un límite de caracteres o de
+      emails para el campo txtEmail.
     threat: >
-      __empty__
+      Atacante en Internet autenticado.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "H"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
@@ -20464,34 +20473,46 @@
   en:
     title: Symmetric denial of service - FTP
     description: >
-      __empty__
+      The server crash is generated with multiple
+      requests with the functionality Configuration
+      and Programming Reverse Homologation that takes
+      time to process the information when making the
+      request with the selected SFTP (SSH) protocol,
+      causing a 504 error in the application.
     impact: >
-      __empty__
+      Cause a denial of service.
     recommendation: >
-      __empty__
+      Define a time-out when a query or a search is
+      taking too long to process the information.
     threat: >
-      __empty__
+      Authenticated attacker in the application.
   es:
     title: Symmetric denial of service - FTP
     description: >
-      __empty__
+      Se genera la caída del servidor con múltiples
+      peticiones con la funcionalidad Configuración y
+      Programación Homologación Inversa que se demora
+      en procesar la información al realizar la petición
+      con el protocolo SFTP (SSH) seleccionado, causando
+      un error 504 en la aplicación.
     impact: >
-      __empty__
+      Ocasionar una denegación de servicio.
     recommendation: >
-      __empty__
+      Definir un time-out cuando una consulta o una búsqueda
+      se está demorando mucho en procesar la información.
     threat: >
-      __empty__
+      Atacante autenticado en la aplicación.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "H"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
