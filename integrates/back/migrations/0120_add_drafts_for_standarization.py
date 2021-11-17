@@ -33,7 +33,7 @@ from aioextensions import (
 )
 import csv
 from custom_exceptions import (
-    InvalidFindingTitle,
+    InvalidDraftTitle,
 )
 from custom_types import (
     Finding as FindingType,
@@ -284,7 +284,7 @@ async def _add_draft(
 
     if findings_utils.is_valid_finding_title(draft_data["title"]):
         return await findings_dal.add(finding_id, group_name, finding_attrs)
-    raise InvalidFindingTitle()
+    raise InvalidDraftTitle()
 
 
 def _get_finding_source(finding: Dict[str, FindingType]) -> str:

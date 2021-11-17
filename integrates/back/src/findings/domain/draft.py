@@ -9,6 +9,7 @@ from custom_exceptions import (
     AlreadySubmitted,
     DraftWithoutVulns,
     IncompleteDraft,
+    InvalidDraftTitle,
     MachineCanNotOperate,
     NotSubmitted,
 )
@@ -106,7 +107,8 @@ async def add_draft(
     user_email: str,
     draft_info: FindingDraftToAdd,
 ) -> None:
-    findings_utils.is_valid_finding_title(draft_info.title)
+    if not findings_utils.is_valid_finding_title(draft_info.title):
+        raise InvalidDraftTitle()
     if not operation_can_be_executed(context, draft_info.title):
         raise MachineCanNotOperate()
 

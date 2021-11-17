@@ -1,10 +1,6 @@
-from context import (
-    STARTDIR,
-)
 from custom_exceptions import (
     InvalidDateFormat,
     InvalidFileStructure,
-    InvalidFindingTitle,
 )
 from custom_types import (
     Datetime,
@@ -31,7 +27,6 @@ from typing import (
     List,
     Optional,
 )
-import yaml  # type: ignore
 
 
 async def append_records_to_file(
@@ -103,34 +98,8 @@ def validate_acceptance_date(values: Dict[str, str]) -> bool:
     return valid
 
 
-def get_vulns_file() -> Dict:
-    """Parses the vulns info yaml into a dictionary"""
-    # The CWD here is product/integrates
-    vulns_info_address = STARTDIR + (
-        "/makes/foss/modules/makes/criteria/src/vulnerabilities/data.yaml"
-    )
-    with open(vulns_info_address, "rb") as vuln_reader:
-        vulns_info: Dict = yaml.safe_load(vuln_reader)
-    return vulns_info
-
-
 def is_valid_finding_title(title: str) -> bool:
-    """Validates that new Draft and Finding titles conform to the standard
-    format and are present in the whitelist"""
-    if re.match(r"^[0-9]{3}\. .+", title):
-        vulns_info: Dict = get_vulns_file()
-        try:
-            vuln_number: str = title[:3]
-            expected_vuln_title: str = vulns_info[vuln_number]["en"]["title"]
-            if title == f"{vuln_number}. {expected_vuln_title}":
-                return True
-            # Invalid non-standard title
-            raise InvalidFindingTitle()
-        # Invalid vuln number
-        except KeyError as error:
-            raise InvalidFindingTitle() from error
-    # Invalid format
-    raise InvalidFindingTitle()
+    return bool(re.match(r"^[0-9]{3}\. .+", title))
 
 
 def get_updated_evidence_date(
