@@ -20525,38 +20525,45 @@
   en:
     title: Insecure service configuration - DocumentBuilderFactory
     description: >
-      __empty__
+      DocumentBuilderFactory is insecurely configured,
+      which makes it susceptible to XXE attacks.
     impact: >
-      __empty__
+      - Read confidential information.
+
+      - Execute commands on the server.
     recommendation: >
-      __empty__
+      Securely configure DocumentBuilderFactory.
     threat: >
-      __empty__
+      Authorized attacker from the Internet.
   es:
     title: Insecure service configuration - DocumentBuilderFactory
     description: >
-      __empty__
+      Se configura de manera insegura
+      DocumentBuilderFactory,lo que lo
+      hace suceptible a ataques XXE.
     impact: >
-      __empty__
+      - Leer información confidencial.
+
+      - Ejecutar comandos en el servidor.
     recommendation: >
-      __empty__
+      Configurar de manera segura DocumentBuilderFactory.
     threat: >
-      __empty__
+      Atacante autorizado desde internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "R"
   requirements: ["158"]
   metadata:
     en:
