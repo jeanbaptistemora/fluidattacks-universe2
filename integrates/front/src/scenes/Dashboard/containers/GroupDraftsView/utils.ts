@@ -1,9 +1,13 @@
 import _ from "lodash";
 
-import type { IGroupDraftsAttr } from "scenes/Dashboard/containers/GroupDraftsView/types";
+import type {
+  IGroupDraftsAttr,
+  IGroupFindingsStubs,
+} from "scenes/Dashboard/containers/GroupDraftsView/types";
 import { translate } from "utils/translations/translate";
 
 type Draft = IGroupDraftsAttr["group"]["drafts"][0];
+type Finding = IGroupFindingsStubs["group"]["findings"][0];
 
 const formatDrafts: (dataset: Draft[]) => Draft[] = (
   dataset: Draft[]
@@ -34,4 +38,37 @@ function validateNotEmpty(field: string | undefined): string {
   return "";
 }
 
-export { validateNotEmpty, formatDrafts };
+const checkDuplicates = (
+  newTitle: string,
+  groupDrafts: IGroupDraftsAttr,
+  groupFindings: IGroupFindingsStubs
+): Record<string, string> | undefined => {
+  const duplicateCriteria = (
+    list: Draft[] | Finding[]
+  ): Draft | Finding | undefined =>
+    list.find(({ title }): boolean => title === newTitle);
+
+  const { drafts, name } = groupDrafts.group;
+  const duplicateDraft = duplicateCriteria(drafts);
+  if (duplicateDraft === undefined) {
+    const { findings } = groupFindings.group;
+    const duplicateFinding = duplicateCriteria(findings);
+    if (duplicateFinding === undefined) {
+      return undefined;
+    }
+
+    return {
+      id: duplicateFinding.id,
+      name,
+      type: "Finding",
+    };
+  }
+
+  return {
+    id: duplicateDraft.id,
+    name,
+    type: "Draft",
+  };
+};
+
+export { validateNotEmpty, formatDrafts, checkDuplicates };

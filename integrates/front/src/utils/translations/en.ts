@@ -281,6 +281,7 @@ export const enTranslations: ResourceKey = {
         text: "New",
         tooltip: "Create a new finding",
       },
+      duplicate: "There's already a {{type}} like this in {{url}}",
       errorSubmit: "Please provide {{missingFields}} before submitting",
       hint: {
         description: "Hint: Description",

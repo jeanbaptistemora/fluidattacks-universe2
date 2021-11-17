@@ -99,6 +99,15 @@ interface IRequirementData {
   metadata: Record<string, unknown>;
 }
 
+interface IGroupFindingsStubs {
+  group: {
+    findings: {
+      id: string;
+      title: string;
+    }[];
+  };
+}
+
 export {
   IDraftVariables,
   IAddDraftMutationResult,
@@ -107,4 +116,5 @@ export {
   ISuggestion,
   IRequirementData,
   IVulnData,
+  IGroupFindingsStubs,
 };

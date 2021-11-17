@@ -67,4 +67,15 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
   }
 `;
 
-export { ADD_DRAFT_MUTATION, GET_DRAFTS };
+const GET_FINDING_TITLES: DocumentNode = gql`
+  query GetTitlesQuery($groupName: String!) {
+    group(groupName: $groupName) {
+      findings {
+        id
+        title
+      }
+    }
+  }
+`;
+
+export { ADD_DRAFT_MUTATION, GET_DRAFTS, GET_FINDING_TITLES };
