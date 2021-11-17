@@ -19361,36 +19361,58 @@
   en:
     title: Insecure session management - CSRF Fixation
     description: >
-      __empty__
+      It is possible generate a CSRF Fixation
+      in the transaction functionality.
+      Authorization header is the public key,
+      and It is always the same for payment links.
+      An attacker can create a button with the
+      content of a request and trick a user running
+      a transaction to receive the Nequi push
+      notification and complete the request.
     impact: >
-      __empty__
+      Spoofing an authenticated user in the application
+      by means of a modified link to execute critical
+      transactions such as transfers or payments.
     recommendation: >
-      __empty__
+      Make use of tokens in the forms for the verification
+      of requests made by legitimate users.
     threat: >
-      __empty__
+      Attacker from the Internet without authentication.
   es:
     title: Insecure session management - CSRF Fixation
     description: >
-      __empty__
+      Es posible generar un CSRF Fixation en
+      la funcionalidad de la transacción.
+      La cabecera de autorización es la clave pública,
+      y siempre es la misma para los enlaces de pago.
+      Un atacante puede crear un botón con el contenido
+      de una solicitud y engañar a un usuario que
+      ejecuta una transacción para recibir la notificación
+      push de Nequi y completar la solicitud.
     impact: >
-      __empty__
+      Suplantación de un usuario autentificado en la
+      aplicación mediante un enlace modificado para
+      ejecutar transacciones críticas como transferencias
+      o pagos.
     recommendation: >
-      __empty__
+      Utilizar tokens en los formularios para la
+      verificación de las solicitudes realizadas
+      por usuarios legítimos.
     threat: >
-      __empty__
+      Atacante desde Internet sin autenticación.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["030","031","141"]
