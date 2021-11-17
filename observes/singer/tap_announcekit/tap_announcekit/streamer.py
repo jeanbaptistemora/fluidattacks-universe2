@@ -37,6 +37,7 @@ from tap_announcekit.streams import (
     PostContentStreams,
     PostStreams,
     ProjectStreams,
+    SegmentStreams,
     WidgetStreams,
 )
 from tap_announcekit.streams.feeds import (
@@ -71,6 +72,8 @@ class SupportedStream(AutoName):
     EXT_USERS = auto()
     WIDGETS = auto()
     LABELS = auto()
+    SEG_FIELDS = auto()
+    SEG_PROFILES = auto()
     ALL = auto()
 
 
@@ -102,6 +105,7 @@ class Streamer(_Streamer):
 
     @property
     def stream_map(self) -> FrozenDict[SupportedStream, Stream[Any]]:
+        projs = from_flist((self.proj,))
         streams = {
             SupportedStream.PROJECTS: ProjectStreams(
                 self.client, SupportedStream.PROJECTS.value
@@ -126,6 +130,12 @@ class Streamer(_Streamer):
             SupportedStream.LABELS: LabelStreams(
                 self.client, SupportedStream.LABELS.value
             ).stream(self.proj),
+            SupportedStream.SEG_FIELDS: SegmentStreams(
+                self.client, SupportedStream.SEG_FIELDS.value
+            ).stream_fields(projs),
+            SupportedStream.SEG_PROFILES: SegmentStreams(
+                self.client, SupportedStream.SEG_PROFILES.value
+            ).stream_profiles(projs),
         }
         return FrozenDict(streams)
 
