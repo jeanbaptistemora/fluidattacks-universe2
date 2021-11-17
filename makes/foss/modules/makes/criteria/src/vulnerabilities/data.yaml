@@ -18775,33 +18775,45 @@
   en:
     title: Sensitive information in source code - Dependencies
     description: >
-      __empty__
+      By reversing the application dependencies,
+      it is found that the private key has been
+      stored in the same dependency and not in
+      a protected environment.
     impact: >
-      __empty__
+      Obtain the private key used to
+      decrypt the information.
     recommendation: >
-      __empty__
+      Securely configure the vulnerable
+      service so that it can only be accessed
+      by authorized users.
     threat: >
-      __empty__
+      Internal attacker with access to the artifactory.
   es:
     title: Sensitive information in source code - Dependencies
     description: >
-      __empty__
+      Realizando reversing sobre las dependencias
+      de la aplicación, se encuentra que la llave
+      privada se ha almacenado en la misma dependencia
+      y no en un ambiente protegido.
     impact: >
-      __empty__
+      Conseguir la llave privada que se usa
+      para descifrar la información.
     recommendation: >
-      __empty__
+      Configurar de manera segura el servicio
+      vulnerable permitiendo así que solo sea
+      accedido por usuarios autorizados.
     threat: >
-      __empty__
+      Atacante interno con acceso al artifactory.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "H"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
