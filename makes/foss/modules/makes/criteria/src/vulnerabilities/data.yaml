@@ -20803,24 +20803,37 @@
   en:
     title: Weak credential policy - Password strength
     description: >
-      __empty__
+      The credential policy present in the system
+      does not have the recommended parameters.
     impact: >
-      __empty__
+      Allow users to assign weak passwords to
+      their accounts, which can later be easily
+      found by an attacker through brute force
+      or dictionary attacks.
     recommendation: >
-      __empty__
+      Establish a policy for credential creation
+      that involves phrases and not word-based passwords.
     threat: >
-      __empty__
+      Attacker with an account creation
+      invitation from the Internet.
   category: Inject Unexpected
   es:
     title: Weak credential policy - Password strength
     description: >
-      __empty__
+      La política de credenciales presente en el
+      sistema no cuenta con los parámetros recomendados.
     impact: >
-      __empty__
+      Permitir que los usuarios asignen contraseñas
+      débiles a sus cuentas, las cuales posteriormente
+      pueden ser fácilmente encontradas por un atacante
+      mediante ataques de fuerza bruta o diccionario.
     recommendation: >
-      __empty__
+      Establecer una política para la creación de
+      credenciales que involucre frases y no
+      contraseñas basadas en palabras.
     threat: >
-      __empty__
+      Atacante con una invitación de creación
+      de cuenta desde Internet.
   score:
     base:
       attack_vector: "N"
