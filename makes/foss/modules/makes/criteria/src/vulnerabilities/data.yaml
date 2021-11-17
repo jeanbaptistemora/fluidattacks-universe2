@@ -19975,37 +19975,43 @@
   en:
     title: Insecure digital certificates - Lifespan
     description: >
-      __empty__
+      The certificates are valid for more than two years.
     impact: >
-      __empty__
+      Increase the chances of the certificate being
+      susceptible to zero-day vulnerabilities.
     recommendation: >
-      __empty__
+      Generate a certificate that complies
+      with recommended best practices.
     threat: >
-      __empty__
+      Anonymous attacker from an adjacent network.
   es:
     title: Insecure digital certificates - Lifespan
     description: >
-      __empty__
+      Los certificados cuentan con un tiempo
+      de validez mayor a dos años.
     impact: >
-      __empty__
+      Incrementar las posibilidades de que el
+      certificado sea susceptible a vulnerabilidades
+      de día cero.
     recommendation: >
-      __empty__
+      Generar un certificado que cumpla con las
+      mejores prácticas recomendadas.
     threat: >
-      __empty__
+      Atacante anónimo desde una red adyacente.
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "U"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["088","089","090","091","092","093"]
   metadata:
