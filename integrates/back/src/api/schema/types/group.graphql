@@ -111,7 +111,7 @@ type Group {
   "Target of Evaluation lines information"
   toeLines(
     "The cursor for the forward pagination"
-    after: String,
+    after: String
     "Amount of element to return"
     first: Int
   ): ToeLinesConnection

@@ -11,6 +11,7 @@ import contextlib
 from custom_exceptions import (
     FindingNotFound,
     InvalidAuthorization,
+    InvalidPositiveArgument,
     UserNotInOrganization,
 )
 from db_model.findings.types import (
@@ -640,6 +641,20 @@ def turn_args_into_kwargs(func: TVar) -> TVar:
         return await _func(*args[0:2], **args_as_kwargs, **kwargs)
 
     return cast(TVar, newfunc)
+
+
+def validate_connection(func: TVar) -> TVar:
+    """Decorator to verify the connections"""
+    _func = cast(Callable[..., Any], func)
+
+    @functools.wraps(_func)
+    async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
+        first = kwargs.get("first")
+        if first is not None and first < 1:
+            raise InvalidPositiveArgument(arg="first")
+        return await _func(*args, **kwargs)
+
+    return cast(TVar, verify_and_call)
 
 
 async def verify_jti(email: str, context: Dict[str, str], jti: str) -> None:

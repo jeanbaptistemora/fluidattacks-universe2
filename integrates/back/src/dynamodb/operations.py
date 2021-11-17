@@ -89,6 +89,8 @@ def _build_query_args(
     facets: Tuple[Facet, ...],
     filter_expression: Optional[ConditionBase],
     index: Optional[Index],
+    limit: Optional[int],
+    start_key: Optional[Dict[str, str]],
     table: Table,
 ) -> Dict[str, Any]:
     facet_attrs = tuple({attr for facet in facets for attr in facet.attrs})
@@ -102,6 +104,10 @@ def _build_query_args(
         "KeyConditionExpression": condition_expression,
         "ProjectionExpression": ",".join([f"#{attr}" for attr in attrs]),
     }
+    if limit:
+        args["Limit"] = limit
+    if start_key:
+        args["ExclusiveStartKey"] = start_key
     return _exclude_none(args=args)
 
 
@@ -208,23 +214,25 @@ async def query(  # pylint: disable=too-many-locals
     facets: Tuple[Facet, ...],
     filter_expression: Optional[ConditionBase] = None,
     index: Optional[Index] = None,
+    limit: Optional[int] = None,
     paginate: bool = False,
     table: Table,
 ) -> QueryResponse:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
+        start_key = None
+        if after:
+            start_key = get_key_from_cursor(after)
+
         query_args = _build_query_args(
             condition_expression=condition_expression,
             facets=facets,
             filter_expression=filter_expression,
             index=index,
+            limit=limit,
+            start_key=start_key,
             table=table,
         )
-        start_key = None
-        if after:
-            start_key = get_key_from_cursor(after)
-            if start_key:
-                query_args["ExclusiveStartKey"] = start_key
 
         try:
             response = await table_resource.query(**query_args)

@@ -532,6 +532,13 @@ class InvalidPort(CustomBaseException):
         super(InvalidPort, self).__init__(msg)
 
 
+class InvalidPositiveArgument(CustomBaseException):
+    def __init__(self, arg: str) -> None:
+        """Constructor"""
+        msg = f"The argument must be a positive integer: {arg}"
+        super(InvalidPositiveArgument, self).__init__(f"Exception - {msg}")
+
+
 class InvalidPushToken(CustomBaseException):
     """Exception to validate mobile push token format"""
 

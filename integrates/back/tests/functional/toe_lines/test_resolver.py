@@ -79,7 +79,10 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDMvdGVzdC5zaCJ9",
             },
         ],
-        "pageInfo": {"hasNextPage": False, "endCursor": "bnVsbA=="},
+        "pageInfo": {
+            "hasNextPage": False,
+            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDMvdGVzdC5zaCJ9",
+        },
     }
 
 

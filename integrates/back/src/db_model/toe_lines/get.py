@@ -84,6 +84,7 @@ async def _get_toe_lines_by_group(
         table=TABLE,
         paginate=request.paginate,
         after=request.after,
+        limit=request.first,
     )
     return ToeLinesConnection(
         edges=tuple(
@@ -117,6 +118,9 @@ async def _get_toe_lines_by_root(
         ),
         facets=(TABLE.facets["toe_lines_metadata"],),
         table=TABLE,
+        paginate=request.paginate,
+        after=request.after,
+        limit=request.first,
     )
     return ToeLinesConnection(
         edges=tuple(

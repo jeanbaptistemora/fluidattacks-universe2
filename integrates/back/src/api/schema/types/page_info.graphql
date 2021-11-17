@@ -1,4 +1,4 @@
-"Information about pagination in a connection."
+"Information about pagination in a connection"
 type PageInfo {
    "When paginating forwards, the cursor to continue"
   endCursor: String

@@ -189,7 +189,10 @@ async def test_refresh_toe_lines(
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDIvdGVzdCMuY29uZmlnIn0=",
             },
         ],
-        "pageInfo": {"hasNextPage": False, "endCursor": "bnVsbA=="},
+        "pageInfo": {
+            "hasNextPage": False,
+            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDIvdGVzdCMuY29uZmlnIn0=",
+        },
     }
 
 
