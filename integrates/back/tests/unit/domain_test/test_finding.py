@@ -20,6 +20,11 @@ from db_model import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityState,
+    VulnerabilityTreatment,
+)
 from findings.domain import (
     add_comment,
     approve_draft,
@@ -34,9 +39,6 @@ from freezegun import (  # type: ignore
 )
 from graphql.type import (
     GraphQLResolveInfo,
-)
-from newutils import (
-    datetime as datetime_utils,
 )
 import os
 import pytest
@@ -413,17 +415,32 @@ async def test_approve_draft() -> None:
     context: Response = await create_dummy_session(user_email)
     approval_date = await approve_draft(context, finding_id, user_email)
 
-    expected_date = "2019-11-30 19:00:00"
+    expected_date = "2019-12-01T00:00:00+00:00"
     assert isinstance(approval_date, str)
-    assert approval_date == datetime_utils.convert_to_iso_str(expected_date)
+    assert approval_date == expected_date
 
     loaders: Dataloaders = context.loaders
-    all_vulns = await loaders.finding_vulns_all.load(finding_id)
-    for vuln in all_vulns:
-        for state_info in vuln["historic_state"]:
-            assert state_info["date"] == expected_date
-        for treatment_info in vuln["historic_treatment"]:
-            assert treatment_info["date"] == expected_date
+    all_vulns: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_all_typed.load(finding_id)
+    state_historics: Tuple[
+        Tuple[VulnerabilityState, ...], ...
+    ] = await loaders.vulnerability_historic_state.load_many(
+        [vuln.id for vuln in all_vulns]
+    )
+    treatment_historics: Tuple[
+        Tuple[VulnerabilityTreatment, ...], ...
+    ] = await loaders.vulnerability_historic_treatment.load_many(
+        [vuln.id for vuln in all_vulns]
+    )
+
+    for historic_state, historic_treatment in zip(
+        state_historics, treatment_historics
+    ):
+        for state_info in historic_state:
+            assert state_info.modified_date == expected_date
+        for treatment_info in historic_treatment:
+            assert treatment_info.modified_date == expected_date
 
 
 @freeze_time("2021-05-27")
