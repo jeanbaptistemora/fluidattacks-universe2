@@ -19137,37 +19137,47 @@
   en:
     title: Insecure service configuration - EC2
     description: >
-      __empty__
+      The EC2 instance does not define the API
+      termination resource which by default is
+      set to false, allowing it to be terminated
+      or stopped at any time from the AWS console,
+      the client or the API.
     impact: >
-      __empty__
+      Disrupt critical operations on the EC2 instance.
     recommendation: >
-      __empty__
+      Securely configure the EC2 instance by
+      disabling the API termination resource.
     threat: >
-      __empty__
+      Internet attacker with access to the AWS console.
   es:
     title: Insecure service configuration - EC2
     description: >
-      __empty__
+      La instancia de EC2 no define el recurso
+      API termination que por defecto se establece
+      en false, lo que permite que esta pueda ser
+      terminada o detenida en cualquier momento desde
+      la consola de AWS, el cliente o el API.
     impact: >
-      __empty__
+      Interrumpir operaciones críticas en la instancia de EC2.
     recommendation: >
-      __empty__
+      Configurar de manera segura la instancia de
+      EC2 deshabilitando el recurso API termination.
     threat: >
-      __empty__
+      Atacante en internet con acceso a la consola de AWS.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "H"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
@@ -19177,37 +19187,61 @@
   en:
     title: Insecure service configuration - IAM
     description: >
-      __empty__
+      In compliance with the different security
+      standards for cloud computing such as ISO
+      27017 and NIST SP 800-144, no sensitive
+      information should be stored among the
+      information that is uploaded to the cloud,
+      as this may result in data leakage, as in
+      the case of AWS IAM passwords.
     impact: >
-      __empty__
+      Internal attacker.
     recommendation: >
-      __empty__
+      Do not store credentials in the code, it is
+      necessary to use environment variables and
+      protected secret sources.
     threat: >
-      __empty__
+      Sensitive information that is uploaded to the
+      cloud can generate data leakage, for example,
+      the case of how through the credentials that
+      were stored in the code can be obtained data
+      from the buckets and AWS services.
   es:
     title: Insecure service configuration - IAM
     description: >
-      __empty__
+      En cumplimiento con los diferentes estándares
+      de seguridad para Cloud computing como ISO 27017
+      y NIST SP 800-144, no se deben almacenar ningún
+      tipo de información sensible entre la información
+      que se carga en la nube, esto puede resultar en
+      filtración de datos, es el caso de claves de
+      acceso del IAM AWS.
     impact: >
-      __empty__
+      Atacante interno.
     recommendation: >
-      __empty__
+      No se debe almacenar credenciales en el código,
+      es necesario usar variables de entorno y
+      fuentes de secretos protegidas.
     threat: >
-      __empty__
+      La información sensible que se suba a la nube
+      puede generar filtración de datos, es por ejemplo
+      el caso de como a través de las credenciales que
+      se almacenaron en el código se puede obtener datos
+      de los buckets y servicios AWS.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
