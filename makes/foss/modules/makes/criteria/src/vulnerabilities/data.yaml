@@ -19251,37 +19251,55 @@
   en:
     title: Insecure service configuration - Bucket
     description: >
-      __empty__
+      The native S3 VersioningConfiguration resource,
+      which allows to preserve, recover and restore
+      each version of each object stored in the Buckets
+      due to causes such as malicious actions of users
+      or application failures, is not enabled.
     impact: >
-      __empty__
+      - Permanently delete information from S3 buckets.
+
+      - Avoid recovering information that was deleted
+      by mistake or maliciously.
     recommendation: >
-      __empty__
+      Securely configure the Buckets by enabling the
+      VersioningConfiguration resource.
     threat: >
-      __empty__
+      - Internet attacker with access to S3 Buckets.
   es:
     title: Insecure service configuration - Bucket
     description: >
-      __empty__
+      No se encuentra habilitado el recurso
+      VersioningConfiguration nativo de S3, el cual
+      permite conservar, recuperar y restaurar cada
+      versión de cada objeto almacenado en los Buckets
+      por causas como acciones mal intencionadas de los
+      usuarios o fallos en la aplicación.
     impact: >
-      __empty__
+      - Eliminar permanentemente información de
+      los buckets de S3.
+
+      - Evitar recuperar información que fue eliminada
+      por error o de forma malintencionada.
     recommendation: >
-      __empty__
+      Configurar de manera segura los Buckets habilitando
+      el recurso VersioningConfiguration.
     threat: >
-      __empty__
+      Atacante en Internet con acceso a los Buckets de S3.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "H"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
@@ -19291,33 +19309,45 @@
   en:
     title: Business information leak - Corporate information
     description: >
-      __empty__
+      It is possible to access information about
+      some of the company's employees, such as
+      their roles and contact information.
     impact: >
-      __empty__
+      Obtain information about the role played
+      by some workers within the company.
+      As well as their contact information.
     recommendation: >
-      __empty__
+      Establish controls to prevent an
+      attacker from accessing the organization's
+      corporate information.
     threat: >
-      __empty__
+      Attacker with access to the application from the Internet.
   es:
     title: Business information leak - Corporate information
     description: >
-      __empty__
+      Es posible acceder a información de algunos
+      trabajadores de la compañía, como sus roles
+      e información de contacto.
     impact: >
-      __empty__
+      Obtener información acerca del rol desempeñado
+      por algunos trabajadores dentro de la compañía.
+      Así como también su información de contacto.
     recommendation: >
-      __empty__
+      Establecer controles que permitan evitar que
+      un atacante acceda a información corporativa
+      de la organización.
     threat: >
-      __empty__
+      Atacante con acceso a la aplicación desde internet.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
