@@ -21731,14 +21731,18 @@
     description: >
       The system uses the version
       of a software or dependency
-      with known vulnerabilities.
+      with known vulnerabilities
+      in pre-productive environments
     impact: >
-      Exploit found vulnerabilities
-      in the affected components.
+      Exploit public vulnerabilities
+      of the components in the affected environments
     recommendation: >
-      Update the affected software
+      - Update the affected software
       to the versions recommended
       by the vendor.
+
+      - Replace deprecated components
+      or components with Zero-Day vulnerabilities
     threat: Authenticated attacker from the Internet.
   es:
     # The difference with 011 is just the title
@@ -21746,31 +21750,35 @@
     description: >
       El sistema usa la versión
       de un software o dependencia
-      con vulnerabilidades conocidas.
+      con vulnerabilidades conocidas
+      en un ambiente pre-productivo
     impact: >
-      Explotar vulnerabilidades encontradas
-      en los componentes afectados.
+      Explotar vulnerabilidades públicas
+      de los componentes en los ambientes afectados
     recommendation: >
-      Actualizar el software afectado
+      - Actualizar el software afectado
       a las versiones recomendadas
       por el fabricante.
+
+      - Reemplazar componentes que estén obsoletos
+      o cuenten con vulnerabilidades Zero Day
     threat: Atacante autenticado desde Internet.
-  category: Collect Information
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: ["262"]
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["262", "048"]
   metadata:
     en:
       details: __empty__
