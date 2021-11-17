@@ -1,3 +1,8 @@
+F134.title:
+  en: >
+    Insecure or unset HTTP headers - CORS
+  es: >
+    Insecure or unset HTTP headers - CORS
 F134.description:
   en: >
     The cross-domain policy includes wildcards, accepting any domain as valid

@@ -415,6 +415,14 @@
       "title": "133. Insecure encryption algorithm - Perfect Forward Secrecy"
     }
   },
+  "F134": {
+    "EN": {
+      "title": "134. Insecure or unset HTTP headers - CORS"
+    },
+    "ES": {
+      "title": "134. Insecure or unset HTTP headers - CORS"
+    }
+  },
   "F160": {
     "EN": {
       "title": "160. Excessive privileges - Temporary Files"
