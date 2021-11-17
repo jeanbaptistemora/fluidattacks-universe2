@@ -20134,33 +20134,40 @@
   en:
     title: Automatic information enumeration - Corporate information
     description: >
-      __empty__
+      It is possible to automatically enumerate
+      system information such as finding IDs due
+      to different messages for existing and non
+      existing finding IDs.
     impact: >
-      __empty__
+      Get all existing findings in the system.
     recommendation: >
-      __empty__
+      Show the same response for existing and non-existing findings.
     threat: >
-      __empty__
+      External attacker with access to integrates.
   es:
     title: Automatic information enumeration - Corporate information
     description: >
-      __empty__
+      Es posible enumerar automáticamente la información
+      del sistema, como los identificadores de búsqueda,
+      debido a los diferentes mensajes para los identificadores
+      de búsqueda existentes y no existentes.
     impact: >
-      __empty__
+      Obtener todos los resultados existentes en el sistema.
     recommendation: >
-      __empty__
+      Mostrar la misma respuesta para los hallazgos
+      existentes y no existentes.
     threat: >
-      __empty__
+      Atacante externo con acceso a integrates.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
