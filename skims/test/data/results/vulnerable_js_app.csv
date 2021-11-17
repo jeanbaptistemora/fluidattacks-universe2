@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test019.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test019.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test019.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test019.js,"
    1 | import { Router } from ""express"";
    2 | var router = Router();
    3 | import { readFile } from ""fs"";
@@ -21,7 +21,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test019.js,9,22,skims,063. 
   19 | export default router;
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test020.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test020.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test020.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test020.js,"
    1 | var express = require(""express"");
    2 | var router = express.Router();
    3 | const fs = require(""fs"");
@@ -43,7 +43,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test020.js,9,22,skims,063. 
   19 | module.exports = router;
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test021.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test021.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test021.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test021.js,"
    1 | var express = require(""express"");
    2 | var router = express.Router();
    3 | const fs = require(""fs"");
@@ -65,7 +65,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test021.js,9,22,skims,063. 
   19 | module.exports = router;
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test022.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test022.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test022.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test022.js,"
    1 | var express = require(""express"");
    2 | var router = express.Router();
    3 | const fs = require(""fs"");
@@ -87,7 +87,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test022.js,9,22,skims,063. 
   19 | module.exports = router;
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test023.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test023.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test023.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test023.js,"
    1 | var express = require(""express"");
    2 | var router = express.Router();
    3 | const fs = require(""fs"");
@@ -109,7 +109,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test023.js,9,22,skims,063. 
   19 | module.exports = router;
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test024.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test024.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test024.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test024.js,"
    4 |
    5 | router.get(""/test024/"", function (req, res) {
    6 |   var user = req.query[""user""];
@@ -133,7 +133,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test024.js,14,22,skims,063.
   24 | module.exports = router;
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test025.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test025.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test025.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test025.js,"
    1 | import { Router } from ""express"";
    2 | var router = Router();
    3 | import { readFile } from ""fs"";
@@ -156,7 +156,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test025.js,10,22,skims,063.
   20 | export default router;
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test026.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test026.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test026.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test026.js,"
    1 | var express = require(""express"");
    2 | var router = express.Router();
    3 | const fs = require(""fs"");
@@ -179,7 +179,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test026.js,10,22,skims,063.
   20 | module.exports = router;
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test027.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test027.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test027.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test027.js,"
    1 | import { Router } from ""express"";
    2 | var router = Router();
    3 | import { readFile } from ""fs"";
@@ -202,7 +202,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test027.js,10,22,skims,063.
   20 | export default router;
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test029.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test029.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test029.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test029.js,"
    5 |
    6 | router.delete(""/test029/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -226,7 +226,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test029.js,15,22,skims,063.
   25 |   res.send(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test030.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test030.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test030.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test030.js,"
    5 |
    6 | router.delete(""/test030/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -250,7 +250,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test030.js,15,22,skims,063.
   25 |   res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test031.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test031.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test031.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test031.js,"
    5 |
    6 | router.delete(""/test031/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -274,7 +274,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test031.js,15,22,skims,063.
   25 |   res.send(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test032.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test032.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test032.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test032.js,"
    6 | router.delete(""/test032/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
    8 |   var fileName = req.params[""fileName""];
@@ -298,7 +298,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test032.js,16,22,skims,063.
   26 |   }
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test033.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test033.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test033.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test033.js,"
    5 |
    6 | router.delete(""/test033/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -322,7 +322,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test033.js,15,22,skims,063.
   25 |   res.send(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test034.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test034.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test034.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test034.js,"
    5 |
    6 | router.delete(""/test034/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -346,7 +346,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test034.js,15,22,skims,063.
   25 |   res.send(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test035.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test035.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test035.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test035.js,"
    5 |
    6 | router.delete(""/test035/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -370,7 +370,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test035.js,15,22,skims,063.
   25 |   res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test036.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test036.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test036.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test036.js,"
    5 |
    6 | router.delete(""/test036/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -394,7 +394,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test036.js,15,22,skims,063.
   25 |   res.send(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test037.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test037.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test037.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test037.js,"
    6 | router.delete(""/test037/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
    8 |   var fileName = req.params[""fileName""];
@@ -418,7 +418,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test037.js,16,22,skims,063.
   26 |   }
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test038.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test038.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test038.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test038.js,"
    6 | router.get(""/test038"", function (req, res) {
    7 |   let body = req.body;
    8 |   var user = body[""user""];
@@ -442,7 +442,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test038.js,16,22,skims,063.
   26 |   res.send(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test039.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test039.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test039.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test039.js,"
    4 |
    5 | router.delete(""/test039/:user/:fileName"", function (req, res) {
    6 |   var user = req.params[""user""];
@@ -466,7 +466,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test039.js,14,22,skims,063.
   24 |   res.send(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test040.js,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test040.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test040.js,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test040.js,"
    3 | const fs = require(""fs"");
    4 |
    5 | router.delete(""/test040/:user/:fileName"", function (req, res) {
@@ -490,7 +490,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test040.js,13,22,skims,063.
   23 |   res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test041.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test041.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test041.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test041.js,"
    5 |
    6 | router.delete(""/test041/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -514,7 +514,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test041.js,15,22,skims,063.
   25 |   res.send(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test042.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test042.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test042.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test042.js,"
    4 |
    5 | router.delete(""/test042/:user/:fileName"", function (req, res) {
    6 |   var user = req.params[""user""];
@@ -538,7 +538,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test042.js,14,22,skims,063.
   24 |   }
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test043.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test043.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test043.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test043.js,"
    4 | const path = require(""path"");
    5 |
    6 | router.delete(""/test043/:user/:fileName"", function (req, res) {
@@ -562,7 +562,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test043.js,14,22,skims,063.
   24 |   res.send(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test044.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test044.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test044.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test044.js,"
    5 |
    6 | router.delete(""/test044/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -586,7 +586,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test044.js,15,22,skims,063.
   25 |       res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test045.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test045.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test045.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test045.js,"
    4 | const path = require(""path"");
    5 |
    6 | router.delete(""/test045/:user/:fileName"", function (req, res) {
@@ -610,7 +610,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test045.js,14,22,skims,063.
   24 |     res.send(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test046.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test046.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test046.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test046.js,"
    4 | var router = Router();
    5 |
    6 | router.delete(""/test046/:user/:fileName"", function (req, res) {
@@ -634,7 +634,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test046.js,14,22,skims,063.
   24 |     res.send(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test047.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test047.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test047.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test047.js,"
    4 | var router = Router();
    5 |
    6 | router.delete(""/test047/:user/:fileName"", function (req, res) {
@@ -658,7 +658,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test047.js,14,22,skims,063.
   24 |     res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test048.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test048.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test048.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test048.js,"
    4 | var router = Router();
    5 |
    6 | router.delete(""/test048/:user/:fileName"", function (req, res) {
@@ -682,7 +682,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test048.js,14,22,skims,063.
   24 |     res.send(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test049.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test049.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test049.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test049.js,"
    5 |
    6 | router.delete(""/test049/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -706,7 +706,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test049.js,15,22,skims,063.
   25 |       res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test050.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test050.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test050.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test050.js,"
    8 |
    9 |   let user = body.user;
   10 |   let file = body.fileName;
@@ -730,7 +730,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test050.js,18,22,skims,063.
   28 |   res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test051.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test051.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test051.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test051.js,"
    7 |   let body = req.body;
    8 |
    9 |   let user = body.user;
@@ -754,7 +754,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test051.js,17,22,skims,063.
   27 |         message: error,
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test053.js,19,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test053.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test053.js,19,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test053.js,"
    9 |   let user = body.user;
   10 |   let file = body.fileName;
   11 |   let payload = body.payload;
@@ -778,7 +778,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test053.js,19,22,skims,063.
   29 |   }
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test054.js,19,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test054.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test054.js,19,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test054.js,"
    9 |   let user = body.user;
   10 |   let file = body.fileName;
   11 |   let payload = body.payload;
@@ -802,7 +802,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test054.js,19,22,skims,063.
   29 |   res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test055.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test055.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test055.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test055.js,"
    8 |
    9 |   let user = body.user;
   10 |   let file = body.fileName;
@@ -826,7 +826,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test055.js,18,22,skims,063.
   28 |   res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test056.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test056.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test056.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test056.js,"
    7 |   let body = req.body;
    8 |
    9 |   let user = body.user;
@@ -850,7 +850,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test056.js,17,22,skims,063.
   27 |     res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test057.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test057.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test057.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test057.js,"
    7 |   let body = req.body;
    8 |
    9 |   let user = body.user;
@@ -874,7 +874,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test057.js,17,22,skims,063.
   27 |             message: error,
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test059.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test059.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test059.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test059.js,"
    8 |
    9 |   let user = body.user;
   10 |   let file = body.fileName;
@@ -898,7 +898,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test059.js,18,22,skims,063.
   28 |       res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test060.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test060.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test060.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test060.js,"
    7 |   let body = req.body;
    8 |
    9 |   let user = body.user;
@@ -922,7 +922,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test060.js,17,22,skims,063.
   27 |     res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test061.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test061.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test061.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test061.js,"
    7 |   let body = req.body;
    8 |
    9 |   let user = body.user;
@@ -946,7 +946,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test061.js,17,22,skims,063.
   27 |     res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test062.js,21,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test062.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test062.js,21,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test062.js,"
   11 |
   12 |   let userFiles = ""./target/user_files/"";
   13 |   const testFolder = ""./target/user_files/"";
@@ -970,7 +970,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test062.js,21,22,skims,063.
   31 |       res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test063.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test063.js,"
   10 |   let payload = body.payload;
   11 |
   12 |   let usersFiles = ""./target/user_files"";
@@ -994,7 +994,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,20,22,skims,063.
   30 |               message: error,
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,24,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test063.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,24,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test063.js,"
   14 |   let result = {
   15 |     ok: false,
   16 |   };
@@ -1018,7 +1018,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,24,22,skims,063.
   34 |           res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test070.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test070.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test070.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test070.js,"
    1 | var express = require(""express"");
    2 | var router = express.Router();
    3 | const fs = require(""fs"");
@@ -1042,7 +1042,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test070.js,10,22,skims,063.
   21 |     });
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test072.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test072.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test072.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test072.js,"
   10 |   let payload = body.payload;
   11 |
   12 |   let usersFiles = ""./target/user_files"";
@@ -1066,7 +1066,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test072.js,20,22,skims,063.
   30 |         res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test073.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test073.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test073.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test073.js,"
    6 |   var user = req.params[""user""];
    7 |   var bar = ""alsosafe"";
    8 |   var valuesList = [];
@@ -1090,7 +1090,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test073.js,16,22,skims,063.
   26 |
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test075.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test075.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test075.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test075.js,"
   10 |   let list75 = [""safe"", ""safe"", _user, _fileName];
   11 |   list75.shift();
   12 |   list75.push(""safe"");
@@ -1114,7 +1114,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test075.js,20,22,skims,063.
   30 |     res.json(result);
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test076.js,23,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test076.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test076.js,23,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test076.js,"
   13 |   list76A.push(""safe"");
   14 |   list76B.pop();
   15 |   let list76C = list76A.concat(list76B);
@@ -1138,7 +1138,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test076.js,23,22,skims,063.
   33 |     res.json(result);
      ^ Col 0
 "
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test110.js,8,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in server/routes/testcases/test110.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test110.js,8,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test110.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
    3 | var router = Router();
@@ -1162,7 +1162,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test110.js,8,310 + 327,skim
   21 |     res.json({ encrypted: encrypted });
      ^ Col 0
 "
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test115.js,11,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in server/routes/testcases/test115.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test115.js,11,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test115.js,"
    1 | import { Router } from ""express"";
    2 | var CryptoJS = require(""crypto-js"");
    3 | var router = Router();
@@ -1180,7 +1180,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test115.js,11,310 + 327,ski
   15 | export default router;
      ^ Col 0
 "
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test116.js,11,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in server/routes/testcases/test116.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test116.js,11,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test116.js,"
    1 | import { Router } from ""express"";
    2 | var CryptoJS = require(""crypto-js"");
    3 | var router = Router();
@@ -1198,7 +1198,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test116.js,11,310 + 327,ski
   15 | export default router;
      ^ Col 0
 "
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test137.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in server/routes/testcases/test137.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test137.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test137.js,"
    1 | import { Router } from ""express"";
    2 | const { createHash } = require(""crypto"");
    3 | var router = Router();
@@ -1220,7 +1220,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test137.js,7,310 + 327,skim
   19 | export default router;
      ^ Col 0
 "
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test138.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in server/routes/testcases/test138.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test138.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test138.js,"
    1 | import { Router } from ""express"";
    2 | const crypto = require(""crypto"");
    3 | var router = Router();
@@ -1242,7 +1242,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test138.js,7,310 + 327,skim
   19 | export default router;
      ^ Col 0
 "
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test139.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in server/routes/testcases/test139.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test139.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test139.js,"
    1 | import { Router } from ""express"";
    2 | const crypto = require(""crypto"");
    3 | var router = Router();
@@ -1264,7 +1264,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test139.js,7,310 + 327,skim
   19 | export default router;
      ^ Col 0
 "
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test140.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in server/routes/testcases/test140.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test140.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test140.js,"
    1 | import { Router } from ""express"";
    2 | const crypto = require(""crypto"");
    3 | var router = Router();
@@ -1286,7 +1286,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test140.js,7,310 + 327,skim
   19 | export default router;
      ^ Col 0
 "
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test125.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in server/routes/testcases/test125.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test125.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test125.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
    3 | var router = Router();
@@ -1300,7 +1300,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test125.js,6,310 + 327,skim
   11 | export default router;
      ^ Col 0
 "
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test126.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in server/routes/testcases/test126.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test126.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test126.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
    3 | var router = Router();
@@ -1314,7 +1314,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test126.js,6,310 + 327,skim
   11 | export default router;
      ^ Col 0
 "
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test127.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in server/routes/testcases/test127.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test127.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test127.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
    3 | var router = Router();
@@ -1328,7 +1328,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test127.js,6,310 + 327,skim
   11 | export default router;
      ^ Col 0
 "
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test128.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in server/routes/testcases/test128.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test128.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test128.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
    3 | var router = Router();
@@ -1342,7 +1342,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test128.js,6,310 + 327,skim
   11 | export default router;
      ^ Col 0
 "
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test129.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in server/routes/testcases/test129.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test129.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test129.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
    3 | var router = Router();

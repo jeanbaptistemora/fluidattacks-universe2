@@ -37,6 +37,9 @@ from typing import (
     Set,
     Tuple,
 )
+from utils.ctx import (
+    CTX,
+)
 from utils.function import (
     TIMEOUT_1MIN,
 )
@@ -86,7 +89,7 @@ def _aws_credentials(
         cwe={"798"},
         description=t(
             key="src.lib_path.f009.aws_credentials.description",
-            path=path,
+            path=f"{CTX.config.namespace}/{path}",
         ),
         finding=core_model.FindingEnum.F009,
         grammar=grammar,
@@ -111,7 +114,7 @@ def _jwt_token(
         cwe={"798"},
         description=t(
             key="src.lib_path.f009.jwt_token.description",
-            path=path,
+            path=f"{CTX.config.namespace}/{path}",
         ),
         finding=core_model.FindingEnum.F009,
         grammar=grammar,
@@ -178,7 +181,7 @@ def _dockerfile_env_secrets(
         cwe={"798"},
         description=t(
             key="src.lib_path.f009.dockerfile_env_secrets.description",
-            path=path,
+            path=f"{CTX.config.namespace}/{path}",
         ),
         finding=core_model.FindingEnum.F009,
         iterator=iterator(),
@@ -268,7 +271,7 @@ def _java_properties_sensitive_data(
         cwe={"798"},
         description=t(
             key="src.lib_path.f009.java_properties_sensitive_data",
-            path=path,
+            path=f"{CTX.config.namespace}/{path}",
         ),
         finding=core_model.FindingEnum.F009,
         iterator=iterator(),
@@ -314,7 +317,7 @@ def _sensitive_key_in_json(
         cwe={"798"},
         description=t(
             key="src.lib_path.f009.sensitive_key_in_json.description",
-            path=path,
+            path=f"{CTX.config.namespace}/{path}",
         ),
         finding=core_model.FindingEnum.F009,
         grammar=grammar,
@@ -346,7 +349,7 @@ def _web_config_user_pass(
         cwe={"798"},
         description=t(
             key="src.lib_path.f009.web_config_user_pass.description",
-            path=path,
+            path=f"{CTX.config.namespace}/{path}",
         ),
         finding=core_model.FindingEnum.F009,
         grammar=grammar,
@@ -382,7 +385,7 @@ def _web_config_db_connection(
         cwe={"798"},
         description=t(
             key="src.lib_path.f009.web_config_db_connection.description",
-            path=path,
+            path=f"{CTX.config.namespace}/{path}",
         ),
         finding=core_model.FindingEnum.F009,
         grammar=grammar,

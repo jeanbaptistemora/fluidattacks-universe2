@@ -65,7 +65,7 @@ def get_vulnerability_from_n_id(
             cwe=cwe,
             description=t(
                 key=desc_key,
-                path=meta_attrs_label_path,
+                path=f"{CTX.config.namespace}/{meta_attrs_label_path}",
                 **desc_params,
             ),
             snippet=make_snippet(

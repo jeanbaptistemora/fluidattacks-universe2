@@ -22,6 +22,9 @@ from typing import (
     List,
     Tuple,
 )
+from utils.ctx import (
+    CTX,
+)
 from utils.function import (
     TIMEOUT_1MIN,
 )
@@ -58,7 +61,7 @@ def _java_properties_unencrypted_transport(
         cwe={"319"},
         description=t(
             key="src.lib_path.f022.unencrypted_channel",
-            path=path,
+            path=f"{CTX.config.namespace}/{path}",
         ),
         finding=core_model.FindingEnum.F022,
         iterator=iterator(),

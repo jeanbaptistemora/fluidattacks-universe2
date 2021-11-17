@@ -20,6 +20,9 @@ from typing import (
     Callable,
     List,
 )
+from utils.ctx import (
+    CTX,
+)
 from utils.function import (
     TIMEOUT_1MIN,
 )
@@ -48,7 +51,7 @@ def _unpinned_docker_image(
         cwe={"749"},
         description=t(
             key="F380.description",
-            path=path,
+            path=f"{CTX.config.namespace}/{path}",
         ),
         finding=core_model.FindingEnum.F380,
         grammar=grammar,

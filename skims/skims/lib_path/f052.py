@@ -27,6 +27,9 @@ from utils.crypto import (
     is_iana_cipher_suite_vulnerable,
     is_open_ssl_cipher_suite_vulnerable,
 )
+from utils.ctx import (
+    CTX,
+)
 from utils.function import (
     TIMEOUT_1MIN,
 )
@@ -52,7 +55,7 @@ def _java_properties_missing_ssl(
         cwe={"310", "327"},
         description=t(
             key="src.lib_path.f052.java_properties_missing_ssl",
-            path=path,
+            path=f"{CTX.config.namespace}/{path}",
         ),
         finding=core_model.FindingEnum.F052,
         iterator=_iterate_vulnerabilities(),
@@ -93,7 +96,7 @@ def _java_properties_weak_cipher_suite(
         cwe={"310", "327"},
         description=t(
             key="src.lib_path.f052.java_properties_weak_cipher_suite",
-            path=path,
+            path=f"{CTX.config.namespace}/{path}",
         ),
         finding=core_model.FindingEnum.F052,
         iterator=_iterate_vulnerabilities(),

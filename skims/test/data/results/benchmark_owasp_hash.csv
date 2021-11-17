@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.java,53,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.java,53,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.java,"
   43 |
   44 |
   45 | ""BenchmarkTest00046"");
@@ -23,7 +23,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.j
   63 |
      ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00070.java,74,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00070.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00070.java,74,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00070.java,"
    64 |
    65 |
    66 | ar on false condition
@@ -47,7 +47,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00070.j
    84 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00071.java,74,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00071.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00071.java,74,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00071.java,"
    64 |
    65 |
    66 | bar on true condition
@@ -71,7 +71,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00071.j
    84 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00073.java,87,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00073.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00073.java,87,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00073.java,"
    77 |
    78 |
    79 |
@@ -95,7 +95,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00073.j
    97 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,"
    57 |  > 200 ? ""This should never happen"" : param;
    58 |
    59 |
@@ -119,7 +119,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.j
    77 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,"
    59 |
    60 |
    61 | ider[] provider = java.security.Security.getProviders();
@@ -143,7 +143,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.j
    79 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,"
    65 | "", ""another-Value""); // put some stuff in the collection
    66 | 3848.get(""keyB-13848""); // get it back out
    67 |
@@ -167,7 +167,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.j
    85 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,77,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,77,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,"
    67 |
    68 |
    69 | ider[] provider = java.security.Security.getProviders();
@@ -191,7 +191,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.j
    87 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,"
    58 | "", ""another-Value""); // put some stuff in the collection
    59 | 2712.get(""keyB-42712""); // get it back out
    60 |
@@ -215,7 +215,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.j
    78 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,"
    60 |
    61 |
    62 | ider[] provider = java.security.Security.getProviders();
@@ -239,7 +239,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.j
    80 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,"
    54 | z11795 = new StringBuilder(param);
    55 | 11795.append(""_SafeStuff"").toString();
    56 |
@@ -263,7 +263,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.j
    74 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,"
    56 |
    57 |
    58 | ider[] provider = java.security.Security.getProviders();
@@ -287,7 +287,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.j
    76 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00268.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00268.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00268.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00268.java,"
    54 |
    55 |
    56 | ar on false condition
@@ -311,7 +311,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00268.j
    74 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00269.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00269.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00269.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00269.java,"
    54 |
    55 |
    56 | to bar on true condition
@@ -335,7 +335,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00269.j
    74 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00272.java,77,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00272.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00272.java,77,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00272.java,"
    67 |
    68 |
    69 |
@@ -359,7 +359,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00272.j
    87 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,55,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,55,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,"
   45 |
   46 | m bar = param;
   47 |
@@ -383,7 +383,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.j
   65 |
      ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,"
   47 |
   48 |
   49 | ider[] provider = java.security.Security.getProviders();
@@ -407,7 +407,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.j
   67 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
      ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00371.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00371.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00371.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00371.java,"
   47 |
   48 |
   49 | bar on true condition
@@ -431,7 +431,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00371.j
   67 |
      ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00372.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00372.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00372.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00372.java,"
   47 |
   48 |
   49 | ar on false condition
@@ -455,7 +455,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00372.j
   67 |
      ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,"
    61 | get(0); // get the param value
    62 |
    63 |
@@ -479,7 +479,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.j
    81 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,"
    63 |
    64 |
    65 | ider[] provider = java.security.Security.getProviders();
@@ -503,7 +503,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.j
    83 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00464.java,59,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00464.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00464.java,59,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00464.java,"
   49 |
   50 |
   51 |
@@ -527,7 +527,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00464.j
   69 |
      ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00465.java,59,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00465.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00465.java,59,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00465.java,"
   49 |
   50 |
   51 |
@@ -551,7 +551,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00465.j
   69 |
      ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,"
    65 | "", ""another-Value""); // put some stuff in the collection
    66 | 8098.get(""keyB-38098""); // get it back out
    67 |
@@ -575,7 +575,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.j
    85 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,77,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,77,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,"
    67 |
    68 |
    69 | ider[] provider = java.security.Security.getProviders();
@@ -599,7 +599,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.j
    87 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00532.java,78,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00532.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00532.java,78,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00532.java,"
    68 | 9""); // get it back out
    69 | gth()-1); // extract most of it
    70 | s.codec.binary.Base64.decodeBase64(
@@ -623,7 +623,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00532.j
    88 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00533.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00533.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00533.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00533.java,"
    65 |
    66 |
    67 |
@@ -647,7 +647,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00533.j
    85 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00534.java,84,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00534.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00534.java,84,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00534.java,"
    74 |
    75 |
    76 |
@@ -671,7 +671,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00534.j
    94 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00536.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00536.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00536.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00536.java,"
    60 |
    61 |
    62 | ew java.util.HashMap<String,Object>();
@@ -695,7 +695,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00536.j
    80 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00537.java,65,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00537.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00537.java,65,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00537.java,"
    55 |
    56 |
    57 |
@@ -719,7 +719,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00537.j
    75 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,58,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,58,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,"
    48 | z28895 = new StringBuilder(param);
    49 | 28895.append(""_SafeStuff"").toString();
    50 |
@@ -743,7 +743,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.j
    68 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,60,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,60,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,"
    50 |
    51 |
    52 | ider[] provider = java.security.Security.getProviders();
@@ -767,7 +767,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.j
    70 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00634.java,62,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00634.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00634.java,62,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00634.java,"
    52 |
    53 |
    54 |
@@ -791,7 +791,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00634.j
    72 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00635.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00635.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00635.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00635.java,"
   42 |
   43 | est scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
   44 | Test00635"");
@@ -815,7 +815,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00635.j
   62 |
      ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00636.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00636.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00636.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00636.java,"
   42 |
   43 | est scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
   44 | Test00636"");
@@ -839,7 +839,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00636.j
   62 |
      ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00637.java,58,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00637.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00637.java,58,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00637.java,"
   48 |
   49 |
   50 | to bar on true condition
@@ -863,7 +863,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00637.j
   68 |
      ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,"
    59 | get(0); // get the param value
    60 |
    61 |
@@ -887,7 +887,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.j
    79 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,"
    61 |
    62 |
    63 | ider[] provider = java.security.Security.getProviders();
@@ -911,7 +911,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.j
    81 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,62,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,62,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,"
    52 | bstring(0,param.length()-1);
    53 |
    54 |
@@ -935,7 +935,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.j
    72 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,"
    54 |
    55 |
    56 | ider[] provider = java.security.Security.getProviders();
@@ -959,7 +959,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.j
    74 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00705.java,60,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00705.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00705.java,60,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00705.java,"
    50 |
    51 | ew java.util.HashMap<String,Object>();
    52 |  some stuff in the collection
@@ -983,7 +983,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00705.j
    70 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00708.java,55,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00708.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00708.java,55,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00708.java,"
   45 |
   46 |
   47 |
@@ -1007,7 +1007,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00708.j
   65 |
      ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.java,"
    59 |
    60 |
    61 |
@@ -1031,7 +1031,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.j
    79 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00790.java,65,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00790.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00790.java,65,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00790.java,"
    55 |
    56 | amval.length(), ampersandLoc);
    57 |
@@ -1055,7 +1055,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00790.j
    75 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00794.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00794.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00794.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00794.java,"
    58 | F-8"");
    59 |
    60 |
@@ -1079,7 +1079,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00794.j
    78 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,"
    59 | k.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
    60 | .doSomething(f51118); // reflection
    61 |
@@ -1103,7 +1103,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.j
    79 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,"
    61 |
    62 |
    63 | ider[] provider = java.security.Security.getProviders();
@@ -1127,7 +1127,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.j
    81 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,"
    65 |
    66 |
    67 |
@@ -1151,7 +1151,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.j
    85 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,77,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,77,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,"
    67 |
    68 |
    69 | ider[] provider = java.security.Security.getProviders();
@@ -1175,7 +1175,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.j
    87 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00870.java,51,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00870.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00870.java,51,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00870.java,"
   41 | F-8"");
   42 |
   43 | est scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
@@ -1199,7 +1199,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00870.j
   61 |
      ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00871.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00871.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00871.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00871.java,"
   46 |
   47 |
   48 | ew java.util.HashMap<String,Object>();
@@ -1223,7 +1223,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00871.j
   66 |
      ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00872.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00872.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00872.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00872.java,"
   42 |
   43 | est scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
   44 | 00872"");
@@ -1247,7 +1247,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00872.j
   62 |
      ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.java,"
    56 | st00961"")) {
    57 | ie.getValue(), ""UTF-8"");
    58 |
@@ -1271,7 +1271,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.j
    76 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00963.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00963.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00963.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00963.java,"
    56 | st00963"")) {
    57 | ie.getValue(), ""UTF-8"");
    58 |
@@ -1295,7 +1295,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00963.j
    76 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01038.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01038.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01038.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01038.java,"
    44 | = null) {
    45 | 8"");
    46 |
@@ -1319,7 +1319,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01038.j
    64 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.java,"
    53 | ()) {
    54 |
    55 |
@@ -1343,7 +1343,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.j
    73 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01165.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01165.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01165.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01165.java,"
    46 | s()) {
    47 | first element
    48 |
@@ -1367,7 +1367,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01165.j
    66 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01166.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01166.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01166.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01166.java,"
    46 | s()) {
    47 | first element
    48 |
@@ -1391,7 +1391,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01166.j
    66 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01167.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01167.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01167.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01167.java,"
    46 | s()) {
    47 | first element
    48 |
@@ -1415,7 +1415,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01167.j
    66 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,"
    44 |  param = """";
    45 |
    46 | est().doSomething(request, param);
@@ -1439,7 +1439,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.j
    64 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,"
    46 | est().doSomething(request, param);
    47 |
    48 | ider[] provider = java.security.Security.getProviders();
@@ -1463,7 +1463,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.j
    66 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01246.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01246.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01246.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01246.java,"
    39 |
    40 |  HttpServletResponse response) throws ServletException, IOException {
    41 | F-8"");
@@ -1487,7 +1487,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01246.j
    59 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01247.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01247.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01247.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01247.java,"
    39 |
    40 |  HttpServletResponse response) throws ServletException, IOException {
    41 | F-8"");
@@ -1511,7 +1511,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01247.j
    59 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.java,"
    44 |
    45 |
    46 | 3"");
@@ -1535,7 +1535,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.j
    64 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01334.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01334.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01334.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01334.java,"
    44 |
    45 |
    46 | 4"");
@@ -1559,7 +1559,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01334.j
    64 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01411.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01411.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01411.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01411.java,"
    53 |
    54 |
    55 |
@@ -1583,7 +1583,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01411.j
    73 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,55,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,55,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,"
    45 |  param = """";
    46 |
    47 | est().doSomething(request, param);
@@ -1607,7 +1607,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.j
    65 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,"
    47 | est().doSomething(request, param);
    48 |
    49 | ider[] provider = java.security.Security.getProviders();
@@ -1631,7 +1631,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.j
    67 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01504.java,50,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01504.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01504.java,50,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01504.java,"
    40 |  HttpServletResponse response) throws ServletException, IOException {
    41 | F-8"");
    42 |
@@ -1655,7 +1655,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01504.j
    60 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01577.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01577.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01577.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01577.java,"
    42 |
    43 | ""BenchmarkTest01577"");
    44 |
@@ -1679,7 +1679,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01577.j
    62 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.java,"
    53 |  of the query string and if so, trim off what comes after.
    54 | aramLoc);
    55 |
@@ -1703,7 +1703,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.j
    73 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01650.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01650.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01650.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01650.java,"
    53 |  of the query string and if so, trim off what comes after.
    54 | aramLoc);
    55 |
@@ -1727,7 +1727,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01650.j
    73 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01651.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01651.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01651.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01651.java,"
    53 |  of the query string and if so, trim off what comes after.
    54 | aramLoc);
    55 |
@@ -1751,7 +1751,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01651.j
    73 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01653.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01653.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01653.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01653.java,"
    53 |  of the query string and if so, trim off what comes after.
    54 | aramLoc);
    55 |
@@ -1775,7 +1775,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01653.j
    73 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,"
    44 | .getTheValue(""BenchmarkTest01757"");
    45 |
    46 | est().doSomething(request, param);
@@ -1799,7 +1799,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.j
    64 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,"
    46 | est().doSomething(request, param);
    47 |
    48 | ider[] provider = java.security.Security.getProviders();
@@ -1823,7 +1823,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.j
    66 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01761.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01761.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01761.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01761.java,"
    39 |
    40 |  HttpServletResponse response) throws ServletException, IOException {
    41 | F-8"");
@@ -1847,7 +1847,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01761.j
    59 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,"
    61 |
    62 |
    63 | ething(request, param);
@@ -1871,7 +1871,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.j
    81 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,"
    63 | ething(request, param);
    64 |
    65 | ider[] provider = java.security.Security.getProviders();
@@ -1895,7 +1895,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.j
    83 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,"
    61 |
    62 |
    63 | ething(request, param);
@@ -1919,7 +1919,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.j
    81 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,"
    63 | ething(request, param);
    64 |
    65 | ider[] provider = java.security.Security.getProviders();
@@ -1943,7 +1943,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.j
    83 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,"
    61 |
    62 |
    63 | ething(request, param);
@@ -1967,7 +1967,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.j
    81 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,"
    63 | ething(request, param);
    64 |
    65 | ider[] provider = java.security.Security.getProviders();
@@ -1991,7 +1991,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.j
    83 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,59,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,59,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,"
    49 | RLDecoder.decode(param, ""UTF-8"");
    50 |
    51 | ething(request, param);
@@ -2015,7 +2015,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.j
    69 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,61,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,61,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,"
    51 | ething(request, param);
    52 |
    53 | ider[] provider = java.security.Security.getProviders();
@@ -2039,7 +2039,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.j
    71 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.java,"
    46 | s()) {
    47 | first element
    48 |
@@ -2063,7 +2063,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.j
    66 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,"
    44 |  param = """";
    45 |
    46 | ething(request, param);
@@ -2087,7 +2087,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.j
    64 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,"
    46 | ething(request, param);
    47 |
    48 | ider[] provider = java.security.Security.getProviders();
@@ -2111,7 +2111,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.j
    66 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.java,"
    44 |
    45 |
    46 | 1"");
@@ -2135,7 +2135,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.j
    64 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02212.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02212.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02212.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02212.java,"
    44 |
    45 |
    46 | 2"");
@@ -2159,7 +2159,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02212.j
    64 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02213.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02213.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02213.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02213.java,"
    44 |
    45 |
    46 | 3"");
@@ -2183,7 +2183,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02213.j
    64 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02217.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02217.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02217.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02217.java,"
    44 |
    45 |
    46 | 7"");
@@ -2207,7 +2207,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02217.j
    64 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,"
    58 |
    59 |
    60 | ething(request, param);
@@ -2231,7 +2231,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.j
    78 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,"
    60 | ething(request, param);
    61 |
    62 | ider[] provider = java.security.Security.getProviders();
@@ -2255,7 +2255,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.j
    80 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02308.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02308.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02308.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02308.java,"
    53 |
    54 |
    55 |
@@ -2279,7 +2279,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02308.j
    73 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02311.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02311.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02311.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02311.java,"
    53 |
    54 |
    55 |
@@ -2303,7 +2303,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02311.j
    73 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,55,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,55,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,"
    45 |  param = """";
    46 |
    47 | ething(request, param);
@@ -2327,7 +2327,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.j
    65 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,"
    47 | ething(request, param);
    48 |
    49 | ider[] provider = java.security.Security.getProviders();
@@ -2351,7 +2351,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.j
    67 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02386.java,50,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02386.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02386.java,50,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02386.java,"
    40 |  HttpServletResponse response) throws ServletException, IOException {
    41 | F-8"");
    42 |
@@ -2375,7 +2375,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02386.j
    60 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02387.java,50,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02387.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02387.java,50,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02387.java,"
   40 |  HttpServletResponse response) throws ServletException, IOException {
   41 | F-8"");
   42 |
@@ -2399,7 +2399,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02387.j
   60 |
      ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02388.java,50,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02388.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02388.java,50,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02388.java,"
    40 |  HttpServletResponse response) throws ServletException, IOException {
    41 | F-8"");
    42 |
@@ -2423,7 +2423,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02388.j
    60 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.java,"
    42 |
    43 | ""BenchmarkTest02474"");
    44 |
@@ -2447,7 +2447,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.j
    62 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02475.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02475.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02475.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02475.java,"
    42 |
    43 | ""BenchmarkTest02475"");
    44 |
@@ -2471,7 +2471,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02475.j
    62 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02476.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02476.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02476.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02476.java,"
   42 |
   43 | ""BenchmarkTest02476"");
   44 |
@@ -2495,7 +2495,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02476.j
   62 |
      ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.java,"
    53 |  of the query string and if so, trim off what comes after.
    54 | aramLoc);
    55 |
@@ -2519,7 +2519,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.j
    73 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02574.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02574.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02574.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02574.java,"
    53 |  of the query string and if so, trim off what comes after.
    54 | aramLoc);
    55 |
@@ -2543,7 +2543,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02574.j
    73 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02575.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02575.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02575.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02575.java,"
    53 |  of the query string and if so, trim off what comes after.
    54 | aramLoc);
    55 |
@@ -2567,7 +2567,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02575.j
    73 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,"
    44 | .getTheValue(""BenchmarkTest02670"");
    45 |
    46 | ething(request, param);
@@ -2591,7 +2591,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.j
    64 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,"
    46 | ething(request, param);
    47 |
    48 | ider[] provider = java.security.Security.getProviders();
@@ -2615,7 +2615,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.j
    66 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,"
    44 | .getTheValue(""BenchmarkTest02671"");
    45 |
    46 | ething(request, param);
@@ -2639,7 +2639,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.j
    64 |
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,"
    46 | ething(request, param);
    47 |
    48 | ider[] provider = java.security.Security.getProviders();
@@ -2663,7 +2663,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.j
    66 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02674.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02674.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02674.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02674.java,"
    39 |
    40 |  HttpServletResponse response) throws ServletException, IOException {
    41 | F-8"");
@@ -2687,7 +2687,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02674.j
    59 |
       ^ Col 47
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02675.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02675.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02675.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02675.java,"
   39 |
   40 |  HttpServletResponse response) throws ServletException, IOException {
   41 | F-8"");

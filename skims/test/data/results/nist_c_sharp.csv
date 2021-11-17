@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_01.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_01.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_01.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_01.cs,"
   21 |
   22 | 27_Use_Broken_Crypto
   23 |
@@ -23,7 +23,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
   41 | sw.Write(CIPHER_INPUT);
      ^ Col 24
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_02.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_02.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_02.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_02.cs,"
    23 |
    24 | to__3DES_02 : AbstractTestCase
    25 |
@@ -47,7 +47,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 | sw.Write(CIPHER_INPUT);
       ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_03.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_03.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_03.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_03.cs,"
    23 |
    24 | to__3DES_03 : AbstractTestCase
    25 |
@@ -71,7 +71,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 | sw.Write(CIPHER_INPUT);
       ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_04.cs,39,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_04.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_04.cs,39,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_04.cs,"
    29 |
    30 | TE_CONST_TRUE = true;
    31 | TE_CONST_FALSE = false;
@@ -95,7 +95,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    49 | sw.Write(CIPHER_INPUT);
       ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_05.cs,39,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_05.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_05.cs,39,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_05.cs,"
    29 |
    30 |  = true;
    31 | e = false;
@@ -119,7 +119,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    49 | sw.Write(CIPHER_INPUT);
       ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_06.cs,38,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_06.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_06.cs,38,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_06.cs,"
    28 |
    29 |
    30 | E_CONST_FIVE = 5;
@@ -143,7 +143,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    48 | sw.Write(CIPHER_INPUT);
       ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_07.cs,38,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_07.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_07.cs,38,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_07.cs,"
    28 |  its initialized value.
    29 |
    30 | = 5;
@@ -167,7 +167,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    48 | sw.Write(CIPHER_INPUT);
       ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_08.cs,46,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_08.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_08.cs,46,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_08.cs,"
    36 |
    37 |
    38 |
@@ -191,7 +191,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    56 | sw.Write(CIPHER_INPUT);
       ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_09.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_09.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_09.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_09.cs,"
    23 |
    24 | to__3DES_09 : AbstractTestCase
    25 |
@@ -215,7 +215,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 | sw.Write(CIPHER_INPUT);
       ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_10.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_10.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_10.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_10.cs,"
    23 |
    24 | to__3DES_10 : AbstractTestCase
    25 |
@@ -239,7 +239,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 | sw.Write(CIPHER_INPUT);
       ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_11.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_11.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_11.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_11.cs,"
    23 |
    24 | to__3DES_11 : AbstractTestCase
    25 |
@@ -263,7 +263,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 | sw.Write(CIPHER_INPUT);
       ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_12.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_12.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_12.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_12.cs,"
    23 |
    24 | to__3DES_12 : AbstractTestCase
    25 |
@@ -287,7 +287,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 | sw.Write(CIPHER_INPUT);
       ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_13.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_13.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_13.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_13.cs,"
    23 |
    24 | to__3DES_13 : AbstractTestCase
    25 |
@@ -311,7 +311,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 | sw.Write(CIPHER_INPUT);
       ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_14.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_14.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_14.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_14.cs,"
    23 |
    24 | to__3DES_14 : AbstractTestCase
    25 |
@@ -335,7 +335,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 | sw.Write(CIPHER_INPUT);
       ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_15.cs,34,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_15.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_15.cs,34,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_15.cs,"
    24 | to__3DES_15 : AbstractTestCase
    25 |
    26 |
@@ -359,7 +359,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    44 | sw.Write(CIPHER_INPUT);
       ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_16.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_16.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_16.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_16.cs,"
   23 |
   24 | to__3DES_16 : AbstractTestCase
   25 |
@@ -383,7 +383,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
   43 | sw.Write(CIPHER_INPUT);
      ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_17.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_17.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_17.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_17.cs,"
   23 |
   24 | to__3DES_17 : AbstractTestCase
   25 |
@@ -407,7 +407,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
   43 | sw.Write(CIPHER_INPUT);
      ^ Col 28
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_01.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_01.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_01.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_01.cs,"
   21 |
   22 | es.CWE327_Use_Broken_Crypto
   23 |
@@ -431,7 +431,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
   41 |        sw.Write(CIPHER_INPUT);
      ^ Col 17
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_02.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_02.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_02.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_02.cs,"
    23 |
    24 | en_Crypto__DES_02 : AbstractTestCase
    25 |
@@ -455,7 +455,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 |        sw.Write(CIPHER_INPUT);
       ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_03.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_03.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_03.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_03.cs,"
    23 |
    24 | en_Crypto__DES_03 : AbstractTestCase
    25 |
@@ -479,7 +479,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 |        sw.Write(CIPHER_INPUT);
       ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_04.cs,39,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_04.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_04.cs,39,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_04.cs,"
    29 |
    30 | l PRIVATE_CONST_TRUE = true;
    31 | l PRIVATE_CONST_FALSE = false;
@@ -503,7 +503,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    49 |        sw.Write(CIPHER_INPUT);
       ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_05.cs,39,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_05.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_05.cs,39,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_05.cs,"
    29 |
    30 | ateTrue = true;
    31 | ateFalse = false;
@@ -527,7 +527,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    49 |        sw.Write(CIPHER_INPUT);
       ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_06.cs,38,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_06.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_06.cs,38,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_06.cs,"
    28 |
    29 |
    30 |  PRIVATE_CONST_FIVE = 5;
@@ -551,7 +551,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    48 |        sw.Write(CIPHER_INPUT);
       ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_07.cs,38,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_07.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_07.cs,38,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_07.cs,"
    28 | ys give its initialized value.
    29 |
    30 | teFive = 5;
@@ -575,7 +575,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    48 |        sw.Write(CIPHER_INPUT);
       ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_08.cs,46,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_08.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_08.cs,46,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_08.cs,"
    36 |
    37 |
    38 |
@@ -599,7 +599,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    56 |        sw.Write(CIPHER_INPUT);
       ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_09.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_09.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_09.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_09.cs,"
    23 |
    24 | en_Crypto__DES_09 : AbstractTestCase
    25 |
@@ -623,7 +623,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 |        sw.Write(CIPHER_INPUT);
       ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_10.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_10.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_10.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_10.cs,"
    23 |
    24 | en_Crypto__DES_10 : AbstractTestCase
    25 |
@@ -647,7 +647,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 |        sw.Write(CIPHER_INPUT);
       ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_11.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_11.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_11.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_11.cs,"
    23 |
    24 | en_Crypto__DES_11 : AbstractTestCase
    25 |
@@ -671,7 +671,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 |        sw.Write(CIPHER_INPUT);
       ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_12.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_12.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_12.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_12.cs,"
    23 |
    24 | en_Crypto__DES_12 : AbstractTestCase
    25 |
@@ -695,7 +695,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 |        sw.Write(CIPHER_INPUT);
       ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_13.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_13.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_13.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_13.cs,"
    23 |
    24 | en_Crypto__DES_13 : AbstractTestCase
    25 |
@@ -719,7 +719,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 |        sw.Write(CIPHER_INPUT);
       ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_14.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_14.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_14.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_14.cs,"
    23 |
    24 | en_Crypto__DES_14 : AbstractTestCase
    25 |
@@ -743,7 +743,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    43 |        sw.Write(CIPHER_INPUT);
       ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_15.cs,34,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_15.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_15.cs,34,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_15.cs,"
    24 | en_Crypto__DES_15 : AbstractTestCase
    25 |
    26 |
@@ -767,7 +767,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
    44 |        sw.Write(CIPHER_INPUT);
       ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_16.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_16.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_16.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_16.cs,"
   23 |
   24 | en_Crypto__DES_16 : AbstractTestCase
   25 |
@@ -791,7 +791,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
   43 |        sw.Write(CIPHER_INPUT);
      ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_17.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_17.cs,"
+F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_17.cs,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_17.cs,"
   23 |
   24 | en_Crypto__DES_17 : AbstractTestCase
   25 |
@@ -815,7 +815,7 @@ F052,lines,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto_
   43 |        sw.Write(CIPHER_INPUT);
      ^ Col 21
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_01.cs,29,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_01.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_01.cs,29,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_01.cs,"
   19 | System.Text;
   20 | System.Security.Cryptography;
   21 |
@@ -839,7 +839,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   39 | blic override void Good()
      ^ Col 6
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_02.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_02.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_02.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_02.cs,"
   21 |
   22 | testcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -863,7 +863,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | GOOD)
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_03.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_03.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_03.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_03.cs,"
   21 |
   22 | testcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -887,7 +887,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | GOOD)
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_04.cs,37,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_04.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_04.cs,37,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_04.cs,"
   27 | able to identify that reads of these will always return their
   28 | tialized values.
   29 |
@@ -911,7 +911,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   47 | GOOD)
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_05.cs,37,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_05.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_05.cs,37,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_05.cs,"
   27 | igned any other value, so a tool should be able to identify that
   28 | ds of these will always return their initialized values.
   29 |
@@ -935,7 +935,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   47 | GOOD)
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_06.cs,36,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_06.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_06.cs,36,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_06.cs,"
   26 |  variable below is declared ""const"", so a tool should be able
   27 | identify that reads of this will always give its initialized
   28 | ue.
@@ -959,7 +959,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   46 | GOOD)
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_07.cs,36,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_07.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_07.cs,36,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_07.cs,"
   26 |  variable below is not declared ""readonly"", but is never assigned
   27 |  other value so a tool should be able to identify that reads of
   28 | s will always give its initialized value.
@@ -983,7 +983,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   46 | GOOD)
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_08.cs,44,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_08.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_08.cs,44,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_08.cs,"
   34 |
   35 | e static bool PrivateReturnsFalse()
   36 |
@@ -1007,7 +1007,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   54 | GOOD)
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_09.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_09.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_09.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_09.cs,"
   21 |
   22 | testcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1031,7 +1031,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | GOOD)
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_10.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_10.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_10.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_10.cs,"
   21 |
   22 | testcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1055,7 +1055,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | GOOD)
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_11.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_11.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_11.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_11.cs,"
   21 |
   22 | testcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1079,7 +1079,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | GOOD)
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_12.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_12.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_12.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_12.cs,"
   21 |
   22 | testcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1103,7 +1103,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 |   using (HashAlgorithm sha512 = new SHA512CryptoServiceProvider())
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_13.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_13.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_13.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_13.cs,"
   21 |
   22 | testcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1127,7 +1127,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | GOOD)
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_14.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_14.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_14.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_14.cs,"
   21 |
   22 | testcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1151,7 +1151,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | GOOD)
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_15.cs,32,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_15.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_15.cs,32,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_15.cs,"
   22 | testcases.CWE328_Reversible_One_Way_Hash
   23 |
   24 | 28_Reversible_One_Way_Hash__MD5_15 : AbstractTestCase
@@ -1175,7 +1175,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   42 |   IO.WriteLine(""Benign, fixed string"");
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_16.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_16.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_16.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_16.cs,"
   21 |
   22 | testcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1199,7 +1199,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | mitbad
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_17.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_17.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_17.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_17.cs,"
   21 |
   22 | testcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1223,7 +1223,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | GOOD)
      ^ Col 10
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_01.cs,29,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_01.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_01.cs,29,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_01.cs,"
   19 | ystem.Text;
   20 | ystem.Security.Cryptography;
   21 |
@@ -1247,7 +1247,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   39 | lic override void Good()
      ^ Col 7
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_02.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_02.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_02.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_02.cs,"
   21 |
   22 | estcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1271,7 +1271,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | OOD)
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_03.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_03.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_03.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_03.cs,"
   21 |
   22 | estcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1295,7 +1295,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | OOD)
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_04.cs,37,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_04.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_04.cs,37,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_04.cs,"
   27 | ble to identify that reads of these will always return their
   28 | ialized values.
   29 |
@@ -1319,7 +1319,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   47 | OOD)
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_05.cs,37,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_05.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_05.cs,37,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_05.cs,"
   27 | gned any other value, so a tool should be able to identify that
   28 | s of these will always return their initialized values.
   29 |
@@ -1343,7 +1343,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   47 | OOD)
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_06.cs,36,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_06.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_06.cs,36,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_06.cs,"
   26 | variable below is declared ""const"", so a tool should be able
   27 | dentify that reads of this will always give its initialized
   28 | e.
@@ -1367,7 +1367,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   46 | OOD)
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_07.cs,36,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_07.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_07.cs,36,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_07.cs,"
   26 | variable below is not declared ""readonly"", but is never assigned
   27 | other value so a tool should be able to identify that reads of
   28 |  will always give its initialized value.
@@ -1391,7 +1391,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   46 | OOD)
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_08.cs,44,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_08.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_08.cs,44,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_08.cs,"
   34 |
   35 |  static bool PrivateReturnsFalse()
   36 |
@@ -1415,7 +1415,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   54 | OOD)
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_09.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_09.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_09.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_09.cs,"
   21 |
   22 | estcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1439,7 +1439,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | OOD)
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_10.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_10.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_10.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_10.cs,"
   21 |
   22 | estcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1463,7 +1463,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | OOD)
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_11.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_11.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_11.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_11.cs,"
   21 |
   22 | estcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1487,7 +1487,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | OOD)
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_12.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_12.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_12.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_12.cs,"
   21 |
   22 | estcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1511,7 +1511,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 |  using (HashAlgorithm sha512 = new SHA512CryptoServiceProvider())
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_13.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_13.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_13.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_13.cs,"
   21 |
   22 | estcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1535,7 +1535,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | OOD)
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_14.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_14.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_14.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_14.cs,"
   21 |
   22 | estcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1559,7 +1559,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | OOD)
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_15.cs,32,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_15.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_15.cs,32,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_15.cs,"
   22 | estcases.CWE328_Reversible_One_Way_Hash
   23 |
   24 | 8_Reversible_One_Way_Hash__SHA1_15 : AbstractTestCase
@@ -1583,7 +1583,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   42 |  IO.WriteLine(""Benign, fixed string"");
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_16.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_16.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_16.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_16.cs,"
   21 |
   22 | estcases.CWE328_Reversible_One_Way_Hash
   23 |
@@ -1607,7 +1607,7 @@ F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_O
   41 | itbad
      ^ Col 11
 "
-F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_17.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_17.cs,"
+F052,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_17.cs,31,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_17.cs,"
   21 |
   22 | estcases.CWE328_Reversible_One_Way_Hash
   23 |

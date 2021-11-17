@@ -13,6 +13,9 @@ from typing import (
     Callable,
     List,
 )
+from utils.ctx import (
+    CTX,
+)
 from utils.function import (
     TIMEOUT_1MIN,
 )
@@ -33,7 +36,7 @@ async def unverifiable_files(
         cwe={"377"},
         description=t(
             key="src.lib_path.f117.unverifiable_files.description",
-            path=path,
+            path=f"{CTX.config.namespace}/{path}",
         ),
         finding=core_model.FindingEnum.F117,
         iterator=iter([(1, 0)]),

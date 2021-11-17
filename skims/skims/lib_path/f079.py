@@ -13,6 +13,9 @@ from typing import (
     Callable,
     List,
 )
+from utils.ctx import (
+    CTX,
+)
 from utils.function import (
     TIMEOUT_1MIN,
 )
@@ -37,7 +40,7 @@ async def non_upgradeable_deps(
         ),
         finding=core_model.FindingEnum.F079,
         iterator=iter([(1, 0)]),
-        path=path,
+        path=f"{CTX.config.namespace}/{path}",
     )
 
 

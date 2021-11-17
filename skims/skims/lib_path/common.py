@@ -255,7 +255,7 @@ def get_vulnerabilities_from_aws_iterator_blocking(
         cwe={finding.value.cwe},
         description=t(
             key=description_key,
-            path=path,
+            path=f"{CTX.config.namespace}/{path}",
         ),
         finding=finding,
         iterator=(
@@ -295,7 +295,7 @@ def translate_dependencies_to_vulnerabilities(
                 cwe=("937",),
                 description=t(
                     key="src.lib_path.f011.npm_package_json.description",
-                    path=path,
+                    path=f"{CTX.config.namespace}/{path}",
                     product=product["item"],
                     version=version["item"],
                     cve=cve,

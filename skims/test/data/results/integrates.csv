@@ -43,10 +43,10 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
   19 | server refuses connections with PFS support
      ^ Col 0
 "
-F117,lines,namespace/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/.project,"
+F117,lines,namespace/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/.project,"
 
 "
-F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.class,1,377,skims,117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/MyJar.class,"
+F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.class,1,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/MyJar.class,"
 > 1 | ����9
   2 | 
   3 | 
@@ -58,7 +58,7 @@ F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.class,1,377,skims,117. 
   9 | 
     ^ Col 0
 "
-F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,1,377,skims,117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/MyJar.jar,"
+F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,1,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/MyJar.jar,"
 >  1 | PK�[%O META-INF/��PKPK�[%OMETA-INF/MANIFEST.MF�M��LK-.�
    2 | K-*��ϳR0�3��r.JM,IM�u�
    3 | +h�&�敔j�r�rPK�Kx32PK�[%O
