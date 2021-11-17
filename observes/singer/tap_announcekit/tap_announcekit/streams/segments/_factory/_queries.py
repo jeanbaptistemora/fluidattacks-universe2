@@ -62,7 +62,7 @@ class SegmentProfileQuery:
     proj: ProjectId
 
     def _select_fields(self, operation: Operation) -> IO[None]:
-        selection = operation.segmentProfiles(project_id=self.proj.id_str)
+        selection = operation.segment_profiles(project_id=self.proj.id_str)
         return select_fields(
             selection,
             frozenset(SegmentProfile.__annotations__) - frozenset(["proj"]),
@@ -79,7 +79,7 @@ class SegmentProfileQuery:
             Transform(
                 lambda p: tuple(
                     self.to_segment_prof(r)
-                    for r in cast(List[RawSegmentType], p.segments)
+                    for r in cast(List[RawSegmentType], p.segment_profiles)
                 )
             ),
         )

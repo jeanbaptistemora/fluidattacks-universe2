@@ -18,19 +18,17 @@ from tap_announcekit.objs.project import (
     ProjectObj,
 )
 from tap_announcekit.streams._obj_encoder import (
-    StreamsObjsEncoder,
+    encoder_1,
 )
 from typing import (
     Dict,
 )
 
-_encoder = StreamsObjsEncoder.encoder()
-
 
 def _schema() -> JsonSchema:
     props = Project.__annotations__.copy()
     props["proj_id"] = str
-    return _encoder.to_jschema(props)
+    return encoder_1.to_jschema(props)
 
 
 def _to_json(obj: ProjectObj) -> JsonObj:

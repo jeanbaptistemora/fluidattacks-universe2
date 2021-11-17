@@ -12,7 +12,7 @@ from tap_announcekit.objs.id_objs import (
 )
 
 _str_type = JsonSchemaFactory.from_prim_type(str).to_json()
-_obj_encoder = ObjEncoder(
+encoder_1 = ObjEncoder(
     {
         ImageId: _str_type,
         ProjectId: _str_type,
@@ -20,10 +20,3 @@ _obj_encoder = ObjEncoder(
         UserId: _str_type,
     }
 )
-
-
-class StreamsObjsEncoder:
-    # pylint: disable=too-few-public-methods
-    @staticmethod
-    def encoder() -> ObjEncoder:
-        return _obj_encoder

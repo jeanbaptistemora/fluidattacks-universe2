@@ -1,7 +1,6 @@
 from purity.v1 import (
     Transform,
 )
-import pytest
 from tap_announcekit.api.client import (
     ApiClient,
 )
@@ -23,7 +22,6 @@ from tests.stream import (
 )
 
 
-@pytest.mark.xfail(reason="in dev")
 def test_field_schema() -> None:
     encoder = _encode.SegmentFieldEncoder("stream_1")
     schema = encoder.schema
@@ -32,7 +30,6 @@ def test_field_schema() -> None:
     utils.test_schema_record(schema, record)
 
 
-@pytest.mark.xfail(reason="in dev")
 def test_profile_schema() -> None:
     encoder = _encode.SegmentProfileEncoder("stream_1")
     schema = encoder.schema
@@ -48,7 +45,6 @@ def test_build_field_query() -> None:
     ).query.operation()
 
 
-@pytest.mark.xfail(reason="in dev")
 def test_build_profile_query() -> None:
     assert _queries.SegmentProfileQuery(
         Transform(lambda _: IndexedObj("foo_id", "foo")),
@@ -63,7 +59,6 @@ def test_field_query() -> None:
     )
 
 
-@pytest.mark.xfail(reason="in dev")
 def test_query_obj() -> None:
     raw_data = {"data": mock_raw_data.mock_segments_prof}
     assert ApiClient.from_data(

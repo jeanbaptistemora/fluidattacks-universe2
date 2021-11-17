@@ -13,18 +13,16 @@ from singer_io.singer2.json import (
 from singer_io.singer2.json_schema import (
     JsonSchema,
 )
-from tap_announcekit.jschema import (
-    ObjEncoder,
-)
 from tap_announcekit.objs.segment import (
     SegmentField,
     SegmentProfile,
 )
+from tap_announcekit.streams._obj_encoder import (
+    encoder_1,
+)
 from typing import (
     Dict,
 )
-
-_encoder = ObjEncoder({})
 
 
 @dataclass(frozen=True)
@@ -34,7 +32,7 @@ class SegmentFieldEncoder:
     @staticmethod
     def _schema() -> JsonSchema:
         props = SegmentField.__annotations__.copy()
-        return _encoder.to_jschema(props)
+        return encoder_1.to_jschema(props)
 
     @staticmethod
     def _to_json(obj: SegmentField) -> JsonObj:
@@ -60,7 +58,7 @@ class SegmentProfileEncoder:
     @staticmethod
     def _schema() -> JsonSchema:
         props = SegmentProfile.__annotations__.copy()
-        return _encoder.to_jschema(props)
+        return encoder_1.to_jschema(props)
 
     @staticmethod
     def _to_json(obj: SegmentProfile) -> JsonObj:
