@@ -8,11 +8,10 @@ from tap_announcekit.objs.id_objs import (
     ProjectId,
 )
 from tap_announcekit.streams.posts._factory import (
-    PostIdFactory,
+    factory,
 )
 
 
 def test_get_ids() -> None:
     client = ApiClient(get_creds())
-    getter = PostIdFactory(client, ProjectId("11264"))
-    getter.get_ids()
+    assert factory(client).get_ids(ProjectId("11264"))

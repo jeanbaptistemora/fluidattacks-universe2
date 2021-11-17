@@ -22,8 +22,8 @@ from tap_announcekit.streams.posts._encode import (
     PostEncoders,
 )
 from tap_announcekit.streams.posts._factory import (
+    factory,
     PostFactory,
-    PostIdFactory,
 )
 
 
@@ -32,17 +32,19 @@ class PostStreams:
     _client: ApiClient
     _name: str
 
+    @property
+    def _factory(self) -> PostFactory:
+        return factory(self._client)
+
     @staticmethod
     def ids(client: ApiClient, proj: ProjectId) -> PureIter[IO[PostId]]:
-        factory = PostIdFactory(client, proj)
-        return factory.get_ids()
+        return factory(client).get_ids(proj)
 
     def stream(
         self,
         ids: PureIter[PostId],
     ) -> StreamIO:
-        factory = PostFactory(self._client)
         encoder = PostEncoders.encoder(self._name)
-        data = ids.map(factory.get_post)
+        data = ids.map(self._factory.get_post)
         records = data.map(lambda i: i.map(encoder.to_singer))
         return Stream(encoder.schema, records)

@@ -1,9 +1,21 @@
 from dataclasses import (
     dataclass,
 )
+from paginator.v2 import (
+    IntIndexGetter,
+)
 from purity.v1 import (
     PureIter,
     Transform,
+)
+from purity.v1.pure_iter.factory import (
+    from_flist,
+)
+from purity.v1.pure_iter.transform import (
+    io as io_transform,
+)
+from returns.curry import (
+    partial,
 )
 from returns.io import (
     IO,
@@ -23,48 +35,60 @@ from tap_announcekit.objs.post import (
     PostIdPage,
     PostObj,
 )
-from tap_announcekit.streams.posts._factory._from_raw import (
-    to_post,
+from tap_announcekit.streams.posts._factory import (
+    _from_raw,
+    _queries,
 )
-from tap_announcekit.streams.posts._factory._getters import (
-    PostIdGetters,
-)
-from tap_announcekit.streams.posts._factory._queries import (
-    PostIdsQuery,
-    PostQuery,
-    TotalPagesQuery,
+from typing import (
+    Callable,
+    NamedTuple,
 )
 
 
-def _post_query(post_id: PostId) -> Query[PostObj]:
-    return PostQuery(Transform(to_post), post_id).query
+class PostQueries(NamedTuple):
+    post: Callable[[PostId], Query[PostObj]]
+    post_ids: Callable[[ProjectId, int], Query[PostIdPage]]
+    total: Callable[[ProjectId], Query[range]]
 
 
 @dataclass(frozen=True)
 class PostFactory:
+    queries: PostQueries
     client: ApiClient
 
     def get_post(self, post_id: PostId) -> IO[PostObj]:
-        query = _post_query(post_id)
+        query = self.queries.post(post_id)
         return self.client.get(query)
 
-
-@dataclass(frozen=True)
-class PostIdFactory:
-    client: ApiClient
-    proj: ProjectId
-
-    @property
-    def _getter(self) -> PostIdGetters:
-        return PostIdGetters(
-            self.client,
-            self.proj,
-            TotalPagesQuery(self.proj).query(),
-            Transform(lambda i: PostIdsQuery(self.proj, i).query()),
+    def get_ids_page(
+        self, proj: ProjectId, page: int
+    ) -> IO[Maybe[PostIdPage]]:
+        return self.client.get(self.queries.post_ids(proj, page)).map(
+            lambda p: Maybe.from_optional(p if len(p.items) > 0 else None)
         )
 
-    def get_ids_page(self, page: int) -> IO[Maybe[PostIdPage]]:
-        return self._getter.get_ids_page(page)
+    def get_page_range(self, proj: ProjectId) -> IO[range]:
+        return self.client.get(self.queries.total(proj))
 
-    def get_ids(self) -> PureIter[IO[PostId]]:
-        return self._getter.get_ids()
+    def get_ids(self, proj: ProjectId) -> PureIter[IO[PostId]]:
+        getter: IntIndexGetter[PostIdPage] = IntIndexGetter(
+            partial(self.get_ids_page, proj)
+        )
+        return io_transform.chain(
+            getter.get_until_end(0, 10).map(
+                lambda i: i.map(lambda x: from_flist(x.items))
+            )
+        )
+
+
+queries = PostQueries(
+    lambda i: _queries.PostQuery(Transform(_from_raw.to_post), i).query,
+    lambda i, p: _queries.PostIdsQuery(
+        Transform(_from_raw.to_post_page), i, p
+    ).query,
+    lambda i: _queries.TotalPagesQuery(i).query,
+)
+
+
+def factory(client: ApiClient) -> PostFactory:
+    return PostFactory(queries, client)

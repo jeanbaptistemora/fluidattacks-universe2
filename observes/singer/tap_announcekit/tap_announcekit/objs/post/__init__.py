@@ -4,14 +4,14 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
-from purity.v1 import (
-    FrozenList,
-)
 from tap_announcekit.objs.id_objs import (
     ImageId,
     IndexedObj,
     PostId,
     UserId,
+)
+from tap_announcekit.objs.page import (
+    DataPage,
 )
 from tap_announcekit.objs.post.content import (
     PostContent,
@@ -46,14 +46,7 @@ class Post:
     segment_filters: Optional[JsonStr]
 
 
-@dataclass(frozen=True)
-class PostIdPage:
-    data: FrozenList[PostId]
-    count: int
-    page: int
-    pages: int
-
-
+PostIdPage = DataPage[PostId]
 PostObj = IndexedObj[PostId, Post]
 
 

@@ -31,9 +31,6 @@ from tap_announcekit.streams._query_utils import (
     select_fields,
     select_page_fields,
 )
-from tap_announcekit.streams.posts._factory import (
-    _from_raw,
-)
 from typing import (
     cast,
 )
@@ -43,6 +40,7 @@ _to_primitive = PrimitiveFactory.to_primitive
 
 @dataclass(frozen=True)
 class PostIdsQuery:
+    _to_obj: Transform[RawPosts, PostIdPage]
     proj: ProjectId
     page: int
 
@@ -52,12 +50,11 @@ class PostIdsQuery:
         proj.list().project_id()
         return select_page_fields(proj)
 
+    @property
     def query(self) -> Query[PostIdPage]:
         return QueryFactory.select(
             self._select_fields,
-            Transform(
-                lambda q: _from_raw.to_post_page(cast(RawPosts, q.posts))
-            ),
+            Transform(lambda q: self._to_obj(cast(RawPosts, q.posts))),
         )
 
 
@@ -71,6 +68,7 @@ class TotalPagesQuery:
         proj.pages()
         return IO(None)
 
+    @property
     def query(self) -> Query[range]:
         return QueryFactory.select(
             self._select_fields,
