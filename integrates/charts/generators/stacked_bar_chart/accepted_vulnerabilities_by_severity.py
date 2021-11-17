@@ -12,6 +12,9 @@ from charts.colors import (
     RISK,
     TREATMENT,
 )
+from charts.generators.stacked_bar_chart.utils import (
+    get_percentage,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -90,6 +93,45 @@ async def get_data_many_groups(groups: List[str]) -> Counter[str]:
     return sum(groups_data, Counter())
 
 
+def format_percentages(
+    values: Dict[str, Decimal]
+) -> Tuple[Dict[str, str], ...]:
+    if not values:
+        max_percentage_values = dict(
+            Accepted="",
+            Open="",
+        )
+        percentage_values = dict(
+            Accepted="0.0",
+            Open="0.0",
+        )
+
+        return (percentage_values, max_percentage_values)
+
+    total_bar: Decimal = values["Accepted"] + values["Open"]
+    total_bar = total_bar if total_bar > Decimal("0.0") else Decimal("0.1")
+    raw_percentages: List[Decimal] = [
+        values["Accepted"] / total_bar,
+        values["Open"] / total_bar,
+    ]
+    percentages: List[Decimal] = get_percentage(raw_percentages)
+    max_percentages = max(percentages) if max(percentages) else ""
+    is_first_value_max: bool = percentages[0] == max_percentages
+    is_second_value_max: bool = percentages[1] == max_percentages
+    max_percentage_values = dict(
+        Accepted=str(percentages[0]) if is_first_value_max else "",
+        Open=str(percentages[1])
+        if is_second_value_max and not is_first_value_max
+        else "",
+    )
+    percentage_values = dict(
+        Accepted=str(percentages[0]),
+        Open=str(percentages[1]),
+    )
+
+    return (percentage_values, max_percentage_values)
+
+
 def format_data(data: Counter[str]) -> Dict[str, Any]:
     translations: Dict[str, str] = {
         "critical_severity": "Critical Severity",
@@ -97,16 +139,25 @@ def format_data(data: Counter[str]) -> Dict[str, Any]:
         "medium_severity": "Medium Severity",
         "low_severity": "Low Severity",
     }
+    percentage_values = [
+        format_percentages(
+            {
+                "Accepted": Decimal(data[column]),
+                "Open": Decimal(data[f"{column}_open"] - data[column]),
+            }
+        )
+        for column in translations
+    ]
 
     return dict(
         data=dict(
             columns=[
                 [
-                    "# Accepted Vulnerabilities",
+                    "Accepted",
                     *[data[column] for column in translations],
                 ],
                 [
-                    "# Open Vulnerabilities",
+                    "Open",
                     *[
                         data[f"{column}_open"] - data[column]
                         for column in translations
@@ -114,13 +165,18 @@ def format_data(data: Counter[str]) -> Dict[str, Any]:
                 ],
             ],
             colors={
-                "# Accepted Vulnerabilities": TREATMENT.passive,
-                "# Open Vulnerabilities": RISK.more_agressive,
+                "Accepted": TREATMENT.passive,
+                "Open": RISK.more_agressive,
             },
             type="bar",
             groups=[
-                ["# Accepted Vulnerabilities", "# Open Vulnerabilities"],
+                ["Accepted", "Open"],
             ],
+            labels=dict(
+                format=dict(
+                    Accepted=None,
+                ),
+            ),
             order=None,
             stack=dict(
                 normalize=True,
@@ -147,6 +203,26 @@ def format_data(data: Counter[str]) -> Dict[str, Any]:
             ),
         ),
         normalizedToolTip=True,
+        percentageValues=dict(
+            Accepted=[
+                percentage_value[0]["Accepted"]
+                for percentage_value in percentage_values
+            ],
+            Open=[
+                percentage_value[0]["Open"]
+                for percentage_value in percentage_values
+            ],
+        ),
+        maxPercentageValues=dict(
+            Accepted=[
+                percentage_value[1]["Accepted"]
+                for percentage_value in percentage_values
+            ],
+            Open=[
+                percentage_value[1]["Open"]
+                for percentage_value in percentage_values
+            ],
+        ),
     )
 
 
