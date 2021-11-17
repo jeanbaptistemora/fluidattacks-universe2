@@ -60,6 +60,7 @@ const CardTitle: StyledComponent<
     lh-solid
     mt2
     roboto
+    h-resources-card
   `,
 })``;
 
@@ -72,7 +73,7 @@ const CardDescription: StyledComponent<
     fw3
     f5
     mt1
-    h-resources-card-description
+    h-resources-card
   `,
 })``;
 
