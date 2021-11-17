@@ -19923,37 +19923,49 @@
   en:
     title: Insecure service configuration - Task Hijacking
     description: >
-      __empty__
+      One of the activities in the application
+      manifest is configured with launchMode=singleTask,
+      this configuration is insecure because it opens
+      the possibility that the application is vulnerable
+      to Task Hijacking.
     impact: >
-      __empty__
+      Mislead the user with a malicious application that
+      impersonates the application's functionalities.
     recommendation: >
-      __empty__
+      Configure the launchMode with the singleInstance option.
     threat: >
-      __empty__
+      Malicious application installed on the
+      application user's device.
   es:
     title: Insecure service configuration - Task Hijacking
     description: >
-      __empty__
+      Una de las activities en el manifiesto de la
+      aplicación está configurada con launchMode=singleTask,
+      esta configuración es insegura porque abre la
+      posibilidad de que la aplicación sea vulnerable
+      Task Hijacking.
     impact: >
-      __empty__
+      Engañar al usuario con una aplicación maliciosa
+      que suplante las funcionalidades de la aplicación.
     recommendation: >
-      __empty__
+      Configurar el launchMode con la opción de singleInstance.
     threat: >
-      __empty__
+      Aplicación maliciosa instalada en el dispositivo
+      del usuario de la aplicación.
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "L"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
