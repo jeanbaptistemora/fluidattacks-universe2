@@ -6,6 +6,7 @@ from paginator.v2 import (
 )
 from purity.v1 import (
     PureIter,
+    Transform,
 )
 from purity.v1.pure_iter.factory import (
     from_flist,
@@ -24,8 +25,10 @@ from returns.maybe import (
 )
 from tap_announcekit.api.client import (
     ApiClient,
+    Query,
 )
 from tap_announcekit.objs.id_objs import (
+    PostId,
     ProjectId,
 )
 from tap_announcekit.objs.page import (
@@ -34,9 +37,21 @@ from tap_announcekit.objs.page import (
 from tap_announcekit.objs.post.feedback import (
     FeedbackObj,
 )
-from tap_announcekit.streams.feedback._factory._query import (
-    FeedbackPageQuery,
+from tap_announcekit.streams.feedback._factory import (
+    _from_raw,
+    _queries,
 )
+from typing import (
+    Union,
+)
+
+
+def _feedback_page_query(
+    id_obj: Union[ProjectId, PostId], page: int
+) -> Query[DataPage[FeedbackObj]]:
+    return _queries.FeedbackPageQuery(
+        Transform(partial(_from_raw.to_page, id_obj)), id_obj, page
+    ).query
 
 
 @dataclass(frozen=True)
@@ -52,7 +67,7 @@ class FeedbackFactory:
     def get_page(
         self, proj: ProjectId, page: int
     ) -> IO[Maybe[DataPage[FeedbackObj]]]:
-        query = FeedbackPageQuery(page).query(proj)
+        query = _feedback_page_query(proj, page)
         return self.client.get(query).map(self._filter_empty)
 
     def get_feedbacks(self, proj: ProjectId) -> PureIter[IO[FeedbackObj]]:

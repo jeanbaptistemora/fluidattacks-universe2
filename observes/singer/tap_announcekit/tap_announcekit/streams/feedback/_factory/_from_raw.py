@@ -2,6 +2,9 @@ from purity.v1 import (
     PrimitiveFactory,
     Transform,
 )
+from returns.curry import (
+    partial,
+)
 from tap_announcekit.api.gql_schema import (
     Feedback as RawFeedback,
     PageOfFeedback as RawFeedbackPage,
@@ -61,14 +64,15 @@ def to_obj(id_obj: _FeedbackId, raw: RawFeedback) -> FeedbackObj:
 
 
 def to_page(
-    to_fb_obj: Transform[RawFeedback, FeedbackObj], raw: RawFeedbackPage
+    id_obj: _FeedbackId, raw: RawFeedbackPage
 ) -> DataPage[FeedbackObj]:
+    _to_obj = Transform(partial(to_obj, id_obj))
     return DataPage(
         _to_primitive(raw.page, int),
         _to_primitive(raw.pages, int),
         _to_primitive(raw.count, int),
         CastUtils.to_flist(
             raw.items,
-            to_fb_obj,
+            _to_obj,
         ),
     )
