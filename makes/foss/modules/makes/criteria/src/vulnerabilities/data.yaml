@@ -20021,23 +20021,40 @@
   en:
     title: Technical information leak - Credentials
     description: >
-      __empty__
+      When the login page is accessed, a request
+      is triggered in whose response includes an
+      unminified and non-obfuscated script in which
+      the BotChat Direct Line Secret Key can be
+      read in plain text.
     impact: >
-      __empty__
+      Anonymous attacker consults the login page.
     recommendation: >
-      __empty__
+      - Minify and obfuscate binaries.
+
+      - Use a vault service or environment variables
+      to protect sensitive information.
     threat: >
-      __empty__
+      Possibility for an anonymous attacker to
+      obtain the direct line secret key and
+      connect directly to the application bot.
   es:
     title: Technical information leak - Credentials
     description: >
-      __empty__
+      Cuando se accede a la página de login, se dispara
+      una petición en cuya respuesta se incluye un script
+      no minificado y no ofuscado en el que se puede leer
+      en texto plano la Secret Key de BotChat Direct Line.
     impact: >
-      __empty__
+      Atacante anónimo consulta la página de login.
     recommendation: >
-      __empty__
+      - Minificar y ofuscar los binarios.
+
+      - Utilizar un servicio de bóveda o variables de
+      entorno para proteger información sensible.
     threat: >
-      __empty__
+      Posibilidad de que un atacante anónimo obtenga
+      la secret key de direct line y se conecte directamente
+      con el bot de la aplicación.
   category: Collect Information
   score:
     base:
@@ -20046,12 +20063,12 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["077","176"]
   metadata:
@@ -20061,37 +20078,53 @@
   en:
     title: Insecure digital certificates - Chain of trust
     description: >
-      __empty__
+      Due to improper implementation of TrustManager's
+      checkServerTrusted method, methods are created
+      that do not throw a certificate exception when
+      invalid certificates are detected.
+      Thanks to this it is possible to accept any incoming
+      certificate and materialize Man in The Middle attacks.
     impact: >
-      __empty__
+      Execute Man-in-the-middle attacks.
     recommendation: >
-      __empty__
+      Define a processing logic for invalid certificates
+      that includes rejecting the connection to such
+      certificates and storing the technical details
+      of the event in logs.
     threat: >
-      __empty__
+      Unauthorized attacker from intranet
   es:
     title: Insecure digital certificates - Chain of trust
     description: >
-      __empty__
+      Debido a una implementación inadecuada del método
+      checkServerTrusted de TrustManager, se crean métodos
+      que no arrojan una excepción de certificado cuando
+      se detectan certificados inválidos.
+      Gracias a esto es posible aceptar cualquier certificado
+      entrante y materializar ataques de Man in The Middle.
     impact: >
-      __empty__
+      Ejecutar ataques Man-in-the-middle
     recommendation: >
-      __empty__
+      Definir una lógica de tratamiento para certificados
+      inválidos que incluya rechazar la conexión con dichos
+      certificados y almacenar en logs los detalles
+      técnicos del evento.
     threat: >
-      __empty__
+      Atacante sin autorización desde intranet.
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["088","089","090","091","092","093"]
   metadata:
