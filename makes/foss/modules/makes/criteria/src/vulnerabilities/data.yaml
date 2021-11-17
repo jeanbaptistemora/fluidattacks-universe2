@@ -18717,36 +18717,54 @@
   en:
     title:  Excessive privileges - Wildcards
     description: >
-      __empty__
+      - Privileges are granted with wildcard
+      (*) in critical actions.
+
+      - Many roles have unnecessary privileges
+      over IAM.
+
+      - Some write actions allow the use
+      of Wildcards(*).
     impact: >
-      __empty__
+      Perform sensitive actions with
+      roles that do not need it.
     recommendation: >
-      __empty__
+      Grant privileges strictly to
+      the roles that need it.
     threat: >
-      __empty__
+      Internet attacker with access to the machines.
   es:
     title:  Excessive privileges - Wildcards
     description: >
-      __empty__
+      - Se otorgan privilegios con wildcard
+      (*) en acciones críticas.
+
+      - Muchos roles cuentan con privilegios
+      innecesarios sobre IAM.
+
+      - Algunas acciones de escritura
+      permiten el uso de Wildcards(*).
     impact: >
-      __empty__
+      Realizar acciones delicadas
+      con roles que no lo necesitan.
     recommendation: >
-      __empty__
+      Otorgar privilegios estrictamente a
+      los roles que lo necesitan.
     threat: >
-      __empty__
+      Atacante desde internet con acceso a las máquinas.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["095","096","186"]
