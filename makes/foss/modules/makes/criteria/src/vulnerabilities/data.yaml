@@ -19423,37 +19423,40 @@
   en:
     title: Insecure service configuration - Salt
     description: >
-      __empty__
+      Salt is generated in an insecure way, which
+      makes the password easier to guess.
     impact: >
-      __empty__
+      Obtain valid credentials through dictionary attacks.
     recommendation: >
-      __empty__
+      Generate the Salt with a secure hashing function.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Insecure service configuration - Salt
     description: >
-      __empty__
+      Se genera el Salt de manera insegura, lo cual
+      hace que el password sea más fácil de adivinar.
     impact: >
-      __empty__
+      Obtener credenciales válidas mediante
+      ataques de tipo diccionario.
     recommendation: >
-      __empty__
+      Generar el Salt con una función segura de hashing.
     threat: >
-      __empty__
+      Atacante anónimo desde internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
