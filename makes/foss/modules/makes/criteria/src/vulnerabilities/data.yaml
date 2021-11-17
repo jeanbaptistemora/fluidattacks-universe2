@@ -18883,34 +18883,40 @@
   en:
     title: Insecure object reference - Session management
     description: >
-      __empty__
+      It is possible to close active sessions
+      of other users by knowing their e-mail.
     impact: >
-      __empty__
+      Close user sessions in the application.
     recommendation: >
-      __empty__
+      Validate that the user's email is not
+      altered or replaced by another user's
+      email in the logout process.
     threat: >
-      __empty__
+      Authenticated attacker from the Internet.
   es:
     title: Insecure object reference - Session management
     description: >
-      __empty__
+      Es posible cerrar sesiones activas de otros
+      usuarios conociendo su correo.
     impact: >
-      __empty__
+      Cerrar sesiones de usuarios en la aplicación.
     recommendation: >
-      __empty__
+      Validar que el correo del usuario no sea
+      alterado o reemplazado por el de otro usuario
+      en el proceso de cierre de sesión.
     threat: >
-      __empty__
+      Atacante autenticado desde Internet.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
