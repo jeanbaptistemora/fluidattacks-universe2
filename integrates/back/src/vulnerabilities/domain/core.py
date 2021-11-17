@@ -971,7 +971,9 @@ async def update_state_new(
 ) -> bool:
     """Update vulnerability state."""
     state_to_update: Optional[VulnerabilityState] = None
-    treatment_to_update: Optional[List[VulnerabilityTreatment]] = None
+    treatment_to_update: Optional[
+        Tuple[VulnerabilityTreatment, VulnerabilityTreatment]
+    ] = None
     if (
         vulnerability.state.source != new_state.source
         or vulnerability.state.status != new_state.status

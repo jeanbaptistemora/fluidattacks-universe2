@@ -16,10 +16,18 @@ from custom_types import (
     DynamoDelete as DynamoDeleteType,
     Finding as FindingType,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityTreatment,
+)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
 import logging
+from newutils.vulnerabilities import (
+    format_vulnerability_item,
+    format_vulnerability_treatment_item,
+)
 from s3 import (
     operations as s3_ops,
 )
@@ -34,6 +42,7 @@ from typing import (
     cast,
     Dict,
     List,
+    Optional,
     Tuple,
 )
 
@@ -70,6 +79,24 @@ async def create(data: Dict[str, FindingType]) -> bool:
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return resp
+
+
+async def create_new(
+    vulnerability: Vulnerability,
+    historic_treatment: Optional[Tuple[VulnerabilityTreatment, ...]] = None,
+) -> bool:
+    """Add vulnerability."""
+    item = format_vulnerability_item(vulnerability)
+    if historic_treatment:
+        item["historic_treatment"] = [
+            format_vulnerability_treatment_item(treatment)
+            for treatment in historic_treatment
+        ]
+    try:
+        return await dynamodb_ops.put_item(TABLE_NAME, item)
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={"extra": locals()})
+    return False
 
 
 async def delete(uuid: str, finding_id: str) -> bool:
