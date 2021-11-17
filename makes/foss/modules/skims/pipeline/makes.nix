@@ -82,6 +82,10 @@ in
           gitlabExtra = gitlabDeployApp;
         }
         {
+          output = "/deployContainerImage/skimsProcessGroup";
+          gitlabExtra = gitlabDeployApp;
+        }
+        {
           output = "/deployTerraform/skims";
           gitlabExtra = gitlabDeployInfra;
         }

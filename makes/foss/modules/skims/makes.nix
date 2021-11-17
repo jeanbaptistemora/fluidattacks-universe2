@@ -20,7 +20,7 @@
       };
       skimsProcessGroup = {
         src = outputs."/skims/container/process-group";
-        registry = "docker.io";
+        registry = "registry.gitlab.com";
         tag = "fluidattacks/product/skims-process-group:latest";
       };
     };
