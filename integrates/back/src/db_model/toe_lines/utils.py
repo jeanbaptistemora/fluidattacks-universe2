@@ -3,12 +3,16 @@ from .types import (
     ToeLinesEdge,
 )
 from dynamodb.types import (
+    Index,
     Item,
     PrimaryKey,
     Table,
 )
 from dynamodb.utils import (
     get_cursor,
+)
+from typing import (
+    Optional,
 )
 
 
@@ -33,9 +37,13 @@ def format_toe_lines(item: Item) -> ToeLines:
     )
 
 
-def format_toe_lines_edge(table: Table, item: Item) -> ToeLinesEdge:
+def format_toe_lines_edge(
+    index: Optional[Index],
+    item: Item,
+    table: Table,
+) -> ToeLinesEdge:
     return ToeLinesEdge(
-        node=format_toe_lines(item), cursor=get_cursor(table, item)
+        node=format_toe_lines(item), cursor=get_cursor(index, item, table)
     )
 
 

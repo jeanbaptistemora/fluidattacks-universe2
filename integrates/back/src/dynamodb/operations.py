@@ -44,7 +44,6 @@ from typing import (
     List,
     Optional,
     Tuple,
-    Union,
 )
 
 
@@ -94,9 +93,14 @@ def _build_query_args(
     table: Table,
 ) -> Dict[str, Any]:
     facet_attrs = tuple({attr for facet in facets for attr in facet.attrs})
-    key_source: Union[Index, Table] = index if index else table
-    key_structure = key_source.primary_key
-    attrs = (key_structure.partition_key, key_structure.sort_key, *facet_attrs)
+    attrs = {
+        table.primary_key.partition_key,
+        table.primary_key.sort_key,
+        *facet_attrs,
+    }
+    if index:
+        attrs.add(index.primary_key.partition_key)
+        attrs.add(index.primary_key.sort_key)
     args = {
         "ExpressionAttributeNames": {f"#{attr}": attr for attr in attrs},
         "FilterExpression": filter_expression,
@@ -222,7 +226,7 @@ async def query(  # pylint: disable=too-many-locals
         table_resource: CustomTableResource = await resource.Table(table.name)
         start_key = None
         if after:
-            start_key = get_key_from_cursor(after)
+            start_key = get_key_from_cursor(after, index, table)
 
         query_args = _build_query_args(
             condition_expression=condition_expression,
@@ -238,7 +242,9 @@ async def query(  # pylint: disable=too-many-locals
             response = await table_resource.query(**query_args)
             items: List[Item] = response.get("Items", [])
             if paginate:
-                cursor = get_cursor(table, items[-1] if items else start_key)
+                cursor = get_cursor(
+                    index, items[-1] if items else start_key, table
+                )
                 has_next_page = bool(response.get("LastEvaluatedKey"))
             else:
                 while response.get("LastEvaluatedKey"):
@@ -247,7 +253,7 @@ async def query(  # pylint: disable=too-many-locals
                         ExclusiveStartKey=response.get("LastEvaluatedKey"),
                     )
                     items += response.get("Items", [])
-                cursor = get_cursor(table, None)
+                cursor = get_cursor(index, None, table)
                 has_next_page = False
         except ClientError as error:
             handle_error(error=error)

@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Nov 17, 2021, 02:49 PM",
+    "DateLastModified": "Nov 17, 2021, 04:08 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1784,6 +1784,12 @@
               },
               "be_present_until": {
                 "S": ""
+              },
+              "pk_2": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_2": {
+                "S": "LINES#PRESENT#true#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#test/test#.config"
               }
             },
             {
@@ -1840,6 +1846,12 @@
               },
               "be_present_until": {
                 "S": "2021-01-01T15:41:04+00:00"
+              },
+              "pk_2": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_2": {
+                "S": "LINES#PRESENT#false#ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#FILENAME#test2/test.sh"
               }
             }
           ],
@@ -1859,7 +1871,9 @@
             "filename",
             "root_id",
             "commit_author",
-            "be_present_until"
+            "be_present_until",
+            "pk_2",
+            "sk_2"
           ]
         },
         {

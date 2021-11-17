@@ -108,10 +108,12 @@ type Group {
   tags: [String!]
   "Target of Evaluation inputs information"
   toeInputs: [ToeInputs]
-  "Target of Evaluation lines information"
+  "Target of Evaluation lines information which is paginated"
   toeLines(
     "The cursor for the forward pagination"
     after: String
+    "If the file is present in the repository"
+    bePresent: Boolean
     "Amount of element to return"
     first: Int
   ): ToeLinesConnection

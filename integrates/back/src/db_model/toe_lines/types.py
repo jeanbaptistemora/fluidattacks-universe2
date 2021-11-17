@@ -59,6 +59,7 @@ class ToeLinesMetadataToUpdate(NamedTuple):
 class GroupToeLinesRequest(NamedTuple):
     group_name: str
     after: Optional[str] = None
+    be_present: Optional[bool] = None
     first: Optional[int] = None
     paginate: bool = False
 
@@ -67,5 +68,6 @@ class RootToeLinesRequest(NamedTuple):
     group_name: str
     root_id: str
     after: Optional[str] = None
+    be_present: Optional[bool] = None
     first: Optional[int] = None
     paginate: bool = False

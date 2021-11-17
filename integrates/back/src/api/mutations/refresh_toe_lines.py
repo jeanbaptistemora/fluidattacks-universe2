@@ -44,6 +44,7 @@ async def mutate(
             entity=group_name,
             subject=user_info["user_email"],
             additional_info="",
+            queue="spot_later",
         )
         logs_utils.cloudwatch_log(
             info.context,
