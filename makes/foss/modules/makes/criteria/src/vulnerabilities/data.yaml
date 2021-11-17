@@ -19613,37 +19613,58 @@
   en:
     title: Technical information leak - Alert
     description: >
-      __empty__
+      Technical information is obtained from the
+      application due to the use of the alert()
+      function (javascript) whose output will
+      always be displayed on the client side.
+      In development environment it is acceptable
+      to use this function to see errors, but
+      using it in production environment is the
+      same as exposing yourself to show sensitive
+      information of the application.
     impact: >
-      __empty__
+      You open your browser console and send real
+      and fake requests to the application, waiting
+      for it to display console information.
     recommendation: >
-      __empty__
+      Completely remove the console.log(), alert() function
+      from all javascript files in production environments.
     threat: >
-      __empty__
+      Anonymous user from the Internet.
   es:
     title: Technical information leak - Alert
     description: >
-      __empty__
+      Se obtiene información técnica de la aplicación
+      debido al uso de la función alert() (javascript)
+      cuya salida siempre se mostrará en el lado del cliente.
+      En ambiente de desarrollo es aceptable utilizar
+      esta función para ver errores, pero utilizarla en
+      ambiente de producción es igual a exponerse a mostrar
+      información sensible de la aplicación.
     impact: >
-      __empty__
+      Se abre la consola de su navegador y se envían
+      peticiones reales y falsas a la aplicación,
+      esperando que ésta muestre información por consola.
     recommendation: >
-      __empty__
+      Eliminar completamente la función
+      console.log(), alert() de todos los archivos
+      javascript en ambientes de producción.
     threat: >
-      __empty__
+      Usuario anónimo en Internet.
   category: Collect Information
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["077","176"]
   metadata:
