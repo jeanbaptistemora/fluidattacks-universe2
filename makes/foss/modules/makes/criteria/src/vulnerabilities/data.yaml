@@ -19034,23 +19034,31 @@
   en:
     title: User Enumeration - Wordpress
     description: >
-      __empty__
+      As a result of an inadequate configuration
+      practice, valid users may be listed in
+      the application.
     impact: >
-      __empty__
+      Find valid users within the application.
     recommendation: >
-      __empty__
+      Implement generic error messages that do
+      not allow an attacker to discern the user's
+      existence on the system through HTTP errors (500 or 404).
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: User Enumeration - Wordpress
     description: >
-      __empty__
+      Debido a una práctica inadecuada en la configuración
+      se pueden enumerar los usuarios válidos en la aplicación.
     impact: >
-      __empty__
+      Encontrar usuario válidos dentro de la aplicación.
     recommendation: >
-      __empty__
+      Implementar mensajes de error genéricos
+      que no le permitan a un atacante discernir
+      la existencia del usuario en el sistema a
+      través de los errores HTTP (500 o 404).
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   category: Collect Information
   score:
     base:
@@ -19059,8 +19067,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
