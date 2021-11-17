@@ -174,4 +174,4 @@ slug: /development/mobile-technologies
     you can try out your changes,
     scanning the QR code
     in the following URL:
-    https://expo.io/@developmentatfluid/asm?release-channel=branch_name
+    https://expo.io/@developmentatfluid/fluidattacks?release-channel=branch_name
