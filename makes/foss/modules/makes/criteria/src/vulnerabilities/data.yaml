@@ -20856,24 +20856,46 @@
   en:
     title: Weak credential policy - Temporary passwords
     description: >
-      __empty__
+      Passwords generated using the forgot
+      password option generate passwords insecurely
+      by concatenating, for users whose name is
+      longer than six characters, their name together
+      with two random numbers.
+      Although the password is locked at login if it
+      is entered incorrectly ten times, it is possible
+      to abuse the functionality to generate a new
+      password, unlock it and attempt a brute force
+      attack until the last generated password is found.
     impact: >
-      __empty__
+      Obtain the passwords of application users whose
+      name contains more than six letters.
     recommendation: >
-      __empty__
+      Generate temporary passwords securely.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet
+      with access to a username.
   category: Inject Unexpected
   es:
     title: Weak credential policy - Temporary passwords
     description: >
-      __empty__
+      Las contraseñas generadas mediante la opción
+      olvidaste tu contraseña generan las contraseñas
+      de forma insegura concatenando, para usuarios
+      cuyo nombre tenga más de seis caracteres su nombre
+      junto con dos números aleatorios.
+      Si bien al inicio de sesión se bloquea la contraseña
+      si esta se ingresa incorrectamente diez veces, es
+      posible abusar de la funcionalidad para generar
+      una nueva, desbloquearla e intentar un ataque de
+      fuerza bruta hasta que se encuentre la última
+      contraseña generada.
     impact: >
-      __empty__
+      Obtener las contraseñas de los usuarios de la
+      aplicación cuyo nombre contenga más de seis letras.
     recommendation: >
-      __empty__
+      Generar las contraseñas temporales de forma segura.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet con acceso a un nombre de usuario.
   score:
     base:
       attack_vector: "N"
@@ -20881,8 +20903,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "H"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
