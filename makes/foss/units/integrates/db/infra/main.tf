@@ -342,11 +342,25 @@ resource "aws_dynamodb_table" "integrates_vms" {
     name = "sk"
     type = "S"
   }
+  attribute {
+    name = "pk_2"
+    type = "S"
+  }
+  attribute {
+    name = "sk_2"
+    type = "S"
+  }
   billing_mode = "PAY_PER_REQUEST"
   global_secondary_index {
     name            = "inverted_index"
     hash_key        = "sk"
     range_key       = "pk"
+    projection_type = "ALL"
+  }
+  global_secondary_index {
+    name            = "gsi_2"
+    hash_key        = "pk_2"
+    range_key       = "sk_2"
     projection_type = "ALL"
   }
   hash_key  = "pk"
