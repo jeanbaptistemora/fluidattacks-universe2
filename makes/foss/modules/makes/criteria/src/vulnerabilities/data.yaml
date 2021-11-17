@@ -18827,30 +18827,46 @@
   en:
     title: Insufficient data authenticity validation - Images
     description: >
-      __empty__
+      The system does not validate that
+      profile image URLs lead to a valid
+      image, allowing partial paths or URLs
+      to be placed that can be used to craft
+      more complex attack vectors such as
+      controlled redirects or CSRF.
     impact: >
-      __empty__
+      Manipulate the application to send
+      redirects to third-party pages and load
+      content from unverified sources.
     recommendation: >
-      __empty__
+      Validate that the URLs provided in the
+      profile images lead to valid images.
     threat: >
-      __empty__
+      Attacker with access to the application from the Internet.
   es:
     title: Insufficient data authenticity validation - Images
     description: >
-      __empty__
+      El sistema no valida que las URLs de las
+      imágenes de perfil conduzcan a una imagen
+      válida, permitiendo colocar rutas parciales
+      o URLs que pueden ser utilizadas para elaborar
+      vectores de ataque más complejos como redirecciones
+      controladas o CSRF.
     impact: >
-      __empty__
+      Manipular la aplicación para enviar redirecciones
+      a páginas de terceros y cargar contenido de
+      fuentes no verificadas.
     recommendation: >
-      __empty__
+      Validar que las URLs proporcionadas en las
+      imágenes de perfil conduzcan a imágenes válidas.
     threat: >
-      __empty__
+      Atacante con acceso a la aplicación desde internet.
   category: Manipulate Data
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
+      privileges_required: "L"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
