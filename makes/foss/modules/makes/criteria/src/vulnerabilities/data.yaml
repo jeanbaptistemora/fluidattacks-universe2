@@ -18462,23 +18462,46 @@
   en:
     title: Lack of data validation - HTML code
     description: >
-      __empty__
+      Es posible inyectar código HTML válido,
+      que podría interpretarse en el sitio que
+      reciba el JSON de respuesta.
     impact: >
-      __empty__
+      - Inserting character sequences whose semantics
+      result in the creation of new HTML elements,
+      log file injection, remote command execution or
+      insecure file fetching.
+
+      - Create delivery requests for non-existent QR
+      codes, since the idQR field accepts text
+      strings with random characters.
     recommendation: >
-      __empty__
+      Validate on the server side the types of data
+      that are entered into different types of fields
+      in the application.
     threat: >
-      __empty__
+      Unauthorized attacker on the Internet.
   es:
     title: Lack of data validation - HTML code
     description: >
-      __empty__
+      Es posible inyectar código HTML válido, que
+      podría interpretarse en el sitio que reciba
+      el JSON de respuesta.
     impact: >
-      __empty__
+      - Insertar secuencias de caracteres cuya
+      semántica derive en la creación de nuevos
+      elementos HTML, inyección en los archivos
+      de logs, ejecución remota de comandos u
+      obtención insegura de archivos.
+
+      - Crear solicitudes de entrega para códigos
+      QR inexistentes, ya que el campo idQR acepta
+      cadenas de texto con caracteres aleatorios.
     recommendation: >
-      __empty__
+      Validar en el lado del servidor los tipos de
+      datos que se ingresan a distintos tipos de
+      campos en la aplicación.
     threat: >
-      __empty__
+      Atacante no autorizado en Internet.
   category: Inject Unexpected
   score:
     base:
