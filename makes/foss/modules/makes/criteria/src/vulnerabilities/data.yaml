@@ -19674,37 +19674,64 @@
   en:
     title: Insecure service configuration - BREACH Attack
     description: >
-      __empty__
+      The site meets the conditions that make
+      it potentially vulnerable to BREACH attacks:
+
+      - Uses HTTP gzip compression.
+
+      - The information entered by the user is
+      reflected on the site.
+
+      - It stores secrets (session tokens or anti-CSRF).
     impact: >
-      __empty__
+      User with access to the victim's traffic (man-in-the-middle attack)
     recommendation: >
-      __empty__
+      Securely configure the vulnerable service so
+      that it can only be accessed by authorized users.
     threat: >
-      __empty__
+      The BREACH attack allows obtaining privileged
+      information (such as session token) due to
+      the compression features with the gzip format.
+      Additional information can be found at http://breachattack.com/
   es:
     title: Insecure service configuration - BREACH Attack
     description: >
-      __empty__
+      El sitio cumple las condiciones que lo hacen
+      potencialmente vulnerable a ataques de tipo BREACH:
+
+      - Usa la compresión HTTP tipo gzip.
+
+      - La información ingresada por el
+      usuario es reflejada en el sitio.
+
+      - Almacena secretos (tokens de sesión o anti-CSRF).
     impact: >
-      __empty__
+      Usuario con acceso al tráfico de la víctima
+      (ataque man-in-the-middle).
     recommendation: >
-      __empty__
+      Configurar de manera segura el servicio
+      vulnerable permitiendo así que solo sean
+      accedido por usuarios autorizados.
     threat: >
-      __empty__
+      El ataque BREACH permite obtener información
+      privilegiada (como token de sesión) debido a
+      las características de compresión con el formato
+      gzip.
+      Información adicional en http://breachattack.com/
   category: Abuse Functionality
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "W"
       report_confidence: "X"
   requirements: ["266"]
   metadata:
@@ -19714,38 +19741,46 @@
   en:
     title: Lack of data validation - Non Sanitized Variables
     description: >
-      __empty__
+      The system constructs system commands using
+      inputs that can be manipulated externally, it
+      does not correctly neutralize special elements
+      that could modify the system command.
     impact: >
-      __empty__
+      Execute unauthorized scripts.
     recommendation: >
-      __empty__
+      Use whitelists or identifiers that are then
+      transformed into static inputs to Call() calls.
     threat: >
-      __empty__
+      Authenticated attacker from the Internet.
   es:
     title: Lack of data validation - Non Sanitized Variables
     description: >
-      __empty__
+      El sistema construye comandos de sistema utilizando
+      entradas que pueden ser manipuladas externamente,
+      no neutraliza correctamente elementos especiales
+      que podrían modificar el comando del sistema.
     impact: >
-      __empty__
+      Ejecutar secuencias de comandos no autorizados.
     recommendation: >
-      __empty__
+      Usar listas blancas o identificadores que luego
+      se transformen en entradas estáticas a las llamadas Call().
     threat: >
-      __empty__
+      Atacante autenticado desde Internet.
   category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      confidentiality: "L"
+      integrity: "H"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "U"
   requirements: ["173","320","357"]
   metadata:
     en:
