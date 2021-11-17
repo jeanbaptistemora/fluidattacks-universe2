@@ -20263,23 +20263,42 @@
   en:
     title: Lack of data validation - Token
     description: >
-      __empty__
+      The generated JWT access token does not
+      validate if the signature is valid so the
+      token can be modified and requests are accepted;
+      even removing the signature from the token works.
     impact: >
-      __empty__
+      - Generate tokens by bypassing existing mechanisms.
+
+      - Modify tokens allowing requests to be sent
+      outside the application cycle.
     recommendation: >
-      __empty__
+      Generate a token with random components without
+      sensitive information and always validate that
+      the integrity of the token is maintained (signature
+      verification, signature).
     threat: >
-      __empty__
+      Unauthorized attacker with access to a token.
   es:
     title: Lack of data validation - Token
     description: >
-      __empty__
+      El token JWT de acceso generado no valida si
+      la firma (signature) es válida por lo que el
+      token puede ser modificado y las peticiones
+      se aceptan; incluso removiendo la firma del
+      token funciona.
     impact: >
-      __empty__
+      - Generar tokens evadiendo los mecanismos existentes.
+
+      - Modificar tokens permitiendo enviar peticiones
+      fuera del ciclo de la aplicación.
     recommendation: >
-      __empty__
+      Generar un token con componentes aleatorios sin
+      información sensible y validar siempre que la
+      integridad del token se mantenga (verificación
+      de firma, signature).
     threat: >
-      __empty__
+      Atacante no autorizado con acceso a un token.
   category: Inject Unexpected
   score:
     base:
