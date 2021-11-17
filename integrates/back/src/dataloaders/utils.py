@@ -17,11 +17,7 @@ from db_model.vulnerabilities.types import (
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
-from dynamodb.types import (
-    Item,
-)
 from newutils.datetime import (
-    convert_from_iso_str,
     convert_to_iso_str,
 )
 from newutils.requests import (
@@ -58,18 +54,6 @@ def format_vulnerability_state(state: Dict[str, Any]) -> VulnerabilityState:
     )
 
 
-def format_vulnerability_state_item(state: VulnerabilityState) -> Item:
-    item = {
-        "analyst": state.modified_by,
-        "date": convert_from_iso_str(state.modified_date),
-        "source": state.source.value,
-        "state": str(state.status.value).lower(),
-    }
-    if state.justification:
-        item["justification"] = state.justification
-    return item
-
-
 def format_vulnerability_treatment(
     treatment: Dict[str, Any]
 ) -> VulnerabilityTreatment:
@@ -93,28 +77,6 @@ def format_vulnerability_treatment(
     )
 
 
-def format_vulnerability_treatment_item(
-    treatment: VulnerabilityTreatment,
-) -> Item:
-    item = {
-        "date": convert_from_iso_str(treatment.modified_date),
-        "treatment": treatment.status.value,
-    }
-    if treatment.accepted_until:
-        item["acceptance_date"] = convert_from_iso_str(
-            treatment.accepted_until
-        )
-    if treatment.justification:
-        item["justification"] = treatment.justification
-    if treatment.modified_by:
-        item["user"] = treatment.modified_by
-    if treatment.acceptance_status:
-        item["acceptance_status"] = treatment.acceptance_status.value
-    if treatment.manager:
-        item["treatment_manager"] = treatment.manager
-    return item
-
-
 def format_vulnerability_verification(
     verification: Dict[str, str]
 ) -> VulnerabilityVerification:
@@ -126,16 +88,6 @@ def format_vulnerability_verification(
     )
 
 
-def format_vulnerability_verification_item(
-    verification: VulnerabilityVerification,
-) -> Item:
-    item = {
-        "date": convert_from_iso_str(verification.modified_date),
-        "status": verification.status.value,
-    }
-    return item
-
-
 def format_vulnerability_zero_risk(
     zero_risk: Dict[str, str]
 ) -> VulnerabilityZeroRisk:
@@ -145,18 +97,6 @@ def format_vulnerability_zero_risk(
         modified_date=convert_to_iso_str(zero_risk["date"]),
         status=VulnerabilityZeroRiskStatus(zero_risk["status"]),
     )
-
-
-def format_vulnerability_zero_risk_item(
-    zero_risk: VulnerabilityZeroRisk,
-) -> Item:
-    item = {
-        "comment_id": zero_risk.comment_id,
-        "email": zero_risk.modified_by,
-        "date": convert_from_iso_str(zero_risk.modified_date),
-        "status": zero_risk.status.value,
-    }
-    return item
 
 
 def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
@@ -211,41 +151,3 @@ def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
             else None
         ),
     )
-
-
-def format_vulnerability_item(vulnerability: Vulnerability) -> Item:
-    item = {
-        "finding_id": vulnerability.finding_id,
-        "UUID": vulnerability.id,
-        "vuln_type": vulnerability.type,
-        "where": vulnerability.where,
-        "source": str(vulnerability.state.source.value).lower(),
-        "specific": vulnerability.specific,
-        "historic_treatment": [
-            format_vulnerability_treatment_item(vulnerability.treatment)
-        ],
-        "historic_state": [
-            format_vulnerability_state_item(vulnerability.state)
-        ],
-    }
-    if vulnerability.commit:
-        item["commit_hash"] = vulnerability.commit
-    if vulnerability.custom_severity:
-        item["severity"] = vulnerability.custom_severity
-    if vulnerability.bug_tracking_system_url:
-        item["external_bts"] = vulnerability.bug_tracking_system_url
-    if vulnerability.repo:
-        item["repo_nickname"] = vulnerability.repo
-    if vulnerability.stream:
-        item["stream"] = ",".join(sorted(vulnerability.stream))
-    if vulnerability.tags:
-        item["tags"] = ",".join(sorted(vulnerability.tags))
-    if vulnerability.verification:
-        item["historic_verification"] = [
-            format_vulnerability_verification_item(vulnerability.verification)
-        ]
-    if vulnerability.zero_risk:
-        item["historic_zero_risk"] = [
-            format_vulnerability_zero_risk_item(vulnerability.zero_risk)
-        ]
-    return item
