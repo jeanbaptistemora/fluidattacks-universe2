@@ -1,4 +1,5 @@
 from lib_root.utilities.c_sharp import (
+    get_object_argument_list,
     get_variable_attribute,
 )
 from model import (
@@ -41,13 +42,19 @@ def sql_injection(
                         and syntax_step.object_type in danger_objects
                     ):
                         dependencies = list(
-                            dep.symbol
+                            dep
                             for dep in get_dependencies(index, syntax_steps)
                             if isinstance(
-                                dep, graph_model.SyntaxStepSymbolLookup
+                                dep,
+                                (
+                                    graph_model.SyntaxStepSymbolLookup,
+                                    graph_model.SyntaxStepBinaryExpression,
+                                ),
                             )
                         )
-                        if not secure_command(shard, dependencies):
+                        if not secure_command(
+                            shard, dependencies, syntax_step.meta.n_id
+                        ):
                             yield shard, syntax_step.meta.n_id
 
     return get_vulnerabilities_from_n_ids(
@@ -59,25 +66,34 @@ def sql_injection(
     )
 
 
-def secure_command(shard: graph_model.GraphShard, dependencies: list) -> bool:
-
-    secure_chars = ("@", "{", "}", "[(]", "[)]")
+def secure_command(
+    shard: graph_model.GraphShard, dependencies: list, elem_id: str
+) -> bool:
 
     if not dependencies:
         return True
 
-    secure_str = False
+    secure_chars = ("@", "{", "}", "[(]", "[)]")
 
     for depend in dependencies:
-        sql_str = get_variable_attribute(shard, depend, "text")
+        if isinstance(depend, graph_model.SyntaxStepSymbolLookup):
+            is_var = True
+            depend = depend.symbol
+            sql_str = get_variable_attribute(shard, depend, "text")
+        elif isinstance(depend, graph_model.SyntaxStepBinaryExpression):
+            is_var = False
+            sql_str = get_object_argument_list(shard, elem_id)
         for elem in secure_chars:
-            if len(sql_str) == 0 or (
-                get_variable_attribute(shard, depend, "type")
+            if (
+                not sql_str or re.search(elem, sql_str) or " " not in sql_str
+            ) or (
+                is_var
+                and get_variable_attribute(shard, depend, "type")
                 != "binary_expression"
-                or re.search(elem, sql_str)
             ):
-                secure_str = True
-    return secure_str
+                return True
+
+    return False
 
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F001
