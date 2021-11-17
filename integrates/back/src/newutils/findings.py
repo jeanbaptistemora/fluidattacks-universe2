@@ -1,6 +1,7 @@
 from custom_exceptions import (
     InvalidDateFormat,
     InvalidFileStructure,
+    InvalidFindingTitle,
 )
 from custom_types import (
     Datetime,
@@ -17,6 +18,7 @@ from newutils import (
     datetime as datetime_utils,
 )
 import re
+import requests  # type: ignore
 from starlette.datastructures import (
     UploadFile,
 )
@@ -27,6 +29,7 @@ from typing import (
     List,
     Optional,
 )
+import yaml  # type: ignore
 
 
 async def append_records_to_file(
@@ -98,8 +101,38 @@ def validate_acceptance_date(values: Dict[str, str]) -> bool:
     return valid
 
 
+def get_vulns_file() -> Dict:
+    """Parses the vulns info yaml from the repo into a dictionary"""
+    base_url: str = (
+        "https://gitlab.com/api/v4/projects/20741933/repository/files"
+    )
+    branch_ref: str = "master"
+    vulns_file_id = (
+        "makes%2Ffoss%2Fmodules%2Fmakes%2Fcriteria%2Fsrc%2Fvulnerabilities"
+        "%2Fdata.yaml"
+    )
+    url: str = f"{base_url}/{vulns_file_id}/raw?ref={branch_ref}"
+    response = requests.get(url)
+    return yaml.safe_load(response.text)
+
+
 def is_valid_finding_title(title: str) -> bool:
-    return bool(re.match(r"^[0-9]{3}\. .+", title))
+    """Validates that new Draft and Finding titles conform to the standard
+    format and are present in the whitelist"""
+    if re.match(r"^[0-9]{3}\. .+", title):
+        vulns_info: Dict = get_vulns_file()
+        try:
+            vuln_number: str = title[:3]
+            expected_vuln_title: str = vulns_info[vuln_number]["en"]["title"]
+            if title == f"{vuln_number}. {expected_vuln_title}":
+                return True
+            # Invalid non-standard title
+            raise InvalidFindingTitle()
+        # Invalid vuln number
+        except KeyError as error:
+            raise InvalidFindingTitle() from error
+    # Invalid format
+    raise InvalidFindingTitle()
 
 
 def get_updated_evidence_date(

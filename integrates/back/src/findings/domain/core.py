@@ -14,7 +14,6 @@ from comments import (
 )
 from custom_exceptions import (
     InvalidCommentParent,
-    InvalidDraftTitle,
     MachineCanNotOperate,
     NotVerificationRequested,
     PermissionDenied,
@@ -665,11 +664,7 @@ async def update_description(
     validations.validate_fields(
         list(filter(None, description._asdict().values()))
     )
-    if (
-        description.title is not None
-        and not findings_utils.is_valid_finding_title(description.title)
-    ):
-        raise InvalidDraftTitle()
+    findings_utils.is_valid_finding_title(description.title)
 
     finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)

@@ -205,7 +205,10 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     graphQLErrors,
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      if (error.message === "Exception - The inserted title is invalid") {
+      if (
+        error.message ===
+        "Exception - The inserted Draft/Finding title is invalid"
+      ) {
         msgError(translate.t("validations.draftTitle"));
       } else {
         msgError(translate.t("groupAlerts.errorTextsad"));
