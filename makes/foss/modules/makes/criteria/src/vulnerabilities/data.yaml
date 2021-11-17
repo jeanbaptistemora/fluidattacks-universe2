@@ -20695,24 +20695,40 @@
   en:
     title: Missing secure obfuscation - JavaScript
     description: >
-      __empty__
+      It is possible to obtain source code from
+      the application since it has only been
+      partially obfuscated in a secure way.
+      This could allow an attacker to understand
+      the inner workings of the application.
     impact: >
-      __empty__
+      - To understand the operation of the application
+      in order to increase the attack vector.
+
+      - Identify validations performed by the front end.
     recommendation: >
-      __empty__
+      Perform an obfuscation process to the
+      code exposed in web applications.
     threat: >
-      __empty__
+      Unauthorized user from the Internet.
   category: Inject Unexpected
   es:
     title: Missing secure obfuscation - JavaScript
     description: >
-      __empty__
+      Es posible obtener código fuente de la
+      aplicación puesto que solo ha sido
+      parcialmente ofuscado de forma segura.
+      Esto podría permitirle a un atacante entender
+      el funcionamiento interno de la aplicación.
     impact: >
-      __empty__
+      - Entender el funcionamiento de la aplicación con
+      el fin de incrementar el vector de ataque.
+
+      - Identificar validaciones que realiza el front.
     recommendation: >
-      __empty__
+      Realizar un proceso de ofuscación al código
+      expuesto en las aplicaciones web.
     threat: >
-      __empty__
+      Usuario no autorizado desde internet.
   score:
     base:
       attack_vector: "N"
@@ -20720,11 +20736,11 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["159"]
@@ -20735,24 +20751,36 @@
   en:
     title: Technical information leak - Content response
     description: >
-      __empty__
+      It is possible to obtain technical information such as:
+
+      - System component versions (HTTP headers, service banner, etc.)
+
+      - Specific information about the configuration of server
+      components (php.ini, web.config)
     impact: >
-      __empty__
+      Gather technical information to craft new attack vectors.
     recommendation: >
-      __empty__
+      Remove web services and files that exposes technical information.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   category: Inject Unexpected
   es:
     title: Technical information leak - Content response
     description: >
-      __empty__
+      Es posible obtener información técnica como:
+
+      - Versiones de componentes del sistema (cabeceras HTTP,
+      banner de servicio, etc.)
+
+      - Información específica sobre la configuración de los
+      componentes del servidor (php.ini, web.config)
     impact: >
-      __empty__
+      Reunir información técnica para elaborar nuevos vectores de ataque.
     recommendation: >
-      __empty__
+      Eliminar los servicios web y los archivos
+      que exponen información técnica.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -20760,7 +20788,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
