@@ -19557,29 +19557,45 @@
   en:
     title: Lack of data validation - OTP
     description: >
-      __empty__
+      There is no evidence of validation of the
+      values sent in the tokenCode parameter to
+      complete the request, allowing random values
+      to be used in multiple attempts.
     impact: >
-      __empty__
+      Perform the account creation process
+      without knowing the generated token.
     recommendation: >
-      __empty__
+      - Validate on the server side that the
+      token sent by the user is the one
+      generated for the request.
+
+      - Validate that the token generated
+      is used only once.
     threat: >
-      __empty__
+      External attacker authenticated.
   es:
     title: Lack of data validation - OTP
     description: >
-      __empty__
+      No se evidencia validación de los valores
+      enviados en el parámetro tokenCode para
+      culminar la solicitud, permitiendo que se
+      usen valores aleatorios en múltiples intentos.
     impact: >
-      __empty__
+      Realizar el proceso de creación de
+      cuenta sin conocer el token generado.
     recommendation: >
-      __empty__
+      - Validar en el lado del servidor que el token enviado
+      por el usuario sea el generado para la solicitud.
+
+      - Validar que el token generado sea usado en una sola ocasión.
     threat: >
-      __empty__
+      Atacante externo autenticado.
   category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
