@@ -18973,23 +18973,44 @@
   en:
     title: Lack of protection against brute force attacks - Credentials
     description: >
-      __empty__
+      The application has no protection
+      against automated attacks to guess
+      valid promotional codes.
     impact: >
-      __empty__
+      Any anonymous person from the Internet.
     recommendation: >
-      __empty__
+      Implement a control to prevent this
+      type of attack and to ensure that the
+      function is not executed by a robot.
+      E.g. captcha, blocking by delay in the
+      number of failed attempts, amog others.
     threat: >
-      __empty__
+      An unlogged-in user with access to the
+      application can list promotional codes
+      using a brute force attack to apply arbitrary
+      discounts to their purchases and possibly
+      invalidate those that other users have
+      legitimately purchased.
   es:
     title: Lack of protection against brute force attacks - Credentials
     description: >
-      __empty__
+      La aplicación no tiene protección contra
+      ataques automatizados para adivinar
+      códigos promocionales válidos.
     impact: >
-      __empty__
+      Cualquier persona anónima desde Internet.
     recommendation: >
-      __empty__
+      Implementar un control para evitar este tipo
+      de ataques y que garantice que la función no
+      sea ejecutada por un robot.
+      Ej. captcha, bloqueo por retardo en el número
+      de intentos fallidos, etc.
     threat: >
-      __empty__
+      Un usuario sin iniciar sesión con acceso a la
+      aplicación puede enumerar códigos promocionales
+      mediante un ataque de fuerza bruta para aplicar
+      descuentos arbitrarios a sus compras y posiblemente
+      invalidar los que otros usuarios han adquirido legítimamente.
   category: Probabilistic Techniques
   score:
     base:
@@ -18998,12 +19019,12 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
-      remediation_level: "X"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["237","327"]
   metadata:
