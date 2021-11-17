@@ -105,3 +105,14 @@ def yield_invocation_expression(
         ):
             method_id = shard.graph.nodes[invoc_id]["label_field_function"]
             yield shard, invoc_id, node_to_str(shard.graph, method_id)
+
+
+def get_object_argument_list(
+    shard: graph_model.GraphShard, obj_id: str
+) -> str:
+    n_args = g.get_ast_childs(
+        shard.graph,
+        g.get_ast_childs(shard.graph, obj_id, "argument_list")[0],
+        "argument",
+    )[0]
+    return node_to_str(shard.graph, n_args)
