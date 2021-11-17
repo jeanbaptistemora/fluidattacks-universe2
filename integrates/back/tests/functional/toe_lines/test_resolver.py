@@ -19,11 +19,10 @@ from typing import (
 async def test_get_toe_lines(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await get_result(user=email, group_name="group1")
-    assert result["data"]["group"]["roots"] == [
-        {
-            "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
-            "toeLines": [
-                {
+    assert result["data"]["group"]["toeLines"] == {
+        "edges": [
+            {
+                "node": {
                     "attackedAt": "2021-02-20T05:00:00+00:00",
                     "attackedBy": "test2@test.com",
                     "attackedLines": 4,
@@ -38,13 +37,11 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "modifiedDate": "2020-11-15T15:41:04+00:00",
                     "seenAt": "2020-02-01T15:41:04+00:00",
                     "sortsRiskLevel": 80,
-                }
-            ],
-        },
-        {
-            "id": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-            "toeLines": [
-                {
+                },
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjdGVzdDIvdGVzdCMuY29uZmlnIn0=",
+            },
+            {
+                "node": {
                     "attackedAt": "2021-01-20T05:00:00+00:00",
                     "attackedBy": "test@test.com",
                     "attackedLines": 23,
@@ -60,7 +57,10 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "seenAt": "2020-01-01T15:41:04+00:00",
                     "sortsRiskLevel": 0,
                 },
-                {
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDEvdGVzdC5zaCJ9",
+            },
+            {
+                "node": {
                     "attackedAt": "2021-01-20T05:00:00+00:00",
                     "attackedBy": "test3@test.com",
                     "attackedLines": 120,
@@ -76,9 +76,11 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "seenAt": "2019-01-01T15:41:04+00:00",
                     "sortsRiskLevel": -1,
                 },
-            ],
-        },
-    ]
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDMvdGVzdC5zaCJ9",
+            },
+        ],
+        "pageInfo": {"hasNextPage": False, "endCursor": "bnVsbA=="},
+    }
 
 
 @pytest.mark.asyncio

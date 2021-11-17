@@ -108,6 +108,13 @@ type Group {
   tags: [String!]
   "Target of Evaluation inputs information"
   toeInputs: [ToeInputs]
+  "Target of Evaluation lines information"
+  toeLines(
+    "The cursor for the forward pagination"
+    after: String,
+    "Amount of element to return"
+    first: Int
+  ): ToeLinesConnection
   "Amount of Findings in the group"
   totalFindings: Int
   "Total amount of treatments, divided by category"

@@ -18,10 +18,9 @@ async def get_result(
     query: str = f"""{{
         group(groupName: "{group_name}"){{
             name
-            roots {{
-                ... on GitRoot {{
-                    id
-                    toeLines {{
+            toeLines {{
+                edges {{
+                    node {{
                         attackedAt
                         attackedBy
                         attackedLines
@@ -37,10 +36,15 @@ async def get_result(
                         seenAt
                         sortsRiskLevel
                     }}
+                    cursor
+                }}
+                pageInfo {{
+                    hasNextPage
+                    endCursor
                 }}
             }}
         }}
-      }}
+    }}
     """
     data: Dict[str, Any] = {"query": query}
     return await get_graphql_result(

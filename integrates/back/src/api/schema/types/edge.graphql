@@ -1,0 +1,5 @@
+"Generic Edge interface definition"
+interface Edge {
+  "Reference an item into a list"
+  cursor: String!
+}

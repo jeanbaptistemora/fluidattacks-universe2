@@ -29,3 +29,19 @@ type ToeLines {
   "Priority (IA/ML)"
   sortsRiskLevel: Int!
 }
+
+"Toe lines Edge type definition"
+type ToeLinesEdge implements Edge {
+  "The cursor for the edge"
+  cursor: String!
+  "The node with the payload"
+  node: ToeLines
+}
+
+"Toe lines Connection type definition"
+type ToeLinesConnection {
+  "A list of Toe Lines edges"
+  edges: [ToeLinesEdge]
+  "Information to aid in pagination"
+  pageInfo: PageInfo!
+}

@@ -1,6 +1,10 @@
+from dynamodb.types import (
+    PageInfo,
+)
 from typing import (
     NamedTuple,
     Optional,
+    Tuple,
 )
 
 
@@ -26,6 +30,16 @@ class ToeLines(NamedTuple):
         return hash((self.group_name, self.root_id, self.filename))
 
 
+class ToeLinesEdge(NamedTuple):
+    node: ToeLines
+    cursor: str
+
+
+class ToeLinesConnection(NamedTuple):
+    edges: Tuple[ToeLinesEdge, ...]
+    page_info: PageInfo
+
+
 class ToeLinesMetadataToUpdate(NamedTuple):
     attacked_at: Optional[str] = None
     attacked_by: Optional[str] = None
@@ -40,3 +54,16 @@ class ToeLinesMetadataToUpdate(NamedTuple):
     modified_date: Optional[str] = None
     seen_at: Optional[str] = None
     sorts_risk_level: Optional[int] = None
+
+
+class GroupToeLinesRequest(NamedTuple):
+    group_name: str
+    after: Optional[str] = None
+    paginate: bool = False
+
+
+class RootToeLinesRequest(NamedTuple):
+    group_name: str
+    root_id: str
+    after: Optional[str] = None
+    paginate: bool = False

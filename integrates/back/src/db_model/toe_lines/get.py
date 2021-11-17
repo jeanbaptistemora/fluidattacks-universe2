@@ -1,8 +1,12 @@
 from .types import (
+    GroupToeLinesRequest,
+    RootToeLinesRequest,
     ToeLines,
+    ToeLinesConnection,
 )
 from .utils import (
     format_toe_lines,
+    format_toe_lines_edge,
 )
 from aiodataloader import (
     DataLoader,
@@ -63,11 +67,11 @@ class ToeLinesLoader(DataLoader):
 
 
 async def _get_toe_lines_by_group(
-    group_name: str,
-) -> Tuple[ToeLines, ...]:
+    request: GroupToeLinesRequest,
+) -> ToeLinesConnection:
     primary_key = keys.build_key(
         facet=TABLE.facets["toe_lines_metadata"],
-        values={"group_name": group_name},
+        values={"group_name": request.group_name},
     )
     key_structure = TABLE.primary_key
     lines_key = primary_key.sort_key.split("#")[0]
@@ -78,24 +82,32 @@ async def _get_toe_lines_by_group(
         ),
         facets=(TABLE.facets["toe_lines_metadata"],),
         table=TABLE,
+        paginate=request.paginate,
+        after=request.after,
     )
-    return tuple(format_toe_lines(item=item) for item in response.items)
+    return ToeLinesConnection(
+        edges=tuple(
+            format_toe_lines_edge(table=TABLE, item=item)
+            for item in response.items
+        ),
+        page_info=response.page_info,
+    )
 
 
 class GroupToeLinesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, group_names: List[str]
-    ) -> Tuple[Tuple[ToeLines, ...], ...]:
-        return await collect(tuple(map(_get_toe_lines_by_group, group_names)))
+        self, requests: List[GroupToeLinesRequest]
+    ) -> Tuple[ToeLinesConnection, ...]:
+        return await collect(tuple(map(_get_toe_lines_by_group, requests)))
 
 
 async def _get_toe_lines_by_root(
-    group_name: str, root_id: str
-) -> Tuple[ToeLines, ...]:
+    request: RootToeLinesRequest,
+) -> ToeLinesConnection:
     primary_key = keys.build_key(
         facet=TABLE.facets["toe_lines_metadata"],
-        values={"group_name": group_name, "root_id": root_id},
+        values={"group_name": request.group_name, "root_id": request.root_id},
     )
     key_structure = TABLE.primary_key
     response = await operations.query(
@@ -106,12 +118,18 @@ async def _get_toe_lines_by_root(
         facets=(TABLE.facets["toe_lines_metadata"],),
         table=TABLE,
     )
-    return tuple(format_toe_lines(item=item) for item in response.items)
+    return ToeLinesConnection(
+        edges=tuple(
+            format_toe_lines_edge(table=TABLE, item=item)
+            for item in response.items
+        ),
+        page_info=response.page_info,
+    )
 
 
 class RootToeLinesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, roots: List[Tuple[str, str]]
-    ) -> Tuple[Tuple[ToeLines, ...], ...]:
-        return await collect(tuple(map(_get_toe_lines_by_root, *zip(*roots))))
+        self, requests: List[RootToeLinesRequest]
+    ) -> Tuple[ToeLinesConnection, ...]:
+        return await collect(tuple(map(_get_toe_lines_by_root, requests)))

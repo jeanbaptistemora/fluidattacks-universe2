@@ -25,7 +25,9 @@ from db_model.roots.types import (
     RootItem,
 )
 from db_model.toe_lines.types import (
+    RootToeLinesRequest,
     ToeLines,
+    ToeLinesConnection,
 )
 from decorators import (
     retry_on_exceptions,
@@ -58,7 +60,6 @@ from toe.lines.types import (
     ToeLinesAttributesToUpdate,
 )
 from typing import (
-    cast,
     Dict,
     Set,
     Tuple,
@@ -358,12 +359,11 @@ async def refresh_active_root_repo_toe_lines(
         return
 
     await git_utils.disable_quotepath(f"{root_repo.state.nickname}/.git")
+    toe_lines: ToeLinesConnection = await loaders.root_toe_lines.load(
+        RootToeLinesRequest(group_name=group_name, root_id=root_repo.id)
+    )
     repo_toe_lines = {
-        toe_lines.filename: toe_lines
-        for toe_lines in cast(
-            Tuple[ToeLines, ...],
-            await loaders.root_toe_lines.load((group_name, root_repo.id)),
-        )
+        edge.node.filename: edge.node for edge in toe_lines.edges
     }
     present_filenames = await get_present_filenames(
         group_path, repo, root_repo.state.nickname
@@ -404,12 +404,11 @@ async def refresh_active_root_repo_toe_lines(
 async def refresh_inactive_root_repo_toe_lines(
     loaders: Dataloaders, group_name: str, root_repo: GitRootItem
 ) -> None:
+    toe_lines: ToeLinesConnection = await loaders.root_toe_lines.load(
+        RootToeLinesRequest(group_name=group_name, root_id=root_repo.id)
+    )
     repo_toe_lines = {
-        toe_lines.filename: toe_lines
-        for toe_lines in cast(
-            Tuple[ToeLines, ...],
-            await loaders.root_toe_lines.load((group_name, root_repo.id)),
-        )
+        edge.node.filename: edge.node for edge in toe_lines.edges
     }
     present_filenames: Set[str] = set()
     non_present_toe_lines_to_update = get_non_present_toe_lines_to_update(

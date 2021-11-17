@@ -19,6 +19,7 @@ from api.resolvers.group import (
     service_attributes,
     stakeholders,
     toe_inputs,
+    toe_lines,
     total_findings_new,
     total_treatment,
     user_role,
@@ -50,6 +51,7 @@ GROUP.set_field("permissions", permissions.resolve)
 GROUP.set_field("serviceAttributes", service_attributes.resolve)
 GROUP.set_field("stakeholders", stakeholders.resolve)
 GROUP.set_field("toeInputs", toe_inputs.resolve)
+GROUP.set_field("toeLines", toe_lines.resolve)
 GROUP.set_field("totalFindings", total_findings_new.resolve)
 GROUP.set_field("totalTreatment", total_treatment.resolve)
 GROUP.set_field("userRole", user_role.resolve)

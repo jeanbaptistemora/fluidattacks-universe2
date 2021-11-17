@@ -1,9 +1,14 @@
 from .types import (
     ToeLines,
+    ToeLinesEdge,
 )
 from dynamodb.types import (
     Item,
     PrimaryKey,
+    Table,
+)
+from dynamodb.utils import (
+    get_cursor,
 )
 
 
@@ -25,6 +30,12 @@ def format_toe_lines(item: Item) -> ToeLines:
         root_id=item["root_id"],
         seen_at=item["seen_at"],
         sorts_risk_level=int(item["sorts_risk_level"]),
+    )
+
+
+def format_toe_lines_edge(table: Table, item: Item) -> ToeLinesEdge:
+    return ToeLinesEdge(
+        node=format_toe_lines(item), cursor=get_cursor(table, item)
     )
 
 
