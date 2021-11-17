@@ -18610,32 +18610,99 @@
   en:
     title: Insecure functionality - User management
     description: >
-      __empty__
+      It is possible to assign non-users as
+      treatment managers of vulnerabilities,
+      this will send an email with the information
+      of the vulnerabilities even if the email is
+      not registered on integrates.
+      It is also possible to create and activate
+      users in the application by adding their
+      emails without validating their ownership,
+      allowing attackers to give group access to
+      people who did not give their consent to
+      receive data from integrates.
+      Even if the user has been removed from all
+      the projects of an organization, the information
+      of the vulnerabilities over the time and the
+      policies is still accessible by the email.
     impact: >
-      __empty__
+      Send mails and information without the
+      consent of the user.
+      Even if the user has been removed from
+      all the projects of an organization, the
+      information of the vulnerabilities over
+      the time and the policies is still
+      accessible by the email.
+      It is possible to assign non-users as
+      treatment managers of vulnerabilities,
+      this will send an email with the information
+      of the vulnerabilities even if the email is
+      not registered on integrates.
     recommendation: >
-      __empty__
+      Grant access to the projects only to users
+      that have consented the reception of information
+      from the application.
+      Disable all users from the organizations if
+      they should not have access to any project.
+      Verify that only authorized users have access
+      to information and actions on the application.
     threat: >
-      __empty__
+      Authorized external attacker
+      with privileges to add users.
+      Disclose sensitive information.
   es:
-    title: Insecure functionality - User management
+    title: XML injection (XXE) - Unmarshaller
     description: >
-      __empty__
+      Es posible asignar a personas que no son
+      usuarios como gestores de tratamiento de
+      vulnerabilidades, esto enviará un correo
+      electrónico con la información de las
+      vulnerabilidades aunque el correo electrónico
+      no esté registrado en integrates.
+      También es posible crear y activar usuarios
+      en la aplicación añadiendo sus correos electrónicos
+      sin validar su titularidad, permitiendo a los
+      atacantes dar acceso al grupo a personas que no
+      dieron su consentimiento para recibir
+      datos de los integrados.
+      Incluso si el usuario ha sido eliminado de todos
+      los proyectos de una organización, la información
+      de las vulnerabilidades en el tiempo y las políticas
+      sigue siendo accesible por el correo electrónico.
     impact: >
-      __empty__
+      Enviar correos e información sin
+      el consentimiento del usuario.
+      Incluso si el usuario ha sido eliminado de todos
+      los proyectos de una organización, la información
+      de las vulnerabilidades en el tiempo y las políticas
+      sigue siendo accesible por el correo electrónico.
+      Es posible asignar a los no-usuarios como gestores
+      del tratamiento de las vulnerabilidades, esto enviará
+      un correo electrónico con la información de las
+      vulnerabilidades incluso si el correo electrónico
+      no está registrado en integra.
     recommendation: >
-      __empty__
+      Permitir el acceso a los proyectos sólo a los
+      usuarios que han consentido la recepción de
+      información de la aplicación.
+      Desactivar a todos los usuarios de las organizaciones
+      si no deben tener acceso a ningún proyecto.
+      Verifique que sólo los usuarios autorizados
+      tienen acceso a la información y a las
+      acciones en la aplicación.
     threat: >
-      __empty__
+      Atacante externo autorizado con privilegios
+      para añadir usuarios.
+      Revelar información sensible.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
