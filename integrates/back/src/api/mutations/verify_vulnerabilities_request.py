@@ -27,6 +27,9 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -56,11 +59,17 @@ async def mutate(
         finding_loader = info.context.loaders.finding
         finding: Finding = await finding_loader.load(finding_id)
         user_info = await token_utils.get_jwt_content(info.context)
-        success = await findings_domain.verify_vulnerabilities(
-            info=info,
+        success = await findings_domain.verify_vulnerabilities_new(
+            context=info.context,
             finding_id=finding_id,
             user_info=user_info,
-            parameters=kwargs,
+            justification=kwargs.get("justification", ""),
+            open_vulns_ids=get_key_or_fallback(
+                kwargs, "open_vulnerabilities", "open_vulns", []
+            ),
+            closed_vulns_ids=get_key_or_fallback(
+                kwargs, "closed_vulnerabilities", "closed_vulns", []
+            ),
             vulns_to_close_from_file=[],
         )
         if success:
