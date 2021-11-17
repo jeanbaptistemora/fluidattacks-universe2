@@ -20918,24 +20918,38 @@
   en:
     title: Authentication mechanism absence or evasion - Response tampering
     description: >
-      __empty__
+      The OTP validation is performed according
+      to the response of the request, an attacker
+      can modify the response of the request to
+      include the success message and thus continue
+      with the flow to do the unblocking.
     impact: >
-      __empty__
+      Skip OTP validation.
     recommendation: >
-      __empty__
+      Set up an authentication process for every
+      resource with business-critical functionality.
+      Perform the pertinent validations of the
+      critical functionalities in the back-end.
     threat: >
-      __empty__
+      Unauthorized external attacker.
   category: Inject Unexpected
   es:
     title: Authentication mechanism absence or evasion - Response tampering
     description: >
-      __empty__
+      La validación de OTP se realiza según la
+      respuesta de la petición, un atacante puede
+      modificar el response de la petición para que
+      incluya el mensaje de success y así continuar
+      con el flujo para hacer los desbloqueos.
     impact: >
-      __empty__
+      Saltarse la validación del OTP.
     recommendation: >
-      __empty__
+      Poner para todo recurso con una funcionalidad
+      crítica para el negocio un proceso de autenticación.
+      Realizar las validaciones pertinentes de las
+      funcionalidades críticas en la parte del back.
     threat: >
-      __empty__
+      Atacante externo no autorizado.
   score:
     base:
       attack_vector: "N"
@@ -20947,7 +20961,7 @@
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["227","228","229","231","235","264","323"]
