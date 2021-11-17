@@ -19852,38 +19852,69 @@
   en:
     title: Excessive privileges - Mobile App
     description: >
-      __empty__
+      The application has a single Google Cloud
+      account associated with it with permissions
+      on all required APIs (Firebase, ResourceManager,
+      BigQuery, Kubernetes, etc).
     impact: >
-      __empty__
+      Anyone with access to the Google Cloud administrative
+      account has read permissions on all system services.
     recommendation: >
-      __empty__
+      - Create accounts with the privileges strictly
+      necessary to perform their tasks (Buckets only
+      for the buckets account, containers only for
+      the containers account, etc).
+
+      - Use protected environment variables instead
+      of flat files to store keys.
     threat: >
-      __empty__
+      Any employee with access to the Google Cloud
+      administrative account has read permissions on
+      all information and infrastructure of the platform.
+      These permissions allow them to read all information
+      related to firebase databases, application logs,
+      containers and other active Google Cloud services.
   es:
     title: Excessive privileges - Mobile App
     description: >
-      __empty__
+      La aplicación tiene asociada una sola cuenta de
+      Google Cloud con permisos sobre todas las APIs
+      requeridas (Firebase, ResourceManager, BigQuery,
+      Kubernetes, etc).
     impact: >
-      __empty__
+      Cualquier persona con acceso a la cuenta administrativa
+      de Google Cloud tiene permisos de lectura sobre todas
+      los servicios del sistema
     recommendation: >
-      __empty__
+      - Crear cuentas con los privilegios estrictamente
+      necesarios para la realización de sus tareas (solo
+      Buckets para la cuenta de buckets, solo contenedores
+      para la cuenta de contenedores, etc).
+
+      - Utilizar variables de entorno protegidas en vez
+      de archivos planos para almacenar claves.
     threat: >
-      __empty__
+      Cualquier empleado con acceso a la cuenta administrativa
+      de Google Cloud tiene permisos de lectura sobre toda la
+      información e infrastructura de la plataforma.
+      Dichos permisos le permiten leer toda la información
+      relativa a bases de datos firebase, logs de la aplicación,
+      contenedores y demás servicios activos de Google Cloud.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "H"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "U"
   requirements: ["095","096","186"]
   metadata:
     en:
