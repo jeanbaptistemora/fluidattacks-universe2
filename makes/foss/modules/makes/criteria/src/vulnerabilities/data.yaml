@@ -19466,38 +19466,44 @@
   en:
     title: Insecure service configuration - Request Validation
     description: >
-      __empty__
+      No requestValidationMode is assigned in
+      the server configuration files, which
+      would allow XSS attacks.
     impact: >
-      __empty__
+      Obtain sensitive information through XSS attacks.
     recommendation: >
-      __empty__
+      Activate recommended protection mechanisms
+      such as Request Validation.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Insecure service configuration - Request Validation
     description: >
-      __empty__
+      En los archivos de configuración del servidor
+      no se asigna requestValidationMode, lo
+      que permitiría ataques XSS.
     impact: >
-      __empty__
+      Obtener información sensible mediante ataques XSS.
     recommendation: >
-      __empty__
+      Activar los mecanismos de protección
+      recomendados como Request Validation.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "R"
   requirements: ["266"]
   metadata:
     en:
@@ -19506,23 +19512,28 @@
   en:
     title: Lack of data validation - Special Characters
     description: >
-      __empty__
+      The system does not validate that special
+      characters are not entered in some fields.
     impact: >
-      __empty__
+      Cause unexpected behavior of the application.
     recommendation: >
-      __empty__
+      Validate in all fields that no
+      special characters are entered.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   es:
     title: Lack of data validation - Special Characters
     description: >
-      __empty__
+      El sistema en algunos campos no valida que
+      no se ingresen caracteres especiales.
     impact: >
-      __empty__
+      Ocasionar un comportamiento inesperado
+      de la aplicación.
     recommendation: >
-      __empty__
+      Validar en todo los campos que no se
+      ingresen caracteres especiales.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   category: Inject Unexpected
   score:
     base:
@@ -19535,7 +19546,7 @@
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173","320","357"]
