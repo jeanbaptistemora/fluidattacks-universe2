@@ -19789,23 +19789,46 @@
   en:
     title: Security controls bypass or absence - Session Invalidation
     description: >
-      __empty__
+      A function is implemented in the application
+      that returns the user's Main from his session code.
+      However, since the source code used in the
+      debugging phase was left in this functionality,
+      if a session code containing the word 'auto' is
+      used, access is allowed.
     impact: >
-      __empty__
+      Anonymous attacker from the Internet puts
+      in his session code the word 'auto' and manages
+      to access the application with a Main used
+      during the testing phase.
     recommendation: >
-      __empty__
+      Remove the code used during testing.
     threat: >
-      __empty__
+      Probability of an attacker exploits the logic
+      introduced by the debugging code to access the
+      application without having credentials.
   es:
     title: Security controls bypass or absence - Session Invalidation
     description: >
-      __empty__
+      En la aplicación se implementa una función
+      que retorna la Principal del usuario a
+      partir de su código de sesión.
+      No obstante, debido a que se dejó en esta
+      funcionalidad el código fuente usado en la
+      fase de depuración, si se usa un código de
+      sesión que contenga la palabra 'auto',
+      se permite el acceso.
     impact: >
-      __empty__
+      Atacante anónimo desde Internet pone en su
+      código de sesión la palabra 'auto' y logra
+      acceder la aplicación con una Principal
+      usada durante la fase de pruebas.
     recommendation: >
-      __empty__
+      Eliminar el código usado durante las pruebas.
     threat: >
-      __empty__
+      Probabilidad de que un atacante explote la
+      lógica que introduce el código de depuración
+      para acceder la aplicación sin poseer
+      unas credenciales.
   category: Subvert Access
   score:
     base:
@@ -19814,12 +19837,12 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["062","266"]
   metadata:
