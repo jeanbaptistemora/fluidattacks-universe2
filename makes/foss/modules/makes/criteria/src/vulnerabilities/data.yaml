@@ -20181,33 +20181,75 @@
   en:
     title: Insecure service configuration - Non Masked Variables
     description: >
-      __empty__
+      It is possible to bypass the masking of
+      environment variables when they are printed
+      in the job logs, therefore sensitive data
+      such as passwords, tokens, users, among
+      others are exposed.
+      This is possible because production secrets
+      are saved in unprotected variables of git,
+      therefore a developer could leak these
+      credentials when running pipelines.
     impact: >
-      __empty__
+      - Get admin credentials.
+
+      - Read, write and modify Gitlab resources.
+
+      - Get customer information.
+
+      - Download information and evidences of customers.
+
+      - Delete fluid and registries of customer.
     recommendation: >
-      __empty__
+      Verify that the user who is trying to access
+      the functionalities effectively has the necessary
+      permissions to do so.
+      Encrypt all sensitive information that is transported
+      or stored within the application according to the
+      policies of the organization.
     threat: >
-      __empty__
+      External attacker allowed to run pipelines.
   es:
     title: Insecure service configuration - Non Masked Variables
     description: >
-      __empty__
+      Es posible saltarse el enmascaramiento de
+      las variables de entorno cuando se imprimen
+      en los registros de trabajo, por lo que datos
+      sensibles como contraseñas, tokens, usuarios,
+      entre otros quedan expuestos.
+      Esto es posible porque los secretos de producción
+      se guardan en variables desprotegidas de git, por
+      lo tanto un desarrollador podría filtrar estas
+      credenciales al ejecutar pipelines.
     impact: >
-      __empty__
+      - Obtener credenciales de administrador.
+
+      - Leer, escribir y modificar recursos de Gitlab.
+
+      - Obtener información de clientes.
+
+      - Descargar información y evidencias de clientes.
+
+      - Eliminar fluidos y registros de clientes.
     recommendation: >
-      __empty__
+      Verificar que el usuario que intenta acceder a
+      las funcionalidades efectivamente tiene los
+      permisos necesarios para hacerlo.
+      Cifrar toda la información sensible que se
+      transporta o almacena dentro de la aplicación
+      de acuerdo con las políticas de la organización.
     threat: >
-      __empty__
+      El atacante externo puede ejecutar las pipelines.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "H"
       user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      scope: "C"
+      confidentiality: "H"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
