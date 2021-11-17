@@ -33,7 +33,7 @@ async def test_refresh_toe_lines(
         user=email, group_name=group_name, monkeypatch=monkeypatch
     )
     assert result["data"]["refreshToeLines"]["success"]
-    result: Dict[str, Any] = await query_get(user=email, group_name=group_name)
+    result = await query_get(user=email, group_name=group_name)
     assert result["data"]["group"]["roots"] == [
         {
             "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
@@ -49,7 +49,9 @@ async def test_refresh_toe_lines(
                     "filename": "back/mock.py",
                     "firstAttackAt": "",
                     "loc": 6,
-                    "modifiedCommit": "6e119ae968656c52bfe85f80329c6b8400fb7921",
+                    "modifiedCommit": (
+                        "6e119ae968656c52bfe85f80329c6b8400fb7921"
+                    ),
                     "modifiedDate": "2021-11-10T16:31:38+00:00",
                     "seenAt": "2021-11-10T20:35:20.372236+00:00",
                     "sortsRiskLevel": -1,
@@ -65,7 +67,9 @@ async def test_refresh_toe_lines(
                     "filename": "back/src/mock.py",
                     "firstAttackAt": "",
                     "loc": 2,
-                    "modifiedCommit": "6e119ae968656c52bfe85f80329c6b8400fb7921",
+                    "modifiedCommit": (
+                        "6e119ae968656c52bfe85f80329c6b8400fb7921"
+                    ),
                     "modifiedDate": "2021-11-10T16:31:38+00:00",
                     "seenAt": "2021-11-10T20:35:20.372236+00:00",
                     "sortsRiskLevel": -1,
@@ -81,7 +85,9 @@ async def test_refresh_toe_lines(
                     "filename": "front/mock.js",
                     "firstAttackAt": "",
                     "loc": 4,
-                    "modifiedCommit": "3ca2ffbfeae4f2df16810359a9363231fabc1750",
+                    "modifiedCommit": (
+                        "3ca2ffbfeae4f2df16810359a9363231fabc1750"
+                    ),
                     "modifiedDate": "2021-11-10T16:32:24+00:00",
                     "seenAt": "2021-11-10T20:35:20.372236+00:00",
                     "sortsRiskLevel": -1,
@@ -97,7 +103,9 @@ async def test_refresh_toe_lines(
                     "filename": "test1/test.sh",
                     "firstAttackAt": "2020-01-19T15:41:04+00:00",
                     "loc": 4,
-                    "modifiedCommit": "50a516954a321f95c6fb8baccb640e87d2f5d193",
+                    "modifiedCommit": (
+                        "50a516954a321f95c6fb8baccb640e87d2f5d193"
+                    ),
                     "modifiedDate": "2021-11-11T17:41:46+00:00",
                     "seenAt": "2020-01-01T15:41:04+00:00",
                     "sortsRiskLevel": 0,
@@ -129,7 +137,9 @@ async def test_refresh_toe_lines(
                     "filename": "test4/test.sh",
                     "firstAttackAt": "2020-01-14T15:41:04+00:00",
                     "loc": 4,
-                    "modifiedCommit": "50a516954a321f95c6fb8baccb640e87d2f5d193",
+                    "modifiedCommit": (
+                        "50a516954a321f95c6fb8baccb640e87d2f5d193"
+                    ),
                     "modifiedDate": "2021-11-11T17:41:46+00:00",
                     "seenAt": "2019-01-01T15:41:04+00:00",
                     "sortsRiskLevel": -1,
@@ -145,7 +155,9 @@ async def test_refresh_toe_lines(
                     "filename": "test5/test.sh",
                     "firstAttackAt": "",
                     "loc": 3,
-                    "modifiedCommit": "50a516954a321f95c6fb8baccb640e87d2f5d193",
+                    "modifiedCommit": (
+                        "50a516954a321f95c6fb8baccb640e87d2f5d193"
+                    ),
                     "modifiedDate": "2021-11-11T17:41:46+00:00",
                     "seenAt": "2019-01-02T15:41:04+00:00",
                     "sortsRiskLevel": -1,
