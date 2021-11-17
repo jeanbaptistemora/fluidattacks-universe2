@@ -19082,37 +19082,52 @@
   en:
     title: Use of insecure channel - Source code
     description: >
-      __empty__
+      Customer information is transmitted over
+      a channel that does not use encryption.
     impact: >
-      __empty__
+      - Capture sensitive information and
+      credentials in plain text.
+
+      - Intercept communication and steal or
+      forge requests and responses.
     recommendation: >
-      __empty__
+      Deploy the application over an encrypted
+      communication channel, e.g. HTTPS using TLS.
     threat: >
-      __empty__
+      Anonymous attacker in adjacent network
+      executing a man-in-the-middle attack.
   es:
     title: Use of insecure channel - Source code
     description: >
-      __empty__
+      La información de los clientes es transmitida
+      por un canal que no usa cifrado.
     impact: >
-      __empty__
+      - Capturar información confidencial y
+      credenciales en texto plano.
+
+      - Interceptar la comunicación y robar o
+      falsificar peticiones y respuestas.
     recommendation: >
-      __empty__
+      Desplegar la aplicación sobre un canal de
+      comunicación cifrado, por ejemplo: HTTPS
+      utilizando TLS.
     threat: >
-      __empty__
+      Atacante anónimo en red adyacente ejecutando
+      un ataque de hombre en el medio.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["181"]
   metadata:
