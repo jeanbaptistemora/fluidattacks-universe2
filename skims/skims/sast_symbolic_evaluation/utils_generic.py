@@ -192,6 +192,15 @@ def get_syntax_step_from_nid(syntax_steps: SyntaxSteps, n_id: str) -> dict:
     return {}
 
 
+def get_dependencies_from_nid(
+    syntax_steps: SyntaxSteps, n_id: str
+) -> Optional[SyntaxSteps]:
+    for index, syntax_step in enumerate(syntax_steps):
+        if syntax_step.meta.n_id == n_id:
+            return get_dependencies(index, syntax_steps)
+    return None
+
+
 def has_validations(
     dangers_args: list,
     args: EvaluatorArgs,
