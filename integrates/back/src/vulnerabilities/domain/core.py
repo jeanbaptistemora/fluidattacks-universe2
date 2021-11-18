@@ -964,9 +964,7 @@ async def update_vuln_state(
 async def update_state_new(
     *,
     vulnerability: Vulnerability,
-    new_metadata: VulnerabilityMetadataToUpdate,
-    new_state: VulnerabilityState,
-    finding_id: str,
+    to_update: Vulnerability,
     finding_policy: Optional[OrgFindingPolicyItem] = None,
 ) -> bool:
     """Update vulnerability state."""
@@ -975,25 +973,20 @@ async def update_state_new(
         Tuple[VulnerabilityTreatment, VulnerabilityTreatment]
     ] = None
     if (
-        vulnerability.state.source != new_state.source
-        or vulnerability.state.status != new_state.status
+        vulnerability.state.source != to_update.state.source
+        or vulnerability.state.status != to_update.state.status
     ):
-        state_to_update = VulnerabilityState(
-            modified_by=new_state.modified_by,
-            modified_date=new_state.modified_date,
-            source=new_state.source,
-            status=new_state.status,
-        )
+        state_to_update = to_update.state
         if (
             finding_policy
-            and new_state.status == VulnerabilityStateStatus.OPEN
+            and to_update.state.status == VulnerabilityStateStatus.OPEN
             and finding_policy.state.status == "APPROVED"
             and vulnerability.treatment.status
             != VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
         ):
             treatment_to_update = (
                 vulns_utils.get_treatment_from_org_finding_policy_new(
-                    modified_date=new_state.modified_date,
+                    modified_date=to_update.state.modified_date,
                     user_email=finding_policy.state.modified_by,
                 )
             )
@@ -1005,42 +998,26 @@ async def update_state_new(
     if state_to_update:
         data_to_update["historic_state"] = [
             *item["historic_state"],
-            {
-                "analyst": state_to_update.modified_by,
-                "date": datetime_utils.convert_from_iso_str(
-                    state_to_update.modified_date
-                ),
-                "source": state_to_update.source.value,
-                "state": str(state_to_update.status.value).lower(),
-            },
+            vulns_utils.format_vulnerability_state_item(to_update.state),
         ]
     if treatment_to_update:
         formatted_treatment = [
-            {
-                "treatment": treatment.status.value,
-                "justification": treatment.justification,
-                "user": treatment.modified_by,
-                "date": datetime_utils.convert_from_iso_str(
-                    treatment.modified_date
-                ),
-                "treatment_manager": treatment.manager,
-                "acceptance_status": treatment.acceptance_status.value,
-            }
+            vulns_utils.format_vulnerability_treatment_item(treatment)
             for treatment in treatment_to_update
         ]
         data_to_update["historic_treatment"] = [
             *item["historic_treatment"],
             *formatted_treatment,
         ]
-    if new_metadata.type == VulnerabilityType.INPUTS:
-        data_to_update["stream"] = new_metadata.stream
-    if new_metadata.type == VulnerabilityType.LINES:
-        data_to_update["commit_hash"] = new_metadata.commit
-    if new_metadata.repo:
-        data_to_update["repo_nickname"] = new_metadata.repo
+    if vulnerability.type == VulnerabilityType.INPUTS and to_update.stream:
+        data_to_update["stream"] = to_update.stream
+    if vulnerability.type == VulnerabilityType.LINES and to_update.commit:
+        data_to_update["commit_hash"] = to_update.commit
+    if to_update.repo and vulnerability.repo != to_update.repo:
+        data_to_update["repo_nickname"] = to_update.repo
     if data_to_update:
         return await vulns_dal.update(
-            finding_id, str(vulnerability.id), data_to_update
+            vulnerability.finding_id, vulnerability.id, data_to_update
         )
 
     return True
@@ -1095,7 +1072,6 @@ async def verify(
 async def verify_new(
     *,
     context: Any,
-    finding_id: str,
     vulnerabilities: List[Vulnerability],
     modified_date: str,
     closed_vulns_ids: List[str],
@@ -1115,7 +1091,13 @@ async def verify_new(
         await collect(
             update_state_new(
                 vulnerability=vuln_to_close,
-                new_metadata=VulnerabilityMetadataToUpdate(
+                to_update=vuln_to_close._replace(
+                    state=VulnerabilityState(
+                        modified_by=modified_by,
+                        modified_date=modified_date,
+                        source=source,
+                        status=VulnerabilityStateStatus.CLOSED,
+                    ),
                     commit=(
                         close_item.commit
                         if close_item
@@ -1128,15 +1110,7 @@ async def verify_new(
                         and close_item.type == VulnerabilityType.INPUTS
                         else None
                     ),
-                    type=close_item.type if close_item else None,
                 ),
-                new_state=VulnerabilityState(
-                    modified_by=modified_by,
-                    modified_date=modified_date,
-                    source=source,
-                    status=VulnerabilityStateStatus.CLOSED,
-                ),
-                finding_id=finding_id,
             )
             for vuln_to_close, close_item in zip_longest(
                 list_closed_vulns, vulns_to_close_from_file, fillvalue={}
