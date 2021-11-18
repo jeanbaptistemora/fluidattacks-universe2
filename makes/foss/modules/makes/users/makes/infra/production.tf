@@ -11,7 +11,6 @@ data "aws_iam_policy_document" "prod-policy-data" {
       "sns:*",
       "rds:*",
       "s3:*",
-      "elasticfilesystem:*",
       "aws-portal:*",
       "ce:*",
       "cur:*",
