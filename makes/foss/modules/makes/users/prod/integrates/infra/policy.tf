@@ -101,6 +101,7 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "elasticache:*",
     ]
     resources = [
+      "arn:aws:elasticache:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:integrates-*",
       "arn:aws:elasticache:${var.region}:${data.aws_caller_identity.current.account_id}:subnetgroup:integrates-*",
       "arn:aws:elasticache:${var.region}:${data.aws_caller_identity.current.account_id}:replicationgroup:integrates-*",
     ]
