@@ -58,9 +58,6 @@ from typing import (
 from users import (
     domain as users_domain,
 )
-from vulnerabilities import (
-    domain as vulns_domain,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -423,8 +420,12 @@ def require_finding_access(func: TVar) -> TVar:
         elif "identifier" in kwargs:
             finding_id = kwargs["identifier"]
         else:
-            vuln = await vulns_domain.get(kwargs["vuln_uuid"])
-            finding_id = vuln["finding_id"]
+            vulnerability: Vulnerability = (
+                await context.loaders.vulnerability_typed.load(
+                    kwargs["vuln_uuid"]
+                )
+            )
+            finding_id = vulnerability.finding_id
 
         validations.validate_finding_id(finding_id)
         finding_loader = context.loaders.finding

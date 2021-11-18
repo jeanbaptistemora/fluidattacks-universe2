@@ -4,6 +4,9 @@ from context import (
     FI_ZENDESK_TOKEN,
 )
 import contextlib
+from decorators import (
+    retry_on_exceptions,
+)
 from exponent_server_sdk import (
     DeviceNotRegisteredError,
     PushClient,
@@ -71,6 +74,11 @@ def create_ticket(
     return success
 
 
+@retry_on_exceptions(
+    exceptions=(PushResponseError, PushServerError),
+    max_attempts=5,
+    sleep_seconds=float("0.5"),
+)
 def send_push_notification(
     user_email: str, token: str, title: str, message: str
 ) -> None:
@@ -107,6 +115,7 @@ def send_push_notification(
         raise
     except (PushResponseError, PushServerError) as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
+        raise ex
 
 
 @contextlib.contextmanager
