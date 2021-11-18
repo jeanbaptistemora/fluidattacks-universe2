@@ -25,7 +25,6 @@ from typing import (
     List,
 )
 
-JsonStr = str
 to_primitive = PrimitiveFactory.to_primitive
 to_opt_primitive = PrimitiveFactory.to_opt_primitive
 

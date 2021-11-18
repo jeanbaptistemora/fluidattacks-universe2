@@ -1,21 +1,13 @@
-# pylint: disable=unnecessary-lambda
-# for correct type checking lambda is necessary
 from dataclasses import (
     dataclass,
 )
 import logging
 from purity.v1 import (
-    Flattener,
-    FrozenList,
     Patch,
     PureIter,
     Transform,
 )
-from purity.v1.pure_iter.factory import (
-    from_flist,
-)
 from purity.v1.pure_iter.transform.io import (
-    chain,
     consume,
 )
 from returns.curry import (
@@ -45,7 +37,6 @@ from typing import (
 )
 
 LOG = logging.getLogger(__name__)
-_ID = TypeVar("_ID")
 _D = TypeVar("_D")
 _R = TypeVar("_R", SingerRecord, IO[SingerRecord])
 
@@ -126,56 +117,3 @@ class StreamEmitterFactory:
             Patch(partial(self._emit, schema=True)),
             Transform(self._emit_io_streams),
         )
-
-
-@dataclass(frozen=True)
-class StreamFactory:
-    @staticmethod
-    def new_stream(
-        encoder: SingerEncoder[_D],
-        get: Transform[_ID, IO[_D]],
-        ids: PureIter[_ID],
-    ) -> PureIter[IO[StreamData]]:
-        result = (
-            ids.map(get)
-            .chunked(10)
-            .map(
-                lambda items: Flattener.list_io(tuple(items)).map(
-                    lambda p: Stream(
-                        encoder.schema,
-                        from_flist(p).map(encoder.to_singer),
-                    )
-                )
-            )
-        )
-        return result
-
-    @staticmethod
-    def from_io_data(
-        encoder: SingerEncoder[_D],
-        data: PureIter[IO[_D]],
-    ) -> PureIter[IO[StreamData]]:
-        chunks = (
-            data.map(lambda i: i.map(encoder.to_singer))
-            .chunked(100)
-            .map(
-                lambda i: Flattener.list_io(tuple(i)).map(
-                    lambda i: from_flist(i)
-                )
-            )
-        )
-        return chunks.map(lambda i: i.map(lambda l: Stream(encoder.schema, l)))
-
-    @staticmethod
-    def multi_stream(
-        encoder: SingerEncoder[_D],
-        get: Transform[_ID, IO[FrozenList[_D]]],
-        ids: PureIter[_ID],
-    ) -> StreamIO:
-        items = ids.map(get)
-        records = items.map(
-            lambda p: p.map(
-                lambda items: tuple(encoder.to_singer(i) for i in items)
-            ).map(lambda i: from_flist(i))
-        )
-        return Stream(encoder.schema, chain(records))
