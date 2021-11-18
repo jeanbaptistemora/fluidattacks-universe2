@@ -801,7 +801,7 @@ async def move_root(
     group_name: str,
     root_id: str,
     target_group_name: str,
-) -> None:
+) -> str:
     root: RootItem = await loaders.root.load((group_name, root_id))
     source_group, target_group = await loaders.group.load_many(
         [group_name, target_group_name]
@@ -826,7 +826,7 @@ async def move_root(
         ):
             raise RepeatedRoot()
 
-        await add_git_root(
+        new_root_id = await add_git_root(
             loaders,
             user_email,
             ensure_org_uniqueness=False,
@@ -844,7 +844,7 @@ async def move_root(
         ):
             raise RepeatedRoot()
 
-        await add_ip_root(
+        new_root_id = await add_ip_root(
             loaders,
             user_email,
             ensure_org_uniqueness=False,
@@ -863,7 +863,7 @@ async def move_root(
         ):
             raise RepeatedRoot()
 
-        await add_url_root(
+        new_root_id = await add_url_root(
             loaders,
             user_email,
             ensure_org_uniqueness=False,
@@ -882,3 +882,5 @@ async def move_root(
         root=root,
         user_email=user_email,
     )
+
+    return new_root_id

@@ -15,6 +15,7 @@ class ToeLinesAttributesToAdd(NamedTuple):
     modified_commit: str
     modified_date: str
     sorts_risk_level: int
+    seen_at: Optional[str] = None
 
 
 class ToeLinesAttributesToUpdate(NamedTuple):

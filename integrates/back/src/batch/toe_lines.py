@@ -27,7 +27,6 @@ from db_model.roots.types import (
 from db_model.toe_lines.types import (
     RootToeLinesRequest,
     ToeLines,
-    ToeLinesConnection,
 )
 from decorators import (
     retry_on_exceptions,
@@ -84,10 +83,10 @@ CLOC_EXCLUDE_LANG = "--exclude-lang=" + CLOC_EXCLUDE_LIST
 
 
 toe_lines_add = retry_on_exceptions(
-    exceptions=(UnavailabilityError,), sleep_seconds=10
+    exceptions=(UnavailabilityError,), sleep_seconds=5
 )(toe_lines_domain.add)
 toe_lines_update = retry_on_exceptions(
-    exceptions=(UnavailabilityError,), sleep_seconds=10
+    exceptions=(UnavailabilityError,), sleep_seconds=5
 )(toe_lines_domain.update)
 
 
@@ -359,11 +358,11 @@ async def refresh_active_root_repo_toe_lines(
         return
 
     await git_utils.disable_quotepath(f"{root_repo.state.nickname}/.git")
-    toe_lines: ToeLinesConnection = await loaders.root_toe_lines.load(
-        RootToeLinesRequest(group_name=group_name, root_id=root_repo.id)
-    )
     repo_toe_lines = {
-        edge.node.filename: edge.node for edge in toe_lines.edges
+        toe_lines.filename: toe_lines
+        for toe_lines in await loaders.root_toe_lines.load_nodes(
+            RootToeLinesRequest(group_name=group_name, root_id=root_repo.id)
+        )
     }
     present_filenames = await get_present_filenames(
         group_path, repo, root_repo.state.nickname
@@ -402,11 +401,11 @@ async def refresh_active_root_repo_toe_lines(
 async def refresh_inactive_root_repo_toe_lines(
     loaders: Dataloaders, group_name: str, root_repo: GitRootItem
 ) -> None:
-    toe_lines: ToeLinesConnection = await loaders.root_toe_lines.load(
-        RootToeLinesRequest(group_name=group_name, root_id=root_repo.id)
-    )
     repo_toe_lines = {
-        edge.node.filename: edge.node for edge in toe_lines.edges
+        toe_lines.filename: toe_lines
+        for toe_lines in await loaders.root_toe_lines.load_nodes(
+            RootToeLinesRequest(group_name=group_name, root_id=root_repo.id)
+        )
     }
     present_filenames: Set[str] = set()
     non_present_toe_lines_to_update = get_non_present_toe_lines_to_update(

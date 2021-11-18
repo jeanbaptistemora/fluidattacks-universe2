@@ -7,6 +7,12 @@ from batch.dal import (
 from batch.types import (
     BatchProcessing,
 )
+from contextlib import (
+    suppress,
+)
+from custom_exceptions import (
+    RepeatedToeLines,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -21,10 +27,21 @@ from db_model.findings.types import (
     FindingState,
 )
 from db_model.roots.types import (
+    GitRootItem,
     RootItem,
+)
+from db_model.toe_lines.types import (
+    RootToeLinesRequest,
+    ToeLines,
+)
+from decorators import (
+    retry_on_exceptions,
 )
 from dynamodb import (
     operations,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
 )
 from dynamodb.types import (
     PrimaryKey,
@@ -47,9 +64,16 @@ from redis_cluster.operations import (
 from roots import (
     dal as roots_dal,
 )
+from toe.lines import (
+    domain as toe_lines_domain,
+)
+from toe.lines.types import (
+    ToeLinesAttributesToAdd,
+)
 from typing import (
     Any,
     Dict,
+    Optional,
     Tuple,
 )
 from unreliable_indicators.enums import (
@@ -69,6 +93,10 @@ VULNS_TABLE = Table(
     name="FI_vulnerabilities",
     primary_key=PrimaryKey(partition_key="finding_id", sort_key="UUID"),
 )
+
+toe_lines_add = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=5
+)(toe_lines_domain.add)
 
 
 async def update_indicators(finding_id: str, group_name: str) -> None:
@@ -174,11 +202,44 @@ async def process_finding(
     )
 
 
+async def process_toe_lines(
+    target_group_name: str,
+    target_root_id: str,
+    toe_lines: ToeLines,
+) -> None:
+    attributes_to_add = ToeLinesAttributesToAdd(
+        attacked_at=toe_lines.attacked_at,
+        attacked_by=toe_lines.attacked_by,
+        attacked_lines=toe_lines.attacked_lines,
+        comments=toe_lines.comments,
+        commit_author=toe_lines.commit_author,
+        first_attack_at=toe_lines.first_attack_at,
+        loc=toe_lines.loc,
+        modified_commit=toe_lines.modified_commit,
+        modified_date=toe_lines.modified_date,
+        seen_at=toe_lines.seen_at,
+        sorts_risk_level=toe_lines.sorts_risk_level,
+    )
+    with suppress(RepeatedToeLines):
+        await toe_lines_add(
+            target_group_name,
+            target_root_id,
+            toe_lines.filename,
+            attributes_to_add,
+        )
+
+
 async def move_root(*, item: BatchProcessing) -> None:
-    target_group_name = item.entity
-    source_group_name, root_id = item.additional_info.split("/")
+    target_root_id: Optional[str] = None
+    try:
+        target_group_name, target_root_id = item.entity.split("/")
+    except ValueError:
+        target_group_name = item.entity
+    source_group_name, source_root_id = item.additional_info.split("/")
     loaders = get_new_context()
-    root: RootItem = await loaders.root.load((source_group_name, root_id))
+    root: RootItem = await loaders.root.load(
+        (source_group_name, source_root_id)
+    )
     root_vulns = await roots_dal.get_root_vulns(
         loaders=loaders,
         group_name=source_group_name,
@@ -201,6 +262,23 @@ async def move_root(*, item: BatchProcessing) -> None:
             for source_finding_id, vulns in vulns_by_finding
         )
     )
+    if target_root_id and isinstance(root, GitRootItem):
+        repo_toe_lines = await loaders.root_toe_lines.load_nodes(
+            RootToeLinesRequest(
+                group_name=source_group_name, root_id=source_root_id
+            )
+        )
+        await collect(
+            tuple(
+                process_toe_lines(
+                    target_group_name,
+                    target_root_id,
+                    toe_lines,
+                )
+                for toe_lines in repo_toe_lines
+                if toe_lines.be_present
+            )
+        )
     await send_mails_async(
         email_to=[item.subject],
         context={

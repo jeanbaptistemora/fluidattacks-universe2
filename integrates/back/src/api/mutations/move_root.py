@@ -46,7 +46,7 @@ async def mutate(
     root_id: str = kwargs["id"]
     target_group_name: str = kwargs["target_group_name"].lower()
 
-    await roots_domain.move_root(
+    new_root_id = await roots_domain.move_root(
         info.context.loaders,
         user_email,
         group_name,
@@ -55,7 +55,7 @@ async def mutate(
     )
     await batch_dal.put_action(
         action_name="move_root",
-        entity=target_group_name,
+        entity=f"{target_group_name}/{new_root_id}",
         subject=user_email,
         additional_info=f"{group_name}/{root_id}",
         queue="dedicated_soon",
