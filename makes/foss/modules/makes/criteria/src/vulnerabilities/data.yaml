@@ -22086,26 +22086,26 @@
       The system does not validate that objects, data or information,
       valid for one use only can be reused.
     impact: >
-      Abuse functionalities that should be accessed once
+      Abuse functionalities that should be accessed once.
     recommendation: >
-      Implement validations to guarantee that One-Time data
+      Implement validations to guarantee that One-Time data.
       cannot be reused.
     threat: >
-      Anonymous attacker from the Internet
+      Anonymous attacker from the Internet.
   category: Abuse Functionality
   es:
     title: Insecure service configuration - Object Reutilization
     description: >
       El sistema no valida que los objetos, datos o información
-      que deberían ser válidos por un solo uso
+      que deberían ser válidos por un solo uso.
       sean reutilizados
     impact: >
-      Abusar de funcionalidades que deberían ser accedidas solo una vez
+      Abusar de funcionalidades que deberían ser accedidas solo una vez.
     recommendation: >
       Implementar validaciones que garanticen que los datos de un solo uso
-      no sean reutilizados
+      no sean reutilizados.
     threat: >
-      Atacante anónimo desde Internet
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -22133,14 +22133,14 @@
       including Relay attacks, Man in the Middle
       and brute force to obtain valid challenge results.
     impact: >
-      - Obtain valid challenges to impersonate application users
+      Obtain valid challenges to impersonate application users.
     recommendation: >
       Avoid and restrict the use of NTLM as authentication mechanism,
       in favor of more recent and secure alternatives
-      such as Kerberos, Smart cards, Ouath, Bearer authentication,
-      forms, JWT ,among others
+      such as Kerberos, Smart Cards, Ouath, Bearer Authentication,
+      forms, JWT, among others.
     threat: >
-      Anonymous attacker from adjacent network performing a MitM
+      Anonymous attacker from adjacent network performing a MitM.
   category: Protocol Manipulation
   es:
     title: Insecure authentication method - NTLM
@@ -22150,14 +22150,14 @@
       el cual puede ser vulnerable a ataques de Relay, Man in the Middle
       y fuerza bruta para obtener credenciales válidas.
     impact: >
-      Obtener credenciales válidas para suplantar usuarios de la aplicación
+      Obtener credenciales válidas para suplantar usuarios de la aplicación.
     recommendation: >
       Evitar y restringir el uso de NTLM como mecanismo de autenticación,
       en favor de alternativas más recientes y seguras como:
       Kerberos, Smart Cards, Oauth, autenticación Bearer,
-      formularios, JWT, entre otros
+      formularios, JWT, entre otros.
     threat: >
-      Atacante anónimo desde red adyacente ejecutando un MitM
+      Atacante anónimo desde red adyacente ejecutando un MitM.
   score:
     base:
       attack_vector: "A"
@@ -22184,13 +22184,13 @@
       are not correctly signed,
       allowing an attacker to modify the code
       withouth raising alerts
-      on an integrity check
+      on an integrity check.
     impact: >
-      Inject malicious code in the application without raising alerts
+      Inject malicious code in the application without raising alerts.
     recommendation: >
-      Sign the application JAR files using a trusted key
+      Sign the application JAR files using a trusted key.
     threat: >
-      Anonymous attacker from Internet with access to the JAR Files
+      Anonymous attacker from Internet with access to the JAR Files.
   category: Manipulate Data
   es:
     title: Insufficient data authenticity validation - JAR signing
@@ -22201,11 +22201,11 @@
       al código sin que éstas se vean reflejadas
       en una verificación de integridad.
     impact: >
-      Ingresar código malicioso en la aplicación sin levantar alertas
+      Ingresar código malicioso en la aplicación sin levantar alertas.
     recommendation: >
-      Firmar los archivos JAR utilizando una llave de confianza
+      Firmar los archivos JAR utilizando una llave de confianza.
     threat: >
-      Atacante anónimo desde Internet con acceso a los JAR
+      Atacante anónimo desde Internet con acceso a los JAR.
   score:
     base:
       attack_vector: "N"
@@ -22217,7 +22217,7 @@
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "P"
+      exploit_code_maturity: "X"
       remediation_level: "O"
       report_confidence: "C"
   requirements: ["122", "173", "178", "320"]
