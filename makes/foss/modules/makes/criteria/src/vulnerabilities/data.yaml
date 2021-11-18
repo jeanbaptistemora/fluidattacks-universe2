@@ -21977,36 +21977,46 @@
   en:
     title: Non-encrypted confidential information - Keys
     description: >
-      __empty__
+      Confidential information is stored in plain
+      text allowing an attacker to view it without
+      any encryption.
     impact: >
-      __empty__
+      Obtain sensitive information that can
+      compromise system resources.
     recommendation: >
-      __empty__
+      Encrypt all sensitive information that is
+      transported or stored within the application
+      according to the organization's policies.
     threat: >
-      __empty__
+      Attacker with access to source code from the Internet.
   category: Collect Information
   es:
     title: Non-encrypted confidential information - Keys
     description: >
-      __empty__
+      La información confidencial es almacenada
+      en texto plano permitiendo a un atacante
+      visualizarla sin ningún tipo de cifrado.
     impact: >
-      __empty__
+      Obtener información sensible que puede
+      comprometer recursos del sistema.
     recommendation: >
-      __empty__
+      Cifrar toda información sensible que se
+      transporte o se guarde dentro la aplicación
+      de acuerdo a las políticas de la organización.
     threat: >
-      __empty__
+      Atacante con acceso al código fuente desde Internet.
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["134","135","185"]
