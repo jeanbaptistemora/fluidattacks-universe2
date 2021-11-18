@@ -20,6 +20,7 @@ pytestmark = [
             [
                 "admin",
                 "analyst",
+                "architect",
                 "closer",
                 "customer",
                 "customeradmin",
@@ -38,6 +39,7 @@ pytestmark = [
             [
                 "admin",
                 "analyst",
+                "architect",
                 "closer",
                 "customer",
                 "customeradmin",

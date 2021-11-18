@@ -373,6 +373,8 @@ enum StakeholderRole {
   "Hacker"
   ANALYST @deprecated(reason: """This enum field will be removed soon.
     Use `HACKER` instead.""")
+  "Architect"
+  ARCHITECT
   "Reattacker"
   CLOSER @deprecated(reason: """This enum field will be removed soon.
     Use `REATTACKER` instead.""")

@@ -32,6 +32,7 @@ import { validTextField } from "utils/validations";
 
 const userLevelRoles: string[] = ["admin", "customer", "hacker"];
 const groupLevelRoles: string[] = [
+  "architect",
   "customer",
   "customeradmin",
   "executive",

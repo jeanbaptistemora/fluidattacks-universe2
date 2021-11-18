@@ -193,6 +193,7 @@ ENUMS: Tuple[EnumType, ...] = (
         {
             "ADMIN": "admin",
             "ANALYST": "analyst",
+            "ARCHITECT": "architect",
             "CLOSER": "closer",
             "CUSTOMER": "customer",
             "CUSTOMERADMIN": "customeradmin",
