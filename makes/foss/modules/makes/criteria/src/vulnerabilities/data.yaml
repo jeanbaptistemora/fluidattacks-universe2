@@ -21079,37 +21079,65 @@
   en:
     title: Unrestricted access between network segments - StrictHostKeyChecking
     description: >
-      __empty__
+      The JSch StrictHostKeyChecking configuration
+      is set to no, this indicates that connections
+      may be made to unknown servers or servers that
+      have changed their keys, generating new ones
+      and adding them by default to the known server files.
     impact: >
-      __empty__
+      - Start connections to untrusted servers.
+
+      - Increase the possibility of attacks such
+      as MitM and spoofing.
+
+      - Receive or send malicious data or files.
+
+      - Leak sensitive information such as users and passwords.
     recommendation: >
-      __empty__
+      - Limit access to administrative services such as SSH.
+
+      - Implement safe values for StricktHostKeyChecking configuration.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   category: Subvert Access
   es:
     title: Unrestricted access between network segments - StrictHostKeyChecking
     description: >
-      __empty__
+      La configuración de JSch StrictHostKeyChecking
+      está configurado con el valor no, esto indica
+      que se podrán realizar conexiones con servidores
+      desconocidos o que hayan cambiado sus llaves,
+      generando nuevas y añadiéndolas por defecto a
+      los archivos de servidores conocidos.
     impact: >
-      __empty__
+      - Iniciar conexiones con servidores no confiables.
+
+      - Incrementar la posibilidad de ataques como
+      MitM y spoofing.
+
+      - Recibir o enviar data o archivos maliciosos.
+
+      - Filtrar información sensible como usuarios y contraseñas.
     recommendation: >
-      __empty__
+      - Limitar los accesos a servicios administrativos como SSH.
+
+      - Implementar valores seguros para la
+      configuración StricktHostKeyChecking.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["255"]
   metadata:
