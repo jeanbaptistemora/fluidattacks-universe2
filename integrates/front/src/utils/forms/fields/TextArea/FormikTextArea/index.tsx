@@ -43,6 +43,7 @@ export const FormikTextArea: React.FC<ITextAreaProps> = (
       <textarea
         {...field}
         {...input}
+        autoComplete={"off"}
         className={`${style["form-control"]} ${style["text-area"]} ${
           className === undefined ? "" : className
         }`}
