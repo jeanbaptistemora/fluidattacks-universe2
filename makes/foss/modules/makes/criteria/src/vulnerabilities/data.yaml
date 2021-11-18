@@ -21119,34 +21119,58 @@
   en:
     title: Insecure object reference - User deletion
     description: >
-      __empty__
+      The system does not have protections
+      that prevent the removal of users from
+      the application, leaving it inoperative
+      and affecting its integrity to a high degree.
+      It is even evident that once the user is
+      deleted, the session is not deleted and still
+      allows the user to continue browsing, which
+      should also be corrected.
     impact: >
-      __empty__
+      - Remove all users from the platform.
+
+      - Affect other processes and connections
+      that depend on the existence of users.
     recommendation: >
-      __empty__
+      The respective controls must be established
+      to mitigate any functionality that is foreign
+      to the current role.
     threat: >
-      __empty__
+      Authenticated attacker from the Internet.
   category: Subvert Access
   es:
     title: Insecure object reference - User deletion
     description: >
-      __empty__
+      El sistema no tiene protecciones que impidan
+      eliminar usuarios de la aplicación, permitiendo
+      dejar sin operatividad y afectando la integridad
+      de forma alta.
+      Incluso se evidencia, que una vez eliminado el
+      usuario, la sesión no se elimina y aún deja
+      seguir navegando al usuario, lo que también
+      debería corregirse.
     impact: >
-      __empty__
+      - Eliminar todos los usuarios de la plataforma.
+
+      - Afectar otros procesos y conexiones que dependen
+      de la existencia de los usuarios.
     recommendation: >
-      __empty__
+      Se deben establecer los respectivos controles
+      para mitigar cualquier funcionalidad que sea
+      ajena al rol actual.
     threat: >
-      __empty__
+      Atacante autenticado desde internet.
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
-      availability: "N"
+      availability: "H"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
