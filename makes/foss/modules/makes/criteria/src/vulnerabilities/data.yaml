@@ -21576,36 +21576,46 @@
   en:
     title: Non-encrypted confidential information - Hexadecimal
     description: >
-      __empty__
+      The confidential information is encoded
+      in hexadecimal allowing an attacker to
+      view it in plain text when decoding it.
     impact: >
-      __empty__
+      Obtain confidential information
+      by decoding hexadecimal.
     recommendation: >
-      __empty__
+      Use secure encryption methods to
+      encrypt any sensitive information.
     threat: >
-      __empty__
+      An attacker from an adjacent network
+      performing a sniffing attack.
   category: Collect Information
   es:
     title: Non-encrypted confidential information - Hexadecimal
     description: >
-      __empty__
+      La información confidencial es codificada
+      en hexadecimal permitiendo a un atacante
+      visualizarla en texto plano al decodificarla.
     impact: >
-      __empty__
+      Obtener información confidencial
+      decodificando hexadecimal.
     recommendation: >
-      __empty__
+      Usar métodos de cifrado seguro para cifrar
+      cualquier información sensible.
     threat: >
-      __empty__
+      Un atacante desde una red adyacente
+      realizando un ataque de sniffing.
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["134","135","185","229","264"]
