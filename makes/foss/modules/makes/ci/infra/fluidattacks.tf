@@ -14,7 +14,7 @@ module "fluidattacks_ci_cache" {
 
   tags = {
     "Name"            = "fluidattacks-ci-cache"
-    "management:area" = "cost"
+    "management:area" = "innovation"
     "management:type" = "product"
   }
 }
@@ -99,7 +99,7 @@ module "fluidattacks_ci" {
     name_iam_objects            = "",
   }
   tags = {
-    "management:area" = "cost"
+    "management:area" = "innovation"
     "management:type" = "product"
   }
 }
@@ -183,7 +183,7 @@ module "fluidattacks_ci_large" {
     name_iam_objects            = "",
   }
   tags = {
-    "management:area" = "cost"
+    "management:area" = "innovation"
     "management:type" = "product"
   }
 }
