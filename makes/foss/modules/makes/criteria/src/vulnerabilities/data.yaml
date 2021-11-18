@@ -21865,24 +21865,39 @@
   en:
     title: Insecurely generated token - OTP
     description: >
-      __empty__
+      The OTP is generated client-side and sent
+      to the server, so an attacker only needs
+      to intercept the request to access the
+      token and continue the application flow
+      without needing access to the phone number used.
     impact: >
-      __empty__
+      Make requests without having access to
+      the telephone number used or even use
+      a fake telephone number.
     recommendation: >
-      __empty__
+      Generate OTPs and perform the corresponding
+      validations always on the server side.
     threat: >
-      __empty__
+      Anonymous attcaker from the Internet.
   category: Manipulate Data
   es:
     title: Insecurely generated token - OTP
     description: >
-      __empty__
+      El OTP es generado del lado del cliente y
+      enviado al servidor, por lo que un atacante
+      sólo necesita interceptar la petición para
+      acceder al token y continuar con el flujo
+      de la aplicación sin necesidad de tener
+      acceso al número de teléfono usado.
     impact: >
-      __empty__
+      Realizar peticiones sin necesidad de tener
+      acceso al número de teléfono usado o incluso
+      usar un número de teléfono falso.
     recommendation: >
-      __empty__
+      Generar los OTPs y realizar las validaciones
+      correspondientes siempre del lado del servidor.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
