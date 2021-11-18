@@ -125,24 +125,43 @@ resource "aws_launch_template" "batch_instance" {
 
 locals {
   compute_environments_ec2 = {
-    for name, instances in {
-      dedicated = 5
-      } : name => {
+    dedicated = {
       bid_percentage      = null
-      instances           = instances
+      instances           = 5
       spot_iam_fleet_role = null
       type                = "EC2"
+
+      tags = {
+        "Name"            = "dedicated"
+        "management:area" = "cost"
+        "management:type" = "product"
+      }
     }
   }
   compute_environments_spot = {
-    for name, instances in {
-      observes = 3
-      spot     = 6
-      } : name => {
+    observes = {
       bid_percentage      = 100
-      instances           = instances
+      instances           = 3
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
       type                = "SPOT"
+
+      tags = {
+        "Name"            = "observes"
+        "management:area" = "administrative"
+        "management:type" = "other"
+      }
+    }
+    spot = {
+      bid_percentage      = 100
+      instances           = 6
+      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
+      type                = "SPOT"
+
+      tags = {
+        "Name"            = "spot"
+        "management:area" = "cost"
+        "management:type" = "product"
+      }
     }
   }
   compute_environments_spot_skims = {
@@ -152,6 +171,12 @@ locals {
       instances           = 4
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
       type                = "SPOT"
+
+      tags = {
+        "Name"            = name
+        "management:area" = "cost"
+        "management:type" = "product"
+      }
     }
   }
   compute_environments = merge(
@@ -206,11 +231,7 @@ resource "aws_batch_compute_environment" "default" {
       aws_subnet.default.id,
     ]
     type = each.value.type
-    tags = {
-      "Name"            = each.key
-      "management:area" = "cost"
-      "management:type" = "product"
-    }
+    tags = each.value.tags
 
     launch_template {
       launch_template_id = aws_launch_template.batch_instance.id
@@ -220,11 +241,7 @@ resource "aws_batch_compute_environment" "default" {
   lifecycle {
     create_before_destroy = true
   }
-  tags = {
-    "Name"            = "default"
-    "management:area" = "cost"
-    "management:type" = "product"
-  }
+  tags = each.value.tags
 }
 
 resource "aws_batch_job_queue" "default" {
@@ -237,6 +254,7 @@ resource "aws_batch_job_queue" "default" {
     "${data[0]}_${data[1].name}" => {
       compute_environment = data[0]
       priority            = data[1].priority
+      tags                = local.compute_environments[data[0]].tags
     }
   }
   compute_environments = [
@@ -245,11 +263,7 @@ resource "aws_batch_job_queue" "default" {
   name     = each.key
   priority = each.value.priority
   state    = "ENABLED"
-  tags = {
-    "Name"            = "default"
-    "management:area" = "cost"
-    "management:type" = "product"
-  }
+  tags     = each.value.tags
 }
 
 resource "aws_efs_file_system" "filesytem_services" {
