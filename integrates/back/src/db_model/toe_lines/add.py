@@ -1,3 +1,6 @@
+from .constants import (
+    GSI_2_FACET,
+)
 from .types import (
     ToeLines,
 )
@@ -37,6 +40,20 @@ async def add(*, toe_lines: ToeLines) -> None:
         toe_lines_key, key_structure, toe_lines
     )
     condition_expression = Attr(key_structure.partition_key).not_exists()
+    gsi_2_key = keys.build_key(
+        facet=GSI_2_FACET,
+        values={
+            "be_present": str(toe_lines.be_present).lower(),
+            "filename": toe_lines.filename,
+            "group_name": toe_lines.group_name,
+            "root_id": toe_lines.root_id,
+        },
+    )
+    gsi_2_index = TABLE.indexes["gsi_2"]
+    toe_lines_item[gsi_2_index.primary_key.sort_key] = gsi_2_key.sort_key
+    toe_lines_item[
+        gsi_2_index.primary_key.partition_key
+    ] = gsi_2_key.partition_key
     try:
         await operations.put_item(
             condition_expression=condition_expression,
