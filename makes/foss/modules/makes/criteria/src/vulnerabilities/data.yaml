@@ -22027,33 +22027,49 @@
   en:
     title: Cross-Site Leak - Frame Counting
     description: >
-      __empty__
+      It is possible to determine from an
+      external site whether or not a user
+      is logged into the platform by counting
+      the frames loaded when opening the page.
+      The user must have logged into a site
+      with a malicious frame counting script.
     impact: >
-      __empty__
+      Determine if a specific user has access to
+      the platform and thus collect targets for
+      spearphishing attacks.
     recommendation: >
-      __empty__
+      Load the same amount of frames in all
+      application load cases.
     threat: >
-      __empty__
+      Attacker on the internet sending malicious links.
   category: Abuse Functionality
   es:
     title: Cross-Site Leak - Frame Counting
     description: >
-      __empty__
+      Es posible determinar desde un sitio externo
+      si un usuario está o no logeado en la
+      plataforma mediante el conteo de los frames
+      cargados al abrir la página.
+      El usuario debe haber ingresado a un sitio con
+      un script malicioso de conteo de frames.
     impact: >
-      __empty__
+      Determinar si un usuario específico tiene
+      acceso a la plataforma y así colectar
+      objetivos para ataques de spearphishing.
     recommendation: >
-      __empty__
+      Cargar la misma cantidad de frames en todos
+      los casos de carga de la aplicación.
     threat: >
-      __empty__
+      Atacante en internet enviando enlaces maliciosos.
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
