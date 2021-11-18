@@ -1185,6 +1185,11 @@ $gray-120: rgba(120, 120, 145, 1);
     font-style: normal;
     list-style-type: none;
   }
+
+  li p strong {
+    border-bottom: 0;
+    font-weight: 600;
+  }
 }
 
 .fluid-question p strong {
