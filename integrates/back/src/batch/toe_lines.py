@@ -379,7 +379,6 @@ async def refresh_active_root_repo_toe_lines(
             toe_lines_add(group_name, root_repo.id, filename, toe_lines_to_add)
             for filename, toe_lines_to_add in present_toe_lines_to_add
         ),
-        workers=500,
     )
     present_toe_lines_to_update = await get_present_toe_lines_to_update(
         present_filenames,
@@ -397,7 +396,6 @@ async def refresh_active_root_repo_toe_lines(
             for current_value, attrs_to_update in present_toe_lines_to_update
             + non_present_toe_lines_to_update
         ),
-        workers=500,
     )
 
 
@@ -422,7 +420,6 @@ async def refresh_inactive_root_repo_toe_lines(
                 non_present_toe_lines_to_update
             )
         ),
-        workers=500,
     )
 
 

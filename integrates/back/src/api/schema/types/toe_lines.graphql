@@ -24,6 +24,8 @@ type ToeLines {
   modifiedCommit: String!
   "Modified date in iso format"
   modifiedDate: String!
+  "Toe lines Git Root"
+  root: GitRoot!
   "First time the file was seen"
   seenAt: String!
   "Priority (IA/ML)"

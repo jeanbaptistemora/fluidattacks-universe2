@@ -33,6 +33,9 @@ async def get_result(
                         loc
                         modifiedCommit
                         modifiedDate
+                        root {{
+                            nickname
+                        }}
                         seenAt
                         sortsRiskLevel
                     }}
