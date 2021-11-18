@@ -266,15 +266,6 @@ resource "aws_batch_job_queue" "default" {
   tags     = each.value.tags
 }
 
-resource "aws_efs_file_system" "filesytem_services" {
-  creation_token = "fuLaRIdorTimaUNDbaCUSkYadEndortliQueNtiourTUreQu"
-
-  tags = {
-    "Name"            = "filesytem_services"
-    "management:area" = "cost"
-    "management:type" = "product"
-  }
-}
 
 resource "aws_batch_job_definition" "default" {
   name = "default"
