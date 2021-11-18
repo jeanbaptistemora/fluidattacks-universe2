@@ -1614,7 +1614,7 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.sca,
         requirements=[262],
         score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.low,
+            attack_complexity=cvss3_model.AttackComplexity.high,
             attack_vector=cvss3_model.AttackVector.network,
             availability_impact=cvss3_model.AvailabilityImpact.low,
             confidentiality_impact=cvss3_model.ConfidentialityImpact.low,
