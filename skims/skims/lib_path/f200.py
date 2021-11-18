@@ -4,6 +4,7 @@ from aioextensions import (
 from aws.model import (
     AWSCloudfrontDistribution,
     AWSCTrail,
+    AWSElb,
     AWSS3Bucket,
 )
 from lib_path.common import (
@@ -26,6 +27,7 @@ from parse_cfn.loader import (
 from parse_cfn.structure import (
     iter_cloudfront_distributions,
     iter_cloudtrail_trail,
+    iter_elb_load_balancers,
     iter_s3_buckets,
 )
 from parse_hcl2.loader import (
@@ -81,6 +83,22 @@ def _cfn_trails_not_multiregion_iterate_vulnerabilities(
             )
         elif multi_reg.raw in FALSE_OPTIONS:
             yield multi_reg
+
+
+def _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
+    file_ext: str,
+    load_balancers_iterator: Iterator[Union[AWSElb, Node]],
+) -> Iterator[Union[AWSElb, Node]]:
+    for elb in load_balancers_iterator:
+        access_log = get_node_by_keys(elb, ["AccessLoggingPolicy"])
+        if not isinstance(access_log, Node):
+            yield AWSElb(
+                column=elb.start_column,
+                data=elb.data,
+                line=get_line_by_extension(elb.start_line, file_ext),
+            )
+        elif access_log.raw["Enabled"] in FALSE_OPTIONS:
+            yield access_log
 
 
 def _has_logging_disabled_iterate_vulnerabilities(
@@ -191,6 +209,28 @@ def _cfn_trails_not_multiregion(
     )
 
 
+def _cfn_elb_has_access_logging_disabled(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_aws_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f200.elb_has_access_logging_disabled",
+        finding=core_model.FindingEnum.F200,
+        path=path,
+        statements_iterator=(
+            _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
+                file_ext=file_ext,
+                load_balancers_iterator=iter_elb_load_balancers(
+                    template=template
+                ),
+            )
+        ),
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -254,6 +294,24 @@ async def cfn_bucket_has_access_logging_disabled(
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _cfn_bucket_has_access_logging_disabled,
+        content=content,
+        file_ext=file_ext,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_elb_has_access_logging_disabled(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_elb_has_access_logging_disabled,
         content=content,
         file_ext=file_ext,
         path=path,
