@@ -43,9 +43,15 @@ async def complete_register(
     return success
 
 
-async def get_batch_job(*, entity: str) -> BatchProcessing:
+async def get_batch_job(*, action_name: str, entity: str) -> BatchProcessing:
     all_actions = await get_actions()
-    return next((action for action in all_actions if action.entity == entity))
+    return next(
+        (
+            action
+            for action in all_actions
+            if action.entity == entity and action.action_name == action_name
+        )
+    )
 
 
 async def get_graphql_result(

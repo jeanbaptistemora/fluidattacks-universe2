@@ -1,3 +1,6 @@
+from .constants import (
+    GSI_2_FACET,
+)
 from .types import (
     ToeLines,
     ToeLinesMetadataToUpdate,
@@ -52,6 +55,18 @@ async def update_metadata(
     condition_expression = Attr(key_structure.partition_key).exists()
     for condition in conditions:
         condition_expression &= condition
+    if "be_present" in metadata_item:
+        gsi_2_key = keys.build_key(
+            facet=GSI_2_FACET,
+            values={
+                "be_present": str(metadata_item["be_present"]).lower(),
+                "filename": current_value.filename,
+                "group_name": current_value.group_name,
+                "root_id": current_value.root_id,
+            },
+        )
+        gsi_2_index = TABLE.indexes["gsi_2"]
+        metadata_item[gsi_2_index.primary_key.sort_key] = gsi_2_key.sort_key
     try:
         await operations.update_item(
             condition_expression=condition_expression,

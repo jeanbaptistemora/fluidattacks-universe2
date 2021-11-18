@@ -61,7 +61,9 @@ async def get_result(
         context=get_new_context(),
     )
     if result["data"]:
-        batch_action = await get_batch_job(entity=group_name)
+        batch_action = await get_batch_job(
+            action_name="refresh_toe_lines", entity=group_name
+        )
         monkeypatch.setattr(
             sys,
             "argv",
