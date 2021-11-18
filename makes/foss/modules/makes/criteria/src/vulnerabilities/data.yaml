@@ -21309,37 +21309,49 @@
   en:
     title: Use of an insecure channel - HTTP
     description: >
-      __empty__
+      Client information is transmitted over
+      port 80 or HTTP, a channel that does not
+      use encryption, so credentials and confidential
+      information can be captured in plain text.
     impact: >
-      __empty__
+      Compromise sensitive information that
+      travels in plain text.
     recommendation: >
-      __empty__
+      Deploy the application over the HTTPS
+      secure channel using TLS.
     threat: >
-      __empty__
+      Anonymous attacker on adjacent network
+      running a MitM.
   category: Collect Information
   es:
     title: Use of an insecure channel - HTTP
     description: >
-      __empty__
+      La información de los clientes es
+      transmitida por el puerto 80 o HTTP, un
+      canal que no usa cifrado, por lo cual
+      pueden ser capturadas en texto plano
+      credenciales e información confidencial.
     impact: >
-      __empty__
+      Comprometer información sensible que
+      viaja en texto plano.
     recommendation: >
-      __empty__
+      Desplegar la aplicación sobre el canal
+      seguro HTTPS utilizando TLS.
     threat: >
-      __empty__
+      Atacante anónimo en red adyacente ejecutando un MitM.
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["181"]
   metadata:
