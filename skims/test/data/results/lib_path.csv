@@ -7715,6 +7715,102 @@ F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   58 |             ""ViewerProtocolPolicy"": ""https-only""
      ^ Col 0
 "
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_disabled.yaml,17,778,skims,200. Traceability loss,The 'AccessLoggingPolicy' property must be enabled.,"
+   7 |         S3BucketName: bkname
+   8 |       Listeners:
+   9 |       - InstancePort: '80'
+  10 |         InstanceProtocol: HTTP
+  11 |         LoadBalancerPort: '443'
+  12 |         Protocol: HTTPS
+  13 |   LoadBalancer2:
+  14 |     Type: AWS::ElasticLoadBalancing::LoadBalancer
+  15 |     Properties:
+  16 |       AccessLoggingPolicy:
+> 17 |         Enabled: False
+  18 |         S3BucketName: bkname
+  19 |       Listeners:
+  20 |       - InstancePort: '80'
+  21 |         InstanceProtocol: HTTP
+  22 |         LoadBalancerPort: '443'
+  23 |         Protocol: HTTPS
+  24 |   LoadBalancer3:
+  25 |     Type: AWS::ElasticLoadBalancing::LoadBalancer
+  26 |     Properties:
+  27 |       Listeners:
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_disabled.yaml,26,778,skims,200. Traceability loss,The 'AccessLoggingPolicy' property must be enabled.,"
+  11 |         LoadBalancerPort: '443'
+  12 |         Protocol: HTTPS
+  13 |   LoadBalancer2:
+  14 |     Type: AWS::ElasticLoadBalancing::LoadBalancer
+  15 |     Properties:
+  16 |       AccessLoggingPolicy:
+  17 |         Enabled: False
+  18 |         S3BucketName: bkname
+  19 |       Listeners:
+  20 |       - InstancePort: '80'
+  21 |         InstanceProtocol: HTTP
+  22 |         LoadBalancerPort: '443'
+  23 |         Protocol: HTTPS
+  24 |   LoadBalancer3:
+  25 |     Type: AWS::ElasticLoadBalancing::LoadBalancer
+> 26 |     Properties:
+  27 |       Listeners:
+  28 |       - InstancePort: '80'
+  29 |         InstanceProtocol: HTTP
+  30 |         LoadBalancerPort: '443'
+  31 |         Protocol: HTTPS
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_disabled.yaml.json,24,778,skims,200. Traceability loss,The 'AccessLoggingPolicy' property must be enabled.,"
+  14 |             ""LoadBalancerPort"": ""443"",
+  15 |             ""Protocol"": ""HTTPS""
+  16 |           }
+  17 |         ]
+  18 |       }
+  19 |     },
+  20 |     ""LoadBalancer2"": {
+  21 |       ""Type"": ""AWS::ElasticLoadBalancing::LoadBalancer"",
+  22 |       ""Properties"": {
+  23 |         ""AccessLoggingPolicy"": {
+> 24 |           ""Enabled"": false,
+  25 |           ""S3BucketName"": ""bkname""
+  26 |         },
+  27 |         ""Listeners"": [
+  28 |           {
+  29 |             ""InstancePort"": ""80"",
+  30 |             ""InstanceProtocol"": ""HTTP"",
+  31 |             ""LoadBalancerPort"": ""443"",
+  32 |             ""Protocol"": ""HTTPS""
+  33 |           }
+  34 |         ]
+     ^ Col 0
+"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_disabled.yaml.json,39,778,skims,200. Traceability loss,The 'AccessLoggingPolicy' property must be enabled.,"
+  29 |             ""InstancePort"": ""80"",
+  30 |             ""InstanceProtocol"": ""HTTP"",
+  31 |             ""LoadBalancerPort"": ""443"",
+  32 |             ""Protocol"": ""HTTPS""
+  33 |           }
+  34 |         ]
+  35 |       }
+  36 |     },
+  37 |     ""LoadBalancer3"": {
+  38 |       ""Type"": ""AWS::ElasticLoadBalancing::LoadBalancer"",
+> 39 |       ""Properties"": {
+  40 |         ""Listeners"": [
+  41 |           {
+  42 |             ""InstancePort"": ""80"",
+  43 |             ""InstanceProtocol"": ""HTTP"",
+  44 |             ""LoadBalancerPort"": ""443"",
+  45 |             ""Protocol"": ""HTTPS""
+  46 |           }
+  47 |         ]
+  48 |       }
+  49 |     }
+     ^ Col 0
+"
 F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml,12,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
    1 | Resources:
    2 |   trail1:

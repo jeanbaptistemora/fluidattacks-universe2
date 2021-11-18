@@ -90,14 +90,14 @@ def _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
     load_balancers_iterator: Iterator[Union[AWSElb, Node]],
 ) -> Iterator[Union[AWSElb, Node]]:
     for elb in load_balancers_iterator:
-        access_log = get_node_by_keys(elb, ["AccessLoggingPolicy"])
+        access_log = get_node_by_keys(elb, ["AccessLoggingPolicy", "Enabled"])
         if not isinstance(access_log, Node):
             yield AWSElb(
                 column=elb.start_column,
                 data=elb.data,
                 line=get_line_by_extension(elb.start_line, file_ext),
             )
-        elif access_log.raw["Enabled"] in FALSE_OPTIONS:
+        elif access_log.raw in FALSE_OPTIONS:
             yield access_log
 
 
@@ -350,6 +350,14 @@ async def analyze(
             )
             coroutines.append(
                 cfn_trails_not_multiregion(
+                    content=content,
+                    file_ext=file_extension,
+                    path=path,
+                    template=template,
+                )
+            )
+            coroutines.append(
+                cfn_elb_has_access_logging_disabled(
                     content=content,
                     file_ext=file_extension,
                     path=path,
