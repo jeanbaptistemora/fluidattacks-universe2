@@ -178,7 +178,7 @@ for the betterment of the organization.
 
 == What can Fluid Attacks do for you?
 
-`Fluid Attacks` focus on attacking systems link:../../services/continuous-hacking/[continuously]
+`Fluid Attacks` focuses on attacking systems link:../../services/continuous-hacking/[continuously]
 for proactive defense.
 Our tests are performed constantly,
 considering the changes made in the source code,
