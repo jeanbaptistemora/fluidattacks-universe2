@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
-const GET_DRAFTS: DocumentNode = gql`
+const GET_DRAFTS_AND_FINDING_TITLES: DocumentNode = gql`
   query GetDraftsQuery($groupName: String!) {
     group(groupName: $groupName) {
       drafts {
@@ -14,6 +14,9 @@ const GET_DRAFTS: DocumentNode = gql`
         isExploitable
         releaseDate
         currentState
+      }
+      findings {
+        title
       }
       language
       name
@@ -67,15 +70,4 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
   }
 `;
 
-const GET_FINDING_TITLES: DocumentNode = gql`
-  query GetTitlesQuery($groupName: String!) {
-    group(groupName: $groupName) {
-      findings {
-        id
-        title
-      }
-    }
-  }
-`;
-
-export { ADD_DRAFT_MUTATION, GET_DRAFTS, GET_FINDING_TITLES };
+export { ADD_DRAFT_MUTATION, GET_DRAFTS_AND_FINDING_TITLES };

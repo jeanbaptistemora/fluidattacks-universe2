@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-interface IGroupDraftsAttr {
+interface IGroupDraftsAndFindingsAttr {
   group: {
     drafts: {
       currentState: string;
@@ -10,6 +10,9 @@ interface IGroupDraftsAttr {
       releaseDate: string;
       reportDate: string;
       severityScore: number;
+      title: string;
+    }[];
+    findings: {
       title: string;
     }[];
     language: string;
@@ -99,22 +102,12 @@ interface IRequirementData {
   metadata: Record<string, unknown>;
 }
 
-interface IGroupFindingsStubs {
-  group: {
-    findings: {
-      id: string;
-      title: string;
-    }[];
-  };
-}
-
 export {
   IDraftVariables,
   IAddDraftMutationResult,
   IAddDraftMutationVariables,
-  IGroupDraftsAttr,
+  IGroupDraftsAndFindingsAttr,
   ISuggestion,
   IRequirementData,
   IVulnData,
-  IGroupFindingsStubs,
 };

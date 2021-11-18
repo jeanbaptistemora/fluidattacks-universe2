@@ -281,7 +281,6 @@ export const enTranslations: ResourceKey = {
         text: "New",
         tooltip: "Create a new finding",
       },
-      duplicate: "There's already a {{type}} like this in {{url}}",
       errorSubmit: "Please provide {{missingFields}} before submitting",
       hint: {
         description: "Hint: Description",
@@ -2362,6 +2361,8 @@ export const enTranslations: ResourceKey = {
     datetime: "The datetime format is not valid",
     draftTitle: "The title format is not valid",
     draftTypology: "The finding typology is not valid",
+    duplicateDraft:
+      "A {{type}} of this type has been already created. Please submit vulnerabilities there",
     email: "The email format is not valid",
     excludeFormat: "Root name should not be included in the exception pattern",
     fileSize: "The file size must be less than {{count}}MB",

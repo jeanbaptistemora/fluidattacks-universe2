@@ -11,7 +11,7 @@ import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { GroupDraftsView } from "scenes/Dashboard/containers/GroupDraftsView";
-import { GET_DRAFTS } from "scenes/Dashboard/containers/GroupDraftsView/queries";
+import { GET_DRAFTS_AND_FINDING_TITLES } from "scenes/Dashboard/containers/GroupDraftsView/queries";
 
 const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
 const baseUrl: string =
@@ -93,7 +93,7 @@ describe("GroupDraftsView", (): void => {
   const mocks: readonly MockedResponse[] = [
     {
       request: {
-        query: GET_DRAFTS,
+        query: GET_DRAFTS_AND_FINDING_TITLES,
         variables: {
           groupName: "TEST",
         },
@@ -125,7 +125,7 @@ describe("GroupDraftsView", (): void => {
   const mockError: readonly MockedResponse[] = [
     {
       request: {
-        query: GET_DRAFTS,
+        query: GET_DRAFTS_AND_FINDING_TITLES,
         variables: {
           groupName: "TEST",
         },

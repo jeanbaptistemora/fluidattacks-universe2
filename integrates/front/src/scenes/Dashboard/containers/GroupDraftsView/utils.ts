@@ -1,13 +1,10 @@
 import _ from "lodash";
 
-import type {
-  IGroupDraftsAttr,
-  IGroupFindingsStubs,
-} from "scenes/Dashboard/containers/GroupDraftsView/types";
+import type { IGroupDraftsAndFindingsAttr } from "scenes/Dashboard/containers/GroupDraftsView/types";
 import { translate } from "utils/translations/translate";
 
-type Draft = IGroupDraftsAttr["group"]["drafts"][0];
-type Finding = IGroupFindingsStubs["group"]["findings"][0];
+type Draft = IGroupDraftsAndFindingsAttr["group"]["drafts"][0];
+type Finding = IGroupDraftsAndFindingsAttr["group"]["findings"][0];
 
 const formatDrafts: (dataset: Draft[]) => Draft[] = (
   dataset: Draft[]
@@ -40,35 +37,29 @@ function validateNotEmpty(field: string | undefined): string {
 
 const checkDuplicates = (
   newTitle: string,
-  groupDrafts: IGroupDraftsAttr,
-  groupFindings: IGroupFindingsStubs
-): Record<string, string> | undefined => {
+  groupDrafts: Draft[],
+  groupFindings: Finding[]
+): string | undefined => {
   const duplicateCriteria = (
     list: Draft[] | Finding[]
   ): Draft | Finding | undefined =>
     list.find(({ title }): boolean => title === newTitle);
 
-  const { drafts, name } = groupDrafts.group;
-  const duplicateDraft = duplicateCriteria(drafts);
+  const duplicateDraft = duplicateCriteria(groupDrafts);
   if (duplicateDraft === undefined) {
-    const { findings } = groupFindings.group;
-    const duplicateFinding = duplicateCriteria(findings);
+    const duplicateFinding = duplicateCriteria(groupFindings);
     if (duplicateFinding === undefined) {
       return undefined;
     }
 
-    return {
-      id: duplicateFinding.id,
-      name,
-      type: "Finding",
-    };
+    return translate.t("validations.duplicateDraft", {
+      type: "finding",
+    });
   }
 
-  return {
-    id: duplicateDraft.id,
-    name,
-    type: "Draft",
-  };
+  return translate.t("validations.duplicateDraft", {
+    type: "draft",
+  });
 };
 
 export { validateNotEmpty, formatDrafts, checkDuplicates };

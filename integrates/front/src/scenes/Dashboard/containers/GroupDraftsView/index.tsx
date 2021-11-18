@@ -21,16 +21,19 @@ import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilitie
 import { getFindingNames } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
 import {
   ADD_DRAFT_MUTATION,
-  GET_DRAFTS,
+  GET_DRAFTS_AND_FINDING_TITLES,
 } from "scenes/Dashboard/containers/GroupDraftsView/queries";
 import type {
   IAddDraftMutationResult,
   IAddDraftMutationVariables,
   IDraftVariables,
-  IGroupDraftsAttr,
+  IGroupDraftsAndFindingsAttr,
   ISuggestion,
 } from "scenes/Dashboard/containers/GroupDraftsView/types";
-import { formatDrafts } from "scenes/Dashboard/containers/GroupDraftsView/utils";
+import {
+  checkDuplicates,
+  formatDrafts,
+} from "scenes/Dashboard/containers/GroupDraftsView/utils";
 import {
   ButtonToolbar,
   Col100,
@@ -159,14 +162,20 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       msgError(translate.t("groupAlerts.errorTextsad"));
-      Logger.warning("An error occurred getting group drafts", error);
+      Logger.warning(
+        "An error occurred getting group drafts or findings",
+        error
+      );
     });
   };
 
-  const { data, refetch } = useQuery<IGroupDraftsAttr>(GET_DRAFTS, {
-    onError: handleQryError,
-    variables: { groupName },
-  });
+  const { data, refetch } = useQuery<IGroupDraftsAndFindingsAttr>(
+    GET_DRAFTS_AND_FINDING_TITLES,
+    {
+      onError: handleQryError,
+      variables: { groupName },
+    }
+  );
 
   useEffect((): void => {
     async function fetchData(): Promise<void> {
@@ -268,10 +277,12 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   const validateFindingTypology: ConfigurableValidator =
     validFindingTypology(titleSuggestions);
 
-  const dataset: IGroupDraftsAttr["group"]["drafts"][0][] = formatDrafts(
-    data.group.drafts
-  );
-  const filterSearchtextResult: IGroupDraftsAttr["group"]["drafts"][0][] =
+  const validateNoDuplicates = (title: string): string | undefined =>
+    checkDuplicates(title, data.group.drafts, data.group.findings);
+
+  const dataset: IGroupDraftsAndFindingsAttr["group"]["drafts"][0][] =
+    formatDrafts(data.group.drafts);
+  const filterSearchtextResult: IGroupDraftsAndFindingsAttr["group"]["drafts"][0][] =
     filterSearchText(dataset, searchTextFilter);
 
   return (
@@ -304,6 +315,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
                       required,
                       validDraftTitle,
                       validateFindingTypology,
+                      validateNoDuplicates,
                     ])}
                   />
                 </Col100>

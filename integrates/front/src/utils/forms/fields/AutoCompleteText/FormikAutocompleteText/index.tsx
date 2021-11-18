@@ -25,8 +25,7 @@ export const FormikAutocompleteText: React.FC<IAutocompleteTextProps> = ({
   suggestions,
 }: IAutocompleteTextProps): JSX.Element => {
   const { name, onChange, value } = field;
-  const { errors, touched } = form;
-  const fieldTouched = Boolean(touched[name]);
+  const { errors } = form;
   const error = errors[name];
   const [, , helpers] = useField(name);
 
@@ -66,9 +65,7 @@ export const FormikAutocompleteText: React.FC<IAutocompleteTextProps> = ({
           )}
         </ul>
       ) : undefined}
-      {fieldTouched && error !== undefined ? (
-        <ValidationError id={"validationError"}>{error}</ValidationError>
-      ) : undefined}
+      <ValidationError id={"validationError"}>{error}</ValidationError>
     </React.Fragment>
   );
 };
