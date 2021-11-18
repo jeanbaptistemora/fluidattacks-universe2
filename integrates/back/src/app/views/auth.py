@@ -9,6 +9,12 @@ from app import (
 from authlib.integrations.base_client.errors import (
     MismatchingStateError,
 )
+from authlib.integrations.starlette_client import (
+    OAuthError,
+)
+from decorators import (
+    retry_on_exceptions,
+)
 import logging
 import logging.config
 from newutils import (
@@ -41,6 +47,11 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+@retry_on_exceptions(
+    exceptions=(OAuthError,),
+    max_attempts=5,
+    sleep_seconds=float("0.3"),
+)
 async def authz_azure(request: Request) -> HTMLResponse:
     client = OAUTH.azure
     try:
@@ -56,6 +67,11 @@ async def authz_azure(request: Request) -> HTMLResponse:
     return RedirectResponse(url="/home")
 
 
+@retry_on_exceptions(
+    exceptions=(OAuthError,),
+    max_attempts=5,
+    sleep_seconds=float("0.3"),
+)
 async def authz_bitbucket(request: Request) -> HTMLResponse:
     client = OAUTH.bitbucket
     try:
@@ -68,6 +84,11 @@ async def authz_bitbucket(request: Request) -> HTMLResponse:
     return RedirectResponse(url="/home")
 
 
+@retry_on_exceptions(
+    exceptions=(OAuthError,),
+    max_attempts=5,
+    sleep_seconds=float("0.3"),
+)
 async def authz_google(request: Request) -> HTMLResponse:
     client = OAUTH.google
     try:
