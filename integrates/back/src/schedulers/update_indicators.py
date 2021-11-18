@@ -25,6 +25,12 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityTreatmentStatus,
+)
+from db_model.vulnerabilities.types import (
+    VulnerabilityTreatment,
+)
 from decimal import (
     Decimal,
 )
@@ -235,6 +241,11 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
         vulns_utils.sort_historic_by_date(vulnerability["historic_state"])
         for vulnerability in vulns
     ]
+    historic_treatments = (
+        await loaders.vulnerability_historic_treatment.load_many(
+            [vuln["UUID"] for vuln in vulns]
+        )
+    )
 
     if vulns:
         first_day, last_day = get_first_week_dates(vulns, min_date)
@@ -245,6 +256,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
                     vulnerabilities=vulns,
                     vulnerabilities_severity=vulnerabilities_severity,
                     vulnerabilities_historic_states=historic_states,
+                    vulnerabilities_historic_treatments=historic_treatments,
                     first_day=first_day,
                     last_day=last_day,
                     min_date=datetime_utils.get_as_str(min_date)
@@ -379,6 +391,11 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
         vulns_utils.sort_historic_by_date(vulnerability["historic_state"])
         for vulnerability in vulnerabilties
     ]
+    historic_treatments = (
+        await loaders.vulnerability_historic_treatment.load_many(
+            [vuln["UUID"] for vuln in vulnerabilties]
+        )
+    )
 
     if vulnerabilties:
         first_day, last_day = get_first_dates(vulnerabilties)
@@ -389,6 +406,7 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
                     vulnerabilities=vulnerabilties,
                     vulnerabilities_severity=vulnerabilities_severity,
                     vulnerabilities_historic_states=historic_states,
+                    vulnerabilities_historic_treatments=historic_treatments,
                     first_day=first_day,
                     last_day=last_day,
                     min_date=None,
@@ -545,20 +563,23 @@ def create_date(first_date: str) -> str:
 
 
 def get_accepted_vulns(
-    vuln: Dict[str, VulnerabilityType],
     historic_state: HistoricType,
+    historic_treatment: Tuple[VulnerabilityTreatment, ...],
     severity: Decimal,
     last_day: str,
     min_date: Optional[str] = None,
 ) -> VulnerabilityStatusByTimeRange:
-    accepted_treatments = {"ACCEPTED", "ACCEPTED_UNDEFINED"}
-    sorted_treatment = vulns_utils.sort_historic_by_date(
-        vuln.get("historic_treatment", [])
+    accepted_treatments = {
+        VulnerabilityTreatmentStatus.ACCEPTED,
+        VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+    }
+    treatments = tuple(
+        treatment
+        for treatment in historic_treatment
+        if datetime.fromisoformat(treatment.modified_date)
+        <= datetime_utils.get_from_str(last_day)
     )
-    treatments = findings_utils.filter_by_date(
-        sorted_treatment, datetime_utils.get_from_str(last_day)
-    )
-    if treatments and treatments[-1].get("treatment") in accepted_treatments:
+    if treatments and treatments[-1].status in accepted_treatments:
         return get_by_time_range(historic_state, severity, last_day, min_date)
     return VulnerabilityStatusByTimeRange(
         vulnerabilities=0, cvssf=Decimal("0.0")
@@ -870,6 +891,9 @@ def get_status_vulns_by_time_range(
     vulnerabilities: List[Dict[str, VulnerabilityType]],
     vulnerabilities_severity: List[Decimal],
     vulnerabilities_historic_states: List[List[HistoricType]],
+    vulnerabilities_historic_treatments: Tuple[
+        Tuple[VulnerabilityTreatment, ...], ...
+    ],
     first_day: str,
     last_day: str,
     min_date: Optional[str] = None,
@@ -895,11 +919,11 @@ def get_status_vulns_by_time_range(
     ]
     vulnerabilities_accepted = [
         get_accepted_vulns(
-            vulnerability, historic_state, severity, first_day, min_date
+            historic_state, historic_treatment, severity, first_day, min_date
         )
-        for vulnerability, historic_state, severity in zip(
-            vulnerabilities,
+        for historic_state, historic_treatment, severity in zip(
             vulnerabilities_historic_states,
+            vulnerabilities_historic_treatments,
             vulnerabilities_severity,
         )
     ]

@@ -18,6 +18,10 @@ from db_model.services_toe_lines.types import (
 from db_model.toe_inputs.types import (
     ToeInput,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
+)
 from decimal import (
     Decimal,
 )
@@ -96,10 +100,17 @@ async def test_get_status_vulns_by_time_range() -> None:
         vulns_utils.sort_historic_by_date(vulnerability["historic_state"])
         for vulnerability in vulns
     ]
+    historic_treatments = (
+        await loaders.vulnerability_historic_treatment.load_many(
+            [vuln["UUID"] for vuln in vulns]
+        )
+    )
+
     test_data = update_indicators.get_status_vulns_by_time_range(
         vulnerabilities=vulns,
         vulnerabilities_severity=vulnerabilities_severity,
         vulnerabilities_historic_states=historic_states,
+        vulnerabilities_historic_treatments=historic_treatments,
         first_day=first_day,
         last_day=last_day,
     )
@@ -140,14 +151,19 @@ async def test_get_accepted_vulns() -> None:
         vulns_utils.sort_historic_by_date(vulnerability["historic_state"])
         for vulnerability in vulnerabilties
     ]
+    historic_treatments = (
+        await loaders.vulnerability_historic_treatment.load_many(
+            [vuln["UUID"] for vuln in vulnerabilties]
+        )
+    )
     test_data = sum(
         [
             update_indicators.get_accepted_vulns(
-                vulnerability, historic_state, severity, last_day
+                historic_state, historic_treatment, severity, last_day
             ).vulnerabilities
-            for vulnerability, historic_state, severity in zip(
-                vulnerabilties,
+            for historic_state, historic_treatment, severity in zip(
                 historic_states,
+                historic_treatments,
                 vulnerabilities_severity,
             )
         ]
@@ -234,7 +250,7 @@ async def test_get_group_indicators() -> None:
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    vulnerabilties = await loaders.finding_vulns_nzr.load_many_chained(
+    vulnerabilties = await loaders.finding_vulns_nzr_typed.load_many_chained(
         [finding.id for finding in findings]
     )
     test_data = await update_indicators.get_group_indicators(group_name)
@@ -255,7 +271,7 @@ async def test_get_group_indicators() -> None:
         [
             vulnerability
             for vulnerability in vulnerabilties
-            if vulnerability["historic_state"][-1].get("state") != "DELETED"
+            if vulnerability.state.status != VulnerabilityStateStatus.DELETED
         ]
     )
     assert accepted == len(
@@ -263,11 +279,13 @@ async def test_get_group_indicators() -> None:
             vulnerability
             for vulnerability in vulnerabilties
             if (
-                vulnerability.get("historic_treatment", [{}])[-1].get(
-                    "treatment"
-                )
-                in {"ACCEPTED", "ACCEPTED_UNDEFINED"}
-                and vulnerability["historic_state"][-1].get("state") == "open"
+                vulnerability.treatment
+                and vulnerability.treatment.status
+                in {
+                    VulnerabilityTreatmentStatus.ACCEPTED,
+                    VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+                }
+                and vulnerability.state.status == VulnerabilityStateStatus.OPEN
             )
         ]
     )
@@ -275,7 +293,7 @@ async def test_get_group_indicators() -> None:
         [
             vulnerability
             for vulnerability in vulnerabilties
-            if vulnerability["historic_state"][-1].get("state") == "closed"
+            if vulnerability.state.status == VulnerabilityStateStatus.CLOSED
         ]
     )
     test_imamura_data = await update_indicators.get_group_indicators(
