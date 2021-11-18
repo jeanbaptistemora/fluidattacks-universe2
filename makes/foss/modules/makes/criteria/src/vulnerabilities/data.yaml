@@ -21259,32 +21259,42 @@
   en:
     title: DOM-Based cross-site scripting (XSS)
     description: >
-      __empty__
+      The web application generates dynamic web
+      content from the client side without validating
+      the origin of the potentially malicious data.
     impact: >
-      __empty__
+      Generate web pages that could contain malicious
+      scripts injected into untrusted data.
     recommendation: >
-      __empty__
+      Perform server-side and client-side input
+      data validation to avoid the most common
+      script injection attacks.
     threat: >
-      __empty__
+      Unauthorized attacker from the Internet.
   category: Inject Unexpected
   es:
     title: DOM-Based cross-site scripting (XSS)
     description: >
-      __empty__
+      La aplicación web genera contenido web dinámico
+      desde el lado del cliente sin validar el origen
+      de los datos potencialmente maliciosos.
     impact: >
-      __empty__
+      Generar páginas web que podrían contener scripts
+      maliciosos inyectados en datos que no son de confianza.
     recommendation: >
-      __empty__
+      Realizar la validaciones de datos de entrada
+      en el lado del servidor y del cliente para evitar
+      los ataques más comunes de inyección de scripts.
     threat: >
-      __empty__
+      Atacante sin autorización desde Internet.
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
       privileges_required: "N"
-      user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
+      user_interaction: "R"
+      scope: "C"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
