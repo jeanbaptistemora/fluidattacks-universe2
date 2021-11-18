@@ -21626,38 +21626,54 @@
   en:
     title: Inappropriate coding practices - Unnecessary imports
     description: >
-      __empty__
+      The application imports modules that are not used.
+      This is a bad practice because it loads modules
+      that will not be used, and doing so unnecessarily
+      increases the load.
     impact: >
-      __empty__
+      - Load functions and procedures that
+      will not be used.
+
+      - Cause suboptimal performance of the application.
     recommendation: >
-      __empty__
+      Import only the modules necessary for the
+      correct functionality of the application.
     threat: >
-      __empty__
+      Authorized attacker from the Internet
+      with access to the application.
   category: Abuse Functionality
   es:
     title: Inappropriate coding practices - Unnecessary imports
     description: >
-      __empty__
+      La aplicación importa módulos que no se usan.
+      Esta es una mala práctica debido a que se
+      cargan módulos que no serán utilizados, y
+      hacerlo aumenta innecesariamente la carga.
     impact: >
-      __empty__
+      - Cargar funciones y procedimientos
+      que no serán utilizados.
+
+      - Ocasionar un funcionamiento subóptimo de la aplicación.
     recommendation: >
-      __empty__
+      Importar solo los módulos necesarios para la correcta
+      funcionalidad de la aplicación
     threat: >
-      __empty__
+      Atacante autorizado desde internet
+      con acceso a la aplicación.
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "N"
+      integrity: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "U"
       remediation_level: "X"
-      report_confidence: "X"
+      report_confidence: "R"
   requirements: ["158"]
   metadata:
     en:
