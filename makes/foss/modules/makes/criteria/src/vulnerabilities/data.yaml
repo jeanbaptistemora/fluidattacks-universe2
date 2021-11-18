@@ -21808,24 +21808,41 @@
   en:
     title: Insufficient data authenticity validation - Front bypass
     description: >
-      __empty__
+      The credentials policy present in the
+      system warns that these cannot be
+      consecutive and/or repeated numbers,
+      however this validation is only done in
+      the front end of the application, so it
+      is possible to modify the password from
+      the same request and assign a key that
+      goes against the policies.
     impact: >
-      __empty__
+      Bypass security policies assigned for user keys.
     recommendation: >
-      __empty__
+      The key creation policy must be validated on
+      both the front and back ends of the application.
     threat: >
-      __empty__
+      Attacker without credentials from the Internet.
   category: Abuse Functionality
   es:
     title: Insufficient data authenticity validation - Front bypass
     description: >
-      __empty__
+      La política de credenciales presente en
+      el sistema advierte que estas no pueden
+      ser números consecutivos y/o repetidos,
+      no obstante dicha validación solo se hace
+      en el front de la aplicación, por lo que
+      es posible modificar la contraseña desde
+      el mismo request y asignar una clave que
+      va en contra de las políticas.
     impact: >
-      __empty__
+      Evadir las políticas de seguridad
+      asignadas para las claves de usuario.
     recommendation: >
-      __empty__
+      La política de creación de claves debe ser validada
+      tanto en el front como en el back de la aplicación.
     threat: >
-      __empty__
+      Atacante sin credenciales desde Internet.
   score:
     base:
       attack_vector: "N"
