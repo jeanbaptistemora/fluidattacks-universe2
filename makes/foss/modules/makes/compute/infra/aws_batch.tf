@@ -123,6 +123,30 @@ resource "aws_launch_template" "batch_instance" {
   user_data = filebase64("${path.module}/aws_batch_user_data")
 }
 
+resource "aws_launch_template" "batch_instance_skims" {
+  block_device_mappings {
+    device_name  = "/dev/xvdcz"
+    virtual_name = "ephemeral0"
+  }
+  block_device_mappings {
+    device_name  = "/dev/xvda"
+    virtual_name = "presistence_services"
+    ebs {
+      delete_on_termination = true
+      volume_size           = 50
+      volume_type           = "gp2"
+    }
+  }
+  key_name = "gitlab"
+  name     = "batch_instance_skims"
+  tags = {
+    "Name"            = "batch_instance"
+    "management:area" = "cost"
+    "management:type" = "product"
+  }
+  user_data = filebase64("${path.module}/aws_batch_user_data_skims")
+}
+
 locals {
   compute_environments_ec2 = {
     for name, instances in {
@@ -213,8 +237,8 @@ resource "aws_batch_compute_environment" "default" {
     }
 
     launch_template {
-      launch_template_id = aws_launch_template.batch_instance.id
-      version            = aws_launch_template.batch_instance.latest_version
+      launch_template_id = (length(regexall("skims", each.key)) > 0 ? aws_launch_template.batch_instance_skims.id : aws_launch_template.batch_instance.id)
+      version            = (length(regexall("skims", each.key)) > 0 ? aws_launch_template.batch_instance_skims.latest_version : aws_launch_template.batch_instance.latest_version)
     }
   }
   lifecycle {
@@ -247,6 +271,16 @@ resource "aws_batch_job_queue" "default" {
   state    = "ENABLED"
   tags = {
     "Name"            = "default"
+    "management:area" = "cost"
+    "management:type" = "product"
+  }
+}
+
+resource "aws_efs_file_system" "filesytem_services" {
+  creation_token = "fuLaRIdorTimaUNDbaCUSkYadEndortliQueNtiourTUreQu"
+
+  tags = {
+    "Name"            = "filesytem_services"
     "management:area" = "cost"
     "management:type" = "product"
   }
