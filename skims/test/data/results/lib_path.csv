@@ -329,6 +329,106 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   21 |           }
      ^ Col 0
 "
+F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,14,16,skims,134. Insecure or unset HTTP headers - CORS,"Insecure or unset HTTP headers - CORS
+","
+   4 | {
+   5 |     public class Controllers
+   6 |     {
+   7 |         public void Configure(IApplicationBuilder app)
+   8 |         {
+   9 |             // Should report
+  10 |
+  11 |             var corsBuilder = new CorsPolicyBuilder();
+  12 |             corsBuilder.AllowAnyHeader();
+  13 |             corsBuilder.AllowAnyMethod();
+> 14 |             corsBuilder.AllowAnyOrigin();
+  15 |
+  16 |             var policyBuilder = new CorsPolicyBuilder();
+  17 |             var policy = policyBuilder
+  18 |                 .AllowAnyOrigin()
+  19 |                 .AllowAnyHeader()
+  20 |                 .AllowAnyMethod()
+  21 |                 .Build();
+  22 |
+  23 |             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+  24 |
+     ^ Col 0
+"
+F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,17,16,skims,134. Insecure or unset HTTP headers - CORS,"Insecure or unset HTTP headers - CORS
+","
+   7 |         public void Configure(IApplicationBuilder app)
+   8 |         {
+   9 |             // Should report
+  10 |
+  11 |             var corsBuilder = new CorsPolicyBuilder();
+  12 |             corsBuilder.AllowAnyHeader();
+  13 |             corsBuilder.AllowAnyMethod();
+  14 |             corsBuilder.AllowAnyOrigin();
+  15 |
+  16 |             var policyBuilder = new CorsPolicyBuilder();
+> 17 |             var policy = policyBuilder
+  18 |                 .AllowAnyOrigin()
+  19 |                 .AllowAnyHeader()
+  20 |                 .AllowAnyMethod()
+  21 |                 .Build();
+  22 |
+  23 |             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+  24 |
+  25 |             app.UseCors( cors => cors
+  26 |                 .AllowAnyMethod()
+  27 |                 .AllowAnyOrigin());
+     ^ Col 0
+"
+F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,23,16,skims,134. Insecure or unset HTTP headers - CORS,"Insecure or unset HTTP headers - CORS
+","
+  13 |             corsBuilder.AllowAnyMethod();
+  14 |             corsBuilder.AllowAnyOrigin();
+  15 |
+  16 |             var policyBuilder = new CorsPolicyBuilder();
+  17 |             var policy = policyBuilder
+  18 |                 .AllowAnyOrigin()
+  19 |                 .AllowAnyHeader()
+  20 |                 .AllowAnyMethod()
+  21 |                 .Build();
+  22 |
+> 23 |             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+  24 |
+  25 |             app.UseCors( cors => cors
+  26 |                 .AllowAnyMethod()
+  27 |                 .AllowAnyOrigin());
+  28 |
+  29 |
+  30 |             // Should not report
+  31 |             var SecCorsBuilder = new CorsPolicyBuilder();
+  32 |             SecCorsBuilder.AllowAnyHeader();
+  33 |             SecCorsBuilder.AllowAnyMethod();
+     ^ Col 0
+"
+F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,25,16,skims,134. Insecure or unset HTTP headers - CORS,"Insecure or unset HTTP headers - CORS
+","
+  15 |
+  16 |         var policyBuilder = new CorsPolicyBuilder();
+  17 |         var policy = policyBuilder
+  18 |             .AllowAnyOrigin()
+  19 |             .AllowAnyHeader()
+  20 |             .AllowAnyMethod()
+  21 |             .Build();
+  22 |
+  23 |         app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+  24 |
+> 25 |         app.UseCors( cors => cors
+  26 |             .AllowAnyMethod()
+  27 |             .AllowAnyOrigin());
+  28 |
+  29 |
+  30 |         // Should not report
+  31 |         var SecCorsBuilder = new CorsPolicyBuilder();
+  32 |         SecCorsBuilder.AllowAnyHeader();
+  33 |         SecCorsBuilder.AllowAnyMethod();
+  34 |
+  35 |         var SecPolicyBuilder = new CorsPolicyBuilder();
+     ^ Col 4
+"
 F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,9,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone.
 ","
    1 | Resources:
