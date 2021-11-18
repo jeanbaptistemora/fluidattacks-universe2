@@ -25,10 +25,14 @@ def load(
             if (
                 exclude_protected_values
                 and val
-                and (
-                    val.startswith("${")  # env var
-                    or val.startswith("ENC(")  # encrypted with Jasypt
-                    or val.startswith("#{")  # encrypted with unknown tool
+                and any(
+                    val.startswith(pattern)
+                    for pattern in [
+                        "${",  # env var
+                        "ENC(",  # encrypted with Jasypt
+                        "#{",  # encrypted with unknown tool
+                        "(",  # functional comments in the code
+                    ]
                 )
             ):
                 # We should not include this line because it's protected

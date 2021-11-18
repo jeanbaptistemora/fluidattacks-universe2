@@ -8344,6 +8344,28 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,0
   19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
 "
+F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,1,798,skims,009. Sensitive information in source code,Sensitive information in namespace/skims/test/data/lib_path/f009/java.properties,"
+>  1 | mbda.credentials2.key       = AKIA0000000000000000
+   2 | azon.aws.accesskey          = AKIA0000000000000000
+   3 | azon.aws.accesskey          = #{aws_access_key}#
+   4 | azon.aws.accesskey          = #AKIA0000000000000000
+   5 |
+   6 | # find . -wholename '*.properties' -type f -exec cat {} + | grep password | sort | uniq -c | sort -n
+   7 |
+   8 | sonar.password = 123
+   9 | sonar.password = ENC(something-base64-encoded-but-encrypted)
+  10 | sonar.password = ${env_var}
+  11 | sonar.password = #{unknown_tool_trick}#
+  12 |
+  13 | artifactory_password=
+  14 |
+  15 | # Fake jwt token, does not contain sensitive information and does not work for apis consumption
+  16 |
+  17 | jwt_token = asdfasfa.sfasdf.asdfasdf
+  18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
+  19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
+     ^ Col 0
+"
 F127,lines,namespace/skims/test/data/lib_root/f127/test.go,11,843,skims,127. Lack of data validation - Type confusion,.,"
    1 | package f127
    2 |

@@ -210,7 +210,6 @@ def _java_properties_sensitive_data(
         "jasypt.encryptor.password",
         "jwt.token.basic.signing.secret",
         "key.alias.password",
-        "keyvault_client_key",
         "lambda.credentials2.key",
         "lambda.credentials2.secret",
         "mbda.credentials2.secret",
@@ -248,7 +247,20 @@ def _java_properties_sensitive_data(
         for line_no, (key, val) in data.items():
             key = key.lower()
             for sensible_key_smell in sensible_key_smells:
-                if sensible_key_smell in key and val:
+                if (
+                    sensible_key_smell in key
+                    or any(
+                        key.lower().endswith(suffix)
+                        for suffix in [
+                            "id",
+                            "key",
+                            "pass",
+                            "passwd",
+                            "user",
+                            "username",
+                        ]
+                    )
+                ) and val:
                     yield line_no, 0
 
     return get_vulnerabilities_from_iterator_blocking(
