@@ -181,3 +181,14 @@ def iter_dynamodb_table(template: Node) -> Iterator[Node]:
             exact=True,
         )
     )
+
+
+def iter_elb_load_balancers(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::ElasticLoadBalancing::LoadBalancer",
+            exact=True,
+        )
+    )
