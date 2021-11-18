@@ -1013,9 +1013,6 @@ def exec_cloudformation_package(
             "ec2.is_associate_public_ip_address_enabled",
             "ec2.uses_default_security_group",
         ],
-        ("elb", "ELB (Elastic Load Balancing)"): [
-            "elb.has_access_logging_disabled",
-        ],
         ("elb2", "ELBv2 (Elastic Load Balancing v2)"): [
             "elb2.has_access_logging_disabled",
             "elb2.has_not_deletion_protection",
