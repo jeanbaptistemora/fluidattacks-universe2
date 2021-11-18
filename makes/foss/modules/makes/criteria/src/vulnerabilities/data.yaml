@@ -21211,29 +21211,37 @@
   en:
     title: Authentication mechanism absence or evasion - Security Image
     description: >
-      __empty__
+      It is possible to eliminate the use of the
+      image and security phrase at user login.
     impact: >
-      __empty__
+      Remove image and security phrase which can
+      facilitate other types of attacks.
     recommendation: >
-      __empty__
+      Make sure that only one number of an existing
+      image can be sent so that the image and passphrase
+      function is not eliminated.
     threat: >
-      __empty__
+      User authenticated from the Internet.
   category: Subvert Access
   es:
     title: Authentication mechanism absence or evasion - Security Image
     description: >
-      __empty__
+      Es posible eliminar el uso de la imagen y frase
+      de seguridad en el inicio de sesión de un usuario.
     impact: >
-      __empty__
+      Eliminar imagen y frase de seguridad lo cual
+      puede facilitar otro tipo de ataques.
     recommendation: >
-      __empty__
+      Asegurarse que solo pueda enviarse un número de
+      una imagen existente y así no se elimina la función
+      de imagen y frase de seguridad.
     threat: >
-      __empty__
+      Usuario autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
