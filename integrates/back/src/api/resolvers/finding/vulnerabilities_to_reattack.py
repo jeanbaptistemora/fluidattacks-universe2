@@ -13,7 +13,7 @@ from graphql.type.definition import (
 )
 from newutils.vulnerabilities import (
     filter_open_vulns,
-    is_last_reattack_requested,
+    is_reattack_requested,
 )
 from typing import (
     Dict,
@@ -28,7 +28,7 @@ async def resolve(
     finding_vulns_loader: DataLoader = info.context.loaders.finding_vulns_nzr
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
     vulnerabilities_to_reattack: List[Vulnerability] = list(
-        filter(is_last_reattack_requested, vulns)
+        filter(is_reattack_requested, vulns)
     )
     vulnerabilities_to_reattack = filter_open_vulns(
         vulnerabilities_to_reattack

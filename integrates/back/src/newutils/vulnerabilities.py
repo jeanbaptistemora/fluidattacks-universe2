@@ -91,12 +91,41 @@ def as_range(iterable: Iterable[Any]) -> str:
     return range_value
 
 
-def is_last_reattack_requested(vuln: VulnerabilityType) -> bool:
-    historic_verification: HistoricType = vuln.get("historic_verification")
+def is_accepted_undefined_vulnerability(
+    vulnerability: Vulnerability,
+) -> bool:
+    return (
+        vulnerability.treatment
+        and vulnerability.treatment.status
+        == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+        and vulnerability.state.status == VulnerabilityStateStatus.OPEN
+    )
+
+
+def is_reattack_requested(vuln: VulnerabilityType) -> bool:
+    historic_verification = vuln.get("historic_verification", [{}])
     if historic_verification:
         last_historic = historic_verification[-1]
-        return last_historic.get("status") == "REQUESTED"
+        return last_historic.get("status", "") == "REQUESTED"
     return False
+
+
+def is_reattack_requested_new(vulnerability: Vulnerability) -> bool:
+    return (
+        vulnerability.verification
+        and vulnerability.verification.status
+        == VulnerabilityVerificationStatus.REQUESTED
+    )
+
+
+def is_range(specific: str) -> bool:
+    """Validate if a specific field has range value."""
+    return "-" in specific
+
+
+def is_sequence(specific: str) -> bool:
+    """Validate if a specific field has secuence value."""
+    return "," in specific
 
 
 def filter_no_treatment_vulns(
@@ -556,38 +585,6 @@ def group_specific(
             pass
         lines.append(dictlines)
     return lines
-
-
-def is_accepted_undefined_vulnerability(
-    vulnerability: Vulnerability,
-) -> bool:
-    return (
-        vulnerability.treatment
-        and vulnerability.treatment.status
-        == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
-        and vulnerability.state.status == VulnerabilityStateStatus.OPEN
-    )
-
-
-def is_range(specific: str) -> bool:
-    """Validate if a specific field has range value."""
-    return "-" in specific
-
-
-def is_reattack_requested(vuln: Dict[str, FindingType]) -> bool:
-    response = False
-    historic_verification = vuln.get("historic_verification", [{}])
-    if (
-        cast(List[Dict[str, str]], historic_verification)[-1].get("status", "")
-        == "REQUESTED"
-    ):
-        response = True
-    return response
-
-
-def is_sequence(specific: str) -> bool:
-    """Validate if a specific field has secuence value."""
-    return "," in specific
 
 
 def sort_vulnerabilities(item: List[Dict[str, str]]) -> List[Dict[str, str]]:
