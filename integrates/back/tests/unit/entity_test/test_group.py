@@ -658,7 +658,7 @@ async def test_add_git_root_white() -> None:
           gitignore: []
           groupName: "unittesting"
           includesHealthCheck: true
-          url: "https://gitlab.com/fluidattacks/integrates"
+          url: "https://gitlab.com/fluidattacks/test1"
         ) {
           success
         }
@@ -949,7 +949,6 @@ async def test_update_git_root() -> None:
           groupName: "unittesting"
           id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
           includesHealthCheck: false
-          nickname: "randomNick"
           url: "https://gitlab.com/fluidattacks/integrates"
         ) {
           success
@@ -972,7 +971,6 @@ async def test_update_git_root_nonexistent() -> None:
           groupName: "unittesting"
           id: "some-thing"
           includesHealthCheck: false
-          nickname: "unique2"
           url: ""
         ) {
           success

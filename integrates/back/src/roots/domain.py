@@ -188,7 +188,6 @@ async def add_git_root(
     group = await loaders.group.load(group_name)
     if ensure_org_uniqueness and not validations.is_git_unique(
         url,
-        branch,
         await get_org_roots(loaders=loaders, org_id=group["organization"]),
     ):
         raise RepeatedRoot()
@@ -435,7 +434,6 @@ async def update_git_root(
         group = await loaders.group.load(group_name)
         if not validations.is_git_unique(
             url,
-            branch,
             await get_org_roots(loaders=loaders, org_id=group["organization"]),
         ):
             raise RepeatedRoot()
@@ -448,16 +446,6 @@ async def update_git_root(
         raise PermissionDenied()
     if not validations.is_exclude_valid(gitignore, root.state.url):
         raise InvalidRootExclusion()
-
-    nickname = _format_root_nickname(
-        kwargs.get("nickname", ""), root.state.url
-    )
-    validations.validate_nickname(nickname)
-    validations.validate_nickname_is_unique(
-        nickname,
-        await loaders.group_roots.load(group_name),
-        old_nickname=root.state.nickname,
-    )
 
     await roots_model.update_root_state(
         current_value=root.state,
@@ -475,7 +463,7 @@ async def update_git_root(
             includes_health_check=kwargs["includes_health_check"],
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
-            nickname=nickname,
+            nickname=root.state.nickname,
             other=None,
             reason=None,
             status=root.state.status,
@@ -532,9 +520,7 @@ async def activate_root(
         )
 
         if isinstance(root, GitRootItem):
-            if not validations.is_git_unique(
-                root.state.url, root.state.branch, org_roots
-            ):
+            if not validations.is_git_unique(root.state.url, org_roots):
                 raise RepeatedRoot()
 
             await roots_model.update_root_state(
@@ -821,9 +807,7 @@ async def move_root(
     )
 
     if isinstance(root, GitRootItem):
-        if not validations.is_git_unique(
-            root.state.url, root.state.branch, target_group_roots
-        ):
+        if not validations.is_git_unique(root.state.url, target_group_roots):
             raise RepeatedRoot()
 
         new_root_id = await add_git_root(

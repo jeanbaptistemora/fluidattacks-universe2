@@ -200,7 +200,6 @@ function useGitSubmit(
               groupName,
               id,
               includesHealthCheck,
-              nickname,
               url,
             },
           });

@@ -695,8 +695,6 @@ type Mutation {
     id: ID!
     "Analyze already existing code"
     includesHealthCheck: Boolean!
-    "Nickname of the repository"
-    nickname: String
     "Repository URL"
     url: String!
   ): SimplePayload!
