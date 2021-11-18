@@ -21920,36 +21920,53 @@
   en:
     title: Inappropriate coding practices - Wildcard export
     description: >
-      __empty__
+      When exporting libraries, the wildcard
+      operator (asterisk) is used, which exports
+      all the functions of that library.
+      This is a bad practice that complicates
+      the use and maintenance of the module.
     impact: >
-      __empty__
+      - Export functions and procedures
+      that will not be used.
+
+      - Cause suboptimal performance of the application.
     recommendation: >
-      __empty__
+      Explicitly export the libraries and packages
+      necessary for the correct operation of the application.
     threat: >
-      __empty__
+      Attacker authenticated in the application from the Internet.
   category: Abuse Functionality
   es:
     title: Inappropriate coding practices - Wildcard export
     description: >
-      __empty__
+      Al exportar librerías, se hace uso del operador
+      comodín (asterisco) lo cual exporta la totalidad
+      de funciones de dicha librería.
+      Esta es una mala práctica que complica el uso y
+      mantenimiento del módulo.
     impact: >
-      __empty__
+      - Exportar funciones y procedimientos
+      que no serán utilizados.
+
+      - Ocasionar un funcionamiento subóptimo de la aplicación.
     recommendation: >
-      __empty__
+      Exportar de manera explícitamente las librerías
+      y paquetes necesarios para el correcto
+      funcionamiento de la aplicación.
     threat: >
-      __empty__
+      Atacante autenticado en la aplicación desde Internet.
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
