@@ -22231,20 +22231,20 @@
       An application object, method or module
       can be overwritten with malicious logic
       due to the lack of validations
-      and the nature of the JavaScript language
+      and the nature of the JavaScript language.
     impact: >
      - Overwrite or pollute the behavior
-     of existing methods in the application
+     of existing methods in the application.
 
      - Lead to dangerous vulnerabilities
-     suchs as XSS, SQLi, RCE, among others
+     suchs as XSS, SQLi, RCE, among others.
     recommendation: >
       - Implement integrity validations on the vulnerable objects.
 
       - Restrict and Discourage the use harmful properties
-      such as _proto_ in the system objects
+      such as _proto_ in the system objects.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   category: Inject Unexpected
   es:
     title: Prototype Pollution
@@ -22252,21 +22252,21 @@
       Un Objeto, método o módulo de la aplicación
       puede ser sobreescrito con lógica maliciosa,
       debido a la ausencia de validaciones sumado a la naturaleza
-      propia del lenguaje JavaScript
+      propia del lenguaje JavaScript.
     impact: >
       - Sobreescribir o corromper el comportamiento
-      de métodos de la aplicación
+      de métodos de la aplicación.
 
       - Conducir a vulnerabilidades más peligrosas
-      como XSS, SQLi, RCE, entre otras
+      como XSS, SQLi, RCE, entre otras.
     recommendation: >
       - Implementar validaciones de integridad en los objetos vulnerables
-      para evitar que sean sobreescritos
+      para evitar que sean sobreescritos.
 
       - Restringir el uso de propiedades peligrosas como _proto_
-      en los objetos de la aplicación
+      en los objetos de la aplicación.
     threat: >
-      Atacante autenticado en la aplicación desde Internet
+      Atacante autenticado en la aplicación desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -22294,17 +22294,17 @@
       to the source code
       and leading to a suboptimal state
       that may cause affectations
-      to the overall application performance
+      to the overall application performance.
     impact: >
-      - Hinder the source code maintainability
+      - Hinder the source code maintainability.
 
       - Release unoptimized source code
-      that may affect the application performance
+      that may affect the application performance.
     recommendation: >
       Remove the unused properties
-      from the application source code
+      from the application source code.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   category: Abuse Functionality
   es:
     title: Inappropriate coding practices - Unused properties
@@ -22315,15 +22315,15 @@
       y causando un estado subóptimo que podría generar
       una afectación en el desempeño general de la aplicación.
     impact: >
-      - Dificultar la mantenibilidad del código
+      - Dificultar la mantenibilidad del código.
 
       - Desplegar códigos no optimizados
-      que pueden afectar el desempeño de la aplicación
+      que pueden afectar el desempeño de la aplicación.
     recommendation: >
       Remover las propiedades no utilizadas
-      del código fuente de la aplicación
+      del código fuente de la aplicación.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -22348,30 +22348,30 @@
     description: >
       The firewall security verifications
       either do not exist
-      or can be bypassed
+      or can be bypassed.
     impact: >
       Bypass security validations
-      to perform diferent attacks
+      to perform diferent attacks.
     recommendation: >
       Guarantee that firewall security mechanisms
       and access rules are active and cannot be bypassed.
     threat: >
-      Anonymous attacker from the Internet
+      Anonymous attacker from the Internet.
   category: Abuse Functionality
   es:
     title: Security controls bypass or absence - Firewall
     description: >
       Las verificaciones de seguridad del Firewall
-      son inexistentes o pueden ser saltados
+      son inexistentes o pueden ser saltados.
     impact: >
       Saltar validaciones de seguridad
-      para ejecutar diferentes ataques
+      para ejecutar diferentes ataques.
     recommendation: >
      Garantizar que los mecanismos de seguridad
      y reglas de acceso del firewall están activos
-     y no pueden ser bypaseados
+     y no pueden ser bypaseados.
     threat: >
-      Atacante anónimo desde Internet
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -22398,10 +22398,10 @@
       The system uses the version
       of a software or dependency
       with known vulnerabilities
-      in pre-productive environments
+      in pre-productive environments.
     impact: >
       Exploit public vulnerabilities
-      of the components in the affected environments
+      of the components in the affected environments.
     recommendation: >
       - Update the affected software
       to the versions recommended
@@ -22417,17 +22417,17 @@
       El sistema usa la versión
       de un software o dependencia
       con vulnerabilidades conocidas
-      en un ambiente pre-productivo
+      en un ambiente pre-productivo.
     impact: >
       Explotar vulnerabilidades públicas
-      de los componentes en los ambientes afectados
+      de los componentes en los ambientes afectados.
     recommendation: >
       - Actualizar el software afectado
       a las versiones recomendadas
       por el fabricante.
 
       - Reemplazar componentes que estén obsoletos
-      o cuenten con vulnerabilidades Zero Day
+      o cuenten con vulnerabilidades Zero Day.
     threat: Atacante autenticado desde Internet.
   category: Abuse Functionality
   score:
