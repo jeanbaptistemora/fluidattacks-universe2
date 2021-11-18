@@ -21443,29 +21443,39 @@
   en:
     title: Security controls bypass or absence - Tampering Protection
     description: >
-      __empty__
+      When adding a new payment, the application
+      validates that an invalid number is not used
+      or that there are no outstanding bills in the system.
+      However, it is possible to modify the response
+      to continue with the process of adding a new payment.
     impact: >
-      __empty__
+      Elude application validations.
     recommendation: >
-      __empty__
+      Perform validations on the server during
+      the entire application process.
     threat: >
-      __empty__
+      Authorized attacker from the Internet.
   category: Subvert Access
   es:
     title: Security controls bypass or absence - Tampering Protection
     description: >
-      __empty__
+      Al agregar un nuevo pago, la aplicación valida
+      que no se use un número inválido o sin boletas
+      pendientes en el sistema.
+      Sin embargo, es posible modificar la respuesta
+      para continuar con el proceso de agregar un nuevo pago.
     impact: >
-      __empty__
+      Eludir las validaciones de la aplicación.
     recommendation: >
-      __empty__
+      Realizar validaciones en el servidor durante
+      todo el proceso de solicitud.
     threat: >
-      __empty__
+      Atacante autorizado desde Internet.
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
