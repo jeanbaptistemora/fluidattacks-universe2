@@ -23,16 +23,16 @@ Machine
 
 <div class="paragraph">
 
-*Machine Plan:*
+*Benefits:*
 
 ![Yes](https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp)
 Control of the whole remediation process<br>
 ![Yes](https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp)
-Continuous vulnerability report<br>
+Continuous vulnerability reporting<br>
 ![Yes](https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp)
 Attack Surface Manager (GraphQL API)<br>
 ![Yes](https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp)
-Automatic SAST and SCA<br>
+Automatic SAST, DAST and SCA<br>
 ![Yes](https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp)
 CI/CD DevSecOps<br>
 
@@ -51,14 +51,14 @@ Squad
 
 <div class="paragraph">
 
-*Machine Plan Plus:*
+*Additional to Machine Plan benefits:*
 
 ![Yes](https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp)
 Low rates of false positives and false negatives<br>
 ![Yes](https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp)
 Higher severity and more types of vulnerabilities<br>
 ![Yes](https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp)
-Manual SAST and DAST (Pentest)<br>
+Manual SAST, DAST and SCA (Pentesting)<br>
 ![Yes](https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp)
 Optimization of vulnerability search with AI<br>
 
