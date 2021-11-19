@@ -22,9 +22,16 @@ async def test_add_draft(populate: bool, email: str) -> None:
     result: Dict[str, Any] = await get_result(
         user=email,
     )
-    assert "errors" not in result
-    assert "success" in result["data"]["addDraft"]
-    assert result["data"]["addDraft"]["success"]
+    if email == "admin@gmail.com":
+        assert "errors" not in result
+        assert "success" in result["data"]["addDraft"]
+        assert result["data"]["addDraft"]["success"]
+    else:
+        assert "errors" in result
+        assert result["errors"][0]["message"] == (
+            "A draft of this type has been already created."
+            " Please submit vulnerabilities there"
+        )
 
 
 @pytest.mark.asyncio

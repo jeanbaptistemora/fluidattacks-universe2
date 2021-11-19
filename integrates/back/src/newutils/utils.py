@@ -3,6 +3,7 @@ from aioextensions import (
 )
 import collections
 from custom_exceptions import (
+    DuplicateDraftFound,
     InvalidFilter,
 )
 from custom_types import (
@@ -78,6 +79,20 @@ async def filter_findings(
         return hits == len(filters)
 
     return tuple(finding for finding in findings if satisfies_filter(finding))
+
+
+def check_for_duplicate_drafts(
+    new_title: str, drafts: Tuple[Finding, ...], findings: Tuple[Finding, ...]
+) -> bool:
+    """Checks for new draft proposals that are already present in the group,
+    returning `True` if there are no duplicates"""
+    for draft in drafts:
+        if new_title == draft.title:
+            raise DuplicateDraftFound(kind="draft")
+    for finding in findings:
+        if new_title == finding.title:
+            raise DuplicateDraftFound(kind="finding")
+    return True
 
 
 def list_to_dict(

@@ -16,12 +16,12 @@ async def get_result(
 ) -> Dict[str, Any]:
     affected_systems: str = "Server bWAPP"
     attack_vector_description: str = "This is an attack vector"
-    description: str = "This is pytest created draft"
+    description: str = "This is a pytest created draft"
     group: str = "group1"
     recommendation: str = "Solve this finding"
-    requirements: str = "REQ.0001. Apply filters"
+    requirements: str = "REQ.0366. Do something"
     threat: str = "Attacker"
-    title: str = "001. SQL injection - C Sharp SQL API"
+    title: str = "366. Inappropriate coding practices - Transparency Conflict"
     query: str = f"""
         mutation {{
             addDraft(

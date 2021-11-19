@@ -1,3 +1,6 @@
+from aiodataloader import (
+    DataLoader,
+)
 from api import (
     APP_EXCEPTIONS,
 )
@@ -8,6 +11,7 @@ from custom_types import (
     SimplePayload,
 )
 from db_model.findings.types import (
+    Finding,
     Finding31Severity,
 )
 from decimal import (
@@ -33,8 +37,12 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    check_for_duplicate_drafts,
+)
 from typing import (
     Any,
+    Tuple,
 )
 
 
@@ -52,6 +60,15 @@ async def mutate(
     title: str,
     **kwargs: Any,
 ) -> SimplePayload:
+    # Duplicate check
+    group_findings_loader: DataLoader = info.context.loaders.group_findings
+    group_drafts_loader: DataLoader = info.context.loaders.group_drafts
+    drafts: Tuple[Finding, ...] = await group_drafts_loader.load(group_name)
+    findings: Tuple[Finding, ...] = await group_findings_loader.load(
+        group_name
+    )
+    check_for_duplicate_drafts(title, drafts, findings)
+
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
