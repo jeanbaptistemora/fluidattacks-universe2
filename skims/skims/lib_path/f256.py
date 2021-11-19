@@ -70,6 +70,19 @@ def tfm_rds_no_deletion_protection_iterate_vulnerabilities(
             yield bucket
 
 
+def tfm_rds_has_not_automated_backups_iterate_vulnerabilities(
+    buckets_iterator: Iterator[Any],
+) -> Iterator[Union[Any, Node]]:
+    for bucket in buckets_iterator:
+        for elem in bucket.data:
+            if (
+                isinstance(elem, Attribute)
+                and elem.key == "backup_retention_period"
+                and elem.val == 0
+            ):
+                yield elem
+
+
 def _tfm_db_no_deletion_protection(
     content: str,
     path: str,
@@ -101,6 +114,24 @@ def _tfm_rds_no_deletion_protection(
         statements_iterator=(
             tfm_rds_no_deletion_protection_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_rds_cluster(model=model)
+            )
+        ),
+    )
+
+
+def _tfm_rds_has_not_automated_backups(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_aws_iterator_blocking(
+        content=content,
+        description_key="F256.title",
+        finding=core_model.FindingEnum.F256,
+        path=path,
+        statements_iterator=(
+            tfm_rds_has_not_automated_backups_iterate_vulnerabilities(
+                buckets_iterator=iter_aws_db_instance(model=model)
             )
         ),
     )
@@ -138,6 +169,22 @@ async def tfm_rds_no_deletion_protection(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_rds_has_not_automated_backups(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_rds_has_not_automated_backups,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -158,6 +205,13 @@ async def analyze(
         )
         coroutines.append(
             tfm_rds_no_deletion_protection(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
+        coroutines.append(
+            tfm_rds_has_not_automated_backups(
                 content=content,
                 path=path,
                 model=model,

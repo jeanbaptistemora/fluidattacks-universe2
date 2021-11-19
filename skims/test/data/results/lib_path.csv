@@ -7044,6 +7044,23 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   79 |       },
      ^ Col 8
 "
+F256,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,10,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
+","
+   1 | resource ""aws_db_instance"" ""default"" {
+   2 |   allocated_storage       = 10
+   3 |   engine                  = ""mysql""
+   4 |   engine_version          = ""5.7""
+   5 |   instance_class          = ""db.t3.micro""
+   6 |   name                    = ""mydb""
+   7 |   username                = ""foo""
+   8 |   deletion_protection     = true
+   9 |   password                = ""foobarbaz""
+> 10 |   backup_retention_period = 0
+  11 |   parameter_group_name    = ""default.mysql5.7""
+  12 |   skip_final_snapshot     = true
+  13 | }
+     ^ Col 0
+"
 F256,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,14,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
 ","
    4 |   engine               = ""mysql""
