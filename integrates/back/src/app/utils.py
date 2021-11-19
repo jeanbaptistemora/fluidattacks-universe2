@@ -1,9 +1,13 @@
 from authlib.integrations.starlette_client import (
     OAuth,
+    OAuthError,
 )
 from datetime import (
     datetime,
     timedelta,
+)
+from decorators import (
+    retry_on_exceptions,
 )
 from newutils import (
     token as token_utils,
@@ -86,6 +90,11 @@ async def get_bitbucket_oauth_userinfo(
     }
 
 
+@retry_on_exceptions(
+    exceptions=(OAuthError,),
+    max_attempts=5,
+    sleep_seconds=float("0.5"),
+)
 async def get_jwt_userinfo(
     client: OAuth, request: Request, token: str
 ) -> Dict[str, str]:

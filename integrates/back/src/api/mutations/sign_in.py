@@ -5,12 +5,18 @@ import aiohttp
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from authlib.integrations.starlette_client import (
+    OAuthError,
+)
 import authz
 from context import (
     FI_COMMUNITY_PROJECTS,
 )
 from custom_types import (
     SignInPayload as SignInPayloadType,
+)
+from decorators import (
+    retry_on_exceptions,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -104,6 +110,11 @@ async def autoenroll_user(email: str) -> None:
         )
 
 
+@retry_on_exceptions(
+    exceptions=(OAuthError,),
+    max_attempts=5,
+    sleep_seconds=float("0.5"),
+)
 async def get_provider_user_info(
     provider: str, token: str
 ) -> Optional[Dict[str, str]]:
