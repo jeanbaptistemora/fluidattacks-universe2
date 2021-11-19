@@ -18,8 +18,8 @@ from typing import (
     Any,
     cast,
     Dict,
-    List,
     Set,
+    Tuple,
 )
 from uuid import (
     uuid4 as uuid,
@@ -101,7 +101,7 @@ async def validate_treatment_manager(
 async def get_root_nicknames_for_skims(
     dataloaders: Any,
     group: str,
-    vulnerabilities: List[Dict[str, Any]],
+    vulnerabilities: Tuple[Vulnerability, ...],
 ) -> Set[str]:
     # If a vuln is linked to a root, return it
     # otherwise return all roots, the vuln must belong to one of them
@@ -109,8 +109,8 @@ async def get_root_nicknames_for_skims(
     root_nicknames: Set[str] = set()
 
     for vuln in vulnerabilities:
-        if vuln.get("repo_nickname"):  # Exists and truthy
-            root_nicknames.add(vuln["repo_nickname"])
+        if vuln.repo:
+            root_nicknames.add(vuln.repo)
         else:
             include_all = True
 

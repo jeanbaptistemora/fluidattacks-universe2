@@ -4,8 +4,17 @@ from back.src.machine.jobs import (
 from dataloaders import (
     get_new_context,
 )
+from db_model.enums import (
+    Source,
+)
 from db_model.findings.types import (
     Finding,
+)
+from db_model.vulnerabilities.enums import (
+    VulnerabilityVerificationStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
 )
 from groups.domain import (
     get_active_groups,
@@ -36,14 +45,17 @@ async def main() -> None:
 
             info(f"{group}-{finding_id}")
 
-            vulns_to_reattack = [
+            vulns: Tuple[
+                Vulnerability, ...
+            ] = await dataloaders.finding_vulns_typed.load(finding_id)
+            vulns_to_reattack = tuple(
                 vuln
-                for vuln in await dataloaders.finding_vulns.load(finding_id)
-                for vuln_hv in [vuln.get("historic_verification", [])]
-                if vuln["source"] in ["skims", "machine"]
-                if vuln_hv
-                if vuln_hv[-1].get("status") == "REQUESTED"
-            ]
+                for vuln in vulns
+                if vuln.state.source == Source.MACHINE
+                and vuln.verification
+                and vuln.verification.status
+                == VulnerabilityVerificationStatus.REQUESTED
+            )
 
             if vulns_to_reattack:
                 for root in await get_root_nicknames_for_skims(
