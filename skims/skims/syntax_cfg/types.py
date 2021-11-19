@@ -14,7 +14,7 @@ SYNTAX_CFG_ARGS = Any
 
 
 class SyntaxCfgArgs(NamedTuple):
-    generic: Callable[[SYNTAX_CFG_ARGS], None]
+    generic: Callable[[SYNTAX_CFG_ARGS], str]
     graph: Graph
     n_id: str
     nxt_id: Optional[str]
@@ -28,7 +28,7 @@ class SyntaxCfgArgs(NamedTuple):
         )
 
 
-CfgBuilder = Callable[[SyntaxCfgArgs], None]
+CfgBuilder = Callable[[SyntaxCfgArgs], str]
 
 
 class Dispatcher(NamedTuple):

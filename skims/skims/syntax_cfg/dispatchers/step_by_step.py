@@ -9,7 +9,7 @@ from utils import (
 )
 
 
-def build(args: SyntaxCfgArgs) -> None:
+def build(args: SyntaxCfgArgs) -> str:
     c_ids = g.adj_ast(args.graph, args.n_id)
 
     first_child, *_ = c_ids
@@ -17,3 +17,5 @@ def build(args: SyntaxCfgArgs) -> None:
 
     for c_id, nxt_id in iter_with_next(c_ids, args.nxt_id):
         args.generic(args.fork(c_id, nxt_id))
+
+    return args.n_id

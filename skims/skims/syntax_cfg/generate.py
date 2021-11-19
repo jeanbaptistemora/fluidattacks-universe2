@@ -10,13 +10,12 @@ from syntax_cfg.types import (
 )
 
 
-def generic(args: SyntaxCfgArgs) -> None:
+def generic(args: SyntaxCfgArgs) -> str:
     node_type = args.graph.nodes[args.n_id]["label_type"]
 
     for dispatcher in DISPATCHERS:
         if node_type in dispatcher.applicable_types:
-            dispatcher.cfg_builder(args)
-            return
+            return dispatcher.cfg_builder(args)
 
     raise MissingCfgBuilder(f"Missing cfg builder for {node_type}")
 

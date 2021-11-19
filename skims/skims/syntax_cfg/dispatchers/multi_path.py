@@ -6,7 +6,11 @@ from utils import (
 )
 
 
-def build(args: SyntaxCfgArgs) -> None:
+def build(args: SyntaxCfgArgs) -> str:
     for c_id in g.adj_ast(args.graph, args.n_id):
-        args.graph.add_edge(args.n_id, c_id, label_cfg="CFG")
-        args.generic(args.fork(c_id, args.nxt_id))
+        args.graph.add_edge(
+            args.n_id,
+            args.generic(args.fork(c_id, args.nxt_id)),
+            label_cfg="CFG",
+        )
+    return args.n_id
