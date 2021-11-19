@@ -6,7 +6,12 @@ locals {
         Sid    = "read"
         Effect = "Allow"
         Action = [
+          "access-analyzer:Get*",
+          "access-analyzer:List*",
+          "access-analyzer:Validate*",
           "application-autoscaling:Describe*",
+          "autoscaling:Describe*",
+          "autoscaling:Get*",
           "backup:Describe*",
           "backup:Get*",
           "backup:List*",
@@ -25,6 +30,8 @@ locals {
           "eks:Get*",
           "elasticache:Describe*",
           "elasticache:List*",
+          "events:Describe*",
+          "events:List*",
           "iam:Get*",
           "iam:List*",
           "kms:Describe*",
@@ -35,6 +42,9 @@ locals {
           "logs:Describe*",
           "logs:Get*",
           "logs:List*",
+          "ssm:Describe*",
+          "ssm:Get*",
+          "ssm:List*",
           "sts:Decode*",
           "sts:Get*",
           "s3:Get*",
