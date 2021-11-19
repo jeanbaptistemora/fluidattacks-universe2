@@ -81,54 +81,6 @@ def has_unencrypted_storage(
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_not_automated_backups(
-    path: str, exclude: Optional[List[str]] = None
-) -> tuple:
-    """
-    Check if any RDS does not have automated backups enabled.
-
-    :param path: Location of Terraform template file.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if **backup_retention_period** attribute is set to 0.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-        starting_path=path,
-        resource_types=[
-            "aws_db_instance",
-            "aws_rds_cluster",
-        ],
-        exclude=exclude,
-    ):
-        back_up_retention_period = res_props.get("backup_retention_period", 1)
-
-        if not helper.is_scalar(back_up_retention_period):
-            continue
-
-        is_vulnerable: bool = back_up_retention_period in (0, "0")
-
-        if is_vulnerable:
-            vulnerabilities.append(
-                Vulnerability(
-                    path=yaml_path,
-                    entity=res_props["type"],
-                    identifier=res_name,
-                    reason="has not automated backups enabled",
-                )
-            )
-
-    return _get_result_as_tuple(
-        vulnerabilities=vulnerabilities,
-        msg_open="RDS cluster or instances have not automated backups enabled",
-        msg_closed="RDS cluster or instances have automated backups enabled",
-    )
-
-
-@api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError)
 def is_publicly_accessible(
     path: str, exclude: Optional[List[str]] = None
 ) -> tuple:
