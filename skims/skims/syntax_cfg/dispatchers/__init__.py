@@ -13,23 +13,15 @@ DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "Class",
+            "MethodDeclaration",
+            "Namespace",
         },
         cfg_builder=connect_to_block.build,
     ),
     Dispatcher(
         applicable_types={
             "DeclarationBlock",
-        },
-        cfg_builder=step_by_step.build,
-    ),
-    Dispatcher(
-        applicable_types={
             "ExecutionBlock",
-        },
-        cfg_builder=step_by_step.build,
-    ),
-    Dispatcher(
-        applicable_types={
             "File",
         },
         cfg_builder=step_by_step.build,
@@ -42,30 +34,8 @@ DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "MethodDeclaration",
-        },
-        cfg_builder=connect_to_block.build,
-    ),
-    Dispatcher(
-        applicable_types={
             "MethodInvocation",
-        },
-        cfg_builder=connect_to_next.build,
-    ),
-    Dispatcher(
-        applicable_types={
-            "Namespace",
-        },
-        cfg_builder=connect_to_block.build,
-    ),
-    Dispatcher(
-        applicable_types={
             "ThrowStatement",
-        },
-        cfg_builder=connect_to_next.build,
-    ),
-    Dispatcher(
-        applicable_types={
             "VariableDeclaration",
         },
         cfg_builder=connect_to_next.build,
