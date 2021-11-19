@@ -5,22 +5,23 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityAcceptanceStatus,
+    VulnerabilityTreatmentStatus,
+)
 from groups import (
     domain as groups_domain,
-)
-from itertools import (
-    chain,
 )
 from newutils import (
     datetime as datetime_utils,
 )
 from typing import (
-    cast,
-    Dict,
-    List,
     Set,
     Tuple,
 )
@@ -38,40 +39,29 @@ from vulnerabilities import (
 async def reset_group_expired_accepted_findings(
     loaders: Dataloaders, group_name: str, today: str
 ) -> None:
-    finding_vulns_loader = loaders.finding_vulns
-    group_findings_loader = loaders.group_findings
-
-    group_findings: Tuple[Finding] = await group_findings_loader.load(
+    group_findings: Tuple[Finding] = await loaders.group_findings.load(
         group_name
     )
-    vulns = list(
-        chain.from_iterable(
-            await finding_vulns_loader.load_many(
-                [finding.id for finding in group_findings]
-            )
-        )
+    vulns = await loaders.finding_vulns_typed.load_many_chained(
+        [finding.id for finding in group_findings]
     )
     findings_to_update: Set[str] = set()
 
     for vuln in vulns:
-        finding_id = cast(str, vuln.get("finding_id"))
-        historic_treatment = cast(
-            List[Dict[str, str]], vuln.get("historic_treatment", [{}])
-        )
+        finding_id = vuln.finding_id
         is_accepted_expired = (
-            historic_treatment[-1].get("acceptance_date", today) < today
+            vuln.treatment.accepted_until < today
+            if vuln.treatment and vuln.treatment.accepted_until
+            else False
         )
         is_undefined_accepted_expired = (
-            (historic_treatment[-1].get("treatment") == "ACCEPTED_UNDEFINED")
-            and (
-                historic_treatment[-1].get("acceptance_status") == "SUBMITTED"
-            )
+            vuln.treatment
+            and vuln.treatment.status
+            == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+            and vuln.treatment.acceptance_status
+            == VulnerabilityAcceptanceStatus.SUBMITTED
             and datetime_utils.get_plus_delta(
-                datetime_utils.get_from_str(
-                    historic_treatment[-1].get(
-                        "date", datetime_utils.DEFAULT_STR
-                    )
-                ),
+                datetime.fromisoformat(vuln.treatment.modified_date),
                 days=5,
             )
             <= datetime_utils.get_from_str(today)
@@ -83,7 +73,7 @@ async def reset_group_expired_accepted_findings(
                 finding_id=finding_id,
                 updated_values=updated_values,
                 vuln=vuln,
-                user_email=historic_treatment[-1].get("user", ""),
+                user_email=vuln.treatment.modified_by,
                 date=datetime_utils.get_as_str(datetime_utils.get_now()),
             )
 
