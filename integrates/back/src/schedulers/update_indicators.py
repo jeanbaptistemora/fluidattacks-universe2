@@ -30,6 +30,7 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
 )
 from db_model.vulnerabilities.types import (
+    Vulnerability,
     VulnerabilityState,
     VulnerabilityTreatment,
 )
@@ -228,7 +229,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
     all_registers_exposed_cvsff = OrderedDict()
 
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
-    vulns = await loaders.finding_vulns_nzr.load_many_chained(
+    vulns = await loaders.finding_vulns_nzr_typed.load_many_chained(
         [finding.id for finding in findings]
     )
     findings_severity: Dict[str, Decimal] = {
@@ -236,20 +237,19 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
         for finding in findings
     }
     vulnerabilities_severity = [
-        findings_severity[str(vulnerability["finding_id"])]
-        for vulnerability in vulns
+        findings_severity[vulnerability.finding_id] for vulnerability in vulns
     ]
     historic_states = await loaders.vulnerability_historic_state.load_many(
-        [vuln["UUID"] for vuln in vulns]
+        [vuln.id for vuln in vulns]
     )
     historic_treatments = (
         await loaders.vulnerability_historic_treatment.load_many(
-            [vuln["UUID"] for vuln in vulns]
+            [vuln.id for vuln in vulns]
         )
     )
 
     if vulns:
-        first_day, last_day = get_first_week_dates(vulns, min_date)
+        first_day, last_day = get_first_week_dates(historic_states, min_date)
         first_day_last_week = get_date_last_vulns(vulns)
         while first_day <= first_day_last_week:
             result_vulns_by_week: VulnerabilitiesStatusByTimeRange = (
@@ -649,15 +649,10 @@ def get_closed_vulnerabilities(
     )
 
 
-def get_date_last_vulns(vulns: List[Dict[str, VulnerabilityType]]) -> str:
+def get_date_last_vulns(vulns: Tuple[Vulnerability, ...]) -> str:
     """Get date of the last vulnerabilities"""
     last_date = max(
-        [
-            datetime_utils.get_from_str(
-                cast(HistoricType, vuln["historic_state"])[-1]["date"]
-            )
-            for vuln in vulns
-        ]
+        [datetime.fromisoformat(vuln.state.modified_date) for vuln in vulns]
     )
     day_week = last_date.weekday()
     first_day = datetime_utils.get_as_str(
@@ -689,16 +684,14 @@ def get_last_vulnerabilities_date(
 
 
 def get_first_week_dates(
-    vulns: List[Dict[str, VulnerabilityType]],
+    historic_states: Tuple[Tuple[VulnerabilityState, ...], ...],
     min_date: Optional[datetime] = None,
 ) -> Tuple[str, str]:
     """Get first week vulnerabilities"""
     first_date = min(
         [
-            datetime_utils.get_from_str(
-                cast(HistoricType, vuln["historic_state"])[0]["date"]
-            )
-            for vuln in vulns
+            datetime.fromisoformat(historic_state[0].modified_date)
+            for historic_state in historic_states
         ]
     )
     if min_date:

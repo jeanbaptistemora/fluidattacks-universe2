@@ -231,8 +231,11 @@ def test_create_data_format_chart() -> None:
 async def test_get_first_week_dates() -> None:
     loaders: Dataloaders = get_new_context()
     finding_id = "422286126"
-    vulns = await loaders.finding_vulns.load(finding_id)
-    test_data = update_indicators.get_first_week_dates(vulns)
+    vulns = await loaders.finding_vulns_typed.load(finding_id)
+    historics = await loaders.vulnerability_historic_state.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    test_data = update_indicators.get_first_week_dates(historics)
     expected_output = ("2019-12-30 00:00:00", "2020-01-05 23:59:59")
     assert test_data == expected_output
 
@@ -240,7 +243,7 @@ async def test_get_first_week_dates() -> None:
 async def test_get_date_last_vulns() -> None:
     loaders: Dataloaders = get_new_context()
     finding_id = "422286126"
-    vulns = await loaders.finding_vulns.load(finding_id)
+    vulns = await loaders.finding_vulns_typed.load(finding_id)
     test_data = update_indicators.get_date_last_vulns(vulns)
     expected_output = "2020-09-07 16:01:26"
     assert test_data == expected_output

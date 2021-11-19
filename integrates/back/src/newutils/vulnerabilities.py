@@ -342,11 +342,6 @@ def format_where(where: str, vulnerabilities: List[Dict[str, str]]) -> str:
     return where
 
 
-def get_last_approved_state(vuln: Dict[str, FindingType]) -> Dict[str, str]:
-    historic_state = cast(HistoricType, vuln.get("historic_state", [{}]))
-    return historic_state[-1]
-
-
 def get_opening_date(
     historic: Tuple[VulnerabilityState, ...],
     min_date: Optional[datetype] = None,
