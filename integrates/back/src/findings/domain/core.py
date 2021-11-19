@@ -54,7 +54,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityMetadataToUpdate,
     VulnerabilityState,
     VulnerabilityTreatment,
 )
@@ -811,7 +810,7 @@ async def verify_vulnerabilities_new(  # pylint: disable=too-many-locals
     justification: str,
     open_vulns_ids: List[str],
     closed_vulns_ids: List[str],
-    vulns_to_close_from_file: List[VulnerabilityMetadataToUpdate],
+    vulns_to_close_from_file: List[Vulnerability],
 ) -> bool:
     # All vulns must be open before verifying them
     # we will just keep them open or close them

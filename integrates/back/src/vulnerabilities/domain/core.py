@@ -36,7 +36,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityMetadataToUpdate,
     VulnerabilityState,
     VulnerabilityTreatment,
 )
@@ -1075,7 +1074,7 @@ async def verify_new(
     vulnerabilities: List[Vulnerability],
     modified_date: str,
     closed_vulns_ids: List[str],
-    vulns_to_close_from_file: List[VulnerabilityMetadataToUpdate],
+    vulns_to_close_from_file: List[Vulnerability],
 ) -> bool:
     list_closed_vulns: List[Vulnerability] = sorted(
         [
