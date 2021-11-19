@@ -18623,29 +18623,13 @@
       this will send an email with the information
       of the vulnerabilities even if the email is
       not registered on integrates.
-      It is also possible to create and activate
-      users in the application by adding their
-      emails without validating their ownership,
-      allowing attackers to give group access to
-      people who did not give their consent to
-      receive data from integrates.
       Even if the user has been removed from all
       the projects of an organization, the information
       of the vulnerabilities over the time and the
       policies is still accessible by the email.
     impact: >
-      Send mails and information without the
-      consent of the user.
-      Even if the user has been removed from
-      all the projects of an organization, the
-      information of the vulnerabilities over
-      the time and the policies is still
-      accessible by the email.
-      It is possible to assign non-users as
-      treatment managers of vulnerabilities,
-      this will send an email with the information
-      of the vulnerabilities even if the email is
-      not registered on integrates.
+      Ability for unauthorized administrators to manage
+      user access to different system resources.
     recommendation: >
       Grant access to the projects only to users
       that have consented the reception of information
@@ -18667,28 +18651,14 @@
       electrónico con la información de las
       vulnerabilidades aunque el correo electrónico
       no esté registrado en integrates.
-      También es posible crear y activar usuarios
-      en la aplicación añadiendo sus correos electrónicos
-      sin validar su titularidad, permitiendo a los
-      atacantes dar acceso al grupo a personas que no
-      dieron su consentimiento para recibir
-      datos de los integrados.
       Incluso si el usuario ha sido eliminado de todos
       los proyectos de una organización, la información
       de las vulnerabilidades en el tiempo y las políticas
       sigue siendo accesible por el correo electrónico.
     impact: >
-      Enviar correos e información sin
-      el consentimiento del usuario.
-      Incluso si el usuario ha sido eliminado de todos
-      los proyectos de una organización, la información
-      de las vulnerabilidades en el tiempo y las políticas
-      sigue siendo accesible por el correo electrónico.
-      Es posible asignar a los no-usuarios como gestores
-      del tratamiento de las vulnerabilidades, esto enviará
-      un correo electrónico con la información de las
-      vulnerabilidades incluso si el correo electrónico
-      no está registrado en integra.
+      Posibilidad de que los administradores no
+      autorizados gestionen el acceso de los usuarios
+      a los diferentes recursos del sistema.
     recommendation: >
       Permitir el acceso a los proyectos sólo a los
       usuarios que han consentido la recepción de
