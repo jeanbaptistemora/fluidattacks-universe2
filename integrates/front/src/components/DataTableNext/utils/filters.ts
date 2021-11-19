@@ -122,6 +122,25 @@ function filterDateRange<T extends Record<string, any>>(
   });
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function filterWhere<T extends Record<string, any>>(
+  rows: T[],
+  searchText: string,
+  columnKey: string
+): T[] {
+  return rows.filter((row: T): boolean => {
+    const currentRows = row[columnKey];
+
+    return _.isEmpty(searchText)
+      ? true
+      : !_.isEmpty(
+          currentRows.filter((innerRow: T): boolean =>
+            (innerRow.where as string).includes(searchText)
+          )
+        );
+  });
+}
+
 export {
   filterDate,
   filterDateRange,
@@ -131,4 +150,5 @@ export {
   filterSubSelectCount,
   filterSearchText,
   filterText,
+  filterWhere,
 };

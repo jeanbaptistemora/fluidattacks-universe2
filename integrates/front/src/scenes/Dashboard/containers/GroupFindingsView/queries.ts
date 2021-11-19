@@ -24,7 +24,9 @@ const GET_FINDINGS: DocumentNode = gql`
           new
         }
         verified
-        where
+        vulnerabilities {
+          where
+        }
       }
       name
     }

@@ -38,7 +38,7 @@ import {
   filterSearchText,
   filterSelect,
   filterSubSelectCount,
-  filterText,
+  filterWhere,
 } from "components/DataTableNext/utils";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -345,10 +345,10 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   function onWhereChange(event: React.ChangeEvent<HTMLInputElement>): void {
     setWhereFilter(event.target.value);
   }
-  const filterWhereFindings: IFindingAttr[] = filterText(
+  const filterWhereFindings: IFindingAttr[] = filterWhere(
     findings,
     whereFilter,
-    "where"
+    "vulnerabilities"
   );
 
   function onAgeChange(event: React.ChangeEvent<HTMLInputElement>): void {

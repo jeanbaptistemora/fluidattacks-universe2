@@ -10,4 +10,5 @@ export {
   filterSelect,
   filterSubSelectCount,
   filterText,
+  filterWhere,
 } from "./filters";
