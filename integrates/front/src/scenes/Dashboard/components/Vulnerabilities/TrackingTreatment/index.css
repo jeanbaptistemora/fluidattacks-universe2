@@ -1,3 +1,19 @@
+:local .timelineContainer {
+  /* stylelint-disable-next-line value-keyword-case */
+  composes: timelineContainer from '../../../containers/TrackingView/index.css';
+}
+
+:local .timelineContainer::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  bottom: 0;
+  width: 2px;
+  background: #dbdbdb;
+  left: 115px;
+  margin-left: -1px;
+}
+
 :local .content {
   composes: content from '../../TrackingItem/index.css';
 }
@@ -22,4 +38,10 @@
   position: absolute;
   top: 34.5px;
   width: 16px;
+}
+
+@media (min-width: 1320px) {
+  :local .trackGraph {
+    margin-left: 15%;
+  }
 }
