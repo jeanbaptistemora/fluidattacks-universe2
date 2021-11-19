@@ -3503,14 +3503,16 @@
   "org.springframework.data:spring-data-commons": {
     "CVE-2018-1273": ">=0 <=1.12.10.release || >=1.13.release <=1.13.10.release || >=2.0.release <=2.0.5.release",
     "CVE-2018-1274": ">=1.13.release <=1.13.10.release || >=2.0.release <=2.0.5.release",
-    "CVE-2018-1275": ">=4.3.0.release <4.3.16.release || >=5.0.release <5.0.5.release"
+    "CVE-2018-1275": ">=4.3.0.release <4.3.16.release || >=5.0.release <5.0.5.release",
+    "CVE-2018-1259": ">=1.13.0.release <=1.13.11.release || >=2.0.0.release <=2.0.6.release"
   },
   "org.springframework.data:spring-data-jpa": {
     "CVE-2019-3797": ">=1.11.0 <=1.11.19 || >=2.0.0 <=2.0.13 || >=2.1.0 <=2.1.5",
     "CVE-2019-3802": ">=1.11.0 <=1.11.21 || >=2.0.0 <=2.1.7"
   },
   "org.springframework.data:spring-data-rest-core": {
-    "CVE-2017-8046": ">=0 <2.6.9 || >=3.0.0-snapshot <3.0.1"
+    "CVE-2017-8046": ">=0 <2.6.9 || >=3.0.0-snapshot <3.0.1",
+    "CVE-2018-1259": ">2.6.0 <=2.6.11 || >=3.0.0-snapshot <3.0.6"
   },
   "org.springframework.security.oauth:spring-security-oauth2": {
     "CVE-2018-1260": ">=0 <=2.0.14.release || >=2.1.release <=2.1.1.release || >=2.2.release <=2.2.1.release || >=2.3.release <=2.3.2.release",
