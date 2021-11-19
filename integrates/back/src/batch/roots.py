@@ -7,13 +7,12 @@ from batch.dal import (
 from batch.types import (
     BatchProcessing,
 )
-from contextlib import (
-    suppress,
-)
 from custom_exceptions import (
     RepeatedToeLines,
+    ToeLinesAlreadyUpdated,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from db_model import (
@@ -33,6 +32,7 @@ from db_model.roots.types import (
 from db_model.toe_lines.types import (
     RootToeLinesRequest,
     ToeLines,
+    ToeLinesRequest,
 )
 from decorators import (
     retry_on_exceptions,
@@ -69,6 +69,7 @@ from toe.lines import (
 )
 from toe.lines.types import (
     ToeLinesAttributesToAdd,
+    ToeLinesAttributesToUpdate,
 )
 from typing import (
     Any,
@@ -97,6 +98,9 @@ VULNS_TABLE = Table(
 toe_lines_add = retry_on_exceptions(
     exceptions=(UnavailabilityError,), sleep_seconds=5
 )(toe_lines_domain.add)
+toe_lines_update = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=5
+)(toe_lines_domain.update)
 
 
 async def update_indicators(finding_id: str, group_name: str) -> None:
@@ -202,7 +206,11 @@ async def process_finding(
     )
 
 
+@retry_on_exceptions(
+    exceptions=(ToeLinesAlreadyUpdated,),
+)
 async def process_toe_lines(
+    loaders: Dataloaders,
     target_group_name: str,
     target_root_id: str,
     toe_lines: ToeLines,
@@ -213,6 +221,7 @@ async def process_toe_lines(
         attacked_lines=toe_lines.attacked_lines,
         comments=toe_lines.comments,
         commit_author=toe_lines.commit_author,
+        be_present=False,
         first_attack_at=toe_lines.first_attack_at,
         loc=toe_lines.loc,
         modified_commit=toe_lines.modified_commit,
@@ -220,13 +229,38 @@ async def process_toe_lines(
         seen_at=toe_lines.seen_at,
         sorts_risk_level=toe_lines.sorts_risk_level,
     )
-    with suppress(RepeatedToeLines):
+    try:
         await toe_lines_add(
             target_group_name,
             target_root_id,
             toe_lines.filename,
             attributes_to_add,
         )
+    except RepeatedToeLines:
+        current_value: ToeLines = await loaders.toe_lines.load(
+            ToeLinesRequest(
+                filename=toe_lines.filename,
+                group_name=target_group_name,
+                root_id=target_root_id,
+            )
+        )
+        attacked_at = current_value.attacked_at or toe_lines.attacked_at
+        attacked_by = current_value.attacked_by or toe_lines.attacked_by
+        attacked_lines = (
+            current_value.attacked_lines or toe_lines.attacked_lines
+        )
+        comments = current_value.comments or toe_lines.comments
+        attributes_to_update = ToeLinesAttributesToUpdate(
+            attacked_at=attacked_at,
+            attacked_by=attacked_by,
+            attacked_lines=attacked_lines,
+            comments=comments,
+            first_attack_at=toe_lines.first_attack_at,
+            is_deactivated=False,
+            seen_at=toe_lines.seen_at,
+            sorts_risk_level=toe_lines.sorts_risk_level,
+        )
+        await toe_lines_update(current_value, attributes_to_update)
 
 
 async def move_root(*, item: BatchProcessing) -> None:
@@ -271,6 +305,7 @@ async def move_root(*, item: BatchProcessing) -> None:
         await collect(
             tuple(
                 process_toe_lines(
+                    loaders,
                     target_group_name,
                     target_root_id,
                     toe_lines,

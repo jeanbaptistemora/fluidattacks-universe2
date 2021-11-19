@@ -30,7 +30,7 @@ async def add(*, toe_lines: ToeLines) -> None:
     gsi_2_index = TABLE.indexes["gsi_2"]
     facet = TABLE.facets["toe_lines_metadata"]
     toe_lines_key = keys.build_key(
-        facet=TABLE.facets["toe_lines_metadata"],
+        facet=facet,
         values={
             "filename": toe_lines.filename,
             "group_name": toe_lines.group_name,

@@ -14,6 +14,7 @@ from context import (
     FI_TOE_LINES_RULES,
 )
 from custom_exceptions import (
+    RepeatedToeLines,
     ToeLinesAlreadyUpdated,
 )
 from dataloaders import (
@@ -425,7 +426,11 @@ async def refresh_inactive_root_repo_toe_lines(
 
 
 @retry_on_exceptions(
-    exceptions=(ToeLinesAlreadyUpdated,),
+    exceptions=(
+        RepeatedToeLines,
+        ToeLinesAlreadyUpdated,
+    ),
+    sleep_seconds=10,
 )
 async def refresh_root_repo_toe_lines(
     group_name: str, group_path: str, optional_repo_nickname: str

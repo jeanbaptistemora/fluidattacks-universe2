@@ -15,6 +15,25 @@ from db_model.toe_lines.types import (
 from newutils import (
     datetime as datetime_utils,
 )
+from typing import (
+    Optional,
+)
+
+
+def _get_be_present_until(
+    be_present: bool,
+) -> str:
+    return datetime_utils.get_iso_date() if be_present is False else ""
+
+
+def _get_optional_be_present_until(
+    optional_be_present: Optional[bool],
+) -> Optional[str]:
+    return (
+        None
+        if optional_be_present is None
+        else _get_be_present_until(optional_be_present)
+    )
 
 
 async def add(
@@ -23,12 +42,13 @@ async def add(
     filename: str,
     attributes: ToeLinesAttributesToAdd,
 ) -> None:
+    be_present_until = _get_be_present_until(attributes.be_present)
     toe_lines = ToeLines(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
         attacked_lines=attributes.attacked_lines,
-        be_present=True,
-        be_present_until="",
+        be_present=attributes.be_present,
+        be_present_until=be_present_until,
         comments=attributes.comments,
         commit_author=attributes.commit_author,
         filename=filename,
@@ -58,13 +78,7 @@ async def update(
         <= datetime.fromisoformat(attacked_at)
         else 0
     )
-    be_present_until = (
-        datetime_utils.get_iso_date()
-        if attributes.be_present is False
-        else ""
-        if attributes.be_present is True
-        else None
-    )
+    be_present_until = _get_optional_be_present_until(attributes.be_present)
     metadata = ToeLinesMetadataToUpdate(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
