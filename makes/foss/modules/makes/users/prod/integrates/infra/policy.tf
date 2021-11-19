@@ -291,6 +291,17 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     actions   = ["batch:DescribeJobs"]
     resources = ["*"]
   }
+
+  # Logs
+  statement {
+    effect = "Allow"
+    actions = [
+      "logs:Describe*",
+      "logs:Get*",
+      "logs:List*",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "integrates-prod-policy" {
