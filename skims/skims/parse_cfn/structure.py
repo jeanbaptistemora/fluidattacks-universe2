@@ -192,3 +192,14 @@ def iter_elb_load_balancers(template: Node) -> Iterator[Node]:
             exact=True,
         )
     )
+
+
+def iter_kms_keys(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::KMS::Key",
+            exact=True,
+        )
+    )
