@@ -304,14 +304,12 @@ async def get_present_toe_lines_to_update(
 def get_non_present_toe_lines_to_update(
     present_filenames: Set[str],
     repo_toe_lines: Dict[str, ToeLines],
-    is_deactivated: Optional[bool] = None,
 ) -> Tuple[Tuple[ToeLines, ToeLinesAttributesToUpdate], ...]:
     return tuple(
         (
             repo_toe_lines[db_filename],
             ToeLinesAttributesToUpdate(
                 be_present=False,
-                is_deactivated=is_deactivated,
             ),
         )
         for db_filename in repo_toe_lines
@@ -326,7 +324,7 @@ def make_group_dir(tmpdir: str, group_name: str) -> None:
 
 
 def pull_repositories(
-    tmpdir: str, group_name: str, optional_repo_nickname: str
+    tmpdir: str, group_name: str, optional_repo_nickname: Optional[str]
 ) -> None:
     make_group_dir(tmpdir, group_name)
     call_melts = [
@@ -413,7 +411,7 @@ async def refresh_inactive_root_repo_toe_lines(
     }
     present_filenames: Set[str] = set()
     non_present_toe_lines_to_update = get_non_present_toe_lines_to_update(
-        present_filenames, repo_toe_lines, is_deactivated=True
+        present_filenames, repo_toe_lines
     )
     await collect(
         tuple(
@@ -433,7 +431,7 @@ async def refresh_inactive_root_repo_toe_lines(
     sleep_seconds=10,
 )
 async def refresh_root_repo_toe_lines(
-    group_name: str, group_path: str, optional_repo_nickname: str
+    group_name: str, group_path: str, optional_repo_nickname: Optional[str]
 ) -> None:
     loaders = get_new_context()
     roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
@@ -471,7 +469,9 @@ async def refresh_root_repo_toe_lines(
 
 async def refresh_toe_lines(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
-    optional_repo_nickname: str = item.additional_info
+    optional_repo_nickname: Optional[str] = (
+        None if item.additional_info == "*" else item.additional_info
+    )
     current_dir = os.getcwd()
 
     with tempfile.TemporaryDirectory() as tmpdir:

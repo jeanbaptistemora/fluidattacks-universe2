@@ -42,7 +42,9 @@ async def add(
     filename: str,
     attributes: ToeLinesAttributesToAdd,
 ) -> None:
-    be_present_until = _get_be_present_until(attributes.be_present)
+    be_present_until = attributes.be_present_until or _get_be_present_until(
+        attributes.be_present
+    )
     toe_lines = ToeLines(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
@@ -54,7 +56,6 @@ async def add(
         filename=filename,
         first_attack_at=attributes.first_attack_at,
         group_name=group_name,
-        is_deactivated=False,
         loc=attributes.loc,
         modified_commit=attributes.modified_commit,
         modified_date=attributes.modified_date,
@@ -88,7 +89,6 @@ async def update(
         comments=attributes.comments,
         commit_author=attributes.commit_author,
         first_attack_at=attributes.first_attack_at,
-        is_deactivated=attributes.is_deactivated,
         loc=attributes.loc,
         modified_commit=attributes.modified_commit,
         modified_date=attributes.modified_date,

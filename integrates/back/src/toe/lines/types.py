@@ -16,6 +16,7 @@ class ToeLinesAttributesToAdd(NamedTuple):
     modified_date: str
     sorts_risk_level: int
     be_present: bool = True
+    be_present_until: Optional[str] = None
     seen_at: Optional[str] = None
 
 
@@ -27,7 +28,6 @@ class ToeLinesAttributesToUpdate(NamedTuple):
     comments: Optional[str] = None
     commit_author: Optional[str] = None
     first_attack_at: Optional[str] = None
-    is_deactivated: Optional[bool] = None
     loc: Optional[int] = None
     modified_commit: Optional[str] = None
     modified_date: Optional[str] = None

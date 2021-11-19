@@ -222,6 +222,7 @@ async def process_toe_lines(
         comments=toe_lines.comments,
         commit_author=toe_lines.commit_author,
         be_present=False,
+        be_present_until=toe_lines.be_present_until,
         first_attack_at=toe_lines.first_attack_at,
         loc=toe_lines.loc,
         modified_commit=toe_lines.modified_commit,
@@ -256,7 +257,6 @@ async def process_toe_lines(
             attacked_lines=attacked_lines,
             comments=comments,
             first_attack_at=toe_lines.first_attack_at,
-            is_deactivated=False,
             seen_at=toe_lines.seen_at,
             sorts_risk_level=toe_lines.sorts_risk_level,
         )
@@ -311,7 +311,6 @@ async def move_root(*, item: BatchProcessing) -> None:
                     toe_lines,
                 )
                 for toe_lines in repo_toe_lines
-                if toe_lines.be_present or toe_lines.is_deactivated
             )
         )
     await send_mails_async(

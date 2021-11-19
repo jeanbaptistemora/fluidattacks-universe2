@@ -43,7 +43,7 @@ async def mutate(
             action_name="refresh_toe_lines",
             entity=group_name,
             subject=user_info["user_email"],
-            additional_info="",
+            additional_info="*",
             queue="spot_later",
         )
         logs_utils.cloudwatch_log(
