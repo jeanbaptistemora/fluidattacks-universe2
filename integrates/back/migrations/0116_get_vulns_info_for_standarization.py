@@ -104,7 +104,6 @@ async def process_group(
 async def main() -> None:
     context: Dataloaders = get_new_context()
     groups = sorted(await get_active_groups())
-    # groups = groups[:10]
     print(f"   === groups: {len(groups)}:\n{groups}")
 
     total = list(

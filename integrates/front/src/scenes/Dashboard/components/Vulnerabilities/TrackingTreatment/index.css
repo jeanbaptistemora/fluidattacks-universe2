@@ -1,0 +1,25 @@
+:local .content {
+  composes: content from '../../TrackingItem/index.css';
+}
+
+:local .date {
+  composes: date from '../../TrackingItem/index.css';
+  width: 90px;
+}
+
+:local .container {
+  composes: container from '../../TrackingItem/index.css';
+  padding-left: 135px;
+}
+
+:local .container::before {
+  background-color: #ededed;
+  border: 2px solid #ccc;
+  border-radius: 50px;
+  content: '';
+  height: 16px;
+  left: 107px;
+  position: absolute;
+  top: 34.5px;
+  width: 16px;
+}
