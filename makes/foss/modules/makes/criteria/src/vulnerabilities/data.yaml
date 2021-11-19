@@ -18358,27 +18358,35 @@
   en:
     title: Insecure service configuration - Roles
     description: >
-      Through the bot of slack, all users that
-      have access to a project can be removed.
+      The definition of roles does not correctly
+      represent the different aspects of responsibilities
+      for the security levels of the organization.
     impact: >
-      Revoke access of legimate users.
+      Detect authorization vulnerabilities, recognizing
+      when a role can access a page that should have been
+      restricted to another role.
     recommendation: >
-      Define a time-out when a query or search
-      is taking a long time to process the information.
+      Verify the configured roles and be aware of
+      the information that is transmitted about roles,
+      accounts and logical groups in an application.
     threat: >
-      External attacker with access to corporate slack.
+      Unauthorized user with access to sensitive information.
   es:
     title: Insecure service configuration - Roles
     description: >
-      A través del bot de slack, se pueden eliminar
-      todos los usuarios que tienen acceso a un proyecto.
+      La definición de roles no representa correctamente
+      los diferentes aspectos de responsabilidades para
+      los niveles de seguridad de la organización.
     impact: >
-      Revocar el acceso de los usuarios legítimos
+      Detectar vulnerabilidades de autorización, reconociendo
+      cuándo un rol puede acceder a una página que debería
+      haber estado restringida a otro rol.
     recommendation: >
-      Defina un tiempo de espera cuando una consulta
-      o búsqueda esté tardando mucho en procesar la información.
+      Verificar los roles configurados y estar alerta
+      a la información que se transmite sobre los roles,
+      cuentas y grupos lógicos en una aplicación.
     threat: >
-      Atacante externo con acceso al slack corporativo.
+      Usuario no autorizado con accesso a información sensible.
   category: Abuse Functionality
   score:
     base:
