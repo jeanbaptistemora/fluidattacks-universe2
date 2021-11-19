@@ -34,7 +34,7 @@ def branch() -> str:
 
 @pytest.fixture(autouse=True, scope="session")
 def is_ci() -> bool:
-    return bool(os.environ["CI"])
+    return bool(os.environ.get("CI", False))
 
 
 @pytest.fixture(autouse=True, scope="session")

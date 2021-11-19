@@ -341,6 +341,21 @@ def test_finding_vulnerabilities(
         timeout,
     )
     assert "Expiration" in driver.page_source
+
+    # Vulnerabilities treatment tracking
+    tracking_tab = utils.wait_for_id(
+        driver,
+        "vulnerability-tracking-treatmentsTab",
+        timeout,
+    )
+    tracking_tab.click()
+    assert utils.wait_for_text(
+        driver,
+        "In progress",
+        timeout,
+    )
+    assert "Manager:" in driver.page_source
+
     close = utils.wait_for_id(
         driver,
         "close-vuln-modal",
