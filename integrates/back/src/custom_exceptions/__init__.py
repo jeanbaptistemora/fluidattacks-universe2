@@ -176,7 +176,7 @@ class DuplicateDraftFound(CustomBaseException):
     def __init__(self, kind: str) -> None:
         """Constructor"""
         msg = (
-            f"A {kind} of this type has been already created."
+            f"Exception - A {kind} of this type has been already created."
             " Please submit vulnerabilities there"
         )
         super(DuplicateDraftFound, self).__init__(msg)

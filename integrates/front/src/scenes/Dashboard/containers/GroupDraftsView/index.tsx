@@ -219,6 +219,24 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
         "Exception - The inserted Draft/Finding title is invalid"
       ) {
         msgError(translate.t("validations.draftTitle"));
+      } else if (
+        error.message ===
+        "Exception - A draft of this type has been already created. Please submit vulnerabilities there"
+      ) {
+        msgError(
+          translate.t("validations.duplicateDraft", {
+            type: "draft",
+          })
+        );
+      } else if (
+        error.message ===
+        "Exception - A finding of this type has been already created. Please submit vulnerabilities there"
+      ) {
+        msgError(
+          translate.t("validations.duplicateDraft", {
+            type: "finding",
+          })
+        );
       } else {
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred getting group drafts", error);

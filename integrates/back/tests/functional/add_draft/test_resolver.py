@@ -29,7 +29,7 @@ async def test_add_draft(populate: bool, email: str) -> None:
     else:
         assert "errors" in result
         assert result["errors"][0]["message"] == (
-            "A draft of this type has been already created."
+            "Exception - A draft of this type has been already created."
             " Please submit vulnerabilities there"
         )
 
