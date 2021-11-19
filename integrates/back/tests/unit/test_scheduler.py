@@ -22,6 +22,9 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from decimal import (
     Decimal,
 )
@@ -37,7 +40,6 @@ from groups import (
 from newutils import (
     datetime as datetime_utils,
     git as git_utils,
-    vulnerabilities as vulns_utils,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -69,9 +71,6 @@ from unittest.mock import (
 from users import (
     dal as users_dal,
 )
-from vulnerabilities.dal import (
-    get as get_vuln,
-)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -96,10 +95,9 @@ async def test_get_status_vulns_by_time_range() -> None:
         findings_severity[str(vulnerability["finding_id"])]
         for vulnerability in vulns
     ]
-    historic_states = [
-        vulns_utils.sort_historic_by_date(vulnerability["historic_state"])
-        for vulnerability in vulns
-    ]
+    historic_states = await loaders.vulnerability_historic_state.load_many(
+        [vuln["UUID"] for vuln in vulns]
+    )
     historic_treatments = (
         await loaders.vulnerability_historic_treatment.load_many(
             [vuln["UUID"] for vuln in vulns]
@@ -107,7 +105,6 @@ async def test_get_status_vulns_by_time_range() -> None:
     )
 
     test_data = update_indicators.get_status_vulns_by_time_range(
-        vulnerabilities=vulns,
         vulnerabilities_severity=vulnerabilities_severity,
         vulnerabilities_historic_states=historic_states,
         vulnerabilities_historic_treatments=historic_treatments,
@@ -147,10 +144,9 @@ async def test_get_accepted_vulns() -> None:
         findings_severity[str(vulnerability["finding_id"])]
         for vulnerability in vulnerabilties
     ]
-    historic_states = [
-        vulns_utils.sort_historic_by_date(vulnerability["historic_state"])
-        for vulnerability in vulnerabilties
-    ]
+    historic_states = await loaders.vulnerability_historic_state.load_many(
+        [vuln["UUID"] for vuln in vulnerabilties]
+    )
     historic_treatments = (
         await loaders.vulnerability_historic_treatment.load_many(
             [vuln["UUID"] for vuln in vulnerabilties]
@@ -175,11 +171,17 @@ async def test_get_accepted_vulns() -> None:
 async def test_get_by_time_range() -> None:
     loaders = get_new_context()
     last_day = "2020-09-09 23:59:59"
-    vulnerability = (await get_vuln("80d6a69f-a376-46be-98cd-2fdedcffdcc0"))[0]
-    finding: Finding = await loaders.finding.load(vulnerability["finding_id"])
+    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+        "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
+    )
+    finding: Finding = await loaders.finding.load(vulnerability.finding_id)
     vulnerability_severity = get_severity_score(finding.severity)
+    historic_state = await loaders.vulnerability_historic_state.load(
+        vulnerability.id
+    )
     test_data = update_indicators.get_by_time_range(
-        vulns_utils.sort_historic_by_date(vulnerability["historic_state"]),
+        historic_state,
+        VulnerabilityStateStatus.OPEN,
         vulnerability_severity,
         last_day,
     )

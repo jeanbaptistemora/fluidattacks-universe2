@@ -26,9 +26,11 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
 )
 from db_model.vulnerabilities.types import (
+    VulnerabilityState,
     VulnerabilityTreatment,
 )
 from decimal import (
@@ -237,10 +239,9 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
         findings_severity[str(vulnerability["finding_id"])]
         for vulnerability in vulns
     ]
-    historic_states = [
-        vulns_utils.sort_historic_by_date(vulnerability["historic_state"])
-        for vulnerability in vulns
-    ]
+    historic_states = await loaders.vulnerability_historic_state.load_many(
+        [vuln["UUID"] for vuln in vulns]
+    )
     historic_treatments = (
         await loaders.vulnerability_historic_treatment.load_many(
             [vuln["UUID"] for vuln in vulns]
@@ -253,7 +254,6 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
         while first_day <= first_day_last_week:
             result_vulns_by_week: VulnerabilitiesStatusByTimeRange = (
                 get_status_vulns_by_time_range(
-                    vulnerabilities=vulns,
                     vulnerabilities_severity=vulnerabilities_severity,
                     vulnerabilities_historic_states=historic_states,
                     vulnerabilities_historic_treatments=historic_treatments,
@@ -387,10 +387,9 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
         findings_severity[str(vulnerability["finding_id"])]
         for vulnerability in vulnerabilties
     ]
-    historic_states = [
-        vulns_utils.sort_historic_by_date(vulnerability["historic_state"])
-        for vulnerability in vulnerabilties
-    ]
+    historic_states = await loaders.vulnerability_historic_state.load_many(
+        [vuln["UUID"] for vuln in vulnerabilties]
+    )
     historic_treatments = (
         await loaders.vulnerability_historic_treatment.load_many(
             [vuln["UUID"] for vuln in vulnerabilties]
@@ -403,7 +402,6 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
         while first_day <= first_day_last_week:
             result_vulns_by_month: VulnerabilitiesStatusByTimeRange = (
                 get_status_vulns_by_time_range(
-                    vulnerabilities=vulnerabilties,
                     vulnerabilities_severity=vulnerabilities_severity,
                     vulnerabilities_historic_states=historic_states,
                     vulnerabilities_historic_treatments=historic_treatments,
@@ -563,7 +561,7 @@ def create_date(first_date: str) -> str:
 
 
 def get_accepted_vulns(
-    historic_state: HistoricType,
+    historic_state: Tuple[VulnerabilityState, ...],
     historic_treatment: Tuple[VulnerabilityTreatment, ...],
     severity: Decimal,
     last_day: str,
@@ -580,29 +578,39 @@ def get_accepted_vulns(
         <= datetime_utils.get_from_str(last_day)
     )
     if treatments and treatments[-1].status in accepted_treatments:
-        return get_by_time_range(historic_state, severity, last_day, min_date)
+        return get_by_time_range(
+            historic_state,
+            VulnerabilityStateStatus.OPEN,
+            severity,
+            last_day,
+            min_date,
+        )
     return VulnerabilityStatusByTimeRange(
         vulnerabilities=0, cvssf=Decimal("0.0")
     )
 
 
 def get_by_time_range(
-    historic_state: HistoricType,
+    historic_state: Tuple[VulnerabilityState, ...],
+    status: VulnerabilityStateStatus,
     severity: Decimal,
     last_day: str,
     min_date: Optional[str] = None,
 ) -> VulnerabilityStatusByTimeRange:
-    """Accepted vulnerability"""
-    states = findings_utils.filter_by_date(
-        historic_state, datetime_utils.get_from_str(last_day)
+    states = tuple(
+        state
+        for state in historic_state
+        if datetime.fromisoformat(state.modified_date)
+        <= datetime_utils.get_from_str(last_day)
     )
     if (
         states
-        and states[-1]["date"] <= last_day
-        and states[-1]["state"] == "open"
+        and datetime.fromisoformat(states[-1].modified_date)
+        <= datetime_utils.get_from_str(last_day)
+        and states[-1].status == status
         and not (
             min_date
-            and datetime_utils.get_from_str(historic_state[0]["date"])
+            and datetime.fromisoformat(historic_state[0].modified_date)
             < datetime_utils.get_from_str(min_date)
         )
     ):
@@ -888,9 +896,10 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
 
 def get_status_vulns_by_time_range(
     *,
-    vulnerabilities: List[Dict[str, VulnerabilityType]],
     vulnerabilities_severity: List[Decimal],
-    vulnerabilities_historic_states: List[List[HistoricType]],
+    vulnerabilities_historic_states: Tuple[
+        Tuple[VulnerabilityState, ...], ...
+    ],
     vulnerabilities_historic_treatments: Tuple[
         Tuple[VulnerabilityTreatment, ...], ...
     ],
@@ -901,17 +910,20 @@ def get_status_vulns_by_time_range(
     """Get total closed and found vulnerabilities by time range"""
     vulnerabilities_found = [
         get_found_vulnerabilities(
-            vulnerability, historic_state, severity, first_day, last_day
+            historic_state, severity, first_day, last_day
         )
-        for vulnerability, historic_state, severity in zip(
-            vulnerabilities,
+        for historic_state, severity in zip(
             vulnerabilities_historic_states,
             vulnerabilities_severity,
         )
     ]
     vulnerabilities_closed = [
-        get_closed_vulnerabilities(
-            historic_state, severity, last_day, min_date
+        get_by_time_range(
+            historic_state,
+            VulnerabilityStateStatus.CLOSED,
+            severity,
+            last_day,
+            min_date,
         )
         for historic_state, severity in zip(
             vulnerabilities_historic_states, vulnerabilities_severity
@@ -952,7 +964,9 @@ def get_status_vulns_by_time_range(
 def get_exposed_cvssf_by_time_range(
     *,
     vulnerabilities_severity: List[Decimal],
-    vulnerabilities_historic_states: List[List[HistoricType]],
+    vulnerabilities_historic_states: Tuple[
+        Tuple[VulnerabilityState, ...], ...
+    ],
     last_day: str,
 ) -> CvssfExposureByTimeRange:
     exposed_cvssf: List[CvssfExposureByTimeRange] = [
@@ -971,24 +985,20 @@ def get_exposed_cvssf_by_time_range(
 
 
 def get_found_vulnerabilities(
-    vulnerability: Dict[str, VulnerabilityType],
-    historic_state: HistoricType,
+    historic_state: Tuple[VulnerabilityState, ...],
     severity: Decimal,
     first_day: str,
     last_day: str,
 ) -> VulnerabilityStatusByTimeRange:
-    last_state = vulns_utils.get_last_approved_state(vulnerability)
-
     if (
-        last_state
-        and first_day <= last_state["date"] <= last_day
-        and last_state["state"] == "DELETED"
+        first_day <= historic_state[-1].modified_date <= last_day
+        and historic_state[-1].status == VulnerabilityStateStatus.DELETED
     ):
         return VulnerabilityStatusByTimeRange(
             vulnerabilities=-1,
             cvssf=(vulns_utils.get_cvssf(severity) * Decimal("-1.0")),
         )
-    if first_day <= historic_state[0]["date"] <= last_day:
+    if first_day <= historic_state[0].modified_date <= last_day:
         return VulnerabilityStatusByTimeRange(
             vulnerabilities=1, cvssf=vulns_utils.get_cvssf(severity)
         )
@@ -1009,20 +1019,24 @@ def get_severity_level(severity: Decimal) -> str:
 
 
 def get_exposed_cvssf(
-    historic_state: List[Dict[str, str]],
+    historic_state: Tuple[VulnerabilityState, ...],
     severity: Decimal,
     last_day: str,
 ) -> CvssfExposureByTimeRange:
-    states = findings_utils.filter_by_date(
-        historic_state, datetime_utils.get_from_str(last_day)
+    states = tuple(
+        state
+        for state in historic_state
+        if datetime.fromisoformat(state.modified_date)
+        <= datetime_utils.get_from_str(last_day)
     )
     cvssf: Decimal = Decimal("0.0")
     severity_level = get_severity_level(severity)
 
     if (
         states
-        and states[-1]["date"] <= last_day
-        and states[-1]["state"] == "open"
+        and datetime.fromisoformat(states[-1].modified_date)
+        <= datetime_utils.get_from_str(last_day)
+        and states[-1].status == VulnerabilityStateStatus.OPEN
     ):
         cvssf = vulns_utils.get_cvssf(severity)
 
