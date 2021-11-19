@@ -47,15 +47,15 @@ CSHARP_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "bracketed_argument_list",
-        },
-        syntax_reader=c_sharp_bracketed_argument_list.reader,
-    ),
-    Dispatcher(
-        applicable_types={
             "binary_expression",
         },
         syntax_reader=c_sharp_binary_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "bracketed_argument_list",
+        },
+        syntax_reader=c_sharp_bracketed_argument_list.reader,
     ),
     Dispatcher(
         applicable_types={

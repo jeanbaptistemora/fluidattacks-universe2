@@ -30,9 +30,6 @@ def generic(args: SyntaxGraphArgs) -> str:
 def build_syntax_graph(
     language: GraphLanguage, ast_graph: Graph
 ) -> Optional[Graph]:
-    if language not in DISPATCHERS_BY_LANG:
-        return None
-
     try:
         syntax_graph = Graph()
         generic(
