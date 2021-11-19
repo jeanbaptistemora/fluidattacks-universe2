@@ -22,11 +22,15 @@ from boto3.dynamodb.conditions import (
     Key,
 )
 from custom_exceptions import (
+    InvalidBePresentFilterCursor,
     ToeLinesNotFound,
 )
 from dynamodb import (
     keys,
     operations,
+)
+from dynamodb.exceptions import (
+    ValidationException,
 )
 from dynamodb.model import (
     TABLE,
@@ -90,20 +94,23 @@ async def _get_toe_lines_by_group(
         )
         index = TABLE.indexes["gsi_2"]
         key_structure = index.primary_key
-    response = await operations.query(
-        after=request.after,
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & Key(key_structure.sort_key).begins_with(
-                primary_key.sort_key.replace("#FILENAME", "")
-            )
-        ),
-        facets=(facet,),
-        index=index,
-        limit=request.first,
-        paginate=request.paginate,
-        table=TABLE,
-    )
+    try:
+        response = await operations.query(
+            after=request.after,
+            condition_expression=(
+                Key(key_structure.partition_key).eq(primary_key.partition_key)
+                & Key(key_structure.sort_key).begins_with(
+                    primary_key.sort_key.replace("#FILENAME", "")
+                )
+            ),
+            facets=(facet,),
+            index=index,
+            limit=request.first,
+            paginate=request.paginate,
+            table=TABLE,
+        )
+    except ValidationException as exc:
+        raise InvalidBePresentFilterCursor() from exc
     return ToeLinesConnection(
         edges=tuple(
             format_toe_lines_edge(index, item, TABLE)
@@ -147,18 +154,22 @@ async def _get_toe_lines_by_root(
         )
         index = TABLE.indexes["gsi_2"]
         key_structure = index.primary_key
-    response = await operations.query(
-        after=request.after,
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
-        ),
-        facets=(facet,),
-        index=index,
-        limit=request.first,
-        paginate=request.paginate,
-        table=TABLE,
-    )
+    try:
+        response = await operations.query(
+            after=request.after,
+            condition_expression=(
+                Key(key_structure.partition_key).eq(primary_key.partition_key)
+                & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+            ),
+            facets=(facet,),
+            index=index,
+            limit=request.first,
+            paginate=request.paginate,
+            table=TABLE,
+        )
+    except ValidationException as exc:
+        raise InvalidBePresentFilterCursor() from exc
+
     return ToeLinesConnection(
         edges=tuple(
             format_toe_lines_edge(index, item, TABLE)

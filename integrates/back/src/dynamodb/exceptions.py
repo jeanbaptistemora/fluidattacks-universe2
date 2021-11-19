@@ -31,6 +31,10 @@ class UnavailabilityError(DynamoDbBaseException):
         super(UnavailabilityError, self).__init__(msg)
 
 
+class ValidationException(DynamoDbBaseException):
+    pass
+
+
 def handle_error(*, error: ClientError) -> None:
     code: str = error.response["Error"]["Code"]
     custom_exception: Optional[Exception] = getattr(

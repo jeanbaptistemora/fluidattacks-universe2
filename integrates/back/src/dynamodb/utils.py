@@ -1,4 +1,7 @@
 import base64
+from custom_exceptions import (
+    InvalidFilterCursor,
+)
 from dynamodb.types import (
     Index,
     Item,
@@ -46,10 +49,13 @@ def get_key_from_cursor(
         table.primary_key.sort_key: cursor_obj[table.primary_key.sort_key],
     }
     if index:
-        key[index.primary_key.partition_key] = cursor_obj[
-            index.primary_key.partition_key
-        ]
-        key[index.primary_key.sort_key] = cursor_obj[
-            index.primary_key.sort_key
-        ]
+        try:
+            key[index.primary_key.partition_key] = cursor_obj[
+                index.primary_key.partition_key
+            ]
+            key[index.primary_key.sort_key] = cursor_obj[
+                index.primary_key.sort_key
+            ]
+        except KeyError as exc:
+            raise InvalidFilterCursor() from exc
     return key

@@ -339,12 +339,31 @@ class InvalidChar(CustomBaseException):
         super(InvalidChar, self).__init__(msg)
 
 
+class InvalidBePresentFilterCursor(CustomBaseException):
+    """Exception to control the be present filter cursor"""
+
+    def __init__(self) -> None:
+        msg = (
+            "Exception - The cursor is invalid for the value in "
+            "the be present filter"
+        )
+        super(InvalidBePresentFilterCursor, self).__init__(msg)
+
+
 class InvalidFilter(CustomBaseException):
     """Exception to control the supported filters"""
 
     def __init__(self, filter_name: str) -> None:
         msg = f"Exception - The filter is not supported: {filter_name}"
         super(InvalidFilter, self).__init__(msg)
+
+
+class InvalidFilterCursor(CustomBaseException):
+    """Exception to control the cursor with filters"""
+
+    def __init__(self) -> None:
+        msg = "Exception - The cursor is invalid with a filter"
+        super(InvalidFilterCursor, self).__init__(msg)
 
 
 class InvalidCommentParent(CustomBaseException):
