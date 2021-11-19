@@ -18,7 +18,7 @@ resource "aws_iam_access_key" "melts-prod-key-2" {
 }
 
 module "publish_credentials_prod" {
-  source       = "../../modules/publish_credentials"
+  source       = "../../../modules/publish_credentials"
   gitlab_token = var.gitlab_token
   key_1        = aws_iam_access_key.melts-prod-key-1
   key_2        = aws_iam_access_key.melts-prod-key-2
