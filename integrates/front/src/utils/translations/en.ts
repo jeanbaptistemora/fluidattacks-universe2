@@ -2168,6 +2168,10 @@ export const enTranslations: ResourceKey = {
           title: "Details",
           tooltip: "Details",
         },
+        tracking: {
+          title: "Tracking",
+          tooltip: "Evolution of the vulnerability treatment over time",
+        },
         treatments: {
           title: "Treatments",
           tooltip: "Modify the treatment of the vulnerability",
