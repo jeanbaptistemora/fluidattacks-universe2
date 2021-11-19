@@ -276,7 +276,7 @@ async def move_root(*, item: BatchProcessing) -> None:
                     toe_lines,
                 )
                 for toe_lines in repo_toe_lines
-                if toe_lines.be_present
+                if toe_lines.be_present or toe_lines.is_deactivated
             )
         )
     await send_mails_async(

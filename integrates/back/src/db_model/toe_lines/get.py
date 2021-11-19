@@ -6,6 +6,7 @@ from .types import (
     RootToeLinesRequest,
     ToeLines,
     ToeLinesConnection,
+    ToeLinesRequest,
 )
 from .utils import (
     format_toe_lines,
@@ -36,15 +37,13 @@ from typing import (
 )
 
 
-async def _get_toe_lines(
-    group_name: str, root_id: str, filename: str
-) -> ToeLines:
+async def _get_toe_lines(request: ToeLinesRequest) -> ToeLines:
     primary_key = keys.build_key(
         facet=TABLE.facets["toe_lines_metadata"],
         values={
-            "group_name": group_name,
-            "root_id": root_id,
-            "filename": filename,
+            "group_name": request.group_name,
+            "root_id": request.root_id,
+            "filename": request.filename,
         },
     )
     key_structure = TABLE.primary_key
@@ -64,9 +63,9 @@ async def _get_toe_lines(
 class ToeLinesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, lines_keys: List[Tuple[str, str, str]]
+        self, requests: List[ToeLinesRequest]
     ) -> Tuple[ToeLines, ...]:
-        return await collect(tuple(map(_get_toe_lines, *zip(*lines_keys))))
+        return await collect(tuple(map(_get_toe_lines, requests)))
 
 
 async def _get_toe_lines_by_group(

@@ -3,6 +3,7 @@ from dataloaders import (
 )
 from db_model.toe_lines.types import (
     ToeLines,
+    ToeLinesRequest,
 )
 from freezegun import (  # type: ignore
     freeze_time,
@@ -42,7 +43,11 @@ async def test_add() -> None:
     )
     await toe_lines_domain.add(group_name, root_id, filename, attributes)
     loaders = get_new_context()
-    toe_lines = await loaders.toe_lines.load((group_name, root_id, filename))
+    toe_lines = await loaders.toe_lines.load(
+        ToeLinesRequest(
+            group_name=group_name, root_id=root_id, filename=filename
+        )
+    )
     assert toe_lines == ToeLines(
         attacked_at="2020-08-01T05:00:00+00:00",
         attacked_by="hacker@test.com",
@@ -54,6 +59,7 @@ async def test_add() -> None:
         filename="product/test/new#.new",
         first_attack_at="2020-04-01T05:00:00+00:00",
         group_name="unittesting",
+        is_deactivated=False,
         loc=1000,
         modified_commit="983466z",
         modified_date="2019-08-01T05:00:00+00:00",
@@ -71,7 +77,9 @@ async def test_update() -> None:
     filename = "product/test/new#.new"
     loaders = get_new_context()
     current_value = await loaders.toe_lines.load(
-        (group_name, root_id, filename)
+        ToeLinesRequest(
+            group_name=group_name, root_id=root_id, filename=filename
+        )
     )
     attributes = ToeLinesAttributesToUpdate(
         attacked_at="2022-08-01T05:00:00+00:00",
@@ -89,7 +97,11 @@ async def test_update() -> None:
     )
     await toe_lines_domain.update(current_value, attributes)
     loaders = get_new_context()
-    toe_lines = await loaders.toe_lines.load((group_name, root_id, filename))
+    toe_lines = await loaders.toe_lines.load(
+        ToeLinesRequest(
+            group_name=group_name, root_id=root_id, filename=filename
+        )
+    )
     assert toe_lines == ToeLines(
         attacked_at="2022-08-01T05:00:00+00:00",
         attacked_by="hacker2@test.com",
@@ -101,6 +113,7 @@ async def test_update() -> None:
         filename="product/test/new#.new",
         first_attack_at="2021-04-01T05:00:00+00:00",
         group_name="unittesting",
+        is_deactivated=False,
         loc=1111,
         modified_commit="993466z",
         modified_date="2020-08-01T05:00:00+00:00",

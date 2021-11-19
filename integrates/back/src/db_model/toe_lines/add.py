@@ -27,19 +27,16 @@ from dynamodb.model import (
 
 async def add(*, toe_lines: ToeLines) -> None:
     key_structure = TABLE.primary_key
+    gsi_2_index = TABLE.indexes["gsi_2"]
     facet = TABLE.facets["toe_lines_metadata"]
     toe_lines_key = keys.build_key(
-        facet=facet,
+        facet=TABLE.facets["toe_lines_metadata"],
         values={
             "filename": toe_lines.filename,
             "group_name": toe_lines.group_name,
             "root_id": toe_lines.root_id,
         },
     )
-    toe_lines_item = format_toe_lines_item(
-        toe_lines_key, key_structure, toe_lines
-    )
-    condition_expression = Attr(key_structure.partition_key).not_exists()
     gsi_2_key = keys.build_key(
         facet=GSI_2_FACET,
         values={
@@ -49,11 +46,10 @@ async def add(*, toe_lines: ToeLines) -> None:
             "root_id": toe_lines.root_id,
         },
     )
-    gsi_2_index = TABLE.indexes["gsi_2"]
-    toe_lines_item[gsi_2_index.primary_key.sort_key] = gsi_2_key.sort_key
-    toe_lines_item[
-        gsi_2_index.primary_key.partition_key
-    ] = gsi_2_key.partition_key
+    toe_lines_item = format_toe_lines_item(
+        toe_lines_key, key_structure, gsi_2_key, gsi_2_index, toe_lines
+    )
+    condition_expression = Attr(key_structure.partition_key).not_exists()
     try:
         await operations.put_item(
             condition_expression=condition_expression,

@@ -19,6 +19,7 @@ class ToeLines(NamedTuple):
     filename: str
     first_attack_at: str
     group_name: str
+    is_deactivated: bool
     loc: int
     modified_commit: str
     modified_date: str
@@ -49,11 +50,18 @@ class ToeLinesMetadataToUpdate(NamedTuple):
     comments: Optional[str] = None
     commit_author: Optional[str] = None
     first_attack_at: Optional[str] = None
+    is_deactivated: Optional[bool] = None
     loc: Optional[int] = None
     modified_commit: Optional[str] = None
     modified_date: Optional[str] = None
     seen_at: Optional[str] = None
     sorts_risk_level: Optional[int] = None
+
+
+class ToeLinesRequest(NamedTuple):
+    filename: str
+    group_name: str
+    root_id: str
 
 
 class GroupToeLinesRequest(NamedTuple):

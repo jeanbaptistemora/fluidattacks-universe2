@@ -28,6 +28,7 @@ def format_toe_lines(item: Item) -> ToeLines:
         filename=item["filename"],
         first_attack_at=item["first_attack_at"],
         group_name=item["group_name"],
+        is_deactivated=item["is_deactivated"],
         loc=int(item["loc"]),
         modified_commit=item["modified_commit"],
         modified_date=item["modified_date"],
@@ -48,11 +49,17 @@ def format_toe_lines_edge(
 
 
 def format_toe_lines_item(
-    primary_key: PrimaryKey, key_structure: PrimaryKey, toe_lines: ToeLines
+    primary_key: PrimaryKey,
+    key_structure: PrimaryKey,
+    gsi_2_key: PrimaryKey,
+    gsi_2_index: Index,
+    toe_lines: ToeLines,
 ) -> Item:
     return {
         key_structure.partition_key: primary_key.partition_key,
         key_structure.sort_key: primary_key.sort_key,
+        gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
+        gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         "attacked_at": toe_lines.attacked_at,
         "attacked_by": toe_lines.attacked_by,
         "attacked_lines": toe_lines.attacked_lines,
@@ -63,6 +70,7 @@ def format_toe_lines_item(
         "filename": toe_lines.filename,
         "first_attack_at": toe_lines.first_attack_at,
         "group_name": toe_lines.group_name,
+        "is_deactivated": toe_lines.is_deactivated,
         "loc": toe_lines.loc,
         "modified_commit": toe_lines.modified_commit,
         "modified_date": toe_lines.modified_date,

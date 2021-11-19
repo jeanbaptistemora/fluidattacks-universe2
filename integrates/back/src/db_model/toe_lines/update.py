@@ -32,6 +32,7 @@ async def update_metadata(
     metadata: ToeLinesMetadataToUpdate,
 ) -> None:
     key_structure = TABLE.primary_key
+    gsi_2_index = TABLE.indexes["gsi_2"]
     metadata_key = keys.build_key(
         facet=TABLE.facets["toe_lines_metadata"],
         values={
@@ -40,8 +41,21 @@ async def update_metadata(
             "root_id": current_value.root_id,
         },
     )
+    current_gsi_2_key = keys.build_key(
+        facet=GSI_2_FACET,
+        values={
+            "be_present": str(current_value.be_present).lower(),
+            "filename": current_value.filename,
+            "group_name": current_value.group_name,
+            "root_id": current_value.root_id,
+        },
+    )
     current_value_item = format_toe_lines_item(
-        metadata_key, key_structure, current_value
+        metadata_key,
+        key_structure,
+        current_gsi_2_key,
+        gsi_2_index,
+        current_value,
     )
     metadata_item = {
         key: value

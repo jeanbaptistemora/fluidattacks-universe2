@@ -60,6 +60,7 @@ from toe.lines.types import (
 )
 from typing import (
     Dict,
+    Optional,
     Set,
     Tuple,
 )
@@ -302,12 +303,14 @@ async def get_present_toe_lines_to_update(
 def get_non_present_toe_lines_to_update(
     present_filenames: Set[str],
     repo_toe_lines: Dict[str, ToeLines],
+    is_deactivated: Optional[bool] = None,
 ) -> Tuple[Tuple[ToeLines, ToeLinesAttributesToUpdate], ...]:
     return tuple(
         (
             repo_toe_lines[db_filename],
             ToeLinesAttributesToUpdate(
                 be_present=False,
+                is_deactivated=is_deactivated,
             ),
         )
         for db_filename in repo_toe_lines
@@ -409,8 +412,7 @@ async def refresh_inactive_root_repo_toe_lines(
     }
     present_filenames: Set[str] = set()
     non_present_toe_lines_to_update = get_non_present_toe_lines_to_update(
-        present_filenames,
-        repo_toe_lines,
+        present_filenames, repo_toe_lines, is_deactivated=True
     )
     await collect(
         tuple(

@@ -7,6 +7,7 @@ from db_model.toe_lines.types import (
     ToeLines,
     ToeLinesConnection,
     ToeLinesEdge,
+    ToeLinesRequest,
 )
 from dynamodb.types import (
     PageInfo,
@@ -24,7 +25,11 @@ async def test_get() -> None:
     group_name = "unittesting"
     root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
     filename = "test/test#.config"
-    toe_lines = await loaders.toe_lines.load((group_name, root_id, filename))
+    toe_lines = await loaders.toe_lines.load(
+        ToeLinesRequest(
+            group_name=group_name, root_id=root_id, filename=filename
+        )
+    )
     assert toe_lines == ToeLines(
         attacked_at="2021-02-20T05:00:00+00:00",
         attacked_by="test2@test.com",
@@ -36,6 +41,7 @@ async def test_get() -> None:
         filename="test/test#.config",
         first_attack_at="2020-02-19T15:41:04+00:00",
         group_name="unittesting",
+        is_deactivated=False,
         loc=8,
         modified_commit="983466z",
         modified_date="2020-11-15T15:41:04+00:00",
@@ -46,7 +52,11 @@ async def test_get() -> None:
     group_name = "unittesting"
     root_id = "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
     filename = "test2/test.sh"
-    toe_lines = await loaders.toe_lines.load((group_name, root_id, filename))
+    toe_lines = await loaders.toe_lines.load(
+        ToeLinesRequest(
+            group_name=group_name, root_id=root_id, filename=filename
+        )
+    )
     assert toe_lines == ToeLines(
         attacked_at="2021-01-20T05:00:00+00:00",
         attacked_by="test@test.com",
@@ -58,6 +68,7 @@ async def test_get() -> None:
         filename="test2/test.sh",
         first_attack_at="2020-01-19T15:41:04+00:00",
         group_name="unittesting",
+        is_deactivated=False,
         loc=172,
         modified_commit="273412t",
         modified_date="2020-11-16T15:41:04+00:00",
@@ -87,6 +98,7 @@ async def test_get_by_group() -> None:
                     filename="test/test#.config",
                     first_attack_at="2020-02-19T15:41:04+00:00",
                     group_name="unittesting",
+                    is_deactivated=False,
                     loc=8,
                     modified_commit="983466z",
                     modified_date="2020-11-15T15:41:04+00:00",
@@ -108,6 +120,7 @@ async def test_get_by_group() -> None:
                     filename="test2/test.sh",
                     first_attack_at="2020-01-19T15:41:04+00:00",
                     group_name="unittesting",
+                    is_deactivated=False,
                     loc=172,
                     modified_commit="273412t",
                     modified_date="2020-11-16T15:41:04+00:00",
@@ -143,6 +156,7 @@ async def test_get_by_root() -> None:
                     filename="test/test#.config",
                     first_attack_at="2020-02-19T15:41:04+00:00",
                     group_name="unittesting",
+                    is_deactivated=False,
                     loc=8,
                     modified_commit="983466z",
                     modified_date="2020-11-15T15:41:04+00:00",
@@ -174,6 +188,7 @@ async def test_get_by_root() -> None:
                     filename="test2/test.sh",
                     first_attack_at="2020-01-19T15:41:04+00:00",
                     group_name="unittesting",
+                    is_deactivated=False,
                     loc=172,
                     modified_commit="273412t",
                     modified_date="2020-11-16T15:41:04+00:00",
