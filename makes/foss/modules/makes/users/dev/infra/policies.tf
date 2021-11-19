@@ -61,6 +61,7 @@ locals {
           "s3:PutObjectAcl",
         ]
         Resource = [
+          "arn:aws:s3:::continuous-repositories/continuoustest*/*",
           "arn:aws:s3:::docs-dev.fluidattacks.com",
           "arn:aws:s3:::docs-dev.fluidattacks.com/*",
           "arn:aws:s3:::fluidintegrates.analytics/*atfluid",
