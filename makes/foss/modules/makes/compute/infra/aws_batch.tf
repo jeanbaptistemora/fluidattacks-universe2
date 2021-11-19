@@ -108,19 +108,34 @@ resource "aws_security_group" "aws_batch_compute_environment_security_group" {
   }
 }
 
-resource "aws_launch_template" "batch_instance" {
+resource "aws_launch_template" "batch_instance_regular" {
   block_device_mappings {
     device_name  = "/dev/xvdcz"
     virtual_name = "ephemeral0"
   }
   key_name = "gitlab"
-  name     = "batch_instance"
+  name     = "batch_instance_regular"
   tags = {
-    "Name"            = "batch_instance"
+    "Name"            = "batch_instance_regular"
     "management:area" = "cost"
     "management:type" = "product"
   }
-  user_data = filebase64("${path.module}/aws_batch_user_data")
+  user_data = filebase64("${path.module}/aws_batch_user_data_skims")
+}
+
+resource "aws_launch_template" "batch_instance_skims" {
+  block_device_mappings {
+    device_name  = "/dev/xvdcz"
+    virtual_name = "ephemeral0"
+  }
+  key_name = "gitlab"
+  name     = "batch_instance_skims"
+  tags = {
+    "Name"            = "batch_instance_skims"
+    "management:area" = "cost"
+    "management:type" = "product"
+  }
+  user_data = filebase64("${path.module}/aws_batch_user_data_skims")
 }
 
 locals {
@@ -136,6 +151,8 @@ locals {
         "management:area" = "cost"
         "management:type" = "product"
       }
+      launch_template_id      = aws_launch_template.batch_instance_regular.id
+      launch_template_version = aws_launch_template.batch_instance_regular.latest_version
     }
   }
   compute_environments_spot = {
@@ -150,6 +167,8 @@ locals {
         "management:area" = "administrative"
         "management:type" = "other"
       }
+      launch_template_id      = aws_launch_template.batch_instance_regular.id
+      launch_template_version = aws_launch_template.batch_instance_regular.latest_version
     }
     spot = {
       bid_percentage      = 100
@@ -162,6 +181,8 @@ locals {
         "management:area" = "cost"
         "management:type" = "product"
       }
+      launch_template_id      = aws_launch_template.batch_instance_regular.id
+      launch_template_version = aws_launch_template.batch_instance_regular.latest_version
     }
   }
   compute_environments_spot_skims = {
@@ -177,6 +198,8 @@ locals {
         "management:area" = "cost"
         "management:type" = "product"
       }
+      launch_template_id      = aws_launch_template.batch_instance_skims.id
+      launch_template_version = aws_launch_template.batch_instance_skims.latest_version
     }
   }
   compute_environments = merge(
@@ -234,8 +257,8 @@ resource "aws_batch_compute_environment" "default" {
     tags = each.value.tags
 
     launch_template {
-      launch_template_id = aws_launch_template.batch_instance.id
-      version            = aws_launch_template.batch_instance.latest_version
+      launch_template_id = each.value.launch_template_id
+      version            = each.value.launch_template_version
     }
   }
   lifecycle {
@@ -312,6 +335,22 @@ resource "aws_batch_job_definition" "skims_process_group" {
     # Will be overridden on job submission
     memory = 1800
     vcpus  = 1
+
+    mountPoints = [
+      {
+        sourceVolume  = "service_data"
+        containerPath = "/process_group/"
+        readOnly      = false
+      }
+    ]
+    volumes = [
+      {
+        name = "service_data"
+        host = {
+          sourcePath = "/process_group/"
+        }
+      }
+    ]
   })
 
   tags = {
