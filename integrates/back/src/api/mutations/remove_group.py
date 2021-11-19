@@ -48,6 +48,7 @@ async def mutate(
         loaders = info.context.loaders
         group_name = group_name.lower()
         user_info = await token_utils.get_jwt_content(info.context)
+        group = await loaders.group.load(group_name)
         requester_email = user_info["user_email"]
         success = False
         success = await groups_domain.update_group_attrs(
@@ -59,8 +60,8 @@ async def mutate(
             has_asm=False,
             reason=reason,
             requester_email=requester_email,
-            service="WHITE",
-            subscription="continuous",
+            service=group["service"],
+            subscription=group["subscription"],
         )
         if success:
             redis_del_by_deps_soon("remove_group", group_name=group_name)
