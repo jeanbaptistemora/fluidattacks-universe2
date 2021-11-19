@@ -174,7 +174,7 @@
         src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/3c66db1f-0f67-491a-9193-3d8e6d1ea983.png"
         style="height: 100px; margin: 30px 0;">
       <h4>
-        Hello {{ name }}, here’s how your day was at your {{ groups_len }} subscribed groups:
+        Hello {{ name }}, here's how the last day went for your {{ groups_len }} subscribed groups:
       </h4>
     </div>
 
@@ -183,50 +183,50 @@
       <div class="numbers">
         <div>
           {%- if group_age['oldest_age'] >= 60 %}
-            <h3>{{ (group_age['oldest_age'] * 0.032855)|round(1, 'common') }}</h3>
-            <p><strong>{{ group_age['oldest_group'] }}</strong> is the <strong>oldest</strong> group among your subscribed (months)</p>
+            <h3>{{ (group_age['oldest_age'] * 0.032855)|round(1, 'common') }} months</h3>
+            <p><strong>{{ group_age['oldest_group'] }}</strong> is the <strong>oldest</strong> among your subscribed groups</p>
           {%- else %}
-            <h3>{{ group_age['oldest_age'] }}</h3>
-            <p><strong>{{ group_age['oldest_group'] }}</strong> is the <strong>oldest</strong> group among your subscribed (days)</p>
+            <h3>{{ group_age['oldest_age'] }} days</h3>
+            <p><strong>{{ group_age['oldest_group'] }}</strong> is the <strong>oldest</strong> among your subscribed groups</p>
           {%- endif %}
         </div>
         <div>
           {%- if group_age['youngest_age'] >= 60 %}
-            <h3>{{ (group_age['youngest_age'] * 0.032855)|round(1, 'common') }}</h3>
-            <p><strong>{{ group_age['newest_group'] }}</strong> is the <strong>newest</strong> group among your subscribed (months)</p>
+            <h3>{{ (group_age['youngest_age'] * 0.032855)|round(1, 'common') }} months</h3>
+            <p><strong>{{ group_age['newest_group'] }}</strong> is the <strong>newest</strong> among your subscribed groups</p>
           {%- else %}
-            <h3>{{ group_age['youngest_age'] }}</h3>
-            <p><strong>{{ group_age['newest_group'] }}</strong> is the <strong>newest</strong> group among your subscribed (days)</p>
+            <h3>{{ group_age['youngest_age'] }} days</h3>
+            <p><strong>{{ group_age['newest_group'] }}</strong> is the <strong>newest</strong> among your subscribed groups</p>
           {%- endif %}
         </div>
       </div>
       <div class="numbers">
         <div>
           <h3>{{ remediation_rate['min'] }}%</h3>
-          <p><strong>{{ remediation_rate['min_group'] }}</strong> has the <strong>minimum</strong> remediation rate</p>
+          <p><strong>{{ remediation_rate['min_group'] }}</strong> has the <strong>lowest</strong> remediation rate</p>
         </div>
         <div>
           <h3>{{ remediation_rate['max'] }}%</h3>
-          <p><strong>{{ remediation_rate['max_group'] }}</strong> has the <strong>maximum</strong> remediation rate</p>
+          <p><strong>{{ remediation_rate['max_group'] }}</strong> has the <strong>highest</strong> remediation rate</p>
         </div>
       </div>
       <div class="numbers">
         <div>
           {%- if remediation_time['max'] >= 60 %}
-            <h3>{{ (remediation_time['max'] * 0.032855)|round(1, 'common') }}</h3>
-            <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>maximum</strong> mean time to remediate (months)</p>
+            <h3>{{ (remediation_time['max'] * 0.032855)|round(1, 'common') }} months</h3>
+            <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>highest</strong> mean remediation time</p>
           {%- else %}
-            <h3>{{ remediation_time['max'] }}</h3>
-            <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>maximum</strong> mean time to remediate (days)</p>
+            <h3>{{ remediation_time['max'] }} days</h3>
+            <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>highest</strong> mean remediation time</p>
           {%- endif %}
         </div>
         <div>
           {%- if remediation_time['min'] >= 60 %}
-            <h3>{{ (remediation_time['min'] * 0.032855)|round(1, 'common') }}</h3>
-            <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>minimum</strong> mean time to remediate (months)</p>
+            <h3>{{ (remediation_time['min'] * 0.032855)|round(1, 'common') }} months</h3>
+            <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>lowest</strong> mean remediation time</p>
           {%- else %}
-            <h3>{{ remediation_time['min'] }}</h3>
-            <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>minimum</strong> mean time to remediate (days)</p>
+            <h3>{{ remediation_time['min'] }} days</h3>
+            <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>lowest</strong> mean remediation time</p>
           {%- endif %}
         </div>
       </div>
@@ -237,8 +237,13 @@
           <p>Remediation rate at <strong>{{ remediation_rate['max_group'] }}</strong></p>
         </div>
         <div>
-          <h3>{{ remediation_time['max'] }}</h3>
-          <p>Mean time to remediate (days) at <strong>{{ remediation_time['max_group'] }}</strong></p>
+          {%- if remediation_time['max'] >= 60 %}
+            <h3>{{ (remediation_time['max'] * 0.032855)|round(1, 'common') }} months</h3>
+            <p>Mean remediation time at <strong>{{ remediation_time['max_group'] }}</strong></p>
+          {%- else %}
+            <h3>{{ remediation_time['max'] }} days</h3>
+            <p>Mean remediation time at <strong>{{ remediation_time['max_group'] }}</strong></p>
+          {%- endif %}
         </div>
       </div>
     {%- endif %}
@@ -279,7 +284,7 @@
         {%- if reattacks['reattacks_requested'] > 0 %}
           <div class="first-row">
             <span style="font-weight: 700;">Requested at group</span>
-            <span style="font-weight: 700;float: right;"># of requests</span>
+            <span style="font-weight: 700;float: right;">Total</span>
           </div>
           {%- if 'groups_requested' in reattacks %}
             {%- for group in reattacks['groups_requested'] %}
@@ -322,7 +327,7 @@
         {%- if reattacks['reattacks_executed'] > 0 %}
           <div class="first-row">
             <span style="font-weight: 700;">Executed at group</span>
-            <span style="font-weight: 700;float: right;"># of executions</span>
+            <span style="font-weight: 700;float: right;">Total</span>
           </div>
           {%- if 'groups_executed' in reattacks %}
             {%- for group in reattacks['groups_executed'] %}
@@ -365,7 +370,7 @@
         {%- if reattacks['pending_attacks'] > 0 %}
           <div class="first-row">
             <span style="font-weight: 700;">Pending at group</span>
-            <span style="font-weight: 700;float: right;"># of pending</span>
+            <span style="font-weight: 700;float: right;">Total</span>
           </div>
           {%- if 'groups_pending' in reattacks %}
             {%- for group in reattacks['groups_pending'] %}
@@ -468,7 +473,7 @@
         {%- if treatments['undefined'] > 0 %}
           <div class="first-row">
             <span style="font-weight: 700;">Undefined treatments at group</span>
-            <span style="font-weight: 700;float: right;"># of undefined</span>
+            <span style="font-weight: 700;float: right;">Total</span>
           </div>
           {%- if 'groups_undefined' in treatments %}
             {%- for group in treatments['groups_undefined'] %}
