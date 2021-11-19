@@ -302,6 +302,13 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     ]
     resources = ["*"]
   }
+  statement {
+    effect = "Allow"
+    actions = ["*"]
+    resources = [
+      "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:FLUID*"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "integrates-prod-policy" {

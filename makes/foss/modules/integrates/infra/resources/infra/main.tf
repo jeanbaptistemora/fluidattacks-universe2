@@ -35,7 +35,3 @@ module "s3" {
   source                = "./s3"
   analytics_bucket_name = var.aws_s3_analytics_bucket
 }
-
-module "sqs" {
-  source = "./sqs"
-}
