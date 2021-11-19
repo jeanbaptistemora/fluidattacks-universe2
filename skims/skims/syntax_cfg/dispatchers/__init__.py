@@ -2,6 +2,7 @@ from syntax_cfg.dispatchers import (
     connect_to_block,
     connect_to_next,
     if_node,
+    multi_path,
     step_by_step,
 )
 from syntax_cfg.types import (
@@ -21,8 +22,13 @@ DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "DeclarationBlock",
-            "ExecutionBlock",
             "File",
+        },
+        cfg_builder=multi_path.build,
+    ),
+    Dispatcher(
+        applicable_types={
+            "ExecutionBlock",
         },
         cfg_builder=step_by_step.build,
     ),

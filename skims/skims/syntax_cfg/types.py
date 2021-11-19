@@ -4,30 +4,31 @@ from model.graph_model import (
 from typing import (
     Any,
     Callable,
-    List,
     NamedTuple,
+    Optional,
     Set,
     Tuple,
 )
 
-Stack = List[str]
 SYNTAX_CFG_ARGS = Any
 
 
 class SyntaxCfgArgs(NamedTuple):
-    generic: Callable[[SYNTAX_CFG_ARGS, Stack], None]
+    generic: Callable[[SYNTAX_CFG_ARGS], None]
     graph: Graph
     n_id: str
+    nxt_id: Optional[str]
 
-    def fork_n_id(self, n_id: str) -> SYNTAX_CFG_ARGS:
+    def fork(self, n_id: str, nxt_id: Optional[str]) -> SYNTAX_CFG_ARGS:
         return SyntaxCfgArgs(
             generic=self.generic,
             graph=self.graph,
             n_id=n_id,
+            nxt_id=nxt_id,
         )
 
 
-CfgBuilder = Callable[[SyntaxCfgArgs, Stack], None]
+CfgBuilder = Callable[[SyntaxCfgArgs], None]
 
 
 class Dispatcher(NamedTuple):
