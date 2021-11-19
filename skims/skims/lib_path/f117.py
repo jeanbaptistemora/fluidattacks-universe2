@@ -13,14 +13,8 @@ from typing import (
     Callable,
     List,
 )
-from utils.ctx import (
-    CTX,
-)
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from zone import (
-    t,
 )
 
 
@@ -34,10 +28,7 @@ async def unverifiable_files(
     return get_vulnerabilities_from_iterator_blocking(
         content=raw_content.decode(encoding="utf-8", errors="replace"),
         cwe={"377"},
-        description=t(
-            key="src.lib_path.f117.unverifiable_files.description",
-            path=f"{CTX.config.namespace}/{path}",
-        ),
+        description_key="src.lib_path.f117.unverifiable_files.description",
         finding=core_model.FindingEnum.F117,
         iterator=iter([(1, 0)]),
         path=path,

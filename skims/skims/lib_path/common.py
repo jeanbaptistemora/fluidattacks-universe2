@@ -125,7 +125,7 @@ def get_matching_lines_blocking(
 def get_vulnerabilities_blocking(
     content: str,
     cwe: Set[str],
-    description: str,
+    description_key: str,
     finding: core_model.FindingEnum,
     grammar: ParserElement,
     path: str,
@@ -141,7 +141,10 @@ def get_vulnerabilities_blocking(
             where=f"{match.start_line}",
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),
-                description=description,
+                description=t(
+                    key=description_key,
+                    path=f"{CTX.config.namespace}/{path}",
+                ),
                 snippet=make_snippet(
                     content=content,
                     viewport=SnippetViewport(
@@ -164,7 +167,7 @@ def get_vulnerabilities_blocking(
 def get_vulnerabilities_from_iterator_blocking(
     content: str,
     cwe: Set[str],
-    description: str,
+    description_key: str,
     finding: core_model.FindingEnum,
     iterator: Iterator[Tuple[int, int]],
     path: str,
@@ -179,7 +182,10 @@ def get_vulnerabilities_from_iterator_blocking(
             where=f"{line_no}",
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),
-                description=description,
+                description=t(
+                    key=description_key,
+                    path=f"{CTX.config.namespace}/{path}",
+                ),
                 snippet=make_snippet(
                     content=content,
                     viewport=SnippetViewport(column=column_no, line=line_no),
@@ -203,7 +209,7 @@ def get_vulnerabilities_from_n_attrs_iterable_blocking(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe=cwe,
-        description=description,
+        description_key=description,
         finding=finding,
         iterator=(
             (int(n_attrs["label_l"]), int(n_attrs["label_c"]))
@@ -253,10 +259,7 @@ def get_vulnerabilities_from_aws_iterator_blocking(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={finding.value.cwe},
-        description=t(
-            key=description_key,
-            path=f"{CTX.config.namespace}/{path}",
-        ),
+        description_key=description_key,
         finding=finding,
         iterator=(
             (

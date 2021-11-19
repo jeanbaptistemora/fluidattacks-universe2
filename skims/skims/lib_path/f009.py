@@ -37,14 +37,8 @@ from typing import (
     Set,
     Tuple,
 )
-from utils.ctx import (
-    CTX,
-)
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from zone import (
-    t,
 )
 
 # Constants
@@ -87,10 +81,7 @@ def _aws_credentials(
     return get_vulnerabilities_blocking(
         content=content,
         cwe={"798"},
-        description=t(
-            key="src.lib_path.f009.aws_credentials.description",
-            path=f"{CTX.config.namespace}/{path}",
-        ),
+        description_key="src.lib_path.f009.aws_credentials.description",
         finding=core_model.FindingEnum.F009,
         grammar=grammar,
         path=path,
@@ -112,10 +103,7 @@ def _jwt_token(
     return get_vulnerabilities_blocking(
         content=content,
         cwe={"798"},
-        description=t(
-            key="src.lib_path.f009.jwt_token.description",
-            path=f"{CTX.config.namespace}/{path}",
-        ),
+        description_key="src.lib_path.f009.jwt_token.description",
         finding=core_model.FindingEnum.F009,
         grammar=grammar,
         path=path,
@@ -179,10 +167,7 @@ def _dockerfile_env_secrets(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={"798"},
-        description=t(
-            key="src.lib_path.f009.dockerfile_env_secrets.description",
-            path=f"{CTX.config.namespace}/{path}",
-        ),
+        description_key="src.lib_path.f009.dockerfile_env_secrets.description",
         finding=core_model.FindingEnum.F009,
         iterator=iterator(),
         path=path,
@@ -269,10 +254,7 @@ def _java_properties_sensitive_data(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={"798"},
-        description=t(
-            key="src.lib_path.f009.java_properties_sensitive_data",
-            path=f"{CTX.config.namespace}/{path}",
-        ),
+        description_key="src.lib_path.f009.java_properties_sensitive_data",
         finding=core_model.FindingEnum.F009,
         iterator=iterator(),
         path=path,
@@ -315,10 +297,7 @@ def _sensitive_key_in_json(
     return get_vulnerabilities_blocking(
         content=content,
         cwe={"798"},
-        description=t(
-            key="src.lib_path.f009.sensitive_key_in_json.description",
-            path=f"{CTX.config.namespace}/{path}",
-        ),
+        description_key="src.lib_path.f009.sensitive_key_in_json.description",
         finding=core_model.FindingEnum.F009,
         grammar=grammar,
         path=path,
@@ -347,10 +326,7 @@ def _web_config_user_pass(
     return get_vulnerabilities_blocking(
         content=content,
         cwe={"798"},
-        description=t(
-            key="src.lib_path.f009.web_config_user_pass.description",
-            path=f"{CTX.config.namespace}/{path}",
-        ),
+        description_key="src.lib_path.f009.web_config_user_pass.description",
         finding=core_model.FindingEnum.F009,
         grammar=grammar,
         path=path,
@@ -383,9 +359,8 @@ def _web_config_db_connection(
     return get_vulnerabilities_blocking(
         content=content,
         cwe={"798"},
-        description=t(
-            key="src.lib_path.f009.web_config_db_connection.description",
-            path=f"{CTX.config.namespace}/{path}",
+        description_key=(
+            "src.lib_path.f009.web_config_db_connection.description"
         ),
         finding=core_model.FindingEnum.F009,
         grammar=grammar,

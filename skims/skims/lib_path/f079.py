@@ -13,14 +13,8 @@ from typing import (
     Callable,
     List,
 )
-from utils.ctx import (
-    CTX,
-)
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from zone import (
-    t,
 )
 
 
@@ -34,13 +28,10 @@ async def non_upgradeable_deps(
     return get_vulnerabilities_from_iterator_blocking(
         content=raw_content.decode(encoding="utf-8", errors="replace"),
         cwe={"829"},
-        description=t(
-            key="src.lib_path.f079.non_upgradeable_deps.description",
-            path=path,
-        ),
+        description_key="src.lib_path.f079.non_upgradeable_deps.description",
         finding=core_model.FindingEnum.F079,
         iterator=iter([(1, 0)]),
-        path=f"{CTX.config.namespace}/{path}",
+        path=path,
     )
 
 

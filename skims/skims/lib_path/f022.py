@@ -22,14 +22,8 @@ from typing import (
     List,
     Tuple,
 )
-from utils.ctx import (
-    CTX,
-)
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from zone import (
-    t,
 )
 
 
@@ -59,10 +53,7 @@ def _java_properties_unencrypted_transport(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={"319"},
-        description=t(
-            key="src.lib_path.f022.unencrypted_channel",
-            path=f"{CTX.config.namespace}/{path}",
-        ),
+        description_key="src.lib_path.f022.unencrypted_channel",
         finding=core_model.FindingEnum.F022,
         iterator=iterator(),
         path=path,

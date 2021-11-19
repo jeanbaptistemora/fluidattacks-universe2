@@ -20,14 +20,8 @@ from typing import (
     Callable,
     List,
 )
-from utils.ctx import (
-    CTX,
-)
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from zone import (
-    t,
 )
 
 
@@ -49,10 +43,7 @@ def _unpinned_docker_image(
     return get_vulnerabilities_blocking(
         content=content,
         cwe={"749"},
-        description=t(
-            key="F380.description",
-            path=f"{CTX.config.namespace}/{path}",
-        ),
+        description_key="F380.description",
         finding=core_model.FindingEnum.F380,
         grammar=grammar,
         path=path,
