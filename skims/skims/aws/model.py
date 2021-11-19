@@ -100,3 +100,9 @@ class AWSRdsCluster(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSKmsKey(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int
