@@ -20,7 +20,7 @@
     modules = {
       makesVpc = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/makesVpcDev"
           outputs."/secretsForTerraformFromEnv/makesVpc"
         ];
@@ -49,7 +49,7 @@
     modules = {
       makesVpc = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/makesVpcDev"
           outputs."/secretsForTerraformFromEnv/makesVpc"
         ];

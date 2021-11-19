@@ -19,7 +19,7 @@
     modules = {
       makesUsersMelts = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
         ];
         src = "/makes/foss/modules/makes/users/melts/infra";
         version = "1.0";
@@ -65,7 +65,7 @@
     modules = {
       makesUsersMelts = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForTerraformFromEnv/makesUsersMelts"
         ];
         src = "/makes/foss/modules/makes/users/melts/infra";

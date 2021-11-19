@@ -11,7 +11,7 @@ makeTemplate {
   searchPaths = {
     bin = [ inputs.nixpkgs.python38 ];
     source = [
-      outputs."/secretsForAwsFromEnv/makesDev"
+      outputs."/secretsForAwsFromEnv/dev"
       outputs."/secretsForEnvFromSops/makesOktaData"
     ];
   };

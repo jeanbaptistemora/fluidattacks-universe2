@@ -19,7 +19,7 @@
     modules = {
       makesUsersSkims = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
         ];
         src = "/makes/foss/modules/makes/users/skims/infra";
         version = "1.0";
@@ -66,7 +66,7 @@
     modules = {
       makesUsersSkims = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForTerraformFromEnv/makesUsersSkims"
         ];
         src = "/makes/foss/modules/makes/users/skims/infra";

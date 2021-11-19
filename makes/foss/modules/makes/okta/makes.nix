@@ -22,7 +22,7 @@
       makesOkta = {
         setup = [
           outputs."/makes/okta/parse"
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/makesOktaApiToken"
           outputs."/secretsForTerraformFromEnv/makesOkta"
         ];
@@ -52,7 +52,7 @@
       makesOkta = {
         setup = [
           outputs."/makes/okta/parse"
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/makesOktaApiToken"
           outputs."/secretsForTerraformFromEnv/makesOkta"
         ];

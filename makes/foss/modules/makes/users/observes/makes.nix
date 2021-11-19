@@ -19,7 +19,7 @@
     modules = {
       makesUsersObserves = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
         ];
         src = "/makes/foss/modules/makes/users/observes/infra";
         version = "1.0";
@@ -66,7 +66,7 @@
     modules = {
       makesUsersObserves = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForTerraformFromEnv/makesUsersObserves"
         ];
         src = "/makes/foss/modules/makes/users/observes/infra";

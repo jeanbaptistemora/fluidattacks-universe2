@@ -20,7 +20,7 @@
       makesFoss = {
         setup = [
           outputs."/secretsForTerraformFromEnv/makesFoss"
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
         ];
         src = "/makes/foss/modules/makes/foss/infra";
         version = "1.0";
@@ -37,7 +37,7 @@
       makesFoss = {
         setup = [
           outputs."/secretsForTerraformFromEnv/makesFoss"
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
         ];
         src = "/makes/foss/modules/makes/foss/infra";
         version = "1.0";

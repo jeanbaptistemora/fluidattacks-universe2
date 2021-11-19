@@ -19,7 +19,7 @@
     modules = {
       makesUsersSorts = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForTerraformFromEnv/makesUsersSorts"
         ];
         src = "/makes/foss/modules/makes/users/sorts/infra";
@@ -67,7 +67,7 @@
     modules = {
       makesUsersSorts = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForTerraformFromEnv/makesUsersSorts"
         ];
         src = "/makes/foss/modules/makes/users/sorts/infra";

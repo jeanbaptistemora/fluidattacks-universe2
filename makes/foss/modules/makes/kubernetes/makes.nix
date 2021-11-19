@@ -30,7 +30,7 @@ in
       makesKubernetes = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/makesKubernetesDev"
           outputs."/secretsForTerraformFromEnv/makesKubernetes"
         ];
@@ -78,7 +78,7 @@ in
       makesKubernetes = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/makesKubernetesDev"
           outputs."/secretsForKubernetesConfigFromAws/makesKubernetes"
           outputs."/secretsForTerraformFromEnv/makesKubernetes"

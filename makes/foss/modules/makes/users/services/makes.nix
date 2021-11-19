@@ -19,7 +19,7 @@
     modules = {
       makesUsersServices = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForTerraformFromEnv/makesUsersServices"
         ];
         src = "/makes/foss/modules/makes/users/services/infra";
@@ -68,7 +68,7 @@
     modules = {
       makesUsersServices = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForTerraformFromEnv/makesUsersServices"
         ];
         src = "/makes/foss/modules/makes/users/services/infra";

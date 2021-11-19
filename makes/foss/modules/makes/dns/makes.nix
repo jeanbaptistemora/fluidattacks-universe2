@@ -20,7 +20,7 @@
     modules = {
       makesDns = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/makesDnsDev"
           outputs."/secretsForTerraformFromEnv/makesDns"
         ];
@@ -49,7 +49,7 @@
     modules = {
       makesDns = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/makesDnsDev"
           outputs."/secretsForTerraformFromEnv/makesDns"
         ];

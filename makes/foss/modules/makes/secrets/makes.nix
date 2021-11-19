@@ -15,7 +15,7 @@
   lintTerraform = {
     modules = {
       makesSecrets = {
-        setup = [ outputs."/secretsForAwsFromEnv/makesDev" ];
+        setup = [ outputs."/secretsForAwsFromEnv/dev" ];
         src = "/makes/foss/modules/makes/secrets/infra";
         version = "1.0";
       };
@@ -24,7 +24,7 @@
   testTerraform = {
     modules = {
       makesSecrets = {
-        setup = [ outputs."/secretsForAwsFromEnv/makesDev" ];
+        setup = [ outputs."/secretsForAwsFromEnv/dev" ];
         src = "/makes/foss/modules/makes/secrets/infra";
         version = "1.0";
       };

@@ -21,7 +21,7 @@
       makesCompute = {
         setup = [
           outputs."/envVarsForTerraform/makesCompute"
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
         ];
         src = "/makes/foss/modules/makes/compute/infra";
         version = "1.0";
@@ -38,7 +38,7 @@
       makesCompute = {
         setup = [
           outputs."/envVarsForTerraform/makesCompute"
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/dev"
         ];
         src = "/makes/foss/modules/makes/compute/infra";
         version = "1.0";
