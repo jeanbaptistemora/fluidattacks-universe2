@@ -74,11 +74,6 @@ variable "map_users" {
       groups   = ["system:masters"]
     },
     {
-      userarn  = "arn:aws:iam::205810638802:user/user-provision/serves-dev"
-      username = "serves-dev"
-      groups   = ["system:masters"]
-    },
-    {
       userarn  = "arn:aws:iam::205810638802:user/user-provision/integrates-prod"
       username = "integrates-prod"
       groups   = ["system:masters"]

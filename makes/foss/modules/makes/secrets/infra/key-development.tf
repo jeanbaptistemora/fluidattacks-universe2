@@ -22,7 +22,6 @@ data "aws_iam_policy_document" "key-serves-development" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
@@ -56,7 +55,6 @@ data "aws_iam_policy_document" "key-serves-development" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
@@ -81,7 +79,6 @@ data "aws_iam_policy_document" "key-serves-development" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",

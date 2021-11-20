@@ -155,23 +155,6 @@ resource "aws_iam_role_policy_attachment" "makes_prod" {
 
 # Observes
 
-resource "aws_iam_role" "observes_dev" {
-  name                 = "observes_dev"
-  assume_role_policy   = data.aws_iam_policy_document.okta-assume-role-policy-data.json
-  max_session_duration = "32400"
-
-  tags = {
-    "Name"            = "observes_dev"
-    "management:area" = "innovation"
-    "management:type" = "product"
-  }
-}
-
-resource "aws_iam_role_policy_attachment" "observes_dev" {
-  role       = aws_iam_role.observes_dev.name
-  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/observes-dev-policy"
-}
-
 resource "aws_iam_role" "observes_prod" {
   name                 = "observes_prod"
   assume_role_policy   = data.aws_iam_policy_document.okta-assume-role-policy-data.json
