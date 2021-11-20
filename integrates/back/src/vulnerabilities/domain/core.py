@@ -1009,7 +1009,7 @@ async def update_state_new(
             *formatted_treatment,
         ]
     if vulnerability.type == VulnerabilityType.INPUTS and to_update.stream:
-        data_to_update["stream"] = to_update.stream
+        data_to_update["stream"] = ",".join(to_update.stream)
     if vulnerability.type == VulnerabilityType.LINES and to_update.commit:
         data_to_update["commit_hash"] = to_update.commit
     if to_update.repo and vulnerability.repo != to_update.repo:

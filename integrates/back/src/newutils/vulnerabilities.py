@@ -970,7 +970,7 @@ def format_vulnerability_state_item(
     item = {
         "analyst": state.modified_by,
         "date": convert_from_iso_str(state.modified_date),
-        "source": state.source.value,
+        "source": str(state.source.value).lower(),
         "state": str(state.status.value).lower(),
     }
     if state.justification:
@@ -1028,13 +1028,10 @@ def format_vulnerability_item(
     item = {
         "finding_id": vulnerability.finding_id,
         "UUID": vulnerability.id,
-        "vuln_type": vulnerability.type,
+        "vuln_type": str(vulnerability.type.value).lower(),
         "where": vulnerability.where,
         "source": str(vulnerability.state.source.value).lower(),
         "specific": vulnerability.specific,
-        "historic_treatment": [
-            format_vulnerability_treatment_item(vulnerability.treatment)
-        ],
         "historic_state": [
             format_vulnerability_state_item(vulnerability.state)
         ],
@@ -1048,9 +1045,13 @@ def format_vulnerability_item(
     if vulnerability.repo:
         item["repo_nickname"] = vulnerability.repo
     if vulnerability.stream:
-        item["stream"] = ",".join(sorted(vulnerability.stream))
+        item["stream"] = ",".join(vulnerability.stream)
     if vulnerability.tags:
         item["tags"] = ",".join(sorted(vulnerability.tags))
+    if vulnerability.treatment:
+        item["historic_treatment"] = [
+            format_vulnerability_treatment_item(vulnerability.treatment)
+        ]
     if vulnerability.verification:
         item["historic_verification"] = [
             format_vulnerability_verification_item(vulnerability.verification)
