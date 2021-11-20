@@ -23,141 +23,127 @@ was defeated by Deep Blue,
 the supercomputer designed by IBM.
 For many people,
 that event was proof
-that machines had managed to exceed human intelligence <<r1,^[1]^>>.
+that machines had managed to link:https://theconversation.com/twenty-years-on-from-deep-blue-vs-kasparov-how-a-chess-match-started-the-big-data-revolution-76882[exceed human intelligence].
 This belief raised many doubts and concerns
-regarding technological advance,
-that went all the way from workers worried about their jobs,
-to beliefs that the apocalypse was coming,
-incentivized by Hollywood,
-and beliefs that machines would conquer and oppress our world.
+regarding technological advances,
+which went from workers worried about their jobs
+to people imagining that the apocalypse was coming
+(an idea encouraged by Hollywood).
 
-Leaving all fiction aside,
-the first concern was well grounded
+All fiction aside,
+that first concern was well-founded
 and made some sense.
-Every year we witness new machines out in the market
-with the ability to complete a task with precision and speed
-capable of outdoing tenths of experienced workers.
-By machine
-I am not talking about a robot
-with the appearance of a young Arnold Schwarzenegger wearing sunglasses.
+Every year we witness new machines on the market
+with the ability to complete tasks with precision and speed
+and outperform dozens of experienced workers.
+By machine,
+I don't mean a robot
+looking like Arnold Schwarzenegger
+in _The Terminator_.
 It could be any device programmed
-to complete a specific task.
+to complete a specific task,
+for example,
+self-driving cars,
+robotic arms
+and tools to detect vulnerabilities in web apps.
+As cybersecurity specialists,
+what can we expect from all this?
+Are we becoming increasingly expendable?
 
-Self-driving cars,
-robotic arms that minimize costs
-and increase the efficiency of a process and,
-in the field of Information Security,
-tools that can detect errors and vulnerabilities in a web app.
-What can we,
-information security specialist,
-expect from all of this?
-Are we becoming more and more expendable?
-
-.The inevitable outcome that Hollywood shows us
+.The inevitable outcome that Hollywood shows us.
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331052/blog/replaced-machines/terminator_w63xoh.webp[Robot holding a firearm with an explosion in the background]
 
 Fortunately,
 our future does not look so bleak.
 Even though there are many powerful automated tools
-for vulnerability detection in web applications,
+for vulnerability detection,
 the human role is still vital
 if a detailed and effective security analysis is desired.
 There are still situations
 in which we have the upper hand:
 
-* Tools may have a large database of vulnerabilities,
-know how to find them and what risk level they imply.
+* Tools may have large vulnerability databases.
+They can know how to find security flaws
+and what risk levels they represent.
 However,
-they do not have that human factor and expertise
-that comes with experience,
-that instinct that allows a security analyst
+they do not have that human factor
+that comes with experience
+and allows a security analyst
 to identify which vulnerabilities can be combined
-in order to create a more critical attack vector.
-Expertise can also allow a person
-to find vulnerabilities a machine may overlook.
+to create a more critical attack vector.
+Expertise can enable a person
+to find vulnerabilities that a machine may overlook
 
-* Yes,
-analyzers generate a report with all their findings
-and criticality but,
-how complete is it?
-It tells you
-how many input fields are affected by a vulnerability but,
-does it tell you
-which of those inputs allow the extraction of sensitive data?
-Does it tell you
-how to take advantage of a form
-in order to modify a database?
-Sadly,
-the answer is no,
-automated tools only determine the existence of a flaw.
-How that flaw can be exploited and leveraged
-to an attackers favor
-in order to affect a particular business scenario
-is strictly a human ability,
-acquired thanks to the expertise
-we previously mentioned.
+* Analyzers generate reports
+with all their findings and criticality,
+but how complete are they?
+They tell you how many input fields are affected by a vulnerability,
+but do they tell you which inputs allow sensitive data extraction?
+Do they tell you how to exploit a form to modify a database?
+Unfortunately,
+the answer is no.
+Automated tools only determine the existence of flaws.
+How those flaws can be exploited
+and leveraged to an attacker's advantage
+is strictly a human skill.
 
-* False positives, perhaps an analyzer's greatest flaw,
-report the discovery of a vulnerability that,
-in reality,
-does not exist <<r2,^[2]^>>.
-It's a very common problem among these tools,
-which results from the inability to exploit a certain flaw.
-A tool that does not properly filter out false positives
-can bring more damage than benefits.
-If it was used to avoid the cost
-of hiring a security professional,
-you now have X vulnerabilities reported.
-Out of those,
-you have no idea which ones are false positives.
-The task of filtering those out now falls on the developer,
-someone who does not necessarily dominate the topic of security.
-Was the remedy worse than the illness?
+* A false positive is the report
+of the discovery of a vulnerability
+that link:http://resources.infosecinstitute.com/automated-tools-vs-a-manual-approach/#gref[does not actually exist].
+It's a common problem among these tools,
+resulting from the inability to exploit a given flaw.
+A tool that does not adequately filter out false positives
+can do more harm than good.
+If you use it to avoid the cost of hiring a security professional,
+you may have no idea
+which of the vulnerabilities it reports are false positives.
+The task of filtering them
+may then fall to the developer,
+who may not necessarily be security savvy.
 +
-False positives
-are also one of the reasons for which these tools
-are not commonly used in Continuous Integration environments.
-If we program an integrator to check
-every change made in a source code,
-and stop the deployment of the app if an error is found,
-false positives could make the deployment of an app
-a pain in the ass.
+False positives are also one of the reasons
+why these tools are not commonly used
+in Continuous Integration environments.
+If we program an integrator to check every change
+made to a source code
+and stop the application deployment if an error is found,
+false positives could make those deployments a headache.
 
-* Netsparker (the developer of one of these tools),
-agrees with this position <<r3,^[3]^>>,
-no analyzer is capable of detecting
+* Netsparker (developer of one of these tools)
+link:https://www.netsparker.com/blog/web-security/owasp-top-10-web-security-scanner/[agrees with this position]:
+no analyzer can detect
 all vulnerabilities classified as the
 link:https://www.owasp.org/index.php/Top_10-2017_Top_10[Top 10]
 most critical.
-They reach to the conclusion that an analyzer
-cannot determine if an application is working as intended
-and aligned with the company objectives,
-whether the sensitive information
-(which vary depending on the type of business)
-is being properly protected,
-and the users´ privileges are being properly assigned,
-among many other cases where human reasoning must make the final decision.
+They conclude that an analyzer cannot determine
+whether an application is functioning as intended
+and aligned with business objectives,
+or whether sensitive information
+(which varies by business type)
+is properly protected,
+or whether user privileges are correctly assigned.
+In these and many other cases,
+human reasoning must make the final decision.
 
-Our goal is not to take merit away from these tools;
-we use many of them in our professional lives
-and they are very strong allies.
+Our goal is not to take merit away from these tools.
+We use many of them in our professional life,
+and they are powerful allies.
 What we want is to revise the mistaken belief
-that those tools are sufficient in order to decide
-if a web app is secure or not.
+that they are sufficient to decide
+whether a web app is secure or not.
 
 To do this,
-we developed our own experiment.
+we developed an experiment.
 We used the insecure web application bWAPP
 and the automated analyzers W3af, Wapiti and OWASP ZAP.
-These all share the features of being Open Source
-and being able to be executed from the command line.
+All of them share the features of being open source
+and able to be executed from the command line.
 Thanks to this,
-it is possible to use them
-in a Continuous Integration environment.
+it is possible to use them in a Continuous Integration environment.
 For bWAPP,
 we assumed a total of 170 vulnerabilities,
-based on the results of the company that developed the app
-<<r4,^[4]^>>.
+based on the company
+link:http://www.mmebvba.com/sites/default/files/downloads/bWAPP_sample_report.pdf[that developed the app].
 Let's see how our contestants performed:
 
 [role="tb-row"]
@@ -175,62 +161,62 @@ a|ZAP-Short | 42 | 75.3% | 00:19:00
 a|ZAP-Full | 59 | 65.3% | 01:30:00
 |====
 
-In the previous information,
 ZAP-Short refers to the ZAP tool
 with only the XSS and SQLi plugins enabled.
 ZAP-Full refers to the same tool
 with all of its plugins enabled.
-It is important to note that
-the application authentication had to be disabled.
-This was done in order to allow the tools
+It's important to note
+that the application authentication had to be disabled.
+We did this to allow the tools
 to work properly from the command line.
-This fact not only takes the experiment further away from reality,
-but also leaves a layer of the web app unanalyzed.
+This fact took the experiment further away from reality
+and left a layer of the web app unanalyzed.
 
 Another important detail is that
-the analyzers were not aimed at the main site,
-as a real test would have.
+the analyzers were not targeted at the main site,
+as a real test would do.
 The target of the attack was a specific bWAPP page
-where links to all the other pages are listed.
-This way a complete identification is achieved by the tool.
+where links to all other pages are listed
+—this way,
+the tool achieves complete identification.
 bWAPP uses forms to reach all other pages,
-which is why aiming the attack at the main page
+so targeting the attack at the main page
 would result in 0 sites of interest being found.
-There are tools such as Burp that solve this problem
-through the evaluation of the forms <<r5,^[5]^>>,
-but there are others that fail in the same situation
+Tools such as Burp solve this problem
+link:https://support.portswigger.net/customer/portal/questions/12285606-spidering-form-submission[by evaluating the forms],
+but others fail in the same situation
 due to their inability to navigate the main site.
 
 To facilitate the analysis of the results,
-let's take the best result (ZAP-Full) and
-the worst one (Wapiti),
-and compare them against the whole surface of the application,
-let's see what coverage was achieved.
+let's take the best (by ZAP-Full)
+and the worst (by Wapiti)
+and compare them against the whole surface of the application.
+Let's see what coverage was achieved.
 
-.Visual representation of the best and worst result from Table 1- ZAP-Full y Wapiti
+.Visual representation of the best and worst results.
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331050/blog/replaced-machines/yield_p99vw1.webp[Coverage comparison between two analyzers with the scope of an application]
 
-We can see that even the best of the tools we used
-left out over half of the vulnerabilities,
-and false positives may exist amongst the ones that were found.
-Also,
-it took an hour and a half
-to finish the analysis,
-time that is not appropriate for a Continuous Integration environment.
+We can see that
+even the best of the tools we used
+left out more than half of the vulnerabilities,
+and false positives may exist among those it found.
+In addition,
+it took an hour and a half to finish the analysis,
+a time that is not appropriate
+for a Continuous Integration environment.
 
-A developer who wishes to reduce costs
-avoiding hiring a security analyst,
-and relying solely on the automated tools,
-would remediate the vulnerabilities and would acquire
-a false sense of security.
-He would ignore that more than half of the flaws
-could still present, just waiting to be found and exploited
-by a malicious user.
-This way,
-the resources saved during the development
-will be spent,
-with interests,
-in the production stage.
+Companies wishing to reduce costs
+by avoiding hiring security analysts,
+relying solely on automated tools,
+would remediate vulnerabilities
+and gain a false sense of security.
+They would ignore the fact
+that more than half of the flaws could still be present
+to be exploited by malicious users.
+In this way,
+the resources saved during development would be spent,
+with interest,
+at the production stage.
 
 == Conclusions
 
@@ -239,34 +225,19 @@ the rivalry between humans and machines has been present
 for a long time now,
 and it will remain that way for a lot more.
 However,
-it is not necessary to look at it
-as a rivalry in every aspect.
-In the field of Information Security,
-more than a rivalry,
-a complementary relationship can exist,
-where the tool helps the analyst performing repetitive tasks faster
-and the analyst adds his/her instinct and experience
-to detect the maximum amount of vulnerabilities in an efficient manner.
-Therefore giving a greater sense of security
-and satisfaction to the web application developers.
+it is not necessary to see this as a rivalry in all aspects.
+For example,
+in the field of cybersecurity,
+it can be a complementary relationship,
+where the tools help the analysts perform repetitive tasks faster,
+and the analysts add their instinct and experience
+to detect the maximum amount of vulnerabilities efficiently.
 
-Paraphrasing Garry Kasparov in his TED talk <<r6,^[6]^>>,
-where he uses a freestyle chess tournament as an example
-(in which amateur players with three common machines
-defeated grand-masters of the chess game and supercomputers),
-the relationship between human and machine,
+Paraphrasing Kasparov in link:https://www.ted.com/talks/garry_kasparov_don_t_fear_intelligent_machines_work_with_them[his TED talk],
+the relationship between humans and machines,
 through an effective process,
-is the perfect recipe to achieve our grandest dreams.
+is the perfect recipe
+to achieve our grandest dreams.
 
-.Alternative outcome to the human-machine relationship
+.An alternative outcome to the human-machine relationship.
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331052/blog/replaced-machines/coexistence_xfdu7g.webp[Handshake between a human and a robot]
-
-== References
-
-. [[r1]] link:https://theconversation.com/twenty-years-on-from-deep-blue-vs-kasparov-how-a-chess-match-started-the-big-data-revolution-76882[Twenty years on from Deep Blue vs Kasparov:
-how a chess match started the big data revolution]
-. [[r2]] link:http://resources.infosecinstitute.com/automated-tools-vs-a-manual-approach/#gref[Automated Tools vs a Manual Approach]
-. [[r3]] link:https://www.netsparker.com/blog/web-security/owasp-top-10-web-security-scanner/[An Automated Scanner That Finds All OWASP Top 10 Security Flaws, Really?]
-. [[r4]] link:http://www.mmebvba.com/sites/default/files/downloads/bWAPP_sample_report.pdf[bWAPP OWASP TOP TEN 2013 SCAN REPORT SUMMARY]
-. [[r5]] link:https://support.portswigger.net/customer/portal/questions/12285606-spidering-form-submission[Burp Pro - Spidering + Form Submission]
-. [[r6]] link:https://www.ted.com/talks/garry_kasparov_don_t_fear_intelligent_machines_work_with_them[Don't fear intelligent machines. Work with them - Garry Kasparov on TED]
