@@ -22,12 +22,12 @@ module "external" {
   source = "../../../../units/utils/terraform-modules/external-data"
 
   aws_iam_roles = [
-    "observes_dev",
+    "dev",
     "observes_prod",
     "makes_prod",
   ]
   aws_iam_users = [
-    "observes-dev",
+    "dev",
     "observes-prod",
   ]
 }

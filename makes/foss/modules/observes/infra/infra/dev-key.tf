@@ -53,8 +53,8 @@ data "aws_iam_policy_document" "key-dev" {
     principals {
       type = "AWS"
       identifiers = [
-        module.external.aws_iam_roles["observes_dev"].arn,
-        module.external.aws_iam_users["observes-dev"].arn
+        module.external.aws_iam_roles["dev"].arn,
+        module.external.aws_iam_users["dev"].arn
       ]
     }
     actions = [
@@ -75,8 +75,8 @@ data "aws_iam_policy_document" "key-dev" {
     principals {
       type = "AWS"
       identifiers = [
-        module.external.aws_iam_roles["observes_dev"].arn,
-        module.external.aws_iam_users["observes-dev"].arn
+        module.external.aws_iam_roles["dev"].arn,
+        module.external.aws_iam_users["dev"].arn
       ]
     }
     actions = [
