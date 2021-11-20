@@ -164,27 +164,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployTerraform/makesUsersObserves:
-  image: ghcr.io/fluidattacks/makes:21.12
-  interruptible: true
-  needs: []
-  resource_group: $CI_JOB_NAME
-  rules:
-    - if: $CI_COMMIT_BRANCH != "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
-  script:
-    - m . /deployTerraform/makesUsersObserves
-  stage: deploy-infra
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersProdAirs:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
@@ -305,6 +284,27 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
     - m . /deployTerraform/makesUsersProdMelts
+  stage: deploy-infra
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/deployTerraform/makesUsersProdObserves:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: true
+  needs: []
+  resource_group: $CI_JOB_NAME
+  rules:
+    - if: $CI_COMMIT_BRANCH != "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+  script:
+    - m . /deployTerraform/makesUsersProdObserves
   stage: deploy-infra
   tags:
     - autoscaling
@@ -615,28 +615,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/makesUsersObserves:
-  image: ghcr.io/fluidattacks/makes:21.12
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
-  script:
-    - m . /lintTerraform/makesUsersObserves
-  stage: lint-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersProdAirs:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
@@ -763,6 +741,28 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
     - m . /lintTerraform/makesUsersProdMelts
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/lintTerraform/makesUsersProdObserves:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+  script:
+    - m . /lintTerraform/makesUsersProdObserves
   stage: lint-code
   tags:
     - autoscaling
@@ -1047,42 +1047,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/taintTerraform/makesUsersObservesKeys1:
-  image: ghcr.io/fluidattacks/makes:21.12
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $makes_users_rotate_even == null
-      when: never
-    - when: always
-  script:
-    - m . /taintTerraform/makesUsersObservesKeys1
-  stage: rotation
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/taintTerraform/makesUsersObservesKeys2:
-  image: ghcr.io/fluidattacks/makes:21.12
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $makes_users_rotate_odd == null
-      when: never
-    - when: always
-  script:
-    - m . /taintTerraform/makesUsersObservesKeys2
-  stage: rotation
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdAirsKeys1:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
@@ -1293,6 +1257,42 @@
     - when: always
   script:
     - m . /taintTerraform/makesUsersProdMeltsKeys2
+  stage: rotation
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/taintTerraform/makesUsersProdObservesKeys1:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $makes_users_rotate_even == null
+      when: never
+    - when: always
+  script:
+    - m . /taintTerraform/makesUsersProdObservesKeys1
+  stage: rotation
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/taintTerraform/makesUsersProdObservesKeys2:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $makes_users_rotate_odd == null
+      when: never
+    - when: always
+  script:
+    - m . /taintTerraform/makesUsersProdObservesKeys2
   stage: rotation
   tags:
     - autoscaling
@@ -1605,28 +1605,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/makesUsersObserves:
-  image: ghcr.io/fluidattacks/makes:21.12
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
-  script:
-    - m . /testTerraform/makesUsersObserves
-  stage: test-infra
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersProdAirs:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
@@ -1753,6 +1731,28 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
     - m . /testTerraform/makesUsersProdMelts
+  stage: test-infra
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/testTerraform/makesUsersProdObserves:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+  script:
+    - m . /testTerraform/makesUsersProdObserves
   stage: test-infra
   tags:
     - autoscaling
