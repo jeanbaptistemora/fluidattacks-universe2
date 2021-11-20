@@ -12,11 +12,6 @@
     observesIndex = import (projectPath "/observes/architecture/index.nix");
   };
   secretsForAwsFromEnv = {
-    observesDev = {
-      accessKeyId = "OBSERVES_DEV_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "OBSERVES_DEV_AWS_SECRET_ACCESS_KEY";
-      sessionToken = "AWS_SESSION_TOKEN";
-    };
     observesProd = {
       accessKeyId = "OBSERVES_PROD_AWS_ACCESS_KEY_ID";
       secretAccessKey = "OBSERVES_PROD_AWS_SECRET_ACCESS_KEY";

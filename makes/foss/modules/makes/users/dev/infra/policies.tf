@@ -42,6 +42,7 @@ locals {
           "logs:Describe*",
           "logs:Get*",
           "logs:List*",
+          "redshift:Describe*",
           "ssm:Describe*",
           "ssm:Get*",
           "ssm:List*",
