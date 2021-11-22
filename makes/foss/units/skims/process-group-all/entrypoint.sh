@@ -109,7 +109,7 @@ function skims_scan {
   local check="${3}"
   local config="${4}"
 
-  echo '[INFO] Running skims scan' \
+  echo "[INFO] Running skims scan" \
     && lang="$(get_skims_language "${group}")" \
     && python3 __argGetConfig__ --check "${check}" \
       --group "${group}" \
@@ -123,9 +123,11 @@ function execute_skims_combination {
   local group="${1}"
   local namespace="${2}"
   local check="${3}"
+  local config
 
   if test -e "groups/${group}/fusion/"; then
     skims_rebase "${group}" "${namespace}" \
+      && config="$(mktemp)" \
       && skims_should_run "${group}" "${namespace}" "${check}" \
       && if skims_scan "${group}" "${namespace}" "${check}" "${config}"; then
         echo "[INFO] Succesfully processed: ${group} ${namespace}"
@@ -143,6 +145,17 @@ function main {
   local checks="${2:-}" # must be in json forma
   local config
 
+  export -f execute_skims_combination
+  export -f skims_rebase
+  export -f get_skims_language
+  export -f get_skims_expected_code_date
+  export -f skims_cache
+  export -f skims_scan
+  export -f skims_should_run
+  export -f from_epoch_to_iso8601
+  export -f from_iso8601_to_epoch
+  export -f aws_s3_sync
+
   check_cli_arg 1 group "${group}" \
     && shopt -s nullglob \
     && ensure_gitlab_env_vars \
@@ -150,11 +163,12 @@ function main {
       SERVICES_PROD_AWS_ACCESS_KEY_ID \
       SERVICES_PROD_AWS_SECRET_ACCESS_KEY \
     && config="$(mktemp)" \
+    && checks="$(jq -r -c '.[]' <<< "${checks}")" \
     && use_git_repo_services \
     && clone_group "${group}" \
     && aws_login_prod 'skims' \
     && skims_cache pull "${group}" \
-    && parallel execute_skims_combination "${group}" ::: "$(jq -c '.[]' <<< "${checks}")" ::: ls "groups/${group}/fusion/" \
+    && parallel execute_skims_combination "${group}" ::: "$(ls "groups/${group}/fusion/")" ::: "${checks}" \
     && skims_cache push "${group}" \
     && popd \
     && clean_file_system "${group}"

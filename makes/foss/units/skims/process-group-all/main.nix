@@ -1,11 +1,12 @@
 { inputs
 , makeScript
 , outputs
+, projectPath
 , ...
 }:
 makeScript {
   replace = {
-    __argGetConfig__ = ./src/get_config.py;
+    __argGetConfig__ = projectPath "/makes/foss/units/skims/process-group/src/get_config.py";
   };
   name = "skims-process-group-all";
   searchPaths = {
