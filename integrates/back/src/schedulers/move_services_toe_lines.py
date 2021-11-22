@@ -3,6 +3,7 @@ from aioextensions import (
 )
 from custom_exceptions import (
     GroupNameNotFound,
+    ToeLinesAlreadyUpdated,
 )
 from dataloaders import (
     Dataloaders,
@@ -73,9 +74,12 @@ def _get_group_name(tmpdirname: str, lines_csv_path: str) -> str:
     return group_match.groups("1")[0]
 
 
-async def move_repo_services_toe_lines(
-    loaders: Dataloaders, group_name: str, root_id: str
-) -> None:
+@retry_on_exceptions(
+    exceptions=(ToeLinesAlreadyUpdated,),
+    sleep_seconds=10,
+)
+async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
+    loaders = get_new_context()
     repo_toe_lines = {
         toe_lines.filename: toe_lines
         for toe_lines in await loaders.root_toe_lines.load_nodes(
@@ -147,8 +151,7 @@ async def move_group_services_toe_lines(
     repos = tuple(root for root in roots if isinstance(root, GitRootItem))
     await collect(
         tuple(
-            move_repo_services_toe_lines(loaders, group_name, repo.id)
-            for repo in repos
+            move_repo_services_toe_lines(group_name, repo.id) for repo in repos
         )
     )
 
