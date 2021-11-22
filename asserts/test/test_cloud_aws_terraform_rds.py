@@ -14,15 +14,6 @@ VULN: str = "test/static/terraform/vulnerable"
 NOT_EXISTS: str = "test/static/terraform/not-exists"
 
 
-def test_has_unencrypted_storage():
-    """test rds.has_unencrypted_storage."""
-    result = rds.has_unencrypted_storage(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2
-    assert rds.has_unencrypted_storage(SAFE).is_closed()
-    assert rds.has_unencrypted_storage(NOT_EXISTS).is_unknown()
-
-
 def test_is_publicly_accessible():
     """test rds.is_publicly_accessible."""
     result = rds.is_publicly_accessible(VULN)
