@@ -37,8 +37,8 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from newutils.utils import (
-    check_for_duplicate_drafts,
+from newutils.validations import (
+    validate_no_duplicate_drafts,
 )
 from typing import (
     Any,
@@ -67,7 +67,7 @@ async def mutate(
     findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
     )
-    check_for_duplicate_drafts(title, drafts, findings)
+    validate_no_duplicate_drafts(title, drafts, findings)
 
     try:
         user_info = await token_utils.get_jwt_content(info.context)

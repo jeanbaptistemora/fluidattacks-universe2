@@ -1,5 +1,6 @@
 import bleach  # type: ignore
 from custom_exceptions import (
+    DuplicateDraftFound,
     IncompleteSeverity,
     InvalidChar,
     InvalidCvssVersion,
@@ -13,6 +14,7 @@ from db_model.findings.enums import (
     FindingStateStatus,
 )
 from db_model.findings.types import (
+    Finding,
     Finding20Severity,
     Finding31Severity,
 )
@@ -23,6 +25,7 @@ import re
 from typing import (
     List,
     Set,
+    Tuple,
 )
 
 
@@ -203,8 +206,22 @@ def validate_finding_title_change_policy(
         raise InvalidFieldChange(
             fields=["title"],
             reason=(
-                "The title of a Finding cannot be edited after"
+                "The title of a Finding cannot be edited after "
                 "it has been approved"
             ),
         )
+    return True
+
+
+def validate_no_duplicate_drafts(
+    new_title: str, drafts: Tuple[Finding, ...], findings: Tuple[Finding, ...]
+) -> bool:
+    """Checks for new draft proposals that are already present in the group,
+    returning `True` if there are no duplicates"""
+    for draft in drafts:
+        if new_title == draft.title:
+            raise DuplicateDraftFound(kind="draft")
+    for finding in findings:
+        if new_title == finding.title:
+            raise DuplicateDraftFound(kind="finding")
     return True
