@@ -15568,41 +15568,60 @@
         https://kubernetes.io/docs/concepts/policy/pod-security-policy/
 "268":
   en:
-    title: Free
+    title: Insecure service configuration - Webview
     description: >
-      __empty__
+      The application enables the use of JavaScript
+      through the method setJavaScriptEnabled
+      which is disabled by default.
+      This practice increases the chances
+      for an attacker to exploit XSS vulnerabilities
     impact: >
-      __empty__
+      Obtain or edit information using XSS vulnerabilities
     recommendation: >
-      __empty__
+      - Unless required otherwise
+      the application must not allow
+      the use of JavaScript
+
+      - If the use of JavaScript is enabled,
+      implement content and length validations
+      in all the input fields
     threat: >
-      __empty__
+      Anonymous attacker from the Internet
   es:
-    title: Free
+    title: Insecure service configuration - Webview
     description: >
-      __empty__
+      La aplicación habilita el uso de JavaScript
+      mediante el método setJavaScriptEnabled
+      el cual viene deshabilitado por defecto.
+      Esta práctica incrementa la posibilidad
+      de que un atacante materialice vulnerabilidades de XSS
     impact: >
-      __empty__
+      Obtener o editar información mediante XSS
     recommendation: >
-      __empty__
+      - A menos que la aplicación lo requiera,
+      no habilitar el uso de JavaScript
+
+      - Si se tiene habilitado el uso de JavaScript
+      implementar validaciones de contenido y longitud
+      en todos los campos de entrada para evitar ataques XSS
     threat: >
-      __empty__
-  category: Collect Information
+      Atacante anónimo desde Internet
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: ["148", "149", "150", "181" ,"336"]
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "R"
+  requirements: ["173"]
   metadata:
     en:
       details: __empty__
