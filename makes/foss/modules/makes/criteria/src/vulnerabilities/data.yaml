@@ -6549,7 +6549,7 @@
     threat: >
       Authenticated attacker from the Internet
   es:
-    title: Free
+    title: Unrestricted access between network segments - RDS
     description: >
       Algunos cluster o instancias de RDS
       no se encuentran definidos
@@ -22442,6 +22442,167 @@
       remediation_level: "O"
       report_confidence: "C"
   requirements: ["262", "048"]
+  metadata:
+    en:
+      details: __empty__
+"394":
+  en:
+    title: Insufficient data authenticity validation - Cloudtrail Logs
+    description: >
+      Una o más instancias asociadas a Cloudtrail
+      no habilitan el atributo EnableLogFileValidation
+      con lo cual no se genera un hash de integridad
+      que garantice que el archivo no ha sido modificado
+      por actores maliciosos
+    impact: >
+      Alterar la integridad de los logs del sistema
+      sin generar ninguna alerta
+    recommendation: >
+      Establecer el atributo EnableLogFileValidation en true
+      en todas las instancias de CloudTrail.
+    threat: >
+      Atacante autenticado desde Internet.
+  category: Abuse Functionality
+  es:
+    title: Insufficient data authenticity validation - Cloudtrail Logs
+    description: >
+      One or more Cloudtrail instances
+      do not enable the EnableLogFileValidation attribute
+      avoiding the integrity validation to be performed.
+      This practice could aid an attacker
+      to inject malicious information in log files
+      without rainsing any alert.
+    impact: >
+      Alterate the system logs integrity
+      witouth raising alerts
+    recommendation: >
+      Set the EnableLogFileValidation attribute in true
+      for all Cloudtrail instances
+    threat: >
+      Authenticated attacker from the Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["080"]
+  metadata:
+    en:
+      details: __empty__
+"395":
+  en:
+    title: Insecure generation of random numbers -  Static IV
+    description: >
+      The application uses static, hardcoded values
+      for initialization vectors.
+      By knowing initialization vectors
+      an attacker could perform a reverse engineering attack
+      to predict the random values
+      that should remain as secrets
+    impact: >
+      Predict random values to craft new attack vectors
+    recommendation: >
+      Generate initialization vectors randomly
+      using mechanisms with secure randomness
+      and high entropy
+    threat: >
+      Authenticated attacker from the Internet
+      with access to the source code
+  category: Abuse Functionality
+  es:
+    title: Insecure generation of random numbers -  Static IV
+    description: >
+      La aplicación utiliza valores estáticos
+      quemados en código
+      como vectores de inicialización.
+      Al conocer los vectores de inicialización
+      un atacante podría realizar ingeniería reversa
+      a la aplicación para predecir los valores
+      aleatorios que deberían mantenerse secretos
+    impact: >
+      - Predecir valores alteatorios
+      para generar nuevos vectores de ataque
+    recommendation: >
+      Generar vectores de inicialización aleatorios
+      utilizando mecanismos de aleatoriedad seguros
+      que cuenten con alta entropía
+    threat: >
+      Atacante autenticado desde Internet
+      con acceso al código fuente
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["223","224"]
+  metadata:
+    en:
+      details: __empty__
+"396":
+  en:
+    title: Insecure service configuration - KMS
+    description: >
+      The automatic key rotation
+      for the KMS service is disabled.
+      By keeping static keys
+      during long periods
+      the chances to compromise a valid key are higher
+    impact: >
+      Increase the chance to get valid keys
+    recommendation: >
+      Enable the automatic key rotation
+      for all the service keys
+    threat: >
+      __empty__
+  category: Abuse Functionality
+  es:
+    title: Insecure service configuration - KMS
+    description: >
+      La rotación automática de llaves
+      del servicio de KMS se encuentra deshabilitada.
+      Al mantener las llaves estáticas
+      durante un tiempo prolongado
+      se incrementa el riesgo de que éstas sean comprometidas
+    impact: >
+      Incrementar la probabilidad de obtener llaves KMS
+    recommendation: >
+      Habilitar la rotación automática de llaves
+      para todas las llaves del servicio
+    threat: >
+      Atacante anónimo desde Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "R"
+  requirements: ["266"]
   metadata:
     en:
       details: __empty__
