@@ -964,6 +964,19 @@ def validate_requested_vuln_zero_risk(
     return vuln
 
 
+def validate_zero_risk_requested_new(
+    vulnerability: Vulnerability,
+) -> Vulnerability:
+    """Validate if zero risk vuln is already resquested."""
+    if (
+        not vulnerability.zero_risk
+        or vulnerability.zero_risk.status
+        != VulnerabilityZeroRiskStatus.REQUESTED
+    ):
+        raise NotZeroRiskRequested()
+    return vulnerability
+
+
 def format_vulnerability_state_item(
     state: VulnerabilityState,
 ) -> Item:

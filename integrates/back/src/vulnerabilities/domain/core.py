@@ -33,11 +33,13 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
     VulnerabilityType,
+    VulnerabilityZeroRiskStatus,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
     VulnerabilityTreatment,
+    VulnerabilityZeroRisk,
 )
 from dynamodb.operations_legacy import (
     start_context,
@@ -114,43 +116,51 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def _confirm_zero_risk(
-    user_email: str,
-    date: str,
+    vuln: Vulnerability,
     comment_id: str,
-    vuln: VulnLegacyType,
+    date: str,
+    user_email: str,
 ) -> bool:
-    historic_zero_risk: HistoricType = vuln.get("historic_zero_risk", [])
-    new_state = {
-        "comment_id": comment_id,
-        "date": date,
-        "email": user_email,
-        "status": "CONFIRMED",
-    }
-    historic_zero_risk.append(new_state)
+    new_state = VulnerabilityZeroRisk(
+        comment_id=comment_id,
+        modified_by=user_email,
+        modified_date=date,
+        status=VulnerabilityZeroRiskStatus.CONFIRMED,
+    )
+
+    item = await get(vuln.id)
+    historic_zero_risk: HistoricType = item.get("historic_zero_risk", [])
+    historic_zero_risk.append(
+        vulns_utils.format_vulnerability_zero_risk_item(new_state)
+    )
     return await vulns_dal.update(
-        vuln["finding_id"],
-        vuln["UUID"],
+        vuln.finding_id,
+        vuln.id,
         {"historic_zero_risk": historic_zero_risk},
     )
 
 
 async def confirm_vulnerabilities_zero_risk(
+    *,
+    loaders: Any,
+    vuln_ids: Set[str],
     finding_id: str,
-    user_info: Dict[str, str],
+    user_info: UserType,
     justification: str,
-    vuln_ids: List[str],
 ) -> bool:
     vulns_utils.validate_justification_length(justification)
-    vulnerabilities = await get_by_finding_and_uuids(finding_id, set(vuln_ids))
-    vulnerabilities = [
-        vulns_utils.validate_requested_vuln_zero_risk(vuln)
+    vulnerabilities = await get_by_finding_and_vuln_ids_new(
+        loaders, finding_id, vuln_ids
+    )
+    vulnerabilities = tuple(
+        vulns_utils.validate_zero_risk_requested_new(vuln)
         for vuln in vulnerabilities
-    ]
+    )
     if not vulnerabilities:
         raise VulnNotFound()
 
     comment_id = str(round(time() * 1000))
-    today = datetime_utils.get_now_as_str()
+    today = datetime_utils.get_iso_date()
     user_email: str = user_info["user_email"]
     comment_data = {
         "comment_type": "zero_risk",
@@ -162,10 +172,13 @@ async def confirm_vulnerabilities_zero_risk(
         finding_id, comment_data, user_info
     )
     confirm_zero_risk_vulns = await collect(
-        [
-            _confirm_zero_risk(user_email, today, comment_id, vuln)
-            for vuln in vulnerabilities
-        ]
+        _confirm_zero_risk(
+            vuln=vuln,
+            comment_id=comment_id,
+            date=today,
+            user_email=user_email,
+        )
+        for vuln in vulnerabilities
     )
     success = all(confirm_zero_risk_vulns) and add_comment[1]
     if not success:

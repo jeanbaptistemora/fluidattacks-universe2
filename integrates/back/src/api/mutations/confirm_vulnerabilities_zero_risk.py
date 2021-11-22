@@ -39,10 +39,14 @@ async def mutate(
     justification: str,
     vulnerabilities: List[str],
 ) -> SimplePayloadType:
-    """Resolve confim_vulnerabilities_zero_risk mutation."""
+    """Resolve confirm_vulnerabilities_zero_risk mutation."""
     user_info = await token_utils.get_jwt_content(info.context)
     success = await vulns_domain.confirm_vulnerabilities_zero_risk(
-        finding_id, user_info, justification, vulnerabilities
+        loaders=info.context.loaders,
+        vuln_ids=set(vulnerabilities),
+        finding_id=finding_id,
+        user_info=user_info,
+        justification=justification,
     )
     if success:
         await redis_del_by_deps(
