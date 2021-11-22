@@ -95,7 +95,7 @@ F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,15,1 + 3 + 9,skims,
   24 | }
      ^ Col 0
 "
-F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml,15,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
+F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml,15,117,skims,091. Log injection,"EnableLogFileValidation property is not enabled.
 ","
    1 | Resources:
    2 |   trail1:
@@ -116,7 +116,7 @@ F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.ya
   17 |       IsMultiRegionTrail: True
      ^ Col 0
 "
-F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,16,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
+F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,16,117,skims,091. Log injection,"EnableLogFileValidation property is not enabled.
 ","
    1 | Resources:
    2 |   trail1:
@@ -138,7 +138,7 @@ F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.y
   18 |       S3BucketName: bk3
      ^ Col 0
 "
-F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml,11,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
+F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml,11,117,skims,091. Log injection,"EnableLogFileValidation property is not enabled.
 ","
    1 | esources:
    2 |  trail1:
@@ -159,7 +159,7 @@ F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.ya
   17 |      IsMultiRegionTrail: True
      ^ Col 1
 "
-F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,13,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
+F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,13,117,skims,091. Log injection,"EnableLogFileValidation property is not enabled.
 ","
    1 | esources:
    2 |  trail1:
@@ -181,7 +181,7 @@ F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.y
   18 |      S3BucketName: bk3
      ^ Col 1
 "
-F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml.json,14,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
+F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml.json,14,117,skims,091. Log injection,"EnableLogFileValidation property is not enabled.
 ","
    4 |  ""Type"": ""AWS::CloudTrail::Trail"",
    5 |  ""Properties"": {
@@ -206,7 +206,7 @@ F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.ya
   24 |
      ^ Col 5
 "
-F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml.json,20,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
+F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml.json,20,117,skims,091. Log injection,"EnableLogFileValidation property is not enabled.
 ","
    6 |         ""IsLogging"": true,
    7 |         ""EnableLogFileValidation"": true
@@ -231,7 +231,7 @@ F091,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.ya
   26 | }
      ^ Col 0
 "
-F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml.json,16,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
+F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml.json,16,117,skims,091. Log injection,"EnableLogFileValidation property is not enabled.
 ","
    6 |    ""IsLogging"": true,
    7 |    ""S3BucketName"": ""bk1"",
@@ -256,7 +256,7 @@ F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.y
   26 |
      ^ Col 5
 "
-F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml.json,21,117,skims,091. Log injection,"'EnableLogFileValidation' property is not enabled.
+F091,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml.json,21,117,skims,091. Log injection,"EnableLogFileValidation property is not enabled.
 ","
    7 |         ""S3BucketName"": ""bk1"",
    8 |         ""EnableLogFileValidation"": true
@@ -6347,7 +6347,7 @@ F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,12,405,skims,211. Asy
   17 | }
      ^ Col 0
 "
-F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,24,463,skims,259. Lack of protection against deletion - DynamoDB,"'PointInTimeRecoveryEnabled' property is not enabled.
+F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,24,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled.
 ","
    9 |         KeyType: String
   10 |       PointInTimeRecoverySpecification:
@@ -6372,7 +6372,7 @@ F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_rec
   29 |         KeyType: String
      ^ Col 0
 "
-F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,21,463,skims,259. Lack of protection against deletion - DynamoDB,"'PointInTimeRecoveryEnabled' property is not enabled.
+F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,21,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled.
 ","
    9 |   KeyType: String
   10 | PointInTimeRecoverySpecification:
@@ -6397,7 +6397,7 @@ F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_rec
   29 |   KeyType: String
      ^ Col 6
 "
-F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json,35,463,skims,259. Lack of protection against deletion - DynamoDB,"'PointInTimeRecoveryEnabled' property is not enabled.
+F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json,35,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled.
 ","
   25 | {
   26 |   ""AttributeName"": ""attr1"",
@@ -6422,7 +6422,7 @@ F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_rec
   45 |   ""KeyType"": ""String""
      ^ Col 10
 "
-F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json,41,463,skims,259. Lack of protection against deletion - DynamoDB,"'PointInTimeRecoveryEnabled' property is not enabled.
+F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json,41,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled.
 ","
   31 |             ""KeyType"": ""String""
   32 |           }
@@ -7197,7 +7197,7 @@ F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Ina
   19 | }
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,5,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,5,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    1 | Resources:
    2 |   distribution1:
    3 |     Type: AWS::CloudFront::Distribution
@@ -7221,7 +7221,7 @@ F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   21 |           PathPattern: images1/*.jpg
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,5,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,5,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    1 | Resources:
    2 |   distribution1:
    3 |     Type: AWS::CloudFront::Distribution
@@ -7245,7 +7245,7 @@ F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   21 |     Type: AWS::CloudFront::Distribution
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f200/cfn_has_logging_disabled.yaml,18,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_has_logging_disabled.yaml,18,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    5 |       DistributionConfig:
    6 |         Enabled: 'true'
    7 |         DefaultCacheBehavior:
@@ -7269,7 +7269,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_has_logging_disabled.yaml
   25 |               Forward: all
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,23,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,23,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
   12 |               Forward: all
   13 |         Origins:
   14 |         - CustomOriginConfig:
@@ -7293,7 +7293,7 @@ F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   32 |           MinimumProtocolVersion: TLSv1
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,32,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,32,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
   22 |         - TargetOriginId: cache12
   23 |           ForwardedValues:
   24 |             QueryString: 'true'
@@ -7317,7 +7317,7 @@ F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   42 |         - TargetOriginId: cache21
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,4,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,4,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    1 | Resources:
    2 |   S3Bucket1:
    3 |     Type: AWS::S3::Bucket
@@ -7334,7 +7334,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabl
   14 |         LogFilePrefix: log_prefix
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,9,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,9,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    1 | Resources:
    2 |   S3Bucket:
    3 |     Type: AWS::S3::Bucket
@@ -7353,7 +7353,7 @@ F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.y
   16 |     DeletionPolicy: Delete
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,5,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,5,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    1 | Resources:
    2 |   S3Bucket:
    3 |     Type: AWS::S3::Bucket
@@ -7377,7 +7377,7 @@ F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,5
   21 |               SSEAlgorithm: aws:kms
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,5,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,5,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    1 | Resources:
    2 |   S3Bucket:
    3 |     Type: AWS::S3::Bucket
@@ -7396,7 +7396,7 @@ F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.y
   16 |     DeletionPolicy: Delete
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f200/elb_test.tf,9,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f200/elb_test.tf,9,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    1 | resource ""aws_elb"" ""bar"" {
    2 |   name               = ""foobar-terraform-elb""
    3 |   availability_zones = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
@@ -7420,7 +7420,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/elb_test.tf,9,778,skims,200. 
   21 |     healthy_threshold   = 2
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,6,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,6,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""S3Bucket"": {
@@ -7444,7 +7444,7 @@ F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.j
   21 |     ""S3Bucket1"": {
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json,6,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json,6,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""S3Bucket"": {
@@ -7468,7 +7468,7 @@ F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.y
   21 |             }
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,5,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,5,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""S3Bucket1"": {
@@ -7492,7 +7492,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabl
   21 |   }
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,6,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,6,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""distribution1"": {
@@ -7516,7 +7516,7 @@ F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   21 |               ""ForwardedValues"": {
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,6,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,6,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""distribution1"": {
@@ -7540,7 +7540,7 @@ F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   21 |                   ""SSLv3"",
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json,12,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json,12,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    2 |   ""Resources"": {
    3 |     ""S3Bucket"": {
    4 |       ""Type"": ""AWS::S3::Bucket"",
@@ -7564,7 +7564,7 @@ F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.y
   22 |           ]
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,15,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,15,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
    5 |     Properties:
    6 |       AccessControl: PublicReadWrite
    7 |       BucketName: SKIMS-PUBLIC-BUCKET
@@ -7588,7 +7588,7 @@ F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,1
   25 |     Type: AWS::S3::Bucket
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,23,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,23,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
   13 |                 ""SSEAlgorithm"": ""aws:kms"",
   14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
   15 |               }
@@ -7612,7 +7612,7 @@ F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.j
   33 |             }
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,26,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,26,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
   14 |     Type: AWS::S3::Bucket
   15 |     Properties:
   16 |       AccessControl: PublicReadWrite
@@ -7636,7 +7636,7 @@ F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,2
   34 |     DeletionPolicy: Delete
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f200/cfn_has_logging_disabled.yaml.json,26,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_has_logging_disabled.yaml.json,26,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
   16 |           },
   17 |           ""Logging"": {
   18 |             ""Bucket"": ""bucket1""
@@ -7660,7 +7660,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_has_logging_disabled.yaml
   36 |           }
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,35,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,35,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
   25 |                 ]
   26 |               }
   27 |             }
@@ -7684,7 +7684,7 @@ F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   45 |           },
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,41,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,41,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
   31 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
   32 |               }
   33 |             }
@@ -7708,7 +7708,7 @@ F200,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.j
   51 |             }
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,48,778,skims,200. Traceability loss,Missing 'Logging' property to make traceability.,"
+F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,48,778,skims,200. Traceability loss,Missing Logging property to make traceability.,"
   38 |               ""ViewerProtocolPolicy"": ""allow-all"",
   39 |               ""PathPattern"": ""images2/*.jpg""
   40 |             }
@@ -7732,7 +7732,7 @@ F200,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   58 |             ""ViewerProtocolPolicy"": ""https-only""
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_disabled.yaml,17,778,skims,200. Traceability loss,The 'AccessLoggingPolicy' property must be enabled.,"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_disabled.yaml,17,778,skims,200. Traceability loss,The AccessLoggingPolicy property must be enabled.,"
    7 |         S3BucketName: bkname
    8 |       Listeners:
    9 |       - InstancePort: '80'
@@ -7756,7 +7756,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_di
   27 |       Listeners:
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_disabled.yaml,26,778,skims,200. Traceability loss,The 'AccessLoggingPolicy' property must be enabled.,"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_disabled.yaml,26,778,skims,200. Traceability loss,The AccessLoggingPolicy property must be enabled.,"
   11 |         LoadBalancerPort: '443'
   12 |         Protocol: HTTPS
   13 |   LoadBalancer2:
@@ -7780,7 +7780,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_di
   31 |         Protocol: HTTPS
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_disabled.yaml.json,24,778,skims,200. Traceability loss,The 'AccessLoggingPolicy' property must be enabled.,"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_disabled.yaml.json,24,778,skims,200. Traceability loss,The AccessLoggingPolicy property must be enabled.,"
   14 |             ""LoadBalancerPort"": ""443"",
   15 |             ""Protocol"": ""HTTPS""
   16 |           }
@@ -7804,7 +7804,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_di
   34 |         ]
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_disabled.yaml.json,39,778,skims,200. Traceability loss,The 'AccessLoggingPolicy' property must be enabled.,"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_disabled.yaml.json,39,778,skims,200. Traceability loss,The AccessLoggingPolicy property must be enabled.,"
   29 |             ""InstancePort"": ""80"",
   30 |             ""InstanceProtocol"": ""HTTP"",
   31 |             ""LoadBalancerPort"": ""443"",
@@ -7828,7 +7828,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb_has_access_logging_di
   49 |     }
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml,12,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml,12,778,skims,200. Traceability loss,The IsMultiRegionTrail property must be enabled.,"
    1 | Resources:
    2 |   trail1:
    3 |     Type: AWS::CloudTrail::Trail
@@ -7848,7 +7848,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.ya
   17 |       IsMultiRegionTrail: True
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,16,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,16,778,skims,200. Traceability loss,The IsMultiRegionTrail property must be enabled.,"
    1 | Resources:
    2 |   trail1:
    3 |     Type: AWS::CloudTrail::Trail
@@ -7869,7 +7869,7 @@ F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.y
   18 |       S3BucketName: bk3
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,10,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,10,778,skims,200. Traceability loss,The IsMultiRegionTrail property must be enabled.,"
    1 | Resources:
    2 |   trail1:
    3 |     Type: AWS::CloudTrail::Trail
@@ -7890,7 +7890,7 @@ F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.y
   18 |       S3BucketName: bk3
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml,4,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml,4,778,skims,200. Traceability loss,The IsMultiRegionTrail property must be enabled.,"
    1 | Resources:
    2 |   trail1:
    3 |     Type: AWS::CloudTrail::Trail
@@ -7910,7 +7910,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.ya
   17 |       IsMultiRegionTrail: True
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,4,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml,4,778,skims,200. Traceability loss,The IsMultiRegionTrail property must be enabled.,"
    1 | Resources:
    2 |   trail1:
    3 |     Type: AWS::CloudTrail::Trail
@@ -7931,7 +7931,7 @@ F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.y
   18 |       S3BucketName: bk3
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml.json,5,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml.json,5,778,skims,200. Traceability loss,The IsMultiRegionTrail property must be enabled.,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""trail1"": {
@@ -7955,7 +7955,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.ya
   21 |         ""IsLogging"": true,
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml.json,5,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml.json,5,778,skims,200. Traceability loss,The IsMultiRegionTrail property must be enabled.,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""trail1"": {
@@ -7979,7 +7979,7 @@ F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.y
   21 |       ""Properties"": {
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml.json,13,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml.json,13,778,skims,200. Traceability loss,The IsMultiRegionTrail property must be enabled.,"
    3 |     ""trail1"": {
    4 |       ""Type"": ""AWS::CloudTrail::Trail"",
    5 |       ""Properties"": {
@@ -8003,7 +8003,7 @@ F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.y
   23 |         ""S3BucketName"": ""bk3""
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml.json,15,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.yaml.json,15,778,skims,200. Traceability loss,The IsMultiRegionTrail property must be enabled.,"
    5 |       ""Properties"": {
    6 |         ""IsLogging"": true,
    7 |         ""EnableLogFileValidation"": true
@@ -8027,7 +8027,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.ya
   25 |   }
      ^ Col 0
 "
-F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml.json,21,778,skims,200. Traceability loss,The 'IsMultiRegionTrail' property must be enabled.,"
+F200,lines,namespace/skims/test/data/lib_path/f091/cfn_log_files_not_validated.yaml.json,21,778,skims,200. Traceability loss,The IsMultiRegionTrail property must be enabled.,"
    7 |         ""S3BucketName"": ""bk1"",
    8 |         ""EnableLogFileValidation"": true
    9 |       }

@@ -1,8 +1,8 @@
 src.lib_path.f091.cfn_log_files_not_validated:
   en: >
-    'EnableLogFileValidation' property is not enabled.
+    EnableLogFileValidation property is not enabled.
   es: >
-    La propiedad 'EnableLogFileValidation' no está habilitada.
+    La propiedad EnableLogFileValidation no está habilitada.
 F091.title:
   en: >
     Log injection
