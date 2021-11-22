@@ -47,7 +47,8 @@
     "availability": "WORKING_HOURS",
     "findings": [
       "F034",
-      "F052"
+      "F052",
+      "F246"
     ]
   },
   "skims_f014": {

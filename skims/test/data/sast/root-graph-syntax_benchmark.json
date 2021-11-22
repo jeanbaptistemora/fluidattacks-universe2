@@ -93013,6 +93013,11 @@
     "skims/test/data/benchmark/owasp/BenchmarkTest00008.java": {},
     "skims/test/data/benchmark/owasp/BenchmarkTest00167.java": {}
   },
+  "F246": {
+    "skims/test/data/benchmark/owasp/BenchmarkTest00001.java": {},
+    "skims/test/data/benchmark/owasp/BenchmarkTest00008.java": {},
+    "skims/test/data/benchmark/owasp/BenchmarkTest00167.java": {}
+  },
   "F247": {
     "skims/test/data/benchmark/owasp/BenchmarkTest00001.java": {},
     "skims/test/data/benchmark/owasp/BenchmarkTest00008.java": {},

@@ -463,6 +463,14 @@
       "title": "234. Technical information leak - Stacktrace"
     }
   },
+  "F246": {
+    "EN": {
+      "title": "246. Non-encrypted confidential information - DB"
+    },
+    "ES": {
+      "title": "246. Non-encrypted confidential information - DB"
+    }
+  },
   "F247": {
     "EN": {
       "title": "247. Non-encrypted confidential information - AWS"

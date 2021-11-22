@@ -1,0 +1,30 @@
+F246.title:
+  en: >
+    Non-encrypted confidential information - DB
+  es: >
+    Non-encrypted confidential information - DB
+F246.description:
+  en: >
+    The application stores information from user queries within the database
+    that is stored on the device, allowing an attackerto access the information.
+  es: >
+    La aplicación almacena información de las consultas del usuario dentro
+    de la base de datos que se almacena en el dispositivo, lo que permite que
+    un atacante pueda acceder a la información.
+F246.impact:
+  en: |
+    Obtain information from user queries.
+  es: >
+    Obtener información de las consultas de los usuarios.
+F246.recommendation:
+  en: >
+    Encrypt all sensitive information that is transported or stored within
+    the application according to the organization's policies.
+  es: >
+    Cifrar toda información sensible que se transporte o se guarde dentro la
+    aplicación de acuerdo a las políticas de la organización.
+F246.threat:
+  en: >
+    Unauthenticated attacker with access to the device.
+  es: >
+    Atacante sin autenticar con acceso al dispositivo.
