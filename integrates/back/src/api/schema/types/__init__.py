@@ -57,6 +57,8 @@ from .resource import (
 )
 from .root import (
     GITROOT,
+    IPROOT,
+    URLROOT,
 )
 from .services_toe_lines import (
     SERVICESTOELINES,
@@ -113,6 +115,7 @@ TYPES: Tuple[ObjectType, ...] = (
     GITROOT,
     GROUP,
     INTERNAL_NAME,
+    IPROOT,
     ME,
     MUTATION,
     ORGANIZATION,
@@ -128,6 +131,7 @@ TYPES: Tuple[ObjectType, ...] = (
     TRACKING,
     TREATMENT,
     TREATMENT_SUMMARY,
+    URLROOT,
     VERIFICATION,
     VULNERABILITY,
 )

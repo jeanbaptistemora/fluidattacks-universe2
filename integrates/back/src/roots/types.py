@@ -32,6 +32,7 @@ class GitRoot(NamedTuple):
 
 class IPRoot(NamedTuple):
     address: str
+    group_name: str
     id: str
     nickname: str
     port: int
@@ -39,6 +40,7 @@ class IPRoot(NamedTuple):
 
 
 class URLRoot(NamedTuple):
+    group_name: str
     host: str
     id: str
     nickname: str

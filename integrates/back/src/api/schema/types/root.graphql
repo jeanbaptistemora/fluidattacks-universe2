@@ -60,6 +60,8 @@ type GitRoot implements IRoot {
   state: ResourceState!
   "Repository URL"
   url: String!
+  "Vulnerabilities associated to the root"
+  vulnerabilities: [Vulnerability]
 }
 
 "IP Root type definition"
@@ -74,6 +76,8 @@ type IPRoot implements IRoot {
   port: Int!
   "Whether the root is active or not"
   state: ResourceState!
+  "Vulnerabilities associated to the root"
+  vulnerabilities: [Vulnerability]
 }
 
 "URL Root type definition"
@@ -92,4 +96,6 @@ type URLRoot implements IRoot {
   protocol: URLProtocol!
   "Whether the root is active or not"
   state: ResourceState!
+  "Vulnerabilities associated to the root"
+  vulnerabilities: [Vulnerability]
 }

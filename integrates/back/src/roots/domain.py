@@ -97,6 +97,7 @@ def format_root(root: RootItem) -> Root:
     if isinstance(root, IPRootItem):
         return IPRoot(
             address=root.state.address,
+            group_name=root.group_name,
             id=root.id,
             nickname=root.state.nickname,
             port=root.state.port,
@@ -104,6 +105,7 @@ def format_root(root: RootItem) -> Root:
         )
 
     return URLRoot(
+        group_name=root.group_name,
         host=root.state.host,
         id=root.id,
         nickname=root.state.nickname,
