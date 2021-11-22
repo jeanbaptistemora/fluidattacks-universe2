@@ -10249,32 +10249,66 @@
   en:
     title: Insecure service configuration - Wireless Certificates
     description: >
-      __empty__
+      Certificates provide a more secure form of
+      network authentication.
+      These could be stealed for a malware for use
+      communications fraud and data exfiltration,
+      furthermore, non-existent or faulty validation of
+      the access point certificate, allows attackers
+      to obtain the challenge response values used
+      in authentication.
+      Attackers could use this data to bruteforce the
+      password hash for the legitimate network.
     impact: >
-      __empty__
+      - Business services can be spoofed, corrupting
+      the trust that a valid certificate provides, so
+      sensitive communications can be decrypted.
+
+      - Unsecured or lightly protected wireless access
+      points are often exploited for entry.
     recommendation: >
-      __empty__
+      Install correct certificates on servers, revoke
+      vulnerable ones and validate new keys and
+      certificates are installed and working.
     threat: >
-      __empty__
+      Authenticated attacker from the Internet.
   es:
     title: Insecure service configuration - Wireless Certificates
     description: >
-      __empty__
+      Los certificados proporcionan una forma más
+      segura de autenticación en la red.
+      Estos podrían ser robados por un malware para
+      utilizar el fraude en las comunicaciones y la
+      exfiltración de datos, además, la validación
+      inexistente o defectuosa del certificado del
+      punto de acceso, permite a los atacantes obtener
+      los valores Challenge-Response utilizados
+      en la autenticación.
+      Los atacantes podrían utilizar estos datos para
+      forzar el hash de la contraseña de la red legítima.
     impact: >
-      __empty__
+      - Los servicios empresariales pueden ser
+      falsificados, corrompiendo la confianza que
+      proporciona un certificado válido, por lo que
+      las comunicaciones sensibles pueden ser descifradas.
+
+      - Los puntos de acceso inalámbricos inseguros o poco
+      protegidos suelen ser aprovechados para entrar.
     recommendation: >
-      __empty__
+      Instalar los certificados correctos en los servidores,
+      revocar los vulnerables y validar que las nuevas claves
+      y certificados están instalados y funcionan.
     threat: >
-      __empty__
+      Atacante autenticado desde Internet.
   category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
