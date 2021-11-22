@@ -11054,23 +11054,30 @@
   en:
     title: Insecure service configuration - DynamoDB
     description: >
-      __empty__
+      The DynamoDB service has insecure configurations.
     impact: >
-      __empty__
+      Unauthorized Internet user with credentials.
     recommendation: >
-      __empty__
+      Set correct configurations and in line with
+      AWS best security practices.
     threat: >
-      __empty__
+      An attacker can access the database and exploit
+      vulnerabilities in the system configuration to
+      affect the service and have access to stored information.
   es:
     title: Insecure service configuration - DynamoDB
     description: >
-      __empty__
+      El servicio DynamoDB tiene configuraciones inseguras.
     impact: >
-      __empty__
+      Usuario de Internet no autorizado con credenciales.
     recommendation: >
-      __empty__
+      Establecer configuraciones correctas y en
+      línea con las mejores prácticas de seguridad de AWS.
     threat: >
-      __empty__
+      Un atacante puede acceder a la base de datos y
+      explotar las vulnerabilidades en la configuración
+      del sistema para afectar al servicio y tener acceso
+      a la información almacenada.
   category: Abuse Functionality
   score:
     base:
@@ -11081,7 +11088,7 @@
       scope: "U"
       confidentiality: "N"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
