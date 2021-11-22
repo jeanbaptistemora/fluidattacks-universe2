@@ -52,7 +52,7 @@ spec:
               - sh
               - -c
               - ~/.makes/out-integrates-back-deploy-probes-readiness/bin/*
-                aws_login_dev_new dev
+                aws_login_dev dev
                 FluidIntegrates http://localhost:8001
             initialDelaySeconds: 120
             periodSeconds: 60
@@ -65,7 +65,7 @@ spec:
               - sh
               - -c
               - ~/.makes/out-integrates-back-deploy-probes-liveness/bin/*
-                aws_login_dev_new dev
+                aws_login_dev dev
                 FluidIntegrates http://localhost:8001
                 https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com
             initialDelaySeconds: 120

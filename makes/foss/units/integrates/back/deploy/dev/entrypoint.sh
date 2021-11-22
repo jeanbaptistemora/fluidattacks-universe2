@@ -46,7 +46,7 @@ function main {
   export UUID
   export TARGET_PRODUCT
 
-  aws_login_dev_new \
+  aws_login_dev \
     && aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
     && B64_CI_COMMIT_REF_NAME="$(b64 "${CI_COMMIT_REF_NAME}")" \
     && B64_CI_COMMIT_SHA="$(b64 "${CI_COMMIT_SHA}")" \

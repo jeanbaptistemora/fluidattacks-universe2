@@ -22,7 +22,7 @@ function main {
   export DEV_AWS_ACCESS_KEY_ID="${SERVICES_DEV_AWS_ACCESS_KEY_ID}"
   export DEV_AWS_SECRET_ACCESS_KEY="${SERVICES_DEV_AWS_SECRET_ACCESS_KEY}"
 
-  aws_login_dev_new \
+  aws_login_dev \
     && if ! test -n "${CI:-}"; then
       # check if is in local environment
       start_localstack

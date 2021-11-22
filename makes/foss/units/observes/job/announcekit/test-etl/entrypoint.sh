@@ -6,7 +6,7 @@ alias tap-json="observes-tap-json"
 alias target-redshift="observes-target-redshift"
 
 function start_etl {
-  aws_login_dev_new \
+  aws_login_dev \
     && sops_export_vars 'observes/secrets-dev.yaml' \
       announcekit_user \
       announcekit_passwd \
