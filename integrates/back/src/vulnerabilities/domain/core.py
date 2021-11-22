@@ -73,7 +73,6 @@ from notifications import (
 )
 from operator import (
     attrgetter,
-    itemgetter,
 )
 from settings import (
     LOGGING,
@@ -898,69 +897,7 @@ async def update_treatments(
     )
 
 
-async def update_vuln_state(
-    *,
-    info: GraphQLResolveInfo,
-    vulnerability: Dict[str, FindingType],
-    item: Dict[str, str],
-    finding_id: str,
-    current_day: str,
-    finding_policy: Optional[OrgFindingPolicyItem] = None,
-) -> bool:
-    """Update vulnerability state."""
-    historic_state = cast(
-        List[Dict[str, str]], vulnerability.get("historic_state")
-    )
-    last_state = historic_state[-1]
-    data_to_update: Dict[str, FindingType] = {}
-
-    source = requests_utils.get_source(info.context)
-
-    if last_state.get("source") != source or last_state.get(
-        "state"
-    ) != item.get("state"):
-        user_data = cast(
-            UserType, await token_utils.get_jwt_content(info.context)
-        )
-        analyst = str(user_data["user_email"])
-        current_state = {
-            "analyst": analyst,
-            "date": current_day,
-            "source": source,
-            "state": item.get("state", ""),
-        }
-        historic_state.append(current_state)
-        data_to_update["historic_state"] = historic_state
-        curr_treatment = vulnerability["historic_treatment"][-1]["treatment"]
-        if (
-            finding_policy
-            and item["state"] == "open"
-            and finding_policy.state.status == "APPROVED"
-            and curr_treatment != "ACCEPTED_UNDEFINED"
-        ):
-            data_to_update["historic_treatment"] = [
-                *vulnerability["historic_treatment"],
-                *vulns_utils.get_treatment_from_org_finding_policy(
-                    current_day=current_day,
-                    user_email=finding_policy.state.modified_by,
-                ),
-            ]
-
-    if item["vuln_type"] == "inputs":
-        data_to_update["stream"] = item["stream"]
-    if item["vuln_type"] == "lines":
-        data_to_update["commit_hash"] = item["commit_hash"]
-    if "repo_nickname" in item:
-        data_to_update["repo_nickname"] = item["repo_nickname"]
-
-    if data_to_update:
-        return await vulns_dal.update(
-            finding_id, str(vulnerability.get("UUID")), data_to_update
-        )
-    return True
-
-
-async def update_state_new(
+async def update_state(
     *,
     vulnerability: Vulnerability,
     to_update: Vulnerability,
@@ -1024,52 +961,6 @@ async def update_state_new(
 
 async def verify(
     *,
-    info: GraphQLResolveInfo,
-    finding_id: str,
-    vulnerabilities: List[Dict[str, FindingType]],
-    closed_vulnerabilities: List[str],
-    date: str,
-    vulns_to_close_from_file: List[Dict[str, str]],
-) -> List[bool]:
-    list_closed_vulns = sorted(
-        [
-            [vuln for vuln in vulnerabilities if vuln["UUID"] == closed_vuln][
-                0
-            ]
-            for closed_vuln in closed_vulnerabilities
-        ],
-        key=itemgetter("UUID"),
-    )
-    success: List[bool] = await collect(
-        update_vuln_state(
-            info=info,
-            vulnerability=vuln_to_close,
-            item={
-                "commit_hash": (
-                    close_item["commit_hash"]
-                    if close_item and close_item["vuln_type"] == "lines"
-                    else ""
-                ),
-                "state": "closed",
-                "stream": (
-                    close_item["stream"]
-                    if close_item and close_item["vuln_type"] == "inputs"
-                    else ""
-                ),
-                "vuln_type": close_item["vuln_type"] if close_item else "",
-            },
-            finding_id=finding_id,
-            current_day=date,
-        )
-        for vuln_to_close, close_item in zip_longest(
-            list_closed_vulns, vulns_to_close_from_file, fillvalue={}
-        )
-    )
-    return success
-
-
-async def verify_new(
-    *,
     context: Any,
     vulnerabilities: List[Vulnerability],
     modified_date: str,
@@ -1088,7 +979,7 @@ async def verify_new(
     modified_by = str(user_data["user_email"])
     return all(
         await collect(
-            update_state_new(
+            update_state(
                 vulnerability=vuln_to_close,
                 to_update=vuln_to_close._replace(
                     state=VulnerabilityState(
