@@ -10,9 +10,18 @@ from tap_announcekit.streams.project._encode import (
 from tests.stream import (
     mock_data,
     mock_raw_data,
+    utils,
 )
 
-query = _factory.ProjectQuery(mock_data.mock_proj_id).query()
+query = _factory.ProjectQuery(mock_data.mock_proj_id).query
+
+
+def test_schema() -> None:
+    encoder = ProjectEncoder("stream_1")
+    schema = encoder.schema
+    record = encoder.to_singer(mock_data.mock_proj_obj)
+    utils.test_schema(schema)
+    utils.test_schema_record(schema, record)
 
 
 def test_query() -> None:
@@ -22,13 +31,3 @@ def test_query() -> None:
 def test_from_data() -> None:
     raw_data = {"data": mock_raw_data.mock_proj}
     assert ApiClient.from_data(query, raw_data)
-
-
-def test_schema() -> None:
-    encoder = ProjectEncoder("stream_1")
-    jschema = encoder.schema.schema
-    jrecord = encoder.to_singer(mock_data.mock_proj_obj).record
-    assert frozenset(jschema.raw_schema["properties"].keys()) == frozenset(
-        jrecord.keys()
-    )
-    assert len(jschema.raw_schema["properties"]) == len(jrecord.keys())

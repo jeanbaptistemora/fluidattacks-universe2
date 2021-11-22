@@ -27,13 +27,13 @@ from typing import (
 
 def _schema() -> JsonSchema:
     props = Project.__annotations__.copy()
-    props["proj_id"] = str
+    props["project_id"] = str
     return encoder_1.to_jschema(props)
 
 
 def _to_json(obj: ProjectObj) -> JsonObj:
     json: Dict[str, Primitive] = {
-        "proj_id": obj.id_obj.id_str,
+        "project_id": obj.id_obj.id_str,
         "encoded_id": obj.obj.encoded_id,
         "name": obj.obj.name,
         "slug": obj.obj.slug,
@@ -69,7 +69,7 @@ class ProjectEncoder:
 
     @property
     def schema(self) -> SingerSchema:
-        p_keys = frozenset({"ext_user_id", "project_id"})
+        p_keys = frozenset({"project_id"})
         return SingerSchema(self.stream_name, _schema(), p_keys)
 
     def to_singer(self, obj: ProjectObj) -> SingerRecord:

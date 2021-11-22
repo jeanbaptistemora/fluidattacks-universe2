@@ -78,6 +78,7 @@ class ProjectQuery:
         proj = query.project(project_id=self.proj_id.id_str)
         return select_fields(proj, frozenset(Project.__annotations__))
 
+    @property
     def query(self) -> Query[ProjectObj]:
         return QueryFactory.select(
             self._select_fields,
@@ -94,5 +95,5 @@ class ProjectFactory:
     client: ApiClient
 
     def get(self, proj: ProjectId) -> IO[ProjectObj]:
-        query = ProjectQuery(proj).query()
+        query = ProjectQuery(proj).query
         return self.client.get(query)
