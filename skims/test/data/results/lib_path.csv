@@ -5571,6 +5571,24 @@ F247,lines,namespace/skims/test/data/lib_path/f247/test_fsx.tf,1,311,skims,247. 
   13 | }
      ^ Col 0
 "
+F246,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,3,311,skims,246. Non-encrypted confidential information - DB,"Non-encrypted confidential information - DB
+","
+   1 | resource ""aws_db_instance"" ""default"" {
+   2 |   allocated_storage       = 10
+>  3 |   storage_encrypted       = false
+   4 |   engine                  = ""mysql""
+   5 |   engine_version          = ""5.7""
+   6 |   instance_class          = ""db.t3.micro""
+   7 |   name                    = ""mydb""
+   8 |   username                = ""foo""
+   9 |   deletion_protection     = true
+  10 |   password                = ""foobarbaz""
+  11 |   backup_retention_period = 2
+  12 |   parameter_group_name    = ""default.mysql5.7""
+  13 |   skip_final_snapshot     = true
+  14 | }
+     ^ Col 0
+"
 F080,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,9,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption.,"
    1 | Resources:
    2 |   S3Bucket1:
