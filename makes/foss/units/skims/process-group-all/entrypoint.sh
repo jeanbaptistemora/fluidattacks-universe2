@@ -143,6 +143,7 @@ function execute_skims_combination {
 function main {
   local group="${1:-}"
   local checks="${2:-}" # must be in json forma
+  local roots="${3:-}"  # must be in json forma
   local config
 
   export -f execute_skims_combination
@@ -164,11 +165,12 @@ function main {
       SERVICES_PROD_AWS_SECRET_ACCESS_KEY \
     && config="$(mktemp)" \
     && checks="$(jq -r -c '.[]' <<< "${checks}")" \
+    && roots="$(jq -r -c '.[]' <<< "${roots}")" \
     && use_git_repo_services \
     && clone_group "${group}" \
     && aws_login_prod 'skims' \
     && skims_cache pull "${group}" \
-    && parallel execute_skims_combination "${group}" ::: "$(ls "groups/${group}/fusion/")" ::: "${checks}" \
+    && parallel execute_skims_combination "${group}" ::: "${roots}" ::: "${checks}" \
     && skims_cache push "${group}" \
     && popd \
     && clean_file_system "${group}"
