@@ -18597,23 +18597,45 @@
   en:
     title: XML injection (XXE) - Unmarshaller
     description: >
-      __empty__
+      The XML unmarshaller is not configured securely.
+      It allows to read a source of XML data and bind
+      its values to a new instance of an object.
     impact: >
-      __empty__
+      Escalate attack to compromise the underlying
+      server or other back-end infrastructure.
     recommendation: >
-      __empty__
+      The XML unmarshaller should be configured securely
+      so that it does not allow external entities as
+      part of an incoming XML attack.
     threat: >
-      __empty__
+      - Allows an attacker to view files on
+      the application server filesystem.
+
+      - Interact with any back-end or external systems
+      that the application itself can access.
+
+      - Disclosure of confidential data.
   es:
     title: XML injection (XXE) - Unmarshaller
     description: >
-      __empty__
+      El XML unmarshaller no está configurado de forma segura.
+      Permite leer una fuente de datos XML y vincular sus
+      valores a una nueva instancia de un objeto.
     impact: >
-      __empty__
+      Escalar el ataque para comprometer el servidor
+      subyacente u otra infraestructura back-end.
     recommendation: >
-      __empty__
+      El desmarcador XML debe configurarse de forma segura
+      para que no permita entidades externas como parte
+      de un ataque XML entrante.
     threat: >
-      __empty__
+      - Permite a un atacante ver los archivos del
+      sistema de archivos del servidor de aplicaciones.
+
+      - Interactuar con cualquier sistema back-end o externo
+      al que pueda acceder la propia aplicación.
+
+      - Revelación de datos confidenciales.
   category: Inject Unexpected
   score:
     base:
@@ -18622,12 +18644,12 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
       report_confidence: "X"
   requirements: ["173"]
   metadata:
