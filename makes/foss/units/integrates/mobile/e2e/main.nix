@@ -2,7 +2,6 @@
 , makeNodeJsModules
 , makePythonPypiEnvironment
 , makeScript
-, projectPath
 , managePorts
 , ...
 } @ _:
@@ -43,5 +42,5 @@ makeScript {
       pythonRequirements
     ];
   };
-  entrypoint = projectPath "/makes/foss/units/integrates/mobile/e2e/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }

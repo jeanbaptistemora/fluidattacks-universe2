@@ -1,6 +1,5 @@
 { makeScript
 , outputs
-, projectPath
 , ...
 }:
 makeScript {
@@ -19,5 +18,5 @@ makeScript {
       outputs."/integrates/back/pypi/unit-tests"
     ];
   };
-  entrypoint = projectPath "/makes/foss/units/integrates/back/test/unit/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }

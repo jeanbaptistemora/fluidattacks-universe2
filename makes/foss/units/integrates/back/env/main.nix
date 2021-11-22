@@ -40,5 +40,5 @@ makeTemplate {
       (outputs."/utils/sops")
     ];
   };
-  template = projectPath "/makes/foss/units/integrates/back/env/template.sh";
+  template = ./template.sh;
 }

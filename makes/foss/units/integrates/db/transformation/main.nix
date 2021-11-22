@@ -16,5 +16,5 @@ makeDerivation {
       inputs.nixpkgs.jq
     ];
   };
-  builder = projectPath "/makes/foss/units/integrates/db/transformation/builder.sh";
+  builder = ./builder.sh;
 }

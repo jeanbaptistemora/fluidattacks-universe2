@@ -1,7 +1,6 @@
 { makeScript
 , inputs
 , outputs
-, projectPath
 , ...
 }:
 makeScript {
@@ -17,5 +16,5 @@ makeScript {
     ];
   };
   name = "forces-process-groups";
-  entrypoint = projectPath "/makes/foss/units/forces/process-groups/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }

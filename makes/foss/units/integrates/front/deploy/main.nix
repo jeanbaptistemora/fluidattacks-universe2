@@ -2,7 +2,6 @@
 , libGit
 , makeTemplate
 , outputs
-, projectPath
 , ...
 }:
 makeTemplate {
@@ -23,5 +22,5 @@ makeTemplate {
       (outputs."/utils/sops")
     ];
   };
-  template = projectPath "/makes/foss/units/integrates/front/deploy/template.sh";
+  template = ./template.sh;
 }

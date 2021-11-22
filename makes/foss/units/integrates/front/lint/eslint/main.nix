@@ -10,7 +10,7 @@ makeDerivation {
       outputs."/integrates/front/config/dev-runtime";
     envSrcIntegratesFront = projectPath "/integrates/front";
   };
-  builder = projectPath "/makes/foss/units/integrates/front/lint/eslint/builder.sh";
+  builder = ./builder.sh;
   name = "integrates-front-lint-eslint";
   searchPaths = {
     bin = [ inputs.nixpkgs.nodejs ];

@@ -35,5 +35,5 @@ makeScript {
     (outputs."/utils/sops")
     managePorts
   ];
-  entrypoint = projectPath "/makes/foss/units/integrates/storage/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }

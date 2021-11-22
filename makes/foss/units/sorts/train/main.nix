@@ -1,7 +1,6 @@
 { makeScript
 , inputs
 , outputs
-, projectPath
 , ...
 }:
 makeScript {
@@ -15,5 +14,5 @@ makeScript {
       (outputs."/utils/sops")
     ];
   };
-  entrypoint = projectPath "/makes/foss/units/sorts/train/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }

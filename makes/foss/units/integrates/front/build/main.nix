@@ -15,7 +15,7 @@ makeDerivation {
     envIntegratesBackAppTemplates = projectPath "/integrates/back/src/app/templates/static";
     envIntegratesFront = projectPath "/integrates/front";
   };
-  builder = projectPath "/makes/foss/units/integrates/front/build/builder.sh";
+  builder = ./builder.sh;
   name = "integrates-front-build";
   searchPaths = {
     bin = [ inputs.nixpkgs.patch ];

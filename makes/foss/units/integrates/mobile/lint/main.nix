@@ -10,7 +10,7 @@ makeDerivation {
       outputs."/integrates/mobile/config/dev-runtime";
     envSrcIntegratesMobile = projectPath "/integrates/mobile";
   };
-  builder = projectPath "/makes/foss/units/integrates/mobile/lint/builder.sh";
+  builder = ./builder.sh;
   name = "integrates-mobile-lint";
   searchPaths = {
     bin = [

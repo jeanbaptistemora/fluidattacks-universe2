@@ -25,5 +25,5 @@ makeTemplate {
       (projectPath "/forces")
     ];
   };
-  template = projectPath "/makes/foss/units/forces/config-runtime/template.sh";
+  template = ./template.sh;
 }

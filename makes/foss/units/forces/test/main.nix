@@ -21,5 +21,5 @@ makeScript {
       inputs.nixpkgs.kubectl
     ];
   };
-  entrypoint = projectPath "/makes/foss/units/forces/test/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }

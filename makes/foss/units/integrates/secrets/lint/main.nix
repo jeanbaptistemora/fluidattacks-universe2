@@ -5,13 +5,13 @@
 }:
 makeDerivation {
   env = {
-    envConfig = projectPath "/makes/foss/units/integrates/secrets/lint/config.yaml";
+    envConfig = ./config.yaml;
     envYamlSecrets = builtins.map projectPath [
       "/integrates/secrets-development.yaml"
       "/integrates/secrets-production.yaml"
     ];
   };
-  builder = projectPath "/makes/foss/units/integrates/secrets/lint/builder.sh";
+  builder = ./builder.sh;
   name = "integrates-secrets-lint";
   searchPaths.bin = [
     inputs.nixpkgs.python39Packages.yamllint

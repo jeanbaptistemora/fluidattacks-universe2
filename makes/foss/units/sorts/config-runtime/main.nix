@@ -54,5 +54,5 @@ makeTemplate {
       pythonRequirements
     ];
   };
-  template = projectPath "/makes/foss/units/sorts/config-runtime/template.sh";
+  template = ./template.sh;
 }

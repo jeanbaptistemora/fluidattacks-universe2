@@ -1,7 +1,6 @@
 { inputs
 , makeScript
 , outputs
-, projectPath
 , ...
 }:
 makeScript {
@@ -11,5 +10,5 @@ makeScript {
     source = [ (outputs."/utils/aws") ];
   };
   name = "integrates-back-destroy-eph";
-  entrypoint = projectPath "/makes/foss/units/integrates/back/destroy/eph/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }

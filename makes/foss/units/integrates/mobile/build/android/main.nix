@@ -32,5 +32,5 @@ makeScript {
       outputs."/integrates/mobile/config/dev-runtime-env"
     ];
   };
-  entrypoint = projectPath "/makes/foss/units/integrates/mobile/build/android/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }

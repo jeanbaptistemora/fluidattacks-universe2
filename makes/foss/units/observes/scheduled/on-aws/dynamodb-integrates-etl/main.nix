@@ -1,7 +1,6 @@
 { outputs
 , inputs
 , makeScript
-, projectPath
 , ...
 }:
 let
@@ -22,5 +21,5 @@ makeScript {
     __argDynamoDbIntegratesEtl__ = "${dynamoDbEtlOnAws}/bin/${dynamoDbEtlOnAws.name}";
   };
   name = "observes-scheduled-on-aws-dynamodb-integrates-etl";
-  entrypoint = projectPath "/makes/foss/units/observes/scheduled/on-aws/dynamodb-integrates-etl/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }

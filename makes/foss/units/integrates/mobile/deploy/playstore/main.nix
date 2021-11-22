@@ -22,5 +22,5 @@ makeScript {
       (outputs."/utils/sops")
     ];
   };
-  entrypoint = projectPath "/makes/foss/units/integrates/mobile/deploy/playstore/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }

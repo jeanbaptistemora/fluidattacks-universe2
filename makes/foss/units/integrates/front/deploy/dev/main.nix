@@ -1,7 +1,6 @@
 { libGit
 , makeScript
 , outputs
-, projectPath
 , ...
 }:
 makeScript {
@@ -10,5 +9,5 @@ makeScript {
     libGit
     outputs."/integrates/front/deploy"
   ];
-  entrypoint = projectPath "/makes/foss/units/integrates/front/deploy/dev/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }

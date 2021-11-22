@@ -23,5 +23,5 @@ makeScript {
     ];
   };
   name = "integrates-back-deploy-prod";
-  entrypoint = projectPath "/makes/foss/units/integrates/back/deploy/prod/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }

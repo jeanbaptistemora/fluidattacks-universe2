@@ -59,5 +59,5 @@ makeTemplate {
       })
     ];
   };
-  template = projectPath "/makes/foss/units/skims/config-runtime/template.sh";
+  template = ./template.sh;
 }
