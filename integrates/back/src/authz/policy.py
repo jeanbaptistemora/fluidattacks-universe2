@@ -266,10 +266,12 @@ async def get_group_level_role(email: str, group: str) -> str:
 
 
 async def get_group_level_roles(
-    email: str, groups: List[str]
+    email: str,
+    groups: List[str],
+    with_cache: bool = True,
 ) -> Dict[str, str]:
     is_admin: bool = await get_user_level_role(email) == "admin"
-    policies = await get_cached_subject_policies(email)
+    policies = await get_cached_subject_policies(email, with_cache=with_cache)
     db_roles: Dict[str, str] = {
         object_: role for level, object_, role in policies if level == "group"
     }

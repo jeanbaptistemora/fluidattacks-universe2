@@ -870,11 +870,16 @@ async def get_description(group_name: str) -> str:
 
 @apm.trace()
 async def get_groups_by_user(
-    user_email: str, active: bool = True, organization_id: str = ""
+    user_email: str,
+    active: bool = True,
+    organization_id: str = "",
+    with_cache: bool = True,
 ) -> List[str]:
     user_groups: List[str] = []
     groups = await group_access_domain.get_user_groups(user_email, active)
-    group_level_roles = await authz.get_group_level_roles(user_email, groups)
+    group_level_roles = await authz.get_group_level_roles(
+        user_email, groups, with_cache=with_cache
+    )
     can_access_list = await collect(
         can_user_access(group, role)
         for role, group in zip(group_level_roles.values(), groups)

@@ -141,7 +141,14 @@ async def can_subscribe_user_to_entity_report(
         report_entity.lower() == "digest"
         and report_subject.lower() == "all_groups"
     ):
-        success = len(await groups_domain.get_groups_by_user(user_email)) > 0
+        success = (
+            len(
+                await groups_domain.get_groups_by_user(
+                    user_email, with_cache=False
+                )
+            )
+            > 0
+        )
     elif report_entity.lower() == "comments":
         success = True
     else:
@@ -259,7 +266,9 @@ async def _send_digest_report(
     digest_stats: Union[Tuple[MailContent], Tuple],
     loaders: Dataloaders = None,
 ) -> None:
-    groups = await groups_domain.get_groups_by_user(user_email)
+    groups = await groups_domain.get_groups_by_user(
+        user_email, with_cache=False
+    )
 
     if FI_ENVIRONMENT == "production":
         groups = [
@@ -491,7 +500,7 @@ async def _get_digest_stats(
 
     digest_groups = await collect(
         [
-            groups_domain.get_groups_by_user(user_email)
+            groups_domain.get_groups_by_user(user_email, with_cache=False)
             for user_email in digest_suscribers
         ]
     )
