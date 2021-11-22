@@ -19,13 +19,49 @@ def test_finding_description(
     # Login
     utils.login(driver, asm_endpoint, credentials)
 
-    # Enter finding
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
         "060. Insecure exceptions",
         timeout,
     )
+
+    # Configure columns filter
+    assert "Where" not in driver.page_source
+    columns_button = utils.wait_for_id(
+        driver,
+        "columns-filter",
+        timeout,
+    )
+    columns_button.click()
+    assert utils.wait_for_text(
+        driver,
+        "Columns Filter",
+        timeout,
+    )
+    checkboxes = driver.find_elements_by_css_selector(
+        "#columns-buttons input[type='checkbox']"
+    )
+
+    for checkbox in checkboxes:
+        if not checkbox.is_selected():
+            checkbox.click()
+
+    close = utils.wait_for_id(
+        driver,
+        "close-columns-modal",
+        timeout,
+    )
+    close.click()
+
+    assert utils.wait_for_hide_text(
+        driver,
+        "Columns Filter",
+        timeout,
+    )
+    assert "Where" in driver.page_source
+
+    # Enter finding
     finding.click()
 
     # Enter finding description
@@ -349,6 +385,11 @@ def test_finding_vulnerabilities(
         timeout,
     )
     tracking_tab.click()
+    assert utils.wait_for_text(
+        driver,
+        "2020-01-03",
+        timeout,
+    )
     assert utils.wait_for_text(
         driver,
         "In progress",

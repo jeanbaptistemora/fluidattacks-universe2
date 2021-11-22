@@ -43,7 +43,7 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
         id={"toogleToolTip"}
         message={t("group.findings.tableSet.btn.tooltip")}
       >
-        <Button onClick={handleOpenTableSetClick}>
+        <Button id={"columns-filter"} onClick={handleOpenTableSetClick}>
           <FontAwesomeIcon icon={faCog} />
           &nbsp;
           {t("group.findings.tableSet.btn.text")}
@@ -58,6 +58,7 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
           <div
             className={"btn-group btn-group-toggle btn-group-vertical"}
             data-toggle={"buttons"}
+            id={"columns-buttons"}
           >
             {columns
               .map(
@@ -97,7 +98,10 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
         <Row>
           <Col100>
             <ButtonToolbar>
-              <Button onClick={handleCloseTableSetClick}>
+              <Button
+                id={"close-columns-modal"}
+                onClick={handleCloseTableSetClick}
+              >
                 {t("group.findings.report.modalClose")}
               </Button>
             </ButtonToolbar>
