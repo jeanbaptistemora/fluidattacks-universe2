@@ -59,7 +59,7 @@ async def mutate(
         finding_loader = info.context.loaders.finding
         finding: Finding = await finding_loader.load(finding_id)
         user_info = await token_utils.get_jwt_content(info.context)
-        success = await findings_domain.verify_vulnerabilities_new(
+        success = await findings_domain.verify_vulnerabilities(
             context=info.context,
             finding_id=finding_id,
             user_info=user_info,

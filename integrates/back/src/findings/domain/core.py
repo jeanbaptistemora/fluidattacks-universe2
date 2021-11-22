@@ -21,7 +21,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     Comment as CommentType,
-    Finding as FindingType,
     Tracking as TrackingItem,
     User as UserType,
 )
@@ -82,9 +81,6 @@ from newutils import (
     requests as requests_utils,
     validations,
     vulnerabilities as vulns_utils,
-)
-from newutils.utils import (
-    get_key_or_fallback,
 )
 from settings import (
     LOGGING,
@@ -719,90 +715,6 @@ async def update_severity(
 
 
 async def verify_vulnerabilities(  # pylint: disable=too-many-locals
-    *,
-    info: GraphQLResolveInfo,
-    finding_id: str,
-    user_info: Dict[str, str],
-    parameters: Dict[str, FindingType],
-    vulns_to_close_from_file: List[Dict[str, str]],
-) -> bool:
-    # All vulns must be open before verifying them
-    # we will just keep them open or close them
-    # in either case, their historic_verification is updated to VERIFIED
-    finding_loader = info.context.loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
-    if not operation_can_be_executed(info.context, finding.title):
-        raise MachineCanNotOperate()
-
-    finding_vulns_loader = info.context.loaders.finding_vulns_all
-    vulnerability_ids: List[str] = get_key_or_fallback(
-        parameters, "open_vulnerabilities", "open_vulns", []
-    ) + get_key_or_fallback(
-        parameters, "closed_vulnerabilities", "closed_vulns", []
-    )
-    vulnerabilities = [
-        vuln
-        for vuln in await finding_vulns_loader.load(finding_id)
-        if vuln["id"] in vulnerability_ids
-    ]
-    vulnerabilities = [
-        vulns_utils.validate_verify(vuln) for vuln in vulnerabilities
-    ]
-    vulnerabilities = [
-        vulns_utils.validate_closed(vuln) for vuln in vulnerabilities
-    ]
-    if not vulnerabilities:
-        raise VulnNotFound()
-
-    comment_id = str(round(time() * 1000))
-    today = datetime_utils.get_now_as_str()
-    user_email: str = user_info["user_email"]
-
-    # Modify the verification state to mark the finding as verified
-    verification = FindingVerification(
-        comment_id=comment_id,
-        modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date(),
-        status=FindingVerificationStatus.VERIFIED,
-        vulnerability_ids=set(vulnerability_ids),
-    )
-    await findings_model.update_verification(
-        current_value=finding.verification,
-        group_name=finding.group_name,
-        finding_id=finding.id,
-        verification=verification,
-    )
-    comment_data = {
-        "comment_type": "verification",
-        "content": parameters.get("justification", ""),
-        "parent": "0",
-        "comment_id": comment_id,
-    }
-    await comments_domain.add(finding_id, comment_data, user_info)
-
-    # Modify the verification state to mark all passed vulns as verified
-    success = await collect(
-        map(vulns_domain.verify_vulnerability, vulnerabilities)
-    )
-    if all(success):
-        # Open vulns that remain open are not modified in the DB
-        # Open vulns that were closed must be persisted to the DB as closed
-        success = await vulns_domain.verify(
-            info=info,
-            finding_id=finding_id,
-            vulnerabilities=vulnerabilities,
-            closed_vulnerabilities=get_key_or_fallback(
-                parameters, "closed_vulnerabilities", "closed_vulns", []
-            ),
-            date=today,
-            vulns_to_close_from_file=vulns_to_close_from_file,
-        )
-    else:
-        LOGGER.error("An error occurred verifying", **NOEXTRA)
-    return all(success)
-
-
-async def verify_vulnerabilities_new(  # pylint: disable=too-many-locals
     *,
     context: Any,
     finding_id: str,
