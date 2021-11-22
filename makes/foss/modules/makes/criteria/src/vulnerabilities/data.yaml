@@ -22488,23 +22488,6 @@
   en:
     title: Insufficient data authenticity validation - Cloudtrail Logs
     description: >
-      Una o más instancias asociadas a Cloudtrail
-      no habilitan el atributo EnableLogFileValidation
-      con lo cual no se genera un hash de integridad
-      que garantice que el archivo no ha sido modificado
-      por actores maliciosos
-    impact: >
-      Alterar la integridad de los logs del sistema
-      sin generar ninguna alerta
-    recommendation: >
-      Establecer el atributo EnableLogFileValidation en true
-      en todas las instancias de CloudTrail.
-    threat: >
-      Atacante autenticado desde Internet.
-  category: Abuse Functionality
-  es:
-    title: Insufficient data authenticity validation - Cloudtrail Logs
-    description: >
       One or more Cloudtrail instances
       do not enable the EnableLogFileValidation attribute
       avoiding the integrity validation to be performed.
@@ -22519,6 +22502,23 @@
       for all Cloudtrail instances
     threat: >
       Authenticated attacker from the Internet
+  es:
+    title: Insufficient data authenticity validation - Cloudtrail Logs
+    description: >
+      Una o más instancias asociadas a Cloudtrail
+      no habilitan el atributo EnableLogFileValidation
+      con lo cual no se genera un hash de integridad
+      que garantice que el archivo no ha sido modificado
+      por actores maliciosos
+    impact: >
+      Alterar la integridad de los logs del sistema
+      sin generar ninguna alerta
+    recommendation: >
+      Establecer el atributo EnableLogFileValidation en true
+      en todas las instancias de CloudTrail.
+    threat: >
+      Atacante autenticado desde Internet.
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
