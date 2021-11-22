@@ -135,7 +135,10 @@ function filterWhere<T extends Record<string, any>>(
       ? true
       : !_.isEmpty(
           currentRows.filter((innerRow: T): boolean =>
-            (innerRow.where as string).includes(searchText)
+            _.includes(
+              (innerRow.where as string).toLocaleLowerCase(),
+              searchText.toLocaleLowerCase()
+            )
           )
         );
   });
