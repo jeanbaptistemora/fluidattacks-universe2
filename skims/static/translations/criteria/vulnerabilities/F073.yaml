@@ -1,26 +1,25 @@
-src.lib_path.f073.switch_no_default:
-  en: Switch without default in {path}
-  es: Switch sin caso por defecto en {path}
-src.lib_path.f073.when_no_else:
-  en: When without else in {path}
-  es: When sin else en {path}
+F073.title:
+  en: Improper authorization control for web services - RDS
+  es: Improper authorization control for web services - RDS
 F073.description:
   en: >
-    The source code has conditional statements without a default option.
-    E.g. there is a switch statement without a default case.
+    Some RDS instances can be publicly accessible, which can compromise the
+    stored information
   es: >
-    El código presenta condicionales sin ninguna opción por defecto.
-    Ejemplo: se tiene un switch que no contempla un caso por defecto.
+    Algunas instancias de RDS pueden ser accedidas públicamente, con lo cual
+    es posible comprometer la información allí almacenada
 F073.impact:
   en: >
-    Drive the application into unexpected behaviors due to the missing default
-    options.
+    Obtain confidential information of the database
   es: >
-    Conducir la aplicación a comportamientos inesperados debido a la clausula
-    por defecto faltante.
+    Obtener información confidencial de la base de datos
 F073.recommendation:
-  en: Define a default option for statements that do not yet have it.
-  es: Definir una opción por defecto para las sentencias que aún no cuentan con esta.
+  en: >
+    Ensure that the relational databases are accesible only by users and roles
+    authenticated and authorized
+  es: >
+    Garantizar que las bases de datos relacionales sean accesibles únicamente
+    por usuarios y roles autenticados y autorizados
 F073.threat:
-  en: Autenticated attacker from the Internet.
-  es: Atacante autenticado desde Internet.
+  en: Anonymous attacker on the Internet
+  es: Atacante anónimo desde Internet

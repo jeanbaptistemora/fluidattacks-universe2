@@ -223,6 +223,14 @@
       "title": "071. Insecure or unset HTTP headers - Referrer-Policy"
     }
   },
+  "F073": {
+    "EN": {
+      "title": "073. Improper authorization control for web services - RDS"
+    },
+    "ES": {
+      "title": "073. Improper authorization control for web services - RDS"
+    }
+  },
   "F074": {
     "EN": {
       "title": "074. Commented-out code"
