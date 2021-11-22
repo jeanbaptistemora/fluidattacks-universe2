@@ -10,6 +10,9 @@ from pathlib import (
     Path,
 )
 import shutil
+from tests import (
+    conftest,
+)
 from toolbox import (
     utils,
 )
@@ -216,7 +219,10 @@ def main(
         update_last_sync_date("last_sync_date", subs)
     if passed:
         permissions = utils.integrates.get_group_permissions(subs)
-        if "api_mutations_refresh_toe_lines_mutate" in permissions:
+        if (
+            "api_mutations_refresh_toe_lines_mutate" in permissions
+            and subs != conftest.SUBS
+        ):
             utils.integrates.refresh_toe_lines(subs)
 
     return passed
