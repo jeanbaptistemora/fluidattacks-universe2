@@ -120,22 +120,7 @@ resource "aws_launch_template" "batch_instance_regular" {
     "management:area" = "cost"
     "management:type" = "product"
   }
-  user_data = filebase64("${path.module}/aws_batch_user_data_skims")
-}
-
-resource "aws_launch_template" "batch_instance_skims" {
-  block_device_mappings {
-    device_name  = "/dev/xvdcz"
-    virtual_name = "ephemeral0"
-  }
-  key_name = "gitlab"
-  name     = "batch_instance_skims"
-  tags = {
-    "Name"            = "batch_instance_skims"
-    "management:area" = "cost"
-    "management:type" = "product"
-  }
-  user_data = filebase64("${path.module}/aws_batch_user_data_skims")
+  user_data = filebase64("${path.module}/aws_batch_user_data")
 }
 
 locals {
@@ -184,6 +169,20 @@ locals {
       launch_template_id      = aws_launch_template.batch_instance_regular.id
       launch_template_version = aws_launch_template.batch_instance_regular.latest_version
     }
+    skims_all = {
+      bid_percentage      = 100
+      instances           = 4 * length(jsondecode(data.local_file.skims_queues.content))
+      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
+      type                = "SPOT"
+
+      tags = {
+        "Name"            = "skims_all"
+        "management:area" = "cost"
+        "management:type" = "product"
+      }
+      launch_template_id      = aws_launch_template.batch_instance_regular.id
+      launch_template_version = aws_launch_template.batch_instance_regular.latest_version
+    }
   }
   compute_environments_spot_skims = {
     for name, _ in jsondecode(data.local_file.skims_queues.content)
@@ -198,8 +197,8 @@ locals {
         "management:area" = "cost"
         "management:type" = "product"
       }
-      launch_template_id      = aws_launch_template.batch_instance_skims.id
-      launch_template_version = aws_launch_template.batch_instance_skims.latest_version
+      launch_template_id      = aws_launch_template.batch_instance_regular.id
+      launch_template_version = aws_launch_template.batch_instance_regular.latest_version
     }
   }
   compute_environments = merge(
