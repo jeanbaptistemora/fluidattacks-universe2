@@ -3602,7 +3602,7 @@
                 "S": "Implement password politicies with the best practicies for strong passwords."
               },
               "title": {
-                "S": "060. Insecure exceptions"
+                "S": "060. Insecure service configuration - Host verification"
               },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"

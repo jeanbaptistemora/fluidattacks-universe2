@@ -533,7 +533,7 @@ async def test_update_description() -> None:
         "findingId": "422286126",
         "recommendation": "Updated recommendation",
         "threat": "Updated threat",
-        "title": "051. Cracked weak credentials",
+        "title": "060. Insecure service configuration - Host verification",
     }
     data = {"query": query, "variables": variables}
     result = await _get_result(data)

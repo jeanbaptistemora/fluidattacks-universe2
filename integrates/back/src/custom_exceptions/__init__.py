@@ -476,6 +476,18 @@ class InvalidFindingTitle(CustomBaseException):
         super(InvalidFindingTitle, self).__init__(msg)
 
 
+class InvalidFieldChange(CustomBaseException):
+    """Exception to control forbidden field changes"""
+
+    def __init__(self, fields: Sequence[str], reason: str) -> None:
+        """Constructor"""
+        msg = (
+            f'Exception - Forbidden change on field: {", ".join(fields)}'
+            f"  Reason: {reason}"
+        )
+        super(InvalidFieldChange, self).__init__(msg)
+
+
 class InvalidGroupName(CustomBaseException):
     """Exception to control invalid group name"""
 

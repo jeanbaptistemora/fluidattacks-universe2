@@ -4,11 +4,13 @@ from custom_exceptions import (
     InvalidChar,
     InvalidCvssVersion,
     InvalidField,
+    InvalidFieldChange,
     InvalidFieldLength,
     InvalidMarkdown,
 )
 from db_model.findings.enums import (
     FindingCvssVersion,
+    FindingStateStatus,
 )
 from db_model.findings.types import (
     Finding20Severity,
@@ -190,3 +192,19 @@ def validate_alphanumeric_field(field: str) -> bool:
     if is_alnum or field == "-" or not field:
         return True
     raise InvalidField()
+
+
+def validate_finding_title_change_policy(
+    old_title: str, new_title: str, status: FindingStateStatus
+) -> bool:
+    """Blocks finding title changes from going through if the Finding has been
+    already approved"""
+    if old_title != new_title and status == FindingStateStatus.APPROVED:
+        raise InvalidFieldChange(
+            fields=["title"],
+            reason=(
+                "The title of a Finding cannot be edited after"
+                "it has been approved"
+            ),
+        )
+    return True

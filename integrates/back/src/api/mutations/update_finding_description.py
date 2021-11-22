@@ -36,6 +36,9 @@ from newutils import (
 from newutils.utils import (
     get_key_or_fallback,
 )
+from newutils.validations import (
+    validate_finding_title_change_policy,
+)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -56,6 +59,13 @@ async def mutate(
 ) -> SimplePayload:
     try:
         finding_loader = info.context.loaders.finding
+        old_finding: Finding = await finding_loader.load(finding_id)
+        validate_finding_title_change_policy(
+            old_title=old_finding.title,
+            new_title=kwargs["title"],
+            status=old_finding.state.status,
+        )
+
         description = FindingDescriptionToUpdate(
             affected_systems=kwargs["affected_systems"],
             attack_vector_description=get_key_or_fallback(

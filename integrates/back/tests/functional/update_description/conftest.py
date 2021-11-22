@@ -43,7 +43,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         source=Source.ASM,
                         status=FindingStateStatus.CREATED,
                     ),
-                    title="060. Insecure exceptions",
+                    title="060. Insecure service configuration - Host verification",
                     recommendation="Updated recommendation",
                     description="I just have updated the description",
                     hacker_email="test1@gmail.com",
