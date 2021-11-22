@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@graphql-inspector/ci": "3.0.2",
+    "@graphql-inspector/diff-command": "3.0.2",
+    "@graphql-inspector/url-loader": "3.0.2"
+  }
+}
