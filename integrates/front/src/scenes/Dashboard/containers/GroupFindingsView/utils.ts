@@ -5,7 +5,6 @@ import type { IRemoveFindingResultAttr } from "../FindingContent/types";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import type {
   IFindingAttr,
-  IFindingData,
   ITreatmentSummaryAttr,
 } from "scenes/Dashboard/containers/GroupFindingsView/types";
 import { Logger } from "utils/logger";
@@ -61,15 +60,18 @@ ${translate.t("searchFindings.tabDescription.treatment.acceptedUndefined")}: ${
 
 const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
   findings: IFindingAttr[]
-): IFindingData[] =>
+): IFindingAttr[] =>
   findings.map(
-    (finding: IFindingAttr): IFindingData => ({
+    (finding: IFindingAttr): IFindingAttr => ({
       ...finding,
       remediated: formatRemediated(finding.remediated, finding.verified),
       treatment: formatTreatmentSummary(
         finding.state,
         finding.treatmentSummary
       ),
+      where: finding.vulnerabilities
+        .map((value: { where: string }): string => value.where)
+        .join(", "),
     })
   );
 

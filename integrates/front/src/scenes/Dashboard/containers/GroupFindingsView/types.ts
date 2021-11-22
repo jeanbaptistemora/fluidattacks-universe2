@@ -28,6 +28,9 @@ interface IFindingAttr {
   treatment: string;
   treatmentSummary: ITreatmentSummaryAttr;
   verified: boolean;
+  vulnerabilities: {
+    where: string;
+  }[];
   where: string;
 }
 

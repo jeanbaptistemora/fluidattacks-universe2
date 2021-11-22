@@ -50,7 +50,11 @@ describe("GroupFindingsView", (): void => {
                   new: 1,
                 },
                 verified: false,
-                where: "This is a test where",
+                vulnerabilities: [
+                  {
+                    where: "This is a test where",
+                  },
+                ],
               },
             ],
             name: "TEST",
@@ -107,7 +111,11 @@ describe("GroupFindingsView", (): void => {
                   new: 1,
                 },
                 verified: false,
-                where: "This is a test where",
+                vulnerabilities: [
+                  {
+                    where: "This is a test where",
+                  },
+                ],
               },
             ],
             name: "TEST",
