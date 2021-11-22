@@ -12,6 +12,7 @@ makeTemplate {
     ];
     source = [
       (outputs."/utils/gitlab")
+      (outputs."/utils/common")
     ];
   };
   template = ./template.sh;
