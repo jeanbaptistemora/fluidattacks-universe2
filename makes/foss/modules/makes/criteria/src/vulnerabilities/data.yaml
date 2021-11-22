@@ -18643,7 +18643,7 @@
       with privileges to add users.
       Disclose sensitive information.
   es:
-    title: XML injection (XXE) - Unmarshaller
+    title: Insecure functionality - User management
     description: >
       Es posible asignar a personas que no son
       usuarios como gestores de tratamiento de
