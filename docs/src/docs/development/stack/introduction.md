@@ -5,37 +5,39 @@ sidebar_label: Introduction
 slug: /development/stack
 ---
 
-In this section you can find
-an in-detail walkthrough for
-our entire
-[technical stack](https://heap.io/topics/what-is-a-tech-stack).
+In this section,
+you can find a detailed walkthrough
+of our entire [tech stack](https://heap.io/topics/what-is-a-tech-stack).
 
-For each component you will find:
+For each component,
+you will find the following items:
 
-1. **Rationale:**
-    Short explanation
-    of what the component
-    does and why we chose it.
-1. **Alternatives:**
-    Similar components
-    that were considered
+- **Rationale:**
+    A brief explanation of what the component does
+    and why we chose it.
+- **Alternatives:**
+    Similar components we considered
     and the main reasons
-    why they were not chosen.
-1. **Usage:**
+    why we did not choose them.
+- **Usage:**
     How the component is used
-    and pending implementations
-    involving it.
-1. **Guidelines:**
+    and pending implementations involving it.
+- **Guidelines:**
     How to use the component.
 
-## Purpose
+## Purposes
 
-1. **Identity management: [Okta](/development/stack/okta)**
-1. **Development platform: [Gitlab](/development/stack/gitlab)**
-1. **Continuous Integration: [Gitlab CI](/development/stack/gitlab-ci)**
-1. **Commit message linter: [Commitlint](/development/stack/commitlint)**
-1. **Cloud infrastructure: [AWS](/development/stack/aws)**
-1. **Edge protection: [Cloudflare](/development/stack/cloudflare)**
-1. **Application hosting: [Kubernetes](/development/stack/kubernetes)**
-1. **Secret management: [Sops](/development/stack/sops)**
-1. **Infrastructure management: [Terraform](/development/stack/terraform)**
+Below we show you different purposes
+and in front of each one of them
+the corresponding component
+that we use to fulfill it:
+
+- **Identity management:** [Okta](/development/stack/okta)
+- **Development platform:** [Gitlab](/development/stack/gitlab)
+- **Continuous Integration:** [Gitlab CI](/development/stack/gitlab-ci)
+- **Commit message linter:** [Commitlint](/development/stack/commitlint)
+- **Cloud infrastructure:** [AWS](/development/stack/aws)
+- **Edge protection:** [Cloudflare](/development/stack/cloudflare)
+- **Application hosting:** [Kubernetes](/development/stack/kubernetes)
+- **Secret management:** [Sops](/development/stack/sops)
+- **Infrastructure management:** [Terraform](/development/stack/terraform)

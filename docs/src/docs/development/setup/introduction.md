@@ -5,15 +5,14 @@ sidebar_label: Introduction
 slug: /development/setup
 ---
 
-This section will guide you through setting a:
+This section will guide you through setting up
 
-- Bash shell (Terminal)
-- Code editor
+- the Bash shell (terminal) and
+- the code editor.
 
-In order to start developing X product with:
+In order to start developing a product X with
 
-- Code auto-completion
-- Go-to-definition functionality
-- Required dependencies in the host
-- Automatic formatters
-- Etc
+- code auto-completion;
+- go-to-definition functionality;
+- required dependencies in the host;
+- automatic formatters, etc.

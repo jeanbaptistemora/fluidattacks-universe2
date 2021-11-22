@@ -6,13 +6,13 @@ slug: /development/setup/editor
 ---
 
 We highly recommend you use Visual Studio Code
-because most of the team uses it
-and works very well for our purpose.
+because most of the team uses it,
+and it works very well for our purpose.
 
-You can install it with:
+You can install it with
 `$ NIXPKGS_ALLOW_UNFREE=1 nix-env -i vscode`
 
-Now install some useful extensions:
+Now install some useful extensions.
 
 ```bash
 extensions=(
@@ -38,11 +38,13 @@ for extension in "${extensions[@]}"; do
 done
 ```
 
-For further customization a configuration file will be created at
-`~/.config/Code/User/settings.json` once you start the editor.
+For further customization,
+a configuration file will be created at
+`~/.config/Code/User/settings.json`
+once you start the editor.
 Please note that
 the entire configuration file
-must comply the JSON format,
+must comply with the JSON format,
 so make sure you don't have trailing commas.
 If correctly formatted,
 you should be able
@@ -57,7 +59,7 @@ This configuration is needed for the language server to work correctly:
 }
 ```
 
-These configurations are suggested, you can add the ones you want:
+These configurations are suggested; you can add the ones you want:
 
 ```json
 {
