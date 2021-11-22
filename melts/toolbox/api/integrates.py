@@ -392,6 +392,23 @@ class Queries:
         )
 
     @staticmethod
+    def get_group_permissions(api_token: str, group_name: str) -> Response:
+        query = """
+            query MeltsGetGroupPermissions($groupName: String!) {
+              group(groupName: $groupName){
+                permissions
+              }
+            }
+        """
+        params: dict = {"groupName": group_name}
+        return request(
+            api_token,
+            query,
+            params,
+            operation="MeltsGetGroupPermissions",
+        )
+
+    @staticmethod
     def get_groups_with_forces(api_token: str) -> Response:
         query = """
             query MeltsListGroupsWithForces{
@@ -424,6 +441,32 @@ class Queries:
 
 class Mutations:
     """Namespace for Integrates's GraphQL Mutations."""
+
+    @staticmethod
+    def refresh_toe_lines(
+        api_token: str,
+        group_name: str,
+    ) -> Response:
+        query = """
+            mutation MeltsRefreshToeLines(
+                $groupName: String!
+            ) {
+              refreshToeLines(
+                groupName: $groupName
+              ) {
+                success
+              }
+            }
+        """
+        params = {
+            "groupName": group_name,
+        }
+        return request(
+            api_token,
+            query,
+            params,
+            operation="MeltsRefreshToeLines",
+        )
 
     @staticmethod
     def update_evidence(

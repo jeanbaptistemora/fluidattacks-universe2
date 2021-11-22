@@ -10,6 +10,9 @@ from pathlib import (
     Path,
 )
 import shutil
+from toolbox import (
+    utils,
+)
 from toolbox.api import (
     integrates,
 )
@@ -211,5 +214,9 @@ def main(
         or not generic.is_env_ci()
     ):
         update_last_sync_date("last_sync_date", subs)
+    if passed:
+        permissions = utils.integrates.get_group_permissions(subs)
+        if "api_mutations_refresh_toe_lines_mutate" in permissions:
+            utils.integrates.refresh_toe_lines(subs)
 
     return passed

@@ -22,6 +22,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Set,
     Tuple,
 )
 
@@ -152,3 +153,28 @@ def update_root_cloning_status(
     if not result.data["updateRootCloningStatus"]["success"]:
         LOGGER.error("An error has occurred updating the status")
     return result.data["updateRootCloningStatus"]["success"]
+
+
+def get_group_permissions(group_name: str) -> Set[str]:
+    response = api.integrates.Queries.get_group_permissions(
+        API_TOKEN, group_name
+    )
+    if not response.ok:
+        raise IntegratesError(response.errors)
+    return set(response.data["group"]["permissions"])
+
+
+def refresh_toe_lines(
+    group_name: str,
+) -> bool:
+    result = api.integrates.Mutations.refresh_toe_lines(
+        API_TOKEN,
+        group_name,
+    )
+    if result.errors:
+        LOGGER.error(
+            "An error has occurred refreshing the toe lines: %s",
+            result.errors[0]["message"],
+        )
+        return False
+    return result.data["refreshToeLines"]["success"]

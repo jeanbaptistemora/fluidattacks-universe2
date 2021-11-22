@@ -118,7 +118,7 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
                 }
             }
         """,
-        operation="GetToeLines",
+        operation="GetServicesToeLines",
         variables=dict(group_name=group_name),
     )
 
