@@ -51,6 +51,10 @@ def get_estimator(
         debugger_hook_config=False,
         use_spot_instances=True,
         max_wait=86400,
+        tags={
+            "management:area": "cost",
+            "management:type": "product",
+        },
     )
 
     return sklearn_estimator
