@@ -1,21 +1,27 @@
 F393.description:
   en: >
-    The system uses the version of a software or dependency with known
-    vulnerabilities for development purposes.
+    The system uses the version of a software or dependency
+    with known vulnerabilities in pre-productive environments.
   es: >
-    El sistema usa la version de un software o dependencia con vulnerabilidades
-    conocidas.
+    El sistema usa la versión de un software o dependencia
+    con vulnerabilidades conocidas en un ambiente pre-productivo.
 F393.impact:
   en: >
-    Exploit found vulnerabilities in the affected components.
+    Exploit public vulnerabilities of the components
+    in the affected environments.
   es: >
-    Explotar vulnerabilidades encontradas en los componentes afectados.
+    Explotar vulnerabilidades públicas de los componentes
+    en los ambientes afectados.
 F393.recommendation:
   en: >
-    Update the affected software to the versions recommended by the vendor.
+    - Update the affected software to the versions recommended by the vendor.
+    - Replace deprecated components
+      or components with Zero-Day vulnerabilities.
   es: >
-    Actualizar el software afectado a las versiones recomendadas por el
-    fabricante.
+    - Actualizar el software afectado
+      a las versiones recomendadas por el fabricante.
+    - Reemplazar componentes que estén obsoletos
+      o cuenten con vulnerabilidades Zero Day.
 F393.threat:
   en: >
     Autenticated attacker from the Internet.
