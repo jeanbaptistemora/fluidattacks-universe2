@@ -104,7 +104,7 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
     group_toe_lines: List[ToeLines] = []
     result = _execute(
         query="""
-            query GetToeLines($group_name: String!) {
+            query GetServicesToeLines($group_name: String!) {
                 group(groupName: $group_name) {
                     name
                     roots {

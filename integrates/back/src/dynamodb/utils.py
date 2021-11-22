@@ -8,12 +8,14 @@ from dynamodb.types import (
     Table,
 )
 import json
+import newrelic.agent
 from typing import (
     Dict,
     Optional,
 )
 
 
+@newrelic.agent.function_trace()
 def get_cursor(
     index: Optional[Index],
     item: Optional[Item],

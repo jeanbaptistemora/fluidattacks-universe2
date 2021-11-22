@@ -10,11 +10,13 @@ from db_model.toe_lines.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+import newrelic.agent
 from roots import (
     domain as roots_domain,
 )
 
 
+@newrelic.agent.function_trace()
 async def resolve(
     parent: ToeLines, info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:

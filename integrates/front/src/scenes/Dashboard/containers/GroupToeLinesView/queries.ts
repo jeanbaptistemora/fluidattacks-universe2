@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_TOE_LINES: DocumentNode = gql`
-  query GetToeLines($groupName: String!) {
+  query GetServicesToeLines($groupName: String!) {
     group(groupName: $groupName) {
       name
       roots {

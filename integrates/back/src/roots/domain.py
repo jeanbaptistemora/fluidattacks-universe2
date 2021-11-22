@@ -72,6 +72,7 @@ from uuid import (
 )
 
 
+@newrelic.agent.function_trace()
 def format_root(root: RootItem) -> Root:
     if isinstance(root, GitRootItem):
         return GitRoot(
