@@ -2938,33 +2938,50 @@
   en:
     title: Inappropriate coding practices - Unused variables
     description: >
-      __empty__
+      The source code defines and initializes variables
+      that are not used, making it a dead store.
     impact: >
-      __empty__
+      - Memory stack get full and overloaded when there
+      are unused variables in the code.
+
+      - Compiler will take more time to run the code.
+
+      - This weakness could be an indication of a bug in
+      the program or a deprecated variable that was not
+      removed and is an indication of poor quality.
     recommendation: >
-      __empty__
+      Detect and remove unused variables from the code.
     threat: >
-      __empty__
+      Lead to further bugs and the introduction of weaknesses.
   es:
     title: Inappropriate coding practices - Unused variables
     description: >
-      __empty__
+      El código fuente define e inicializa
+      variables que no se utilizan, lo que lo
+      convierte en un almacén muerto.
     impact: >
-      __empty__
+      - La pila de memoria se llena y se sobrecarga cuando
+      hay variables no utilizadas en el código.
+
+      - El compilador tardará más tiempo en ejecutar el código.
+
+      - Esta debilidad podría ser una indicación de un
+      error en el programa o de una variable obsoleta que
+      no fue eliminada y es una indicación de mala calidad.
     recommendation: >
-      __empty__
+      Detectar y eliminar las variables no utilizadas del código.
     threat: >
-      __empty__
+      Llevar a más errores y a la introducción de debilidades.
   category: Subvert Access
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
