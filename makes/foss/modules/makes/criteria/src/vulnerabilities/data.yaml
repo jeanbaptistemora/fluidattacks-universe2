@@ -9321,23 +9321,63 @@
   en:
     title: Time-based SQL Injection
     description: >
-      __empty__
+      In a time-based attack, someone could inject a SQL
+      command to the server with code to force a delay in
+      the execution of the queries or with a heavy query
+      that generates this time delay.
+      Depending on the time response, it is possible to deduct
+      some information and determine if a vulnerability is
+      present to exploit it.
     impact: >
-      __empty__
+      - Allows an attacker to interfere with the queries
+      that an application makes to its database.
+
+      - Retrieve information from the database
+      an even extract data.
+
+      - Affect the authentication and authorization
+      aspects of the application.
+
+      - Steal sensitive information stored in databases.
     recommendation: >
-      __empty__
+      - Use of prepared statements (with parameterized queries).
+
+      - Use of stored procedures.
+
+      - Enforcing the least privilege.
     threat: >
-      __empty__
+      Atacante anónimo desde intranet.
   es:
     title: Time-based SQL Injection
     description: >
-      __empty__
+      En un ataque basado en el tiempo, alguien podría
+      inyectar un comando SQL al servidor con código
+      para forzar un retraso en la ejecución de las
+      consultas o con una consulta pesada que genere
+      este retraso de tiempo. En función de la respuesta
+      temporal, es posible deducir cierta información y
+      determinar si existe una vulnerabilidad para explotarla.
     impact: >
-      __empty__
+      - Permite a un atacante interferir con las
+      consultas que una aplicación hace a su base de datos.
+
+      - Recuperar información de la base de
+      datos e incluso extraer datos.
+
+      - Afectar a los aspectos de autenticación y
+      autorización de la aplicación.
+
+      - Robar información sensible almacenada
+      en las bases de datos.
     recommendation: >
-      __empty__
+      - Uso de sentencias preparadas (con
+      consultas parametrizadas).
+
+      - Uso de procedimientos almacenados.
+
+      - Aplicación del privilegio mínimo.
     threat: >
-      __empty__
+      Anonymous attacker from an intranet.
   category: Inject Unexpected
   score:
     base:
@@ -9346,9 +9386,9 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
