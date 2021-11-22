@@ -4222,23 +4222,53 @@
   en:
     title: Insecure service configuration - ELB
     description: >
-      __empty__
+      A misconfiguration or default setting on
+      Elastic Load Balancers that can cause to
+      unintentionally increase the attack surface
+      of the company's cloud infrastructure.
     impact: >
-      __empty__
+      - Result in the connection between load balancer
+      and server being exploited.
+
+      - The front-end connection between the client and
+      the load balancer is vulnerable to eavesdropping
+      and man-in-the-middle (MITM) attacks.
     recommendation: >
-      __empty__
+      - Application load balancers should use
+      acceptable policies.
+
+      - Create a custom ELB SSL security policy
+      that contains secure ciphers.
+
+      - Strongly advised that the load balancer
+      uses a secure listener.
     threat: >
-      __empty__
+      Unauthorized attacker from adjacent network performing a MiTM.
   es:
     title: Insecure service configuration - ELB
     description: >
-      __empty__
+      Una configuración errónea o por defecto en los
+      Elastic Load Balancers que puede hacer que aumente
+      involuntariamente la superficie de ataque de la
+      infraestructura de la nube de la empresa.
     impact: >
-     __empty__
+      - Que la conexión entre el equilibrador de carga
+      y el servidor sea explotada.
+
+      - La conexión frontal entre el cliente y el
+      equilibrador de carga es vulnerable a los ataques
+      de escucha y de hombre en el medio (MITM).
     recommendation: >
-      __empty__
+      - Los balanceadores de carga de aplicaciones
+      deben utilizar políticas aceptables.
+
+      - Cree una política de seguridad SSL del ELB
+      personalizada que contenga cifrados seguros.
+
+      - Se recomienda encarecidamente que el equilibrador
+      de carga utilice un oyente seguro.
     threat: >
-      __empty__
+      Atacante no autorizado de la red adyacente que realiza un MiTM.
   category: Abuse Functionality
   score:
     base:
@@ -4247,8 +4277,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
+      confidentiality: "L"
+      integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
