@@ -92,7 +92,6 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
     $groupName: String!
     $id: ID!
     $includesHealthCheck: Boolean!
-    $nickname: String!
     $url: String!
   ) {
     updateGitRoot(
@@ -102,7 +101,6 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
       groupName: $groupName
       id: $id
       includesHealthCheck: $includesHealthCheck
-      nickname: $nickname
       url: $url
     ) {
       success
