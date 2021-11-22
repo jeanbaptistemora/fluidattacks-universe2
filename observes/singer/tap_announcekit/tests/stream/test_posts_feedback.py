@@ -19,17 +19,16 @@ from tap_announcekit.streams.feedback._factory._queries import (
 from tests.stream import (
     mock_data,
     mock_raw_data,
+    utils,
 )
 
 
 def test_schema() -> None:
     encoder = FeedbackObjEncoder("stream_1")
-    jschema = encoder.schema.schema
-    jrecord = encoder.to_singer(mock_data.mock_feedback_obj).record
-    assert frozenset(jschema.raw_schema["properties"].keys()) == frozenset(
-        jrecord.keys()
-    )
-    assert len(jschema.raw_schema["properties"]) == len(jrecord.keys())
+    schema = encoder.schema
+    record = encoder.to_singer(mock_data.mock_feedback_obj)
+    utils.test_schema(schema)
+    utils.test_schema_record(schema, record)
 
 
 def test_build_page_query() -> None:
@@ -49,7 +48,7 @@ def test_build_page_query() -> None:
         assert query.operation()
 
 
-def test_from_data() -> None:
+def test_page_query() -> None:
     queries = (
         _feedback_page_query(mock_data.mock_proj_id, 0),
         _feedback_page_query(mock_data.mock_post_id, 0),

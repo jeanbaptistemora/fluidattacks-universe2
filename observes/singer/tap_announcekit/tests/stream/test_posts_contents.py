@@ -8,26 +8,25 @@ from tap_announcekit.streams.post_contents import (
 from tests.stream import (
     mock_data,
     mock_raw_data,
+    utils,
 )
 
 
 def test_schema() -> None:
     encoder = _encode.PostContentEncoders.encoder("stream_1")
-    jschema = encoder.schema.schema
-    jrecord = encoder.to_singer(mock_data.mock_post_content_obj).record
-    assert frozenset(jschema.raw_schema["properties"].keys()) == frozenset(
-        jrecord.keys()
-    )
-    assert len(jschema.raw_schema["properties"]) == len(jrecord.keys())
+    schema = encoder.schema
+    record = encoder.to_singer(mock_data.mock_post_content_obj)
+    utils.test_schema(schema)
+    utils.test_schema_record(schema, record)
 
 
 query = _factory.PostContentQuery(mock_data.mock_post_id).query()
 
 
-def test_query() -> None:
+def test_build_query() -> None:
     assert query.operation()
 
 
-def test_from_data() -> None:
+def test_query() -> None:
     raw_data = {"data": mock_raw_data.mock_post_contents}
     assert ApiClient.from_data(query, raw_data)

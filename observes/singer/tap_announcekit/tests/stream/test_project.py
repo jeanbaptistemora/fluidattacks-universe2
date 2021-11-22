@@ -24,10 +24,10 @@ def test_schema() -> None:
     utils.test_schema_record(schema, record)
 
 
-def test_query() -> None:
+def test_build_query() -> None:
     assert query.operation()
 
 
-def test_from_data() -> None:
+def test_query() -> None:
     raw_data = {"data": mock_raw_data.mock_proj}
     assert ApiClient.from_data(query, raw_data)

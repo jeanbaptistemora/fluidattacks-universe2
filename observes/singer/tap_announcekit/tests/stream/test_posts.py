@@ -20,9 +20,17 @@ from tap_announcekit.streams.posts._factory._queries import (
 from tests.stream import (
     mock_data,
     mock_raw_data,
+    utils,
 )
 
 encoder = PostEncoders.encoder("stream_1")
+
+
+def test_schema() -> None:
+    schema = encoder.schema
+    record = encoder.to_singer(mock_data.mock_post_obj)
+    utils.test_schema(schema)
+    utils.test_schema_record(schema, record)
 
 
 def test_build_post_query() -> None:
@@ -52,12 +60,3 @@ def test_post_page_query() -> None:
     raw_data = {"data": mock_raw_data.mock_post_page}
     query = queries.post_ids(mock_data.mock_proj_id, 0)
     assert ApiClient.from_data(query, raw_data)
-
-
-def test_schema() -> None:
-    jschema = encoder.schema.schema
-    jrecord = encoder.to_singer(mock_data.mock_post_obj).record
-    assert frozenset(jschema.raw_schema["properties"].keys()) == frozenset(
-        jrecord.keys()
-    )
-    assert len(jschema.raw_schema["properties"]) == len(jrecord.keys())
