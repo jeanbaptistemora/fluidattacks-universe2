@@ -4,7 +4,7 @@
 , ...
 }:
 makeDerivation {
-  name = "observes-test-tap-announcekit";
+  name = "observes-singer-tap-announcekit-test";
   env = {
     envSrc = projectPath "/observes/singer/tap_announcekit";
     envTestDir = "tests";
@@ -12,7 +12,7 @@ makeDerivation {
   searchPaths = {
     source = [
       outputs."/observes/common/tester"
-      outputs."/observes/env/tap-announcekit/development"
+      outputs."/observes/singer/tap-announcekit/env/development"
     ];
   };
   builder = projectPath "/makes/foss/units/observes/common/tester/test_builder.sh";

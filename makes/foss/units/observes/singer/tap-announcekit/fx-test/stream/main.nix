@@ -5,13 +5,13 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/bin/tap-announcekit"
+      outputs."/observes/singer/tap-announcekit/bin"
     ];
     source = [
       (outputs."/utils/aws")
       (outputs."/utils/sops")
     ];
   };
-  name = "observes-job-announcekit-test-etl";
+  name = "observes-singer-tap-announcekit-fx-test-stream";
   entrypoint = ./entrypoint.sh;
 }

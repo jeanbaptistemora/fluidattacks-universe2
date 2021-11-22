@@ -9,8 +9,8 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/env/tap-announcekit/runtime"
+      outputs."/observes/singer/tap-announcekit/env/runtime"
     ];
   };
-  name = "observes-bin-tap-announcekit";
+  name = "observes-singer-tap-announcekit-bin";
 }

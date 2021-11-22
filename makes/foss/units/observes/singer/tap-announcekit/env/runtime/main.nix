@@ -8,7 +8,7 @@ let
   self = projectPath "/observes/singer/tap_announcekit";
 in
 makeTemplate {
-  name = "observes-env-tap-announcekit-runtime";
+  name = "observes-singer-tap-announcekit-env-runtime";
   searchPaths = {
     pythonMypy = [
       self
@@ -18,7 +18,7 @@ makeTemplate {
     ];
     source = [
       (makePythonPypiEnvironment {
-        name = "observes-env-tap-announcekit-runtime";
+        name = "observes-singer-tap-announcekit-env-runtime-python";
         sourcesYaml = ./pypi-sources.yaml;
       })
       outputs."/observes/env/paginator/runtime"

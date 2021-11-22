@@ -16,7 +16,7 @@ in
   computeOnAwsBatch = {
     observesAnnounceKitEtl = sharedConfiguration // {
       attemptDurationSeconds = 14000;
-      command = [ "m" "f" "/observes/job/announcekit/etl" ];
+      command = [ "m" "f" "/observes/etl/announcekit" ];
     };
 
     observesBugsnagEtl = sharedConfiguration // {

@@ -5,7 +5,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/bin/tap-announcekit"
+      outputs."/observes/singer/tap-announcekit/bin"
       outputs."/observes/bin/tap-json"
       outputs."/observes/bin/target-redshift"
       outputs."/observes/bin/service/job-last-success"
@@ -15,6 +15,6 @@ makeScript {
       (outputs."/utils/sops")
     ];
   };
-  name = "observes-job-announcekit-etl";
+  name = "observes-etl-announcekit";
   entrypoint = ./entrypoint.sh;
 }

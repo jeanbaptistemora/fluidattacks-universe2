@@ -4,14 +4,14 @@
 , ...
 }:
 makeTemplate {
-  name = "observes-env-tap-announcekit-development";
+  name = "observes-singer-tap-announcekit-env-development";
   searchPaths = {
     source = [
       (makePythonPypiEnvironment {
-        name = "observes-env-tap-announcekit-development";
+        name = "observes-singer-tap-announcekit-env-development-python";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/observes/env/tap-announcekit/runtime"
+      outputs."/observes/singer/tap-announcekit/env/runtime"
     ];
   };
 }

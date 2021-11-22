@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 alias last-success="observes-bin-service-job-last-success"
-alias tap-announcekit="observes-bin-tap-announcekit"
+alias tap-announcekit="observes-singer-tap-announcekit-bin"
 alias tap-json="observes-tap-json"
 alias target-redshift="observes-target-redshift"
 

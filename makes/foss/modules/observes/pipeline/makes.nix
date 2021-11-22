@@ -309,7 +309,7 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/fx-test/tap-announcekit";
+          output = "/observes/singer/tap-announcekit/fx-test";
           gitlabExtra = gitlabTestCode;
         }
         {
@@ -321,7 +321,7 @@ in
           gitlabExtra = gitlabTestCode;
         }
         {
-          output = "/observes/test/tap-announcekit";
+          output = "/observes/singer/tap-announcekit/test";
           gitlabExtra = gitlabTestCode;
         }
         {

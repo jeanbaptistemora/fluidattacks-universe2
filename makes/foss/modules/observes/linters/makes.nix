@@ -223,14 +223,14 @@
       };
       observesTapAnnounceKit = {
         searchPaths.source = [
-          outputs."/observes/env/tap-announcekit/runtime"
+          outputs."/observes/singer/tap-announcekit/env/runtime"
         ];
         python = "3.8";
         src = "/observes/singer/tap_announcekit/tap_announcekit";
       };
       observesTapAnnounceKitTests = {
         searchPaths.source = [
-          outputs."/observes/env/tap-announcekit/development"
+          outputs."/observes/singer/tap-announcekit/env/development"
         ];
         python = "3.8";
         src = "/observes/singer/tap_announcekit/tests";
