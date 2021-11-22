@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import styled from "styled-components";
 
 import { Button } from "components/Button";
 import styles from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/index.css";
@@ -12,16 +13,26 @@ interface ITreatmentTrackingAttr {
   onClose: () => void;
 }
 
+const TrackingContainer = styled.nav.attrs({
+  className: "flex flex-wrap mt3 overflow-y-auto",
+})`
+  max-height: 50vh;
+`;
+
 export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
   historicTreatment,
   onClose,
 }: ITreatmentTrackingAttr): JSX.Element => {
   const { t } = useTranslation();
-  // Next annotation needed in order to use reverse() but after slice
-  // eslint-disable-next-line fp/no-mutating-methods
+
   const reversedHistoricTreatment = historicTreatment
-    .slice()
-    .reverse()
+    .reduce(
+      (
+        previousValue: IHistoricTreatment[],
+        current: IHistoricTreatment
+      ): IHistoricTreatment[] => [current, ...previousValue],
+      []
+    )
     .filter(
       (
         treatment: IHistoricTreatment,
@@ -41,7 +52,7 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
 
   return (
     <React.StrictMode>
-      <div className={"flex flex-wrap mt3"}>
+      <TrackingContainer>
         <div className={`${styles.trackGraph} mt1 ph1-5 w-90`}>
           <ul className={`${styles.timelineContainer} mt1`}>
             {reversedHistoricTreatment.map(
@@ -60,7 +71,7 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
             )}
           </ul>
         </div>
-      </div>
+      </TrackingContainer>
       <hr />
       <div className={"flex flex-wrap pb1"}>
         <Col100>

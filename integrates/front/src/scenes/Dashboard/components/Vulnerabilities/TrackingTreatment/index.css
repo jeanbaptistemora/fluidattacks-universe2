@@ -10,7 +10,7 @@
   bottom: 0;
   width: 2px;
   background: #dbdbdb;
-  left: 115px;
+  left: 105px;
   margin-left: -1px;
 }
 
@@ -20,12 +20,12 @@
 
 :local .date {
   composes: date from '../../TrackingItem/index.css';
-  width: 90px;
+  width: 80px;
 }
 
 :local .container {
   composes: container from '../../TrackingItem/index.css';
-  padding-left: 135px;
+  padding-left: 125px;
 }
 
 :local .container::before {
@@ -34,7 +34,7 @@
   border-radius: 50px;
   content: '';
   height: 16px;
-  left: 107px;
+  left: 97px;
   position: absolute;
   top: 34.5px;
   width: 16px;
@@ -42,6 +42,6 @@
 
 @media (min-width: 1320px) {
   :local .trackGraph {
-    margin-left: 15%;
+    margin-left: 10%;
   }
 }
