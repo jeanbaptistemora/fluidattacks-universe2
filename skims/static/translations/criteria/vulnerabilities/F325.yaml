@@ -1,0 +1,38 @@
+
+F325.title:
+  en: >
+    Excessive privileges - Wildcards
+  es: >
+    Excessive privileges - Wildcards
+F325.description:
+  en: >
+    - Privileges are granted with wildcard
+    (*) in critical actions.
+
+    - Many roles have unnecessary privileges
+    over IAM.
+
+    - Some write actions allow the use
+    of Wildcards(*).
+  es: >
+    - Se otorgan privilegios con wildcard
+    (*) en acciones críticas.
+
+    - Muchos roles cuentan con privilegios
+    innecesarios sobre IAM.
+
+    - Algunas acciones de escritura
+    permiten el uso de Wildcards(*).
+F325.impact:
+  en: Perform sensitive actions with
+      roles that do not need it.
+  es: Realizar acciones delicadas
+      con roles que no lo necesitan.
+F325.recommendation:
+  en: Grant privileges strictly to
+      the roles that need it.
+  es: Otorgar privilegios estrictamente a
+      los roles que lo necesitan.
+F325.threat:
+  en: Internet attacker with access to the machines.
+  es: Atacante desde internet con acceso a las máquinas.

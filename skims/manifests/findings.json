@@ -519,6 +519,14 @@
       "title": "320. Insecure service configuration - LDAP"
     }
   },
+  "F325": {
+    "EN": {
+      "title": "325. Excessive privileges - Wildcards"
+    },
+    "ES": {
+      "title": "325. Excessive privileges - Wildcards"
+    }
+  },
   "F335": {
     "EN": {
       "title": "335. Insecure service configuration - Bucket"
