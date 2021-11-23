@@ -281,15 +281,15 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/scheduled/job/timedoctor-backup";
+          output = "/observes/job/timedoctor/backup";
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/scheduled/job/timedoctor-etl";
+          output = "/observes/etl/timedoctor";
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/scheduled/job/timedoctor-refresh-token";
+          output = "/observes/job/timedoctor/refresh-token";
           gitlabExtra = gitlabScheduled;
         }
         {

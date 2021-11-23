@@ -19,6 +19,6 @@ makeScript {
       outputs."/utils/sops"
     ];
   };
-  name = "observes-scheduled-job-timedoctor-etl";
+  name = "observes-etl-timedoctor";
   entrypoint = ./entrypoint.sh;
 }

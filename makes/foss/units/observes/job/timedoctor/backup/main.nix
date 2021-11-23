@@ -18,6 +18,6 @@ makeScript {
       outputs."/utils/sops"
     ];
   };
-  name = "observes-scheduled-job-timedoctor-backup";
+  name = "observes-job-timedoctor-backup";
   entrypoint = ./entrypoint.sh;
 }

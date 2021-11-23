@@ -1071,6 +1071,24 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/observes/etl/timedoctor:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $observes_scheduled_job != $CI_JOB_NAME
+      when: never
+    - when: always
+  script:
+    - m . /observes/etl/timedoctor
+  stage: analytics
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /observes/job/code-etl/compute-bills:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
@@ -1101,6 +1119,42 @@
     - when: always
   script:
     - m . /observes/job/mailchimp-etl
+  stage: analytics
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/observes/job/timedoctor/backup:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $observes_scheduled_job != $CI_JOB_NAME
+      when: never
+    - when: always
+  script:
+    - m . /observes/job/timedoctor/backup
+  stage: analytics
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/observes/job/timedoctor/refresh-token:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $observes_scheduled_job != $CI_JOB_NAME
+      when: never
+    - when: always
+  script:
+    - m . /observes/job/timedoctor/refresh-token
   stage: analytics
   tags:
     - autoscaling
@@ -1155,60 +1209,6 @@
     - when: always
   script:
     - m . /observes/scheduled/job/mixpanel-integrates-etl
-  stage: analytics
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/observes/scheduled/job/timedoctor-backup:
-  image: ghcr.io/fluidattacks/makes:21.12
-  interruptible: false
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $observes_scheduled_job != $CI_JOB_NAME
-      when: never
-    - when: always
-  script:
-    - m . /observes/scheduled/job/timedoctor-backup
-  stage: analytics
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/observes/scheduled/job/timedoctor-etl:
-  image: ghcr.io/fluidattacks/makes:21.12
-  interruptible: false
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $observes_scheduled_job != $CI_JOB_NAME
-      when: never
-    - when: always
-  script:
-    - m . /observes/scheduled/job/timedoctor-etl
-  stage: analytics
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/observes/scheduled/job/timedoctor-refresh-token:
-  image: ghcr.io/fluidattacks/makes:21.12
-  interruptible: false
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $observes_scheduled_job != $CI_JOB_NAME
-      when: never
-    - when: always
-  script:
-    - m . /observes/scheduled/job/timedoctor-refresh-token
   stage: analytics
   tags:
     - autoscaling

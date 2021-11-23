@@ -14,6 +14,6 @@ makeScript {
       outputs."/utils/sops"
     ];
   };
-  name = "observes-scheduled-job-timedoctor-refresh-token";
+  name = "observes-job-timedoctor-refresh-token";
   entrypoint = ./entrypoint.sh;
 }
