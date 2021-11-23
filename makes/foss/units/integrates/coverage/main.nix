@@ -13,8 +13,8 @@ makeScript {
       inputs.nixpkgs.python39Packages.codecov
     ];
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/sops"
     ];
   };
   entrypoint = projectPath "/makes/foss/units/integrates/coverage/entrypoint.sh";

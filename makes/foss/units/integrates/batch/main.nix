@@ -17,8 +17,8 @@ makeScript {
       outputs."/melts"
     ];
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/env")
+      outputs."/utils/aws"
+      outputs."/utils/env"
     ];
   };
   entrypoint = ./entrypoint.sh;

@@ -26,9 +26,9 @@ makeScript {
     ];
     source = [
       libGit
-      (outputs."/utils/aws")
-      (outputs."/utils/git")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/git"
+      outputs."/utils/sops"
       outputs."/integrates/mobile/config/dev-runtime-env"
     ];
   };

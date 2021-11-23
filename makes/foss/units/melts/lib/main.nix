@@ -7,8 +7,8 @@ makeTemplate {
   searchPaths = {
     bin = [ outputs."/melts" ];
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/git")
+      outputs."/utils/aws"
+      outputs."/utils/git"
     ];
   };
   template = ./template.sh;

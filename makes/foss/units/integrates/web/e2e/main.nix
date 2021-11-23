@@ -14,8 +14,8 @@ makeScript {
     ];
     source = [
       outputs."/integrates/web/e2e/pypi"
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/sops"
     ];
   };
   name = "integrates-web-e2e";

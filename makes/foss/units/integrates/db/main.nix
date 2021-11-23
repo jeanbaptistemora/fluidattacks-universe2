@@ -10,7 +10,7 @@ makeDynamoDb
   port = "8022";
   infra = projectPath "/makes/foss/units/integrates/db/infra/";
   dataDerivation = [
-    (outputs."/integrates/db/transformation")
+    outputs."/integrates/db/transformation"
   ];
   daemonMode = false;
 }

@@ -17,9 +17,9 @@ makeTemplate {
     ];
     source = [
       libGit
-      (outputs."/utils/aws")
-      (outputs."/utils/cloudflare")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/cloudflare"
+      outputs."/utils/sops"
     ];
   };
   template = ./template.sh;

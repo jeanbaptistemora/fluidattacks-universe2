@@ -18,8 +18,8 @@ makeScript {
       inputs.nixpkgs.yq
     ];
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/sops"
     ];
   };
   name = "integrates-back-deploy-prod";

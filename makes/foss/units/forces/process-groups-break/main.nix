@@ -11,8 +11,8 @@ makeScript {
     ];
     source = [
       outputs."/melts/lib"
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/sops"
     ];
   };
   name = "forces-process-groups-break";

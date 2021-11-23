@@ -12,8 +12,8 @@ makeScript {
     source = [
       outputs."/observes/common/tester"
       outputs."/observes/singer/tap-announcekit/env/development"
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/sops"
     ];
   };
   name = "observes-singer-tap-announcekit-fx-test";

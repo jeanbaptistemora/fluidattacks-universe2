@@ -32,12 +32,12 @@ makeTemplate {
       inputs.nixpkgs.p7zip
     ];
     source = [
+      libGit
       outputs."/integrates/back/tools"
       outputs."/integrates/back/pypi/runtime"
       outputs."/integrates/secrets/list"
-      libGit
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/sops"
     ];
   };
   template = ./template.sh;

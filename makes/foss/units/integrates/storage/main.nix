@@ -31,9 +31,9 @@ makeScript {
   name = "integrates-storage";
   searchPaths.source = [
     libGit
-    (outputs."/utils/aws")
-    (outputs."/utils/sops")
     managePorts
+    outputs."/utils/aws"
+    outputs."/utils/sops"
   ];
   entrypoint = ./entrypoint.sh;
 }

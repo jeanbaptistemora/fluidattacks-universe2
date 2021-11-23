@@ -9,8 +9,8 @@ makeScript {
     source = [
       outputs."/melts/config-development"
       outputs."/melts/config-runtime"
-      (outputs."/utils/aws")
-      (outputs."/utils/git")
+      outputs."/utils/aws"
+      outputs."/utils/git"
     ];
     bin = [
       inputs.nixpkgs.gnugrep
