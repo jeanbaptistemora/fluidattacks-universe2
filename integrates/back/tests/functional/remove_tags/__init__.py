@@ -14,13 +14,15 @@ async def get_result(
     *,
     user: str,
     finding: str,
-    vuln: str,
+    vuln_id: str,
+    tag: str = "",
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
             removeTags(
                 findingId: "{finding}",
-                vulnerabilities: ["{vuln}"]
+                vulnerabilities: ["{vuln_id}"]
+                tag: "{tag}",
             ) {{
                 success
             }}

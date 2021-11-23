@@ -75,6 +75,8 @@ async def create(data: Dict[str, FindingType]) -> bool:
             item["historic_verification"] = data["historic_verification"]
         if data.get("repo_nickname"):
             item["repo_nickname"] = data["repo_nickname"]
+        if data.get("tag"):
+            item["tag"] = data["tag"]
         resp = await dynamodb_ops.put_item(TABLE_NAME, item)
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})

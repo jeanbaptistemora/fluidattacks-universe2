@@ -1060,7 +1060,7 @@ def format_vulnerability_item(
     if vulnerability.stream:
         item["stream"] = ",".join(vulnerability.stream)
     if vulnerability.tags:
-        item["tags"] = ",".join(sorted(vulnerability.tags))
+        item["tag"] = vulnerability.tags
     if vulnerability.treatment:
         item["historic_treatment"] = [
             format_vulnerability_treatment_item(vulnerability.treatment)

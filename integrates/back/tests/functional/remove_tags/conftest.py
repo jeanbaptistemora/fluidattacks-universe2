@@ -182,6 +182,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 # FP: local testing
                 "where": "192.168.1.20",  # NOSONAR
                 "specific": "9999",
+                "tag": ["tag1", "tag2", "tag3"],
             },
         ],
     }
