@@ -21,7 +21,7 @@ in
 
     observesBugsnagEtl = sharedConfiguration // {
       attemptDurationSeconds = 14000;
-      command = [ "m" "f" "/observes/job/bugsnag-etl" ];
+      command = [ "m" "f" "/observes/etl/bugsnag" ];
     };
 
     observesChecklyEtl = sharedConfiguration // {

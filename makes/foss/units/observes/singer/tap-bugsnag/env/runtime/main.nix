@@ -8,7 +8,7 @@ let
   self = projectPath "/observes/singer/tap_bugsnag";
 in
 makeTemplate {
-  name = "observes-env-tap-bugsnag-runtime";
+  name = "observes-singer-tap-bugsnag-env-runtime";
   searchPaths = {
     pythonMypy = [
       self
@@ -18,7 +18,7 @@ makeTemplate {
     ];
     source = [
       (makePythonPypiEnvironment {
-        name = "observes-env-tap-bugsnag-runtime";
+        name = "observes-singer-tap-bugsnag-env-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
       outputs."/observes/env/paginator/runtime"

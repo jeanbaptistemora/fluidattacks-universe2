@@ -6,7 +6,7 @@ makeScript {
   searchPaths = {
     bin = [
       outputs."/observes/bin/service/job-last-success"
-      outputs."/observes/bin/tap-bugsnag"
+      outputs."/observes/singer/tap-bugsnag/bin"
       outputs."/observes/bin/tap-json"
       outputs."/observes/bin/target-redshift"
     ];
@@ -15,6 +15,6 @@ makeScript {
       outputs."/utils/sops"
     ];
   };
-  name = "observes-job-bugsnag-etl";
+  name = "observes-etl-bugsnag";
   entrypoint = ./entrypoint.sh;
 }

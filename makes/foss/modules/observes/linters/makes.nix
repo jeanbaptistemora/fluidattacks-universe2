@@ -237,7 +237,7 @@
       };
       observesTapBugsnag = {
         searchPaths.source = [
-          outputs."/observes/env/tap-bugsnag/runtime"
+          outputs."/observes/singer/tap-bugsnag/env/runtime"
         ];
         python = "3.8";
         src = "/observes/singer/tap_bugsnag/tap_bugsnag";
