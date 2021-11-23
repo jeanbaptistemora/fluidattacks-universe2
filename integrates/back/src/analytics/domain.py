@@ -16,6 +16,9 @@ from custom_types import (
     GraphicsForEntityParameters,
     ReportParameters,
 )
+from decorators import (
+    retry_on_exceptions,
+)
 from functools import (
     partial,
 )
@@ -119,6 +122,11 @@ async def get_graphics_report(
     return response
 
 
+@retry_on_exceptions(
+    exceptions=(botocore.exceptions.ClientError,),
+    max_attempts=3,
+    sleep_seconds=float("0.5"),
+)
 async def get_graphics_report_no_cache(
     *,
     entity: str,
