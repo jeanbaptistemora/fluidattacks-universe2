@@ -10,9 +10,6 @@ from pathlib import (
     Path,
 )
 import shutil
-from tests import (
-    conftest,
-)
 from toolbox import (
     utils,
 )
@@ -37,6 +34,9 @@ from typing import (
     List,
     Optional,
 )
+
+# Constants
+TEST_SUBS: str = "continuoustest"
 
 
 def s3_ls(
@@ -221,7 +221,7 @@ def main(
         permissions = utils.integrates.get_group_permissions(subs)
         if (
             "api_mutations_refresh_toe_lines_mutate" in permissions
-            and subs != conftest.SUBS
+            and subs != TEST_SUBS
         ):
             utils.integrates.refresh_toe_lines(subs)
 
