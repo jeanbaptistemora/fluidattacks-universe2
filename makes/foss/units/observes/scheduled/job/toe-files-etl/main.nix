@@ -10,9 +10,9 @@ makeScript {
       outputs."/observes/bin/target-redshift"
     ];
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/git")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/git"
+      outputs."/utils/sops"
     ];
   };
   name = "observes-scheduled-job-toe-files-etl";

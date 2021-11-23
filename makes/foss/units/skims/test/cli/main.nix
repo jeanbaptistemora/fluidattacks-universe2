@@ -17,8 +17,8 @@ makeScript {
     ];
     source = [
       outputs."/secretsForAwsFromEnv/skimsDev"
-      (outputs."/utils/sops")
-      (outputs."/utils/aws")
+      outputs."/utils/sops"
+      outputs."/utils/aws"
     ];
   };
   entrypoint = ./entrypoint.sh;

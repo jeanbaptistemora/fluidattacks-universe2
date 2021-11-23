@@ -10,8 +10,8 @@ makeScript {
       outputs."/observes/bin/service/job-last-success"
     ];
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/sops"
     ];
   };
   name = "observes-scheduled-job-formstack-etl";

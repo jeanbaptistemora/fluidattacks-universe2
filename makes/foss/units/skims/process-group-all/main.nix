@@ -18,11 +18,11 @@ makeScript {
       outputs."/skims"
     ];
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/env")
-      (outputs."/utils/git")
-      (outputs."/utils/sops")
-      (outputs."/utils/time")
+      outputs."/utils/aws"
+      outputs."/utils/env"
+      outputs."/utils/git"
+      outputs."/utils/sops"
+      outputs."/utils/time"
       outputs."/skims/config-runtime"
     ];
   };

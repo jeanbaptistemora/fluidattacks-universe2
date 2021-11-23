@@ -9,9 +9,9 @@ makeScript {
       outputs."/observes/bin/service/timedoctor-tokens"
     ];
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/gitlab")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/gitlab"
+      outputs."/utils/sops"
     ];
   };
   name = "observes-scheduled-job-timedoctor-refresh-token";

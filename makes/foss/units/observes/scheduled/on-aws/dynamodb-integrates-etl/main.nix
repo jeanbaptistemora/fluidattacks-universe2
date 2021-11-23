@@ -13,8 +13,8 @@ makeScript {
       inputs.nixpkgs.jq
     ];
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/sops"
     ];
   };
   replace = {

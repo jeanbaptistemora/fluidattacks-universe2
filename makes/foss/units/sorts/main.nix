@@ -6,8 +6,8 @@ makeScript {
   name = "sorts";
   searchPaths = {
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/sops"
       outputs."/sorts/config-runtime"
     ];
   };
