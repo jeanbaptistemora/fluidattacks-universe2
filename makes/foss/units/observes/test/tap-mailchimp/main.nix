@@ -12,7 +12,7 @@ makeDerivation {
   searchPaths = {
     source = [
       outputs."/observes/common/tester"
-      outputs."/observes/env/tap-mailchimp/development"
+      outputs."/observes/singer/tap-mailchimp/env/development"
     ];
   };
   builder = projectPath "/makes/foss/units/observes/common/tester/test_builder.sh";

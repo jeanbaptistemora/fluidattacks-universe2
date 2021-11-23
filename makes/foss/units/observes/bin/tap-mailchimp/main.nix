@@ -11,7 +11,7 @@ makeScript {
     bin = [ inputs.nixpkgs.python38 ];
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/env/tap-mailchimp/runtime"
+      outputs."/observes/singer/tap-mailchimp/env/runtime"
     ];
   };
   name = "observes-bin-tap-mailchimp";

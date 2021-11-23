@@ -9,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/env/tap-timedoctor/runtime"
+      outputs."/observes/singer/tap-timedoctor/env/runtime"
     ];
   };
   name = "observes-bin-tap-timedoctor";

@@ -9,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/env/tap-mixpanel/runtime"
+      outputs."/observes/singer/tap-mixpanel/env/runtime"
     ];
   };
   name = "observes-bin-tap-mixpanel";

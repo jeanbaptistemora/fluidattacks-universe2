@@ -9,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/env/tap-gitlab/runtime"
+      outputs."/observes/singer/tap-gitlab/env/runtime"
     ];
   };
   name = "observes-bin-tap-gitlab";

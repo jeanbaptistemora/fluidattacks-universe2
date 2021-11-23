@@ -9,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/env/tap-csv/runtime"
+      outputs."/observes/singer/tap-csv/env/runtime"
     ];
   };
   name = "observes-bin-tap-csv";

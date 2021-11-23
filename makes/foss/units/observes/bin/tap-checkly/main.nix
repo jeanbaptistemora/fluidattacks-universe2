@@ -9,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/env/tap-checkly/runtime"
+      outputs."/observes/singer/tap-checkly/env/runtime"
     ];
   };
   name = "observes-bin-tap-checkly";

@@ -244,91 +244,91 @@
       };
       observesTapCheckly = {
         searchPaths.source = [
-          outputs."/observes/env/tap-checkly/runtime"
+          outputs."/observes/singer/tap-checkly/env/runtime"
         ];
         python = "3.8";
         src = "/observes/singer/tap_checkly/tap_checkly";
       };
       observesTapCsv = {
         searchPaths.source = [
-          outputs."/observes/env/tap-csv/development"
+          outputs."/observes/singer/tap-csv/env/development"
         ];
         python = "3.8";
         src = "/observes/singer/tap_csv/tap_csv";
       };
       observesTapCsvTests = {
         searchPaths.source = [
-          outputs."/observes/env/tap-csv/development"
+          outputs."/observes/singer/tap-csv/env/development"
         ];
         python = "3.8";
         src = "/observes/singer/tap_csv/tests";
       };
       observesTapDelighted = {
         searchPaths.source = [
-          outputs."/observes/env/tap-delighted/runtime"
+          outputs."/observes/singer/tap-delighted/env/runtime"
         ];
         python = "3.8";
         src = "/observes/singer/tap_delighted/tap_delighted";
       };
       observesTapFormstack = {
         searchPaths.source = [
-          outputs."/observes/env/tap-formstack/runtime"
+          outputs."/observes/singer/tap-formstack/env/runtime"
         ];
         python = "3.8";
         src = "/observes/singer/tap_formstack/tap_formstack";
       };
       observesTapGitlab = {
         searchPaths.source = [
-          outputs."/observes/env/tap-gitlab/development"
+          outputs."/observes/singer/tap-gitlab/env/development"
         ];
         python = "3.8";
         src = "/observes/singer/tap_gitlab/tap_gitlab";
       };
       observesTapGitlabTests = {
         searchPaths.source = [
-          outputs."/observes/env/tap-gitlab/development"
+          outputs."/observes/singer/tap-gitlab/env/development"
         ];
         python = "3.8";
         src = "/observes/singer/tap_gitlab/tests";
       };
       observesTapJson = {
         searchPaths.source = [
-          outputs."/observes/env/tap-json/development"
+          outputs."/observes/singer/tap-json/env/development"
         ];
         python = "3.8";
         src = "/observes/singer/tap_json/tap_json";
       };
       observesTapMailchimp = {
         searchPaths.source = [
-          outputs."/observes/env/tap-mailchimp/development"
+          outputs."/observes/singer/tap-mailchimp/env/development"
         ];
         python = "3.8";
         src = "/observes/singer/tap_mailchimp/tap_mailchimp";
       };
       observesTapMailchimpTests = {
         searchPaths.source = [
-          outputs."/observes/env/tap-mailchimp/development"
+          outputs."/observes/singer/tap-mailchimp/env/development"
         ];
         python = "3.8";
         src = "/observes/singer/tap_mailchimp/tests";
       };
       observesTapMixpanel = {
         searchPaths.source = [
-          outputs."/observes/env/tap-mixpanel/development"
+          outputs."/observes/singer/tap-mixpanel/env/development"
         ];
         python = "3.8";
         src = "/observes/singer/tap_mixpanel/tap_mixpanel";
       };
       observesTapMixpanelTests = {
         searchPaths.source = [
-          outputs."/observes/env/tap-mixpanel/development"
+          outputs."/observes/singer/tap-mixpanel/env/development"
         ];
         python = "3.8";
         src = "/observes/singer/tap_mixpanel/tests";
       };
       observesTapTimedoctor = {
         searchPaths.source = [
-          outputs."/observes/env/tap-timedoctor/runtime"
+          outputs."/observes/singer/tap-timedoctor/env/runtime"
         ];
         python = "3.8";
         src = "/observes/singer/tap_timedoctor/tap_timedoctor";

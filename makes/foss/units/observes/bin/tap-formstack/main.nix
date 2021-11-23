@@ -9,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/env/tap-formstack/runtime"
+      outputs."/observes/singer/tap-formstack/env/runtime"
     ];
   };
   name = "observes-bin-tap-formstack";

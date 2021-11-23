@@ -9,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/env/tap-zoho-analytics/runtime"
+      outputs."/observes/singer/tap-zoho-analytics/env/runtime"
     ];
   };
   name = "observes-bin-tap-zoho-analytics";
