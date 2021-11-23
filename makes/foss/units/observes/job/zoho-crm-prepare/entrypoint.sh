@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 alias tap-zoho-crm="observes-bin-streamer-zoho-crm"
-alias job-last-success="observes-bin-service-job-last-success"
+alias job-last-success="observes-service-job-last-success-bin"
 
 function main {
   local db_creds="${1}"

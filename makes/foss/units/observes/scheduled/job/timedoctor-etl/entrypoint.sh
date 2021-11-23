@@ -2,7 +2,7 @@
 
 alias tap-timedoctor="observes-singer-tap-timedoctor-bin"
 alias target-redshift="observes-target-redshift"
-alias job-last-success="observes-bin-service-job-last-success"
+alias job-last-success="observes-service-job-last-success-bin"
 
 function job_timedoctor {
   local db_creds

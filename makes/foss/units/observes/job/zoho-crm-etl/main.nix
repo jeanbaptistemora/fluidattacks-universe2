@@ -9,7 +9,7 @@ makeScript {
       outputs."/observes/singer/tap-csv/bin"
       outputs."/observes/singer/tap-json/bin"
       outputs."/observes/bin/target-redshift"
-      outputs."/observes/bin/service/job-last-success"
+      outputs."/observes/service/job-last-success/bin"
     ];
   };
   name = "observes-job-zoho-crm-etl";

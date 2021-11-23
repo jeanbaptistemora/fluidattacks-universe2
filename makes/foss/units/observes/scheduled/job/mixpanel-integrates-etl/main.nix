@@ -8,7 +8,7 @@ makeScript {
       outputs."/observes/singer/tap-json/bin"
       outputs."/observes/singer/tap-mixpanel/bin"
       outputs."/observes/bin/target-redshift"
-      outputs."/observes/bin/service/job-last-success"
+      outputs."/observes/service/job-last-success/bin"
     ];
     source = [
       outputs."/utils/aws"

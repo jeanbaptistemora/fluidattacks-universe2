@@ -10,7 +10,7 @@ makeScript {
       inputs.nixpkgs.coreutils
       inputs.nixpkgs.jq
       outputs."/observes/singer/tap-timedoctor/bin"
-      outputs."/observes/bin/service/job-last-success"
+      outputs."/observes/service/job-last-success/bin"
     ];
     source = [
       outputs."/utils/aws"

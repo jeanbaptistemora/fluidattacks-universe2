@@ -4,13 +4,13 @@
 }:
 makeScript {
   entrypoint = ''
-    import_and_run migrate_tables.cli main "$@"
+    import_and_run job_last_success.cli main "$@"
   '';
   searchPaths = {
     source = [
-      outputs."/observes/service/migrate-tables/env/runtime"
+      outputs."/observes/service/job-last-success/env/runtime"
       outputs."/observes/common/import-and-run"
     ];
   };
-  name = "observes-bin-service-migrate-tables";
+  name = "observes-service-job-last-success-bin";
 }

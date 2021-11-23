@@ -4,13 +4,13 @@
 }:
 makeScript {
   entrypoint = ''
-    import_and_run batch_stability.cli main "$@"
+    import_and_run migrate_tables.cli main "$@"
   '';
   searchPaths = {
     source = [
+      outputs."/observes/service/migrate-tables/env/runtime"
       outputs."/observes/common/import-and-run"
-      outputs."/observes/service/batch-stability/env/runtime"
     ];
   };
-  name = "observes-bin-service-batch-stability";
+  name = "observes-service-migrate-tables-bin";
 }

@@ -4,13 +4,13 @@
 }:
 makeScript {
   entrypoint = ''
-    import_and_run job_last_success.cli main "$@"
+    import_and_run batch_stability.cli main "$@"
   '';
   searchPaths = {
     source = [
-      outputs."/observes/env/job-last-success/runtime"
       outputs."/observes/common/import-and-run"
+      outputs."/observes/service/batch-stability/env/runtime"
     ];
   };
-  name = "observes-bin-service-job-last-success";
+  name = "observes-service-batch-stability-bin";
 }

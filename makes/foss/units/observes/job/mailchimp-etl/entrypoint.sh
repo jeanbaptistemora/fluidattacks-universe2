@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-alias job-success="observes-bin-service-job-last-success"
+alias job-success="observes-service-job-last-success-bin"
 alias tap-mailchimp="observes-singer-tap-mailchimp-bin"
 alias tap-json="observes-singer-tap-json-bin"
 alias target-redshift="observes-target-redshift"

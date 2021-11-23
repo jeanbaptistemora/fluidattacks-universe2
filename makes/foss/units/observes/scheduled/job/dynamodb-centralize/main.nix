@@ -5,7 +5,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/bin/service/migrate-tables"
+      outputs."/observes/service/migrate-tables/bin"
     ];
     source = [
       outputs."/utils/aws"

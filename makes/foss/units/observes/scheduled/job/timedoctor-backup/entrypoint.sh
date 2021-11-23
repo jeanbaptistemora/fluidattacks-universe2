@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 alias tap-timedoctor="observes-singer-tap-timedoctor-bin"
-alias job-last-success="observes-bin-service-job-last-success"
+alias job-last-success="observes-service-job-last-success-bin"
 
 function job_timedoctor_backup {
   local start_date

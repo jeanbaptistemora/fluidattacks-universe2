@@ -1,6 +1,6 @@
 # shellcheck shell=bash
-alias timedoc-tokens="observes-bin-service-timedoctor-tokens"
-alias job-last-success="observes-bin-service-job-last-success"
+alias timedoc-tokens="observes-service-timedoctor-tokens-bin"
+alias job-last-success="observes-service-job-last-success-bin"
 
 function refresh_token {
   export analytics_auth_timedoctor

@@ -5,7 +5,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/bin/service/timedoctor-tokens"
+      outputs."/observes/service/timedoctor-tokens/bin"
     ];
     source = [
       outputs."/utils/aws"

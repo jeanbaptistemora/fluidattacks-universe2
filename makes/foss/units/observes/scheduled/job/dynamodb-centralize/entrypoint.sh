@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-alias migrate-tables="observes-bin-service-migrate-tables"
+alias migrate-tables="observes-service-migrate-tables-bin"
 
 function dynamodb_centralize {
   local db_creds

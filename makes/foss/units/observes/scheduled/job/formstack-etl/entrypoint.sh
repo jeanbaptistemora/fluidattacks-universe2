@@ -2,7 +2,7 @@
 
 alias tap-formstack="observes-singer-tap-formstack-bin"
 alias target-redshift="observes-target-redshift"
-alias job-last-success="observes-bin-service-job-last-success"
+alias job-last-success="observes-service-job-last-success-bin"
 
 function start_etl {
   local formstack_creds

@@ -5,7 +5,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/bin/service/batch-stability"
+      outputs."/observes/service/batch-stability/bin"
     ];
     source = [
       outputs."/utils/aws"

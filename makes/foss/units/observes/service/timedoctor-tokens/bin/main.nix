@@ -12,5 +12,5 @@ makeScript {
       outputs."/observes/service/timedoctor-tokens/env/runtime"
     ];
   };
-  name = "observes-bin-service-timedoctor-tokens";
+  name = "observes-service-timedoctor-tokens-bin";
 }

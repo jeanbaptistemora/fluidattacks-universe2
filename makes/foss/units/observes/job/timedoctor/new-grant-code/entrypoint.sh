@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-alias timedoc-tokens="observes-bin-service-timedoctor-tokens"
+alias timedoc-tokens="observes-service-timedoctor-tokens-bin"
 
 function main {
 
