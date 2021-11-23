@@ -1,3 +1,7 @@
+
+src.lib_path.f396.kms_key_is_key_rotation_absent_or_disabled:
+  en: The EnableKeyRotation property must be enabled
+  es: La propiedad EnableKeyRotation debe estar habilitada
 F396.title:
   en: >
     Insecure service configuration - KMS
