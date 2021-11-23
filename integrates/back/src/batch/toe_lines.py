@@ -171,7 +171,7 @@ async def get_present_toe_lines_to_add(
             files_utils.get_lines_count(f"{repo_nickname}/{filename}")
             for filename in non_db_filenames
         ),
-        workers=1000,
+        workers=500,
     )
     last_modified_commits = await collect(
         tuple(
@@ -239,7 +239,7 @@ async def get_present_toe_lines_to_update(
             files_utils.get_lines_count(f"{repo_nickname}/{filename}")
             for filename in db_filenames
         ),
-        workers=1000,
+        workers=500,
     )
     last_modified_commits = await collect(
         tuple(
@@ -453,7 +453,8 @@ async def refresh_root_repo_toe_lines(
             for root_repo in active_root_repos
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
-        )
+        ),
+        workers=2,
     )
     await collect(
         tuple(
@@ -463,7 +464,8 @@ async def refresh_root_repo_toe_lines(
             for root_repo in inactive_root_repos
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
-        )
+        ),
+        workers=2,
     )
 
 
