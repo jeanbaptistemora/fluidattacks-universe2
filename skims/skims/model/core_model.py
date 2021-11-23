@@ -1652,7 +1652,7 @@ class FindingEnum(Enum):
         code="F393",
         cwe=937,
         execution_queue=ExecutionQueue.sca,
-        requirements=[262],
+        requirements=[48, 262],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
             attack_vector=cvss3_model.AttackVector.network,
