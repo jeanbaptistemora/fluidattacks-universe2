@@ -519,22 +519,22 @@ async def refresh_root_repo_toe_lines(
 ) -> None:
     loaders = get_new_context()
     roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
-    active_root_repos = tuple(
-        root
+    active_root_repos = {
+        root.state.nickname: root
         for root in roots
         if isinstance(root, GitRootItem) and root.state.status == "ACTIVE"
-    )
-    inactive_root_repos = tuple(
-        root
+    }
+    inactive_root_repos = {
+        root.state.nickname: root
         for root in roots
         if isinstance(root, GitRootItem) and root.state.status == "INACTIVE"
-    )
+    }
     await collect(
         tuple(
             refresh_active_root_repo_toe_lines(
                 loaders, group_name, group_path, root_repo
             )
-            for root_repo in active_root_repos
+            for root_repo in active_root_repos.values()
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
@@ -545,7 +545,7 @@ async def refresh_root_repo_toe_lines(
             refresh_inactive_root_repo_toe_lines(
                 loaders, group_name, root_repo
             )
-            for root_repo in inactive_root_repos
+            for root_repo in inactive_root_repos.values()
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
