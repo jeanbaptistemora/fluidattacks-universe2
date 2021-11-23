@@ -6,11 +6,11 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/job/dynamodb-etl"
+      outputs."/observes/etl/dynamodb"
       inputs.nixpkgs.coreutils
       inputs.nixpkgs.jq
     ];
   };
-  name = "observes-job-dynamodb-table-etl";
+  name = "observes-etl-dynamodb-table";
   entrypoint = ./entrypoint.sh;
 }

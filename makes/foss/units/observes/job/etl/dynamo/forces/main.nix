@@ -5,9 +5,9 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/job/dynamodb-etl"
+      outputs."/observes/etl/dynamodb"
     ];
   };
-  name = "observes-job-dynamodb-forces-etl";
+  name = "observes-job-etl-dynamo-forces";
   entrypoint = ./entrypoint.sh;
 }

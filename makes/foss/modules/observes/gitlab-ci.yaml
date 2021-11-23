@@ -1107,6 +1107,24 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/observes/job/etl/dynamo/integrates/vulns:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $observes_scheduled_job != $CI_JOB_NAME
+      when: never
+    - when: always
+  script:
+    - m . /observes/job/etl/dynamo/integrates/vulns
+  stage: analytics
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /observes/job/mailchimp-etl:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
@@ -1176,24 +1194,6 @@
   stage: analytics
   tags:
     - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/observes/scheduled/job/dynamodb-integrates-etl-vulns:
-  image: ghcr.io/fluidattacks/makes:21.12
-  interruptible: false
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $observes_scheduled_job != $CI_JOB_NAME
-      when: never
-    - when: always
-  script:
-    - m . /observes/scheduled/job/dynamodb-integrates-etl-vulns
-  stage: analytics
-  tags:
-    - autoscaling-large
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1

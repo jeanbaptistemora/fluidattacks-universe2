@@ -26,7 +26,7 @@ makeTemplate {
         batchStability = outputs."/observes/job/batch-stability";
         codeEtlMirror = outputs."/observes/job/code-etl/mirror/all-on-aws";
         codeEtlUpload = outputs."/observes/job/code-etl/upload/all-on-aws";
-        dynamoDbIntegratesEtl = outputs."/observes/scheduled/on-aws/dynamodb-integrates-etl";
+        dynamoDbIntegratesEtl = outputs."/observes/job/etl/dynamo/integrates";
       });
     pythonMypy = [ self ];
     pythonPackage = [ self ];

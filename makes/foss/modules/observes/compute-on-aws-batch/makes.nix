@@ -45,7 +45,7 @@ in
 
     observesDynamoDbForcesEtl = sharedConfiguration // rec {
       attemptDurationSeconds = 18000;
-      command = [ "m" "f" "/observes/job/dynamodb-forces-etl" ];
+      command = [ "m" "f" "/observes/job/etl/dynamo/forces" ];
       memory = 1800 * vcpus;
       vcpus = 2;
     };
@@ -100,7 +100,7 @@ in
 
     observesDynamoDbIntegratesEtl = sharedConfiguration // {
       attemptDurationSeconds = 7200;
-      command = [ "m" "f" "/observes/job/dynamodb-table-etl" ];
+      command = [ "m" "f" "/observes/etl/dynamodb/table" ];
       queue = "observes_soon";
     };
   };
