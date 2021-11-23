@@ -3620,6 +3620,102 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf,5,2
   21 |         ""Resource"": ""arn:aws:iam::*:role/EC2-roles-for-XYZ-*""
      ^ Col 0
 "
+F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,24,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,"
+  14 |             Effect: Allow
+  15 |             Principal:
+  16 |               AWS: 'arn:aws:iam::111122223333:root'
+  17 |             Action: 'kms:*'
+  18 |             Resource: '*'
+  19 |   key2:
+  20 |     Type: 'AWS::KMS::Key'
+  21 |     Properties:
+  22 |       Description: An example multi-Region primary key
+  23 |       MultiRegion: true
+> 24 |       EnableKeyRotation: false
+  25 |       PendingWindowInDays: 10
+  26 |       KeyPolicy:
+  27 |         Version: 2012-10-17
+  28 |         Id: key-default-1
+  29 |         Statement:
+  30 |           - Sid: Enable IAM User Permissions
+  31 |             Effect: Allow
+  32 |             Principal:
+  33 |               AWS: 'arn:aws:iam::111122223333:root'
+  34 |             Action: 'kms:*'
+     ^ Col 0
+"
+F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,38,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,"
+  28 |         Id: key-default-1
+  29 |         Statement:
+  30 |           - Sid: Enable IAM User Permissions
+  31 |             Effect: Allow
+  32 |             Principal:
+  33 |               AWS: 'arn:aws:iam::111122223333:root'
+  34 |             Action: 'kms:*'
+  35 |             Resource: '*'
+  36 |   key3:
+  37 |     Type: 'AWS::KMS::Key'
+> 38 |     Properties:
+  39 |       Description: An example multi-Region primary key
+  40 |       MultiRegion: true
+  41 |       PendingWindowInDays: 10
+  42 |       KeyPolicy:
+  43 |         Version: 2012-10-17
+  44 |         Id: key-default-1
+  45 |         Statement:
+  46 |           - Sid: Enable IAM User Permissions
+  47 |             Effect: Allow
+  48 |             Principal:
+     ^ Col 0
+"
+F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,32,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,"
+  22 |             }
+  23 |           ]
+  24 |         }
+  25 |       }
+  26 |     },
+  27 |     ""key2"": {
+  28 |       ""Type"": ""AWS::KMS::Key"",
+  29 |       ""Properties"": {
+  30 |         ""Description"": ""An example multi-Region primary key"",
+  31 |         ""MultiRegion"": true,
+> 32 |         ""EnableKeyRotation"": false,
+  33 |         ""PendingWindowInDays"": 10,
+  34 |         ""KeyPolicy"": {
+  35 |           ""Version"": ""2012-10-17"",
+  36 |           ""Id"": ""key-default-1"",
+  37 |           ""Statement"": [
+  38 |             {
+  39 |               ""Sid"": ""Enable IAM User Permissions"",
+  40 |               ""Effect"": ""Allow"",
+  41 |               ""Principal"": {
+  42 |                 ""AWS"": ""arn:aws:iam::111122223333:root""
+     ^ Col 0
+"
+F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,53,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,"
+  43 |               },
+  44 |               ""Action"": ""kms:*"",
+  45 |               ""Resource"": ""*""
+  46 |             }
+  47 |           ]
+  48 |         }
+  49 |       }
+  50 |     },
+  51 |     ""key3"": {
+  52 |       ""Type"": ""AWS::KMS::Key"",
+> 53 |       ""Properties"": {
+  54 |         ""Description"": ""An example multi-Region primary key"",
+  55 |         ""MultiRegion"": true,
+  56 |         ""PendingWindowInDays"": 10,
+  57 |         ""KeyPolicy"": {
+  58 |           ""Version"": ""2012-10-17"",
+  59 |           ""Id"": ""key-default-1"",
+  60 |           ""Statement"": [
+  61 |             {
+  62 |               ""Sid"": ""Enable IAM User Permissions"",
+  63 |               ""Effect"": ""Allow"",
+     ^ Col 0
+"
 F070,lines,namespace/skims/test/data/lib_path/f070/lb_test.tf,3,266,skims,070. Insecure service configuration - ELB,"Insecure service configuration - ELB
  in namespace/skims/test/data/lib_path/f070/lb_test.tf","
   1 | resource ""aws_lb_target_group"" ""test"" {

@@ -1,0 +1,51 @@
+Resources:
+  key1:
+    Type: 'AWS::KMS::Key'
+    Properties:
+      Description: An example multi-Region primary key
+      MultiRegion: true
+      EnableKeyRotation: true
+      PendingWindowInDays: 10
+      KeyPolicy:
+        Version: 2012-10-17
+        Id: key-default-1
+        Statement:
+          - Sid: Enable IAM User Permissions
+            Effect: Allow
+            Principal:
+              AWS: 'arn:aws:iam::111122223333:root'
+            Action: 'kms:*'
+            Resource: '*'
+  key2:
+    Type: 'AWS::KMS::Key'
+    Properties:
+      Description: An example multi-Region primary key
+      MultiRegion: true
+      EnableKeyRotation: false
+      PendingWindowInDays: 10
+      KeyPolicy:
+        Version: 2012-10-17
+        Id: key-default-1
+        Statement:
+          - Sid: Enable IAM User Permissions
+            Effect: Allow
+            Principal:
+              AWS: 'arn:aws:iam::111122223333:root'
+            Action: 'kms:*'
+            Resource: '*'
+  key3:
+    Type: 'AWS::KMS::Key'
+    Properties:
+      Description: An example multi-Region primary key
+      MultiRegion: true
+      PendingWindowInDays: 10
+      KeyPolicy:
+        Version: 2012-10-17
+        Id: key-default-1
+        Statement:
+          - Sid: Enable IAM User Permissions
+            Effect: Allow
+            Principal:
+              AWS: 'arn:aws:iam::111122223333:root'
+            Action: 'kms:*'
+            Resource: '*'
