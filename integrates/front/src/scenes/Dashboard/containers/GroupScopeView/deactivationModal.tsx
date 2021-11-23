@@ -2,11 +2,16 @@ import type { ApolloError } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
-import { DEACTIVATE_ROOT, GET_GROUPS, MOVE_ROOT } from "./queries";
+import {
+  DEACTIVATE_ROOT,
+  GET_GROUPS,
+  GET_ROOTS_VULNS,
+  MOVE_ROOT,
+} from "./queries";
 
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
@@ -31,6 +36,17 @@ interface IDeactivationModalProps {
   onUpdate: () => void;
 }
 
+interface IRootsVulnsData {
+  group: {
+    roots: {
+      id: string;
+      vulnerabilities: {
+        id: string;
+      }[];
+    }[];
+  };
+}
+
 export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
   groupName,
   rootId,
@@ -38,6 +54,8 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
   onUpdate,
 }: IDeactivationModalProps): JSX.Element => {
   const { t } = useTranslation();
+
+  const [vulnsToBeClosed, setVulnsToBeClosed] = useState<number | undefined>(0);
 
   const [deactivateRoot] = useMutation(DEACTIVATE_ROOT, {
     onCompleted: (): void => {
@@ -102,6 +120,16 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
       },
     }
   );
+
+  const { data: rootsVulnsData } = useQuery<IRootsVulnsData>(GET_ROOTS_VULNS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load root vulnerabilities", error);
+      });
+    },
+    variables: { groupName },
+  });
+
   const groups =
     data === undefined
       ? []
@@ -160,6 +188,13 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
     },
     [deactivateRoot, groupName, moveRoot, rootId]
   );
+
+  useEffect((): void => {
+    const currentRootVulns = rootsVulnsData?.group.roots.find(
+      (item): boolean => item.id === rootId
+    );
+    setVulnsToBeClosed(currentRootVulns?.vulnerabilities.length);
+  }, [rootId, rootsVulnsData, setVulnsToBeClosed]);
 
   return (
     <React.StrictMode>
@@ -249,9 +284,21 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                         {["OUT_OF_SCOPE", "REGISTERED_BY_MISTAKE"].includes(
                           values.reason
                         ) ? (
-                          <Alert>
-                            {t("group.scope.common.deactivation.warning")}
-                          </Alert>
+                          <React.Fragment>
+                            <Alert>
+                              {t("group.scope.common.deactivation.warning")}
+                            </Alert>
+                            <Alert>
+                              {t(
+                                "group.scope.common.deactivation.closedVulnsWarning"
+                              )}
+                              {vulnsToBeClosed === undefined ? (
+                                t("group.scope.common.deactivation.loading")
+                              ) : (
+                                <strong>{vulnsToBeClosed}</strong>
+                              )}
+                            </Alert>
+                          </React.Fragment>
                         ) : undefined}
                         {values.reason === "MOVED_TO_ANOTHER_GROUP" ? (
                           <Alert>{t("group.scope.common.changeWarning")}</Alert>

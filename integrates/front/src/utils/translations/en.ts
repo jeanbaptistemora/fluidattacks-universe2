@@ -558,12 +558,15 @@ export const enTranslations: ResourceKey = {
           "This is a change in the scope of the test service, which may involve closing or reporting new vulnerabilities.",
         confirm: "Confirm change",
         deactivation: {
+          closedVulnsWarning:
+            "Number of vulnerabilities that will be closed by deactivating this root: ",
           confirm:
             "Deactivating this root takes it out of scope, therefore it will no longer be tested.",
           errors: {
             changed:
               "This root was just updated, please review the changes and try again",
           },
+          loading: "...",
           reason: {
             label: "Reason",
             mistake: "Registered by mistake",

@@ -182,6 +182,34 @@ const GET_GROUPS: DocumentNode = gql`
   }
 `;
 
+const GET_ROOTS_VULNS: DocumentNode = gql`
+  query GetRootsVulns($groupName: String!) {
+    group(groupName: $groupName) {
+      name
+      roots {
+        ... on GitRoot {
+          id
+          vulnerabilities {
+            id
+          }
+        }
+        ... on IPRoot {
+          id
+          vulnerabilities {
+            id
+          }
+        }
+        ... on URLRoot {
+          id
+          vulnerabilities {
+            id
+          }
+        }
+      }
+    }
+  }
+`;
+
 export {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
@@ -190,6 +218,7 @@ export {
   DEACTIVATE_ROOT,
   GET_GROUPS,
   GET_ROOTS,
+  GET_ROOTS_VULNS,
   MOVE_ROOT,
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
