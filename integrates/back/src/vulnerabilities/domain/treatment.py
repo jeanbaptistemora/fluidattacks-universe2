@@ -23,6 +23,13 @@ from custom_types import (
     Finding,
     Historic,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityTreatmentStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityTreatment,
+)
 from decimal import (
     Decimal,
 )
@@ -43,7 +50,6 @@ from typing import (
     List,
     Optional,
     Tuple,
-    Union,
 )
 from vulnerabilities import (
     dal as vulns_dal,
@@ -106,7 +112,7 @@ async def _validate_acceptance_severity(
 async def _validate_number_acceptances(
     loaders: Any,
     values: Dict[str, str],
-    historic_treatment: Historic,
+    historic_treatment: Tuple[VulnerabilityTreatment, ...],
     organization_id: str,
 ) -> bool:
     """
@@ -122,7 +128,9 @@ async def _validate_number_acceptances(
             "max_number_acceptations",
         )
         current_acceptances: int = sum(
-            1 for item in historic_treatment if item["treatment"] == "ACCEPTED"
+            1
+            for item in historic_treatment
+            if item.status == VulnerabilityTreatmentStatus.ACCEPTED
         )
         if (
             max_acceptances is not None
@@ -135,7 +143,8 @@ async def _validate_number_acceptances(
 
 
 async def validate_treatment_change(
-    info_to_check: Dict[str, Union[float, Historic, str]],
+    finding_severity: float,
+    historic_treatment: Tuple[VulnerabilityTreatment, ...],
     loaders: Any,
     organization: str,
     values: Dict[str, str],
@@ -144,12 +153,12 @@ async def validate_treatment_change(
         loaders, values, organization
     )
     validate_acceptance_severity_coroutine = _validate_acceptance_severity(
-        loaders, values, cast(float, info_to_check["severity"]), organization
+        loaders, values, finding_severity, organization
     )
     validate_number_acceptances_coroutine = _validate_number_acceptances(
         loaders,
         values,
-        cast(Historic, info_to_check["historic_treatment"]),
+        historic_treatment,
         organization,
     )
     return all(
@@ -167,7 +176,7 @@ async def add_vulnerability_treatment(
     *,
     finding_id: str,
     updated_values: Dict[str, str],
-    vuln: Dict[str, Finding],
+    vuln: Vulnerability,
     user_email: str,
     date: str,
 ) -> bool:
@@ -195,15 +204,12 @@ async def add_vulnerability_treatment(
     elif new_treatment == "ACCEPTED_UNDEFINED":
         new_state["acceptance_status"] = updated_values["acceptance_status"]
 
-    historic_treatment = cast(
-        List[Dict[str, str]], vuln.get("historic_treatment", [])
+    await vulns_dal.append(
+        finding_id=finding_id,
+        vulnerability_id=vuln.id,
+        elements={"historic_treatment": (new_state,)},
     )
-    historic_treatment.append(new_state)
-    return await vulns_dal.update(
-        finding_id,
-        str(vuln.get("UUID", "")),
-        {"historic_treatment": historic_treatment},
-    )
+    return True
 
 
 def get_treatment_change(
@@ -379,16 +385,15 @@ async def update_vulnerabilities_treatment(
     vulnerability_id: str,
     group_name: str,
 ) -> bool:
-    finding_vulns_loader = loaders.finding_vulns_all
     success: bool = False
     if updated_values.get("treatment") in {"ACCEPTED_UNDEFINED", "ACCEPTED"}:
         updated_values["treatment_manager"] = user_email
 
-    vulnerabilities = await finding_vulns_loader.load(finding_id)
+    vulnerabilities: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_all_typed.load(finding_id)
     vulnerability = next(
-        iter(
-            vuln for vuln in vulnerabilities if vuln["id"] == vulnerability_id
-        )
+        iter(vuln for vuln in vulnerabilities if vuln.id == vulnerability_id)
     )
     today = datetime_utils.get_now_as_str()
     if "treatment_manager" in updated_values:
@@ -402,16 +407,15 @@ async def update_vulnerabilities_treatment(
         )
 
     validations.validate_fields(list(updated_values.values()))
-    if is_vulnerabilities_treatment_changed(
-        updated_values=updated_values, vuln=vulnerability
-    ):
+    if compare_historic_treatments(vulnerability.treatment, updated_values):
+        historic_treatment = (
+            await loaders.vulnerability_historic_treatment.load(
+                vulnerability.id
+            )
+        )
         if await validate_treatment_change(
-            {
-                "severity": finding_severity,
-                "historic_treatment": cast(
-                    List[Dict[str, str]], vulnerability["historic_treatment"]
-                ),
-            },
+            finding_severity,
+            historic_treatment,
             loaders,
             organization_id,
             updated_values,

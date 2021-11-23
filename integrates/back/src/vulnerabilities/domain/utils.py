@@ -7,13 +7,23 @@ from custom_types import (
     Finding,
     Historic,
 )
+from datetime import (
+    datetime,
+)
 from db_model.roots.types import (
     GitRootItem,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityTreatmentStatus,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityTreatment,
 )
 import html
+from newutils import (
+    datetime as datetime_utils,
+)
 from typing import (
     Any,
     cast,
@@ -58,22 +68,23 @@ def get_hash_from_typed(vuln: Vulnerability, from_yaml: bool = False) -> int:
 
 
 def compare_historic_treatments(
-    last_state: Dict[str, str], new_state: Dict[str, str]
+    last_state: VulnerabilityTreatment, new_state: Dict[str, str]
 ) -> bool:
-    excluded_attrs = {"acceptance_date", "acceptance_status", "date", "user"}
-    last_values = [
-        value for key, value in last_state.items() if key not in excluded_attrs
-    ]
-    new_values = [
-        value for key, value in new_state.items() if key not in excluded_attrs
-    ]
-    date_change = (
-        "acceptance_date" in new_state
-        and "acceptance_date" in last_state
-        and last_state["acceptance_date"].split(" ")[0]
-        != new_state["acceptance_date"].split(" ")[0]
+    treatment_changed = (
+        last_state.status
+        != VulnerabilityTreatmentStatus(
+            new_state["treatment"].replace(" ", "_").upper()
+        )
+        or last_state.justification != new_state["justification"]
+        or last_state.manager != new_state.get("treatment_manager")
     )
-    return (sorted(last_values) != sorted(new_values)) or date_change
+    date_changed = (
+        "acceptance_date" in new_state
+        and last_state.accepted_until
+        and datetime.fromisoformat(last_state.accepted_until)
+        != datetime_utils.get_from_str(new_state["acceptance_date"])
+    )
+    return treatment_changed or date_changed
 
 
 def validate_acceptance(vuln: Dict[str, Finding]) -> Dict[str, Finding]:

@@ -20,6 +20,9 @@ from db_model import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityTreatmentStatus,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
@@ -342,16 +345,13 @@ async def test_validate_evidence_records_invalid_type() -> None:
 
 async def test_validate_acceptance_severity() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-    info_to_check = {
-        "historic_treatment": [
-            {
-                "date": "2020-02-01 12:00:00",
-                "treatment": "NEW",
-                "user": "unittest@fluidattacks.com",
-            }
-        ],
-        "severity": 8.5,
-    }
+    historic_treatment = (
+        VulnerabilityTreatment(
+            modified_date="2020-02-01T17:00:00+00:00",
+            status=VulnerabilityTreatmentStatus.NEW,
+        ),
+    )
+    severity = 8.5
     acceptance_date = (datetime.now() + timedelta(days=10)).strftime(
         "%Y-%m-%d %H:%M:%S"
     )
@@ -363,7 +363,8 @@ async def test_validate_acceptance_severity() -> None:
     }
     with pytest.raises(InvalidAcceptanceSeverity):
         assert await validate_treatment_change(
-            info_to_check,
+            severity,
+            historic_treatment,
             get_new_context(),
             org_id,
             values_accepted,
@@ -372,23 +373,20 @@ async def test_validate_acceptance_severity() -> None:
 
 async def test_validate_number_acceptances() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-    info_to_check = {
-        "historic_treatment": [
-            {
-                "acceptance_date": "2020-02-01 12:00:00",
-                "date": "2020-01-01 12:00:00",
-                "justification": "Justification to accept the finding",
-                "treatment": "ACCEPTED",
-                "user": "unittest@fluidattacks.com",
-            },
-            {
-                "date": "2020-02-01 12:00:00",
-                "treatment": "NEW",
-                "user": "unittest@fluidattacks.com",
-            },
-        ],
-        "severity": 5,
-    }
+    historic_treatment = (
+        VulnerabilityTreatment(
+            modified_date="2020-01-01T17:00:00+00:00",
+            status=VulnerabilityTreatmentStatus.ACCEPTED,
+            accepted_until="2020-02-01T17:00:00+00:00",
+            justification="Justification to accept the finding",
+            modified_by="unittest@fluidattacks.com",
+        ),
+        VulnerabilityTreatment(
+            modified_date="2020-02-01T17:00:00+00:00",
+            status=VulnerabilityTreatmentStatus.NEW,
+        ),
+    )
+    severity = 5
     acceptance_date = (datetime.now() + timedelta(days=10)).strftime(
         "%Y-%m-%d %H:%M:%S"
     )
@@ -400,7 +398,8 @@ async def test_validate_number_acceptances() -> None:
     }
     with pytest.raises(InvalidNumberAcceptances):
         assert await validate_treatment_change(
-            info_to_check,
+            severity,
+            historic_treatment,
             get_new_context(),
             org_id,
             values_accepted,
