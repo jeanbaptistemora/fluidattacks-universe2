@@ -12,5 +12,5 @@ makeScript {
       outputs."/observes/singer/tap-zoho-analytics/env/runtime"
     ];
   };
-  name = "observes-bin-tap-zoho-analytics";
+  name = "observes-singer-tap-zoho-analytics-bin";
 }

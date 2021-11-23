@@ -1,5 +1,7 @@
 # shellcheck shell=bash
 
+alias zoho-crm-prepare="observes-job-zoho-crm-prepare"
+
 function main {
   local db_creds
   local zoho_creds
@@ -13,7 +15,7 @@ function main {
     && echo '[INFO] Generating secret files' \
     && echo "${zoho_crm_bulk_creator_creds}" > "${zoho_creds}" \
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
-    && observes-job-zoho-crm-prepare \
+    && zoho-crm-prepare \
       "${db_creds}" \
       "${zoho_creds}" \
       "zoho_crm_prepare"

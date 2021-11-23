@@ -1,5 +1,8 @@
 # shellcheck shell=bash
 
+alias tap-timedoctor="observes-singer-tap-timedoctor-bin"
+alias job-last-success="observes-bin-service-job-last-success"
+
 function job_timedoctor_backup {
   local start_date
   local end_date
@@ -32,14 +35,14 @@ function job_timedoctor_backup {
     && echo "${analytics_auth_timedoctor}" > "${timedoctor_creds}" \
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
     && echo '[INFO] Running tap for worklogs' \
-    && observes-bin-tap-timedoctor \
+    && tap-timedoctor \
       --auth "${timedoctor_creds}" \
       --start-date "${start_date}" \
       --end-date "${end_date}" \
       --work-logs \
       > wl.singer \
     && echo '[INFO] Running tap for computer_activity' \
-    && observes-bin-tap-timedoctor \
+    && tap-timedoctor \
       --auth "${timedoctor_creds}" \
       --start-date "${start_date}" \
       --end-date "${end_date}" \
@@ -50,7 +53,7 @@ function job_timedoctor_backup {
     && cont_folder=$(jq < s3_files.json -r '.folder_name') \
     && aws s3 cp wl.singer "s3://${bucket}/${cont_folder}/${wl_file}" \
     && aws s3 cp ca.singer "s3://${bucket}/${cont_folder}/${ca_file}" \
-    && observes-bin-service-job-last-success single-job \
+    && job-last-success single-job \
       --auth "${db_creds}" \
       --job 'timedoctor_backup'
 }

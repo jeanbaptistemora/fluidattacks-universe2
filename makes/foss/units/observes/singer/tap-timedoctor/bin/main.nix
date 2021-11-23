@@ -4,13 +4,13 @@
 }:
 makeScript {
   entrypoint = ''
-    import_and_run tap_gitlab.cli main "$@"
+    import_and_run tap_timedoctor main "$@"
   '';
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/singer/tap-gitlab/env/runtime"
+      outputs."/observes/singer/tap-timedoctor/env/runtime"
     ];
   };
-  name = "observes-bin-tap-gitlab";
+  name = "observes-singer-tap-timedoctor-bin";
 }

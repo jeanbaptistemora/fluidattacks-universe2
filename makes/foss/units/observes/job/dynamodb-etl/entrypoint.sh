@@ -1,5 +1,10 @@
 # shellcheck shell=bash
 
+alias tap-dynamo="observes-bin-streamer-dynamodb"
+alias tap-json="observes-singer-tap-json-bin"
+alias target-redshift="observes-target-redshift"
+alias job-last-success="observes-bin-service-job-last-success"
+
 function dynamodb_etl {
   local conf="${1}"
   local schema="${2}"
@@ -22,16 +27,16 @@ function dynamodb_etl {
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
     && echo '[INFO] Running streamer' \
     && mkdir ./logs \
-    && observes-bin-streamer-dynamodb \
+    && tap-dynamo \
       --auth "${dynamo_creds}" \
       --conf "${conf}" \
-    | observes-tap-json \
+    | tap-json \
       --date-formats '%Y-%m-%d %H:%M:%S' \
-      | observes-target-redshift \
+      | target-redshift \
         --auth "${db_creds}" \
         --drop-schema \
         --schema-name "${schema}" \
-    && observes-bin-service-job-last-success compound-job \
+    && job-last-success compound-job \
       --auth "${db_creds}" \
       --job "dynamo" \
       --child "${schema#dynamodb_}"

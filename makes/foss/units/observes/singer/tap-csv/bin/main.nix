@@ -4,13 +4,13 @@
 }:
 makeScript {
   entrypoint = ''
-    import_and_run tap_toe_files main "$@"
+    import_and_run tap_csv.cli main "$@"
   '';
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/singer/tap-toe-files/env/runtime"
+      outputs."/observes/singer/tap-csv/env/runtime"
     ];
   };
-  name = "observes-bin-tap-toe-files";
+  name = "observes-singer-tap-csv-bin";
 }

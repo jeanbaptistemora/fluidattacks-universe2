@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
-alias tap-gitlab="observes-bin-tap-gitlab"
-alias tap-json="observes-tap-json"
+alias tap-gitlab="observes-singer-tap-gitlab-bin"
+alias tap-json="observes-singer-tap-json-bin"
 alias target-redshift="observes-target-redshift"
 
 function start_etl {

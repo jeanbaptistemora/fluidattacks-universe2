@@ -4,13 +4,13 @@
 }:
 makeScript {
   entrypoint = ''
-    import_and_run tap_csv.cli main "$@"
+    import_and_run tap_mixpanel main "$@"
   '';
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/singer/tap-csv/env/runtime"
+      outputs."/observes/singer/tap-mixpanel/env/runtime"
     ];
   };
-  name = "observes-bin-tap-csv";
+  name = "observes-singer-tap-mixpanel-bin";
 }

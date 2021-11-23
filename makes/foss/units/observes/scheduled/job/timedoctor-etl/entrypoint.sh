@@ -1,5 +1,9 @@
 # shellcheck shell=bash
 
+alias tap-timedoctor="observes-singer-tap-timedoctor-bin"
+alias target-redshift="observes-target-redshift"
+alias job-last-success="observes-bin-service-job-last-success"
+
 function job_timedoctor {
   local db_creds
   local timedoctor_creds
@@ -30,7 +34,7 @@ function job_timedoctor {
     && cat "${new_folder}"/* \
       > .singer \
     && echo '[INFO] Running tap' \
-    && observes-bin-tap-timedoctor \
+    && tap-timedoctor \
       --auth "${timedoctor_creds}" \
       --start-date "$(date +"%Y-%m-01")" \
       --end-date "$(date +"%Y-%m-%d")" \
@@ -38,12 +42,12 @@ function job_timedoctor {
       --computer-activity \
       >> .singer \
     && echo '[INFO] Running target' \
-    && observes-target-redshift \
+    && target-redshift \
       --auth "${db_creds}" \
       --drop-schema \
       --schema-name 'timedoctor' \
       < .singer \
-    && observes-bin-service-job-last-success single-job \
+    && job-last-success single-job \
       --auth "${db_creds}" \
       --job 'timedoctor_etl'
 }

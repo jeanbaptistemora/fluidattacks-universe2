@@ -1,5 +1,10 @@
 # shellcheck shell=bash
 
+alias tap-mixpanel="observes-singer-tap-mixpanel-bin"
+alias tap-json="observes-singer-tap-json-bin"
+alias target-redshift="observes-target-redshift"
+alias job-last-success="observes-bin-service-job-last-success"
+
 function job_mixpanel_integrates {
   local conf="${1}"
   local db_creds
@@ -21,16 +26,16 @@ function job_mixpanel_integrates {
     && echo '[INFO] Starting mixpanel ETL' \
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
     && echo '[INFO] Running tap' \
-    && observes-bin-tap-mixpanel -a "${mixpanel_creds}" -c "${conf}" \
-    | observes-tap-json \
+    && tap-mixpanel -a "${mixpanel_creds}" -c "${conf}" \
+    | tap-json \
       > .singer \
-    && observes-target-redshift \
+    && target-redshift \
       --auth "${db_creds}" \
       --drop-schema \
       --schema-name "mixpanel_integrates" \
       --old-ver \
       < .singer \
-    && observes-bin-service-job-last-success single-job \
+    && job-last-success single-job \
       --auth "${db_creds}" \
       --job 'mixpanel_integrates'
 }

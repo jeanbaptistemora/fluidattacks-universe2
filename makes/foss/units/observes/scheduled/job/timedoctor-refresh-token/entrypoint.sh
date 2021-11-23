@@ -1,5 +1,6 @@
 # shellcheck shell=bash
 alias timedoc-tokens="observes-bin-service-timedoctor-tokens"
+alias job-last-success="observes-bin-service-job-last-success"
 
 function refresh_token {
   export analytics_auth_timedoctor
@@ -21,7 +22,7 @@ function refresh_token {
     && timedoc-tokens update-token \
       --creds "${analytics_auth_timedoctor}" \
     && echo '[INFO] Done! Token created for current project' \
-    && observes-bin-service-job-last-success single-job \
+    && job-last-success single-job \
       --auth "${db_creds}" \
       --job 'timedoctor_refresh_token'
 }

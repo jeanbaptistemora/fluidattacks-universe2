@@ -1,5 +1,10 @@
 # shellcheck shell=bash
 
+alias tap-delighted="observes-singer-tap-delighted-bin"
+alias tap-json="observes-singer-tap-json-bin"
+alias target-redshift="observes-target-redshift"
+alias job-last-success="observes-bin-service-job-last-success"
+
 function start_etl {
   local db_creds
 
@@ -11,18 +16,18 @@ function start_etl {
     && echo '[INFO] Generating secret files' \
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
     && echo '[INFO] Running tap' \
-    && observes-bin-tap-delighted stream \
+    && tap-delighted stream \
       --api-key "${delighted_api_key}" \
       --all-streams \
-    | observes-tap-json \
+    | tap-json \
       > .singer \
     && echo '[INFO] Running target' \
-    && observes-target-redshift \
+    && target-redshift \
       --auth "${db_creds}" \
       --drop-schema \
       --schema-name 'delighted' \
       < .singer \
-    && observes-bin-service-job-last-success single-job \
+    && job-last-success single-job \
       --auth "${db_creds}" \
       --job 'delighted'
 }

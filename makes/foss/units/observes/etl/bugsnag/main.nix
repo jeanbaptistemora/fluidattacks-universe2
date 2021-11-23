@@ -7,7 +7,7 @@ makeScript {
     bin = [
       outputs."/observes/bin/service/job-last-success"
       outputs."/observes/singer/tap-bugsnag/bin"
-      outputs."/observes/bin/tap-json"
+      outputs."/observes/singer/tap-json/bin"
       outputs."/observes/bin/target-redshift"
     ];
     source = [

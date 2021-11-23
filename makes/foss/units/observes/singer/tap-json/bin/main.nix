@@ -4,13 +4,13 @@
 }:
 makeScript {
   entrypoint = ''
-    import_and_run tap_delighted.cli main "$@"
+    import_and_run tap_json.cli main "$@"
   '';
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/singer/tap-delighted/env/runtime"
+      outputs."/observes/singer/tap-json/env/runtime"
     ];
   };
-  name = "observes-bin-tap-delighted";
+  name = "observes-singer-tap-json-bin";
 }

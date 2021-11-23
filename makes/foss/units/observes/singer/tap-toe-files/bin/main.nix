@@ -4,13 +4,13 @@
 }:
 makeScript {
   entrypoint = ''
-    import_and_run tap_formstack main "$@"
+    import_and_run tap_toe_files main "$@"
   '';
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/singer/tap-formstack/env/runtime"
+      outputs."/observes/singer/tap-toe-files/env/runtime"
     ];
   };
-  name = "observes-bin-tap-formstack";
+  name = "observes-singer-tap-toe-files-bin";
 }

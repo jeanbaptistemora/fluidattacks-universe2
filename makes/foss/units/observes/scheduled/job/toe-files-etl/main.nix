@@ -5,8 +5,8 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/bin/tap-toe-files"
-      outputs."/observes/bin/tap-json"
+      outputs."/observes/singer/tap-toe-files/bin"
+      outputs."/observes/singer/tap-json/bin"
       outputs."/observes/bin/target-redshift"
     ];
     source = [

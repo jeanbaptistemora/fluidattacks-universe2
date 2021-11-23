@@ -7,7 +7,7 @@ function upload {
       analytics_auth_redshift \
     && echo "${analytics_auth_redshift}" > "${analytics_auth_redshift_file}" \
     && echo '[INFO] Running tap' \
-    && observes-tap-json \
+    && observes-singer-tap-json-bin \
       < 'benchmark.json' \
       > '.singer' \
     && echo '[INFO] Running target' \

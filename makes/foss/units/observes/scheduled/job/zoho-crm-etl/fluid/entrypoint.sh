@@ -1,5 +1,7 @@
 # shellcheck shell=bash
 
+alias zoho-crm-etl="observes-job-zoho-crm-etl"
+
 function start_etl {
   local db_creds
   local zoho_creds
@@ -13,7 +15,7 @@ function start_etl {
     && echo '[INFO] Generating secret files' \
     && echo "${zoho_crm_etl_creds}" > "${zoho_creds}" \
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
-    && observes-job-zoho-crm-etl \
+    && zoho-crm-etl \
       "${db_creds}" \
       "${zoho_creds}" \
       "zoho_crm" \

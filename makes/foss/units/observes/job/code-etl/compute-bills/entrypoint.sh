@@ -1,5 +1,7 @@
 # shellcheck shell=bash
 
+alias code-etl="observes-bin-code-etl"
+
 function job_compute_bills {
   local bucket_month
   local bucket_day
@@ -16,7 +18,7 @@ function job_compute_bills {
     && bucket_month="s3://continuous-data/bills/$(date +%Y)/$(date +%m)" \
     && bucket_day="s3://continuous-data/bills/$(date +%Y)/$(date +%m)/$(date +%d)" \
     && echo "[INFO] Temporary results folder: ${folder}" \
-    && observes-bin-code-etl compute-bills \
+    && code-etl compute-bills \
       "${folder}" \
       "$(date +%Y)" \
       "$(date +%m)" \

@@ -4,13 +4,13 @@
 }:
 makeScript {
   entrypoint = ''
-    import_and_run tap_mixpanel main "$@"
+    import_and_run tap_gitlab.cli main "$@"
   '';
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/singer/tap-mixpanel/env/runtime"
+      outputs."/observes/singer/tap-gitlab/env/runtime"
     ];
   };
-  name = "observes-bin-tap-mixpanel";
+  name = "observes-singer-tap-gitlab-bin";
 }

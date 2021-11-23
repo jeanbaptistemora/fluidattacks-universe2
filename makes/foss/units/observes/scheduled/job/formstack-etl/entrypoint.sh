@@ -1,5 +1,9 @@
 # shellcheck shell=bash
 
+alias tap-formstack="observes-singer-tap-formstack-bin"
+alias target-redshift="observes-target-redshift"
+alias job-last-success="observes-bin-service-job-last-success"
+
 function start_etl {
   local formstack_creds
   local db_creds
@@ -15,18 +19,18 @@ function start_etl {
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
     && echo '[INFO] Running tap' \
     && mkdir ./logs \
-    && observes-bin-tap-formstack \
+    && tap-formstack \
       --auth "${formstack_creds}" \
       --conf ./observes/conf/formstack.json \
       > .singer \
     && echo '[INFO] Running target' \
-    && observes-target-redshift \
+    && target-redshift \
       --auth "${db_creds}" \
       --drop-schema \
       --schema-name 'formstack' \
       --old-ver \
       < .singer \
-    && observes-bin-service-job-last-success single-job \
+    && job-last-success single-job \
       --auth "${db_creds}" \
       --job 'formstack'
 }

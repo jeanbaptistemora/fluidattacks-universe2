@@ -4,13 +4,13 @@
 }:
 makeScript {
   entrypoint = ''
-    import_and_run tap_checkly.cli main "$@"
+    import_and_run tap_formstack main "$@"
   '';
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/singer/tap-checkly/env/runtime"
+      outputs."/observes/singer/tap-formstack/env/runtime"
     ];
   };
-  name = "observes-bin-tap-checkly";
+  name = "observes-singer-tap-formstack-bin";
 }

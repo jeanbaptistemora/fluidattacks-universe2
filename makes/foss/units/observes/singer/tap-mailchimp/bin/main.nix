@@ -14,5 +14,5 @@ makeScript {
       outputs."/observes/singer/tap-mailchimp/env/runtime"
     ];
   };
-  name = "observes-bin-tap-mailchimp";
+  name = "observes-singer-tap-mailchimp-bin";
 }

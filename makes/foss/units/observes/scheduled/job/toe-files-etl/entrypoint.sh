@@ -1,5 +1,9 @@
 # shellcheck shell=bash
 
+alias tap-toe-files="observes-singer-tap-toe-files-bin"
+alias tap-json="observes-singer-tap-json-bin"
+alias target-redshift="observes-target-redshift"
+
 function start_etl {
   local db_creds
 
@@ -12,14 +16,14 @@ function start_etl {
     && echo '[INFO] Cloning services repository' \
     && use_git_repo_services \
     && echo '[INFO] Running tap' \
-    && observes-bin-tap-toe-files \
+    && tap-toe-files \
       > .jsonstream \
     && echo '[INFO] Running tap json' \
-    && observes-tap-json \
+    && tap-json \
       > .singer \
       < .jsonstream \
     && echo '[INFO] Running target' \
-    && observes-target-redshift \
+    && target-redshift \
       --auth "${db_creds}" \
       --drop-schema \
       --schema-name 'continuous_toe' \

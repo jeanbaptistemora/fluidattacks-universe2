@@ -1,5 +1,7 @@
 # shellcheck shell=bash
 
+alias migrate-tables="observes-bin-service-migrate-tables"
+
 function dynamodb_centralize {
   local db_creds
 
@@ -10,7 +12,7 @@ function dynamodb_centralize {
     && echo '[INFO] Generating secret files' \
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
     && echo '[INFO] Running centralizer' \
-    && observes-bin-service-migrate-tables centralize-dynamo-schemas \
+    && migrate-tables centralize-dynamo-schemas \
       --db-auth "${db_creds}" \
       --dymo-tables './observes/conf/awsdynamodb.json' \
       --schema 'dynamodb'
