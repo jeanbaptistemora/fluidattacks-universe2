@@ -33,12 +33,14 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
     VulnerabilityType,
+    VulnerabilityVerificationStatus,
     VulnerabilityZeroRiskStatus,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
     VulnerabilityTreatment,
+    VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
 from dynamodb.operations_legacy import (
@@ -115,31 +117,6 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-async def _confirm_zero_risk(
-    vuln: Vulnerability,
-    comment_id: str,
-    date: str,
-    user_email: str,
-) -> bool:
-    new_state = VulnerabilityZeroRisk(
-        comment_id=comment_id,
-        modified_by=user_email,
-        modified_date=date,
-        status=VulnerabilityZeroRiskStatus.CONFIRMED,
-    )
-
-    item = await get(vuln.id)
-    historic_zero_risk: HistoricType = item.get("historic_zero_risk", [])
-    historic_zero_risk.append(
-        vulns_utils.format_vulnerability_zero_risk_item(new_state)
-    )
-    return await vulns_dal.update(
-        vuln.finding_id,
-        vuln.id,
-        {"historic_zero_risk": historic_zero_risk},
-    )
-
-
 async def confirm_vulnerabilities_zero_risk(
     *,
     loaders: Any,
@@ -160,7 +137,6 @@ async def confirm_vulnerabilities_zero_risk(
         raise VulnNotFound()
 
     comment_id = str(round(time() * 1000))
-    today = datetime_utils.get_iso_date()
     user_email: str = user_info["user_email"]
     comment_data = {
         "comment_type": "zero_risk",
@@ -171,19 +147,24 @@ async def confirm_vulnerabilities_zero_risk(
     add_comment = await comments_domain.add(
         finding_id, comment_data, user_info
     )
-    confirm_zero_risk_vulns = await collect(
-        _confirm_zero_risk(
-            vuln=vuln,
-            comment_id=comment_id,
-            date=today,
-            user_email=user_email,
+    await collect(
+        vulns_dal.update_zero_risk(
+            current_value=vuln.zero_risk,
+            finding_id=vuln.finding_id,
+            vulnerability_id=vuln.id,
+            zero_risk=VulnerabilityZeroRisk(
+                comment_id=comment_id,
+                modified_by=user_email,
+                modified_date=datetime_utils.get_iso_date(),
+                status=VulnerabilityZeroRiskStatus.CONFIRMED,
+            ),
         )
         for vuln in vulnerabilities
     )
-    success = all(confirm_zero_risk_vulns) and add_comment[1]
-    if not success:
+    if not add_comment[1]:
         LOGGER.error("An error occurred confirming zero risk vuln", **NOEXTRA)
-    return success
+        return False
+    return True
 
 
 async def _remove_all_tags(
@@ -238,7 +219,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     vulnerability_id: str,
     justification: StateRemovalJustification,
     user_email: str,
-    source: str,
+    source: Source,
     include_closed_vuln: bool = False,
 ) -> bool:
     vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
@@ -248,20 +229,16 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
         vulnerability.state.status == VulnerabilityStateStatus.OPEN
         or include_closed_vuln
     ):
-        await vulns_dal.append(
+        await vulns_dal.update_state(
             finding_id=finding_id,
             vulnerability_id=vulnerability_id,
-            elements={
-                "historic_state": (
-                    {
-                        "analyst": user_email,
-                        "date": datetime_utils.get_now_as_str(),
-                        "justification": justification.value,
-                        "source": source,
-                        "state": "DELETED",
-                    },
-                )
-            },
+            state=VulnerabilityState(
+                modified_by=user_email,
+                modified_date=datetime_utils.get_iso_date(),
+                source=source,
+                status=VulnerabilityStateStatus.DELETED,
+                justification=justification,
+            ),
         )
         return True
     return False
@@ -687,22 +664,19 @@ async def reject_vulnerabilities_zero_risk(
     return success
 
 
-# TODO Remove this
-async def request_verification(vuln: Vulnerability) -> bool:
-    today = datetime_utils.get_now_as_str()
-    items: List[VulnLegacyType] = await vulns_dal.get(vuln.id)
-    item: VulnLegacyType = items[0]
-    historic_verification: HistoricType = item.get("historic_verification", [])
-    new_state = {
-        "date": today,
-        "status": "REQUESTED",
-    }
-    historic_verification.append(new_state)
-    return await vulns_dal.update(
-        vuln.finding_id,
-        vuln.id,
-        {"historic_verification": historic_verification},
+async def request_verification(vulnerability: Vulnerability) -> bool:
+    await vulns_dal.update_verification(
+        current_value=vulnerability.verification,
+        finding_id=vulnerability.finding_id,
+        vulnerability_id=vulnerability.id,
+        verification=VulnerabilityVerification(
+            comment_id="",
+            modified_by="",
+            modified_date=datetime_utils.get_iso_date(),
+            status=VulnerabilityVerificationStatus.REQUESTED,
+        ),
     )
+    return True
 
 
 async def _request_zero_risk(
@@ -1054,21 +1028,19 @@ async def verify_vulnerability(vuln: VulnLegacyType) -> bool:
     )
 
 
-async def verify_vulnerability_new(vuln: Vulnerability) -> bool:
-    today = datetime_utils.get_now_as_str()
-    items: List[VulnLegacyType] = await vulns_dal.get(vuln.id)
-    item: VulnLegacyType = items[0]
-    historic_verification: HistoricType = item.get("historic_verification", [])
-    new_state = {
-        "date": today,
-        "status": "VERIFIED",
-    }
-    historic_verification.append(new_state)
-    return await vulns_dal.update(
-        vuln.finding_id,
-        vuln.id,
-        {"historic_verification": historic_verification},
+async def verify_vulnerability_new(vulnerability: Vulnerability) -> bool:
+    await vulns_dal.update_verification(
+        current_value=vulnerability.verification,
+        finding_id=vulnerability.finding_id,
+        vulnerability_id=vulnerability.id,
+        verification=VulnerabilityVerification(
+            comment_id="",
+            modified_by="",
+            modified_date=datetime_utils.get_iso_date(),
+            status=VulnerabilityVerificationStatus.VERIFIED,
+        ),
     )
+    return True
 
 
 async def close_by_exclusion(vuln: Dict[str, Any]) -> None:

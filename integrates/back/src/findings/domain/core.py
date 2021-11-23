@@ -204,7 +204,7 @@ async def remove_vulnerabilities(
     vulnerabilities: Tuple[Vulnerability] = await finding_vulns_loader.load(
         finding_id
     )
-    source = requests_utils.get_source(context)
+    source = requests_utils.get_source_new(context)
     return all(
         await collect(
             vulns_domain.remove_vulnerability(

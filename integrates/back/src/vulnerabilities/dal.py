@@ -299,59 +299,75 @@ async def update_state(
     vulnerability_id: str,
     state: VulnerabilityState,
 ) -> None:
+    item = format_vulnerability_state_item(state)
     await append(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
-        elements={"historic_state": (format_vulnerability_state_item(state),)},
+        elements={"historic_state": (item,)},
     )
 
 
 async def update_treatment(
     *,
+    current_value: Optional[VulnerabilityTreatment],
     finding_id: str,
     vulnerability_id: str,
     treatment: VulnerabilityTreatment,
 ) -> None:
-    await append(
-        finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
-        elements={
-            "historic_treatment": (
-                format_vulnerability_treatment_item(treatment),
-            )
-        },
-    )
+    item = format_vulnerability_treatment_item(treatment)
+    if current_value:
+        await append(
+            finding_id=finding_id,
+            vulnerability_id=vulnerability_id,
+            elements={"historic_treatment": (item,)},
+        )
+    else:
+        await update(
+            finding_id=finding_id,
+            vuln_id=vulnerability_id,
+            data={"historic_treatment": [item]},
+        )
 
 
 async def update_verification(
     *,
+    current_value: Optional[VulnerabilityVerification],
     finding_id: str,
     vulnerability_id: str,
     verification: VulnerabilityVerification,
 ) -> None:
-    await append(
-        finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
-        elements={
-            "historic_verification": (
-                format_vulnerability_verification_item(verification),
-            )
-        },
-    )
+    item = format_vulnerability_verification_item(verification)
+    if current_value:
+        await append(
+            finding_id=finding_id,
+            vulnerability_id=vulnerability_id,
+            elements={"historic_verification": (item,)},
+        )
+    else:
+        await update(
+            finding_id=finding_id,
+            vuln_id=vulnerability_id,
+            data={"historic_verification": [item]},
+        )
 
 
 async def update_zero_risk(
     *,
+    current_value: Optional[VulnerabilityZeroRisk],
     finding_id: str,
     vulnerability_id: str,
     zero_risk: VulnerabilityZeroRisk,
 ) -> None:
-    await append(
-        finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
-        elements={
-            "historic_zero_risk": (
-                format_vulnerability_zero_risk_item(zero_risk),
-            )
-        },
-    )
+    item = format_vulnerability_zero_risk_item(zero_risk)
+    if current_value:
+        await append(
+            finding_id=finding_id,
+            vulnerability_id=vulnerability_id,
+            elements={"historic_zero_risk": (item,)},
+        )
+    else:
+        await update(
+            finding_id=finding_id,
+            vuln_id=vulnerability_id,
+            data={"historic_zero_risk": [item]},
+        )
