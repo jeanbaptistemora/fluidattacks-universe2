@@ -186,33 +186,50 @@ async def confirm_vulnerabilities_zero_risk(
     return success
 
 
-async def remove_vulnerability_tags(
-    finding_id: str, vulnerabilities: List[str], tag: str
+async def _remove_all_tags(
+    vuln: Vulnerability,
 ) -> bool:
-    vuln_update_coroutines = []
-    vuln_info = await get_by_finding_and_uuids(
-        finding_id, set(vulnerabilities)
+    return await vulns_dal.update(
+        vuln.finding_id,
+        vuln.id,
+        {"tag": None},
     )
-    for index, vulnerability in enumerate(vulnerabilities):
-        tag_info: Dict[str, Optional[Set[str]]] = {"tag": set()}
-        if tag:
-            if vuln_info[index]:
-                tag_info["tag"] = cast(
-                    Set[str], vuln_info[index].get("tag", [])
-                )
-            if tag in cast(Set[str], tag_info.get("tag", [])):
-                cast(Set[str], tag_info.get("tag")).remove(tag)
-        if tag_info.get("tag") == set():
-            tag_info["tag"] = None
-        vuln_update_coroutines.append(
-            vulns_dal.update(
-                finding_id,
-                vulnerability,
-                cast(Dict[str, FindingType], tag_info),
+
+
+async def _remove_tag(
+    vuln: Vulnerability,
+    tag_to_remove: str,
+) -> bool:
+    tags: Optional[List[str]] = vuln.tags
+    if tags and tag_to_remove in tags:
+        tags.remove(tag_to_remove)
+        return await vulns_dal.update(
+            vuln.finding_id,
+            vuln.id,
+            {"tag": tags},
+        )
+    return True
+
+
+async def remove_vulnerability_tags(
+    *,
+    loaders: Any,
+    vuln_ids: Set[str],
+    finding_id: str,
+    tag_to_remove: str,
+) -> bool:
+    vulnerabilities = await get_by_finding_and_vuln_ids_new(
+        loaders, finding_id, vuln_ids
+    )
+    if tag_to_remove:
+        return all(
+            await collect(
+                _remove_tag(vuln, tag_to_remove) for vuln in vulnerabilities
             )
         )
-    success = await collect(vuln_update_coroutines)
-    return all(success)
+    return all(
+        await collect(_remove_all_tags(vuln) for vuln in vulnerabilities)
+    )
 
 
 async def remove_vulnerability(  # pylint: disable=too-many-arguments
