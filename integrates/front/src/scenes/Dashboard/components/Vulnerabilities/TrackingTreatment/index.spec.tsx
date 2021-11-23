@@ -60,13 +60,14 @@ describe("TrackingTreatment", (): void => {
     expect.hasAssertions();
 
     const { t } = useTranslation();
+    const onClose: jest.Mock = jest.fn();
 
     const wrapper: ReactWrapper = mount(
       <TreatmentTracking
         historicTreatment={
           formatVulnerabilities([mockVuln])[0].historicTreatment
         }
-        onClose={jest.fn()}
+        onClose={onClose}
       />
     );
     wrapper.update();
@@ -76,5 +77,17 @@ describe("TrackingTreatment", (): void => {
     expect(wrapper.find("li").first().find("p").first().text()).toBe(
       t("searchFindings.tabDescription.treatment.inProgress")
     );
+
+    const closeButton: ReactWrapper = wrapper
+      .find("button")
+      .filterWhere((element: ReactWrapper): boolean =>
+        element.contains(t("searchFindings.tabVuln.close").toString())
+      )
+      .first();
+
+    closeButton.simulate("click");
+    wrapper.update();
+
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 });
