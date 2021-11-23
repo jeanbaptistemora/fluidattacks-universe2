@@ -9,7 +9,7 @@ makeTemplate {
       inputs.nixpkgs.awscli
     ];
     source = [
-      (outputs."/utils/env")
+      outputs."/utils/env"
     ];
   };
   name = "utils-bash-lib-aws";

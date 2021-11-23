@@ -11,8 +11,8 @@ makeTemplate {
       inputs.nixpkgs.jq
     ];
     source = [
-      (outputs."/utils/gitlab")
-      (outputs."/utils/common")
+      outputs."/utils/gitlab"
+      outputs."/utils/common"
     ];
   };
   template = ./template.sh;

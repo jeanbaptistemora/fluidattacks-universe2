@@ -10,8 +10,8 @@ makeScript {
     source = [
       outputs."/sorts/config-development"
       outputs."/sorts/config-runtime"
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/sops"
     ];
   };
   entrypoint = ./entrypoint.sh;

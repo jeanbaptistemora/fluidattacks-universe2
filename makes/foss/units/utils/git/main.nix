@@ -13,7 +13,7 @@ makeTemplate {
       inputs.nixpkgs.git
     ];
     source = [
-      (outputs."/utils/env")
+      outputs."/utils/env"
     ];
   };
   template = ./template.sh;
