@@ -51,7 +51,7 @@ module "publish_credentials_services" {
   gitlab_token = var.gitlab_token_services
   key_1        = module.aws.keys.1
   key_2        = module.aws.keys.2
-  prefix       = "INTEGRATES_DEV"
+  prefix       = "DEV"
   project_id   = "4603023"
   protected    = false
 }
