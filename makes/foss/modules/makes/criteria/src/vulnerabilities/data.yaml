@@ -11454,8 +11454,12 @@
       - An attacker could provide unexpected
       values and cause a program crash.
     recommendation: >
-      Manipulate the DOM (i.e., add, modify, and
+      - Manipulate the DOM (i.e., add, modify, and
       remove elements) efficiently and effectively.
+
+      - Create and modify DOM elements while detached
+      and then attaching them yields much better
+      performance than only create them.
     threat: >
       An attacker could read confidential data.
   es:
@@ -11476,8 +11480,12 @@
       - Un atacante podría proporcionar valores
       inesperados y causar una caída del programa
     recommendation: >
-      Manipular el DOM (es decir, añadir, modificar
+      - Manipular el DOM (es decir, añadir, modificar
       y eliminar elementos) de forma eficiente y eficaz.
+
+      - Crear y modificar elementos del DOM mientras se
+      separan y luego se adjuntan produce un rendimiento
+      mucho mejor que sólo crearlos
     threat: >
       Un atacante podría leer datos confidenciales.
   category: Inject Unexpected
@@ -12854,23 +12862,65 @@
   en:
     title: Business information leak - Credentials
     description: >
-      __empty__
+      A leaked account gives attackers instant
+      access to sensitive data or internal systems.
+      Can be used to compromise customer and employee
+      data, financial records, intellectual property
+      and other sensitive information that could
+      leave you at great risk.
     impact: >
-      __empty__
+      - Attempt to compromise the account that
+      the credentials leaked from.
+
+      - Attackers can leverage credentials from one
+      application to compromise additional ones.
     recommendation: >
-      __empty__
+      - Enable multi-factor authentication on business
+      accounts to add an extra layer of security.
+
+      - Ensure strong passwords creation and management.
+
+      - Establish security policies warranting restrictions
+      and penalties concerning to the use of work related credentials.
+
+      - Network security and access controls should be reviewed.
     threat: >
-      __empty__
+      The threat is magnified by a number of factors
+      which extend the leakage beyond the corporate
+      firewall (i.e. account hijacking, identity theft,
+      extortion schemes, and spear phishing campaigns)
   es:
     title: Business information leak - Credentials
     description: >
-      __empty__
+      Una cuenta filtrada da a los actores de la amenaza
+      acceso instantáneo a datos sensibles o sistemas internos.
+      Puede utilizarse para comprometer datos de clientes
+      y empleados, registros financieros, propiedad intelectual
+      y otra información sensible que podría dejarle en gran riesgo.
     impact: >
-      __empty__
+      - Intentar comprometer la cuenta desde la
+      que se filtraron las credenciales.
+
+      - Los atacantes pueden aprovechar las credenciales
+      de una aplicación para comprometer otras.
     recommendation: >
-      __empty__
+      - Habilite la autenticación de factor múltiple
+      en las cuentas empresariales para añadir una
+      capa adicional de seguridad.
+
+      - Garantizar la creación y gestión de contraseñas seguras.
+
+      - Establecer políticas de seguridad que garanticen
+      las restricciones y sanciones relativas al uso de
+      credenciales relacionadas con el trabajo.
+
+      - Se debe revisar la seguridad de la red y los controles de acceso.
     threat: >
-      __empty__
+      La amenaza se ve magnificada por una serie de
+      factores que extienden la filtración más allá
+      del cortafuegos de la empresa (es decir, el secuestro
+      de cuentas, el robo de identidad, los esquemas de
+      extorsión y las campañas de spear phishing)
   category: Collect Information
   score:
     base:
@@ -12879,7 +12929,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
