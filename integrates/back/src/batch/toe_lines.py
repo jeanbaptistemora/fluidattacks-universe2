@@ -178,19 +178,22 @@ async def get_present_toe_lines_to_add(
         tuple(
             git_utils.get_last_commit_hash(repo, filename)
             for filename in non_db_filenames
-        )
+        ),
+        workers=500,
     )
     last_modified_dates = await collect(
         tuple(
             git_utils.get_last_modified_date(repo, filename)
             for filename in non_db_filenames
-        )
+        ),
+        workers=500,
     )
     last_commit_authors = await collect(
         tuple(
             git_utils.get_last_commit_author(repo, filename)
             for filename in non_db_filenames
-        )
+        ),
+        workers=500,
     )
     return tuple(
         (
@@ -246,19 +249,22 @@ async def get_present_toe_lines_to_update(
         tuple(
             git_utils.get_last_commit_hash(repo, filename)
             for filename in db_filenames
-        )
+        ),
+        workers=500,
     )
     last_modified_dates = await collect(
         tuple(
             git_utils.get_last_modified_date(repo, filename)
             for filename in db_filenames
-        )
+        ),
+        workers=500,
     )
     last_commit_authors = await collect(
         tuple(
             git_utils.get_last_commit_author(repo, filename)
             for filename in db_filenames
-        )
+        ),
+        workers=500,
     )
     be_present = True
     return tuple(
@@ -466,7 +472,7 @@ async def refresh_root_repo_toe_lines(
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
-        workers=2,
+        workers=3,
     )
     await collect(
         tuple(
@@ -477,7 +483,7 @@ async def refresh_root_repo_toe_lines(
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
-        workers=2,
+        workers=3,
     )
 
 
