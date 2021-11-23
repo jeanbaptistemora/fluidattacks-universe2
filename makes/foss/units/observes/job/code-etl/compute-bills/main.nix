@@ -8,8 +8,8 @@ makeScript {
       outputs."/observes/bin/code-etl"
     ];
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/sops"
     ];
   };
   name = "observes-job-code-etl-compute-bills";

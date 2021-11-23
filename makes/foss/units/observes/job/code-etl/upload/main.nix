@@ -9,9 +9,9 @@ makeScript {
       outputs."/melts"
     ];
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/git")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/git"
+      outputs."/utils/sops"
     ];
   };
   name = "observes-job-code-etl-upload";

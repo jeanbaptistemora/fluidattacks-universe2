@@ -11,8 +11,8 @@ makeScript {
       outputs."/observes/bin/target-redshift"
     ];
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/sops"
     ];
   };
   name = "observes-job-bugsnag-etl";

@@ -8,9 +8,9 @@ in
 makeScript {
   searchPaths = {
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/git")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/git"
+      outputs."/utils/sops"
     ];
   };
   replace = {

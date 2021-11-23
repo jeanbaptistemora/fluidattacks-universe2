@@ -17,11 +17,11 @@ makeScript {
       inputs.nixpkgs.nodejs
     ];
     source = [
-      (outputs."/airs/npm/runtime")
-      (outputs."/airs/npm/env")
-      (outputs."/utils/aws")
-      (outputs."/utils/lint-typescript")
-      (outputs."/utils/sops")
+      outputs."/airs/npm/runtime"
+      outputs."/airs/npm/env"
+      outputs."/utils/aws"
+      outputs."/utils/lint-typescript"
+      outputs."/utils/sops"
     ];
   };
 }
