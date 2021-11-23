@@ -51,16 +51,22 @@ def _check(
             if match := RE_MAVEN_A.match(line):
                 column: int = match.start("group")
                 product: str = match.group("group") + ":" + match.group("name")
-                version: str = match.group("version") or "*"
+                version = match.group("version") or ""
             elif match := RE_MAVEN_B.match(line):
                 column = match.start("statement")
                 statement = match.group("statement")
                 product, version = (
                     statement.rsplit(":", maxsplit=1)
                     if statement.count(":") >= 2
-                    else (statement, "*")
+                    else (statement, "")
                 )
             else:
+                continue
+
+            # Assuming a wildcard in Maven if the version is not found can
+            # result in issues.
+            # https://gitlab.com/fluidattacks/product/-/issues/5635
+            if version == "":
                 continue
 
             yield (
