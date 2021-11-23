@@ -14,16 +14,12 @@ from fluidasserts import (
 from fluidasserts.cloud.aws.cloudformation import (
     _get_result_as_tuple,
     get_graph,
-    get_ref_nodes,
     get_resources,
     get_templates,
     Vulnerability,
 )
 from fluidasserts.helper import (
     aws as helper,
-)
-from fluidasserts.helper.aws import (
-    CloudFormationInvalidTypeError,
 )
 from fluidasserts.utils.decorators import (
     api,
@@ -38,63 +34,6 @@ from typing import (
     Optional,
     Tuple,
 )
-
-
-@api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError)
-def is_key_rotation_absent_or_disabled(
-    path: str, exclude: Optional[List[str]] = None
-) -> Tuple:
-    """
-    Check if any ``KMS::Key`` is miss configured.
-
-    The following checks are performed:
-
-    * F19 EnableKeyRotation should not be false or absent on KMS::Key resource
-
-    :param path: Location of CloudFormation's template file.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if any of the referenced rules is not followed.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    vulnerabilities: List[Vulnerability] = []
-    graph: DiGraph = get_graph(path, exclude)
-    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
-    keys: List[int] = get_resources(
-        graph, map(lambda x: x[0], templates), {"AWS", "KMS", "Key"}, info=True
-    )
-    for key, resource, template in keys:
-        line: int = resource["line"]
-        key_rotation: bool = False
-        rotation_node: int = helper.get_index(
-            get_resources(graph, key, "EnableKeyRotation", depth=3), 0
-        )
-        if rotation_node:
-            rotation_node_value: int = get_ref_nodes(graph, rotation_node)[0]
-            line = graph.nodes[rotation_node_value]["line"]
-            with contextlib.suppress(CloudFormationInvalidTypeError):
-                key_rotation = helper.to_boolean(
-                    graph.nodes[rotation_node_value]["value"]
-                )
-
-        if not key_rotation:
-            vulnerabilities.append(
-                Vulnerability(
-                    path=template["path"],
-                    entity=f"AWS::KMS::Key",
-                    identifier=resource["name"],
-                    line=line,
-                    reason="has key rotation absent or disabled",
-                )
-            )
-
-    return _get_result_as_tuple(
-        vulnerabilities=vulnerabilities,
-        msg_open="EnableKeyRotation is absent or disabled on KMS Key",
-        msg_closed="EnableKeyRotation is enabled on KMS Key",
-    )
 
 
 @api(risk=MEDIUM, kind=SAST)

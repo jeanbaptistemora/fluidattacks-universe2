@@ -1028,9 +1028,6 @@ def exec_cloudformation_package(
             "iam.is_role_over_privileged",
             "iam.missing_role_based_security",
         ],
-        ("kms", "KMS (Key Management Service)"): [
-            "kms.is_key_rotation_absent_or_disabled",
-        ],
         ("rds", "RDS (Relational Database Service)"): [
             "rds.has_not_automated_backups",
             "rds.has_not_termination_protection",
