@@ -1091,3 +1091,27 @@ async def close_by_exclusion(vuln: Dict[str, Any]) -> None:
         )
         if vulns_utils.is_reattack_requested(vuln):
             await verify_vulnerability(vuln)
+
+
+async def close_by_exclusion_new(
+    vuln: Vulnerability,
+    modified_by: str,
+    source: Source,
+) -> None:
+    if vuln.state.status not in {
+        VulnerabilityStateStatus.CLOSED,
+        VulnerabilityStateStatus.DELETED,
+    }:
+        await vulns_dal.update_state(
+            finding_id=vuln.finding_id,
+            vulnerability_id=vuln.id,
+            state=VulnerabilityState(
+                modified_by=modified_by,
+                modified_date=datetime_utils.get_iso_date(),
+                source=source,
+                status=VulnerabilityStateStatus.CLOSED,
+                justification=StateRemovalJustification.EXCLUSION,
+            ),
+        )
+        if vulns_utils.is_reattack_requested_new(vuln):
+            await verify_vulnerability_new(vuln)

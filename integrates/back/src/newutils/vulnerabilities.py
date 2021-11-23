@@ -980,11 +980,15 @@ def validate_zero_risk_requested_new(
 def format_vulnerability_state_item(
     state: VulnerabilityState,
 ) -> Item:
+    if state.status == VulnerabilityStateStatus.DELETED:
+        formatted_status = state.status.value
+    else:
+        formatted_status = str(state.status.value).lower()
     item = {
         "analyst": state.modified_by,
         "date": convert_from_iso_str(state.modified_date),
         "source": str(state.source.value).lower(),
-        "state": str(state.status.value).lower(),
+        "state": formatted_status,
     }
     if state.justification:
         item["justification"] = state.justification

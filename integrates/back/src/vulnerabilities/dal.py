@@ -18,7 +18,10 @@ from custom_types import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityState,
     VulnerabilityTreatment,
+    VulnerabilityVerification,
+    VulnerabilityZeroRisk,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
@@ -26,7 +29,10 @@ from dynamodb import (
 import logging
 from newutils.vulnerabilities import (
     format_vulnerability_item,
+    format_vulnerability_state_item,
     format_vulnerability_treatment_item,
+    format_vulnerability_verification_item,
+    format_vulnerability_zero_risk_item,
 )
 from s3 import (
     operations as s3_ops,
@@ -285,3 +291,67 @@ async def upload_file(vuln_file: UploadFile) -> str:
         file_name,
     )
     return cast(str, file_name)
+
+
+async def update_state(
+    *,
+    finding_id: str,
+    vulnerability_id: str,
+    state: VulnerabilityState,
+) -> None:
+    await append(
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        elements={"historic_state": (format_vulnerability_state_item(state),)},
+    )
+
+
+async def update_treatment(
+    *,
+    finding_id: str,
+    vulnerability_id: str,
+    treatment: VulnerabilityTreatment,
+) -> None:
+    await append(
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        elements={
+            "historic_treatment": (
+                format_vulnerability_treatment_item(treatment),
+            )
+        },
+    )
+
+
+async def update_verification(
+    *,
+    finding_id: str,
+    vulnerability_id: str,
+    verification: VulnerabilityVerification,
+) -> None:
+    await append(
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        elements={
+            "historic_verification": (
+                format_vulnerability_verification_item(verification),
+            )
+        },
+    )
+
+
+async def update_zero_risk(
+    *,
+    finding_id: str,
+    vulnerability_id: str,
+    zero_risk: VulnerabilityZeroRisk,
+) -> None:
+    await append(
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        elements={
+            "historic_zero_risk": (
+                format_vulnerability_zero_risk_item(zero_risk),
+            )
+        },
+    )
