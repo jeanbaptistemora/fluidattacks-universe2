@@ -13596,23 +13596,54 @@
   en:
     title: Business information leak - Azure
     description: >
-      __empty__
+      A series of flaws in Azure's service
+      feature created a loophole.
+      This vulnerability could allow users to
+      access other customers' information in the platform.
     impact: >
-      __empty__
+      - Could lead to compromise the Kubernetes clusters,
+      thus providing attackers with full control over
+      other Azure customers’ containers.
+
+      - The vulnerability could have allowed users to
+      access other customers' information in the service.
+
+      - Allow any user to download, delete or manipulate
+      a massive collection of commercial databases.
     recommendation: >
-      __empty__
+      - Change user's login credentials.
+
+      - Rotate privileged credentials on a frequent basis.
     threat: >
-      __empty__
+      External attacker with access and permissions
+      over the database and service architecture.
   es:
     title: Business information leak - Azure
     description: >
-      __empty__
+      Una serie de fallos en la función de servicio
+      de Azure creó una laguna.
+      Esta vulnerabilidad podía permitir a los usuarios
+      acceder a la información de otros clientes en la plataforma.
     impact: >
-      __empty__
+      - Podría llevar a comprometer los clusters de
+      Kubernetes, proporcionando así a los atacantes
+      un control total sobre los contenedores de
+      otros clientes de Azure.
+
+      - La vulnerabilidad podría haber permitido a
+      los usuarios acceder a la información de otros
+      clientes del servicio.
+
+      - Permitir a cualquier usuario descargar,
+      borrar o manipular una colección masiva de
+      bases de datos comerciales.
     recommendation: >
-      __empty__
+      - Cambiar las credenciales de acceso de los usuarios.
+
+      - Rotar las credenciales privilegiadas con frecuencia.
     threat: >
-      __empty__
+      Atacante externo con acceso y permisos sobre
+      la base de datos y arquitectura del servicio.
   category: Collect Information
   score:
     base:
@@ -13621,7 +13652,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
