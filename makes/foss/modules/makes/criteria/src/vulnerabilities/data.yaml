@@ -13124,23 +13124,43 @@
   en:
     title: Business information leak - Network Unit
     description: >
-      __empty__
+      Different network units are used to identify
+      the vulnerabilities present in the organization’s network.
     impact: >
-      __empty__
+      - Breaches or security bottlenecks and there
+      is leakage of information.
+
+      - Collect security event logs from the internal network.
     recommendation: >
-      __empty__
+      - Check the network segmentation.
+
+      - Secure transport encryption is crucial to
+      encrypt the transmission in this layer.
     threat: >
-      __empty__
+      Network scanning tools give enough information
+      about the network, which attackers can then use
+      for malicious activities.
   es:
     title: Business information leak - Network Unit
     description: >
-      __empty__
+      Diferentes unidades de la red se utilizan
+      para identificar las vulnerabilidades presentes
+      en la red de la organización.
     impact: >
-      __empty__
+      - Brechas o cuellos de botella de seguridad
+      y hay fuga de información.
+
+      - Recoge los registros de eventos de seguridad
+      de la red interna.
     recommendation: >
-      __empty__
+      - Compruebe la segmentación de la red.
+
+      - El cifrado de transporte seguro es crucial para
+      cifrar la transmisión en esta capa.
     threat: >
-      __empty__
+      Las herramientas de escaneo de la red proporcionan
+      suficiente información sobre la red, que los atacantes
+      pueden utilizar para realizar actividades maliciosas.
   category: Collect Information
   score:
     base:
@@ -13149,7 +13169,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
