@@ -311,7 +311,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployTerraform/makesUsersServices:
+/deployTerraform/makesUsersProdServices:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
@@ -325,7 +325,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /deployTerraform/makesUsersServices
+    - m . /deployTerraform/makesUsersProdServices
   stage: deploy-infra
   tags:
     - autoscaling
@@ -769,7 +769,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/makesUsersServices:
+/lintTerraform/makesUsersProdServices:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
@@ -784,7 +784,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /lintTerraform/makesUsersServices
+    - m . /lintTerraform/makesUsersProdServices
   stage: lint-code
   tags:
     - autoscaling
@@ -1299,7 +1299,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/taintTerraform/makesUsersServicesKeys1:
+/taintTerraform/makesUsersProdServicesKeys1:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
@@ -1310,14 +1310,14 @@
       when: never
     - when: always
   script:
-    - m . /taintTerraform/makesUsersServicesKeys1
+    - m . /taintTerraform/makesUsersProdServicesKeys1
   stage: rotation
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/taintTerraform/makesUsersServicesKeys2:
+/taintTerraform/makesUsersProdServicesKeys2:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
@@ -1328,7 +1328,7 @@
       when: never
     - when: always
   script:
-    - m . /taintTerraform/makesUsersServicesKeys2
+    - m . /taintTerraform/makesUsersProdServicesKeys2
   stage: rotation
   tags:
     - autoscaling
@@ -1759,7 +1759,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/makesUsersServices:
+/testTerraform/makesUsersProdServices:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
@@ -1774,7 +1774,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /testTerraform/makesUsersServices
+    - m . /testTerraform/makesUsersProdServices
   stage: test-infra
   tags:
     - autoscaling

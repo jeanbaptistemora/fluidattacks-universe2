@@ -8,7 +8,7 @@
     ./prod/makes/makes.nix
     ./prod/melts/makes.nix
     ./prod/observes/makes.nix
-    ./services/makes.nix
+    ./prod/services/makes.nix
     ./skims/makes.nix
     ./sorts/makes.nix
   ];
