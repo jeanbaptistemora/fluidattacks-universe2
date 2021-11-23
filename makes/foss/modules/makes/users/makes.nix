@@ -9,7 +9,7 @@
     ./prod/melts/makes.nix
     ./prod/observes/makes.nix
     ./prod/services/makes.nix
-    ./skims/makes.nix
+    ./prod/skims/makes.nix
     ./sorts/makes.nix
   ];
   secretsForEnvFromSops = {

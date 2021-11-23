@@ -145,7 +145,7 @@ in
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/makesUsersSkims";
+          output = "/deployTerraform/makesUsersProdSkims";
           gitlabExtra = gitlabDeployInfra;
         }
         {
@@ -225,7 +225,7 @@ in
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintTerraform/makesUsersSkims";
+          output = "/lintTerraform/makesUsersProdSkims";
           gitlabExtra = gitlabLint;
         }
         {
@@ -337,11 +337,11 @@ in
           gitlabExtra = gitlabRotateUsersKeys2;
         }
         {
-          output = "/taintTerraform/makesUsersSkimsKeys1";
+          output = "/taintTerraform/makesUsersProdSkimsKeys1";
           gitlabExtra = gitlabRotateUsersKeys1;
         }
         {
-          output = "/taintTerraform/makesUsersSkimsKeys2";
+          output = "/taintTerraform/makesUsersProdSkimsKeys2";
           gitlabExtra = gitlabRotateUsersKeys2;
         }
         {
@@ -425,7 +425,7 @@ in
           gitlabExtra = gitlabTestInfra;
         }
         {
-          output = "/testTerraform/makesUsersSkims";
+          output = "/testTerraform/makesUsersProdSkims";
           gitlabExtra = gitlabTestInfra;
         }
         {
