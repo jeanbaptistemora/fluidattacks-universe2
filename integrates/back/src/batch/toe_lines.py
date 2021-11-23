@@ -486,7 +486,6 @@ async def refresh_toe_lines(*, item: BatchProcessing) -> None:
     optional_repo_nickname: Optional[str] = (
         None if item.additional_info == "*" else item.additional_info
     )
-    current_dir = os.getcwd()
 
     with tempfile.TemporaryDirectory() as tmpdir:
         os.chdir(tmpdir)
@@ -496,7 +495,6 @@ async def refresh_toe_lines(*, item: BatchProcessing) -> None:
         await refresh_root_repo_toe_lines(
             group_name, group_path, optional_repo_nickname
         )
-        os.chdir(current_dir)
 
     await delete_action(
         action_name=item.action_name,
