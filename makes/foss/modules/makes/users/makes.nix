@@ -10,7 +10,7 @@
     ./prod/observes/makes.nix
     ./prod/services/makes.nix
     ./prod/skims/makes.nix
-    ./sorts/makes.nix
+    ./prod/sorts/makes.nix
   ];
   secretsForEnvFromSops = {
     makesUsersDev = {
