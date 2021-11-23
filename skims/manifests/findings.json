@@ -566,5 +566,13 @@
     "ES": {
       "title": "393. Use of software with known vulnerabilities in development"
     }
+  },
+  "F396": {
+    "EN": {
+      "title": "396. Insecure service configuration - KMS"
+    },
+    "ES": {
+      "title": "396. Insecure service configuration - KMS"
+    }
   }
 }

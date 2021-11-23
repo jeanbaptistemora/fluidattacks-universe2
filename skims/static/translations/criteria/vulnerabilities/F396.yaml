@@ -1,0 +1,29 @@
+F396.title:
+  en: >
+    Insecure service configuration - KMS
+  es: >
+    Insecure service configuration - KMS
+F396.description:
+  en: >
+      The automatic key rotation
+      for the KMS service is disabled.
+      By keeping static keys
+      during long periods
+      the chances to compromise a valid key are higher
+  es: >
+      La rotación automática de llaves
+      del servicio de KMS se encuentra deshabilitada.
+      Al mantener las llaves estáticas
+      durante un tiempo prolongado
+      se incrementa el riesgo de que éstas sean comprometidas
+F396.impact:
+  en: Increase the chance to get valid keys
+  es: Incrementar la probabilidad de obtener llaves KMS
+F396.recommendation:
+  en: Enable the automatic key rotation
+      for all the service keys
+  es: Habilitar la rotación automática de llaves
+      para todas las llaves del servicio
+F396.threat:
+  en: __empty__
+  es: Atacante anónimo desde Internet
