@@ -13,6 +13,7 @@ from aws.model import (
     AWSInstance,
     AWSLbTargetGroup,
     AWSRdsCluster,
+    AWSRdsClusterInstance,
     AWSS3Bucket,
 )
 from itertools import (
@@ -330,6 +331,16 @@ def iter_aws_rds_cluster(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_rds_cluster")
     for bucket in iterator:
         yield AWSRdsCluster(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_rds_cluster_instance(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_rds_cluster_instance")
+    for bucket in iterator:
+        yield AWSRdsClusterInstance(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,

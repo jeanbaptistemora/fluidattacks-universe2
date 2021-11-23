@@ -102,6 +102,12 @@ class AWSRdsCluster(NamedTuple):
     line: int
 
 
+class AWSRdsClusterInstance(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int
+
+
 class AWSKmsKey(NamedTuple):
     column: int
     data: List[Any]
