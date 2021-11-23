@@ -71,6 +71,7 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+LOGGER_CONSOLE = logging.getLogger("console")
 
 
 CLOC_ENV = os.environ.copy()
@@ -96,6 +97,14 @@ toe_lines_update = retry_on_exceptions(
 async def get_present_filenames(
     group_path: str, repo: Repo, repo_nickname: str
 ) -> Set[str]:
+    LOGGER_CONSOLE.info(
+        "Getting present filenames",
+        extra={
+            "extra": {
+                "repo_nickname": repo_nickname,
+            }
+        },
+    )
     trees = repo.head.commit.tree.traverse()
     ignored_files = await get_ignored_files(group_path, repo_nickname)
     included_head_filenames = tuple(
@@ -124,6 +133,14 @@ async def get_present_filenames(
 
 
 async def get_ignored_files(group_path: str, repo_nickname: str) -> Set[str]:
+    LOGGER_CONSOLE.info(
+        "Getting ignored files",
+        extra={
+            "extra": {
+                "repo_nickname": repo_nickname,
+            }
+        },
+    )
     ignored_filename = f"{group_path}/{repo_nickname}_ignored.txt"
     ignored_files = set()
     call_cloc = (
@@ -162,6 +179,14 @@ async def get_present_toe_lines_to_add(
     repo_nickname: str,
     repo_toe_lines: Dict[str, ToeLines],
 ) -> Tuple[Tuple[str, ToeLinesAttributesToAdd], ...]:
+    LOGGER_CONSOLE.info(
+        "Getting present toe lines to add",
+        extra={
+            "extra": {
+                "repo_nickname": repo_nickname,
+            }
+        },
+    )
     non_db_filenames = tuple(
         filename
         for filename in present_filenames
@@ -233,6 +258,14 @@ async def get_present_toe_lines_to_update(
     repo_nickname: str,
     repo_toe_lines: Dict[str, ToeLines],
 ) -> Tuple[Tuple[ToeLines, ToeLinesAttributesToUpdate], ...]:
+    LOGGER_CONSOLE.info(
+        "Getting present toe lines to update",
+        extra={
+            "extra": {
+                "repo_nickname": repo_nickname,
+            }
+        },
+    )
     db_filenames = tuple(
         filename
         for filename in present_filenames
@@ -310,8 +343,17 @@ async def get_present_toe_lines_to_update(
 
 def get_non_present_toe_lines_to_update(
     present_filenames: Set[str],
+    repo_nickname: str,
     repo_toe_lines: Dict[str, ToeLines],
 ) -> Tuple[Tuple[ToeLines, ToeLinesAttributesToUpdate], ...]:
+    LOGGER_CONSOLE.info(
+        "Getting non present toe lines to update",
+        extra={
+            "extra": {
+                "repo_nickname": repo_nickname,
+            }
+        },
+    )
     return tuple(
         (
             repo_toe_lines[db_filename],
@@ -353,6 +395,14 @@ async def refresh_active_root_repo_toe_lines(
     group_path: str,
     root_repo: GitRootItem,
 ) -> None:
+    LOGGER_CONSOLE.info(
+        "Refresing toe lines",
+        extra={
+            "extra": {
+                "repo_nickname": root_repo.state.nickname,
+            }
+        },
+    )
     try:
         repo = Repo(root_repo.state.nickname)
     except InvalidGitRepositoryError:
@@ -408,6 +458,7 @@ async def refresh_active_root_repo_toe_lines(
     )
     non_present_toe_lines_to_update = get_non_present_toe_lines_to_update(
         present_filenames,
+        root_repo.state.nickname,
         repo_toe_lines,
     )
     await collect(
@@ -430,7 +481,9 @@ async def refresh_inactive_root_repo_toe_lines(
     }
     present_filenames: Set[str] = set()
     non_present_toe_lines_to_update = get_non_present_toe_lines_to_update(
-        present_filenames, repo_toe_lines
+        present_filenames,
+        root_repo.state.nickname,
+        repo_toe_lines,
     )
     await collect(
         tuple(
