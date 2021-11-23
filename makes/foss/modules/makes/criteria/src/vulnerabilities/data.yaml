@@ -14495,23 +14495,35 @@
   en:
     title: Authentication mechanism absence or evasion - AWS
     description: >
-      __empty__
+      The system has not been configured with one
+      of the AWS authentication mechanism available
+      or has one that can be bypassed.
     impact: >
-      __empty__
+      Access among the most critical parts of
+      an information security program.
     recommendation: >
-      __empty__
+      Set up the operating AWS system authentication
+      mechanisms based and evaluating the business
+      security requirements.
     threat: >
-      __empty__
+      Probability of an unauthorized attacker
+      bypassing the authentication process.
   es:
     title: Authentication mechanism absence or evasion - AWS
     description: >
-      __empty__
+      El sistema no ha sido configurado con uno
+      de los mecanismos de autenticación de AWS
+      disponibles o tiene uno que puede ser eludido.
     impact: >
-      __empty__
+      El acceso es una de las partes más críticas de
+      un programa de seguridad de la información.
     recommendation: >
-      __empty__
+      Configurar los mecanismos de autenticación del
+      sistema operativo AWS basándose y evaluando los
+      requisitos de seguridad de la empresa.
     threat: >
-      __empty__
+      Probabilidad de que un atacante no autorizado
+      se salte el proceso de autenticación.
   category: Subvert Access
   score:
     base:
@@ -14520,7 +14532,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
