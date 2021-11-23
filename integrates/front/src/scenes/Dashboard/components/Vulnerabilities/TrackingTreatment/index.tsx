@@ -37,18 +37,11 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
           treatment.treatment === "ACCEPTED_UNDEFINED";
 
         if (
-          index === 0 ||
-          (index < array.length - 1 &&
-            treatment.treatment !== array[index + 1].treatment)
+          (index === 0 ||
+            (index < array.length - 1 &&
+              treatment.treatment !== array[index + 1].treatment)) &&
+          !isAcceptedUndefined
         ) {
-          if (
-            index === 0 &&
-            isAcceptedUndefined &&
-            treatment.acceptanceStatus === "SUBMITTED"
-          ) {
-            return currentValue;
-          }
-
           return [...currentValue, treatment];
         }
         if (isAcceptedUndefined && treatment.acceptanceStatus === "APPROVED") {
@@ -58,7 +51,7 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
           ];
         }
 
-        if (!isAcceptedUndefined) {
+        if (!isAcceptedUndefined || index === array.length - 1) {
           return [...currentValue, treatment];
         }
 

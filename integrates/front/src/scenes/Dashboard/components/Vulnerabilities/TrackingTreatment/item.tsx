@@ -50,10 +50,11 @@ export const TrackingTreatment: React.FC<IHistoricTreatment> = ({
           )}
           {treatment === "ACCEPTED_UNDEFINED" && !isPendingToApproval ? (
             <React.Fragment>
-              {_.isEmpty(acceptanceDate) ? undefined : (
+              {_.isEmpty(acceptanceDate) ||
+              _.isUndefined(acceptanceDate) ? undefined : (
                 <TrackingLabel>
                   {t("searchFindings.tabVuln.contentTab.tracking.requestDate")}
-                  &nbsp;{acceptanceDate?.split(" ")[0]}
+                  &nbsp;{acceptanceDate.split(" ")[0]}
                 </TrackingLabel>
               )}
               <TrackingLabel>
