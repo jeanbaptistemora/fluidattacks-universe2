@@ -5,7 +5,7 @@
   deployTerraform = {
     modules = {
       sorts = {
-        setup = [ outputs."/secretsForAwsFromEnv/sortsDev" ];
+        setup = [ outputs."/secretsForAwsFromEnv/sortsProd" ];
         src = "/makes/foss/modules/sorts/infra/infra";
         version = "1.0";
       };
