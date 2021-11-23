@@ -39,10 +39,10 @@ def deploy_hyperparameter_tuning_job() -> None:
         objective_metric_name="fscore",
         objective_type="Maximize",
         hyperparameter_ranges=MODEL_HYPERPARAMETERS[model],
-        tags={
-            "management:area": "cost",
-            "management:type": "product",
-        },
+        tags=[
+            {"Key": "management:area", "Value": "cost"},
+            {"Key": "management:type", "Value": "product"},
+        ],
     )
 
     tuner.fit({"train": DATASET_PATH})

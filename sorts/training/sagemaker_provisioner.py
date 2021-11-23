@@ -51,10 +51,10 @@ def get_estimator(
         debugger_hook_config=False,
         use_spot_instances=True,
         max_wait=86400,
-        tags={
-            "management:area": "cost",
-            "management:type": "product",
-        },
+        tags=[
+            {"Key": "management:area", "Value": "cost"},
+            {"Key": "management:type", "Value": "product"},
+        ],
     )
 
     return sklearn_estimator
