@@ -77,18 +77,13 @@
   lintTerraform = {
     modules = {
       skims = {
-        setup = [ outputs."/secretsForAwsFromEnv/skimsDev" ];
+        setup = [ outputs."/secretsForAwsFromEnv/dev" ];
         src = "/skims/infra";
         version = "1.0";
       };
     };
   };
   secretsForAwsFromEnv = {
-    skimsDev = {
-      accessKeyId = "SKIMS_DEV_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "SKIMS_DEV_AWS_SECRET_ACCESS_KEY";
-      sessionToken = "AWS_SESSION_TOKEN";
-    };
     skimsProd = {
       accessKeyId = "SKIMS_PROD_AWS_ACCESS_KEY_ID";
       secretAccessKey = "SKIMS_PROD_AWS_SECRET_ACCESS_KEY";
@@ -103,7 +98,7 @@
   testTerraform = {
     modules = {
       skims = {
-        setup = [ outputs."/secretsForAwsFromEnv/skimsDev" ];
+        setup = [ outputs."/secretsForAwsFromEnv/dev" ];
         src = "/skims/infra";
         version = "1.0";
       };

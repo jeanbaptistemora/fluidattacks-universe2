@@ -39,7 +39,7 @@ in
             outputs."/skims/test/mocks/ssl/unsafe"
           ];
           source = [
-            outputs."/secretsForAwsFromEnv/skimsDev"
+            outputs."/secretsForAwsFromEnv/dev"
             outputs."/skims/config-runtime"
             outputs."/skims/env/development"
             (makeTemplate {

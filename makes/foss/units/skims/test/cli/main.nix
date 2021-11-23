@@ -16,7 +16,7 @@ makeScript {
       inputs.nixpkgs.kubectl
     ];
     source = [
-      outputs."/secretsForAwsFromEnv/skimsDev"
+      outputs."/secretsForAwsFromEnv/dev"
       outputs."/utils/sops"
       outputs."/utils/aws"
     ];
