@@ -23,7 +23,7 @@ function main {
     && DAEMON=true integrates-storage \
     && DAEMON=true dynamodb-for-integrates \
     && echo "[INFO] Running DevSecOps agent check..." \
-    && mkdir "${out}" \
+    && mkdir -p "${out}" \
     && forces --token "${TEST_FORCES_TOKEN}" > "${out}/forces-output.log" || true \
     && check_output "${out}/forces-output.log" \
     && rm -rf "${out}" \

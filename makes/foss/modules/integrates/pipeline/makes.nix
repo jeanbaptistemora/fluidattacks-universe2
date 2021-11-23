@@ -534,6 +534,14 @@ in
           };
         }
         {
+          output = "/integrates/web/check-schema-changes";
+          gitlabExtra = gitlabPostDeployDev // {
+            needs = [
+              "/integrates/back/deploy/dev"
+            ];
+          };
+        }
+        {
           output = "/lintPython/dirOfModules/integrates";
           gitlabExtra = gitlabLint;
         }
