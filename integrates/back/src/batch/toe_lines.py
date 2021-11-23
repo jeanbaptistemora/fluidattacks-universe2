@@ -92,6 +92,9 @@ toe_lines_add = retry_on_exceptions(
 toe_lines_update = retry_on_exceptions(
     exceptions=(UnavailabilityError,), sleep_seconds=5
 )(toe_lines_domain.update)
+files_get_lines_count = retry_on_exceptions(exceptions=(OSError,))(
+    files_utils.get_lines_count
+)
 
 
 async def get_present_filenames(
@@ -194,7 +197,7 @@ async def get_present_toe_lines_to_add(
     )
     last_locs = await collect(
         tuple(
-            files_utils.get_lines_count(f"{repo_nickname}/{filename}")
+            files_get_lines_count(f"{repo_nickname}/{filename}")
             for filename in non_db_filenames
         ),
         workers=500,
@@ -273,7 +276,7 @@ async def get_present_toe_lines_to_update(
     )
     last_locs = await collect(
         tuple(
-            files_utils.get_lines_count(f"{repo_nickname}/{filename}")
+            files_get_lines_count(f"{repo_nickname}/{filename}")
             for filename in db_filenames
         ),
         workers=500,
