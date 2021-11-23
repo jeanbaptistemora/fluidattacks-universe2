@@ -14,15 +14,6 @@ VULN: str = "test/static/terraform/vulnerable"
 NOT_EXISTS: str = "test/static/terraform/not-exists"
 
 
-def test_is_publicly_accessible():
-    """test rds.is_publicly_accessible."""
-    result = rds.is_publicly_accessible(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 1
-    assert rds.is_publicly_accessible(SAFE).is_closed()
-    assert rds.is_publicly_accessible(NOT_EXISTS).is_unknown()
-
-
 def test_is_not_inside_a_db_subnet_group():
     """test rds.is_not_inside_a_db_subnet_group."""
     result = rds.is_not_inside_a_db_subnet_group(VULN)

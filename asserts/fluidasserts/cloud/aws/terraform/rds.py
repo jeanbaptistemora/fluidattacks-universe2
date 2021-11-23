@@ -30,53 +30,6 @@ from typing import (
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def is_publicly_accessible(
-    path: str, exclude: Optional[List[str]] = None
-) -> tuple:
-    """
-    Check if any ``aws_db_instance`` is Internet facing (a.k.a. public).
-
-    The following checks are performed:
-
-    * F22 RDS instance should not be publicly accessible
-
-    :param path: Location of Terraform template file.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if **publicly_accessible** attribute is set to
-                **true**.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-        starting_path=path,
-        resource_types=[
-            "aws_db_instance",
-        ],
-        exclude=exclude,
-    ):
-        is_public: bool = res_props.get("publicly_accessible", False)
-
-        if helper.to_boolean(is_public):
-            vulnerabilities.append(
-                Vulnerability(
-                    path=yaml_path,
-                    entity=res_props["type"],
-                    identifier=res_name,
-                    reason="is publicly accessible",
-                )
-            )
-
-    return _get_result_as_tuple(
-        vulnerabilities=vulnerabilities,
-        msg_open="RDS instances are publicly accessible",
-        msg_closed="RDS instances are not publicly accessible",
-    )
-
-
-@api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError)
 def is_not_inside_a_db_subnet_group(
     path: str, exclude: Optional[List[str]] = None
 ) -> tuple:
