@@ -36,6 +36,7 @@ from dynamodb.exceptions import (
     UnavailabilityError,
 )
 from git.exc import (
+    GitCommandError,
     InvalidGitRepositoryError,
     NoSuchPathError,
 )
@@ -95,15 +96,15 @@ toe_lines_update = retry_on_exceptions(
 files_get_lines_count = retry_on_exceptions(exceptions=(OSError,))(
     files_utils.get_lines_count
 )
-git_get_last_commit_hash = retry_on_exceptions(exceptions=(OSError,))(
-    git_utils.get_last_commit_hash
-)
-git_get_last_modified_date = retry_on_exceptions(exceptions=(OSError,))(
-    git_utils.get_last_modified_date
-)
-git_get_last_commit_author = retry_on_exceptions(exceptions=(OSError,))(
-    git_utils.get_last_commit_author
-)
+git_get_last_commit_hash = retry_on_exceptions(
+    exceptions=(OSError, GitCommandError)
+)(git_utils.get_last_commit_hash)
+git_get_last_modified_date = retry_on_exceptions(
+    exceptions=(OSError, GitCommandError)
+)(git_utils.get_last_modified_date)
+git_get_last_commit_author = retry_on_exceptions(
+    exceptions=(OSError, GitCommandError)
+)(git_utils.get_last_commit_author)
 
 
 async def get_present_filenames(
