@@ -37,6 +37,7 @@ from dynamodb.exceptions import (
 )
 from git.exc import (
     InvalidGitRepositoryError,
+    NoSuchPathError,
 )
 from git.repo.base import (
     Repo,
@@ -350,6 +351,17 @@ async def refresh_active_root_repo_toe_lines(
     except InvalidGitRepositoryError:
         LOGGER.error(
             "Invalid repository",
+            extra={
+                "extra": {
+                    "group_name": group_name,
+                    "repository": root_repo.state.nickname,
+                }
+            },
+        )
+        return
+    except NoSuchPathError:
+        LOGGER.error(
+            "No such repository path",
             extra={
                 "extra": {
                     "group_name": group_name,
