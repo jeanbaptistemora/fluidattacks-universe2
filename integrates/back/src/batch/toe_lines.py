@@ -344,6 +344,7 @@ def pull_repositories(
     if optional_repo_nickname:
         call_melts.append(f"--name {optional_repo_nickname}")
     os.system(" ".join(call_melts))  # nosec
+    os.system(f"chmod -R +r {os.path.join(tmpdir, 'groups')}")  # nosec
 
 
 async def refresh_active_root_repo_toe_lines(
