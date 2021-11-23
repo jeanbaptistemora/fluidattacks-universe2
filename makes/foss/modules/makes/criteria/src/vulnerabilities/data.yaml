@@ -11441,23 +11441,45 @@
   en:
     title: Lack of data validation - Modify DOM Elements
     description: >
-      __empty__
+      Adding a DOM (Document Object Model) element
+      is an expensive operation.
+      Code that adds multiple DOM elements consecutively
+      without correct validation of each one, is
+      inefficient and likely not to work well.
     impact: >
-      __empty__
+      - Lack of data validation in program leads to
+      buffer overflows, integer overflows, array
+      index errors, and memory corruption.
+
+      - An attacker could provide unexpected
+      values and cause a program crash.
     recommendation: >
-      __empty__
+      Manipulate the DOM (i.e., add, modify, and
+      remove elements) efficiently and effectively.
     threat: >
-      __empty__
+      An attacker could read confidential data.
   es:
     title: Lack of data validation - Modify DOM Elements
     description: >
-      __empty__
+      Añadir un elemento DOM (Document Object Model)
+      es una operación costosa.
+      El código que añade múltiples elementos DOM
+      consecutivamente sin una validación correcta
+      de cada uno, es ineficiente y probablemente.
+      no funcione bien.
     impact: >
-      __empty__
+      - La falta de validación de datos en el
+      programa conduce a desbordamientos de búfer,
+      desbordamientos de enteros, errores de índice
+      de matriz y corrupción de memoria.
+
+      - Un atacante podría proporcionar valores
+      inesperados y causar una caída del programa
     recommendation: >
-      __empty__
+      Manipular el DOM (es decir, añadir, modificar
+      y eliminar elementos) de forma eficiente y eficaz.
     threat: >
-      __empty__
+      Un atacante podría leer datos confidenciales.
   category: Inject Unexpected
   score:
     base:
@@ -11466,7 +11488,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
