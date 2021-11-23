@@ -6,11 +6,6 @@
     ./tests/makes.nix
   ];
   secretsForAwsFromEnv = {
-    sortsDev = {
-      accessKeyId = "SORTS_DEV_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "SORTS_DEV_AWS_SECRET_ACCESS_KEY";
-      sessionToken = "AWS_SESSION_TOKEN";
-    };
     sortsProd = {
       accessKeyId = "SORTS_PROD_AWS_ACCESS_KEY_ID";
       secretAccessKey = "SORTS_PROD_AWS_SECRET_ACCESS_KEY";
