@@ -95,6 +95,15 @@ toe_lines_update = retry_on_exceptions(
 files_get_lines_count = retry_on_exceptions(exceptions=(OSError,))(
     files_utils.get_lines_count
 )
+git_get_last_commit_hash = retry_on_exceptions(exceptions=(OSError,))(
+    git_utils.get_last_commit_hash
+)
+git_get_last_modified_date = retry_on_exceptions(exceptions=(OSError,))(
+    git_utils.get_last_modified_date
+)
+git_get_last_commit_author = retry_on_exceptions(exceptions=(OSError,))(
+    git_utils.get_last_commit_author
+)
 
 
 async def get_present_filenames(
@@ -204,21 +213,21 @@ async def get_present_toe_lines_to_add(
     )
     last_modified_commits = await collect(
         tuple(
-            git_utils.get_last_commit_hash(repo, filename)
+            git_get_last_commit_hash(repo, filename)
             for filename in non_db_filenames
         ),
         workers=500,
     )
     last_modified_dates = await collect(
         tuple(
-            git_utils.get_last_modified_date(repo, filename)
+            git_get_last_modified_date(repo, filename)
             for filename in non_db_filenames
         ),
         workers=500,
     )
     last_commit_authors = await collect(
         tuple(
-            git_utils.get_last_commit_author(repo, filename)
+            git_get_last_commit_author(repo, filename)
             for filename in non_db_filenames
         ),
         workers=500,
@@ -283,21 +292,21 @@ async def get_present_toe_lines_to_update(
     )
     last_modified_commits = await collect(
         tuple(
-            git_utils.get_last_commit_hash(repo, filename)
+            git_get_last_commit_hash(repo, filename)
             for filename in db_filenames
         ),
         workers=500,
     )
     last_modified_dates = await collect(
         tuple(
-            git_utils.get_last_modified_date(repo, filename)
+            git_get_last_modified_date(repo, filename)
             for filename in db_filenames
         ),
         workers=500,
     )
     last_commit_authors = await collect(
         tuple(
-            git_utils.get_last_commit_author(repo, filename)
+            git_get_last_commit_author(repo, filename)
             for filename in db_filenames
         ),
         workers=500,
