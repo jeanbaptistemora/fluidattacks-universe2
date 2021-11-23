@@ -54,16 +54,6 @@ def is_valid_url(url: str) -> bool:
     return bool(url_attributes.netloc and url_attributes.scheme)
 
 
-def is_valid_repo_url(url: str) -> bool:
-    url_attributes: ParseResult = urlparse(url)
-
-    return bool(
-        url_attributes.scheme
-        and url_attributes.netloc
-        and url_attributes.path.rstrip("/")
-    )
-
-
 def is_valid_git_branch(branch_name: str) -> bool:
     try:
         Git().check_ref_format("--branch", branch_name)

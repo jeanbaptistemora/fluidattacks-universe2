@@ -64,6 +64,7 @@ from urllib3.util.url import (
     parse_url,
 )
 from urllib.parse import (
+    ParseResult,
     unquote,
     urlparse,
 )
@@ -172,7 +173,7 @@ async def add_git_root(
 
     loaders.group_roots.clear(group_name)
     if not (
-        validations.is_valid_repo_url(url)
+        validations.is_valid_url(url)
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
@@ -351,15 +352,19 @@ async def add_url_root(
 
 
 def _get_nickname_from_url(url: str) -> str:
-    last_path = urlparse(url).path.split("/")[-1]
+    url_attributes: ParseResult = urlparse(url)
+    if not url_attributes.path:
+        last_path: str = urlparse(url).netloc.split(":")[-1]
+    else:
+        last_path = urlparse(url).path.split("/")[-1]
 
     return re.sub(r"(?![a-zA-Z_0-9-]).", "_", last_path[:128])
 
 
 def _format_root_nickname(nickname: str, url: str) -> str:
-    nick = nickname if nickname else _get_nickname_from_url(url)
+    nick: str = nickname if nickname else _get_nickname_from_url(url)
     # Return the repo name as nickname
-    if nick.endswith(".git"):
+    if nick.endswith("_git"):
         return nick[:-4]
     return nick
 
@@ -422,7 +427,7 @@ async def update_git_root(
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
     if not (
-        validations.is_valid_repo_url(url)
+        validations.is_valid_url(url)
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
