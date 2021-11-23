@@ -14547,23 +14547,39 @@
   en:
     title: Authentication mechanism absence or evasion - WiFi
     description: >
-      __empty__
+      Te system has one old authentication mechanism
+      that can be bypassed and be vulnerable to an intrusion.
+      An attacker can gain access to the network and see
+      communication traffic, whether encrypted or not.
     impact: >
-      __empty__
+      Fragil encryption technique in authentication
+      become a target for exploitation.
     recommendation: >
-      __empty__
+      - Select the most secure authentication method
+      that is supported by your wireless network clients.
+
+      - Set up strong encryption algorithms in order
+      to enforce authentication protocol.
     threat: >
-      __empty__
+      Unauthenticated internal attacker.
   es:
     title: Authentication mechanism absence or evasion - WiFi
     description: >
-      __empty__
+      El sistema Te tiene un mecanismo de autenticación
+      antiguo que puede ser evitado y ser vulnerable a una intrusión.
+      Un atacante puede acceder a la red y ver el tráfico
+      de comunicaciones, ya sea cifrado o no.
     impact: >
-      __empty__
+      Una frágil técnica de encriptación en la autenticación
+      se convierte en un objetivo de explotación.
     recommendation: >
-      __empty__
+      - Seleccione el método de autenticación más
+      seguro que admitan los clientes de su red inalámbrica.
+
+      - Establezca algoritmos de encriptación fuertes
+      para aplicar el protocolo de autenticación.
     threat: >
-      __empty__
+      Atacante interno sin autenticar
   category: Subvert Access
   score:
     base:
@@ -14572,7 +14588,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
