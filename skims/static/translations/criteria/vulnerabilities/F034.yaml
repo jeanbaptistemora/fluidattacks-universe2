@@ -1,15 +1,15 @@
 src.lib_path.f034.csharp_insecure_randoms.description:
-  en: Use of C# System.Random in {path}
-  es: Uso de C# System.Random en {path}
+  en: Use of C# System.Random
+  es: Uso de C# System.Random
 src.lib_path.f034.java_use_of_lang_math_random.description:
-  en: Use of Java lang.Math.random in {path}
-  es: Uso de Java lang.Math.random en {path}
+  en: Use of Java lang.Math.random
+  es: Uso de Java lang.Math.random
 src.lib_path.f034.java_use_of_util_random.description:
-  en: Use of Java util.Random in {path}
-  es: Uso de Java util.Random en {path}
+  en: Use of Java util.Random
+  es: Uso de Java util.Random
 src.lib_path.f034.javascript_insecure_randoms.description:
-  en: Use of Javascript Math.random in {path}
-  es: Uso de Javascript Math.random en {path}
+  en: Use of Javascript Math.random
+  es: Uso de Javascript Math.random
 F034.description:
   en: >
     The system uses insecure functions, insufficient ranges or low-entropy

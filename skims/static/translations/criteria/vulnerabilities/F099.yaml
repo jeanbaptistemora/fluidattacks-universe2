@@ -1,6 +1,6 @@
 src.lib_path.f099.bckp_has_server_side_encryption_disabled:
-  en: Buckets have Server-Side Encryption disabled..
-  es: Los Buckets tienen el cifrado del lado del servidor deshabilitado..
+  en: Buckets have Server-Side Encryption disabled
+  es: Los Buckets tienen el cifrado del lado del servidor deshabilitado
 F099.title:
   en: >
     Non-encrypted confidential information - S3 Server Side Encryption

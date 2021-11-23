@@ -1,6 +1,6 @@
 src.lib_path.f117.unverifiable_files.description:
-  en: Unverifiable file in {path}
-  es: Archivo no verificable en {path}
+  en: Unverifiable file
+  es: Archivo no verificable
 F117.description:
   en: >
     The repository is storing files that either can not be verified nor

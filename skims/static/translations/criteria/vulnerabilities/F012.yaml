@@ -1,6 +1,6 @@
 src.lib_path.f001_jpa.java_like.description:
-  en: LIKE statement without escape in {path}
-  es: LIKE sin uso de escape en {path}
+  en: LIKE statement without escape
+  es: LIKE sin uso de escape
 F012.description:
   en: >
     Dynamic SQL statements are generated without the required data validation

@@ -1,27 +1,27 @@
 src.lib_path.f009.java_properties_sensitive_data:
-  en: Sensitive information in {path}
-  es: Información sensible en {path}
+  en: Sensitive information
+  es: Información sensible
 src.lib_path.f009.aws_credentials.description:
-  en: AWS credential in {path}
-  es: Credencial de AWS en {path}
+  en: AWS credential
+  es: Credencial de AWS
 src.lib_path.f009.jwt_token.description:
-  en: JWT token in {path}
-  es: Token JWT en {path}
+  en: JWT token
+  es: Token JWT
 src.lib_path.f009.crypto_js_credentials.description:
   en: CryptoJS plaintext data source in {path}
   es: Fuente de datos en texto plano para CryptoJS en {path}
 src.lib_path.f009.dockerfile_env_secrets.description:
-  en: Dockerfile credentials in {path}
-  es: Credenciales de Docker en {path}
+  en: Dockerfile credentials
+  es: Credenciales de Docker
 src.lib_path.f009.sensitive_key_in_json.description:
-  en: Sensitive key value in {path}
-  es: Credenciales almacenadas in {path}
+  en: Sensitive key value
+  es: Credenciales almacenadas
 src.lib_path.f009.web_config_db_connection.description:
-  en: Database connection string in {path}
-  es: Cadena de conexión a la base de datos en {path}
+  en: Database connection string
+  es: Cadena de conexión a la base de datos
 src.lib_path.f009.web_config_user_pass.description:
-  en: Sensitive information in {path}
-  es: Información sensible en {path}
+  en: Sensitive information
+  es: Información sensible
 F009.description:
   en: >
     The source code repository

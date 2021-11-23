@@ -142,10 +142,8 @@ def get_vulnerabilities_blocking(
             where=f"{match.start_line}",
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),
-                description=t(
-                    key=description_key,
-                    path=f"{CTX.config.namespace}/{path}",
-                ),
+                description=f"{t(key=description_key)} {t(key='words.in')} "
+                f"{CTX.config.namespace}/{path}",
                 snippet=make_snippet(
                     content=content,
                     viewport=SnippetViewport(
@@ -183,10 +181,8 @@ def get_vulnerabilities_from_iterator_blocking(
             where=f"{line_no}",
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),
-                description=t(
-                    key=description_key,
-                    path=f"{CTX.config.namespace}/{path}",
-                ),
+                description=f"{t(key=description_key)} {t(key='words.in')} "
+                f"{CTX.config.namespace}/{path}",
                 snippet=make_snippet(
                     content=content,
                     viewport=SnippetViewport(column=column_no, line=line_no),

@@ -2,14 +2,14 @@ src.lib_path.f031.bucket_policy_allows_public_access:
   en: S3 buckets allow unauthorized public access via bucket policies
   es: Los buckets de S3 permiten el acceso público no autorizado a través de políticas del bucket
 src.lib_path.f031_aws.open_passrole:
-  en: iam:PassRole with wildcard resource allows an elevation of privileges, {path}
-  es: iam:PassRole con recurso no especifico permite una elevación de privilegios, {path}
+  en: iam:PassRole with wildcard resource allows an elevation of privileges
+  es: iam:PassRole con recurso no especifico permite una elevación de privilegios
 src.lib_path.f031_aws.permissive_policy:
-  en: Excessive privileges in {path}
-  es: Privilegios excesivos in {path}
+  en: Excessive privileges
+  es: Privilegios excesivos
 src.lib_path.f031_aws.negative_statement:
-  en: Excessive privileges in {path}, avoid the use of negative statements
-  es: Privilegios excesivos en {path}, evitar el uso de políticas negativas
+  en: Excessive privileges, avoid the use of negative statements
+  es: Privilegios excesivos, evitar el uso de políticas negativas
 F031.description:
   en: >
     The application, a user or a role have more privileges than they require.

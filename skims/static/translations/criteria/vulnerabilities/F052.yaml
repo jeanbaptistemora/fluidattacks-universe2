@@ -1,9 +1,9 @@
 src.lib_path.f052.java_properties_missing_ssl:
-  en: Missing SSL in {path}
-  es: Ausencia de SSL en {path}
+  en: Missing SSL
+  es: Ausencia de SSL
 src.lib_path.f052.java_properties_weak_cipher_suite:
-  en: Use of insecure cipher suite in {path}
-  es: Use de suite de cifrado insegura en {path}
+  en: Use of insecure cipher suite
+  es: Use de suite de cifrado insegura
 src.lib_path.f052.insecure_cipher.description:
   en: Use of insecure encryption algorithm in {path}
   es: Uso de algoritmo de cifrado inseguro en {path}

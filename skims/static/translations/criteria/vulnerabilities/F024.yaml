@@ -1,34 +1,34 @@
 src.lib_path.f024_aws.unrestricted_protocols:
   en: >
     The ingress/egress rules of the SecurityGroup allow the use of all ip
-    protocols.
+    protocols
   es: >
     Las reglas ingress/egress de los SecurityGroup permiten el uso de todos los
-    protocolos ip.
+    protocolos ip
 src.lib_path.f024_aws.allows_anyone_to_admin_ports:
   en: >
     The ingress rules of the SecurityGroups allow access to administrative
-    ports to everyone.
+    ports to everyone
   es: >
     Las reglas ingress de los SecurityGroups permiten el acceso a puertos
-    administrativos a todo el mundo.
+    administrativos a todo el mundo
 src.lib_path.f024_aws.unrestricted_ports:
-  en: The ingress/egress rules of the SecurityGroup use port ranges.
-  es: Las reglas ingress/egress de los SecurityGroup usan rangos de puertos.
+  en: The ingress/egress rules of the SecurityGroup use port ranges
+  es: Las reglas ingress/egress de los SecurityGroup usan rangos de puertos
 src.lib_path.f024_aws.unrestricted_cidrs:
-  en: The ingress/egress rules of the SecurityGroup use cidrs open to everyone.
-  es: Las reglas ingress/egress de los SecurityGroup usan cidrs abiertos a todo el mundo.
+  en: The ingress/egress rules of the SecurityGroup use cidrs open to everyone
+  es: Las reglas ingress/egress de los SecurityGroup usan cidrs abiertos a todo el mundo
 src.lib_path.f024_aws.security_group_without_egress:
-  en: Missing egress rules allows all egress traffic, explicitly define egress rules.
+  en: Missing egress rules allows all egress traffic, explicitly define egress rules
   es: >
     La falta de reglas de salida permite todo el tráfico de salida, defina
-    explícitamente las reglas de salida.
+    explícitamente las reglas de salida
 src.lib_path.f024_aws.instances_without_profile:
   en: EC2 instances require credentials to access other AWS services
   es: Las instancias EC2 requieren credenciales para acceder a otros servicios AWS
 src.lib_path.f024_aws.public_buckets:
-  en: S3 buckets are publicly accessible for read or write operations.
-  es: Los buckets S3 son accesibles públicamente para operaciones de lectura o escritura.
+  en: S3 buckets are publicly accessible for read or write operations
+  es: Los buckets S3 son accesibles públicamente para operaciones de lectura o escritura
 F024.description:
   en: >
     The system’s network configuration does not properly limit access between

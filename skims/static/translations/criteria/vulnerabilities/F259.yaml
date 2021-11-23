@@ -1,8 +1,8 @@
 src.lib_path.f259.has_not_point_in_time_recovery:
   en: >
-    PointInTimeRecoveryEnabled property is not enabled.
+    PointInTimeRecoveryEnabled property is not enabled
   es: >
-    La propiedad PointInTimeRecoveryEnabled no está habilitada.
+    La propiedad PointInTimeRecoveryEnabled no está habilitada
 F259.title:
   en: >
     Lack of protection against deletion - DynamoDB
