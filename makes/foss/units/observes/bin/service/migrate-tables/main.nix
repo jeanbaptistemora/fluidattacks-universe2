@@ -8,7 +8,7 @@ makeScript {
   '';
   searchPaths = {
     source = [
-      outputs."/observes/env/service-migrate-tables/runtime"
+      outputs."/observes/service/migrate-tables/env/runtime"
       outputs."/observes/common/import-and-run"
     ];
   };

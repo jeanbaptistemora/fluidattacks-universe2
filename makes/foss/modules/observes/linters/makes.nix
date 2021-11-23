@@ -188,21 +188,21 @@
       };
       observesServiceBatchStability = {
         searchPaths.source = [
-          outputs."/observes/env/service-batch-stability/runtime"
+          outputs."/observes/service/batch-stability/env/runtime"
         ];
         python = "3.8";
         src = "/observes/services/batch_stability/batch_stability";
       };
       observesServiceJobsScheduler = {
         searchPaths.source = [
-          outputs."/observes/env/service-jobs-scheduler/runtime"
+          outputs."/observes/service/jobs-scheduler/env/runtime"
         ];
         python = "3.8";
         src = "/observes/services/jobs_scheduler/jobs_scheduler";
       };
       observesServiceMigrateTables = {
         searchPaths.source = [
-          outputs."/observes/env/service-migrate-tables/runtime"
+          outputs."/observes/service/migrate-tables/env/runtime"
         ];
         python = "3.8";
         src = "/observes/services/migrate_tables/migrate_tables";
@@ -342,7 +342,7 @@
       };
       observesServiceTimedoctorTokens = {
         searchPaths.source = [
-          outputs."/observes/env/service-timedoctor-tokens/runtime"
+          outputs."/observes/service/timedoctor-tokens/env/runtime"
         ];
         python = "3.8";
         src = "/observes/services/timedoctor_tokens/timedoctor_tokens";

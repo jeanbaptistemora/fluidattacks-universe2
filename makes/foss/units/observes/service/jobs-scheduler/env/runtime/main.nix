@@ -8,7 +8,7 @@ let
   self = projectPath "/observes/services/jobs_scheduler";
 in
 makeTemplate {
-  name = "observes-env-service-jobs-scheduler-runtime";
+  name = "observes-service-jobs-scheduler-env-runtime";
   searchPaths = {
     export = builtins.attrValues (builtins.mapAttrs
       (name: output: [ name output "/bin/${output.name}" ])
@@ -32,7 +32,7 @@ makeTemplate {
     pythonPackage = [ self ];
     source = [
       (makePythonPypiEnvironment {
-        name = "observes-env-service-jobs-scheduler-runtime";
+        name = "observes-service-jobs-scheduler-env-runtime-python";
         sourcesYaml = ./pypi-sources.yaml;
       })
       outputs."/observes/env/utils-logger/runtime"

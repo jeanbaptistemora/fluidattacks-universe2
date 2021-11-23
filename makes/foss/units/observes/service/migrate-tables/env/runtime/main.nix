@@ -1,13 +1,14 @@
 { makePythonPypiEnvironment
 , makeTemplate
+, outputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/services/batch_stability";
+  self = projectPath "/observes/services/migrate_tables";
 in
 makeTemplate {
-  name = "observes-env-runtime-batch-stability";
+  name = "observes-service-migrate-tables-env-runtime";
   searchPaths = {
     pythonMypy = [
       self
@@ -17,9 +18,10 @@ makeTemplate {
     ];
     source = [
       (makePythonPypiEnvironment {
-        name = "observes-env-runtime-batch-stability";
+        name = "observes-service-migrate-tables-env-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
+      outputs."/observes/env/postgres-client/runtime"
     ];
   };
 }

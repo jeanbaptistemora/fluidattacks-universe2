@@ -9,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/env/service-jobs-scheduler/runtime"
+      outputs."/observes/service/jobs-scheduler/env/runtime"
     ];
   };
   name = "observes-bin-service-jobs-scheduler";

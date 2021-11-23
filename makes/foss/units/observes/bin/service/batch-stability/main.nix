@@ -9,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/env/service-batch-stability/runtime"
+      outputs."/observes/service/batch-stability/env/runtime"
     ];
   };
   name = "observes-bin-service-batch-stability";

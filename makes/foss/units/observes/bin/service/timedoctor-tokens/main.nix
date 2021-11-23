@@ -9,7 +9,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/env/service-timedoctor-tokens/runtime"
+      outputs."/observes/service/timedoctor-tokens/env/runtime"
     ];
   };
   name = "observes-bin-service-timedoctor-tokens";
