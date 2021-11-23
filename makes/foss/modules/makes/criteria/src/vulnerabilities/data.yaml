@@ -13723,32 +13723,71 @@
   en:
     title: Business information leak - NAC
     description: >
-      __empty__
+      An organization can set its own policies
+      for each user with NAC, it could result in
+      too much information that sometimes overload it.
+      On the other hand, attackers use malicious
+      devices, they install malicious devices between
+      a legitimate device and the switch, compromising
+      and allowing information leakage.
     impact: >
-      __empty__
+      Disrupt the NAC infrastructure to make it inaccessible.
     recommendation: >
-      __empty__
+      - Implement NAC can drastically improve an
+      organization's network security posture.
+
+      - A clean NAC solution can greatly increase
+      the difficulty of a successful attack.
+
+      - MAC-based NAC should not be used due to it is
+      easy for a hacker to spoof a MAC address.
+
+      - Ensure that no devices with access to the
+      internal client network are used in publicly
+      accessible areas.
     threat: >
-      __empty__
+      It is possible to circumvent the NAC solution
+      by using a man-in-the-middle attack.
   es:
     title: Business information leak - NAC
     description: >
-      __empty__
+      Una organización puede establecer sus propias
+      políticas para cada usuario con NAC, podría
+      resultar en demasiada información que a
+      veces la sobrecarga.
+      Por otro lado, los atacantes utilizan dispositivos
+      maliciosos, instalan dispositivos maliciosos entre
+      un dispositivo legítimo y el switch, comprometiendo
+      y permitiendo la fuga de información.
     impact: >
-      __empty__
+      Interrumpir la infraestructura del NAC
+      para hacerla inaccesible.
     recommendation: >
-      __empty__
+      - Implementar NAC puede mejorar drásticamente
+      la postura de seguridad de la red de una organización.
+
+      - Una solución NAC limpia puede aumentar en
+      gran medida la dificultad de un ataque exitoso.
+
+      - El NAC basado en MAC no debe ser utilizado
+      debido a que es fácil para un hacker
+      falsificar una dirección MAC.
+
+      - Asegúrese de que no se utilicen dispositivos
+      con acceso a la red interna del cliente en
+      zonas de acceso público.
     threat: >
-      __empty__
+      Es posible eludir la solución NAC mediante
+      un ataque man-in-the-middle.
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "P"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
