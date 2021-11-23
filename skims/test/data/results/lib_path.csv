@@ -6517,6 +6517,54 @@ F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_rec
   51 |         ]
      ^ Col 0
 "
+F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,2,478,skims,073. Improper authorization control for web services - RDS,Improper authorization control for web services - RDS in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
+   1 | resource ""aws_db_instance"" ""default"" {
+>  2 |   publicly_accessible  = true
+   3 |   allocated_storage    = 10
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   deletion_protection  = true
+   7 |   instance_class       = ""db.t3.micro""
+   8 |   name                 = ""mydb""
+   9 |   username             = ""foo""
+  10 |   password             = ""foobarbaz""
+  11 |   parameter_group_name = ""default.mysql5.7""
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+  15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
+  16 |   count               = 2
+  17 |   publicly_accessible = true
+  18 |   identifier          = ""aurora-cluster-demo-${count.index}""
+  19 |   cluster_identifier  = aws_rds_cluster.default.id
+  20 |   instance_class      = ""db.r4.large""
+  21 |   engine              = aws_rds_cluster.default.engine
+     ^ Col 0
+"
+F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,17,478,skims,073. Improper authorization control for web services - RDS,Improper authorization control for web services - RDS in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
+   7 |   instance_class       = ""db.t3.micro""
+   8 |   name                 = ""mydb""
+   9 |   username             = ""foo""
+  10 |   password             = ""foobarbaz""
+  11 |   parameter_group_name = ""default.mysql5.7""
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+  15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
+  16 |   count               = 2
+> 17 |   publicly_accessible = true
+  18 |   identifier          = ""aurora-cluster-demo-${count.index}""
+  19 |   cluster_identifier  = aws_rds_cluster.default.id
+  20 |   instance_class      = ""db.r4.large""
+  21 |   engine              = aws_rds_cluster.default.engine
+  22 |   engine_version      = aws_rds_cluster.default.engine_version
+  23 | }
+  24 |
+  25 | resource ""aws_rds_cluster"" ""default"" {
+  26 |   cluster_identifier  = ""aurora-cluster-demo""
+  27 |   availability_zones  = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
+     ^ Col 0
+"
 F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,10,502,skims,096. Insecure deserialization,"Insecure deserialization
 ","
    1 |  class XmlSerializerTestCase : Controller
