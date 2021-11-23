@@ -8,6 +8,7 @@ import { TrackingLabel } from "styles/styledComponents";
 import { formatDropdownField } from "utils/formatHelpers";
 
 export const TrackingTreatment: React.FC<IHistoricTreatment> = ({
+  acceptanceDate,
   acceptanceStatus,
   date,
   justification,
@@ -47,6 +48,22 @@ export const TrackingTreatment: React.FC<IHistoricTreatment> = ({
               &nbsp;{justification}
             </TrackingLabel>
           )}
+          {treatment === "ACCEPTED_UNDEFINED" && !isPendingToApproval ? (
+            <React.Fragment>
+              {_.isEmpty(acceptanceDate) ? undefined : (
+                <TrackingLabel>
+                  {t("searchFindings.tabVuln.contentTab.tracking.requestDate")}
+                  &nbsp;{acceptanceDate?.split(" ")[0]}
+                </TrackingLabel>
+              )}
+              <TrackingLabel>
+                {t(
+                  "searchFindings.tabVuln.contentTab.tracking.requestApproval"
+                )}
+                &nbsp;{user}
+              </TrackingLabel>
+            </React.Fragment>
+          ) : undefined}
         </div>
       </li>
     </React.StrictMode>

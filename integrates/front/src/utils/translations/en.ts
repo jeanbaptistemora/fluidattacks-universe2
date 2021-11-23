@@ -2169,6 +2169,8 @@ export const enTranslations: ResourceKey = {
           tooltip: "Details",
         },
         tracking: {
+          requestApproval: "Approval: ",
+          requestDate: "Request date: ",
           title: "Tracking",
           tooltip: "Evolution of the vulnerability treatment over time",
         },

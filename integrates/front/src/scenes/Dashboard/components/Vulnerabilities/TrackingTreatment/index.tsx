@@ -28,26 +28,50 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
   const reversedHistoricTreatment = historicTreatment
     .reduce(
       (
+        currentValue: IHistoricTreatment[],
+        treatment: IHistoricTreatment,
+        index: number,
+        array: IHistoricTreatment[]
+      ): IHistoricTreatment[] => {
+        const isAcceptedUndefined: boolean =
+          treatment.treatment === "ACCEPTED_UNDEFINED";
+
+        if (
+          index === 0 ||
+          (index < array.length - 1 &&
+            treatment.treatment !== array[index + 1].treatment)
+        ) {
+          if (
+            index === 0 &&
+            isAcceptedUndefined &&
+            treatment.acceptanceStatus === "SUBMITTED"
+          ) {
+            return currentValue;
+          }
+
+          return [...currentValue, treatment];
+        }
+        if (isAcceptedUndefined && treatment.acceptanceStatus === "APPROVED") {
+          return [
+            ...currentValue,
+            { ...treatment, acceptanceDate: array[index - 1].date },
+          ];
+        }
+
+        if (!isAcceptedUndefined) {
+          return [...currentValue, treatment];
+        }
+
+        return currentValue;
+      },
+      []
+    )
+    .reduce(
+      (
         previousValue: IHistoricTreatment[],
         current: IHistoricTreatment
       ): IHistoricTreatment[] => [current, ...previousValue],
       []
-    )
-    .filter(
-      (
-        treatment: IHistoricTreatment,
-        index: number,
-        arr: IHistoricTreatment[]
-      ): boolean => {
-        const isAcceptedUndefined: boolean =
-          treatment.treatment === "ACCEPTED_UNDEFINED";
-
-        return (
-          index === 0 ||
-          treatment.treatment !== arr[index - 1].treatment ||
-          (isAcceptedUndefined && treatment.acceptanceStatus === "APPROVED")
-        );
-      }
     );
 
   return (
