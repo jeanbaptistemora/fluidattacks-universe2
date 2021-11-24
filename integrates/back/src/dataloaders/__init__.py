@@ -32,6 +32,9 @@ from .organization_stakeholders import (
 from .organization_tags import (
     OrganizationTagsLoader,
 )
+from .root_vulns import (
+    RootVulnsTypedLoader,
+)
 from .vulnerability import (
     VulnerabilityHistoricStateLoader,
     VulnerabilityHistoricTreatmentLoader,
@@ -115,6 +118,7 @@ class Dataloaders(NamedTuple):
     root_states: RootStatesLoader
     root_services_toe_lines: RootServicesToeLinesLoader
     root_toe_lines: RootToeLinesLoader
+    root_vulns_typed: RootVulnsTypedLoader  # Migration
     toe_lines: ToeLinesLoader
     vulnerability_typed: VulnerabilityTypedLoader
     vulnerability_historic_state: VulnerabilityHistoricStateLoader
@@ -141,6 +145,9 @@ def apply_context_attrs(
 
 def get_new_context() -> Dataloaders:
     group_drafts_and_findings_loader = GroupDraftsAndFindingsLoader()
+    group_findings_loader = GroupFindingsLoader(
+        group_drafts_and_findings_loader
+    )
     finding_vulns_loader = FindingVulnsLoader()
     finding_vulns_non_deleted_loader = FindingVulnsNonDeletedLoader(
         finding_vulns_loader
@@ -177,7 +184,7 @@ def get_new_context() -> Dataloaders:
         group=GroupLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
-        group_findings=GroupFindingsLoader(group_drafts_and_findings_loader),
+        group_findings=group_findings_loader,
         group_removed_findings=GroupRemovedFindingsLoader(),
         group_roots=GroupRootsLoader(),
         group_services_toe_lines=GroupServicesToeLinesLoader(),
@@ -191,6 +198,7 @@ def get_new_context() -> Dataloaders:
         root_services_toe_lines=RootServicesToeLinesLoader(),
         root_states=RootStatesLoader(),
         root_toe_lines=RootToeLinesLoader(),
+        root_vulns_typed=RootVulnsTypedLoader(group_findings_loader),
         toe_lines=ToeLinesLoader(),
         vulnerability_typed=VulnerabilityTypedLoader(vulnerability_loader),
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(
