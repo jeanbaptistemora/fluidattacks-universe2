@@ -18,6 +18,7 @@ makeDerivation {
     ];
     source = [
       outputs."/airs/adoc/linter"
+      outputs."/utils/common"
     ];
   };
 }

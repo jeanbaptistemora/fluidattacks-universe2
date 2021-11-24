@@ -5,7 +5,7 @@
 :page-tags: cybersecurity, vulnerability, password, exploit, credential, information
 :page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1636118998/blog/argentina-leak/cover_argentina.webp
 :page-alt: Photo by Chaos Soccer Gear on Unsplash
-:page-description:  This new leak may compromise more than 45M people. Read this post to learn who the attacker is, how he gained access and his connection with past leaks.
+:page-description: This new leak may compromise more than 45M people. Read this post to learn who the attacker is, how he gained access and his connection with past leaks.
 :page-keywords: Argentina, IDs, RENAPER, Messi, Gorra, Leak, Stolen, Ethical Hacking, Pentesting
 :page-author: Jason Chavarría
 :page-writer: jchavarria

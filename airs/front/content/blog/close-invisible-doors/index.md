@@ -9,8 +9,8 @@ image: https://res.cloudinary.com/fluid-attacks/image/upload/v1635442529/blog/cl
 alt: Photo by Nastya Dulhiier on Unsplash
 description: It is just a matter of updating or changing software. However,
   unnoticed vulnerable software equals an open door for criminals.
-keywords: Attack surface, Vulnerabilities, Remediation, Software update,
-  Continuous checks, Data breaches, Intrusion, Ethical Hacking, Pentesting
+keywords: Attack Surface, Vulnerabilities, Remediation, Software Update,
+  Continuous Checks, Data Breaches, Intrusion, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 name: Julian Arango
