@@ -93,14 +93,33 @@ async def create(data: Dict[str, FindingType]) -> bool:
 
 async def create_new(
     vulnerability: Vulnerability,
+    historic_state: Optional[Tuple[VulnerabilityState, ...]] = None,
     historic_treatment: Optional[Tuple[VulnerabilityTreatment, ...]] = None,
+    historic_verification: Optional[
+        Tuple[VulnerabilityVerification, ...]
+    ] = None,
+    historic_zero_risk: Optional[Tuple[VulnerabilityZeroRisk, ...]] = None,
 ) -> bool:
     """Add vulnerability."""
     item = format_vulnerability_item(vulnerability)
+    if historic_state:
+        item["historic_state"] = [
+            format_vulnerability_state_item(state) for state in historic_state
+        ]
     if historic_treatment:
         item["historic_treatment"] = [
             format_vulnerability_treatment_item(treatment)
             for treatment in historic_treatment
+        ]
+    if historic_verification:
+        item["historic_verification"] = [
+            format_vulnerability_verification_item(verification)
+            for verification in historic_verification
+        ]
+    if historic_zero_risk:
+        item["historic_zero_risk"] = [
+            format_vulnerability_zero_risk_item(zero_risk)
+            for zero_risk in historic_zero_risk
         ]
     try:
         return await dynamodb_ops.put_item(TABLE_NAME, item)
