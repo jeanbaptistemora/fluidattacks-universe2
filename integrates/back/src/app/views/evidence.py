@@ -73,6 +73,7 @@ async def get_evidence(request: Request) -> Response:
     allowed_roles = [
         "admin",
         "analyst",
+        "architect",
         "closer",
         "customer",
         "customeradmin",
