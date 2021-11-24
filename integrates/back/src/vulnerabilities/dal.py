@@ -308,24 +308,6 @@ async def update_metadata(
     )
 
 
-async def update_historic_treatment(
-    *,
-    finding_id: str,
-    vulnerability_id: str,
-    historic_treatment: Tuple[VulnerabilityTreatment, ...],
-) -> None:
-    await update(
-        finding_id=finding_id,
-        vuln_id=vulnerability_id,
-        data={
-            "historic_treatment": [
-                format_vulnerability_treatment_item(treatment)
-                for treatment in historic_treatment
-            ]
-        },
-    )
-
-
 async def update_state(
     *,
     finding_id: str,
@@ -337,6 +319,24 @@ async def update_state(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
         elements={"historic_state": (item,)},
+    )
+
+
+async def update_historic_state(
+    *,
+    finding_id: str,
+    vulnerability_id: str,
+    historic_state: Tuple[VulnerabilityState, ...],
+) -> None:
+    await update(
+        finding_id=finding_id,
+        vuln_id=vulnerability_id,
+        data={
+            "historic_state": [
+                format_vulnerability_state_item(state)
+                for state in historic_state
+            ]
+        },
     )
 
 
@@ -362,6 +362,24 @@ async def update_treatment(
         )
 
 
+async def update_historic_treatment(
+    *,
+    finding_id: str,
+    vulnerability_id: str,
+    historic_treatment: Tuple[VulnerabilityTreatment, ...],
+) -> None:
+    await update(
+        finding_id=finding_id,
+        vuln_id=vulnerability_id,
+        data={
+            "historic_treatment": [
+                format_vulnerability_treatment_item(treatment)
+                for treatment in historic_treatment
+            ]
+        },
+    )
+
+
 async def update_verification(
     *,
     current_value: Optional[VulnerabilityVerification],
@@ -384,6 +402,24 @@ async def update_verification(
         )
 
 
+async def update_historic_verification(
+    *,
+    finding_id: str,
+    vulnerability_id: str,
+    historic_verification: Tuple[VulnerabilityVerification, ...],
+) -> None:
+    await update(
+        finding_id=finding_id,
+        vuln_id=vulnerability_id,
+        data={
+            "historic_verification": [
+                format_vulnerability_verification_item(verification)
+                for verification in historic_verification
+            ]
+        },
+    )
+
+
 async def update_zero_risk(
     *,
     current_value: Optional[VulnerabilityZeroRisk],
@@ -404,3 +440,21 @@ async def update_zero_risk(
             vuln_id=vulnerability_id,
             data={"historic_zero_risk": [item]},
         )
+
+
+async def update_historic_zero_risk(
+    *,
+    finding_id: str,
+    vulnerability_id: str,
+    historic_zero_risk: Tuple[VulnerabilityZeroRisk, ...],
+) -> None:
+    await update(
+        finding_id=finding_id,
+        vuln_id=vulnerability_id,
+        data={
+            "historic_zero_risk": [
+                format_vulnerability_zero_risk_item(zero_risk)
+                for zero_risk in historic_zero_risk
+            ]
+        },
+    )
