@@ -21862,24 +21862,52 @@
   en:
     title: Security controls bypass or absence - Debug Protection
     description: >
-      __empty__
+      Debug controls protection do not span the
+      wide variety of use models from internal
+      hardware debug through debug of performance
+      issues of software running.
+      The application is deployed to unauthorized
+      actors with debugging code still enabled or active.
     impact: >
-      __empty__
+      - Create unintended entry points or expose sensitive information.
+
+      - An attacker could successfully start a remote
+      debugging session and is likely to disclose confidential
+      information about the web application and supporting infrastructure.
     recommendation: >
-      __empty__
+      - Assign debug programs user right only to administrators
+      or trusted users to reduce the risk of this potential vulnerability.
+
+      - Remove debug code before deploying the application.
     threat: >
-      __empty__
+      An attacker access to the application and can debug it, will
+      be able to get sensitive information stored in a device.
   category: Subvert Access
   es:
     title: Security controls bypass or absence - Debug Protection
     description: >
-      __empty__
+      La protección de los controles de depuración
+      no abarca la amplia variedad de modelos de uso, desde
+      la depuración interna del hardware hasta la depuración
+      de los problemas de rendimiento del software en ejecución.
+      La aplicación se despliega a actores no autorizados con
+      el código de depuración aún habilitado o activo.
     impact: >
-      __empty__
+      - Crear puntos de entrada involuntarios o
+      exponer información sensible.
+
+      - Un atacante podría iniciar con éxito una sesión
+      de depuración remota y es probable que revele información
+      confidencial sobre la aplicación web y la infraestructura de apoyo.
     recommendation: >
-      __empty__
+      - Asigne el derecho de usuario de los programas
+      de depuración sólo a los administradores o usuarios
+      de confianza para reducir el riesgo de esta posible vulnerabilidad.
+
+      - Elimine el código de depuración antes de desplegar la aplicación.
     threat: >
-      __empty__
+      Un atacante que acceda a la aplicación y pueda depurarla,
+      podrá obtener información sensible almacenada en un dispositivo.
   score:
     base:
       attack_vector: "N"
@@ -21887,8 +21915,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
