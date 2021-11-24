@@ -16627,23 +16627,49 @@
   en:
     title: Use of an insecure channel - AWS
     description: >
-      __empty__
+      Insecure communications medium and channels
+      require application data protection in transit.
     impact: >
-      __empty__
+      - Insecure sessions are established.
+
+      - Authentication of the communications channel
+      between the client and the server compromised.
+
+      - Compromise sensitive information that
+      travels in plain text.
     recommendation: >
-      __empty__
+      - Enable secure cipher suites and encryption protocols.
+
+      - Encryption and data integrity authentication are
+      important for protecting the communications channel.
+
+      - It is equally important to authenticate the
+      identity of the remote end of the connection.
     threat: >
-      __empty__
+      Unauthorized attacker from the Internet.
   es:
     title: Use of an insecure channel - AWS
     description: >
-      __empty__
+      Los medios y canales de comunicación inseguros requieren
+      aplicaciones de protección de datos en tránsito.
     impact: >
-      __empty__
+      - Se establecen sesiones inseguras.
+
+      - Autenticación del canal de comunicación entre
+      el cliente y el servidor comprometidas.
+
+      - Se compromete la información sensible
+      que viaja en texto plano.
     recommendation: >
-      __empty__
+      - Habilitar suites de cifrado y protocolos de cifrado seguros.
+
+      - El cifrado y la autenticación de la integridad de
+      los datos son importantes para proteger el canal de comunicación.
+
+      - Es igualmente importante autenticar la identidad
+      del extremo remoto de la conexión.
     threat: >
-      __empty__
+      Atacante no autorizado desde Internet.
   category: Collect Information
   score:
     base:
@@ -16652,7 +16678,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
