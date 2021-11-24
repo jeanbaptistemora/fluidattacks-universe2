@@ -6,14 +6,12 @@ makeScript {
   searchPaths = {
     bin = [
       outputs."/observes/bin/code-etl"
-      outputs."/melts"
     ];
     source = [
       outputs."/utils/aws"
-      outputs."/utils/git"
       outputs."/utils/sops"
     ];
   };
-  name = "observes-job-code-etl-upload";
+  name = "observes-etl-code-compute-bills";
   entrypoint = ./entrypoint.sh;
 }

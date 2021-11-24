@@ -17,6 +17,6 @@ makeScript {
     {
       __argCodeEtlUpload__ = "${uploadGroup}/bin/${uploadGroup.name}";
     };
-  name = "observes-job-code-etl-upload-all-on-aws";
+  name = "observes-etl-code-upload-all-on-aws";
   entrypoint = ./entrypoint.sh;
 }

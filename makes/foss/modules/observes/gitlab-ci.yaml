@@ -1071,6 +1071,24 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/observes/etl/code/compute-bills:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $observes_scheduled_job != $CI_JOB_NAME
+      when: never
+    - when: always
+  script:
+    - m . /observes/etl/code/compute-bills
+  stage: analytics
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /observes/etl/dynamo/centralize:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
@@ -1227,24 +1245,6 @@
     - when: always
   script:
     - m . /observes/etl/zoho-crm/fluid/prepare
-  stage: analytics
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/observes/job/code-etl/compute-bills:
-  image: ghcr.io/fluidattacks/makes:21.12
-  interruptible: false
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $observes_scheduled_job != $CI_JOB_NAME
-      when: never
-    - when: always
-  script:
-    - m . /observes/job/code-etl/compute-bills
   stage: analytics
   tags:
     - autoscaling

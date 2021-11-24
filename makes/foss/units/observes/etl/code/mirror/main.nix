@@ -1,17 +1,20 @@
 { makeScript
 , outputs
+, inputs
 , ...
 }:
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/bin/code-etl"
+      inputs.nixpkgs.findutils
+      outputs."/melts"
     ];
     source = [
       outputs."/utils/aws"
+      outputs."/utils/git"
       outputs."/utils/sops"
     ];
   };
-  name = "observes-job-code-etl-compute-bills";
+  name = "observes-etl-code-mirror";
   entrypoint = ./entrypoint.sh;
 }

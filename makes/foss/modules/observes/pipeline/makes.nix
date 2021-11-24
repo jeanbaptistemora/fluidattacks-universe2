@@ -259,7 +259,7 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/job/code-etl/compute-bills";
+          output = "/observes/etl/code/compute-bills";
           gitlabExtra = gitlabScheduled;
         }
         {

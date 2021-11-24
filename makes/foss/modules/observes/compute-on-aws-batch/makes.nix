@@ -79,7 +79,7 @@ in
 
     observesCodeEtlMirror = sharedConfiguration // {
       attemptDurationSeconds = 7200;
-      command = [ "m" "f" "/observes/job/code-etl/mirror" ];
+      command = [ "m" "f" "/observes/etl/code/mirror" ];
       environment = [
         "INTEGRATES_API_TOKEN"
         "PRODUCT_API_TOKEN"
@@ -90,7 +90,7 @@ in
 
     observesCodeEtlUpload = sharedConfiguration // {
       attemptDurationSeconds = 28800;
-      command = [ "m" "f" "/observes/job/code-etl/upload" ];
+      command = [ "m" "f" "/observes/etl/code/upload" ];
       environment = [
         "INTEGRATES_API_TOKEN"
         "PRODUCT_API_TOKEN"

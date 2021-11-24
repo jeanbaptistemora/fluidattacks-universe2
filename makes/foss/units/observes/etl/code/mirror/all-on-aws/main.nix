@@ -16,6 +16,6 @@ makeScript {
   replace = {
     __argCodeEtlMirror__ = "${mirrorGroup}/bin/${mirrorGroup.name}";
   };
-  name = "observes-job-code-etl-mirror-all-on-aws";
+  name = "observes-etl-code-mirror-all-on-aws";
   entrypoint = ./entrypoint.sh;
 }
