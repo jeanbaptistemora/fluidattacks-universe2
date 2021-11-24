@@ -103,55 +103,46 @@ function skims_should_run {
     fi
 }
 
-function skims_scan {
-  local group="${1}"
-  local namespace="${2}"
-  local check="${3}"
-  local config="${4}"
-
-  echo "[INFO] Running skims scan" \
-    && lang="$(get_skims_language "${group}")" \
-    && python3 __argGetConfig__ --check "${check}" \
-      --group "${group}" \
-      --language "${lang}" \
-      --namespace "${namespace}" \
-      --out "${config}" \
-    && skims scan --group "${group}" "${config}"
-}
-
 function execute_skims_combination {
   local group="${1}"
   local namespace="${2}"
-  local check="${3}"
   local config
+  export checks=()
 
-  if test -e "groups/${group}/fusion/"; then
-    skims_rebase "${group}" "${namespace}" \
-      && config="$(mktemp)" \
-      && skims_should_run "${group}" "${namespace}" "${check}" \
-      && if skims_scan "${group}" "${namespace}" "${check}" "${config}"; then
-        echo "[INFO] Succesfully processed: ${group} ${namespace}"
-      else
-        echo "[ERROR] While running skims on: ${group} ${namespace}"
-      fi \
-      && skims_cache push "${group}" "${check}" "${namespace}"
-  else
-    echo "[ERROR] repos no not cloned: ${namespace}"
-  fi
+  for check in $(echo "${CHECKS}" | jq -r '.[] | @base64'); do
+    check="$(echo "${check}" | base64 --decode)" \
+      && checks=("${checks[@]}" "${check}")
+  done \
+    && if test -e "groups/${group}/fusion/"; then
+      skims_rebase "${group}" "${namespace}" \
+        && config="$(mktemp)" \
+        && echo "[INFO] Running skims scan in ${group}" \
+        && lang="$(get_skims_language "${group}")" \
+        && python3 __argGetConfig__ --check "${checks[@]}" \
+          --group "${group}" \
+          --language "${lang}" \
+          --namespace "${namespace}" \
+          --out "${config}" \
+        && skims scan --group "${group}" "${config}" \
+        && skims_cache push "${group}" "${check}" "${namespace}"
+    else
+      echo "[ERROR] repos no not cloned: ${namespace}"
+    fi
 }
 
 function main {
+  export CHECKS
+
   local group="${1:-}"
-  local checks="${2:-}" # must be in json forma
-  local roots="${3:-}"  # must be in json forma
+  local roots="${3:-}" # must be in json forma
   local config
+  CHECKS="${2:-}" # must be in json forma
 
   export -f execute_skims_combination
   export -f skims_rebase
   export -f get_skims_language
   export -f get_skims_expected_code_date
   export -f skims_cache
-  export -f skims_scan
   export -f skims_should_run
   export -f from_epoch_to_iso8601
   export -f from_iso8601_to_epoch
@@ -164,13 +155,12 @@ function main {
       SERVICES_PROD_AWS_ACCESS_KEY_ID \
       SERVICES_PROD_AWS_SECRET_ACCESS_KEY \
     && config="$(mktemp)" \
-    && checks="$(jq -r -c '.[]' <<< "${checks}")" \
     && roots="$(jq -r -c '.[]' <<< "${roots}")" \
     && use_git_repo_services \
     && clone_group "${group}" \
     && aws_login_prod 'skims' \
     && skims_cache pull "${group}" \
-    && parallel execute_skims_combination "${group}" ::: "${roots}" ::: "${checks}" \
+    && parallel execute_skims_combination "${group}" ::: "${roots}" \
     && skims_cache push "${group}" \
     && popd \
     && clean_file_system "${group}"

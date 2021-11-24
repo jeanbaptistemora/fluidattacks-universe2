@@ -94,8 +94,10 @@ def get_ssl_targets(urls: List[str]) -> List[Tuple[str, str]]:
 
 async def main() -> None:
     parser = argparse.ArgumentParser()
-    for arg in ("check", "group", "language", "namespace", "out"):
+    for arg in ("group", "language", "namespace", "out"):
         parser.add_argument(f"--{arg}", required=True)
+
+    parser.add_argument("--check", nargs="+", required=True)
     args = parser.parse_args()
 
     create_session(os.environ["INTEGRATES_API_TOKEN"])
@@ -110,9 +112,7 @@ async def main() -> None:
             apk=dict(
                 include=sorted(["glob(**/*.apk)"]),
             ),
-            checks=[
-                args.check,
-            ],
+            checks=args.check,
             language=args.language,
             namespace=args.namespace,
             http=dict(
