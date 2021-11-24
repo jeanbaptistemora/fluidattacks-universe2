@@ -5,13 +5,13 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/job/gitlab-etl"
+      outputs."/observes/etl/gitlab"
     ];
     source = [
       outputs."/utils/aws"
       outputs."/utils/sops"
     ];
   };
-  name = "observes-job-gitlab-etl-product";
+  name = "observes-etl-gitlab-default";
   entrypoint = ./entrypoint.sh;
 }

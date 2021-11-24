@@ -31,7 +31,7 @@ in
 
     observesGitlabEtlChallenges = sharedConfiguration // {
       attemptDurationSeconds = 7200;
-      command = [ "m" "f" "/observes/job/gitlab-etl/challenges" ];
+      command = [ "m" "f" "/observes/etl/gitlab/challenges" ];
       environment = [
         "AUTONOMIC_API_TOKEN"
         "PRODUCT_API_TOKEN"
@@ -59,7 +59,7 @@ in
 
     observesGitlabEtlDefault = sharedConfiguration // {
       attemptDurationSeconds = 7200;
-      command = [ "m" "f" "/observes/job/gitlab-etl/default" ];
+      command = [ "m" "f" "/observes/etl/gitlab/default" ];
       environment = [
         "AUTONOMIC_API_TOKEN"
         "PRODUCT_API_TOKEN"
@@ -68,12 +68,12 @@ in
 
     observesGitlabEtlProduct = sharedConfiguration // {
       attemptDurationSeconds = 7200;
-      command = [ "m" "f" "/observes/job/gitlab-etl/product" ];
+      command = [ "m" "f" "/observes/etl/gitlab/product" ];
     };
 
     observesGitlabEtlServices = sharedConfiguration // {
       attemptDurationSeconds = 7200;
-      command = [ "m" "f" "/observes/job/gitlab-etl/services" ];
+      command = [ "m" "f" "/observes/etl/gitlab/services" ];
       environment = [ "PRODUCT_API_TOKEN" "SERVICES_API_TOKEN" ];
     };
 

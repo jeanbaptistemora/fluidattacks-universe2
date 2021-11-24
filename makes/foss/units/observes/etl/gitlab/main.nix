@@ -10,6 +10,6 @@ makeScript {
       outputs."/observes/bin/target-redshift"
     ];
   };
-  name = "observes-job-gitlab-etl";
+  name = "observes-etl-gitlab";
   entrypoint = ./entrypoint.sh;
 }
