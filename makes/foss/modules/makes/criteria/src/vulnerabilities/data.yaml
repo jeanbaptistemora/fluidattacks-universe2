@@ -21786,24 +21786,59 @@
   en:
     title: Use of an insecure channel - Oracle Database
     description: >
-      __empty__
+      Insecure connections from servers to the database.
+      Encryption doesn't address all communications with
+      the database, including transmissions from clients
+      and transmissions from middle tiers.
     impact: >
-      __empty__
+      - Data can be modified, replayed and no longer confidential.
+      Also, lost packets can be detected.
+
+      - Sensitive information that travels over
+      an intranet may be intercepted.
     recommendation: >
-      __empty__
+      - Set up encrypted communications channels.
+      Enable Oracle Database encryption for data that
+      is sent over a network.
+
+      - Ensure that connections only come from a physically
+      secure terminal, or from an application web server
+      with a known IP address.
+
+      - In the case of a sensitive database, ensure that
+      connections only come from certain points in the network.
     threat: >
-      __empty__
+      Anonymous attacker from adjacent network.
   category: Collect Information
   es:
     title: Use of an insecure channel - Oracle Database
     description: >
-      __empty__
+      Conexiones inseguras desde los servidores
+      a la base de datos.
+      El cifrado no aborda todas las comunicaciones con la
+      base de datos, incluidas las transmisiones de los
+      clientes y las transmisiones de los niveles intermedios.
     impact: >
-      __empty__
+      - Los datos pueden modificarse, reproducirse
+      y dejar de ser confidenciales.
+      Además, se pueden detectar los paquetes perdidos.
+
+      - La información sensible que viaja por una
+      intranet puede ser interceptada.
     recommendation: >
-      __empty__
+      - Configurar canales de comunicación encriptados.
+      Habilite el cifrado de la base de datos Oracle
+      para los datos que se envían a través de una red.
+
+      - Asegúrese de que las conexiones sólo proceden de
+      un terminal físicamente seguro, o de un servidor
+      web de aplicaciones con una dirección IP conocida.
+
+      - En el caso de una base de datos sensible,
+      asegúrese de que las conexiones sólo proceden de
+      determinados puntos de la red.
     threat: >
-      __empty__
+      Atacante anónimo de la red adyacente.
   score:
     base:
       attack_vector: "N"
