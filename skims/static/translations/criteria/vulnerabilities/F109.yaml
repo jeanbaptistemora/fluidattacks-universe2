@@ -1,25 +1,21 @@
+F109.title:
+  en: Unrestricted access between network segments - RDS
+  es: Unrestricted access between network segments - RDS
 F109.description:
   en: >
-    Representing currency using data types like float or double may result
-    in accuracy issues the more operations are performed using inexact
-    representations of a value; besides unexpected behaviors if special
-    values like NaN or Infinite are not taken into account.
+    Some RDS Cluster or Instances are not defined inside a Database Subnet Group
   es: >
-    Representar moneda utilizando tipos de dato como float o double puede
-    resultar en problemas de precisión a medida que se hacen más y más
-    operaciones sobre representaciones inexactas de un valor; además de
-    comportamientos inesperados si no se tiene en cuenta valores especiales
-    como NaN e infinitos.
+    Algunos cluster o instancias de RDS no se encuentran definidos dentro de un
+    Subnet Group para Bases de datos
 F109.impact:
-  en: Money operations may have incorrect results
-  es: Operaciones sobre moneda pueden tener resultados incorrectos
+  en: Access to RDS services in a insecure way from the Interne
+  es: Acceder a los servicios de RDS de forma insegura desde Internet
 F109.recommendation:
-  en: |
-    - Use integer to represent currency and count in cents
-    - Use data types specially made to represent currency
-  es: |
-    - Usar enteros para representar moneda y contar en centavos
-    - Usar tipos de datos hechos específicamente para representar moneda
+  en: >
+    Ensure that all RDS instances belong to a Database Subnet Group
+  es: >
+    Asegurar que todas las instancias de RDS pertenezcan un Database Subnet
+    Group
 F109.threat:
-  en: Authenticated attacker from the Internet.
-  es: Atacante autenticado desde Internet.
+  en: Authenticated attacker from the Internet
+  es: Atacante autenticado desde Internet

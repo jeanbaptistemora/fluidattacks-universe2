@@ -351,6 +351,14 @@
       "title": "107. LDAP injection"
     }
   },
+  "F109": {
+    "EN": {
+      "title": "109. Unrestricted access between network segments - RDS"
+    },
+    "ES": {
+      "title": "109. Unrestricted access between network segments - RDS"
+    }
+  },
   "F112": {
     "EN": {
       "title": "112. SQL injection - Java SQL API"
