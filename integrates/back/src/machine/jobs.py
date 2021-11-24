@@ -129,7 +129,7 @@ def _get_signature_key(
     return k_signing
 
 
-async def _list_jobs_filter(  # pylint: disable=too-many-locals
+async def list_jobs_filter(  # pylint: disable=too-many-locals
     queue: str,
     filters: Tuple[str, ...],
     next_token: Optional[str] = None,
@@ -259,7 +259,7 @@ async def _list_jobs_by_name(
     next_token = "dummy"  # nosec
     jobs = []
     while next_token:
-        response = await _list_jobs_filter(
+        response = await list_jobs_filter(
             queue=queue,
             filters=filters,
             **(
@@ -318,6 +318,50 @@ async def queue_boto3(
                     group,
                     finding_code,
                     namespace,
+                ],
+                "environment": [
+                    {"name": "CI", "value": "true"},
+                    {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
+                    {
+                        "name": "PRODUCT_API_TOKEN",
+                        "value": PRODUCT_API_TOKEN,
+                    },
+                ],
+                "memory": 1 * 1800,
+            },
+            retryStrategy={
+                "attempts": 1,
+            },
+            timeout={"attemptDurationSeconds": 86400},
+        )
+
+
+async def queue_all_checks(
+    group: str,
+    repos: List[str],
+    finding_codes: List[str],
+) -> Dict[str, Any]:
+    queue_name = "skims_all_later"
+    job_name = f"skims-process-{group}"
+    resource_options = dict(
+        service_name="batch",
+        aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
+        aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
+    )
+    async with aioboto3.client(**resource_options) as batch:
+        return await batch.submit_job(
+            jobName=job_name,
+            jobQueue=queue_name,
+            jobDefinition="makes",
+            containerOverrides={
+                "vcpus": 4,
+                "command": [
+                    "m",
+                    "f",
+                    "/skims/process-group-all",
+                    group,
+                    json.dumps(finding_codes),
+                    json.dumps(repos),
                 ],
                 "environment": [
                     {"name": "CI", "value": "true"},
