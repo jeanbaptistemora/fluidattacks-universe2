@@ -1,6 +1,17 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityZeroRiskStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 import pytest
 from typing import (
     Any,
@@ -24,11 +35,21 @@ async def test_request_vulnerabilities_zero_risk(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
+    loaders: Dataloaders = get_new_context()
+    vuln: Vulnerability = await loaders.vulnerability_typed.load(vuln_id)
+    assert vuln.state.status == VulnerabilityStateStatus.OPEN
+    assert vuln.zero_risk == None
+
     result: Dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" not in result
     assert result["data"]["requestVulnerabilitiesZeroRisk"]["success"]
+
+    loaders.vulnerability_typed.clear(vuln_id)
+    vuln = await loaders.vulnerability_typed.load(vuln_id)
+    assert vuln.state.status == VulnerabilityStateStatus.OPEN
+    assert vuln.zero_risk.status == VulnerabilityZeroRiskStatus.REQUESTED
 
 
 @pytest.mark.asyncio
