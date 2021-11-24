@@ -37,6 +37,7 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityMetadataToUpdate,
     VulnerabilityState,
     VulnerabilityTreatment,
     VulnerabilityVerification,
@@ -975,6 +976,23 @@ def validate_zero_risk_requested_new(
     ):
         raise NotZeroRiskRequested()
     return vulnerability
+
+
+def format_vulnerability_metadata_item(
+    metadata: VulnerabilityMetadataToUpdate,
+) -> Item:
+    item = {
+        "external_bts": metadata.bug_tracking_system_url,
+        "commit_hash": metadata.commit,
+        "severity": metadata.custom_severity,
+        "repo_nickname": metadata.repo,
+        "specific": metadata.specific,
+        "stream": ",".join(metadata.stream) if metadata.stream else None,
+        "tag": metadata.tags,
+        "vuln_type": metadata.type,
+        "where": metadata.where,
+    }
+    return {key: value for key, value in item.items() if value is not None}
 
 
 def format_vulnerability_state_item(

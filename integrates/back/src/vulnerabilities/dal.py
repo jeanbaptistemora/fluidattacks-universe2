@@ -18,6 +18,7 @@ from custom_types import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityMetadataToUpdate,
     VulnerabilityState,
     VulnerabilityTreatment,
     VulnerabilityVerification,
@@ -29,6 +30,7 @@ from dynamodb import (
 import logging
 from newutils.vulnerabilities import (
     format_vulnerability_item,
+    format_vulnerability_metadata_item,
     format_vulnerability_state_item,
     format_vulnerability_treatment_item,
     format_vulnerability_verification_item,
@@ -291,6 +293,19 @@ async def upload_file(vuln_file: UploadFile) -> str:
         file_name,
     )
     return cast(str, file_name)
+
+
+async def update_metadata(
+    *,
+    finding_id: str,
+    vulnerability_id: str,
+    metadata: VulnerabilityMetadataToUpdate,
+) -> None:
+    await update(
+        finding_id=finding_id,
+        vuln_id=vulnerability_id,
+        data=format_vulnerability_metadata_item(metadata),
+    )
 
 
 async def update_state(
