@@ -21982,24 +21982,66 @@
   en:
     title: Security controls bypass or absence - Reversing Protection
     description: >
-      __empty__
+      The application does not have anti-reverse
+      engineering protections.
+      Sophisticated reverse engineering tools and
+      techniques could bypass weak security controls
+      against reversing protection.
     impact: >
-      __empty__
+      - Reveal cryptographic constants and ciphers.
+
+      - Steal intellectual property.
+
+      - Perform attacks against back end systems.
     recommendation: >
-      __empty__
+      - Encrypt the executable version of the software.
+
+      - Use additional protection against reverse engineering,
+      a combination of obfuscation techniques.
+
+      - Extend the same protection to software or firmware upgrades.
+
+      - Select automated anti-reversing techniques based
+      on which one could provide a best fit for business
+      security goals, performance requirements, and cost sensitivity.
     threat: >
-      __empty__
+      An attacker can perform an analysis of the final
+      core binary to determine its source code, algorithms
+      and resources embedded within the app to execute dubious actions.
   category: Subvert Access
   es:
     title: Security controls bypass or absence - Reversing Protection
     description: >
-      __empty__
+      La aplicación no tiene protecciones contra
+      la ingeniería inversa.
+      Las herramientas y técnicas sofisticadas de ingeniería
+      inversa podrían eludir los débiles controles de
+      seguridad contra la protección inversa.
     impact: >
-      __empty__
+      - Revelar constantes criptográficas y cifrados.
+
+      - Robar propiedad intelectual.
+
+      - Realizar ataques contra los sistemas de back-end.
     recommendation: >
-      __empty__
+      - Cifrar la versión ejecutable del software.
+
+      - Utilizar una protección adicional contra
+      la ingeniería inversa, una combinación de
+      técnicas de ofuscación.
+
+      - Extender la misma protección a las
+      actualizaciones de software o firmware.
+
+      - Seleccionar las técnicas automatizadas contra la
+      ingeniería inversa en función de la que mejor se adapte
+      a los objetivos de seguridad de la empresa, los requisitos
+      de rendimiento y la sensibilidad a los costes.
     threat: >
-      __empty__
+      Un atacante puede realizar un análisis del
+      binario del núcleo final para determinar su
+      código fuente, los algoritmos y los recursos
+      incrustados en la aplicación para ejecutar acciones dudosas.
   score:
     base:
       attack_vector: "N"
@@ -22007,8 +22049,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
