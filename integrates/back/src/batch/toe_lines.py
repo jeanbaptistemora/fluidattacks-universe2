@@ -528,7 +528,9 @@ async def refresh_root_repo_toe_lines(
     inactive_root_repos = {
         root.state.nickname: root
         for root in roots
-        if isinstance(root, GitRootItem) and root.state.status == "INACTIVE"
+        if isinstance(root, GitRootItem)
+        and root.state.status == "INACTIVE"
+        and root.state.nickname not in active_root_repos
     }
     await collect(
         tuple(
