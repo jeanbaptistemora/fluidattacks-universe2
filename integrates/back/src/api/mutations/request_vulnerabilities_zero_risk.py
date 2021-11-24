@@ -17,6 +17,7 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
+    token as token_utils,
 )
 from redis_cluster.operations import (
     redis_del_by_deps,
@@ -48,8 +49,13 @@ async def mutate(
     vulnerabilities: List[str],
 ) -> SimplePayload:
     try:
+        user_info = await token_utils.get_jwt_content(info.context)
         success = await vulns_domain.request_vulnerabilities_zero_risk(
-            info, finding_id, justification, vulnerabilities
+            loaders=info.context.loaders,
+            vuln_ids=set(vulnerabilities),
+            finding_id=finding_id,
+            user_info=user_info,
+            justification=justification,
         )
         if success:
             await redis_del_by_deps(

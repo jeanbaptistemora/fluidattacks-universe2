@@ -14,9 +14,6 @@ from db_model.findings.types import (
 from exponent_server_sdk import (
     DeviceNotRegisteredError,
 )
-from graphql.type.definition import (
-    GraphQLResolveInfo,
-)
 import html
 from mailer import (
     groups as groups_mail,
@@ -31,6 +28,7 @@ from organizations import (
     domain as orgs_domain,
 )
 from typing import (
+    Any,
     cast,
     Dict,
     List,
@@ -257,12 +255,12 @@ async def request_health_check(
 
 
 async def request_vulnerability_zero_risk(
-    info: GraphQLResolveInfo,
+    loaders: Any,
     finding_id: str,
     justification: str,
     requester_email: str,
 ) -> bool:
-    finding_loader: DataLoader = info.context.loaders.finding
+    finding_loader: DataLoader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     finding_title = finding.title
     group_name = finding.group_name

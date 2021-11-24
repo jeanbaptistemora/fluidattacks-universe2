@@ -953,6 +953,19 @@ def validate_not_requested_zero_risk_vuln(
     return vuln
 
 
+def validate_non_zero_risk_requested_new(
+    vulnerability: Vulnerability,
+) -> Vulnerability:
+    """Validate if zero risk vuln is not already resquested."""
+    if (
+        vulnerability.zero_risk
+        and vulnerability.zero_risk.status
+        == VulnerabilityZeroRiskStatus.REQUESTED
+    ):
+        raise AlreadyZeroRiskRequested()
+    return vulnerability
+
+
 def validate_requested_vuln_zero_risk(
     vuln: Dict[str, FindingType]
 ) -> Dict[str, FindingType]:
