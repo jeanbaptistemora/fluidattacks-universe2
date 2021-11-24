@@ -1,6 +1,6 @@
 import { faCheck, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useCallback } from "react";
 
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
@@ -57,11 +57,11 @@ const findingActions: React.FC<IFindingActionsProps> = (
           <Can do={"api_mutations_approve_draft_mutate"}>
             <ConfirmDialog title={translate.t("group.drafts.approve.title")}>
               {(confirm: IConfirmFn): React.ReactNode => {
-                const handleClick: () => void = (): void => {
+                const handleClick: () => void = useCallback((): void => {
                   confirm((): void => {
                     onApprove();
                   });
-                };
+                }, [confirm]);
 
                 return (
                   <TooltipWrapper
@@ -71,7 +71,6 @@ const findingActions: React.FC<IFindingActionsProps> = (
                   >
                     <Button
                       disabled={!canApprove || loading}
-                      // eslint-disable-next-line react/jsx-no-bind
                       onClick={handleClick}
                     >
                       <FontAwesomeIcon icon={faCheck} />
@@ -85,11 +84,11 @@ const findingActions: React.FC<IFindingActionsProps> = (
           <Can do={"api_mutations_reject_draft_mutate"}>
             <ConfirmDialog title={translate.t("group.drafts.reject.title")}>
               {(confirm: IConfirmFn): React.ReactNode => {
-                const handleClick: () => void = (): void => {
+                const handleClick: () => void = useCallback((): void => {
                   confirm((): void => {
                     onReject();
                   });
-                };
+                }, [confirm]);
 
                 return (
                   <TooltipWrapper
@@ -99,7 +98,6 @@ const findingActions: React.FC<IFindingActionsProps> = (
                   >
                     <Button
                       disabled={!hasSubmission || loading}
-                      // eslint-disable-next-line react/jsx-no-bind
                       onClick={handleClick}
                     >
                       {translate.t("group.drafts.reject.text")}
