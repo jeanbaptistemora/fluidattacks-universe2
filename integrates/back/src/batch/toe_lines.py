@@ -93,17 +93,17 @@ toe_lines_add = retry_on_exceptions(
 toe_lines_update = retry_on_exceptions(
     exceptions=(UnavailabilityError,), sleep_seconds=5
 )(toe_lines_domain.update)
-files_get_lines_count = retry_on_exceptions(exceptions=(OSError,))(
-    files_utils.get_lines_count
-)
+files_get_lines_count = retry_on_exceptions(
+    exceptions=(FileNotFoundError, OSError)
+)(files_utils.get_lines_count)
 git_get_last_commit_hash = retry_on_exceptions(
-    exceptions=(OSError, GitCommandError)
+    exceptions=(FileNotFoundError, GitCommandError, OSError, ValueError)
 )(git_utils.get_last_commit_hash)
 git_get_last_modified_date = retry_on_exceptions(
-    exceptions=(OSError, GitCommandError)
+    exceptions=(FileNotFoundError, GitCommandError, OSError, ValueError)
 )(git_utils.get_last_modified_date)
 git_get_last_commit_author = retry_on_exceptions(
-    exceptions=(OSError, GitCommandError)
+    exceptions=(FileNotFoundError, GitCommandError, OSError, ValueError)
 )(git_utils.get_last_commit_author)
 
 
@@ -513,7 +513,7 @@ async def refresh_inactive_root_repo_toe_lines(
         RepeatedToeLines,
         ToeLinesAlreadyUpdated,
     ),
-    sleep_seconds=10,
+    max_attempts=2,
 )
 async def refresh_root_repo_toe_lines(
     group_name: str, group_path: str, optional_repo_nickname: Optional[str]

@@ -586,7 +586,7 @@ async def resolve_group_name(  # noqa: MC0001
 def retry_on_exceptions(
     *,
     exceptions: Tuple[Type[Exception], ...],
-    max_attempts: int = 10,
+    max_attempts: int = 5,
     sleep_seconds: float = 0,
 ) -> Callable[[TVar], TVar]:
     def decorator(func: TVar) -> TVar:
