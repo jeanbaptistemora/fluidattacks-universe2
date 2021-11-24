@@ -13,7 +13,7 @@ import time
 
 
 def open_ephemeral(appium_driver: WebDriver) -> None:
-    host_url: str = "exp://exp.host/@developmentatfluid/asm"
+    host_url: str = "exp://exp.host/@developmentatfluid/fluidattacks"
     branch_name: str = os.environ["CI_COMMIT_REF_NAME"]
     load_delay: int = 10
     # https://docs.expo.io/workflow/debugging/#developer-menu
