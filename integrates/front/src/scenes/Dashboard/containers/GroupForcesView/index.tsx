@@ -25,6 +25,7 @@ import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/GroupForcesVi
 import type {
   IExecution,
   IFoundVulnerabilities,
+  IGetExecution,
 } from "scenes/Dashboard/containers/GroupForcesView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
@@ -189,7 +190,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     });
   };
 
-  const { data } = useQuery(GET_FORCES_EXECUTIONS, {
+  const { data } = useQuery<IGetExecution>(GET_FORCES_EXECUTIONS, {
     onError: handleQryErrors,
     variables: { groupName },
   });
@@ -198,7 +199,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     return <div />;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
   const executions: IExecution[] = data.forcesExecutions.executions.map(
     (execution: IExecution): IExecution => {
       const date: string = formatDate(execution.date);

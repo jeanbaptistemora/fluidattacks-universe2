@@ -36,4 +36,16 @@ interface IExecution {
   vulnerabilities: IVulnerabilities;
 }
 
-export { IExploitResult, IFoundVulnerabilities, IVulnerabilities, IExecution };
+interface IGetExecution {
+  forcesExecutions: {
+    executions: IExecution[];
+  };
+}
+
+export {
+  IExploitResult,
+  IFoundVulnerabilities,
+  IVulnerabilities,
+  IExecution,
+  IGetExecution,
+};
