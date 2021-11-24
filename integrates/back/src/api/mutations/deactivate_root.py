@@ -25,10 +25,10 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils import (
+    requests as requests_utils,
     token as token_utils,
 )
 from roots import (
-    dal as roots_dal,
     domain as roots_domain,
 )
 from typing import (
@@ -49,14 +49,17 @@ async def deactivate_root(
     group_name: str = kwargs["group_name"]
     loaders = info.context.loaders
     reason: str = kwargs["reason"]
+    source = requests_utils.get_source_new(info.context)
 
     await collect(
         tuple(
-            vulns_domain.close_by_exclusion(vuln)
-            for vuln in await roots_dal.get_root_vulns(
-                loaders=loaders,
-                group_name=group_name,
-                nickname=root.state.nickname,
+            vulns_domain.close_by_exclusion_new(
+                vulnerability=vuln,
+                modified_by=user_email,
+                source=source,
+            )
+            for vuln in await loaders.root_vulns_typed.load(
+                (group_name, root.state.nickname)
             )
         )
     )
