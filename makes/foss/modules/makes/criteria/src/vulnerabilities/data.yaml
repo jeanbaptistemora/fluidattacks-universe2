@@ -22065,24 +22065,61 @@
   en:
     title: Insufficient data authenticity validation - Device Binding
     description: >
-      __empty__
+      Insecure device pairing results in an insecure
+      communication between two physical devices.
+      Device-pairing protocols configured are vulnerable
+      to the misbinding attacks, it arises from the lack
+      of verifiable identifiers.
     impact: >
-      __empty__
+      - Spoof, intercept and modify messages in
+      the network in arbitrary ways.
+
+      - Malicious behavior by one of the intended
+      communication endpoints.
     recommendation: >
-      __empty__
+      - Establish a shared cryptographic key between
+      two or more communication endpoints to use the
+      shared key for protecting communication integrity
+      and confidentiality.
+
+      - Specify security properties as correspondence
+      assertions in addition to basic authentication
+      properties, it can help to detect subtle flaws
+      that might otherwise go unnoticed.
     threat: >
-      __empty__
+      Attacker may impersonate one of the device
+      communication endpoints or set itself as a
+      man in the middle (MitM) between them.
   category: Manipulate Data
   es:
     title: Insufficient data authenticity validation - Device Binding
     description: >
-      __empty__
+      El emparejamiento inseguro de dispositivos da lugar
+      a una comunicación insegura entre dos dispositivos físicos.
+      Los protocolos de emparejamiento de dispositivos
+      configurados son vulnerables a los ataques de
+      emparejamiento erróneo, que surgen de la falta
+      de identificadores verificables.
     impact: >
-      __empty__
+      - Suplantar, interceptar y modificar mensajes en
+      la red de forma arbitraria.
+
+      - Comportamiento malicioso por parte de uno de los
+      puntos finales de comunicación previstos.
     recommendation: >
-      __empty__
+      - Establecer una clave criptográfica compartida
+      entre dos o más puntos finales de comunicación,
+      utilizar la clave compartida para proteger la
+      integridad y confidencialidad de la comunicación.
+
+      - Especificar las propiedades de seguridad como
+      afirmaciones de correspondencia además de las propiedades
+      básicas de autenticación, puede ayudar a detectar fallos
+      sutiles que de otro modo podrían pasar desapercibidos.
     threat: >
-      __empty__
+      El atacante puede hacerse pasar por uno de los
+      puntos finales de comunicación del dispositivo
+      o establecerse como hombre en el medio (MitM) entre ellos.
   score:
     base:
       attack_vector: "N"
@@ -22090,7 +22127,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
