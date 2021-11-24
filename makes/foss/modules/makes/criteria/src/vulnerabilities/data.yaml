@@ -4353,7 +4353,11 @@
       The application’s source code
       has duplicate code,
       which may cause unexpected behaviors.
-    impact: __empty__
+    impact: >
+      - Reduce the maintainability of the code.
+
+      - Facilitate the propagation of errors if the
+      duplicate code contains any vulnerability.
     recommendation: >
       Ensure that source code
       does not have classes,
@@ -4369,7 +4373,11 @@
       lo que puede generar
       comportamientos inesperados
       en la aplicación.
-    impact: __empty__
+    impact: >
+      - Reducir la capacidad de mantenimiento del código.
+
+      - Facilitar la propagación de errores si el
+      código duplicado contiene alguna vulnerabilidad.
     recommendation: >
       Asegurarse de que el código fuente
       no tenga clases,
