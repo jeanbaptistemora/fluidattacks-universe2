@@ -5,8 +5,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/singer/tap-json/bin"
-      outputs."/observes/singer/tap-mixpanel/bin"
+      outputs."/observes/singer/tap-formstack/bin"
       outputs."/observes/bin/target-redshift"
       outputs."/observes/service/job-last-success/bin"
     ];
@@ -15,6 +14,6 @@ makeScript {
       outputs."/utils/sops"
     ];
   };
-  name = "observes-scheduled-job-mixpanel-integrates-etl";
+  name = "observes-etl-formstack";
   entrypoint = ./entrypoint.sh;
 }

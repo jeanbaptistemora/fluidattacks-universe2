@@ -277,7 +277,7 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/scheduled/job/mixpanel-integrates-etl";
+          output = "/observes/etl/mixpanel";
           gitlabExtra = gitlabScheduled;
         }
         {
@@ -293,7 +293,7 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/scheduled/job/toe-files-etl";
+          output = "/observes/etl/toe-files";
           gitlabExtra = gitlabScheduled;
         }
         {

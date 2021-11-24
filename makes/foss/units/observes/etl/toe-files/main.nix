@@ -5,15 +5,16 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/singer/tap-formstack/bin"
+      outputs."/observes/singer/tap-toe-files/bin"
+      outputs."/observes/singer/tap-json/bin"
       outputs."/observes/bin/target-redshift"
-      outputs."/observes/service/job-last-success/bin"
     ];
     source = [
       outputs."/utils/aws"
+      outputs."/utils/git"
       outputs."/utils/sops"
     ];
   };
-  name = "observes-scheduled-job-formstack-etl";
+  name = "observes-etl-toe-files";
   entrypoint = ./entrypoint.sh;
 }
