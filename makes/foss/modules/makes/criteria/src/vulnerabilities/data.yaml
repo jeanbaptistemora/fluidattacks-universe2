@@ -14986,23 +14986,45 @@
   en:
     title: Non-encrypted hard drives
     description: >
-      __empty__
+      Disk or hard drives without encryption, leave
+      data stored on a computer or network storage
+      system unprotected. Full disk encryption is a
+      great way to protect sensitive customer data.
     impact: >
-      __empty__
+      - Partially encryption allow an attacker,
+      armed with tools, to access to a portion of
+      the plain text unencrypted.
+
+      - Attacker with physical access to the drive.
+
+      - Access to business sensitive information.
     recommendation: >
-      __empty__
+      Encrypt a computer's files or the entire disk
+      greatly reduces the risk of data theft.
     threat: >
-      __empty__
+      Internal attacker in the network.
   es:
     title: Non-encrypted hard drives
     description: >
-      __empty__
+      Los discos o unidades de disco duro sin
+      encriptación, dejan sin protección los datos
+      almacenados en un ordenador o sistema de
+      almacenamiento en red.
+      El cifrado de todo el disco es una buena
+      manera de proteger los datos sensibles de los clientes.
     impact: >
-      __empty__
+      - El cifrado parcial permite a un atacante,
+      armado con herramientas, acceder a una parte
+      del texto plano sin cifrar.
+
+      - Atacante con acceso físico a la unidad.
+
+      - Acceso a información sensible para la empresa.
     recommendation: >
-      __empty__
+      Cifrar los archivos de un ordenador o todo el
+      disco reduce en gran medida el riesgo de robo de datos.
     threat: >
-      __empty__
+      Atacante interno en la red.
   category: Collect Information
   score:
     base:
@@ -15011,7 +15033,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
