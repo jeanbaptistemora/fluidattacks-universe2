@@ -8,6 +8,6 @@ makeScript {
       outputs."/observes/etl/dynamo"
     ];
   };
-  name = "observes-job-etl-dynamo-forces";
+  name = "observes-etl-dynamo-forces";
   entrypoint = ./entrypoint.sh;
 }

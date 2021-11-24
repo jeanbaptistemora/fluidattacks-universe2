@@ -20,6 +20,6 @@ makeScript {
   replace = {
     __argDynamoDbIntegratesEtl__ = "${dynamoDbEtlOnAws}/bin/${dynamoDbEtlOnAws.name}";
   };
-  name = "observes-job-etl-dynamo-integrates";
+  name = "observes-etl-dynamo-integrates";
   entrypoint = ./entrypoint.sh;
 }
