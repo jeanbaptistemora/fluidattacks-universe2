@@ -343,7 +343,7 @@ in
           args = [ "dev" ];
           output = "/integrates/charts/documents";
           gitlabExtra = chartsTemplate // {
-            parallel = 6;
+            parallel = 7;
             rules = gitlabOnlyDev;
           };
         }
@@ -352,7 +352,7 @@ in
           output = "/integrates/charts/documents";
           gitlabExtra = chartsTemplate // {
             interruptible = false;
-            parallel = 15;
+            parallel = 17;
             rules = [
               (gitlabCi.rules.schedules)
               (gitlabCi.rules.varIsDefined "integrates_charts_make_documents_prod_schedule")
