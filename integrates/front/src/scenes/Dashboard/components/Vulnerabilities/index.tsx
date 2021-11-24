@@ -2,7 +2,7 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 
@@ -99,12 +99,12 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     updateRow(vulnerability);
     setAdditionalInfoOpen(true);
   }
-  function closeAdditionalInfoModal(): void {
+  const closeAdditionalInfoModal: () => void = useCallback((): void => {
     setAdditionalInfoOpen(false);
-  }
-  function handleCloseDeleteModal(): void {
+  }, []);
+  const handleCloseDeleteModal: () => void = useCallback((): void => {
     setDeleteVulnOpen(false);
-  }
+  }, []);
   function onDeleteVulnResult(removeVulnResult: IRemoveVulnAttr): void {
     onRemoveVulnResultHelper(removeVulnResult, t);
     setDeleteVulnOpen(false);
@@ -118,9 +118,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       setDeleteVulnOpen
     );
   }
-  function clearSelectedVulns(): void {
+  const clearSelectedVulns: () => void = useCallback((): void => {
     setSelectedVulnerabilities([]);
-  }
+  }, []);
 
   function onVulnSelection(): void {
     if (previousIsRequestingReattack && !isRequestingReattack) {
