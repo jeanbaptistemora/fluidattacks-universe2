@@ -19,13 +19,40 @@ describe("TrackingTreatment", (): void => {
     externalBugTrackingSystem: "",
     historicTreatment: [
       {
-        acceptanceDate: "",
-        acceptanceStatus: "",
-        date: "2019-07-05 09:56:40",
-        justification: "test progress justification",
+        date: "2019-01-17 10:06:04",
+        treatment: "NEW",
+        user: "",
+      },
+      {
+        acceptanceStatus: "SUBMITTED",
+        date: "2020-02-17 18:36:24",
+        justification: "Some of the resources",
+        treatment: "ACCEPTED_UNDEFINED",
+        treatmentManager: "usermanager1@test.test",
+        user: "usertreatment1@test.test",
+      },
+      {
+        acceptanceStatus: "APPROVED",
+        date: "2020-02-18 18:36:24",
+        justification: "The headers must be",
+        treatment: "ACCEPTED_UNDEFINED",
+        treatmentManager: "usermanager2@test.test",
+        user: "usertreatment2@test.test",
+      },
+      {
+        acceptanceDate: "2020-10-09 15:29:48",
+        date: "2020-10-02 15:29:48",
+        justification: "The headers must be",
+        treatment: "ACCEPTED",
+        treatmentManager: "usermanager3@test.test",
+        user: "usertreatment3@test.test",
+      },
+      {
+        date: "2020-10-08 15:29:48",
+        justification: "The headers must be",
         treatment: "IN PROGRESS",
-        treatmentManager: "treatment-manager-4",
-        user: "usertreatment@test.test",
+        treatmentManager: "usermanager4@test.test",
+        user: "usertreatment4@test.test",
       },
     ],
     id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
@@ -74,6 +101,18 @@ describe("TrackingTreatment", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
+    const normalNumberOfFields: number = 3;
+    const permanentlyNumberOfFields: number = 5;
+
+    expect(wrapper.find("li").first().find("p")).toHaveLength(
+      normalNumberOfFields
+    );
+    expect(wrapper.find("li").at(1).find("p")).toHaveLength(
+      normalNumberOfFields
+    );
+    expect(wrapper.find("li").at(2).find("p")).toHaveLength(
+      permanentlyNumberOfFields
+    );
     expect(wrapper.find("li").first().find("p").first().text()).toBe(
       t("searchFindings.tabDescription.treatment.inProgress")
     );
