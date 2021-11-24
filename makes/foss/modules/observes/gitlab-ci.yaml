@@ -1071,6 +1071,24 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/observes/etl/dynamodb/centralize:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $observes_scheduled_job != $CI_JOB_NAME
+      when: never
+    - when: always
+  script:
+    - m . /observes/etl/dynamodb/centralize
+  stage: analytics
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /observes/etl/timedoctor:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
@@ -1173,24 +1191,6 @@
     - when: always
   script:
     - m . /observes/job/timedoctor/refresh-token
-  stage: analytics
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/observes/scheduled/job/dynamodb-centralize:
-  image: ghcr.io/fluidattacks/makes:21.12
-  interruptible: false
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $observes_scheduled_job != $CI_JOB_NAME
-      when: never
-    - when: always
-  script:
-    - m . /observes/scheduled/job/dynamodb-centralize
   stage: analytics
   tags:
     - autoscaling
