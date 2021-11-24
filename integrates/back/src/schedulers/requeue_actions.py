@@ -25,6 +25,7 @@ async def requeue_actions() -> None:
                 queue=action.queue,
             )
             for action in pending_actions
+            if action.action_name != "refresh_toe_lines"
         ],
         workers=20,
     )
