@@ -185,7 +185,7 @@ async def process_finding(
             finding_id=target_finding_id,
             group_name=target_group_name,
             state=source_finding.submission._replace(
-                modified_by=datetime_utils.get_iso_date()
+                modified_date=datetime_utils.get_iso_date()
             ),
         )
         await findings_model.update_state(
@@ -193,7 +193,7 @@ async def process_finding(
             finding_id=target_finding_id,
             group_name=target_group_name,
             state=source_finding.approval._replace(
-                modified_by=datetime_utils.get_iso_date()
+                modified_date=datetime_utils.get_iso_date()
             ),
         )
 

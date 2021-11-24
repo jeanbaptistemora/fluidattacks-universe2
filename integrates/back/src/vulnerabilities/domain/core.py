@@ -1035,6 +1035,7 @@ async def close_by_exclusion(vuln: Dict[str, Any]) -> None:
                     *vuln["historic_state"],
                     {
                         **vuln["historic_state"][-1],
+                        "date": datetime_utils.get_now_as_str(),
                         "state": "closed",
                         "justification": "EXCLUSION",
                     },
