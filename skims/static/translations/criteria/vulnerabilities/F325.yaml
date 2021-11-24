@@ -1,4 +1,8 @@
-
+src.lib_path.f325.kms_key_has_master_keys_exposed_to_everyone:
+  en: >
+    Amazon KMS master keys are exposed to everyone
+  es: >
+    Las llaves de Amazon KMS están expuestas a todos
 F325.title:
   en: >
     Excessive privileges - Wildcards
