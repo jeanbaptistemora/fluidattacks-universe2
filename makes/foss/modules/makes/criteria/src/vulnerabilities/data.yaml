@@ -17694,23 +17694,45 @@
   en:
     title: Authentication mechanism absence or evasion - Azure
     description: >
-      __empty__
+      The system has flaws over authentication mechanisms or
+      had been configured with one that can be bypassed.
     impact: >
-      __empty__
+      - Organizations could be vulnerable to stealthy brute-force attacks.
+
+      - Fraudulent attempts on access user's accounts.
     recommendation: >
-      __empty__
+      - Configure Azure AD Multi-Factor Authentication (MFA).
+
+      - Require users to register multiple authentication methods
+
+      - Enable Azure Fraud alert to empower users to proactively
+      report attempts of someone trying to use their account.
+
+      - Set account lockout thresholds notifications.
     threat: >
-      __empty__
+      Anonymous attacker with credentials access from the Internet.
   es:
     title: Authentication mechanism absence or evasion - Azure
     description: >
-      __empty__
+      El sistema tiene fallos sobre los mecanismos de autenticación
+      o ha sido configurado con uno que puede ser eludido.
     impact: >
-      __empty__
+      - Las organizaciones podrían ser vulnerables a ataques
+      sigilosos de fuerza bruta.
+
+      - Intentos fraudulentos de acceso a las cuentas de los usuarios.
     recommendation: >
-      __empty__
+      - Configurar la autenticación multifactorial (MFA) de Azure AD.
+
+      - Exija a los usuarios que registren varios métodos de autenticación.
+
+      - Habilitar la alerta de fraude de Azure para que los
+      usuarios puedan informar proactivamente de los intentos
+      de alguien que intenta utilizar su cuenta.
+
+      - Establecer notificaciones de umbrales de bloqueo de cuentas.
     threat: >
-      __empty__
+      Atacante anónimo con accesso a credenciales desde Internet.
   category: Subvert Access
   score:
     base:
@@ -17719,8 +17741,8 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "X"
