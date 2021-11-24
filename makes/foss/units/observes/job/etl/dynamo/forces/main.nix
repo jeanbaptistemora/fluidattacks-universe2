@@ -5,7 +5,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/etl/dynamodb"
+      outputs."/observes/etl/dynamo"
     ];
   };
   name = "observes-job-etl-dynamo-forces";

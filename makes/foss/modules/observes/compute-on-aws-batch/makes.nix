@@ -100,7 +100,7 @@ in
 
     observesDynamoDbIntegratesEtl = sharedConfiguration // {
       attemptDurationSeconds = 7200;
-      command = [ "m" "f" "/observes/etl/dynamodb/table" ];
+      command = [ "m" "f" "/observes/etl/dynamo/table" ];
       queue = "observes_soon";
     };
   };

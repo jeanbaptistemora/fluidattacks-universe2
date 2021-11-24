@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-alias dynamodb-etl="observes-etl-dynamodb"
+alias dynamodb-etl="observes-etl-dynamo"
 
 function dynamo_forces {
   local conf

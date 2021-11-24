@@ -15,6 +15,6 @@ makeScript {
       outputs."/utils/sops"
     ];
   };
-  name = "observes-etl-dynamodb";
+  name = "observes-etl-dynamo";
   entrypoint = ./entrypoint.sh;
 }

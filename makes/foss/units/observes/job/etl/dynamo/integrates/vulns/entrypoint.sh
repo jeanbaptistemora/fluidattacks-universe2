@@ -1,3 +1,3 @@
 # shellcheck shell=bash
 
-observes-etl-dynamodb-table "FI_vulnerabilities"
+observes-etl-dynamo-table "FI_vulnerabilities"

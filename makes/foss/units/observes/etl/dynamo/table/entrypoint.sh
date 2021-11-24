@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-alias dynamodb-etl="observes-etl-dynamodb"
+alias dynamodb-etl="observes-etl-dynamo"
 
 function create_config {
   local table="${1}"

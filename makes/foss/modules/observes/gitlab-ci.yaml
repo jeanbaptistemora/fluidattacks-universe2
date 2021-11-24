@@ -1071,7 +1071,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/observes/etl/dynamodb/centralize:
+/observes/etl/dynamo/centralize:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
@@ -1082,7 +1082,7 @@
       when: never
     - when: always
   script:
-    - m . /observes/etl/dynamodb/centralize
+    - m . /observes/etl/dynamo/centralize
   stage: analytics
   tags:
     - autoscaling

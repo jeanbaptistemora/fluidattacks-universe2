@@ -263,7 +263,7 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/etl/dynamodb/centralize";
+          output = "/observes/etl/dynamo/centralize";
           gitlabExtra = gitlabScheduled;
         }
         {
