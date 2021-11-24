@@ -15409,23 +15409,41 @@
   en:
     title: Lack of protection against deletion - ELB
     description: >
-      __empty__
+      The current configuration of Elastic Load Balancing
+      has no Deletion Protection safety feature enabled.
     impact: >
-      __empty__
+      - AWS load balancers can be accidentally deleted.
+
+      - Load-balanced environments remain unsafe.
+
+      - Intentional  or accidental deletion of data integrity.
     recommendation: >
-      __empty__
+      Check the Deletion Protection configuration attribute
+      value inside attributes section and enable it.
     threat: >
-      __empty__
+      Attacker with access to the AWS console that
+      modifies or deletes information.
   es:
     title: Lack of protection against deletion - ELB
     description: >
-      __empty__
+      La configuración actual de Elastic Load Balancing
+      no tiene activada la función de seguridad de
+      protección contra el borrado.
     impact: >
-      __empty__
+      - Los balanceadores de carga de AWS pueden
+      ser eliminados accidentalmente.
+
+      - Los entornos con equilibrio de carga
+      siguen siendo inseguros.
+
+      - Eliminación intencionada o accidental de la
+      integridad de los datos.
     recommendation: >
-      __empty__
+      Compruebe el valor del atributo Configuración de
+      Protección contra el borrado dentro de la sección
+      de atributos y actívelo.
     threat: >
-      __empty__
+      Atacante con acceso a la consola de AWS que modifica o borra información.
   category: Abuse Functionality
   score:
     base:
@@ -15434,7 +15452,7 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
