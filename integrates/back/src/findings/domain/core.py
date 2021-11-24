@@ -582,7 +582,14 @@ async def mask_finding(  # pylint: disable=too-many-locals
     vulns: Tuple[Vulnerability, ...] = await finding_all_vulns_loader.load(
         finding.id
     )
-    mask_vulns_coroutines = [vulns_domain.mask_vuln(vuln) for vuln in vulns]
+    mask_vulns_coroutines = [
+        vulns_domain.mask_vulnerability(
+            loaders=loaders,
+            finding_id=finding.id,
+            vulnerability_id=vuln.id,
+        )
+        for vuln in vulns
+    ]
     mask_finding_coroutines.extend(mask_vulns_coroutines)
     await collect(mask_new_finding_coroutines)
     return all(await collect(mask_finding_coroutines))

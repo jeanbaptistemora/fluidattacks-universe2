@@ -40,6 +40,7 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityMetadataToUpdate,
     VulnerabilityState,
+    VulnerabilityTreatment,
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
@@ -583,25 +584,37 @@ async def list_vulnerabilities_async(
     return result
 
 
-async def mask_vuln(vuln: Vulnerability) -> bool:
-    items: List[VulnLegacyType] = await vulns_dal.get(vuln.id)
-    item: VulnLegacyType = items[0]
-    historic_treatment: Optional[HistoricType] = item.get("historic_treatment")
-    if historic_treatment:
-        for state in historic_treatment:
-            if "treatment_manager" in state:
-                state["treatment_manager"] = "Masked"
-            if "justification" in state:
-                state["justification"] = "Masked"
-    return await vulns_dal.update(
-        vuln.finding_id,
-        vuln.id,
-        {
-            "specific": "Masked",
-            "where": "Masked",
-            "historic_treatment": historic_treatment,
-        },
+async def mask_vulnerability(
+    *,
+    loaders: Any,
+    finding_id: str,
+    vulnerability_id: str,
+) -> bool:
+    historic_treatment_loader = loaders.vulnerability_historic_treatment
+    historic_treatment: Tuple[
+        VulnerabilityTreatment, ...
+    ] = await historic_treatment_loader.load(vulnerability_id)
+    masked_treatment = tuple(
+        treatment._replace(
+            manager="Masked" if treatment.manager else None,
+            justification="Masked" if treatment.justification else None,
+        )
+        for treatment in historic_treatment
     )
+    await vulns_dal.update_historic_treatment(
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        historic_treatment=masked_treatment,
+    )
+    await vulns_dal.update_metadata(
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        metadata=VulnerabilityMetadataToUpdate(
+            specific="Masked",
+            where="Masked",
+        ),
+    )
+    return True
 
 
 async def _reject_zero_risk(

@@ -308,6 +308,24 @@ async def update_metadata(
     )
 
 
+async def update_historic_treatment(
+    *,
+    finding_id: str,
+    vulnerability_id: str,
+    historic_treatment: Tuple[VulnerabilityTreatment, ...],
+) -> None:
+    await update(
+        finding_id=finding_id,
+        vuln_id=vulnerability_id,
+        data={
+            "historic_treatment": [
+                format_vulnerability_treatment_item(treatment)
+                for treatment in historic_treatment
+            ]
+        },
+    )
+
+
 async def update_state(
     *,
     finding_id: str,
