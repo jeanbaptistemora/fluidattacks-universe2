@@ -3027,7 +3027,8 @@
       por lo que un atacante
       puede realizar ataques de fuerza bruta
       y tener éxito más rápido.
-    impact: __empty__
+    impact: >
+      Obtener credenciales funcionales para recursos o servicios.
     recommendation: >
       Hacer cumplir el uso
       de contraseñas seguras.
