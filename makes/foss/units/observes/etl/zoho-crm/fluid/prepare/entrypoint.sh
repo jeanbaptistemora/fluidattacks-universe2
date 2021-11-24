@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-alias zoho-crm-prepare="observes-job-zoho-crm-prepare"
+alias zoho-crm-prepare="observes-etl-zoho-crm-prepare"
 
 function main {
   local db_creds

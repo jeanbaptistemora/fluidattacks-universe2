@@ -297,15 +297,15 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/scheduled/job/zoho-crm-etl/fluid";
+          output = "/observes/etl/zoho-crm/fluid";
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/scheduled/job/zoho-crm-prepare/fluid";
+          output = "/observes/etl/zoho-crm/fluid/prepare";
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/scheduled/job/zoho-crm-prepare/fluid";
+          output = "/observes/etl/zoho-crm/fluid/prepare";
           gitlabExtra = gitlabScheduled;
         }
         {

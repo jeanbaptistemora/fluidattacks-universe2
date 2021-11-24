@@ -4,12 +4,12 @@
 }:
 makeScript {
   searchPaths = {
-    bin = [ outputs."/observes/job/zoho-crm-prepare" ];
+    bin = [ outputs."/observes/etl/zoho-crm" ];
     source = [
       outputs."/utils/aws"
       outputs."/utils/sops"
     ];
   };
-  name = "observes-scheduled-job-zoho-crm-prepare-fluid";
+  name = "observes-etl-zoho-crm-fluid";
   entrypoint = ./entrypoint.sh;
 }
