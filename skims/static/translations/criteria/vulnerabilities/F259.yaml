@@ -10,19 +10,33 @@ F259.title:
     Lack of protection against deletion - DynamoDB
 F259.description:
   en: >
-    __empty__
+    The current configuration has no protection
+    against deletion (recovery points in time).
+    The deletion of DynamoDB instances deletes
+    the information without the possibility of
+    recovery.
   es: >
-    __empty__
+    La configuración actual no posee protección contra
+    borrado (puntos de recuperación en el tiempo).
+    La eliminación de instancias de DynamoDB borra
+    la información sin posibilidad de recuperación.
 F259.impact:
   en: |
-    __empty__
+    Delete a DynamoDB instance by mistake or without
+    having to go through additional validations.
   es: >
-    __empty__
+    Eliminar una instancia de DynamoDB por error o
+    sin tener que pasar por validaciones adicionales.
 F259.recommendation:
   en: >
-    __empty__
+    Securely configure the Amazon Web Services
+    service, enabling protection against accidental
+    deletion with recovery points in time.
   es: >
-    __empty__
+    Configurar de manera segura el servicio de
+    Amazon Web Services,  permitiendo así que
+    exista protección en contra de borrado accidental
+    con puntos de recuperación en el tiempo.
 F259.threat:
-  en: __empty__
-  es: __empty__
+  en: Internet attacker with access to the AWS console.
+  es: Atacante en Internet con acceso a la consola AWS.
