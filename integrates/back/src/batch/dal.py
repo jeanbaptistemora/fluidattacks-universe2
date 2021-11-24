@@ -35,6 +35,9 @@ from itertools import (
 )
 import logging
 import logging.config
+from more_itertools import (
+    chunked,
+)
 from newutils.datetime import (
     get_as_epoch,
     get_now,
@@ -50,6 +53,7 @@ from typing import (
     List,
     NamedTuple,
     Optional,
+    Set,
     Tuple,
 )
 
@@ -86,6 +90,17 @@ class Job(NamedTuple):
     started_at: Optional[int]
     stopped_at: Optional[int]
     status: str
+
+
+class JobContainer(NamedTuple):
+    command: List[str]
+
+
+class JobDescription(NamedTuple):
+    id: str
+    name: str
+    status: JobStatus
+    container: JobContainer
 
 
 async def list_queues_jobs(
@@ -145,6 +160,38 @@ async def _list_queue_jobs(
         next_token = await _request(next_token)
 
     return results
+
+
+async def decribe_jobs(
+    jobs_ids: Set[str],
+) -> Tuple[JobDescription, ...]:
+    resource_options = dict(
+        service_name="batch",
+        aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
+        aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
+        aws_session_token=FI_AWS_SESSION_TOKEN,
+    )
+    async with aioboto3.client(**resource_options) as batch:
+        responses = await collect(
+            tuple(
+                batch.describe_jobs(jobs=jobs_ids_chunk)
+                for jobs_ids_chunk in chunked(jobs_ids, 100)
+            ),
+        )
+        response_jobs = chain.from_iterable(
+            tuple(response.get("jobs", []) for response in responses)
+        )
+        job_descriptions = tuple(
+            JobDescription(
+                id=job["jobId"],
+                name=job["jobName"],
+                status=JobStatus[job["status"]],
+                container=JobContainer(command=job["container"]["command"]),
+            )
+            for job in response_jobs
+        )
+
+    return job_descriptions
 
 
 async def delete_action(
