@@ -38,8 +38,8 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityMetadataToUpdate,
     VulnerabilityState,
-    VulnerabilityTreatment,
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
@@ -901,65 +901,54 @@ async def update_treatments(
     )
 
 
-async def update_state(
+async def update_metadata_and_state(
     *,
     vulnerability: Vulnerability,
-    to_update: Vulnerability,
+    new_metadata: VulnerabilityMetadataToUpdate,
+    new_state: VulnerabilityState,
     finding_policy: Optional[OrgFindingPolicyItem] = None,
 ) -> bool:
-    """Update vulnerability state."""
-    state_to_update: Optional[VulnerabilityState] = None
-    treatment_to_update: Optional[
-        Tuple[VulnerabilityTreatment, VulnerabilityTreatment]
-    ] = None
+    """Update vulnerability metadata and historics."""
     if (
-        vulnerability.state.source != to_update.state.source
-        or vulnerability.state.status != to_update.state.status
+        vulnerability.state.source != new_state.source
+        or vulnerability.state.status != new_state.status
     ):
-        state_to_update = to_update.state
+        await vulns_dal.update_state(
+            finding_id=vulnerability.finding_id,
+            vulnerability_id=vulnerability.id,
+            state=new_state,
+        )
         if (
             finding_policy
-            and to_update.state.status == VulnerabilityStateStatus.OPEN
+            and new_state.status == VulnerabilityStateStatus.OPEN
             and finding_policy.state.status == "APPROVED"
             and vulnerability.treatment.status
             != VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
         ):
             treatment_to_update = (
                 vulns_utils.get_treatment_from_org_finding_policy_new(
-                    modified_date=to_update.state.modified_date,
+                    modified_date=new_state.modified_date,
                     user_email=finding_policy.state.modified_by,
                 )
             )
+            await vulns_dal.update_treatment(
+                current_value=vulnerability.treatment,
+                finding_id=vulnerability.finding_id,
+                vulnerability_id=vulnerability.id,
+                treatment=treatment_to_update[0],
+            )
+            await vulns_dal.update_treatment(
+                current_value=treatment_to_update[0],
+                finding_id=vulnerability.finding_id,
+                vulnerability_id=vulnerability.id,
+                treatment=treatment_to_update[1],
+            )
 
-    # Format to update in current entity model
-    items: List[VulnLegacyType] = await vulns_dal.get(vulnerability.id)
-    item: VulnLegacyType = items[0]
-    data_to_update: Dict[str, FindingType] = {}
-    if state_to_update:
-        data_to_update["historic_state"] = [
-            *item["historic_state"],
-            vulns_utils.format_vulnerability_state_item(to_update.state),
-        ]
-    if treatment_to_update:
-        formatted_treatment = [
-            vulns_utils.format_vulnerability_treatment_item(treatment)
-            for treatment in treatment_to_update
-        ]
-        data_to_update["historic_treatment"] = [
-            *item["historic_treatment"],
-            *formatted_treatment,
-        ]
-    if vulnerability.type == VulnerabilityType.INPUTS and to_update.stream:
-        data_to_update["stream"] = ",".join(to_update.stream)
-    if vulnerability.type == VulnerabilityType.LINES and to_update.commit:
-        data_to_update["commit_hash"] = to_update.commit
-    if to_update.repo and vulnerability.repo != to_update.repo:
-        data_to_update["repo_nickname"] = to_update.repo
-    if data_to_update:
-        return await vulns_dal.update(
-            vulnerability.finding_id, vulnerability.id, data_to_update
-        )
-
+    await vulns_dal.update_metadata(
+        finding_id=vulnerability.finding_id,
+        vulnerability_id=vulnerability.id,
+        metadata=new_metadata,
+    )
     return True
 
 
@@ -983,15 +972,9 @@ async def verify(
     modified_by = str(user_data["user_email"])
     return all(
         await collect(
-            update_state(
+            update_metadata_and_state(
                 vulnerability=vuln_to_close,
-                to_update=vuln_to_close._replace(
-                    state=VulnerabilityState(
-                        modified_by=modified_by,
-                        modified_date=modified_date,
-                        source=source,
-                        status=VulnerabilityStateStatus.CLOSED,
-                    ),
+                new_metadata=VulnerabilityMetadataToUpdate(
                     commit=(
                         close_item.commit
                         if close_item
@@ -1004,6 +987,12 @@ async def verify(
                         and close_item.type == VulnerabilityType.INPUTS
                         else None
                     ),
+                ),
+                new_state=VulnerabilityState(
+                    modified_by=modified_by,
+                    modified_date=modified_date,
+                    source=source,
+                    status=VulnerabilityStateStatus.CLOSED,
                 ),
             )
             for vuln_to_close, close_item in zip_longest(
