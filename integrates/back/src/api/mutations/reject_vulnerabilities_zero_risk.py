@@ -51,7 +51,11 @@ async def mutate(
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         success = await vulns_domain.reject_vulnerabilities_zero_risk(
-            finding_id, user_info, justification, vulnerabilities
+            loaders=info.context.loaders,
+            vuln_ids=set(vulnerabilities),
+            finding_id=finding_id,
+            user_info=user_info,
+            justification=justification,
         )
         if success:
             redis_del_by_deps_soon(

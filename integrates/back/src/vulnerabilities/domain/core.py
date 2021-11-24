@@ -617,44 +617,26 @@ async def mask_vulnerability(
     return True
 
 
-async def _reject_zero_risk(
-    user_email: str,
-    date: str,
-    comment_id: str,
-    vuln: VulnLegacyType,
-) -> bool:
-    historic_zero_risk: HistoricType = vuln.get("historic_zero_risk", [])
-    new_state = {
-        "comment_id": comment_id,
-        "date": date,
-        "email": user_email,
-        "status": "REJECTED",
-    }
-    historic_zero_risk.append(new_state)
-    return await vulns_dal.update(
-        vuln["finding_id"],
-        vuln["UUID"],
-        {"historic_zero_risk": historic_zero_risk},
-    )
-
-
 async def reject_vulnerabilities_zero_risk(
+    *,
+    loaders: Any,
+    vuln_ids: Set[str],
     finding_id: str,
-    user_info: Dict[str, str],
+    user_info: UserType,
     justification: str,
-    vuln_ids: List[str],
 ) -> bool:
     vulns_utils.validate_justification_length(justification)
-    vulnerabilities = await get_by_finding_and_uuids(finding_id, set(vuln_ids))
-    vulnerabilities = [
-        vulns_utils.validate_requested_vuln_zero_risk(vuln)
+    vulnerabilities = await get_by_finding_and_vuln_ids_new(
+        loaders, finding_id, vuln_ids
+    )
+    vulnerabilities = tuple(
+        vulns_utils.validate_zero_risk_requested_new(vuln)
         for vuln in vulnerabilities
-    ]
+    )
     if not vulnerabilities:
         raise VulnNotFound()
 
     comment_id = str(round(time() * 1000))
-    today = datetime_utils.get_now_as_str()
     user_email: str = user_info["user_email"]
     comment_data = {
         "comment_type": "zero_risk",
@@ -665,16 +647,24 @@ async def reject_vulnerabilities_zero_risk(
     add_comment = await comments_domain.add(
         finding_id, comment_data, user_info
     )
-    reject_zero_risk_vulns = await collect(
-        [
-            _reject_zero_risk(user_email, today, str(comment_id), vuln)
-            for vuln in vulnerabilities
-        ]
+    await collect(
+        vulns_dal.update_zero_risk(
+            current_value=vuln.zero_risk,
+            finding_id=vuln.finding_id,
+            vulnerability_id=vuln.id,
+            zero_risk=VulnerabilityZeroRisk(
+                comment_id=comment_id,
+                modified_by=user_email,
+                modified_date=datetime_utils.get_iso_date(),
+                status=VulnerabilityZeroRiskStatus.REJECTED,
+            ),
+        )
+        for vuln in vulnerabilities
     )
-    success = all(reject_zero_risk_vulns) and add_comment[1]
-    if not success:
+    if not add_comment[1]:
         LOGGER.error("An error occurred rejecting zero risk vuln", **NOEXTRA)
-    return success
+        return False
+    return True
 
 
 async def request_verification(vulnerability: Vulnerability) -> bool:
