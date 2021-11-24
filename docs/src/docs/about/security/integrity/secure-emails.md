@@ -10,7 +10,7 @@ has DKIM and SPF protocols enabled.
 Additionally,
 it has the DMARCv1 protocol enabled
 in verbose mode
-for running advanced diagnostics.
+for the running of advanced diagnostics.
 These protocols help email recipients
 verify if an email comes from a trusted source,
 thus helping them avoid phishing

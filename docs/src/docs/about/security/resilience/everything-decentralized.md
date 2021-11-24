@@ -9,7 +9,7 @@ All our infrastructure is decentralized,
 meaning that we have independent data centers
 spread across multiple regions.
 No hardware maintenance or updates are needed
-as a third party does them.
+as these are carried out by a third party.
 [Attack Surface Manager's (ASM)](https://app.fluidattacks.com/)
 database does not need to be updated
 as new releases are immediately used

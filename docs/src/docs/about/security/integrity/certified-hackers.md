@@ -9,7 +9,8 @@ We continuously encourage our hackers
 to certify their knowledge.
 Usually,
 hackers start applying for certificates
-after spending six months in the company.
+after having worked in the company
+for six months.
 
 [Here](https://fluidattacks.com/about-us/certifications/)
 you can find a comprehensive list of certifications

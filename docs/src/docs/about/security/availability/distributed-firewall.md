@@ -18,7 +18,7 @@ that implements the following:
 
 - Full DDoS protection
 
-- Browser integrity checking
+- Browser integrity check
 
 - Hotlink protection
 

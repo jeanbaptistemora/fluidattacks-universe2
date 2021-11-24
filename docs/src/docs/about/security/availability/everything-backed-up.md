@@ -23,7 +23,7 @@ for example:
   and recoverability.
 
 - [Attack Surface Manager's (ASM)](https://app.fluidattacks.com/)
-  database has daily, weekly, quarterly,
+  database has daily, weekly, quarterly
   and annual full backup schedules.
   The daily backups last one week,
   the weekly ones twelve weeks,
@@ -34,6 +34,6 @@ for example:
   with the ability to recover the database
   to the state it was in at a specific date and time
   (hours, minutes and seconds)
-  during the last 35 days.
+  over the last 35 days.
 
 - All the exploits are versioned.
