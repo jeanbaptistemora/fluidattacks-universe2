@@ -42,6 +42,7 @@ interface IRootsVulnsData {
       id: string;
       vulnerabilities: {
         id: string;
+        vulnerabilityType: string;
       }[];
     }[];
   };
@@ -55,7 +56,12 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
 }: IDeactivationModalProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const [vulnsToBeClosed, setVulnsToBeClosed] = useState<number | undefined>(0);
+  const [sastVulnsToBeClosed, setSastVulnsToBeClosed] = useState<
+    number | undefined
+  >(0);
+  const [dastVulnsToBeClosed, setDastVulnsToBeClosed] = useState<
+    number | undefined
+  >(0);
 
   const [deactivateRoot] = useMutation(DEACTIVATE_ROOT, {
     onCompleted: (): void => {
@@ -193,8 +199,15 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
     const currentRootVulns = rootsVulnsData?.group.roots.find(
       (item): boolean => item.id === rootId
     );
-    setVulnsToBeClosed(currentRootVulns?.vulnerabilities.length);
-  }, [rootId, rootsVulnsData, setVulnsToBeClosed]);
+    const currentRootSastVulns = currentRootVulns?.vulnerabilities.filter(
+      (item): boolean => Object.values(item).includes("lines")
+    );
+    const currentRootDastVulns = currentRootVulns?.vulnerabilities.filter(
+      (item): boolean => !Object.values(item).includes("lines")
+    );
+    setSastVulnsToBeClosed(currentRootSastVulns?.length);
+    setDastVulnsToBeClosed(currentRootDastVulns?.length);
+  }, [rootId, rootsVulnsData, setDastVulnsToBeClosed, setSastVulnsToBeClosed]);
 
   return (
     <React.StrictMode>
@@ -289,13 +302,22 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                               {t("group.scope.common.deactivation.warning")}
                             </Alert>
                             <Alert>
-                              {t(
-                                "group.scope.common.deactivation.closedVulnsWarning"
-                              )}
-                              {vulnsToBeClosed === undefined ? (
+                              {sastVulnsToBeClosed === undefined ? (
                                 t("group.scope.common.deactivation.loading")
                               ) : (
-                                <strong>{vulnsToBeClosed}</strong>
+                                <strong>{sastVulnsToBeClosed}</strong>
+                              )}
+                              {t(
+                                "group.scope.common.deactivation.closedSastVulnsWarning"
+                              )}
+                              <br />
+                              {dastVulnsToBeClosed === undefined ? (
+                                t("group.scope.common.deactivation.loading")
+                              ) : (
+                                <strong>{dastVulnsToBeClosed}</strong>
+                              )}
+                              {t(
+                                "group.scope.common.deactivation.closedDastVulnsWarning"
                               )}
                             </Alert>
                           </React.Fragment>

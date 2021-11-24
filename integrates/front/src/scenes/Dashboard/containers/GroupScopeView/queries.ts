@@ -191,18 +191,21 @@ const GET_ROOTS_VULNS: DocumentNode = gql`
           id
           vulnerabilities {
             id
+            vulnerabilityType
           }
         }
         ... on IPRoot {
           id
           vulnerabilities {
             id
+            vulnerabilityType
           }
         }
         ... on URLRoot {
           id
           vulnerabilities {
             id
+            vulnerabilityType
           }
         }
       }
