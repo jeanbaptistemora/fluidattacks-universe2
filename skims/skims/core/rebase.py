@@ -1,7 +1,16 @@
+from aioextensions import (
+    collect,
+)
+from concurrent.futures import (
+    ThreadPoolExecutor,
+)
 from core.persist import (
     verify_permissions,
 )
 import git
+from git.repo.base import (
+    Repo,
+)
 from integrates.dal import (
     do_update_vulnerability_commit,
     get_finding_vulnerabilities,
@@ -19,14 +28,17 @@ from model.core_model import (
 import os
 from typing import (
     AsyncIterator,
+    Optional,
 )
 from utils.logs import (
     log,
-    log_exception,
+    log_blocking,
+    log_exception_blocking,
 )
 from utils.repositories import (
     get_repo,
     rebase,
+    RebaseResult,
 )
 
 
@@ -59,58 +71,75 @@ async def iterate_vulnerabilities_to_rebase(
                 yield vulnerability  # NOSONAR
 
 
+def _rebase(
+    repo: Repo, vulnerability: Vulnerability
+) -> Optional[RebaseResult]:
+    try:
+        if result := rebase(
+            repo,
+            path=vulnerability.what,
+            line=int(vulnerability.where),
+            rev_a=vulnerability.integrates_metadata.commit_hash,
+            rev_b="HEAD",
+        ):
+            log_blocking(
+                "info",
+                (
+                    "Vulnerability will be rebased from:\n"
+                    "  from path: %s\n"
+                    "    line: %s\n"
+                    "    commit: %s\n"
+                    "  to path:   %s:\n"
+                    "    line: %s\n"
+                    "    commit: %s\n"
+                ),
+                vulnerability.what,
+                vulnerability.where,
+                vulnerability.integrates_metadata.commit_hash,
+                result.path,
+                result.line,
+                result.rev,
+            )
+            return result
+    except git.GitError as exc:
+        log_exception_blocking("error", exc)
+    return None
+
+
 async def main(
     group: str,
     namespace: str,
     repository: str,
     token: str,
 ) -> bool:
-    success: bool = True
-
     create_session(api_token=token)
 
     await verify_permissions(group=group)
 
     repo = get_repo(repository, search_parent_directories=False)
 
-    async for vulnerability in iterate_vulnerabilities_to_rebase(
-        group=group,
-        namespace=namespace,
-    ):
-        try:
-            if rebase_data := rebase(
-                repo,
-                path=vulnerability.what,
-                line=int(vulnerability.where),
-                rev_a=vulnerability.integrates_metadata.commit_hash,
-                rev_b="HEAD",
-            ):
-                await log(
-                    "info",
-                    (
-                        "Vulnerability will be rebased from:\n"
-                        "  from path: %s\n"
-                        "    line: %s\n"
-                        "    commit: %s\n"
-                        "  to path:   %s:\n"
-                        "    line: %s\n"
-                        "    commit: %s\n"
-                    ),
-                    vulnerability.what,
-                    vulnerability.where,
-                    vulnerability.integrates_metadata.commit_hash,
-                    rebase_data.path,
-                    rebase_data.line,
-                    rebase_data.rev,
-                )
-                if not await do_update_vulnerability_commit(
-                    vuln_commit=rebase_data.rev,
-                    vuln_id=vulnerability.integrates_metadata.uuid,
-                    vuln_what=os.path.join(namespace, rebase_data.path),
-                    vuln_where=str(rebase_data.line),
-                ):
-                    success = False
-        except git.GitError as exc:
-            await log_exception("error", exc)
-
-    return success
+    vulnerabilities = [
+        vulnerability
+        async for vulnerability in iterate_vulnerabilities_to_rebase(
+            group=group,
+            namespace=namespace,
+        )
+    ]
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        all_rebase = list(
+            executor.map(
+                lambda vuln: (_rebase(repo, vuln), vuln), vulnerabilities
+            )
+        )
+    futures = [
+        do_update_vulnerability_commit(
+            vuln_commit=rebase_data.rev,
+            vuln_id=vulnerability.integrates_metadata.uuid,
+            vuln_what=os.path.join(namespace, rebase_data.path),
+            vuln_where=str(rebase_data.line),
+        )
+        for rebase_data, vulnerability in all_rebase
+        if rebase_data
+    ]
+    await log("info", "Updating vulnerability commits")
+    return all(await collect(futures))

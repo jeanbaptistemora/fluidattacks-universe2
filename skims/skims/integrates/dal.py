@@ -803,9 +803,13 @@ async def do_update_vulnerability_commit(
         ),
     )
 
-    success: bool = result["data"]["updateVulnerabilityCommit"]["success"]
+    success: bool = (
+        result["data"]["updateVulnerabilityCommit"]["success"]
+        if result["data"]
+        else False
+    )
 
-    if not success:
+    if not success and "errors" not in result:
         raise RetryAndFinallyReturn(success)
 
     return success
