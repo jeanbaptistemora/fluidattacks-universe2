@@ -1,23 +1,20 @@
-{ inputs
-, makeScript
+{ makeScript
 , outputs
 , ...
 }:
 makeScript {
   searchPaths = {
     bin = [
-      inputs.nixpkgs.awscli
-      inputs.nixpkgs.coreutils
-      inputs.nixpkgs.jq
-      outputs."/observes/singer/tap-timedoctor/bin"
       outputs."/observes/service/job-last-success/bin"
+      outputs."/observes/singer/tap-checkly/bin"
+      outputs."/observes/singer/tap-json/bin"
+      outputs."/observes/bin/target-redshift"
     ];
     source = [
       outputs."/utils/aws"
-      outputs."/utils/gitlab"
       outputs."/utils/sops"
     ];
   };
-  name = "observes-job-timedoctor-backup";
+  name = "observes-etl-checkly";
   entrypoint = ./entrypoint.sh;
 }

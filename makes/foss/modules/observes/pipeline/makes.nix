@@ -273,7 +273,7 @@ in
           };
         }
         {
-          output = "/observes/job/mailchimp-etl";
+          output = "/observes/etl/mailchimp";
           gitlabExtra = gitlabScheduled;
         }
         {
@@ -281,7 +281,7 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/job/timedoctor/backup";
+          output = "/observes/etl/timedoctor/backup";
           gitlabExtra = gitlabScheduled;
         }
         {

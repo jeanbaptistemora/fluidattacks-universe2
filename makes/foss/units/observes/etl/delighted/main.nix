@@ -15,6 +15,6 @@ makeScript {
       outputs."/utils/sops"
     ];
   };
-  name = "observes-job-delighted-etl";
+  name = "observes-etl-delighted";
   entrypoint = ./entrypoint.sh;
 }

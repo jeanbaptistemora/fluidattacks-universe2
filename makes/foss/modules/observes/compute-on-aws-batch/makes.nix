@@ -26,7 +26,7 @@ in
 
     observesChecklyEtl = sharedConfiguration // {
       attemptDurationSeconds = 3600;
-      command = [ "m" "f" "/observes/job/checkly-etl" ];
+      command = [ "m" "f" "/observes/etl/checkly" ];
     };
 
     observesGitlabEtlChallenges = sharedConfiguration // {
@@ -40,7 +40,7 @@ in
 
     observesDelightedEtl = sharedConfiguration // {
       attemptDurationSeconds = 3600;
-      command = [ "m" "f" "/observes/job/delighted-etl" ];
+      command = [ "m" "f" "/observes/etl/delighted" ];
     };
 
     observesDynamoDbForcesEtl = sharedConfiguration // rec {

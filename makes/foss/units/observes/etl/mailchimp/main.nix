@@ -5,16 +5,16 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/service/job-last-success/bin"
-      outputs."/observes/singer/tap-checkly/bin"
-      outputs."/observes/singer/tap-json/bin"
       outputs."/observes/bin/target-redshift"
+      outputs."/observes/singer/tap-json/bin"
+      outputs."/observes/singer/tap-mailchimp/bin"
+      outputs."/observes/service/job-last-success/bin"
     ];
     source = [
       outputs."/utils/aws"
       outputs."/utils/sops"
     ];
   };
-  name = "observes-job-checkly-etl";
+  name = "observes-etl-mailchimp";
   entrypoint = ./entrypoint.sh;
 }
