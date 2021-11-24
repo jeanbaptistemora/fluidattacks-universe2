@@ -190,5 +190,6 @@ async def main() -> None:
             finding_codes=findings,
         )
         for prepared_job in sorted_jobs
+        if len(prepared_job.roots) > 0
     ]
     await collect(all_job_futures)
