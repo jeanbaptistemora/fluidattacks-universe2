@@ -231,14 +231,6 @@
       "title": "073. Improper authorization control for web services - RDS"
     }
   },
-  "F074": {
-    "EN": {
-      "title": "074. Commented-out code"
-    },
-    "ES": {
-      "title": "074. Commented-out code"
-    }
-  },
   "F075": {
     "EN": {
       "title": "075. Unauthorized access to files - APK Content Provider"
