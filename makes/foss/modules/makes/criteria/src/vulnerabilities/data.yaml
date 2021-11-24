@@ -4958,7 +4958,9 @@
       because they were merely sent
       to the Recycle Bin or removed
       using insecure protocols.
-    impact: __empty__
+    impact: >
+      Recover with unauthorized access, deleted
+      files with sensitive information.
     recommendation: >
       Good practices must be followed
       to clean, delete,
@@ -4974,7 +4976,9 @@
       de las papeleras de reciclaje,
       esto porque no se eliminan una vez estan allí
       o no se hace siguiendo un protocolo seguro.
-    impact: __empty__
+    impact: >
+      Recuperar acceso no autorizado a archivos
+      eliminados con información sensible.
     recommendation: >
       Se deben seguir las buenas prácticas
       para la limpieza, eliminación
