@@ -2168,6 +2168,56 @@ F063,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,2
   15 |
      ^ Col 33
 "
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml,22,250,skims,325. Excessive privileges - Wildcards,"Amazon KMS master keys are exposed to everyone
+ in namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml","
+  12 |         Statement:
+  13 |           - Sid: Enable IAM User Permissions
+  14 |             Effect: Allow
+  15 |             Principal:
+  16 |               AWS: 'arn:aws:iam::111122223333:root'
+  17 |             Action: 'kms:*'
+  18 |             Resource: '*'
+  19 |           - Sid: Enable IAM User Permissions
+  20 |             Effect: Allow
+  21 |             Principal:
+> 22 |               AWS: '*'
+  23 |             Action: 'kms:*'
+  24 |             Resource: '*'
+  25 |   key2:
+  26 |     Type: 'AWS::KMS::Key'
+  27 |     Properties:
+  28 |       Description: An example multi-Region primary key
+  29 |       MultiRegion: true
+  30 |       EnableKeyRotation: false
+  31 |       PendingWindowInDays: 10
+  32 |       KeyPolicy:
+     ^ Col 0
+"
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml.json,27,250,skims,325. Excessive privileges - Wildcards,"Amazon KMS master keys are exposed to everyone
+ in namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml.json","
+  17 |               ""Principal"": {
+  18 |                 ""AWS"": ""arn:aws:iam::111122223333:root""
+  19 |               },
+  20 |               ""Action"": ""kms:*"",
+  21 |               ""Resource"": ""*""
+  22 |             },
+  23 |             {
+  24 |               ""Sid"": ""Enable IAM User Permissions"",
+  25 |               ""Effect"": ""Allow"",
+  26 |               ""Principal"": {
+> 27 |                 ""AWS"": ""*""
+  28 |               },
+  29 |               ""Action"": ""kms:*"",
+  30 |               ""Resource"": ""*""
+  31 |             }
+  32 |           ]
+  33 |         }
+  34 |       }
+  35 |     },
+  36 |     ""key2"": {
+  37 |       ""Type"": ""AWS::KMS::Key"",
+     ^ Col 0
+"
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,10,250,skims,031. Excessive privileges - AWS,Excessive privileges in namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,"
    1 | Resources:
    2 |   AWS_IAM_Role_1:
@@ -3618,6 +3668,54 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf,5,2
   19 |         ""Effect"": ""Allow"",
   20 |         ""Action"": ""iam:PassRole"",
   21 |         ""Resource"": ""arn:aws:iam::*:role/EC2-roles-for-XYZ-*""
+     ^ Col 0
+"
+F396,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml,30,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml,"
+  20 |             Effect: Allow
+  21 |             Principal:
+  22 |               AWS: '*'
+  23 |             Action: 'kms:*'
+  24 |             Resource: '*'
+  25 |   key2:
+  26 |     Type: 'AWS::KMS::Key'
+  27 |     Properties:
+  28 |       Description: An example multi-Region primary key
+  29 |       MultiRegion: true
+> 30 |       EnableKeyRotation: false
+  31 |       PendingWindowInDays: 10
+  32 |       KeyPolicy:
+  33 |         Version: 2012-10-17
+  34 |         Id: key-default-1
+  35 |         Statement:
+  36 |           - Sid: Enable IAM User Permissions
+  37 |             Effect: Deny
+  38 |             Principal:
+  39 |               AWS: '*'
+  40 |             Action: 'kms:*'
+     ^ Col 0
+"
+F396,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml.json,41,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml.json,"
+  31 |             }
+  32 |           ]
+  33 |         }
+  34 |       }
+  35 |     },
+  36 |     ""key2"": {
+  37 |       ""Type"": ""AWS::KMS::Key"",
+  38 |       ""Properties"": {
+  39 |         ""Description"": ""An example multi-Region primary key"",
+  40 |         ""MultiRegion"": true,
+> 41 |         ""EnableKeyRotation"": false,
+  42 |         ""PendingWindowInDays"": 10,
+  43 |         ""KeyPolicy"": {
+  44 |           ""Version"": ""2012-10-17"",
+  45 |           ""Id"": ""key-default-1"",
+  46 |           ""Statement"": [
+  47 |             {
+  48 |               ""Sid"": ""Enable IAM User Permissions"",
+  49 |               ""Effect"": ""Deny"",
+  50 |               ""Principal"": {
+  51 |                 ""AWS"": ""*""
      ^ Col 0
 "
 F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,24,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,"
