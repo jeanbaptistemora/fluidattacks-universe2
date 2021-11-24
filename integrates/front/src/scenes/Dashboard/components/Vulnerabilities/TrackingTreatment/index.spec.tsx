@@ -101,6 +101,7 @@ describe("TrackingTreatment", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
+    const newNumberOfFields: number = 1;
     const normalNumberOfFields: number = 3;
     const permanentlyNumberOfFields: number = 5;
 
@@ -113,6 +114,7 @@ describe("TrackingTreatment", (): void => {
     expect(wrapper.find("li").at(2).find("p")).toHaveLength(
       permanentlyNumberOfFields
     );
+    expect(wrapper.find("li").last().find("p")).toHaveLength(newNumberOfFields);
     expect(wrapper.find("li").first().find("p").first().text()).toBe(
       t("searchFindings.tabDescription.treatment.inProgress")
     );
