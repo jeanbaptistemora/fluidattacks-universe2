@@ -1,5 +1,3 @@
-# pylint:disable=too-many-lines
-
 import aioboto3
 from aioextensions import (
     collect,
@@ -11,7 +9,6 @@ from comments import (
 from contextlib import (
     AsyncExitStack,
 )
-import copy
 from custom_exceptions import (
     VulnNotFound,
     VulnNotInFinding,
@@ -49,11 +46,6 @@ from dynamodb.operations_legacy import (
 from dynamodb.types import (
     OrgFindingPolicyItem,
 )
-from graphql.type.definition import (
-    GraphQLResolveInfo,
-)
-import html
-import html.parser
 from itertools import (
     chain,
     zip_longest,
@@ -65,11 +57,8 @@ from mailer import (
 )
 from newutils import (
     datetime as datetime_utils,
-    logs as logs_utils,
     requests as requests_utils,
     token as token_utils,
-    utils,
-    validations,
     vulnerabilities as vulns_utils,
 )
 from notifications import (
@@ -91,7 +80,6 @@ from time import (
 from typing import (
     Any,
     cast,
-    Collection,
     Counter,
     Dict,
     Iterable,
@@ -805,89 +793,31 @@ async def update_historics_dates(
     return success
 
 
-async def update_treatment_vuln(
-    vulnerability: Vulnerability,
-    finding_id: str,
-    updated_values: Dict[str, FindingType],
-    info: GraphQLResolveInfo,
-) -> bool:
-    success = True
-    new_info = copy.copy(updated_values)
-    if new_info.get("tag"):
-        new_info["tag"] = vulnerability.tags or []
-        tags = str(updated_values["tag"]).split(",")
-        validations.validate_fields(tags)
-        for tag in tags:
-            if tag.strip():
-                validations.validate_field_length(tag.strip(), 30)
-                cast(List[str], new_info["tag"]).append(tag.strip())
-        new_info["tag"] = cast(
-            List[str],
-            list(set(cast(Iterable[Collection[str]], new_info["tag"]))),
-        )
-        new_info["tag"] = [
-            html.unescape(tag) for tag in cast(List[str], new_info["tag"])
-        ]
-    new_info = {
-        key: None if not value else value for key, value in new_info.items()
-    }
-    new_info = {
-        utils.camelcase_to_snakecase(k): new_info.get(k) for k in new_info
-    }
-    result_update_vuln = await vulns_dal.update(
-        finding_id, vulnerability.id, new_info
-    )
-    if not result_update_vuln:
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Attempted to update vulnerability: "
-            f"{vulnerability.id} from finding:{finding_id}",
-        )
-        success = False
-    else:
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Updated vulnerability: "
-            f"{vulnerability.id} from finding: {finding_id} successfully",
-        )
-    return success
-
-
-async def update_treatment_vulns(
+async def update_metadata(
+    *,
+    loaders: Any,
     vulnerability_id: str,
     finding_id: str,
-    updated_values: Dict[str, FindingType],
-    info: GraphQLResolveInfo,
-) -> bool:
-    del updated_values["finding_id"]
-    loaders = info.context.loaders
+    bug_tracking_system_url: Optional[str],
+    custom_severity: Optional[int],
+    tags_to_append: Optional[List[str]],
+) -> None:
     vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
         vulnerability_id
     )
-    success: bool = await update_treatment_vuln(
-        vulnerability, finding_id, updated_values, info
-    )
-    return success
-
-
-async def update_treatments(
-    vulnerability_id: str,
-    finding_id: str,
-    updated_values: Dict[str, FindingType],
-    info: GraphQLResolveInfo,
-) -> bool:
-    updated_values.pop("vulnerabilities", None)
-    if updated_values.get("tag") == "":
-        updated_values.pop("tag", None)
-    if cast(int, updated_values.get("severity", 0)) < 0:
-        updated_values["severity"] = ""
-    if "external_bts" in updated_values:
-        validations.validate_url(str(updated_values.get("external_bts", "")))
-        validations.validate_field_length(
-            str(updated_values.get("external_bts", "")), 80
-        )
-    return await update_treatment_vulns(
-        vulnerability_id, finding_id, updated_values, info
+    all_tags = []
+    if vulnerability.tags:
+        all_tags.extend(vulnerability.tags)
+    if tags_to_append:
+        all_tags.extend(tags_to_append)
+    await vulns_dal.update_metadata(
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        metadata=VulnerabilityMetadataToUpdate(
+            bug_tracking_system_url=bug_tracking_system_url,
+            custom_severity=custom_severity,
+            tags=sorted(list(set(all_tags))),
+        ),
     )
 
 

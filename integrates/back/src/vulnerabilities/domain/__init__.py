@@ -22,8 +22,8 @@ from .core import (
     request_verification,
     request_vulnerabilities_zero_risk,
     update_historics_dates,
+    update_metadata,
     update_metadata_and_state,
-    update_treatments,
     verify,
     verify_vulnerability,
 )
@@ -68,8 +68,8 @@ __all__ = [
     "request_verification",
     "request_vulnerabilities_zero_risk",
     "update_historics_dates",
+    "update_metadata",
     "update_metadata_and_state",
-    "update_treatments",
     "verify",
     "verify_vulnerability",
     # treatment
