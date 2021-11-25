@@ -252,7 +252,6 @@ def _java_properties_sensitive_data(
                     or any(
                         key.lower().endswith(suffix)
                         for suffix in [
-                            "id",
                             "key",
                             "pass",
                             "passwd",
