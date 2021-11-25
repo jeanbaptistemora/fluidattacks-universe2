@@ -73,6 +73,18 @@ interface IDataResult {
   };
 }
 
+interface IFilterSet {
+  age: string;
+  currentStatus: string;
+  currentTreatment: string;
+  lastReport: string;
+  reattack: string;
+  releaseDate: { max: string; min: string };
+  searchText: string;
+  severity: { max: string; min: string };
+  type: string;
+  where: string;
+}
 const GroupFindingsView: React.FC = (): JSX.Element => {
   const TIMEZONE_OFFSET = 60000;
   const FORMATTING_DATE_INDEX = 19;
@@ -118,22 +130,24 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("findingsCustomFilters", false);
-
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [currentStatusFilter, setCurrentStatusFilter] = useState("open");
-  const [currentTreatmentFilter, setCurrentTreatmentFilter] = useState("");
-  const [reattackFilter, setReattackFilter] = useState("");
-  const [whereFilter, setWhereFilter] = useState("");
-  const [typeFilter, setTypeFilter] = useState("");
-  const [ageFilter, setAgeFilter] = useState("");
-  const [lastReportFilter, setLastReportFilter] = useState("");
-  const [releaseDateFilter, setReleaseDateFilter] = useState({
-    max: "",
-    min: "",
-  });
   const [isRunning, setRunning] = useState(false);
   const [selectedFindings, setSelectedFindings] = useState<IFindingAttr[]>([]);
-  const [severityFilter, setSeverityFilter] = useState({ max: "", min: "" });
+  const [filterTable, setFilterTable] = useStoredState<IFilterSet>(
+    "filterGroupFindingsTableSet",
+    {
+      age: "",
+      currentStatus: "open",
+      currentTreatment: "",
+      lastReport: "",
+      reattack: "",
+      releaseDate: { max: "", min: "" },
+      searchText: "",
+      severity: { max: "", min: "" },
+      type: "",
+      where: "",
+    },
+    localStorage
+  );
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const openDeleteModal: () => void = useCallback((): void => {
     setDeleteModalOpen(true);
@@ -296,114 +310,174 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setSearchTextFilter(event.target.value);
+    event.persist();
+    setFilterTable(
+      (value): IFilterSet => ({
+        ...value,
+        searchText: event.target.value,
+      })
+    );
   }
   const filterSearchtextFindings: IFindingAttr[] = filterSearchText(
     findings,
-    searchTextFilter
+    filterTable.searchText
   );
 
   function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setCurrentStatusFilter(event.target.value);
+    event.persist();
+    setFilterTable(
+      (value): IFilterSet => ({
+        ...value,
+        currentStatus: event.target.value,
+      })
+    );
   }
   const filterCurrentStatusFindings: IFindingAttr[] = filterSelect(
     findings,
-    currentStatusFilter,
+    filterTable.currentStatus,
     "state"
   );
 
   const onTreatmentChange: (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => void = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    setCurrentTreatmentFilter(event.target.value);
+    event.persist();
+    setFilterTable(
+      (value): IFilterSet => ({
+        ...value,
+        currentTreatment: event.target.value,
+      })
+    );
   };
 
   const filterCurrentTreatmentFindings: IFindingAttr[] = filterSubSelectCount(
     findings,
-    currentTreatmentFilter,
+    filterTable.currentTreatment,
     "treatmentSummary"
   );
 
   function onReattackChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setReattackFilter(event.target.value);
+    event.persist();
+    setFilterTable(
+      (value): IFilterSet => ({ ...value, reattack: event.target.value })
+    );
   }
   const filterReattackFindings: IFindingAttr[] = filterSelect(
     findings,
-    reattackFilter,
+    filterTable.reattack,
     "remediated"
   );
 
   function onTypeChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setTypeFilter(event.target.value);
+    event.persist();
+    setFilterTable(
+      (value): IFilterSet => ({ ...value, type: event.target.value })
+    );
   }
   const filterTypeFindings: IFindingAttr[] = filterSelect(
     findings,
-    typeFilter,
+    filterTable.type,
     "title"
   );
 
   function onWhereChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setWhereFilter(event.target.value);
+    event.persist();
+    setFilterTable(
+      (value): IFilterSet => ({
+        ...value,
+        where: event.target.value,
+      })
+    );
   }
   const filterWhereFindings: IFindingAttr[] = filterWhere(
     findings,
-    whereFilter,
+    filterTable.where,
     "vulnerabilities"
   );
 
   function onAgeChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setAgeFilter(event.target.value);
+    event.persist();
+    setFilterTable(
+      (value): IFilterSet => ({ ...value, age: event.target.value })
+    );
   }
   const filterAgeFindings: IFindingAttr[] = filterLastNumber(
     findings,
-    ageFilter,
+    filterTable.age,
     "age"
   );
 
   function onLastReportChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setLastReportFilter(event.target.value);
+    event.persist();
+    setFilterTable(
+      (value): IFilterSet => ({ ...value, lastReport: event.target.value })
+    );
   }
   const filterLastReportFindings: IFindingAttr[] = filterLastNumber(
     findings,
-    lastReportFilter,
+    filterTable.lastReport,
     "lastVulnerability"
   );
 
   function onSeverityMinChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setSeverityFilter({ ...severityFilter, min: event.target.value });
+    event.persist();
+    setFilterTable(
+      (value): IFilterSet => ({
+        ...value,
+        severity: { ...value.severity, min: event.currentTarget.value },
+      })
+    );
   }
 
   function onSeverityMaxChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setSeverityFilter({ ...severityFilter, max: event.target.value });
+    event.persist();
+    setFilterTable(
+      (value): IFilterSet => ({
+        ...value,
+        severity: { ...value.severity, max: event.currentTarget.value },
+      })
+    );
   }
 
   const filterSeverityFindings: IFindingAttr[] = filterRange(
     findings,
-    severityFilter,
+    filterTable.severity,
     "severityScore"
   );
 
   const onReleaseDateMinChange: (
     event: React.ChangeEvent<HTMLInputElement>
   ) => void = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setReleaseDateFilter({ ...releaseDateFilter, min: event.target.value });
+    event.persist();
+    setFilterTable(
+      (value): IFilterSet => ({
+        ...value,
+        releaseDate: { ...value.releaseDate, min: event.currentTarget.value },
+      })
+    );
   };
 
   const onReleaseDateMaxChange: (
     event: React.ChangeEvent<HTMLInputElement>
   ) => void = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setReleaseDateFilter({ ...releaseDateFilter, max: event.target.value });
+    event.persist();
+    setFilterTable(
+      (value): IFilterSet => ({
+        ...value,
+        releaseDate: { ...value.releaseDate, max: event.currentTarget.value },
+      })
+    );
   };
 
   const filterReleaseDateFindings: IFindingAttr[] = filterDateRange(
     findings,
-    releaseDateFilter,
+    filterTable.releaseDate,
     "releaseDate"
   );
 
@@ -499,7 +573,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   const customFilters: IFilterProps[] = [
     {
-      defaultValue: lastReportFilter,
+      defaultValue: filterTable.lastReport,
       onChangeInput: onLastReportChange,
       placeholder: "Last report (last N days)",
       tooltipId: "group.findings.filtersTooltips.lastReport.id",
@@ -507,7 +581,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       type: "number",
     },
     {
-      defaultValue: typeFilter,
+      defaultValue: filterTable.type,
       onChangeSelect: onTypeChange,
       placeholder: "Type",
       selectOptions: typesOptions,
@@ -516,7 +590,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: currentStatusFilter,
+      defaultValue: filterTable.currentStatus,
       onChangeSelect: onStatusChange,
       placeholder: "Status",
       selectOptions: {
@@ -528,7 +602,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: currentTreatmentFilter,
+      defaultValue: filterTable.currentTreatment,
       onChangeSelect: onTreatmentChange,
       placeholder: "Treatment",
       selectOptions: {
@@ -545,7 +619,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       defaultValue: "",
       placeholder: "Severity (range)",
       rangeProps: {
-        defaultValue: severityFilter,
+        defaultValue: filterTable.severity,
         onChangeMax: onSeverityMaxChange,
         onChangeMin: onSeverityMinChange,
         step: 0.1,
@@ -555,7 +629,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       type: "range",
     },
     {
-      defaultValue: ageFilter,
+      defaultValue: filterTable.age,
       onChangeInput: onAgeChange,
       placeholder: "Age (last N days)",
       tooltipId: "group.findings.filtersTooltips.age.id",
@@ -563,7 +637,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       type: "number",
     },
     {
-      defaultValue: whereFilter,
+      defaultValue: filterTable.where,
       onChangeInput: onWhereChange,
       placeholder: "Where",
       tooltipId: "group.findings.filtersTooltips.where.id",
@@ -571,7 +645,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       type: "text",
     },
     {
-      defaultValue: reattackFilter,
+      defaultValue: filterTable.reattack,
       onChangeSelect: onReattackChange,
       placeholder: "Reattack",
       selectOptions: {
@@ -586,7 +660,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       defaultValue: "",
       placeholder: "Release date (Range)",
       rangeProps: {
-        defaultValue: releaseDateFilter,
+        defaultValue: filterTable.releaseDate,
         onChangeMax: onReleaseDateMaxChange,
         onChangeMin: onReleaseDateMinChange,
       },
@@ -616,7 +690,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
             },
           }}
           customSearch={{
-            customSearchDefault: searchTextFilter,
+            customSearchDefault: filterTable.searchText,
             isCustomSearchEnabled: true,
             onUpdateCustomSearch: onSearchTextChange,
           }}
