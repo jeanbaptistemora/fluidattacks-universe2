@@ -6,7 +6,7 @@
 let
   nodeJsEnvironment = makeNodeJsEnvironment {
     name = "integrates-linters-back-schema";
-    nodeJsVersion = "12";
+    nodeJsVersion = "14";
     packageJson = ./npm/package.json;
     packageLockJson = ./npm/package-lock.json;
   };

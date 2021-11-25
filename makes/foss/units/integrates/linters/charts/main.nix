@@ -7,7 +7,7 @@ let
   name = "integrates-charts-lint";
   nodeJsEnvironment = makeNodeJsEnvironment {
     inherit name;
-    nodeJsVersion = "12";
+    nodeJsVersion = "14";
     packageJson = ./npm/package.json;
     packageLockJson = ./npm/package-lock.json;
   };
