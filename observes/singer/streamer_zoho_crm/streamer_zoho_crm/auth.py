@@ -22,6 +22,10 @@ ACCOUNTS_URL = "https://accounts.zoho.com"  # for US region
 LOG = logging.getLogger(__name__)
 
 
+class TokenGenerationFail(Exception):
+    pass
+
+
 class Credentials(NamedTuple):
     client_id: str
     client_secret: str
@@ -58,6 +62,7 @@ def revoke_refresh_token() -> Dict[str, str]:
     refresh_token = getpass("Refresh token to revoke:")
     params = {"token": refresh_token}
     response = requests.post(url=endpoint, params=params)
+    LOG.debug("revoke_refresh_token: %s", response)
     return dict(response.json())
 
 
@@ -71,6 +76,10 @@ def generate_token(credentials: Credentials) -> Dict[str, Any]:
         "grant_type": "refresh_token",
     }
     response = requests.post(url=endpoint, params=params)
+    data = response.json()
+    LOG.debug("generate_token response: %s, %s", response, response.json())
+    if data.get("error"):
+        raise TokenGenerationFail(str(data["error"]))
     return dict(response.json())
 
 
