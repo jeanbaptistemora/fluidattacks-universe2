@@ -15900,15 +15900,16 @@
       Kubernetes default configuration
       is overly permissive,
       allowing users to escalate privileges
-      or execute commands as privileged users
+      or execute commands as privileged users.
     impact: >
-      Gain total control over one or more PoDs
+      Gain total control over one or more PoDs.
     recommendation: >
       Set strict security policy
       disabling potentially harmful actions
-      and restricting the user permissions
+      and restricting the user permissions.
     threat: >
-      __empty__
+      Authenticated attacker with local
+      access to PoD or container.
   es:
     title: Excessive Privieleges - Kubernetes
     description: >
@@ -15916,16 +15917,16 @@
       es demasiado permisiva,
       permitiendo a los usuarios elevar privilegios
       o ejecutar comandos como usuarios con privilegios
-      administrativos
+      administrativos.
     impact: >
-      Obtener control total de uno o más contenedores
+      Obtener control total de uno o más contenedores.
     recommendation: >
       Establecer políticas de seguridad estrictas
       en los Pods, restringiendo acciones potencialmente peligrosas
-      y limitando los permisos de los usuarios
+      y limitando los permisos de los usuarios.
     threat: >
-      Atacante autenticado con acceso local al Pod
-      o contenedor
+      Atacante autenticado con acceso local al PoD
+      o contenedor.
   category: Abuse Functionality
   score:
     base:
