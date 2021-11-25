@@ -25,6 +25,13 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
+interface IFilterSet {
+  author: string;
+  groupsContributed: string;
+  repository: string;
+  searchText: string;
+}
+
 const GroupAuthorsView: React.FC = (): JSX.Element => {
   const now: Date = new Date();
   const thisYear: number = now.getFullYear();
@@ -39,10 +46,17 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("groupAuthorsFilters", false);
 
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [authorFilter, setAuthorFilter] = useState("");
-  const [groupsContributedFilter, setGroupsContributedFilter] = useState("");
-  const [repositoryFilter, setRepositoryFilter] = useState("");
+  const [filterAuthorsTable, setFilterAuthorsTable] =
+    useStoredState<IFilterSet>(
+      "filterGroupAuthorsSet",
+      {
+        author: "",
+        groupsContributed: "",
+        repository: "",
+        searchText: "",
+      },
+      localStorage
+    );
 
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
@@ -130,39 +144,63 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setSearchTextFilter(event.target.value);
+    event.persist();
+    setFilterAuthorsTable(
+      (value): IFilterSet => ({
+        ...value,
+        searchText: event.target.value,
+      })
+    );
   }
   const filterSearchtextDataset: IBillAuthor[] = filterSearchText(
     dataset,
-    searchTextFilter
+    filterAuthorsTable.searchText
   );
 
   function onAuthorChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setAuthorFilter(event.target.value);
+    event.persist();
+    setFilterAuthorsTable(
+      (value): IFilterSet => ({
+        ...value,
+        author: event.target.value,
+      })
+    );
   }
   const filterAuthorDataset: IBillAuthor[] = filterText(
     dataset,
-    authorFilter,
+    filterAuthorsTable.author,
     "actor"
   );
   function onGroupsContributedChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setGroupsContributedFilter(event.target.value);
+    event.persist();
+    setFilterAuthorsTable(
+      (value): IFilterSet => ({
+        ...value,
+        groupsContributed: event.target.value,
+      })
+    );
   }
   const filterGroupsContributedDataset: IBillAuthor[] = filterText(
     dataset,
-    groupsContributedFilter,
+    filterAuthorsTable.groupsContributed,
     "groups"
   );
   function onRepositoryChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setRepositoryFilter(event.target.value);
+    event.persist();
+    setFilterAuthorsTable(
+      (value): IFilterSet => ({
+        ...value,
+        repository: event.target.value,
+      })
+    );
   }
   const filterRepositoryDataset: IBillAuthor[] = filterText(
     dataset,
-    repositoryFilter,
+    filterAuthorsTable.repository,
     "repository"
   );
 
@@ -175,7 +213,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
 
   const customFiltersProps: IFilterProps[] = [
     {
-      defaultValue: authorFilter,
+      defaultValue: filterAuthorsTable.author,
       onChangeInput: onAuthorChange,
       placeholder: "Author",
       tooltipId: "group.authors.filtersTooltips.actor.id",
@@ -183,7 +221,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       type: "text",
     },
     {
-      defaultValue: groupsContributedFilter,
+      defaultValue: filterAuthorsTable.groupsContributed,
       onChangeInput: onGroupsContributedChange,
       placeholder: "Groups Contributed",
       tooltipId: "group.authors.filtersTooltips.groupsContributed.id",
@@ -191,7 +229,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       type: "text",
     },
     {
-      defaultValue: repositoryFilter,
+      defaultValue: filterAuthorsTable.repository,
       onChangeInput: onRepositoryChange,
       placeholder: "Repository",
       tooltipId: "group.authors.filtersTooltips.repository.id",
@@ -238,7 +276,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
           },
         }}
         customSearch={{
-          customSearchDefault: searchTextFilter,
+          customSearchDefault: filterAuthorsTable.searchText,
           isCustomSearchEnabled: true,
           onUpdateCustomSearch: onSearchTextChange,
         }}
