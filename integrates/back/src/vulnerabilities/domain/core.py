@@ -156,28 +156,31 @@ async def confirm_vulnerabilities_zero_risk(
 
 
 async def _remove_all_tags(
-    vuln: Vulnerability,
-) -> bool:
-    return await vulns_dal.update(
-        vuln.finding_id,
-        vuln.id,
-        {"tag": None},
+    vulnerability: Vulnerability,
+) -> None:
+    await vulns_dal.update_metadata(
+        finding_id=vulnerability.finding_id,
+        vulnerability_id=vulnerability.id,
+        metadata=VulnerabilityMetadataToUpdate(
+            tags=[],
+        ),
     )
 
 
 async def _remove_tag(
-    vuln: Vulnerability,
+    vulnerability: Vulnerability,
     tag_to_remove: str,
-) -> bool:
-    tags: Optional[List[str]] = vuln.tags
+) -> None:
+    tags: Optional[List[str]] = vulnerability.tags
     if tags and tag_to_remove in tags:
         tags.remove(tag_to_remove)
-        return await vulns_dal.update(
-            vuln.finding_id,
-            vuln.id,
-            {"tag": tags},
+        await vulns_dal.update_metadata(
+            finding_id=vulnerability.finding_id,
+            vulnerability_id=vulnerability.id,
+            metadata=VulnerabilityMetadataToUpdate(
+                tags=tags,
+            ),
         )
-    return True
 
 
 async def remove_vulnerability_tags(
@@ -186,19 +189,16 @@ async def remove_vulnerability_tags(
     vuln_ids: Set[str],
     finding_id: str,
     tag_to_remove: str,
-) -> bool:
+) -> None:
     vulnerabilities = await get_by_finding_and_vuln_ids_new(
         loaders, finding_id, vuln_ids
     )
     if tag_to_remove:
-        return all(
-            await collect(
-                _remove_tag(vuln, tag_to_remove) for vuln in vulnerabilities
-            )
+        await collect(
+            _remove_tag(vuln, tag_to_remove) for vuln in vulnerabilities
         )
-    return all(
-        await collect(_remove_all_tags(vuln) for vuln in vulnerabilities)
-    )
+        return
+    await collect(_remove_all_tags(vuln) for vuln in vulnerabilities)
 
 
 async def remove_vulnerability(  # pylint: disable=too-many-arguments
