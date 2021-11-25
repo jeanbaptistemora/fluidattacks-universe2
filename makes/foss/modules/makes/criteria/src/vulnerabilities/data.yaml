@@ -17278,7 +17278,9 @@
       The code presents several classes whose
       variables are declared as public.
     impact: >
-      __empty__
+      A public variable can be get or set by any part
+      of the program, and any rules regarding its use
+      can be easily broken or forgotten.
     recommendation: >
       Unless strictly necessary, all variables
       should be declared as private.
@@ -17295,7 +17297,10 @@
       El código presenta varias clases cuyas
       variables están declaradas como públicas.
     impact: >
-      __empty__
+      Una variable global puede ser obtenida o
+      establecida por cualquier parte del programa,
+      y cualquier regla relativa a su uso puede ser
+      fácilmente rota u olvidada.
     recommendation: >
       A no ser que sea estrictamente necesario,
       todas las variables deben ser declaradas
