@@ -13,6 +13,7 @@ from metaloaders.model import (
 from more_itertools import (
     mark_ends,
 )
+import sys
 import traceback
 from typing import (
     Any,
@@ -29,6 +30,7 @@ from utils.env import (
 )
 from utils.logs import (
     log,
+    log_to_remote,
 )
 
 # Constants
@@ -113,15 +115,21 @@ def shield(
                 try:
                     return await function(*args, **kwargs)
                 except on_exceptions as exc:
+                    exc_type, exc_value, exc_taceback = sys.exc_info()
+                    await log_to_remote(
+                        msg=(exc_type, exc_value, exc_taceback),
+                        severity="error",
+                        function_id=function_id,
+                        retry=number,
+                    )
+
                     msg: str = "Function: %s, %s: %s\n%s"
-                    exc_msg: str = str(exc)
-                    exc_type: str = type(exc).__name__
                     await log(
                         "warning",
                         msg,
                         function_id,
-                        exc_type,
-                        exc_msg,
+                        type(exc_type).__name__,
+                        exc_value,
                         traceback.format_exc(),
                     )
 

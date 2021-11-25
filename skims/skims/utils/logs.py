@@ -4,8 +4,15 @@ from aioextensions import (
 import bugsnag
 import logging
 import sys
+from types import (
+    TracebackType,
+)
 from typing import (
     Any,
+    Optional,
+    Tuple,
+    Type,
+    Union,
 )
 from utils.bugs import (
     META as BUGS_META,
@@ -70,25 +77,37 @@ async def log_exception(
 
 def log_to_remote_blocking(
     *,
-    msg: str,
+    msg: Union[
+        str, Exception, Tuple[BaseException, BaseException, TracebackType]
+    ],
     severity: str,  # info, error, warning
     **meta_data: str,
 ) -> None:
     meta_data.update(BUGS_META)
     bugsnag.notify(
-        Exception(msg), meta_data=dict(meta_data), severity=severity
+        Exception(msg) if isinstance(msg, str) else msg,
+        meta_data=dict(meta_data),
+        severity=severity,
     )
 
 
 async def log_to_remote(
     *,
-    msg: str,
+    msg: Union[
+        str,
+        Exception,
+        Tuple[
+            Optional[Type[BaseException]],
+            Optional[BaseException],
+            Optional[TracebackType],
+        ],
+    ],
     severity: str,  # info, error, warning
     **meta_data: str,
 ) -> None:
     await in_thread(
         log_to_remote_blocking,
-        msg,
+        msg=msg,
         severity=severity,
         **meta_data,
     )
