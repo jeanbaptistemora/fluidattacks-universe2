@@ -55,21 +55,29 @@ const TrackingView: React.FC = (): JSX.Element => {
         {/* eslint-disable-next-line react/forbid-component-props */}
         <Col80 className={style.trackGraph}>
           <ul className={style.timelineContainer}>
-            {data.finding.tracking.map(
-              (closing: ITracking): JSX.Element => (
-                <TrackingItem
-                  accepted={closing.accepted}
-                  acceptedUndefined={closing.acceptedUndefined}
-                  closed={closing.closed}
-                  cycle={closing.cycle}
-                  date={closing.date}
-                  justification={closing.justification}
-                  key={closing.cycle}
-                  manager={closing.manager}
-                  open={closing.open}
-                />
+            {data.finding.tracking
+              .reduce(
+                (array: ITracking[], current: ITracking): ITracking[] => [
+                  current,
+                  ...array,
+                ],
+                []
               )
-            )}
+              .map(
+                (closing: ITracking): JSX.Element => (
+                  <TrackingItem
+                    accepted={closing.accepted}
+                    acceptedUndefined={closing.acceptedUndefined}
+                    closed={closing.closed}
+                    cycle={closing.cycle}
+                    date={closing.date}
+                    justification={closing.justification}
+                    key={closing.cycle}
+                    manager={closing.manager}
+                    open={closing.open}
+                  />
+                )
+              )}
           </ul>
         </Col80>
       </Row>

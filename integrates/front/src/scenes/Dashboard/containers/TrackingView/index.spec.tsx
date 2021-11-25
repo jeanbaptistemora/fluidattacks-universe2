@@ -95,8 +95,8 @@ describe("TrackingView", (): void => {
 
     const numberOfCycles: number = 2;
 
-    expect(wrapper.find("li").at(0).text()).not.toContain("Justification");
-    expect(wrapper.find("li").at(1).text()).toContain("Justification");
+    expect(wrapper.find("li").last().text()).not.toContain("Justification");
+    expect(wrapper.find("li").first().text()).toContain("Justification");
     expect(wrapper.find("li")).toHaveLength(numberOfCycles);
   });
 });
