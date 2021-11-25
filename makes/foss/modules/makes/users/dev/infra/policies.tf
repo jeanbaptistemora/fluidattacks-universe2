@@ -40,6 +40,7 @@ locals {
           "lambda:Get*",
           "lambda:List*",
           "logs:Describe*",
+          "logs:Filter*",
           "logs:Get*",
           "logs:List*",
           "redshift:Describe*",

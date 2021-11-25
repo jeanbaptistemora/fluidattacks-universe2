@@ -73,8 +73,9 @@ data "aws_iam_policy_document" "skims_prod_policy_data" {
   statement {
     effect = "Allow"
     actions = [
-      "logs:GetLogEvents",
       "logs:DescribeLogGroups",
+      "logs:FilterLogEvents ",
+      "logs:GetLogEvents",
     ]
     resources = [
       "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:/aws/batch/job:log-stream:*",
