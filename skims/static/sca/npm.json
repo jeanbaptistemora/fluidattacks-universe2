@@ -1971,7 +1971,6 @@
     "GMS-2017-275": ">=0.0.0-alpha"
   },
   "jasmine-core": {
-    "github.com/jasmine/jasmine/commit/3b77f3818846ea68bcdcd7b0b734b48cb1f69cc1": "<3.10.1",
     "npm:jasmine-core:20180216": "<3.1.0"
   },
   "jdf-sass": {
