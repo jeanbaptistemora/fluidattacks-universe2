@@ -3,7 +3,7 @@
 }:
 makeNodeJsEnvironment {
   name = "integrates-back-tools-secure-spreadsheet";
-  nodeJsVersion = "16";
+  nodeJsVersion = "14";
   packageJson = ./npm/package.json;
   packageLockJson = ./npm/package-lock.json;
 }

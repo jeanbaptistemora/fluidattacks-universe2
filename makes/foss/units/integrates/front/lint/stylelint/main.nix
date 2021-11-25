@@ -13,7 +13,7 @@ makeDerivation {
   builder = ./builder.sh;
   name = "integrates-front-lint-stylelint";
   searchPaths = {
-    bin = [ inputs.nixpkgs.nodejs ];
+    bin = [ inputs.nixpkgs.nodejs-14_x ];
     source = [ outputs."/integrates/front/config/dev-runtime-env" ];
   };
 }
