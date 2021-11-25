@@ -3,9 +3,11 @@ from aioextensions import (
 )
 from batch import (
     dal as batch_dal,
+    domain as batch_domain,
 )
 from batch.types import (
     BatchProcessing,
+    JobPayload,
 )
 from typing import (
     List,
@@ -17,7 +19,7 @@ async def requeue_actions() -> None:
     action_queues = {
         pending_action.queue for pending_action in pending_actions
     }
-    queues_jobs = await batch_dal.list_queues_jobs(
+    job_payloads = await batch_domain.get_job_payloads(
         queues=list(action_queues),
         statuses=[
             batch_dal.JobStatus.SUBMITTED,
@@ -27,19 +29,6 @@ async def requeue_actions() -> None:
             batch_dal.JobStatus.RUNNING,
         ],
     )
-    non_executed_jobs = await batch_dal.decribe_jobs(
-        set(queues_jobs.id for queues_jobs in queues_jobs)
-    )
-    non_executed_jobs_info = {
-        (
-            job_description.container.command[4],  # action_name
-            job_description.container.command[5],  # subject
-            job_description.container.command[6],  # entity
-            job_description.container.command[7],  # time
-            job_description.container.command[8],  # additional_info
-        )
-        for job_description in non_executed_jobs
-    }
     await collect(
         [
             batch_dal.put_action_to_batch(
@@ -51,14 +40,14 @@ async def requeue_actions() -> None:
                 queue=action.queue,
             )
             for action in pending_actions
-            if (
-                action.action_name,
-                action.subject,
-                action.entity,
-                action.time,
-                action.additional_info,
+            if JobPayload(
+                action_name=action.action_name,
+                subject=action.subject,
+                entity=action.entity,
+                time=action.time,
+                additional_info=action.additional_info,
             )
-            not in non_executed_jobs_info
+            not in job_payloads
         ],
         workers=20,
     )

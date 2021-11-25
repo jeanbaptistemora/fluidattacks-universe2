@@ -3,8 +3,14 @@ from aioextensions import (
     collect,
     in_thread,
 )
+from batch.enums import (
+    JobStatus,
+)
 from batch.types import (
     BatchProcessing,
+    Job,
+    JobContainer,
+    JobDescription,
 )
 import boto3
 from boto3.dynamodb.conditions import (
@@ -25,9 +31,6 @@ from custom_types import (
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
-)
-from enum import (
-    Enum,
 )
 from itertools import (
     chain,
@@ -51,7 +54,6 @@ from settings import (
 from typing import (
     Callable,
     List,
-    NamedTuple,
     Optional,
     Set,
     Tuple,
@@ -70,45 +72,14 @@ def mapping_to_key(items: List[str]) -> str:
     )
 
 
-class JobStatus(Enum):
-    SUBMITTED: str = "SUBMITTED"
-    PENDING: str = "PENDING"
-    RUNNABLE: str = "RUNNABLE"
-    STARTING: str = "STARTING"
-    RUNNING: str = "RUNNING"
-    SUCCEEDED: str = "SUCCEEDED"
-    FAILED: str = "FAILED"
-
-
-class Job(NamedTuple):
-    created_at: Optional[int]
-    exit_code: Optional[int]
-    exit_reason: Optional[str]
-    id: str
-    name: str
-    queue: str
-    started_at: Optional[int]
-    stopped_at: Optional[int]
-    status: str
-
-
-class JobContainer(NamedTuple):
-    command: List[str]
-
-
-class JobDescription(NamedTuple):
-    id: str
-    name: str
-    status: JobStatus
-    container: JobContainer
-
-
 async def list_queues_jobs(
     queues: List[str],
     statuses: List[JobStatus],
     *,
     filters: Tuple[Callable[[Job], bool], ...] = (),
 ) -> List[Job]:
+    if FI_ENVIRONMENT == "development":
+        return []
     return list(
         chain.from_iterable(
             await collect(
@@ -165,6 +136,8 @@ async def _list_queue_jobs(
 async def decribe_jobs(
     jobs_ids: Set[str],
 ) -> Tuple[JobDescription, ...]:
+    if FI_ENVIRONMENT == "development":
+        return tuple()
     resource_options = dict(
         service_name="batch",
         aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
