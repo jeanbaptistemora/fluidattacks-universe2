@@ -1,53 +1,53 @@
 "Finding type definition"
 type Finding {
   "Project or application that contains the vulnerability"
-  affectedSystems: String
+  affectedSystems: String!
   "Age of the Finding in days"
-  age: Int
+  age: Int!
   "Hacker responsible for the Finding"
-  analyst: String @deprecated(reason: """This field will be removed
+  analyst: String! @deprecated(reason: """This field will be removed
   after 2022/03/02. Use `hacker` instead.""")
   "Attack vector description"
-  attackVectorDesc: String @deprecated(reason: """This field will be removed
+  attackVectorDesc: String! @deprecated(reason: """This field will be removed
   after 2021/12/31. Use `attackVectorDescription` instead.""")
   "Malicious actions that can be performed by exploiting the vulnerability"
-  attackVectorDescription: String
+  attackVectorDescription: String!
   "Quantity of closed vulnerabilities within the Finding"
-  closedVulnerabilities: Int
+  closedVulnerabilities: Int!
   "Information about the Finding shared by the stakeholders via comments"
   consulting: [Consult]
   "Current status of the Finding"
-  currentState: String
+  currentState: String!
   "Common Vulnerability Scoring System version"
-  cvssVersion: String
+  cvssVersion: String!
   "Brief explanation of the vulnerability and how it works"
-  description: String
+  description: String!
   "Evidences of the Finding"
-  evidence: GenericScalar
+  evidence: GenericScalar!
   "Name of the Group where the Finding is in"
-  groupName: String
+  groupName: String!
   "Hacker responsible for the Finding"
   hacker: String
   "Previous configurations of the Finding"
   historicState: [GenericScalar]
   "Finding Identifier"
-  id: String
+  id: String!
   "Inputs Vulnerabilities"
-  inputsVulnerabilities: [Vulnerability]
+  inputsVulnerabilities: [Vulnerability!]
   "Inputs Vulnerabilities"
-  inputsVulns: [Vulnerability] @deprecated(reason: """This field will be
+  inputsVulns: [Vulnerability!] @deprecated(reason: """This field will be
     removed after 2022/02/06. Use `inputsVulnerabilities` instead.""")
   "Is the Finding still exploitable?"
-  isExploitable: Boolean
+  isExploitable: Boolean!
   "Time in days since the last closed vulnerability in this Finding"
   lastVulnerability: Int
   "Lines vulnerabilities"
-  linesVulnerabilities: [Vulnerability]
+  linesVulnerabilities: [Vulnerability!]
   "Lines vulnerabilities"
-  linesVulns: [Vulnerability] @deprecated(reason: """This field will be
+  linesVulns: [Vulnerability!] @deprecated(reason: """This field will be
     removed after 2022/02/06. Use `linesVulnerabilities` instead.""")
   "Machine (Skims) checks and tests associated with this Finding"
-  machineJobs: [MachineJob]
+  machineJobs: [MachineJob!]
   "Re-attacks requested in all locations"
   newRemediated: Boolean @deprecated(reason: """This field
     will be removed after 2021/12/20. Use `remediated` instead.""")
@@ -56,17 +56,17 @@ type Finding {
   "Age of the oldest open vulnerability in the Finding in days"
   openAge: Int
   "Quantity of remaining open vulnerabilities"
-  openVulnerabilities: Int
+  openVulnerabilities: Int!
   "Ports vulnerabilities"
-  portsVulnerabilities: [Vulnerability]
+  portsVulnerabilities: [Vulnerability!]
   "Ports vulnerabilities"
-  portsVulns: [Vulnerability] @deprecated(reason: """This field will be
+  portsVulns: [Vulnerability!] @deprecated(reason: """This field will be
     removed after 2022/02/06. Use `portsVulnerabilities` instead.""")
   "Deprecated. Use `groupName` instead"
-  projectName: String @deprecated(reason: """This field will
+  projectName: String! @deprecated(reason: """This field will
     be removed after 2022/01/13. Use `groupName` instead.""")
   "Recommended course of action to close the vulnerabilities"
-  recommendation: String
+  recommendation: String!
   """Information that was compromised or disclosed by exploiting the
   vulnerability"""
   records: JSONString
@@ -77,34 +77,34 @@ type Finding {
   "Date when the Finding was reported or when the Draft was submitted"
   reportDate: String
   "Rules that are broken and lead to the existence of the vulnerability"
-  requirements: String
+  requirements: String!
   "Set of CVSS metrics used to assign the respective score"
-  severity: Severity
+  severity: Severity!
   "CVSS Score"
-  severityScore: Float
+  severityScore: Float!
   "Was Sorts involved in finding the vulnerability?"
   sorts: Sorts
   "State with metadata of the Finding"
-  state: String
+  state: String!
   "Actor and scenery where the vulnerability can be exploited"
-  threat: String
+  threat: String!
   "Finding number and name"
-  title: String
+  title: String!
   "Timeline of actions in this Finding"
-  tracking: [Tracking]
+  tracking: [Tracking!]
   "Summary of the number of vulnerabilities in every treatment status"
-  treatmentSummary: TreatmentSummary
+  treatmentSummary: TreatmentSummary!
   "Is it verified i.e. with open and no remediated vulnerabilities?"
-  verified: Boolean
+  verified: Boolean!
   "Vulnerabilities associated with the Finding"
   vulnerabilities(
     "Filter vulnerabilities by their current state"
     state: String
-  ): [Vulnerability]
+  ): [Vulnerability!]
   "Vulnerabilities that have been requested for a reattack"
-  vulnerabilitiesToReattack: [Vulnerability]
+  vulnerabilitiesToReattack: [Vulnerability!]
   "Vulnerabilities that have been requested for a reattack"
-  vulnsToReattack: [Vulnerability] @deprecated(reason: """This field will be
+  vulnsToReattack: [Vulnerability!] @deprecated(reason: """This field will be
     removed after 2022/02/06. Use `vulnerabilitiesToReattack` instead.""")
   """General locations of the Vulnerabilities, can be files, URLs or IPs.
   It is limited to 20 locations."""
