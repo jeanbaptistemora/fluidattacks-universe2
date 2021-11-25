@@ -11175,7 +11175,9 @@
   en:
     title: Debugging enabled in production
     description: >
-      __empty__
+      The system has the debug mode active
+      which generates an information leak
+      when an error is generated.
     impact: >
       Obtain sensitive information such as
       stacktraces and versions of the systems used.
