@@ -255,7 +255,7 @@ in
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/observes/bin/jobs-scheduler";
+          output = "/observes/service/jobs-scheduler/bin";
           gitlabExtra = gitlabScheduled;
         }
         {

@@ -12,5 +12,5 @@ makeScript {
       outputs."/observes/service/jobs-scheduler/env/runtime"
     ];
   };
-  name = "observes-bin-service-jobs-scheduler";
+  name = "observes-service-jobs-scheduler-bin";
 }
