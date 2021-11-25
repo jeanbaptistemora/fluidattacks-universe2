@@ -38,7 +38,6 @@ from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
     requests as requests_utils,
-    vulnerabilities as vulns_utils,
 )
 from typing import (
     Any,
@@ -55,10 +54,8 @@ async def approve_draft(
     finding_id: str,
     user_email: str,
 ) -> str:
-    finding_all_vulns_loader = context.loaders.finding_vulns_all
-    finding_nzr_vulns_loader = context.loaders.finding_vulns_nzr
-    finding_loader = context.loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
+    loaders = context.loaders
+    finding: Finding = await loaders.finding.load(finding_id)
 
     if not operation_can_be_executed(context, finding.title):
         raise MachineCanNotOperate()
@@ -69,9 +66,8 @@ async def approve_draft(
     if finding.state.status != FindingStateStatus.SUBMITTED:
         raise NotSubmitted()
 
-    nzr_vulns = await finding_nzr_vulns_loader.load(finding_id)
-    has_vulns = bool(vulns_utils.filter_non_deleted(nzr_vulns))
-    if not has_vulns:
+    nzr_vulns = await loaders.finding_vulns_nzr_typed.load(finding_id)
+    if not nzr_vulns:
         raise DraftWithoutVulns()
 
     approval_date = datetime_utils.get_iso_date()
@@ -87,7 +83,7 @@ async def approve_draft(
         group_name=finding.group_name,
         state=new_state,
     )
-    all_vulns = await finding_all_vulns_loader.load(finding_id)
+    all_vulns = await loaders.finding_vulns_all.load(finding_id)
     old_format_approval_date = datetime_utils.get_as_str(
         datetime.fromisoformat(approval_date)
     )

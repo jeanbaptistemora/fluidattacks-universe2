@@ -335,17 +335,6 @@ async def handle_vulnerabilities_acceptance(
     return all(await collect(coroutines))
 
 
-def is_vulnerabilities_treatment_changed(
-    *,
-    updated_values: Dict[str, str],
-    vuln: Dict[str, Finding],
-) -> bool:
-    return compare_historic_treatments(
-        cast(Historic, vuln.get("historic_treatment", [{}]))[-1],
-        updated_values,
-    )
-
-
 async def send_treatment_change_mail(
     loaders: Any,
     finding_id: str,
