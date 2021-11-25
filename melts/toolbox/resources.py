@@ -375,14 +375,15 @@ def repo_cloning(subs: str, repo_name: str) -> bool:
         repositories = list(
             root
             for root in repo_request.data["group"]["roots"]
-            if root["state"] == "ACTIVE"
+            if root.get("state", "") == "ACTIVE"
         )
         manage_repo_diffs(repositories)
     else:
         repositories = list(
             root
             for root in repo_request.data["group"]["roots"]
-            if root["state"] == "ACTIVE" and root["nickname"] == repo_name
+            if root.get("state", "") == "ACTIVE"
+            and root["nickname"] == repo_name
         )
         if not repositories:
             LOGGER.error("There is no %s repository in %s", repo_name, subs)
@@ -397,7 +398,7 @@ def repo_cloning(subs: str, repo_name: str) -> bool:
             problem: Optional[Dict[str, str]] = None
 
             # check if current repo is active
-            if git_root["state"] != "ACTIVE":
+            if git_root.get("state", "") != "ACTIVE":
                 return
 
             if repo_type == "ssh":

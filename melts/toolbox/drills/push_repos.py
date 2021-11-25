@@ -147,12 +147,13 @@ def s3_sync_fusion_to_s3(
         fusion_dir,
         f"s3://{bucket}/{s3_subs_repos_path}",
     ]
-    # Allow upload empty folders to keep .git structure
-    # and avoid errors
-    fill_empty_folders(fusion_dir)
 
     if not generic.is_env_ci():
         git_optimize_all(fusion_dir)
+
+    # Allow upload empty folders to keep .git structure
+    # and avoid errors
+    fill_empty_folders(fusion_dir)
 
     if endpoint_url:
         aws_sync_command.append("--endpoint")
