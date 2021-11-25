@@ -7,6 +7,7 @@ from aioextensions import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+import authz
 from custom_types import (
     SimplePayload,
 )
@@ -24,9 +25,16 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from group_access import (
+    domain as group_access_domain,
+)
+from mailer import (
+    groups as groups_mail,
+)
 from newutils import (
     requests as requests_utils,
     token as token_utils,
+    vulnerabilities as vulns_utils,
 )
 from roots import (
     domain as roots_domain,
@@ -51,6 +59,22 @@ async def deactivate_root(
     reason: str = kwargs["reason"]
     source = requests_utils.get_source_new(info.context)
 
+    users = await group_access_domain.get_group_users(group_name, active=True)
+    user_roles = await collect(
+        authz.get_group_level_role(user, group_name) for user in users
+    )
+    email_list = [
+        str(user)
+        for user, user_role in zip(users, user_roles)
+        if user_role
+        in {"customeradmin", "group_manager", "resourcer", "system_owner"}
+    ]
+    root_vulns = await vulns_utils.filter_vulns_by_nickname(
+        loaders, group_name, root.state.nickname
+    )
+    sast_vulns = [vuln for vuln in root_vulns if vuln["vuln_type"] == "lines"]
+    dast_vulns = [vuln for vuln in root_vulns if vuln["vuln_type"] != "lines"]
+
     await collect(
         tuple(
             vulns_domain.close_by_exclusion(
@@ -69,6 +93,13 @@ async def deactivate_root(
         reason=reason,
         root=root,
         user_email=user_email,
+    )
+    await groups_mail.send_mail_deactivated_root(
+        email_to=email_list,
+        group_name=group_name,
+        root_nickname=root.state.nickname,
+        sast_vulns=len(sast_vulns),
+        dast_vulns=len(dast_vulns),
     )
 
 

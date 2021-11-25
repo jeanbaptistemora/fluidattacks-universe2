@@ -90,3 +90,25 @@ async def send_mail_comment(
         f"New comment in [{group_name}]",
         "new_comment",
     )
+
+
+async def send_mail_deactivated_root(
+    *,
+    email_to: List[str],
+    group_name: str,
+    root_nickname: str,
+    sast_vulns: str,
+    dast_vulns: str,
+) -> None:
+    await send_mails_async(
+        email_to=email_to,
+        context={
+            "group_name": group_name,
+            "root_nickname": root_nickname,
+            "sast_vulns": sast_vulns,
+            "dast_vulns": dast_vulns,
+        },
+        tags=GENERAL_TAG,
+        subject=("Root deactivated"),
+        template_name="root_deactivated",
+    )

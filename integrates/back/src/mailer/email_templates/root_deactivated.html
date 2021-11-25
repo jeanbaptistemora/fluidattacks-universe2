@@ -1,0 +1,24 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_group %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_group('Root Deactivated') }}
+
+  <div class="main-content">
+    <p>Hello {{ name }},</p>
+    <p>
+      The root with nickname <strong>"{{ root_nickname }}"</strong>
+      from the group <strong>"{{ group_name }}"</strong> has been deactivated.<br>
+      <strong>{{ sast_vulns }}</strong> SAST and
+      <strong>{{ dast_vulns }}</strong> DAST vulnerabilities
+      have been closed as a result.
+    </p>
+    <p>Regards,<br>Fluid Attacks Team</p>
+    <br />
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
