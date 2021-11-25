@@ -962,7 +962,11 @@ def format_vulnerability_metadata_item(
         "vuln_type": metadata.type,
         "where": metadata.where,
     }
-    return {key: value for key, value in item.items() if value is not None}
+    return {
+        key: None if not value else value
+        for key, value in item.items()
+        if value is not None
+    }
 
 
 def format_vulnerability_state_item(
