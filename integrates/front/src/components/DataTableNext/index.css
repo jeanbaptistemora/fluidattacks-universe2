@@ -88,6 +88,18 @@
   }
 }
 
+@media (max-width: 1920px) {
+  :local .textMesure {
+    max-width: 20em;
+  }
+}
+
+@media (min-width: 1921px) {
+  :local .textMesure {
+    max-width: 35em;
+  }
+}
+
 :local .sizePerPage {
   padding: 8px 12px;
   line-height: 1.42857143;
