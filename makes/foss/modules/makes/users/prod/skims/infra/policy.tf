@@ -74,7 +74,7 @@ data "aws_iam_policy_document" "skims_prod_policy_data" {
     effect = "Allow"
     actions = [
       "logs:DescribeLogGroups",
-      "logs:FilterLogEvents ",
+      "logs:FilterLogEvents",
       "logs:GetLogEvents",
     ]
     resources = [
