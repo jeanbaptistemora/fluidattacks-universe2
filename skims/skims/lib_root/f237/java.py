@@ -49,11 +49,11 @@ def info_leak_stacktrace(
 
     return get_vulnerabilities_from_n_ids(
         cwe=("209",),
-        desc_key="src.lib_root.f234.java_info_leak_stacktrace",
+        desc_key="src.lib_root.f237.java_info_leak_stacktrace",
         desc_params=dict(lang="Java"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
     )
 
 
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F234
+FINDING: core_model.FindingEnum = core_model.FindingEnum.F237

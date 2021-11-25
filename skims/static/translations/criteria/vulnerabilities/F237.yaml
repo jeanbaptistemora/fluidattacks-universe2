@@ -1,15 +1,15 @@
-src.lib_root.f234.java_info_leak_stacktrace:
+src.lib_root.f237.java_info_leak_stacktrace:
   en: error stacktrace can be printed
   es: la traza del error puede ser impresa
-F234.description:
+F237.description:
   en: The source code allows the printing of the stacktrace.
   es: El código fuente permite que la traza del error sea impresa.
-F234.impact:
+F237.impact:
   en: Expose technical information of the system.
   es: Exponer información técnica del sistema.
-F234.recommendation:
+F237.recommendation:
   en: Remove the code that prints the stacktrace.
   es: Eliminar el código que imprime la traza del error.
-F234.threat:
+F237.threat:
   en: Attacker with access to the server terminal.
   es: Atacante con acceso a la consola del servidor.
