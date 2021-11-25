@@ -320,11 +320,13 @@ async def update_metadata(
     vulnerability_id: str,
     metadata: VulnerabilityMetadataToUpdate,
 ) -> None:
-    await update(
-        finding_id=finding_id,
-        vuln_id=vulnerability_id,
-        data=format_vulnerability_metadata_item(metadata),
-    )
+    item = format_vulnerability_metadata_item(metadata)
+    if item:
+        await update(
+            finding_id=finding_id,
+            vuln_id=vulnerability_id,
+            data=item,
+        )
 
 
 async def update_state(
