@@ -301,17 +301,13 @@ async def put_action_to_batch(
                 jobDefinition="makes",
                 containerOverrides={
                     "vcpus": 2,
-                    "command": [
-                        "m",
-                        "f",
-                        "/integrates/batch",
-                        "prod",
-                        action_name,
-                        subject,
-                        entity,
-                        time,
-                        additional_info,
-                    ],
+                    "command": format_command(
+                        action_name=action_name,
+                        subject=subject,
+                        entity=entity,
+                        time=time,
+                        additional_info=additional_info,
+                    ),
                     "environment": [
                         {"name": "CI", "value": "true"},
                         {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
@@ -371,3 +367,24 @@ async def put_action(
             )
         )
     )
+
+
+def format_command(
+    *,
+    action_name: str,
+    subject: str,
+    entity: str,
+    time: str,
+    additional_info: str,
+) -> List[str]:
+    return [
+        "m",
+        "f",
+        "/integrates/batch",
+        "prod",
+        action_name,
+        subject,
+        entity,
+        time,
+        additional_info,
+    ]
