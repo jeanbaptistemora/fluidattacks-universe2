@@ -487,6 +487,14 @@
       "title": "247. Non-encrypted confidential information - AWS"
     }
   },
+  "F250": {
+    "EN": {
+      "title": "250. Non-encrypted hard drives"
+    },
+    "ES": {
+      "title": "250. Non-encrypted hard drives"
+    }
+  },
   "F256": {
     "EN": {
       "title": "256. Lack of protection against deletion - RDS"
