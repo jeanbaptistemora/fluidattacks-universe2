@@ -123,8 +123,7 @@ function execute_skims_combination {
           --language "${lang}" \
           --namespace "${namespace}" \
           --out "${config}" \
-        && skims scan --group "${group}" "${config}" \
-        && skims_cache push "${group}" "${check}" "${namespace}"
+        && skims scan --group "${group}" "${config}"
     else
       echo "[ERROR] repos no not cloned: ${namespace}"
     fi
