@@ -27,6 +27,9 @@ from group_access import (
 from groups import (
     domain as groups_domain,
 )
+from httpx import (
+    ConnectTimeout,
+)
 import json
 import logging
 import logging.config
@@ -111,7 +114,10 @@ async def autoenroll_user(email: str) -> None:
 
 
 @retry_on_exceptions(
-    exceptions=(OAuthError,),
+    exceptions=(
+        ConnectTimeout,
+        OAuthError,
+    ),
     max_attempts=5,
     sleep_seconds=float("0.5"),
 )

@@ -17,6 +17,9 @@ from exponent_server_sdk import (
 )
 import logging
 import logging.config
+from requests.exceptions import (  # type: ignore
+    HTTPError,
+)
 from settings import (
     LOGGING,
 )
@@ -75,7 +78,7 @@ def create_ticket(
 
 
 @retry_on_exceptions(
-    exceptions=(PushResponseError, PushServerError),
+    exceptions=(HTTPError, PushResponseError, PushServerError),
     max_attempts=5,
     sleep_seconds=float("0.5"),
 )

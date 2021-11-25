@@ -9,6 +9,9 @@ from datetime import (
 from decorators import (
     retry_on_exceptions,
 )
+from httpx import (
+    ConnectTimeout,
+)
 from newutils import (
     token as token_utils,
 )
@@ -91,7 +94,7 @@ async def get_bitbucket_oauth_userinfo(
 
 
 @retry_on_exceptions(
-    exceptions=(OAuthError,),
+    exceptions=(ConnectTimeout, OAuthError),
     max_attempts=5,
     sleep_seconds=float("0.5"),
 )
