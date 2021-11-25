@@ -7018,11 +7018,14 @@
       to obtain sensitive information
       from the users.
     impact: >
-      To know the step in which the
+      - To know the step in which the
       user is at a given moment.
-    recommendation: >
-      Leak sensitive data
+
+      - Leak sensitive data
       of the user without authorization.
+    recommendation: >
+      Load the same amount of frames in
+      all application load cases.
     threat: Anonymous attacker from the Internet.
   es:
     title: XS-Leaks
@@ -7032,9 +7035,14 @@
       para filtrar información sensible
       sobre el usuario.
     impact: >
-      Conocer el paso en el que se encuentra
-      el usuario en un momento dado.
-    recommendation: __empty__
+      - Conocer el paso en el que se encuentra el
+      usuario en un momento dado.
+
+      - Filtrar datos sensibles
+      del usuario sin autorización.
+    recommendation: >
+      Cargar la misma cantidad de frames en todos
+      los casos de carga de la aplicación.
     threat: Atacante anónimo desde Internet.
   category: Collect Information
   score:
