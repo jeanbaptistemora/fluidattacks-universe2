@@ -501,6 +501,7 @@ in
           "update_portfolios"
           "requeue_actions"
           "machine_queue_all"
+          "machine_queue_all_new"
           "machine_queue_re_attacks"
           "move_services_toe_lines"
           "send_treatment_change"

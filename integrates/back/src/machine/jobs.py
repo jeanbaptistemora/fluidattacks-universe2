@@ -336,9 +336,9 @@ async def queue_boto3(
         )
 
 
-async def queue_all_checks(
+async def queue_all_checks_new(
     group: str,
-    repos: List[str],
+    roots: List[str],
     finding_codes: List[str],
 ) -> Dict[str, Any]:
     queue_name = "skims_all_later"
@@ -354,14 +354,14 @@ async def queue_all_checks(
             jobQueue=queue_name,
             jobDefinition="makes",
             containerOverrides={
-                "vcpus": 4,
+                "vcpus": 4 if len(roots) >= 4 else len(roots),
                 "command": [
                     "m",
                     "f",
                     "/skims/process-group-all",
                     group,
                     json.dumps(finding_codes),
-                    json.dumps(repos),
+                    json.dumps(roots),
                 ],
                 "environment": [
                     {"name": "CI", "value": "true"},

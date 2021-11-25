@@ -80,6 +80,7 @@ in
             rules = [
               gitlabCi.rules.schedules
               (gitlabCi.rules.varIsDefined "integrates_scheduler_machine_queue_all")
+              (gitlabCi.rules.varIsDefined "integrates_scheduler_machine_queue_all_new")
               gitlabCi.rules.always
             ];
           };
