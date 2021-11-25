@@ -3,10 +3,6 @@ from custom_exceptions import (
     AcceptanceNotRequested,
     InvalidTreatmentManager,
 )
-from custom_types import (
-    Finding,
-    Historic,
-)
 from datetime import (
     datetime,
 )
@@ -14,6 +10,7 @@ from db_model.roots.types import (
     GitRootItem,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityAcceptanceStatus,
     VulnerabilityTreatmentStatus,
 )
 from db_model.vulnerabilities.types import (
@@ -26,7 +23,6 @@ from newutils import (
 )
 from typing import (
     Any,
-    cast,
     Dict,
     Set,
     Tuple,
@@ -87,11 +83,13 @@ def compare_historic_treatments(
     return treatment_changed or date_changed
 
 
-def validate_acceptance(vuln: Dict[str, Finding]) -> Dict[str, Finding]:
-    historic_treatment = cast(Historic, vuln.get("historic_treatment", [{}]))
-    if historic_treatment[-1].get("acceptance_status") != "SUBMITTED":
+def validate_acceptance(vuln: Vulnerability) -> None:
+    if (
+        vuln.treatment
+        and vuln.treatment.acceptance_status
+        != VulnerabilityAcceptanceStatus.SUBMITTED
+    ):
         raise AcceptanceNotRequested()
-    return vuln
 
 
 async def validate_treatment_manager(

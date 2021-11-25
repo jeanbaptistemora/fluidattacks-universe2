@@ -64,7 +64,7 @@ async def mutate(
         user_info = await token_utils.get_jwt_content(info.context)
         email: str = user_info["user_email"]
         success: bool = await handle_vulnerabilities_acceptance(
-            context=info.context.loaders,
+            loaders=info.context.loaders,
             accepted_vulns=accepted_vulnerabilities,
             finding_id=finding_id,
             justification=justification,

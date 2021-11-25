@@ -45,7 +45,6 @@ from newutils.utils import (
 from typing import (
     Any,
     Awaitable,
-    cast,
     Dict,
     List,
     Optional,
@@ -236,21 +235,24 @@ async def handle_vuln_acceptance(
     *,
     finding_id: str,
     new_treatments: Historic,
-    vuln: Dict[str, Finding],
+    vuln: Vulnerability,
+    historic_treatment: Tuple[VulnerabilityTreatment, ...],
 ) -> bool:
-    historic_treatment = cast(Historic, vuln.get("historic_treatment", []))
     if (
         historic_treatment
         and new_treatments[-1].get("acceptance_status") == "APPROVED"
-        and "treatment_manager" in historic_treatment[-1]
+        and vuln.treatment
+        and vuln.treatment.manager
     ):
-        new_treatments[-1]["treatment_manager"] = historic_treatment[-1][
-            "treatment_manager"
-        ]
+        new_treatments[-1]["treatment_manager"] = vuln.treatment.manager
 
     if new_treatments[-1].get("acceptance_status") == "REJECTED":
         if len(historic_treatment) > 1:
-            new_treatments.append({**historic_treatment[-2]})
+            new_treatments.append(
+                vulns_utils.format_vulnerability_treatment_item(
+                    historic_treatment[-2]
+                )
+            )
         else:
             new_treatments.append(
                 {
@@ -260,45 +262,44 @@ async def handle_vuln_acceptance(
                 }
             )
 
-    historic_treatment.extend(new_treatments)
-    return await vulns_dal.update(
-        finding_id,
-        str(vuln.get("UUID", "")),
-        {"historic_treatment": historic_treatment},
+    await vulns_dal.append(
+        finding_id=finding_id,
+        vulnerability_id=vuln.id,
+        elements={"historic_treatment": new_treatments},
     )
+    return True
 
 
 async def handle_vulnerabilities_acceptance(
     *,
-    context: Any,
+    loaders: Any,
     accepted_vulns: List[str],
     finding_id: str,
     justification: str,
     rejected_vulns: List[str],
     user_email: str,
 ) -> bool:
-    finding_vulns_loader = context.finding_vulns_all
     validations.validate_field_length(justification, 5000)
     validations.validate_fields([justification])
-    vuln_ids: List[str] = accepted_vulns + rejected_vulns
     today = datetime_utils.get_now_as_str()
     coroutines: List[Awaitable[bool]] = []
 
-    vulnerabilities = await finding_vulns_loader.load(finding_id)
-    if not vulnerabilities or len(
-        [
-            vuln
-            for vuln in vulns_utils.filter_non_deleted(vulnerabilities)
-            if vuln["id"] in vuln_ids
-        ]
-    ) != len(vuln_ids):
+    all_vulns: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_typed.load(finding_id)
+    vulnerabilities = tuple(
+        vuln
+        for vuln in all_vulns
+        if vuln.id in accepted_vulns + rejected_vulns
+    )
+    historics = await loaders.vulnerability_historic_treatment.load_many(
+        [vuln.id for vuln in vulnerabilities]
+    )
+    if not vulnerabilities:
         raise VulnNotFound()
 
-    vulnerabilities = [
+    for vuln in vulnerabilities:
         validate_acceptance(vuln)
-        for vuln in vulnerabilities
-        if vuln["id"] in vuln_ids
-    ]
 
     new_treatment = {
         "treatment": "ACCEPTED_UNDEFINED",
@@ -314,9 +315,10 @@ async def handle_vulnerabilities_acceptance(
                     finding_id=finding_id,
                     new_treatments=treatments,
                     vuln=vuln,
+                    historic_treatment=historic_treatment,
                 )
-                for vuln, vuln_id in zip(vulnerabilities, vuln_ids)
-                if vuln_id in rejected_vulns
+                for vuln, historic_treatment in zip(vulnerabilities, historics)
+                if vuln.id in rejected_vulns
             ]
         )
     if accepted_vulns:
@@ -327,9 +329,10 @@ async def handle_vulnerabilities_acceptance(
                     finding_id=finding_id,
                     new_treatments=treatments,
                     vuln=vuln,
+                    historic_treatment=historic_treatment,
                 )
-                for vuln, vuln_id in zip(vulnerabilities, vuln_ids)
-                if vuln_id in accepted_vulns
+                for vuln, historic_treatment in zip(vulnerabilities, historics)
+                if vuln.id in accepted_vulns
             ]
         )
     return all(await collect(coroutines))
