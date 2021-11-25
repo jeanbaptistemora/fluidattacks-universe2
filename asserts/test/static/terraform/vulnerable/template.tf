@@ -356,26 +356,6 @@ resource "aws_elb" "bar" {
   }
 }
 
-resource "aws_fsx_windows_file_system" "example" {
-  active_directory_id = aws_directory_service_directory.example.id
-  storage_capacity    = 300
-  subnet_ids          = [aws_subnet.example.id]
-  throughput_capacity = 1024
-}
-
-resource "aws_kms_key" "a" {
-  description             = "KMS key 1"
-  deletion_window_in_days = 10
-  enable_key_rotation     = false
-}
-
-resource "aws_lb_target_group" "test" {
-  name     = "tf-example-lb-tg"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = aws_vpc.main.id
-}
-
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
 }
