@@ -139,7 +139,7 @@ def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
         hash=None,
         repo=get_optional("repo_nickname", item),
         stream=item["stream"].split(",") if exists("stream", item) else None,
-        tags=get_optional("tag", item),
+        tags=sorted(item["tag"]) if exists("tag", item) else None,
         verification=(
             format_vulnerability_verification(current_verification)
             if current_verification
