@@ -20,7 +20,6 @@ from custom_types import (
     Finding as FindingType,
     Historic as HistoricType,
     User as UserType,
-    Vulnerability as VulnLegacyType,
 )
 from db_model.enums import (
     Source,
@@ -131,7 +130,7 @@ async def confirm_vulnerabilities_zero_risk(
         loaders, finding_id, vuln_ids
     )
     vulnerabilities = tuple(
-        vulns_utils.validate_zero_risk_requested_new(vuln)
+        vulns_utils.validate_zero_risk_requested(vuln)
         for vuln in vulnerabilities
     )
     if not vulnerabilities:
@@ -630,7 +629,7 @@ async def reject_vulnerabilities_zero_risk(
         loaders, finding_id, vuln_ids
     )
     vulnerabilities = tuple(
-        vulns_utils.validate_zero_risk_requested_new(vuln)
+        vulns_utils.validate_zero_risk_requested(vuln)
         for vuln in vulnerabilities
     )
     if not vulnerabilities:
@@ -695,7 +694,7 @@ async def request_vulnerabilities_zero_risk(
         loaders, finding_id, vuln_ids
     )
     vulnerabilities = tuple(
-        vulns_utils.validate_non_zero_risk_requested_new(vuln)
+        vulns_utils.validate_non_zero_risk_requested(vuln)
         for vuln in vulnerabilities
     )
     if not vulnerabilities:
@@ -993,22 +992,7 @@ async def verify(
     )
 
 
-async def verify_vulnerability(vuln: VulnLegacyType) -> bool:
-    today = datetime_utils.get_now_as_str()
-    historic_verification: HistoricType = vuln.get("historic_verification", [])
-    new_state = {
-        "date": today,
-        "status": "VERIFIED",
-    }
-    historic_verification.append(new_state)
-    return await vulns_dal.update(
-        vuln["finding_id"],
-        vuln["UUID"],
-        {"historic_verification": historic_verification},
-    )
-
-
-async def verify_vulnerability_new(vulnerability: Vulnerability) -> bool:
+async def verify_vulnerability(vulnerability: Vulnerability) -> bool:
     await vulns_dal.update_verification(
         current_value=vulnerability.verification,
         finding_id=vulnerability.finding_id,
@@ -1023,30 +1007,7 @@ async def verify_vulnerability_new(vulnerability: Vulnerability) -> bool:
     return True
 
 
-async def close_by_exclusion(vuln: Dict[str, Any]) -> None:
-    current_state = vuln["historic_state"][-1]["state"]
-
-    if current_state not in {"closed", "DELETED"}:
-        await vulns_dal.update(
-            vuln["finding_id"],
-            vuln["UUID"],
-            {
-                "historic_state": [
-                    *vuln["historic_state"],
-                    {
-                        **vuln["historic_state"][-1],
-                        "date": datetime_utils.get_now_as_str(),
-                        "state": "closed",
-                        "justification": "EXCLUSION",
-                    },
-                ]
-            },
-        )
-        if vulns_utils.is_reattack_requested(vuln):
-            await verify_vulnerability(vuln)
-
-
-async def close_by_exclusion_new(
+async def close_by_exclusion(
     vulnerability: Vulnerability,
     modified_by: str,
     source: Source,
@@ -1067,4 +1028,4 @@ async def close_by_exclusion_new(
             ),
         )
         if vulns_utils.is_reattack_requested_new(vulnerability):
-            await verify_vulnerability_new(vulnerability)
+            await verify_vulnerability(vulnerability)

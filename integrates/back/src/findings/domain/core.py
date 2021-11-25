@@ -614,7 +614,7 @@ async def request_vulnerabilities_verification(
         for vuln in vulnerabilities
     ]
     vulnerabilities = [
-        vulns_utils.validate_closed_new(vuln) for vuln in vulnerabilities
+        vulns_utils.validate_closed(vuln) for vuln in vulnerabilities
     ]
     if not vulnerabilities:
         raise VulnNotFound()
@@ -751,7 +751,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         for vuln in vulnerabilities
     ]
     vulnerabilities = [
-        vulns_utils.validate_closed_new(vuln) for vuln in vulnerabilities
+        vulns_utils.validate_closed(vuln) for vuln in vulnerabilities
     ]
     if not vulnerabilities:
         raise VulnNotFound()
@@ -784,9 +784,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
 
     # Modify the verification state to mark all passed vulns as verified
     success = all(
-        await collect(
-            map(vulns_domain.verify_vulnerability_new, vulnerabilities)
-        )
+        await collect(map(vulns_domain.verify_vulnerability, vulnerabilities))
     )
     if success:
         # Open vulns that remain open are not modified in the DB

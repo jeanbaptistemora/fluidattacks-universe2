@@ -53,7 +53,7 @@ async def deactivate_root(
 
     await collect(
         tuple(
-            vulns_domain.close_by_exclusion_new(
+            vulns_domain.close_by_exclusion(
                 vulnerability=vuln,
                 modified_by=user_email,
                 source=source,

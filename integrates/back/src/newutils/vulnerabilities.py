@@ -882,19 +882,7 @@ def get_treatment_actions(
     return actions
 
 
-def validate_closed(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
-    """Validate vuln closed."""
-    if (
-        cast(List[Dict[str, FindingType]], vuln.get("historic_state", [{}]))[
-            -1
-        ].get("state")
-        == "closed"
-    ):
-        raise VulnAlreadyClosed()
-    return vuln
-
-
-def validate_closed_new(vulnerability: Vulnerability) -> Vulnerability:
+def validate_closed(vulnerability: Vulnerability) -> Vulnerability:
     """Validate if the vulnerability is closed."""
     if vulnerability.state.status == VulnerabilityStateStatus.CLOSED:
         raise VulnAlreadyClosed()
@@ -912,13 +900,6 @@ def validate_requested_verification(
     ):
         raise AlreadyRequested()
     return vulnerability
-
-
-def validate_verify(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
-    """Validate vuln is resquested."""
-    if not is_reattack_requested(vuln):
-        raise NotVerificationRequested()
-    return vuln
 
 
 def validate_reattack_requested(
@@ -941,19 +922,7 @@ def validate_justification_length(justification: str) -> None:
         raise InvalidJustificationMaxLength(max_justification_length)
 
 
-def validate_not_requested_zero_risk_vuln(
-    vuln: Dict[str, FindingType]
-) -> Dict[str, FindingType]:
-    """Validate zero risk vuln is not already resquested."""
-    historic_zero_risk = cast(
-        List[Dict[str, FindingType]], vuln.get("historic_zero_risk", [{}])
-    )
-    if historic_zero_risk[-1].get("status", "") == "REQUESTED":
-        raise AlreadyZeroRiskRequested()
-    return vuln
-
-
-def validate_non_zero_risk_requested_new(
+def validate_non_zero_risk_requested(
     vulnerability: Vulnerability,
 ) -> Vulnerability:
     """Validate if zero risk vuln is not already resquested."""
@@ -966,19 +935,7 @@ def validate_non_zero_risk_requested_new(
     return vulnerability
 
 
-def validate_requested_vuln_zero_risk(
-    vuln: Dict[str, FindingType]
-) -> Dict[str, FindingType]:
-    """Validate zero risk vuln is already resquested."""
-    historic_zero_risk = cast(
-        List[Dict[str, FindingType]], vuln.get("historic_zero_risk", [{}])
-    )
-    if historic_zero_risk[-1].get("status", "") != "REQUESTED":
-        raise NotZeroRiskRequested()
-    return vuln
-
-
-def validate_zero_risk_requested_new(
+def validate_zero_risk_requested(
     vulnerability: Vulnerability,
 ) -> Vulnerability:
     """Validate if zero risk vuln is already resquested."""

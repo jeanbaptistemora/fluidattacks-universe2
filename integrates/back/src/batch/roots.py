@@ -126,7 +126,7 @@ async def process_vuln(
         historic_verification=historic_verification,
         historic_zero_risk=historic_zero_risk,
     )
-    await vulns_domain.close_by_exclusion_new(
+    await vulns_domain.close_by_exclusion(
         vulnerability=vuln,
         modified_by=item_subject,
         source=Source.ASM,

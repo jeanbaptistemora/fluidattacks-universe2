@@ -1,6 +1,5 @@
 from .core import (
     close_by_exclusion,
-    close_by_exclusion_new,
     confirm_vulnerabilities_zero_risk,
     get,
     get_by_finding,
@@ -27,7 +26,6 @@ from .core import (
     update_treatments,
     verify,
     verify_vulnerability,
-    verify_vulnerability_new,
 )
 from .treatment import (
     add_vulnerability_treatment,
@@ -48,7 +46,6 @@ from .verification import (
 __all__ = [
     # core
     "close_by_exclusion",
-    "close_by_exclusion_new",
     "confirm_vulnerabilities_zero_risk",
     "get",
     "get_by_finding",
@@ -75,7 +72,6 @@ __all__ = [
     "update_treatments",
     "verify",
     "verify_vulnerability",
-    "verify_vulnerability_new",
     # treatment
     "add_vulnerability_treatment",
     "handle_vulnerabilities_acceptance",
