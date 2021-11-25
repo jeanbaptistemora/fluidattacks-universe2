@@ -9126,8 +9126,8 @@
       Preferably make use of
       useSslProtocol(SSLContext).
     threat: >
-      Atacante anónimo en la red interna
-      ejecutando un MitM.
+      Anonymous attacker on the internal
+      network running a MitM.
   es:
     title: Use of an insecure channel - useSslProtocol()
     description: >
