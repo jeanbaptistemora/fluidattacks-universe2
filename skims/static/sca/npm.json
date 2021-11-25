@@ -210,8 +210,8 @@
   },
   "adm-zip": {
     "CVE-2018-1002204": "<0.4.9",
-    "SNYK-JS-ADMZIP-1065796": "<0.5.2",
-    "github.com/cthackers/adm-zip/commit/119dcad6599adccc77982feb14a0c7440fa63013": "<0.5.6"
+    "GHSL-2020-198": "<0.5.6",
+    "SNYK-JS-ADMZIP-1065796": "<0.5.2"
   },
   "aedes": {
     "CVE-2018-3778": "<0.35.0",
@@ -720,8 +720,7 @@
   "color-name": {},
   "color-string": {
     "CVE-2021-29060": "<1.5.5",
-    "SNYK-JS-COLORSTRING-1082939": "<1.5.5",
-    "github.com/Qix-/color-string/commit/0789e21284c33d89ebc4ab4ca6f759b9375ac9d3": "<1.6.0"
+    "SNYK-JS-COLORSTRING-1082939": "<1.5.5"
   },
   "combined-stream": {},
   "commander": {},
@@ -945,7 +944,6 @@
   },
   "decompress": {
     "CVE-2020-12265": "<4.2.1",
-    "github.com/kevva/decompress/issues/71": "<4.2.1",
     "npmjs.com/advisories/1217": "<4.2.1"
   },
   "decompress-tar": {
