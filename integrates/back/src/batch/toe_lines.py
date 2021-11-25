@@ -163,7 +163,7 @@ async def get_ignored_files(group_path: str, repo_nickname: str) -> Set[str]:
         repo_nickname,
         "--ignored",
         ignored_filename,
-        "--timeout",
+        "--diff-timeout",
         "900",
     )
     process = await asyncio.create_subprocess_exec(
