@@ -7,54 +7,57 @@ import { useTranslation } from "react-i18next";
 import type { IVulnRowAttr } from "../types";
 import { TreatmentTracking } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/index";
 import { formatVulnerabilities } from "scenes/Dashboard/components/Vulnerabilities/utils";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import { formatDropdownField } from "utils/formatHelpers";
 
 describe("TrackingTreatment", (): void => {
   const numberOfDays: number = 5;
-  const mockVuln: IVulnRowAttr = {
+  const historicTreatment: IHistoricTreatment[] = [
+    {
+      date: "2019-01-17 10:06:04",
+      treatment: "NEW",
+      user: "",
+    },
+    {
+      acceptanceStatus: "SUBMITTED",
+      date: "2020-02-17 18:36:24",
+      justification: "Some of the resources",
+      treatment: "ACCEPTED_UNDEFINED",
+      treatmentManager: "usermanager1@test.test",
+      user: "usertreatment1@test.test",
+    },
+    {
+      acceptanceStatus: "APPROVED",
+      date: "2020-02-18 18:36:24",
+      justification: "The headers must be",
+      treatment: "ACCEPTED_UNDEFINED",
+      treatmentManager: "usermanager2@test.test",
+      user: "usertreatment2@test.test",
+    },
+    {
+      acceptanceDate: "2020-10-09 15:29:48",
+      date: "2020-10-02 15:29:48",
+      justification: "The headers must be",
+      treatment: "ACCEPTED",
+      treatmentManager: "usermanager3@test.test",
+      user: "usertreatment3@test.test",
+    },
+    {
+      date: "2020-10-08 15:29:48",
+      justification: "The headers must be",
+      treatment: "IN PROGRESS",
+      treatmentManager: "usermanager4@test.test",
+      user: "usertreatment4@test.test",
+    },
+  ];
+  const mockVuln1: IVulnRowAttr = {
     commitHash: "",
     currentState: "open",
     currentStateCapitalized: "Open",
     cycles: "1",
     efficacy: "0",
     externalBugTrackingSystem: "",
-    historicTreatment: [
-      {
-        date: "2019-01-17 10:06:04",
-        treatment: "NEW",
-        user: "",
-      },
-      {
-        acceptanceStatus: "SUBMITTED",
-        date: "2020-02-17 18:36:24",
-        justification: "Some of the resources",
-        treatment: "ACCEPTED_UNDEFINED",
-        treatmentManager: "usermanager1@test.test",
-        user: "usertreatment1@test.test",
-      },
-      {
-        acceptanceStatus: "APPROVED",
-        date: "2020-02-18 18:36:24",
-        justification: "The headers must be",
-        treatment: "ACCEPTED_UNDEFINED",
-        treatmentManager: "usermanager2@test.test",
-        user: "usertreatment2@test.test",
-      },
-      {
-        acceptanceDate: "2020-10-09 15:29:48",
-        date: "2020-10-02 15:29:48",
-        justification: "The headers must be",
-        treatment: "ACCEPTED",
-        treatmentManager: "usermanager3@test.test",
-        user: "usertreatment3@test.test",
-      },
-      {
-        date: "2020-10-08 15:29:48",
-        justification: "The headers must be",
-        treatment: "IN PROGRESS",
-        treatmentManager: "usermanager4@test.test",
-        user: "usertreatment4@test.test",
-      },
-    ],
+    historicTreatment: [...historicTreatment],
     id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
     lastReattackDate: moment()
       .subtract(numberOfDays, "days")
@@ -77,6 +80,11 @@ describe("TrackingTreatment", (): void => {
     zeroRisk: "",
   };
 
+  const mockVuln2: IVulnRowAttr = {
+    ...mockVuln1,
+    historicTreatment: [...historicTreatment.slice(0, 2)],
+  };
+
   it("should return a function", (): void => {
     expect.hasAssertions();
 
@@ -92,7 +100,7 @@ describe("TrackingTreatment", (): void => {
     const wrapper: ReactWrapper = mount(
       <TreatmentTracking
         historicTreatment={
-          formatVulnerabilities([mockVuln])[0].historicTreatment
+          formatVulnerabilities([mockVuln1])[0].historicTreatment
         }
         onClose={onClose}
       />
@@ -117,6 +125,24 @@ describe("TrackingTreatment", (): void => {
     expect(wrapper.find("li").last().find("p")).toHaveLength(newNumberOfFields);
     expect(wrapper.find("li").first().find("p").first().text()).toBe(
       t("searchFindings.tabDescription.treatment.inProgress")
+    );
+
+    wrapper.setProps({
+      historicTreatment: formatVulnerabilities([mockVuln2])[0]
+        .historicTreatment,
+    });
+    wrapper.update();
+
+    expect(wrapper.find("li").first().find("p")).toHaveLength(
+      normalNumberOfFields
+    );
+    expect(wrapper.find("li").first().find("p").first().text()).toBe(
+      t(
+        formatDropdownField(
+          formatVulnerabilities([mockVuln2])[0].historicTreatment.slice(-1)[0]
+            .treatment
+        )
+      ) + t("searchFindings.tabDescription.treatment.pendingApproval")
     );
 
     const closeButton: ReactWrapper = wrapper
