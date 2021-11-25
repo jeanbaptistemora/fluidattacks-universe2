@@ -6317,7 +6317,7 @@
       to a corporate machine.
       This could allow an attacker
       to infect it with malicious software.
-    impact: __empty__
+    impact: Infect machines with malware.
     recommendation: >
       - Set physical access controls
       to avoid the connection
@@ -6326,14 +6326,14 @@
       - Install the proper security suite
       on the workstations that mitigates
       the risk of malicious code infection.
-    threat: __empty__
+    threat: Unauthorized internal attacker.
   es:
     title: USB flash drive attacks
     description: >
       Es posible conectar dispositivos USB
       al equipo que permiten infectarlo
       con software malicioso.
-    impact: __empty__
+    impact: Infectar las máquinas con software malicioso.
     recommendation: >
       - Establecer controles de acceso físico
       que impidan la conexión
@@ -6343,7 +6343,7 @@
       apropiada en las estaciones de trabajo
       que mitigue el riesgo de infección
       con software malicioso.
-    threat: __empty__
+    threat: Atacante interno no autorizado.
   category: Manipulate System
   score:
     base:
