@@ -541,7 +541,7 @@ async def refresh_root_repo_toe_lines(
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
-        workers=3,
+        workers=2,
     )
     await collect(
         tuple(
@@ -552,7 +552,7 @@ async def refresh_root_repo_toe_lines(
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
-        workers=3,
+        workers=2,
     )
 
 
