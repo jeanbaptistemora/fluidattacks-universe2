@@ -170,8 +170,9 @@ locals {
       launch_template_version = aws_launch_template.batch_instance_regular.latest_version
     }
     skims_all = {
-      bid_percentage      = 100
-      instances           = 4 * length(jsondecode(data.local_file.skims_queues.content))
+      bid_percentage = 100
+      instances      = 1 * length(jsondecode(data.local_file.skims_queues.content))
+      # the multiplier is the number of instances for each finding (legacy)
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
       type                = "SPOT"
 
