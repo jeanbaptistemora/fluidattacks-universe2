@@ -5,7 +5,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/bin/streamer-zoho-crm"
+      outputs."/observes/singer/tap-zoho-crm/bin"
       outputs."/observes/service/job-last-success/bin"
     ];
   };

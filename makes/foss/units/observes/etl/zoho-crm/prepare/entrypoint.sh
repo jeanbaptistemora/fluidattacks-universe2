@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-alias tap-zoho-crm="observes-bin-streamer-zoho-crm"
+alias tap-zoho-crm="observes-singer-tap-zoho-crm-bin"
 alias job-last-success="observes-service-job-last-success-bin"
 
 function main {

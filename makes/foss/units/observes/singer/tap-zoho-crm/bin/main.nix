@@ -9,8 +9,8 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/env/streamer-zoho-crm/runtime"
+      outputs."/observes/singer/tap-zoho-crm/env/runtime"
     ];
   };
-  name = "observes-bin-streamer-zoho-crm";
+  name = "observes-singer-tap-zoho-crm-bin";
 }

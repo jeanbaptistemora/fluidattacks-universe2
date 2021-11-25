@@ -12,7 +12,7 @@ makeDerivation {
   searchPaths = {
     source = [
       outputs."/observes/common/tester"
-      outputs."/observes/env/streamer-zoho-crm/development"
+      outputs."/observes/singer/tap-zoho-crm/env/development"
     ];
   };
   builder = projectPath "/makes/foss/units/observes/common/tester/test_builder.sh";

@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-alias tap-zoho-crm="observes-bin-streamer-zoho-crm"
+alias tap-zoho-crm="observes-singer-tap-zoho-crm-bin"
 alias tap-csv="observes-singer-tap-csv-bin"
 alias tap-json="observes-singer-tap-json-bin"
 alias target-redshift="observes-target-redshift"

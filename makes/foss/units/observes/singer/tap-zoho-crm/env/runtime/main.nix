@@ -8,7 +8,7 @@ let
   self = projectPath "/observes/singer/streamer_zoho_crm";
 in
 makeTemplate {
-  name = "observes-env-streamer-zoho-crm-runtime";
+  name = "observes-singer-tap-zoho-crm-env-runtime";
   searchPaths = {
     pythonMypy = [
       self
@@ -18,7 +18,7 @@ makeTemplate {
     ];
     source = [
       (makePythonPypiEnvironment {
-        name = "observes-env-streamer-zoho-crm-runtime";
+        name = "observes-singer-tap-zoho-crm-env-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
       outputs."/observes/env/postgres-client/runtime"

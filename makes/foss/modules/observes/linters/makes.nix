@@ -209,14 +209,14 @@
       };
       observesStreamerZohoCrm = {
         searchPaths.source = [
-          outputs."/observes/env/streamer-zoho-crm/runtime"
+          outputs."/observes/singer/tap-zoho-crm/env/runtime"
         ];
         python = "3.8";
         src = "/observes/singer/streamer_zoho_crm/streamer_zoho_crm";
       };
       observesStreamerZohoCrmTests = {
         searchPaths.source = [
-          outputs."/observes/env/streamer-zoho-crm/development"
+          outputs."/observes/singer/tap-zoho-crm/env/development"
         ];
         python = "3.8";
         src = "/observes/singer/streamer_zoho_crm/tests";
