@@ -7172,6 +7172,183 @@ F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,62,650,skims,372. Use
   72 | }
      ^ Col 0
 "
+F109,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,15,681,skims,109. Unrestricted access between network segments - RDS,Unrestricted access between network segments - RDS in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
+   5 |   engine_version       = ""5.7""
+   6 |   deletion_protection  = true
+   7 |   instance_class       = ""db.t3.micro""
+   8 |   name                 = ""mydb""
+   9 |   username             = ""foo""
+  10 |   password             = ""foobarbaz""
+  11 |   parameter_group_name = ""default.mysql5.7""
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+> 15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
+  16 |   count               = 2
+  17 |   publicly_accessible = true
+  18 |   identifier          = ""aurora-cluster-demo-${count.index}""
+  19 |   cluster_identifier  = aws_rds_cluster.default.id
+  20 |   instance_class      = ""db.r4.large""
+  21 |   engine              = aws_rds_cluster.default.engine
+  22 |   engine_version      = aws_rds_cluster.default.engine_version
+  23 | }
+  24 |
+  25 | resource ""aws_rds_cluster"" ""default"" {
+     ^ Col 0
+"
+F109,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Unrestricted access between network segments - RDS in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
+>  1 | resource ""aws_db_instance"" ""default"" {
+   2 |   publicly_accessible  = true
+   3 |   allocated_storage    = 10
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   deletion_protection  = true
+   7 |   instance_class       = ""db.t3.micro""
+   8 |   name                 = ""mydb""
+   9 |   username             = ""foo""
+  10 |   password             = ""foobarbaz""
+  11 |   parameter_group_name = ""default.mysql5.7""
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+  15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
+  16 |   count               = 2
+  17 |   publicly_accessible = true
+  18 |   identifier          = ""aurora-cluster-demo-${count.index}""
+  19 |   cluster_identifier  = aws_rds_cluster.default.id
+  20 |   instance_class      = ""db.r4.large""
+  21 |   engine              = aws_rds_cluster.default.engine
+     ^ Col 0
+"
+F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,681,skims,109. Unrestricted access between network segments - RDS,Unrestricted access between network segments - RDS in namespace/skims/test/data/lib_path/f109/subnet_test.tf,"
+   2 |   publicly_accessible  = false
+   3 |   allocated_storage    = 10
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   deletion_protection  = true
+   7 |   instance_class       = ""db.t3.micro""
+   8 |   name                 = ""mydb""
+   9 |   username             = ""foo""
+  10 |   password             = ""foobarbaz""
+  11 |   parameter_group_name = ""default.mysql5.7""
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+> 15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
+  16 |   count              = 2
+  17 |   identifier         = ""aurora-cluster-demo-${count.index}""
+  18 |   cluster_identifier = aws_rds_cluster.default.id
+  19 |   instance_class     = ""db.r4.large""
+  20 |   engine             = aws_rds_cluster.default.engine
+  21 |   engine_version     = aws_rds_cluster.default.engine_version
+  22 | }
+     ^ Col 0
+"
+F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Unrestricted access between network segments - RDS in namespace/skims/test/data/lib_path/f109/subnet_test.tf,"
+>  1 | resource ""aws_db_instance"" ""default"" {
+   2 |   publicly_accessible  = false
+   3 |   allocated_storage    = 10
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   deletion_protection  = true
+   7 |   instance_class       = ""db.t3.micro""
+   8 |   name                 = ""mydb""
+   9 |   username             = ""foo""
+  10 |   password             = ""foobarbaz""
+  11 |   parameter_group_name = ""default.mysql5.7""
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+  15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
+  16 |   count              = 2
+  17 |   identifier         = ""aurora-cluster-demo-${count.index}""
+  18 |   cluster_identifier = aws_rds_cluster.default.id
+  19 |   instance_class     = ""db.r4.large""
+  20 |   engine             = aws_rds_cluster.default.engine
+  21 |   engine_version     = aws_rds_cluster.default.engine_version
+     ^ Col 0
+"
+F109,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Unrestricted access between network segments - RDS in namespace/skims/test/data/lib_path/f246/rds_test.tf,"
+>  1 | resource ""aws_db_instance"" ""default"" {
+   2 |   allocated_storage       = 10
+   3 |   storage_encrypted       = false
+   4 |   engine                  = ""mysql""
+   5 |   engine_version          = ""5.7""
+   6 |   instance_class          = ""db.t3.micro""
+   7 |   name                    = ""mydb""
+   8 |   username                = ""foo""
+   9 |   deletion_protection     = true
+  10 |   password                = ""foobarbaz""
+  11 |   backup_retention_period = 2
+  12 |   parameter_group_name    = ""default.mysql5.7""
+  13 |   skip_final_snapshot     = true
+  14 | }
+     ^ Col 0
+"
+F109,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,14,681,skims,109. Unrestricted access between network segments - RDS,Unrestricted access between network segments - RDS in namespace/skims/test/data/lib_path/f256/db_instance_test.tf,"
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   instance_class       = ""db.t3.micro""
+   7 |   name                 = ""mydb""
+   8 |   username             = ""foo""
+   9 |   password             = ""foobarbaz""
+  10 |   parameter_group_name = ""default.mysql5.7""
+  11 |   skip_final_snapshot  = true
+  12 | }
+  13 |
+> 14 | resource ""aws_db_instance"" ""test"" {
+  15 |   allocated_storage    = 10
+  16 |   engine               = ""mysql""
+  17 |   engine_version       = ""5.7""
+  18 |   instance_class       = ""db.t3.micro""
+  19 |   name                 = ""mydb""
+  20 |   username             = ""user""
+  21 |   password             = ""useradmin""
+  22 |   parameter_group_name = ""default.mysql5.7""
+  23 |   skip_final_snapshot  = true
+  24 | }
+     ^ Col 0
+"
+F109,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Unrestricted access between network segments - RDS in namespace/skims/test/data/lib_path/f256/db_instance_test.tf,"
+>  1 | resource ""aws_db_instance"" ""default"" {
+   2 |   allocated_storage    = 10
+   3 |   deletion_protection  = false
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   instance_class       = ""db.t3.micro""
+   7 |   name                 = ""mydb""
+   8 |   username             = ""foo""
+   9 |   password             = ""foobarbaz""
+  10 |   parameter_group_name = ""default.mysql5.7""
+  11 |   skip_final_snapshot  = true
+  12 | }
+  13 |
+  14 | resource ""aws_db_instance"" ""test"" {
+  15 |   allocated_storage    = 10
+  16 |   engine               = ""mysql""
+  17 |   engine_version       = ""5.7""
+  18 |   instance_class       = ""db.t3.micro""
+  19 |   name                 = ""mydb""
+  20 |   username             = ""user""
+  21 |   password             = ""useradmin""
+     ^ Col 0
+"
+F109,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Unrestricted access between network segments - RDS in namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,"
+>  1 | resource ""aws_db_instance"" ""default"" {
+   2 |   allocated_storage       = 10
+   3 |   engine                  = ""mysql""
+   4 |   engine_version          = ""5.7""
+   5 |   instance_class          = ""db.t3.micro""
+   6 |   name                    = ""mydb""
+   7 |   username                = ""foo""
+   8 |   deletion_protection     = true
+   9 |   password                = ""foobarbaz""
+  10 |   backup_retention_period = 0
+  11 |   parameter_group_name    = ""default.mysql5.7""
+  12 |   skip_final_snapshot     = true
+  13 | }
+     ^ Col 0
+"
 F256,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,14,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
  in namespace/skims/test/data/lib_path/f256/db_instance_test.tf","
    4 |   engine               = ""mysql""
