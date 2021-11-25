@@ -113,7 +113,7 @@ function execute_skims_combination {
     check="$(echo "${check}" | base64 --decode)" \
       && checks=("${checks[@]}" "${check}")
   done \
-    && if test -e "groups/${group}/fusion/"; then
+    && if test -e "groups/${group}/fusion/${namespace}"; then
       skims_rebase "${group}" "${namespace}" \
         && config="$(mktemp)" \
         && echo "[INFO] Running skims scan in ${group}" \
