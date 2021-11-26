@@ -18,7 +18,7 @@ makeTemplate {
     source = [
       outputs."/observes/singer/tap-mailchimp/env/runtime/python"
       outputs."/observes/common/singer-io/env/runtime"
-      outputs."/observes/env/paginator/runtime"
+      outputs."/observes/common/paginator/env/runtime"
       outputs."/observes/env/utils-logger/runtime"
     ];
   };

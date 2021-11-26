@@ -125,7 +125,7 @@
       };
       observesCommonPaginator = {
         searchPaths.source = [
-          outputs."/observes/env/paginator/development"
+          outputs."/observes/common/paginator/env/development"
         ];
         python = "3.8";
         src = "/observes/common/paginator/paginator";
