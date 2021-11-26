@@ -214,3 +214,14 @@ def iter_fsx_file_systems(template: Node) -> Iterator[Node]:
             exact=True,
         )
     )
+
+
+def iter_secret_manager_secrets(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::SecretsManager::Secret",
+            exact=True,
+        )
+    )
