@@ -6,7 +6,7 @@ import { translate } from "utils/translations/translate";
 export const limitFormatter: (value: string) => JSX.Element = (
   value: string
 ): JSX.Element => {
-  const linesLimit: number = 15;
+  const linesLimit: number = 20;
   const valueArray: string[] = Array.from(
     new Set(value.split(",").map((element: string): string => element.trim()))
   );
@@ -24,7 +24,7 @@ export const limitFormatter: (value: string) => JSX.Element = (
         )
       )}
       {valueArray.length > linesLimit && (
-        <p>{translate.t("dataTableNext.more")}</p>
+        <p className={"mb1"}>{translate.t("dataTableNext.more")}</p>
       )}
     </div>
   );

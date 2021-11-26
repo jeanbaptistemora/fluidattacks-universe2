@@ -240,7 +240,7 @@ export const enTranslations: ResourceKey = {
     filterRes1: "Filtered",
     filterRes2: "of",
     filters: "Filters",
-    more: "--More--",
+    more: "--View More--",
     noDataIndication: "There is no data to display",
     search: "Search",
     tooltip: "Search filters for the table",
