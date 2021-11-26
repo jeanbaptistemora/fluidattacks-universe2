@@ -313,7 +313,7 @@ in
           gitlabExtra = gitlabTestCode;
         }
         {
-          output = "/observes/test/code-etl";
+          output = "/observes/etl/code/test";
           gitlabExtra = gitlabTestCode;
         }
         {

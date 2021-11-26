@@ -4,14 +4,14 @@
 , ...
 }:
 makeTemplate {
-  name = "observes-env-code-etl-development";
+  name = "observes-etl-code-env-development";
   searchPaths = {
     source = [
       (makePythonPypiEnvironment {
-        name = "observes-env-code-etl-development";
+        name = "observes-etl-code-env-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/observes/env/code-etl/runtime"
+      outputs."/observes/etl/code/env/runtime"
     ];
   };
 }

@@ -1093,6 +1093,28 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/observes/etl/code/test:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /observes/etl/code/test
+  stage: test-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /observes/etl/dynamo/centralize:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
@@ -1329,28 +1351,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
   script:
     - m . /observes/singer/tap-announcekit/test
-  stage: test-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/observes/test/code-etl:
-  image: ghcr.io/fluidattacks/makes:21.12
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
-  script:
-    - m . /observes/test/code-etl
   stage: test-code
   tags:
     - autoscaling

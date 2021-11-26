@@ -5,7 +5,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/bin/code-etl"
+      outputs."/observes/etl/code/bin"
       outputs."/melts"
     ];
     source = [

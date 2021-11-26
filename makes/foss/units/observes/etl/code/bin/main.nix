@@ -8,9 +8,9 @@ makeScript {
   '';
   searchPaths = {
     source = [
-      outputs."/observes/env/code-etl/runtime"
+      outputs."/observes/etl/code/env/runtime"
       outputs."/observes/common/import-and-run"
     ];
   };
-  name = "observes-bin-code-etl";
+  name = "observes-etl-code-bin";
 }

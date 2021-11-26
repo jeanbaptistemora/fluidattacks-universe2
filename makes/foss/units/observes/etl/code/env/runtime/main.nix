@@ -9,7 +9,7 @@ let
   self = projectPath "/observes/code_etl";
 in
 makeTemplate {
-  name = "observes-env-code-etl-runtime";
+  name = "observes-etl-code-env-runtime";
   searchPaths = {
     pythonMypy = [
       self
@@ -22,7 +22,7 @@ makeTemplate {
     ];
     source = [
       (makePythonPypiEnvironment {
-        name = "observes-env-code-etl-runtime";
+        name = "observes-etl-code-env-runtime";
         sourcesYaml = ./pypi-sources.yaml;
         searchPathsRuntime.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
         searchPathsBuild.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];

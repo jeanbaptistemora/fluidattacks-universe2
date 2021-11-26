@@ -9,11 +9,11 @@ makeDerivation {
     envSrc = projectPath "/observes/code_etl";
     envTestDir = "tests";
   };
-  name = "observes-test-code-etl";
+  name = "observes-etl-code-test";
   searchPaths = {
     source = [
       outputs."/observes/common/tester"
-      outputs."/observes/env/code-etl/development"
+      outputs."/observes/etl/code/env/development"
     ];
   };
 }

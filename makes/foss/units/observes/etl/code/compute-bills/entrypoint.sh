@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-alias code-etl="observes-bin-code-etl"
+alias code-etl="observes-etl-code-bin"
 
 function job_compute_bills {
   local bucket_month
