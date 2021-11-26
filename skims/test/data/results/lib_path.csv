@@ -10873,7 +10873,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (dot-prop v5.0.0
    43 |     ""fstream"": ""1.0.11"",
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ejs v2.6.1) [github.com/mde/ejs/issues/571],34,937,skims,011. Use of software with known vulnerabilities,Use of ejs at version 2.6.1 with github.com/mde/ejs/issues/571 in namespace/skims/test/data/lib_path/f011/package.json,"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ejs v2.6.1) [WS-2021-0153],34,937,skims,011. Use of software with known vulnerabilities,Use of ejs at version 2.6.1 with WS-2021-0153 in namespace/skims/test/data/lib_path/f011/package.json,"
    24 |     ""deap"": ""1.0.0"",
    25 |     ""decompress"": ""4.2.0"",
    26 |     ""decompress-tar"": ""4.1.1"",
