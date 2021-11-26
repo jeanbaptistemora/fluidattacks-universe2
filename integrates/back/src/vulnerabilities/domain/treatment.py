@@ -375,7 +375,10 @@ async def update_vulnerabilities_treatment(
     group_name: str,
 ) -> bool:
     success: bool = False
-    if updated_values.get("treatment") in {"ACCEPTED_UNDEFINED", "ACCEPTED"}:
+    if (
+        updated_values.get("treatment") in {"ACCEPTED_UNDEFINED", "ACCEPTED"}
+        and "treatment_manager" not in updated_values
+    ):
         updated_values["treatment_manager"] = user_email
 
     vulnerabilities: Tuple[
@@ -385,6 +388,16 @@ async def update_vulnerabilities_treatment(
         iter(vuln for vuln in vulnerabilities if vuln.id == vulnerability_id)
     )
     today = datetime_utils.get_now_as_str()
+    if (
+        "acceptance_date" in updated_values
+        and len(updated_values["acceptance_date"].split(" ")) == 1
+    ):
+        today = datetime_utils.get_now_as_str()
+        updated_values["acceptance_date"] = (
+            f'{updated_values["acceptance_date"].split()[0]}'
+            f" {today.split()[1]}"
+        )
+
     if "treatment_manager" in updated_values:
         role: str = await authz.get_group_level_role(user_email, group_name)
         updated_values["treatment_manager"] = await validate_treatment_manager(
