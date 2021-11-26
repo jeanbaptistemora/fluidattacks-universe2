@@ -48,6 +48,11 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
+interface IFilterSet {
+  invitation: string;
+  role: string;
+  searchText: string;
+}
 const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -73,9 +78,16 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("groupStakeholdersFilters", false);
 
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [roleFilter, setRoleFilter] = useState("");
-  const [invitationFilter, setInvitationFilter] = useState("");
+  const [filterGroupStakeholdersTable, setFilterGroupStakeholdersTable] =
+    useStoredState<IFilterSet>(
+      "filterGroupStakeholderSet",
+      {
+        invitation: "",
+        role: "",
+        searchText: "",
+      },
+      localStorage
+    );
 
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
@@ -303,31 +315,49 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setSearchTextFilter(event.target.value);
+    event.persist();
+    setFilterGroupStakeholdersTable(
+      (value): IFilterSet => ({
+        ...value,
+        searchText: event.target.value,
+      })
+    );
   }
 
   const filterSearchtextStakeHolders: IStakeholderDataSet[] = filterSearchText(
     stakeholdersList,
-    searchTextFilter
+    filterGroupStakeholdersTable.searchText
   );
 
   function onRoleChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setRoleFilter(event.target.value);
+    event.persist();
+    setFilterGroupStakeholdersTable(
+      (value): IFilterSet => ({
+        ...value,
+        role: event.target.value,
+      })
+    );
   }
   const filterRoleStakeHolders: IStakeholderDataSet[] = filterSelect(
     stakeholdersList,
-    roleFilter,
+    filterGroupStakeholdersTable.role,
     "role"
   );
 
   function onInvitationChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
-    setInvitationFilter(event.target.value);
+    event.persist();
+    setFilterGroupStakeholdersTable(
+      (value): IFilterSet => ({
+        ...value,
+        invitation: event.target.value,
+      })
+    );
   }
   const filterInvitationStakeHolders: IStakeholderDataSet[] = filterSelect(
     stakeholdersList,
-    invitationFilter,
+    filterGroupStakeholdersTable.invitation,
     "invitationState"
   );
 
@@ -339,7 +369,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
 
   const customFilters: IFilterProps[] = [
     {
-      defaultValue: roleFilter,
+      defaultValue: filterGroupStakeholdersTable.role,
       onChangeSelect: onRoleChange,
       placeholder: "Role",
       selectOptions: {
@@ -359,7 +389,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: invitationFilter,
+      defaultValue: filterGroupStakeholdersTable.invitation,
       onChangeSelect: onInvitationChange,
       placeholder: "Invitation",
       selectOptions: {
@@ -392,7 +422,8 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                     },
                   }}
                   customSearch={{
-                    customSearchDefault: searchTextFilter,
+                    customSearchDefault:
+                      filterGroupStakeholdersTable.searchText,
                     isCustomSearchEnabled: true,
                     onUpdateCustomSearch: onSearchTextChange,
                   }}
