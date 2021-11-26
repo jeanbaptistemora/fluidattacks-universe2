@@ -21,7 +21,7 @@ makeTemplate {
         name = "observes-env-paginator-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/observes/env/purity/runtime"
+      outputs."/observes/common/purity/env/runtime"
     ];
   };
 }

@@ -7,7 +7,7 @@ let
   self = projectPath "/observes/common/purity";
 in
 makeTemplate {
-  name = "observes-env-purity-runtime";
+  name = "observes-common-purity-env-runtime";
   searchPaths = {
     pythonMypy = [
       self
@@ -17,7 +17,7 @@ makeTemplate {
     ];
     source = [
       (makePythonPypiEnvironment {
-        name = "observes-env-purity-runtime";
+        name = "observes-common-purity-env-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
     ];

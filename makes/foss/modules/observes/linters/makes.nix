@@ -139,14 +139,14 @@
       };
       observesCommonPurity = {
         searchPaths.source = [
-          outputs."/observes/env/purity/runtime"
+          outputs."/observes/common/purity/env/runtime"
         ];
         python = "3.8";
         src = "/observes/common/purity/purity";
       };
       observesCommonPurityTests = {
         searchPaths.source = [
-          outputs."/observes/env/purity/runtime"
+          outputs."/observes/common/purity/env/runtime"
         ];
         python = "3.8";
         src = "/observes/common/purity/tests";

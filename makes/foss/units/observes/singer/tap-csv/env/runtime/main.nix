@@ -22,7 +22,7 @@ makeTemplate {
         sourcesYaml = ./pypi-sources.yaml;
       })
       outputs."/observes/env/singer-io/runtime"
-      outputs."/observes/env/purity/runtime"
+      outputs."/observes/common/purity/env/runtime"
     ];
   };
 }
