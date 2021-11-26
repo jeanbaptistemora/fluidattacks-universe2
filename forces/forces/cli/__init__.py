@@ -14,8 +14,8 @@ from forces.utils.function import (
     shield,
 )
 from forces.utils.logs import (
-    blocking_log,
     log,
+    rich_log,
 )
 from forces.utils.model import (
     ForcesConfig,
@@ -25,9 +25,6 @@ from io import (
     TextIOWrapper,
 )
 import re
-from rich.text import (
-    Text,
-)
 import sys
 import textwrap
 from typing import (
@@ -69,7 +66,7 @@ def show_banner() -> None:
                                                /_/[/]
         """
     )
-    blocking_log("info", header)
+    rich_log(header)
 
 
 @click.command(name="forces")
@@ -152,31 +149,22 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
 
     striccness = "strict" if strict else "lax"
     start_msg: str = "Running DevSecOps agent"
-    await log(
-        "info",
-        Text.assemble(
-            f"{start_msg} in ", (striccness, "bright_yellow"), " mode"
-        ),
-    )
-    await log(
-        "info",
-        Text.assemble(f"{start_msg} in ", (kind, "bright_yellow"), " kind"),
-    )
+    await log("info", f"{start_msg} in [bright_yellow]{striccness}[/] mode")
+    await log("info", f"{start_msg} in [bright_yellow]{kind}[/] kind")
     if repo_name:
         await log(
             "info",
-            Text.assemble(
-                f"{start_msg} for vulnerabilities in the repo: ",
-                (repo_name, "bright_yellow"),
+            (
+                f"{start_msg} for vulnerabilities in the repo: "
+                f"[bright_yellow]{repo_name}[/]"
             ),
         )
     else:
         await log(
             "warning",
-            Text.assemble(
-                "If the repository name is not specified, it will run on ",
-                ("all", "bright_yellow"),
-                " the existing repositories in ASM",
+            (
+                "If the repository name is not specified, it will run on "
+                "[bright_yellow]all[/] the existing repositories in ASM"
             ),
         )
 

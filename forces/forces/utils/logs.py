@@ -64,11 +64,11 @@ def set_up_handlers(interfaces: Set[Console]) -> None:
 set_up_handlers({CONSOLE_INTERFACE, LOGGING_INTERFACE})
 
 
-def blocking_log(level: str, msg: Union[Text, str], *args: Any) -> None:
+def blocking_log(level: str, msg: str, *args: Any) -> None:
     getattr(_LOGGER, level)(msg, *args)
 
 
-async def log(level: str, msg: Union[Text, str], *args: Any) -> None:
+async def log(level: str, msg: str, *args: Any) -> None:
     await in_thread(getattr(_LOGGER, level), msg, *args)
 
 
