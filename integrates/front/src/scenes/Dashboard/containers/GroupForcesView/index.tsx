@@ -33,6 +33,15 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
+interface IFilterSet {
+  searchText: string;
+  dateRange: { max: string; min: string };
+  status: string;
+  strictness: string;
+  type: string;
+  repository: string;
+}
+
 const GroupForcesView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
 
@@ -69,12 +78,19 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("groupForcesCustomFilters", false);
 
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [dateRangeFilter, setDateRangeFilter] = useState({ max: "", min: "" });
-  const [statusFilter, setStatusFilter] = useState("");
-  const [strictnessFilter, setStrictnessFilter] = useState("");
-  const [typeFilter, setTypeFilter] = useState("");
-  const [repositoryFilter, setRepositoryFilter] = useState("");
+  const [filterGroupForcesTable, setFilterGroupForcesTable] =
+    useStoredState<IFilterSet>(
+      "filterGroupForcesSet",
+      {
+        dateRange: { max: "", min: "" },
+        repository: "",
+        searchText: "",
+        status: "",
+        strictness: "",
+        type: "",
+      },
+      localStorage
+    );
 
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
@@ -245,62 +261,104 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setSearchTextFilter(event.target.value);
+    event.persist();
+    setFilterGroupForcesTable(
+      (value): IFilterSet => ({
+        ...value,
+        searchText: event.target.value,
+      })
+    );
   }
   const filterSearchTextExecutions: IExecution[] = filterSearchText(
     executions,
-    searchTextFilter
+    filterGroupForcesTable.searchText
   );
 
   function onDateMaxChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setDateRangeFilter({ ...dateRangeFilter, max: event.target.value });
+    event.persist();
+    setFilterGroupForcesTable(
+      (value): IFilterSet => ({
+        ...value,
+        dateRange: { ...value.dateRange, max: event.currentTarget.value },
+      })
+    );
   }
   function onDateMinChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setDateRangeFilter({ ...dateRangeFilter, min: event.target.value });
+    event.persist();
+    setFilterGroupForcesTable(
+      (value): IFilterSet => ({
+        ...value,
+        dateRange: { ...value.dateRange, min: event.currentTarget.value },
+      })
+    );
   }
   const filterDateRangeExecutions: IExecution[] = filterDateRange(
     executions,
-    dateRangeFilter,
+    filterGroupForcesTable.dateRange,
     "date"
   );
 
   function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setStatusFilter(event.target.value);
+    event.persist();
+    setFilterGroupForcesTable(
+      (value): IFilterSet => ({
+        ...value,
+        status: event.target.value,
+      })
+    );
   }
   const filterStatusExecutions: IExecution[] = filterSelect(
     executions,
-    statusFilter,
+    filterGroupForcesTable.status,
     "status"
   );
 
   function onStrictnessChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
-    setStrictnessFilter(event.target.value);
+    event.persist();
+    setFilterGroupForcesTable(
+      (value): IFilterSet => ({
+        ...value,
+        strictness: event.target.value,
+      })
+    );
   }
   const filterStrictnessExecutions: IExecution[] = filterSelect(
     executions,
-    strictnessFilter,
+    filterGroupForcesTable.strictness,
     "strictness"
   );
 
   function onTypeChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setTypeFilter(event.target.value);
+    event.persist();
+    setFilterGroupForcesTable(
+      (value): IFilterSet => ({
+        ...value,
+        type: event.target.value,
+      })
+    );
   }
   const filterTypeExecutions: IExecution[] = filterSelect(
     executions,
-    typeFilter,
+    filterGroupForcesTable.type,
     "kind"
   );
 
   function onRepositoryChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setRepositoryFilter(event.target.value);
+    event.persist();
+    setFilterGroupForcesTable(
+      (value): IFilterSet => ({
+        ...value,
+        repository: event.target.value,
+      })
+    );
   }
   const filterGroupNameExecutions: IExecution[] = filterText(
     executions,
-    repositoryFilter,
+    filterGroupForcesTable.repository,
     "gitRepo"
   );
 
@@ -318,7 +376,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       defaultValue: "",
       placeholder: "Date (Range)",
       rangeProps: {
-        defaultValue: dateRangeFilter,
+        defaultValue: filterGroupForcesTable.dateRange,
         onChangeMax: onDateMaxChange,
         onChangeMin: onDateMinChange,
       },
@@ -327,7 +385,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       type: "dateRange",
     },
     {
-      defaultValue: statusFilter,
+      defaultValue: filterGroupForcesTable.status,
       onChangeSelect: onStatusChange,
       placeholder: "Status",
       selectOptions: {
@@ -339,7 +397,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: strictnessFilter,
+      defaultValue: filterGroupForcesTable.strictness,
       onChangeSelect: onStrictnessChange,
       placeholder: "Strictness",
       selectOptions: {
@@ -351,7 +409,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: typeFilter,
+      defaultValue: filterGroupForcesTable.type,
       onChangeSelect: onTypeChange,
       placeholder: "Type",
       selectOptions: {
@@ -364,7 +422,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: repositoryFilter,
+      defaultValue: filterGroupForcesTable.repository,
       onChangeInput: onRepositoryChange,
       placeholder: "Git Repository",
       tooltipId: "group.forces.filtersTooltips.repository.id",
@@ -388,7 +446,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
           },
         }}
         customSearch={{
-          customSearchDefault: searchTextFilter,
+          customSearchDefault: filterGroupForcesTable.searchText,
           isCustomSearchEnabled: true,
           onUpdateCustomSearch: onSearchTextChange,
         }}
