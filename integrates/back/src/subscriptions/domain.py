@@ -503,7 +503,7 @@ async def _get_digest_stats(
             groups_domain.get_groups_by_user(user_email, with_cache=False)
             for user_email in digest_suscribers
         ],
-        workers=16,
+        workers=4,
     )
     digest_groups = set(itertools.chain.from_iterable(digest_groups))
 
