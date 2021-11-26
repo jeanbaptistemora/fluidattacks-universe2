@@ -1110,26 +1110,3 @@ def format_vulnerability_item(
             format_vulnerability_zero_risk_item(vulnerability.zero_risk)
         ]
     return item
-
-
-async def filter_vulns_by_nickname(
-    loaders: Any,
-    group_name: str,
-    nickname: str,
-) -> List[VulnerabilityType]:
-    group_findings_loader = loaders.group_findings
-    finding_vulns_loader = loaders.finding_vulns_nzr
-
-    group_findings: Tuple[FindingType, ...] = await group_findings_loader.load(
-        group_name
-    )
-    findings_vulns = await finding_vulns_loader.load_many_chained(
-        [finding.id for finding in group_findings]
-    )
-    filtered_vulns = [
-        vuln
-        for vuln in findings_vulns
-        if vuln.get("root_nickname", "") == nickname
-    ]
-
-    return filtered_vulns

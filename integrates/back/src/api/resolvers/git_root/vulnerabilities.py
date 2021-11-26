@@ -1,14 +1,15 @@
-from custom_types import (
-    Vulnerability as VulnerabilityType,
-)
 from dataloaders import (
     Dataloaders,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils import (
-    vulnerabilities as vulns_utils,
+from newutils.vulnerabilities import (
+    filter_non_deleted_new,
+    filter_non_zero_risk,
 )
 from roots.types import (
     Root,
@@ -20,10 +21,9 @@ from typing import (
 
 async def resolve(
     parent: Root, info: GraphQLResolveInfo, **_kwargs: None
-) -> List[VulnerabilityType]:
+) -> List[Vulnerability]:
     loaders: Dataloaders = info.context.loaders
-    root_vulns = await vulns_utils.filter_vulns_by_nickname(
-        loaders, parent.group_name, parent.nickname
+    root_vulns = await loaders.root_vulns_typed.load(
+        (parent.group_name, parent.nickname)
     )
-
-    return root_vulns
+    return list(filter_non_zero_risk(filter_non_deleted_new(root_vulns)))
