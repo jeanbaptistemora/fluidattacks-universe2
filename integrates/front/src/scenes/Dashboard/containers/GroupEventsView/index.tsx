@@ -65,6 +65,18 @@ interface IEventsDataset {
   };
 }
 
+interface IFilterSet {
+  accessibility: string;
+  actAfterBlock: string;
+  actBefBlock: string;
+  afectComps: string;
+  closingDateRange: { max: string; min: string };
+  dateRange: { max: string; min: string };
+  searchText: string;
+  status: string;
+  type: string;
+}
+
 const GroupEventsView: React.FC = (): JSX.Element => {
   const { push } = useHistory();
   const { groupName } = useParams<{ groupName: string }>();
@@ -75,18 +87,22 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("groupEventsFilters", false);
 
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [statusFilter, setStatusFilter] = useState("");
-  const [typeFilter, setTypeFilter] = useState("");
-  const [dateRangeFilter, setDateRangeFilter] = useState({ max: "", min: "" });
-  const [closingDateRangeFilter, setClosingDateRangeFilter] = useState({
-    max: "",
-    min: "",
-  });
-  const [actBefBlockFilter, setActBefBlockFilter] = useState("");
-  const [actAfterBlockFilter, setActAfterBlockFilter] = useState("");
-  const [accessibilityFilter, setAccessibilityFilter] = useState("");
-  const [afectCompsFilter, setAfectCompsFilter] = useState("");
+  const [filterGroupEventsTable, setFilterGroupEventsTable] =
+    useStoredState<IFilterSet>(
+      "filterGroupEventsSet",
+      {
+        accessibility: "",
+        actAfterBlock: "",
+        actBefBlock: "",
+        afectComps: "",
+        closingDateRange: { max: "", min: "" },
+        dateRange: { max: "", min: "" },
+        searchText: "",
+        status: "",
+        type: "",
+      },
+      localStorage
+    );
 
   const [columnItems, setColumnItems] = useStoredState<Record<string, boolean>>(
     "eventsTableSet",
@@ -342,100 +358,172 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setSearchTextFilter(event.target.value);
+    event.persist();
+    setFilterGroupEventsTable(
+      (value): IFilterSet => ({
+        ...value,
+        searchText: event.target.value,
+      })
+    );
   }
   const filterSearchtextResult: IEventConfig[] = filterSearchText(
     dataset,
-    searchTextFilter
+    filterGroupEventsTable.searchText
   );
 
   function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setStatusFilter(event.target.value);
+    event.persist();
+    setFilterGroupEventsTable(
+      (value): IFilterSet => ({
+        ...value,
+        status: event.target.value,
+      })
+    );
   }
   const filterStatusResult: IEventConfig[] = filterSelect(
     dataset,
-    statusFilter,
+    filterGroupEventsTable.status,
     "eventStatus"
   );
 
   function onTypeChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setTypeFilter(event.target.value);
+    event.persist();
+    setFilterGroupEventsTable(
+      (value): IFilterSet => ({
+        ...value,
+        type: event.target.value,
+      })
+    );
   }
   const filterTypeResult: IEventConfig[] = filterSelect(
     dataset,
-    typeFilter,
+    filterGroupEventsTable.type,
     "eventType"
   );
 
   function onDateMaxChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setDateRangeFilter({ ...dateRangeFilter, max: event.target.value });
+    event.persist();
+    setFilterGroupEventsTable(
+      (value): IFilterSet => ({
+        ...value,
+        dateRange: { ...value.dateRange, max: event.currentTarget.value },
+      })
+    );
   }
   function onDateMinChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setDateRangeFilter({ ...dateRangeFilter, min: event.target.value });
+    event.persist();
+    setFilterGroupEventsTable(
+      (value): IFilterSet => ({
+        ...value,
+        dateRange: { ...value.dateRange, min: event.currentTarget.value },
+      })
+    );
   }
   const filterDateRangeResult: IEventConfig[] = filterDateRange(
     dataset,
-    dateRangeFilter,
+    filterGroupEventsTable.dateRange,
     "eventDate"
   );
 
   function onClosingDateMaxChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setClosingDateRangeFilter({ ...dateRangeFilter, max: event.target.value });
+    event.persist();
+    setFilterGroupEventsTable(
+      (value): IFilterSet => ({
+        ...value,
+        closingDateRange: {
+          ...value.closingDateRange,
+          max: event.currentTarget.value,
+        },
+      })
+    );
   }
   function onClosingDateMinChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setClosingDateRangeFilter({ ...dateRangeFilter, min: event.target.value });
+    event.persist();
+    setFilterGroupEventsTable(
+      (value): IFilterSet => ({
+        ...value,
+        closingDateRange: {
+          ...value.closingDateRange,
+          min: event.currentTarget.value,
+        },
+      })
+    );
   }
   const filterClosingDateRangeResult: IEventConfig[] = filterDateRange(
     dataset,
-    closingDateRangeFilter,
+    filterGroupEventsTable.closingDateRange,
     "closingDate"
   );
 
   function onActBefBlockChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
-    setActBefBlockFilter(event.target.value);
+    event.persist();
+    setFilterGroupEventsTable(
+      (value): IFilterSet => ({
+        ...value,
+        actBefBlock: event.target.value,
+      })
+    );
   }
   const filterActBefBlockResult: IEventConfig[] = filterSelect(
     dataset,
-    actBefBlockFilter,
+    filterGroupEventsTable.actBefBlock,
     "actionBeforeBlocking"
   );
 
   function onActAfterBlockChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
-    setActAfterBlockFilter(event.target.value);
+    event.persist();
+    setFilterGroupEventsTable(
+      (value): IFilterSet => ({
+        ...value,
+        actAfterBlock: event.target.value,
+      })
+    );
   }
   const filterActAfterBlockResult: IEventConfig[] = filterSelect(
     dataset,
-    actAfterBlockFilter,
+    filterGroupEventsTable.actAfterBlock,
     "actionAfterBlocking"
   );
 
   function onAccessibilityChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
-    setAccessibilityFilter(event.target.value);
+    event.persist();
+    setFilterGroupEventsTable(
+      (value): IFilterSet => ({
+        ...value,
+        accessibility: event.target.value,
+      })
+    );
   }
   const filterAccessibilityResult: IEventConfig[] = filterSelect(
     dataset,
-    accessibilityFilter,
+    filterGroupEventsTable.accessibility,
     "accessibility"
   );
 
   function onAfectCompsChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
-    setAfectCompsFilter(event.target.value);
+    event.persist();
+    setFilterGroupEventsTable(
+      (value): IFilterSet => ({
+        ...value,
+        afectComps: event.target.value,
+      })
+    );
   }
   const filterAfectCompsResult: IEventConfig[] = filterSelect(
     dataset,
-    afectCompsFilter,
+    filterGroupEventsTable.afectComps,
     "affectedComponents"
   );
 
@@ -456,7 +544,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       defaultValue: "",
       placeholder: "Date (Range)",
       rangeProps: {
-        defaultValue: dateRangeFilter,
+        defaultValue: filterGroupEventsTable.dateRange,
         onChangeMax: onDateMaxChange,
         onChangeMin: onDateMinChange,
       },
@@ -465,7 +553,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       type: "dateRange",
     },
     {
-      defaultValue: accessibilityFilter,
+      defaultValue: filterGroupEventsTable.accessibility,
       onChangeSelect: onAccessibilityChange,
       placeholder: "Accessibility",
       selectOptions: accessibilityOptions,
@@ -474,7 +562,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: afectCompsFilter,
+      defaultValue: filterGroupEventsTable.afectComps,
       onChangeSelect: onAfectCompsChange,
       placeholder: "Affected components",
       selectOptions: afectCompsOptions,
@@ -483,7 +571,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: actAfterBlockFilter,
+      defaultValue: filterGroupEventsTable.actAfterBlock,
       onChangeSelect: onActAfterBlockChange,
       placeholder: "Action after blocking",
       selectOptions: eventActionsAfterBlocking,
@@ -492,7 +580,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: actBefBlockFilter,
+      defaultValue: filterGroupEventsTable.actBefBlock,
       onChangeSelect: onActBefBlockChange,
       placeholder: "Action before blocking",
       selectOptions: eventActionsBeforeBlocking,
@@ -501,7 +589,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: typeFilter,
+      defaultValue: filterGroupEventsTable.type,
       onChangeSelect: onTypeChange,
       placeholder: "Type",
       selectOptions: optionType,
@@ -510,7 +598,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: statusFilter,
+      defaultValue: filterGroupEventsTable.status,
       onChangeSelect: onStatusChange,
       placeholder: "Status",
       selectOptions: {
@@ -525,7 +613,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       defaultValue: "",
       placeholder: "Closing date (Range)",
       rangeProps: {
-        defaultValue: closingDateRangeFilter,
+        defaultValue: filterGroupEventsTable.closingDateRange,
         onChangeMax: onClosingDateMaxChange,
         onChangeMin: onClosingDateMinChange,
       },
@@ -561,7 +649,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
             },
           }}
           customSearch={{
-            customSearchDefault: searchTextFilter,
+            customSearchDefault: filterGroupEventsTable.searchText,
             isCustomSearchEnabled: true,
             onUpdateCustomSearch: onSearchTextChange,
           }}
