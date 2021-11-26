@@ -6,10 +6,12 @@ from custom_types import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityStateStatus,
 )
 from itertools import (
     chain,
+)
+from newutils import (
+    vulnerabilities as vulns_utils,
 )
 from typing import (
     cast,
@@ -46,16 +48,6 @@ class FindingVulnsNonDeletedLoader(DataLoader):
         return cast(List[List[VulnerabilityType]], findings_vulns)
 
 
-def _filter_non_deleted_vulns(
-    vulns: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
-    return tuple(
-        vuln
-        for vuln in vulns
-        if vuln.state.status != VulnerabilityStateStatus.DELETED
-    )
-
-
 class FindingVulnsNonDeletedTypedLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
@@ -73,6 +65,6 @@ class FindingVulnsNonDeletedTypedLoader(DataLoader):
     ) -> Tuple[Tuple[Vulnerability, ...], ...]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
         return tuple(
-            _filter_non_deleted_vulns(finding_vulns)
+            vulns_utils.filter_non_deleted_new(finding_vulns)
             for finding_vulns in findings_vulns
         )

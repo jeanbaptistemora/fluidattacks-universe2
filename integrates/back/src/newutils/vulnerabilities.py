@@ -149,6 +149,16 @@ def filter_non_deleted(
     ]
 
 
+def filter_non_deleted_new(
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
+        vuln
+        for vuln in vulnerabilities
+        if vuln.state.status != VulnerabilityStateStatus.DELETED
+    )
+
+
 def filter_open_vulns(
     vulnerabilities: List[VulnerabilityType],
 ) -> List[VulnerabilityType]:
@@ -244,6 +254,36 @@ def filter_non_requested_zero_risk(
         ].get("status", "")
         != "REQUESTED"
     ]
+
+
+def filter_zero_risk(
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
+        vuln
+        for vuln in vulnerabilities
+        if vuln.zero_risk
+        and vuln.zero_risk.status
+        in (
+            VulnerabilityZeroRiskStatus.CONFIRMED,
+            VulnerabilityZeroRiskStatus.REQUESTED,
+        )
+    )
+
+
+def filter_non_zero_risk(
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
+        vuln
+        for vuln in vulnerabilities
+        if not vuln.zero_risk
+        or vuln.zero_risk.status
+        not in (
+            VulnerabilityZeroRiskStatus.CONFIRMED,
+            VulnerabilityZeroRiskStatus.REQUESTED,
+        )
+    )
 
 
 def filter_remediated(

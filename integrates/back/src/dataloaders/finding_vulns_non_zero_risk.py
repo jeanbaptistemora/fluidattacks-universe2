@@ -6,7 +6,6 @@ from custom_types import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityZeroRiskStatus,
 )
 from itertools import (
     chain,
@@ -49,21 +48,6 @@ class FindingVulnsNonZeroRiskLoader(DataLoader):
         return cast(List[List[VulnerabilityType]], findings_vulns)
 
 
-def _filter_non_zero_risk_vulns(
-    vulns: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
-    return tuple(
-        vuln
-        for vuln in vulns
-        if not vuln.zero_risk
-        or vuln.zero_risk.status
-        not in (
-            VulnerabilityZeroRiskStatus.CONFIRMED,
-            VulnerabilityZeroRiskStatus.REQUESTED,
-        )
-    )
-
-
 class FindingVulnsNonZeroRiskTypedLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
@@ -81,6 +65,6 @@ class FindingVulnsNonZeroRiskTypedLoader(DataLoader):
     ) -> Tuple[Tuple[Vulnerability, ...], ...]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
         return tuple(
-            _filter_non_zero_risk_vulns(finding_vulns)
+            vulns_utils.filter_non_zero_risk(finding_vulns)
             for finding_vulns in findings_vulns
         )

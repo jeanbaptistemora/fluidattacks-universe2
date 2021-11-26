@@ -15,6 +15,9 @@ from db_model.roots.types import (
     GitRootItem,
     RootItem,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityType,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -34,7 +37,10 @@ from mailer import (
 from newutils import (
     requests as requests_utils,
     token as token_utils,
-    vulnerabilities as vulns_utils,
+)
+from newutils.vulnerabilities import (
+    filter_non_deleted_new,
+    filter_non_zero_risk,
 )
 from roots import (
     domain as roots_domain,
@@ -69,11 +75,16 @@ async def deactivate_root(
         if user_role
         in {"customeradmin", "group_manager", "resourcer", "system_owner"}
     ]
-    root_vulns = await vulns_utils.filter_vulns_by_nickname(
-        loaders, group_name, root.state.nickname
+    root_vulns = await loaders.root_vulns_typed.load(
+        (group_name, root.state.nickname)
     )
-    sast_vulns = [vuln for vuln in root_vulns if vuln["vuln_type"] == "lines"]
-    dast_vulns = [vuln for vuln in root_vulns if vuln["vuln_type"] != "lines"]
+    root_vulns_nzr = filter_non_zero_risk(filter_non_deleted_new(root_vulns))
+    sast_vulns = [
+        vuln for vuln in root_vulns_nzr if vuln.type == VulnerabilityType.LINES
+    ]
+    dast_vulns = [
+        vuln for vuln in root_vulns_nzr if vuln.type != VulnerabilityType.LINES
+    ]
 
     await collect(
         tuple(
@@ -82,9 +93,7 @@ async def deactivate_root(
                 modified_by=user_email,
                 source=source,
             )
-            for vuln in await loaders.root_vulns_typed.load(
-                (group_name, root.state.nickname)
-            )
+            for vuln in root_vulns
         )
     )
     await roots_domain.deactivate_root(

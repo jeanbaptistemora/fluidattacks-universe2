@@ -6,7 +6,6 @@ from custom_types import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityZeroRiskStatus,
 )
 from newutils import (
     vulnerabilities as vulns_utils,
@@ -37,21 +36,6 @@ class FindingVulnsOnlyZeroRiskLoader(DataLoader):
         return cast(List[List[VulnerabilityType]], findings_vulns)
 
 
-def _filter_zero_risk_vulns(
-    vulns: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
-    return tuple(
-        vuln
-        for vuln in vulns
-        if vuln.zero_risk
-        and vuln.zero_risk.status
-        in (
-            VulnerabilityZeroRiskStatus.CONFIRMED,
-            VulnerabilityZeroRiskStatus.REQUESTED,
-        )
-    )
-
-
 class FindingVulnsOnlyZeroRiskTypedLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
@@ -63,6 +47,6 @@ class FindingVulnsOnlyZeroRiskTypedLoader(DataLoader):
     ) -> Tuple[Tuple[Vulnerability, ...], ...]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
         return tuple(
-            _filter_zero_risk_vulns(finding_vulns)
+            vulns_utils.filter_zero_risk(finding_vulns)
             for finding_vulns in findings_vulns
         )
