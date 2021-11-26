@@ -272,7 +272,7 @@
       scope: "U"
       confidentiality: "N"
       integrity: "N"
-      availability: "N"
+      availability: "H"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
@@ -291,7 +291,7 @@
       it does not correctly neutralize
       special elements
       that could modify the OS command.
-    impact: Execute Unauthorized Code or Commands.
+    impact: Execute unauthorized code or commands.
     recommendation: >
       - If at all possible,
       use standard library calls rather
@@ -486,7 +486,7 @@
       Use of tokens in forms to verify requests
       done by legitimate users.
     threat: >
-      Anonymous attacker from the internet
+      Anonymous attacker from the Internet.
   es:
     title: Cross-site request forgery
     description: >
@@ -801,7 +801,7 @@
       For this purpose
       the escape(String) method is available.
     impact: >
-      Extract sensitive information from the Database
+      Extract sensitive information from the Database.
     recommendation: >
       Perform queries to the database
       through sentences
@@ -828,7 +828,7 @@
       Para este propósito,
       se puede usar el método escape(String).
     impact: >
-      Extraer información sensible de la base de datos
+      Extraer información sensible de la base de datos.
     recommendation: >
       Realizar las consultas a la base de datos
       por medio de sentencias
@@ -863,13 +863,13 @@
       does not prevent one user
       from accessing another user's data
       by modifying the key value that identifies it.
-    impact: Obtain, modify or delete information from other users
+    impact: Obtain, modify or delete information from other users.
     recommendation: >
       - Validate that unprivileged users can access
-      and modify only their own information
+      and modify only their own information.
 
       - Handle the user operations using
-      session objects
+      session objects.
     threat: >
       Authenticated user from the Internet.
   es:
@@ -878,13 +878,13 @@
       El sistema permite saltar mecanismos de autenticación
       y modificar información de otros usuarios
       al alterar los identificadores únicos que distinguen a cada usuario.
-    impact: Obtener, modificar o eliminar información de otros usuarios
+    impact: Obtener, modificar o eliminar información de otros usuarios.
     recommendation: >
       - Validar que los usuarios sin privilegios solo puedan acceder
-      y modificar su propia información
+      y modificar su propia información.
 
       - Manejar las operaciones de los usuarios
-      utilizando objetos de sesión
+      utilizando objetos de sesión.
     threat: >
       Usuario autenticado desde Internet.
   category: Subvert Access
@@ -968,7 +968,7 @@
       like Bearer and OAuth.
     threat: >
       Unauthorized attacker from adjacent network
-      performing a MITM.
+      performing a MitM.
   es:
     title: Insecure authentication method - Basic
     description: >
@@ -980,7 +980,7 @@
       como Bearer y OAuth.
     threat: >
       Atacante sin autorización desde red adyacente
-      ejecutando un MITM.
+      ejecutando un MitM.
   category: Protocol Manipulation
   score:
     base:
@@ -1100,14 +1100,14 @@
       through a channel or method
       which does not guarantee its confidentiality
       or integrity.
-    impact: Attacker authenticated in the application
+    impact: Attacker authenticated in the application.
     recommendation: >
       Guarantee that credentials be sent
       through a more secure channel,
       such as session variables
       or using HTTP POST method.
     threat: >
-      Anonymous attacker from local network
+      Anonymous attacker from local network.
   es:
     title: Sensitive information sent insecurely
     description: >
@@ -1115,14 +1115,14 @@
       a través de un canal o método
       que no garantiza su confidencialidad
       o integridad.
-    impact: Atacante autenticado en la aplicación
+    impact: Atacante autenticado en la aplicación.
     recommendation: >
       Garantizar que las credenciales
       sean enviadas por un canal más seguro
       como variables de sesión
       o por el método HTTP POST.
     threat: >
-      Atacante anónimo desde una red local
+      Atacante anónimo desde una red local.
   category: Collect Information
   score:
     base:
@@ -1149,12 +1149,12 @@
       The folders that are shared over the network
       do not require any authentication
       to be accessed.
-    impact: Access to sensitive information stored in folders
+    impact: Access to sensitive information stored in folders.
     recommendation: >
       Limit the access to shared folders
       only to authorized users
       with their credentials.
-    threat: Anonymous attacker from local network
+    threat: Anonymous attacker from local network.
   es:
     title: Improper authentication for shared folders
     description: >
@@ -1162,12 +1162,12 @@
       sin ningún tipo de credencial
       permitiendo el acceso
       a información confidencial.
-    impact: Acceder a Información sensible almacenada en carpetas
+    impact: Acceder a Información sensible almacenada en carpetas.
     recommendation: >
       Limitar el acceso a carpetas compartidas
       solo a personal autorizado
       y con las credenciales respectivas.
-    threat: Atacante anónimo desde red local
+    threat: Atacante anónimo desde red local.
   category: Subvert Access
   score:
     base:
@@ -1194,22 +1194,22 @@
       It is possible to retrieve
       administrative credentials
       from the system's cache memory.
-    impact: Obtain functional credetials for privileged users
+    impact: Obtain functional credetials for privileged users.
     recommendation: >
       Avoid the store of sensitive information
       in temporary files or cache.
-    threat: Authenticated attacker from local network
+    threat: Authenticated attacker from local network.
   es:
     title: Administrative credentials stored in cache memory
     description: >
       Es posible extraer
       credenciales administrativas
       desde la caché de los procesos.
-    impact: Obtener credenciales funcionales de usuarios privilegiados
+    impact: Obtener credenciales funcionales de usuarios privilegiados.
     recommendation: >
       Evitar almacenar información sensible
       en archivos temporales o en caché.
-    threat: Atacante autenticado desde la red local
+    threat: Atacante autenticado desde la red local.
   category: Collect Information
   score:
     base:
