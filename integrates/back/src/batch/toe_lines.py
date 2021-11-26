@@ -469,6 +469,12 @@ async def refresh_active_root_repo_toe_lines(
         root_repo.state.nickname,
         repo_toe_lines,
     )
+    await collect(
+        tuple(
+            toe_lines_update(current_value, attrs_to_update)
+            for current_value, attrs_to_update in present_toe_lines_to_update
+        ),
+    )
     non_present_toe_lines_to_update = get_non_present_toe_lines_to_update(
         present_filenames,
         root_repo.state.nickname,
@@ -477,8 +483,9 @@ async def refresh_active_root_repo_toe_lines(
     await collect(
         tuple(
             toe_lines_update(current_value, attrs_to_update)
-            for current_value, attrs_to_update in present_toe_lines_to_update
-            + non_present_toe_lines_to_update
+            for current_value, attrs_to_update in (
+                non_present_toe_lines_to_update
+            )
         ),
     )
     LOGGER_CONSOLE.info(
