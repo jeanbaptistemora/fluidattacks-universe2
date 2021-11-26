@@ -24,14 +24,3 @@ def test_has_unencrypted_storage():
     assert secretsmanager.insecure_generate_secret_string(
         NOT_EXISTS
     ).is_unknown()
-
-
-def test_has_automatic_rotation_disabled():
-    """test secretsmanager.has_automatic_rotation_disabled."""
-    result = secretsmanager.has_automatic_rotation_disabled(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 2
-    assert secretsmanager.has_automatic_rotation_disabled(SAFE).is_closed()
-    assert secretsmanager.has_automatic_rotation_disabled(
-        NOT_EXISTS
-    ).is_unknown()
