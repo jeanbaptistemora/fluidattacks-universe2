@@ -1,0 +1,42 @@
+Resources:
+  BasicS3LinkedLustreFileSystem:
+    Type: AWS::FSx::FileSystem
+    Properties:
+      FileSystemType: "LUSTRE"
+      FileSystemTypeVersion: "2.12"
+      KmsKeyId: arn:aws:kms:<REGION>:<ACCOUNT_ID>:alias/<ALIAS>
+      StorageCapacity: 1200
+      SubnetIds: [!ImportValue MySubnet01]
+      SecurityGroupIds: [!ImportValue LustreIngressSecurityGroupId]
+      Tags:
+        - Key: "Name"
+          Value: "CFNs3linkedLustre"
+      LustreConfiguration:
+        AutoImportPolicy: "NEW"
+        CopyTagsToBackups: true
+        DeploymentType: "PERSISTENT_1"
+        PerUnitStorageThroughput: 200
+        DataCompressionType: "LZ4"
+        ImportPath: !Join ["", ["s3://", !ImportValue LustreCFNS3ImportBucketName]]
+        ExportPath: !Join ["", ["s3://", !ImportValue LustreCFNS3ExportPath]]
+        WeeklyMaintenanceStartTime: "2:20:30"
+  BasicS3LinkedLustreFileSystem2:
+    Type: AWS::FSx::FileSystem
+    Properties:
+      FileSystemType: "LUSTRE"
+      FileSystemTypeVersion: "2.12"
+      StorageCapacity: 1200
+      SubnetIds: [!ImportValue MySubnet01]
+      SecurityGroupIds: [!ImportValue LustreIngressSecurityGroupId]
+      Tags:
+        - Key: "Name"
+          Value: "CFNs3linkedLustre"
+      LustreConfiguration:
+        AutoImportPolicy: "NEW"
+        CopyTagsToBackups: true
+        DeploymentType: "PERSISTENT_1"
+        PerUnitStorageThroughput: 200
+        DataCompressionType: "LZ4"
+        ImportPath: !Join ["", ["s3://", !ImportValue LustreCFNS3ImportBucketName]]
+        ExportPath: !Join ["", ["s3://", !ImportValue LustreCFNS3ExportPath]]
+        WeeklyMaintenanceStartTime: "2:20:30"

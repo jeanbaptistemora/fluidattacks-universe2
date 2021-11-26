@@ -6004,6 +6004,56 @@ F080,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,1,311,skims,080. B
   21 |   }
      ^ Col 0
 "
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml,25,313,skims,250. Non-encrypted hard drives,"FileSystem must be encrypted with a KmsKeyId
+ in namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml","
+  15 |         AutoImportPolicy: ""NEW""
+  16 |         CopyTagsToBackups: true
+  17 |         DeploymentType: ""PERSISTENT_1""
+  18 |         PerUnitStorageThroughput: 200
+  19 |         DataCompressionType: ""LZ4""
+  20 |         ImportPath: !Join ["""", [""s3://"", !ImportValue LustreCFNS3ImportBucketName]]
+  21 |         ExportPath: !Join ["""", [""s3://"", !ImportValue LustreCFNS3ExportPath]]
+  22 |         WeeklyMaintenanceStartTime: ""2:20:30""
+  23 |   BasicS3LinkedLustreFileSystem2:
+  24 |     Type: AWS::FSx::FileSystem
+> 25 |     Properties:
+  26 |       FileSystemType: ""LUSTRE""
+  27 |       FileSystemTypeVersion: ""2.12""
+  28 |       StorageCapacity: 1200
+  29 |       SubnetIds: [!ImportValue MySubnet01]
+  30 |       SecurityGroupIds: [!ImportValue LustreIngressSecurityGroupId]
+  31 |       Tags:
+  32 |         - Key: ""Name""
+  33 |           Value: ""CFNs3linkedLustre""
+  34 |       LustreConfiguration:
+  35 |         AutoImportPolicy: ""NEW""
+     ^ Col 0
+"
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml.json,60,313,skims,250. Non-encrypted hard drives,"FileSystem must be encrypted with a KmsKeyId
+ in namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml.json","
+   50 |                 }
+   51 |               ]
+   52 |             ]
+   53 |           },
+   54 |           ""WeeklyMaintenanceStartTime"": ""2:20:30""
+   55 |         }
+   56 |       }
+   57 |     },
+   58 |     ""BasicS3LinkedLustreFileSystem2"": {
+   59 |       ""Type"": ""AWS::FSx::FileSystem"",
+>  60 |       ""Properties"": {
+   61 |         ""FileSystemType"": ""LUSTRE"",
+   62 |         ""FileSystemTypeVersion"": ""2.12"",
+   63 |         ""StorageCapacity"": 1200,
+   64 |         ""SubnetIds"": [
+   65 |           {
+   66 |             ""Fn::ImportValue"": ""MySubnet01""
+   67 |           }
+   68 |         ],
+   69 |         ""SecurityGroupIds"": [
+   70 |           {
+      ^ Col 0
+"
 F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,10,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
 ","
    1 | using System;
