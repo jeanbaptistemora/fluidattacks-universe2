@@ -8983,7 +8983,7 @@
       and some legacy protocols, such as
       SSL, have proven to be insecure.
     impact: >
-      Decrypting traffic at the back-end level.
+      Decrypt traffic at the back-end level.
     recommendation: >
       Only secure encryption with secure
       algorithms such as TLSv1.2 or higher
@@ -9204,7 +9204,7 @@
       captured in plain text.
     impact: >
       Obtaining Telnet credentials
-      after a MiTM attack.
+      after a MitM attack.
     recommendation: >
       Deploy the application over an
       encrypted communication channel.
@@ -9220,7 +9220,7 @@
       e información confidencial.
     impact: >
       Obtener credenciales de Telnet
-      tras un ataque de MiTM.
+      tras un ataque de MitM.
     recommendation: >
       Desplegar la aplicación sobre un
       canal de comunicación cifrado.
@@ -9255,15 +9255,15 @@
       This header is considered deprecated,
       since its protection can be bypassed using several iframe layers.
     impact: >
-      Embed the application in malicious frames
+      Embed the application in malicious frames.
     recommendation: >
       - Disable the X-Frame Options
-      from the server responses
+      from the server responses.
 
       - Define the frame_ancestors policy
-      in the Content Security Policy header
+      in the Content Security Policy header.
     threat: >
-      Anonymous attacker from the Internet
+      Anonymous attacker from the Internet.
   es:
     title: Insecure or unset HTTP headers - X-Frame Options
     description: >
@@ -9273,15 +9273,15 @@
       debido a que su protección puede ser saltada
       utilizando iframes de múltiples capas.
     impact: >
-      Incrustar la aplicación en frames maliciosos
+      Incrustar la aplicación en frames maliciosos.
     recommendation: >
       - Deshabilitar el header X-Frame Options
-      en las respuestas del servidor
+      en las respuestas del servidor.
 
       - Definir la política de seguridad frame_ancestors
-      en la cabecera Content Security Policy
+      en la cabecera Content Security Policy.
     threat: >
-      Atacante anónimo desde Internet
+      Atacante anónimo desde Internet.
   category: Protocol Manipulation
   score:
     base:
@@ -9312,17 +9312,17 @@
       incorrect content-types.
     impact: >
       Lead to unexpected behaviors
-      due to content type misinterpretations
+      due to content type misinterpretations.
     recommendation: >
       - Set the Accept Header in client requests.
 
       - Define explicitly the allowed content types
-      for the application
+      for the application.
 
       - Deny all request that contain a content type
       different from the expected by the application.
     threat: >
-      Anonymous attacker from the Internet
+      Anonymous attacker from the Internet.
   es:
     title: Insecure or unset HTTP headers - Accept
     description: >
@@ -9335,15 +9335,15 @@
       Causar comportamientos inesperados
       por interpretaciones incorrectas de content types.
     recommendation: >
-      - Establecer la cabecera Accept en las peticiones del cliente
+      - Establecer la cabecera Accept en las peticiones del cliente.
 
       - Definir explícitamente los content types permitidos
-      por la aplicación
+      por la aplicación.
 
       - Denegar todas las peticiones que contengan
       content types diferentes a los esperados por la aplicación.
     threat: >
-      Atacante anónimo desde Internet
+      Atacante anónimo desde Internet.
   category: Protocol Manipulation
   score:
     base:
@@ -10466,13 +10466,14 @@
       The source code repository stores cipher keys directly.
       Allowing an attacker with access to the source code
       to compromise the keys to impersonate the application
-      or decrypt the communications between server and client
+      or decrypt the communications between server and client.
     impact: >
-      Obtain cypher keys to craft new attack vectors
+      Obtain cypher keys to craft new attack vectors.
     recommendation: >
-      Store the cipher keys in a secured Keystore
+      Store the cipher keys in a secured Keystore.
     threat: >
-      Authenticated attacker from Internet with access to the source code
+      Authenticated attacker from Internet with access
+      to the source code.
   es:
     title: Insecure service configuration - Keys
     description: >
@@ -10482,12 +10483,14 @@
       comprometer las llaves para suplantar la aplicación
       o descifrar las comunicaciones entre servidor y cliente.
     impact: >
-      Obtener llaves de cifrado para generar nuevos vectores de ataque
+      Obtener llaves de cifrado para generar
+      nuevos vectores de ataque.
     recommendation: >
       Almacenar las llaves de cifrado en un Keystore
-      debidamente protegido
+      debidamente protegido.
     threat: >
-      Atacante autenticado desde Internet con acceso al código fuente
+      Atacante autenticado desde Internet
+      con acceso al código fuente.
   category: Abuse Functionality
   score:
     base:
@@ -11176,7 +11179,10 @@
       Configurar el endpoint sendEmail para
       que no permita una conexión anónima.
     threat: >
-      Un atacatante puede utilizar el endpoint sendEmail para enviar correos electrónicos desde una dirección empresarial, con lo cual podría suplantar usuarios y realizar ataques de phishing.
+      Un atacatante puede utilizar el endpoint
+      sendEmail para enviar correos electrónicos
+      desde una dirección empresarial, con lo cual
+      podría suplantar usuarios y realizar ataques de phishing.
   category: Deceptive Interactions
   score:
     base:
@@ -11447,7 +11453,7 @@
       Securely configure the vulnerable service so,
       it can only be accessed by authorized users.
     threat: >
-      Anonymous from the Internet.
+      Anonymous attacker from the Internet.
   es:
     title: Lack of data validation - Source Code
     description: >
@@ -11465,7 +11471,7 @@
       vulnerable permitiendo así, que solo sea
       accedido por usuarios autorizados.
     threat: >
-      Anónimo desde Internet.
+      Atacante anónimo desde Internet.
   category: Inject Unexpected
   score:
     base:
@@ -11777,25 +11783,25 @@
       which may lead to unintended redirects
       to malicious websites.
     impact: >
-      Redirect the user to harfmful websites
+      Redirect the user to harfmful websites.
     recommendation: >
       Validate the host header against a whitelist
-      of trusty domains
+      of trusty domains.
     threat: >
-      Anonymous attacker from adjacent network
+      Anonymous attacker from adjacent network.
   es:
     title: Lack of data validation - Host Header Injection
     description: >
       La aplicación permite manipular la cabecera host
       lo cual podría conducir a redirecciones no controladas
-      a sitios web maliciosos
+      a sitios web maliciosos.
     impact: >
-      Redirigir al usuario a sitios maliciosos
+      Redirigir al usuario a sitios maliciosos.
     recommendation: >
       Validar la cabecera host contra una lista blanca
-      de dominios confiables permitidos
+      de dominios confiables permitidos.
     threat: >
-      Atacante anónimo desde una red adyacente
+      Atacante anónimo desde una red adyacente.
   category: Inject Unexpected
   score:
     base:
@@ -12090,10 +12096,10 @@
   en:
     title: Lack of data validation - Emails
     description: >
-      The application does not control on
-      the server side that the emails used
-      to register users do not belong to
-      disposable mailboxes such as yopmail.
+      The application does not control that
+      server-side emails used to register
+      users do not belong to disposable
+      mailboxes such as yopmail.
     impact: >
       Reset passwords for registered users
       with disposable mailboxes.
@@ -12107,10 +12113,10 @@
   es:
     title: Lack of data validation - Emails
     description: >
-      La aplicación no controla del lado de
-      servidor que los correos electrónicos
-      que se usan para registrar usuarios no
-      pertenezcan a buzones desechables como yopmail.
+      La aplicación no controla que los correos
+      electrónicos del lado de servidor se usan
+      para registrar usuarios no pertenezcan a
+      buzones desechables como yopmail.
     impact: >
       Restablecer las contraseñas de los usuarios
       registrados con buzones desechables.
@@ -12262,11 +12268,11 @@
     impact: >
       APK hosted in AWS.
     recommendation: >
-      Protect the apk behind some kind of authentication.
+      Protect the APK behind some kind of authentication.
     threat: >
       Anyone from the Internet can download the debug APK
-      without any authentication, making it easier to
-      analyze the application and find vulnerabilities easily.
+      without any authentication, being able to analyze
+      the application and find vulnerabilities easily.
   es:
     title: Unauthorized access to files - Debug APK
     description: >
@@ -12279,8 +12285,8 @@
       tipo de autenticación.
     threat: >
       Cualquier persona desde internet puede descargar
-      la APK de depuración sin ningún tipo de autenticación,
-      pudiendo analizar más fácilmente la aplicación
+      la APK de depuración sin ningún tipo de
+      autenticación, pudiendo analizar la aplicación
       y encontrar vulnerabilidades fácilmente.
   category: Subvert Access
   score:
