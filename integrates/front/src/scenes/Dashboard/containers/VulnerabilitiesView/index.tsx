@@ -44,6 +44,17 @@ import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
+interface IFilterSet {
+  searchText: string;
+  treatment: string;
+  reportDateRange: { max: string; min: string };
+  tag: string;
+  status: string;
+  treatmentCurrentStatus: string;
+  verification: string;
+  currentStatus: string;
+}
+
 export const VulnsView: React.FC = (): JSX.Element => {
   const { findingId, groupName } = useParams<{
     findingId: string;
@@ -62,17 +73,22 @@ export const VulnsView: React.FC = (): JSX.Element => {
 
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("locationsCustomFilters", false);
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [treatmentFilter, setTreatmentFilter] = useState("");
-  const [reportDateRangeFilter, setReportDateRangeFilter] = useState({
-    max: "",
-    min: "",
-  });
-  const [tagFilter, setTagFilter] = useState("");
-  const [currentStatusFilter, setCurrentStatusFilter] = useState("open");
-  const [treatmentCurrentStatusFilter, setTreatmentCurrentStatusFilter] =
-    useState("");
-  const [verificationFilter, setVerificationFilter] = useState("");
+
+  const [filterVulnerabilitiesTable, setFilterVulnerabilitiesTable] =
+    useStoredState(
+      "filterVulnerabilitiesSet",
+      {
+        currentStatus: "",
+        reportDateRange: { max: "", min: "" },
+        searchText: "",
+        status: "open",
+        tag: "",
+        treatment: "",
+        treatmentCurrentStatus: "",
+        verification: "",
+      },
+      localStorage
+    );
 
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
@@ -146,78 +162,123 @@ export const VulnsView: React.FC = (): JSX.Element => {
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setSearchTextFilter(event.target.value);
+    event.persist();
+    setFilterVulnerabilitiesTable(
+      (value): IFilterSet => ({
+        ...value,
+        searchText: event.target.value,
+      })
+    );
   }
   const filterSearchTextVulnerabilities: IVulnRowAttr[] = filterSearchText(
     vulnerabilities,
-    searchTextFilter
+    filterVulnerabilitiesTable.searchText
   );
 
   function onTreatmentChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
-    setTreatmentFilter(event.target.value);
+    event.persist();
+    setFilterVulnerabilitiesTable(
+      (value): IFilterSet => ({
+        ...value,
+        treatment: event.target.value,
+      })
+    );
   }
   const filterTreatmentVulnerabilities: IVulnRowAttr[] = filterTreatment(
     vulnerabilities,
-    treatmentFilter
+    filterVulnerabilitiesTable.treatment
   );
   function onReportDateMaxChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setReportDateRangeFilter({
-      ...reportDateRangeFilter,
-      max: event.target.value,
-    });
+    event.persist();
+    setFilterVulnerabilitiesTable(
+      (value): IFilterSet => ({
+        ...value,
+        reportDateRange: { ...value.reportDateRange, max: event.target.value },
+      })
+    );
   }
   function onReportDateMinChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setReportDateRangeFilter({
-      ...reportDateRangeFilter,
-      min: event.target.value,
-    });
+    event.persist();
+    setFilterVulnerabilitiesTable(
+      (value): IFilterSet => ({
+        ...value,
+        reportDateRange: { ...value.reportDateRange, min: event.target.value },
+      })
+    );
   }
   const filterReportDateRangeVulnerabilities: IVulnRowAttr[] = filterDateRange(
     vulnerabilities,
-    reportDateRangeFilter,
+    filterVulnerabilitiesTable.reportDateRange,
     "reportDate"
   );
 
   function onTagChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setTagFilter(event.target.value);
+    event.persist();
+    setFilterVulnerabilitiesTable(
+      (value): IFilterSet => ({
+        ...value,
+        tag: event.target.value,
+      })
+    );
   }
   const filterTagVulnerabilities: IVulnRowAttr[] = filterText(
     vulnerabilities,
-    tagFilter,
+    filterVulnerabilitiesTable.tag,
     "tag"
   );
 
   function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setCurrentStatusFilter(event.target.value);
+    event.persist();
+    setFilterVulnerabilitiesTable(
+      (value): IFilterSet => ({
+        ...value,
+        currentStatus: event.target.value,
+      })
+    );
   }
   const filterCurrentStatusVulnerabilities: IVulnRowAttr[] = filterSelect(
     vulnerabilities,
-    currentStatusFilter,
+    filterVulnerabilitiesTable.currentStatus,
     "currentState"
   );
 
   function onTreatmentStatusChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
-    setTreatmentCurrentStatusFilter(event.target.value);
+    event.persist();
+    setFilterVulnerabilitiesTable(
+      (value): IFilterSet => ({
+        ...value,
+        treatmentCurrentStatus: event.target.value,
+      })
+    );
   }
   const filterTreatmentCurrentStatusVulnerabilities: IVulnRowAttr[] =
-    filterTreatmentCurrentStatus(vulnerabilities, treatmentCurrentStatusFilter);
+    filterTreatmentCurrentStatus(
+      vulnerabilities,
+      filterVulnerabilitiesTable.treatmentCurrentStatus
+    );
 
   function onVerificationChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
-    setVerificationFilter(event.target.value);
+    event.persist();
+    setFilterVulnerabilitiesTable(
+      (value): IFilterSet => ({
+        ...value,
+        verification: event.target.value,
+      })
+    );
   }
   const filterVerificationVulnerabilities: IVulnRowAttr[] = filterSelect(
     vulnerabilities,
-    verificationFilter,
+    filterVulnerabilitiesTable.verification,
     "verification"
   );
 
@@ -283,7 +344,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
 
   const customFiltersProps: IFilterProps[] = [
     {
-      defaultValue: treatmentFilter,
+      defaultValue: filterVulnerabilitiesTable.treatment,
       onChangeSelect: onTreatmentChange,
       placeholder: "Treatment",
       /* eslint-disable sort-keys */
@@ -300,7 +361,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: verificationFilter,
+      defaultValue: filterVulnerabilitiesTable.verification,
       onChangeSelect: onVerificationChange,
       placeholder: "Reattacks",
       selectOptions: {
@@ -312,7 +373,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: currentStatusFilter,
+      defaultValue: filterVulnerabilitiesTable.currentStatus,
       onChangeSelect: onStatusChange,
       placeholder: "Status",
       selectOptions: {
@@ -324,7 +385,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: treatmentCurrentStatusFilter,
+      defaultValue: filterVulnerabilitiesTable.treatmentCurrentStatus,
       onChangeSelect: onTreatmentStatusChange,
       placeholder: "Treatment Acceptance",
       selectOptions: {
@@ -336,7 +397,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: tagFilter,
+      defaultValue: filterVulnerabilitiesTable.tag,
       onChangeInput: onTagChange,
       placeholder: "searchFindings.tabVuln.searchTag",
       tooltipId: "searchFindings.tabVuln.tagTooltip.id",
@@ -347,7 +408,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
       defaultValue: "",
       placeholder: "Report date (Range)",
       rangeProps: {
-        defaultValue: reportDateRangeFilter,
+        defaultValue: filterVulnerabilitiesTable.reportDateRange,
         onChangeMax: onReportDateMaxChange,
         onChangeMin: onReportDateMinChange,
       },
@@ -397,7 +458,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   },
                 }}
                 customSearch={{
-                  customSearchDefault: searchTextFilter,
+                  customSearchDefault: filterVulnerabilitiesTable.searchText,
                   isCustomSearchEnabled: true,
                   onUpdateCustomSearch: onSearchTextChange,
                 }}
