@@ -16019,19 +16019,19 @@
       through the method setJavaScriptEnabled
       which is disabled by default.
       This practice increases the chances
-      for an attacker to exploit XSS vulnerabilities
+      for an attacker to exploit XSS vulnerabilities.
     impact: >
-      Obtain or edit information using XSS vulnerabilities
+      Obtain or edit information using XSS vulnerabilities.
     recommendation: >
       - Unless required otherwise
       the application must not allow
-      the use of JavaScript
+      the use of JavaScript.
 
       - If the use of JavaScript is enabled,
       implement content and length validations
-      in all the input fields
+      in all the input fields.
     threat: >
-      Anonymous attacker from the Internet
+      Anonymous attacker from the Internet.
   es:
     title: Insecure service configuration - Webview
     description: >
@@ -16039,18 +16039,18 @@
       mediante el método setJavaScriptEnabled
       el cual viene deshabilitado por defecto.
       Esta práctica incrementa la posibilidad
-      de que un atacante materialice vulnerabilidades de XSS
+      de que un atacante materialice vulnerabilidades de XSS.
     impact: >
-      Obtener o editar información mediante XSS
+      Obtener o editar información mediante XSS.
     recommendation: >
       - A menos que la aplicación lo requiera,
-      no habilitar el uso de JavaScript
+      no habilitar el uso de JavaScript.
 
       - Si se tiene habilitado el uso de JavaScript
       implementar validaciones de contenido y longitud
-      en todos los campos de entrada para evitar ataques XSS
+      en todos los campos de entrada para evitar ataques XSS.
     threat: >
-      Atacante anónimo desde Internet
+      Atacante anónimo desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -16277,19 +16277,23 @@
     description: >
       The application allows unsolicited user data updates.
     impact: >
-      - Update and consult information related to the user.
+      Update and consult information related to the user.
     recommendation: >
-      - Make sure that the fields to be updated are the same as those requested from the user.
+      Make sure that the fields to be updated are the
+      same as those requested from the user.
     threat: >
       Authenticated attacker on the Internet.
   es:
     title: Insecure functionality - Fingerprint
     description: >
-      La aplicación permite la actualización de datos no solicitados del usuario.
+      La aplicación permite la actualización de
+      datos no solicitados del usuario.
     impact: >
-      - Actualizar y consultar información relacionada con el usuario.
+      Actualizar y consultar información
+      relacionada con el usuario.
     recommendation: >
-      - Cerciorarse de que los campos a actualizar sean los mismos que se le han solicitado al usuario.
+      Cerciorarse de que los campos a actualizar
+      sean los mismos que se le han solicitado al usuario.
     threat: >
       Atacante autenticado en Internet.
   category: Abuse Functionality
@@ -17005,21 +17009,35 @@
   en:
     title: Insecure object reference - Personal information
     description: >
-      The system allows bypassing authentication mechanisms and modifying other users' information by altering the unique identifiers that distinguish each user.
+      The system allows bypassing authentication
+      mechanisms and modifying other user's information
+      by altering the unique identifiers that
+      distinguish each user.
     impact: >
       Modify information of other users.
     recommendation: >
-      - Validate that unprivileged users can only access and modify their own information. - Manage user operations using session objects.
+      - Validate that unprivileged users can
+      only access and modify their own information.
+
+      - Manage user operations using session objects.
     threat: >
-      Attacker authenticated from the Internet
+      Attacker authenticated from the Internet.
   es:
     title: Insecure object reference - Personal information
     description: >
-      El sistema permite saltar mecanismos de autenticación y modificar información de otros usuarios al alterar los identificadores únicos que distinguen a cada usuario.
+      El sistema permite saltar mecanismos de
+      autenticación y modificar información de otros
+      usuarios al alterar los identificadores únicos
+      que distinguen a cada usuario.
     impact: >
-      Modificar información de otros usuarios
+      Modificar información de otros usuarios.
     recommendation: >
-      - Validar que los usuarios sin privilegios solo puedan acceder y modificar su propia información. - Manejar las operaciones de los usuarios utilizando objetos de sesión.
+      - Validar que los usuarios sin privilegios
+      solo puedan acceder y modificar su propia
+      información.
+
+      - Manejar las operaciones de los usuarios
+      utilizando objetos de sesión.
     threat: >
       Atacante autenticado desde Internet.
   category: Subvert Access
@@ -17127,23 +17145,39 @@
   en:
     title: Insecure object reference - Financial information
     description: >
-      Although the requests for inquiry of expenses and movements associated with a credit card send the encrypted product number, it is possible to make the inquiry from the session of an account other than the one associated with the credit card.
+      Although the requests for inquiry of expenses
+      and movements associated with a credit card
+      send the encrypted product number, it is possible
+      to make the inquiry from the session of an
+      account other than the one associated with
+      the credit card.
     impact: >
-      - Obtain expense information from other users.
+      Obtain expense information from other users.
     recommendation: >
-      Verify that the user who is trying to access the information has the necessary permissions to do so.
+      Verify that the user who is trying to
+      access the information has the necessary
+      permissions to do so.
     threat: >
-      Authorized user from the Internet with access to the encrypted product number.
+      Authorized user from the Internet with
+      access to the encrypted product number.
   es:
     title: Insecure object reference - Financial information
     description: >
-      Si bien las peticiones de consulta de gastos y movimientos asociados a una tarjeta de crédito envian el número del producto encriptado es posible hacer la consulta desde la sesión de una cuenta diferente a la asociada a la tarjeta de crédito.
+      Si bien las peticiones de consulta de
+      gastos y movimientos asociados a una
+      tarjeta de crédito envian el número del
+      producto encriptado es posible hacer la
+      consulta desde la sesión de una cuenta
+      diferente a la asociada a la tarjeta de crédito.
     impact: >
-      - Obtener información de gastos de otros usuarios.
+      Obtener información de gastos de otros usuarios.
     recommendation: >
-      Verificar que el usuario que está intentando acceder a la información efectivamente tenga los permisos necesarios para hacerlo.
+      Verificar que el usuario que está intentando
+      acceder a la información efectivamente tenga
+      los permisos necesarios para hacerlo.
     threat: >
-      Usuario autorizado desde internet con acceso al número de producto encriptado.
+      Usuario autorizado desde internet con acceso
+      al número de producto encriptado.
   category: Subvert Access
   score:
     base:
@@ -17588,7 +17622,7 @@
     impact: >
       Cambiar la contraseña múltiples veces
       en un periodo corto de tiempo, denegando
-      el acceso al usuario original
+      el acceso al usuario original.
     recommendation: >
       Implementar un mecanismo que rechace
       múltiples peticiones de cambio de
@@ -17684,7 +17718,10 @@
       every user attempting to access it is
       logged in.
     threat: >
-      Probability of an unauthorized attacker bypassing the authentication process by changing the page redirection and thus gaining access to the application's functionality.
+      Probability of an unauthorized attacker
+      bypassing the authentication process by
+      changing the page redirection and thus
+      gaining access to the application's functionality.
   es:
     title: Authentication mechanism absence or evasion - Redirect
     description: >
@@ -17789,13 +17826,14 @@
       The system has flaws over authentication mechanisms or
       had been configured with one that can be bypassed.
     impact: >
-      - Organizations could be vulnerable to stealthy brute-force attacks.
+      - Organizations could be vulnerable to
+      stealthy brute-force attacks.
 
       - Fraudulent attempts on access user's accounts.
     recommendation: >
       - Configure Azure AD Multi-Factor Authentication (MFA).
 
-      - Require users to register multiple authentication methods
+      - Require users to register multiple authentication methods.
 
       - Enable Azure Fraud alert to empower users to proactively
       report attempts of someone trying to use their account.
@@ -17816,7 +17854,8 @@
     recommendation: >
       - Configurar la autenticación multifactorial (MFA) de Azure AD.
 
-      - Exija a los usuarios que registren varios métodos de autenticación.
+      - Exija a los usuarios que registren varios métodos
+      de autenticación.
 
       - Habilitar la alerta de fraude de Azure para que los
       usuarios puedan informar proactivamente de los intentos
@@ -18567,7 +18606,7 @@
       making it possible to carry out Man in The
       Middle attacks.
     impact: >
-      Execute man-in-the-middle attacks.
+      Execute Man-in-the-middle attacks.
     recommendation: >
       Throw typed exceptions in case of
       detection of invalid certificates.
@@ -18580,7 +18619,7 @@
       certificados X.509 la aplicación permite
       aceptar certificados inválidos, con lo
       cual es posible materializar ataques
-      de Man in The Middle
+      de Man in The Middle.
     impact: >
       Ejecutar ataques Man-in-the-middle.
     recommendation: >
@@ -19447,26 +19486,27 @@
     title: Insecure or unset HTTP headers - Content-Type
     description: >
       The application does not define the Content-Type header
-      in the server responses
+      in the server responses.
     impact: >
       Lead to unexpected behaviors
-      due to content type misinterpretations
+      due to content type misinterpretations.
     recommendation: >
       Define explicitly the content types allowed by the application.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Insecure or unset HTTP headers - Content-Type
     description: >
       La aplicación no define la cabecera Content Type
-      en las respuestas del servidor
+      en las respuestas del servidor.
     impact: >
       Causar comportamientos inesperados
       debido a interpretaciones incorrectas del content type.
     recommendation: >
-      Definir explícitamente los content types permitidos por la aplicación.
+      Definir explícitamente los content types
+      permitidos por la aplicación.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   category: Protocol Manipulation
   score:
     base:
@@ -20201,7 +20241,8 @@
 
       - It stores secrets (session tokens or anti-CSRF).
     impact: >
-      User with access to the victim's traffic (man-in-the-middle attack)
+      User with access to the victim's traffic
+      (man-in-the-middle attack).
     recommendation: >
       Securely configure the vulnerable service so
       that it can only be accessed by authorized users.
@@ -20620,7 +20661,7 @@
       Gracias a esto es posible aceptar cualquier certificado
       entrante y materializar ataques de Man in The Middle.
     impact: >
-      Ejecutar ataques Man-in-the-middle
+      Ejecutar ataques Man-in-the-middle.
     recommendation: >
       Definir una lógica de tratamiento para certificados
       inválidos que incluya rechazar la conexión con dichos
@@ -21174,7 +21215,7 @@
       in the Content Security Policy
       using a secure configuration.
     threat: >
-      Anonymous attacker from Internet
+      Anonymous attacker from Internet.
   es:
     title: Clickjacking
     description: >
@@ -21218,7 +21259,7 @@
       This could allow an attacker to understand
       the inner workings of the application.
     impact: >
-      - To understand the operation of the application
+      - Understand the operation of the application
       in order to increase the attack vector.
 
       - Identify validations performed by the front end.
@@ -21497,10 +21538,10 @@
       that has a different transparency than the security attribute
       of a container of the member.
     impact: >
-      Cause unexpected behaviors in the application
+      Cause unexpected behaviors in the application.
     recommendation: >
       Remove nested transparency annotation
-      to avoid security attributes conflicts
+      to avoid security attributes conflicts.
     threat: >
       Anonymous attacker from Internet.
   es:
@@ -21514,10 +21555,10 @@
       que tiene una transparencia diferente
       a la transparencia del contenedor de dicho miembro.
     impact: >
-      Causar comportamientos inesperados en la aplicación
+      Causar comportamientos inesperados en la aplicación.
     recommendation: >
       Eliminar anotaciones de transparencia anidadas
-      para evitar conflictos en los atributos de seguridad
+      para evitar conflictos en los atributos de seguridad.
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
@@ -21549,12 +21590,12 @@
       can be found in the git history.
     impact: >
       Obtain sensitive information to compromise
-      more resources or services
+      more resources or services.
     recommendation: >
       - Remove the sensitive information
-      from the git history
+      from the Git history.
 
-      - Change the compromised access credentials
+      - Change the compromised access credentials.
     threat: >
       Authenticated user from Internet with access to the source code.
   category: Collect Information
@@ -21563,15 +21604,15 @@
     description: >
       Información sensible como nombres de usuario,
       credenciales de servicios, o tokens de acceso vigentes
-      pueden ser encontrados en el historial de git.
+      pueden ser encontrados en el historial de Git.
     impact: >
       Obtener información sensible para comprometer
-      más recursos o servicios
+      más recursos o servicios.
     recommendation: >
       - Eliminar la información sensible
-      del historial de git
+      del historial de Git.
 
-      - Cambiar las claves de acceso comprometidas
+      - Cambiar las claves de acceso comprometidas.
     threat: >
       Atacante autenticado desde Internet con acceso al código fuente.
   score:
@@ -22315,7 +22356,7 @@
       - Ocasionar un funcionamiento subóptimo de la aplicación.
     recommendation: >
       Importar solo los módulos necesarios para la correcta
-      funcionalidad de la aplicación
+      funcionalidad de la aplicación.
     threat: >
       Atacante autorizado desde internet
       con acceso a la aplicación.
@@ -22346,13 +22387,13 @@
       with malicious components
       without leaving a trace.
     impact: >
-      Override depdendencies or component with malicious content
+      Override depdendencies or component with malicious content.
     recommendation: >
       Use mechanisms such as git-commits, or artifacts and hashes
-      to verify the data integrity
+      to verify the data integrity.
     threat: >
       Anonymous attacker from Internet
-      with write access to the provider releases
+      with write access to the provider releases.
   category: Abuse Functionality
   es:
     title: Supply Chain Attack - Docker
@@ -22361,16 +22402,16 @@
       permitiendo a un actor malicioso
       sobreescribir los componentes utilizados
       con componentes maliciosos
-      sin dejar un rastro
+      sin dejar un rastro.
     impact: >
-      Sobreescribir dependencias o componentes con contenido malicioso
+      Sobreescribir dependencias o componentes con contenido malicioso.
     recommendation: >
       Utilizar mecanismos como git-commits,
       o utilizar artefactos y hashes
       para verificar la integridad de los datos.
     threat: >
       Atacante anónimo desde internet
-      con acceso de escritura al los releasers del proveedor
+      con acceso de escritura al los releasers del proveedor.
   score:
     base:
       attack_vector: "N"
@@ -22398,13 +22439,13 @@
       with malicious components
       without leaving a trace.
     impact: >
-      Override depdendencies or component with malicious content
+      Override depdendencies or component with malicious content.
     recommendation: >
       Use mechanisms such as git-commits, or artifacts and hashes
-      to verify the data integrity
+      to verify the data integrity.
     threat: >
       Anonymous attacker from Internet
-      with write access to the provider releases
+      with write access to the provider releases.
   category: Abuse Functionality
   es:
     title: Supply Chain Attack - Terraform
@@ -22413,16 +22454,16 @@
       permitiendo a un actor malicioso
       sobreescribir los componentes utilizados
       con componentes maliciosos
-      sin dejar un rastro
+      sin dejar un rastro.
     impact: >
-      Sobreescribir dependencias o componentes con contenido malicioso
+      Sobreescribir dependencias o componentes con contenido malicioso.
     recommendation: >
       Utilizar mecanismos como git-commits,
       o utilizar artefactos y hashes
       para verificar la integridad de los datos.
     threat: >
       Atacante anónimo desde internet
-      con acceso de escritura al los releasers del proveedor
+      con acceso de escritura al los releasers del proveedor.
   score:
     base:
       attack_vector: "N"
@@ -23067,7 +23108,7 @@
       by the vendor.
 
       - Replace deprecated components
-      or components with Zero-Day vulnerabilities
+      or components with Zero-Day vulnerabilities.
     threat: Authenticated attacker from the Internet.
   es:
     # The difference with 011 is just the title
@@ -23119,12 +23160,12 @@
       without rainsing any alert.
     impact: >
       Alterate the system logs integrity
-      witouth raising alerts
+      witouth raising alerts.
     recommendation: >
       Set the EnableLogFileValidation attribute in true
-      for all Cloudtrail instances
+      for all Cloudtrail instances.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Insufficient data authenticity validation - Cloudtrail Logs
     description: >
@@ -23132,10 +23173,10 @@
       no habilitan el atributo EnableLogFileValidation
       con lo cual no se genera un hash de integridad
       que garantice que el archivo no ha sido modificado
-      por actores maliciosos
+      por actores maliciosos.
     impact: >
       Alterar la integridad de los logs del sistema
-      sin generar ninguna alerta
+      sin generar ninguna alerta.
     recommendation: >
       Establecer el atributo EnableLogFileValidation en true
       en todas las instancias de CloudTrail.
@@ -23169,16 +23210,16 @@
       By knowing initialization vectors
       an attacker could perform a reverse engineering attack
       to predict the random values
-      that should remain as secrets
+      that should remain as secrets.
     impact: >
-      Predict random values to craft new attack vectors
+      Predict random values to craft new attack vectors.
     recommendation: >
       Generate initialization vectors randomly
       using mechanisms with secure randomness
-      and high entropy
+      and high entropy.
     threat: >
       Authenticated attacker from the Internet
-      with access to the source code
+      with access to the source code.
   category: Abuse Functionality
   es:
     title: Insecure generation of random numbers -  Static IV
@@ -23189,17 +23230,17 @@
       Al conocer los vectores de inicialización
       un atacante podría realizar ingeniería reversa
       a la aplicación para predecir los valores
-      aleatorios que deberían mantenerse secretos
+      aleatorios que deberían mantenerse secretos.
     impact: >
-      - Predecir valores alteatorios
-      para generar nuevos vectores de ataque
+      Predecir valores alteatorios
+      para generar nuevos vectores de ataque.
     recommendation: >
       Generar vectores de inicialización aleatorios
       utilizando mecanismos de aleatoriedad seguros
-      que cuenten con alta entropía
+      que cuenten con alta entropía.
     threat: >
       Atacante autenticado desde Internet
-      con acceso al código fuente
+      con acceso al código fuente.
   score:
     base:
       attack_vector: "N"
@@ -23226,12 +23267,12 @@
       for the KMS service is disabled.
       By keeping static keys
       during long periods
-      the chances to compromise a valid key are higher
+      the chances to compromise a valid key are higher.
     impact: >
-      Increase the chance to get valid keys
+      Increase the chance to get valid keys.
     recommendation: >
       Enable the automatic key rotation
-      for all the service keys
+      for all the service keys.
     threat: >
       __empty__
   category: Abuse Functionality
@@ -23242,12 +23283,12 @@
       del servicio de KMS se encuentra deshabilitada.
       Al mantener las llaves estáticas
       durante un tiempo prolongado
-      se incrementa el riesgo de que éstas sean comprometidas
+      se incrementa el riesgo de que éstas sean comprometidas.
     impact: >
-      Incrementar la probabilidad de obtener llaves KMS
+      Incrementar la probabilidad de obtener llaves KMS.
     recommendation: >
       Habilitar la rotación automática de llaves
-      para todas las llaves del servicio
+      para todas las llaves del servicio.
     threat: >
       Atacante anónimo desde Internet
   score:
