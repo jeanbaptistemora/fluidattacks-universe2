@@ -321,7 +321,7 @@ async def put_action_to_batch(
                 retryStrategy={
                     "attempts": 1,
                 },
-                timeout={"attemptDurationSeconds": 3600},
+                timeout={"attemptDurationSeconds": 7200},
             )
     except ClientError as exc:
         LOGGER.exception(
