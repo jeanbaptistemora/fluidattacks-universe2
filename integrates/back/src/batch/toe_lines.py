@@ -53,6 +53,9 @@ import os
 from settings import (
     LOGGING,
 )
+from subprocess import (  # nosec
+    SubprocessError,
+)
 import tempfile
 from toe.lines import (
     domain as toe_lines_domain,
@@ -97,13 +100,31 @@ files_get_lines_count = retry_on_exceptions(
     exceptions=(FileNotFoundError, OSError)
 )(files_utils.get_lines_count)
 git_get_last_commit_hash = retry_on_exceptions(
-    exceptions=(FileNotFoundError, GitCommandError, OSError, ValueError)
+    exceptions=(
+        FileNotFoundError,
+        GitCommandError,
+        OSError,
+        SubprocessError,
+        ValueError,
+    )
 )(git_utils.get_last_commit_hash)
 git_get_last_modified_date = retry_on_exceptions(
-    exceptions=(FileNotFoundError, GitCommandError, OSError, ValueError)
+    exceptions=(
+        FileNotFoundError,
+        GitCommandError,
+        OSError,
+        SubprocessError,
+        ValueError,
+    )
 )(git_utils.get_last_modified_date)
 git_get_last_commit_author = retry_on_exceptions(
-    exceptions=(FileNotFoundError, GitCommandError, OSError, ValueError)
+    exceptions=(
+        FileNotFoundError,
+        GitCommandError,
+        OSError,
+        SubprocessError,
+        ValueError,
+    )
 )(git_utils.get_last_commit_author)
 
 
@@ -217,21 +238,18 @@ async def get_present_toe_lines_to_add(
             git_get_last_commit_hash(repo, filename)
             for filename in non_db_filenames
         ),
-        workers=500,
     )
     last_modified_dates = await collect(
         tuple(
             git_get_last_modified_date(repo, filename)
             for filename in non_db_filenames
         ),
-        workers=500,
     )
     last_commit_authors = await collect(
         tuple(
             git_get_last_commit_author(repo, filename)
             for filename in non_db_filenames
         ),
-        workers=500,
     )
     return tuple(
         (
@@ -296,21 +314,18 @@ async def get_present_toe_lines_to_update(
             git_get_last_commit_hash(repo, filename)
             for filename in db_filenames
         ),
-        workers=500,
     )
     last_modified_dates = await collect(
         tuple(
             git_get_last_modified_date(repo, filename)
             for filename in db_filenames
         ),
-        workers=500,
     )
     last_commit_authors = await collect(
         tuple(
             git_get_last_commit_author(repo, filename)
             for filename in db_filenames
         ),
-        workers=500,
     )
     be_present = True
     return tuple(
