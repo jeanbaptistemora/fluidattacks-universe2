@@ -409,7 +409,7 @@ async def refresh_active_root_repo_toe_lines(
     root_repo: GitRootItem,
 ) -> None:
     LOGGER_CONSOLE.info(
-        "Refresing toe lines",
+        "Refreshing toe lines",
         extra={
             "extra": {
                 "repo_nickname": root_repo.state.nickname,
@@ -481,11 +481,27 @@ async def refresh_active_root_repo_toe_lines(
             + non_present_toe_lines_to_update
         ),
     )
+    LOGGER_CONSOLE.info(
+        "Finish refreshing toe lines",
+        extra={
+            "extra": {
+                "repo_nickname": root_repo.state.nickname,
+            }
+        },
+    )
 
 
 async def refresh_inactive_root_repo_toe_lines(
     loaders: Dataloaders, group_name: str, root_repo: GitRootItem
 ) -> None:
+    LOGGER_CONSOLE.info(
+        "Refreshing inactive toe lines",
+        extra={
+            "extra": {
+                "repo_nickname": root_repo.state.nickname,
+            }
+        },
+    )
     repo_toe_lines = {
         toe_lines.filename: toe_lines
         for toe_lines in await loaders.root_toe_lines.load_nodes(
@@ -505,6 +521,14 @@ async def refresh_inactive_root_repo_toe_lines(
                 non_present_toe_lines_to_update
             )
         ),
+    )
+    LOGGER_CONSOLE.info(
+        "Finish refreshing inactive toe lines",
+        extra={
+            "extra": {
+                "repo_nickname": root_repo.state.nickname,
+            }
+        },
     )
 
 
