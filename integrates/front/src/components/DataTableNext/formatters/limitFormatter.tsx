@@ -24,7 +24,7 @@ export const limitFormatter: (value: string) => JSX.Element = (
         )
       )}
       {valueArray.length > linesLimit && (
-        <p className={"mb1"}>{translate.t("dataTableNext.more")}</p>
+        <p className={"mb0 nt1"}>{translate.t("dataTableNext.more")}</p>
       )}
     </div>
   );
