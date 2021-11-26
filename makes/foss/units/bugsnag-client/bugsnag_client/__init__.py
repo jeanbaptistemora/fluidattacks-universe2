@@ -16,9 +16,15 @@ def _remove_nix_hash(path: str) -> str:
 def remove_nix_hash(
     notification: Notification,
 ) -> None:
-    notification.stacktrace = [
-        {**trace, "file": _remove_nix_hash(trace["file"])}
-        for trace in notification.stacktrace
+    notification.exceptions = [
+        {
+            **exception,
+            "stacktrace": [
+                {**trace, "file": _remove_nix_hash(trace["file"])}
+                for trace in exception["stacktrace"]
+            ],
+        }
+        for exception in notification.exceptions
     ]
 
 
