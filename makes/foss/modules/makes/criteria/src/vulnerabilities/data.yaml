@@ -4380,7 +4380,7 @@
       does not have classes,
       functions or repeated methods.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Duplicate code
     description: >
@@ -4425,30 +4425,30 @@
     title: Improper authorization control for web services - RDS
     description: >
       Some RDS instances can be publicly accessible,
-      which can compromise the stored information
+      which can compromise the stored information.
     impact: >
-      Obtain confidential information of the database
+      Obtain confidential information of the database.
     recommendation: >
       Ensure that the relational databases
       are accesible only by users and roles
-      authenticated and authorized
+      authenticated and authorized.
     threat: >
-     Anonymous attacker on the Internet
+     Anonymous attacker on the Internet.
   es:
     title: Improper authorization control for web services - RDS
     description: >
       Algunas instancias de RDS
       pueden ser accedidas públicamente,
       con lo cual es posible comprometer
-      la información allí almacenada
+      la información allí almacenada.
     impact: >
-     Obtener información confidencial de la base de datos
+     Obtener información confidencial de la base de datos.
     recommendation: >
       Garantizar que las bases de datos relacionales
       sean accesibles únicamente por usuarios
-      y roles autenticados y autorizados
+      y roles autenticados y autorizados.
     threat: >
-      Atacante anónimo desde Internet
+      Atacante anónimo desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -4511,7 +4511,7 @@
       de código funcional comentado
       en el código fuente de la aplicación.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -4657,7 +4657,7 @@
       - Crear acompañamientos sin autorización
       previa de un usuario.
 
-      - Obtener información de negocio con
+      - Obtener información de la empresa con
       el token válido.
     recommendation: >
       El token de sesión debe caducar
@@ -4760,7 +4760,7 @@
     recommendation: >
       Generate a token with random components
       without sensitive information.
-    threat: Anonymous attacker from the internet with access to the hash
+    threat: Anonymous attacker from the internet with access to the hash.
   es:
     title: Insecurely generated token
     description: >
@@ -4771,7 +4771,7 @@
     recommendation: >
       Generar un token con componentes aleatorios
       sin información sensible.
-    threat: Atacante anónimo desde internet con acceso al hash
+    threat: Atacante anónimo desde internet con acceso al hash.
   category: Deceptive Interactions
   score:
     base:
@@ -4867,10 +4867,10 @@
       lists, emails, phone numbers or identifiers
       can be obtained from the application.
     impact: >
-     - Obtain sensitive information to craft new attack vectors
+     Obtain sensitive information to craft new attack vectors.
     recommendation: >
       Implement security controls to ensure that the leaked information
-      can be accessed only by authenticated and authorized users
+      can be accessed only by authenticated and authorized users.
     threat: >
       Authenticated attacker from the Internet.
   es:
@@ -4880,13 +4880,13 @@
       correos electrónicos, números de teléfono o identificadores
       pueden ser obtenidos de la aplicación.
     impact: >
-      - Obtener información sensible para elaborar nuevos vectores de ataque.
+      Obtener información sensible para elaborar nuevos vectores de ataque.
     recommendation: >
       Implementar controles de seguridad para garantizar
       que la información filtrada sólo puede ser accedida
       por usuarios autenticados y autorizados.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   category: Collect Information
   score:
     base:
@@ -4919,13 +4919,17 @@
       This makes it easier for an attacker
       who has compromised a user’s account
       to access those resources.
-    impact: External attacker.
+    impact: >
+      - Multi-factor authentication is flawed to
+      the point where it can be bypassed entirely.
+
+      - External attacker.
     recommendation: >
       Implement a double factor authentication
       by software or hardware
       to increase the protection level
       of the resources' authentication.
-    threat: Authenticathed attacker from the Internet
+    threat: Authenticathed attacker from the Internet.
   es:
     title: Lack of multi-factor authentication
     description: >
@@ -4938,7 +4942,12 @@
       de múltiples factores,
       lo cual hace más fácil para un atacante
       con un usuario comprometido acceder a estos.
-    impact: Atacante externo.
+    impact: >
+      - La autenticación de múltiples factores
+      es defectuosa hasta hasta el punto de que
+      se puede eludir por completo.
+
+      - Atacante externo.
     recommendation: >
       Implementar un doble factor de autenticación
       ya sea por software o hardware
@@ -5267,7 +5276,7 @@
       effectively blocking users
       from accessing the system.
     impact: >
-      Avoid the access of valid users to the application
+      Avoid the access of valid users to the application.
     recommendation: >
       Avoid blocking users' accounts
       as a mechanism of protection,
@@ -5283,7 +5292,7 @@
       las cuentas de los usuarios,
       evitando que accedan al sistema.
     impact: >
-      Impedir el acceso de usuarios válidos a la aplicación
+      Impedir el acceso de usuarios válidos a la aplicación.
     recommendation: >
       Evitar bloquear las cuentas
       de los usuarios
@@ -5342,7 +5351,7 @@
       de privacidad vigentes.
     threat: >
       Atacante en internet
-      no autenticado en la aplicación
+      no autenticado en la aplicación.
   category: Abuse Functionality
   score:
     base:
@@ -5494,7 +5503,7 @@
       Sanitize inputs before
       storing them in the log.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Log injection
     description: >
@@ -5509,7 +5518,7 @@
       de los logs o,
       en el peor caso,
       el sistema de quien esté visualizando
-      los logs
+      los logs.
     recommendation: >
       Sanitizar entradas antes
       de guardarlas en el log.
@@ -5670,7 +5679,7 @@
       and control the rest
       from the server.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Hidden fields manipulation
     description: >
@@ -5767,15 +5776,15 @@
       the uniqueness of the data,
       allowing an attacker to reuse
       or regenerate information
-      that should be valid for one use only
+      that should be valid for one use only.
     impact: >
       Lead to diferent vulnerabilities
-      by abusing the misconfigured feature
+      by abusing the misconfigured feature.
     recommendation: >
       Implement validations to ensure
       that the data cannot be reused nor regenerated
       if the application requires a unique value.
-    threat: Authenticated attacker from the Internet
+    threat: Authenticated attacker from the Internet.
   es:
     title: Data uniqueness not properly verified
     description: >
@@ -5787,13 +5796,13 @@
     impact: >
       Conducir a diferentes diferentes vulnerabilidades
       al abusar de la ausencia de validación
-      de la unicidad de los datos
+      de la unicidad de los datos.
     recommendation: >
       Implementar validaciones que garanticen
       que los datos no puedan ser reutilizados
       ni regenerados si la aplicación
-      espera un valor único
-    threat: Atacante autenticado desde Internet
+      espera un valor único.
+    threat: Atacante autenticado desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -6173,7 +6182,7 @@
       The system does not prevent critical objects
       from being deleted accidentally.
     impact: >
-      - Loss of information in case of
+      - Loss information in case of
       accidental modification or deletion.
 
       - Loss information in the case
