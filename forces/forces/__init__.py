@@ -20,9 +20,10 @@ from forces.report import (
     generate_report,
 )
 from forces.utils.logs import (
-    CONSOLE,
+    CONSOLE_INTERFACE,
     log,
     LOG_FILE,
+    rich_log,
 )
 from forces.utils.model import (
     ForcesConfig,
@@ -48,7 +49,7 @@ async def entrypoint(
         get_repository_metadata,
         repo_path=config.repository_path,
     )
-    with CONSOLE.status(
+    with CONSOLE_INTERFACE.status(
         "[bold green]Working on reports...[/]", spinner="aesthetic"
     ):
         tasks = [
@@ -103,8 +104,8 @@ async def entrypoint(
                     filtered_report, config.verbose_level, config.kind.value
                 )
                 await log("info", f"{tasks.pop(0)}{footer}")
-                CONSOLE.log(finding_report)
-                CONSOLE.log(summary_report)
+                rich_log(finding_report)
+                rich_log(summary_report)
             else:
                 tasks.pop(0)
                 tasks.pop(0)
@@ -119,7 +120,7 @@ async def entrypoint(
 
             if output := config.output:
                 temp_file.seek(os.SEEK_SET)
-                await in_thread(output.write, temp_file.read().decode("utf-8"))
+                await in_thread(output.write, temp_file.read())
             if config.strict and report["summary"]["open"]["total"] > 0:
                 exit_code = 1
             execution_id = str(uuid.uuid4()).replace("-", "")

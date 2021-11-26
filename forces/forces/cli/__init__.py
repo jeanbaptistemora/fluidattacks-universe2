@@ -14,7 +14,7 @@ from forces.utils.function import (
     shield,
 )
 from forces.utils.logs import (
-    CONSOLE,
+    blocking_log,
     log,
 )
 from forces.utils.model import (
@@ -54,7 +54,7 @@ def show_banner() -> None:
     # modifications are needed, just paste them back and refac away
     name = "› [/][italic bold red] Fluid [bold white]Attacks[/][/]"
     motto = "[italic bold white] We [bold red]hack[/] your software[/]"
-    header = textwrap.dedent(
+    header: str = textwrap.dedent(
         rf"""
          [red on red]  ‎ ‎ ‎ ‎ ‎‎  ‎[/]
          [red on red]  [/][bold red on white]‎  ››[/][bold white on red]{name}
@@ -69,7 +69,7 @@ def show_banner() -> None:
                                                /_/[/]
         """
     )
-    CONSOLE.log(header)
+    blocking_log("info", header)
 
 
 @click.command(name="forces")
