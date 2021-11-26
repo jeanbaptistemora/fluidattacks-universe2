@@ -12636,7 +12636,7 @@
       used in an emulator, allowing a wider
       surface for reverse engineering.
     impact: >
-      Reverse engineer to the application.
+      Apply reverse engineer to the application.
     recommendation: >
       Implement recommended security controls
       for mobile applications.
@@ -12755,7 +12755,7 @@
       Use optimized regular expressions to perform
       functions without much computational overhead.
     threat: >
-      Anonymous attcker from the Internet.
+      Anonymous attacker from the Internet.
   es:
     title: Asymmetric denial of service - ReDoS
     description: >
@@ -12772,7 +12772,7 @@
       Utilizar expresiones regulares optimizadas para
       realizar funciones sin mucho gasto computacional.
     threat: >
-      Anónimo desde Internet.
+      Atacante anónimo desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -12942,7 +12942,7 @@
       The threat is magnified by a number of factors
       which extend the leakage beyond the corporate
       firewall (i.e. account hijacking, identity theft,
-      extortion schemes, and spear phishing campaigns)
+      extortion schemes, and spear phishing campaigns).
   es:
     title: Business information leak - Credentials
     description: >
@@ -12974,7 +12974,7 @@
       factores que extienden la filtración más allá
       del cortafuegos de la empresa (es decir, el secuestro
       de cuentas, el robo de identidad, los esquemas de
-      extorsión y las campañas de spear phishing)
+      extorsión y las campañas de phishing).
   category: Collect Information
   score:
     base:
@@ -13415,7 +13415,7 @@
       - Users who have made recent transactions, document
       number and full name.
 
-      - Wallet Ids.
+      - Wallet IDs.
 
       - Versions and operating system names.
 
@@ -13456,7 +13456,7 @@
       - Usuarios que han hecho transacciones recientes,
       número de documento y nombre completo.
 
-      - Wallet Ids.
+      - Wallet IDs.
 
       - Versiones y nombres de sistema operativo.
 
@@ -13941,7 +13941,7 @@
 
       - Información de ventas
 
-      - Informacion de despachos
+      - Información de despachos
     impact: >
       - Obtener información estratégica del negocio.
 
@@ -13950,7 +13950,7 @@
       - Obtener información de ventas y despachos.
     recommendation: >
       Establecer controles de acceso a recursos
-      con información potencialmente sensible
+      con información potencialmente sensible.
     threat: >
       Usuario no autenticado en la
       aplicación desde internet.
@@ -14024,21 +14024,50 @@
   en:
     title: Message flooding
     description: >
-      It is possible to send mass messages to the phones numbers and emails of the victims, causing saturation of the inbox and consuming resources of the user.
+      It is possible to send mass messages to
+      the phones numbers and emails of the
+      victims, causing saturation of the inbox
+      and consuming resources of the user.
     impact: >
-      - To flood the inbox of the victim - To increase abruptly the consumed resources of the device - To hide important information from other messages - To facilitate other attacks like phishing
+      - Flood the inbox of the victim.
+
+      - Increase abruptly the consumed
+      resources of the device.
+
+      - Hide important information
+      from other messages.
+
+      - Facilitate other attacks like phishing.
     recommendation: >
-      Restrict the consecutive sending of messages through mechanisms such as time delays or controls over the amount of messages sent
+      Restrict the consecutive sending of
+      messages through mechanisms such as
+      time delays or controls over the
+      amount of messages sent
     threat: >
-      External attacker with access to the code
+      External attacker with access to the code.
   es:
     title: Message flooding
     description: >
-      Es posible enviar mensajes masivos a los números de teléfono y correos electrónicos de las víctimas, provocando la saturación de la bandeja de entrada y consumiendo recursos del usuario.
+      Es posible enviar mensajes masivos a
+      los números de teléfono y correos
+      electrónicos de las víctimas, provocando
+      la saturación de la bandeja de entrada y
+      consumiendo recursos del usuario.
     impact: >
-      - Inundar la bandeja de entrada de la víctima - Aumentar bruscamente los recursos consumidos del dispositivo - Ocultar información importante de otros mensajes - Facilitar otros ataques como el phishing
+      - Inundar la bandeja de entrada
+      de la víctima.
+
+      - Aumentar bruscamente los recursos
+      consumidos del dispositivo.
+
+      - Ocultar información importante de
+      otros mensajes.
+
+      - Facilitar otros ataques como el phishing.
     recommendation: >
-      Restringir el envío consecutivo de mensajes a través de mecanismos como retrasos o controles sobre la cantidad de mensajes enviados
+      Restringir el envío consecutivo de mensajes
+      a través de mecanismos como retrasos o controles
+      sobre la cantidad de mensajes enviados.
     threat: >
       Atacante externo con acceso al código.
   category: Abuse Functionality
@@ -14069,7 +14098,7 @@
 
       - Angular version (ng-version).
     impact: >
-      - Display technical information of the system.
+      Display technical information of the system.
     recommendation: >
       Disable functionalities that give information
       about the components used such as names and versions.
@@ -14083,7 +14112,7 @@
 
       - Versión de Angular (ng-version).
     impact: >
-      - Exponer información técnica del sistema.
+      Exponer información técnica del sistema.
     recommendation: >
       Deshabilitar las funcionalidades que
       den información de los componentes
@@ -14224,23 +14253,23 @@
       Obtain technical information to craft new attack vectors
     recommendation: >
       Verify that HTTP response headers
-      do not contain any name or version
+      do not contain any name or version.
     threat: >
-      Anonymous attacker from the Internet
+      Anonymous attacker from the Internet.
   es:
     title: Technical information leak - Headers
     description: >
       Es posible obtener información técnica
       como nombres de tecnologías o versiones de componentes
-      mediante las cabeceras de respuesta del servidor
+      mediante las cabeceras de respuesta del servidor.
     impact: >
       Obtener información técnica
-      para elaborar nuevos vectores de ataque
+      para elaborar nuevos vectores de ataque.
     recommendation: >
       Verificar que las respuestas HTTP
-      no contengan ningún nombre o versión
+      no contengan ningún nombre o versión.
     threat: >
-      Atacante anónimo desde Internet
+      Atacante anónimo desde Internet.
   category: Collect Information
   score:
     base:
@@ -14287,7 +14316,7 @@
       Limitar el acceso a los archivos map
       a usuarios y roles autorizados.
     threat: >
-      Usuario no autorizado desde internet.
+      Usuario no autorizado desde Internet.
   category: Collect Information
   score:
     base:
@@ -14387,7 +14416,7 @@
     description: >
       An attacker is able to gather the
       entire GraphQL API Schema Structure
-      (Both queries and mutations).
+      (both queries and mutations).
     impact: >
       An anonymous attacker from Internet
       Network crafts an introspection query.
@@ -14689,7 +14718,7 @@
       Proteger los recursos a los cuales no se
       les tiene una autenticación para ser accedidos.
     threat: >
-      Usuario no autorizado desde red interna
+      Usuario no autorizado desde red interna.
   category: Subvert Access
   score:
     base:
@@ -14788,7 +14817,7 @@
       the application according to the
       organization's policies.
     threat: >
-      - Unauthorized insider attacker performing a MitM.
+      Unauthorized insider attacker performing a MitM.
   es:
     title: Non-encrypted confidential information - Credit Cards
     description: >
@@ -15016,7 +15045,7 @@
       comprometer las operaciones de la aplicación
       ya que esta se está tiene almacenadas las
       contraseñas de acceso sin ningún tipo de
-      cifrado o derivacion.
+      cifrado o derivación.
   category: Collect Information
   score:
     base:
@@ -15497,7 +15526,8 @@
       Protección contra el borrado dentro de la sección
       de atributos y actívelo.
     threat: >
-      Atacante con acceso a la consola de AWS que modifica o borra información.
+      Atacante con acceso a la consola de AWS
+      que modifica o borra información.
   category: Abuse Functionality
   score:
     base:
@@ -15680,7 +15710,7 @@
       Use algorithms considered cryptographically secure.
     threat: >
       Unauthorized attacker from internal
-      network executing a MitM
+      network executing a MitM.
   es:
     title: Insecure encryption algorithm - SHA1
     description: >
@@ -15878,15 +15908,16 @@
       executing tasks with root user
       instead of a custom user.
     impact: >
-      Gain total control of the container
+      Gain total control of the container.
     recommendation: >
       - Restrict the privileges of the user
-      that execute instructions inside the container
+      that execute instructions inside the container.
 
       - Avoid the use of the root user
-      as default user
+      as default user.
     threat: >
-      Authenticated attacker with local access to the container
+      Authenticated attacker with local
+      access to the container.
   es:
     title: Excessive Privieleges - Docker
     description: >
@@ -15896,15 +15927,16 @@
       en lugar de un usuario personalizado.
     impact: >
       Obtener control total del contenedor
-      con el usuario por defecto
+      con el usuario por defecto.
     recommendation: >
       - Limitar los permisos del usuario
-      con el que se ejecuta las instrucciones del contenedor
+      con el que se ejecuta las instrucciones
+      del contenedor.
 
       - Evitar utilizar el usuario root
-      como usuario por defecto
+      como usuario por defecto.
     threat: >
-      Atacante autenticado con acceso local al contedor
+      Atacante autenticado con acceso local al contenedor.
   category: Collect Information
   score:
     base:
