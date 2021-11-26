@@ -31,6 +31,14 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
+interface IFilterSet {
+  searchText: string;
+  groupName: string;
+  subscription: string;
+  service: string;
+  machine: string;
+  squad: string;
+}
 const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   props: IOrganizationGroupsProps
 ): JSX.Element => {
@@ -117,12 +125,19 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("organizationGroupsCustomFilters", false);
 
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [groupNameFilter, setGroupNameFilter] = useState("");
-  const [subscriptionFilter, setSubscriptionFilter] = useState("");
-  const [serviceFilter, setServiceFilter] = useState("");
-  const [machineFilter, setMachineFilter] = useState("");
-  const [squadFilter, setSquadFilter] = useState("");
+  const [filterOrganizationGroupsTable, setFilterOrganizationGroupsTable] =
+    useStoredState(
+      "filterOrganizationGroupset",
+      {
+        groupName: "",
+        machine: "",
+        searchText: "",
+        service: "",
+        squad: "",
+        subscription: "",
+      },
+      localStorage
+    );
 
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
@@ -178,57 +193,93 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setSearchTextFilter(event.target.value);
+    event.persist();
+    setFilterOrganizationGroupsTable(
+      (value): IFilterSet => ({
+        ...value,
+        searchText: event.target.value,
+      })
+    );
   }
   const filterSearchTextDataset: IGroupData[] = filterSearchText(
     dataset,
-    searchTextFilter
+    filterOrganizationGroupsTable.searchText
   );
 
   function onGroupNameChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setGroupNameFilter(event.target.value);
+    event.persist();
+    setFilterOrganizationGroupsTable(
+      (value): IFilterSet => ({
+        ...value,
+        groupName: event.target.value,
+      })
+    );
   }
   const filterGroupNameDataset: IGroupData[] = filterText(
     dataset,
-    groupNameFilter,
+    filterOrganizationGroupsTable.groupName,
     "name"
   );
 
   function onSubscriptionChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
-    setSubscriptionFilter(event.target.value);
+    event.persist();
+    setFilterOrganizationGroupsTable(
+      (value): IFilterSet => ({
+        ...value,
+        subscription: event.target.value,
+      })
+    );
   }
   const filterSubscriptionDataset: IGroupData[] = filterText(
     dataset,
-    subscriptionFilter,
+    filterOrganizationGroupsTable.subscription,
     "subscription"
   );
 
   function onServiceChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setServiceFilter(event.target.value);
+    event.persist();
+    setFilterOrganizationGroupsTable(
+      (value): IFilterSet => ({
+        ...value,
+        service: event.target.value,
+      })
+    );
   }
   const filterServiceDataset: IGroupData[] = filterText(
     dataset,
-    serviceFilter,
+    filterOrganizationGroupsTable.service,
     "service"
   );
 
   function onMachineChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setMachineFilter(event.target.value);
+    event.persist();
+    setFilterOrganizationGroupsTable(
+      (value): IFilterSet => ({
+        ...value,
+        machine: event.target.value,
+      })
+    );
   }
   const filterMachineDataset: IGroupData[] = filterText(
     dataset,
-    machineFilter,
+    filterOrganizationGroupsTable.machine,
     "machine"
   );
 
   function onSquadChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setSquadFilter(event.target.value);
+    event.persist();
+    setFilterOrganizationGroupsTable(
+      (value): IFilterSet => ({
+        ...value,
+        squad: event.target.value,
+      })
+    );
   }
   const filterSquadDataset: IGroupData[] = filterText(
     dataset,
-    squadFilter,
+    filterOrganizationGroupsTable.squad,
     "squad"
   );
 
@@ -243,7 +294,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
 
   const customFiltersProps: IFilterProps[] = [
     {
-      defaultValue: groupNameFilter,
+      defaultValue: filterOrganizationGroupsTable.groupName,
       onChangeInput: onGroupNameChange,
       placeholder: "Group Name",
       tooltipId: "organization.tabs.groups.filtersTooltips.groupName.id",
@@ -251,7 +302,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       type: "text",
     },
     {
-      defaultValue: subscriptionFilter,
+      defaultValue: filterOrganizationGroupsTable.subscription,
       onChangeSelect: onSubscriptionChange,
       placeholder: "Subscription",
       selectOptions: {
@@ -263,7 +314,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       type: "select",
     },
     {
-      defaultValue: serviceFilter,
+      defaultValue: filterOrganizationGroupsTable.service,
       onChangeSelect: onServiceChange,
       placeholder: "Service",
       selectOptions: {
@@ -275,7 +326,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       type: "select",
     },
     {
-      defaultValue: machineFilter,
+      defaultValue: filterOrganizationGroupsTable.machine,
       onChangeSelect: onMachineChange,
       placeholder: "Machine",
       selectOptions: {
@@ -287,7 +338,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       type: "select",
     },
     {
-      defaultValue: squadFilter,
+      defaultValue: filterOrganizationGroupsTable.squad,
       onChangeSelect: onSquadChange,
       placeholder: "Squad",
       selectOptions: {
@@ -321,7 +372,8 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                     },
                   }}
                   customSearch={{
-                    customSearchDefault: searchTextFilter,
+                    customSearchDefault:
+                      filterOrganizationGroupsTable.searchText,
                     isCustomSearchEnabled: true,
                     onUpdateCustomSearch: onSearchTextChange,
                   }}
