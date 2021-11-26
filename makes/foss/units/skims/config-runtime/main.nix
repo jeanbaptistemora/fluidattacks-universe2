@@ -4,6 +4,17 @@
 , outputs
 , ...
 }:
+let
+  self_bugsnag = inputs.nixpkgs.python38Packages.bugsnag.overridePythonAttrs (_: rec {
+    src = builtins.fetchGit
+      {
+        url = "https://github.com/fluidattacks/bugsnag-python";
+        ref = "master";
+        rev = "41387bcff4ae94ae633725889cb55567bcce5c9e";
+      };
+    doCheck = false;
+  });
+in
 makeTemplate {
   replace = {
     __argSrcSkimsSkims__ = projectPath "/skims/skims";
@@ -17,6 +28,7 @@ makeTemplate {
       inputs.nixpkgs.nodejs
     ];
     pythonPackage = [
+      "${self_bugsnag}/lib/python3.8/site-packages/"
       (projectPath "/skims/skims")
       (projectPath "/makes/foss/units/bugsnag-client")
     ];
