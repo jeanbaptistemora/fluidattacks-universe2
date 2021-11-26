@@ -1360,7 +1360,7 @@
       The system transmits information
       through a channel without encryption.
     impact: >
-      - Capture confidential information
+      Capture confidential information
       and credentials in plain text.
     recommendation: >
       Deploy the application
@@ -1375,7 +1375,7 @@
       La información de los clientes
       es transmitida por un canal que no usa cifrado.
     impact: >
-      - Capturar información confidencial
+      Capturar información confidencial
       y credenciales en texto plano.
     recommendation: >
       Desplegar la aplicación
@@ -1531,7 +1531,7 @@
       It is possible to intercept calls made
       using the VoIP platform
       because the communication is not encrypted.
-    impact: Get call information
+    impact: Get call information.
     recommendation: >
       Configure the channel
       with TLS or SRTP and TLS,
@@ -1543,12 +1543,12 @@
       Es posible interceptar las llamadas realizadas
       y recibidas a través de la plataforma VoIP
       debido a que la comunicación no viaja cifrada.
-    impact: Obtener información de llamadas
+    impact: Obtener información de llamadas.
     recommendation: >
       Configurar el canal con TLS o SRTP
       y TLS o configurar un firewall
       para cifrar las llamadas.
-    threat: Atacante autenticado desde Internet
+    threat: Atacante autenticado desde Internet.
   category: Collect Information
   score:
     base:
@@ -1577,11 +1577,11 @@
       allowing an attacker to enumerate valid users
       via error messages, response times, frames count,
       among other techniques.
-    impact: Obtain valid application usernames
+    impact: Obtain valid application usernames.
     recommendation: >
       Set the same server response for existent
       and non-existent users.
-    threat: Anonymous attacker from the Internet
+    threat: Anonymous attacker from the Internet.
   es:
     title: User enumeration
     description: >
@@ -1590,12 +1590,12 @@
       permitiendo a un atacante enumerar usuarios válidos
       mediante mensajes de error, tiempos de respuesta,
       conteo de frames u otras técnicas.
-    impact: Obtener usuarios válidos de la aplicación
+    impact: Obtener usuarios válidos de la aplicación.
     recommendation: >
       Implementar las mismas respuestas del servidor
-      para usuarios existentes y no existentes
+      para usuarios existentes y no existentes.
     threat: >
-      Atacante anónimo desde Internet
+      Atacante anónimo desde Internet.
   category: Collect Information
   score:
     base:
@@ -1626,10 +1626,10 @@
       the system does not validate
       whether or not the file
       is free from malicious code.
-    impact: Upload malicious files to the server
+    impact: Upload malicious files to the server.
     recommendation: >
       - Validate with regular expressions
-      that the file has only one extension
+      that the file has only one extension.
 
       - Validate with an antivirus software
       that the file does not contain
@@ -1637,7 +1637,7 @@
 
       - Validate that Content Type corresponds
       to the file's extension
-      before upload it to the server
+      before upload it to the server.
     threat: >
       Authenticated attacker from the Internet.
   es:
@@ -1649,7 +1649,7 @@
       como (.html, .php, .exe),
       tampoco se valida si el archivo está libre
       de código malicioso o no.
-    impact: Cargar archivos maliciosos al servidor
+    impact: Cargar archivos maliciosos al servidor.
     recommendation: >
       - Validar con expresiones regulares
       que el archivo corresponda
@@ -1750,7 +1750,7 @@
       Implement controls
       to limit the maximum file size
       that can be uploaded to the server.
-    threat: Authenticated attacker on the Internet
+    threat: Authenticated attacker on the Internet.
   es:
     title: Inadequate file size control
     description: >
@@ -1768,7 +1768,7 @@
       Implementar controles
       para limitar el máximo tamaño
       de archivos permitido.
-    threat: Atacante autorizado desde Internet
+    threat: Atacante autorizado desde Internet.
   category: Manipulate System
   score:
     base:
@@ -1797,26 +1797,26 @@
       via URL parameters using the GET method.
       These parameters are:
 
-      - stored in clear text
+      - Stored in clear text
       in the browser history.
 
-      - sent to external sites
+      - Sent to external sites
       via the referrer HTTP header.
 
-      - sent to external sites
+      - Sent to external sites
       via the search bar if the browser
       interprets the URL as a query.
 
-      - visible to scripts running on the browser
+      - Visible to scripts running on the browser
       that may belong to third-parties.
-    impact: Obtain sensitive information from application URLs
+    impact: Obtain sensitive information from application URLs.
     recommendation: >
-      Guarantee that the session's id
+      Guarantee that the session's ID
       are sent through secure methods (POST)
       or obtain the cookies' session.
     threat: >
       Anonymous attacker from adjacent network
-      performing a sniffing attack
+      performing a sniffing attack.
   es:
     title: Sensitive information sent via URL parameters
     description: >
@@ -1825,17 +1825,17 @@
       a través del método GET.
       Estos parámetros:
 
-      - son almacenados en el historial del navegador
+      - Son almacenados en el historial del navegador
       permitiendo su visualización.
 
-      - son enviados en la cabecera HTTP referer a otros sitios.
+      - Son enviados en la cabecera HTTP referer a otros sitios.
 
-      - son enviados como petición
-      a sitios externos al poner la url
+      - Son enviados como petición
+      a sitios externos al poner la URL
       en la barra del navegador
       si este lo interpreta como consulta.
 
-      - son visibles por scripts
+      - Son visibles por scripts
       corriendo en la página
       los cuales pueden pertenecer a terceros.
     impact: Obtener información sensible de los enlaces de la aplicación.
@@ -1845,7 +1845,7 @@
       u obtener la sesión de las cookies.
     threat: >
       Atacante anónimo desde red adyacente
-      ejecutando un ataque de sniffing
+      ejecutando un ataque de sniffing.
   category: Collect Information
   score:
     base:
@@ -1883,7 +1883,7 @@
       following the principle of least privilege.
     threat: >
       Authenticated user from the Internet
-      with access to a misconfigured role
+      with access to a misconfigured role.
   es:
     title: Excessive privileges - AWS
     description: >
@@ -1970,11 +1970,11 @@
       (who may have more privileges).
     impact: >
       Impersonate the application to increase the chances
-      of a successful phishing or social engineering attack
+      of a successful phishing or social engineering attack.
     recommendation: >
       Avoid the usage of custom system messages
-      that can be tampered by an user
-    threat: Authenticated attacker from the Internet
+      that can be tampered by an user.
+    threat: Authenticated attacker from the Internet.
   es:
     title: Spoofing
     description: >
@@ -1988,12 +1988,12 @@
       (quienes podrían tener más privilegios).
     impact: >
       Suplantar la aplicación para incrementar las posibilidades
-      de un ataque exitoso de phishing o ingeniería social
+      de un ataque exitoso de phishing o ingeniería social.
     recommendation: >
       Evitar usar mensajes de sistema personalizados
       que puedan ser modificados sin autorización por un usuario.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   category: Deceptive Interactions
   score:
     base:
@@ -2022,7 +2022,7 @@
       without requesting the previous one
       or enforcing another
       identity verification mechanism.
-    impact: Gain total control over a user account
+    impact: Gain total control over a user account.
     recommendation: >
       - Guarantee that the current password
       is needed when a password change
@@ -2030,9 +2030,9 @@
 
       - Use a second authentication mechanism
       to ensure the password change is performed
-      by the account owner
+      by the account owner.
     threat: >
-      Authenticated attacker from the internet
+      Authenticated attacker from the Internet.
   es:
     title: Password change without identity check
     description: >
@@ -2040,16 +2040,16 @@
       el producto no requiere conocimiento
       de la contraseña original,
       o el uso de otro tipo de autenticación.
-    impact: Obtener control total de la cuenta de un usuario
+    impact: Obtener control total de la cuenta de un usuario.
     recommendation: >
       - Garantizar que al hacer el cambio de contraseña
       se ingrese la contraseña actual.
 
       - Establecer mecanismos como un segundo factor de autenticación
       para garantizar que el cambio de contraseña sea efectuado
-      por el dueño de la cuenta
+      por el dueño de la cuenta.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -2088,7 +2088,7 @@
       offered by language
       to generate random numbers.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Insecure generation of random numbers
     description: >
@@ -2108,7 +2108,7 @@
       ofrecidos por el lenguaje
       para la generación de números aleatorios.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   category: Probabilistic Techniques
   score:
     base:
@@ -2143,7 +2143,7 @@
       that uses phrases,
       not word based passwords.
     threat: >
-      Anonymous user from the Internet
+      Anonymous user from the Internet.
   es:
     title: Weak credential policy
     description: >
@@ -2152,14 +2152,14 @@
       no cuenta con los parámetros recomendados.
     impact: >
       Incrementar las posibilidades de obtener credenciales válidas
-      mediante ataques de fuerza bruta o diccionario
+      mediante ataques de fuerza bruta o diccionario.
     recommendation: >
       Establecer una política
       para la creación de credenciales
       que involucre frases
       y no contraseñas basadas en palabras.
     threat: >
-      Atacante anónimo desde Internet
+      Atacante anónimo desde Internet.
   category: Probabilistic Techniques
   score:
     base:
@@ -2251,24 +2251,24 @@
       - Verify that HTTP headers
       do not display any name or version.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Technical information leak
     description: >
       Se obtiene información técnica
       del sistema, como:
 
-      - versión de los componentes
+      - Versión de los componentes
       que el sistema utiliza
       (encabezados HTTP, banner del servicio, etc).
 
-      - información específica
+      - Información específica
       sobre la configuración de componentes
       a nivel del servidor (php.ini, web.config).
 
       - Funcionalidades que arrojan
       información del servidor.
-    impact: Obtener información técnica para crear nuevos vectores de ataque
+    impact: Obtener información técnica para crear nuevos vectores de ataque.
     recommendation: >
       - Eliminar el banner de los servicios
       con fuga de información.
@@ -2276,7 +2276,7 @@
       - Verificar que los encabezados HTTP
       no expongan ningún nombre o versión.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   category: Collect Information
   score:
     base:
@@ -2423,7 +2423,7 @@
     recommendation: >
       Restrict access to /_vti_bin resource
       to unauthorised users.
-    threat: Anonymous attacker from the Internet
+    threat: Anonymous attacker from the Internet.
   es:
     title: Exposed web services
     description: >
@@ -2439,7 +2439,7 @@
     recommendation: >
       Restringir el acceso al recurso /_vti_bin
       para usuarios no autorizados.
-    threat: Atacante anónimo desde Internet
+    threat: Atacante anónimo desde Internet.
   category: Collect Information
   score:
     base:
