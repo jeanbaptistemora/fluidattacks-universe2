@@ -1,11 +1,12 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
 , outputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/common/singer_io";
+  self = projectPath inputs.observesIndex.common.singerIO;
 in
 makeTemplate {
   name = "observes-common-singer-io-env-runtime";

@@ -1,10 +1,11 @@
-{ makeTemplate
+{ inputs
+, makeTemplate
 , outputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/common/utils_logger";
+  self = projectPath inputs.observesIndex.common.utilsLogger;
 in
 makeTemplate {
   name = "observes-env-utils-logger-runtime";

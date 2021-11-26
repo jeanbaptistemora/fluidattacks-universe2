@@ -1,4 +1,5 @@
-{ makeDerivation
+{ inputs
+, makeDerivation
 , outputs
 , projectPath
 , ...
@@ -6,7 +7,7 @@
 makeDerivation {
   name = "observes-common-postgres-client-test";
   env = {
-    envSrc = projectPath "/observes/common/postgres_client";
+    envSrc = projectPath inputs.observesIndex.common.postgresClient;
     envTestDir = "tests";
   };
   searchPaths = {

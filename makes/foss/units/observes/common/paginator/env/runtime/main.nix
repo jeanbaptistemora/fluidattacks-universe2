@@ -1,11 +1,12 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
 , outputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/common/paginator";
+  self = projectPath inputs.observesIndex.common.paginator;
 in
 makeTemplate {
   name = "observes-common-paginator-env-runtime";

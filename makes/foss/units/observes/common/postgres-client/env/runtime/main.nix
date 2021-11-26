@@ -6,7 +6,7 @@
 , ...
 }:
 let
-  self = projectPath "/observes/common/postgres_client";
+  self = projectPath inputs.observesIndex.common.postgresClient;
 in
 makeTemplate {
   name = "observes-common-postgres-client-env-runtime";

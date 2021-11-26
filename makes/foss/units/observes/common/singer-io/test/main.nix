@@ -1,4 +1,5 @@
-{ makeDerivation
+{ inputs
+, makeDerivation
 , outputs
 , projectPath
 , ...
@@ -6,7 +7,7 @@
 makeDerivation {
   name = "observes-common-singer-io-test";
   env = {
-    envSrc = projectPath "/observes/common/singer_io";
+    envSrc = projectPath inputs.observesIndex.common.singerIO;
     envTestDir = "tests";
   };
   searchPaths = {
