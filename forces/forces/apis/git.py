@@ -76,12 +76,12 @@ def get_repository_metadata(repo_path: str = ".") -> Dict[str, str]:
     git_repo = DEFAULT_COLUMN_VALUE
 
     if name := get_repo_name_from_vars():
-        blocking_log("info", "repository name obtained from environment")
+        blocking_log("info", "Repository name obtained from environment")
         git_repo = name
 
     with suppress(InvalidGitRepositoryError):
         repo = Repo(repo_path, search_parent_directories=True)
-        blocking_log("info", "repository detected")
+        blocking_log("info", "Repository detected")
         head_commit: Commit = repo.head.commit
 
         with suppress(TypeError):
@@ -102,12 +102,12 @@ def get_repository_metadata(repo_path: str = ".") -> Dict[str, str]:
         if git_repo == DEFAULT_COLUMN_VALUE and (
             name := extract_repo_name(git_origin)
         ):
-            blocking_log("info", "repository name obtained from origin")
+            blocking_log("info", "Repository name obtained from origin")
             git_repo = name
         elif git_repo == DEFAULT_COLUMN_VALUE:
             with suppress(IndexError):
                 blocking_log(
-                    "info", "repository name obtained from current dir"
+                    "info", "Repository name obtained from current dir"
                 )
                 git_repo = os.path.basename(os.path.split(repo.git_dir)[0])
 
