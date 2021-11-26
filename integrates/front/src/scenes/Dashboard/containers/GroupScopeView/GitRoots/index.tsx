@@ -53,6 +53,14 @@ interface IGitRootsProps {
   roots: IGitRootAttr[];
 }
 
+interface IFilterSet {
+  searchText: string;
+  nickname: string;
+  branch: string;
+  state: string;
+  status: string;
+}
+
 export const GitRoots: React.FC<IGitRootsProps> = ({
   groupName,
   onUpdate,
@@ -115,11 +123,18 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("rootsCustomFilters", false);
 
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [nicknameFilter, setNicknameFilter] = useState("");
-  const [branchFilter, setbranchFilter] = useState("");
-  const [stateFilter, setStateFilter] = useState("");
-  const [statusFilter, setStatusFilter] = useState("");
+  const [filterGroupScopeTable, setFilterGroupScopeTable] =
+    useStoredState<IFilterSet>(
+      "filterGroupScopeSet",
+      {
+        branch: "",
+        nickname: "",
+        searchText: "",
+        state: "",
+        status: "",
+      },
+      localStorage
+    );
 
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
@@ -236,46 +251,76 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setSearchTextFilter(event.target.value);
+    event.persist();
+    setFilterGroupScopeTable(
+      (value): IFilterSet => ({
+        ...value,
+        searchText: event.target.value,
+      })
+    );
   }
   const filterSearchTextRoots: IGitRootAttr[] = filterSearchText(
     roots,
-    searchTextFilter
+    filterGroupScopeTable.searchText
   );
 
   function onNicknameChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setNicknameFilter(event.target.value);
+    event.persist();
+    setFilterGroupScopeTable(
+      (value): IFilterSet => ({
+        ...value,
+        nickname: event.target.value,
+      })
+    );
   }
   const filterNicknameRoots: IGitRootAttr[] = filterText(
     roots,
-    nicknameFilter,
+    filterGroupScopeTable.nickname,
     "nickname"
   );
 
   function onBranchChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setbranchFilter(event.target.value);
+    event.persist();
+    setFilterGroupScopeTable(
+      (value): IFilterSet => ({
+        ...value,
+        branch: event.target.value,
+      })
+    );
   }
   const filterBranchRoots: IGitRootAttr[] = filterText(
     roots,
-    branchFilter,
+    filterGroupScopeTable.branch,
     "branch"
   );
 
   function onStateChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setStateFilter(event.target.value);
+    event.persist();
+    setFilterGroupScopeTable(
+      (value): IFilterSet => ({
+        ...value,
+        state: event.target.value,
+      })
+    );
   }
   const filterStateRoots: IGitRootAttr[] = filterSelect(
     roots,
-    stateFilter,
+    filterGroupScopeTable.state,
     "state"
   );
 
   function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setStatusFilter(event.target.value);
+    event.persist();
+    setFilterGroupScopeTable(
+      (value): IFilterSet => ({
+        ...value,
+        status: event.target.value,
+      })
+    );
   }
   const filterStatusRoots: IGitRootAttr[] = filterSelectStatus(
     roots,
-    statusFilter
+    filterGroupScopeTable.status
   );
 
   const resultExecutions: IGitRootAttr[] = _.intersection(
@@ -294,7 +339,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
   const customFiltersProps: IFilterProps[] = [
     {
-      defaultValue: nicknameFilter,
+      defaultValue: filterGroupScopeTable.nickname,
       onChangeInput: onNicknameChange,
       placeholder: "Nickname",
       tooltipId: "group.scope.git.filtersTooltips.nickname.id",
@@ -302,7 +347,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       type: "text",
     },
     {
-      defaultValue: branchFilter,
+      defaultValue: filterGroupScopeTable.branch,
       onChangeInput: onBranchChange,
       placeholder: "Branch",
       tooltipId: "group.scope.git.filtersTooltips.branch.id",
@@ -310,7 +355,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       type: "text",
     },
     {
-      defaultValue: stateFilter,
+      defaultValue: filterGroupScopeTable.state,
       onChangeSelect: onStateChange,
       placeholder: "State",
       selectOptions: {
@@ -322,7 +367,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       type: "select",
     },
     {
-      defaultValue: statusFilter,
+      defaultValue: filterGroupScopeTable.status,
       onChangeSelect: onStatusChange,
       placeholder: "Status",
       selectOptions: {
@@ -368,7 +413,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   },
                 }}
                 customSearch={{
-                  customSearchDefault: searchTextFilter,
+                  customSearchDefault: filterGroupScopeTable.searchText,
                   isCustomSearchEnabled: true,
                   onUpdateCustomSearch: onSearchTextChange,
                 }}
