@@ -6,6 +6,7 @@ from aws.model import (
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
+    EXTENSIONS_TERRAFORM,
     get_line_by_extension,
     get_vulnerabilities_from_aws_iterator_blocking,
     SHIELD,
@@ -21,6 +22,14 @@ from parse_cfn.loader import (
 )
 from parse_cfn.structure import (
     iter_dynamodb_table,
+)
+from parse_hcl2.loader import (
+    load as load_terraform,
+)
+from parse_hcl2.structure import (
+    get_argument,
+    get_block_attribute,
+    iter_aws_dynambodb_table,
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -60,6 +69,22 @@ def cfn_has_not_point_in_time_recovery_iterate_vulnerabilities(
             )
 
 
+def tfm_db_no_point_in_time_recovery_iterate_vulnerabilities(
+    buckets_iterator: Iterator[Any],
+) -> Iterator[Union[Any, Node]]:
+    for bucket in buckets_iterator:
+        if recovery := get_argument(
+            key="point_in_time_recovery",
+            body=bucket.data,
+        ):
+            print(recovery)
+            if recovery_attr := get_block_attribute(
+                block=recovery, key="enabled"
+            ):
+                if recovery_attr.val is False:
+                    yield recovery_attr
+
+
 def _cfn_has_not_point_in_time_recovery(
     content: str,
     file_ext: str,
@@ -80,6 +105,24 @@ def _cfn_has_not_point_in_time_recovery(
     )
 
 
+def _tfm_db_no_point_in_time_recovery(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_aws_iterator_blocking(
+        content=content,
+        description_key="F259.title",
+        finding=core_model.FindingEnum.F259,
+        path=path,
+        statements_iterator=(
+            tfm_db_no_point_in_time_recovery_iterate_vulnerabilities(
+                buckets_iterator=iter_aws_dynambodb_table(model=model)
+            )
+        ),
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -95,6 +138,22 @@ async def cfn_has_not_point_in_time_recovery(
         file_ext=file_ext,
         path=path,
         template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_db_no_point_in_time_recovery(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_db_no_point_in_time_recovery,
+        content=content,
+        path=path,
+        model=model,
     )
 
 
@@ -119,5 +178,15 @@ async def analyze(
                     template=template,
                 )
             )
+    if file_extension in EXTENSIONS_TERRAFORM:
+        content = await content_generator()
+        model = await load_terraform(stream=content, default=[])
+        coroutines.append(
+            tfm_db_no_point_in_time_recovery(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
 
     return coroutines
