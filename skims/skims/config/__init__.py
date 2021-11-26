@@ -16,7 +16,11 @@ from utils.logs import (
 def load_checks(config: Any) -> Set[core_model.FindingEnum]:
     # All checks by default, or the selected by the checks field
     return (
-        {core_model.FindingEnum[finding] for finding in config.pop("checks")}
+        {
+            core_model.FindingEnum[finding]
+            for finding in config.pop("checks")
+            if finding in core_model.FindingEnum.__members__
+        }
         if "checks" in config
         else set(core_model.FindingEnum)
     )
