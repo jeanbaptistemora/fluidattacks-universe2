@@ -6253,7 +6253,7 @@
       emails in such way
       that an inbox only can be
       associated or represent an account.
-    threat: Anonymous attacker from the Internet
+    threat: Anonymous attacker from the Internet.
   es:
     title: Email uniqueness not properly verified
     description: >
@@ -6267,7 +6267,7 @@
       de manera que un mismo buzón
       solo pueda estar asociado
       y/o representar una cuenta.
-    threat: Atacante anónimo desde Internet
+    threat: Atacante anónimo desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -6624,29 +6624,29 @@
     title: Unrestricted access between network segments - RDS
     description: >
       Some RDS Cluster or Instances
-      are not defined inside a Database Subnet Group
+      are not defined inside a Database Subnet Group.
     impact: >
       Access to RDS services in a insecure way
-      from the Internet
+      from the Internet.
     recommendation: >
       Ensure that all RDS instances
-      belong to a Database Subnet Group
+      belong to a Database Subnet Group.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Unrestricted access between network segments - RDS
     description: >
       Algunos cluster o instancias de RDS
       no se encuentran definidos
-      dentro de un Subnet Group para Bases de datos
+      dentro de un Subnet Group para bases de datos.
     impact: >
       Acceder a los servicios de RDS
-      de forma insegura desde Internet
+      de forma insegura desde Internet.
     recommendation: >
       Asegurar que todas las instancias de RDS
-      pertenezcan un Database Subnet Group
+      pertenezcan un Database Subnet Group.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -7008,7 +7008,7 @@
       El sistema tiene controles de seguridad
       que pueden ser evadidos.
     impact: >
-      Enviar multiples solicitudes al
+      Enviar múltiples solicitudes al
       servidor sin control.
     recommendation: >
       Limitar la cantidad de peticiones
@@ -7220,7 +7220,7 @@
     title: Metadata with sensitive information
     description: >
       The system exposes sensitive information
-      through public files' metadata.
+      through public metadata files.
     impact: >
       - Obtain sensitive information.
 
@@ -7278,7 +7278,7 @@
       the version of the libraries
       on which it depends.
     impact: >
-      - Installing a dependency
+      - Install a dependency
       containing a known vulnerability
       and being unaware of it.
 
@@ -7294,7 +7294,7 @@
       the projects' construction
       and packaging.
     threat: >
-      Accepting a range of versions
+      Accept a range of versions
       can cause a version of a dependency
       that is not supported
       by the application
@@ -7429,7 +7429,7 @@
       of emails through mechanisms
       like time delay.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Email flooding
     description: >
@@ -7440,15 +7440,15 @@
       de la bandeja de entrada.
     impact: >
      - Enviar spam masivo a la cuenta de correo
-     de un usuario
+     de un usuario.
 
-     - Ocultar correos con información importante
+     - Ocultar correos con información importante.
     recommendation: >
       Restringir el envío consecutivo
       de correos mediante mecanismos
       como retardos de tiempo.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -7962,7 +7962,7 @@
     threat: >
       Unauthorized attacker
       from adjacent network
-      performing a sniffing attack
+      performing a sniffing attack.
   es:
     title: Insecure or unset HTTP headers - Strict Transport Security
     description: >
@@ -8248,7 +8248,7 @@
       The use of this header may lead
       to stored XSS vulnerabilities.
     impact: >
-      Increase the chance of exploiting a stored XSS
+      Increase the chance of exploiting a stored XSS.
     recommendation: >
       Disable the X-XSS Protection filter in the server responses.
       Instead,
@@ -8313,7 +8313,7 @@
     recommendation: >
       Set the Cache Control header in the server responses
       using a secure value such as no-store , no-cache
-      and must-revalidate
+      and must-revalidate.
     threat: >
       Unauthorized attacker
       from local network.
@@ -8327,7 +8327,7 @@
     impact: >
       - Almacenar respuestas del servidor
       con información sensible
-      en el caché del navegador
+      en el caché del navegador.
 
       - Generar respuestas
       potencialmente peligrosas
@@ -8335,7 +8335,7 @@
     recommendation: >
       Establecer la cabecera Caché control en las respuestas del servidor
       con un valor seguro como no-store , no-cache
-      y must-revalidate
+      y must-revalidate.
     threat: >
       Atacante sin autorización
       desde red local.
@@ -8364,10 +8364,10 @@
     description: >
       The application lacks
       the X-Permitted-Cross-Domain-Policies header
-      or sets the header in a insecure value
+      or sets the header in a insecure value.
     impact: >
       Allow harmful requests
-      from Adobe Flash or PDF documents
+      from Adobe Flash or PDF documents.
     recommendation: >
       Unless the application
       requires Adobe products,
@@ -8386,7 +8386,7 @@
       en un valor inseguro.
     impact: >
       Permitir peticiones maliciosas
-      de Adobe Flash o documentos PDFs
+      de Adobe Flash o documentos PDFs.
     recommendation: >
       A menos que se requiera
       utilizar productos de Adobe
@@ -8443,7 +8443,7 @@
       Establecer los atributos como privados
       y generar métodos para accederlos.
     threat: >
-      Usuario autorizado desde internet.
+      Usuario autorizado desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -8880,11 +8880,11 @@
     impact: >
       Promote the creation of security vulnerabilities
     recommendation: >
-      Refactor the complex code
-      by simplifying methods, subroutines or conditionals
+      Refactor the complex code by simplifying
+      methods, subroutines or conditionals
     threat: >
       Authenticated attacker from the Internet
-      with write access to the code
+      with write access to the code.
   es:
     title: Inappropriate coding practices - Cyclomatic complexity
     description: >
@@ -8894,13 +8894,13 @@
       facilita la aparición de vulnerabilidades de seguridad
       y dificulta su detección y corrección.
     impact: >
-      Facilitar la introducción de vulnerabilidades de seguridad
+      Facilitar la introducción de vulnerabilidades de seguridad.
     recommendation: >
       Refactorizar el código complejo,
-      simplificando métodos, subrutinas o condicionales extensos
+      simplificando métodos, subrutinas o condicionales extensos.
     threat: >
       Atacante autenticado desde Internet
-      con permisos de edición en el código
+      con permisos de edición en el código.
   category: Abuse Functionality
   score:
     base:
