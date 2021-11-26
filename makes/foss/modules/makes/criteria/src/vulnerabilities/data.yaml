@@ -2697,7 +2697,12 @@
       to modify the application's appearance
       in order to trick its users
       into performing undesired actions.
-    impact: Welcome mail
+    impact: >
+      - Allow an attacker to modify the page.
+
+      - Attacker crafts malicious links, including
+      his injected HTML content, and sends it to a
+      user via email.
     recommendation: >
       Filter the information
       that comes from text fields
@@ -2715,7 +2720,12 @@
       engañando a las víctimas
       una vez consultada
       la funcionalidad afectada.
-    impact: Correo de bienvenida.
+    impact: >
+      - Permite a un atacante modificar la página.
+
+      - El atacante crea enlaces maliciosos,
+      incluyendo su contenido HTML inyectado,
+      y lo envía al usuario por correo electrónico.
     recommendation: >
       Filtrar la información
       que venga de los campos de texto
