@@ -306,7 +306,8 @@ async def get_by_vulnerabilities_ids(
                             vulnerability_id, table
                         )
                         for vulnerability_id in vulnerabilities_ids
-                    )
+                    ),
+                    workers=1024,
                 )
             )
         )

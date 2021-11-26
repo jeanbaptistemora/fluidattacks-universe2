@@ -286,8 +286,11 @@ async def _send_digest_report(
         )
     elif loaders:
         mail_contents = await collect(
-            groups_domain.get_group_digest_stats(loaders, group)
-            for group in groups
+            tuple(
+                groups_domain.get_group_digest_stats(loaders, group)
+                for group in groups
+            ),
+            workers=2,
         )
     else:
         LOGGER_CONSOLE.info(
@@ -503,7 +506,7 @@ async def _get_digest_stats(
             groups_domain.get_groups_by_user(user_email, with_cache=False)
             for user_email in digest_suscribers
         ],
-        workers=4,
+        workers=1024,
     )
     digest_groups = set(itertools.chain.from_iterable(digest_groups))
 
@@ -522,7 +525,8 @@ async def _get_digest_stats(
         [
             groups_domain.get_group_digest_stats(loaders, group)
             for group in digest_groups
-        ]
+        ],
+        workers=2,
     )
 
 
