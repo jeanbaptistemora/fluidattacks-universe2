@@ -4,14 +4,14 @@
 , ...
 }:
 makeTemplate {
-  name = "observes-env-singer-io-development";
+  name = "observes-common-singer-io-env-development";
   searchPaths = {
     source = [
       (makePythonPypiEnvironment {
-        name = "observes-env-singer-io-runtime";
+        name = "observes-common-singer-io-env-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/observes/env/singer-io/runtime"
+      outputs."/observes/common/singer-io/env/runtime"
     ];
   };
 }

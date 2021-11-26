@@ -17,7 +17,7 @@ makeTemplate {
       })
       outputs."/observes/env/paginator/runtime"
       outputs."/observes/env/postgres-client/runtime"
-      outputs."/observes/env/singer-io/runtime"
+      outputs."/observes/common/singer-io/env/runtime"
       outputs."/observes/env/utils-logger/runtime"
     ];
   };

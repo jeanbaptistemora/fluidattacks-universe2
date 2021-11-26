@@ -25,7 +25,7 @@ makeTemplate {
         name = "observes-singer-tap-mixpanel-env-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/observes/env/singer-io/runtime"
+      outputs."/observes/common/singer-io/env/runtime"
     ];
   };
 }

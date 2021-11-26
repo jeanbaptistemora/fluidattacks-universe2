@@ -317,7 +317,7 @@ in
           gitlabExtra = gitlabTestCode;
         }
         {
-          output = "/observes/test/singer-io";
+          output = "/observes/common/singer-io/test";
           gitlabExtra = gitlabTestCode;
         }
         {

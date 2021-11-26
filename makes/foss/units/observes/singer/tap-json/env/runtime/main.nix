@@ -21,7 +21,7 @@ makeTemplate {
         name = "observes-singer-tap-json-env-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/observes/env/singer-io/runtime"
+      outputs."/observes/common/singer-io/env/runtime"
       outputs."/observes/env/utils-logger/runtime"
     ];
   };
