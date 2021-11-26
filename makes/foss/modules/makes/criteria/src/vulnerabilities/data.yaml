@@ -3048,9 +3048,9 @@
 
       - Configurar una longitud mínima y máxima.
 
-      - No contraseñas basadas en palabras.
+      - No usar contraseñas basadas en palabras.
 
-      - No contener nombres de usuario.
+      - Evitar nombres de usuario en contraseñas.
 
       - No reutilizar contraseñas.
     threat: >
@@ -3082,7 +3082,10 @@
       of the hashes stored in the database
       considerably reduces the amount of time
       required to crack them.
-    impact: Inside attacker.
+    impact: >
+      Unauthorized access, or even the
+      insufficient data validation can
+      make the system vulnerable.
     recommendation: >
       Ensure that functions
       of password summary
@@ -3098,7 +3101,10 @@
       en la base de datos
       reduce significativamente
       el tiempo del proceso para revertirlos.
-    impact: Atacante interno.
+    impact: >
+      Acceso no autorizado, o incluso la
+      insuficiente validación de los datos
+      puede hacer que el sistema sea vulnerable.
     recommendation: >
       Asegurarse de que las funciones
       de resumen de contraseñas
@@ -3187,7 +3193,7 @@
       against automated attacks designed
       to guess credentials.
     impact: >
-      Obtaining the passwords of the
+      Obtain the passwords of the
       application users.
     recommendation: >
       Implement a control
@@ -3385,7 +3391,7 @@
     title: Anonymous connection
     description: >
       Debido a una configuración inadecuada
-      del servidor (Ej: Servicio FTP usuario:Anonymous
+      del servidor (ej: servicio FTP usuario:Anonymous
       y contraseña:guest o servicio SMTP
       con open relay),
       es posible conectarse anónimamente
@@ -3498,7 +3504,7 @@
       to false in the file: AndroidManifest.xml.
     threat: >
       Unauthorized attacker
-      from internet network.
+      from Internet network.
   es:
     title: Debugging enabled in production - APK
     description: >
@@ -3517,7 +3523,7 @@
       a false en el archivo: AndroidManifest.xml.
     threat: >
       Atacante sin autorización
-      desde internet.
+      desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -3594,15 +3600,15 @@
     title: Insecure service configuration - Host verification
     description: >
       The system do not properly restrict
-      incoming conections from unknown external hosts
+      incoming conections from unknown external hosts.
     impact: >
-      Establish conections with untrusted machines
+      Establish conections with untrusted machines.
     recommendation: >
       Validate that incoming conections
       come from trusted hosts
-      already defined in the known_hosts file
+      already defined in the known_hosts file.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Insecure service configuration - Host verification
     description: >
@@ -3610,13 +3616,13 @@
       las conexiones entrantes con hosts externos desconocidos.
     impact: >
       Establecer conexiones con máquinas
-      que no son de confianza
+      que no son de confianza.
     recommendation: >
       Validar que las conexiones entrantes
       pertenezcan a un host de confianza
-      que ya esté definido en el archivo known_hosts
+      que ya esté definido en el archivo known_hosts.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -3644,34 +3650,34 @@
       malicious files from remote locations.
       This practice may allow an attacker
       to retrieve sensitive data from the server
-      or execute commands remotely
+      or execute commands remotely.
     impact: >
-      - Obtain sensitive data from the server
+      - Obtain sensitive data from the server.
 
-      - Execute commands remotely
+      - Execute commands remotely.
     recommendation: >
       Avoid the usage of dangerous functions
       such as include, exec, eval, file, readfile among others
-      using non-sanitized data
+      using non-sanitized data.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Remote File Inclusion
     description: >
       La aplicación permite cargar y ejecutar archivos maliciosos
       desde ubicaciones remotas.
       Esto permitiría a un atacante filtrar información sensible
-      del servidor, o ejecutar comandos dentro del mismo
+      del servidor, o ejecutar comandos dentro del mismo.
     impact: >
-      - Obtener información sensible del servidor
+      - Obtener información sensible del servidor.
 
-      - Ejecutar comandos remotamente
+      - Ejecutar comandos remotamente.
     recommendation: >
       Evitar utilizar llamados de funciones peligrosas
       como include, exec, eval, file, readfile entre otras
-      con datos no sanitizados
+      con datos no sanitizados.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -3706,7 +3712,7 @@
       has already been initiated
       nor when a second one commences
       from a different location.
-    impact: Affect the traceability and non-repudiation of the user's actions
+    impact: Affect the traceability and non-repudiation of the user's actions.
     recommendation: >
       The system must restrict
       the number of concurrent sessions
@@ -3716,7 +3722,7 @@
       when a login from a different
       location occurs.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Concurrent sessions
     description: >
@@ -3732,7 +3738,7 @@
       desde otra ubicación.
     impact: >
       Afectar la trazabilidad e irrenunciabilidad
-      de las acciones del usuario
+      de las acciones del usuario.
     recommendation: >
       El sistema debe restringir
       el número de sesiones concurrentes
@@ -3741,7 +3747,7 @@
       cuando se inicie sesión
       en otra ubicación.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   category: Subvert Access
   score:
     base:
@@ -3779,7 +3785,7 @@
       for instance: /etc/passwd.
     recommendation: >
       - Prevent the attacker
-      from constructing the pathname, or
+      from constructing the pathname.
 
       - Validate/Neutralize the input
       for special elements like: .., ~, /.
@@ -3801,7 +3807,7 @@
       por ejemplo: /etc/passwd.
     recommendation: >
       - Prevenir que el atacante
-      construya la ruta, o
+      construya la ruta.
 
       - Validar/Neutralizar que las entradas
       no contengan elementos especiales
@@ -3897,7 +3903,7 @@
       - Disable the autocomplete field
       to prevent cache to field's level.
     threat: >
-      Anonymous attacker from local network
+      Anonymous attacker from local network.
   es:
     title: Cached form fields
     description: >
@@ -3919,7 +3925,7 @@
       - Deshabilitar el campo autocomplete
       para prevenir caché a nivel de campos.
     threat: >
-      Atacante anónimo desde red local
+      Atacante anónimo desde red local.
   category: Abuse Functionality
   score:
     base:
@@ -3951,24 +3957,24 @@
       - Specific information
       about the configuration
       of server components (php.ini, web.config).
-    impact: Gather technical information to craft new attack vectors
+    impact: Gather technical information to craft new attack vectors.
     recommendation: >
-      Delete the services' banner
+      Delete the service's banner
       information leakage.
       Verify that HTTP headers
       do not expose any name or version.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Technical information leak - Console functions
     description: >
       Se obtiene información técnica del sistema, como:
 
-      - versión de los componentes
+      - Versión de los componentes
       que el sistema utiliza
       (encabezados HTTP, banner del servicio, etc).
 
-      - información específica sobre la configuración
+      - Información específica sobre la configuración
       de componentes a nivel del servidor
       (php.ini, web.config)
 
@@ -4068,7 +4074,7 @@
       to perform functions
       without a large computational expense.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Improper resource allocation
     description: >
@@ -4094,7 +4100,7 @@
       y optimizadas para realizar funciones
       sin mucho gasto computacional.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -4180,7 +4186,7 @@
       to automatically pass it.
     impact: >
       Bypass security mechanisms
-      to perform automated attacks
+      to perform automated attacks.
     recommendation: >
       Ensure that captcha's response
       is at server's level
@@ -4201,7 +4207,7 @@
       con herramientas de reconocimiento óptico.
     impact: >
       Saltar mecanismos de seguridad
-      para realizar ataques automatizados
+      para realizar ataques automatizados.
     recommendation: >
       Asegurarse que la respuesta del captcha
       se encuentre a nivel de servidor
