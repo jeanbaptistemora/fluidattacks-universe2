@@ -1017,9 +1017,6 @@ def exec_cloudformation_package(
             "elb2.has_access_logging_disabled",
             "elb2.has_not_deletion_protection",
         ],
-        ("fsx", "FSx (Amazon FSx file systems)"): [
-            "fsx.has_unencrypted_volumes",
-        ],
         ("iam", "IAM (Identity and Access Management)"): [
             "iam.has_privileges_over_iam",
             "iam.has_wildcard_resource_on_write_action",
