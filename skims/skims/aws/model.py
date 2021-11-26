@@ -118,3 +118,9 @@ class AWSFSxFileSystem(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSSecretsManagerSecret(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int

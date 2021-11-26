@@ -18,6 +18,7 @@ from aws.model import (
     AWSRdsClusterInstance,
     AWSS3Acl,
     AWSS3Bucket,
+    AWSSecretsManagerSecret,
 )
 from frozendict import (  # type: ignore
     frozendict,
@@ -254,6 +255,7 @@ def get_vulnerabilities_from_aws_iterator_blocking(
             AWSDbInstance,
             AWSRdsCluster,
             AWSRdsClusterInstance,
+            AWSSecretsManagerSecret,
             Node,
         ]
     ],
