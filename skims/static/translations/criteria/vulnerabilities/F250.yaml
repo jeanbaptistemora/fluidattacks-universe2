@@ -1,3 +1,8 @@
+src.lib_path.f250.fsx_has_unencrypted_volumes:
+  en: >
+    FileSystem must be encrypted with a KmsKeyId
+  es: >
+    Las entidades de FileSystem deben estar encryptadas con KmsKeyId 
 F250.title:
   en: >
     Non-encrypted hard drives
