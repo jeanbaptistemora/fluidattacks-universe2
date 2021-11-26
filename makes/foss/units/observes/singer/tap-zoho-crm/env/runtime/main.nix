@@ -21,7 +21,7 @@ makeTemplate {
         name = "observes-singer-tap-zoho-crm-env-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/observes/env/postgres-client/runtime"
+      outputs."/observes/common/postgres-client/env/runtime"
       outputs."/observes/common/singer-io/env/runtime"
       outputs."/observes/env/utils-logger/runtime"
     ];

@@ -9,7 +9,7 @@ let
   self = projectPath "/observes/common/postgres_client";
 in
 makeTemplate {
-  name = "observes-env-postgres-client-runtime";
+  name = "observes-common-postgres-client-env-runtime";
   searchPaths = {
     pythonMypy = [
       self
@@ -22,7 +22,7 @@ makeTemplate {
     ];
     source = [
       (makePythonPypiEnvironment {
-        name = "observes-env-postgres-client-development";
+        name = "observes-common-postgres-client-env-development";
         searchPathsRuntime.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
         searchPathsBuild.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
         sourcesYaml = ./pypi-sources.yaml;

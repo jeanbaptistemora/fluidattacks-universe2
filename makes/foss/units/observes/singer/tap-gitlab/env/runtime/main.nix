@@ -16,7 +16,7 @@ makeTemplate {
         sourcesYaml = ./pypi-sources.yaml;
       })
       outputs."/observes/common/paginator/env/runtime"
-      outputs."/observes/env/postgres-client/runtime"
+      outputs."/observes/common/postgres-client/env/runtime"
       outputs."/observes/common/singer-io/env/runtime"
       outputs."/observes/env/utils-logger/runtime"
     ];

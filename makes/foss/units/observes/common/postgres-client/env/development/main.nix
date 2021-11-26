@@ -4,14 +4,14 @@
 , ...
 }:
 makeTemplate {
-  name = "observes-env-postgres-client-development";
+  name = "observes-common-postgres-client-env-development";
   searchPaths = {
     source = [
       (makePythonPypiEnvironment {
-        name = "observes-env-postgres-client-development";
+        name = "observes-common-postgres-client-env-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/observes/env/postgres-client/runtime"
+      outputs."/observes/common/postgres-client/env/runtime"
     ];
   };
 }

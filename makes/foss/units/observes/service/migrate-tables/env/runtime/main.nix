@@ -21,7 +21,7 @@ makeTemplate {
         name = "observes-service-migrate-tables-env-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/observes/env/postgres-client/runtime"
+      outputs."/observes/common/postgres-client/env/runtime"
     ];
   };
 }
