@@ -2,7 +2,7 @@ import React from "react";
 
 import type { IAcceptanceUserFieldProps } from "./types";
 
-import { ControlLabel, FormGroup } from "styles/styledComponents";
+import { ControlLabel } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
 const AcceptanceUserField: React.FC<IAcceptanceUserFieldProps> = (
@@ -24,12 +24,12 @@ const AcceptanceUserField: React.FC<IAcceptanceUserFieldProps> = (
         isAcceptedUndefinedSelected ||
         isInProgressSelected) &&
       isLastTreatmentAcceptanceStatusApproved ? (
-        <FormGroup>
+        <div className={"mb4 nt2 w-100"}>
           <ControlLabel>
             <b>{translate.t("searchFindings.tabDescription.acceptanceUser")}</b>
           </ControlLabel>
           <p>{lastTreatment.user}</p>
-        </FormGroup>
+        </div>
       ) : undefined}
     </React.StrictMode>
   );

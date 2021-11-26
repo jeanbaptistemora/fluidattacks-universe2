@@ -4,7 +4,6 @@ import React from "react";
 
 import type { ISeverityFieldProps } from "./types";
 
-import { FormGroup } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 import { EditableField, FormikText } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
@@ -35,7 +34,7 @@ const SeverityField: React.FC<ISeverityFieldProps> = (
       isAcceptedUndefinedSelected ||
       isInProgressSelected ||
       !hasNewVulnSelected ? (
-        <FormGroup>
+        <div className={"mb4 nt2 w-100"}>
           <EditableField
             component={FormikText}
             currentValue={level}
@@ -47,7 +46,7 @@ const SeverityField: React.FC<ISeverityFieldProps> = (
             type={"number"}
             validate={composeValidators([isValidVulnSeverity, numeric])}
           />
-        </FormGroup>
+        </div>
       ) : undefined}
     </React.StrictMode>
   );

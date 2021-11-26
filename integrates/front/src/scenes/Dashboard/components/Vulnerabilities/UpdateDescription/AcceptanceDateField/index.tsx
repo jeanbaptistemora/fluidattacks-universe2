@@ -23,15 +23,17 @@ const AcceptanceDateField: React.FC<IAcceptanceDateFieldProps> = (
   return (
     <React.StrictMode>
       {isAcceptedSelected ? (
-        <EditableField
-          component={FormikDate}
-          currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
-          label={translate.t("searchFindings.tabDescription.acceptanceDate")}
-          name={"acceptanceDate"}
-          renderAsEditable={canUpdateVulnsTreatment}
-          type={"date"}
-          validate={composeValidators([required, isLowerDate])}
-        />
+        <div className={"nt2 w-100"}>
+          <EditableField
+            component={FormikDate}
+            currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
+            label={translate.t("searchFindings.tabDescription.acceptanceDate")}
+            name={"acceptanceDate"}
+            renderAsEditable={canUpdateVulnsTreatment}
+            type={"date"}
+            validate={composeValidators([required, isLowerDate])}
+          />
+        </div>
       ) : undefined}
     </React.StrictMode>
   );

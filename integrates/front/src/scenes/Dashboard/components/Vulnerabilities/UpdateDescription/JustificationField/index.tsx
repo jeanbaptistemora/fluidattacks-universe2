@@ -33,23 +33,25 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
   );
 
   return (
-    <EditableField
-      component={FormikTextArea}
-      currentValue={lastTreatment.justification as string}
-      label={translate.t("searchFindings.tabDescription.treatmentJust")}
-      name={"justification"}
-      renderAsEditable={canUpdateVulnsTreatment || canRequestZeroRiskVuln}
-      type={"text"}
-      validate={
-        isTreatmentPristine
-          ? undefined
-          : composeValidators([
-              required,
-              validTextField,
-              maxTreatmentJustificationLength,
-            ])
-      }
-    />
+    <div className={"nt2 w-100"}>
+      <EditableField
+        component={FormikTextArea}
+        currentValue={lastTreatment.justification as string}
+        label={translate.t("searchFindings.tabDescription.treatmentJust")}
+        name={"justification"}
+        renderAsEditable={canUpdateVulnsTreatment || canRequestZeroRiskVuln}
+        type={"text"}
+        validate={
+          isTreatmentPristine
+            ? undefined
+            : composeValidators([
+                required,
+                validTextField,
+                maxTreatmentJustificationLength,
+              ])
+        }
+      />
+    </div>
   );
 };
 

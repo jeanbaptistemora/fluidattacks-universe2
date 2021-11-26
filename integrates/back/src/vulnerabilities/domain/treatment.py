@@ -390,6 +390,7 @@ async def update_vulnerabilities_treatment(
     today = datetime_utils.get_now_as_str()
     if (
         "acceptance_date" in updated_values
+        and updated_values.get("updated_values")
         and len(updated_values["acceptance_date"].split(" ")) == 1
     ):
         today = datetime_utils.get_now_as_str()

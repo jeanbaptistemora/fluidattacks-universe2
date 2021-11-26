@@ -36,18 +36,20 @@ const ExternalBtsField: React.FC<IExternalBtsFieldProps> = (
       isAcceptedUndefinedSelected ||
       isInProgressSelected ||
       !hasNewVulnSelected ? (
-        <EditableField
-          component={FormikText}
-          currentValue={groupExternalBugTrackingSystem(vulnerabilities)}
-          label={translate.t("searchFindings.tabDescription.bts")}
-          name={"externalBugTrackingSystem"}
-          placeholder={translate.t(
-            "searchFindings.tabDescription.btsPlaceholder"
-          )}
-          renderAsEditable={canUpdateVulnsTreatment}
-          type={"text"}
-          validate={composeValidators([maxBtsLength, validUrlField])}
-        />
+        <div className={"nt2 w-100"}>
+          <EditableField
+            component={FormikText}
+            currentValue={groupExternalBugTrackingSystem(vulnerabilities)}
+            label={translate.t("searchFindings.tabDescription.bts")}
+            name={"externalBugTrackingSystem"}
+            placeholder={translate.t(
+              "searchFindings.tabDescription.btsPlaceholder"
+            )}
+            renderAsEditable={canUpdateVulnsTreatment}
+            type={"text"}
+            validate={composeValidators([maxBtsLength, validUrlField])}
+          />
+        </div>
       ) : undefined}
     </React.StrictMode>
   );

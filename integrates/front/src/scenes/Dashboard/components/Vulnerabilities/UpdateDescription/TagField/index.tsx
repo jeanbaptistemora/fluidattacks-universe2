@@ -5,7 +5,7 @@ import React from "react";
 
 import type { ITagFieldProps } from "./types";
 
-import { ControlLabel, FormGroup } from "styles/styledComponents";
+import { ControlLabel } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 import { FormikTagInput } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
@@ -34,7 +34,7 @@ const TagField: React.FC<ITagFieldProps> = (
       isAcceptedUndefinedSelected ||
       isInProgressSelected ||
       !hasNewVulnSelected ? (
-        <FormGroup>
+        <div className={"mb4 nt2 w-100"}>
           <ControlLabel>
             <b>{translate.t("searchFindings.tabDescription.tag")}</b>
           </ControlLabel>
@@ -46,7 +46,7 @@ const TagField: React.FC<ITagFieldProps> = (
             placeholder={""}
             type={"text"}
           />
-        </FormGroup>
+        </div>
       ) : undefined}
     </React.StrictMode>
   );
