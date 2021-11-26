@@ -239,7 +239,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
         );
       } else {
         msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred getting group drafts", error);
+        Logger.error("An error occurred adding a drafts", error);
       }
     });
   };

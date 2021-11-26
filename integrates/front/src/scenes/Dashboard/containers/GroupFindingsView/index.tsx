@@ -429,7 +429,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     setFilterGroupFindingsTable(
       (value): IFilterSet => ({
         ...value,
-        severity: { ...value.severity, min: event.currentTarget.value },
+        severity: { ...value.severity, min: event.target.value },
       })
     );
   }
@@ -441,7 +441,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     setFilterGroupFindingsTable(
       (value): IFilterSet => ({
         ...value,
-        severity: { ...value.severity, max: event.currentTarget.value },
+        severity: { ...value.severity, max: event.target.value },
       })
     );
   }
