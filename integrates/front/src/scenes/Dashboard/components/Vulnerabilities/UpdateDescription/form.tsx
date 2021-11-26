@@ -385,20 +385,20 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             />
           </Col50>
           <Col50>
-            <AcceptanceUserField
-              isAcceptedSelected={isAcceptedSelected}
-              isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
+            <TreatmentManagerField
               isInProgressSelected={isInProgressSelected}
               lastTreatment={lastTreatment}
+              userEmails={userEmails}
             />
           </Col50>
         </div>
         <Row>
           <Col50>
-            <TreatmentManagerField
+            <AcceptanceUserField
+              isAcceptedSelected={isAcceptedSelected}
+              isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
               isInProgressSelected={isInProgressSelected}
               lastTreatment={lastTreatment}
-              userEmails={userEmails}
             />
           </Col50>
         </Row>
