@@ -42,6 +42,7 @@ from toe.lines import (
     domain as toe_lines_domain,
 )
 from toe.lines.types import (
+    ToeLinesAttributesToAdd,
     ToeLinesAttributesToUpdate,
 )
 from typing import (
@@ -58,7 +59,9 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 bugsnag_utils.start_scheduler_session()
 
-
+toe_lines_add = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=5
+)(toe_lines_domain.add)
 toe_lines_update = retry_on_exceptions(
     exceptions=(UnavailabilityError,), sleep_seconds=5
 )(toe_lines_domain.update)
@@ -136,6 +139,31 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                 repo_services_toe_lines[filename].tested_lines,
                 repo_services_toe_lines[filename].sorts_risk_level,
             )
+        )
+    )
+    await collect(
+        tuple(
+            toe_lines_add(
+                group_name,
+                root_id,
+                filename,
+                ToeLinesAttributesToAdd(
+                    attacked_at=services_toe_lines.tested_date,
+                    attacked_by="",
+                    attacked_lines=services_toe_lines.tested_lines,
+                    comments=services_toe_lines.comments,
+                    commit_author="",
+                    first_attack_at=services_toe_lines.tested_date,
+                    loc=services_toe_lines.loc,
+                    modified_commit=services_toe_lines.modified_commit,
+                    modified_date=services_toe_lines.modified_date,
+                    sorts_risk_level=services_toe_lines.sorts_risk_level,
+                    be_present=False,
+                    seen_at=services_toe_lines.tested_date,
+                ),
+            )
+            for filename, services_toe_lines in repo_services_toe_lines.items()
+            if filename not in repo_toe_lines
         )
     )
 
