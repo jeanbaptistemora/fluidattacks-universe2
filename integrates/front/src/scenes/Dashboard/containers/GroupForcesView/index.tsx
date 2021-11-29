@@ -34,12 +34,12 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 interface IFilterSet {
-  searchText: string;
   dateRange: { max: string; min: string };
+  repository: string;
+  searchText: string;
   status: string;
   strictness: string;
   type: string;
-  repository: string;
 }
 
 const GroupForcesView: React.FC = (): JSX.Element => {

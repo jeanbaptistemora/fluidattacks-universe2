@@ -54,9 +54,9 @@ interface IGitRootsProps {
 }
 
 interface IFilterSet {
-  searchText: string;
-  nickname: string;
   branch: string;
+  nickname: string;
+  searchText: string;
   state: string;
   status: string;
 }

@@ -32,12 +32,12 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 interface IFilterSet {
-  searchText: string;
   groupName: string;
-  subscription: string;
-  service: string;
   machine: string;
+  searchText: string;
+  service: string;
   squad: string;
+  subscription: string;
 }
 const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   props: IOrganizationGroupsProps

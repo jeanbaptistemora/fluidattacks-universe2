@@ -45,14 +45,14 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
 interface IFilterSet {
-  searchText: string;
-  treatment: string;
+  currentStatus: string;
   reportDateRange: { max: string; min: string };
-  tag: string;
+  searchText: string;
   status: string;
+  tag: string;
+  treatment: string;
   treatmentCurrentStatus: string;
   verification: string;
-  currentStatus: string;
 }
 
 export const VulnsView: React.FC = (): JSX.Element => {
