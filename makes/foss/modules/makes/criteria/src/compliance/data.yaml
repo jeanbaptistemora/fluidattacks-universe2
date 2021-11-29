@@ -2874,28 +2874,28 @@
   es:
     description: __empty__
   definitions:
-    "ID.AM-3":
+    "ID_AM-3":
       title: Organizational communication and data flows are mapped
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
-    "ID.AM-4":
+    "ID_AM-4":
       title: External information systems are catalogued
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
-    "ID.AM-5":
+    "ID_AM-5":
       title: Cybersecurity roles and responsibilities for the entire workforce and third-party stakeholders are established
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
-    "ID.BE-4":
+    "ID_BE-4":
       title: Dependencies and critical functions for delivery of critical services are established
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
-    "PR.AC-1":
+    "PR_AC-1":
       title: Identities and credentials are issued, managed, verified, revoked, and audited for authorized devices, users and processes
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
-    "PR.AC-2":
+    "PR_AC-2":
       title: Physical access to assets is managed and protected
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
-    "PR.AC-3":
+    "PR_AC-3":
       title: Remote access is managed
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
-    "PR.AC-4":
+    "PR_AC-4":
       title: Access permissions and authorizations are managed, incorporating the principles of least privilege and separation of duties
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
   metadata: {}
