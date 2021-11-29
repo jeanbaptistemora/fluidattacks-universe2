@@ -15,7 +15,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     Finding as FindingType,
-    Historic as HistoricType,
     User as UserType,
 )
 from db_model.enums import (
@@ -579,6 +578,7 @@ async def mask_vulnerability(
     vulnerability_id: str,
 ) -> bool:
     historic_treatment_loader = loaders.vulnerability_historic_treatment
+    historic_treatment_loader.clear(vulnerability_id)
     historic_treatment: Tuple[
         VulnerabilityTreatment, ...
     ] = await historic_treatment_loader.load(vulnerability_id)
@@ -774,24 +774,39 @@ async def should_send_update_treatment(
 
 
 async def update_historics_dates(
-    finding_id: str, vuln: Dict[str, FindingType], date: str
-) -> bool:
-    """Set historic dates to finding's discovery date"""
-    historic_state = cast(HistoricType, vuln["historic_state"])
-    for state_info in historic_state:
-        state_info["date"] = date
-    historic_treatment = cast(HistoricType, vuln["historic_treatment"])
-    for treatment_info in historic_treatment:
-        treatment_info["date"] = date
-    success = await vulns_dal.update(
-        finding_id,
-        cast(str, vuln["UUID"]),
-        {
-            "historic_state": historic_state,
-            "historic_treatment": historic_treatment,
-        },
+    *,
+    loaders: Any,
+    finding_id: str,
+    vulnerability_id: str,
+    modified_date: str,
+) -> None:
+    """Set all state and treatment dates to finding's approval date"""
+    loaders.vulnerability_historic_state.clear(vulnerability_id)
+    historic_state: Tuple[
+        VulnerabilityState, ...
+    ] = await loaders.vulnerability_historic_state.load(vulnerability_id)
+    historic_state = tuple(
+        state._replace(modified_date=modified_date) for state in historic_state
     )
-    return success
+    await vulns_dal.update_historic_state(
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        historic_state=historic_state,
+    )
+
+    loaders.vulnerability_historic_treatment.clear(vulnerability_id)
+    historic_treatment: Tuple[
+        VulnerabilityTreatment, ...
+    ] = await loaders.vulnerability_historic_treatment.load(vulnerability_id)
+    historic_treatment = tuple(
+        treatment._replace(modified_date=modified_date)
+        for treatment in historic_treatment
+    )
+    await vulns_dal.update_historic_treatment(
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        historic_treatment=historic_treatment,
+    )
 
 
 async def update_metadata(

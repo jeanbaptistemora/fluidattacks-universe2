@@ -12,9 +12,6 @@ from custom_exceptions import (
     MachineCanNotOperate,
     NotSubmitted,
 )
-from datetime import (
-    datetime,
-)
 from db_model import (
     findings as findings_model,
 )
@@ -83,15 +80,14 @@ async def approve_draft(
         group_name=finding.group_name,
         state=new_state,
     )
-    all_vulns = await loaders.finding_vulns_all.load(finding_id)
-    old_format_approval_date = datetime_utils.get_as_str(
-        datetime.fromisoformat(approval_date)
-    )
     await collect(
         vulns_domain.update_historics_dates(
-            finding_id, vuln, old_format_approval_date
+            loaders=loaders,
+            finding_id=finding_id,
+            vulnerability_id=vuln.id,
+            modified_date=approval_date,
         )
-        for vuln in all_vulns
+        for vuln in await loaders.finding_vulns_all_typed.load(finding_id)
     )
     return approval_date
 

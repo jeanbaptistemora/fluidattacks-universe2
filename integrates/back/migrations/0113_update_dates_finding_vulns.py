@@ -68,7 +68,7 @@ async def process_finding(
     if PROD:
         success = all(
             await collect(
-                vulns_domain.update_historics_dates(
+                vulns_domain.update_historics_dates_old(
                     finding["finding_id"],
                     vuln,
                     release_date,
