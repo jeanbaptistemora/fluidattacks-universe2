@@ -51,8 +51,8 @@ export const Dashboard: React.FC = (): JSX.Element => {
   const groupRegex: string = ":groupName([a-zA-Z0-9]+)";
   const tagRegex: string = ":tagName([a-zA-Z0-9-_ ]+)";
 
-  const TIME_TO_IDLE: number = 1140000;
-  const TIME_TO_LOGOUT: number = 60000;
+  const TIME_TO_IDLE = 86400000;
+  const TIME_TO_LOGOUT = 60000;
 
   const checkLoginReferrer = useCallback((): boolean => {
     const loginReferrers = [
