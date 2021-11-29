@@ -27,6 +27,7 @@ makeTemplate {
         codeEtlMirror = outputs."/observes/etl/code/mirror/all-on-aws";
         codeEtlUpload = outputs."/observes/etl/code/upload/all-on-aws";
         dynamoDbIntegratesEtl = outputs."/observes/etl/dynamo/integrates";
+        dynamoTableEtlBig = outputs."/computeOnAwsBatch/observesDynamoTableEtlBig";
       });
     pythonMypy = [ self ];
     pythonPackage = [ self ];

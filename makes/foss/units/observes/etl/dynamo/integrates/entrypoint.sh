@@ -14,13 +14,9 @@ function dynamodb_etl {
     && tables_path="./observes/conf/awsdynamodb.json" \
     && get_tables "${tables_path}" "${tables_file}" \
     && while read -r table; do
-      echo "[INFO] Submitting: ${table}"
-      if test "${table,,}" != "fi_vulnerabilities"; then
-        if test "${table,,}" == "integrates_vms"; then
-          __argSendTableETLBig__ "${table}" || return 1
-        else
-          __argSendTableETL__ "${table}" || return 1
-        fi
+      if test "${table,,}" != "fi_vulnerabilities" && test "${table,,}" != "integrates_vms"; then
+        echo "[INFO] Submitting: ${table}"
+        __argSendTableETL__ "${table}" || return 1
       fi
     done < "${tables_file}"
 }
