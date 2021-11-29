@@ -489,6 +489,21 @@ async def complete_register_for_group_invitation(
     return success
 
 
+async def reject_register_for_group_invitation(
+    group_access: GroupAccessType,
+) -> bool:
+    success: bool = False
+    invitation = cast(InvitationType, group_access["invitation"])
+    if invitation["is_used"]:
+        bugsnag.notify(Exception("Token already used"), severity="warning")
+
+    group_name = cast(str, get_key_or_fallback(group_access))
+    user_email = cast(str, group_access["user_email"])
+    success = await group_access_domain.remove_access(user_email, group_name)
+
+    return success
+
+
 async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
     user_email: str,
     user_role: str,
@@ -1171,13 +1186,15 @@ async def invite_to_group(
             },
         )
         description = await get_description(group_name.lower())
-        group_url = f"{BASE_URL}/confirm_access/{url_token}"
+        confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
+        reject_access_url = f"{BASE_URL}/reject_access/{url_token}"
         mail_to = [email]
         email_context: MailContentType = {
             "admin": email,
             "group": group_name,
             "group_description": description,
-            "group_url": group_url,
+            "confirm_access_url": confirm_access_url,
+            "reject_access_url": reject_access_url,
         }
         schedule(groups_mail.send_mail_access_granted(mail_to, email_context))
     return success

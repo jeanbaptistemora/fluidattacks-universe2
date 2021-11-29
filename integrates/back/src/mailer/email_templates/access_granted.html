@@ -24,15 +24,23 @@
       </a>.
     </p>
     <p>
-      This invitation is valid for seven days from now,
+      This invitation is valid for seven calendar days from now,
       and you won't have access to the group until the invitation is accepted.
-      If you don't confirm the invitation in that period,
+      If you click on the reject access button,
+      or don't confirm the invitation in the seven calendar days period,
       it will be deleted from our systems,
       and a new invitation will be necessary.
     </p>
     <p>Regards,<br>
       Fluid Attacks Team</p>
-    {{ go_to_button('Confirm access', group_url) }}
+      <table style="width: 50%; margin: 0 auto;">
+        <td>
+          {{ go_to_button('Confirm access', confirm_access_url) }}
+        </td>
+        <td>
+          {{ go_to_button('Reject access', reject_access_url) }}
+        </td>
+      </table>
     <br />
   </div>
 

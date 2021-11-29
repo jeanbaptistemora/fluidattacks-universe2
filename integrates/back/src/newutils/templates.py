@@ -158,3 +158,16 @@ async def valid_invitation(
             "request": request,
         },
     )
+
+
+async def reject_invitation(
+    request: Request, group_access: GroupAccessType
+) -> HTMLResponse:
+    group_name = get_key_or_fallback(group_access)
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name="reject_invitation.html",
+        context={
+            "group_name": group_name,
+            "request": request,
+        },
+    )

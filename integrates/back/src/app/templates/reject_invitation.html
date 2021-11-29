@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Cloudflare Web Analytics -->
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "f4f99c985c414a5591e8077bf301b39b"}'
+    ></script>
+    <!-- End Cloudflare Web Analytics -->
+
+    <title>Fluid Attacks</title>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:300,700|Source+Sans+Pro:300,700"
+      rel="stylesheet"
+    />
+    {% if 'https' in url_for('static', path='/styles/valid_invitation.css') %}
+    <link
+      href="{{ url_for('static', path='/styles/valid_invitation.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    {% else %}
+    <link
+      href="{{ url_for('static', path='/styles/valid_invitation.css') | replace('http', 'https') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    {% endif %}
+  </head>
+
+  <body>
+    <div class="flex-container">
+      <div>
+        {% if 'https' in url_for('static', path='/imgs/favicon.ico') %}
+        <img
+          src="{{ url_for('static', path='/imgs/iconFluidAttacks.png') }}"
+          alt="icon"
+        />
+        {% else %}
+        <img
+          src="{{ url_for('static', path='/imgs/iconFluidAttacks.png') | replace('http', 'https') }}"
+          alt="icon"
+        />
+        {% endif %}
+      </div>
+      <div>
+        <h2>The invitation was rejected</h2>
+      </div>
+      <div>
+        <p>You have rejected the access to <strong>{{ group_name }}</strong></p>
+      </div>
+    </div>
+    <script>
+      function Redirect() {
+        location = "/";
+      }
+      setTimeout(Redirect, 10000);
+    </script>
+  </body>
+</html>

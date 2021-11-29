@@ -157,6 +157,38 @@ async def confirm_access(request: Request) -> HTMLResponse:
     return response
 
 
+async def reject_access(request: Request) -> HTMLResponse:
+    url_token = request.path_params.get("url_token")
+    if url_token:
+        group_access = await group_access_domain.get_access_by_url_token(
+            url_token
+        )
+        if group_access:
+            success = await groups_domain.reject_register_for_group_invitation(
+                group_access
+            )
+            if success:
+                response = await templates.reject_invitation(
+                    request, group_access
+                )
+            else:
+                response = templates.invalid_invitation(
+                    request,
+                    "Invalid or Expired",
+                    group_access=group_access,
+                )
+        else:
+            await in_thread(
+                bugsnag.notify, Exception("Invalid token"), severity="warning"
+            )
+            response = templates.invalid_invitation(
+                request, "Invalid or Expired"
+            )
+    else:
+        response = templates.invalid_invitation(request, "Invalid or Expired")
+    return response
+
+
 async def logout(request: Request) -> HTMLResponse:
     """Close a user's active session"""
     if "username" in request.session:
@@ -229,6 +261,7 @@ STARLETTE_APP = Starlette(
             "{finding_id:str}/{_:str}/{file_id:str}",
             evidence.get_evidence,
         ),
+        Route("/reject_access/{url_token:path}", reject_access),
         Mount(
             "/static",
             StaticFiles(directory=f"{TEMPLATES_DIR}/static"),
