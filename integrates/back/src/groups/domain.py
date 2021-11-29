@@ -49,6 +49,10 @@ from db_model.findings.types import (
 from db_model.roots.types import (
     RootItem,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityVerificationStatus,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
@@ -848,20 +852,17 @@ async def get_attributes(
 
 
 async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
-    group_findings_loader = loaders.group_findings
-    finding_vulns_loader = loaders.finding_vulns_nzr
-
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    findings_vulns = await finding_vulns_loader.load_many_chained(
+    findings_vulns: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_nzr_typed.load_many_chained(
         [finding.id for finding in group_findings]
     )
 
-    last_approved_status = [
-        vulns_utils.get_last_status(vuln) for vuln in findings_vulns
-    ]
-    return last_approved_status.count("closed")
+    last_approved_status = [vuln.state.status for vuln in findings_vulns]
+    return last_approved_status.count(VulnerabilityStateStatus.CLOSED)
 
 
 async def get_description(group_name: str) -> str:
@@ -904,12 +905,19 @@ async def get_vulnerabilities_with_pending_attacks(
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
+    vulnerabilities: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_nzr_typed.load_many_chained(
         [finding.id for finding in findings]
     )
-    return sum(
-        vulnerability["verification"] == "Requested"
-        for vulnerability in vulnerabilities
+    return len(
+        tuple(
+            vulnerability
+            for vulnerability in vulnerabilities
+            if vulnerability.verification
+            and vulnerability.verification.status
+            == VulnerabilityVerificationStatus.REQUESTED
+        )
     )
 
 
@@ -1115,20 +1123,17 @@ async def get_open_vulnerabilities(
     loaders: Any,
     group_name: str,
 ) -> int:
-    group_findings_loader = loaders.group_findings
-    finding_vulns_loader = loaders.finding_vulns_nzr
-
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    findings_vulns = await finding_vulns_loader.load_many_chained(
+    findings_vulns: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_nzr_typed.load_many_chained(
         [finding.id for finding in group_findings]
     )
 
-    last_approved_status = [
-        vulns_utils.get_last_status(vuln) for vuln in findings_vulns
-    ]
-    return last_approved_status.count("open")
+    last_approved_status = [vuln.state.status for vuln in findings_vulns]
+    return last_approved_status.count(VulnerabilityStateStatus.OPEN)
 
 
 async def invite_to_group(
