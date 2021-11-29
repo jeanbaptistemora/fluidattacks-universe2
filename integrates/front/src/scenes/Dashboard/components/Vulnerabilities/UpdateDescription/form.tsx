@@ -440,7 +440,14 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             />
           </Col100>
         </Row>
-        {tagReminderAlert(isTreatmentPristine)}
+        {isAcceptedSelected ||
+        isAcceptedUndefinedSelected ||
+        isInProgressSelected ||
+        !hasNewVulns ? (
+          <React.StrictMode>
+            {tagReminderAlert(isTreatmentPristine)}
+          </React.StrictMode>
+        ) : undefined}
         <Row>
           <Col50>
             <SeverityField
