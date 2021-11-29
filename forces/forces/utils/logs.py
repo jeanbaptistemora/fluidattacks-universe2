@@ -30,16 +30,17 @@ from typing import (
     Union,
 )
 
-# Private constants
+# Private constants, text mode required for Rich logging
 LOG_FILE: ContextVar[IO[Any]] = ContextVar(
     "log_file", default=tempfile.NamedTemporaryFile(mode="w+t")
 )
-# Console interface to show some special spinner symbols and logs
+# Console interface to show logs and special spinner symbols on stdout
 CONSOLE_INTERFACE = Console(
     log_path=False, log_time=False, markup=True, width=80
 )
+# Logging interface to get around the Rich library writing limitations
 LOGGING_INTERFACE = Console(
-    log_path=False, log_time=False, markup=True, file=LOG_FILE.get(), width=80
+    log_path=False, log_time=False, markup=True, width=80, file=LOG_FILE.get()
 )
 
 _FORMAT: str = "%(message)s"
@@ -53,6 +54,7 @@ _LOGGER.propagate = False
 
 
 def set_up_handlers(interfaces: Set[Console]) -> None:
+    """Configures and sets up logging handlers for the main logger object"""
     for interface in interfaces:
         handler: logging.Handler = RichHandler(
             show_time=False, markup=True, show_path=False, console=interface
@@ -61,6 +63,7 @@ def set_up_handlers(interfaces: Set[Console]) -> None:
         _LOGGER.addHandler(handler)
 
 
+# A rich console can only write to either stdout or the provided file, not both
 set_up_handlers({CONSOLE_INTERFACE, LOGGING_INTERFACE})
 
 
@@ -73,6 +76,8 @@ async def log(level: str, msg: str, *args: Any) -> None:
 
 
 def rich_log(rich_msg: Union[Table, Text, str]) -> None:
+    """Writes to the specified console interfaces to have both stdout and log
+    output"""
     LOGGING_INTERFACE.log(rich_msg)
     CONSOLE_INTERFACE.log(rich_msg)
 

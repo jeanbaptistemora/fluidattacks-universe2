@@ -49,14 +49,17 @@ def show_banner() -> None:
     # The name and motto may come with closing markup tags from other parts of
     # the banner, this is done to avoid the wrath of the linter, but if any
     # modifications are needed, just paste them back and refac away
-    name = "› [/][italic bold red] Fluid [bold white]Attacks[/][/]"
-    motto = "[italic bold white] We [bold red]hack[/] your software[/]"
+    name = (
+        "[white on white]|[/][bold red on white]››[/][white on white]|[/]"
+        "[bold white on red]› [/][italic bold red] Fluid [white]Attacks[/][/]"
+    )
+    motto = "[italic bold white] We [red]hack[/] your software[/]"
     header: str = textwrap.dedent(
         rf"""
-         [red on red]  ‎ ‎ ‎ ‎ ‎‎  ‎[/]
-         [red on red]  [/][bold red on white]‎  ››[/][bold white on red]{name}
-         [red on red]  [/][white on white]   ‎ [/][white on red]  [/]{motto}
-         [red on red]   ‎‎   ‎ ‎ [/]
+         [red on red]   __   [/]
+         [red on red]  [/]{name}
+         [red on red]  [/][white on white]|__|[/][white on red]  [/]{motto}
+         [red on red]        [/]
         [bright_green]
               ____            _____           ____
              / __ \___ _   __/ ___/___  _____/ __ \____  _____
