@@ -15,6 +15,15 @@ from git import (
 from newutils import (
     datetime as datetime_utils,
 )
+from typing import (
+    NamedTuple,
+)
+
+
+class CommitInfo(NamedTuple):
+    hash: str
+    author: str
+    modified_date: str
 
 
 def clone_services_repository(path: str) -> None:
@@ -48,6 +57,27 @@ async def get_last_commit_author(repo: Repo, filename: str) -> str:
         await in_thread(
             repo.git.log, "--max-count", "1", "--format=%ce", "--", filename
         )
+    )
+
+
+async def get_last_commit_info(repo: Repo, filename: str) -> CommitInfo:
+    """Get last hash of a file in the repo"""
+    git_log = str(
+        await in_thread(
+            repo.git.log,
+            "--max-count",
+            "1",
+            "--format=%H%n%ce%n%cI",
+            "--",
+            filename,
+        )
+    ).splitlines()
+    return CommitInfo(
+        hash=git_log[0],
+        author=git_log[1],
+        modified_date=datetime_utils.get_as_utc_iso_format(
+            datetime.fromisoformat(git_log[2])
+        ),
     )
 
 

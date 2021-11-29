@@ -99,7 +99,7 @@ toe_lines_update = retry_on_exceptions(
 files_get_lines_count = retry_on_exceptions(
     exceptions=(FileNotFoundError, OSError)
 )(files_utils.get_lines_count)
-git_get_last_commit_hash = retry_on_exceptions(
+git_get_last_commit_info = retry_on_exceptions(
     exceptions=(
         FileNotFoundError,
         GitCommandError,
@@ -107,25 +107,7 @@ git_get_last_commit_hash = retry_on_exceptions(
         SubprocessError,
         ValueError,
     )
-)(git_utils.get_last_commit_hash)
-git_get_last_modified_date = retry_on_exceptions(
-    exceptions=(
-        FileNotFoundError,
-        GitCommandError,
-        OSError,
-        SubprocessError,
-        ValueError,
-    )
-)(git_utils.get_last_modified_date)
-git_get_last_commit_author = retry_on_exceptions(
-    exceptions=(
-        FileNotFoundError,
-        GitCommandError,
-        OSError,
-        SubprocessError,
-        ValueError,
-    )
-)(git_utils.get_last_commit_author)
+)(git_utils.get_last_commit_info)
 
 
 async def get_present_filenames(
@@ -233,21 +215,9 @@ async def get_present_toe_lines_to_add(
         ),
         workers=500,
     )
-    last_modified_commits = await collect(
+    last_commit_infos = await collect(
         tuple(
-            git_get_last_commit_hash(repo, filename)
-            for filename in non_db_filenames
-        ),
-    )
-    last_modified_dates = await collect(
-        tuple(
-            git_get_last_modified_date(repo, filename)
-            for filename in non_db_filenames
-        ),
-    )
-    last_commit_authors = await collect(
-        tuple(
-            git_get_last_commit_author(repo, filename)
+            git_get_last_commit_info(repo, filename)
             for filename in non_db_filenames
         ),
     )
@@ -258,27 +228,19 @@ async def get_present_toe_lines_to_add(
                 attacked_at="",
                 attacked_by="",
                 attacked_lines=0,
-                commit_author=last_commit_author,
+                commit_author=last_commit_info.author,
                 comments="",
                 first_attack_at="",
                 loc=last_loc,
-                modified_commit=last_modified_commit,
-                modified_date=last_modified_date,
+                modified_commit=last_commit_info.hash,
+                modified_date=last_commit_info.modified_date,
                 sorts_risk_level=-1,
             ),
         )
-        for (
-            filename,
-            last_commit_author,
-            last_loc,
-            last_modified_commit,
-            last_modified_date,
-        ) in zip(
+        for (filename, last_commit_info, last_loc,) in zip(
             non_db_filenames,
-            last_commit_authors,
+            last_commit_infos,
             last_locs,
-            last_modified_commits,
-            last_modified_dates,
         )
     )
 
@@ -309,21 +271,9 @@ async def get_present_toe_lines_to_update(
         ),
         workers=500,
     )
-    last_modified_commits = await collect(
+    last_commit_infos = await collect(
         tuple(
-            git_get_last_commit_hash(repo, filename)
-            for filename in db_filenames
-        ),
-    )
-    last_modified_dates = await collect(
-        tuple(
-            git_get_last_modified_date(repo, filename)
-            for filename in db_filenames
-        ),
-    )
-    last_commit_authors = await collect(
-        tuple(
-            git_get_last_commit_author(repo, filename)
+            git_get_last_commit_info(repo, filename)
             for filename in db_filenames
         ),
     )
@@ -333,31 +283,23 @@ async def get_present_toe_lines_to_update(
             repo_toe_lines[filename],
             ToeLinesAttributesToUpdate(
                 be_present=be_present,
-                commit_author=last_commit_author,
+                commit_author=last_commit_info.author,
                 loc=last_loc,
-                modified_commit=last_modified_commit,
-                modified_date=last_modified_date,
+                modified_commit=last_commit_info.hash,
+                modified_date=last_commit_info.modified_date,
             ),
         )
-        for (
-            filename,
-            last_commit_author,
-            last_loc,
-            last_modified_commit,
-            last_modified_date,
-        ) in zip(
+        for (filename, last_commit_info, last_loc,) in zip(
             db_filenames,
-            last_commit_authors,
+            last_commit_infos,
             last_locs,
-            last_modified_commits,
-            last_modified_dates,
         )
         if (
             be_present,
-            last_commit_author,
+            last_commit_info.author,
             last_loc,
-            last_modified_commit,
-            last_modified_date,
+            last_commit_info.hash,
+            last_commit_info.modified_date,
         )
         != (
             repo_toe_lines[filename].be_present,
@@ -587,7 +529,6 @@ async def refresh_root_repo_toe_lines(
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
-        workers=2,
     )
     await collect(
         tuple(
@@ -598,7 +539,6 @@ async def refresh_root_repo_toe_lines(
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
-        workers=2,
     )
 
 

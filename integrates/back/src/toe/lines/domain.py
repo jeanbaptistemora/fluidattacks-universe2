@@ -74,7 +74,8 @@ async def update(
     modified_date = attributes.modified_date or current_value.modified_date
     attacked_lines = (
         attributes.attacked_lines or current_value.attacked_lines
-        if attacked_at
+        if attributes.attacked_lines != 0
+        and attacked_at
         and datetime.fromisoformat(modified_date)
         <= datetime.fromisoformat(attacked_at)
         else 0
