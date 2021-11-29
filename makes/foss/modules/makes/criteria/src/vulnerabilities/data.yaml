@@ -19534,7 +19534,7 @@
       against automated attacks to guess
       valid promotional codes.
     impact: >
-      Any anonymous person from the Internet.
+      Increase the chances of getting valid credentials.
     recommendation: >
       Implement a control to prevent this
       type of attack and to ensure that the
@@ -19542,12 +19542,7 @@
       E.g. captcha, blocking by delay in the
       number of failed attempts, amog others.
     threat: >
-      An unlogged-in user with access to the
-      application can list promotional codes
-      using a brute force attack to apply arbitrary
-      discounts to their purchases and possibly
-      invalidate those that other users have
-      legitimately purchased.
+      Anonymous attacker from the Internet.
   es:
     title: Lack of protection against brute force attacks - Credentials
     description: >
@@ -19555,7 +19550,7 @@
       ataques automatizados para adivinar
       códigos promocionales válidos.
     impact: >
-      Cualquier persona anónima desde Internet.
+      Aumentar las probabilidades de obtener credenciales válidas
     recommendation: >
       Implementar un control para evitar este tipo
       de ataques y que garantice que la función no
@@ -19563,11 +19558,7 @@
       Ej. captcha, bloqueo por retardo en el número
       de intentos fallidos, etc.
     threat: >
-      Un usuario sin iniciar sesión con acceso a la
-      aplicación puede enumerar códigos promocionales
-      mediante un ataque de fuerza bruta para aplicar
-      descuentos arbitrarios a sus compras y posiblemente
-      invalidar los que otros usuarios han adquirido legítimamente.
+      Atacante anónimo desde Internet.
   category: Probabilistic Techniques
   score:
     base:
