@@ -97,12 +97,15 @@ toe_lines_update = retry_on_exceptions(
     exceptions=(UnavailabilityError,), sleep_seconds=5
 )(toe_lines_domain.update)
 files_get_lines_count = retry_on_exceptions(
-    exceptions=(FileNotFoundError, OSError)
+    exceptions=(FileNotFoundError, OSError),
+    max_attempts=10,
+    sleep_seconds=3,
 )(files_utils.get_lines_count)
 git_get_last_commit_info = retry_on_exceptions(
     exceptions=(
         FileNotFoundError,
         GitCommandError,
+        IndexError,
         OSError,
         SubprocessError,
         ValueError,
@@ -528,7 +531,6 @@ async def refresh_root_repo_toe_lines(
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
-        workers=8,
     )
     await collect(
         tuple(
@@ -539,7 +541,6 @@ async def refresh_root_repo_toe_lines(
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
-        workers=8,
     )
 
 
