@@ -281,13 +281,7 @@ async def get_last_closed_vulnerability_info(
 
 
 async def get_is_verified(loaders: Any, finding_id: str) -> bool:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
-    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
-        finding_id
-    )
-    open_vulns = vulns_utils.filter_open_vulns_new(vulns)
-    remediated_vulns = vulns_utils.filter_remediated(open_vulns)
-    return len(remediated_vulns) == 0
+    return len(await get_vulnerabilities_to_reattack(loaders, finding_id)) == 0
 
 
 async def get_max_open_severity(
@@ -342,15 +336,8 @@ async def get_open_vulnerabilities(loaders: Any, finding_id: str) -> int:
     return len(vulns_utils.filter_open_vulns_new(vulns))
 
 
-async def _is_pending_verification(
-    loaders: Any,
-    finding_id: str,
-) -> bool:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
-    finding_vulns = await finding_vulns_loader.load(finding_id)
-    open_vulns = vulns_utils.filter_open_vulns_new(finding_vulns)
-    reattack_requested = vulns_utils.filter_remediated(open_vulns)
-    return len(reattack_requested) > 0
+async def _is_pending_verification(loaders: Any, finding_id: str) -> bool:
+    return len(await get_vulnerabilities_to_reattack(loaders, finding_id)) > 0
 
 
 async def get_pending_verification_findings(
@@ -872,3 +859,13 @@ async def get_oldest_vulnerability_report_date(
     if report_dates:
         return datetime_utils.get_as_utc_iso_format(min(report_dates))
     return ""
+
+
+async def get_vulnerabilities_to_reattack(
+    loaders: Any,
+    finding_id: str,
+) -> Tuple[Vulnerability, ...]:
+    finding_vulns = await loaders.finding_vulns_nzr_typed.load(finding_id)
+    return vulns_utils.filter_open_vulns_new(
+        vulns_utils.filter_remediated(finding_vulns)
+    )

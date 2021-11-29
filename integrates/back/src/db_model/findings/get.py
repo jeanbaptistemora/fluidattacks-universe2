@@ -35,6 +35,9 @@ from dynamodb import (
     keys,
     operations,
 )
+from itertools import (
+    chain,
+)
 from typing import (
     List,
     Tuple,
@@ -159,6 +162,12 @@ class GroupFindingsLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
+
+    async def load_many_chained(
+        self, group_names: List[str]
+    ) -> Tuple[Finding, ...]:
+        unchained_data = await self.load_many(group_names)
+        return tuple(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(

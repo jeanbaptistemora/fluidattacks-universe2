@@ -4,22 +4,23 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
+from findings.domain import (
+    get_vulnerabilities_to_reattack,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils.vulnerabilities import (
-    filter_open_vulns_new,
-    filter_remediated,
-)
 from typing import (
     List,
-    Tuple,
 )
 
 
 async def resolve(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Vulnerability]:
-    finding_vulns_loader = info.context.loaders.finding_vulns_nzr_typed
-    vulns: Tuple[Vulnerability] = await finding_vulns_loader.load(parent.id)
-    return list(filter_open_vulns_new(filter_remediated(vulns)))
+    return list(
+        await get_vulnerabilities_to_reattack(
+            loaders=info.context.loaders,
+            finding_id=parent.id,
+        )
+    )
