@@ -145,6 +145,48 @@ describe("TrackingTreatment", (): void => {
       ) + t("searchFindings.tabDescription.treatment.pendingApproval")
     );
 
+    const rejectedObservation: string = "The treatment was rejected";
+
+    wrapper.setProps({
+      historicTreatment: [
+        ...formatVulnerabilities([mockVuln2])[0].historicTreatment,
+        {
+          acceptanceStatus: "REJECTED",
+          date: "2020-02-18 18:36:24",
+          justification: rejectedObservation,
+          treatment: "ACCEPTED_UNDEFINED",
+          treatmentManager: "usermanager2@test.test",
+          user: "usertreatment2@test.test",
+        },
+        {
+          date: "2020-02-18 18:36:25",
+          treatment: "NEW",
+          user: "",
+        },
+      ],
+    });
+    wrapper.update();
+
+    expect(wrapper.find("li").first().find("p")).toHaveLength(
+      newNumberOfFields
+    );
+    expect(wrapper.find("li").at(1).find("p")).toHaveLength(
+      normalNumberOfFields
+    );
+    expect(wrapper.find("li").at(1).find("p").first().text()).toBe(
+      t(
+        formatDropdownField(
+          formatVulnerabilities([mockVuln2])[0].historicTreatment.slice(-1)[0]
+            .treatment
+        )
+      ) + t("searchFindings.tabDescription.treatment.pendingApproval")
+    );
+    expect(wrapper.find("li").at(1).find("p").last().text()).toBe(
+      `${t(
+        "searchFindings.tabTracking.justification"
+      )}\u00a0${rejectedObservation}`
+    );
+
     const closeButton: ReactWrapper = wrapper
       .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
