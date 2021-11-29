@@ -50,8 +50,15 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
             { ...treatment, acceptanceDate: array[index - 1].date },
           ];
         }
+        if (isAcceptedUndefined && treatment.acceptanceStatus === "REJECTED") {
+          return [...currentValue, treatment];
+        }
 
-        if (!isAcceptedUndefined || index === array.length - 1) {
+        if (
+          !isAcceptedUndefined ||
+          index === array.length - 1 ||
+          treatment.treatment !== array[index + 1].treatment
+        ) {
           return [...currentValue, treatment];
         }
 
