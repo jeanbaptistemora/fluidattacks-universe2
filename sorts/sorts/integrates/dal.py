@@ -104,35 +104,78 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
     group_toe_lines: List[ToeLines] = []
     result = _execute(
         query="""
-            query GetServicesToeLines($group_name: String!) {
+            query SortsGetToeLines($group_name: String!) {
                 group(groupName: $group_name) {
                     name
-                    roots {
-                        ... on GitRoot {
-                            servicesToeLines {
+                    toeLines {
+                        edges {
+                            node {
                                 filename
+                                root {
+                                    nickname
+                                }
                                 sortsRiskLevel
                             }
+                        }
+                        pageInfo {
+                            hasNextPage
+                            endCursor
                         }
                     }
                 }
             }
         """,
-        operation="GetServicesToeLines",
+        operation="SortsGetToeLines",
         variables=dict(group_name=group_name),
     )
-
-    if result:
-        group_roots = result["group"]["roots"]
-        group_toe_lines = [
-            ToeLines(
-                filename=toe_lines["filename"],
-                sorts_risk_level=toe_lines["sortsRiskLevel"],
+    while True:
+        has_next_page = False
+        if result:
+            toe_lines_edges = result["group"]["toeLines"]["edges"]
+            has_next_page = result["group"]["toeLines"]["pageInfo"][
+                "hasNextPage"
+            ]
+            end_cursor = result["group"]["toeLines"]["pageInfo"]["endCursor"]
+            group_toe_lines.extend(
+                [
+                    ToeLines(
+                        filename=edge["node"]["filename"],
+                        root_nickname=edge["node"]["root"]["nickname"],
+                        sorts_risk_level=edge["node"]["sortsRiskLevel"],
+                    )
+                    for edge in toe_lines_edges
+                ]
             )
-            for group_root in group_roots
-            for toe_lines in group_root["servicesToeLines"]
-        ]
 
+        if has_next_page:
+            result = _execute(
+                query="""
+                query SortsGetToeLines($group_name: String!, $after: String!) {
+                    group(groupName: $group_name) {
+                        name
+                        toeLines(after: $after) {
+                            edges {
+                                node {
+                                    filename
+                                    root {
+                                        nickname
+                                    }
+                                    sortsRiskLevel
+                                }
+                            }
+                            pageInfo {
+                                hasNextPage
+                                endCursor
+                            }
+                        }
+                    }
+                }
+            """,
+                operation="SortsGetToeLines",
+                variables=dict(group_name=group_name, after=end_cursor),
+            )
+        else:
+            break
     return group_toe_lines
 
 
