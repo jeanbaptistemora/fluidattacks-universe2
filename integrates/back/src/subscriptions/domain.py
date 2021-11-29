@@ -653,10 +653,11 @@ async def _get_consult_users(
     *,
     group_name: str,
     comment_type: str,
+    is_finding_released: bool = True,
 ) -> List[str]:
     recipients = FI_MAIL_REVIEWERS.split(",")
     users = await get_users_to_notify(group_name)
-    if comment_type.lower() == "observation":
+    if comment_type.lower() == "observation" or not is_finding_released:
         roles: List[str] = await collect(
             [get_group_level_role(email, group_name) for email in users]
         )
@@ -675,9 +676,12 @@ async def get_users_subscribed_to_consult(
     *,
     group_name: str,
     comment_type: str,
+    is_finding_released: bool = True,
 ) -> List[str]:
     recipients: List[str] = await _get_consult_users(
-        group_name=group_name, comment_type=comment_type
+        group_name=group_name,
+        comment_type=comment_type,
+        is_finding_released=is_finding_released,
     )
     are_users_subscribed: List[bool] = await collect(
         [

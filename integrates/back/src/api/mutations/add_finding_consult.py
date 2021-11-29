@@ -72,6 +72,7 @@ async def send_finding_consult_mail(
         recipients=await get_users_subscribed_to_consult(
             group_name=group_name,
             comment_type=comment_data["comment_type"],
+            is_finding_released=is_finding_released,
         ),
         group_name=group_name,
         is_finding_released=is_finding_released,
