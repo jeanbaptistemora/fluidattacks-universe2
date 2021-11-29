@@ -4,7 +4,8 @@
 , ...
 }:
 let
-  dynamoDbEtlOnAws = outputs."/computeOnAwsBatch/observesDynamoDbIntegratesEtl";
+  onAws = outputs."/computeOnAwsBatch/observesDynamoTableEtl";
+  onAwsBig = outputs."/computeOnAwsBatch/observesDynamoTableEtlBig";
 in
 makeScript {
   searchPaths = {
@@ -18,7 +19,8 @@ makeScript {
     ];
   };
   replace = {
-    __argDynamoDbIntegratesEtl__ = "${dynamoDbEtlOnAws}/bin/${dynamoDbEtlOnAws.name}";
+    __argSendTableETL__ = "${onAws}/bin/${onAws.name}";
+    __argSendTableETLBig__ = "${onAwsBig}/bin/${onAwsBig.name}";
   };
   name = "observes-etl-dynamo-integrates";
   entrypoint = ./entrypoint.sh;

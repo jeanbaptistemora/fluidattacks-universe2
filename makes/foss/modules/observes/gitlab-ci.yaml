@@ -1133,7 +1133,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/observes/etl/dynamo/integrates/vulns:
+/observes/etl/dynamo/table__FI_vulnerabilities:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
@@ -1144,7 +1144,7 @@
       when: never
     - when: always
   script:
-    - m . /observes/etl/dynamo/integrates/vulns
+    - m . /observes/etl/dynamo/table 'FI_vulnerabilities'
   stage: analytics
   tags:
     - autoscaling-large

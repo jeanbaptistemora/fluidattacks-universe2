@@ -98,8 +98,14 @@ in
       ];
     };
 
-    observesDynamoDbIntegratesEtl = sharedConfiguration // {
+    observesDynamoTableEtl = sharedConfiguration // {
       attemptDurationSeconds = 7200;
+      command = [ "m" "f" "/observes/etl/dynamo/table" ];
+      queue = "observes_soon";
+    };
+
+    observesDynamoTableEtlBig = sharedConfiguration // {
+      attemptDurationSeconds = 14400;
       command = [ "m" "f" "/observes/etl/dynamo/table" ];
       queue = "observes_soon";
     };

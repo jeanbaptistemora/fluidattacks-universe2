@@ -16,7 +16,11 @@ function dynamodb_etl {
     && while read -r table; do
       echo "[INFO] Submitting: ${table}"
       if test "${table,,}" != "fi_vulnerabilities"; then
-        __argDynamoDbIntegratesEtl__ "${table}" || return 1
+        if test "${table,,}" == "integrates_vms"; then
+          __argSendTableETLBig__ "${table}" || return 1
+        else
+          __argSendTableETL__ "${table}" || return 1
+        fi
       fi
     done < "${tables_file}"
 }

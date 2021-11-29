@@ -267,7 +267,8 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/etl/dynamo/integrates/vulns";
+          args = [ "FI_vulnerabilities" ];
+          output = "/observes/etl/dynamo/table";
           gitlabExtra = gitlabScheduled // {
             tags = [ "autoscaling-large" ];
           };
