@@ -110,37 +110,12 @@ def test_group_forces(
 
     # Enter execution summary
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/devsecops")
-    execution = utils.wait_for_text(
-        driver,
-        "08c1e735a73243f2ab1ee0757041f80e",
-        timeout,
-    )
-    execution.click()
     utils.wait_for_text(
         driver,
-        "unable to retrieve",
+        "Click on an execution to see more details",
         timeout,
     )
-    utils.wait_for_text(
-        driver,
-        "path/to/file2.ext",
-        timeout,
-    )
-    assert "unable to retrieve" in driver.page_source
-    assert "path/to/file2.ext" in driver.page_source
-
-    # Enter execution log
-    log = utils.wait_for_id(
-        driver,
-        "forcesExecutionLogTab",
-        timeout,
-    )
-    log.click()
-    assert utils.wait_for_text(
-        driver,
-        "Cross site request forgery",
-        timeout,
-    )
+    assert "There is no data to display" in driver.page_source
 
 
 def test_group_scope_repositories(
