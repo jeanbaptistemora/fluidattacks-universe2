@@ -2859,3 +2859,43 @@
       title: Extraneous Functionality Threat Agents
       link: https://owasp.org/www-project-mobile-top-10/2016-risks/m10-extraneous-functionality
   metadata: {}
+"018":
+  title: NIST Cybersecurity Framework
+  en:
+    description: >
+      The Framework is a guidance based
+      on existing standards, guidelines,
+      and practices for organizations to
+      better manage and reduce cybersecurity risk.
+      This set of requirements was developed
+      by the National Institute of Standards
+      and Technology (NIST) in close
+      collaboration with the private sector.
+  es:
+    description: __empty__
+  definitions:
+    "ID.AM-3":
+      title: Organizational communication and data flows are mapped
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "ID.AM-4":
+      title: External information systems are catalogued
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "ID.AM-5":
+      title: Cybersecurity roles and responsibilities for the entire workforce and third-party stakeholders are established
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "ID.BE-4":
+      title: Dependencies and critical functions for delivery of critical services are established
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR.AC-1":
+      title: Identities and credentials are issued, managed, verified, revoked, and audited for authorized devices, users and processes
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR.AC-2":
+      title: Physical access to assets is managed and protected
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR.AC-3":
+      title: Remote access is managed
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR.AC-4":
+      title: Access permissions and authorizations are managed, incorporating the principles of least privilege and separation of duties
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+  metadata: {}
