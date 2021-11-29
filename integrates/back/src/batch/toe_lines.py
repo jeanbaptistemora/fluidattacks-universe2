@@ -99,7 +99,6 @@ toe_lines_update = retry_on_exceptions(
 files_get_lines_count = retry_on_exceptions(
     exceptions=(FileNotFoundError, OSError),
     max_attempts=10,
-    sleep_seconds=3,
 )(files_utils.get_lines_count)
 git_get_last_commit_info = retry_on_exceptions(
     exceptions=(
@@ -216,7 +215,7 @@ async def get_present_toe_lines_to_add(
             files_get_lines_count(f"{repo_nickname}/{filename}")
             for filename in non_db_filenames
         ),
-        workers=500,
+        workers=340,
     )
     last_commit_infos = await collect(
         tuple(
@@ -271,7 +270,7 @@ async def get_present_toe_lines_to_update(
             files_get_lines_count(f"{repo_nickname}/{filename}")
             for filename in db_filenames
         ),
-        workers=500,
+        workers=340,
     )
     last_commit_infos = await collect(
         tuple(
@@ -531,6 +530,7 @@ async def refresh_root_repo_toe_lines(
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
+        workers=3,
     )
     await collect(
         tuple(
@@ -541,6 +541,7 @@ async def refresh_root_repo_toe_lines(
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
+        workers=3,
     )
 
 
