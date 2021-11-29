@@ -38,7 +38,54 @@ async def get_result(
     )
 
 
-async def query_get(*, user: str, group_name: str) -> Dict[str, Any]:
+async def query_get(
+    *,
+    user: str,
+    group_name: str,
+) -> Dict[str, Any]:
+    query: str = f"""{{
+        group(groupName: "{group_name}"){{
+            name
+            toeLines {{
+                edges {{
+                    node {{
+                        attackedAt
+                        attackedBy
+                        attackedLines
+                        bePresent
+                        bePresentUntil
+                        comments
+                        commitAuthor
+                        filename
+                        firstAttackAt
+                        loc
+                        modifiedCommit
+                        modifiedDate
+                        root {{
+                            nickname
+                        }}
+                        seenAt
+                        sortsRiskLevel
+                    }}
+                    cursor
+                }}
+                pageInfo {{
+                    hasNextPage
+                    endCursor
+                }}
+            }}
+        }}
+    }}
+    """
+    data: Dict[str, Any] = {"query": query}
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )
+
+
+async def query_services_get(*, user: str, group_name: str) -> Dict[str, Any]:
     query: str = f"""{{
         group(groupName: "{group_name}") {{
             name

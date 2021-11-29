@@ -529,6 +529,7 @@ async def refresh_root_repo_toe_lines(
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
+        workers=3,
     )
     await collect(
         tuple(
@@ -539,6 +540,7 @@ async def refresh_root_repo_toe_lines(
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
+        workers=3,
     )
 
 
@@ -549,6 +551,8 @@ async def refresh_toe_lines(*, item: BatchProcessing) -> None:
     )
 
     with tempfile.TemporaryDirectory() as tmpdir:
+        os.system("ulimit -aS")  # nosec
+        os.system("ulimit -aH")  # nosec
         os.chdir(tmpdir)
         pull_repositories(tmpdir, group_name, optional_repo_nickname)
         group_path = tmpdir + f"/groups/{group_name}"

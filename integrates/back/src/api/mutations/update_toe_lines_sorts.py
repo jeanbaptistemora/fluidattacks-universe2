@@ -7,11 +7,24 @@ from api import (
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from contextlib import (
+    suppress,
+)
+from custom_exceptions import (
+    ToeLinesNotFound,
+)
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.roots.types import (
     RootItem,
+)
+from db_model.toe_lines.types import (
+    ToeLines,
+    ToeLinesRequest,
 )
 from decorators import (
     concurrent_decorators,
@@ -30,8 +43,14 @@ from redis_cluster.operations import (
 from roots import (
     domain as roots_domain,
 )
-from toe.services_lines import (
+from toe.lines import (
     domain as toe_lines_domain,
+)
+from toe.lines.types import (
+    ToeLinesAttributesToUpdate,
+)
+from toe.services_lines import (
+    domain as services_toe_lines_domain,
 )
 from typing import (
     Any,
@@ -50,15 +69,28 @@ async def mutate(
     sorts_risk_level: int,
 ) -> SimplePayloadType:
     try:
-        group_roots_loader = info.context.loaders.group_roots
-        roots: Tuple[RootItem, ...] = await group_roots_loader.load(group_name)
-        root_id = roots_domain.get_root_id_by_nickname(root_nickname, roots)
-        await toe_lines_domain.update_risk_level(
-            group_name=group_name,
-            filename=filename,
-            root_id=root_id,
-            sorts_risk_level=sorts_risk_level,
+        loaders: Dataloaders = info.context.loaders
+        roots: Tuple[RootItem, ...] = await loaders.group_roots.load(
+            group_name
         )
+        root_id = roots_domain.get_root_id_by_nickname(root_nickname, roots)
+        with suppress(ToeLinesNotFound):
+            toe_lines: ToeLines = await loaders.toe_lines.load(
+                ToeLinesRequest(
+                    filename=filename, group_name=group_name, root_id=root_id
+                )
+            )
+            await toe_lines_domain.update(
+                toe_lines,
+                ToeLinesAttributesToUpdate(sorts_risk_level=sorts_risk_level),
+            )
+        with suppress(ToeLinesNotFound):
+            await services_toe_lines_domain.update_risk_level(
+                group_name=group_name,
+                filename=filename,
+                root_id=root_id,
+                sorts_risk_level=sorts_risk_level,
+            )
         redis_del_by_deps(
             "update_toe_lines_sorts", group=group_name, root_id=root_id
         )
