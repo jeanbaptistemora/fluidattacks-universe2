@@ -267,14 +267,15 @@ def test_finding_reattack(
             timeout,
         )
     )
-    status_filter.select_by_visible_text("--All options--")
 
     # Reattack all vulnerabilities
+    status_filter.select_by_visible_text("Open")
     start_reattack = utils.wait_for_id(
         driver,
         "start-reattack",
         timeout,
     )
+    status_filter.select_by_visible_text("--All options--")
     assert utils.wait_for_class_name(
         driver,
         "bg-lbl-red",
