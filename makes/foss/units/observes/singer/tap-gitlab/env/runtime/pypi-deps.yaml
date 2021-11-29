@@ -1,5 +1,5 @@
 aioextensions: "20.8.2087641"
-aiohttp: "3.6.2"
+aiohttp: "3.8.1"
 asgiref: "3.2.10"
 boto3: "1.17.104"
 cachetools: "4.2.2"
