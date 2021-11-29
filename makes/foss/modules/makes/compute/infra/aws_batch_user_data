@@ -28,7 +28,7 @@ Content-Type: text/x-shellscript; charset="us-ascii"
 }  >> /etc/ecs/ecs.config
 
 # Install dependencies
-yum install -y jq rsync
+yum install -y jq rsync amazon-cloudwatch-agent
 
 # Create and mount the partition
 mkfs.ext4 /dev/nvme1n1
@@ -52,5 +52,11 @@ mv --force "${config}2" "${config}"
 
 # Start docker again
 service docker start
+
+# start cloudwatch agent
+log_config="$(mktemp)"
+echo "eyJhZ2VudCI6eyJydW5fYXNfdXNlciI6InJvb3QiLCJsb2dzIjp7ImxvZ3NfY29sbGVjdGVkIjp7ImZpbGVzIjp7ImNvbGxlY3RfbGlzdCI6W3siZmlsZV9wYXRoIjoiL3Zhci9sb2cvc2tpbXMvKioiLCJsb2dfZ3JvdXBfbmFtZSI6Ii9za2ltcyJ9XX19fX19Cg==" | base64 --decode > "${log_config}"
+amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c "file:${log_config}"
+
 
 --==BOUNDARY==--
