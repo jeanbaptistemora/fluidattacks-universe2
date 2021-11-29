@@ -84,7 +84,7 @@ async def test_get_status_vulns_by_time_range() -> None:
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         "unittesting"
     )
-    vulns = await loaders.finding_vulns_nzr.load_many_chained(
+    vulns = await loaders.finding_vulns_nzr_typed.load_many_chained(
         [finding.id for finding in findings]
     )
     findings_severity: Dict[str, Decimal] = {
@@ -92,15 +92,14 @@ async def test_get_status_vulns_by_time_range() -> None:
         for finding in findings
     }
     vulnerabilities_severity = [
-        findings_severity[str(vulnerability["finding_id"])]
-        for vulnerability in vulns
+        findings_severity[vulnerability.finding_id] for vulnerability in vulns
     ]
     historic_states = await loaders.vulnerability_historic_state.load_many(
-        [vuln["UUID"] for vuln in vulns]
+        [vuln.id for vuln in vulns]
     )
     historic_treatments = (
         await loaders.vulnerability_historic_treatment.load_many(
-            [vuln["UUID"] for vuln in vulns]
+            [vuln.id for vuln in vulns]
         )
     )
 
@@ -133,7 +132,7 @@ async def test_get_accepted_vulns() -> None:
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         "unittesting"
     )
-    vulnerabilties = await loaders.finding_vulns_nzr.load_many_chained(
+    vulnerabilties = await loaders.finding_vulns_nzr_typed.load_many_chained(
         [finding.id for finding in findings]
     )
     findings_severity: Dict[str, Decimal] = {
@@ -141,15 +140,15 @@ async def test_get_accepted_vulns() -> None:
         for finding in findings
     }
     vulnerabilities_severity = [
-        findings_severity[str(vulnerability["finding_id"])]
+        findings_severity[vulnerability.finding_id]
         for vulnerability in vulnerabilties
     ]
     historic_states = await loaders.vulnerability_historic_state.load_many(
-        [vuln["UUID"] for vuln in vulnerabilties]
+        [vuln.id for vuln in vulnerabilties]
     )
     historic_treatments = (
         await loaders.vulnerability_historic_treatment.load_many(
-            [vuln["UUID"] for vuln in vulnerabilties]
+            [vuln.id for vuln in vulnerabilties]
         )
     )
     test_data = sum(
