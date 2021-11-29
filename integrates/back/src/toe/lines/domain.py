@@ -42,19 +42,28 @@ async def add(
     filename: str,
     attributes: ToeLinesAttributesToAdd,
 ) -> None:
+    attacked_lines = (
+        attributes.attacked_lines
+        if attributes.attacked_at
+        and attributes.modified_date
+        and datetime.fromisoformat(attributes.attacked_at)
+        <= datetime.fromisoformat(attributes.modified_date)
+        else 0
+    )
     be_present_until = attributes.be_present_until or _get_be_present_until(
         attributes.be_present
     )
+    first_attack_at = attributes.attacked_at
     toe_lines = ToeLines(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
-        attacked_lines=attributes.attacked_lines,
+        attacked_lines=attacked_lines,
         be_present=attributes.be_present,
         be_present_until=be_present_until,
         comments=attributes.comments,
         commit_author=attributes.commit_author,
         filename=filename,
-        first_attack_at=attributes.first_attack_at,
+        first_attack_at=first_attack_at,
         group_name=group_name,
         loc=attributes.loc,
         modified_commit=attributes.modified_commit,
@@ -72,6 +81,11 @@ async def update(
 ) -> None:
     attacked_at = attributes.attacked_at or current_value.attacked_at
     modified_date = attributes.modified_date or current_value.modified_date
+    first_attack_at = (
+        attributes.attacked_at
+        if not current_value.first_attack_at and attributes.attacked_at
+        else None
+    )
     attacked_lines = (
         attributes.attacked_lines or current_value.attacked_lines
         if attributes.attacked_lines != 0
@@ -89,7 +103,7 @@ async def update(
         be_present_until=be_present_until,
         comments=attributes.comments,
         commit_author=attributes.commit_author,
-        first_attack_at=attributes.first_attack_at,
+        first_attack_at=first_attack_at,
         loc=attributes.loc,
         modified_commit=attributes.modified_commit,
         modified_date=attributes.modified_date,

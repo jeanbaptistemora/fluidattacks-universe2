@@ -9,6 +9,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.roots.types import (
     GitRootItem,
     RootItem,
@@ -77,6 +80,24 @@ def _get_group_name(tmpdirname: str, lines_csv_path: str) -> str:
     return group_match.groups("1")[0]
 
 
+def _get_attacked_lines(
+    new_attacked_lines: int,
+    current_attacked_lines: int,
+    attacked_at: str,
+    modified_date: str,
+) -> int:
+    attacked_lines = (
+        new_attacked_lines or current_attacked_lines
+        if new_attacked_lines != 0
+        and attacked_at
+        and modified_date
+        and datetime.fromisoformat(modified_date)
+        <= datetime.fromisoformat(attacked_at)
+        else 0
+    )
+    return attacked_lines
+
+
 @retry_on_exceptions(
     exceptions=(ToeLinesAlreadyUpdated,),
     sleep_seconds=10,
@@ -117,9 +138,12 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                 ToeLinesAttributesToUpdate(
                     comments=repo_services_toe_lines[filename].comments,
                     attacked_at=repo_services_toe_lines[filename].tested_date,
-                    attacked_lines=repo_services_toe_lines[
-                        filename
-                    ].tested_lines,
+                    attacked_lines=_get_attacked_lines(
+                        repo_services_toe_lines[filename].tested_lines,
+                        toe_lines.attacked_lines,
+                        repo_services_toe_lines[filename].tested_date,
+                        toe_lines.modified_date,
+                    ),
                     sorts_risk_level=repo_services_toe_lines[
                         filename
                     ].sorts_risk_level,
@@ -131,12 +155,19 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                 toe_lines.comments,
                 toe_lines.attacked_at,
                 toe_lines.attacked_lines,
+                toe_lines.first_attack_at,
                 toe_lines.sorts_risk_level,
             )
             != (
                 repo_services_toe_lines[filename].comments,
                 repo_services_toe_lines[filename].tested_date,
-                repo_services_toe_lines[filename].tested_lines,
+                _get_attacked_lines(
+                    repo_services_toe_lines[filename].tested_lines,
+                    toe_lines.attacked_lines,
+                    repo_services_toe_lines[filename].tested_date,
+                    toe_lines.modified_date,
+                ),
+                repo_services_toe_lines[filename].tested_date,
                 repo_services_toe_lines[filename].sorts_risk_level,
             )
         )
@@ -153,7 +184,6 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                     attacked_lines=services_toe_lines.tested_lines,
                     comments=services_toe_lines.comments,
                     commit_author="",
-                    first_attack_at=services_toe_lines.tested_date,
                     loc=services_toe_lines.loc,
                     modified_commit=services_toe_lines.modified_commit,
                     modified_date=services_toe_lines.modified_date,

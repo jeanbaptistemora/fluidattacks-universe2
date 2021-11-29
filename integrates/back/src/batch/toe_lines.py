@@ -230,7 +230,6 @@ async def get_present_toe_lines_to_add(
                 attacked_lines=0,
                 commit_author=last_commit_info.author,
                 comments="",
-                first_attack_at="",
                 loc=last_loc,
                 modified_commit=last_commit_info.hash,
                 modified_date=last_commit_info.modified_date,
@@ -529,7 +528,7 @@ async def refresh_root_repo_toe_lines(
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
-        workers=3,
+        workers=8,
     )
     await collect(
         tuple(
@@ -540,7 +539,7 @@ async def refresh_root_repo_toe_lines(
             if not optional_repo_nickname
             or root_repo.state.nickname == optional_repo_nickname
         ),
-        workers=3,
+        workers=8,
     )
 
 
@@ -551,6 +550,7 @@ async def refresh_toe_lines(*, item: BatchProcessing) -> None:
     )
 
     with tempfile.TemporaryDirectory() as tmpdir:
+        os.system("ulimit -n 4000")  # nosec
         os.system("ulimit -aS")  # nosec
         os.system("ulimit -aH")  # nosec
         os.chdir(tmpdir)

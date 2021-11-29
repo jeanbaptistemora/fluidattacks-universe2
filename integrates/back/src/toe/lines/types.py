@@ -10,7 +10,6 @@ class ToeLinesAttributesToAdd(NamedTuple):
     attacked_lines: int
     comments: str
     commit_author: str
-    first_attack_at: str
     loc: int
     modified_commit: str
     modified_date: str
@@ -27,7 +26,6 @@ class ToeLinesAttributesToUpdate(NamedTuple):
     be_present: Optional[bool] = None
     comments: Optional[str] = None
     commit_author: Optional[str] = None
-    first_attack_at: Optional[str] = None
     loc: Optional[int] = None
     modified_commit: Optional[str] = None
     modified_date: Optional[str] = None
