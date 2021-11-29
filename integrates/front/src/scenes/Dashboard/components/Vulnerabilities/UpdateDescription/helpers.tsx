@@ -78,11 +78,9 @@ const getResults = async (
                 treatment: isTreatmentPristine
                   ? "IN_PROGRESS"
                   : dataTreatment.treatment,
-                treatmentManager:
-                  _.isEmpty(dataTreatment.treatmentManager) ||
-                  dataTreatment.treatment !== "IN_PROGRESS"
-                    ? undefined
-                    : dataTreatment.treatmentManager,
+                treatmentManager: _.isEmpty(dataTreatment.treatmentManager)
+                  ? undefined
+                  : dataTreatment.treatmentManager,
                 vulnerabilityId: vuln.id,
               },
             })

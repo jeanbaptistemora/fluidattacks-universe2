@@ -9,11 +9,13 @@ import { authzPermissionsContext } from "utils/authz/config";
 import { EditableField, FormikDropdown } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 
-const TreatmentManagerField: React.FC<ITreatmentManagerFieldProps> = (
-  props: ITreatmentManagerFieldProps
-): JSX.Element => {
-  const { isInProgressSelected, lastTreatment, userEmails } = props;
-
+const TreatmentManagerField: React.FC<ITreatmentManagerFieldProps> = ({
+  isAcceptedSelected,
+  isAcceptedUndefinedSelected,
+  isInProgressSelected,
+  lastTreatment,
+  userEmails,
+}: ITreatmentManagerFieldProps): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulnerabilities_treatment_mutate"
@@ -21,7 +23,9 @@ const TreatmentManagerField: React.FC<ITreatmentManagerFieldProps> = (
 
   return (
     <React.StrictMode>
-      {isInProgressSelected ? (
+      {isInProgressSelected ||
+      isAcceptedSelected ||
+      isAcceptedUndefinedSelected ? (
         <EditableField
           component={FormikDropdown}
           currentValue={_.get(lastTreatment, "treatmentManager", "")}

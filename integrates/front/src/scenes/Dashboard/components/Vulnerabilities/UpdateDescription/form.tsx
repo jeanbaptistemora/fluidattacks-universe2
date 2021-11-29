@@ -103,6 +103,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulnerabilities_treatment_mutate"
   );
+  const canDeleteVulnsTags: boolean = permissions.can(
+    "api_mutations_remove_vulnerability_tags_mutate"
+  );
   const [isRunning, setRunning] = useState(false);
   const [treatment, setTreatment] = useContext(UpdateDescriptionContext);
 
@@ -386,6 +389,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           </Col50>
           <Col50>
             <TreatmentManagerField
+              isAcceptedSelected={isAcceptedSelected}
+              isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
               isInProgressSelected={isInProgressSelected}
               lastTreatment={lastTreatment}
               userEmails={userEmails}
@@ -440,10 +445,12 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             />
           </Col100>
         </Row>
-        {isAcceptedSelected ||
-        isAcceptedUndefinedSelected ||
-        isInProgressSelected ||
-        !hasNewVulns ? (
+        {(isAcceptedSelected ||
+          isAcceptedUndefinedSelected ||
+          isInProgressSelected ||
+          !hasNewVulns) &&
+        canUpdateVulnsTreatment &&
+        canDeleteVulnsTags ? (
           <React.StrictMode>
             {tagReminderAlert(isTreatmentPristine)}
           </React.StrictMode>
