@@ -63,6 +63,7 @@ interface ITableProps {
   expandRow?: BootstrapTableProps["expandRow"];
   exportCsv: boolean;
   extraButtons?: JSX.Element;
+  extraButtonsRight?: JSX.Element;
   customFilters?: ICustomFiltersProps;
   headerContainer?: string;
   headers: IHeaderConfig[];

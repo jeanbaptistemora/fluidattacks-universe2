@@ -62,6 +62,7 @@ interface IVulnComponentProps {
   canDisplayHacker: boolean;
   customFilters?: ICustomFiltersProps;
   customSearch?: ICustomSearchProps;
+  extraButtons: JSX.Element;
   findingId: string;
   findingState: "closed" | "open";
   groupName: string;

@@ -149,6 +149,7 @@ describe("VulnComponent", (): void => {
     const wrapper: ReactWrapper = mount(
       <VulnComponent
         canDisplayHacker={false}
+        extraButtons={<div />}
         findingId={"480857698"}
         findingState={"open"}
         groupName={"test"}
@@ -202,6 +203,7 @@ describe("VulnComponent", (): void => {
     const wrapper: ReactWrapper = mount(
       <VulnComponent
         canDisplayHacker={false}
+        extraButtons={<div />}
         findingId={"480857698"}
         findingState={"open"}
         groupName={"test"}
