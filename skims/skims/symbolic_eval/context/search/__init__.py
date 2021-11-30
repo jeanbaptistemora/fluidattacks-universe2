@@ -1,6 +1,9 @@
 from model.graph_model import (
     Graph,
 )
+from symbolic_eval.context.search import (
+    variable_declaration,
+)
 from symbolic_eval.context.search.types import (
     SearchArgs,
     Searcher,
@@ -15,7 +18,9 @@ from typing import (
     Optional,
 )
 
-SEARCHERS: Dict[str, Searcher] = {}
+SEARCHERS: Dict[str, Searcher] = {
+    "VariableDeclaration": variable_declaration.search,
+}
 
 
 def search(
