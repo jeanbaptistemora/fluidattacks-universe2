@@ -1,25 +1,25 @@
 "ToeInputs type definition"
 type ToeInputs {
   "SHA-1 hash in short form of the relevant commit"
-  commit: String
+  commit: String!
   "Application/infrastructure input URL"
-  component: String
+  component: String!
   "Creation date"
-  createdDate: String
+  createdDate: String!
   "Entry point of the test"
-  entryPoint: String
+  entryPoint: String!
   "Hacker who found the application input"
-  seenFirstTimeBy: String
+  seenFirstTimeBy: String!
   "Attack moment"
-  testedDate: String
+  testedDate: String!
   """Root nickname of the toe input if there is enough information to
   determine it"""
-  unreliableRootNickname: String
+  unreliableRootNickname: String!
   "Is it verified?"
-  verified: String
+  verified: String!
   "Vulnerabilities found"
-  vulnerabilities: String
+  vulnerabilities: String!
   "Vulnerabilities found"
-  vulns: String @deprecated(reason: """This field will be removed after
+  vulns: String! @deprecated(reason: """This field will be removed after
     2022/02/05. Use `vulnerabilities` instead.""")
 }
