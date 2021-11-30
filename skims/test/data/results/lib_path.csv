@@ -5698,9 +5698,8 @@ F247,lines,namespace/skims/test/data/lib_path/f247/test_ebs_encryption_by_defaul
   3 | }
     ^ Col 0
 "
-F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,13,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
+F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,14,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
  in namespace/skims/test/data/lib_path/f247/test_ec2.tf","
-   3 |   instance_type               = lookup(var.awsprops, ""itype"")
    4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
    5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
    6 |   key_name                    = lookup(var.awsprops, ""keyname"")
@@ -5710,8 +5709,8 @@ F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,13,311,skims,247.
   10 |     aws_security_group.project-iac-sg.id
   11 |   ]
   12 |
-> 13 |   root_block_device {
-  14 |     encrypted             = false
+  13 |   root_block_device {
+> 14 |     encrypted             = false
   15 |     delete_on_termination = true
   16 |     iops                  = 150
   17 |     volume_size           = 50
@@ -5721,6 +5720,7 @@ F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,13,311,skims,247.
   21 |   ebs_block_device {
   22 |     delete_on_termination = true
   23 |     iops                  = 150
+  24 |     volume_size           = 50
      ^ Col 0
 "
 F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,21,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS

@@ -63,15 +63,13 @@ def tfm_ebs_unencrypted_volumes_iterate_vulnerabilities(
     buckets_iterator: Iterator[Union[AWSEbsVolume, Node]]
 ) -> Iterator[Union[Any, Node]]:
     for bucket in buckets_iterator:
-        vol_encrypted = False
+        encrypted_attr = False
         for elem in bucket.data:
-            if (
-                isinstance(elem, Attribute)
-                and elem.key == "encrypted"
-                and elem.val is True
-            ):
-                vol_encrypted = True
-        if not vol_encrypted:
+            if isinstance(elem, Attribute) and elem.key == "encrypted":
+                encrypted_attr = True
+                if elem.val is False:
+                    yield elem
+        if not encrypted_attr:
             yield bucket
 
 
@@ -88,8 +86,9 @@ def tfm_ec2_unencrypted_volumes_iterate_vulnerabilities(
             if root_encrypted_attr := get_block_attribute(
                 block=root_device, key="encrypted"
             ):
-                if root_encrypted_attr.val is True:
-                    root_encrypted = True
+                root_encrypted = True
+                if root_encrypted_attr.val is False:
+                    yield root_encrypted_attr
         if ebs_device := get_argument(
             key="ebs_block_device",
             body=bucket.data,
@@ -97,9 +96,9 @@ def tfm_ec2_unencrypted_volumes_iterate_vulnerabilities(
             if ebs_encrypted_attr := get_block_attribute(
                 block=ebs_device, key="encrypted"
             ):
-                if ebs_encrypted_attr.val is True:
-                    ebs_encrypted = True
-
+                ebs_encrypted = True
+                if ebs_encrypted_attr.val is False:
+                    yield ebs_encrypted_attr
         if not root_encrypted:
             yield root_device
         if not ebs_encrypted:
