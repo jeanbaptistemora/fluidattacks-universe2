@@ -330,7 +330,7 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
      ^ Col 0
 "
 F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,14,16,skims,134. Insecure or unset HTTP headers - CORS,"Insecure or unset HTTP headers - CORS
-","
+ in namespace/skims/test/data/lib_root/f134/test_cors.cs","
    4 | {
    5 |     public class Controllers
    6 |     {
@@ -355,7 +355,7 @@ F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,14,16,skims,134.
      ^ Col 0
 "
 F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,17,16,skims,134. Insecure or unset HTTP headers - CORS,"Insecure or unset HTTP headers - CORS
-","
+ in namespace/skims/test/data/lib_root/f134/test_cors.cs","
    7 |         public void Configure(IApplicationBuilder app)
    8 |         {
    9 |             // Should report
@@ -380,7 +380,7 @@ F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,17,16,skims,134.
      ^ Col 0
 "
 F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,23,16,skims,134. Insecure or unset HTTP headers - CORS,"Insecure or unset HTTP headers - CORS
-","
+ in namespace/skims/test/data/lib_root/f134/test_cors.cs","
   13 |             corsBuilder.AllowAnyMethod();
   14 |             corsBuilder.AllowAnyOrigin();
   15 |
@@ -405,7 +405,7 @@ F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,23,16,skims,134.
      ^ Col 0
 "
 F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,25,16,skims,134. Insecure or unset HTTP headers - CORS,"Insecure or unset HTTP headers - CORS
-","
+ in namespace/skims/test/data/lib_root/f134/test_cors.cs","
   15 |
   16 |         var policyBuilder = new CorsPolicyBuilder();
   17 |         var policy = policyBuilder
@@ -2095,20 +2095,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
   117 | }
       ^ Col 0
 "
-F237,lines,namespace/skims/test/data/lib_root/f237/Test.java,7,209,skims,237. Technical information leak - Print Functions,error stacktrace can be printed,"
-   1 | public class Test{
-   2 |     public static void main(String[] args){
-   3 |         try {
-   4 |             throw new IOException();
-   5 |         }
-   6 |         catch (IOException e) {
->  7 |             e.printStackTrace();
-   8 |         }
-   9 |     }
-  10 | }
-     ^ Col 0
-"
-F237,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,237. Technical information leak - Print Functions,error stacktrace can be printed,"
+F237,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,237. Technical information leak - Print Functions,error stacktrace can be printed in namespace/skims/test/data/lib_path/f037/Test.java,"
    6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
    7 |
    8 |   public static void main(String[ ] args) {
@@ -2130,6 +2117,19 @@ F237,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,237. T
   24 |
   25 |     try {
   26 |       int a = 1 / 0;
+     ^ Col 0
+"
+F237,lines,namespace/skims/test/data/lib_root/f237/Test.java,7,209,skims,237. Technical information leak - Print Functions,error stacktrace can be printed in namespace/skims/test/data/lib_root/f237/Test.java,"
+   1 | public class Test{
+   2 |     public static void main(String[] args){
+   3 |         try {
+   4 |             throw new IOException();
+   5 |         }
+   6 |         catch (IOException e) {
+>  7 |             e.printStackTrace();
+   8 |         }
+   9 |     }
+  10 | }
      ^ Col 0
 "
 F063,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,"
@@ -6055,7 +6055,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volum
       ^ Col 0
 "
 F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,10,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
-","
+ in namespace/skims/test/data/lib_root/f017/decoder_test.cs","
    1 | using System;
    2 | class jwtbuild {
    3 |
@@ -6073,8 +6073,27 @@ F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,10,319,skims,
   15 | }
      ^ Col 0
 "
+F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,6,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
+ in namespace/skims/test/data/lib_root/f017/decoder_test.cs","
+   1 | using System;
+   2 | class jwtbuild {
+   3 |
+   4 |    public static void Main() {
+   5 |
+>  6 |       var insecure_decode = decoder.Decode(token, secret, verify: false);
+   7 |
+   8 |       var secure_decode = decoder.Decode(token, secret, verify: true);
+   9 |
+  10 |       var insecure_decode2 = decoder.Decode(token, secret, false);
+  11 |
+  12 |       var secure_decode2 = decoder.Decode(token, secret, true);
+  13 |
+  14 |    }
+  15 | }
+     ^ Col 0
+"
 F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,6,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
-","
+ in namespace/skims/test/data/lib_root/f017/test.cs","
    1 | using System;
    2 | class jwtbuild {
    3 |
@@ -6098,27 +6117,8 @@ F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,6,319,skims,017. Sens
   21 |          .WithSecret(secret)
      ^ Col 0
 "
-F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,6,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
-","
-   1 | using System;
-   2 | class jwtbuild {
-   3 |
-   4 |    public static void Main() {
-   5 |
->  6 |       var insecure_decode = decoder.Decode(token, secret, verify: false);
-   7 |
-   8 |       var secure_decode = decoder.Decode(token, secret, verify: true);
-   9 |
-  10 |       var insecure_decode2 = decoder.Decode(token, secret, false);
-  11 |
-  12 |       var secure_decode2 = decoder.Decode(token, secret, true);
-  13 |
-  14 |    }
-  15 | }
-     ^ Col 0
-"
 F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,15,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
-","
+ in namespace/skims/test/data/lib_root/f017/test.cs","
    5 |
    6 |       var decodedtoken1 = decoder.Decode(token, secret, verify: false);
    7 |       var json_deco = decoder.Decode(token, secret, verify: true);
@@ -6143,7 +6143,7 @@ F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,15,319,skims,017. Sen
      ^ Col 0
 "
 F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,30,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
-","
+ in namespace/skims/test/data/lib_root/f017/test.cs","
   13 |
   14 |
   15 |       var decodedtoken2 = new JwtBuilder()
@@ -6168,7 +6168,7 @@ F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,30,319,skims,017. Sen
      ^ Col 0
 "
 F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,25,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
-","
+ in namespace/skims/test/data/lib_root/f017/test.cs","
   13 |
   14 |
   15 |       var decodedtoken2 = new JwtBuilder()
@@ -6190,6 +6190,50 @@ F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,25,319,skims,017. Sen
   31 |
   32 |    }
   33 | }
+     ^ Col 0
+"
+F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,4,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/java.properties,"
+   1 | bg.ws.endpoint =  http://www.test.com
+   2 | bg.ws.endpoint = https://www.test.com
+   3 | bg.ws.endpoint = ftps://www.test.com
+>  4 | bg.ws.endpoint =  ftp://www.test.com
+   5 | bg.ws.endpoint = # http://www.test.com
+   6 | bg.ws.endpoint = # www.test.com
+   7 |
+   8 | # This ones are safe, they are encrypted
+   9 | # Let's try to mischief the parser
+  10 | bg.ws.endpoint = #{http://www.test.com}#
+  11 | bg.ws.endpoint = ${http://www.test.com}
+  12 | bg.ws.endpoint = ENC(http://www.test.com)
+  13 | # bg.ws.endpoint =  http://www.test.com
+  14 |
+  15 | # These ones are safe, localhost, loopback and host
+  16 | bg.ws.endpoint = http://localhost
+  17 | bg.ws.endpoint = ftp://127.0.0.1
+  18 | bg.ws.endpoint = http://0.0.0.0
+  19 | sonar.host.url=http://localhost:9000
+     ^ Col 0
+"
+F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,1,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/java.properties,"
+>  1 | bg.ws.endpoint =  http://www.test.com
+   2 | bg.ws.endpoint = https://www.test.com
+   3 | bg.ws.endpoint = ftps://www.test.com
+   4 | bg.ws.endpoint =  ftp://www.test.com
+   5 | bg.ws.endpoint = # http://www.test.com
+   6 | bg.ws.endpoint = # www.test.com
+   7 |
+   8 | # This ones are safe, they are encrypted
+   9 | # Let's try to mischief the parser
+  10 | bg.ws.endpoint = #{http://www.test.com}#
+  11 | bg.ws.endpoint = ${http://www.test.com}
+  12 | bg.ws.endpoint = ENC(http://www.test.com)
+  13 | # bg.ws.endpoint =  http://www.test.com
+  14 |
+  15 | # These ones are safe, localhost, loopback and host
+  16 | bg.ws.endpoint = http://localhost
+  17 | bg.ws.endpoint = ftp://127.0.0.1
+  18 | bg.ws.endpoint = http://0.0.0.0
+  19 | sonar.host.url=http://localhost:9000
      ^ Col 0
 "
 F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,16,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
@@ -6433,7 +6477,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,26,326,skims,016. Ins
      ^ Col 0
 "
 F034,lines,namespace/skims/test/data/lib_path/f034/Test.java,11,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
-","
+ in namespace/skims/test/data/lib_path/f034/Test.java","
    1 |
    2 | public class BenchmarkTest00167 extends HttpServlet {
    3 |  @Override
@@ -6524,7 +6568,7 @@ F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,6,378,skims,160. Ex
      ^ Col 0
 "
 F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,13,405,skims,211. Asymmetric denial of service - ReDoS,"Asymmetric denial of service - ReDoS
-","
+ in namespace/skims/test/data/lib_root/f211/test.cs","
    1 | using System.Text.RegularExpressions;
    2 | namespace Controllers
    3 | {
@@ -6545,7 +6589,7 @@ F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,13,405,skims,211. Asy
      ^ Col 0
 "
 F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,12,405,skims,211. Asymmetric denial of service - ReDoS,"Asymmetric denial of service - ReDoS
-","
+ in namespace/skims/test/data/lib_root/f211/test.cs","
    1 | using System.Text.RegularExpressions;
    2 | namespace Controllers
    3 | {
@@ -6738,8 +6782,84 @@ F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,17,4
   27 |   availability_zones  = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
      ^ Col 0
 "
+F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Insecure deserialization,"Insecure deserialization
+ in namespace/skims/test/data/lib_root/f096/test.cs","
+   1 | em.Runtime.Serialization.Formatters.Binary;
+   2 | em.Runtime.Serialization.IFormatter;
+   3 | Controllers
+   4 |
+   5 |  class Encrypt
+   6 |
+   7 | blic static void Process(string secret)
+   8 |
+   9 |   BinaryFormatter formatter = new BinaryFormatter();
+  10 |   LosFormatter formatter2 = new LosFormatter();
+> 11 |   SoapFormatter formatter3 = new SoapFormatter();
+  12 |   NetDataContractSerializer formatter4  = new NetDataContractSerializer();
+  13 |
+  14 |
+  15 |
+     ^ Col 10
+"
+F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,9,502,skims,096. Insecure deserialization,"Insecure deserialization
+ in namespace/skims/test/data/lib_root/f096/test.cs","
+   1 | m.Runtime.Serialization.Formatters.Binary;
+   2 | m.Runtime.Serialization.IFormatter;
+   3 | ontrollers
+   4 |
+   5 | class Encrypt
+   6 |
+   7 | lic static void Process(string secret)
+   8 |
+>  9 |  BinaryFormatter formatter = new BinaryFormatter();
+  10 |  LosFormatter formatter2 = new LosFormatter();
+  11 |  SoapFormatter formatter3 = new SoapFormatter();
+  12 |  NetDataContractSerializer formatter4  = new NetDataContractSerializer();
+  13 |
+  14 |
+  15 |
+     ^ Col 11
+"
+F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,12,502,skims,096. Insecure deserialization,"Insecure deserialization
+ in namespace/skims/test/data/lib_root/f096/test.cs","
+   1 | rialization.Formatters.Binary;
+   2 | rialization.IFormatter;
+   3 |
+   4 |
+   5 | t
+   6 |
+   7 | oid Process(string secret)
+   8 |
+   9 | tter formatter = new BinaryFormatter();
+  10 | r formatter2 = new LosFormatter();
+  11 | er formatter3 = new SoapFormatter();
+> 12 | ractSerializer formatter4  = new NetDataContractSerializer();
+  13 |
+  14 |
+  15 |
+     ^ Col 23
+"
+F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,10,502,skims,096. Insecure deserialization,"Insecure deserialization
+ in namespace/skims/test/data/lib_root/f096/test.cs","
+   1 | tem.Runtime.Serialization.Formatters.Binary;
+   2 | tem.Runtime.Serialization.IFormatter;
+   3 |  Controllers
+   4 |
+   5 | c class Encrypt
+   6 |
+   7 | ublic static void Process(string secret)
+   8 |
+   9 |    BinaryFormatter formatter = new BinaryFormatter();
+> 10 |    LosFormatter formatter2 = new LosFormatter();
+  11 |    SoapFormatter formatter3 = new SoapFormatter();
+  12 |    NetDataContractSerializer formatter4  = new NetDataContractSerializer();
+  13 |
+  14 |
+  15 |
+     ^ Col 9
+"
 F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,10,502,skims,096. Insecure deserialization,"Insecure deserialization
-","
+ in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs","
    1 |  class XmlSerializerTestCase : Controller
    2 |
    3 | blic ActionResult unsecuredeserialization(HttpRequest typeName)
@@ -6759,7 +6879,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,10,502,
      ^ Col 6
 "
 F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,7,502,skims,096. Insecure deserialization,"Insecure deserialization
-","
+ in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs","
    1 |  class XmlSerializerTestCase : Controller
    2 |
    3 | blic ActionResult unsecuredeserialization(HttpRequest typeName)
@@ -6778,84 +6898,8 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,7,502,s
   16 |
      ^ Col 6
 "
-F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Insecure deserialization,"Insecure deserialization
-","
-   1 | em.Runtime.Serialization.Formatters.Binary;
-   2 | em.Runtime.Serialization.IFormatter;
-   3 | Controllers
-   4 |
-   5 |  class Encrypt
-   6 |
-   7 | blic static void Process(string secret)
-   8 |
-   9 |   BinaryFormatter formatter = new BinaryFormatter();
-  10 |   LosFormatter formatter2 = new LosFormatter();
-> 11 |   SoapFormatter formatter3 = new SoapFormatter();
-  12 |   NetDataContractSerializer formatter4  = new NetDataContractSerializer();
-  13 |
-  14 |
-  15 |
-     ^ Col 10
-"
-F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,9,502,skims,096. Insecure deserialization,"Insecure deserialization
-","
-   1 | m.Runtime.Serialization.Formatters.Binary;
-   2 | m.Runtime.Serialization.IFormatter;
-   3 | ontrollers
-   4 |
-   5 | class Encrypt
-   6 |
-   7 | lic static void Process(string secret)
-   8 |
->  9 |  BinaryFormatter formatter = new BinaryFormatter();
-  10 |  LosFormatter formatter2 = new LosFormatter();
-  11 |  SoapFormatter formatter3 = new SoapFormatter();
-  12 |  NetDataContractSerializer formatter4  = new NetDataContractSerializer();
-  13 |
-  14 |
-  15 |
-     ^ Col 11
-"
-F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,12,502,skims,096. Insecure deserialization,"Insecure deserialization
-","
-   1 | rialization.Formatters.Binary;
-   2 | rialization.IFormatter;
-   3 |
-   4 |
-   5 | t
-   6 |
-   7 | oid Process(string secret)
-   8 |
-   9 | tter formatter = new BinaryFormatter();
-  10 | r formatter2 = new LosFormatter();
-  11 | er formatter3 = new SoapFormatter();
-> 12 | ractSerializer formatter4  = new NetDataContractSerializer();
-  13 |
-  14 |
-  15 |
-     ^ Col 23
-"
-F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,10,502,skims,096. Insecure deserialization,"Insecure deserialization
-","
-   1 | tem.Runtime.Serialization.Formatters.Binary;
-   2 | tem.Runtime.Serialization.IFormatter;
-   3 |  Controllers
-   4 |
-   5 | c class Encrypt
-   6 |
-   7 | ublic static void Process(string secret)
-   8 |
-   9 |    BinaryFormatter formatter = new BinaryFormatter();
-> 10 |    LosFormatter formatter2 = new LosFormatter();
-  11 |    SoapFormatter formatter3 = new SoapFormatter();
-  12 |    NetDataContractSerializer formatter4  = new NetDataContractSerializer();
-  13 |
-  14 |
-  15 |
-     ^ Col 9
-"
 F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,14,502,skims,091. Log injection,"Log injection
-","
+ in namespace/skims/test/data/lib_root/f091/test.cs","
    4 | public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller
    5 | {
    6 |     public void LogSomething(HttpRequest id)
@@ -6880,7 +6924,7 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,14,502,skims,091. Log
      ^ Col 0
 "
 F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,18,502,skims,091. Log injection,"Log injection
-","
+ in namespace/skims/test/data/lib_root/f091/test.cs","
    5 | {
    6 |     public void LogSomething(HttpRequest id)
    7 |     {
@@ -6905,7 +6949,7 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,18,502,skims,091. Log
      ^ Col 0
 "
 F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,10,502,skims,091. Log injection,"Log injection
-","
+ in namespace/skims/test/data/lib_root/f091/test.cs","
    1 | using System;
    2 | using Microsoft.AspNetCore.Mvc;
    3 |
@@ -6929,7 +6973,7 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,10,502,skims,091. Log
   21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
      ^ Col 0
 "
-F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,8,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations,"
+F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,8,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/test_db.cs,"
    1 | namespace Controllers
    2 | {
    3 |     public class DBaccess
@@ -6947,7 +6991,7 @@ F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,8,521,skims,035. W
   15 | }
      ^ Col 0
 "
-F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,12,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations,"
+F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,12,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/test_db.cs,"
    1 | ntrollers
    2 |
    3 | lass DBaccess
@@ -6966,7 +7010,7 @@ F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,12,521,skims,035. 
      ^ Col 12
 "
 F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,13,521,skims,035. Weak credential policy,"The system credential policy is not compliant with security regulations.
-","
+ in namespace/skims/test/data/lib_root/f035/Test.cs","
    1 | ï»¿public class Startup
    2 | {
    3 |     public void start(IServiceCollection services)
@@ -6986,7 +7030,7 @@ F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,13,521,skims,035. Wea
      ^ Col 0
 "
 F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,8,521,skims,035. Weak credential policy,"The system credential policy is not compliant with security regulations.
-","
+ in namespace/skims/test/data/lib_root/f035/Test.cs","
    1 | ï»¿public class Startup
    2 | {
    3 |     public void start(IServiceCollection services)
@@ -7006,7 +7050,7 @@ F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,8,521,skims,035. Weak
      ^ Col 0
 "
 F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,19,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
-","
+ in namespace/skims/test/data/lib_root/f042/test.cs","
    2 | using System;
    3 | namespace cookies
    4 | {
@@ -7031,7 +7075,7 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,19,614,skims,042. Ins
      ^ Col 0
 "
 F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
-","
+ in namespace/skims/test/data/lib_root/f042/test.cs","
    2 | using System;
    3 | namespace cookies
    4 | {
@@ -7504,7 +7548,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,3,693,ski
   9 | }
     ^ Col 0
 "
-F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
+F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace
  in namespace/skims/test/data/lib_path/f381/Dockerfile","
    1 | # Insecure
    2 | FROM node
@@ -7529,7 +7573,7 @@ F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,380. 
   21 | RUN apt install -y nginx php-fpm supervisor && \
      ^ Col 0
 "
-F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,2,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
+F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,2,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace
  in namespace/skims/test/data/lib_path/f381/Dockerfile","
    1 | # Insecure
 >  2 | FROM node
@@ -7555,7 +7599,7 @@ F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,2,749,skims,380. S
      ^ Col 0
 "
 F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Inappropriate coding practices - Transparency Conflict,"Inappropriate coding practices - Transparency Conflict
-","
+ in namespace/skims/test/data/lib_root/f366/test.cs","
    1 | using System;
    2 | using System.Security;
    3 |
@@ -8432,7 +8476,7 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.ya
      ^ Col 0
 "
 F004,lines,namespace/skims/test/data/lib_path/f004/test.cs,16,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
+ in namespace/skims/test/data/lib_path/f004/test.cs","
    5 | {
    6 |     public class RSPEC2076OSCommandInjectionNoncompliantController : Controller
    7 |     {
@@ -8457,7 +8501,7 @@ F004,lines,namespace/skims/test/data/lib_path/f004/test.cs,16,78,skims,004. Remo
      ^ Col 0
 "
 F008,lines,namespace/skims/test/data/lib_root/f008/test.cs,8,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
+ in namespace/skims/test/data/lib_root/f008/test.cs","
    1 | namespace Controllers
    2 | {
    3 |     public class Calculate
@@ -8728,7 +8772,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,1,798,skims,0
   19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
 "
-F127,lines,namespace/skims/test/data/lib_root/f127/test.go,11,843,skims,127. Lack of data validation - Type confusion,.,"
+F127,lines,namespace/skims/test/data/lib_root/f127/test.go,11,843,skims,127. Lack of data validation - Type confusion,. in namespace/skims/test/data/lib_root/f127/test.go,"
    1 | package f127
    2 |
    3 | import (
@@ -8752,7 +8796,7 @@ F127,lines,namespace/skims/test/data/lib_root/f127/test.go,11,843,skims,127. Lac
   21 |  amount := strconv.ParseFloat(request.Amount)
      ^ Col 0
 "
-F127,lines,namespace/skims/test/data/lib_root/f127/test.go,16,843,skims,127. Lack of data validation - Type confusion,.,"
+F127,lines,namespace/skims/test/data/lib_root/f127/test.go,16,843,skims,127. Lack of data validation - Type confusion,. in namespace/skims/test/data/lib_root/f127/test.go,"
    6 |  ""math""
    7 |  ""strconv""
    8 | )
@@ -8776,7 +8820,7 @@ F127,lines,namespace/skims/test/data/lib_root/f127/test.go,16,843,skims,127. Lac
   26 |  operation := db.Transaction{}
      ^ Col 0
 "
-F127,lines,namespace/skims/test/data/lib_root/f127/test.go,21,843,skims,127. Lack of data validation - Type confusion,.,"
+F127,lines,namespace/skims/test/data/lib_root/f127/test.go,21,843,skims,127. Lack of data validation - Type confusion,. in namespace/skims/test/data/lib_root/f127/test.go,"
   11 |  amount := strconv.ParseFloat(request.Amount)
   12 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
   13 | }
@@ -8800,7 +8844,7 @@ F127,lines,namespace/skims/test/data/lib_root/f127/test.go,21,843,skims,127. Lac
   31 |
      ^ Col 0
 "
-F127,lines,namespace/skims/test/data/lib_root/f127/test.go,27,843,skims,127. Lack of data validation - Type confusion,.,"
+F127,lines,namespace/skims/test/data/lib_root/f127/test.go,27,843,skims,127. Lack of data validation - Type confusion,. in namespace/skims/test/data/lib_root/f127/test.go,"
   17 |  DBQuerySameFile(""Message"", amount, 0)
   18 | }
   19 |
@@ -8825,7 +8869,7 @@ F127,lines,namespace/skims/test/data/lib_root/f127/test.go,27,843,skims,127. Lac
      ^ Col 0
 "
 F001,lines,namespace/skims/test/data/lib_root/f001/test.cs,13,89,skims,001. SQL injection - C Sharp SQL API,"Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures.
-","
+ in namespace/skims/test/data/lib_root/f001/test.cs","
    3 | using WebApplication1.Controllers;
    4 |
    5 | namespace WebApplicationDotNetCore.Controllers
@@ -8850,7 +8894,7 @@ F001,lines,namespace/skims/test/data/lib_root/f001/test.cs,13,89,skims,001. SQL 
      ^ Col 0
 "
 F001,lines,namespace/skims/test/data/lib_root/f001/test.cs,15,89,skims,001. SQL injection - C Sharp SQL API,"Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures.
-","
+ in namespace/skims/test/data/lib_root/f001/test.cs","
    4 |
    5 | namespace WebApplicationDotNetCore.Controllers
    6 | {
@@ -8874,7 +8918,7 @@ F001,lines,namespace/skims/test/data/lib_root/f001/test.cs,15,89,skims,001. SQL 
   24 | }
      ^ Col 0
 "
-F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,23,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape,"
+F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,23,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_path/f001_jpa/java.java,"
    13 |     @Query(value = ""SELECT * FROM schema.table "" +
    14 |         ""WHERE CODE = ?1"", nativeQuery = true)
    15 |     List<Parameter> findByParameterType(String parameterTypeCode);
@@ -8898,7 +8942,7 @@ F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,23,89,skims,012
    33 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
       ^ Col 0
 "
-F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,36,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape,"
+F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,36,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_path/f001_jpa/java.java,"
    26 |    @Query(""select u from User u where u.lastname like %:#{"" + ""[0]}%"")
    27 |    List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
    28 |    /* LIKE statement secure */
@@ -8922,7 +8966,7 @@ F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,36,89,skims,012
    46 |        ""ECT e FROM ExamplePage e WHERE e.id LIKE ?10%"",
       ^ Col 1
 "
-F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,39,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape,"
+F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,39,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_path/f001_jpa/java.java,"
    29 |    @Query(""select u from User u where u.lastname like %?#{escape([0])}%"")
    30 |    List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
    31 |    /* LIKE statement secure */
@@ -8946,7 +8990,7 @@ F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,39,89,skims,012
    49 |    Page<ExamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
       ^ Col 1
 "
-F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,42,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape,"
+F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,42,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_path/f001_jpa/java.java,"
    32 |     @Query(""select u from User u where u.firstname like %?#{esc"" + ""ape([0])}%"")
    33 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
    34 |
@@ -8970,7 +9014,7 @@ F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,42,89,skims,012
    52 |         ""ECT e FROM ExamplePage e WHERE e.id LIKE ?10"")
       ^ Col 0
 "
-F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,46,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape,"
+F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,46,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_path/f001_jpa/java.java,"
    36 |     @Query(""select u from "" + ""User u where u.lastname like %:lastname%"")
    37 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
    38 |     /* LIKE statement injection a little harder to find*/
@@ -8995,7 +9039,7 @@ F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,46,89,skims,012
       ^ Col 0
 "
 F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,9,90,skims,320. Insecure service configuration - LDAP,"Insecure service configuration - LDAP
-","
+ in namespace/skims/test/data/lib_root/f320/test.cs","
    1 | stem;
    2 | pher{
    3 |
@@ -9012,7 +9056,7 @@ F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,9,90,skims,320. Insec
      ^ Col 8
 "
 F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,7,90,skims,320. Insecure service configuration - LDAP,"Insecure service configuration - LDAP
-","
+ in namespace/skims/test/data/lib_root/f320/test.cs","
    1 | using System;
    2 | class cipher{
    3 |
@@ -9029,7 +9073,7 @@ F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,7,90,skims,320. Insec
      ^ Col 0
 "
 F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,12,90,skims,338. Insecure service configuration - Salt,"Insecure service configuration - Salt
-","
+ in namespace/skims/test/data/lib_root/f338/test.cs","
    1 | amespace Controllers
    2 |
    3 |    public class Encrypt
@@ -9048,7 +9092,7 @@ F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,12,90,skims,338. Inse
      ^ Col 1
 "
 F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,8,90,skims,338. Insecure service configuration - Salt,"Insecure service configuration - Salt
-","
+ in namespace/skims/test/data/lib_root/f338/test.cs","
    1 | espace Controllers
    2 |
    3 |  public class Encrypt
@@ -9067,7 +9111,7 @@ F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,8,90,skims,338. Insec
      ^ Col 3
 "
 F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,10,90,skims,338. Insecure service configuration - Salt,"Insecure service configuration - Salt
-","
+ in namespace/skims/test/data/lib_root/f338/test.cs","
    1 | mespace Controllers
    2 |
    3 |   public class Encrypt
@@ -9086,7 +9130,7 @@ F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,10,90,skims,338. Inse
      ^ Col 2
 "
 F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,18,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application’s server into making requests to an arbitrary domain.
-","
+ in namespace/skims/test/data/lib_root/f100/test.cs","
    1 | g System.Net;
    2 | g System;
    3 | space testmod
@@ -9111,7 +9155,7 @@ F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,18,918,skims,100. Ser
      ^ Col 4
 "
 F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application’s server into making requests to an arbitrary domain.
-","
+ in namespace/skims/test/data/lib_root/f100/test.cs","
    1 | using System.Net;
    2 | using System;
    3 | namespace testmod

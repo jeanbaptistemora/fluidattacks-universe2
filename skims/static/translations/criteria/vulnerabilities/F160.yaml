@@ -1,9 +1,9 @@
 src.lib_path.f160.java_file_create_temp_file.description:
-  en: Use of Java File.createTempFile in {path}
-  es: Uso de Java File.createTempFile en {path}
+  en: Use of Java File.createTempFile
+  es: Uso de Java File.createTempFile
 src.lib_path.f160.c_sharp_file_create_temp_file.description:
-  en: Use of C# Path.GetTempFileName in {path}
-  es: Uso de C# Path.GetTempFileName en {path}
+  en: Use of C# Path.GetTempFileName
+  es: Uso de C# Path.GetTempFileName
 F160.description:
   en: >
     Opening temporary files without appropriate measures or controls can leave

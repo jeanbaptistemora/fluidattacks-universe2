@@ -1,6 +1,6 @@
 src.lib_path.f061.swallows_exceptions.description:
-  en: Empty {lang} catch in {path}
-  es: Catch de {lang} vacío en {path}
+  en: Empty {lang} catch
+  es: Catch de {lang} vacío
 F061.description:
   en: >
     Application errors are handled neither by throwing an exception nor by

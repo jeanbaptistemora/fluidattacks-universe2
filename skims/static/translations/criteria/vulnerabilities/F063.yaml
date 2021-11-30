@@ -1,6 +1,6 @@
 src.lib_path.f063_path_traversal.description:
-  en: Path traversal in {path}
-  es: Path traversal en {path}
+  en: Path traversal
+  es: Path traversal
 F063.description:
   en: >
     The software uses external input to construct a pathname that is intended

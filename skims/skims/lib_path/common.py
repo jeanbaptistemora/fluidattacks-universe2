@@ -195,6 +195,9 @@ def get_vulnerabilities_from_iterator_blocking(
                     content=content,
                     viewport=SnippetViewport(column=column_no, line=line_no),
                 ),
+                source_method=cast(
+                    FrameType, cast(FrameType, inspect.currentframe()).f_back
+                ).f_code.co_name,
             ),
         )
         for line_no, column_no in iterator
@@ -250,52 +253,6 @@ def get_aws_iterator(
     )
 
 
-def get_vulnerabilities_from_aws_iterator_blocking(
-    content: str,
-    description_key: str,
-    finding: core_model.FindingEnum,
-    path: str,
-    statements_iterator: Iterator[
-        Union[
-            AWSCTrail,
-            AWSDynamoDBTable,
-            AWSEbsEncryptionByDefault,
-            AWSIamManagedPolicyArns,
-            AWSIamPolicyStatement,
-            AWSKmsKey,
-            AWSS3Acl,
-            AWSS3Bucket,
-            AWSCloudfrontDistribution,
-            AWSFSxFileSystem,
-            AWSFsxWindowsFileSystem,
-            AWSEbsVolume,
-            AWSInstance,
-            AWSElb,
-            AWSLbTargetGroup,
-            AWSDbInstance,
-            AWSRdsCluster,
-            AWSRdsClusterInstance,
-            AWSSecretsManagerSecret,
-            Node,
-        ]
-    ],
-) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        cwe={finding.value.cwe},
-        description_key=description_key,
-        finding=finding,
-        iterator=(
-            (
-                stmt.start_line if isinstance(stmt, Node) else stmt.line,
-                stmt.start_column if isinstance(stmt, Node) else stmt.column,
-            )
-            for stmt in statements_iterator
-        ),
-        path=path,
-    )
-
-
 def translate_dependencies_to_vulnerabilities(
     *,
     content: str,
@@ -320,12 +277,14 @@ def translate_dependencies_to_vulnerabilities(
             where=f'{product["line"]}',
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=("937",),
-                description=t(
-                    key="src.lib_path.f011.npm_package_json.description",
-                    path=f"{CTX.config.namespace}/{path}",
-                    product=product["item"],
-                    version=version["item"],
-                    cve=cve,
+                description=(
+                    t(
+                        key="src.lib_path.f011.npm_package_json.description",
+                        product=product["item"],
+                        version=version["item"],
+                        cve=cve,
+                    )
+                    + f" {t(key='words.in')} {CTX.config.namespace}/{path}"
                 ),
                 snippet=make_snippet(
                     content=content,

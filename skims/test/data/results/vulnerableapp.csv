@@ -1,29 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
-F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,49,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
-   39 |             description = ""UNION_SQL_INJECTION_URL_PARAM_APPENDED_DIRECTLY_TO_QUERY"")
-   40 |     @VulnerableAppRequestMapping(
-   41 |             value = LevelConstants.LEVEL_1,
-   42 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
-   43 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
-   44 |             parameterName = Constants.ID,
-   45 |             sampleValues = ""1"")
-   46 |     public ResponseEntity<CarInformation> getCarInformationLevel1(
-   47 |             @RequestParam Map<String, String> queryParams) {
-   48 |         String id = queryParams.get(""id"");
->  49 |         return applicationJdbcTemplate.query(
-   50 |                 ""select * from cars where id="" + id,
-   51 |                 (rs) -> {
-   52 |                     CarInformation carInformation = new CarInformation();
-   53 |                     if (rs.next()) {
-   54 |                         carInformation.setId(rs.getInt(1));
-   55 |                         carInformation.setName(rs.getString(2));
-   56 |                         carInformation.setImagePath(rs.getString(3));
-   57 |                     }
-   58 |                     return new ResponseEntity<CarInformation>(carInformation, HttpStatus.OK);
-   59 |                 });
-      ^ Col 0
-"
-F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/BlindSQLInjectionVulnerability.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/BlindSQLInjectionVulnerability.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/BlindSQLInjectionVulnerability.java,"
    45 |     @VulnerableAppRequestMapping(
    46 |             value = LevelConstants.LEVEL_1,
    47 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
@@ -47,55 +23,7 @@ F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/
    65 |
       ^ Col 0
 "
-F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,67,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
-   57 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
-   58 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
-   59 |             parameterName = Constants.ID,
-   60 |             sampleValues = ""1"")
-   61 |     public ResponseEntity<String> doesCarInformationExistsLevel1(
-   62 |             @RequestParam Map<String, String> queryParams) {
-   63 |         String id = queryParams.get(Constants.ID);
-   64 |         BodyBuilder bodyBuilder = ResponseEntity.status(HttpStatus.OK);
-   65 |         try {
-   66 |             ResponseEntity<String> response =
->  67 |                     applicationJdbcTemplate.query(
-   68 |                             ""select * from cars where id="" + id,
-   69 |                             (rs) -> {
-   70 |                                 if (rs.next()) {
-   71 |                                     CarInformation carInformation = new CarInformation();
-   72 |                                     carInformation.setId(rs.getInt(1));
-   73 |                                     carInformation.setName(rs.getString(2));
-   74 |                                     carInformation.setImagePath(rs.getString(3));
-   75 |                                     try {
-   76 |                                         return bodyBuilder.body(
-   77 |                                                 CAR_IS_PRESENT_RESPONSE.apply(
-      ^ Col 0
-"
-F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,76,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
-   66 |     @VulnerableAppRequestMapping(
-   67 |             value = LevelConstants.LEVEL_2,
-   68 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
-   69 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
-   70 |             parameterName = Constants.ID,
-   71 |             sampleValues = ""1"")
-   72 |     public ResponseEntity<CarInformation> getCarInformationLevel2(
-   73 |             @RequestParam Map<String, String> queryParams) {
-   74 |         String id = queryParams.get(""id"");
-   75 |         CarInformation carInformation = new CarInformation();
->  76 |         return applicationJdbcTemplate.query(
-   77 |                 ""select * from cars where id='"" + id + ""'"",
-   78 |                 (rs) -> {
-   79 |                     if (rs.next()) {
-   80 |                         carInformation.setId(rs.getInt(1));
-   81 |                         carInformation.setName(rs.getString(2));
-   82 |                         carInformation.setImagePath(rs.getString(3));
-   83 |                     }
-   84 |                     return new ResponseEntity<CarInformation>(carInformation, HttpStatus.OK);
-   85 |                 });
-   86 |     }
-      ^ Col 0
-"
-F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/BlindSQLInjectionVulnerability.java,81,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/BlindSQLInjectionVulnerability.java,81,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/BlindSQLInjectionVulnerability.java,"
    71 |             value = LevelConstants.LEVEL_2,
    72 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
    73 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
@@ -119,31 +47,31 @@ F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/
    91 |
       ^ Col 0
 "
-F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,101,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
-   91 |                     ""UNION_SQL_INJECTION_URL_PARAM_REMOVES_SINGLE_QUOTE_WITH_SINGLE_QUOTE_APPENDED_TO_QUERY"")
-   92 |     @VulnerableAppRequestMapping(
-   93 |             value = LevelConstants.LEVEL_3,
-   94 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
-   95 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
-   96 |             parameterName = Constants.ID,
-   97 |             sampleValues = ""1"")
-   98 |     public ResponseEntity<CarInformation> getCarInformationLevel3(
-   99 |             @RequestParam Map<String, String> queryParams) {
-  100 |         String id = queryParams.get(""id"").replaceAll(""'"", """");
-> 101 |         return applicationJdbcTemplate.query(
-  102 |                 ""select * from cars where id='"" + id + ""'"",
-  103 |                 (rs) -> {
-  104 |                     CarInformation carInformation = new CarInformation();
-  105 |                     if (rs.next()) {
-  106 |                         carInformation.setId(rs.getInt(1));
-  107 |                         carInformation.setName(rs.getString(2));
-  108 |                         carInformation.setImagePath(rs.getString(3));
-  109 |                     }
-  110 |                     return new ResponseEntity<CarInformation>(carInformation, HttpStatus.OK);
-  111 |                 });
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,67,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,"
+   57 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
+   58 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
+   59 |             parameterName = Constants.ID,
+   60 |             sampleValues = ""1"")
+   61 |     public ResponseEntity<String> doesCarInformationExistsLevel1(
+   62 |             @RequestParam Map<String, String> queryParams) {
+   63 |         String id = queryParams.get(Constants.ID);
+   64 |         BodyBuilder bodyBuilder = ResponseEntity.status(HttpStatus.OK);
+   65 |         try {
+   66 |             ResponseEntity<String> response =
+>  67 |                     applicationJdbcTemplate.query(
+   68 |                             ""select * from cars where id="" + id,
+   69 |                             (rs) -> {
+   70 |                                 if (rs.next()) {
+   71 |                                     CarInformation carInformation = new CarInformation();
+   72 |                                     carInformation.setId(rs.getInt(1));
+   73 |                                     carInformation.setName(rs.getString(2));
+   74 |                                     carInformation.setImagePath(rs.getString(3));
+   75 |                                     try {
+   76 |                                         return bodyBuilder.body(
+   77 |                                                 CAR_IS_PRESENT_RESPONSE.apply(
       ^ Col 0
 "
-F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,114,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,114,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,"
   104 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
   105 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
   106 |             parameterName = Constants.ID,
@@ -165,5 +93,77 @@ F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/
   122 |                                     try {
   123 |                                         return bodyBuilder.body(
   124 |                                                 CAR_IS_PRESENT_RESPONSE.apply(
+      ^ Col 0
+"
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,49,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,"
+   39 |             description = ""UNION_SQL_INJECTION_URL_PARAM_APPENDED_DIRECTLY_TO_QUERY"")
+   40 |     @VulnerableAppRequestMapping(
+   41 |             value = LevelConstants.LEVEL_1,
+   42 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
+   43 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
+   44 |             parameterName = Constants.ID,
+   45 |             sampleValues = ""1"")
+   46 |     public ResponseEntity<CarInformation> getCarInformationLevel1(
+   47 |             @RequestParam Map<String, String> queryParams) {
+   48 |         String id = queryParams.get(""id"");
+>  49 |         return applicationJdbcTemplate.query(
+   50 |                 ""select * from cars where id="" + id,
+   51 |                 (rs) -> {
+   52 |                     CarInformation carInformation = new CarInformation();
+   53 |                     if (rs.next()) {
+   54 |                         carInformation.setId(rs.getInt(1));
+   55 |                         carInformation.setName(rs.getString(2));
+   56 |                         carInformation.setImagePath(rs.getString(3));
+   57 |                     }
+   58 |                     return new ResponseEntity<CarInformation>(carInformation, HttpStatus.OK);
+   59 |                 });
+      ^ Col 0
+"
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,76,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,"
+   66 |     @VulnerableAppRequestMapping(
+   67 |             value = LevelConstants.LEVEL_2,
+   68 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
+   69 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
+   70 |             parameterName = Constants.ID,
+   71 |             sampleValues = ""1"")
+   72 |     public ResponseEntity<CarInformation> getCarInformationLevel2(
+   73 |             @RequestParam Map<String, String> queryParams) {
+   74 |         String id = queryParams.get(""id"");
+   75 |         CarInformation carInformation = new CarInformation();
+>  76 |         return applicationJdbcTemplate.query(
+   77 |                 ""select * from cars where id='"" + id + ""'"",
+   78 |                 (rs) -> {
+   79 |                     if (rs.next()) {
+   80 |                         carInformation.setId(rs.getInt(1));
+   81 |                         carInformation.setName(rs.getString(2));
+   82 |                         carInformation.setImagePath(rs.getString(3));
+   83 |                     }
+   84 |                     return new ResponseEntity<CarInformation>(carInformation, HttpStatus.OK);
+   85 |                 });
+   86 |     }
+      ^ Col 0
+"
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,101,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,"
+   91 |                     ""UNION_SQL_INJECTION_URL_PARAM_REMOVES_SINGLE_QUOTE_WITH_SINGLE_QUOTE_APPENDED_TO_QUERY"")
+   92 |     @VulnerableAppRequestMapping(
+   93 |             value = LevelConstants.LEVEL_3,
+   94 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
+   95 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
+   96 |             parameterName = Constants.ID,
+   97 |             sampleValues = ""1"")
+   98 |     public ResponseEntity<CarInformation> getCarInformationLevel3(
+   99 |             @RequestParam Map<String, String> queryParams) {
+  100 |         String id = queryParams.get(""id"").replaceAll(""'"", """");
+> 101 |         return applicationJdbcTemplate.query(
+  102 |                 ""select * from cars where id='"" + id + ""'"",
+  103 |                 (rs) -> {
+  104 |                     CarInformation carInformation = new CarInformation();
+  105 |                     if (rs.next()) {
+  106 |                         carInformation.setId(rs.getInt(1));
+  107 |                         carInformation.setName(rs.getString(2));
+  108 |                         carInformation.setImagePath(rs.getString(3));
+  109 |                     }
+  110 |                     return new ResponseEntity<CarInformation>(carInformation, HttpStatus.OK);
+  111 |                 });
       ^ Col 0
 "

@@ -8,8 +8,8 @@ src.lib_path.f009.jwt_token.description:
   en: JWT token
   es: Token JWT
 src.lib_path.f009.crypto_js_credentials.description:
-  en: CryptoJS plaintext data source in {path}
-  es: Fuente de datos en texto plano para CryptoJS en {path}
+  en: CryptoJS plaintext data source
+  es: Fuente de datos en texto plano para CryptoJS
 src.lib_path.f009.dockerfile_env_secrets.description:
   en: Dockerfile credentials
   es: Credenciales de Docker

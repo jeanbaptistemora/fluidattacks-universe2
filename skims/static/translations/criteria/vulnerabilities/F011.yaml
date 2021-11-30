@@ -1,6 +1,6 @@
 src.lib_path.f011.npm_package_json.description:
-  en: Use of {product} at version {version} with {cve} in {path}
-  es: Uso de {product} en la version {version} con {cve} en {path}
+  en: Use of {product} at version {version} with {cve}
+  es: Uso de {product} en la version {version} con {cve}
 F011.description:
   en: >
     The system uses the version of a software or dependency with known

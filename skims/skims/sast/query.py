@@ -1,3 +1,4 @@
+import inspect
 from itertools import (
     chain,
 )
@@ -13,7 +14,11 @@ from sast_symbolic_evaluation.evaluate import (
     PossibleSyntaxStepsForFinding,
     PossibleSyntaxStepsForUntrustedNId,
 )
+from types import (
+    FrameType,
+)
 from typing import (
+    cast,
     Dict,
     Iterator,
     Optional,
@@ -40,6 +45,7 @@ def get_vulnerability_from_n_id(
     finding: core_model.FindingEnum,
     graph_shard: graph_model.GraphShard,
     n_id: str,
+    source_method: str,
 ) -> core_model.Vulnerability:
     # Root -> meta -> file graph
     meta_attrs_label_path = graph_shard.path
@@ -63,10 +69,9 @@ def get_vulnerability_from_n_id(
         where=str(n_attrs_label_line),
         skims_metadata=core_model.SkimsVulnerabilityMetadata(
             cwe=cwe,
-            description=t(
-                key=desc_key,
-                path=f"{CTX.config.namespace}/{meta_attrs_label_path}",
-                **desc_params,
+            description=(
+                f"{t(key=desc_key, **desc_params)} {t(key='words.in')} "
+                f"{CTX.config.namespace}/{meta_attrs_label_path}"
             ),
             snippet=make_snippet(
                 content=content,
@@ -75,6 +80,7 @@ def get_vulnerability_from_n_id(
                     line=int(n_attrs_label_line),
                 ),
             ),
+            source_method=source_method,
         ),
     )
 
@@ -95,6 +101,9 @@ def get_vulnerabilities_from_n_ids(
             finding=finding,
             graph_shard=graph_shard,
             n_id=n_id,
+            source_method=cast(
+                FrameType, cast(FrameType, inspect.currentframe()).f_back
+            ).f_code.co_name,
         )
         for graph_shard, n_id in graph_shard_nodes
     )

@@ -1,6 +1,6 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
 F034,lines,OWASP/src/App.java,22,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
-","
+ in OWASP/src/App.java","
    12 |         float rand = new java.util.Random().nextFloat();
    13 |
    14 |         String cookieName = ""testInstanceReference"";
@@ -25,7 +25,7 @@ F034,lines,OWASP/src/App.java,22,330,skims,034. Insecure generation of random nu
       ^ Col 0
 "
 F034,lines,OWASP/src/App.java,34,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
-","
+ in OWASP/src/App.java","
    24 |
    25 |     public void test_01() {
    26 |         HttpServletRequest request = new HttpServletRequest();
@@ -50,7 +50,7 @@ F034,lines,OWASP/src/App.java,34,330,skims,034. Insecure generation of random nu
       ^ Col 0
 "
 F034,lines,OWASP/src/App.java,44,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
-","
+ in OWASP/src/App.java","
    34 |         request.getSession().setAttribute(cookieName, cookieKey);
    35 |     }
    36 |
@@ -75,7 +75,7 @@ F034,lines,OWASP/src/App.java,44,330,skims,034. Insecure generation of random nu
       ^ Col 0
 "
 F034,lines,OWASP/src/App.java,55,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
-","
+ in OWASP/src/App.java","
    45 |     }
    46 |
    47 |     public void test_03() {
@@ -100,7 +100,7 @@ F034,lines,OWASP/src/App.java,55,330,skims,034. Insecure generation of random nu
       ^ Col 0
 "
 F034,lines,OWASP/src/App.java,88,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
-","
+ in OWASP/src/App.java","
    78 |
    79 |     public void test_06() {
    80 |         HttpServletRequest request = new HttpServletRequest();
@@ -125,7 +125,7 @@ F034,lines,OWASP/src/App.java,88,330,skims,034. Insecure generation of random nu
       ^ Col 0
 "
 F034,lines,OWASP/src/App.java,98,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
-","
+ in OWASP/src/App.java","
    88 |         request.getSession().setAttribute(cookieName, cookieKey);
    89 |     }
    90 |

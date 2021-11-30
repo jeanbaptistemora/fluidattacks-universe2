@@ -5,17 +5,17 @@ src.lib_path.f052.java_properties_weak_cipher_suite:
   en: Use of insecure cipher suite
   es: Use de suite de cifrado insegura
 src.lib_path.f052.insecure_cipher.description:
-  en: Use of insecure encryption algorithm in {path}
-  es: Uso de algoritmo de cifrado inseguro en {path}
+  en: Use of insecure encryption algorithm
+  es: Uso de algoritmo de cifrado inseguro
 src.lib_path.f052.insecure_hash.description:
-  en: Use of insecure hashing function in {path}
-  es: Uso de función resumen insegura en {path}
+  en: Use of insecure hashing function
+  es: Uso de función resumen insegura
 src.lib_path.f052.insecure_key.description:
-  en: Use of insecure parameters in {path}
-  es: Uso de parametros inseguros en {path}
+  en: Use of insecure parameters
+  es: Uso de parametros inseguros
 src.lib_path.f052.insecure_pass.description:
-  en: Use of insecure password encoder in {path}
-  es: Uso de codificador de contraseña inseguro en {path}
+  en: Use of insecure password encoder
+  es: Uso de codificador de contraseña inseguro
 lib_ssl.analyze_protocol.weak_ciphers_allowed:
   en: server accepts connections with weak ciphers
   es: el servidor acepta conexiones con métodos cifrados débiles

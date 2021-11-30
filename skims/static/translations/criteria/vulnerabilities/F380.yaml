@@ -7,11 +7,11 @@ F380.description:
   en: >
       Docker dependencies are not pinned, allowing a malicious actor to
       override the used components with malicious components without
-      leaving a trace.
+      leaving a trace
   es: >
       Las dependencias de Docker no están pineadas, permitiendo a un actor
       malicioso sobreescribir los componentes utilizados con componentes
-      maliciosos sin dejar un rastro.
+      maliciosos sin dejar un rastro
 F380.impact:
   en: Override depdendencies or component with malicious content
   es: Sobreescribir dependencias o componentes con contenido malicioso

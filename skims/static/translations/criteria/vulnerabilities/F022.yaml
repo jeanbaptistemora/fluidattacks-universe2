@@ -1,6 +1,6 @@
 src.lib_path.f022.unencrypted_channel:
-  en: Use of unencrypted protocol in {path}
-  es: Uso de canal no cifrado en {path}
+  en: Use of unencrypted protocol
+  es: Uso de canal no cifrado
 F022.description:
   en: >
     The system transmits information through a channel without encryption.

@@ -1,6 +1,6 @@
 src.lib_path.f060.insecure_exceptions.description:
-  en: Insecure {lang} exception in {path}
-  es: Excepción insegura de {lang} en {path}
+  en: Insecure {lang} exception
+  es: Excepción insegura de {lang}
 F060.description:
   en: >
     The source code uses generic exceptions to handle unexpected errors.
