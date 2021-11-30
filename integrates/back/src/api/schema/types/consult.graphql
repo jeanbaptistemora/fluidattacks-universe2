@@ -1,20 +1,20 @@
 "Consult type definition"
 type Consult {
   "Body of the comment/consult"
-  content: String
+  content: String!
   "Datetime of creation in the format `YYYY/MM/DD hh:mm:ss`"
-  created: String
+  created: String!
   "Email address of the user who made the comment"
-  email: String
+  email: String!
   "Full name of the user who made the comment"
-  fullName: String
+  fullName: String!
   "Full name of the user who made the comment"
-  fullname: String @deprecated(reason: """This field will be removed
+  fullname: String! @deprecated(reason: """This field will be removed
     after 2022/02/06. Use `fullName` instead.""")
   "Identifier of the comment"
-  id: String
+  id: String!
   "Datetime of last modification in the format `YYYY/MM/DD hh:mm:ss`"
-  modified: String
+  modified: String!
   "Identifier of the parent comment it replies to, 0 otherwise"
-  parent: String
+  parent: String!
 }
