@@ -58,7 +58,7 @@ describe("GroupToeLinesView", (): void => {
                 },
                 {
                   node: {
-                    attackedAt: "2021-01-20T05:00:00+00:00",
+                    attackedAt: "",
                     attackedBy: "test@test.com",
                     attackedLines: 120,
                     bePresent: true,
@@ -66,7 +66,7 @@ describe("GroupToeLinesView", (): void => {
                     comments: "comment 2",
                     commitAuthor: "customer@gmail.com",
                     filename: "test2/test.sh",
-                    firstAttackAt: "2020-01-19T15:41:04+00:00",
+                    firstAttackAt: "",
                     loc: 172,
                     modifiedCommit: "273412t",
                     modifiedDate: "2020-11-16T15:41:04+00:00",
@@ -143,7 +143,7 @@ describe("GroupToeLinesView", (): void => {
         "120",
         "2020-11-16",
         "273412t",
-        "2021-01-20",
+        "",
         "comment 2",
       ].join("")
     );

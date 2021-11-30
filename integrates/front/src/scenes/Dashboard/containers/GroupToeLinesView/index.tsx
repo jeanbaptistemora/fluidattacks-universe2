@@ -82,6 +82,9 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   }, [isFilterEnabled, setFilterEnabled]);
 
   const formatDate: (date: string) => string = (date: string): string => {
+    if (_.isEmpty(date)) {
+      return "";
+    }
     const dateObj: Date = new Date(date);
 
     return moment(dateObj).format("YYYY-MM-DD");
