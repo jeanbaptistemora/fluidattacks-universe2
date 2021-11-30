@@ -16,7 +16,6 @@ from custom_types import (
     Action,
     Finding as FindingType,
     Historic as HistoricType,
-    Vulnerability as VulnerabilityType,
 )
 from datetime import (
     date as datetype,
@@ -103,7 +102,7 @@ def is_accepted_undefined_vulnerability(
     )
 
 
-def is_reattack_requested(vuln: VulnerabilityType) -> bool:
+def is_reattack_requested(vuln: Dict[str, Any]) -> bool:
     historic_verification = vuln.get("historic_verification", [{}])
     if historic_verification:
         last_historic = historic_verification[-1]
@@ -140,8 +139,8 @@ def filter_no_treatment_vulns(
 
 
 def filter_non_deleted(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
+    vulnerabilities: List[Dict[str, Any]],
+) -> List[Dict[str, Any]]:
     return [
         vuln
         for vuln in vulnerabilities
@@ -160,8 +159,8 @@ def filter_non_deleted_new(
 
 
 def filter_open_vulns(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
+    vulnerabilities: List[Dict[str, Any]],
+) -> List[Dict[str, Any]]:
     return [
         vuln
         for vuln in vulnerabilities
@@ -206,8 +205,8 @@ def filter_confirmed_zero_risk(
 
 
 def filter_non_confirmed_zero_risk(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
+    vulnerabilities: List[Dict[str, Any]],
+) -> List[Dict[str, Any]]:
     return [
         vulnerability
         for vulnerability in vulnerabilities
@@ -244,8 +243,8 @@ def filter_requested_zero_risk(
 
 
 def filter_non_requested_zero_risk(
-    vulnerabilities: List[VulnerabilityType],
-) -> List[VulnerabilityType]:
+    vulnerabilities: List[Dict[str, Any]],
+) -> List[Dict[str, Any]]:
     return [
         vulnerability
         for vulnerability in vulnerabilities
@@ -374,6 +373,37 @@ def format_vulnerabilities(
                     }
                 },
             )
+    return finding
+
+
+def format_vulnerabilities_new(
+    vulnerabilities: Tuple[Vulnerability, ...]
+) -> Dict[str, List[Dict[str, str]]]:
+    finding: Dict[str, List[Dict[str, str]]] = {
+        "ports": [],
+        "lines": [],
+        "inputs": [],
+    }
+    vuln_values = {
+        "ports": {"where": "host", "specific": "port"},
+        "lines": {"where": "path", "specific": "line"},
+        "inputs": {"where": "url", "specific": "field"},
+    }
+    for vuln in vulnerabilities:
+        vuln_type = str(vuln.type.value).lower()
+        finding[vuln_type].append(
+            {
+                vuln_values[vuln_type]["where"]: html.unescape(vuln.where),
+                vuln_values[vuln_type]["specific"]: (
+                    html.unescape(vuln.specific)
+                ),
+                "state": str(vuln.state.status.value).lower(),
+            }
+        )
+        if vuln.commit:
+            finding[vuln_type][-1]["commit_hash"] = vuln.commit
+        if vuln.repo:
+            finding[vuln_type][-1]["repo_nickname"] = vuln.commit
     return finding
 
 

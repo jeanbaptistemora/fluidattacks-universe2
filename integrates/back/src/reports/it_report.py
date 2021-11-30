@@ -1,14 +1,8 @@
 from .typing import (
     GroupVulnsReportHeader,
 )
-from custom_types import (
-    Historic as HistoricType,
-)
 from datetime import (
     datetime,
-)
-from dateutil.parser import (  # type: ignore
-    parse,
 )
 from db_model.findings.enums import (
     FindingVerificationStatus,
@@ -44,7 +38,6 @@ from pyexcelerate import (
 )
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Tuple,
@@ -56,18 +49,6 @@ HEADER_HEIGHT = 20
 ROW_HEIGHT = 57
 RED = Color(255, 52, 53, 1)  # FF3435
 WHITE = Color(255, 255, 255, 1)
-
-
-def get_formatted_last_date(
-    historic_state: HistoricType,
-) -> Union[str, datetime]:
-    curr_trtmnt_date: Union[str, datetime] = EMPTY
-    if historic_state and "date" in cast(HistoricType, historic_state)[-1]:
-        last_date = str(cast(HistoricType, historic_state)[-1]["date"])
-        curr_trtmnt_date = datetime_utils.get_from_str(
-            datetime_utils.get_as_str(parse(last_date))
-        )
-    return curr_trtmnt_date
 
 
 # pylint: disable=too-many-instance-attributes
