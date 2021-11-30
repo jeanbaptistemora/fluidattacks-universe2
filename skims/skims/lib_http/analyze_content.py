@@ -6,6 +6,7 @@ from bs4.element import (
     Tag,
 )
 import contextlib
+import inspect
 from lib_http.types import (
     URLContext,
 )
@@ -15,9 +16,13 @@ from model import (
 from model.core_model import (
     FindingEnum,
 )
+from types import (
+    FrameType,
+)
 from typing import (
     Any,
     Callable,
+    cast,
     Dict,
     List,
     NamedTuple,
@@ -90,6 +95,9 @@ def build_vulnerabilities(
                         line=location.line,
                     ),
                 ),
+                source_method=cast(
+                    FrameType, cast(FrameType, inspect.currentframe()).f_back
+                ).f_code.co_name,
             ),
         )
         for location in locations

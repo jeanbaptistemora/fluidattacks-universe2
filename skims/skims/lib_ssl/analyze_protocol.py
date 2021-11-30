@@ -1,4 +1,5 @@
 # pylint: disable=too-many-lines
+import inspect
 from lib_ssl.as_string import (
     snippet,
     ssl_id2ssl_name,
@@ -36,8 +37,12 @@ from lib_ssl.types import (
 from model import (
     core_model,
 )
+from types import (
+    FrameType,
+)
 from typing import (
     Callable,
+    cast,
     Dict,
     List,
     Optional,
@@ -101,6 +106,9 @@ def _create_core_vulns(
                     locale=CTX.config.language,
                     ssl_vulnerability=ssl_vulnerability,
                 ),
+                source_method=cast(
+                    FrameType, cast(FrameType, inspect.currentframe()).f_back
+                ).f_code.co_name,
             ),
         )
         for ssl_vulnerability in ssl_vulnerabilities

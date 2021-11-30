@@ -7,7 +7,8 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_aws_iterator,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from metaloaders.model import (
@@ -46,6 +47,9 @@ from utils.function import (
     get_node_by_keys,
     TIMEOUT_1MIN,
 )
+
+FINDING_F016 = core_model.FindingEnum.F016
+FINDING_F016_CWE = FINDING_F016.value.cwe
 
 
 def helper_insecure_protocols(
@@ -140,20 +144,21 @@ def _cfn_serves_content_over_insecure_protocols(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={FINDING_F016_CWE},
         description_key=(
             "src.lib_path.f016.serves_content_over_insecure_protocols"
         ),
-        finding=core_model.FindingEnum.F016,
-        path=path,
-        statements_iterator=(
+        finding=FINDING_F016,
+        iterator=get_aws_iterator(
             cfn_content_over_insecure_protocols_iterate_vulnerabilities(
                 distributions_iterator=iter_cloudfront_distributions(
                     template=template
                 )
             )
         ),
+        path=path,
     )
 
 
@@ -162,18 +167,19 @@ def _tfm_serves_content_over_insecure_protocols(
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={FINDING_F016_CWE},
         description_key=(
             "src.lib_path.f016.serves_content_over_insecure_protocols"
         ),
-        finding=core_model.FindingEnum.F016,
-        path=path,
-        statements_iterator=(
+        finding=FINDING_F016,
+        iterator=get_aws_iterator(
             tfm_content_over_insecure_protocols_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_cloudfront_distribution(model=model)
             )
         ),
+        path=path,
     )
 
 

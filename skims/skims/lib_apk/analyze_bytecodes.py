@@ -10,6 +10,7 @@ from bs4 import (
 from bs4.element import (
     Tag,
 )
+import inspect
 from lib_apk.types import (
     APKContext,
 )
@@ -20,8 +21,12 @@ from operator import (
     attrgetter,
 )
 import textwrap
+from types import (
+    FrameType,
+)
 from typing import (
     Callable,
+    cast,
     Dict,
     List,
     NamedTuple,
@@ -86,6 +91,9 @@ def _create_vulns(
                 cwe=(finding.value.cwe,),
                 description=location.description,
                 snippet=location.snippet,
+                source_method=cast(
+                    FrameType, cast(FrameType, inspect.currentframe()).f_back
+                ).f_code.co_name,
             ),
         )
         for location in locations.locations

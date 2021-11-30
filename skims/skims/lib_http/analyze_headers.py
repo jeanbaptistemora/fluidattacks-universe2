@@ -16,6 +16,7 @@ from http_headers import (
 from http_headers.types import (
     Header,
 )
+import inspect
 from lib_http.types import (
     URLContext,
 )
@@ -25,8 +26,12 @@ from model import (
 from multidict import (
     MultiDict,
 )
+from types import (
+    FrameType,
+)
 from typing import (
     Callable,
+    cast,
     Dict,
     List,
     NamedTuple,
@@ -95,6 +100,9 @@ def _create_vulns(
                     value=location.identifier,
                     headers=ctx.url_ctx.headers_raw,
                 ),
+                source_method=cast(
+                    FrameType, cast(FrameType, inspect.currentframe()).f_back
+                ).f_code.co_name,
             ),
         )
         for location in locations.locations

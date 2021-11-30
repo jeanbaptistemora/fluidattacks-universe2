@@ -23,15 +23,13 @@ from aws.model import (
 from frozendict import (  # type: ignore
     frozendict,
 )
+import inspect
 import math
 from metaloaders.model import (
     Node,
 )
 from model import (
     core_model,
-)
-from model.graph_model import (
-    NAttrs,
 )
 from pyparsing import (
     alphanums,
@@ -48,10 +46,13 @@ from pyparsing import (
 from sca import (
     get_vulnerabilities,
 )
+from types import (
+    FrameType,
+)
 from typing import (
     Any,
     Callable,
-    Iterable,
+    cast,
     Iterator,
     Set,
     Tuple,
@@ -155,6 +156,9 @@ def get_vulnerabilities_blocking(
                         wrap=wrap,
                     ),
                 ),
+                source_method=cast(
+                    FrameType, cast(FrameType, inspect.currentframe()).f_back
+                ).f_code.co_name,
             ),
         )
         for match in get_matching_lines_blocking(
@@ -198,27 +202,6 @@ def get_vulnerabilities_from_iterator_blocking(
     return results
 
 
-def get_vulnerabilities_from_n_attrs_iterable_blocking(
-    content: str,
-    cwe: Set[str],
-    description: str,
-    finding: core_model.FindingEnum,
-    path: str,
-    n_attrs_iterable: Iterable[NAttrs],
-) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        cwe=cwe,
-        description_key=description,
-        finding=finding,
-        iterator=(
-            (int(n_attrs["label_l"]), int(n_attrs["label_c"]))
-            for n_attrs in n_attrs_iterable
-        ),
-        path=path,
-    )
-
-
 def str_to_number(token: str, default: float = math.nan) -> float:
     try:
         return float(ast.literal_eval(token))
@@ -228,6 +211,41 @@ def str_to_number(token: str, default: float = math.nan) -> float:
 
 def get_line_by_extension(line: int, file_ext: str) -> int:
     return line - 1 if file_ext in EXTENSIONS_YAML else line
+
+
+def get_aws_iterator(
+    statements_iterator: Iterator[
+        Union[
+            AWSCTrail,
+            AWSDynamoDBTable,
+            AWSEbsEncryptionByDefault,
+            AWSIamManagedPolicyArns,
+            AWSIamPolicyStatement,
+            AWSKmsKey,
+            AWSS3Acl,
+            AWSS3Bucket,
+            AWSCloudfrontDistribution,
+            AWSFSxFileSystem,
+            AWSFsxWindowsFileSystem,
+            AWSEbsVolume,
+            AWSInstance,
+            AWSElb,
+            AWSLbTargetGroup,
+            AWSDbInstance,
+            AWSRdsCluster,
+            AWSRdsClusterInstance,
+            AWSSecretsManagerSecret,
+            Node,
+        ]
+    ],
+) -> Iterator[Tuple[int, int]]:
+    return (
+        (
+            stmt.start_line if isinstance(stmt, Node) else stmt.line,
+            stmt.start_column if isinstance(stmt, Node) else stmt.column,
+        )
+        for stmt in statements_iterator
+    )
 
 
 def get_vulnerabilities_from_aws_iterator_blocking(
@@ -314,6 +332,9 @@ def translate_dependencies_to_vulnerabilities(
                         line=product["line"],
                     ),
                 ),
+                source_method=cast(
+                    FrameType, cast(FrameType, inspect.currentframe()).f_back
+                ).f_code.co_name,
             ),
         )
         for product, version in dependencies

@@ -1846,6 +1846,7 @@ class SkimsVulnerabilityMetadata(NamedTuple):
     cwe: Tuple[int, ...]
     description: str
     snippet: str
+    source_method: Optional[str] = None
 
 
 class IntegratesVulnerabilitiesLines(NamedTuple):

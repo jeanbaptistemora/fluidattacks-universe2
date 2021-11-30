@@ -11,7 +11,8 @@ from ipaddress import (
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_aws_iterator,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from metaloaders.model import (
@@ -42,6 +43,9 @@ from typing import (
 from utils.function import (
     TIMEOUT_1MIN,
 )
+
+FINDING_F024 = core_model.FindingEnum.F024
+FINDING_F024_CWE = FINDING_F024.value.cwe
 
 
 def _cidr_iter_vulnerabilities(
@@ -96,14 +100,17 @@ def _cfn_instances_without_profile(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={FINDING_F024_CWE},
         description_key="src.lib_path.f024_aws.instances_without_profile",
-        finding=core_model.FindingEnum.F024,
-        path=path,
-        statements_iterator=_instances_without_role_iter_vulns(
-            instaces_iterator=iter_ec2_instances(template=template)
+        finding=FINDING_F024,
+        iterator=get_aws_iterator(
+            _instances_without_role_iter_vulns(
+                instaces_iterator=iter_ec2_instances(template=template)
+            )
         ),
+        path=path,
     )
 
 
@@ -112,14 +119,17 @@ def _cfn_groups_without_egress(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={FINDING_F024_CWE},
         description_key="src.lib_path.f024_aws.security_group_without_egress",
-        finding=core_model.FindingEnum.F024,
-        path=path,
-        statements_iterator=_groups_without_egress_iter_vulnerabilities(
-            groups_iterators=iter_ec2_security_groups(template=template)
+        finding=FINDING_F024,
+        iterator=get_aws_iterator(
+            _groups_without_egress_iter_vulnerabilities(
+                groups_iterators=iter_ec2_security_groups(template=template)
+            )
         ),
+        path=path,
     )
 
 
@@ -128,18 +138,21 @@ def _cnf_unrestricted_cidrs(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={FINDING_F024_CWE},
         description_key="src.lib_path.f024_aws.unrestricted_cidrs",
-        finding=core_model.FindingEnum.F024,
-        path=path,
-        statements_iterator=_cidr_iter_vulnerabilities(
-            rules_iterator=iter_ec2_ingress_egress(
-                template=template,
-                ingress=True,
-                egress=True,
+        finding=FINDING_F024,
+        iterator=get_aws_iterator(
+            _cidr_iter_vulnerabilities(
+                rules_iterator=iter_ec2_ingress_egress(
+                    template=template,
+                    ingress=True,
+                    egress=True,
+                )
             )
         ),
+        path=path,
     )
 
 
@@ -229,18 +242,21 @@ def _cnf_unrestricted_ports(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={FINDING_F024_CWE},
         description_key="src.lib_path.f024_aws.unrestricted_ports",
-        finding=core_model.FindingEnum.F024,
-        path=path,
-        statements_iterator=_range_port_iter_vulnerabilities(
-            rules_iterator=iter_ec2_ingress_egress(
-                template=template,
-                ingress=True,
-                egress=True,
+        finding=FINDING_F024,
+        iterator=get_aws_iterator(
+            _range_port_iter_vulnerabilities(
+                rules_iterator=iter_ec2_ingress_egress(
+                    template=template,
+                    ingress=True,
+                    egress=True,
+                )
             )
         ),
+        path=path,
     )
 
 
@@ -249,18 +265,21 @@ def _cfn_unrestricted_ip_protocols(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={FINDING_F024_CWE},
         description_key="src.lib_path.f024_aws.unrestricted_protocols",
-        finding=core_model.FindingEnum.F024,
-        path=path,
-        statements_iterator=_protocol_iter_vulnerabilities(
-            rules_iterator=iter_ec2_ingress_egress(
-                template=template,
-                ingress=True,
-                egress=True,
+        finding=FINDING_F024,
+        iterator=get_aws_iterator(
+            _protocol_iter_vulnerabilities(
+                rules_iterator=iter_ec2_ingress_egress(
+                    template=template,
+                    ingress=True,
+                    egress=True,
+                )
             )
         ),
+        path=path,
     )
 
 
@@ -269,17 +288,20 @@ def _cfn_allows_anyone_to_admin_ports(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={FINDING_F024_CWE},
         description_key="src.lib_path.f024_aws.allows_anyone_to_admin_ports",
-        finding=core_model.FindingEnum.F024,
-        path=path,
-        statements_iterator=_cfn_iter_vulnerable_admin_ports(
-            rules_iterator=iter_ec2_ingress_egress(
-                template=template,
-                ingress=True,
+        finding=FINDING_F024,
+        iterator=get_aws_iterator(
+            _cfn_iter_vulnerable_admin_ports(
+                rules_iterator=iter_ec2_ingress_egress(
+                    template=template,
+                    ingress=True,
+                )
             )
         ),
+        path=path,
     )
 
 
