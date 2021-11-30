@@ -1,12 +1,12 @@
 # shellcheck shell=bash
 
 function check_output() {
-  if ! grep -q ERROR "$1"; then
+  if ! grep -q "ERROR\|TypeError\|IndexError" "$1"; then
     echo "[INFO] All clear!"
     result_code=0
   else
     echo "[ERROR] Failed check"
-    grep ERROR "$1"
+    grep -q "ERROR\|TypeError\|IndexError" "$1"
     result_code=1
   fi
 }
