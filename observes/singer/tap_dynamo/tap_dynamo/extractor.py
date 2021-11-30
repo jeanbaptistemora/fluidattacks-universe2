@@ -1,4 +1,11 @@
 import json
+from purity.v1 import (
+    FrozenDict,
+)
+from tap_dynamo.client import (
+    Client,
+    ScanArgs,
+)
 import tempfile
 from typing import (
     Any,
@@ -27,24 +34,23 @@ class PageData(NamedTuple):
 
 class ScanResponse(NamedTuple):
     t_segment: TableSegment
-    response: FrozenSet[Tuple[str, Any]]
+    response: FrozenDict[str, Any]
 
 
 def paginate_table(
-    db_client: Any,
+    client: Client,
     table_segment: TableSegment,
-    ex_start_key: Optional[FrozenSet[Tuple[str, Any]]],
+    ex_start_key: Optional[Any],
 ) -> ScanResponse:
-    table = db_client.Table(table_segment.table_name)
-    scan_args: Dict[str, Any] = {
-        "Limit": 1000,
-        "ConsistentRead": True,
-        "Segment": table_segment.segment,
-        "TotalSegments": table_segment.total_segments,
-    }
-    if ex_start_key:
-        scan_args.update({"ExclusiveStartKey": ex_start_key})
-    result = table.scan(**scan_args)
+    table = client.table(table_segment.table_name)
+    scan_args = ScanArgs(
+        1000,
+        False,
+        table_segment.segment,
+        table_segment.total_segments,
+        ex_start_key,
+    )
+    result = table.scan(scan_args)
     return ScanResponse(t_segment=table_segment, response=result)
 
 
