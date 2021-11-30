@@ -14,6 +14,15 @@ from typing import (
     ["email"],
     [
         ["admin@fluidattacks.com"],
+        ["architect@fluidattacks.com"],
+        ["hacker@fluidattacks.com"],
+        ["reattacker@fluidattacks.com"],
+        ["customer@fluidattacks.com"],
+        ["customeradmin@fluidattacks.com"],
+        ["executive@fluidattacks.com"],
+        ["system_owner@fluidattacks.com"],
+        ["resourcer@fluidattacks.com"],
+        ["reviewer@fluidattacks.com"],
     ],
 )
 async def test_get_toe_lines(populate: bool, email: str) -> None:

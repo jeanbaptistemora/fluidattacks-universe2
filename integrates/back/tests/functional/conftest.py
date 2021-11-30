@@ -104,6 +104,8 @@ TEST_GROUPS: Set[str] = {
 def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
     admin_email: str = "admin@gmail.com"
     admin_fluid_email: str = "admin@fluidattacks.com"
+    architect_email: str = "architect@gmail.com"
+    architect_fluid_email: str = "architect@fluidattacks.com"
     customer_email: str = "customer@gmail.com"
     customer_fluid_email: str = "customer@fluidattacks.com"
     customer_admin_email: str = "customeradmin@gmail.com"
@@ -127,6 +129,8 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
         "global_vars": {
             "admin_email": admin_email,
             "admin_fluid_email": admin_fluid_email,
+            "architect_email": architect_email,
+            "architect_fluid_email": architect_fluid_email,
             "customer_email": customer_email,
             "customer_fluid_email": customer_fluid_email,
             "customer_admin_email": customer_admin_email,
@@ -162,6 +166,26 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                 },
                 {
                     "email": admin_fluid_email,
+                    "first_login": "",
+                    "first_name": "",
+                    "last_login": "",
+                    "last_name": "",
+                    "legal_remember": False,
+                    "push_tokens": [],
+                    "is_registered": True,
+                },
+                {
+                    "email": architect_email,
+                    "first_login": "",
+                    "first_name": "",
+                    "last_login": "",
+                    "last_name": "",
+                    "legal_remember": False,
+                    "push_tokens": [],
+                    "is_registered": True,
+                },
+                {
+                    "email": architect_fluid_email,
                     "first_login": "",
                     "first_name": "",
                     "last_login": "",
@@ -358,6 +382,8 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "users": [
                         admin_email,
                         admin_fluid_email,
+                        architect_email,
+                        architect_fluid_email,
                         hacker_email,
                         hacker_fluid_email,
                         reattacker_email,
@@ -451,6 +477,18 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                 },
                 {
                     "level": "user",
+                    "subject": architect_email,
+                    "object": "self",
+                    "role": "architect",
+                },
+                {
+                    "level": "user",
+                    "subject": architect_fluid_email,
+                    "object": "self",
+                    "role": "architect",
+                },
+                {
+                    "level": "user",
                     "subject": hacker_email,
                     "object": "self",
                     "role": "hacker",
@@ -556,6 +594,18 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "subject": system_owner_fluid_email,
                     "object": "self",
                     "role": "system_owner",
+                },
+                {
+                    "level": "group",
+                    "subject": architect_email,
+                    "object": "group1",
+                    "role": "architect",
+                },
+                {
+                    "level": "group",
+                    "subject": architect_fluid_email,
+                    "object": "group1",
+                    "role": "architect",
                 },
                 {
                     "level": "group",
@@ -688,6 +738,18 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "subject": admin_fluid_email,
                     "object": org_id,
                     "role": "admin",
+                },
+                {
+                    "level": "organization",
+                    "subject": architect_email,
+                    "object": org_id,
+                    "role": "architect",
+                },
+                {
+                    "level": "organization",
+                    "subject": architect_fluid_email,
+                    "object": org_id,
+                    "role": "architect",
                 },
                 {
                     "level": "organization",
