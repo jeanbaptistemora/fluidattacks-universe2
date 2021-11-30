@@ -3,7 +3,6 @@ from .typing import (
 )
 from custom_types import (
     Historic as HistoricType,
-    Vulnerability as VulnType,
 )
 from datetime import (
     datetime,
@@ -18,6 +17,16 @@ from db_model.findings.types import (
     Finding,
     Finding31Severity,
     FindingVerification,
+)
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
+    VulnerabilityType,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityState,
+    VulnerabilityTreatment,
 )
 from findings import (
     domain as findings_domain,
@@ -102,10 +111,7 @@ class ITReport:
     ) -> None:
         """Initialize variables."""
         self.data = data
-        self.finding_historic_verification_loader = (
-            loaders.finding_historic_verification
-        )
-        self.finding_vulns_loader = loaders.finding_vulns_nzr
+        self.loaders = loaders
         self.group_name = group_name
         self.lang = lang
 
@@ -120,9 +126,11 @@ class ITReport:
 
     async def generate(self, data: Tuple[Finding, ...]) -> None:
         for finding in data:
-            finding_vulns = await self.finding_vulns_loader.load(finding.id)
+            finding_vulns = await self.loaders.finding_vulns_nzr_typed.load(
+                finding.id
+            )
             for vuln in finding_vulns:
-                await self.set_vuln_row(cast(VulnType, vuln), finding)
+                await self.set_vuln_row(vuln, finding)
                 self.row += 1
 
     @staticmethod
@@ -236,13 +244,11 @@ class ITReport:
         )
         self.row_values[vuln[cvss_key]] = cell_content
 
-    def set_finding_data(self, finding: Finding, vuln: VulnType) -> None:
+    def set_finding_data(self, finding: Finding, vuln: Vulnerability) -> None:
         severity = float(findings_domain.get_severity_score(finding.severity))
         finding_data = {
             "Description": finding.description,
-            "Status": cast(HistoricType, vuln.get("historic_state"))[-1][
-                "state"
-            ],
+            "Status": vuln.state.status.value,
             "Severity": severity or EMPTY,
             "Requirements": finding.requirements,
             "Impact": finding.attack_vector_description,
@@ -254,15 +260,11 @@ class ITReport:
             self.row_values[self.vulnerability[key]] = value
 
     async def set_reattack_data(
-        self, finding: Finding, vuln: VulnType
+        self, finding: Finding, vuln: Vulnerability
     ) -> None:
         historic_verification: Tuple[
             FindingVerification, ...
-        ] = await self.finding_historic_verification_loader.load(finding.id)
-        vuln_closed = (
-            cast(HistoricType, vuln.get("historic_state"))[-1]["state"]
-            == "closed"
-        )
+        ] = await self.loaders.finding_historic_verification.load(finding.id)
         reattack_requested = None
         reattack_date = None
         reattack_requester = None
@@ -281,7 +283,7 @@ class ITReport:
                     == FindingVerificationStatus.REQUESTED
                 ]
             )
-            if vuln_closed:
+            if vuln.state.status == VulnerabilityStateStatus.CLOSED:
                 remediation_effectiveness = f"{100 / n_requested_reattacks}%"
             if reattack_requested:
                 reattack_date = datetime_utils.as_zone(
@@ -315,104 +317,93 @@ class ITReport:
             ),
         )
 
-    def set_treatment_data(  # pylint: disable=too-many-locals
-        self, vuln: VulnType
-    ) -> None:
-        def format_treatment(treatment: str) -> str:
-            treatment = treatment.capitalize().replace("_", " ")
-            if treatment == "Accepted undefined":
-                treatment = "Permanently accepted"
-            elif treatment == "Accepted":
-                treatment = "Temporarily accepted"
-            return treatment
+    async def set_treatment_data(self, vuln: Vulnerability) -> None:
+        def format_treatment(treatment: VulnerabilityTreatmentStatus) -> str:
+            if treatment == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED:
+                return "Permanently accepted"
+            if treatment == VulnerabilityTreatmentStatus.ACCEPTED:
+                return "Temporarily accepted"
+            return treatment.value.capitalize().replace("_", " ")
 
-        is_vuln_open: bool = vuln["current_state"] == "open"
-        historic_treatment = cast(
-            HistoricType, vuln.get("historic_treatment", [{}])
-        )
-        curr_trtmnt_date: Union[str, datetime] = get_formatted_last_date(
-            historic_treatment
-        )
+        historic_treatment: Tuple[
+            VulnerabilityTreatment, ...
+        ] = await self.loaders.vulnerability_historic_treatment.load(vuln.id)
         current_treatment_exp_date: Union[str, datetime] = EMPTY
         first_treatment_exp_date: Union[str, datetime] = EMPTY
         current_treatment = historic_treatment[-1]
         first_treatment_state = historic_treatment[0]
-        if current_treatment.get("acceptance_date"):
-            current_treatment_exp_date = datetime_utils.get_from_str(
-                str(current_treatment["acceptance_date"])
+        if current_treatment.accepted_until:
+            current_treatment_exp_date = datetime_utils.convert_from_iso_str(
+                current_treatment.accepted_until
             )
-        if first_treatment_state.get("acceptance_date"):
-            first_treatment_exp_date = datetime_utils.get_from_str(
-                str(first_treatment_state["acceptance_date"])
+        if first_treatment_state.accepted_until:
+            first_treatment_exp_date = datetime_utils.convert_from_iso_str(
+                first_treatment_state.accepted_until
             )
 
-        current_treatment_data: Dict[str, Union[str, int, float, datetime]] = {
-            "Current Treatment": format_treatment(
-                str(current_treatment.get("treatment", "NEW"))
+        current_treatment_data = {
+            "Current Treatment": format_treatment(current_treatment.status),
+            "Current Treatment Moment": datetime_utils.convert_from_iso_str(
+                current_treatment.modified_date
             ),
-            "Current Treatment Moment": curr_trtmnt_date,
-            "Current Treatment Justification": str(
-                current_treatment.get("justification", EMPTY)
+            "Current Treatment Justification": (
+                current_treatment.justification or EMPTY
             ),
             "Current Treatment expiration Moment": current_treatment_exp_date,
-            "Current Treatment manager": str(
-                current_treatment.get("treatment_manager", EMPTY)
-            ),
+            "Current Treatment manager": current_treatment.manager or EMPTY,
         }
-        first_treatment_data: Dict[str, Union[str, int, float, datetime]] = {
-            "First Treatment": str(
-                format_treatment(first_treatment_state.get("treatment", "NEW"))
+        first_treatment_data = {
+            "First Treatment": format_treatment(first_treatment_state.status),
+            "First Treatment Moment": datetime_utils.convert_from_iso_str(
+                first_treatment_state.modified_date
             ),
-            "First Treatment Moment": get_formatted_last_date(
-                [first_treatment_state]
-            ),
-            "First Treatment Justification": str(
-                first_treatment_state.get("justification", EMPTY)
+            "First Treatment Justification": (
+                first_treatment_state.justification or EMPTY
             ),
             "First Treatment expiration Moment": first_treatment_exp_date,
-            "First Treatment manager": str(
-                first_treatment_state.get("treatment_manager", EMPTY)
-            ),
+            "First Treatment manager": first_treatment_state.manager or EMPTY,
         }
         for key, value in current_treatment_data.items():
             self.row_values[self.vulnerability[key]] = (
-                value if is_vuln_open else EMPTY
+                value
+                if vuln.state.status == VulnerabilityStateStatus.OPEN
+                else EMPTY
             )
             first_treatment_key = key.replace("Current", "First")
             kword = self.vulnerability[first_treatment_key]
             self.row_values[kword] = first_treatment_data[first_treatment_key]
 
-    async def set_vuln_row(self, row: VulnType, finding: Finding) -> None:
+    async def set_vuln_row(self, row: Vulnerability, finding: Finding) -> None:
         vuln = self.vulnerability
-        specific = str(row.get("specific", ""))
-        if row.get("vuln_type") == "lines":
+        specific = row.specific
+        if row.type == VulnerabilityType.LINES:
             specific = str(int(specific))
 
         commit = EMPTY
-        if "commit_hash" in row:
-            commit = row["commit_hash"][0:7]
+        if row.commit:
+            commit = row.commit[0:7]
 
         tags = EMPTY
-        if "tag" in row:
-            tags = row.get("tag", "")
+        if row.tags:
+            tags = ", ".join(sorted(row.tags))
 
         stream = EMPTY
-        if "stream" in row:
-            stream = row.get("stream", "")
+        if row.stream:
+            stream = " > ".join(row.stream)
 
         self.row_values[vuln["#"]] = self.row - 1
         self.row_values[vuln["Related Finding"]] = finding.title
         self.row_values[vuln["Finding Id"]] = finding.id
-        self.row_values[vuln["Vulnerability Id"]] = str(row.get("UUID", EMPTY))
-        self.row_values[vuln["Where"]] = str(row.get("where"))
+        self.row_values[vuln["Vulnerability Id"]] = row.id
+        self.row_values[vuln["Where"]] = row.where
         self.row_values[vuln["Specific"]] = specific
         self.row_values[vuln["Commit Hash"]] = commit
         self.row_values[vuln["Tags"]] = tags
         self.row_values[vuln["Stream"]] = stream
 
         self.set_finding_data(finding, row)
-        self.set_vuln_temporal_data(row)
-        self.set_treatment_data(row)
+        await self.set_vuln_temporal_data(row)
+        await self.set_treatment_data(row)
         await self.set_reattack_data(finding, row)
         self.set_cvss_metrics_cell(finding)
 
@@ -421,21 +412,18 @@ class ITReport:
         ]
         self.set_row_height()
 
-    def set_vuln_temporal_data(self, vuln: VulnType) -> None:
-        vuln_historic_state = cast(HistoricType, vuln.get("historic_state"))
-        vuln_date = datetime_utils.get_from_str(vuln_historic_state[0]["date"])
-        vuln_closed = vuln_historic_state[-1]["state"] == "closed"
+    async def set_vuln_temporal_data(self, vuln: Vulnerability) -> None:
+        historic_state: Tuple[
+            VulnerabilityState, ...
+        ] = await self.loaders.vulnerability_historic_state.load(vuln.id)
+        vuln_date = datetime.fromisoformat(historic_state[0].modified_date)
         limit_date = datetime_utils.get_now()
         vuln_close_date: Union[str, datetime] = EMPTY
-        if vuln_closed:
-            limit_date = datetime_utils.get_from_str(
-                vuln_historic_state[-1]["date"]
-            )
-            vuln_close_date = datetime_utils.get_from_str(
-                vuln_historic_state[-1]["date"]
-            )
+        if vuln.state.status == VulnerabilityStateStatus.CLOSED:
+            limit_date = datetime.fromisoformat(vuln.state.modified_date)
+            vuln_close_date = datetime.fromisoformat(vuln.state.modified_date)
         vuln_age_days = int((limit_date - vuln_date).days)
-        external_bts = vuln.get("external_bts", EMPTY)
+        external_bts = vuln.bug_tracking_system_url or EMPTY
 
         vuln_temporal_data: Dict[str, Union[str, int, float, datetime]] = {
             "Report Moment": vuln_date,
