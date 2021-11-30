@@ -3,10 +3,10 @@
 , ...
 }:
 makeTemplate {
-  name = "observes-singer-tap-checkly-env-development";
+  name = "observes-singer-tap-dynamo-env-development";
   searchPaths = {
     source = [
-      outputs."/observes/singer/tap-checkly/env/runtime"
+      outputs."/observes/singer/tap-dynamo/env/runtime"
     ];
   };
 }

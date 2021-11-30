@@ -16,7 +16,15 @@ in
     checkly = "${singerPath}/tap_checkly";
     csv = "${singerPath}/tap_csv";
     delighted = "${singerPath}/tap_delighted";
-    dynamo = "${singerPath}/tap_dynamo";
+    dynamo = rec {
+      root = "${singerPath}/tap_dynamo";
+      env = {
+        runtime = builtins.replaceStrings [ "_" ] [ "-" ] "${root}/env/runtime";
+        dev = "${root}/env/development";
+      };
+      src = "${root}/tap_dynamo";
+      test = "${root}/test";
+    };
     formstack = "${singerPath}/tap_formstack";
     git = "${singerPath}/tap_git";
     gitlab = "${singerPath}/tap_gitlab";

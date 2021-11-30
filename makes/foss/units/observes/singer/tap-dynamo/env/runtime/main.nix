@@ -6,7 +6,7 @@
 , ...
 }:
 let
-  self = projectPath inputs.observesIndex.tap.dynamo;
+  self = projectPath inputs.observesIndex.tap.dynamo.root;
 in
 makeTemplate {
   name = "observes-singer-tap-dynamo-env-runtime";
