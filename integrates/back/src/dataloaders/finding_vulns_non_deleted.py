@@ -53,6 +53,10 @@ class FindingVulnsNonDeletedTypedLoader(DataLoader):
         super().__init__()
         self.dataloader = dataloader
 
+    def clear(self, key: str) -> DataLoader:
+        self.dataloader.clear(key)
+        return super().clear(key)
+
     async def load_many_chained(
         self, finding_ids: List[str]
     ) -> Tuple[Vulnerability, ...]:

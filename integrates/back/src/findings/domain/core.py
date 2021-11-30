@@ -591,7 +591,7 @@ async def request_vulnerabilities_verification(
 ) -> None:
     finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
-    vulnerabilities = await vulns_domain.get_by_finding_and_vuln_ids_new(
+    vulnerabilities = await vulns_domain.get_by_finding_and_vuln_ids(
         loaders,
         finding_id,
         vulnerability_ids,

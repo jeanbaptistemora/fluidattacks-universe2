@@ -94,7 +94,7 @@ def as_range(iterable: Iterable[Any]) -> str:
 def is_accepted_undefined_vulnerability(
     vulnerability: Vulnerability,
 ) -> bool:
-    return (
+    return bool(
         vulnerability.treatment
         and vulnerability.treatment.status
         == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
@@ -111,7 +111,7 @@ def is_reattack_requested(vuln: Dict[str, Any]) -> bool:
 
 
 def is_reattack_requested_new(vulnerability: Vulnerability) -> bool:
-    return (
+    return bool(
         vulnerability.verification
         and vulnerability.verification.status
         == VulnerabilityVerificationStatus.REQUESTED
@@ -134,7 +134,8 @@ def filter_no_treatment_vulns(
     return tuple(
         vuln
         for vuln in vulnerabilities
-        if vuln.treatment.status == VulnerabilityTreatmentStatus.NEW
+        if vuln.treatment
+        and vuln.treatment.status == VulnerabilityTreatmentStatus.NEW
     )
 
 

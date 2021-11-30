@@ -113,7 +113,7 @@ async def confirm_vulnerabilities_zero_risk(
     justification: str,
 ) -> bool:
     vulns_utils.validate_justification_length(justification)
-    vulnerabilities = await get_by_finding_and_vuln_ids_new(
+    vulnerabilities = await get_by_finding_and_vuln_ids(
         loaders, finding_id, vuln_ids
     )
     vulnerabilities = tuple(
@@ -189,7 +189,7 @@ async def remove_vulnerability_tags(
     finding_id: str,
     tag_to_remove: str,
 ) -> None:
-    vulnerabilities = await get_by_finding_and_vuln_ids_new(
+    vulnerabilities = await get_by_finding_and_vuln_ids(
         loaders, finding_id, vuln_ids
     )
     if tag_to_remove:
@@ -259,22 +259,7 @@ async def get_by_finding(
     return vuln[0]
 
 
-async def get_by_finding_and_uuids(
-    finding_id: str,
-    vuln_ids: Set[str],
-) -> List[Dict[str, FindingType]]:
-    finding_vulns = await vulns_dal.get_by_finding(finding_id)
-    fin_vulns = [vuln for vuln in finding_vulns if vuln["UUID"] in vuln_ids]
-    if len(fin_vulns) != len(vuln_ids):
-        raise VulnNotInFinding()
-
-    vulns = vulns_utils.filter_non_deleted(fin_vulns)
-    if len(vulns) != len(vuln_ids):
-        raise VulnNotFound()
-    return vulns
-
-
-async def get_by_finding_and_vuln_ids_new(
+async def get_by_finding_and_vuln_ids(
     loaders: Any,
     finding_id: str,
     vuln_ids: Set[str],
@@ -614,7 +599,7 @@ async def reject_vulnerabilities_zero_risk(
     justification: str,
 ) -> bool:
     vulns_utils.validate_justification_length(justification)
-    vulnerabilities = await get_by_finding_and_vuln_ids_new(
+    vulnerabilities = await get_by_finding_and_vuln_ids(
         loaders, finding_id, vuln_ids
     )
     vulnerabilities = tuple(
@@ -679,7 +664,7 @@ async def request_vulnerabilities_zero_risk(
     justification: str,
 ) -> bool:
     vulns_utils.validate_justification_length(justification)
-    vulnerabilities = await get_by_finding_and_vuln_ids_new(
+    vulnerabilities = await get_by_finding_and_vuln_ids(
         loaders, finding_id, vuln_ids
     )
     vulnerabilities = tuple(
