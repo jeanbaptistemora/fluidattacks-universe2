@@ -3,7 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import moment from "moment";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { dateFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { DataTableNext } from "components/DataTableNext";
 import { commitFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
+import { filterSearchText } from "components/DataTableNext/utils";
 import { GET_TOE_LINES } from "scenes/Dashboard/containers/GroupToeLinesView/queries";
 import type {
   IGitRootAttr,
@@ -69,6 +70,12 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     "toeLinesFilters",
     false
   );
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
   const handleUpdateFilter: () => void = useCallback((): void => {
     setFilterEnabled(!isFilterEnabled);
   }, [isFilterEnabled, setFilterEnabled]);
@@ -216,6 +223,10 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       ),
     []
   );
+  const filterSearchtextResult: IToeLinesData[] = filterSearchText(
+    servicesToeLines,
+    searchTextFilter
+  );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -231,7 +242,12 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       <DataTableNext
         bordered={true}
         columnToggle={true}
-        dataset={servicesToeLines}
+        customSearch={{
+          customSearchDefault: searchTextFilter,
+          isCustomSearchEnabled: true,
+          onUpdateCustomSearch: onSearchTextChange,
+        }}
+        dataset={filterSearchtextResult}
         defaultSorted={JSON.parse(
           _.get(sessionStorage, "toeLinesSort", initialSort)
         )}
@@ -242,7 +258,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
         onColumnToggle={handleChange}
         onUpdateEnableFilter={handleUpdateFilter}
         pageSize={100}
-        search={true}
+        search={false}
       />
     </React.StrictMode>
   );
