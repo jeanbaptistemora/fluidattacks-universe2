@@ -1,5 +1,6 @@
 ---
 slug: owasp-top-10-2021/
+title: Web Apps Are to Tackle a New Order
 date: 2021-10-04
 subtitle: New OWASP Top 10 emphasizes secure design
 category: philosophy

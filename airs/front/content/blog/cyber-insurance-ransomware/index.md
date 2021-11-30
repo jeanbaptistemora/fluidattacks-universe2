@@ -149,7 +149,7 @@ transport, or food sector. It was the case of, for example, [Colonial
 Pipeline](../pipeline-ransomware-darkside/) and
 [JBS](../jbs-revil-cyberattack/).
 
-## Not today
+## Not today!
 
 We come back to the question we had already asked. If we all know that
 paying for ransomware is financing these criminal groups, what should we

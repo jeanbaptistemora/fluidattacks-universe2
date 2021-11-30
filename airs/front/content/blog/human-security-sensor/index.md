@@ -169,7 +169,7 @@ perform one or more of its primary functions, if there’s major damage to
 organizational assets, or major financial loss, or serious threat to the
 reputation of the company, the expected impact is indeed high.
 
-## Step up your training program
+## Step up your training program!
 
 We have covered the basics of the human-as-a-security-sensor paradigm.
 You may be interested in integrating employees' reports into existing

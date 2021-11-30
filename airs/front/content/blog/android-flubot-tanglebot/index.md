@@ -82,7 +82,7 @@ Figure 1. Screen prompting to download FluBot. Source: [cert.gov.nz.](https://ww
 
 </div>
 
-## Update Flash Player? Sure, why not?
+## Update Flash Player? Sure, why not?!
 
 A more recent malware, and arguably more dangerous, is TangleBot. It was
 [discovered last

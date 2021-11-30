@@ -184,6 +184,6 @@ widespread commitment. More outstanding engagement is required in
 formalizing institutions whose mission is to ensure the nation’s
 cybersecurity.
 
-We hope you have enjoyed this post\!
-At `Fluid Attacks`, we look forward to hearing from you.
-[Contact us](../../contact-us/)\!
+We hope you have enjoyed this post!\
+At `Fluid Attacks`, we look forward to hearing from you.\
+[Contact us](../../contact-us/)!

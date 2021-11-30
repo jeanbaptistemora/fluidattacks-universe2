@@ -52,7 +52,7 @@ Security](https://www.offensive-security.com/awae-oswe/)
 
 ## [**Offensive Security Web Expert (OSWE)**](https://www.offensive-security.com/awae-oswe/)
 
-Granted by Offensive Security.
+Granted by Offensive Security.\
 It is an **intermediate** level certification. It is one of the three
 certifications required to obtain the OSCE. It verifies the skills that
 a candidate has to "[perform a deep analysis on decompiled web app
@@ -70,7 +70,7 @@ expire](https://www.offensive-security.com/offsec/awae-oswe-faq/).
 
 ## [**Offensive Security Exploit Developer (OSED)**](https://www.offensive-security.com/exp301-osed/)
 
-Granted by Offensive Security.
+Granted by Offensive Security.\
 In a past blog, [we interviewed Óscar Uribe](../osed-certification/),
 one of our security analysts, about his experience obtaining this
 certificate.
@@ -94,7 +94,7 @@ level](https://spaceraccoon.dev/rop-and-roll-exp-301-offensive-security-exploit-
 
 ## [**eLearnSecurity Web Application Penetration Tester (eWPTv1)**](https://elearnsecurity.com/product/ewpt-certification/)
 
-Granted by eLearnSecurity.
+Granted by eLearnSecurity.\
 In a past blog, [we interviewed Andres
 Roldan](../ewptv1-certification/), our Offensive Team Leader, about his
 experience obtaining this certificate.
@@ -115,7 +115,7 @@ the steps followed during the attack.
 
 ## [**eLearnSecurity Mobile Application Penetration Tester (eMAPT)**](https://elearnsecurity.com/product/emapt-certification/)
 
-Granted by eLearnSecurity.
+Granted by eLearnSecurity.\
 It’s an **advanced** level certificate. As its name suggests, it is
 designed for experts who want to test "[advanced mobile application
 security knowledge through a scenario-based
@@ -138,7 +138,7 @@ or take the exam confident in their experience in the field.
 
 ## [**eLearnSecurity Web application Penetration Tester eXtreme (eWPTXv2)**](https://elearnsecurity.com/product/ewptxv2-certification/)
 
-Granted by eLearnSecurity.
+Granted by eLearnSecurity.\
 It is a **very advanced** certificate. It’s more complex than the
 eWPTv1. In fact, eLearnSecurity touts it as "[our most advanced web
 application pentesting
@@ -155,7 +155,7 @@ exploits creation skills—both this test and the eWPTv1 last 48 hours.
 
 ## [**Offensive Security Certified Expert (OSCE)**](https://www.offensive-security.com/ctp-osce/)
 
-Granted by Offensive Security.
+Granted by Offensive Security.\
 In a past blog, [we interviewed Andres Roldan](../recent-osce/), our
 Offensive Team Leader, about his experience obtaining this certificate.
 
