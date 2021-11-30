@@ -3,7 +3,8 @@ from aioextensions import (
 )
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_aws_iterator,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from metaloaders.model import (
@@ -37,6 +38,9 @@ from utils.function import (
     TIMEOUT_1MIN,
 )
 
+FINDING_F073 = core_model.FindingEnum.F073
+FINDING_F073_CWE = FINDING_F073.value.cwe
+
 
 def tfm_db_cluster_publicly_accessible_iterate_vulnerabilities(
     buckets_iterator: Iterator[Any],
@@ -69,16 +73,17 @@ def _tfm_db_cluster_publicly_accessible(
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={FINDING_F073_CWE},
         description_key="F073.title",
-        finding=core_model.FindingEnum.F073,
-        path=path,
-        statements_iterator=(
+        finding=FINDING_F073,
+        iterator=get_aws_iterator(
             tfm_db_cluster_publicly_accessible_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_db_instance(model=model)
             )
         ),
+        path=path,
     )
 
 
@@ -87,16 +92,17 @@ def _tfm_db_instance_publicly_accessible(
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={FINDING_F073_CWE},
         description_key="F073.title",
-        finding=core_model.FindingEnum.F073,
-        path=path,
-        statements_iterator=(
+        finding=FINDING_F073,
+        iterator=get_aws_iterator(
             tfm_db_instance_publicly_accessible_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_rds_cluster_instance(model=model)
             )
         ),
+        path=path,
     )
 
 

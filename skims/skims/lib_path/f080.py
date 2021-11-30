@@ -8,8 +8,9 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
+    get_aws_iterator,
     get_line_by_extension,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from metaloaders.model import (
@@ -48,6 +49,9 @@ from utils.function import (
     get_node_by_keys,
     TIMEOUT_1MIN,
 )
+
+FINDING_F080 = core_model.FindingEnum.F080
+FINDING_F080_CWE = FINDING_F080.value.cwe
 
 
 def _iter_ec2_volumes(template: Node) -> Iterator[Node]:
@@ -124,16 +128,17 @@ def _cfn_unencrypted_volumes(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="src.lib_path.f055_aws.unencrypted_volumes",
-        finding=core_model.FindingEnum.F080,
-        path=path,
-        statements_iterator=_unencrypted_volume_iterate_vulnerabilities(
-            volumes_iterator=_iter_ec2_volumes(
-                template=template,
+        cwe={FINDING_F080_CWE},
+        description_key="src.lib_path.f080_aws.unencrypted_volumes",
+        finding=FINDING_F080,
+        iterator=get_aws_iterator(
+            _unencrypted_volume_iterate_vulnerabilities(
+                volumes_iterator=_iter_ec2_volumes(template=template)
             )
         ),
+        path=path,
     )
 
 
@@ -143,15 +148,18 @@ def _cfn_unencrypted_buckets(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="src.lib_path.f055_aws.unencrypted_buckets",
-        finding=core_model.FindingEnum.F080,
-        path=path,
-        statements_iterator=_cfn_unencrypted_buckets_iterate_vulnerabilities(
-            file_ext=file_ext,
-            buckets_iterator=iter_s3_buckets(template=template),
+        cwe={FINDING_F080_CWE},
+        description_key="src.lib_path.f080_aws.unencrypted_buckets",
+        finding=FINDING_F080,
+        iterator=get_aws_iterator(
+            _cfn_unencrypted_buckets_iterate_vulnerabilities(
+                file_ext=file_ext,
+                buckets_iterator=iter_s3_buckets(template=template),
+            )
         ),
+        path=path,
     )
 
 
@@ -160,14 +168,17 @@ def _terraform_unencrypted_buckets(
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="src.lib_path.f055_aws.unencrypted_buckets",
-        finding=core_model.FindingEnum.F080,
-        path=path,
-        statements_iterator=_unencrypted_buckets_iterate_vulnerabilities(
-            buckets_iterator=terraform_iter_s3_buckets(model=model)
+        cwe={FINDING_F080_CWE},
+        description_key="src.lib_path.f080_aws.unencrypted_buckets",
+        finding=FINDING_F080,
+        iterator=get_aws_iterator(
+            _unencrypted_buckets_iterate_vulnerabilities(
+                buckets_iterator=terraform_iter_s3_buckets(model=model)
+            )
         ),
+        path=path,
     )
 
 
@@ -176,14 +187,17 @@ def _terraform_public_buckets(
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="src.lib_path.f055_aws.unencrypted_buckets",
-        finding=core_model.FindingEnum.F080,
-        path=path,
-        statements_iterator=_public_buckets_iterate_vulnerabilities(
-            buckets_iterator=terraform_iter_s3_buckets(model=model)
+        cwe={FINDING_F080_CWE},
+        description_key="src.lib_path.f080_aws.unencrypted_buckets",
+        finding=FINDING_F080,
+        iterator=get_aws_iterator(
+            _public_buckets_iterate_vulnerabilities(
+                buckets_iterator=terraform_iter_s3_buckets(model=model)
+            )
         ),
+        path=path,
     )
 
 

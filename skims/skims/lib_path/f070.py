@@ -3,7 +3,8 @@ from aioextensions import (
 )
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_aws_iterator,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from metaloaders.model import (
@@ -36,6 +37,9 @@ from utils.function import (
     TIMEOUT_1MIN,
 )
 
+FINDING_F070 = core_model.FindingEnum.F070
+FINDING_F070_CWE = FINDING_F070.value.cwe
+
 
 def tfm_lb_target_group_insecure_port_iterate_vulnerabilities(
     buckets_iterator: Iterator[Any],
@@ -55,16 +59,17 @@ def _tfm_lb_target_group_insecure_port(
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={FINDING_F070_CWE},
         description_key="F070.title",
-        finding=core_model.FindingEnum.F070,
-        path=path,
-        statements_iterator=(
+        finding=FINDING_F070,
+        iterator=get_aws_iterator(
             tfm_lb_target_group_insecure_port_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_lb_target_group(model=model)
             )
         ),
+        path=path,
     )
 
 

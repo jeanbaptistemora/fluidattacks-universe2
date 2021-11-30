@@ -6,8 +6,9 @@ from aws.model import (
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
+    get_aws_iterator,
     get_line_by_extension,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from metaloaders.model import (
@@ -38,6 +39,9 @@ from utils.function import (
     TIMEOUT_1MIN,
 )
 
+FINDING_F091 = core_model.FindingEnum.F091
+FINDING_F091_CWE = FINDING_F091.value.cwe
+
 
 def cfn_log_files_not_validated_iterate_vulnerabilities(
     file_ext: str,
@@ -63,17 +67,18 @@ def _cfn_log_files_not_validated(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={FINDING_F091_CWE},
         description_key="src.lib_path.f091.cfn_log_files_not_validated",
-        finding=core_model.FindingEnum.F091,
-        path=path,
-        statements_iterator=(
+        finding=FINDING_F091,
+        iterator=get_aws_iterator(
             cfn_log_files_not_validated_iterate_vulnerabilities(
                 file_ext=file_ext,
                 trails_iterator=iter_cloudtrail_trail(template=template),
             )
         ),
+        path=path,
     )
 
 
