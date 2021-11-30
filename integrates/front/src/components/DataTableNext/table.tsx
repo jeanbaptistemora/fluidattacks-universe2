@@ -37,6 +37,7 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   ButtonGroup,
   ButtonToolbarLeft,
+  ButtonToolbarRight,
   ButtonToolbarRow,
   ControlLabel,
   Filters,
@@ -74,6 +75,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     defaultSorted,
     expandRow,
     extraButtons,
+    extraButtonsRight,
     onUpdateEnableFilter,
     isFilterEnabled,
     pageSize,
@@ -261,13 +263,14 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   return (
     <div>
       <div className={`flex flex-wrap ${style.tableOptions}`}>
-        <div>
+        <div className={"w-100"}>
           {exportCsv ||
           columnToggle ||
           !_.isUndefined(isFilterEnabled) ||
           !_.isUndefined(isCustomFilterEnabled) ||
           !_.isUndefined(customSearchDefault) ||
-          extraButtons !== undefined ? (
+          extraButtons !== undefined ||
+          extraButtonsRight !== undefined ? (
             <TableOptionsColBtn>
               <ButtonToolbarLeft>
                 {exportCsv && (
@@ -336,6 +339,11 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                     </ButtonGroup>
                   )}
               </ButtonToolbarLeft>
+              {extraButtonsRight === undefined ? undefined : (
+                <ButtonToolbarRight>
+                  <ButtonGroup>{extraButtonsRight}</ButtonGroup>
+                </ButtonToolbarRight>
+              )}
             </TableOptionsColBtn>
           ) : undefined}
           {!_.isUndefined(isCustomFilterEnabled) && isCustomFilterEnabled && (
