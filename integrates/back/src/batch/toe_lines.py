@@ -339,7 +339,7 @@ def get_non_present_toe_lines_to_update(
 
 
 def make_group_dir(tmpdir: str, group_name: str) -> None:
-    group_dir = os.path.join(tmpdir, "groups", group_name)
+    group_dir = os.path.join(tmpdir, "groups", group_name, "fusion")
     os.makedirs(group_dir, exist_ok=True)
 
 
