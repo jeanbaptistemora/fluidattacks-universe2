@@ -215,7 +215,7 @@ async def get_present_toe_lines_to_add(
             files_get_lines_count(f"{repo_nickname}/{filename}")
             for filename in non_db_filenames
         ),
-        workers=340,
+        workers=1024,
     )
     last_commit_infos = await collect(
         tuple(
@@ -270,7 +270,7 @@ async def get_present_toe_lines_to_update(
             files_get_lines_count(f"{repo_nickname}/{filename}")
             for filename in db_filenames
         ),
-        workers=340,
+        workers=1024,
     )
     last_commit_infos = await collect(
         tuple(
@@ -521,28 +521,26 @@ async def refresh_root_repo_toe_lines(
         and root.state.status == "INACTIVE"
         and root.state.nickname not in active_root_repos
     }
-    await collect(
-        tuple(
-            refresh_active_root_repo_toe_lines(
-                loaders, group_name, group_path, root_repo
-            )
-            for root_repo in active_root_repos.values()
-            if not optional_repo_nickname
-            or root_repo.state.nickname == optional_repo_nickname
-        ),
-        workers=3,
+    active_root_repos_to_proccess = tuple(
+        root_repo
+        for root_repo in active_root_repos.values()
+        if not optional_repo_nickname
+        or root_repo.state.nickname == optional_repo_nickname
     )
-    await collect(
-        tuple(
-            refresh_inactive_root_repo_toe_lines(
-                loaders, group_name, root_repo
-            )
-            for root_repo in inactive_root_repos.values()
-            if not optional_repo_nickname
-            or root_repo.state.nickname == optional_repo_nickname
-        ),
-        workers=3,
+    for root_repo in active_root_repos_to_proccess:
+        await refresh_active_root_repo_toe_lines(
+            loaders, group_name, group_path, root_repo
+        )
+    inactive_root_repos_to_proccess = tuple(
+        root_repo
+        for root_repo in inactive_root_repos.values()
+        if not optional_repo_nickname
+        or root_repo.state.nickname == optional_repo_nickname
     )
+    for root_repo in inactive_root_repos_to_proccess:
+        await refresh_inactive_root_repo_toe_lines(
+            loaders, group_name, root_repo
+        )
 
 
 async def refresh_toe_lines(*, item: BatchProcessing) -> None:
@@ -552,9 +550,6 @@ async def refresh_toe_lines(*, item: BatchProcessing) -> None:
     )
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        os.system("ulimit -n 4000")  # nosec
-        os.system("ulimit -aS")  # nosec
-        os.system("ulimit -aH")  # nosec
         os.chdir(tmpdir)
         pull_repositories(tmpdir, group_name, optional_repo_nickname)
         group_path = tmpdir + f"/groups/{group_name}"
