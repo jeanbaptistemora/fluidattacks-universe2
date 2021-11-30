@@ -1004,7 +1004,6 @@ def exec_cloudformation_package(
         ("ec2", "EC2 (Elastic Cloud Compute)"): [
             "ec2.has_not_an_iam_instance_profile",
             "ec2.has_not_termination_protection",
-            "ec2.has_terminate_shutdown_behavior",
             "ec2.has_unencrypted_volumes",
             "ec2.has_unrestricted_cidrs",
             "ec2.has_unrestricted_ip_protocols",
