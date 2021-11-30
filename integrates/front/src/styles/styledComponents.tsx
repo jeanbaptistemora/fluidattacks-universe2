@@ -38,6 +38,13 @@ const ButtonToolbarLeft: StyledComponent<
   className: "fl",
 })``;
 
+const ButtonToolbarRight: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "fl fr-l fr-m",
+})``;
+
 const ButtonToolbarRow: StyledComponent<
   "div",
   Record<string, unknown>
@@ -617,7 +624,7 @@ const TableOptionsColBtn: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "dib pa0 table-btn",
+  className: "dib pa0 table-btn w-100",
 })``;
 
 const TabsContainer: StyledComponent<
@@ -648,6 +655,7 @@ export {
   ButtonToolbar,
   ButtonToolbarCenter,
   ButtonToolbarLeft,
+  ButtonToolbarRight,
   ButtonToolbarRow,
   CheckBox,
   CheckBoxOption,
