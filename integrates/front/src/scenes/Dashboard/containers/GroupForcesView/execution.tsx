@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import _ from "lodash";
 import type { ReactElement } from "react";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { MemoryRouter, Route } from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
@@ -9,6 +9,7 @@ import monokaiSublime from "react-syntax-highlighter/dist/esm/styles/hljs/monoka
 
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
+import { filterSearchText } from "components/DataTableNext/utils";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import styles from "scenes/Dashboard/containers/GroupForcesView/index.css";
@@ -33,6 +34,7 @@ const Execution: React.FC<IExecution> = (
     "forcesExecutionFilters",
     false
   );
+  const [searchTextFilter, setSearchTextFilter] = useState("");
 
   const { loading, data } = useQuery(GET_FORCES_EXECUTION, {
     skip: isOld,
@@ -187,6 +189,16 @@ const Execution: React.FC<IExecution> = (
     },
   ];
 
+  const filterSearchtextResult: Dictionary[] = filterSearchText(
+    getDatasetFromVulnerabilities(execution.vulnerabilities),
+    searchTextFilter
+  );
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+
   return (
     <div>
       {/* eslint-disable-next-line react/forbid-component-props */}
@@ -291,14 +303,19 @@ const Execution: React.FC<IExecution> = (
           <DataTableNext
             bordered={true}
             columnToggle={true}
-            dataset={getDatasetFromVulnerabilities(execution.vulnerabilities)}
+            customSearch={{
+              customSearchDefault: searchTextFilter,
+              isCustomSearchEnabled: true,
+              onUpdateCustomSearch: onSearchTextChange,
+            }}
+            dataset={filterSearchtextResult}
             exportCsv={false}
             headers={headersCompromisedToeTable}
             id={"tblCompromisedToe"}
             isFilterEnabled={isFilterEnabled}
             onUpdateEnableFilter={handleUpdateFilter}
             pageSize={100}
-            search={true}
+            search={false}
           />
         </Route>
         <Route path={"/log"}>
