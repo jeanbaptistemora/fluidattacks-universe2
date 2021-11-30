@@ -2929,6 +2929,45 @@
       title: Policy and regulations regarding the physical operating environment for organizational assets are met
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
     "PR_IP-6":
-      title:  Data is destroyed according to policy
+      title: Data is destroyed according to policy
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR_PT-1":
+      title: Audit/log records are determined, documented, implemented, and reviewed in accordance with policy
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR_PT-2":
+      title: Removable media is protected and its use restricted according to policy
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR_PT-4":
+      title: Communications and control networks are protected
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "DE_AE-2":
+      title: Detected events are analyzed to understand attack targets and methods
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "DE_AE-5":
+      title: Incident alert thresholds are established
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "DE_CM-1":
+      title: The network is monitored to detect potential cybersecurity events
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "DE_CM-4":
+      title: Malicious code is detected
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "DE_CM-6":
+      title: External service provider activity is monitored to detect potential cybersecurity events
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "DE_DP-1":
+      title: Roles and responsibilities for detection are well defined to ensure accountability
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "DE_DP-4":
+      title: Event detection information is communicated
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "RS_RP-1":
+      title: Response plan is executed during or after an incident
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "RS_CO-2":
+      title: Incidents are reported consistent with established criteria
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "RC_RP-1":
+      title: Recovery plan is executed during or after a cybersecurity incident
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
   metadata: {}
