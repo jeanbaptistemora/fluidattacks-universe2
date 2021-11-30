@@ -32,5 +32,5 @@ F200.recommendation:
   en: Enable Logging property on all S3 instances.
   es: Habilitar la propiedad Logging en todas las instancias de S3.
 F200.threat:
-  en: Attacker authenticated from an intranet.
-  es: Atacante autenticado desde una intranet.
+  en: Attacker authenticated from internet.
+  es: Atacante autenticado desde internet.

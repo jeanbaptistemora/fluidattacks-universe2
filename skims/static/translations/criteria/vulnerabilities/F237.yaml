@@ -11,5 +11,5 @@ F237.recommendation:
   en: Remove the code that prints the stacktrace.
   es: Eliminar el código que imprime la traza del error.
 F237.threat:
-  en: Attacker with access to the server terminal.
-  es: Atacante con acceso a la consola del servidor.
+  en: Authenticated attacker with local access to the server terminal.
+  es: Atacante autenticado con acceso local a la consola del servidor.
