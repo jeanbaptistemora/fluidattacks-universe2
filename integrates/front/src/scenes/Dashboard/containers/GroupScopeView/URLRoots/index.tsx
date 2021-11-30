@@ -15,6 +15,7 @@ import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { DataTableNext } from "components/DataTableNext";
 import { changeFormatter } from "components/DataTableNext/formatters";
+import { filterSearchText } from "components/DataTableNext/utils";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -104,6 +105,12 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
     open: false,
     rootId: "",
   });
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
   const openDeactivationModal = useCallback((rootId: string): void => {
     setDeactivationModal({ open: true, rootId });
   }, []);
@@ -114,6 +121,11 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
   const permissions = useAbility(authzPermissionsContext);
   const canUpdateRootState = permissions.can(
     "api_mutations_activate_root_mutate"
+  );
+
+  const filterSearchtextResult: IURLRootAttr[] = filterSearchText(
+    roots,
+    searchTextFilter
   );
 
   return (
@@ -136,7 +148,12 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
               <DataTableNext
                 bordered={true}
                 columnToggle={false}
-                dataset={roots}
+                customSearch={{
+                  customSearchDefault: searchTextFilter,
+                  isCustomSearchEnabled: true,
+                  onUpdateCustomSearch: onSearchTextChange,
+                }}
+                dataset={filterSearchtextResult}
                 exportCsv={true}
                 extraButtons={
                   <Can do={"api_mutations_add_url_root_mutate"}>
@@ -182,7 +199,7 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
                 ]}
                 id={"tblURLRoots"}
                 pageSize={10}
-                search={true}
+                search={false}
                 striped={true}
               />
             </Container>

@@ -15,6 +15,7 @@ import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { DataTableNext } from "components/DataTableNext";
 import { changeFormatter } from "components/DataTableNext/formatters";
+import { filterSearchText } from "components/DataTableNext/utils";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -108,6 +109,12 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
     open: false,
     rootId: "",
   });
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
   const openDeactivationModal = useCallback((rootId: string): void => {
     setDeactivationModal({ open: true, rootId });
   }, []);
@@ -118,6 +125,10 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
   const permissions = useAbility(authzPermissionsContext);
   const canUpdateRootState = permissions.can(
     "api_mutations_activate_root_mutate"
+  );
+  const filterSearchtextResult: IIPRootAttr[] = filterSearchText(
+    roots,
+    searchTextFilter
   );
 
   return (
@@ -140,7 +151,12 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
               <DataTableNext
                 bordered={true}
                 columnToggle={false}
-                dataset={roots}
+                customSearch={{
+                  customSearchDefault: searchTextFilter,
+                  isCustomSearchEnabled: true,
+                  onUpdateCustomSearch: onSearchTextChange,
+                }}
+                dataset={filterSearchtextResult}
                 exportCsv={true}
                 extraButtons={
                   <Can do={"api_mutations_add_ip_root_mutate"}>
@@ -178,7 +194,7 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
                 ]}
                 id={"tblIPRoots"}
                 pageSize={10}
-                search={true}
+                search={false}
                 striped={true}
               />
             </Container>
