@@ -1,9 +1,6 @@
 from aiodataloader import (
     DataLoader,
 )
-from datetime import (
-    datetime,
-)
 from db_model.findings.types import (
     Finding,
     FindingState,
@@ -17,8 +14,8 @@ from functools import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils import (
-    datetime as datetime_utils,
+from newutils.datetime import (
+    convert_from_iso_str,
 )
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
@@ -55,9 +52,7 @@ async def resolve_no_cache(
     return [
         {
             "analyst": state.modified_by,
-            "date": datetime_utils.get_as_str(
-                datetime.fromisoformat(state.modified_date)
-            ),
+            "date": convert_from_iso_str(state.modified_date),
             "source": state.source.value.lower(),
             "state": state.status.value,
         }

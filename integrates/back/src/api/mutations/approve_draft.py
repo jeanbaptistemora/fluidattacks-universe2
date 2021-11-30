@@ -7,9 +7,6 @@ from ariadne.utils import (
 from custom_types import (
     ApproveDraftPayload,
 )
-from datetime import (
-    datetime,
-)
 from db_model.findings.types import (
     Finding,
 )
@@ -28,9 +25,11 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils import (
-    datetime as datetime_utils,
     logs as logs_utils,
     token as token_utils,
+)
+from newutils.datetime import (
+    convert_from_iso_str,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -61,9 +60,6 @@ async def mutate(
             finding_id=finding_id,
             group_name=finding.group_name,
         )
-        old_format_approval_date = datetime_utils.get_as_str(
-            datetime.fromisoformat(approval_date)
-        )
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Approved draft {finding_id} in {finding.group_name} "
@@ -75,5 +71,5 @@ async def mutate(
         )
         raise
     return ApproveDraftPayload(
-        release_date=old_format_approval_date, success=True
+        release_date=convert_from_iso_str(approval_date), success=True
     )
