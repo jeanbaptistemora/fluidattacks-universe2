@@ -544,7 +544,10 @@ async def resolve_group_name(  # noqa: MC0001
     kwargs: Any,
 ) -> str:
     """Get group name based on args passed."""
-    if args and args[0] and "name" in args[0]:
+    if args and args[0] and isinstance(args[0], Vulnerability):
+        vuln: Vulnerability = args[0]
+        name = await _resolve_from_finding_id(context, vuln.finding_id)
+    elif args and args[0] and "name" in args[0]:
         name = args[0]["name"]
     elif args and args[0] and "project_name" in args[0]:
         name = args[0]["project_name"]
@@ -552,9 +555,6 @@ async def resolve_group_name(  # noqa: MC0001
         name = getattr(args[0], "group_name")
     elif args and args[0] and "finding_id" in args[0]:
         name = await _resolve_from_finding_id(context, args[0]["finding_id"])
-    elif args and args[0] and isinstance(args[0], Vulnerability):
-        vuln: Vulnerability = args[0]
-        name = await _resolve_from_finding_id(context, vuln.finding_id)
     elif "group_name" in kwargs or "project_name" in kwargs:
         name = get_key_or_fallback(kwargs)
     elif "finding_id" in kwargs:
@@ -580,7 +580,7 @@ async def resolve_group_name(  # noqa: MC0001
 
     if isinstance(name, str):
         name = name.lower()
-    return cast(str, name)
+    return name
 
 
 def retry_on_exceptions(
