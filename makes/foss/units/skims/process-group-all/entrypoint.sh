@@ -148,7 +148,7 @@ function main {
   export -f aws_s3_sync
 
   local parallel_args=()
-  local result_logs="/var/logs/skims"
+  local result_logs="/var/log/skims"
 
   check_cli_arg 1 group "${group}" \
     && shopt -s nullglob \
@@ -162,7 +162,8 @@ function main {
     && clone_group "${group}" \
     && aws_login_prod 'skims' \
     && if test -d "${result_logs}"; then
-      parallel_args+=(--result "${result_logs}/${group}/")
+      echo "The logs will be saved in the route ${result_logs}" \
+        && parallel_args+=(--result "${result_logs}/${group}/")
     fi \
     && parallel "${parallel_args[@]}" execute_skims_combination "${group}" ::: "${roots}" \
     && skims_cache push "${group}" \

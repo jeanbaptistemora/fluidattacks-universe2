@@ -321,7 +321,7 @@ resource "aws_batch_job_definition" "makes" {
     mountPoints = [
       {
         sourceVolume  = "logs_skims"
-        containerPath = "/var/logs/skims"
+        containerPath = "/var/log/skims"
         readOnly      = false
       }
     ]
@@ -371,6 +371,16 @@ resource "aws_batch_job_definition" "skims_process_group" {
 
   tags = {
     "Name"            = "skims_process_group"
+    "management:area" = "cost"
+    "management:type" = "product"
+  }
+}
+
+resource "aws_cloudwatch_log_group" "skims" {
+  name = "/skims"
+
+  tags = {
+    "Name"            = "/skims"
     "management:area" = "cost"
     "management:type" = "product"
   }
