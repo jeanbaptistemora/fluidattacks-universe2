@@ -1767,7 +1767,7 @@
     "CVE-2019-15138": "<=2.2.0"
   },
   "http-auth": {
-    "https://github.com/gevorg/http-auth/issues/94": "<3.2.4"
+    "SNYK-JS-HTTPAUTH-471683": "<3.2.4"
   },
   "http-errors": {},
   "http-file-server": {
@@ -1782,7 +1782,6 @@
     "CVE-2017-16014": "<0.7.0",
     "GMS-2017-124": "<=0.6.6",
     "SNYK-JS-HTTPPROXY-569139": "<1.18.1",
-    "github.com/http-party/node-http-proxy/issues/1328": "<1.18.1",
     "www.npmjs.com/advisories/1486": "<1.18.1"
   },
   "http-proxy.js": {
@@ -1803,7 +1802,6 @@
   "https-proxy-agent": {
     "CVE-2018-3739": "<2.2.0",
     "SNYK-JS-HTTPSPROXYAGENT-469131": "<2.2.3",
-    "https://github.com/TooTallNate/node-https-proxy-agent/issues/78": "<2.2.3",
     "npm:https-proxy-agent:20180402": "<2.2.0"
   },
   "https-signature": {
@@ -1828,7 +1826,7 @@
     "GMS-2017-118": "<=1.10.2",
     "GMS-2017-120": ">=2.0.0-alpha.0 <=3.4.3",
     "SNYK-JS-I18NEXT-1065979": "<19.8.5",
-    "github.com/i18next/i18next/issues/1479": "<19.5.5"
+    "SNYK-JS-I18NEXT-575536": "<19.5.5"
   },
   "ibapi": {
     "CVE-2016-10593": "<=2.4.2",
@@ -1901,7 +1899,6 @@
     "CVE-2019-10771": "<2.4.10"
   },
   "ip": {
-    "github.com/indutny/node-ip/commit/b2b4469255a624619bda71e52fd1f05dc0dd621f": "<1.1.5",
     "npm:ip:20170304": "<1.1.5"
   },
   "ipip": {
