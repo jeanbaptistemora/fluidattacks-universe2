@@ -1,33 +1,61 @@
+interface IToeLinesEdge {
+  node: IToeLinesAttr;
+}
+
+interface IToeLinesConnection {
+  edges: IToeLinesEdge[];
+  pageInfo: {
+    hasNextPage: boolean;
+    endCursor: string;
+  };
+}
+
 interface IToeLinesAttr {
+  attackedAt: string;
+  attackedBy: string;
+  attackedLines: number;
+  bePresent: boolean;
+  bePresentUntil: string;
   comments: string;
+  commitAuthor: string;
   filename: string;
+  firstAttackAt: string;
   loc: number;
-  modifiedDate: string;
   modifiedCommit: string;
-  sortsRiskLevel: string;
-  testedDate: string;
-  testedLines: number;
+  modifiedDate: string;
+  root: IGitRootAttr;
+  seenAt: string;
+  sortsRiskLevel: number;
 }
 
 interface IGitRootAttr {
-  id: string;
   nickname: string;
-  servicesToeLines: IToeLinesAttr[];
 }
 
 interface IToeLinesData {
+  attackedAt: string;
+  attackedBy: string;
+  attackedLines: number;
+  bePresent: boolean;
+  bePresentUntil: string;
   comments: string;
+  commitAuthor: string;
   coverage: number;
   filename: string;
-  groupName: string;
+  firstAttackAt: string;
   loc: number;
-  modifiedDate: string;
   modifiedCommit: string;
-  rootId: string;
+  modifiedDate: string;
+  root: IGitRootAttr;
   rootNickname: string;
+  seenAt: string;
   sortsRiskLevel: string;
-  testedDate: string;
-  testedLines: number;
 }
 
-export type { IGitRootAttr, IToeLinesAttr, IToeLinesData };
+export type {
+  IGitRootAttr,
+  IToeLinesAttr,
+  IToeLinesConnection,
+  IToeLinesData,
+  IToeLinesEdge,
+};

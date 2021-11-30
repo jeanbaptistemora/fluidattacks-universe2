@@ -25,51 +25,64 @@ describe("GroupToeLinesView", (): void => {
     const mockedToeLines: MockedResponse = {
       request: {
         query: GET_TOE_LINES,
-        variables: { groupName: "unittesting" },
+        variables: { bePresent: true, groupName: "unittesting" },
       },
       result: {
         data: {
           group: {
             __typename: "Group",
             name: "unittesting",
-            roots: [
-              {
-                __typename: "GitRoot",
-                id: "4039d098-ffc5-4984-8ed3-eb17bca98e19",
-                nickname: "product",
-                servicesToeLines: [
-                  {
-                    __typename: "ServicesToeLines",
-                    comments: "comment test",
-                    filename: "product/test/test.config",
+            toeLines: {
+              __typename: "ToeLinesConnection",
+              edges: [
+                {
+                  node: {
+                    attackedAt: "2021-02-20T05:00:00+00:00",
+                    attackedBy: "test2@test.com",
+                    attackedLines: 4,
+                    bePresent: true,
+                    bePresentUntil: "",
+                    comments: "comment 1",
+                    commitAuthor: "customer@gmail.com",
+                    filename: "test/test#.config",
+                    firstAttackAt: "2020-02-19T15:41:04+00:00",
                     loc: 8,
                     modifiedCommit: "983466z",
-                    modifiedDate: "2019-08-01T05:00:00+00:00",
-                    sortsRiskLevel: 0,
-                    testedDate: "2021-02-28T05:00:00+00:00",
-                    testedLines: 4,
+                    modifiedDate: "2020-11-15T15:41:04+00:00",
+                    root: {
+                      nickname: "product",
+                    },
+                    seenAt: "2020-02-01T15:41:04+00:00",
+                    sortsRiskLevel: 80,
                   },
-                ],
-              },
-              {
-                __typename: "GitRoot",
-                id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                nickname: "asm_1",
-                servicesToeLines: [
-                  {
-                    __typename: "ServicesToeLines",
-                    comments: "comment test",
-                    filename: "asm_1/test2/test.sh",
+                },
+                {
+                  node: {
+                    attackedAt: "2021-01-20T05:00:00+00:00",
+                    attackedBy: "test@test.com",
+                    attackedLines: 120,
+                    bePresent: true,
+                    bePresentUntil: "2021-01-01T15:41:04+00:00",
+                    comments: "comment 2",
+                    commitAuthor: "customer@gmail.com",
+                    filename: "test2/test.sh",
+                    firstAttackAt: "2020-01-19T15:41:04+00:00",
                     loc: 172,
                     modifiedCommit: "273412t",
-                    modifiedDate: "2020-11-19T05:00:00+00:00",
+                    modifiedDate: "2020-11-16T15:41:04+00:00",
+                    root: {
+                      nickname: "integrates_1",
+                    },
+                    seenAt: "2020-01-01T15:41:04+00:00",
                     sortsRiskLevel: 0,
-                    testedDate: "2021-01-20T05:00:00+00:00",
-                    testedLines: 172,
                   },
-                ],
+                },
+              ],
+              pageInfo: {
+                endCursor: "bnVsbA==",
+                hasNextPage: false,
               },
-            ],
+            },
           },
         },
       },
@@ -111,26 +124,27 @@ describe("GroupToeLinesView", (): void => {
     );
     expect(firstRow.text()).toStrictEqual(
       [
-        "asm_1",
-        "100%",
-        "172",
-        "172",
-        "2020-11-19",
-        "273412t",
-        "2021-01-20",
-        "comment test",
-      ].join("")
-    );
-    expect(secondRow.text()).toStrictEqual(
-      [
         "product",
         "50%",
         "8",
         "4",
-        "2019-08-01",
+        "2020-11-15",
         "983466z",
-        "2021-02-28",
-        "comment test",
+        "2021-02-20",
+        "comment 1",
+      ].join("")
+    );
+
+    expect(secondRow.text()).toStrictEqual(
+      [
+        "integrates_1",
+        "70%",
+        "172",
+        "120",
+        "2020-11-16",
+        "273412t",
+        "2021-01-20",
+        "comment 2",
       ].join("")
     );
   });

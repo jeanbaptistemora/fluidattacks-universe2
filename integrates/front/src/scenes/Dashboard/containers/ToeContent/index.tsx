@@ -21,7 +21,7 @@ const toeContent: React.FC = (): JSX.Element => {
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canGetToeLines: boolean = permissions.can(
-    "api_resolvers_git_root_services_toe_lines_resolve"
+    "api_resolvers_group_toe_lines_resolve"
   );
   const canGetToeInputs: boolean = permissions.can(
     "api_resolvers_group_toe_inputs_resolve"
@@ -31,7 +31,7 @@ const toeContent: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <StickyContainer>
         <TabsContainer>
-          <Can do={"api_resolvers_git_root_services_toe_lines_resolve"}>
+          <Can do={"api_resolvers_group_toe_lines_resolve"}>
             <ContentTab
               icon={"icon pe-7s-menu"}
               id={"toeLinesTab"}

@@ -14,9 +14,10 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 import { filterSearchText } from "components/DataTableNext/utils";
 import { GET_TOE_LINES } from "scenes/Dashboard/containers/GroupToeLinesView/queries";
 import type {
-  IGitRootAttr,
   IToeLinesAttr,
+  IToeLinesConnection,
   IToeLinesData,
+  IToeLinesEdge,
 } from "scenes/Dashboard/containers/GroupToeLinesView/types";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -133,7 +134,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
-      dataField: "testedLines",
+      dataField: "attackedLines",
       header: translate.t("group.toe.lines.testedLines"),
       onSort,
       visible: checkedItems.testedLines,
@@ -159,7 +160,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
-      dataField: "testedDate",
+      dataField: "attackedAt",
       filter: dateFilter({}),
       formatter: formatDate,
       header: translate.t("group.toe.lines.testedDate"),
@@ -186,45 +187,35 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   ];
 
   // // GraphQL operations
-  const { data } = useQuery<{ group: { roots: IGitRootAttr[] } }>(
-    GET_TOE_LINES,
-    {
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          Logger.error("Couldn't load roots", error);
-        });
-      },
-      variables: { groupName },
-    }
-  );
-
-  const roots: IGitRootAttr[] = data === undefined ? [] : data.group.roots;
-
+  const { data } = useQuery<{
+    group: { toeLines: IToeLinesConnection };
+  }>(GET_TOE_LINES, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load group toe lines", error);
+      });
+    },
+    variables: { bePresent: true, groupName },
+  });
+  const toeLinesEdges: IToeLinesEdge[] =
+    data === undefined ? [] : data.group.toeLines.edges;
   const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
-    toeLinesAttr.loc === 0 ? 1 : toeLinesAttr.testedLines / toeLinesAttr.loc;
+    toeLinesAttr.loc === 0 ? 1 : toeLinesAttr.attackedLines / toeLinesAttr.loc;
   const getSortsRiskLevel = (toeLinesAttr: IToeLinesAttr): string =>
-    parseInt(toeLinesAttr.sortsRiskLevel, 10) >= 0
+    toeLinesAttr.sortsRiskLevel >= 0
       ? `${toeLinesAttr.sortsRiskLevel.toString()} %`
       : "n/a";
-  const servicesToeLines: IToeLinesData[] = roots.reduce(
-    (acc: IToeLinesData[], root: IGitRootAttr): IToeLinesData[] =>
-      acc.concat(
-        root.servicesToeLines.map(
-          (toeLinesAttr: IToeLinesAttr): IToeLinesData => ({
-            coverage: getCoverage(toeLinesAttr),
-            groupName,
-            rootId: root.id,
-            rootNickname: root.nickname,
-            ...toeLinesAttr,
-            modifiedCommit: commitFormatter(toeLinesAttr.modifiedCommit),
-            sortsRiskLevel: getSortsRiskLevel(toeLinesAttr),
-          })
-        )
-      ),
-    []
+  const toeLines: IToeLinesData[] = toeLinesEdges.map(
+    ({ node }): IToeLinesData => ({
+      ...node,
+      coverage: getCoverage(node),
+      modifiedCommit: commitFormatter(node.modifiedCommit),
+      rootNickname: node.root.nickname,
+      sortsRiskLevel: getSortsRiskLevel(node),
+    })
   );
   const filterSearchtextResult: IToeLinesData[] = filterSearchText(
-    servicesToeLines,
+    toeLines,
     searchTextFilter
   );
 

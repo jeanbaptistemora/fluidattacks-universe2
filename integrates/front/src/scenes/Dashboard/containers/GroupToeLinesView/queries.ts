@@ -2,25 +2,38 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_TOE_LINES: DocumentNode = gql`
-  query GetServicesToeLines($groupName: String!) {
+  query GetToeLines($groupName: String!, $after: String, $bePresent: Boolean) {
     group(groupName: $groupName) {
       name
-      roots {
-        ... on GitRoot {
-          id
-          nickname
-          servicesToeLines {
-            filename
-            modifiedDate
-            modifiedCommit
-            loc
-            testedDate
-            testedLines
+      toeLines(bePresent: $bePresent, after: $after) {
+        edges {
+          node {
+            attackedAt
+            attackedBy
+            attackedLines
+            bePresent
+            bePresentUntil
             comments
+            commitAuthor
+            filename
+            firstAttackAt
+            loc
+            modifiedCommit
+            modifiedDate
+            root {
+              nickname
+            }
+            seenAt
             sortsRiskLevel
           }
         }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        __typename
       }
+      __typename
     }
   }
 `;
