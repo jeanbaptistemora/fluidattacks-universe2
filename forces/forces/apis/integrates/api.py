@@ -116,13 +116,18 @@ async def get_vulnerabilities(
     finding_value = response.get("finding", {})
     vulnerabilities = finding_value.get("vulnerabilities", [])
     for index, _ in enumerate(vulnerabilities):
-        current_state: Dict[str, str] = (
-            vulnerabilities[index].get("historicTreatment", [{}])
-        )[-1]
-        zero_risk = (vulnerabilities[index].get("historicZeroRisk", [{}]))[-1]
-        if "accepted" in current_state.get("treatment", "unknown").lower():
+        historic_treatment = vulnerabilities[index].get("historicTreatment")
+        zero_risk = vulnerabilities[index].get("historicZeroRisk")
+        if (
+            historic_treatment
+            and "accepted"
+            in historic_treatment[-1].get("treatment", "unknown").lower()
+        ):
             vulnerabilities[index]["currentState"] = "accepted"
-        if zero_risk.get("status") in {"REQUESTED", "CONFIRMED"}:
+        if zero_risk and zero_risk[-1].get("status") in {
+            "REQUESTED",
+            "CONFIRMED",
+        }:
             vulnerabilities[index]["currentState"] = "accepted"
 
     return finding_value.get("vulnerabilities", [])
