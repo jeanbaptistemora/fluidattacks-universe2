@@ -1,9 +1,9 @@
 "Resource type definition"
 type Resource {
   "File metadata"
-  files: JSONString
+  files: JSONString!
   "Name of the Group containing the files"
-  groupName: String
+  groupName: String!
   "Deprecated. Use `groupName` instead"
-  projectName: String
+  projectName: String!
 }

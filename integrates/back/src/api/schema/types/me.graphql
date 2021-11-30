@@ -1,24 +1,24 @@
 "Me type definition"
 type Me {
   "Access token metadata"
-  accessToken: String
+  accessToken: String!
   "Origin of the requests made to the endpoint by this user"
-  callerOrigin: CallerOrigin
+  callerOrigin: CallerOrigin!
   "Indicates if user has mobile app"
-  hasMobileApp: Boolean
+  hasMobileApp: Boolean!
   "Indicator to see if there's more than one open session currently"
-  isConcurrentSession: Boolean
+  isConcurrentSession: Boolean!
   "List of Organizations the user is a member of"
   organizations: [Organization!]
   "Gets the  user-level permissions of the current stakeholder/user"
-  permissions: [String]
+  permissions: [String!]
   "If true, the legal notice modal won't appear after every ASM login"
-  remember: Boolean
+  remember: Boolean!
   "Gets the user-level role of the current stakeholder/user"
-  role: String
+  role: String!
   """Unix timestamp representing the moment where the user's API access
   token will expire"""
-  sessionExpiration: String
+  sessionExpiration: String!
   "User subscriptions"
   subscriptionsToEntityReport: [EntityReportSubscription]
   "Tags associated with the organization/groups"
