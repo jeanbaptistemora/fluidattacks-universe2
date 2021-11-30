@@ -7,7 +7,8 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     FALSE_OPTIONS,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_aws_iterator,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
     TRUE_OPTIONS,
 )
@@ -39,6 +40,9 @@ from utils.function import (
     TIMEOUT_1MIN,
 )
 
+_FINDING_F281 = core_model.FindingEnum.F281
+_FINDING_F281_CWE = _FINDING_F281.value.cwe
+
 
 def _cfn_bucket_policy_has_secure_transport_iterate_vulnerabilities(
     policies_iterator: Iterator[Union[AWSS3BucketPolicy, Node]],
@@ -64,16 +68,17 @@ def _cfn_bucket_policy_has_secure_transport(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F281_CWE},
         description_key="src.lib_path.f281.bucket_policy_has_secure_transport",
-        finding=core_model.FindingEnum.F281,
-        path=path,
-        statements_iterator=(
+        finding=_FINDING_F281,
+        iterator=get_aws_iterator(
             _cfn_bucket_policy_has_secure_transport_iterate_vulnerabilities(
                 policies_iterator=iter_s3_bucket_policies(template=template),
             )
         ),
+        path=path,
     )
 
 

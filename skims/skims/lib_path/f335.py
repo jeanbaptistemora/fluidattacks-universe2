@@ -8,7 +8,8 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_aws_iterator,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from metaloaders.model import (
@@ -47,6 +48,9 @@ from typing import (
 from utils.function import (
     TIMEOUT_1MIN,
 )
+
+_FINDING_F335 = core_model.FindingEnum.F335
+_FINDING_F335_CWE = _FINDING_F335.value.cwe
 
 
 def tfm_s3_not_private_access_iterate_vulnerabilities(
@@ -92,16 +96,17 @@ def _tfm_s3_not_private_access(
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F335_CWE},
         description_key="F335.title",
-        finding=core_model.FindingEnum.F335,
-        path=path,
-        statements_iterator=(
+        finding=_FINDING_F335,
+        iterator=get_aws_iterator(
             tfm_s3_not_private_access_iterate_vulnerabilities(
                 buckets_iterator=iter_s3_buckets(model=model)
             )
         ),
+        path=path,
     )
 
 
@@ -110,14 +115,17 @@ def _cfn_public_buckets(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F335_CWE},
         description_key="F335.title",
-        finding=core_model.FindingEnum.F335,
-        path=path,
-        statements_iterator=_public_buckets_iterate_vulnerabilities(
-            buckets_iterator=cfn_iter_s3_buckets(template=template)
+        finding=_FINDING_F335,
+        iterator=get_aws_iterator(
+            _public_buckets_iterate_vulnerabilities(
+                buckets_iterator=cfn_iter_s3_buckets(template=template)
+            )
         ),
+        path=path,
     )
 
 

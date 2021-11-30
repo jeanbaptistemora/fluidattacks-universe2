@@ -7,7 +7,8 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_aws_iterator,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from metaloaders.model import (
@@ -44,6 +45,9 @@ from typing import (
 from utils.function import (
     TIMEOUT_1MIN,
 )
+
+_FINDING_F372 = core_model.FindingEnum.F372
+_FINDING_F372_CWE = _FINDING_F372.value.cwe
 
 
 def cfn_content_over_http_iterate_vulnerabilities(
@@ -113,16 +117,19 @@ def _cfn_serves_content_over_http(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F372_CWE},
         description_key="src.lib_path.f372.serves_content_over_http",
-        finding=core_model.FindingEnum.F372,
-        path=path,
-        statements_iterator=cfn_content_over_http_iterate_vulnerabilities(
-            distributions_iterator=iter_cloudfront_distributions(
-                template=template
+        finding=_FINDING_F372,
+        iterator=get_aws_iterator(
+            cfn_content_over_http_iterate_vulnerabilities(
+                distributions_iterator=iter_cloudfront_distributions(
+                    template=template
+                )
             )
         ),
+        path=path,
     )
 
 
@@ -131,14 +138,17 @@ def _tfm_serves_content_over_http(
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F372_CWE},
         description_key="src.lib_path.f372.serves_content_over_http",
-        finding=core_model.FindingEnum.F372,
-        path=path,
-        statements_iterator=tfm_content_over_http_iterate_vulnerabilities(
-            buckets_iterator=iter_aws_cloudfront_distribution(model=model)
+        finding=_FINDING_F372,
+        iterator=get_aws_iterator(
+            tfm_content_over_http_iterate_vulnerabilities(
+                buckets_iterator=iter_aws_cloudfront_distribution(model=model)
+            )
         ),
+        path=path,
     )
 
 
