@@ -8,6 +8,7 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
+import waitForExpect from "wait-for-expect";
 
 import { DeactivationModal } from "./deactivationModal";
 import {
@@ -223,27 +224,27 @@ describe("GroupScopeView", (): void => {
       target: { name: "environment", value: "production" },
     });
 
+    wrapper.find("form").simulate("submit");
     await act(async (): Promise<void> => {
-      wrapper.find("form").simulate("submit");
-      const delay: number = 150;
-      await wait(delay);
-      wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        const firstTableRow: ReactWrapper = wrapper.find("tr").at(1);
+
+        expect(firstTableRow.text()).toStrictEqual(
+          [
+            // Url
+            "https://gitlab.com/fluidattacks/product",
+            // Branch
+            "master",
+            // State
+            "\u00a0Active\u00a0",
+            // Cloning status
+            "Unknown",
+          ].join("")
+        );
+      });
     });
-
-    const firstTableRow: ReactWrapper = wrapper.find("tr").at(1);
-
-    expect(firstTableRow.text()).toStrictEqual(
-      [
-        // Url
-        "https://gitlab.com/fluidattacks/product",
-        // Branch
-        "master",
-        // State
-        "\u00a0Active\u00a0",
-        // Cloning status
-        "Unknown",
-      ].join("")
-    );
   });
 
   it("should update git roots", async (): Promise<void> => {

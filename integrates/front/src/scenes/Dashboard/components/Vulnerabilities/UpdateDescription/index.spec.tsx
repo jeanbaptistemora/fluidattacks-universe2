@@ -660,14 +660,16 @@ describe("Update Description component", (): void => {
     confirmProceedButton.first().simulate("click");
 
     await act(async (): Promise<void> => {
-      const delay = 50;
-      await wait(delay);
-      wrapper.update();
-    });
+      await waitForExpect((): void => {
+        wrapper.update();
 
-    expect(msgError).toHaveBeenCalledWith(
-      translate.t("searchFindings.tabVuln.alerts.maximumNumberOfAcceptances")
-    );
-    expect(handleOnClose).not.toHaveBeenCalled();
+        expect(msgError).toHaveBeenCalledWith(
+          translate.t(
+            "searchFindings.tabVuln.alerts.maximumNumberOfAcceptances"
+          )
+        );
+        expect(handleOnClose).not.toHaveBeenCalled();
+      });
+    });
   });
 });
