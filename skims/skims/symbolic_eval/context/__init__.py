@@ -1,11 +1,11 @@
 from model.graph_model import (
     Graph,
 )
+from symbolic_eval.context.utils import (
+    build_ctx,
+)
 from symbolic_eval.types import (
     Path,
-)
-from symbolic_eval.utils import (
-    filter_ast,
 )
 from typing import (
     Iterator,
@@ -16,16 +16,9 @@ from utils import (
 )
 
 
-def build_context(graph: Graph, n_id: str) -> None:
-    types = {"SymbolLookup", "Parameter"}
-    for c_id in filter_ast(graph, n_id, types, strict=True):
-        graph.add_edge(n_id, c_id, label_ctx="CTX")
-    graph.nodes[n_id]["ctx_evaluated"] = True
-
-
 def node_search(graph: Graph, cfg_id: str, symbol_id: str) -> Iterator[str]:
     if "ctx_evaluated" not in graph.nodes[cfg_id]:
-        build_context(graph, cfg_id)
+        build_ctx(graph, cfg_id, types={"SymbolLookup", "Parameter"})
 
     symbol = graph.nodes[symbol_id]["symbol"]
     node_attr = graph.nodes[cfg_id]
