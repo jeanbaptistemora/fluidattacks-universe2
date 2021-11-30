@@ -3,7 +3,6 @@ import tempfile
 from typing import (
     Any,
     Callable,
-    cast,
     Dict,
     FrozenSet,
     IO,
@@ -32,7 +31,7 @@ class ScanResponse(NamedTuple):
 
 
 def paginate_table(
-    db_client,
+    db_client: Any,
     table_segment: TableSegment,
     ex_start_key: Optional[FrozenSet[Tuple[str, Any]]],
 ) -> ScanResponse:
@@ -56,17 +55,19 @@ def response_to_dpage(scan_response: ScanResponse) -> Optional[PageData]:
 
     last_key: Optional[Dict[str, Any]] = response.get("LastEvaluatedKey", None)
     data = json.dumps(response["Items"])
-    file = tempfile.NamedTemporaryFile(mode="w+")
-    file.write(data)
-    if last_key:
+    with tempfile.NamedTemporaryFile(mode="w+", delete=False) as file:
+        file.write(data)
+        if last_key:
+            return PageData(
+                t_segment=scan_response.t_segment,
+                file=file,
+                exclusive_start_key=frozenset(last_key.items()),
+            )
         return PageData(
             t_segment=scan_response.t_segment,
             file=file,
-            exclusive_start_key=frozenset(last_key.items()),
+            exclusive_start_key=None,
         )
-    return PageData(
-        t_segment=scan_response.t_segment, file=file, exclusive_start_key=None
-    )
 
 
 def extract_until_end(
@@ -86,11 +87,11 @@ def extract_until_end(
         last_key = result.exclusive_start_key
         if not last_key:
             end_reached = True
-        d_pages.append(cast(PageData, result))
+        d_pages.append(result)
     return d_pages
 
 
-def extract_segment(db_client, segment: TableSegment) -> List[PageData]:
+def extract_segment(db_client: Any, segment: TableSegment) -> List[PageData]:
     def extract(
         last_key: Optional[FrozenSet[Tuple[str, Any]]]
     ) -> Optional[PageData]:
