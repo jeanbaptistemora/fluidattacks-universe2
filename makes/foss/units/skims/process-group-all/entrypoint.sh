@@ -147,6 +147,9 @@ function main {
   export -f from_iso8601_to_epoch
   export -f aws_s3_sync
 
+  local parallel_args=()
+  local result_logs="/var/logs/skims"
+
   check_cli_arg 1 group "${group}" \
     && shopt -s nullglob \
     && ensure_gitlab_env_vars \
@@ -158,8 +161,10 @@ function main {
     && use_git_repo_services \
     && clone_group "${group}" \
     && aws_login_prod 'skims' \
-    && skims_cache pull "${group}" \
-    && parallel execute_skims_combination "${group}" ::: "${roots}" \
+    && if test -d "${result_logs}"; then
+      parallel_args+=(--result "${result_logs}/${group}/")
+    fi \
+    && parallel "${parallel_args[@]}" execute_skims_combination "${group}" ::: "${roots}" \
     && skims_cache push "${group}" \
     && popd \
     && clean_file_system "${group}"
