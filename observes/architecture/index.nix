@@ -16,7 +16,7 @@ in
     checkly = "${singerPath}/tap_checkly";
     csv = "${singerPath}/tap_csv";
     delighted = "${singerPath}/tap_delighted";
-    dynamo = "${singerPath}/streamer_dynamodb";
+    dynamo = "${singerPath}/tap_dynamo";
     formstack = "${singerPath}/tap_formstack";
     git = "${singerPath}/tap_git";
     gitlab = "${singerPath}/tap_gitlab";
