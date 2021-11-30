@@ -2898,4 +2898,37 @@
     "PR_AC-4":
       title: Access permissions and authorizations are managed, incorporating the principles of least privilege and separation of duties
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR_AC-5":
+      title: Network integrity is protected
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR_AC-6":
+      title: Identities are proofed and bound to credentials and asserted in interactions
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR_AC-7":
+      title: Users, devices, and other assets are authenticated (e.g., single-factor, multifactor) commensurate with the risk of the transaction
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR_DS-1":
+      title: Data-at-rest is protected
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR_DS-2":
+      title: Data-in-transit is protected
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR_DS-4":
+      title: Adequate capacity to ensure availability is maintained
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR_DS-5":
+      title: Protections against data leaks are implemented
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR_DS-6":
+      title: Integrity checking mechanisms are used to verify software, firmware, and information integrity
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR_DS-7":
+      title: The development and testing environments are separate from the production environment
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR_IP-5":
+      title: Policy and regulations regarding the physical operating environment for organizational assets are met
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
+    "PR_IP-6":
+      title:  Data is destroyed according to policy
+      link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
   metadata: {}
