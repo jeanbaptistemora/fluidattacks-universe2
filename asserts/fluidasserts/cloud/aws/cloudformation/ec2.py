@@ -42,7 +42,6 @@ from networkx import (
     DiGraph,
 )
 from networkx.algorithms import (
-    all_simple_paths,
     dfs_preorder_nodes,
 )
 from typing import (
@@ -134,96 +133,6 @@ def _get_securitygroups(
             {"SecurityGroup", *allow_groups}
         )
     ]
-
-
-@api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError)
-def allows_all_outbound_traffic(
-    path: str, exclude: Optional[List[str]] = None
-) -> Tuple:
-    """
-    Check if any ``EC2::SecurityGroup`` allows all outbound traffic.
-
-    The following checks are performed:
-
-    * F1000 Missing egress rule means all traffic is allowed outbound,
-        Make this explicit if it is desired configuration
-
-    When you specify a VPC security group, Amazon EC2 creates a
-    **default egress rule** that **allows egress traffic** on **all ports
-    and IP protocols to any location**.
-
-    The default rule is removed only when you specify one or more egress
-    rules in the **SecurityGroupEgress** directive.
-
-    :param path: Location of CloudFormation's template file.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if any of the referenced rules is not followed.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    graph: DiGraph = get_graph(path, exclude)
-    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
-    vulnerabilities: List[Vulnerability] = []
-    for template, _ in templates:
-        security_groups: List[int] = [
-            node
-            for node in dfs_preorder_nodes(graph, template, 2)
-            if "SecurityGroup" in graph.nodes[node]["labels"]
-        ]
-        destination_groups: List[int] = [
-            node
-            for group in dfs_preorder_nodes(graph, template, 4)
-            if "SecurityGroupEgress" in graph.nodes[group]["labels"]
-            for node in dfs_preorder_nodes(graph, group, 3)
-            if graph.nodes[node]["labels"].intersection(
-                {"DestinationSecurityGroupId", "GroupId"}
-            )
-        ]
-        group_names: List[str] = [
-            graph.nodes[node]["value"]
-            for group in dfs_preorder_nodes(graph, template, 4)
-            if "SecurityGroupEgress" in graph.nodes[group]["labels"]
-            for node in dfs_preorder_nodes(graph, group, 3)
-            if "GroupName" in graph.nodes[node]["labels"]
-        ]
-        for group in security_groups:
-            _group: Dict = graph.nodes[group]
-            group_egress: List[Dict] = [
-                graph.nodes[node]
-                for node in dfs_preorder_nodes(graph, group, 3)
-                if "SecurityGroupEgress" in graph.nodes[node]["labels"]
-            ]
-            group_destination: List[int] = nx.utils.flatten(
-                [
-                    list(all_simple_paths(graph, node, group))
-                    for node in destination_groups
-                ]
-            )
-
-            if (
-                not group_egress
-                and not group_destination
-                and _group["name"] not in group_names
-            ):
-                path: str = graph.nodes[template]["path"]
-                resource: Dict = graph.nodes[group]
-                vulnerabilities.append(
-                    Vulnerability(
-                        path=path,
-                        entity="AWS::EC2::SecurityGroup",
-                        identifier=resource["name"],
-                        line=resource["line"],
-                        reason="allows all outbound traffic",
-                    )
-                )
-
-    return _get_result_as_tuple(
-        vulnerabilities=vulnerabilities,
-        msg_open="EC2 security groups allows all outbound traffic",
-        msg_closed="EC2 security groups do not allow all outbound traffic",
-    )
 
 
 @api(risk=MEDIUM, kind=SAST)
