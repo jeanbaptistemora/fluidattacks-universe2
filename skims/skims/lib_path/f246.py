@@ -3,7 +3,8 @@ from aioextensions import (
 )
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_aws_iterator,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from metaloaders.model import (
@@ -36,6 +37,9 @@ from utils.function import (
     TIMEOUT_1MIN,
 )
 
+_FINDING_F246 = core_model.FindingEnum.F246
+_FINDING_F246_CWE = _FINDING_F246.value.cwe
+
 
 def tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
     buckets_iterator: Iterator[Any],
@@ -55,16 +59,17 @@ def _tfm_rds_has_unencrypted_storage(
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F246_CWE},
         description_key="F246.title",
-        finding=core_model.FindingEnum.F246,
-        path=path,
-        statements_iterator=(
+        finding=_FINDING_F246,
+        iterator=get_aws_iterator(
             tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_db_instance(model=model)
             )
         ),
+        path=path,
     )
 
 

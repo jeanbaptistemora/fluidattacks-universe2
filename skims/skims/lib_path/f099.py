@@ -7,7 +7,8 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     FALSE_OPTIONS,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_aws_iterator,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from metaloaders.model import (
@@ -38,6 +39,9 @@ from utils.function import (
     TIMEOUT_1MIN,
 )
 
+_FINDING_F099 = core_model.FindingEnum.F099
+_FINDING_F099_CWE = _FINDING_F099.value.cwe
+
 
 def _cfn_bucket_policy_has_server_side_encryption_disabled_iter_vulns(
     policies_iterator: Iterator[Union[AWSS3BucketPolicy, Node]],
@@ -61,18 +65,19 @@ def _cfn_bucket_policy_has_server_side_encryption_disabled(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F099_CWE},
         description_key=(
             "src.lib_path.f099.bckp_has_server_side_encryption_disabled"
         ),
-        finding=core_model.FindingEnum.F099,
-        path=path,
-        statements_iterator=(
+        finding=_FINDING_F099,
+        iterator=get_aws_iterator(
             _cfn_bucket_policy_has_server_side_encryption_disabled_iter_vulns(
                 policies_iterator=iter_s3_bucket_policies(template=template),
             )
         ),
+        path=path,
     )
 
 

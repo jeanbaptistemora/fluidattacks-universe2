@@ -3,7 +3,8 @@ from aioextensions import (
 )
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_aws_iterator,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from metaloaders.model import (
@@ -36,6 +37,9 @@ from typing import (
 from utils.function import (
     TIMEOUT_1MIN,
 )
+
+_FINDING_F256 = core_model.FindingEnum.F256
+_FINDING_F256_CWE = _FINDING_F256.value.cwe
 
 
 def tfm_db_no_deletion_protection_iterate_vulnerabilities(
@@ -90,16 +94,17 @@ def _tfm_db_no_deletion_protection(
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F256_CWE},
         description_key="F256.title",
-        finding=core_model.FindingEnum.F256,
-        path=path,
-        statements_iterator=(
+        finding=_FINDING_F256,
+        iterator=get_aws_iterator(
             tfm_db_no_deletion_protection_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_db_instance(model=model)
             )
         ),
+        path=path,
     )
 
 
@@ -108,16 +113,17 @@ def _tfm_rds_no_deletion_protection(
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F256_CWE},
         description_key="F256.title",
-        finding=core_model.FindingEnum.F256,
-        path=path,
-        statements_iterator=(
+        finding=_FINDING_F256,
+        iterator=get_aws_iterator(
             tfm_rds_no_deletion_protection_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_rds_cluster(model=model)
             )
         ),
+        path=path,
     )
 
 
@@ -126,16 +132,17 @@ def _tfm_rds_has_not_automated_backups(
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F256_CWE},
         description_key="F256.title",
-        finding=core_model.FindingEnum.F256,
-        path=path,
-        statements_iterator=(
+        finding=_FINDING_F256,
+        iterator=get_aws_iterator(
             tfm_rds_has_not_automated_backups_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_db_instance(model=model)
             )
         ),
+        path=path,
     )
 
 

@@ -6,8 +6,9 @@ from aws.model import (
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
+    get_aws_iterator,
     get_line_by_extension,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from metaloaders.model import (
@@ -38,6 +39,9 @@ from utils.function import (
     TIMEOUT_1MIN,
 )
 
+_FINDING_F250 = core_model.FindingEnum.F250
+_FINDING_F250_CWE = _FINDING_F250.value.cwe
+
 
 def _cfn_fsx_has_unencrypted_volumes_iter_vulns(
     file_ext: str,
@@ -59,17 +63,18 @@ def _cfn_fsx_has_unencrypted_volumes(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key=("src.lib_path.f250.fsx_has_unencrypted_volumes"),
-        finding=core_model.FindingEnum.F250,
-        path=path,
-        statements_iterator=(
+        cwe={_FINDING_F250_CWE},
+        description_key="src.lib_path.f250.fsx_has_unencrypted_volumes",
+        finding=_FINDING_F250,
+        iterator=get_aws_iterator(
             _cfn_fsx_has_unencrypted_volumes_iter_vulns(
                 file_ext=file_ext,
                 fsx_iterator=iter_fsx_file_systems(template=template),
             )
         ),
+        path=path,
     )
 
 

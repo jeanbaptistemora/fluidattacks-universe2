@@ -50,8 +50,8 @@ from utils.function import (
     TIMEOUT_1MIN,
 )
 
-FINDING_F080 = core_model.FindingEnum.F080
-FINDING_F080_CWE = FINDING_F080.value.cwe
+_FINDING_F080 = core_model.FindingEnum.F080
+_FINDING_F080_CWE = _FINDING_F080.value.cwe
 
 
 def _iter_ec2_volumes(template: Node) -> Iterator[Node]:
@@ -130,9 +130,9 @@ def _cfn_unencrypted_volumes(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F080_CWE},
+        cwe={_FINDING_F080_CWE},
         description_key="src.lib_path.f080_aws.unencrypted_volumes",
-        finding=FINDING_F080,
+        finding=_FINDING_F080,
         iterator=get_aws_iterator(
             _unencrypted_volume_iterate_vulnerabilities(
                 volumes_iterator=_iter_ec2_volumes(template=template)
@@ -150,9 +150,9 @@ def _cfn_unencrypted_buckets(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F080_CWE},
+        cwe={_FINDING_F080_CWE},
         description_key="src.lib_path.f080_aws.unencrypted_buckets",
-        finding=FINDING_F080,
+        finding=_FINDING_F080,
         iterator=get_aws_iterator(
             _cfn_unencrypted_buckets_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -170,9 +170,9 @@ def _terraform_unencrypted_buckets(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F080_CWE},
+        cwe={_FINDING_F080_CWE},
         description_key="src.lib_path.f080_aws.unencrypted_buckets",
-        finding=FINDING_F080,
+        finding=_FINDING_F080,
         iterator=get_aws_iterator(
             _unencrypted_buckets_iterate_vulnerabilities(
                 buckets_iterator=terraform_iter_s3_buckets(model=model)
@@ -189,9 +189,9 @@ def _terraform_public_buckets(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F080_CWE},
+        cwe={_FINDING_F080_CWE},
         description_key="src.lib_path.f080_aws.unencrypted_buckets",
-        finding=FINDING_F080,
+        finding=_FINDING_F080,
         iterator=get_aws_iterator(
             _public_buckets_iterate_vulnerabilities(
                 buckets_iterator=terraform_iter_s3_buckets(model=model)

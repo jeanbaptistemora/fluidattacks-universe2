@@ -37,8 +37,8 @@ from utils.function import (
     TIMEOUT_1MIN,
 )
 
-FINDING_F070 = core_model.FindingEnum.F070
-FINDING_F070_CWE = FINDING_F070.value.cwe
+_FINDING_F070 = core_model.FindingEnum.F070
+_FINDING_F070_CWE = _FINDING_F070.value.cwe
 
 
 def tfm_lb_target_group_insecure_port_iterate_vulnerabilities(
@@ -61,9 +61,9 @@ def _tfm_lb_target_group_insecure_port(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F070_CWE},
+        cwe={_FINDING_F070_CWE},
         description_key="F070.title",
-        finding=FINDING_F070,
+        finding=_FINDING_F070,
         iterator=get_aws_iterator(
             tfm_lb_target_group_insecure_port_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_lb_target_group(model=model)

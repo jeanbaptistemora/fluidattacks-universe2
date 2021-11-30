@@ -7,8 +7,9 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
+    get_aws_iterator,
     get_line_by_extension,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from metaloaders.model import (
@@ -46,6 +47,9 @@ from utils.function import (
     get_node_by_keys,
     TIMEOUT_1MIN,
 )
+
+_FINDING_F259 = core_model.FindingEnum.F259
+_FINDING_F259_CWE = _FINDING_F259.value.cwe
 
 
 def cfn_has_not_point_in_time_recovery_iterate_vulnerabilities(
@@ -91,17 +95,18 @@ def _cfn_has_not_point_in_time_recovery(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F259_CWE},
         description_key="src.lib_path.f259.has_not_point_in_time_recovery",
-        finding=core_model.FindingEnum.F259,
-        path=path,
-        statements_iterator=(
+        finding=_FINDING_F259,
+        iterator=get_aws_iterator(
             cfn_has_not_point_in_time_recovery_iterate_vulnerabilities(
                 file_ext=file_ext,
                 tables_iterator=iter_dynamodb_table(template=template),
             )
         ),
+        path=path,
     )
 
 
@@ -110,16 +115,17 @@ def _tfm_db_no_point_in_time_recovery(
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F259_CWE},
         description_key="F259.title",
-        finding=core_model.FindingEnum.F259,
-        path=path,
-        statements_iterator=(
+        finding=_FINDING_F259,
+        iterator=get_aws_iterator(
             tfm_db_no_point_in_time_recovery_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_dynambodb_table(model=model)
             )
         ),
+        path=path,
     )
 
 

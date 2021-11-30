@@ -11,8 +11,9 @@ from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
     FALSE_OPTIONS,
+    get_aws_iterator,
     get_line_by_extension,
-    get_vulnerabilities_from_aws_iterator_blocking,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from metaloaders.model import (
@@ -53,6 +54,9 @@ from utils.function import (
     get_node_by_keys,
     TIMEOUT_1MIN,
 )
+
+_FINDING_F200 = core_model.FindingEnum.F200
+_FINDING_F200_CWE = _FINDING_F200.value.cwe
 
 
 def _cfn_bucket_has_access_logging_disabled_iterate_vulnerabilities(
@@ -136,16 +140,17 @@ def _tfm_elb_logging_disabled(
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F200_CWE},
         description_key="src.lib_path.f200.has_logging_disabled",
-        finding=core_model.FindingEnum.F200,
-        path=path,
-        statements_iterator=(
+        finding=_FINDING_F200,
+        iterator=get_aws_iterator(
             tfm_elb_logging_disabled_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_elb(model=model)
             )
         ),
+        path=path,
     )
 
 
@@ -155,17 +160,20 @@ def _cfn_has_logging_disabled(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F200_CWE},
         description_key="src.lib_path.f200.has_logging_disabled",
-        finding=core_model.FindingEnum.F200,
-        path=path,
-        statements_iterator=_has_logging_disabled_iterate_vulnerabilities(
-            file_ext=file_ext,
-            distributions_iterator=iter_cloudfront_distributions(
-                template=template
-            ),
+        finding=_FINDING_F200,
+        iterator=get_aws_iterator(
+            _has_logging_disabled_iterate_vulnerabilities(
+                file_ext=file_ext,
+                distributions_iterator=iter_cloudfront_distributions(
+                    template=template
+                ),
+            )
         ),
+        path=path,
     )
 
 
@@ -175,17 +183,18 @@ def _cfn_bucket_has_access_logging_disabled(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F200_CWE},
         description_key="src.lib_path.f200.has_logging_disabled",
-        finding=core_model.FindingEnum.F200,
-        path=path,
-        statements_iterator=(
+        finding=_FINDING_F200,
+        iterator=get_aws_iterator(
             _cfn_bucket_has_access_logging_disabled_iterate_vulnerabilities(
                 file_ext=file_ext,
                 buckets_iterator=iter_s3_buckets(template=template),
             )
         ),
+        path=path,
     )
 
 
@@ -195,17 +204,18 @@ def _cfn_trails_not_multiregion(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F200_CWE},
         description_key="src.lib_path.f200.trails_not_multiregion",
-        finding=core_model.FindingEnum.F200,
-        path=path,
-        statements_iterator=(
+        finding=_FINDING_F200,
+        iterator=get_aws_iterator(
             _cfn_trails_not_multiregion_iterate_vulnerabilities(
                 file_ext=file_ext,
                 trails_iterator=iter_cloudtrail_trail(template=template),
             )
         ),
+        path=path,
     )
 
 
@@ -215,12 +225,12 @@ def _cfn_elb_has_access_logging_disabled(
     path: str,
     template: Any,
 ) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_aws_iterator_blocking(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
+        cwe={_FINDING_F200_CWE},
         description_key="src.lib_path.f200.elb_has_access_logging_disabled",
-        finding=core_model.FindingEnum.F200,
-        path=path,
-        statements_iterator=(
+        finding=_FINDING_F200,
+        iterator=get_aws_iterator(
             _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
                 file_ext=file_ext,
                 load_balancers_iterator=iter_elb_load_balancers(
@@ -228,6 +238,7 @@ def _cfn_elb_has_access_logging_disabled(
                 ),
             )
         ),
+        path=path,
     )
 
 

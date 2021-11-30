@@ -39,8 +39,8 @@ from utils.function import (
     TIMEOUT_1MIN,
 )
 
-FINDING_F091 = core_model.FindingEnum.F091
-FINDING_F091_CWE = FINDING_F091.value.cwe
+_FINDING_F091 = core_model.FindingEnum.F091
+_FINDING_F091_CWE = _FINDING_F091.value.cwe
 
 
 def cfn_log_files_not_validated_iterate_vulnerabilities(
@@ -69,9 +69,9 @@ def _cfn_log_files_not_validated(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F091_CWE},
+        cwe={_FINDING_F091_CWE},
         description_key="src.lib_path.f091.cfn_log_files_not_validated",
-        finding=FINDING_F091,
+        finding=_FINDING_F091,
         iterator=get_aws_iterator(
             cfn_log_files_not_validated_iterate_vulnerabilities(
                 file_ext=file_ext,

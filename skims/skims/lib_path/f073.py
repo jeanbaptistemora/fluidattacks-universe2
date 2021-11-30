@@ -38,8 +38,8 @@ from utils.function import (
     TIMEOUT_1MIN,
 )
 
-FINDING_F073 = core_model.FindingEnum.F073
-FINDING_F073_CWE = FINDING_F073.value.cwe
+_FINDING_F073 = core_model.FindingEnum.F073
+_FINDING_F073_CWE = _FINDING_F073.value.cwe
 
 
 def tfm_db_cluster_publicly_accessible_iterate_vulnerabilities(
@@ -75,9 +75,9 @@ def _tfm_db_cluster_publicly_accessible(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F073_CWE},
+        cwe={_FINDING_F073_CWE},
         description_key="F073.title",
-        finding=FINDING_F073,
+        finding=_FINDING_F073,
         iterator=get_aws_iterator(
             tfm_db_cluster_publicly_accessible_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_db_instance(model=model)
@@ -94,9 +94,9 @@ def _tfm_db_instance_publicly_accessible(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F073_CWE},
+        cwe={_FINDING_F073_CWE},
         description_key="F073.title",
-        finding=FINDING_F073,
+        finding=_FINDING_F073,
         iterator=get_aws_iterator(
             tfm_db_instance_publicly_accessible_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_rds_cluster_instance(model=model)

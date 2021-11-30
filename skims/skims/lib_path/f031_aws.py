@@ -57,8 +57,8 @@ from utils.function import (
     TIMEOUT_1MIN,
 )
 
-FINDING_F031 = core_model.FindingEnum.F031
-FINDING_F031_CWE = FINDING_F031.value.cwe
+_FINDING_F031 = core_model.FindingEnum.F031
+_FINDING_F031_CWE = _FINDING_F031.value.cwe
 
 
 def _is_iam_passrole(action: str) -> bool:
@@ -236,9 +236,9 @@ def _cfn_negative_statement(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F031_CWE},
+        cwe={_FINDING_F031_CWE},
         description_key="src.lib_path.f031_aws.negative_statement",
-        finding=FINDING_F031,
+        finding=_FINDING_F031,
         iterator=get_aws_iterator(
             _negative_statement_iterate_vulnerabilities(
                 statements_iterator=cfn_iterate_iam_policy_documents(
@@ -281,9 +281,9 @@ def _cfn_permissive_policy(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F031_CWE},
+        cwe={_FINDING_F031_CWE},
         description_key="src.lib_path.f031_aws.permissive_policy",
-        finding=FINDING_F031,
+        finding=_FINDING_F031,
         iterator=get_aws_iterator(
             _permissive_policy_iterate_vulnerabilities(
                 statements_iterator=cfn_iterate_iam_policy_documents(
@@ -327,9 +327,9 @@ def _cfn_open_passrole(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F031_CWE},
+        cwe={_FINDING_F031_CWE},
         description_key="src.lib_path.f031_aws.open_passrole",
-        finding=FINDING_F031,
+        finding=_FINDING_F031,
         iterator=get_aws_iterator(
             _open_passrole_iterate_vulnerabilities(
                 statements_iterator=cfn_iterate_iam_policy_documents(
@@ -348,9 +348,9 @@ def _cfn_admin_policy_attached(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F031_CWE},
+        cwe={_FINDING_F031_CWE},
         description_key="src.lib_path.f031_aws.permissive_policy",
-        finding=FINDING_F031,
+        finding=_FINDING_F031,
         iterator=get_aws_iterator(
             _admin_policies_attached_iterate_vulnerabilities(
                 managed_policies_iterator=cnf_iterate_managed_policy_arns(
@@ -407,9 +407,9 @@ def _terraform_negative_statement(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F031_CWE},
+        cwe={_FINDING_F031_CWE},
         description_key="src.lib_path.f031_aws.negative_statement",
-        finding=FINDING_F031,
+        finding=_FINDING_F031,
         iterator=get_aws_iterator(
             _negative_statement_iterate_vulnerabilities(
                 statements_iterator=terraform_iterate_iam_policy_documents(
@@ -452,9 +452,9 @@ def _terraform_open_passrole(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F031_CWE},
+        cwe={_FINDING_F031_CWE},
         description_key="src.lib_path.f031_aws.open_passrole",
-        finding=FINDING_F031,
+        finding=_FINDING_F031,
         iterator=get_aws_iterator(
             _open_passrole_iterate_vulnerabilities(
                 statements_iterator=terraform_iterate_iam_policy_documents(
@@ -494,9 +494,9 @@ def _terraform_permissive_policy(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F031_CWE},
+        cwe={_FINDING_F031_CWE},
         description_key="src.lib_path.f031_aws.permissive_policy",
-        finding=FINDING_F031,
+        finding=_FINDING_F031,
         iterator=get_aws_iterator(
             _permissive_policy_iterate_vulnerabilities(
                 statements_iterator=terraform_iterate_iam_policy_documents(
@@ -540,9 +540,9 @@ def _terraform_admin_policy_attached(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F031_CWE},
+        cwe={_FINDING_F031_CWE},
         description_key="src.lib_path.f031_aws.permissive_policy",
-        finding=FINDING_F031,
+        finding=_FINDING_F031,
         iterator=get_aws_iterator(
             _admin_policies_attached_iterate_vulnerabilities(
                 managed_policies_iterator=(
@@ -561,9 +561,9 @@ def _cfn_bucket_policy_allows_public_access(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FINDING_F031_CWE},
+        cwe={_FINDING_F031_CWE},
         description_key="src.lib_path.f031.bucket_policy_allows_public_access",
-        finding=FINDING_F031,
+        finding=_FINDING_F031,
         iterator=get_aws_iterator(
             _cfn_bucket_policy_allows_public_access_iterate_vulnerabilities(
                 policies_iterator=iter_s3_bucket_policies(template=template),
