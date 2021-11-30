@@ -47,7 +47,7 @@ class TableClient(_TableClient):
 
     def scan(self, args: ScanArgs) -> FrozenDict[str, Any]:
         response = self._raw_client.scan(**args.to_dict())
-        return FrozenDict(response["Items"])
+        return FrozenDict(response)
 
 
 @dataclass(frozen=True)

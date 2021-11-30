@@ -1,6 +1,24 @@
 import json
 from purity.v1 import (
     FrozenDict,
+    FrozenList,
+    JsonFactory,
+)
+from purity.v1.pure_iter.factory import (
+    from_flist,
+)
+from purity.v1.pure_iter.transform import (
+    chain,
+)
+from purity.v1.pure_iter.transform.io import (
+    consume,
+)
+from returns.io import (
+    IO,
+)
+from singer_io.singer2 import (
+    SingerEmitter,
+    SingerRecord,
 )
 from tap_dynamo.client import (
     Client,
@@ -11,12 +29,10 @@ from typing import (
     Any,
     Callable,
     Dict,
-    FrozenSet,
-    IO,
+    IO as IOFile,
     List,
     NamedTuple,
     Optional,
-    Tuple,
 )
 
 
@@ -28,8 +44,8 @@ class TableSegment(NamedTuple):
 
 class PageData(NamedTuple):
     t_segment: TableSegment
-    file: IO[str]
-    exclusive_start_key: Optional[FrozenSet[Tuple[str, Any]]]
+    file: IOFile[str]
+    exclusive_start_key: Optional[FrozenDict[str, Any]]
 
 
 class ScanResponse(NamedTuple):
@@ -67,7 +83,7 @@ def response_to_dpage(scan_response: ScanResponse) -> Optional[PageData]:
             return PageData(
                 t_segment=scan_response.t_segment,
                 file=file,
-                exclusive_start_key=frozenset(last_key.items()),
+                exclusive_start_key=FrozenDict(last_key),
             )
         return PageData(
             t_segment=scan_response.t_segment,
@@ -77,11 +93,9 @@ def response_to_dpage(scan_response: ScanResponse) -> Optional[PageData]:
 
 
 def extract_until_end(
-    extract: Callable[
-        [Optional[FrozenSet[Tuple[str, Any]]]], Optional[PageData]
-    ]
-) -> List[PageData]:
-    last_key: Optional[FrozenSet[Tuple[str, Any]]] = None
+    extract: Callable[[Optional[FrozenDict[str, Any]]], Optional[PageData]]
+) -> FrozenList[PageData]:
+    last_key: Optional[FrozenDict[str, Any]] = None
     end_reached: bool = False
     d_pages: List[PageData] = []
     while not end_reached:
@@ -94,14 +108,36 @@ def extract_until_end(
         if not last_key:
             end_reached = True
         d_pages.append(result)
-    return d_pages
+    return tuple(d_pages)
 
 
-def extract_segment(db_client: Any, segment: TableSegment) -> List[PageData]:
+def extract_segment(
+    db_client: Client, segment: TableSegment
+) -> FrozenList[PageData]:
     def extract(
-        last_key: Optional[FrozenSet[Tuple[str, Any]]]
+        last_key: Optional[FrozenDict[str, Any]]
     ) -> Optional[PageData]:
         response: ScanResponse = paginate_table(db_client, segment, last_key)
         return response_to_dpage(response)
 
     return extract_until_end(extract=extract)
+
+
+def to_singer(page: PageData) -> FrozenList[SingerRecord]:
+    page.file.seek(0)
+    data = JsonFactory.load(page.file)
+    return tuple(
+        SingerRecord(page.t_segment.table_name, item.to_json())
+        for item in data["Items"].to_list()
+    )
+
+
+def stream_tables(client: Client, tables: FrozenList[str]) -> IO[None]:
+    emitter = SingerEmitter()
+    pages = chain(
+        from_flist(tables)
+        .map(lambda t: extract_segment(client, TableSegment(t, 1, 1)))
+        .map(lambda x: from_flist(x))
+    )
+    records = chain(pages.map(to_singer).map(lambda x: from_flist(x)))
+    return consume(records.map(emitter.emit))

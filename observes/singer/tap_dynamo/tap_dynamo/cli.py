@@ -12,6 +12,12 @@ from returns.maybe import (
 from tap_dynamo.auth import (
     Creds,
 )
+from tap_dynamo.client import (
+    new_client,
+)
+from tap_dynamo.extractor import (
+    stream_tables,
+)
 from typing import (
     IO as IOFile,
     Optional,
@@ -30,7 +36,8 @@ def stream(
     tables = _conf.map(
         lambda c: JsonFactory.load(c)["tables"].to_list_of(str)
     ).value_or([Maybe.from_optional(table).unwrap()])
-    return IO(None)
+    client = new_client(creds)
+    return stream_tables(client, tuple(tables))
 
 
 @click.group()
