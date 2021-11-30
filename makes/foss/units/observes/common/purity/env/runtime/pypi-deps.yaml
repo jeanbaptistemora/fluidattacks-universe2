@@ -1,3 +1,4 @@
 Deprecated: "1.2.12"
 more-itertools: "8.10.0"
 returns: "0.16.0"
+simplejson: "3.17.6"

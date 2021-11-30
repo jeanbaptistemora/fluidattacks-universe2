@@ -2,8 +2,9 @@ closure:
   deprecated: 1.2.12
   more-itertools: 8.10.0
   returns: 0.16.0
+  simplejson: 3.17.6
   typing-extensions: 3.10.0.2
-  wrapt: 1.13.2
+  wrapt: 1.13.3
 links:
   - name: Deprecated-1.2.12-py2.py3-none-any.whl
     sha256: 0wf7zz42ksvy2d6r00hpksdrcbk4z2jf1p8a6gl6dg5mnrljsi88
@@ -23,28 +24,58 @@ links:
   - name: returns-0.16.0.tar.gz
     sha256: 1dq0z348xyjkba8whdqgplkgf1mvw1ydaz4wijc8g7783npplwdc
     url: https://files.pythonhosted.org/packages/52/ad/a312c66697e1be62dc50144ad491ec43ee08c0f4090a635c8a34c88cbd3a/returns-0.16.0.tar.gz
+  - name: simplejson-3.17.6-cp38-cp38-macosx_10_9_universal2.whl
+    sha256: 1qbyy7l8wm2igazngd3d08bxm31njcr3kmf3kyxsqisjjypp11h6
+    url: https://files.pythonhosted.org/packages/dc/23/f580502e18d957d59f401bb2b4d879d4c2a16620164d923907d3163c0e98/simplejson-3.17.6-cp38-cp38-macosx_10_9_universal2.whl
+  - name: simplejson-3.17.6-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 18y6lkkb8n70dzj644h64z04v3rk32i7pksrsa6v4b67y1d1672d
+    url: https://files.pythonhosted.org/packages/1f/cb/ac4cf3d72a5922658852acff8e25054da10e0f578402a5cd6d0affde3033/simplejson-3.17.6-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: simplejson-3.17.6-cp38-cp38-macosx_11_0_arm64.whl
+    sha256: 152zmndnmscfbj6wa3zhkj45ls1150avmjs34pklbzqhm56p1zi3
+    url: https://files.pythonhosted.org/packages/5e/d0/554c6448dbb09ee62f046a8f52dd44336d6930709721774ac3182a9c60ea/simplejson-3.17.6-cp38-cp38-macosx_11_0_arm64.whl
+  - name: simplejson-3.17.6-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 10dw4c12m0jbhfgbwiax4jxiy34hxlh4mwby31szvh8vxlppci7l
+    url: https://files.pythonhosted.org/packages/5e/fe/c77f74bdfbf25d3cdd9ce3c6742e6cb64026c1a72fde3467b7974c996701/simplejson-3.17.6-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: simplejson-3.17.6-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
+    sha256: 178x1bmw36551ai0ifwhan4vkcppsy4mwni4nfwnx6lsgk9v87k8
+    url: https://files.pythonhosted.org/packages/8f/f9/e4ee2d5af8ee9ee00a0f96f231e98480280da54580fd8477ea58d8566577/simplejson-3.17.6-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
+  - name: simplejson-3.17.6-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+    sha256: 1aq717i6qqblyqigpnyl7nchxdba9lrpwi0ixrpx9ydlyvc0g1lf
+    url: https://files.pythonhosted.org/packages/66/f7/e2fdc6bb6b53fdbff7f63189f09a8d5e9e55660b2798203c045676c489d2/simplejson-3.17.6-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+  - name: simplejson-3.17.6-cp38-cp38-musllinux_1_1_aarch64.whl
+    sha256: 1zpnb4s7g3is2h4nymyha40vjh1rcp82v66x1r16vm09gy0mc1di
+    url: https://files.pythonhosted.org/packages/ea/dc/5cb2b96071a9c148d3aac076d92b05a175415084ec5f0427880e89a71e22/simplejson-3.17.6-cp38-cp38-musllinux_1_1_aarch64.whl
+  - name: simplejson-3.17.6-cp38-cp38-musllinux_1_1_i686.whl
+    sha256: 0fi91cprd44zc177d8niyvz3bk0niivrwafnzwj4azcqw2g8mv71
+    url: https://files.pythonhosted.org/packages/10/0e/fe30396ad211572d9127fd40e9dbe7469ac7f8bb2c6c21d4e7ebb8bbd67f/simplejson-3.17.6-cp38-cp38-musllinux_1_1_i686.whl
+  - name: simplejson-3.17.6-cp38-cp38-musllinux_1_1_x86_64.whl
+    sha256: 1gqj5sg6skhvzjjbrmpw4h3ag9186c5kxz9fy9pw16nnqz52ch8b
+    url: https://files.pythonhosted.org/packages/72/76/91d3e4c7abcb34619298e029ad0df01e018d826b89cfe3ae8f0737411368/simplejson-3.17.6-cp38-cp38-musllinux_1_1_x86_64.whl
+  - name: simplejson-3.17.6.tar.gz
+    sha256: 19pqqn01y6qmhhv8q6dh4p1acav49kl923kklnns2qxz5a6h766g
+    url: https://files.pythonhosted.org/packages/7a/47/c7cc3d4ed15f09917838a2fb4e1759eafb6d2f37ebf7043af984d8b36cf7/simplejson-3.17.6.tar.gz
   - name: typing_extensions-3.10.0.2-py3-none-any.whl
     sha256: 0d0s8knd86ldzfygnrj7mwbrhh31rjmksqfhxi3b25p5zpd5xlpi
     url: https://files.pythonhosted.org/packages/74/60/18783336cc7fcdd95dae91d73477830aa53f5d3181ae4fe20491d7fc3199/typing_extensions-3.10.0.2-py3-none-any.whl
   - name: typing_extensions-3.10.0.2.tar.gz
     sha256: 0zk7kbcms828by6avmqp09bsag1az37qr60viqjwvw8izwb5vxs9
     url: https://files.pythonhosted.org/packages/ed/12/c5079a15cf5c01d7f4252b473b00f7e68ee711be605b9f001528f0298b98/typing_extensions-3.10.0.2.tar.gz
-  - name: wrapt-1.13.2-cp38-cp38-macosx_10_9_x86_64.whl
-    sha256: 0cf8xk3rmnabhkigdrn7fipb4c24di130fsji011wf8wrr4v0g2r
-    url: https://files.pythonhosted.org/packages/cf/7c/aa4cd3383ce9fc2bfcc6f87bd81a85b9d53276517e35cf66f296ca2d5579/wrapt-1.13.2-cp38-cp38-macosx_10_9_x86_64.whl
-  - name: wrapt-1.13.2-cp38-cp38-manylinux1_i686.whl
-    sha256: 0rsqcniii5k5j9ymyr0dlnq67aw9qpdnzx5rn58scqb9380whq48
-    url: https://files.pythonhosted.org/packages/23/f0/04dcb555d375d11ad732272f63cc0d4c76e5904ca79526e5d1a2708527a0/wrapt-1.13.2-cp38-cp38-manylinux1_i686.whl
-  - name: wrapt-1.13.2-cp38-cp38-manylinux1_x86_64.whl
-    sha256: 0967xjk59jcy34fxqybhsaadvcc9v6gwg8cwb08bgzp2b6gf59dd
-    url: https://files.pythonhosted.org/packages/59/1f/dfe3d52f08662e0f0605cc68feed73c49c7229f277555c93cf44f9b80897/wrapt-1.13.2-cp38-cp38-manylinux1_x86_64.whl
-  - name: wrapt-1.13.2-cp38-cp38-manylinux2010_i686.whl
-    sha256: 020qkfzcb2xkhwspmpgcw08a78v5hdvhhiimmn8sbv1s4y0fkvgx
-    url: https://files.pythonhosted.org/packages/c4/5c/c1d00e2d27e961b7532921772e45cc6d6c4f9eb3f0c0a1a185df6c7e0568/wrapt-1.13.2-cp38-cp38-manylinux2010_i686.whl
-  - name: wrapt-1.13.2-cp38-cp38-manylinux2010_x86_64.whl
-    sha256: 141ymxa95m7mk0rmnsc4xlnl4xvh7nppl14jl1czkib3ivg8155g
-    url: https://files.pythonhosted.org/packages/c8/58/78d30b39d74187d46f948c207b01bfd597b7d8be00b2eff3b3dcd1fa235f/wrapt-1.13.2-cp38-cp38-manylinux2010_x86_64.whl
-  - name: wrapt-1.13.2.tar.gz
-    sha256: 0ivl1ssp1nyjamn3l4099r8ywd7madvh21w6mb1dfprsjv2nr9fw
-    url: https://files.pythonhosted.org/packages/57/f0/b9c4beb5be22485ff0f09427dcc4e483dbf3a34fd5afb4f93cd6c68b2fac/wrapt-1.13.2.tar.gz
+  - name: wrapt-1.13.3-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 1yb5z8d97ndbv9zjw38nh3a5bv9lppkvi625isrrklkvh1w4ngdp
+    url: https://files.pythonhosted.org/packages/7b/47/b226e069cd97f93d89c87684631ab936c718c7316b8e5c0b312f3a33960f/wrapt-1.13.3-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: wrapt-1.13.3-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
+    sha256: 0m5mkr19nwpx2qj6f6j755yy56lq3qz3n4x65xfpnrfmd7fnb57c
+    url: https://files.pythonhosted.org/packages/41/06/096b1d91f2333d5a7c8bfec8cfec9d64adbcab28c12f0806751175b83e49/wrapt-1.13.3-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
+  - name: wrapt-1.13.3-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+    sha256: 0v44iqmrzvfkv0fgiimw2cfjsah34kbk8l9pb4hsymgb91l014fx
+    url: https://files.pythonhosted.org/packages/8a/fc/726a690e5b38f54e9a8c869da76f0a35713bbdac84661472517e8a6d2383/wrapt-1.13.3-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+  - name: wrapt-1.13.3-cp38-cp38-musllinux_1_1_i686.whl
+    sha256: 0aq9rp71rk5cpjyb4bxhmm1dlff62ghizrzq0y1fah09nqgfg7df
+    url: https://files.pythonhosted.org/packages/fd/cf/796ebc8e04a7ba68313487b6147aa90ca2ffef52ea55e01c3ad7e4194744/wrapt-1.13.3-cp38-cp38-musllinux_1_1_i686.whl
+  - name: wrapt-1.13.3-cp38-cp38-musllinux_1_1_x86_64.whl
+    sha256: 1klrf1wrh2vz3sjgfpnznrrqkhrac9014jkzm2b97vnga2lrqyai
+    url: https://files.pythonhosted.org/packages/32/8e/f48d07363c4fc9e42180e72fbe985a8ce482484d1ab1b0097812be81f452/wrapt-1.13.3-cp38-cp38-musllinux_1_1_x86_64.whl
+  - name: wrapt-1.13.3.tar.gz
+    sha256: 11f13zqgbql26g5bkfkqalckcdlz394g6dhx4y16cvk873a9rshz
+    url: https://files.pythonhosted.org/packages/eb/f6/d81ccf43ac2a3c80ddb6647653ac8b53ce2d65796029369923be06b815b8/wrapt-1.13.3.tar.gz
 python: "3.8"
