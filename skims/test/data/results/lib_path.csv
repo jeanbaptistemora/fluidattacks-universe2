@@ -7424,6 +7424,31 @@ F109,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,1,681,sk
   13 | }
      ^ Col 0
 "
+F256,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,3,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
+ in namespace/skims/test/data/lib_path/f256/db_instance_test.tf","
+   1 | resource ""aws_db_instance"" ""default"" {
+   2 |   allocated_storage    = 10
+>  3 |   deletion_protection  = false
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   instance_class       = ""db.t3.micro""
+   7 |   name                 = ""mydb""
+   8 |   username             = ""foo""
+   9 |   password             = ""foobarbaz""
+  10 |   parameter_group_name = ""default.mysql5.7""
+  11 |   skip_final_snapshot  = true
+  12 | }
+  13 |
+  14 | resource ""aws_db_instance"" ""test"" {
+  15 |   allocated_storage    = 10
+  16 |   engine               = ""mysql""
+  17 |   engine_version       = ""5.7""
+  18 |   instance_class       = ""db.t3.micro""
+  19 |   name                 = ""mydb""
+  20 |   username             = ""user""
+  21 |   password             = ""useradmin""
+     ^ Col 0
+"
 F256,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,14,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
  in namespace/skims/test/data/lib_path/f256/db_instance_test.tf","
    4 |   engine               = ""mysql""
@@ -7449,31 +7474,6 @@ F256,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,14,693,sk
   24 | }
      ^ Col 0
 "
-F256,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,1,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
- in namespace/skims/test/data/lib_path/f256/db_instance_test.tf","
->  1 | resource ""aws_db_instance"" ""default"" {
-   2 |   allocated_storage    = 10
-   3 |   deletion_protection  = false
-   4 |   engine               = ""mysql""
-   5 |   engine_version       = ""5.7""
-   6 |   instance_class       = ""db.t3.micro""
-   7 |   name                 = ""mydb""
-   8 |   username             = ""foo""
-   9 |   password             = ""foobarbaz""
-  10 |   parameter_group_name = ""default.mysql5.7""
-  11 |   skip_final_snapshot  = true
-  12 | }
-  13 |
-  14 | resource ""aws_db_instance"" ""test"" {
-  15 |   allocated_storage    = 10
-  16 |   engine               = ""mysql""
-  17 |   engine_version       = ""5.7""
-  18 |   instance_class       = ""db.t3.micro""
-  19 |   name                 = ""mydb""
-  20 |   username             = ""user""
-  21 |   password             = ""useradmin""
-     ^ Col 0
-"
 F256,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,10,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
  in namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf","
    1 | resource ""aws_db_instance"" ""default"" {
@@ -7491,11 +7491,11 @@ F256,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,10,693,s
   13 | }
      ^ Col 0
 "
-F256,lines,namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,1,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
+F256,lines,namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,3,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
  in namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf","
-> 1 | resource ""aws_rds_cluster"" ""example"" {
+  1 | resource ""aws_rds_cluster"" ""example"" {
   2 |   cluster_identifier   = ""example""
-  3 |   deletion_protection  = false
+> 3 |   deletion_protection  = false
   4 |   db_subnet_group_name = aws_db_subnet_group.example.name
   5 |   engine_mode          = ""multimaster""
   6 |   master_password      = ""barbarbarbar""

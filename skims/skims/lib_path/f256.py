@@ -42,15 +42,16 @@ def tfm_db_no_deletion_protection_iterate_vulnerabilities(
     buckets_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
     for bucket in buckets_iterator:
-        del_protection = False
+        protection_attr = False
         for elem in bucket.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "deletion_protection"
-                and elem.val is True
             ):
-                del_protection = True
-        if not del_protection:
+                protection_attr = True
+                if elem.val is False:
+                    yield elem
+        if not protection_attr:
             yield bucket
 
 
@@ -58,15 +59,16 @@ def tfm_rds_no_deletion_protection_iterate_vulnerabilities(
     buckets_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
     for bucket in buckets_iterator:
-        del_protection = False
+        protection_attr = False
         for elem in bucket.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "deletion_protection"
-                and elem.val is True
             ):
-                del_protection = True
-        if not del_protection:
+                protection_attr = True
+                if elem.val is False:
+                    yield elem
+        if not protection_attr:
             yield bucket
 
 
