@@ -423,28 +423,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
       <React.Fragment>
         <div>
           <div>
-            <ActionButtons
-              areVulnerabilitiesPendingToAcceptance={isPendingToAcceptance(
-                resultVulnerabilities
-              )}
-              areVulnsSelected={
-                remediationModalConfig.vulnerabilities.length > 0
-              }
-              isEditing={isEditing}
-              isFindingReleased={isFindingReleased}
-              isOpen={isOpen}
-              isReattackRequestedInAllVuln={data.finding.remediated}
-              isRequestingReattack={isRequestingVerify}
-              isVerified={data.finding.verified}
-              isVerifying={isVerifying}
-              onEdit={toggleEdit}
-              onRequestReattack={toggleRequestVerify}
-              onVerify={toggleVerify}
-              openHandleAcceptance={toggleHandleAcceptanceModal}
-              openModal={toggleModal}
-              state={data.finding.state}
-              subscription={data.group.subscription}
-            />
             <div>
               <VulnComponent
                 canDisplayHacker={canRetrieveHacker}
@@ -462,6 +440,30 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   isCustomSearchEnabled: true,
                   onUpdateCustomSearch: onSearchTextChange,
                 }}
+                extraButtons={
+                  <ActionButtons
+                    areVulnerabilitiesPendingToAcceptance={isPendingToAcceptance(
+                      resultVulnerabilities
+                    )}
+                    areVulnsSelected={
+                      remediationModalConfig.vulnerabilities.length > 0
+                    }
+                    isEditing={isEditing}
+                    isFindingReleased={isFindingReleased}
+                    isOpen={isOpen}
+                    isReattackRequestedInAllVuln={data.finding.remediated}
+                    isRequestingReattack={isRequestingVerify}
+                    isVerified={data.finding.verified}
+                    isVerifying={isVerifying}
+                    onEdit={toggleEdit}
+                    onRequestReattack={toggleRequestVerify}
+                    onVerify={toggleVerify}
+                    openHandleAcceptance={toggleHandleAcceptanceModal}
+                    openModal={toggleModal}
+                    state={data.finding.state}
+                    subscription={data.group.subscription}
+                  />
+                }
                 findingId={findingId}
                 findingState={data.finding.state}
                 groupName={groupName}

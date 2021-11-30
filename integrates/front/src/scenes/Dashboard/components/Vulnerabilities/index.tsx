@@ -55,6 +55,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   canDisplayHacker,
   customFilters,
   customSearch,
+  extraButtons,
   findingId,
   findingState,
   groupName,
@@ -265,6 +266,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
           _.get(sessionStorage, "vulnerabilitiesSort", "{}") as string
         )}
         exportCsv={false}
+        extraButtonsRight={
+          <div className={"dib nr0 nr1-l nr1-m pt1"}>{extraButtons}</div>
+        }
         headers={[...headers, ...(canRemoveVulns ? deleteHeader : [])]}
         id={"vulnerabilitiesTable"}
         pageSize={10}
