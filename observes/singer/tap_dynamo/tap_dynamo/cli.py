@@ -1,12 +1,5 @@
 # pylint: skip-file
-from __future__ import (
-    annotations,
-)
-
 import click
-from dataclasses import (
-    dataclass,
-)
 from purity.v1 import (
     JsonFactory,
 )
@@ -16,26 +9,13 @@ from returns.io import (
 from returns.maybe import (
     Maybe,
 )
+from tap_dynamo.auth import (
+    Creds,
+)
 from typing import (
     IO as IOFile,
     Optional,
 )
-
-
-@dataclass(frozen=True)
-class Creds:
-    key_id: str
-    key: str
-    region: str
-
-    @staticmethod
-    def from_file(file: IOFile[str]) -> Creds:
-        data = JsonFactory.load(file)
-        return Creds(
-            data["AWS_ACCESS_KEY_ID"].to_primitive(str),
-            data["AWS_SECRET_ACCESS_KEY"].to_primitive(str),
-            data["AWS_DEFAULT_REGION"].to_primitive(str),
-        )
 
 
 @click.command()
