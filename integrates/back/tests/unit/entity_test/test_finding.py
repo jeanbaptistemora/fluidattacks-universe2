@@ -84,7 +84,7 @@ async def test_finding() -> None:
             {
                 "analyst": "unittest@fluidattacks.com",
                 "date": "2020-01-03 12:46:10",
-                "source": "integrates",
+                "source": "asm",
                 "state": "open",
             }
         ],
@@ -92,8 +92,8 @@ async def test_finding() -> None:
         "severity": "",
         "remediated": False,
         "verification": "",
-        "historicVerification": [{"date": None, "status": None}],
-        "historicZeroRisk": [{"date": None, "status": None}],
+        "historicVerification": [],
+        "historicZeroRisk": [],
         "currentState": "open",
         "hacker": "unittest@fluidattacks.com",
         "source": "asm",

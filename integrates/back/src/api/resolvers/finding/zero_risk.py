@@ -24,7 +24,11 @@ async def resolve(
     parent: Finding, info: GraphQLResolveInfo, **kwargs: None
 ) -> List[Vulnerability]:
     finding_vulns_loader = info.context.loaders.finding_vulns_zr_typed
-    vulns_zr: Tuple[Vulnerability] = await finding_vulns_loader.load(parent.id)
+    vulns_zr: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
+        parent.id
+    )
+    if not kwargs.get("state"):
+        return list(vulns_zr)
 
     try:
         filter_status = VulnerabilityStateStatus[
@@ -34,4 +38,4 @@ async def resolve(
             vuln for vuln in vulns_zr if vuln.state.status == filter_status
         ]
     except KeyError:
-        return list(vulns_zr)
+        return []
