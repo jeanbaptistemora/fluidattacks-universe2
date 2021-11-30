@@ -8,6 +8,9 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 import authz
+from batch import (
+    dal as batch_dal,
+)
 from custom_types import (
     SimplePayload,
 )
@@ -103,6 +106,13 @@ async def deactivate_root(
         root=root,
         user_email=user_email,
     )
+    if root.state.status != "INACTIVE" and isinstance(root, GitRootItem):
+        await batch_dal.put_action(
+            action_name="refresh_toe_lines",
+            entity=group_name,
+            subject=user_email,
+            additional_info=root.state.nickname,
+        )
     await groups_mail.send_mail_deactivated_root(
         email_to=email_list,
         group_name=group_name,
