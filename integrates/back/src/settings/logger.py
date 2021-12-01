@@ -117,7 +117,6 @@ logging.config.dictConfig(LOGGING)
 
 
 # bugsnag
-bugsnag.before_notify(bugsnag_remove_nix_hash)
 bugsnag.configure(
     api_key=FI_BUGSNAG_ACCESS_TOKEN,
     app_version=CI_COMMIT_SHORT_SHA,
@@ -146,6 +145,7 @@ if FI_ENVIRONMENT == "production":
 
 def customize_bugsnag_error_reports(notification: Any) -> bool:
     """Handle for expected errors and customization"""
+    bugsnag_remove_nix_hash(notification)
     ex_msg = str(notification.exception)
 
     notification.grouping_hash = ex_msg

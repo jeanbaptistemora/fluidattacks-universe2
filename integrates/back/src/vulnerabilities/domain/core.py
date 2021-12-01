@@ -453,21 +453,20 @@ async def get_vulnerabilities_async(
 
 
 async def get_vulnerabilities_by_type(
-    context: Any, finding_id: str
-) -> Dict[str, List[FindingType]]:
+    loaders: Any, finding_id: str
+) -> Dict[str, List[Dict[str, str]]]:
     """Get vulnerabilities group by type."""
-    finding_vulns_loader = context.finding_vulns_nzr
-    vulnerabilities = await finding_vulns_loader.load(finding_id)
-    vulnerabilities_formatted = vulns_utils.format_vulnerabilities(
+    vulnerabilities = await loaders.finding_vulns_nzr_typed.load(finding_id)
+    vulnerabilities_formatted = vulns_utils.format_vulnerabilities_new(
         vulnerabilities
     )
     return vulnerabilities_formatted
 
 
 async def get_vulnerabilities_file(
-    context: Any, finding_id: str, group_name: str
+    loaders: Any, finding_id: str, group_name: str
 ) -> str:
-    vulnerabilities = await get_vulnerabilities_by_type(context, finding_id)
+    vulnerabilities = await get_vulnerabilities_by_type(loaders, finding_id)
     # FP: the generated filename is unpredictable
     file_name = f"/tmp/{group_name}-{finding_id}_{str(uuid.uuid4())}.yaml"  # NOSONAR # nosec # noqa: E501
     with open(  # pylint: disable=unspecified-encoding
