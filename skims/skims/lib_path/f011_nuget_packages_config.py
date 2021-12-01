@@ -18,7 +18,7 @@ from typing import (
 )
 
 
-def _check(
+def _check_nuget_packages_config(
     content: str,
     finding: core_model.FindingEnum,
     path: str,
@@ -53,7 +53,7 @@ async def check(
     path: str,
 ) -> core_model.Vulnerabilities:
     return await in_process(
-        _check,
+        _check_nuget_packages_config,
         content=content,
         finding=finding,
         path=path,

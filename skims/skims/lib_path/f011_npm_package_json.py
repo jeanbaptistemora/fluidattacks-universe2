@@ -22,7 +22,7 @@ from typing import (
 )
 
 
-def _check(  # pylint: disable=too-many-arguments
+def _check_npm_package_json(  # pylint: disable=too-many-arguments
     content: str,
     finding: core_model.FindingEnum,
     include_dev: bool,
@@ -63,7 +63,7 @@ async def check(
     path: str,
 ) -> core_model.Vulnerabilities:
     return await in_process(
-        _check,
+        _check_npm_package_json,
         content=content,
         finding=finding,
         include_dev=include_dev,

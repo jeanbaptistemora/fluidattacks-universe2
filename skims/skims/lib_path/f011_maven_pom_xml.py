@@ -35,7 +35,7 @@ def _interpolate(properties: Dict[str, str], value: str) -> str:
     return value
 
 
-def _check(
+def _check_maven_pom_xml(
     content: str,
     finding: core_model.FindingEnum,
     path: str,
@@ -85,7 +85,7 @@ async def check(
     path: str,
 ) -> core_model.Vulnerabilities:
     return await in_process(
-        _check,
+        _check_maven_pom_xml,
         content=content,
         finding=finding,
         path=path,

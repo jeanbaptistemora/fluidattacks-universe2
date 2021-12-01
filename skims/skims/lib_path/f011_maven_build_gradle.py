@@ -40,7 +40,7 @@ RE_MAVEN_B: Pattern[str] = re.compile(
 )
 
 
-def _check(
+def _check_maven_build_gradle(
     content: str,
     finding: core_model.FindingEnum,
     path: str,
@@ -90,7 +90,7 @@ async def check(
     path: str,
 ) -> core_model.Vulnerabilities:
     return await in_process(
-        _check,
+        _check_maven_build_gradle,
         content=content,
         finding=finding,
         path=path,
