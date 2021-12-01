@@ -214,7 +214,6 @@ const findingContent: React.FC = (): JSX.Element => {
   const hasSubmission: boolean = hasHistory
     ? headerData.finding.historicState.slice(-1)[0].state === "SUBMITTED"
     : false;
-  const hasReleaseDate: boolean = !_.isEmpty(headerData.finding.releaseDate);
 
   return (
     <React.StrictMode>
@@ -240,9 +239,7 @@ const findingContent: React.FC = (): JSX.Element => {
               <StickyContainer>
                 <FindingHeader
                   discoveryDate={
-                    hasReleaseDate
-                      ? headerData.finding.releaseDate.split(" ")[0]
-                      : "-"
+                    headerData.finding.releaseDate?.split(" ")[0] ?? "-"
                   }
                   openVulns={headerData.finding.openVulns}
                   severity={headerData.finding.severityScore}

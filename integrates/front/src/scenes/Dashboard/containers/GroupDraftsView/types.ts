@@ -7,7 +7,7 @@ interface IGroupDraftsAndFindingsAttr {
       id: string;
       isExploitable: string;
       openVulnerabilities: number;
-      releaseDate: string;
+      releaseDate?: string;
       reportDate: string;
       severityScore: number;
       title: string;

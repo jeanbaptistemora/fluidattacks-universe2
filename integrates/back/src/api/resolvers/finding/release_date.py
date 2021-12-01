@@ -7,11 +7,14 @@ from graphql.type.definition import (
 from newutils.datetime import (
     convert_from_iso_str,
 )
+from typing import (
+    Optional,
+)
 
 
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
-) -> str:
+) -> Optional[str]:
     if parent.approval:
         return convert_from_iso_str(parent.approval.modified_date)
-    return ""
+    return None

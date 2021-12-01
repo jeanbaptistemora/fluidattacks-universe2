@@ -207,7 +207,7 @@ describe("update verification component", (): void => {
               historicState: [],
               id: "",
               openVulns: 0,
-              releaseDate: "",
+              releaseDate: undefined,
               reportDate: "",
               severityScore: 0,
               state: "",

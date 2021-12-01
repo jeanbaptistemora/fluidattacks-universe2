@@ -110,7 +110,7 @@ describe("FindingContent", (): void => {
           ],
           id: "438679960",
           openVulns: 3,
-          releaseDate: "",
+          releaseDate: undefined,
           reportDate: "2017-12-04 09:04:13",
           severityScore: 2.6,
           state: "open",
