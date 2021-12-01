@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-alias tap-dynamo="observes-singer-tap-dynamo-bin"
+alias tap-dynamo="observes-bin-streamer-dynamodb"
 alias tap-json="observes-singer-tap-json-bin"
 alias target-redshift="observes-target-redshift"
 alias job-last-success="observes-service-job-last-success-bin"
@@ -26,7 +26,8 @@ function dynamodb_etl {
     } > "${dynamo_creds}" \
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
     && echo '[INFO] Running streamer' \
-    && tap-dynamo stream \
+    && mkdir ./logs \
+    && tap-dynamo \
       --auth "${dynamo_creds}" \
       --conf "${conf}" \
     | tap-json \
