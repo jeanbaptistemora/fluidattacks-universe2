@@ -1,9 +1,6 @@
 from aioextensions import (
     in_thread,
 )
-from lib_path.common import (
-    SHIELD,
-)
 from lib_root import (
     f001,
     f009,
@@ -38,6 +35,7 @@ from state.ephemeral import (
 )
 from typing import (
     Dict,
+    Optional,
 )
 from utils.ctx import (
     CTX,
@@ -106,12 +104,34 @@ async def analyze(
             queries_len,
             finding.name,
         )
+        if stores[finding].has_errors:
+            await log(
+                "warning",
+                (
+                    "The query %s of %s, finding %s cannot be executed,"
+                    " there are some previous errors"
+                ),
+                idx,
+                queries_len,
+                finding.name,
+            )
+            continue
 
         # Ideally should be in_process but memory requirements constraint us
         # for now
-        vulnerabilities: core_model.Vulnerabilities = await SHIELD(in_thread)(
-            query, graph_db
-        )
+        vulnerabilities: Optional[core_model.Vulnerabilities] = await shield(
+            on_error_return=None
+        )(in_thread)(query, graph_db)
 
-        for vulnerability in vulnerabilities:
-            await stores[vulnerability.finding].store(vulnerability)
+        if vulnerabilities is None:
+            await log(
+                "error",
+                "An error has occurred executing query %s of %s, finding %s",
+                idx,
+                queries_len,
+                finding.name,
+            )
+            stores[finding]._replace(has_errors=True)
+        else:
+            for vulnerability in vulnerabilities:
+                await stores[vulnerability.finding].store(vulnerability)
