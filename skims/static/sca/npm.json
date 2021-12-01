@@ -2120,7 +2120,7 @@
     "CVE-2021-3822": "<9.5.6"
   },
   "jsonpointer": {
-    "github.com/janl/node-jsonpointer/commit/234e3437019c6c07537ed2ad1e03b3e132b85e34": "<5.0.0"
+    "SNYK-JS-JSONPOINTER-1577288": "<5.0.0"
   },
   "jsonwebtoken": {
     "GMS-2015-4": "<4.2.2"

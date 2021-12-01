@@ -12262,7 +12262,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (js-yaml v3.13.0
    75 |     ""mem"": ""1.1.0"",
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jsonpointer v4.9.0) [github.com/janl/node-jsonpointer/commit/234e3437019c6c07537ed2ad1e03b3e132b85e34],66,937,skims,011. Use of software with known vulnerabilities,Use of jsonpointer at version 4.9.0 with github.com/janl/node-jsonpointer/commit/234e3437019c6c07537ed2ad1e03b3e132b85e34 in namespace/skims/test/data/lib_path/f011/package.json,"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jsonpointer v4.9.0) [SNYK-JS-JSONPOINTER-1577288],66,937,skims,011. Use of software with known vulnerabilities,Use of jsonpointer at version 4.9.0 with SNYK-JS-JSONPOINTER-1577288 in namespace/skims/test/data/lib_path/f011/package.json,"
    56 |     ""i18next"": ""19.8.4"",
    57 |     ""immer"": ""8.0.1"",
    58 |     ""ini"": ""1.3.5"",
