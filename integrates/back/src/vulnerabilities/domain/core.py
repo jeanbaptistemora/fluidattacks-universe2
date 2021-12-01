@@ -518,6 +518,39 @@ def group_vulnerabilities(
     return result_vulns
 
 
+def group_vulnerabilities_new(
+    vulnerabilities: Tuple[Vulnerability, ...]
+) -> Tuple[Vulnerability, ...]:
+    """Group vulnerabilities by specific field."""
+    vuln_types = (
+        VulnerabilityType.LINES,
+        VulnerabilityType.PORTS,
+        VulnerabilityType.INPUTS,
+    )
+    vuln_states = (
+        VulnerabilityStateStatus.OPEN,
+        VulnerabilityStateStatus.CLOSED,
+    )
+    total_vulnerabilities: Dict[str, Dict[str, List[Vulnerability]]] = {}
+    result_vulns = []
+    for vuln_type in vuln_types:
+        total_vulnerabilities[vuln_type] = {}
+        for vuln_state in vuln_states:
+            total_vulnerabilities[vuln_type][vuln_state] = []
+
+    for vuln in vulnerabilities:
+        total_vulnerabilities[vuln.type][vuln.state.status].append(vuln)
+
+    for vuln_type in vuln_types:
+        for vuln_state in vuln_states:
+            grouped_vulns = vulns_utils.group_specific_new(
+                tuple(total_vulnerabilities[vuln_type][vuln_state]),
+                vuln_type,
+            )
+            result_vulns.extend(grouped_vulns)
+    return tuple(result_vulns)
+
+
 async def list_vulnerabilities_async(
     finding_ids: List[str],
     should_list_deleted: bool = False,

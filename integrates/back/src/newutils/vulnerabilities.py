@@ -31,6 +31,7 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
+    VulnerabilityType,
     VulnerabilityVerificationStatus,
     VulnerabilityZeroRiskStatus,
 )
@@ -630,6 +631,40 @@ def group_specific(
             pass
         lines.append(dictlines)
     return lines
+
+
+def group_specific_new(
+    vulns: Tuple[Vulnerability, ...], vuln_type: VulnerabilityType
+) -> Tuple[Vulnerability, ...]:
+    """Group vulnerabilities by its specific field."""
+    sorted_by_where = sort_vulnerabilities_new(vulns)
+    grouped_vulns = []
+    for key, group_iter in itertools.groupby(
+        sorted_by_where,
+        key=lambda vuln: (vuln.where, vuln.commit),
+    ):
+        group = list(group_iter)
+        specific_grouped = (
+            ",".join([vuln.specific for vuln in group])
+            if vuln_type == VulnerabilityType.INPUTS
+            else get_ranges(sorted([int(vuln.specific) for vuln in group]))
+        )
+        grouped_vulns.append(
+            Vulnerability(
+                finding_id=group[0].finding_id,
+                id=group[0].id,
+                specific=specific_grouped,
+                state=group[0].state,
+                type=group[0].type,
+                where=key[0],
+                commit=(
+                    group[0].commit[0:7]
+                    if group[0].commit is not None
+                    else None
+                ),
+            )
+        )
+    return tuple(grouped_vulns)
 
 
 def sort_vulnerabilities(item: List[Dict[str, str]]) -> List[Dict[str, str]]:
