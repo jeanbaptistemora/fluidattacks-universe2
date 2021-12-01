@@ -68,7 +68,7 @@ describe("TrackingTreatment", (): void => {
     reportDate: "",
     severity: "1",
     specific: "specific-3",
-    stream: "",
+    stream: undefined,
     tag: "tag-7, tag-8",
     treatment: "IN PROGRESS",
     treatmentChanges: 1,
