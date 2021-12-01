@@ -5,7 +5,7 @@ const GET_TOE_LINES: DocumentNode = gql`
   query GetToeLines($groupName: String!, $after: String, $bePresent: Boolean) {
     group(groupName: $groupName) {
       name
-      toeLines(bePresent: $bePresent, after: $after) {
+      toeLines(bePresent: $bePresent, after: $after, first: 500) {
         edges {
           node {
             attackedAt

@@ -135,7 +135,7 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
         ],
         "pageInfo": {
             "hasNextPage": False,
-            "endCursor": "bnVsbA==",
+            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDMvdGVzdC5jb25maWcifQ==",
         },
     }
 

@@ -21,7 +21,10 @@ import type {
 import type { ErrorResponse } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
 import { WebSocketLink } from "@apollo/client/link/ws";
-import { getMainDefinition } from "@apollo/client/utilities";
+import {
+  getMainDefinition,
+  relayStylePagination,
+} from "@apollo/client/utilities";
 import { createUploadLink } from "apollo-upload-client";
 import type {
   ExecutionResult,
@@ -310,7 +313,12 @@ const getCache: () => InMemoryCache = (): InMemoryCache =>
       Root: ["GitRoot", "IPRoot", "URLRoot"],
     },
     typePolicies: {
-      Group: { keyFields: ["name"] },
+      Group: {
+        fields: {
+          toeLines: relayStylePagination(),
+        },
+        keyFields: ["name"],
+      },
       Me: { keyFields: ["userEmail"] },
       Organization: { keyFields: ["name"] },
     },

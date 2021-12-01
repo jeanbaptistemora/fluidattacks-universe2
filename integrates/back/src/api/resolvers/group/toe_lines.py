@@ -32,8 +32,8 @@ async def resolve(
             group_name=parent["name"],
             after=kwargs.get("after"),
             be_present=kwargs.get("be_present"),
-            first=None,
-            paginate=False,
+            first=kwargs.get("first"),
+            paginate=True,
         )
     )
 

@@ -3,7 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import moment from "moment";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { dateFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
@@ -31,7 +31,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   >(
     "toeLinesTableSet",
     {
-      attackedDate: true,
+      attackedAt: true,
       attackedLines: true,
       bePresent: true,
       comments: true,
@@ -181,9 +181,9 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       dataField: "attackedAt",
       filter: dateFilter({}),
       formatter: formatDate,
-      header: translate.t("group.toe.lines.attackedDate"),
+      header: translate.t("group.toe.lines.attackedAt"),
       onSort,
-      visible: checkedItems.attackedDate,
+      visible: checkedItems.attackedAt,
       width: "5%",
     },
     {
@@ -215,9 +215,10 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   ];
 
   // // GraphQL operations
-  const { data } = useQuery<{
+  const { data, fetchMore, refetch } = useQuery<{
     group: { toeLines: IToeLinesConnection };
   }>(GET_TOE_LINES, {
+    fetchPolicy: "cache-first",
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         Logger.error("Couldn't load group toe lines", error);
@@ -225,6 +226,8 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     },
     variables: { groupName },
   });
+  const pageInfo =
+    data === undefined ? undefined : data.group.toeLines.pageInfo;
   const toeLinesEdges: IToeLinesEdge[] =
     data === undefined ? [] : data.group.toeLines.edges;
   const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
@@ -242,6 +245,21 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       sortsRiskLevel: getSortsRiskLevel(node),
     })
   );
+  useEffect((): void => {
+    if (!_.isUndefined(pageInfo)) {
+      if (pageInfo.hasNextPage) {
+        void fetchMore({ variables: { after: pageInfo.endCursor } });
+      }
+    }
+  }, [pageInfo, fetchMore]);
+  useEffect((): void => {
+    if (!_.isUndefined(data)) {
+      void refetch();
+    }
+    // It is important to run only during the first render
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const filterSearchtextResult: IToeLinesData[] = filterSearchText(
     toeLines,
     searchTextFilter
