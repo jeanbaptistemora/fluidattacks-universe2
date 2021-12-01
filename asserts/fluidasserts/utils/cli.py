@@ -1008,7 +1008,6 @@ def exec_cloudformation_package(
             "ec2.has_unrestricted_cidrs",
             "ec2.has_unrestricted_ip_protocols",
             "ec2.has_unrestricted_ports",
-            "ec2.uses_default_security_group",
         ],
         ("elb2", "ELBv2 (Elastic Load Balancing v2)"): [
             "elb2.has_access_logging_disabled",

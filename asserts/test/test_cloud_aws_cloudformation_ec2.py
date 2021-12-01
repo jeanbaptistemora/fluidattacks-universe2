@@ -62,14 +62,6 @@ def test_has_not_termination_protection():
     assert ec2.has_not_termination_protection(SAFE).is_closed()
 
 
-def test_uses_default_security_group():
-    """test ec2.uses_default_security_group."""
-    result = ec2.uses_default_security_group(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 6
-    assert ec2.uses_default_security_group(SAFE).is_closed()
-
-
 def test_security_group_allows_anyone_to_admin_ports():
     """test ec2.security_group_allows_anyone_to_admin_ports."""
     result = ec2.security_group_allows_anyone_to_admin_ports(VULN)
