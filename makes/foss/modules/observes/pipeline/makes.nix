@@ -215,6 +215,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/module/observesTapDynamo";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/module/observesTapFormstack";
           gitlabExtra = gitlabLint;
         }
