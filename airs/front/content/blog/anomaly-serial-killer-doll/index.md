@@ -14,7 +14,7 @@ keywords: Machine Learning, Natural Language Processing, Vulnerability,
   Anomaly Detection, Nearest Neighbors, Missing Check,
   Security, Ethical Hacking, Pentesting
 author: Rafael Ballestas
-:page-writer: raballestasr
+writer: raballestasr
 name: Rafael Ballestas
 about1: Mathematician
 about2: with an itch for CS

@@ -213,6 +213,12 @@ state. If it is not one of the valid states, it denies the packet.
 ![Code on
 src/packet.c](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330934/blog/libssh-bypass-cve/solution_uaqs60.webp)
 
+<div class="title">
+
+Figure 1. Code on src/packet.c
+
+</div>
+
 </div>
 
 Here you can see the difference between responses for a vulnerable
@@ -222,11 +228,23 @@ version and a non-vulnerable one.
 
 ![Vulnerable](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330933/blog/libssh-bypass-cve/vulnerable_mbwn5t.webp)
 
+<div class="title">
+
+Figure 2. Vulnerable
+
+</div>
+
 </div>
 
 <div class="imgblock">
 
 ![Non-vulnerable](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330933/blog/libssh-bypass-cve/no-vulnerable_z7vihm.webp)
+
+<div class="title">
+
+Figure 3. Non-vulnerable
+
+</div>
 
 </div>
 

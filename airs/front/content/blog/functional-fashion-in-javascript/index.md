@@ -84,7 +84,7 @@ you to read [Why we go functional?](../why-we-go-functional/)). This
 paradigm is against classes because this structures stimulate the use of
 states and its mutations. For example:
 
-**Cilinder class example..**
+**Cilinder class example.**
 
 ``` javascript
 class cilinder {
@@ -99,7 +99,7 @@ This is the common way to make a class, it makes sense to do so if what
 you want is a replicable object. Now we rewrite this code in a
 functional way.
 
-**Cilinder class in a functional approach..**
+**Cilinder class in a functional approach.**
 
 ``` javascript
 function cilinder(radius, height) {
@@ -118,7 +118,7 @@ only one thing.
 Another stone in the shoe when trying to migrate from object-oriented to
 functional are the iterative cycles. Let’s look at the following code:
 
-**Increment in list example..**
+**Increment in list example.**
 
 ``` javascript
 const result = [];
@@ -132,7 +132,7 @@ for (let i = 0; i < elements.length; i``) {
 This code adds a one to all the elements of a list. Let’s represent this
 cycle in a functional way:
 
-**Increment in list example, functional approach..**
+**Increment in list example, functional approach.**
 
 ``` javascript
 const result = [];
@@ -156,7 +156,7 @@ paradigm, there are functions that can receive functions as a parameter
 and can even return other functions. I know, it’s something difficult to
 understand the first time but I’ll explain it with an example.
 
-**Multiply function is JavaScript..**
+**Multiply function is JavaScript.**
 
 ``` javascript
 var multiply = function(a, b) {
@@ -169,7 +169,7 @@ multiply(2,3); // 6
 The above is a classic function to multiply 2 integers. Now let’s
 express this in a high-order function.
 
-**Multiplication in high-order function..**
+**Multiplication in high-order function.**
 
 ``` javascript
 function multiplyByInteger(a) {
@@ -213,7 +213,7 @@ Assuming that you already have
 [`eslint`](https://eslint.org/docs/user-guide/getting-started), we
 proceed to install the plugin:
 
-**eslint-plugin-fp installation..**
+**eslint-plugin-fp installation.**
 
 ``` bash
 npm install --save eslint-plugin-fp
@@ -224,7 +224,7 @@ therefore, we must modify the eslint configuration file (usually a
 `JSON` type file) adding the new library to the plugin list and the new
 rules to the list of rules.
 
-**Part of the eslint configuration part..**
+**Part of the eslint configuration part.**
 
 ``` json
 "plugins": [
@@ -266,7 +266,7 @@ Let’s put the [cilinder class example](#cilinder-example) in a file
 called example.js and use eslint with the *no-class rule* to observe
 what happens.
 
-**Linting example.js..**
+**Linting example.js.**
 
 ``` bash
 $ eslint example.js

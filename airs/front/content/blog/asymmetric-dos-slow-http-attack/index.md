@@ -244,18 +244,18 @@ The parameters you see are described below:
 
 </div>
 
-|               |                                                                                                                 |
-| ------------- | --------------------------------------------------------------------------------------------------------------- |
-| \-c 65539     | use 65539 connections                                                                                           |
-| \-B           | specify to slow down the http in message body mode                                                              |
-| \-i 10        | seconds of interval between follow up data, per connection                                                      |
-| \-l 300       | duration of the test in seconds                                                                                 |
-| \-p 300       | timeout in seconds to wait for HTTP response on probe connection, after which server is considered inaccessible |
-| \-r 10000     | connections per second                                                                                          |
-| \-s 16384     | value of Content-Length header                                                                                  |
-| \-x 10        | max length of follow up data in bytes                                                                           |
-| \-t firstname | add ?firstname=(-x 10bytes) to the target url                                                                   |
-| \-u URL       | target URL                                                                                                      |
+|                        |                                                                                                                          |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| <p> \-c 65539     </p> | <p> use 65539 connections                                                                                           </p> |
+| <p> \-B           </p> | <p> specify to slow down the http in message body mode                                                              </p> |
+| <p> \-i 10        </p> | <p> seconds of interval between follow up data, per connection                                                      </p> |
+| <p> \-l 300       </p> | <p> duration of the test in seconds                                                                                 </p> |
+| <p> \-p 300       </p> | <p> timeout in seconds to wait for HTTP response on probe connection, after which server is considered inaccessible </p> |
+| <p> \-r 10000     </p> | <p> connections per second                                                                                          </p> |
+| <p> \-s 16384     </p> | <p> value of Content-Length header                                                                                  </p> |
+| <p> \-x 10        </p> | <p> max length of follow up data in bytes                                                                           </p> |
+| <p> \-t firstname </p> | <p> add ?firstname=(-x 10bytes) to the target url                                                                   </p> |
+| <p> \-u URL       </p> | <p> target URL                                                                                                      </p> |
 
 While the attack is running a user that tries to access the service is
 going to see:

@@ -38,7 +38,11 @@ and try a `ping` to see if we have access.
 host$ ping -c2 10.10.10.93
 ```
 
-image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330675/blog/bounty-writeup/ping\_trcnb5.webp\]
+<div class="imgblock">
+
+![ping](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330675/blog/bounty-writeup/ping\_trcnb5.webp)
+
+</div>
 
 Then, we scan the ports with `nmap`. In this case, we’re going to use
 basic `nmap`.
