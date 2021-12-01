@@ -20,8 +20,10 @@ from custom_exceptions import (
 )
 from custom_types import (
     Datetime,
-    Finding,
     Historic,
+)
+from datetime import (
+    datetime,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
@@ -212,19 +214,16 @@ async def add_vulnerability_treatment(
 
 
 def get_treatment_change(
-    vulnerability: Dict[str, Finding], min_date: Datetime
-) -> Optional[Tuple[str, Dict[str, Finding]]]:
-    historic_treatment = vulns_utils.sort_historic_by_date(
-        vulnerability["historic_treatment"]
+    vulnerability: Vulnerability, min_date: Datetime
+) -> Optional[Tuple[str, Vulnerability]]:
+    last_treatment_date = datetime.fromisoformat(
+        vulnerability.treatment.modified_date
     )
-    treatment_date: str = historic_treatment[-1]["date"]
-    last_treatment_date = datetime_utils.get_from_str(treatment_date)
     if last_treatment_date > min_date:
-        last_treatment = historic_treatment[-1]
-        treatment = last_treatment["treatment"]
+        treatment = str(vulnerability.treatment.status.value)
         status = (
-            f'_{last_treatment["acceptance_status"]}'
-            if "acceptance_status" in last_treatment
+            f"_{vulnerability.treatment.acceptance_status.value}"
+            if vulnerability.treatment.acceptance_status is not None
             else ""
         )
         return treatment + status, vulnerability
@@ -345,8 +344,9 @@ async def send_treatment_change_mail(
     group_name: str,
     min_date: Datetime,
 ) -> bool:
-    finding_vulns_loader = loaders.finding_vulns_nzr
-    vulns = await finding_vulns_loader.load(finding_id)
+    vulns: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_nzr_typed.load(finding_id)
     changes = list(
         filter(None, [get_treatment_change(vuln, min_date) for vuln in vulns])
     )
@@ -361,7 +361,7 @@ async def send_treatment_change_mail(
             finding_title=finding_title,
             group_name=group_name,
             treatment=treatment,
-            updated_vulns=[change[1] for change in treatments_change],
+            updated_vulns=tuple(change[1] for change in treatments_change),
         )
     return bool(treatments)
 

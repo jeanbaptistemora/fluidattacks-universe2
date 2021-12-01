@@ -382,8 +382,6 @@ def format_vulnerabilities_new(
         )
         if vuln.commit:
             finding[vuln_type][-1]["commit_hash"] = vuln.commit
-        if vuln.repo:
-            finding[vuln_type][-1]["repo_nickname"] = vuln.commit
     return finding
 
 

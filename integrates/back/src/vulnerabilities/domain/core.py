@@ -777,17 +777,13 @@ async def should_send_update_treatment(
     finding_title: str,
     group_name: str,
     treatment: str,
-    updated_vulns: List[Dict[str, FindingType]],
+    updated_vulns: Tuple[Vulnerability, ...],
 ) -> None:
-    translations = {"IN PROGRESS": "In Progress"}
+    translations = {"IN_PROGRESS": "In Progress"}
     if treatment in translations:
-        vulns_grouped = group_vulnerabilities(updated_vulns)
-        vulns_data = vulns_utils.format_vulnerabilities(
-            cast(List[Dict[str, FindingType]], vulns_grouped)
-        )
-        mail_content = get_updated_manager_mail_content(
-            cast(Dict[str, List[Dict[str, str]]], vulns_data)
-        )
+        vulns_grouped = group_vulnerabilities_new(updated_vulns)
+        vulns_data = vulns_utils.format_vulnerabilities_new(vulns_grouped)
+        mail_content = get_updated_manager_mail_content(vulns_data)
         schedule(
             vulns_mail.send_mail_updated_treatment(
                 loaders=loaders,
