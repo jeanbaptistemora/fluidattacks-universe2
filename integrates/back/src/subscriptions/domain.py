@@ -433,10 +433,7 @@ async def subscribe_user_to_entity_report(
     report_entity: str,
     report_subject: str,
     user_email: str,
-    loaders: Dataloaders = None,
 ) -> bool:
-    success: bool
-
     if event_frequency.lower() == "never":
         success = await unsubscribe_user_to_entity_report(
             report_entity=report_entity,
@@ -445,23 +442,13 @@ async def subscribe_user_to_entity_report(
         )
     else:
         event_period: int = _frequency_to_period(frequency=event_frequency)
-
         success = await subscriptions_dal.subscribe_user_to_entity_report(
             event_period=event_period,
             report_entity=report_entity,
             report_subject=report_subject,
             user_email=user_email,
         )
-
         if success:
-            await _send_user_to_entity_report(
-                event_frequency=event_frequency,
-                report_entity=report_entity,
-                report_subject=report_subject,
-                user_email=user_email,
-                digest_stats=tuple(),
-                loaders=loaders,
-            )
             LOGGER_CONSOLE.info(
                 "User subscribed correctly",
                 extra={
@@ -473,7 +460,6 @@ async def subscribe_user_to_entity_report(
                     }
                 },
             )
-
     return success
 
 
