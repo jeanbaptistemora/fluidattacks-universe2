@@ -31,6 +31,8 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   >(
     "toeLinesTableSet",
     {
+      attackedDate: true,
+      attackedLines: true,
       bePresent: true,
       comments: true,
       coverage: true,
@@ -39,9 +41,8 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       modifiedCommit: true,
       modifiedDate: true,
       rootNickname: true,
+      seenAt: false,
       sortsRiskLevel: false,
-      testedDate: true,
-      testedLines: true,
     },
     localStorage
   );
@@ -114,7 +115,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.lines.bePresent"),
       onSort,
       visible: checkedItems.bePresent,
-      width: "10%",
+      width: "2%",
     },
     {
       align: "center",
@@ -154,7 +155,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       dataField: "attackedLines",
       header: translate.t("group.toe.lines.attackedLines"),
       onSort,
-      visible: checkedItems.testedLines,
+      visible: checkedItems.attackedLines,
       width: "8%",
     },
     {
@@ -182,7 +183,17 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       formatter: formatDate,
       header: translate.t("group.toe.lines.attackedDate"),
       onSort,
-      visible: checkedItems.testedDate,
+      visible: checkedItems.attackedDate,
+      width: "5%",
+    },
+    {
+      align: "center",
+      dataField: "seenAt",
+      filter: dateFilter({}),
+      formatter: formatDate,
+      header: translate.t("group.toe.lines.seenAt"),
+      onSort,
+      visible: checkedItems.seenAt,
       width: "5%",
     },
     {

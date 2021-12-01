@@ -752,6 +752,7 @@ export const enTranslations: ResourceKey = {
         modifiedDate: "Modified date",
         no: "No",
         root: "Root",
+        seenAt: "Seen at",
         sortsRiskLevel: "Priority (IA/ML)",
         yes: "Yes",
       },
