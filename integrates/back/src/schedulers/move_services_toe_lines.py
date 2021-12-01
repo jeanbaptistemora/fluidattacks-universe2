@@ -134,6 +134,8 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                         repo_services_toe_lines[filename].tested_date,
                         toe_lines.modified_date,
                     ),
+                    seen_at=repo_services_toe_lines[filename].tested_date
+                    or toe_lines.seen_at,
                 ),
             )
             for filename, toe_lines in repo_toe_lines.items()
@@ -143,6 +145,7 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                 toe_lines.attacked_at,
                 toe_lines.attacked_lines,
                 toe_lines.first_attack_at,
+                toe_lines.seen_at,
             )
             != (
                 repo_services_toe_lines[filename].comments,
@@ -154,6 +157,8 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                     toe_lines.modified_date,
                 ),
                 repo_services_toe_lines[filename].tested_date,
+                repo_services_toe_lines[filename].tested_date
+                or toe_lines.seen_at,
             )
         )
     )
