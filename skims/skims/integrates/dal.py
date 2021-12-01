@@ -362,6 +362,9 @@ async def get_finding_vulnerabilities(
         verification = core_model.VulnerabilityVerification.from_historic(
             vulnerability["historicVerification"],
         )
+        stream = vulnerability["stream"]
+        if stream is not None:
+            stream = stream.replace(" > ", ",")
 
         await store.store(
             core_model.Vulnerability(
@@ -377,7 +380,7 @@ async def get_finding_vulnerabilities(
                 state=core_model.VulnerabilityStateEnum(
                     vulnerability["currentState"]
                 ),
-                stream=vulnerability["stream"].replace(" > ", ","),
+                stream=stream,
                 what=what,
                 where=vulnerability["specific"],
             )

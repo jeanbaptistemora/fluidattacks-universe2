@@ -1,4 +1,4 @@
-finding,kind,what,where,cwe,stream,title,description,snippet
+finding,kind,what,where,cwe,stream,title,description,snippet,method
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00001.java,71,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00001.java,"
   61 |     }
   62 |    }
@@ -22,7 +22,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00001.j
   80 |             response.getWriter().println(
   81 |               ""Problem getting FileInputStream: ""
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00001.java,71,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00001.java,"
   61 |
   62 |
@@ -46,7 +46,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00001.j
   80 | ponse.getWriter().println(
   81 | Problem getting FileInputStream: ""
      ^ Col 15
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00002.java,72,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00002.java,"
   62 |    }
   63 |   }
@@ -70,7 +70,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00002.j
   81 |    if (fos != null) {
   82 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00011.java,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00011.java,"
   46 |   java.util.Enumeration<String> headers = request.getHeaders(""BenchmarkTest00011"");
   47 |
@@ -94,7 +94,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00011.j
   65 | "" But file doesn't exist yet.""
   66 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00028.java,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00028.java,"
   50 |   }
   51 |
@@ -118,7 +118,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00028.j
   69 |    if (fos != null) {
   70 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00040.java,50,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00040.java,"
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
   41 |   // some code
@@ -142,7 +142,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00040.j
   59 | "" But file doesn't exist yet.""
   60 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00045.java,63,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00045.java,"
   53 |
   54 |   try (
@@ -166,7 +166,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00045.j
   72 |  }
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00060.java,71,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00060.java,"
   61 |   }
   62 |
@@ -190,7 +190,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00060.j
   80 | "" But file doesn't exist yet.""
   81 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00061.java,71,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00061.java,"
   61 |   }
   62 |
@@ -214,7 +214,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00061.j
   80 | "" But file doesn't exist yet.""
   81 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00062.java,77,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00062.java,"
    67 |   map77232.put(""keyB-77232"", param); // put it in a collection
    68 |   map77232.put(""keyC"", ""another-Value""); // put some stuff in the collection
@@ -238,7 +238,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00062.j
    86 |             response.getWriter().println(
    87 |               ""Problem getting FileInputStream: ""
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00062.java,77,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00062.java,"
    67 | ""keyB-77232"", param); // put it in a collection
    68 | ""keyC"", ""another-Value""); // put some stuff in the collection
@@ -262,7 +262,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00062.j
    86 | ponse.getWriter().println(
    87 | Problem getting FileInputStream: ""
       ^ Col 15
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00065.java,75,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00065.java,"
    65 |   if (param != null) {
    66 |    bar = new String( org.apache.commons.codec.binary.Base64.decodeBase64(
@@ -286,7 +286,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00065.j
    84 | );
    85 |    is.close();
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00065.java,76,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00065.java,"
    66 |    bar = new String( org.apache.commons.codec.binary.Base64.decodeBase64(
    67 |    org.apache.commons.codec.binary.Base64.encodeBase64( param.getBytes() ) ));
@@ -310,7 +310,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00065.j
    85 |    is.close();
    86 |   } catch (Exception e) {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00133.java,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00133.java,"
   56 |
   57 |   bar = (7*42) - num > 200 ? ""This should never happen"" : param;
@@ -334,7 +334,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00133.j
   75 |   } catch (Exception e) {
   76 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00215.java,64,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00215.java,"
   54 |     param = name;
   55 |     break;
@@ -358,7 +358,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00215.j
   73 | "" But file doesn't exist yet.""
   74 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00216.java,70,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00216.java,"
   60 |
   61 |   String bar;
@@ -382,7 +382,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00216.j
   79 | "" But file doesn't exist yet.""
   80 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00218.java,94,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00218.java,"
    84 |   // Mac requires an extra slash for some reason.
    85 |   String startURIslashes = """";
@@ -406,7 +406,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00218.j
   103 | "" But file doesn't exist yet.""
   104 | ); }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00219.java,75,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00219.java,"
    65 |
    66 |   bar = (7*42) - num > 200 ? ""This should never happen"" : param;
@@ -430,7 +430,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00219.j
    84 |             response.getWriter().println(
    85 |               ""Problem getting FileInputStream: ""
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00219.java,75,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00219.java,"
    65 |
    66 | - num > 200 ? ""This should never happen"" : param;
@@ -454,7 +454,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00219.j
    84 | ponse.getWriter().println(
    85 | Problem getting FileInputStream: ""
       ^ Col 15
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00222.java,89,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00222.java,"
    79 |           break;
    80 |   }
@@ -478,7 +478,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00222.j
    98 |    if (fos != null) {
    99 |     try {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00262.java,76,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00262.java,"
   66 |     case 'C':
   67 |     case 'D':
@@ -502,7 +502,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00262.j
   85 | "" But file doesn't exist yet.""
   86 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00264.java,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00264.java,"
   58 |   if ( (500/42) + num > 200 )
   59 |      bar = param;
@@ -526,7 +526,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00264.j
   77 |             response.getWriter().println(
   78 |               ""Problem getting FileInputStream: ""
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00264.java,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00264.java,"
   58 |  + num > 200 )
   59 | m;
@@ -550,7 +550,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00264.j
   77 | ponse.getWriter().println(
   78 | Problem getting FileInputStream: ""
      ^ Col 15
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00359.java,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00359.java,"
   46 |
   47 |   String bar;
@@ -574,7 +574,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00359.j
   65 | "" But file doesn't exist yet.""
   66 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00360.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00360.java,"
   49 |    bar = new String( org.apache.commons.codec.binary.Base64.decodeBase64(
   50 |    org.apache.commons.codec.binary.Base64.encodeBase64( param.getBytes() ) ));
@@ -598,7 +598,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00360.j
   68 |             response.getWriter().println(
   69 |               ""Problem getting FileInputStream: ""
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00360.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00360.java,"
   49 | ring( org.apache.commons.codec.binary.Base64.decodeBase64(
   50 | ommons.codec.binary.Base64.encodeBase64( param.getBytes() ) ));
@@ -622,7 +622,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00360.j
   68 | ponse.getWriter().println(
   69 | Problem getting FileInputStream: ""
      ^ Col 15
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00362.java,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00362.java,"
   46 |
   47 |   String bar = param;
@@ -646,7 +646,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00362.j
   65 |    if (fos != null) {
   66 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00362.java,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00362.java,"
   46 |
   47 | bar = param;
@@ -670,7 +670,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00362.j
   65 | s != null) {
   66 |
      ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00363.java,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00363.java,"
   51 |
   52 |   try (
@@ -694,7 +694,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00363.j
   70 |  }
   71 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00452.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00452.java,"
   49 |
   50 |
@@ -718,7 +718,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00452.j
   68 | "" But file doesn't exist yet.""
   69 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00453.java,70,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00453.java,"
   60 |   // Mac requires an extra slash for some reason.
   61 |   String startURIslashes = """";
@@ -742,7 +742,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00453.j
   79 | "" But file doesn't exist yet.""
   80 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00455.java,64,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00455.java,"
   54 |    bar = new String( org.apache.commons.codec.binary.Base64.decodeBase64(
   55 |    org.apache.commons.codec.binary.Base64.encodeBase64( param.getBytes() ) ));
@@ -766,7 +766,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00455.j
   73 |   } catch (Exception e) {
   74 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00456.java,65,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00456.java,"
   55 |   map49381.put(""keyB-49381"", param); // put it in a collection
   56 |   map49381.put(""keyC"", ""another-Value""); // put some stuff in the collection
@@ -790,7 +790,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00456.j
   74 |   } catch (Exception e) {
   75 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00457.java,71,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00457.java,"
   61 |    bar = valuesList.get(0); // get the param value
   62 |   }
@@ -814,7 +814,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00457.j
   80 |    if (fos != null) {
   81 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00457.java,71,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00457.java,"
   61 | valuesList.get(0); // get the param value
   62 |
@@ -838,7 +838,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00457.j
   80 | s != null) {
   81 |
      ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00459.java,65,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00459.java,"
   55 |    org.apache.commons.codec.binary.Base64.encodeBase64( param.getBytes() ) ));
   56 |   }
@@ -862,7 +862,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00459.j
   74 |    if (fos != null) {
   75 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00525.java,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00525.java,"
   64 |    valuesList.add(""safe"");
   65 |    valuesList.add( param );
@@ -886,7 +886,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00525.j
   83 | "" But file doesn't exist yet.""
   84 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00526.java,64,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00526.java,"
   54 |          flag = false;
   55 |      }
@@ -910,7 +910,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00526.j
   73 | "" But file doesn't exist yet.""
   74 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00527.java,65,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00527.java,"
   55 |      }
   56 |     }
@@ -934,7 +934,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00527.j
   74 | "" But file doesn't exist yet.""
   75 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00528.java,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00528.java,"
   70 |   // Mac requires an extra slash for some reason.
   71 |   String startURIslashes = """";
@@ -958,7 +958,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00528.j
   89 | "" But file doesn't exist yet.""
   90 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00529.java,69,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00529.java,"
   59 |
   60 |
@@ -982,7 +982,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00529.j
   78 |   } catch (Exception e) {
   79 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00619.java,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00619.java,"
   51 |    valuesList.add(""safe"");
   52 |    valuesList.add( param );
@@ -1006,7 +1006,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00619.j
   70 | "" But file doesn't exist yet.""
   71 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00623.java,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00623.java,"
   45 |   if (param == null) param = """";
   46 |
@@ -1030,7 +1030,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00623.j
   64 | "" But file doesn't exist yet.""
   65 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00624.java,58,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00624.java,"
   48 |   org.owasp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
   49 |   String bar = thing.doSomething(param);
@@ -1054,7 +1054,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00624.j
   67 |    if (fos != null) {
   68 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00624.java,58,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00624.java,"
   48 | sp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
   49 | bar = thing.doSomething(param);
@@ -1078,7 +1078,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00624.j
   67 | s != null) {
   68 |
      ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00627.java,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00627.java,"
   51 |    org.apache.commons.codec.binary.Base64.encodeBase64( param.getBytes() ) ));
   52 |   }
@@ -1102,7 +1102,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00627.j
   70 |    if (fos != null) {
   71 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00629.java,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00629.java,"
   51 |   int num = 196;
   52 |   if ( (500/42) + num > 200 )
@@ -1126,7 +1126,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00629.j
   70 | );
   71 |    is.close();
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00629.java,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00629.java,"
   52 |   if ( (500/42) + num > 200 )
   53 |      bar = param;
@@ -1150,7 +1150,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00629.j
   71 |    is.close();
   72 |   } catch (Exception e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00696.java,72,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00696.java,"
   62 |     case 'C':
   63 |     case 'D':
@@ -1174,7 +1174,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00696.j
   81 | "" But file doesn't exist yet.""
   82 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00697.java,57,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00697.java,"
   47 |   else param = """";
   48 |
@@ -1198,7 +1198,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00697.j
   66 | "" But file doesn't exist yet.""
   67 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00698.java,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00698.java,"
   44 |   String param;
   45 |   if (values != null && values.length > 0)
@@ -1222,7 +1222,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00698.j
   63 | "" But file doesn't exist yet.""
   64 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00700.java,63,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00700.java,"
   53 |    org.apache.commons.codec.binary.Base64.encodeBase64( param.getBytes() ) ));
   54 |   }
@@ -1246,7 +1246,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00700.j
   72 |    if (fos != null) {
   73 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00700.java,63,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00700.java,"
   53 | ache.commons.codec.binary.Base64.encodeBase64( param.getBytes() ) ));
   54 |
@@ -1270,7 +1270,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00700.j
   72 | s != null) {
   73 |
      ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00783.java,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00783.java,"
   64 |   map2299.put(""keyB-2299"", param); // put it in a collection
   65 |   map2299.put(""keyC"", ""another-Value""); // put some stuff in the collection
@@ -1294,7 +1294,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00783.j
   83 |             response.getWriter().println(
   84 |               ""Problem getting FileInputStream: ""
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00783.java,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00783.java,"
   64 | keyB-2299"", param); // put it in a collection
   65 | keyC"", ""another-Value""); // put some stuff in the collection
@@ -1318,7 +1318,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00783.j
   83 | ponse.getWriter().println(
   84 | Problem getting FileInputStream: ""
      ^ Col 15
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00785.java,75,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00785.java,"
   65 |   map59480.put(""keyC"", ""another-Value""); // put some stuff in the collection
   66 |   bar = (String)map59480.get(""keyB-59480""); // get it back out
@@ -1342,7 +1342,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00785.j
   84 |    if (fos != null) {
   85 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00787.java,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00787.java,"
   64 |    org.apache.commons.codec.binary.Base64.encodeBase64( param.getBytes() ) ));
   65 |   }
@@ -1366,7 +1366,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00787.j
   83 |    if (fos != null) {
   84 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00788.java,71,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00788.java,"
   61 |   org.owasp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
   62 |   String bar = thing.doSomething(param);
@@ -1390,7 +1390,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00788.j
   80 |    if (fos != null) {
   81 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00949.java,65,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00949.java,"
   55 |    for (javax.servlet.http.Cookie theCookie : theCookies) {
   56 |     if (theCookie.getName().equals(""BenchmarkTest00949"")) {
@@ -1414,7 +1414,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00949.j
   74 | "" But file doesn't exist yet.""
   75 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00950.java,65,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00950.java,"
   55 |    for (javax.servlet.http.Cookie theCookie : theCookies) {
   56 |     if (theCookie.getName().equals(""BenchmarkTest00950"")) {
@@ -1438,7 +1438,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00950.j
   74 | "" But file doesn't exist yet.""
   75 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00952.java,76,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00952.java,"
    66 |   // Mac requires an extra slash for some reason.
    67 |   String startURIslashes = """";
@@ -1462,7 +1462,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00952.j
    85 | "" But file doesn't exist yet.""
    86 | ); }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00953.java,76,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00953.java,"
    66 |
    67 |   try (
@@ -1486,7 +1486,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00953.j
    85 |  }  // end doPost
    86 |
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00956.java,76,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00956.java,"
    66 |
    67 |   try (
@@ -1510,7 +1510,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00956.j
    85 |  }  // end doPost
    86 |
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01025.java,53,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01025.java,"
   43 |   String param = """";
   44 |   if (request.getHeader(""BenchmarkTest01025"") != null) {
@@ -1534,7 +1534,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01025.j
   62 | "" But file doesn't exist yet.""
   63 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01029.java,64,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01029.java,"
   54 |   // Mac requires an extra slash for some reason.
   55 |   String startURIslashes = """";
@@ -1558,7 +1558,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01029.j
   73 | "" But file doesn't exist yet.""
   74 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01032.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01032.java,"
   49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   50 |
@@ -1582,7 +1582,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01032.j
   68 |    if (fos != null) {
   69 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01032.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01032.java,"
   49 |  java.net.URLDecoder.decode(param, ""UTF-8"");
   50 |
@@ -1606,7 +1606,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01032.j
   68 | s != null) {
   69 |
      ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01033.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01033.java,"
   49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   50 |
@@ -1630,7 +1630,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01033.j
   68 |    if (fos != null) {
   69 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01033.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01033.java,"
   49 |  java.net.URLDecoder.decode(param, ""UTF-8"");
   50 |
@@ -1654,7 +1654,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01033.j
   68 | s != null) {
   69 |
      ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01034.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01034.java,"
   49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   50 |
@@ -1678,7 +1678,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01034.j
   68 |    if (fos != null) {
   69 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01111.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01111.java,"
    57 |   }
    58 |   // Note: We don't URL decode header names because people don't normally do that
@@ -1702,7 +1702,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01111.j
    76 |   } catch (Exception e) {
    77 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01112.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01112.java,"
    57 |   }
    58 |   // Note: We don't URL decode header names because people don't normally do that
@@ -1726,7 +1726,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01112.j
    76 |   } catch (Exception e) {
    77 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01116.java,73,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01116.java,"
    63 |
    64 |   try (
@@ -1750,7 +1750,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01116.j
    82 |  }  // end doPost
    83 |
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01117.java,73,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01117.java,"
   63 |
   64 |   try (
@@ -1774,7 +1774,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01117.j
   82 |  }  // end doPost
   83 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01155.java,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01155.java,"
   45 |
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -1798,7 +1798,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01155.j
   64 | "" But file doesn't exist yet.""
   65 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01156.java,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01156.java,"
   56 |   // Mac requires an extra slash for some reason.
   57 |   String startURIslashes = """";
@@ -1822,7 +1822,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01156.j
   75 | "" But file doesn't exist yet.""
   76 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01157.java,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01157.java,"
    56 |   // Mac requires an extra slash for some reason.
    57 |   String startURIslashes = """";
@@ -1846,7 +1846,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01157.j
    75 | "" But file doesn't exist yet.""
    76 | ); }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01161.java,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01161.java,"
    51 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
    52 |
@@ -1870,7 +1870,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01161.j
    70 |    if (fos != null) {
    71 |     try {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01231.java,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01231.java,"
   38 |
   39 |  @Override
@@ -1894,7 +1894,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01231.j
   57 | "" But file doesn't exist yet.""
   58 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01232.java,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01232.java,"
   38 |
   39 |  @Override
@@ -1918,7 +1918,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01232.j
   57 | "" But file doesn't exist yet.""
   58 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01234.java,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01234.java,"
   38 |
   39 |  @Override
@@ -1942,7 +1942,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01234.j
   57 | "" But file doesn't exist yet.""
   58 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01235.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01235.java,"
   49 |   // Mac requires an extra slash for some reason.
   50 |   String startURIslashes = """";
@@ -1966,7 +1966,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01235.j
   68 | "" But file doesn't exist yet.""
   69 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01236.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01236.java,"
   49 |   // Mac requires an extra slash for some reason.
   50 |   String startURIslashes = """";
@@ -1990,7 +1990,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01236.j
   68 | "" But file doesn't exist yet.""
   69 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01238.java,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01238.java,"
   44 |   if (param == null) param = """";
   45 |
@@ -2014,7 +2014,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01238.j
   63 |    if (fos != null) {
   64 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01238.java,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01238.java,"
   44 | am == null) param = """";
   45 |
@@ -2038,7 +2038,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01238.j
   63 | s != null) {
   64 |
      ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01329.java,64,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01329.java,"
    54 |   // Mac requires an extra slash for some reason.
    55 |   String startURIslashes = """";
@@ -2062,7 +2062,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01329.j
    73 | "" But file doesn't exist yet.""
    74 | ); }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01330.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01330.java,"
   49 |
   50 |
@@ -2086,7 +2086,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01330.j
   68 |    if (fos != null) {
   69 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01330.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01330.java,"
   49 |
   50 |
@@ -2110,7 +2110,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01330.j
   68 | s != null) {
   69 |
      ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01403.java,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01403.java,"
   52 |      if (value.equals(""BenchmarkTest01403"")) {
   53 |       param = name;
@@ -2134,7 +2134,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01403.j
   71 | "" But file doesn't exist yet.""
   72 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01405.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01405.java,"
    57 |    }
    58 |   }
@@ -2158,7 +2158,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01405.j
    76 |             response.getWriter().println(
    77 |               ""Problem getting FileInputStream: ""
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01405.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01405.java,"
    57 |
    58 |
@@ -2182,7 +2182,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01405.j
    76 | ponse.getWriter().println(
    77 | Problem getting FileInputStream: ""
       ^ Col 15
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01408.java,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01408.java,"
    58 |   }
    59 |
@@ -2206,7 +2206,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01408.j
    77 |    if (fos != null) {
    78 |     try {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01494.java,49,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01494.java,"
   39 |  @Override
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -2230,7 +2230,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01494.j
   58 | "" But file doesn't exist yet.""
   59 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01495.java,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01495.java,"
    50 |   // Mac requires an extra slash for some reason.
    51 |   String startURIslashes = """";
@@ -2254,7 +2254,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01495.j
    69 | "" But file doesn't exist yet.""
    70 | ); }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01496.java,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01496.java,"
    44 |   String param = scr.getTheParameter(""BenchmarkTest01496"");
    45 |   if (param == null) param = """";
@@ -2278,7 +2278,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01496.j
    63 |   } catch (Exception e) {
    64 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01497.java,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01497.java,"
   45 |   if (param == null) param = """";
   46 |
@@ -2302,7 +2302,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01497.j
   64 |    if (fos != null) {
   65 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01497.java,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01497.java,"
   45 | am == null) param = """";
   46 |
@@ -2326,7 +2326,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01497.j
   64 | s != null) {
   65 |
      ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01498.java,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01498.java,"
   50 |
   51 |   try (
@@ -2350,7 +2350,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01498.j
   69 |  }  // end doPost
   70 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01500.java,53,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01500.java,"
   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
   44 |   String param = scr.getTheParameter(""BenchmarkTest01500"");
@@ -2374,7 +2374,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01500.j
   62 | );
   63 |    is.close();
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01500.java,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01500.java,"
   44 |   String param = scr.getTheParameter(""BenchmarkTest01500"");
   45 |   if (param == null) param = """";
@@ -2398,7 +2398,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01500.j
   63 |    is.close();
   64 |   } catch (Exception e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01571.java,51,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01571.java,"
   41 |   response.setContentType(""text/html;charset=UTF-8"");
   42 |
@@ -2422,7 +2422,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01571.j
   60 | "" But file doesn't exist yet.""
   61 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01572.java,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01572.java,"
   46 |     param = values[0];
   47 |   else param = """";
@@ -2446,7 +2446,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01572.j
   65 |             response.getWriter().println(
   66 |               ""Problem getting FileInputStream: ""
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01572.java,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01572.java,"
   46 | ues[0];
   47 | """";
@@ -2470,7 +2470,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01572.j
   65 | ponse.getWriter().println(
   66 | Problem getting FileInputStream: ""
      ^ Col 15
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01642.java,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01642.java,"
   52 |   String param = queryString.substring(paramLoc + paramval.length()); // 1st assume ""BenchmarkTest01642"" param is last pa
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -2494,7 +2494,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01642.j
   71 | "" But file doesn't exist yet.""
   72 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01643.java,73,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01643.java,"
    63 |   // Mac requires an extra slash for some reason.
    64 |   String startURIslashes = """";
@@ -2518,7 +2518,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01643.j
    82 | "" But file doesn't exist yet.""
    83 | ); }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01645.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01645.java,"
    57 |   }
    58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -2542,7 +2542,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01645.j
    76 |   } catch (Exception e) {
    77 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01647.java,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01647.java,"
    58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
    59 |
@@ -2566,7 +2566,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01647.j
    77 |    if (fos != null) {
    78 |     try {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01833.java,65,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01833.java,"
   55 |    for (javax.servlet.http.Cookie theCookie : theCookies) {
   56 |     if (theCookie.getName().equals(""BenchmarkTest01833"")) {
@@ -2590,7 +2590,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01833.j
   74 | "" But file doesn't exist yet.""
   75 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01835.java,65,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01835.java,"
   55 |    for (javax.servlet.http.Cookie theCookie : theCookies) {
   56 |     if (theCookie.getName().equals(""BenchmarkTest01835"")) {
@@ -2614,7 +2614,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01835.j
   74 | "" But file doesn't exist yet.""
   75 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01836.java,76,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01836.java,"
    66 |   // Mac requires an extra slash for some reason.
    67 |   String startURIslashes = """";
@@ -2638,7 +2638,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01836.j
    85 | "" But file doesn't exist yet.""
    86 | ); }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01839.java,71,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01839.java,"
    61 |   }
    62 |
@@ -2662,7 +2662,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01839.j
    80 |    if (fos != null) {
    81 |     try {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01839.java,71,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01839.java,"
    61 |
    62 |
@@ -2686,7 +2686,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01839.j
    80 | s != null) {
    81 |
       ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01840.java,71,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01840.java,"
   61 |   }
   62 |
@@ -2710,7 +2710,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01840.j
   80 |    if (fos != null) {
   81 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01840.java,71,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01840.java,"
   61 |
   62 |
@@ -2734,7 +2734,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01840.j
   80 | s != null) {
   81 |
      ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01904.java,53,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01904.java,"
   43 |   String param = """";
   44 |   if (request.getHeader(""BenchmarkTest01904"") != null) {
@@ -2758,7 +2758,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01904.j
   62 | "" But file doesn't exist yet.""
   63 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01906.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01906.java,"
   49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   50 |
@@ -2782,7 +2782,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01906.j
   68 |    if (fos != null) {
   69 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01906.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01906.java,"
   49 |  java.net.URLDecoder.decode(param, ""UTF-8"");
   50 |
@@ -2806,7 +2806,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01906.j
   68 | s != null) {
   69 |
      ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01907.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01907.java,"
   49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   50 |
@@ -2830,7 +2830,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01907.j
   68 |    if (fos != null) {
   69 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01907.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01907.java,"
   49 |  java.net.URLDecoder.decode(param, ""UTF-8"");
   50 |
@@ -2854,7 +2854,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01907.j
   68 | s != null) {
   69 |
      ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01908.java,57,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01908.java,"
    47 |
    48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
@@ -2878,7 +2878,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01908.j
    66 | );
    67 |    is.close();
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01908.java,58,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01908.java,"
    48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
    49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -2902,7 +2902,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01908.j
    67 |    is.close();
    68 |   } catch (Exception e) {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01983.java,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01983.java,"
   52 |    java.util.Enumeration<String> values = request.getHeaders(name);
   53 |    if (values != null && values.hasMoreElements()) {
@@ -2926,7 +2926,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01983.j
   71 | "" But file doesn't exist yet.""
   72 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01985.java,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01985.java,"
   52 |    java.util.Enumeration<String> values = request.getHeaders(name);
   53 |    if (values != null && values.hasMoreElements()) {
@@ -2950,7 +2950,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01985.j
   71 | "" But file doesn't exist yet.""
   72 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01987.java,73,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01987.java,"
    63 |   // Mac requires an extra slash for some reason.
    64 |   String startURIslashes = """";
@@ -2974,7 +2974,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01987.j
    82 | "" But file doesn't exist yet.""
    83 | ); }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01988.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01988.java,"
    57 |   }
    58 |   // Note: We don't URL decode header names because people don't normally do that
@@ -2998,7 +2998,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01988.j
    76 |             response.getWriter().println(
    77 |               ""Problem getting FileInputStream: ""
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01988.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01988.java,"
    57 |
    58 | on't URL decode header names because people don't normally do that
@@ -3022,7 +3022,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01988.j
    76 | ponse.getWriter().println(
    77 | Problem getting FileInputStream: ""
       ^ Col 15
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01989.java,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01989.java,"
    58 |   // Note: We don't URL decode header names because people don't normally do that
    59 |
@@ -3046,7 +3046,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01989.j
    77 |    if (fos != null) {
    78 |     try {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02027.java,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02027.java,"
   45 |
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -3070,7 +3070,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02027.j
   64 | "" But file doesn't exist yet.""
   65 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02032.java,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02032.java,"
   50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
   51 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -3094,7 +3094,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02032.j
   69 |   } catch (Exception e) {
   70 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02034.java,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02034.java,"
   56 |
   57 |   try (
@@ -3118,7 +3118,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02034.j
   75 |  }  // end doPost
   76 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02105.java,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02105.java,"
   38 |
   39 |  @Override
@@ -3142,7 +3142,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02105.j
   57 | "" But file doesn't exist yet.""
   58 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02106.java,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02106.java,"
   38 |
   39 |  @Override
@@ -3166,7 +3166,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02106.j
   57 | "" But file doesn't exist yet.""
   58 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02109.java,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02109.java,"
   44 |   if (param == null) param = """";
   45 |
@@ -3190,7 +3190,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02109.j
   63 |    if (fos != null) {
   64 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02109.java,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02109.java,"
   44 | am == null) param = """";
   45 |
@@ -3214,7 +3214,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02109.j
   63 | s != null) {
   64 |
      ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02112.java,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02112.java,"
    44 |   if (param == null) param = """";
    45 |
@@ -3238,7 +3238,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02112.j
    63 |    if (fos != null) {
    64 |     try {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02113.java,52,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02113.java,"
    42 |
    43 |   String param = request.getParameter(""BenchmarkTest02113"");
@@ -3262,7 +3262,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02113.j
    61 | );
    62 |    is.close();
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02113.java,53,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02113.java,"
    43 |   String param = request.getParameter(""BenchmarkTest02113"");
    44 |   if (param == null) param = """";
@@ -3286,7 +3286,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02113.j
    62 |    is.close();
    63 |   } catch (Exception e) {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02197.java,53,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02197.java,"
   43 |   java.util.Map<String,String[]> map = request.getParameterMap();
   44 |   String param = """";
@@ -3310,7 +3310,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02197.j
   62 | "" But file doesn't exist yet.""
   63 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02198.java,53,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02198.java,"
   43 |   java.util.Map<String,String[]> map = request.getParameterMap();
   44 |   String param = """";
@@ -3334,7 +3334,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02198.j
   62 | "" But file doesn't exist yet.""
   63 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02199.java,53,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02199.java,"
   43 |   java.util.Map<String,String[]> map = request.getParameterMap();
   44 |   String param = """";
@@ -3358,7 +3358,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02199.j
   62 | "" But file doesn't exist yet.""
   63 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02205.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02205.java,"
   49 |
   50 |
@@ -3382,7 +3382,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02205.j
   68 |    if (fos != null) {
   69 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02302.java,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02302.java,"
   52 |      if (value.equals(""BenchmarkTest02302"")) {
   53 |       param = name;
@@ -3406,7 +3406,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02302.j
   71 | "" But file doesn't exist yet.""
   72 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02303.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02303.java,"
    57 |    }
    58 |   }
@@ -3430,7 +3430,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02303.j
    76 |             response.getWriter().println(
    77 |               ""Problem getting FileInputStream: ""
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02303.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02303.java,"
    57 |
    58 |
@@ -3454,7 +3454,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02303.j
    76 | ponse.getWriter().println(
    77 | Problem getting FileInputStream: ""
       ^ Col 15
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02304.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02304.java,"
    57 |    }
    58 |   }
@@ -3478,7 +3478,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02304.j
    76 |   } catch (Exception e) {
    77 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02377.java,49,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02377.java,"
   39 |  @Override
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -3502,7 +3502,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02377.j
   58 | "" But file doesn't exist yet.""
   59 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02378.java,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02378.java,"
   50 |   // Mac requires an extra slash for some reason.
   51 |   String startURIslashes = """";
@@ -3526,7 +3526,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02378.j
   69 | "" But file doesn't exist yet.""
   70 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02383.java,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02383.java,"
   45 |   if (param == null) param = """";
   46 |
@@ -3550,7 +3550,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02383.j
   64 |    if (fos != null) {
   65 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02463.java,51,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02463.java,"
   41 |   response.setContentType(""text/html;charset=UTF-8"");
   42 |
@@ -3574,7 +3574,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02463.j
   60 | "" But file doesn't exist yet.""
   61 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02465.java,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02465.java,"
   46 |     param = values[0];
   47 |   else param = """";
@@ -3598,7 +3598,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02465.j
   65 |             response.getWriter().println(
   66 |               ""Problem getting FileInputStream: ""
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02465.java,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02465.java,"
   46 | ues[0];
   47 | """";
@@ -3622,7 +3622,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02465.j
   65 | ponse.getWriter().println(
   66 | Problem getting FileInputStream: ""
      ^ Col 15
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02466.java,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02466.java,"
    46 |     param = values[0];
    47 |   else param = """";
@@ -3646,7 +3646,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02466.j
    65 |             response.getWriter().println(
    66 |               ""Problem getting FileInputStream: ""
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02466.java,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02466.java,"
    46 | ues[0];
    47 | """";
@@ -3670,7 +3670,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02466.j
    65 | ponse.getWriter().println(
    66 | Problem getting FileInputStream: ""
       ^ Col 15
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02469.java,57,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02469.java,"
   47 |   else param = """";
   48 |
@@ -3694,7 +3694,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02469.j
   66 |    if (fos != null) {
   67 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02555.java,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02555.java,"
   52 |   String param = queryString.substring(paramLoc + paramval.length()); // 1st assume ""BenchmarkTest02555"" param is last pa
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -3718,7 +3718,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02555.j
   71 | "" But file doesn't exist yet.""
   72 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02556.java,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02556.java,"
   52 |   String param = queryString.substring(paramLoc + paramval.length()); // 1st assume ""BenchmarkTest02556"" param is last pa
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -3742,7 +3742,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02556.j
   71 | "" But file doesn't exist yet.""
   72 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02559.java,73,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02559.java,"
   63 |   // Mac requires an extra slash for some reason.
   64 |   String startURIslashes = """";
@@ -3766,7 +3766,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02559.j
   82 | "" But file doesn't exist yet.""
   83 | ); }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02560.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02560.java,"
    57 |   }
    58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -3790,7 +3790,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02560.j
    76 |             response.getWriter().println(
    77 |               ""Problem getting FileInputStream: ""
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02560.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02560.java,"
    57 |
    58 | net.URLDecoder.decode(param, ""UTF-8"");
@@ -3814,7 +3814,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02560.j
    76 | ponse.getWriter().println(
    77 | Problem getting FileInputStream: ""
       ^ Col 15
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02561.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02561.java,"
    57 |   }
    58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -3838,7 +3838,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02561.j
    76 |   } catch (Exception e) {
    77 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02562.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02562.java,"
    57 |   }
    58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -3862,7 +3862,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02562.j
    76 |   } catch (Exception e) {
    77 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02564.java,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02564.java,"
    58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
    59 |
@@ -3886,7 +3886,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02564.j
    77 |    if (fos != null) {
    78 |     try {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02564.java,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02564.java,"
    58 |  java.net.URLDecoder.decode(param, ""UTF-8"");
    59 |
@@ -3910,7 +3910,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02564.j
    77 | s != null) {
    78 |
       ^ Col 9
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02565.java,73,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02565.java,"
   63 |
   64 |   try (
@@ -3934,7 +3934,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02565.j
   82 |  }  // end doPost
   83 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02567.java,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02567.java,"
   58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   59 |
@@ -3958,7 +3958,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02567.j
   77 |    if (fos != null) {
   78 |     try {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02569.java,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02569.java,"
    58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
    59 |
@@ -3982,4 +3982,4 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02569.j
    77 |    if (fos != null) {
    78 |     try {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax

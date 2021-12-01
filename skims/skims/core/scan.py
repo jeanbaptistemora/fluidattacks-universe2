@@ -136,6 +136,7 @@ async def notify_findings_as_csv(
         "title",
         "description",
         "snippet",
+        "method",
     )
 
     rows = [
@@ -144,6 +145,7 @@ async def notify_findings_as_csv(
             description=result.skims_metadata.description,
             kind=result.kind.value,
             finding=result.finding.name,
+            method=result.skims_metadata.source_method,
             snippet=f"\n{snippet}\n",
             stream=result.stream,
             title=t(result.finding.value.title),

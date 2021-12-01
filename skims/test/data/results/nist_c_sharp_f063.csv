@@ -1,4 +1,4 @@
-finding,kind,what,where,cwe,stream,title,description,snippet
+finding,kind,what,where,cwe,stream,title,description,snippet,method
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_01.cs,71,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_01.cs,"
    61 |             root = ""C:\\uploads\\"";
    62 |         }
@@ -22,7 +22,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    80 |                 catch (IOException exceptIO)
    81 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_02.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_02.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -46,7 +46,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_03.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_03.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -70,7 +70,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_04.cs,87,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_04.cs,"
    77 |             root = ""C:\\uploads\\"";
    78 |         }
@@ -94,7 +94,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    96 |                 catch (IOException exceptIO)
    97 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_05.cs,87,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_05.cs,"
    77 |             root = ""C:\\uploads\\"";
    78 |         }
@@ -118,7 +118,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    96 |                 catch (IOException exceptIO)
    97 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_06.cs,86,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_06.cs,"
    76 |             root = ""C:\\uploads\\"";
    77 |         }
@@ -142,7 +142,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    95 |                 catch (IOException exceptIO)
    96 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_07.cs,86,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_07.cs,"
    76 |             root = ""C:\\uploads\\"";
    77 |         }
@@ -166,7 +166,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    95 |                 catch (IOException exceptIO)
    96 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_08.cs,94,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_08.cs,"
    84 |             root = ""C:\\uploads\\"";
    85 |         }
@@ -190,7 +190,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   103 |                 catch (IOException exceptIO)
   104 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_09.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_09.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -214,7 +214,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_10.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_10.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -238,7 +238,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_11.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_11.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -262,7 +262,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_12.cs,79,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_12.cs,"
    69 |             root = ""C:\\uploads\\"";
    70 |         }
@@ -286,7 +286,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    88 |                 catch (IOException exceptIO)
    89 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_13.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_13.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -310,7 +310,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_14.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_14.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -334,7 +334,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_15.cs,81,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_15.cs,"
    71 |             root = ""C:\\uploads\\"";
    72 |         }
@@ -358,7 +358,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    90 |                 catch (IOException exceptIO)
    91 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_16.cs,75,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_16.cs,"
    65 |             root = ""C:\\uploads\\"";
    66 |         }
@@ -382,7 +382,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    84 |                 catch (IOException exceptIO)
    85 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_17.cs,73,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_17.cs,"
    63 |                 root = ""C:\\uploads\\"";
    64 |             }
@@ -406,7 +406,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    82 |                     catch (IOException exceptIO)
    83 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_31.cs,78,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Connect_tcp_31.cs,"
    68 |                 root = ""C:\\uploads\\"";
    69 |             }
@@ -430,7 +430,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    87 |                     catch (IOException exceptIO)
    88 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_01.cs,77,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_01.cs,"
    67 |             root = ""C:\\uploads\\"";
    68 |         }
@@ -454,7 +454,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    86 |                 catch (IOException exceptIO)
    87 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_02.cs,86,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_02.cs,"
    76 |             root = ""C:\\uploads\\"";
    77 |         }
@@ -478,7 +478,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    95 |                 catch (IOException exceptIO)
    96 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_03.cs,86,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_03.cs,"
    76 |             root = ""C:\\uploads\\"";
    77 |         }
@@ -502,7 +502,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    95 |                 catch (IOException exceptIO)
    96 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_04.cs,93,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_04.cs,"
    83 |             root = ""C:\\uploads\\"";
    84 |         }
@@ -526,7 +526,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   102 |                 catch (IOException exceptIO)
   103 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_05.cs,93,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_05.cs,"
    83 |             root = ""C:\\uploads\\"";
    84 |         }
@@ -550,7 +550,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   102 |                 catch (IOException exceptIO)
   103 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_06.cs,92,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_06.cs,"
    82 |             root = ""C:\\uploads\\"";
    83 |         }
@@ -574,7 +574,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   101 |                 catch (IOException exceptIO)
   102 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_07.cs,92,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_07.cs,"
    82 |             root = ""C:\\uploads\\"";
    83 |         }
@@ -598,7 +598,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   101 |                 catch (IOException exceptIO)
   102 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_08.cs,100,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_08.cs,"
    90 |             root = ""C:\\uploads\\"";
    91 |         }
@@ -622,7 +622,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   109 |                 catch (IOException exceptIO)
   110 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_09.cs,86,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_09.cs,"
    76 |             root = ""C:\\uploads\\"";
    77 |         }
@@ -646,7 +646,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    95 |                 catch (IOException exceptIO)
    96 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_10.cs,86,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_10.cs,"
    76 |             root = ""C:\\uploads\\"";
    77 |         }
@@ -670,7 +670,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    95 |                 catch (IOException exceptIO)
    96 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_11.cs,86,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_11.cs,"
    76 |             root = ""C:\\uploads\\"";
    77 |         }
@@ -694,7 +694,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    95 |                 catch (IOException exceptIO)
    96 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_12.cs,85,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_12.cs,"
    75 |             root = ""C:\\uploads\\"";
    76 |         }
@@ -718,7 +718,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    94 |                 catch (IOException exceptIO)
    95 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_13.cs,86,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_13.cs,"
    76 |             root = ""C:\\uploads\\"";
    77 |         }
@@ -742,7 +742,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    95 |                 catch (IOException exceptIO)
    96 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_14.cs,86,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_14.cs,"
    76 |             root = ""C:\\uploads\\"";
    77 |         }
@@ -766,7 +766,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    95 |                 catch (IOException exceptIO)
    96 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_15.cs,87,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_15.cs,"
    77 |             root = ""C:\\uploads\\"";
    78 |         }
@@ -790,7 +790,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    96 |                 catch (IOException exceptIO)
    97 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_16.cs,81,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_16.cs,"
    71 |             root = ""C:\\uploads\\"";
    72 |         }
@@ -814,7 +814,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    90 |                 catch (IOException exceptIO)
    91 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_17.cs,79,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_17.cs,"
    69 |                 root = ""C:\\uploads\\"";
    70 |             }
@@ -838,7 +838,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    88 |                     catch (IOException exceptIO)
    89 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_31.cs,84,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Database_31.cs,"
    74 |                 root = ""C:\\uploads\\"";
    75 |             }
@@ -862,7 +862,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    93 |                     catch (IOException exceptIO)
    94 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_01.cs,51,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_01.cs,"
    41 |             root = ""C:\\uploads\\"";
    42 |         }
@@ -886,7 +886,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    60 |                 catch (IOException exceptIO)
    61 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_02.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_02.cs,"
    50 |             root = ""C:\\uploads\\"";
    51 |         }
@@ -910,7 +910,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_03.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_03.cs,"
    50 |             root = ""C:\\uploads\\"";
    51 |         }
@@ -934,7 +934,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_04.cs,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_04.cs,"
    57 |             root = ""C:\\uploads\\"";
    58 |         }
@@ -958,7 +958,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    76 |                 catch (IOException exceptIO)
    77 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_05.cs,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_05.cs,"
    57 |             root = ""C:\\uploads\\"";
    58 |         }
@@ -982,7 +982,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    76 |                 catch (IOException exceptIO)
    77 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_06.cs,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_06.cs,"
    56 |             root = ""C:\\uploads\\"";
    57 |         }
@@ -1006,7 +1006,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    75 |                 catch (IOException exceptIO)
    76 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_07.cs,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_07.cs,"
    56 |             root = ""C:\\uploads\\"";
    57 |         }
@@ -1030,7 +1030,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    75 |                 catch (IOException exceptIO)
    76 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_08.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_08.cs,"
    64 |             root = ""C:\\uploads\\"";
    65 |         }
@@ -1054,7 +1054,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_09.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_09.cs,"
    50 |             root = ""C:\\uploads\\"";
    51 |         }
@@ -1078,7 +1078,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_10.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_10.cs,"
    50 |             root = ""C:\\uploads\\"";
    51 |         }
@@ -1102,7 +1102,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_11.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_11.cs,"
    50 |             root = ""C:\\uploads\\"";
    51 |         }
@@ -1126,7 +1126,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_12.cs,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_12.cs,"
    49 |             root = ""C:\\uploads\\"";
    50 |         }
@@ -1150,7 +1150,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    68 |                 catch (IOException exceptIO)
    69 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_13.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_13.cs,"
    50 |             root = ""C:\\uploads\\"";
    51 |         }
@@ -1174,7 +1174,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_14.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_14.cs,"
    50 |             root = ""C:\\uploads\\"";
    51 |         }
@@ -1198,7 +1198,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_15.cs,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_15.cs,"
    51 |             root = ""C:\\uploads\\"";
    52 |         }
@@ -1222,7 +1222,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    70 |                 catch (IOException exceptIO)
    71 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_16.cs,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_16.cs,"
    45 |             root = ""C:\\uploads\\"";
    46 |         }
@@ -1246,7 +1246,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    64 |                 catch (IOException exceptIO)
    65 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_17.cs,53,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_17.cs,"
    43 |                 root = ""C:\\uploads\\"";
    44 |             }
@@ -1270,7 +1270,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    62 |                     catch (IOException exceptIO)
    63 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_31.cs,58,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Environment_31.cs,"
    48 |                 root = ""C:\\uploads\\"";
    49 |             }
@@ -1294,7 +1294,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    67 |                     catch (IOException exceptIO)
    68 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_01.cs,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_01.cs,"
    49 |             root = ""C:\\uploads\\"";
    50 |         }
@@ -1318,7 +1318,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    68 |                 catch (IOException exceptIO)
    69 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_02.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_02.cs,"
    58 |             root = ""C:\\uploads\\"";
    59 |         }
@@ -1342,7 +1342,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_03.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_03.cs,"
    58 |             root = ""C:\\uploads\\"";
    59 |         }
@@ -1366,7 +1366,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_04.cs,75,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_04.cs,"
    65 |             root = ""C:\\uploads\\"";
    66 |         }
@@ -1390,7 +1390,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    84 |                 catch (IOException exceptIO)
    85 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_05.cs,75,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_05.cs,"
    65 |             root = ""C:\\uploads\\"";
    66 |         }
@@ -1414,7 +1414,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    84 |                 catch (IOException exceptIO)
    85 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_06.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_06.cs,"
    64 |             root = ""C:\\uploads\\"";
    65 |         }
@@ -1438,7 +1438,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_07.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_07.cs,"
    64 |             root = ""C:\\uploads\\"";
    65 |         }
@@ -1462,7 +1462,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_08.cs,82,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_08.cs,"
    72 |             root = ""C:\\uploads\\"";
    73 |         }
@@ -1486,7 +1486,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    91 |                 catch (IOException exceptIO)
    92 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_09.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_09.cs,"
    58 |             root = ""C:\\uploads\\"";
    59 |         }
@@ -1510,7 +1510,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_10.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_10.cs,"
    58 |             root = ""C:\\uploads\\"";
    59 |         }
@@ -1534,7 +1534,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_11.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_11.cs,"
    58 |             root = ""C:\\uploads\\"";
    59 |         }
@@ -1558,7 +1558,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_12.cs,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_12.cs,"
    57 |             root = ""C:\\uploads\\"";
    58 |         }
@@ -1582,7 +1582,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    76 |                 catch (IOException exceptIO)
    77 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_13.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_13.cs,"
    58 |             root = ""C:\\uploads\\"";
    59 |         }
@@ -1606,7 +1606,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_14.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_14.cs,"
    58 |             root = ""C:\\uploads\\"";
    59 |         }
@@ -1630,7 +1630,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_15.cs,69,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_15.cs,"
    59 |             root = ""C:\\uploads\\"";
    60 |         }
@@ -1654,7 +1654,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    78 |                 catch (IOException exceptIO)
    79 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_16.cs,63,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_16.cs,"
    53 |             root = ""C:\\uploads\\"";
    54 |         }
@@ -1678,7 +1678,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    72 |                 catch (IOException exceptIO)
    73 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_17.cs,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_17.cs,"
    51 |                 root = ""C:\\uploads\\"";
    52 |             }
@@ -1702,7 +1702,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    70 |                     catch (IOException exceptIO)
    71 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_21.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_21.cs,"
    44 |             root = ""C:\\uploads\\"";
    45 |         }
@@ -1726,7 +1726,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    63 |                 catch (IOException exceptIO)
    64 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_31.cs,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_31.cs,"
    56 |                 root = ""C:\\uploads\\"";
    57 |             }
@@ -1750,7 +1750,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    75 |                     catch (IOException exceptIO)
    76 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_42.cs,65,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Get_Cookies_Web_42.cs,"
    55 |             root = ""C:\\uploads\\"";
    56 |         }
@@ -1774,7 +1774,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    74 |                 catch (IOException exceptIO)
    75 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_01.cs,88,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_01.cs,"
    78 |             root = ""C:\\uploads\\"";
    79 |         }
@@ -1798,7 +1798,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    97 |                 catch (IOException exceptIO)
    98 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_02.cs,97,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_02.cs,"
    87 |             root = ""C:\\uploads\\"";
    88 |         }
@@ -1822,7 +1822,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   106 |                 catch (IOException exceptIO)
   107 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_03.cs,97,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_03.cs,"
    87 |             root = ""C:\\uploads\\"";
    88 |         }
@@ -1846,7 +1846,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   106 |                 catch (IOException exceptIO)
   107 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_04.cs,104,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_04.cs,"
    94 |             root = ""C:\\uploads\\"";
    95 |         }
@@ -1870,7 +1870,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   113 |                 catch (IOException exceptIO)
   114 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_05.cs,104,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_05.cs,"
    94 |             root = ""C:\\uploads\\"";
    95 |         }
@@ -1894,7 +1894,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   113 |                 catch (IOException exceptIO)
   114 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_06.cs,103,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_06.cs,"
    93 |             root = ""C:\\uploads\\"";
    94 |         }
@@ -1918,7 +1918,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   112 |                 catch (IOException exceptIO)
   113 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_07.cs,103,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_07.cs,"
    93 |             root = ""C:\\uploads\\"";
    94 |         }
@@ -1942,7 +1942,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   112 |                 catch (IOException exceptIO)
   113 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_08.cs,111,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_08.cs,"
   101 |             root = ""C:\\uploads\\"";
   102 |         }
@@ -1966,7 +1966,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   120 |                 catch (IOException exceptIO)
   121 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_09.cs,97,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_09.cs,"
    87 |             root = ""C:\\uploads\\"";
    88 |         }
@@ -1990,7 +1990,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   106 |                 catch (IOException exceptIO)
   107 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_10.cs,97,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_10.cs,"
    87 |             root = ""C:\\uploads\\"";
    88 |         }
@@ -2014,7 +2014,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   106 |                 catch (IOException exceptIO)
   107 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_11.cs,97,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_11.cs,"
    87 |             root = ""C:\\uploads\\"";
    88 |         }
@@ -2038,7 +2038,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   106 |                 catch (IOException exceptIO)
   107 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_12.cs,96,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_12.cs,"
    86 |             root = ""C:\\uploads\\"";
    87 |         }
@@ -2062,7 +2062,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   105 |                 catch (IOException exceptIO)
   106 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_13.cs,97,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_13.cs,"
    87 |             root = ""C:\\uploads\\"";
    88 |         }
@@ -2086,7 +2086,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   106 |                 catch (IOException exceptIO)
   107 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_14.cs,97,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_14.cs,"
    87 |             root = ""C:\\uploads\\"";
    88 |         }
@@ -2110,7 +2110,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   106 |                 catch (IOException exceptIO)
   107 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_15.cs,98,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_15.cs,"
    88 |             root = ""C:\\uploads\\"";
    89 |         }
@@ -2134,7 +2134,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   107 |                 catch (IOException exceptIO)
   108 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_16.cs,92,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_16.cs,"
    82 |             root = ""C:\\uploads\\"";
    83 |         }
@@ -2158,7 +2158,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   101 |                 catch (IOException exceptIO)
   102 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_17.cs,90,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_17.cs,"
    80 |                 root = ""C:\\uploads\\"";
    81 |             }
@@ -2182,7 +2182,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    99 |                     catch (IOException exceptIO)
   100 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_31.cs,95,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Listen_tcp_31.cs,"
    85 |                 root = ""C:\\uploads\\"";
    86 |             }
@@ -2206,7 +2206,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   104 |                     catch (IOException exceptIO)
   105 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_01.cs,71,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_01.cs,"
    61 |             root = ""C:\\uploads\\"";
    62 |         }
@@ -2230,7 +2230,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    80 |                 catch (IOException exceptIO)
    81 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_02.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_02.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -2254,7 +2254,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_03.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_03.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -2278,7 +2278,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_04.cs,87,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_04.cs,"
    77 |             root = ""C:\\uploads\\"";
    78 |         }
@@ -2302,7 +2302,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    96 |                 catch (IOException exceptIO)
    97 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_05.cs,87,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_05.cs,"
    77 |             root = ""C:\\uploads\\"";
    78 |         }
@@ -2326,7 +2326,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    96 |                 catch (IOException exceptIO)
    97 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_06.cs,86,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_06.cs,"
    76 |             root = ""C:\\uploads\\"";
    77 |         }
@@ -2350,7 +2350,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    95 |                 catch (IOException exceptIO)
    96 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_07.cs,86,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_07.cs,"
    76 |             root = ""C:\\uploads\\"";
    77 |         }
@@ -2374,7 +2374,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    95 |                 catch (IOException exceptIO)
    96 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_08.cs,94,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_08.cs,"
    84 |             root = ""C:\\uploads\\"";
    85 |         }
@@ -2398,7 +2398,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
   103 |                 catch (IOException exceptIO)
   104 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_09.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_09.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -2422,7 +2422,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_10.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_10.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -2446,7 +2446,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_11.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_11.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -2470,7 +2470,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_12.cs,79,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_12.cs,"
    69 |             root = ""C:\\uploads\\"";
    70 |         }
@@ -2494,7 +2494,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    88 |                 catch (IOException exceptIO)
    89 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_13.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_13.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -2518,7 +2518,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_14.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_14.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -2542,7 +2542,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_15.cs,81,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_15.cs,"
    71 |             root = ""C:\\uploads\\"";
    72 |         }
@@ -2566,7 +2566,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    90 |                 catch (IOException exceptIO)
    91 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_16.cs,75,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_16.cs,"
    65 |             root = ""C:\\uploads\\"";
    66 |         }
@@ -2590,7 +2590,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    84 |                 catch (IOException exceptIO)
    85 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_17.cs,73,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_17.cs,"
    63 |                 root = ""C:\\uploads\\"";
    64 |             }
@@ -2614,7 +2614,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    82 |                     catch (IOException exceptIO)
    83 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_31.cs,78,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__NetClient_31.cs,"
    68 |                 root = ""C:\\uploads\\"";
    69 |             }
@@ -2638,7 +2638,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    87 |                     catch (IOException exceptIO)
    88 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_01.cs,51,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_01.cs,"
    41 |             root = ""C:\\uploads\\"";
    42 |         }
@@ -2662,7 +2662,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    60 |                 catch (IOException exceptIO)
    61 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_02.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_02.cs,"
    50 |             root = ""C:\\uploads\\"";
    51 |         }
@@ -2686,7 +2686,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_03.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_03.cs,"
    50 |             root = ""C:\\uploads\\"";
    51 |         }
@@ -2710,7 +2710,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_04.cs,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_04.cs,"
    57 |             root = ""C:\\uploads\\"";
    58 |         }
@@ -2734,7 +2734,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    76 |                 catch (IOException exceptIO)
    77 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_05.cs,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_05.cs,"
    57 |             root = ""C:\\uploads\\"";
    58 |         }
@@ -2758,7 +2758,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    76 |                 catch (IOException exceptIO)
    77 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_06.cs,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_06.cs,"
    56 |             root = ""C:\\uploads\\"";
    57 |         }
@@ -2782,7 +2782,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    75 |                 catch (IOException exceptIO)
    76 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_07.cs,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_07.cs,"
    56 |             root = ""C:\\uploads\\"";
    57 |         }
@@ -2806,7 +2806,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    75 |                 catch (IOException exceptIO)
    76 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_08.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_08.cs,"
    64 |             root = ""C:\\uploads\\"";
    65 |         }
@@ -2830,7 +2830,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_09.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_09.cs,"
    50 |             root = ""C:\\uploads\\"";
    51 |         }
@@ -2854,7 +2854,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_10.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_10.cs,"
    50 |             root = ""C:\\uploads\\"";
    51 |         }
@@ -2878,7 +2878,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_11.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_11.cs,"
    50 |             root = ""C:\\uploads\\"";
    51 |         }
@@ -2902,7 +2902,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_12.cs,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_12.cs,"
    49 |             root = ""C:\\uploads\\"";
    50 |         }
@@ -2926,7 +2926,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    68 |                 catch (IOException exceptIO)
    69 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_13.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_13.cs,"
    50 |             root = ""C:\\uploads\\"";
    51 |         }
@@ -2950,7 +2950,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_14.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_14.cs,"
    50 |             root = ""C:\\uploads\\"";
    51 |         }
@@ -2974,7 +2974,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_15.cs,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_15.cs,"
    51 |             root = ""C:\\uploads\\"";
    52 |         }
@@ -2998,7 +2998,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    70 |                 catch (IOException exceptIO)
    71 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_16.cs,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_16.cs,"
    45 |             root = ""C:\\uploads\\"";
    46 |         }
@@ -3022,7 +3022,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    64 |                 catch (IOException exceptIO)
    65 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_17.cs,53,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_17.cs,"
    43 |                 root = ""C:\\uploads\\"";
    44 |             }
@@ -3046,7 +3046,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    62 |                     catch (IOException exceptIO)
    63 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_21.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_21.cs,"
    44 |             root = ""C:\\uploads\\"";
    45 |         }
@@ -3070,7 +3070,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    63 |                 catch (IOException exceptIO)
    64 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_31.cs,58,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_31.cs,"
    48 |                 root = ""C:\\uploads\\"";
    49 |             }
@@ -3094,7 +3094,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    67 |                     catch (IOException exceptIO)
    68 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_42.cs,57,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__Params_Get_Web_42.cs,"
    47 |             root = ""C:\\uploads\\"";
    48 |         }
@@ -3118,7 +3118,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    66 |                 catch (IOException exceptIO)
    67 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_01.cs,57,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_01.cs,"
    47 |             root = ""C:\\uploads\\"";
    48 |         }
@@ -3142,7 +3142,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    66 |                 catch (IOException exceptIO)
    67 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_02.cs,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_02.cs,"
    56 |             root = ""C:\\uploads\\"";
    57 |         }
@@ -3166,7 +3166,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    75 |                 catch (IOException exceptIO)
    76 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_03.cs,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_03.cs,"
    56 |             root = ""C:\\uploads\\"";
    57 |         }
@@ -3190,7 +3190,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    75 |                 catch (IOException exceptIO)
    76 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_04.cs,73,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_04.cs,"
    63 |             root = ""C:\\uploads\\"";
    64 |         }
@@ -3214,7 +3214,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    82 |                 catch (IOException exceptIO)
    83 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_05.cs,73,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_05.cs,"
    63 |             root = ""C:\\uploads\\"";
    64 |         }
@@ -3238,7 +3238,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    82 |                 catch (IOException exceptIO)
    83 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_06.cs,72,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_06.cs,"
    62 |             root = ""C:\\uploads\\"";
    63 |         }
@@ -3262,7 +3262,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    81 |                 catch (IOException exceptIO)
    82 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_07.cs,72,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_07.cs,"
    62 |             root = ""C:\\uploads\\"";
    63 |         }
@@ -3286,7 +3286,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    81 |                 catch (IOException exceptIO)
    82 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_08.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_08.cs,"
    70 |             root = ""C:\\uploads\\"";
    71 |         }
@@ -3310,7 +3310,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_09.cs,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_09.cs,"
    56 |             root = ""C:\\uploads\\"";
    57 |         }
@@ -3334,7 +3334,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    75 |                 catch (IOException exceptIO)
    76 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_10.cs,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_10.cs,"
    56 |             root = ""C:\\uploads\\"";
    57 |         }
@@ -3358,7 +3358,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    75 |                 catch (IOException exceptIO)
    76 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_11.cs,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_11.cs,"
    56 |             root = ""C:\\uploads\\"";
    57 |         }
@@ -3382,7 +3382,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    75 |                 catch (IOException exceptIO)
    76 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_12.cs,65,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_12.cs,"
    55 |             root = ""C:\\uploads\\"";
    56 |         }
@@ -3406,7 +3406,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    74 |                 catch (IOException exceptIO)
    75 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_13.cs,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_13.cs,"
    56 |             root = ""C:\\uploads\\"";
    57 |         }
@@ -3430,7 +3430,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    75 |                 catch (IOException exceptIO)
    76 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_14.cs,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_14.cs,"
    56 |             root = ""C:\\uploads\\"";
    57 |         }
@@ -3454,7 +3454,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    75 |                 catch (IOException exceptIO)
    76 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_15.cs,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_15.cs,"
    57 |             root = ""C:\\uploads\\"";
    58 |         }
@@ -3478,7 +3478,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    76 |                 catch (IOException exceptIO)
    77 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_16.cs,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_16.cs,"
    51 |             root = ""C:\\uploads\\"";
    52 |         }
@@ -3502,7 +3502,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    70 |                 catch (IOException exceptIO)
    71 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_17.cs,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_17.cs,"
    49 |                 root = ""C:\\uploads\\"";
    50 |             }
@@ -3526,7 +3526,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    68 |                     catch (IOException exceptIO)
    69 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_21.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_21.cs,"
    44 |             root = ""C:\\uploads\\"";
    45 |         }
@@ -3550,7 +3550,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    63 |                 catch (IOException exceptIO)
    64 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_31.cs,64,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_31.cs,"
    54 |                 root = ""C:\\uploads\\"";
    55 |             }
@@ -3574,7 +3574,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    73 |                     catch (IOException exceptIO)
    74 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_42.cs,63,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_Traversal__QueryString_Web_42.cs,"
    53 |             root = ""C:\\uploads\\"";
    54 |         }
@@ -3598,7 +3598,7 @@ F063,lines,NIST/src/testcases/CWE23_Relative_Path_Traversal/CWE23_Relative_Path_
    72 |                 catch (IOException exceptIO)
    73 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_01.cs,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_01.cs,"
    49 |                 }
    50 |             }
@@ -3622,7 +3622,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    68 |                 catch (IOException exceptIO)
    69 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_02.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_02.cs,"
    58 |         }
    59 |         else
@@ -3646,7 +3646,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_03.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_03.cs,"
    58 |         }
    59 |         else
@@ -3670,7 +3670,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_04.cs,75,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_04.cs,"
    65 |         }
    66 |         else
@@ -3694,7 +3694,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    84 |                 catch (IOException exceptIO)
    85 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_05.cs,75,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_05.cs,"
    65 |         }
    66 |         else
@@ -3718,7 +3718,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    84 |                 catch (IOException exceptIO)
    85 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_06.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_06.cs,"
    64 |         }
    65 |         else
@@ -3742,7 +3742,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_07.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_07.cs,"
    64 |         }
    65 |         else
@@ -3766,7 +3766,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_08.cs,82,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_08.cs,"
    72 |         }
    73 |         else
@@ -3790,7 +3790,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    91 |                 catch (IOException exceptIO)
    92 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_09.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_09.cs,"
    58 |         }
    59 |         else
@@ -3814,7 +3814,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_10.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_10.cs,"
    58 |         }
    59 |         else
@@ -3838,7 +3838,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_11.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_11.cs,"
    58 |         }
    59 |         else
@@ -3862,7 +3862,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_12.cs,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_12.cs,"
    57 |             }
    58 |         }
@@ -3886,7 +3886,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    76 |                 catch (IOException exceptIO)
    77 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_13.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_13.cs,"
    58 |         }
    59 |         else
@@ -3910,7 +3910,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_14.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_14.cs,"
    58 |         }
    59 |         else
@@ -3934,7 +3934,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_15.cs,69,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_15.cs,"
    59 |             break;
    60 |         default:
@@ -3958,7 +3958,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    78 |                 catch (IOException exceptIO)
    79 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_16.cs,63,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_16.cs,"
    53 |                 catch (IOException exceptIO)
    54 |                 {
@@ -3982,7 +3982,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    72 |                 catch (IOException exceptIO)
    73 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_17.cs,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_17.cs,"
    51 |             catch (IOException exceptIO)
    52 |             {
@@ -4006,7 +4006,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    70 |                     catch (IOException exceptIO)
    71 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_31.cs,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Connect_tcp_31.cs,"
    56 |                     IO.Logger.Log(NLog.LogLevel.Warn, exceptIO, ""Error with stream reading"");
    57 |                 }
@@ -4030,7 +4030,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    75 |                     catch (IOException exceptIO)
    76 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_01.cs,65,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_01.cs,"
    55 |                 }
    56 |             }
@@ -4054,7 +4054,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    74 |                 catch (IOException exceptIO)
    75 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_02.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_02.cs,"
    64 |         }
    65 |         else
@@ -4078,7 +4078,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_03.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_03.cs,"
    64 |         }
    65 |         else
@@ -4102,7 +4102,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_04.cs,81,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_04.cs,"
    71 |         }
    72 |         else
@@ -4126,7 +4126,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    90 |                 catch (IOException exceptIO)
    91 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_05.cs,81,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_05.cs,"
    71 |         }
    72 |         else
@@ -4150,7 +4150,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    90 |                 catch (IOException exceptIO)
    91 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_06.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_06.cs,"
    70 |         }
    71 |         else
@@ -4174,7 +4174,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_07.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_07.cs,"
    70 |         }
    71 |         else
@@ -4198,7 +4198,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_08.cs,88,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_08.cs,"
    78 |         }
    79 |         else
@@ -4222,7 +4222,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    97 |                 catch (IOException exceptIO)
    98 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_09.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_09.cs,"
    64 |         }
    65 |         else
@@ -4246,7 +4246,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_10.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_10.cs,"
    64 |         }
    65 |         else
@@ -4270,7 +4270,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_11.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_11.cs,"
    64 |         }
    65 |         else
@@ -4294,7 +4294,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_12.cs,73,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_12.cs,"
    63 |             }
    64 |         }
@@ -4318,7 +4318,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    82 |                 catch (IOException exceptIO)
    83 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_13.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_13.cs,"
    64 |         }
    65 |         else
@@ -4342,7 +4342,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_14.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_14.cs,"
    64 |         }
    65 |         else
@@ -4366,7 +4366,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_15.cs,75,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_15.cs,"
    65 |             break;
    66 |         default:
@@ -4390,7 +4390,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    84 |                 catch (IOException exceptIO)
    85 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_16.cs,69,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_16.cs,"
    59 |                 catch (SqlException exceptSql)
    60 |                 {
@@ -4414,7 +4414,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    78 |                 catch (IOException exceptIO)
    79 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_17.cs,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_17.cs,"
    57 |             catch (SqlException exceptSql)
    58 |             {
@@ -4438,7 +4438,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    76 |                     catch (IOException exceptIO)
    77 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_31.cs,72,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Database_31.cs,"
    62 |                     IO.Logger.Log(NLog.LogLevel.Warn, exceptSql, ""Error with SQL statement"");
    63 |                 }
@@ -4462,7 +4462,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    81 |                     catch (IOException exceptIO)
    82 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_01.cs,39,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_01.cs,"
   29 |     /* uses badsource and badsink */
   30 |     public override void Bad()
@@ -4486,7 +4486,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
   48 |                 catch (IOException exceptIO)
   49 |                 {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_02.cs,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_02.cs,"
    38 |         }
    39 |         else
@@ -4510,7 +4510,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    57 |                 catch (IOException exceptIO)
    58 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_03.cs,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_03.cs,"
    38 |         }
    39 |         else
@@ -4534,7 +4534,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    57 |                 catch (IOException exceptIO)
    58 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_04.cs,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_04.cs,"
    45 |         }
    46 |         else
@@ -4558,7 +4558,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    64 |                 catch (IOException exceptIO)
    65 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_05.cs,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_05.cs,"
    45 |         }
    46 |         else
@@ -4582,7 +4582,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    64 |                 catch (IOException exceptIO)
    65 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_06.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_06.cs,"
    44 |         }
    45 |         else
@@ -4606,7 +4606,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    63 |                 catch (IOException exceptIO)
    64 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_07.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_07.cs,"
    44 |         }
    45 |         else
@@ -4630,7 +4630,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    63 |                 catch (IOException exceptIO)
    64 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_08.cs,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_08.cs,"
    52 |         }
    53 |         else
@@ -4654,7 +4654,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    71 |                 catch (IOException exceptIO)
    72 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_09.cs,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_09.cs,"
    38 |         }
    39 |         else
@@ -4678,7 +4678,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    57 |                 catch (IOException exceptIO)
    58 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_10.cs,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_10.cs,"
    38 |         }
    39 |         else
@@ -4702,7 +4702,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    57 |                 catch (IOException exceptIO)
    58 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_11.cs,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_11.cs,"
    38 |         }
    39 |         else
@@ -4726,7 +4726,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    57 |                 catch (IOException exceptIO)
    58 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_12.cs,47,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_12.cs,"
    37 |             data = Environment.GetEnvironmentVariable(""ADD"");
    38 |         }
@@ -4750,7 +4750,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    56 |                 catch (IOException exceptIO)
    57 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_13.cs,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_13.cs,"
    38 |         }
    39 |         else
@@ -4774,7 +4774,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    57 |                 catch (IOException exceptIO)
    58 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_14.cs,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_14.cs,"
    38 |         }
    39 |         else
@@ -4798,7 +4798,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    57 |                 catch (IOException exceptIO)
    58 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_15.cs,49,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_15.cs,"
    39 |             break;
    40 |         default:
@@ -4822,7 +4822,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    58 |                 catch (IOException exceptIO)
    59 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_16.cs,43,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_16.cs,"
   33 |         while (true)
   34 |         {
@@ -4846,7 +4846,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
   52 |                 catch (IOException exceptIO)
   53 |                 {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_17.cs,41,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_17.cs,"
   31 |     {
   32 |         string data;
@@ -4870,7 +4870,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
   50 |                     catch (IOException exceptIO)
   51 |                     {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_31.cs,46,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Environment_31.cs,"
    36 |             /* get environment variable ADD */
    37 |             /* POTENTIAL FLAW: Read data from an environment variable */
@@ -4894,7 +4894,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    55 |                     catch (IOException exceptIO)
    56 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_01.cs,47,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_01.cs,"
   37 |             HttpCookieCollection cookieSources = req.Cookies;
   38 |             if (cookieSources != null)
@@ -4918,7 +4918,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
   56 |                 catch (IOException exceptIO)
   57 |                 {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_02.cs,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_02.cs,"
    46 |         }
    47 |         else
@@ -4942,7 +4942,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    65 |                 catch (IOException exceptIO)
    66 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_03.cs,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_03.cs,"
    46 |         }
    47 |         else
@@ -4966,7 +4966,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    65 |                 catch (IOException exceptIO)
    66 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_04.cs,63,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_04.cs,"
    53 |         }
    54 |         else
@@ -4990,7 +4990,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    72 |                 catch (IOException exceptIO)
    73 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_05.cs,63,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_05.cs,"
    53 |         }
    54 |         else
@@ -5014,7 +5014,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    72 |                 catch (IOException exceptIO)
    73 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_06.cs,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_06.cs,"
    52 |         }
    53 |         else
@@ -5038,7 +5038,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    71 |                 catch (IOException exceptIO)
    72 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_07.cs,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_07.cs,"
    52 |         }
    53 |         else
@@ -5062,7 +5062,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    71 |                 catch (IOException exceptIO)
    72 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_08.cs,70,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_08.cs,"
    60 |         }
    61 |         else
@@ -5086,7 +5086,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    79 |                 catch (IOException exceptIO)
    80 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_09.cs,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_09.cs,"
    46 |         }
    47 |         else
@@ -5110,7 +5110,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    65 |                 catch (IOException exceptIO)
    66 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_10.cs,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_10.cs,"
    46 |         }
    47 |         else
@@ -5134,7 +5134,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    65 |                 catch (IOException exceptIO)
    66 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_11.cs,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_11.cs,"
    46 |         }
    47 |         else
@@ -5158,7 +5158,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    65 |                 catch (IOException exceptIO)
    66 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_12.cs,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_12.cs,"
    45 |             }
    46 |         }
@@ -5182,7 +5182,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    64 |                 catch (IOException exceptIO)
    65 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_13.cs,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_13.cs,"
    46 |         }
    47 |         else
@@ -5206,7 +5206,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    65 |                 catch (IOException exceptIO)
    66 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_14.cs,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_14.cs,"
    46 |         }
    47 |         else
@@ -5230,7 +5230,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    65 |                 catch (IOException exceptIO)
    66 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_15.cs,57,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_15.cs,"
    47 |             break;
    48 |         default:
@@ -5254,7 +5254,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    66 |                 catch (IOException exceptIO)
    67 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_16.cs,51,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_16.cs,"
    41 |                 {
    42 |                     /* POTENTIAL FLAW: Read data from the first cookie value */
@@ -5278,7 +5278,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    60 |                 catch (IOException exceptIO)
    61 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_17.cs,49,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_17.cs,"
    39 |             {
    40 |                 /* POTENTIAL FLAW: Read data from the first cookie value */
@@ -5302,7 +5302,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    58 |                     catch (IOException exceptIO)
    59 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_21.cs,42,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_21.cs,"
    32 |     private bool badPrivate = false;
    33 | #if (!OMITBAD)
@@ -5326,7 +5326,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    51 |                 catch (IOException exceptIO)
    52 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_31.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_31.cs,"
    44 |                     data = cookieSources[0].Value;
    45 |                 }
@@ -5350,7 +5350,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    63 |                     catch (IOException exceptIO)
    64 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_42.cs,53,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Get_Cookies_Web_42.cs,"
    43 |         return data;
    44 |     }
@@ -5374,7 +5374,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    62 |                 catch (IOException exceptIO)
    63 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_01.cs,76,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_01.cs,"
    66 |                     catch(SocketException se)
    67 |                     {
@@ -5398,7 +5398,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    85 |                 catch (IOException exceptIO)
    86 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_02.cs,85,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_02.cs,"
    75 |         }
    76 |         else
@@ -5422,7 +5422,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    94 |                 catch (IOException exceptIO)
    95 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_03.cs,85,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_03.cs,"
    75 |         }
    76 |         else
@@ -5446,7 +5446,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    94 |                 catch (IOException exceptIO)
    95 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_04.cs,92,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_04.cs,"
    82 |         }
    83 |         else
@@ -5470,7 +5470,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
   101 |                 catch (IOException exceptIO)
   102 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_05.cs,92,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_05.cs,"
    82 |         }
    83 |         else
@@ -5494,7 +5494,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
   101 |                 catch (IOException exceptIO)
   102 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_06.cs,91,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_06.cs,"
    81 |         }
    82 |         else
@@ -5518,7 +5518,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
   100 |                 catch (IOException exceptIO)
   101 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_07.cs,91,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_07.cs,"
    81 |         }
    82 |         else
@@ -5542,7 +5542,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
   100 |                 catch (IOException exceptIO)
   101 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_08.cs,99,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_08.cs,"
    89 |         }
    90 |         else
@@ -5566,7 +5566,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
   108 |                 catch (IOException exceptIO)
   109 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_09.cs,85,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_09.cs,"
    75 |         }
    76 |         else
@@ -5590,7 +5590,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    94 |                 catch (IOException exceptIO)
    95 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_10.cs,85,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_10.cs,"
    75 |         }
    76 |         else
@@ -5614,7 +5614,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    94 |                 catch (IOException exceptIO)
    95 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_11.cs,85,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_11.cs,"
    75 |         }
    76 |         else
@@ -5638,7 +5638,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    94 |                 catch (IOException exceptIO)
    95 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_12.cs,84,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_12.cs,"
    74 |             }
    75 |         }
@@ -5662,7 +5662,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    93 |                 catch (IOException exceptIO)
    94 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_13.cs,85,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_13.cs,"
    75 |         }
    76 |         else
@@ -5686,7 +5686,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    94 |                 catch (IOException exceptIO)
    95 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_14.cs,85,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_14.cs,"
    75 |         }
    76 |         else
@@ -5710,7 +5710,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    94 |                 catch (IOException exceptIO)
    95 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_15.cs,86,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_15.cs,"
    76 |             break;
    77 |         default:
@@ -5734,7 +5734,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    95 |                 catch (IOException exceptIO)
    96 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_16.cs,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_16.cs,"
    70 |                             IO.Logger.Log(NLog.LogLevel.Warn, se, ""Error closing TcpListener"");
    71 |                         }
@@ -5758,7 +5758,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    89 |                 catch (IOException exceptIO)
    90 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_17.cs,78,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_17.cs,"
    68 |                         IO.Logger.Log(NLog.LogLevel.Warn, se, ""Error closing TcpListener"");
    69 |                     }
@@ -5782,7 +5782,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    87 |                     catch (IOException exceptIO)
    88 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_31.cs,83,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Listen_tcp_31.cs,"
    73 |                     }
    74 |                 }
@@ -5806,7 +5806,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    92 |                     catch (IOException exceptIO)
    93 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_01.cs,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_01.cs,"
    49 |                 }
    50 |             }
@@ -5830,7 +5830,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    68 |                 catch (IOException exceptIO)
    69 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_02.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_02.cs,"
    58 |         }
    59 |         else
@@ -5854,7 +5854,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_03.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_03.cs,"
    58 |         }
    59 |         else
@@ -5878,7 +5878,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_04.cs,75,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_04.cs,"
    65 |         }
    66 |         else
@@ -5902,7 +5902,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    84 |                 catch (IOException exceptIO)
    85 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_05.cs,75,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_05.cs,"
    65 |         }
    66 |         else
@@ -5926,7 +5926,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    84 |                 catch (IOException exceptIO)
    85 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_06.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_06.cs,"
    64 |         }
    65 |         else
@@ -5950,7 +5950,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_07.cs,74,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_07.cs,"
    64 |         }
    65 |         else
@@ -5974,7 +5974,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    83 |                 catch (IOException exceptIO)
    84 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_08.cs,82,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_08.cs,"
    72 |         }
    73 |         else
@@ -5998,7 +5998,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    91 |                 catch (IOException exceptIO)
    92 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_09.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_09.cs,"
    58 |         }
    59 |         else
@@ -6022,7 +6022,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_10.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_10.cs,"
    58 |         }
    59 |         else
@@ -6046,7 +6046,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_11.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_11.cs,"
    58 |         }
    59 |         else
@@ -6070,7 +6070,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_12.cs,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_12.cs,"
    57 |             }
    58 |         }
@@ -6094,7 +6094,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    76 |                 catch (IOException exceptIO)
    77 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_13.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_13.cs,"
    58 |         }
    59 |         else
@@ -6118,7 +6118,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_14.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_14.cs,"
    58 |         }
    59 |         else
@@ -6142,7 +6142,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_15.cs,69,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_15.cs,"
    59 |             break;
    60 |         default:
@@ -6166,7 +6166,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    78 |                 catch (IOException exceptIO)
    79 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_16.cs,63,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_16.cs,"
    53 |                 catch (IOException exceptIO)
    54 |                 {
@@ -6190,7 +6190,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    72 |                 catch (IOException exceptIO)
    73 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_17.cs,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_17.cs,"
    51 |             catch (IOException exceptIO)
    52 |             {
@@ -6214,7 +6214,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    70 |                     catch (IOException exceptIO)
    71 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_31.cs,66,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__NetClient_31.cs,"
    56 |                     IO.Logger.Log(NLog.LogLevel.Warn, exceptIO, ""Error with stream reading"");
    57 |                 }
@@ -6238,7 +6238,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    75 |                     catch (IOException exceptIO)
    76 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_01.cs,39,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_01.cs,"
   29 | #if (!OMITBAD)
   30 |     /* uses badsource and badsink */
@@ -6262,7 +6262,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
   48 |                 catch (IOException exceptIO)
   49 |                 {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_02.cs,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_02.cs,"
    38 |         }
    39 |         else
@@ -6286,7 +6286,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    57 |                 catch (IOException exceptIO)
    58 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_03.cs,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_03.cs,"
    38 |         }
    39 |         else
@@ -6310,7 +6310,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    57 |                 catch (IOException exceptIO)
    58 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_04.cs,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_04.cs,"
    45 |         }
    46 |         else
@@ -6334,7 +6334,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    64 |                 catch (IOException exceptIO)
    65 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_05.cs,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_05.cs,"
    45 |         }
    46 |         else
@@ -6358,7 +6358,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    64 |                 catch (IOException exceptIO)
    65 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_06.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_06.cs,"
    44 |         }
    45 |         else
@@ -6382,7 +6382,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    63 |                 catch (IOException exceptIO)
    64 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_07.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_07.cs,"
    44 |         }
    45 |         else
@@ -6406,7 +6406,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    63 |                 catch (IOException exceptIO)
    64 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_08.cs,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_08.cs,"
    52 |         }
    53 |         else
@@ -6430,7 +6430,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    71 |                 catch (IOException exceptIO)
    72 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_09.cs,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_09.cs,"
    38 |         }
    39 |         else
@@ -6454,7 +6454,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    57 |                 catch (IOException exceptIO)
    58 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_10.cs,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_10.cs,"
    38 |         }
    39 |         else
@@ -6478,7 +6478,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    57 |                 catch (IOException exceptIO)
    58 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_11.cs,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_11.cs,"
    38 |         }
    39 |         else
@@ -6502,7 +6502,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    57 |                 catch (IOException exceptIO)
    58 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_12.cs,47,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_12.cs,"
    37 |             data = req.Params.Get(""name"");
    38 |         }
@@ -6526,7 +6526,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    56 |                 catch (IOException exceptIO)
    57 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_13.cs,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_13.cs,"
    38 |         }
    39 |         else
@@ -6550,7 +6550,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    57 |                 catch (IOException exceptIO)
    58 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_14.cs,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_14.cs,"
    38 |         }
    39 |         else
@@ -6574,7 +6574,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    57 |                 catch (IOException exceptIO)
    58 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_15.cs,49,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_15.cs,"
    39 |             break;
    40 |         default:
@@ -6598,7 +6598,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    58 |                 catch (IOException exceptIO)
    59 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_16.cs,43,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_16.cs,"
   33 |         string data;
   34 |         while (true)
@@ -6622,7 +6622,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
   52 |                 catch (IOException exceptIO)
   53 |                 {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_17.cs,41,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_17.cs,"
   31 |     public override void Bad(HttpRequest req, HttpResponse resp)
   32 |     {
@@ -6646,7 +6646,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
   50 |                     catch (IOException exceptIO)
   51 |                     {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_21.cs,42,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_21.cs,"
    32 |     private bool badPrivate = false;
    33 | #if (!OMITBAD)
@@ -6670,7 +6670,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    51 |                 catch (IOException exceptIO)
    52 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_31.cs,46,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_31.cs,"
    36 |             string data;
    37 |             /* POTENTIAL FLAW: Read data from a querystring using Params.Get */
@@ -6694,7 +6694,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    55 |                     catch (IOException exceptIO)
    56 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_42.cs,45,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__Params_Get_Web_42.cs,"
    35 |         return data;
    36 |     }
@@ -6718,7 +6718,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    54 |                 catch (IOException exceptIO)
    55 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_01.cs,45,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_01.cs,"
   35 |         /* POTENTIAL FLAW: Parse id param out of the URL querystring (without using getParameter()) */
   36 |         {
@@ -6742,7 +6742,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
   54 |                 catch (IOException exceptIO)
   55 |                 {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_02.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_02.cs,"
    44 |         }
    45 |         else
@@ -6766,7 +6766,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    63 |                 catch (IOException exceptIO)
    64 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_03.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_03.cs,"
    44 |         }
    45 |         else
@@ -6790,7 +6790,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    63 |                 catch (IOException exceptIO)
    64 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_04.cs,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_04.cs,"
    51 |         }
    52 |         else
@@ -6814,7 +6814,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    70 |                 catch (IOException exceptIO)
    71 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_05.cs,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_05.cs,"
    51 |         }
    52 |         else
@@ -6838,7 +6838,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    70 |                 catch (IOException exceptIO)
    71 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_06.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_06.cs,"
    50 |         }
    51 |         else
@@ -6862,7 +6862,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_07.cs,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_07.cs,"
    50 |         }
    51 |         else
@@ -6886,7 +6886,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    69 |                 catch (IOException exceptIO)
    70 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_08.cs,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_08.cs,"
    58 |         }
    59 |         else
@@ -6910,7 +6910,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    77 |                 catch (IOException exceptIO)
    78 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_09.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_09.cs,"
    44 |         }
    45 |         else
@@ -6934,7 +6934,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    63 |                 catch (IOException exceptIO)
    64 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_10.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_10.cs,"
    44 |         }
    45 |         else
@@ -6958,7 +6958,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    63 |                 catch (IOException exceptIO)
    64 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_11.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_11.cs,"
    44 |         }
    45 |         else
@@ -6982,7 +6982,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    63 |                 catch (IOException exceptIO)
    64 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_12.cs,53,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_12.cs,"
    43 |             }
    44 |         }
@@ -7006,7 +7006,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    62 |                 catch (IOException exceptIO)
    63 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_13.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_13.cs,"
    44 |         }
    45 |         else
@@ -7030,7 +7030,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    63 |                 catch (IOException exceptIO)
    64 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_14.cs,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_14.cs,"
    44 |         }
    45 |         else
@@ -7054,7 +7054,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    63 |                 catch (IOException exceptIO)
    64 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_15.cs,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_15.cs,"
    45 |             break;
    46 |         default:
@@ -7078,7 +7078,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    64 |                 catch (IOException exceptIO)
    65 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_16.cs,49,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_16.cs,"
    39 |                 if (req.QueryString[""id""] != null)
    40 |                 {
@@ -7102,7 +7102,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    58 |                 catch (IOException exceptIO)
    59 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_17.cs,47,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_17.cs,"
    37 |             if (req.QueryString[""id""] != null)
    38 |             {
@@ -7126,7 +7126,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    56 |                     catch (IOException exceptIO)
    57 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_21.cs,42,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_21.cs,"
    32 |     private bool badPrivate = false;
    33 | #if (!OMITBAD)
@@ -7150,7 +7150,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    51 |                 catch (IOException exceptIO)
    52 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_31.cs,52,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_31.cs,"
    42 |                     data = req.QueryString[""id""];
    43 |                 }
@@ -7174,7 +7174,7 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    61 |                     catch (IOException exceptIO)
    62 |                     {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_42.cs,51,22,skims,063. Lack of data validation - Path Traversal,Path traversal in NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__QueryString_Web_42.cs,"
    41 |         return data;
    42 |     }
@@ -7198,4 +7198,4 @@ F063,lines,NIST/src/testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_
    60 |                 catch (IOException exceptIO)
    61 |                 {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax

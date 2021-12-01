@@ -1872,7 +1872,7 @@ class Vulnerability(NamedTuple):
     what: str
     where: str
     namespace: str
-    stream: str = "skims"
+    stream: Optional[str] = "skims"
 
     integrates_metadata: Optional[IntegratesVulnerabilityMetadata] = None
     skims_metadata: Optional[SkimsVulnerabilityMetadata] = None

@@ -75,6 +75,9 @@ def build_vulnerabilities(
     finding: core_model.FindingEnum,
     ctx: ContentCheckCtx,
 ) -> core_model.Vulnerabilities:
+    source_method = cast(
+        FrameType, cast(FrameType, inspect.currentframe()).f_back
+    ).f_code.co_name
     return tuple(
         core_model.Vulnerability(
             finding=finding,
@@ -95,9 +98,7 @@ def build_vulnerabilities(
                         line=location.line,
                     ),
                 ),
-                source_method=cast(
-                    FrameType, cast(FrameType, inspect.currentframe()).f_back
-                ).f_code.co_name,
+                source_method=source_method,
             ),
         )
         for location in locations

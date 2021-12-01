@@ -90,6 +90,9 @@ def tls_connect(
 def _create_core_vulns(
     ssl_vulnerabilities: List[SSLVulnerability],
 ) -> core_model.Vulnerabilities:
+    source_method = cast(
+        FrameType, cast(FrameType, inspect.currentframe()).f_back
+    ).f_code.co_name
     return tuple(
         core_model.Vulnerability(
             finding=ssl_vulnerability.finding,
@@ -106,9 +109,7 @@ def _create_core_vulns(
                     locale=CTX.config.language,
                     ssl_vulnerability=ssl_vulnerability,
                 ),
-                source_method=cast(
-                    FrameType, cast(FrameType, inspect.currentframe()).f_back
-                ).f_code.co_name,
+                source_method=source_method,
             ),
         )
         for ssl_vulnerability in ssl_vulnerabilities

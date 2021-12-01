@@ -1,4 +1,4 @@
-finding,kind,what,where,cwe,stream,title,description,snippet
+finding,kind,what,where,cwe,stream,title,description,snippet,method
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00004.java,67,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00004.java","
   55 |   String param = ""noCookieValueSupplied"";
@@ -23,7 +23,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00004.j
   74 |
   75 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00031.java,55,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00031.java","
   43 |
@@ -48,7 +48,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00031.j
   62 |
   63 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00098.java,68,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00098.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest00098"")) {
@@ -73,7 +73,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00098.j
   75 |
   76 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00251.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00251.java","
   54 |     param = name;
@@ -98,7 +98,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00251.j
   73 |
   74 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00321.java,58,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00321.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -123,7 +123,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00321.j
   65 |
   66 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00324.java,58,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00324.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -148,7 +148,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00324.j
   65 |
   66 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00325.java,58,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00325.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -173,7 +173,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00325.j
   65 |
   66 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00326.java,64,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00326.java","
   52 |
@@ -198,7 +198,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00326.j
   71 |
   72 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00327.java,59,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00327.java","
   47 |    param = headers.nextElement(); // just grab first element
@@ -223,7 +223,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00327.j
   66 |
   67 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00424.java,55,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00424.java","
   43 |   String param = request.getParameter(""BenchmarkTest00424"");
@@ -248,7 +248,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00424.j
   62 |
   63 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00425.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00425.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -273,7 +273,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00425.j
   59 |
   60 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00426.java,57,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00426.java","
   45 |
@@ -298,7 +298,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00426.j
   64 |
   65 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00427.java,64,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00427.java","
   52 |   java.util.HashMap<String,Object> map70670 = new java.util.HashMap<String,Object>();
@@ -323,7 +323,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00427.j
   71 |
   72 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00508.java,57,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00508.java","
   45 |   if (!map.isEmpty()) {
@@ -348,7 +348,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00508.j
   64 |
   65 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00587.java,70,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00587.java","
   58 |   }
@@ -373,7 +373,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00587.j
   77 |
   78 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00588.java,68,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00588.java","
   56 |     }
@@ -398,7 +398,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00588.j
   75 |
   76 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00668.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00668.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -423,7 +423,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00668.j
   59 |
   60 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00670.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00670.java","
   44 |   String param = scr.getTheParameter(""BenchmarkTest00670"");
@@ -448,7 +448,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00670.j
   63 |
   64 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00671.java,58,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00671.java","
   46 |
@@ -473,7 +473,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00671.j
   65 |
   66 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00754.java,59,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00754.java","
   47 |   else param = """";
@@ -498,7 +498,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00754.j
   66 |
   67 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00756.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00756.java","
   42 |
@@ -523,7 +523,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00756.j
   61 |
   62 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00757.java,73,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00757.java","
   61 |           break;
@@ -548,7 +548,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00757.j
   80 |
   81 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00759.java,57,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00759.java","
   45 |   if (values != null && values.length > 0)
@@ -573,7 +573,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00759.j
   64 |
   65 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00833.java,71,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00833.java","
   59 |
@@ -598,7 +598,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00833.j
   78 |
   79 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00834.java,69,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00834.java","
   57 |   }
@@ -623,7 +623,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00834.j
   76 |
   77 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00836.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00836.java","
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -648,7 +648,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00836.j
   73 |
   74 | }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00991.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00991.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest00991"")) {
@@ -673,7 +673,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00991.j
   75 |     private class Test {
   76 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00994.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00994.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest00994"")) {
@@ -698,7 +698,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00994.j
   75 |     private class Test {
   76 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00995.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00995.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest00995"")) {
@@ -723,7 +723,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00995.j
   75 |     private class Test {
   76 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01081.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01081.java","
   44 |   if (request.getHeader(""BenchmarkTest01081"") != null) {
@@ -748,7 +748,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01081.j
   63 |     private class Test {
   64 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01082.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01082.java","
   44 |   if (request.getHeader(""BenchmarkTest01082"") != null) {
@@ -773,7 +773,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01082.j
   63 |     private class Test {
   64 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01143.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01143.java","
   53 |    if (values != null && values.hasMoreElements()) {
@@ -798,7 +798,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01143.j
   72 |     private class Test {
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01203.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01203.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -823,7 +823,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01203.j
   65 |     private class Test {
   66 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01204.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01204.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -848,7 +848,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01204.j
   65 |     private class Test {
   66 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01206.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01206.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -873,7 +873,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01206.j
   65 |     private class Test {
   66 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01299.java,49,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01299.java","
   39 |  @Override
@@ -898,7 +898,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01299.j
   58 |     private class Test {
   59 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01374.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01374.java","
   44 |   String param = """";
@@ -923,7 +923,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01374.j
   63 |     private class Test {
   64 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01375.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01375.java","
   44 |   String param = """";
@@ -948,7 +948,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01375.j
   63 |     private class Test {
   64 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01376.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01376.java","
   44 |   String param = """";
@@ -973,7 +973,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01376.j
   63 |     private class Test {
   64 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01455.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01455.java","
   53 |       param = name;
@@ -998,7 +998,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01455.j
   72 |     private class Test {
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01456.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01456.java","
   53 |       param = name;
@@ -1023,7 +1023,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01456.j
   72 |     private class Test {
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01457.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01457.java","
    53 |       param = name;
@@ -1048,7 +1048,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01457.j
    72 |     private class Test {
    73 |
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01458.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01458.java","
   53 |       param = name;
@@ -1073,7 +1073,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01458.j
   72 |     private class Test {
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01546.java,50,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01546.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1098,7 +1098,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01546.j
   59 |     private class Test {
   60 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01547.java,50,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01547.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1123,7 +1123,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01547.j
   59 |     private class Test {
   60 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01548.java,50,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01548.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1148,7 +1148,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01548.j
   59 |     private class Test {
   60 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01549.java,50,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01549.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1173,7 +1173,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01549.j
   59 |     private class Test {
   60 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01550.java,50,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01550.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1198,7 +1198,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01550.j
   59 |     private class Test {
   60 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01551.java,50,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01551.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1223,7 +1223,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01551.j
   59 |     private class Test {
   60 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01615.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01615.java","
   42 |
@@ -1248,7 +1248,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01615.j
   61 |     private class Test {
   62 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01616.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01616.java","
   42 |
@@ -1273,7 +1273,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01616.j
   61 |     private class Test {
   62 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01617.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01617.java","
   42 |
@@ -1298,7 +1298,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01617.j
   61 |     private class Test {
   62 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01618.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01618.java","
   42 |
@@ -1323,7 +1323,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01618.j
   61 |     private class Test {
   62 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01619.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01619.java","
   42 |
@@ -1348,7 +1348,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01619.j
   61 |     private class Test {
   62 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01708.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01708.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -1373,7 +1373,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01708.j
   72 |     private class Test {
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01709.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01709.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -1398,7 +1398,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01709.j
   72 |     private class Test {
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01710.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01710.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -1423,7 +1423,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01710.j
   72 |     private class Test {
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01711.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01711.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -1448,7 +1448,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01711.j
   72 |     private class Test {
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01872.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01872.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest01872"")) {
@@ -1473,7 +1473,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01872.j
   75 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   76 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01874.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01874.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest01874"")) {
@@ -1498,7 +1498,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01874.j
   75 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   76 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01875.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01875.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest01875"")) {
@@ -1523,7 +1523,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01875.j
   75 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   76 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01876.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01876.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest01876"")) {
@@ -1548,7 +1548,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01876.j
   75 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   76 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01955.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01955.java","
   44 |   if (request.getHeader(""BenchmarkTest01955"") != null) {
@@ -1573,7 +1573,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01955.j
   63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   64 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01958.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01958.java","
   44 |   if (request.getHeader(""BenchmarkTest01958"") != null) {
@@ -1598,7 +1598,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01958.j
   63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   64 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01960.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01960.java","
   44 |   if (request.getHeader(""BenchmarkTest01960"") != null) {
@@ -1623,7 +1623,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01960.j
   63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   64 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02015.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02015.java","
   53 |    if (values != null && values.hasMoreElements()) {
@@ -1648,7 +1648,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02015.j
   72 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02016.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02016.java","
   53 |    if (values != null && values.hasMoreElements()) {
@@ -1673,7 +1673,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02016.j
   72 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02084.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02084.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -1698,7 +1698,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02084.j
   65 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   66 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02165.java,49,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02165.java","
   39 |  @Override
@@ -1723,7 +1723,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02165.j
   58 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   59 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02167.java,49,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02167.java","
   39 |  @Override
@@ -1748,7 +1748,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02167.j
   58 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   59 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02261.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02261.java","
   44 |   String param = """";
@@ -1773,7 +1773,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02261.j
   63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   64 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02262.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02262.java","
   44 |   String param = """";
@@ -1798,7 +1798,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02262.j
   63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   64 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02263.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02263.java","
   44 |   String param = """";
@@ -1823,7 +1823,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02263.j
   63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   64 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02352.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02352.java","
   53 |       param = name;
@@ -1848,7 +1848,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02352.j
   72 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02446.java,50,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02446.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1873,7 +1873,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02446.j
   59 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   60 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02448.java,50,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02448.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1898,7 +1898,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02448.j
   59 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   60 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02524.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02524.java","
   42 |
@@ -1923,7 +1923,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02524.j
   61 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   62 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02525.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02525.java","
   42 |
@@ -1948,7 +1948,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02525.j
   61 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   62 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02526.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02526.java","
   42 |
@@ -1973,7 +1973,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02526.j
   61 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   62 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02527.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02527.java","
   42 |
@@ -1998,7 +1998,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02527.j
   61 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   62 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02622.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02622.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -2023,7 +2023,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02622.j
   72 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02623.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02623.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -2048,7 +2048,7 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02623.j
   72 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02624.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02624.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -2073,4 +2073,4 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02624.j
   72 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   73 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax

@@ -1,4 +1,4 @@
-finding,kind,what,where,cwe,stream,title,description,snippet
+finding,kind,what,where,cwe,stream,title,description,snippet,method
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_01.cs,70,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_01.cs","
    60 |         {
@@ -23,7 +23,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    79 |
    80 |     /* goodG2B() - uses goodsource and badsink */
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_02.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_02.cs","
    69 |         {
@@ -48,7 +48,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (false)
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_03.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_03.cs","
    69 |         {
@@ -73,7 +73,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (5 != 5)
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_04.cs,86,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_04.cs","
    76 |         {
@@ -98,7 +98,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    95 |         if (PRIVATE_CONST_FALSE)
    96 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_05.cs,86,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_05.cs","
    76 |         {
@@ -123,7 +123,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    95 |         if (privateFalse)
    96 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_06.cs,85,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_06.cs","
    75 |         {
@@ -148,7 +148,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    94 |         if (PRIVATE_CONST_FIVE != 5)
    95 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_07.cs,85,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_07.cs","
    75 |         {
@@ -173,7 +173,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    94 |         if (privateFive != 5)
    95 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_08.cs,93,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_08.cs","
    83 |         {
@@ -198,7 +198,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   102 |         if (PrivateReturnsFalse())
   103 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_09.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_09.cs","
    69 |         {
@@ -223,7 +223,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (IO.STATIC_READONLY_FALSE)
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_10.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_10.cs","
    69 |         {
@@ -248,7 +248,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (IO.staticFalse)
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_11.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_11.cs","
    69 |         {
@@ -273,7 +273,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (IO.StaticReturnsFalse())
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_12.cs,78,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_12.cs","
    68 |         {
@@ -298,7 +298,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    87 |         string data;
    88 |         if (IO.StaticReturnsTrueOrFalse())
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_13.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_13.cs","
    69 |         {
@@ -323,7 +323,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (IO.STATIC_READONLY_FIVE != 5)
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_14.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_14.cs","
    69 |         {
@@ -348,7 +348,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (IO.staticFive != 5)
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_15.cs,80,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_15.cs","
    70 |         {
@@ -373,7 +373,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         switch (5)
    90 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_16.cs,74,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_16.cs","
    64 |         {
@@ -398,7 +398,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    83 |         while (true)
    84 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_17.cs,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_17.cs","
    62 |            {
@@ -423,7 +423,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    81 |    {
    82 |        string data;
       ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_31.cs,77,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_31.cs","
    67 |            {
@@ -448,7 +448,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    86 |    }
    87 |
       ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_01.cs,75,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_01.cs","
    65 |         {
@@ -473,7 +473,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    84 |
    85 |     /* goodG2B() - uses goodsource and badsink */
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_02.cs,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_02.cs","
    74 |         {
@@ -498,7 +498,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    93 |         if (false)
    94 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_03.cs,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_03.cs","
    74 |         {
@@ -523,7 +523,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    93 |         if (5 != 5)
    94 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_04.cs,91,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_04.cs","
    81 |         {
@@ -548,7 +548,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   100 |         if (PRIVATE_CONST_FALSE)
   101 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_05.cs,91,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_05.cs","
    81 |         {
@@ -573,7 +573,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   100 |         if (privateFalse)
   101 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_06.cs,90,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_06.cs","
    80 |         {
@@ -598,7 +598,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    99 |         if (PRIVATE_CONST_FIVE != 5)
   100 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_07.cs,90,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_07.cs","
    80 |         {
@@ -623,7 +623,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    99 |         if (privateFive != 5)
   100 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_08.cs,98,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_08.cs","
    88 |         {
@@ -648,7 +648,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   107 |         if (PrivateReturnsFalse())
   108 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_09.cs,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_09.cs","
    74 |         {
@@ -673,7 +673,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    93 |         if (IO.STATIC_READONLY_FALSE)
    94 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_10.cs,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_10.cs","
    74 |         {
@@ -698,7 +698,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    93 |         if (IO.staticFalse)
    94 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_11.cs,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_11.cs","
    74 |         {
@@ -723,7 +723,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    93 |         if (IO.StaticReturnsFalse())
    94 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_12.cs,83,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_12.cs","
    73 |         {
@@ -748,7 +748,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    92 |         string data;
    93 |         if (IO.StaticReturnsTrueOrFalse())
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_13.cs,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_13.cs","
    74 |         {
@@ -773,7 +773,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    93 |         if (IO.STATIC_READONLY_FIVE != 5)
    94 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_14.cs,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_14.cs","
    74 |         {
@@ -798,7 +798,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    93 |         if (IO.staticFive != 5)
    94 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_15.cs,85,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_15.cs","
    75 |         {
@@ -823,7 +823,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    94 |         switch (5)
    95 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_16.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_16.cs","
    69 |         {
@@ -848,7 +848,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         while (true)
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_17.cs,77,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_17.cs","
    67 |            {
@@ -873,7 +873,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    86 |    {
    87 |        string data;
       ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_31.cs,82,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_31.cs","
    72 |            {
@@ -898,7 +898,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    91 |    }
    92 |
       ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_01.cs,49,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_01.cs","
   39 |         {
@@ -923,7 +923,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   58 |
   59 |     /* goodG2B() - uses goodsource and badsink */
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_02.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_02.cs","
    48 |         {
@@ -948,7 +948,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    67 |         if (false)
    68 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_03.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_03.cs","
    48 |         {
@@ -973,7 +973,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    67 |         if (5 != 5)
    68 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_04.cs,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_04.cs","
    55 |         {
@@ -998,7 +998,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         if (PRIVATE_CONST_FALSE)
    75 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_05.cs,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_05.cs","
    55 |         {
@@ -1023,7 +1023,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         if (privateFalse)
    75 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_06.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_06.cs","
    54 |         {
@@ -1048,7 +1048,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    73 |         if (PRIVATE_CONST_FIVE != 5)
    74 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_07.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_07.cs","
    54 |         {
@@ -1073,7 +1073,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    73 |         if (privateFive != 5)
    74 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_08.cs,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_08.cs","
    62 |         {
@@ -1098,7 +1098,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    81 |         if (PrivateReturnsFalse())
    82 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_09.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_09.cs","
    48 |         {
@@ -1123,7 +1123,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    67 |         if (IO.STATIC_READONLY_FALSE)
    68 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_10.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_10.cs","
    48 |         {
@@ -1148,7 +1148,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    67 |         if (IO.staticFalse)
    68 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_11.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_11.cs","
    48 |         {
@@ -1173,7 +1173,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    67 |         if (IO.StaticReturnsFalse())
    68 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_12.cs,57,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_12.cs","
   47 |         {
@@ -1198,7 +1198,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   66 |         string data;
   67 |         if (IO.StaticReturnsTrueOrFalse())
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_13.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_13.cs","
    48 |         {
@@ -1223,7 +1223,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    67 |         if (IO.STATIC_READONLY_FIVE != 5)
    68 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_14.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_14.cs","
    48 |         {
@@ -1248,7 +1248,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    67 |         if (IO.staticFive != 5)
    68 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_15.cs,59,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_15.cs","
    49 |         {
@@ -1273,7 +1273,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         switch (5)
    69 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_16.cs,53,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_16.cs","
   43 |         {
@@ -1298,7 +1298,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   62 |         while (true)
   63 |         {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_17.cs,51,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_17.cs","
   41 |            {
@@ -1323,7 +1323,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   60 |    {
   61 |        string data;
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_31.cs,56,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_31.cs","
   46 |            {
@@ -1348,7 +1348,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   65 |    }
   66 |
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_01.cs,57,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_01.cs","
   47 |         {
@@ -1373,7 +1373,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   66 |
   67 |     /* goodG2B() - uses goodsource and badsink */
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_02.cs,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_02.cs","
    56 |         {
@@ -1398,7 +1398,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    75 |         if (false)
    76 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_03.cs,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_03.cs","
    56 |         {
@@ -1423,7 +1423,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    75 |         if (5 != 5)
    76 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_04.cs,73,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_04.cs","
    63 |         {
@@ -1448,7 +1448,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    82 |         if (PRIVATE_CONST_FALSE)
    83 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_05.cs,73,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_05.cs","
    63 |         {
@@ -1473,7 +1473,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    82 |         if (privateFalse)
    83 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_06.cs,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_06.cs","
    62 |         {
@@ -1498,7 +1498,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    81 |         if (PRIVATE_CONST_FIVE != 5)
    82 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_07.cs,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_07.cs","
    62 |         {
@@ -1523,7 +1523,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    81 |         if (privateFive != 5)
    82 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_08.cs,80,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_08.cs","
    70 |         {
@@ -1548,7 +1548,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         if (PrivateReturnsFalse())
    90 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_09.cs,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_09.cs","
    56 |         {
@@ -1573,7 +1573,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    75 |         if (IO.STATIC_READONLY_FALSE)
    76 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_10.cs,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_10.cs","
    56 |         {
@@ -1598,7 +1598,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    75 |         if (IO.staticFalse)
    76 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_11.cs,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_11.cs","
    56 |         {
@@ -1623,7 +1623,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    75 |         if (IO.StaticReturnsFalse())
    76 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_12.cs,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_12.cs","
    55 |         {
@@ -1648,7 +1648,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         string data;
    75 |         if (IO.StaticReturnsTrueOrFalse())
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_13.cs,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_13.cs","
    56 |         {
@@ -1673,7 +1673,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    75 |         if (IO.STATIC_READONLY_FIVE != 5)
    76 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_14.cs,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_14.cs","
    56 |         {
@@ -1698,7 +1698,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    75 |         if (IO.staticFive != 5)
    76 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_15.cs,67,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_15.cs","
    57 |         {
@@ -1723,7 +1723,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    76 |         switch (5)
    77 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_16.cs,61,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_16.cs","
   51 |         {
@@ -1748,7 +1748,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   70 |         while (true)
   71 |         {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_17.cs,59,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_17.cs","
   49 |            {
@@ -1773,7 +1773,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   68 |    {
   69 |        string data;
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_21.cs,52,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_21.cs","
    42 |         {
@@ -1798,7 +1798,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    61 |             data = """"; /* initialize data in case there are no cookies */
    62 |             /* Read data from cookies */
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_31.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_31.cs","
    54 |            {
@@ -1823,7 +1823,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    73 |    }
    74 |
       ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_42.cs,63,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_42.cs","
    53 |         {
@@ -1848,7 +1848,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    72 |         data = ""foo"";
    73 |         return data;
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_01.cs,87,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_01.cs","
    77 |         {
@@ -1873,7 +1873,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    96 |
    97 |     /* goodG2B() - uses goodsource and badsink */
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_02.cs,96,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_02.cs","
    86 |         {
@@ -1898,7 +1898,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   105 |         if (false)
   106 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_03.cs,96,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_03.cs","
    86 |         {
@@ -1923,7 +1923,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   105 |         if (5 != 5)
   106 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_04.cs,103,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_04.cs","
    93 |         {
@@ -1948,7 +1948,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   112 |         if (PRIVATE_CONST_FALSE)
   113 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_05.cs,103,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_05.cs","
    93 |         {
@@ -1973,7 +1973,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   112 |         if (privateFalse)
   113 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_06.cs,102,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_06.cs","
    92 |         {
@@ -1998,7 +1998,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   111 |         if (PRIVATE_CONST_FIVE != 5)
   112 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_07.cs,102,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_07.cs","
    92 |         {
@@ -2023,7 +2023,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   111 |         if (privateFive != 5)
   112 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_08.cs,110,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_08.cs","
   100 |         {
@@ -2048,7 +2048,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   119 |         if (PrivateReturnsFalse())
   120 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_09.cs,96,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_09.cs","
    86 |         {
@@ -2073,7 +2073,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   105 |         if (IO.STATIC_READONLY_FALSE)
   106 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_10.cs,96,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_10.cs","
    86 |         {
@@ -2098,7 +2098,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   105 |         if (IO.staticFalse)
   106 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_11.cs,96,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_11.cs","
    86 |         {
@@ -2123,7 +2123,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   105 |         if (IO.StaticReturnsFalse())
   106 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_12.cs,95,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_12.cs","
    85 |         {
@@ -2148,7 +2148,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   104 |         string data;
   105 |         if (IO.StaticReturnsTrueOrFalse())
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_13.cs,96,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_13.cs","
    86 |         {
@@ -2173,7 +2173,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   105 |         if (IO.STATIC_READONLY_FIVE != 5)
   106 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_14.cs,96,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_14.cs","
    86 |         {
@@ -2198,7 +2198,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   105 |         if (IO.staticFive != 5)
   106 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_15.cs,97,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_15.cs","
    87 |         {
@@ -2223,7 +2223,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   106 |         switch (5)
   107 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_16.cs,91,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_16.cs","
    81 |         {
@@ -2248,7 +2248,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   100 |         while (true)
   101 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_17.cs,89,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_17.cs","
    79 |            {
@@ -2273,7 +2273,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    98 |    {
    99 |        string data;
       ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_31.cs,94,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_31.cs","
    84 |            {
@@ -2298,7 +2298,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   103 |    }
   104 |
       ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_01.cs,70,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_01.cs","
    60 |         {
@@ -2323,7 +2323,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    79 |
    80 |     /* goodG2B() - uses goodsource and badsink */
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_02.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_02.cs","
    69 |         {
@@ -2348,7 +2348,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (false)
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_03.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_03.cs","
    69 |         {
@@ -2373,7 +2373,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (5 != 5)
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_04.cs,86,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_04.cs","
    76 |         {
@@ -2398,7 +2398,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    95 |         if (PRIVATE_CONST_FALSE)
    96 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_05.cs,86,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_05.cs","
    76 |         {
@@ -2423,7 +2423,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    95 |         if (privateFalse)
    96 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_06.cs,85,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_06.cs","
    75 |         {
@@ -2448,7 +2448,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    94 |         if (PRIVATE_CONST_FIVE != 5)
    95 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_07.cs,85,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_07.cs","
    75 |         {
@@ -2473,7 +2473,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    94 |         if (privateFive != 5)
    95 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_08.cs,93,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_08.cs","
    83 |         {
@@ -2498,7 +2498,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   102 |         if (PrivateReturnsFalse())
   103 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_09.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_09.cs","
    69 |         {
@@ -2523,7 +2523,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (IO.STATIC_READONLY_FALSE)
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_10.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_10.cs","
    69 |         {
@@ -2548,7 +2548,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (IO.staticFalse)
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_11.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_11.cs","
    69 |         {
@@ -2573,7 +2573,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (IO.StaticReturnsFalse())
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_12.cs,78,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_12.cs","
    68 |         {
@@ -2598,7 +2598,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    87 |         string data;
    88 |         if (IO.StaticReturnsTrueOrFalse())
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_13.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_13.cs","
    69 |         {
@@ -2623,7 +2623,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (IO.STATIC_READONLY_FIVE != 5)
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_14.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_14.cs","
    69 |         {
@@ -2648,7 +2648,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (IO.staticFive != 5)
    89 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_15.cs,80,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_15.cs","
    70 |         {
@@ -2673,7 +2673,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         switch (5)
    90 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_16.cs,74,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_16.cs","
    64 |         {
@@ -2698,7 +2698,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    83 |         while (true)
    84 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_17.cs,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_17.cs","
    62 |            {
@@ -2723,7 +2723,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    81 |    {
    82 |        string data;
       ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_31.cs,77,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_31.cs","
    67 |            {
@@ -2748,7 +2748,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    86 |    }
    87 |
       ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_01.cs,49,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_01.cs","
   39 |         {
@@ -2773,7 +2773,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   58 |
   59 |     /* goodG2B() - uses goodsource and badsink */
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_02.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_02.cs","
    48 |         {
@@ -2798,7 +2798,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    67 |         if (false)
    68 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_03.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_03.cs","
    48 |         {
@@ -2823,7 +2823,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    67 |         if (5 != 5)
    68 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_04.cs,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_04.cs","
    55 |         {
@@ -2848,7 +2848,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         if (PRIVATE_CONST_FALSE)
    75 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_05.cs,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_05.cs","
    55 |         {
@@ -2873,7 +2873,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         if (privateFalse)
    75 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_06.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_06.cs","
    54 |         {
@@ -2898,7 +2898,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    73 |         if (PRIVATE_CONST_FIVE != 5)
    74 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_07.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_07.cs","
    54 |         {
@@ -2923,7 +2923,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    73 |         if (privateFive != 5)
    74 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_08.cs,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_08.cs","
    62 |         {
@@ -2948,7 +2948,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    81 |         if (PrivateReturnsFalse())
    82 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_09.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_09.cs","
    48 |         {
@@ -2973,7 +2973,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    67 |         if (IO.STATIC_READONLY_FALSE)
    68 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_10.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_10.cs","
    48 |         {
@@ -2998,7 +2998,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    67 |         if (IO.staticFalse)
    68 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_11.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_11.cs","
    48 |         {
@@ -3023,7 +3023,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    67 |         if (IO.StaticReturnsFalse())
    68 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_12.cs,57,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_12.cs","
   47 |         {
@@ -3048,7 +3048,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   66 |         string data;
   67 |         if (IO.StaticReturnsTrueOrFalse())
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_13.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_13.cs","
    48 |         {
@@ -3073,7 +3073,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    67 |         if (IO.STATIC_READONLY_FIVE != 5)
    68 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_14.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_14.cs","
    48 |         {
@@ -3098,7 +3098,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    67 |         if (IO.staticFive != 5)
    68 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_15.cs,59,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_15.cs","
    49 |         {
@@ -3123,7 +3123,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         switch (5)
    69 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_16.cs,53,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_16.cs","
   43 |         {
@@ -3148,7 +3148,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   62 |         while (true)
   63 |         {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_17.cs,51,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_17.cs","
   41 |            {
@@ -3173,7 +3173,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   60 |    {
   61 |        string data;
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_21.cs,52,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_21.cs","
    42 |         {
@@ -3198,7 +3198,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    61 |             /* POTENTIAL FLAW: Read data from a querystring using Params.Get */
    62 |             data = req.Params.Get(""name"");
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_31.cs,56,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_31.cs","
   46 |            {
@@ -3223,7 +3223,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   65 |    }
   66 |
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_42.cs,55,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_42.cs","
   45 |         {
@@ -3248,7 +3248,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   64 |         data = ""foo"";
   65 |         return data;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_01.cs,55,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_01.cs","
   45 |         {
@@ -3273,7 +3273,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   64 |
   65 |     /* goodG2B() - uses goodsource and badsink */
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_02.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_02.cs","
    54 |         {
@@ -3298,7 +3298,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    73 |         if (false)
    74 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_03.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_03.cs","
    54 |         {
@@ -3323,7 +3323,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    73 |         if (5 != 5)
    74 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_04.cs,71,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_04.cs","
    61 |         {
@@ -3348,7 +3348,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    80 |         if (PRIVATE_CONST_FALSE)
    81 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_05.cs,71,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_05.cs","
    61 |         {
@@ -3373,7 +3373,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    80 |         if (privateFalse)
    81 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_06.cs,70,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_06.cs","
    60 |         {
@@ -3398,7 +3398,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    79 |         if (PRIVATE_CONST_FIVE != 5)
    80 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_07.cs,70,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_07.cs","
    60 |         {
@@ -3423,7 +3423,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    79 |         if (privateFive != 5)
    80 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_08.cs,78,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_08.cs","
    68 |         {
@@ -3448,7 +3448,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    87 |         if (PrivateReturnsFalse())
    88 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_09.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_09.cs","
    54 |         {
@@ -3473,7 +3473,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    73 |         if (IO.STATIC_READONLY_FALSE)
    74 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_10.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_10.cs","
    54 |         {
@@ -3498,7 +3498,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    73 |         if (IO.staticFalse)
    74 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_11.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_11.cs","
    54 |         {
@@ -3523,7 +3523,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    73 |         if (IO.StaticReturnsFalse())
    74 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_12.cs,63,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_12.cs","
    53 |         {
@@ -3548,7 +3548,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    72 |         string data;
    73 |         if (IO.StaticReturnsTrueOrFalse())
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_13.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_13.cs","
    54 |         {
@@ -3573,7 +3573,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    73 |         if (IO.STATIC_READONLY_FIVE != 5)
    74 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_14.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_14.cs","
    54 |         {
@@ -3598,7 +3598,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    73 |         if (IO.staticFive != 5)
    74 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_15.cs,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_15.cs","
    55 |         {
@@ -3623,7 +3623,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         switch (5)
    75 |         {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_16.cs,59,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_16.cs","
   49 |         {
@@ -3648,7 +3648,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   68 |         while (true)
   69 |         {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_17.cs,57,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_17.cs","
   47 |            {
@@ -3673,7 +3673,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   66 |    {
   67 |        string data;
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_21.cs,52,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_21.cs","
    42 |         {
@@ -3698,7 +3698,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    61 |             data = """"; /* initialize data in case id is not in query string */
    62 |             /* POTENTIAL FLAW: Parse id param out of the URL querystring (without using getParameter()) */
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_31.cs,62,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_31.cs","
    52 |            {
@@ -3723,7 +3723,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    71 |    }
    72 |
       ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_42.cs,61,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_42.cs","
    51 |         {
@@ -3748,4 +3748,4 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    70 |         data = ""foo"";
    71 |         return data;
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax

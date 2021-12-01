@@ -1,4 +1,4 @@
-finding,kind,what,where,cwe,stream,title,description,snippet
+finding,kind,what,where,cwe,stream,title,description,snippet,method
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_01.cs,65,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_01.cs","
   55 |   }
@@ -23,7 +23,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
   74 |
   75 |
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_02.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_02.cs","
    64 |   data = null;
@@ -48,7 +48,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    83 | ring data;
    84 |  (false)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_03.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_03.cs","
    64 |   data = null;
@@ -73,7 +73,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    83 | ring data;
    84 |  (5 != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_04.cs,81,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_04.cs","
    71 |   data = null;
@@ -98,7 +98,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    90 | ring data;
    91 |  (PRIVATE_CONST_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_05.cs,81,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_05.cs","
    71 |   data = null;
@@ -123,7 +123,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    90 | ring data;
    91 |  (privateFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_06.cs,80,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_06.cs","
    70 |   data = null;
@@ -148,7 +148,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    89 | ring data;
    90 |  (PRIVATE_CONST_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_07.cs,80,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_07.cs","
    70 |   data = null;
@@ -173,7 +173,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    89 | ring data;
    90 |  (privateFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_08.cs,88,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_08.cs","
    78 |   data = null;
@@ -198,7 +198,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    97 | ring data;
    98 |  (PrivateReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_09.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_09.cs","
    64 |   data = null;
@@ -223,7 +223,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    83 | ring data;
    84 |  (IO.STATIC_READONLY_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_10.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_10.cs","
    64 |   data = null;
@@ -248,7 +248,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    83 | ring data;
    84 |  (IO.staticFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_11.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_11.cs","
    64 |   data = null;
@@ -273,7 +273,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    83 | ring data;
    84 |  (IO.StaticReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_12.cs,73,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_12.cs","
    63 |   data = ""foo"";
@@ -298,7 +298,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    82 |
    83 | ring data;
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_13.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_13.cs","
    64 |   data = null;
@@ -323,7 +323,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    83 | ring data;
    84 |  (IO.STATIC_READONLY_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_14.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_14.cs","
    64 |   data = null;
@@ -348,7 +348,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    83 | ring data;
    84 |  (IO.staticFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_15.cs,75,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_15.cs","
    65 |   break;
@@ -373,7 +373,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    84 | ring data = null;
    85 | itch (5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_16.cs,69,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_16.cs","
    59 |   break;
@@ -398,7 +398,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    78 | ring data;
    79 | ile (true)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_17.cs,67,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_17.cs","
    57 | nt i = 0; i < 1; i++)
@@ -423,7 +423,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    76 | id GoodG2B()
    77 |
       ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_31.cs,72,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect_tcp_31.cs","
    62 |
@@ -448,7 +448,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Connect
    81 | B();
    82 |
       ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_01.cs,70,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_01.cs","
    60 |   }
@@ -473,7 +473,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    79 |
    80 |
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_02.cs,79,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_02.cs","
    69 |   data = null;
@@ -498,7 +498,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    88 | ring data;
    89 |  (false)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_03.cs,79,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_03.cs","
    69 |   data = null;
@@ -523,7 +523,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    88 | ring data;
    89 |  (5 != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_04.cs,86,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_04.cs","
    76 |   data = null;
@@ -548,7 +548,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    95 | ring data;
    96 |  (PRIVATE_CONST_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_05.cs,86,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_05.cs","
    76 |   data = null;
@@ -573,7 +573,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    95 | ring data;
    96 |  (privateFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_06.cs,85,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_06.cs","
    75 |   data = null;
@@ -598,7 +598,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    94 | ring data;
    95 |  (PRIVATE_CONST_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_07.cs,85,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_07.cs","
    75 |   data = null;
@@ -623,7 +623,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    94 | ring data;
    95 |  (privateFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_08.cs,93,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_08.cs","
    83 |   data = null;
@@ -648,7 +648,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
   102 | ring data;
   103 |  (PrivateReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_09.cs,79,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_09.cs","
    69 |   data = null;
@@ -673,7 +673,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    88 | ring data;
    89 |  (IO.STATIC_READONLY_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_10.cs,79,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_10.cs","
    69 |   data = null;
@@ -698,7 +698,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    88 | ring data;
    89 |  (IO.staticFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_11.cs,79,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_11.cs","
    69 |   data = null;
@@ -723,7 +723,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    88 | ring data;
    89 |  (IO.StaticReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_12.cs,78,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_12.cs","
    68 |   data = ""foo"";
@@ -748,7 +748,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    87 |
    88 | ring data;
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_13.cs,79,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_13.cs","
    69 |   data = null;
@@ -773,7 +773,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    88 | ring data;
    89 |  (IO.STATIC_READONLY_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_14.cs,79,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_14.cs","
    69 |   data = null;
@@ -798,7 +798,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    88 | ring data;
    89 |  (IO.staticFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_15.cs,80,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_15.cs","
    70 |   break;
@@ -823,7 +823,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    89 | ring data = null;
    90 | itch (5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_16.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_16.cs","
    64 |   break;
@@ -848,7 +848,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    83 | ring data;
    84 | ile (true)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_17.cs,72,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_17.cs","
    62 | nt i = 0; i < 1; i++)
@@ -873,7 +873,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    81 | id GoodG2B()
    82 |
       ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_31.cs,77,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Database_31.cs","
    67 |
@@ -898,7 +898,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Databas
    86 | B();
    87 |
       ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_01.cs,44,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_01.cs","
   34 |  POTENTIAL FLAW: Read data from an environment variable */
@@ -923,7 +923,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
   53 |
   54 |
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_02.cs,53,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_02.cs","
    43 |   data = null;
@@ -948,7 +948,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
    62 | ring data;
    63 |  (false)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_03.cs,53,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_03.cs","
    43 |   data = null;
@@ -973,7 +973,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
    62 | ring data;
    63 |  (5 != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_04.cs,60,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_04.cs","
    50 |   data = null;
@@ -998,7 +998,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
    69 | ring data;
    70 |  (PRIVATE_CONST_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_05.cs,60,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_05.cs","
    50 |   data = null;
@@ -1023,7 +1023,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
    69 | ring data;
    70 |  (privateFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_06.cs,59,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_06.cs","
    49 |   data = null;
@@ -1048,7 +1048,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
    68 | ring data;
    69 |  (PRIVATE_CONST_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_07.cs,59,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_07.cs","
    49 |   data = null;
@@ -1073,7 +1073,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
    68 | ring data;
    69 |  (privateFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_08.cs,67,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_08.cs","
    57 |   data = null;
@@ -1098,7 +1098,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
    76 | ring data;
    77 |  (PrivateReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_09.cs,53,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_09.cs","
    43 |   data = null;
@@ -1123,7 +1123,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
    62 | ring data;
    63 |  (IO.STATIC_READONLY_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_10.cs,53,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_10.cs","
    43 |   data = null;
@@ -1148,7 +1148,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
    62 | ring data;
    63 |  (IO.staticFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_11.cs,53,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_11.cs","
    43 |   data = null;
@@ -1173,7 +1173,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
    62 | ring data;
    63 |  (IO.StaticReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_12.cs,52,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_12.cs","
   42 |   data = ""foo"";
@@ -1198,7 +1198,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
   61 |
   62 | ring data;
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_13.cs,53,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_13.cs","
    43 |   data = null;
@@ -1223,7 +1223,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
    62 | ring data;
    63 |  (IO.STATIC_READONLY_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_14.cs,53,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_14.cs","
    43 |   data = null;
@@ -1248,7 +1248,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
    62 | ring data;
    63 |  (IO.staticFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_15.cs,54,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_15.cs","
    44 |   break;
@@ -1273,7 +1273,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
    63 | ring data = null;
    64 | itch (5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_16.cs,48,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_16.cs","
   38 |   break;
@@ -1298,7 +1298,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
   57 | ring data;
   58 | ile (true)
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_17.cs,46,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_17.cs","
   36 | nt i = 0; i < 1; i++)
@@ -1323,7 +1323,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
   55 | id GoodG2B()
   56 |
      ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_31.cs,51,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environment_31.cs","
   41 |
@@ -1348,7 +1348,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Environ
   60 | B();
   61 |
      ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_01.cs,52,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_01.cs","
   42 |   }
@@ -1373,7 +1373,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
   61 |
   62 |
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_02.cs,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_02.cs","
    51 |   data = null;
@@ -1398,7 +1398,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    70 | ring data;
    71 |  (false)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_03.cs,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_03.cs","
    51 |   data = null;
@@ -1423,7 +1423,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    70 | ring data;
    71 |  (5 != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_04.cs,68,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_04.cs","
    58 |   data = null;
@@ -1448,7 +1448,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    77 | ring data;
    78 |  (PRIVATE_CONST_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_05.cs,68,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_05.cs","
    58 |   data = null;
@@ -1473,7 +1473,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    77 | ring data;
    78 |  (privateFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_06.cs,67,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_06.cs","
    57 |   data = null;
@@ -1498,7 +1498,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    76 | ring data;
    77 |  (PRIVATE_CONST_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_07.cs,67,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_07.cs","
    57 |   data = null;
@@ -1523,7 +1523,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    76 | ring data;
    77 |  (privateFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_08.cs,75,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_08.cs","
    65 |   data = null;
@@ -1548,7 +1548,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    84 | ring data;
    85 |  (PrivateReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_09.cs,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_09.cs","
    51 |   data = null;
@@ -1573,7 +1573,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    70 | ring data;
    71 |  (IO.STATIC_READONLY_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_10.cs,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_10.cs","
    51 |   data = null;
@@ -1598,7 +1598,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    70 | ring data;
    71 |  (IO.staticFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_11.cs,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_11.cs","
    51 |   data = null;
@@ -1623,7 +1623,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    70 | ring data;
    71 |  (IO.StaticReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_12.cs,60,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_12.cs","
    50 |   data = ""foo"";
@@ -1648,7 +1648,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    69 |
    70 | ring data;
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_13.cs,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_13.cs","
    51 |   data = null;
@@ -1673,7 +1673,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    70 | ring data;
    71 |  (IO.STATIC_READONLY_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_14.cs,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_14.cs","
    51 |   data = null;
@@ -1698,7 +1698,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    70 | ring data;
    71 |  (IO.staticFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_15.cs,62,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_15.cs","
    52 |   break;
@@ -1723,7 +1723,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    71 | ring data = null;
    72 | itch (5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_16.cs,56,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_16.cs","
   46 |   break;
@@ -1748,7 +1748,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
   65 | ring data;
   66 | ile (true)
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_17.cs,54,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_17.cs","
   44 | nt i = 0; i < 1; i++)
@@ -1773,7 +1773,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
   63 | id GoodG2B(HttpRequest req, HttpResponse resp)
   64 |
      ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_21.cs,47,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_21.cs","
    37 | dPrivate = true;
@@ -1798,7 +1798,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
    56 |
    57 |   data = """"; /* initialize data in case there are no cookies */
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_31.cs,59,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_31.cs","
   49 |
@@ -1823,7 +1823,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
   68 | B(req, resp);
   69 |
      ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_42.cs,58,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_42.cs","
   48 |
@@ -1848,7 +1848,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Coo
   67 |  FIX: Use a hardcoded string */
   68 | ta = ""foo"";
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_01.cs,82,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_01.cs","
    72 |   }
@@ -1873,7 +1873,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
    91 |
    92 |
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_02.cs,91,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_02.cs","
    81 |   data = null;
@@ -1898,7 +1898,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
   100 | ring data;
   101 |  (false)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_03.cs,91,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_03.cs","
    81 |   data = null;
@@ -1923,7 +1923,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
   100 | ring data;
   101 |  (5 != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_04.cs,98,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_04.cs","
    88 |   data = null;
@@ -1948,7 +1948,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
   107 | ring data;
   108 |  (PRIVATE_CONST_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_05.cs,98,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_05.cs","
    88 |   data = null;
@@ -1973,7 +1973,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
   107 | ring data;
   108 |  (privateFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_06.cs,97,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_06.cs","
    87 |   data = null;
@@ -1998,7 +1998,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
   106 | ring data;
   107 |  (PRIVATE_CONST_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_07.cs,97,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_07.cs","
    87 |   data = null;
@@ -2023,7 +2023,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
   106 | ring data;
   107 |  (privateFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_08.cs,105,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_08.cs","
    95 |   data = null;
@@ -2048,7 +2048,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
   114 | ring data;
   115 |  (PrivateReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_09.cs,91,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_09.cs","
    81 |   data = null;
@@ -2073,7 +2073,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
   100 | ring data;
   101 |  (IO.STATIC_READONLY_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_10.cs,91,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_10.cs","
    81 |   data = null;
@@ -2098,7 +2098,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
   100 | ring data;
   101 |  (IO.staticFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_11.cs,91,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_11.cs","
    81 |   data = null;
@@ -2123,7 +2123,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
   100 | ring data;
   101 |  (IO.StaticReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_12.cs,90,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_12.cs","
    80 |   data = ""foo"";
@@ -2148,7 +2148,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
    99 |
   100 | ring data;
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_13.cs,91,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_13.cs","
    81 |   data = null;
@@ -2173,7 +2173,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
   100 | ring data;
   101 |  (IO.STATIC_READONLY_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_14.cs,91,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_14.cs","
    81 |   data = null;
@@ -2198,7 +2198,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
   100 | ring data;
   101 |  (IO.staticFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_15.cs,92,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_15.cs","
    82 |   break;
@@ -2223,7 +2223,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
   101 | ring data = null;
   102 | itch (5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_16.cs,86,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_16.cs","
    76 |   break;
@@ -2248,7 +2248,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
    95 | ring data;
    96 | ile (true)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_17.cs,84,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_17.cs","
    74 | nt i = 0; i < 1; i++)
@@ -2273,7 +2273,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
    93 | id GoodG2B()
    94 |
       ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_31.cs,89,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_tcp_31.cs","
    79 |
@@ -2298,7 +2298,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Listen_
    98 | B();
    99 |
       ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_01.cs,65,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_01.cs","
   55 |   }
@@ -2323,7 +2323,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
   74 |
   75 |
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_02.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_02.cs","
    64 |   data = null;
@@ -2348,7 +2348,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    83 | ring data;
    84 |  (false)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_03.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_03.cs","
    64 |   data = null;
@@ -2373,7 +2373,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    83 | ring data;
    84 |  (5 != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_04.cs,81,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_04.cs","
    71 |   data = null;
@@ -2398,7 +2398,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    90 | ring data;
    91 |  (PRIVATE_CONST_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_05.cs,81,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_05.cs","
    71 |   data = null;
@@ -2423,7 +2423,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    90 | ring data;
    91 |  (privateFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_06.cs,80,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_06.cs","
    70 |   data = null;
@@ -2448,7 +2448,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    89 | ring data;
    90 |  (PRIVATE_CONST_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_07.cs,80,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_07.cs","
    70 |   data = null;
@@ -2473,7 +2473,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    89 | ring data;
    90 |  (privateFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_08.cs,88,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_08.cs","
    78 |   data = null;
@@ -2498,7 +2498,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    97 | ring data;
    98 |  (PrivateReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_09.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_09.cs","
    64 |   data = null;
@@ -2523,7 +2523,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    83 | ring data;
    84 |  (IO.STATIC_READONLY_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_10.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_10.cs","
    64 |   data = null;
@@ -2548,7 +2548,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    83 | ring data;
    84 |  (IO.staticFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_11.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_11.cs","
    64 |   data = null;
@@ -2573,7 +2573,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    83 | ring data;
    84 |  (IO.StaticReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_12.cs,73,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_12.cs","
    63 |   data = ""foo"";
@@ -2598,7 +2598,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    82 |
    83 | ring data;
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_13.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_13.cs","
    64 |   data = null;
@@ -2623,7 +2623,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    83 | ring data;
    84 |  (IO.STATIC_READONLY_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_14.cs,74,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_14.cs","
    64 |   data = null;
@@ -2648,7 +2648,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    83 | ring data;
    84 |  (IO.staticFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_15.cs,75,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_15.cs","
    65 |   break;
@@ -2673,7 +2673,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    84 | ring data = null;
    85 | itch (5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_16.cs,69,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_16.cs","
    59 |   break;
@@ -2698,7 +2698,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    78 | ring data;
    79 | ile (true)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_17.cs,67,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_17.cs","
    57 | nt i = 0; i < 1; i++)
@@ -2723,7 +2723,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    76 | id GoodG2B()
    77 |
       ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_31.cs,72,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClient_31.cs","
    62 |
@@ -2748,7 +2748,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__NetClie
    81 | B();
    82 |
       ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_01.cs,44,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_01.cs","
   34 |  POTENTIAL FLAW: Read data from a querystring using Params.Get */
@@ -2773,7 +2773,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
   53 |
   54 |
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_02.cs,53,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_02.cs","
    43 |   data = null;
@@ -2798,7 +2798,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
    62 | ring data;
    63 |  (false)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_03.cs,53,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_03.cs","
    43 |   data = null;
@@ -2823,7 +2823,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
    62 | ring data;
    63 |  (5 != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_04.cs,60,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_04.cs","
    50 |   data = null;
@@ -2848,7 +2848,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
    69 | ring data;
    70 |  (PRIVATE_CONST_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_05.cs,60,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_05.cs","
    50 |   data = null;
@@ -2873,7 +2873,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
    69 | ring data;
    70 |  (privateFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_06.cs,59,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_06.cs","
    49 |   data = null;
@@ -2898,7 +2898,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
    68 | ring data;
    69 |  (PRIVATE_CONST_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_07.cs,59,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_07.cs","
    49 |   data = null;
@@ -2923,7 +2923,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
    68 | ring data;
    69 |  (privateFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_08.cs,67,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_08.cs","
    57 |   data = null;
@@ -2948,7 +2948,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
    76 | ring data;
    77 |  (PrivateReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_09.cs,53,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_09.cs","
    43 |   data = null;
@@ -2973,7 +2973,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
    62 | ring data;
    63 |  (IO.STATIC_READONLY_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_10.cs,53,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_10.cs","
    43 |   data = null;
@@ -2998,7 +2998,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
    62 | ring data;
    63 |  (IO.staticFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_11.cs,53,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_11.cs","
    43 |   data = null;
@@ -3023,7 +3023,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
    62 | ring data;
    63 |  (IO.StaticReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_12.cs,52,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_12.cs","
   42 |   data = ""foo"";
@@ -3048,7 +3048,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
   61 |
   62 | ring data;
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_13.cs,53,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_13.cs","
    43 |   data = null;
@@ -3073,7 +3073,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
    62 | ring data;
    63 |  (IO.STATIC_READONLY_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_14.cs,53,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_14.cs","
    43 |   data = null;
@@ -3098,7 +3098,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
    62 | ring data;
    63 |  (IO.staticFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_15.cs,54,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_15.cs","
    44 |   break;
@@ -3123,7 +3123,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
    63 | ring data = null;
    64 | itch (5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_16.cs,48,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_16.cs","
   38 |   break;
@@ -3148,7 +3148,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
   57 | ring data;
   58 | ile (true)
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_17.cs,46,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_17.cs","
   36 | nt i = 0; i < 1; i++)
@@ -3173,7 +3173,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
   55 | id GoodG2B(HttpRequest req, HttpResponse resp)
   56 |
      ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_21.cs,47,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_21.cs","
    37 | dPrivate = true;
@@ -3198,7 +3198,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
    56 |
    57 |   /* POTENTIAL FLAW: Read data from a querystring using Params.Get */
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_31.cs,51,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_31.cs","
   41 |
@@ -3223,7 +3223,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
   60 | B(req, resp);
   61 |
      ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_42.cs,50,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_42.cs","
   40 |
@@ -3248,7 +3248,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_
   59 |  FIX: Use a hardcoded string */
   60 | ta = ""foo"";
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_01.cs,50,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_01.cs","
   40 |   }
@@ -3273,7 +3273,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
   59 |
   60 |
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_02.cs,59,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_02.cs","
    49 |   data = null;
@@ -3298,7 +3298,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
    68 | ring data;
    69 |  (false)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_03.cs,59,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_03.cs","
    49 |   data = null;
@@ -3323,7 +3323,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
    68 | ring data;
    69 |  (5 != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_04.cs,66,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_04.cs","
    56 |   data = null;
@@ -3348,7 +3348,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
    75 | ring data;
    76 |  (PRIVATE_CONST_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_05.cs,66,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_05.cs","
    56 |   data = null;
@@ -3373,7 +3373,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
    75 | ring data;
    76 |  (privateFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_06.cs,65,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_06.cs","
    55 |   data = null;
@@ -3398,7 +3398,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
    74 | ring data;
    75 |  (PRIVATE_CONST_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_07.cs,65,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_07.cs","
    55 |   data = null;
@@ -3423,7 +3423,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
    74 | ring data;
    75 |  (privateFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_08.cs,73,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_08.cs","
    63 |   data = null;
@@ -3448,7 +3448,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
    82 | ring data;
    83 |  (PrivateReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_09.cs,59,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_09.cs","
    49 |   data = null;
@@ -3473,7 +3473,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
    68 | ring data;
    69 |  (IO.STATIC_READONLY_FALSE)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_10.cs,59,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_10.cs","
    49 |   data = null;
@@ -3498,7 +3498,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
    68 | ring data;
    69 |  (IO.staticFalse)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_11.cs,59,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_11.cs","
    49 |   data = null;
@@ -3523,7 +3523,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
    68 | ring data;
    69 |  (IO.StaticReturnsFalse())
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_12.cs,58,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_12.cs","
   48 |   data = ""foo"";
@@ -3548,7 +3548,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
   67 |
   68 | ring data;
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_13.cs,59,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_13.cs","
    49 |   data = null;
@@ -3573,7 +3573,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
    68 | ring data;
    69 |  (IO.STATIC_READONLY_FIVE != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_14.cs,59,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_14.cs","
    49 |   data = null;
@@ -3598,7 +3598,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
    68 | ring data;
    69 |  (IO.staticFive != 5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_15.cs,60,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_15.cs","
    50 |   break;
@@ -3623,7 +3623,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
    69 | ring data = null;
    70 | itch (5)
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_16.cs,54,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_16.cs","
   44 |   break;
@@ -3648,7 +3648,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
   63 | ring data;
   64 | ile (true)
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_17.cs,52,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_17.cs","
   42 | nt i = 0; i < 1; i++)
@@ -3673,7 +3673,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
   61 | id GoodG2B(HttpRequest req, HttpResponse resp)
   62 |
      ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_21.cs,47,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_21.cs","
    37 | dPrivate = true;
@@ -3698,7 +3698,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
    56 |
    57 |   data = """"; /* initialize data in case id is not in query string */
       ^ Col 10
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_31.cs,57,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_31.cs","
   47 |
@@ -3723,7 +3723,7 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
   66 | B(req, resp);
   67 |
      ^ Col 14
-"
+",get_vulnerabilities_from_syntax
 F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_42.cs,56,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_42.cs","
   46 |
@@ -3748,4 +3748,4 @@ F107,lines,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QuerySt
   65 |  FIX: Use a hardcoded string */
   66 | ta = ""foo"";
      ^ Col 10
-"
+",get_vulnerabilities_from_syntax

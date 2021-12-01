@@ -1,4 +1,4 @@
-finding,kind,what,where,cwe,stream,title,description,snippet
+finding,kind,what,where,cwe,stream,title,description,snippet,method
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test019.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test019.js,"
    1 | import { Router } from ""express"";
    2 | var router = Router();
@@ -20,7 +20,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test019.js,9,22,skims,063. 
   18 |
   19 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test020.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test020.js,"
    1 | var express = require(""express"");
    2 | var router = express.Router();
@@ -42,7 +42,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test020.js,9,22,skims,063. 
   18 |
   19 | module.exports = router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test021.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test021.js,"
    1 | var express = require(""express"");
    2 | var router = express.Router();
@@ -64,7 +64,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test021.js,9,22,skims,063. 
   18 |
   19 | module.exports = router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test022.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test022.js,"
    1 | var express = require(""express"");
    2 | var router = express.Router();
@@ -86,7 +86,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test022.js,9,22,skims,063. 
   18 |
   19 | module.exports = router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test023.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test023.js,"
    1 | var express = require(""express"");
    2 | var router = express.Router();
@@ -108,7 +108,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test023.js,9,22,skims,063. 
   18 |
   19 | module.exports = router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test024.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test024.js,"
    4 |
    5 | router.get(""/test024/"", function (req, res) {
@@ -132,7 +132,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test024.js,14,22,skims,063.
   23 |
   24 | module.exports = router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test025.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test025.js,"
    1 | import { Router } from ""express"";
    2 | var router = Router();
@@ -155,7 +155,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test025.js,10,22,skims,063.
   19 |
   20 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test026.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test026.js,"
    1 | var express = require(""express"");
    2 | var router = express.Router();
@@ -178,7 +178,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test026.js,10,22,skims,063.
   19 |
   20 | module.exports = router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test027.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test027.js,"
    1 | import { Router } from ""express"";
    2 | var router = Router();
@@ -201,7 +201,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test027.js,10,22,skims,063.
   19 |
   20 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test029.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test029.js,"
    5 |
    6 | router.delete(""/test029/:user/:fileName"", function (req, res) {
@@ -225,7 +225,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test029.js,15,22,skims,063.
   24 |   }
   25 |   res.send(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test030.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test030.js,"
    5 |
    6 | router.delete(""/test030/:user/:fileName"", function (req, res) {
@@ -249,7 +249,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test030.js,15,22,skims,063.
   24 |   }
   25 |   res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test031.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test031.js,"
    5 |
    6 | router.delete(""/test031/:user/:fileName"", function (req, res) {
@@ -273,7 +273,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test031.js,15,22,skims,063.
   24 |   }
   25 |   res.send(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test032.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test032.js,"
    6 | router.delete(""/test032/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -297,7 +297,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test032.js,16,22,skims,063.
   25 |     ];
   26 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test033.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test033.js,"
    5 |
    6 | router.delete(""/test033/:user/:fileName"", function (req, res) {
@@ -321,7 +321,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test033.js,15,22,skims,063.
   24 |   }
   25 |   res.send(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test034.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test034.js,"
    5 |
    6 | router.delete(""/test034/:user/:fileName"", function (req, res) {
@@ -345,7 +345,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test034.js,15,22,skims,063.
   24 |   }
   25 |   res.send(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test035.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test035.js,"
    5 |
    6 | router.delete(""/test035/:user/:fileName"", function (req, res) {
@@ -369,7 +369,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test035.js,15,22,skims,063.
   24 |   }
   25 |   res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test036.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test036.js,"
    5 |
    6 | router.delete(""/test036/:user/:fileName"", function (req, res) {
@@ -393,7 +393,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test036.js,15,22,skims,063.
   24 |   }
   25 |   res.send(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test037.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test037.js,"
    6 | router.delete(""/test037/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -417,7 +417,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test037.js,16,22,skims,063.
   25 |     ];
   26 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test038.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test038.js,"
    6 | router.get(""/test038"", function (req, res) {
    7 |   let body = req.body;
@@ -441,7 +441,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test038.js,16,22,skims,063.
   25 |   }
   26 |   res.send(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test039.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test039.js,"
    4 |
    5 | router.delete(""/test039/:user/:fileName"", function (req, res) {
@@ -465,7 +465,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test039.js,14,22,skims,063.
   23 |   }
   24 |   res.send(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test040.js,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test040.js,"
    3 | const fs = require(""fs"");
    4 |
@@ -489,7 +489,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test040.js,13,22,skims,063.
   22 |   }
   23 |   res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test041.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test041.js,"
    5 |
    6 | router.delete(""/test041/:user/:fileName"", function (req, res) {
@@ -513,7 +513,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test041.js,15,22,skims,063.
   24 |   }
   25 |   res.send(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test042.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test042.js,"
    4 |
    5 | router.delete(""/test042/:user/:fileName"", function (req, res) {
@@ -537,7 +537,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test042.js,14,22,skims,063.
   23 |     ];
   24 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test043.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test043.js,"
    4 | const path = require(""path"");
    5 |
@@ -561,7 +561,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test043.js,14,22,skims,063.
   23 |   }
   24 |   res.send(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test044.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test044.js,"
    5 |
    6 | router.delete(""/test044/:user/:fileName"", function (req, res) {
@@ -585,7 +585,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test044.js,15,22,skims,063.
   24 |       }
   25 |       res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test045.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test045.js,"
    4 | const path = require(""path"");
    5 |
@@ -609,7 +609,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test045.js,14,22,skims,063.
   23 |     }
   24 |     res.send(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test046.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test046.js,"
    4 | var router = Router();
    5 |
@@ -633,7 +633,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test046.js,14,22,skims,063.
   23 |     }
   24 |     res.send(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test047.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test047.js,"
    4 | var router = Router();
    5 |
@@ -657,7 +657,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test047.js,14,22,skims,063.
   23 |     }
   24 |     res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test048.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test048.js,"
    4 | var router = Router();
    5 |
@@ -681,7 +681,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test048.js,14,22,skims,063.
   23 |     }
   24 |     res.send(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test049.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test049.js,"
    5 |
    6 | router.delete(""/test049/:user/:fileName"", function (req, res) {
@@ -705,7 +705,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test049.js,15,22,skims,063.
   24 |       }
   25 |       res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test050.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test050.js,"
    8 |
    9 |   let user = body.user;
@@ -729,7 +729,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test050.js,18,22,skims,063.
   27 |   }
   28 |   res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test051.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test051.js,"
    7 |   let body = req.body;
    8 |
@@ -753,7 +753,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test051.js,17,22,skims,063.
   26 |       {
   27 |         message: error,
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test053.js,19,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test053.js,"
    9 |   let user = body.user;
   10 |   let file = body.fileName;
@@ -777,7 +777,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test053.js,19,22,skims,063.
   28 |     }
   29 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test054.js,19,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test054.js,"
    9 |   let user = body.user;
   10 |   let file = body.fileName;
@@ -801,7 +801,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test054.js,19,22,skims,063.
   28 |   }
   29 |   res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test055.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test055.js,"
    8 |
    9 |   let user = body.user;
@@ -825,7 +825,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test055.js,18,22,skims,063.
   27 |   }
   28 |   res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test056.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test056.js,"
    7 |   let body = req.body;
    8 |
@@ -849,7 +849,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test056.js,17,22,skims,063.
   26 |     }
   27 |     res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test057.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test057.js,"
    7 |   let body = req.body;
    8 |
@@ -873,7 +873,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test057.js,17,22,skims,063.
   26 |           {
   27 |             message: error,
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test059.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test059.js,"
    8 |
    9 |   let user = body.user;
@@ -897,7 +897,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test059.js,18,22,skims,063.
   27 |       }
   28 |       res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test060.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test060.js,"
    7 |   let body = req.body;
    8 |
@@ -921,7 +921,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test060.js,17,22,skims,063.
   26 |     }
   27 |     res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test061.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test061.js,"
    7 |   let body = req.body;
    8 |
@@ -945,7 +945,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test061.js,17,22,skims,063.
   26 |     }
   27 |     res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test062.js,21,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test062.js,"
   11 |
   12 |   let userFiles = ""./target/user_files/"";
@@ -969,7 +969,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test062.js,21,22,skims,063.
   30 |       }
   31 |       res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test063.js,"
   10 |   let payload = body.payload;
   11 |
@@ -993,7 +993,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,20,22,skims,063.
   29 |             {
   30 |               message: error,
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,24,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test063.js,"
   14 |   let result = {
   15 |     ok: false,
@@ -1017,7 +1017,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,24,22,skims,063.
   33 |         } else {
   34 |           res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test070.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test070.js,"
    1 | var express = require(""express"");
    2 | var router = express.Router();
@@ -1041,7 +1041,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test070.js,10,22,skims,063.
   20 |       error: ""file does not exists "",
   21 |     });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test072.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test072.js,"
   10 |   let payload = body.payload;
   11 |
@@ -1065,7 +1065,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test072.js,20,22,skims,063.
   29 |       } else {
   30 |         res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test073.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test073.js,"
    6 |   var user = req.params[""user""];
    7 |   var bar = ""alsosafe"";
@@ -1089,7 +1089,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test073.js,16,22,skims,063.
   25 | });
   26 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test075.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test075.js,"
   10 |   let list75 = [""safe"", ""safe"", _user, _fileName];
   11 |   list75.shift();
@@ -1113,7 +1113,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test075.js,20,22,skims,063.
   29 |     }
   30 |     res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test076.js,23,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test076.js,"
   13 |   list76A.push(""safe"");
   14 |   list76B.pop();
@@ -1137,7 +1137,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test076.js,23,22,skims,063.
   32 |     }
   33 |     res.json(result);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test110.js,8,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test110.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
@@ -1161,7 +1161,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test110.js,8,310 + 327,skim
   20 |   cipher.on(""end"", () => {
   21 |     res.json({ encrypted: encrypted });
      ^ Col 0
-"
+",_test_native_cipher
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test115.js,11,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test115.js,"
    1 | import { Router } from ""express"";
    2 | var CryptoJS = require(""crypto-js"");
@@ -1179,7 +1179,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test115.js,11,310 + 327,ski
   14 |
   15 | export default router;
      ^ Col 0
-"
+",_test_crypto_js
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test116.js,11,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test116.js,"
    1 | import { Router } from ""express"";
    2 | var CryptoJS = require(""crypto-js"");
@@ -1197,7 +1197,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test116.js,11,310 + 327,ski
   14 |
   15 | export default router;
      ^ Col 0
-"
+",_test_crypto_js
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test137.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test137.js,"
    1 | import { Router } from ""express"";
    2 | const { createHash } = require(""crypto"");
@@ -1219,7 +1219,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test137.js,7,310 + 327,skim
   18 |
   19 | export default router;
      ^ Col 0
-"
+",find_vulns
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test138.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test138.js,"
    1 | import { Router } from ""express"";
    2 | const crypto = require(""crypto"");
@@ -1241,7 +1241,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test138.js,7,310 + 327,skim
   18 |
   19 | export default router;
      ^ Col 0
-"
+",find_vulns
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test139.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test139.js,"
    1 | import { Router } from ""express"";
    2 | const crypto = require(""crypto"");
@@ -1263,7 +1263,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test139.js,7,310 + 327,skim
   18 |
   19 | export default router;
      ^ Col 0
-"
+",find_vulns
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test140.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test140.js,"
    1 | import { Router } from ""express"";
    2 | const crypto = require(""crypto"");
@@ -1285,7 +1285,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test140.js,7,310 + 327,skim
   18 |
   19 | export default router;
      ^ Col 0
-"
+",find_vulns
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test125.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test125.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
@@ -1299,7 +1299,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test125.js,6,310 + 327,skim
   10 |
   11 | export default router;
      ^ Col 0
-"
+",find_vulns
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test126.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test126.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
@@ -1313,7 +1313,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test126.js,6,310 + 327,skim
   10 |
   11 | export default router;
      ^ Col 0
-"
+",find_vulns
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test127.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test127.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
@@ -1327,7 +1327,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test127.js,6,310 + 327,skim
   10 |
   11 | export default router;
      ^ Col 0
-"
+",find_vulns
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test128.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test128.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
@@ -1341,7 +1341,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test128.js,6,310 + 327,skim
   10 |
   11 | export default router;
      ^ Col 0
-"
+",find_vulns
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test129.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test129.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
@@ -1355,7 +1355,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test129.js,6,310 + 327,skim
   10 |
   11 | export default router;
      ^ Col 0
-"
+",find_vulns
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test104.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test104.js","
    1 | import { Router } from ""express"";
@@ -1380,7 +1380,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test104.js,9,328,skims,052.
   20 |   });
   21 |   cipher.on(""end"", () => {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test105.js,10,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test105.js","
    1 | import { Router } from ""express"";
@@ -1405,7 +1405,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test105.js,10,328,skims,052
   20 |     }
   21 |   });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test106.js,10,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test106.js","
    1 | import { Router } from ""express"";
@@ -1430,7 +1430,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test106.js,10,328,skims,052
   20 |     }
   21 |   });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test107.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test107.js","
    1 | import { Router } from ""express"";
@@ -1455,7 +1455,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test107.js,9,328,skims,052.
   20 |   });
   21 |   cipher.on(""end"", () => {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test108.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test108.js","
    1 | import { Router } from ""express"";
@@ -1480,7 +1480,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test108.js,9,328,skims,052.
   20 |   });
   21 |   cipher.on(""end"", () => {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test109.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test109.js","
    1 | import { Router } from ""express"";
@@ -1505,7 +1505,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test109.js,9,328,skims,052.
   20 |   });
   21 |   cipher.on(""end"", () => {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test111.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test111.js","
    1 | import { Router } from ""express"";
@@ -1530,7 +1530,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test111.js,9,328,skims,052.
   20 |   });
   21 |   cipher.on(""end"", () => {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test112.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test112.js","
    1 | import { Router } from ""express"";
@@ -1555,7 +1555,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test112.js,9,328,skims,052.
   20 |   });
   21 |   cipher.on(""end"", () => {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test117.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test117.js","
    1 | import { Router } from ""express"";
@@ -1580,7 +1580,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test117.js,9,328,skims,052.
   20 |   });
   21 |   cipher.on(""end"", () => {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test118.js,10,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test118.js","
    1 | import { Router } from ""express"";
@@ -1605,7 +1605,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test118.js,10,328,skims,052
   20 |     }
   21 |   });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test119.js,11,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test119.js","
    1 | import { Router } from ""express"";
@@ -1627,7 +1627,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test119.js,11,328,skims,052
   17 |
   18 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test120.js,11,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test120.js","
    1 | import { Router } from ""express"";
@@ -1649,7 +1649,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test120.js,11,328,skims,052
   17 |
   18 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test121.js,6,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test121.js","
    1 | import { Router } from ""express"";
@@ -1674,7 +1674,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test121.js,6,328,skims,052.
   20 |     },
   21 |     (err, publicKey, privateKey) => {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test130.js,19,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test130.js","
    5 | router.get(""/test130"", function (req, res) {
@@ -1699,7 +1699,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test130.js,19,328,skims,052
   24 |
   25 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test131.js,19,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test131.js","
    5 | router.get(""/test131"", function (req, res) {
@@ -1724,7 +1724,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test131.js,19,328,skims,052
   24 |
   25 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test132.js,17,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test132.js","
    3 | const { generateKeyPair } = require(""crypto"");
@@ -1749,7 +1749,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test132.js,17,328,skims,052
   22 |
   23 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test133.js,6,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test133.js","
    1 | import { Router } from ""express"";
@@ -1774,7 +1774,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test133.js,6,328,skims,052.
   20 |       if (err) console.log(""Error!"", err);
   21 |       res.send(publicKey);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test134.js,6,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test134.js","
    1 | import { Router } from ""express"";
@@ -1799,7 +1799,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test134.js,6,328,skims,052.
   20 |       if (err) console.log(""Error!"", err);
   21 |       res.send(publicKey);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test136.js,11,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in VULNERABLE_JS_APP/server/routes/testcases/test136.js","
    1 | import { Router } from ""express"";
@@ -1821,7 +1821,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test136.js,11,328,skims,052
   17 |
   18 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test148.js,6,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
  in VULNERABLE_JS_APP/server/routes/testcases/test148.js","
    1 | import { Router } from ""express"";
@@ -1835,7 +1835,7 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test148.js,6,330,skims,034.
    9 |
   10 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test151.js,13,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
  in VULNERABLE_JS_APP/server/routes/testcases/test151.js","
    1 | import { Router } from ""express"";
@@ -1856,7 +1856,7 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test151.js,13,330,skims,034
   16 |
   17 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test152.js,13,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
  in VULNERABLE_JS_APP/server/routes/testcases/test152.js","
    1 | import { Router } from ""express"";
@@ -1877,7 +1877,7 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test152.js,13,330,skims,034
   16 |
   17 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test154.js,16,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
  in VULNERABLE_JS_APP/server/routes/testcases/test154.js","
    1 | import { Router } from ""express"";
@@ -1901,7 +1901,7 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test154.js,16,330,skims,034
   19 |
   20 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test155.js,7,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
  in VULNERABLE_JS_APP/server/routes/testcases/test155.js","
    1 | import { Router } from ""express"";
@@ -1916,7 +1916,7 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test155.js,7,330,skims,034.
   10 |
   11 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test097.js,6,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
  in VULNERABLE_JS_APP/server/routes/testcases/test097.js","
    1 | import { Router } from ""express"";
@@ -1940,7 +1940,7 @@ F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test097.js,6,614,skims,042.
   19 |
   20 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test098.js,10,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
  in VULNERABLE_JS_APP/server/routes/testcases/test098.js","
    1 | import { Router } from ""express"";
@@ -1965,7 +1965,7 @@ F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test098.js,10,614,skims,042
   20 |         <h1>Hello Jane Doe</h1>
   21 |       </body>
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test099.js,6,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
  in VULNERABLE_JS_APP/server/routes/testcases/test099.js","
    1 | import { Router } from ""express"";
@@ -1989,7 +1989,7 @@ F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test099.js,6,614,skims,042.
   19 |
   20 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test100.js,9,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
  in VULNERABLE_JS_APP/server/routes/testcases/test100.js","
    1 | import { Router } from ""express"";
@@ -2014,7 +2014,7 @@ F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test100.js,9,614,skims,042.
   20 |   );
   21 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test142.js,20,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in VULNERABLE_JS_APP/server/routes/testcases/test142.js","
    8 |   let userData = req.body;
@@ -2039,7 +2039,7 @@ F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test142.js,20,643,skims,021
   27 |
   28 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test143.js,21,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in VULNERABLE_JS_APP/server/routes/testcases/test143.js","
    9 |
@@ -2064,7 +2064,7 @@ F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test143.js,21,643,skims,021
   28 |
   29 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test145.js,20,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in VULNERABLE_JS_APP/server/routes/testcases/test145.js","
    8 |   let userData = req.body;
@@ -2089,7 +2089,7 @@ F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test145.js,20,643,skims,021
   27 |
   28 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test146.js,21,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in VULNERABLE_JS_APP/server/routes/testcases/test146.js","
   11 |   let password = userData.password;
@@ -2114,7 +2114,7 @@ F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test146.js,21,643,skims,021
   30 | });
   31 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test001.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test001.js","
    1 | import { exec } from ""child_process"";
@@ -2139,7 +2139,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test001.js,7,78,skims,004. 
   20 | });
   21 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test003.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test003.js","
    1 | const { exec } = require(""child_process"");
@@ -2164,7 +2164,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test003.js,7,78,skims,004. 
   20 | });
   21 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test004.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test004.js","
    1 | import { exec } from ""child_process"";
@@ -2189,7 +2189,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test004.js,7,78,skims,004. 
   20 | });
   21 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test005.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test005.js","
    1 | const process = require(""child_process"");
@@ -2214,7 +2214,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test005.js,7,78,skims,004. 
   20 |       res.json(data);
   21 |     }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test007.js,8,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test007.js","
    1 | const process = require(""child_process"");
@@ -2239,7 +2239,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test007.js,8,78,skims,004. 
   20 |       };
   21 |       res.json(data);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test010.js,12,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test010.js","
    2 | var express = require(""express"");
@@ -2264,7 +2264,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test010.js,12,78,skims,004.
   21 |       user_files: user_files,
   22 |     };
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test011.js,13,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test011.js","
    3 | var router = express.Router();
@@ -2289,7 +2289,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test011.js,13,78,skims,004.
   22 |       user_files: user_files,
   23 |     };
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test012.js,9,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test012.js","
    1 | const { exec } = require(""child_process"");
@@ -2314,7 +2314,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test012.js,9,78,skims,004. 
   20 |     });
   21 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test013.js,13,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test013.js","
    3 | var router = express.Router();
@@ -2339,7 +2339,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test013.js,13,78,skims,004.
   22 |       };
   23 |       res.json(data);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test014.js,29,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test014.js","
   19 |       break;
@@ -2364,7 +2364,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test014.js,29,78,skims,004.
   38 |     };
   39 |     res.json(data);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test015.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test015.js","
    1 | import { execSync } from ""child_process"";
@@ -2389,7 +2389,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test015.js,7,78,skims,004. 
   20 | });
   21 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test016.js,28,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test016.js","
   18 |       break;
@@ -2414,7 +2414,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test016.js,28,78,skims,004.
   37 |     };
   38 |     res.json(data);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test017.js,11,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test017.js","
    1 | import { exec } from ""child_process"";
@@ -2439,7 +2439,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test017.js,11,78,skims,004.
   20 |       user_files: user_files,
   21 |     };
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test065.js,17,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test065.js","
    7 |   var parameters = req.params;
@@ -2464,7 +2464,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test065.js,17,78,skims,004.
   26 |       user_files: user_files,
   27 |     };
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test066.js,16,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test066.js","
    6 |   var user = req.params[""user""];
@@ -2489,7 +2489,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test066.js,16,78,skims,004.
   25 |       user_files: user_files,
   26 |     };
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test068.js,10,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test068.js","
    1 | import { exec } from ""child_process"";
@@ -2514,7 +2514,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test068.js,10,78,skims,004.
   20 |     };
   21 |     res.json(data);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test071.js,12,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test071.js","
    2 | import { Router } from ""express"";
@@ -2539,7 +2539,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test071.js,12,78,skims,004.
   21 |       user_files: user_files,
   22 |     };
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test074.js,15,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in VULNERABLE_JS_APP/server/routes/testcases/test074.js","
    5 | router.get(""/test074/:user"", function (req, res) {
@@ -2564,7 +2564,7 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test074.js,15,78,skims,004.
   24 |       user_files: user_files,
   25 |     };
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test077.js,8,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test077.js","
    1 | import { Router } from ""express"";
@@ -2588,7 +2588,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test077.js,8,79,skims,008. 
   19 |
   20 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test078.js,13,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test078.js","
    3 |
@@ -2613,7 +2613,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test078.js,13,79,skims,008.
   22 |   );
   23 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test079.js,18,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test079.js","
    8 |   var string_name = """";
@@ -2638,7 +2638,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test079.js,18,79,skims,008.
   27 |   );
   28 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test080.js,9,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test080.js","
    1 | var express = require(""express"");
@@ -2663,7 +2663,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test080.js,9,79,skims,008. 
   20 |
   21 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test081.js,29,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test081.js","
   19 |     case ""D"":
@@ -2688,7 +2688,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test081.js,29,79,skims,008.
   38 |   );
   39 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test083.js,18,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test083.js","
    8 |   var map64 = {
@@ -2713,7 +2713,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test083.js,18,79,skims,008.
   27 |   );
   28 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test084.js,20,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test084.js","
   10 |     keyB: param,
@@ -2738,7 +2738,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test084.js,20,79,skims,008.
   29 |   );
   30 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test085.js,20,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test085.js","
   10 |   let allowed = [""a"", user];
@@ -2763,7 +2763,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test085.js,20,79,skims,008.
   29 |   );
   30 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test086.js,21,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test086.js","
   11 |   allowed.pop();
@@ -2788,7 +2788,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test086.js,21,79,skims,008.
   30 |   );
   31 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test087.js,12,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test087.js","
    2 | var router = Router();
@@ -2813,7 +2813,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test087.js,12,79,skims,008.
   21 |   );
   22 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test090.js,19,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test090.js","
    9 |   }
@@ -2838,7 +2838,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test090.js,19,79,skims,008.
   28 |   );
   29 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test091.js,13,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test091.js","
    3 |
@@ -2863,7 +2863,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test091.js,13,79,skims,008.
   22 |   );
   23 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test092.js,10,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test092.js","
    1 | import { Router } from ""express"";
@@ -2888,7 +2888,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test092.js,10,79,skims,008.
   20 | });
   21 |
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test093.js,12,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test093.js","
    2 | var router = Router();
@@ -2913,7 +2913,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test093.js,12,79,skims,008.
   21 |   );
   22 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test095.js,30,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in VULNERABLE_JS_APP/server/routes/testcases/test095.js","
   20 |     case ""D"":
@@ -2938,7 +2938,7 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test095.js,30,79,skims,008.
   39 |   );
   40 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test156.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test156.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -2962,7 +2962,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test156.js,23,89,skims,112.
   32 |   );
   33 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test157.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test157.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -2986,7 +2986,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test157.js,23,89,skims,112.
   32 |         res.status(500).json({ error: error });
   33 |       }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test158.js,29,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test158.js,"
   18 |   let userData = req.body;
   19 |
@@ -3010,7 +3010,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test158.js,29,89,skims,112.
   37 |
   38 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test159.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test159.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -3034,7 +3034,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test159.js,23,89,skims,112.
   32 |   );
   33 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test160.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test160.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -3058,7 +3058,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test160.js,23,89,skims,112.
   32 |   );
   33 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test161.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test161.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -3082,7 +3082,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test161.js,23,89,skims,112.
   32 |   );
   33 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test162.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test162.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -3106,7 +3106,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test162.js,23,89,skims,112.
   32 |   );
   33 | });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test163.js,21,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test163.js,"
   11 |
   12 | router.get(""/test163/"", function (req, res) {
@@ -3130,7 +3130,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test163.js,21,89,skims,112.
   30 |     );
   31 |   });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test164.js,25,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test164.js,"
   15 |
   16 | router.get(""/test164/"", function (req, res) {
@@ -3154,7 +3154,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test164.js,25,89,skims,112.
   34 |     );
   35 |   });
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test165.js,24,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test165.js,"
   14 | cluster.add(pool_config);
   15 |
@@ -3178,7 +3178,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test165.js,24,89,skims,112.
   33 |
   34 | export default router;
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test166.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test166.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -3202,7 +3202,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test166.js,23,89,skims,112.
   32 |       res.json({ ok: results.length > 0 });
   33 |     }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test167.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test167.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -3226,4 +3226,4 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test167.js,23,89,skims,112.
   32 |       res.json({ ok: results.length > 0 });
   33 |     }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax

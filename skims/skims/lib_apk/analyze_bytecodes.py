@@ -78,6 +78,9 @@ def _create_vulns(
     finding: core_model.FindingEnum,
     locations: Locations,
 ) -> core_model.Vulnerabilities:
+    source_method = cast(
+        FrameType, cast(FrameType, inspect.currentframe()).f_back
+    ).f_code.co_name
     return tuple(
         core_model.Vulnerability(
             finding=finding,
@@ -91,9 +94,7 @@ def _create_vulns(
                 cwe=(finding.value.cwe,),
                 description=location.description,
                 snippet=location.snippet,
-                source_method=cast(
-                    FrameType, cast(FrameType, inspect.currentframe()).f_back
-                ).f_code.co_name,
+                source_method=source_method,
             ),
         )
         for location in locations.locations

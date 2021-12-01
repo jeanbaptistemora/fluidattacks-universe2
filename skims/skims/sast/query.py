@@ -93,6 +93,9 @@ def get_vulnerabilities_from_n_ids(
     finding: core_model.FindingEnum,
     graph_shard_nodes: graph_model.GraphShardNodes,
 ) -> core_model.Vulnerabilities:
+    source_method = cast(
+        FrameType, cast(FrameType, inspect.currentframe()).f_back
+    ).f_code.co_name
     return tuple(
         get_vulnerability_from_n_id(
             cwe=cwe,
@@ -101,9 +104,7 @@ def get_vulnerabilities_from_n_ids(
             finding=finding,
             graph_shard=graph_shard,
             n_id=n_id,
-            source_method=cast(
-                FrameType, cast(FrameType, inspect.currentframe()).f_back
-            ).f_code.co_name,
+            source_method=source_method,
         )
         for graph_shard, n_id in graph_shard_nodes
     )

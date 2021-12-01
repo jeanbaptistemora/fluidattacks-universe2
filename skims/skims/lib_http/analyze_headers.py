@@ -81,6 +81,9 @@ def _create_vulns(
     header: Optional[Header],
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
+    source_method = cast(
+        FrameType, cast(FrameType, inspect.currentframe()).f_back
+    ).f_code.co_name
     return tuple(
         core_model.Vulnerability(
             finding=finding,
@@ -100,9 +103,7 @@ def _create_vulns(
                     value=location.identifier,
                     headers=ctx.url_ctx.headers_raw,
                 ),
-                source_method=cast(
-                    FrameType, cast(FrameType, inspect.currentframe()).f_back
-                ).f_code.co_name,
+                source_method=source_method,
             ),
         )
         for location in locations.locations

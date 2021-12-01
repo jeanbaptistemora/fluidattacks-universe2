@@ -137,6 +137,9 @@ def get_vulnerabilities_blocking(
     path: str,
     wrap: bool = False,
 ) -> core_model.Vulnerabilities:
+    source_method = cast(
+        FrameType, cast(FrameType, inspect.currentframe()).f_back
+    ).f_code.co_name
     results: core_model.Vulnerabilities = tuple(
         core_model.Vulnerability(
             finding=finding,
@@ -157,9 +160,7 @@ def get_vulnerabilities_blocking(
                         wrap=wrap,
                     ),
                 ),
-                source_method=cast(
-                    FrameType, cast(FrameType, inspect.currentframe()).f_back
-                ).f_code.co_name,
+                source_method=source_method,
             ),
         )
         for match in get_matching_lines_blocking(
@@ -179,6 +180,9 @@ def get_vulnerabilities_from_iterator_blocking(
     iterator: Iterator[Tuple[int, int]],
     path: str,
 ) -> core_model.Vulnerabilities:
+    source_method = cast(
+        FrameType, cast(FrameType, inspect.currentframe()).f_back
+    ).f_code.co_name
     results: core_model.Vulnerabilities = tuple(
         core_model.Vulnerability(
             finding=finding,
@@ -195,9 +199,7 @@ def get_vulnerabilities_from_iterator_blocking(
                     content=content,
                     viewport=SnippetViewport(column=column_no, line=line_no),
                 ),
-                source_method=cast(
-                    FrameType, cast(FrameType, inspect.currentframe()).f_back
-                ).f_code.co_name,
+                source_method=source_method,
             ),
         )
         for line_no, column_no in iterator
@@ -261,6 +263,9 @@ def translate_dependencies_to_vulnerabilities(
     path: str,
     platform: core_model.Platform,
 ) -> core_model.Vulnerabilities:
+    source_method = cast(
+        FrameType, cast(FrameType, inspect.currentframe()).f_back
+    ).f_code.co_name
     results: core_model.Vulnerabilities = tuple(
         core_model.Vulnerability(
             finding=finding,
@@ -293,9 +298,7 @@ def translate_dependencies_to_vulnerabilities(
                         line=product["line"],
                     ),
                 ),
-                source_method=cast(
-                    FrameType, cast(FrameType, inspect.currentframe()).f_back
-                ).f_code.co_name,
+                source_method=source_method,
             ),
         )
         for product, version in dependencies

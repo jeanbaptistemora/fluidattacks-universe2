@@ -1,4 +1,4 @@
-finding,kind,what,where,cwe,stream,title,description,snippet
+finding,kind,what,where,cwe,stream,title,description,snippet,method
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00008.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00008.java,"
   49 |
   50 |  // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
@@ -22,7 +22,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00008.j
   68 |         }
   69 |   else throw new ServletException(e);
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00018.java,60,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00018.java,"
   50 |   }
   51 |
@@ -46,7 +46,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00018.j
   69 |    else throw new ServletException(e);
   70 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00024.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00024.java,"
   47 |
   48 |
@@ -70,7 +70,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00024.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00025.java,52,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00025.java,"
   42 |   response.setContentType(""text/html;charset=UTF-8"");
   43 |
@@ -94,7 +94,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00025.j
   61 |  //  System.out.println(results);
   62 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00026.java,52,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00026.java,"
   42 |   response.setContentType(""text/html;charset=UTF-8"");
   43 |
@@ -118,7 +118,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00026.j
   61 |     );
   62 |  //   System.out.println(results.getString(""USERNAME""));
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00027.java,53,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00027.java,"
   43 |
   44 |
@@ -142,7 +142,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00027.j
   62 |    else throw new ServletException(e);
   63 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00032.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00032.java,"
   47 |   if (!map.isEmpty()) {
   48 |    String[] values = map.get(""BenchmarkTest00032"");
@@ -166,7 +166,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00032.j
   66 |      ""Error processing request.""
   67 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00033.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00033.java,"
   47 |   if (!map.isEmpty()) {
   48 |    String[] values = map.get(""BenchmarkTest00033"");
@@ -190,7 +190,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00033.j
   66 |     );
   67 |  //   System.out.println(results.getString(""USERNAME""));
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00034.java,58,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00034.java,"
   48 |    String[] values = map.get(""BenchmarkTest00034"");
   49 |    if (values != null) param = values[0];
@@ -214,7 +214,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00034.j
   67 |    else throw new ServletException(e);
   68 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00037.java,71,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00037.java,"
   61 |
   62 |
@@ -238,7 +238,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00037.j
   80 |    else throw new ServletException(e);
   81 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00038.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00038.java,"
    55 | aram = name;
    56 |   flag = false;
@@ -262,7 +262,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00038.j
    74 |
    75 |       }
       ^ Col 7
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00039.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00039.java,"
   55 |
   56 | e;
@@ -286,7 +286,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00039.j
   74 | tln(results.toString());
   75 | gframework.dao.EmptyResultDataAccessException e) {
      ^ Col 20
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00043.java,54,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00043.java,"
   44 |
   45 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
@@ -310,7 +310,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00043.j
   63 |    else throw new ServletException(e);
   64 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00100.java,80,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00100.java,"
   70 |
   71 |
@@ -334,7 +334,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00100.j
   89 |    else throw new ServletException(e);
   90 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00101.java,83,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00101.java,"
   73 |    bar = valuesList.get(0); // get the param value
   74 |   }
@@ -358,7 +358,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00101.j
   92 |    else throw new ServletException(e);
   93 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00102.java,70,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00102.java,"
   60 |
   61 |
@@ -382,7 +382,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00102.j
   79 | tln(results.toString());
   80 | gframework.dao.EmptyResultDataAccessException e) {
      ^ Col 20
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00103.java,75,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00103.java,"
   65 |
   66 |   // Simple ? condition that assigns param to bar on false condition
@@ -406,7 +406,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00103.j
   84 |  //  System.out.println(results.toString());
   85 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00106.java,81,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00106.java,"
   71 |    valuesList.remove(0); // remove the 1st safe value
   72 |
@@ -430,7 +430,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00106.j
   90 |    else throw new ServletException(e);
   91 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00108.java,90,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00108.java,"
    80 |     default:
    81 |           bar = ""bobs_your_uncle"";
@@ -454,7 +454,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00108.j
    99 |    else throw new ServletException(e);
   100 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00109.java,75,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00109.java,"
   65 |   if (param != null) {
   66 |    bar = new String( org.apache.commons.codec.binary.Base64.decodeBase64(
@@ -478,7 +478,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00109.j
   84 |    else throw new ServletException(e);
   85 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00111.java,81,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00111.java,"
   71 |    valuesList.remove(0); // remove the 1st safe value
   72 |
@@ -502,7 +502,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00111.j
   90 |    else throw new ServletException(e);
   91 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00112.java,72,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00112.java,"
   62 |
   63 |
@@ -526,7 +526,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00112.j
   81 |    else throw new ServletException(e);
   82 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00115.java,76,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00115.java,"
   66 |   map11928.put(""keyA-11928"", ""a-Value""); // put some stuff in the collection
   67 |   map11928.put(""keyB-11928"", param); // put it in a collection
@@ -550,7 +550,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00115.j
   85 |    else throw new ServletException(e);
   86 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00192.java,80,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00192.java,"
   70 |           break;
   71 |   }
@@ -574,7 +574,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00192.j
   89 |    else throw new ServletException(e);
   90 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00193.java,67,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00193.java,"
   57 |      bar = param;
   58 |   else bar = ""This should never happen"";
@@ -598,7 +598,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00193.j
   76 |    else throw new ServletException(e);
   77 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00194.java,62,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00194.java,"
   52 |   String bar = """";
   53 |   if (param != null) {
@@ -622,7 +622,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00194.j
   71 |      ""Error processing request.""
   72 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00195.java,64,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00195.java,"
   54 |   // Simple ? condition that assigns param to bar on false condition
   55 |   int num = 106;
@@ -646,7 +646,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00195.j
   73 |      ""Error processing request.""
   74 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00196.java,64,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00196.java,"
   54 |   // Simple if statement that assigns param to bar on true condition
   55 |   int num = 196;
@@ -670,7 +670,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00196.j
   73 |      ""Error processing request.""
   74 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00198.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00198.java,"
   49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   50 |
@@ -694,7 +694,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00198.j
   68 |  //  System.out.println(results);
   69 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00199.java,64,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00199.java,"
   54 |   // Simple if statement that assigns param to bar on true condition
   55 |   int num = 196;
@@ -718,7 +718,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00199.j
   73 |  //  System.out.println(results);
   74 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00203.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00203.java,"
   55 |   int num = 106;
   56 |
@@ -742,7 +742,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00203.j
   74 |    else throw new ServletException(e);
   75 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00204.java,60,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00204.java,"
   50 |
   51 |
@@ -766,7 +766,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00204.j
   69 |    else throw new ServletException(e);
   70 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00328.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00328.java,"
   58 |
   59 |  bar = (7*42) - num > 200 ? ""This should never happen"" : param;
@@ -790,7 +790,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00328.j
   77 |         }
   78 |   else throw new ServletException(e);
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00335.java,69,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00335.java,"
   59 |      bar = param;
   60 |   else bar = ""This should never happen"";
@@ -814,7 +814,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00335.j
   78 |    else throw new ServletException(e);
   79 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00337.java,69,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00337.java,"
   59 |    valuesList.add( ""moresafe"" );
   60 |
@@ -838,7 +838,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00337.j
   78 |  //  System.out.println(results.toString());
   79 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00339.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00339.java,"
   56 |   // Simple ? condition that assigns param to bar on false condition
   57 |   int num = 106;
@@ -862,7 +862,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00339.j
   75 |     );
   76 |  //   System.out.println(results.getString(""USERNAME""));
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00341.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00341.java,"
   56 |   // Simple if statement that assigns param to bar on true condition
   57 |   int num = 196;
@@ -886,7 +886,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00341.j
   75 |     );
   76 |          }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00342.java,71,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00342.java,"
   61 |    valuesList.remove(0); // remove the 1st safe value
   62 |
@@ -910,7 +910,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00342.j
   80 |    else throw new ServletException(e);
   81 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00428.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00428.java,"
   56 |    bar = valuesList.get(0); // get the param value
   57 |   }
@@ -934,7 +934,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00428.j
   75 |    else throw new ServletException(e);
   76 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00429.java,64,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00429.java,"
   54 |
   55 |
@@ -958,7 +958,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00429.j
   73 |    else throw new ServletException(e);
   74 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00431.java,58,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00431.java,"
   48 |
   49 | mple ? condition that assigns param to bar on false condition
@@ -982,7 +982,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00431.j
   67 |
   68 |       }
      ^ Col 7
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00433.java,58,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00433.java,"
   48 |
   49 | at assigns param to bar on true condition
@@ -1006,7 +1006,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00433.j
   67 | encoder().encodeForHTML(o.toString()) + ""<br>""
   68 |
      ^ Col 27
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00434.java,54,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00434.java,"
   44 |   if (param == null) param = """";
   45 |
@@ -1030,7 +1030,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00434.j
   63 |     );
   64 |          }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00435.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00435.java,"
   49 |   map86691.put(""keyA-86691"", ""a-Value""); // put some stuff in the collection
   50 |   map86691.put(""keyB-86691"", param); // put it in a collection
@@ -1054,7 +1054,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00435.j
   68 |          }
   69 |    else throw new ServletException(e);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00438.java,60,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00438.java,"
   50 |   int num = 106;
   51 |
@@ -1078,7 +1078,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00438.j
   69 |    else throw new ServletException(e);
   70 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00439.java,54,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00439.java,"
   44 |   if (param == null) param = """";
   45 |
@@ -1102,7 +1102,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00439.j
   63 |    else throw new ServletException(e);
   64 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00441.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00441.java,"
   45 |
   46 |
@@ -1126,7 +1126,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00441.j
   64 |    else throw new ServletException(e);
   65 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00510.java,80,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00510.java,"
   70 |           break;
   71 |   }
@@ -1150,7 +1150,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00510.j
   89 |    else throw new ServletException(e);
   90 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00512.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00512.java,"
   49 |
   50 |
@@ -1174,7 +1174,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00512.j
   68 |    else throw new ServletException(e);
   69 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00515.java,69,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00515.java,"
   59 |    valuesList.remove(0); // remove the 1st safe value
   60 |
@@ -1198,7 +1198,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00515.j
   78 |    else throw new ServletException(e);
   79 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00516.java,78,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00516.java,"
   68 |     default:
   69 |           bar = ""bobs_your_uncle"";
@@ -1222,7 +1222,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00516.j
   87 |    else throw new ServletException(e);
   88 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00518.java,60,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00518.java,"
   50 |
   51 |
@@ -1246,7 +1246,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00518.j
   69 |    else throw new ServletException(e);
   70 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00590.java,76,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00590.java,"
   66 |      bar = param;
   67 |   else bar = ""This should never happen"";
@@ -1270,7 +1270,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00590.j
   85 |    else throw new ServletException(e);
   86 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00591.java,72,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00591.java,"
   62 |   String bar = thing.doSomething(param);
   63 |
@@ -1294,7 +1294,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00591.j
   81 |    else throw new ServletException(e);
   82 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00593.java,91,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00593.java,"
    81 |
    82 |
@@ -1318,7 +1318,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00593.j
   100 |    else throw new ServletException(e);
   101 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00594.java,75,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00594.java,"
   65 |   map29056.put(""keyC"", ""another-Value""); // put some stuff in the collection
   66 |   bar = (String)map29056.get(""keyB-29056""); // get it back out
@@ -1342,7 +1342,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00594.j
   84 |    else throw new ServletException(e);
   85 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00595.java,76,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00595.java,"
   66 |   bar = (7*42) - num > 200 ? ""This should never happen"" : param;
   67 |
@@ -1366,7 +1366,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00595.j
   85 |    else throw new ServletException(e);
   86 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00596.java,76,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00596.java,"
    66 | e"" );
    67 |
@@ -1390,7 +1390,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00596.j
    85 | encoder().encodeForHTML(o.toString()) + ""<br>""
    86 |
       ^ Col 27
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00597.java,67,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00597.java,"
   57 |
   58 |
@@ -1414,7 +1414,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00597.j
   76 | encoder().encodeForHTML(o.toString()) + ""<br>""
   77 |
      ^ Col 27
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00598.java,70,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00598.java,"
   60 |
   61 |
@@ -1438,7 +1438,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00598.j
   79 | tln(results.toString());
   80 | gframework.dao.EmptyResultDataAccessException e) {
      ^ Col 20
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00600.java,86,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00600.java,"
    76 |           break;
    77 |     default:
@@ -1462,7 +1462,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00600.j
    95 |     );
    96 |          }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00603.java,69,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00603.java,"
   59 |
   60 |
@@ -1486,7 +1486,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00603.j
   78 |    else throw new ServletException(e);
   79 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00604.java,72,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00604.java,"
   62 |   if (param != null) {
   63 |    bar = new String( org.apache.commons.codec.binary.Base64.decodeBase64(
@@ -1510,7 +1510,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00604.j
   81 |    else throw new ServletException(e);
   82 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00606.java,74,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00606.java,"
   64 |   int num = 196;
   65 |   if ( (500/42) + num > 200 )
@@ -1534,7 +1534,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00606.j
   83 |    else throw new ServletException(e);
   84 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00673.java,63,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00673.java,"
   53 |      bar = param;
   54 |   else bar = ""This should never happen"";
@@ -1558,7 +1558,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00673.j
   72 |    else throw new ServletException(e);
   73 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00677.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00677.java,"
   47 |
   48 | g bar = """";
@@ -1582,7 +1582,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00677.j
   66 |
   67 |       }
      ^ Col 7
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00678.java,60,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00678.java,"
   50 |   // Simple if statement that assigns param to bar on true condition
   51 |   int num = 196;
@@ -1606,7 +1606,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00678.j
   69 |  //  System.out.println(results);
   70 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00679.java,54,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00679.java,"
   44 | .getTheParameter(""BenchmarkTest00679"");
   45 |  param = """";
@@ -1630,7 +1630,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00679.j
   63 | tln(results.toString());
   64 | gframework.dao.EmptyResultDataAccessException e) {
      ^ Col 20
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00681.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00681.java,"
   45 |   if (param == null) param = """";
   46 |
@@ -1654,7 +1654,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00681.j
   64 |    else throw new ServletException(e);
   65 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00760.java,63,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00760.java,"
   53 |  map18915.put(""keyB-18915"", param); // put it in a collection
   54 |  map18915.put(""keyC"", ""another-Value""); // put some stuff in the collection
@@ -1678,7 +1678,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00760.j
   72 |         }
   73 |   else throw new ServletException(e);
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00761.java,77,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00761.java,"
   67 |          bar = ""bobs_your_uncle"";
   68 |          break;
@@ -1702,7 +1702,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00761.j
   86 |         }
   87 |   else throw new ServletException(e);
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00762.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00762.java,"
   55 |      bar = param;
   56 |   else bar = ""This should never happen"";
@@ -1726,7 +1726,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00762.j
   74 |    else throw new ServletException(e);
   75 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00764.java,56,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00764.java,"
   46 |     param = values[0];
   47 |   else param = """";
@@ -1750,7 +1750,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00764.j
   65 |  //  System.out.println(results);
   66 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00765.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00765.java,"
   47 |   else param = """";
   48 |
@@ -1774,7 +1774,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00765.j
   66 |  //  System.out.println(results);
   67 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00767.java,75,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00767.java,"
   65 |           break;
   66 |     default:
@@ -1798,7 +1798,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00767.j
   84 |  //  System.out.println(results);
   85 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00768.java,56,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00768.java,"
   46 | ];
   47 |
@@ -1822,7 +1822,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00768.j
   65 | tln(results.toString());
   66 | gframework.dao.EmptyResultDataAccessException e) {
      ^ Col 20
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00769.java,61,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00769.java,"
   51 |   java.util.HashMap<String,Object> map29572 = new java.util.HashMap<String,Object>();
   52 |   map29572.put(""keyA-29572"", ""a-Value""); // put some stuff in the collection
@@ -1846,7 +1846,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00769.j
   70 |     );
   71 |          }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00770.java,67,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00770.java,"
   57 |    valuesList.remove(0); // remove the 1st safe value
   58 |
@@ -1870,7 +1870,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00770.j
   76 |          }
   77 |    else throw new ServletException(e);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00771.java,62,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00771.java,"
   52 |   map49960.put(""keyA-49960"", ""a-Value""); // put some stuff in the collection
   53 |   map49960.put(""keyB-49960"", param); // put it in a collection
@@ -1894,7 +1894,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00771.j
   71 |    else throw new ServletException(e);
   72 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00839.java,76,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00839.java,"
   66 |   bar = (7*42) - num > 200 ? ""This should never happen"" : param;
   67 |
@@ -1918,7 +1918,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00839.j
   85 |    else throw new ServletException(e);
   86 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00840.java,73,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00840.java,"
   63 |   // Simple ? condition that assigns param to bar on false condition
   64 |   int num = 106;
@@ -1942,7 +1942,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00840.j
   82 |      ""Error processing request.""
   83 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00841.java,86,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00841.java,"
    76 |           break;
    77 |     default:
@@ -1966,7 +1966,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00841.j
    95 |      ""Error processing request.""
    96 |     );
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00842.java,77,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00842.java,"
    67 |
    68 |    valuesList.remove(0); // remove the 1st safe value
@@ -1990,7 +1990,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00842.j
    86 |  //  System.out.println(results);
    87 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00843.java,72,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00843.java,"
   62 |   java.util.HashMap<String,Object> map12983 = new java.util.HashMap<String,Object>();
   63 |   map12983.put(""keyA-12983"", ""a-Value""); // put some stuff in the collection
@@ -2014,7 +2014,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00843.j
   81 |  //  System.out.println(results);
   82 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00845.java,73,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00845.java,"
   63 |   // Simple ? condition that assigns param to bar on false condition
   64 |   int num = 106;
@@ -2038,7 +2038,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00845.j
   82 |     );
   83 |  //   System.out.println(results.getString(""USERNAME""));
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00846.java,67,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00846.java,"
   57 |   }
   58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -2062,7 +2062,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00846.j
   76 |     );
   77 |          }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00847.java,78,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00847.java,"
   68 |    valuesList.remove(0); // remove the 1st safe value
   69 |
@@ -2086,7 +2086,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00847.j
   87 |          }
   88 |    else throw new ServletException(e);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00848.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00848.java,"
   58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   59 |
@@ -2110,7 +2110,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00848.j
   77 |          }
   78 |    else throw new ServletException(e);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00849.java,78,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00849.java,"
   68 |    valuesList.remove(0); // remove the 1st safe value
   69 |
@@ -2134,7 +2134,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00849.j
   87 |    else throw new ServletException(e);
   88 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00850.java,78,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00850.java,"
   68 |    valuesList.remove(0); // remove the 1st safe value
   69 |
@@ -2158,7 +2158,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00850.j
   87 |    else throw new ServletException(e);
   88 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00996.java,70,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00996.java,"
   60 |   }
   61 |  }
@@ -2182,7 +2182,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00996.j
   79 |         }
   80 |   else throw new ServletException(e);
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00997.java,71,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00997.java,"
    61 |   }
    62 |
@@ -2206,7 +2206,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00997.j
    80 |    else throw new ServletException(e);
    81 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00998.java,71,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00998.java,"
    61 |   }
    62 |
@@ -2230,7 +2230,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00998.j
    80 |    else throw new ServletException(e);
    81 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01000.java,71,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01000.java,"
   61 |   }
   62 |
@@ -2254,7 +2254,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01000.j
   80 |    else throw new ServletException(e);
   81 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01002.java,71,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01002.java,"
    61 |   }
    62 |
@@ -2278,7 +2278,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01002.j
    80 |    else throw new ServletException(e);
    81 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01003.java,71,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01003.java,"
    61 |   }
    62 |
@@ -2302,7 +2302,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01003.j
    80 |    else throw new ServletException(e);
    81 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01004.java,71,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01004.java,"
    61 |   }
    62 |
@@ -2326,7 +2326,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01004.j
    80 |    else throw new ServletException(e);
    81 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01005.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01005.java,"
    58 |      break;
    59 |     }
@@ -2350,7 +2350,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01005.j
    77 |      ""Error processing request.""
    78 |     );
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01006.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01006.java,"
    58 |      break;
    59 |     }
@@ -2374,7 +2374,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01006.j
    77 |  //  System.out.println(results);
    78 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01007.java,67,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01007.java,"
    57 | t.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
    58 |
@@ -2398,7 +2398,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01007.j
    76 | tln(results.toString());
    77 | gframework.dao.EmptyResultDataAccessException e) {
       ^ Col 20
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01008.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01008.java,"
    58 |      break;
    59 |     }
@@ -2422,7 +2422,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01008.j
    77 |     );
    78 |  //   System.out.println(results.getString(""USERNAME""));
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01009.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01009.java,"
    58 |      break;
    59 |     }
@@ -2446,7 +2446,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01009.j
    77 |     );
    78 |  //   System.out.println(results.getString(""USERNAME""));
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01011.java,69,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01011.java,"
    59 |     }
    60 |    }
@@ -2470,7 +2470,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01011.j
    78 |          }
    79 |    else throw new ServletException(e);
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01083.java,60,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01083.java,"
   50 |
   51 |   String bar = new Test().doSomething(request, param);
@@ -2494,7 +2494,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01083.j
   69 |    else throw new ServletException(e);
   70 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01084.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01084.java,"
   49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   50 |
@@ -2518,7 +2518,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01084.j
   68 |    else throw new ServletException(e);
   69 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01087.java,56,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01087.java,"
   46 |   }
   47 |
@@ -2542,7 +2542,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01087.j
   65 |  //  System.out.println(results);
   66 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01088.java,56,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01088.java,"
   46 |   }
   47 |
@@ -2566,7 +2566,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01088.j
   65 |  //  System.out.println(results);
   66 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01090.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01090.java,"
   47 |
   48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
@@ -2590,7 +2590,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01090.j
   66 |          }
   67 |    else throw new ServletException(e);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01091.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01091.java,"
   47 |
   48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
@@ -2614,7 +2614,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01091.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01093.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01093.java,"
   47 |
   48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
@@ -2638,7 +2638,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01093.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01094.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01094.java,"
   47 |
   48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
@@ -2662,7 +2662,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01094.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01097.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01097.java,"
   47 |
   48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
@@ -2686,7 +2686,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01097.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01208.java,61,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01208.java,"
   51 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   52 |
@@ -2710,7 +2710,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01208.j
   70 |    else throw new ServletException(e);
   71 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01209.java,62,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01209.java,"
   52 |
   53 |   String bar = new Test().doSomething(request, param);
@@ -2734,7 +2734,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01209.j
   71 |    else throw new ServletException(e);
   72 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01210.java,62,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01210.java,"
   52 |
   53 |   String bar = new Test().doSomething(request, param);
@@ -2758,7 +2758,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01210.j
   71 |    else throw new ServletException(e);
   72 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01211.java,63,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01211.java,"
   53 |   String bar = new Test().doSomething(request, param);
   54 |
@@ -2782,7 +2782,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01211.j
   72 |    else throw new ServletException(e);
   73 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01214.java,58,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01214.java,"
   48 |   }
   49 |
@@ -2806,7 +2806,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01214.j
   67 |      ""Error processing request.""
   68 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01221.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01221.java,"
   49 |
   50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
@@ -2830,7 +2830,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01221.j
   68 |    else throw new ServletException(e);
   69 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01222.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01222.java,"
   49 |
   50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
@@ -2854,7 +2854,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01222.j
   68 |    else throw new ServletException(e);
   69 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01302.java,54,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01302.java,"
   44 |   if (param == null) param = """";
   45 |
@@ -2878,7 +2878,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01302.j
   63 |    else throw new ServletException(e);
   64 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01304.java,56,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01304.java,"
   46 |   String bar = new Test().doSomething(request, param);
   47 |
@@ -2902,7 +2902,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01304.j
   65 |    else throw new ServletException(e);
   66 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01306.java,54,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01306.java,"
   44 |   if (param == null) param = """";
   45 |
@@ -2926,7 +2926,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01306.j
   63 |    else throw new ServletException(e);
   64 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01308.java,51,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01308.java,"
   41 |   response.setContentType(""text/html;charset=UTF-8"");
   42 |
@@ -2950,7 +2950,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01308.j
   60 |  //  System.out.println(results);
   61 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01311.java,52,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01311.java,"
   42 |
   43 |   String param = request.getParameter(""BenchmarkTest01311"");
@@ -2974,7 +2974,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01311.j
   61 |    else throw new ServletException(e);
   62 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01312.java,52,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01312.java,"
   42 |
   43 |   String param = request.getParameter(""BenchmarkTest01312"");
@@ -2998,7 +2998,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01312.j
   61 |    else throw new ServletException(e);
   62 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01313.java,52,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01313.java,"
   42 |
   43 |   String param = request.getParameter(""BenchmarkTest01313"");
@@ -3022,7 +3022,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01313.j
   61 |    else throw new ServletException(e);
   62 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01314.java,52,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01314.java,"
   42 |
   43 |   String param = request.getParameter(""BenchmarkTest01314"");
@@ -3046,7 +3046,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01314.j
   61 |    else throw new ServletException(e);
   62 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01379.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01379.java,"
   49 |
   50 |
@@ -3070,7 +3070,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01379.j
   68 |    else throw new ServletException(e);
   69 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01381.java,60,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01381.java,"
   50 |
   51 |   String bar = new Test().doSomething(request, param);
@@ -3094,7 +3094,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01381.j
   69 |    else throw new ServletException(e);
   70 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01382.java,60,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01382.java,"
   50 |
   51 |   String bar = new Test().doSomething(request, param);
@@ -3118,7 +3118,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01382.j
   69 |    else throw new ServletException(e);
   70 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01383.java,60,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01383.java,"
   50 |
   51 |   String bar = new Test().doSomething(request, param);
@@ -3142,7 +3142,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01383.j
   69 |    else throw new ServletException(e);
   70 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01384.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01384.java,"
   49 |
   50 |
@@ -3166,7 +3166,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01384.j
   68 |    else throw new ServletException(e);
   69 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01388.java,56,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01388.java,"
    46 |    String[] values = map.get(""BenchmarkTest01388"");
    47 |    if (values != null) param = values[0];
@@ -3190,7 +3190,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01388.j
    65 |  //  System.out.println(results);
    66 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01390.java,56,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01390.java,"
   46 |    String[] values = map.get(""BenchmarkTest01390"");
   47 |    if (values != null) param = values[0];
@@ -3214,7 +3214,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01390.j
   65 |  //  System.out.println(results);
   66 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01391.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01391.java,"
   47 |    if (values != null) param = values[0];
   48 |   }
@@ -3238,7 +3238,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01391.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01394.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01394.java,"
    47 |    if (values != null) param = values[0];
    48 |   }
@@ -3262,7 +3262,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01394.j
    66 |    else throw new ServletException(e);
    67 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01395.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01395.java,"
   47 |    if (values != null) param = values[0];
   48 |   }
@@ -3286,7 +3286,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01395.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01396.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01396.java,"
   47 |    if (values != null) param = values[0];
   48 |   }
@@ -3310,7 +3310,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01396.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01460.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01460.java,"
   58 |   }
   59 |
@@ -3334,7 +3334,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01460.j
   77 |    else throw new ServletException(e);
   78 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01462.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01462.java,"
   58 |   }
   59 |
@@ -3358,7 +3358,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01462.j
   77 |    else throw new ServletException(e);
   78 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01463.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01463.java,"
   58 |   }
   59 |
@@ -3382,7 +3382,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01463.j
   77 |    else throw new ServletException(e);
   78 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01464.java,70,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01464.java,"
    60 |   String bar = new Test().doSomething(request, param);
    61 |
@@ -3406,7 +3406,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01464.j
    79 |    else throw new ServletException(e);
    80 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01465.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01465.java,"
    55 |      }
    56 |     }
@@ -3430,7 +3430,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01465.j
    74 |      ""Error processing request.""
    75 |     );
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01466.java,64,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01466.java,"
    54 |   flag = false;
    55 |
@@ -3454,7 +3454,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01466.j
    73 |
    74 |       }
       ^ Col 7
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01470.java,64,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01470.java,"
   54 | e;
   55 |
@@ -3478,7 +3478,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01470.j
   73 | tln(results.toString());
   74 | gframework.dao.EmptyResultDataAccessException e) {
      ^ Col 20
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01471.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01471.java,"
    55 |      }
    56 |     }
@@ -3502,7 +3502,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01471.j
    74 |     );
    75 |          }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01473.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01473.java,"
   56 |     }
   57 |    }
@@ -3526,7 +3526,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01473.j
   75 |    else throw new ServletException(e);
   76 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01474.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01474.java,"
   56 |     }
   57 |    }
@@ -3550,7 +3550,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01474.j
   75 |    else throw new ServletException(e);
   76 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01475.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01475.java,"
   56 |     }
   57 |    }
@@ -3574,7 +3574,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01475.j
   75 |    else throw new ServletException(e);
   76 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01476.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01476.java,"
   56 |     }
   57 |    }
@@ -3598,7 +3598,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01476.j
   75 |    else throw new ServletException(e);
   76 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01477.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01477.java,"
    56 |     }
    57 |    }
@@ -3622,7 +3622,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01477.j
    75 |    else throw new ServletException(e);
    76 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01552.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01552.java,"
   47 |   String bar = new Test().doSomething(request, param);
   48 |
@@ -3646,7 +3646,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01552.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01554.java,51,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01554.java,"
    41 | text/html;charset=UTF-8"");
    42 |
@@ -3670,7 +3670,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01554.j
    60 | encoder().encodeForHTML(o.toString()) + ""<br>""
    61 |
       ^ Col 27
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01557.java,53,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01557.java,"
   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
   44 |   String param = scr.getTheParameter(""BenchmarkTest01557"");
@@ -3694,7 +3694,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01557.j
   62 |    else throw new ServletException(e);
   63 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01558.java,53,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01558.java,"
   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
   44 |   String param = scr.getTheParameter(""BenchmarkTest01558"");
@@ -3718,7 +3718,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01558.j
   62 |    else throw new ServletException(e);
   63 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01559.java,53,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01559.java,"
   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
   44 |   String param = scr.getTheParameter(""BenchmarkTest01559"");
@@ -3742,7 +3742,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01559.j
   62 |    else throw new ServletException(e);
   63 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01560.java,53,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01560.java,"
   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
   44 |   String param = scr.getTheParameter(""BenchmarkTest01560"");
@@ -3766,7 +3766,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01560.j
   62 |    else throw new ServletException(e);
   63 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01620.java,56,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01620.java,"
    46 |    param = values[0];
    47 |  else param = """";
@@ -3790,7 +3790,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01620.j
    65 |         }
    66 |   else throw new ServletException(e);
       ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01621.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01621.java,"
   47 |   else param = """";
   48 |
@@ -3814,7 +3814,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01621.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01623.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01623.java,"
   47 |   else param = """";
   48 |
@@ -3838,7 +3838,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01623.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01624.java,54,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01624.java,"
   44 |   String param;
   45 |   if (values != null && values.length > 0)
@@ -3862,7 +3862,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01624.j
   63 |      ""Error processing request.""
   64 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01625.java,54,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01625.java,"
   44 |   String param;
   45 |   if (values != null && values.length > 0)
@@ -3886,7 +3886,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01625.j
   63 |  //  System.out.println(results);
   64 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01626.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01626.java,"
   45 |   if (values != null && values.length > 0)
   46 |     param = values[0];
@@ -3910,7 +3910,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01626.j
   64 |          }
   65 |    else throw new ServletException(e);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01627.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01627.java,"
   45 |   if (values != null && values.length > 0)
   46 |     param = values[0];
@@ -3934,7 +3934,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01627.j
   64 |    else throw new ServletException(e);
   65 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01630.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01630.java,"
   45 |   if (values != null && values.length > 0)
   46 |     param = values[0];
@@ -3958,7 +3958,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01630.j
   64 |    else throw new ServletException(e);
   65 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01631.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01631.java,"
   45 |   if (values != null && values.length > 0)
   46 |     param = values[0];
@@ -3982,7 +3982,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01631.j
   64 |    else throw new ServletException(e);
   65 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01712.java,67,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01712.java,"
   57 |  }
   58 |  param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -4006,7 +4006,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01712.j
   76 |         }
   77 |   else throw new ServletException(e);
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01715.java,69,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01715.java,"
   59 |
   60 |   String bar = new Test().doSomething(request, param);
@@ -4030,7 +4030,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01715.j
   78 |    else throw new ServletException(e);
   79 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01716.java,69,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01716.java,"
   59 |
   60 |   String bar = new Test().doSomething(request, param);
@@ -4054,7 +4054,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01716.j
   78 |    else throw new ServletException(e);
   79 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01718.java,70,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01718.java,"
    60 |   String bar = new Test().doSomething(request, param);
    61 |
@@ -4078,7 +4078,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01718.j
    79 |    else throw new ServletException(e);
    80 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01720.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01720.java,"
   55 |   if (ampersandLoc != -1) {
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
@@ -4102,7 +4102,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01720.j
   74 |      ""Error processing request.""
   75 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01721.java,64,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01721.java,"
    54 | mpersandLoc = queryString.indexOf(""&"", paramLoc);
    55 | mpersandLoc != -1) {
@@ -4126,7 +4126,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01721.j
    73 |
    74 |       }
       ^ Col 7
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01723.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01723.java,"
    55 |   if (ampersandLoc != -1) {
    56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
@@ -4150,7 +4150,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01723.j
    74 |  //  System.out.println(results);
    75 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01724.java,64,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01724.java,"
    54 | tring.indexOf(""&"", paramLoc);
    55 |
@@ -4174,7 +4174,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01724.j
    73 | encoder().encodeForHTML(o.toString()) + ""<br>""
    74 |
       ^ Col 27
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01725.java,64,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01725.java,"
    54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
    55 |   if (ampersandLoc != -1) {
@@ -4198,7 +4198,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01725.j
    73 |  //  System.out.println(results.toString());
    74 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01726.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01726.java,"
    55 |   if (ampersandLoc != -1) {
    56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
@@ -4222,7 +4222,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01726.j
    74 |     );
    75 |  //   System.out.println(results.getString(""USERNAME""));
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01727.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01727.java,"
   55 |   if (ampersandLoc != -1) {
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
@@ -4246,7 +4246,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01727.j
   74 |     );
   75 |          }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01728.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01728.java,"
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
   57 |   }
@@ -4270,7 +4270,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01728.j
   75 |          }
   76 |    else throw new ServletException(e);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01730.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01730.java,"
    56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
    57 |   }
@@ -4294,7 +4294,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01730.j
    75 |    else throw new ServletException(e);
    76 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01731.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01731.java,"
    56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
    57 |   }
@@ -4318,7 +4318,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01731.j
    75 |    else throw new ServletException(e);
    76 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01733.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01733.java,"
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
   57 |   }
@@ -4342,7 +4342,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01733.j
   75 |    else throw new ServletException(e);
   76 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01881.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01881.java,"
   58 |      break;
   59 |     }
@@ -4366,7 +4366,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01881.j
   77 |      ""Error processing request.""
   78 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01882.java,67,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01882.java,"
    57 | ram = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
    58 | eak;
@@ -4390,7 +4390,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01882.j
    76 |
    77 |       }
       ^ Col 7
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01883.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01883.java,"
    58 |      break;
    59 |     }
@@ -4414,7 +4414,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01883.j
    77 |     );
    78 |  //   System.out.println(results.getString(""USERNAME""));
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01887.java,69,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01887.java,"
   59 |     }
   60 |    }
@@ -4438,7 +4438,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01887.j
   78 |    else throw new ServletException(e);
   79 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01888.java,69,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01888.java,"
   59 |     }
   60 |    }
@@ -4462,7 +4462,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01888.j
   78 |    else throw new ServletException(e);
   79 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01889.java,69,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01889.java,"
   59 |     }
   60 |    }
@@ -4486,7 +4486,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01889.j
   78 |    else throw new ServletException(e);
   79 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01890.java,69,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01890.java,"
   59 |     }
   60 |    }
@@ -4510,7 +4510,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01890.j
   78 |    else throw new ServletException(e);
   79 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01891.java,69,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01891.java,"
   59 |     }
   60 |    }
@@ -4534,7 +4534,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01891.j
   78 |    else throw new ServletException(e);
   79 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01962.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01962.java,"
   49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   50 |
@@ -4558,7 +4558,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01962.j
   68 |    else throw new ServletException(e);
   69 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01963.java,56,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01963.java,"
   46 |   }
   47 |
@@ -4582,7 +4582,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01963.j
   65 |      ""Error processing request.""
   66 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01964.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01964.java,"
    45 | m = request.getHeader(""BenchmarkTest01964"");
    46 |
@@ -4606,7 +4606,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01964.j
    64 |
    65 |       }
       ^ Col 7
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01970.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01970.java,"
   47 |
   48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
@@ -4630,7 +4630,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01970.j
   66 |          }
   67 |    else throw new ServletException(e);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01971.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01971.java,"
   47 |
   48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
@@ -4654,7 +4654,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01971.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01972.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01972.java,"
   47 |
   48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
@@ -4678,7 +4678,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01972.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02087.java,62,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02087.java,"
   52 |
   53 |   String bar = doSomething(request, param);
@@ -4702,7 +4702,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02087.j
   71 |    else throw new ServletException(e);
   72 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02088.java,62,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02088.java,"
   52 |
   53 |   String bar = doSomething(request, param);
@@ -4726,7 +4726,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02088.j
   71 |    else throw new ServletException(e);
   72 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02090.java,58,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02090.java,"
    48 |   }
    49 |
@@ -4750,7 +4750,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02090.j
    67 |      ""Error processing request.""
    68 |     );
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02091.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02091.java,"
    47 | m = headers.nextElement(); // just grab first element
    48 |
@@ -4774,7 +4774,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02091.j
    66 |
    67 |       }
       ^ Col 7
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02092.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02092.java,"
   49 |
   50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
@@ -4798,7 +4798,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02092.j
   68 |    else throw new ServletException(e);
   69 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02094.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02094.java,"
   49 |
   50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
@@ -4822,7 +4822,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02094.j
   68 |    else throw new ServletException(e);
   69 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02096.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02096.java,"
   49 |
   50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
@@ -4846,7 +4846,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02096.j
   68 |    else throw new ServletException(e);
   69 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02099.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02099.java,"
   49 |
   50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
@@ -4870,7 +4870,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02099.j
   68 |    else throw new ServletException(e);
   69 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02169.java,54,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02169.java,"
   44 |   if (param == null) param = """";
   45 |
@@ -4894,7 +4894,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02169.j
   63 |    else throw new ServletException(e);
   64 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02170.java,54,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02170.java,"
   44 |   if (param == null) param = """";
   45 |
@@ -4918,7 +4918,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02170.j
   63 |    else throw new ServletException(e);
   64 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02171.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02171.java,"
   45 |
   46 |   String bar = doSomething(request, param);
@@ -4942,7 +4942,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02171.j
   64 |    else throw new ServletException(e);
   65 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02177.java,50,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02177.java,"
    40 |  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
    41 | nse.setContentType(""text/html;charset=UTF-8"");
@@ -4966,7 +4966,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02177.j
    59 |
    60 |       }
       ^ Col 7
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02178.java,50,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02178.java,"
   40 | vletRequest request, HttpServletResponse response) throws ServletException, IOException {
   41 | text/html;charset=UTF-8"");
@@ -4990,7 +4990,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02178.j
   59 | encoder().encodeForHTML(o.toString()) + ""<br>""
   60 |
      ^ Col 27
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02179.java,51,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02179.java,"
   41 |   response.setContentType(""text/html;charset=UTF-8"");
   42 |
@@ -5014,7 +5014,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02179.j
   60 |  //  System.out.println(results);
   61 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02181.java,50,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02181.java,"
   40 | HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
   41 | tType(""text/html;charset=UTF-8"");
@@ -5038,7 +5038,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02181.j
   59 | tln(results.toString());
   60 | gframework.dao.EmptyResultDataAccessException e) {
      ^ Col 20
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02182.java,50,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02182.java,"
   40 | HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
   41 | tType(""text/html;charset=UTF-8"");
@@ -5062,7 +5062,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02182.j
   59 | tln(results.toString());
   60 | gframework.dao.EmptyResultDataAccessException e) {
      ^ Col 20
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02186.java,52,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02186.java,"
   42 |
   43 |   String param = request.getParameter(""BenchmarkTest02186"");
@@ -5086,7 +5086,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02186.j
   61 |    else throw new ServletException(e);
   62 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02187.java,52,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02187.java,"
   42 |
   43 |   String param = request.getParameter(""BenchmarkTest02187"");
@@ -5110,7 +5110,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02187.j
   61 |    else throw new ServletException(e);
   62 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02264.java,58,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02264.java,"
   48 |  }
   49 |
@@ -5134,7 +5134,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02264.j
   67 |         }
   68 |   else throw new ServletException(e);
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02269.java,61,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02269.java,"
   51 |   String bar = doSomething(request, param);
   52 |
@@ -5158,7 +5158,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02269.j
   70 |    else throw new ServletException(e);
   71 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02270.java,61,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02270.java,"
    51 |   String bar = doSomething(request, param);
    52 |
@@ -5182,7 +5182,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02270.j
    70 |    else throw new ServletException(e);
    71 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02272.java,56,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02272.java,"
   46 |    String[] values = map.get(""BenchmarkTest02272"");
   47 |    if (values != null) param = values[0];
@@ -5206,7 +5206,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02272.j
   65 |      ""Error processing request.""
   66 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02273.java,56,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02273.java,"
   46 |    String[] values = map.get(""BenchmarkTest02273"");
   47 |    if (values != null) param = values[0];
@@ -5230,7 +5230,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02273.j
   65 |      ""Error processing request.""
   66 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02275.java,56,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02275.java,"
   46 |    String[] values = map.get(""BenchmarkTest02275"");
   47 |    if (values != null) param = values[0];
@@ -5254,7 +5254,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02275.j
   65 |  //  System.out.println(results);
   66 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02277.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02277.java,"
   45 |
   46 | t(""BenchmarkTest02277"");
@@ -5278,7 +5278,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02277.j
   64 | encoder().encodeForHTML(o.toString()) + ""<br>""
   65 |
      ^ Col 27
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02281.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02281.java,"
   45 | ) {
   46 |  map.get(""BenchmarkTest02281"");
@@ -5302,7 +5302,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02281.j
   64 | tln(results.toString());
   65 | gframework.dao.EmptyResultDataAccessException e) {
      ^ Col 20
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02284.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02284.java,"
   47 |    if (values != null) param = values[0];
   48 |   }
@@ -5326,7 +5326,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02284.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02286.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02286.java,"
   47 |    if (values != null) param = values[0];
   48 |   }
@@ -5350,7 +5350,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02286.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02287.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02287.java,"
   47 |    if (values != null) param = values[0];
   48 |   }
@@ -5374,7 +5374,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02287.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02288.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02288.java,"
   47 |    if (values != null) param = values[0];
   48 |   }
@@ -5398,7 +5398,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02288.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02354.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02354.java,"
   58 |   }
   59 |
@@ -5422,7 +5422,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02354.j
   77 |    else throw new ServletException(e);
   78 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02355.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02355.java,"
   58 |   }
   59 |
@@ -5446,7 +5446,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02355.j
   77 |    else throw new ServletException(e);
   78 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02356.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02356.java,"
   55 |      }
   56 |     }
@@ -5470,7 +5470,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02356.j
   74 |      ""Error processing request.""
   75 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02357.java,64,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02357.java,"
    54 |   flag = false;
    55 |
@@ -5494,7 +5494,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02357.j
    73 |
    74 |       }
       ^ Col 7
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02358.java,64,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02358.java,"
    54 |
    55 |
@@ -5518,7 +5518,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02358.j
    73 | encoder().encodeForHTML(o.toString()) + ""<br>""
    74 |
       ^ Col 27
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02359.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02359.java,"
    55 |      }
    56 |     }
@@ -5542,7 +5542,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02359.j
    74 |  //  System.out.println(results);
    75 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02360.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02360.java,"
    55 |      }
    56 |     }
@@ -5566,7 +5566,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02360.j
    74 |  //  System.out.println(results);
    75 |   } catch (org.springframework.dao.EmptyResultDataAccessException e) {
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02362.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02362.java,"
    55 |      }
    56 |     }
@@ -5590,7 +5590,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02362.j
    74 |     );
    75 |  //   System.out.println(results.getString(""USERNAME""));
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02364.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02364.java,"
   56 |     }
   57 |    }
@@ -5614,7 +5614,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02364.j
   75 |    else throw new ServletException(e);
   76 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02369.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02369.java,"
   56 |     }
   57 |    }
@@ -5638,7 +5638,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02369.j
   75 |    else throw new ServletException(e);
   76 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02449.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02449.java,"
   45 |   if (param == null) param = """";
   46 |
@@ -5662,7 +5662,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02449.j
   64 |    else throw new ServletException(e);
   65 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02451.java,52,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02451.java,"
   42 |
   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
@@ -5686,7 +5686,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02451.j
   61 |      ""Error processing request.""
   62 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02453.java,51,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02453.java,"
   41 | tType(""text/html;charset=UTF-8"");
   42 |
@@ -5710,7 +5710,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02453.j
   60 | tln(results.toString());
   61 | gframework.dao.EmptyResultDataAccessException e) {
      ^ Col 20
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02454.java,53,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02454.java,"
   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
   44 |   String param = scr.getTheParameter(""BenchmarkTest02454"");
@@ -5734,7 +5734,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02454.j
   62 |          }
   63 |    else throw new ServletException(e);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02455.java,53,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02455.java,"
   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
   44 |   String param = scr.getTheParameter(""BenchmarkTest02455"");
@@ -5758,7 +5758,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02455.j
   62 |    else throw new ServletException(e);
   63 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02528.java,56,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02528.java,"
   46 |    param = values[0];
   47 |  else param = """";
@@ -5782,7 +5782,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02528.j
   65 |         }
   66 |   else throw new ServletException(e);
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02530.java,57,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02530.java,"
   47 |   else param = """";
   48 |
@@ -5806,7 +5806,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02530.j
   66 |    else throw new ServletException(e);
   67 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02531.java,58,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02531.java,"
   48 |
   49 |   String bar = doSomething(request, param);
@@ -5830,7 +5830,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02531.j
   67 |    else throw new ServletException(e);
   68 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02532.java,58,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02532.java,"
   48 |
   49 |   String bar = doSomething(request, param);
@@ -5854,7 +5854,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02532.j
   67 |    else throw new ServletException(e);
   68 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02533.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02533.java,"
   49 |   String bar = doSomething(request, param);
   50 |
@@ -5878,7 +5878,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02533.j
   68 |    else throw new ServletException(e);
   69 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02534.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02534.java,"
   49 |   String bar = doSomething(request, param);
   50 |
@@ -5902,7 +5902,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02534.j
   68 |    else throw new ServletException(e);
   69 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02535.java,59,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02535.java,"
   49 |   String bar = doSomething(request, param);
   50 |
@@ -5926,7 +5926,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02535.j
   68 |    else throw new ServletException(e);
   69 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02537.java,54,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02537.java,"
   44 |   String param;
   45 |   if (values != null && values.length > 0)
@@ -5950,7 +5950,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02537.j
   63 |      ""Error processing request.""
   64 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02542.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02542.java,"
   45 |   if (values != null && values.length > 0)
   46 |     param = values[0];
@@ -5974,7 +5974,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02542.j
   64 |    else throw new ServletException(e);
   65 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02543.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02543.java,"
   45 |   if (values != null && values.length > 0)
   46 |     param = values[0];
@@ -5998,7 +5998,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02543.j
   64 |    else throw new ServletException(e);
   65 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02545.java,55,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02545.java,"
   45 |   if (values != null && values.length > 0)
   46 |     param = values[0];
@@ -6022,7 +6022,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02545.j
   64 |    else throw new ServletException(e);
   65 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02625.java,67,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02625.java,"
   57 |  }
   58 |  param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -6046,7 +6046,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02625.j
   76 |         }
   77 |   else throw new ServletException(e);
      ^ Col 1
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02627.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02627.java,"
   58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   59 |
@@ -6070,7 +6070,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02627.j
   77 |    else throw new ServletException(e);
   78 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02628.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02628.java,"
   58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   59 |
@@ -6094,7 +6094,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02628.j
   77 |    else throw new ServletException(e);
   78 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02630.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02630.java,"
   58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   59 |
@@ -6118,7 +6118,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02630.j
   77 |    else throw new ServletException(e);
   78 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02632.java,68,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02632.java,"
    58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
    59 |
@@ -6142,7 +6142,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02632.j
    77 |    else throw new ServletException(e);
    78 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02635.java,70,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02635.java,"
    60 |   String bar = doSomething(request, param);
    61 |
@@ -6166,7 +6166,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02635.j
    79 |    else throw new ServletException(e);
    80 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02638.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02638.java,"
   55 |   if (ampersandLoc != -1) {
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
@@ -6190,7 +6190,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02638.j
   74 |      ""Error processing request.""
   75 |     );
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02641.java,64,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02641.java,"
    54 | mpersandLoc = queryString.indexOf(""&"", paramLoc);
    55 | mpersandLoc != -1) {
@@ -6214,7 +6214,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02641.j
    73 |
    74 |       }
       ^ Col 7
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02642.java,64,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02642.java,"
    54 | tring.indexOf(""&"", paramLoc);
    55 |
@@ -6238,7 +6238,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02642.j
    73 | encoder().encodeForHTML(o.toString()) + ""<br>""
    74 |
       ^ Col 27
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02643.java,64,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02643.java,"
    54 | tring.indexOf(""&"", paramLoc);
    55 |
@@ -6262,7 +6262,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02643.j
    73 | encoder().encodeForHTML(o.toString()) + ""<br>""
    74 |
       ^ Col 27
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02644.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02644.java,"
   55 |   if (ampersandLoc != -1) {
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
@@ -6286,7 +6286,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02644.j
   74 |     );
   75 |  //   System.out.println(results.getString(""USERNAME""));
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02645.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02645.java,"
    55 |   if (ampersandLoc != -1) {
    56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
@@ -6310,7 +6310,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02645.j
    74 |     );
    75 |  //   System.out.println(results.getString(""USERNAME""));
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02646.java,65,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02646.java,"
   55 |   if (ampersandLoc != -1) {
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
@@ -6334,7 +6334,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02646.j
   74 |     );
   75 |          }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02647.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02647.java,"
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
   57 |   }
@@ -6358,7 +6358,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02647.j
   75 |          }
   76 |    else throw new ServletException(e);
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02649.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02649.java,"
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
   57 |   }
@@ -6382,7 +6382,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02649.j
   75 |    else throw new ServletException(e);
   76 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02650.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02650.java,"
    56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
    57 |   }
@@ -6406,7 +6406,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02650.j
    75 |    else throw new ServletException(e);
    76 |   }
       ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02651.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02651.java,"
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
   57 |   }
@@ -6430,7 +6430,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02651.j
   75 |    else throw new ServletException(e);
   76 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02653.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02653.java,"
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
   57 |   }
@@ -6454,7 +6454,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02653.j
   75 |    else throw new ServletException(e);
   76 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02654.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02654.java,"
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
   57 |   }
@@ -6478,7 +6478,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02654.j
   75 |    else throw new ServletException(e);
   76 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02655.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02655.java,"
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
   57 |   }
@@ -6502,7 +6502,7 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02655.j
   75 |    else throw new ServletException(e);
   76 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
 F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02656.java,66,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02656.java,"
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
   57 |   }
@@ -6526,4 +6526,4 @@ F112,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02656.j
   75 |    else throw new ServletException(e);
   76 |   }
      ^ Col 0
-"
+",get_vulnerabilities_from_syntax
