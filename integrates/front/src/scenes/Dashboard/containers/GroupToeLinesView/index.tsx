@@ -31,6 +31,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   >(
     "toeLinesTableSet",
     {
+      bePresent: true,
       comments: true,
       coverage: true,
       filename: false,
@@ -93,6 +94,10 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     new Intl.NumberFormat("en-IN", {
       style: "percent",
     }).format(value);
+  const formatBoolean = (value: boolean): string =>
+    value
+      ? translate.t("group.toe.lines.yes")
+      : translate.t("group.toe.lines.no");
   const onSort: (dataField: string, order: SortOrder) => void = (
     dataField: string,
     order: SortOrder
@@ -102,6 +107,15 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   };
 
   const headersToeLinesTable: IHeaderConfig[] = [
+    {
+      align: "center",
+      dataField: "bePresent",
+      formatter: formatBoolean,
+      header: translate.t("group.toe.lines.bePresent"),
+      onSort,
+      visible: checkedItems.bePresent,
+      width: "10%",
+    },
     {
       align: "center",
       dataField: "rootNickname",
@@ -138,7 +152,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "attackedLines",
-      header: translate.t("group.toe.lines.testedLines"),
+      header: translate.t("group.toe.lines.attackedLines"),
       onSort,
       visible: checkedItems.testedLines,
       width: "8%",
@@ -166,7 +180,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       dataField: "attackedAt",
       filter: dateFilter({}),
       formatter: formatDate,
-      header: translate.t("group.toe.lines.testedDate"),
+      header: translate.t("group.toe.lines.attackedDate"),
       onSort,
       visible: checkedItems.testedDate,
       width: "5%",
@@ -198,7 +212,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
         Logger.error("Couldn't load group toe lines", error);
       });
     },
-    variables: { bePresent: true, groupName },
+    variables: { groupName },
   });
   const toeLinesEdges: IToeLinesEdge[] =
     data === undefined ? [] : data.group.toeLines.edges;

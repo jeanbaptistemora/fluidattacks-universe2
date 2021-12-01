@@ -741,6 +741,9 @@ export const enTranslations: ResourceKey = {
         testedDate: "Attacked at",
       },
       lines: {
+        attackedDate: "Attacked at",
+        attackedLines: "Attacked lines",
+        bePresent: "Be present",
         comments: "Comments",
         coverage: "Coverage",
         filename: "Filename",
@@ -750,8 +753,6 @@ export const enTranslations: ResourceKey = {
         no: "No",
         root: "Root",
         sortsRiskLevel: "Priority (IA/ML)",
-        testedDate: "Attacked at",
-        testedLines: "Attacked lines",
         yes: "Yes",
       },
       tabs: {

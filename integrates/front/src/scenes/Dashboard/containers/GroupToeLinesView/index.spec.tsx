@@ -25,7 +25,7 @@ describe("GroupToeLinesView", (): void => {
     const mockedToeLines: MockedResponse = {
       request: {
         query: GET_TOE_LINES,
-        variables: { bePresent: true, groupName: "unittesting" },
+        variables: { groupName: "unittesting" },
       },
       result: {
         data: {
@@ -61,7 +61,7 @@ describe("GroupToeLinesView", (): void => {
                     attackedAt: "",
                     attackedBy: "test@test.com",
                     attackedLines: 120,
-                    bePresent: true,
+                    bePresent: false,
                     bePresentUntil: "2021-01-01T15:41:04+00:00",
                     comments: "comment 2",
                     commitAuthor: "customer@gmail.com",
@@ -112,6 +112,7 @@ describe("GroupToeLinesView", (): void => {
 
     expect(tableHeader.text()).toStrictEqual(
       [
+        "Be present",
         "Root",
         "Coverage",
         "LOC",
@@ -124,6 +125,7 @@ describe("GroupToeLinesView", (): void => {
     );
     expect(firstRow.text()).toStrictEqual(
       [
+        "Yes",
         "product",
         "50%",
         "8",
@@ -137,6 +139,7 @@ describe("GroupToeLinesView", (): void => {
 
     expect(secondRow.text()).toStrictEqual(
       [
+        "No",
         "integrates_1",
         "70%",
         "172",
