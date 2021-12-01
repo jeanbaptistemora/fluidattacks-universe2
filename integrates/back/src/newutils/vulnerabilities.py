@@ -56,6 +56,7 @@ from newutils.datetime import (
     convert_from_iso_str,
 )
 from operator import (
+    attrgetter,
     itemgetter,
 )
 from settings import (
@@ -635,6 +636,13 @@ def sort_vulnerabilities(item: List[Dict[str, str]]) -> List[Dict[str, str]]:
     """Sort a vulnerability by its where field."""
     sorted_item = sorted(item, key=itemgetter("where"))
     return sorted_item
+
+
+def sort_vulnerabilities_new(
+    item: Tuple[Vulnerability, ...]
+) -> Tuple[Vulnerability, ...]:
+    """Sort a vulnerability by its where field."""
+    return tuple(sorted(item, key=attrgetter("where")))
 
 
 def range_to_list(range_value: str) -> List[str]:
