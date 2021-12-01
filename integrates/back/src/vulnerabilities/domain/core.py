@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 import aioboto3
 from aioextensions import (
     collect,
