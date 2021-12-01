@@ -3,6 +3,7 @@ from aioextensions import (
 )
 import bugsnag
 import logging
+import os
 import sys
 from types import (
     TracebackType,
@@ -17,6 +18,10 @@ from typing import (
 from utils.bugs import (
     META as BUGS_META,
 )
+from utils.ctx import (
+    CTX,
+)
+import watchtower
 
 # Private constants
 _FORMAT: str = "[%(levelname)s] %(message)s"
@@ -31,6 +36,20 @@ _LOGGER_REMOTE: logging.Logger = logging.getLogger("Skims.stability")
 
 
 def configure() -> None:
+    if (
+        hasattr(CTX, "config")
+        and CTX.config is not None
+        and (batch_job_id := os.environ.get("AWS_BATCH_JOB_ID"))
+    ):
+        log_stream_name = (
+            f"{CTX.config.group}/{CTX.config.namespace}/{batch_job_id}"
+        )
+        watchover_handler = watchtower.CloudWatchLogHandler(
+            "skims",
+            log_stream_name,
+            send_interval=15,
+        )
+        _LOGGER.addHandler(watchover_handler)
     _LOGGER_HANDLER.setStream(sys.stdout)
     _LOGGER_HANDLER.setLevel(logging.INFO)
     _LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)

@@ -42,6 +42,7 @@ from utils.ctx import (
     MANAGER,
 )
 from utils.logs import (
+    configure as configure_logs,
     log,
 )
 from zone import (
@@ -170,6 +171,8 @@ async def main(
 ) -> bool:
     try:
         CTX.config = load(group, config)
+        configure_logs()
+
         add_bugsnag_data(namespace=CTX.config.namespace)
         await reset_ephemeral_state()
         await log("info", "Namespace: %s", CTX.config.namespace)
