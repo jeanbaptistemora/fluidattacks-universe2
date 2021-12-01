@@ -2144,7 +2144,7 @@
     "CVE-2020-14967": "<8.0.18",
     "CVE-2020-14968": "<8.0.17",
     "CVE-2021-30246": "<=10.1.13",
-    "github.com/kjur/jsrsasign/issues/411": "<8.0.13"
+    "SNYK-JS-JSRSASIGN-561755": "<8.0.13"
   },
   "jstestdriver": {
     "GMS-2017-56": ">=0.0.0-alpha"
@@ -2393,8 +2393,7 @@
     "SNYK-JS-LODASH-567746": "<4.17.16",
     "SNYK-JS-LODASH-590103": "<4.17.20",
     "SNYK-JS-LODASH-608086": "<4.17.17",
-    "SNYK-JS-LODASH-73639": "<4.17.11",
-    "github.com/lodash/lodash/issues/4874": "<4.17.20"
+    "SNYK-JS-LODASH-73639": "<4.17.11"
   },
   "logkitty": {
     "CVE-2020-8149": "<0.7.1"
@@ -2515,8 +2514,7 @@
   "merge": {
     "CVE-2018-16469": "<1.2.1",
     "CVE-2020-28499": "<2.1.1",
-    "CVE-2021-3645": "<1.0.2",
-    "github.com/yeikos/js.merge/pull/38": "<=2.1.1"
+    "CVE-2021-3645": "<1.0.2"
   },
   "merge-change": {
     "CVE-2021-23421": ">0"

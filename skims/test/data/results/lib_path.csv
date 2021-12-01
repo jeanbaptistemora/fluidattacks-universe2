@@ -12406,7 +12406,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jsrsasign v8.0.
    78 |     ""mocha"": ""5.2.0"",
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jsrsasign v8.0.0) [github.com/kjur/jsrsasign/issues/411],68,937,skims,011. Use of software with known vulnerabilities,Use of jsrsasign at version 8.0.0 with github.com/kjur/jsrsasign/issues/411 in namespace/skims/test/data/lib_path/f011/package.json,"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jsrsasign v8.0.0) [SNYK-JS-JSRSASIGN-561755],68,937,skims,011. Use of software with known vulnerabilities,Use of jsrsasign at version 8.0.0 with SNYK-JS-JSRSASIGN-561755 in namespace/skims/test/data/lib_path/f011/package.json,"
    58 |     ""ini"": ""1.3.5"",
    59 |     ""ip"": ""1.0.1"",
    60 |     ""is-my-json-valid"": ""2.16.0"",
@@ -13006,30 +13006,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [S
    82 |     ""mysql"": ""2.18.1"",
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874],72,937,skims,011. Use of software with known vulnerabilities,Use of lodash at version 0. with github.com/lodash/lodash/issues/4874 in namespace/skims/test/data/lib_path/f011/package.json,"
-   62 |     ""jasmine-core"": ""2.99.1"",
-   63 |     ""jquery"": ""0.*"",
-   64 |     ""jquery-validation"": ""1.17.0"",
-   65 |     ""js-yaml"": ""3.13.0"",
-   66 |     ""jsonpointer"": ""4.9.0"",
-   67 |     ""jspdf"": ""2.2.0"",
-   68 |     ""jsrsasign"": ""8.0.0"",
-   69 |     ""jszip"": ""3.6.0"",
-   70 |     ""just-extend"": ""3.0.0"",
-   71 |     ""locutus"": ""2.0.11"",
->  72 |     ""lodash"": ""0.*"",
-   73 |     ""macaddress"": ""0.2.8"",
-   74 |     ""marked"": ""0.3.6"",
-   75 |     ""mem"": ""1.1.0"",
-   76 |     ""merge"": ""1.2.0"",
-   77 |     ""merge-deep"": ""3.0.2"",
-   78 |     ""mocha"": ""5.2.0"",
-   79 |     ""moment"": ""2.9.0"",
-   80 |     ""mongoose"": ""4.0.0"",
-   81 |     ""morgan"": ""1.9.0"",
-   82 |     ""mysql"": ""2.18.1"",
-      ^ Col 0
-"
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (macaddress v0.2.8) [CVE-2018-13797],73,937,skims,011. Use of software with known vulnerabilities,Use of macaddress at version 0.2.8 with CVE-2018-13797 in namespace/skims/test/data/lib_path/f011/package.json,"
    63 |     ""jquery"": ""0.*"",
    64 |     ""jquery-validation"": ""1.17.0"",
@@ -13247,30 +13223,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (merge v1.2.0) [
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (merge v1.2.0) [CVE-2020-28499],76,937,skims,011. Use of software with known vulnerabilities,Use of merge at version 1.2.0 with CVE-2020-28499 in namespace/skims/test/data/lib_path/f011/package.json,"
-   66 |     ""jsonpointer"": ""4.9.0"",
-   67 |     ""jspdf"": ""2.2.0"",
-   68 |     ""jsrsasign"": ""8.0.0"",
-   69 |     ""jszip"": ""3.6.0"",
-   70 |     ""just-extend"": ""3.0.0"",
-   71 |     ""locutus"": ""2.0.11"",
-   72 |     ""lodash"": ""0.*"",
-   73 |     ""macaddress"": ""0.2.8"",
-   74 |     ""marked"": ""0.3.6"",
-   75 |     ""mem"": ""1.1.0"",
->  76 |     ""merge"": ""1.2.0"",
-   77 |     ""merge-deep"": ""3.0.2"",
-   78 |     ""mocha"": ""5.2.0"",
-   79 |     ""moment"": ""2.9.0"",
-   80 |     ""mongoose"": ""4.0.0"",
-   81 |     ""morgan"": ""1.9.0"",
-   82 |     ""mysql"": ""2.18.1"",
-   83 |     ""netmask"": ""1.0.6"",
-   84 |     ""ng-packagr"": ""12.2.2"",
-   85 |     ""ngx-bootstrap"": ""6.2.0"",
-   86 |     ""no-case"": ""2.3.1"",
-      ^ Col 0
-"
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (merge v1.2.0) [github.com/yeikos/js.merge/pull/38],76,937,skims,011. Use of software with known vulnerabilities,Use of merge at version 1.2.0 with github.com/yeikos/js.merge/pull/38 in namespace/skims/test/data/lib_path/f011/package.json,"
    66 |     ""jsonpointer"": ""4.9.0"",
    67 |     ""jspdf"": ""2.2.0"",
    68 |     ""jsrsasign"": ""8.0.0"",
