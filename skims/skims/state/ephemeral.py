@@ -23,6 +23,7 @@ from typing import (
     Awaitable,
     Callable,
     NamedTuple,
+    Optional,
     Tuple,
 )
 from utils.ctx import (
@@ -54,6 +55,7 @@ class EphemeralStore(NamedTuple):
     iterate: IteratorFunction
     length: LengthFunction
     store: StoreFunction
+    has_errors: Optional[bool] = False
 
 
 def get_ephemeral_store() -> EphemeralStore:
@@ -92,6 +94,7 @@ def get_ephemeral_store() -> EphemeralStore:
         iterate=iterate,
         length=length,
         store=store,
+        has_errors=False,
     )
 
 
