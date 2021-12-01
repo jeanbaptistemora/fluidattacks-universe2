@@ -15,7 +15,7 @@ const formatDrafts: (dataset: Draft[]) => Draft[] = (
       REJECTED: "searchFindings.draftStatus.rejected",
       SUBMITTED: "searchFindings.draftStatus.submitted",
     };
-    const [reportDate] = draft.reportDate.split(" ");
+    const [reportDate] = draft.reportDate?.split(" ") ?? [""];
     const currentState: string = translate.t(status[draft.currentState]);
     const isExploitable: string = translate.t(
       draft.isExploitable

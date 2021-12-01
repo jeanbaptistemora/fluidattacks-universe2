@@ -7,11 +7,14 @@ from graphql.type.definition import (
 from newutils.datetime import (
     convert_from_iso_str,
 )
+from typing import (
+    Optional,
+)
 
 
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
-) -> str:
+) -> Optional[str]:
     unreliable_indicators = parent.unreliable_indicators
     if unreliable_indicators.unreliable_oldest_vulnerability_report_date:
         return convert_from_iso_str(
@@ -19,4 +22,4 @@ def resolve(
         )
     if parent.creation:
         return convert_from_iso_str(parent.creation.modified_date)
-    return ""
+    return None
