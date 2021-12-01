@@ -377,10 +377,10 @@ resource "aws_batch_job_definition" "skims_process_group" {
 }
 
 resource "aws_cloudwatch_log_group" "skims" {
-  name = "/skims"
+  name = "skims"
 
   tags = {
-    "Name"            = "/skims"
+    "Name"            = "skims"
     "management:area" = "cost"
     "management:type" = "product"
   }
