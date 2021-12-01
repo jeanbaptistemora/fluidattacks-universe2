@@ -10,28 +10,42 @@ from typing import (
 )
 
 
-async def get_result(
+async def put_mutation(
     *,
     user: str,
     finding: str,
     vulnerability: str,
     treatment: str,
+    assigned: str,
 ) -> Dict[str, Any]:
-    query = f"""
-        mutation {{
+    query = """
+        mutation UpdateTreatment(
+            $findingId: String!,
+            $treatment: UpdateClientDescriptionTreatment!,
+            $assigned: String,
+            $vulnerabilityId: ID!
+        ) {
             updateVulnerabilitiesTreatment(
-                acceptanceDate: "2021-03-30 19:45:11",
-                findingId: "{finding}",
+                acceptanceDate: "2021-03-31 19:45:11",
+                findingId: $findingId,
                 justification: "test of update vulns treatment justification",
-                treatment: {treatment},
-                treatmentManager: "customer@gmail.com",
-                vulnerabilityId: "{vulnerability}"
-            ) {{
+                treatment: $treatment,
+                treatmentManager: $assigned,
+                vulnerabilityId: $vulnerabilityId
+            ) {
             success
-            }}
-        }}
+            }
+        }
     """
-    data: Dict[str, Any] = {"query": query}
+    data: Dict[str, Any] = {
+        "query": query,
+        "variables": {
+            "findingId": finding,
+            "treatment": treatment,
+            "assigned": assigned,
+            "vulnerabilityId": vulnerability,
+        },
+    }
     return await get_graphql_result(
         data,
         stakeholder=user,

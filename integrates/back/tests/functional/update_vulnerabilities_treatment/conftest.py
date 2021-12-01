@@ -2,6 +2,9 @@
 from back.tests import (
     db,
 )
+from collections import (
+    defaultdict,
+)
 from db_model.enums import (
     Source,
 )
@@ -33,6 +36,7 @@ from typing import (
 @pytest.mark.resolver_test_group("update_vulnerabilities_treatment")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
+    customer_email: str = "customer1@gmail.com"
     data: Dict[str, Any] = {
         "findings": [
             {
@@ -159,8 +163,15 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     },
                     {
                         "date": "2018-04-08 19:45:11",
-                        "treatment": "ACCEPTED_UNDEFINED",
-                        "acceptance_status": "SUBMITTED",
+                        "treatment_manager": generic_data["global_vars"][
+                            "customer_email"
+                        ],
+                        "treatment": "ACCEPTED",
+                        "justification": "justification",
+                        "acceptance_date": "2018-04-20 19:45:11",
+                        "user": generic_data["global_vars"][
+                            "customer_admin_email"
+                        ],
                     },
                 ],
                 "historic_verification": [
@@ -274,5 +285,42 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "specific": "9999",
             },
         ],
+        "policies": [
+            {
+                "level": "user",
+                "subject": customer_email,
+                "object": "self",
+                "role": "customer",
+            },
+            {
+                "level": "group",
+                "subject": customer_email,
+                "object": "group1",
+                "role": "customer",
+            },
+            {
+                "level": "organization",
+                "subject": customer_email,
+                "object": "40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                "role": "customer",
+            },
+        ],
+        "users": [
+            {
+                "email": customer_email,
+                "first_login": "",
+                "first_name": "",
+                "last_login": "",
+                "last_name": "",
+                "legal_remember": False,
+                "push_tokens": [],
+                "is_registered": True,
+            },
+        ],
     }
-    return await db.populate({**generic_data["db_data"], **data})
+    merge_dict = defaultdict(list)
+    for dict_data in (generic_data["db_data"], data):
+        for key, value in dict_data.items():
+            merge_dict[key].extend(value)
+
+    return await db.populate(merge_dict)
