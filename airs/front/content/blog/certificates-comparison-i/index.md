@@ -50,7 +50,7 @@ Education](https://www.lcpe.org.uk/courses/comptia-security-certification/)
 
 ## [**CompTIA Security+**](https://www.comptia.org/certifications/security)
 
-Granted by CompTIA. It’s a **beginner** exam.
+Granted by CompTIA. It’s a **beginner** exam.\
 It is designed for novice candidates who want to "[pursue an IT security
 career](https://www.comptia.org/faq/security/what-is-on-the-comptia-security-exam)."
 As its main page says, obtaining the certificate validates that the
@@ -71,7 +71,7 @@ performance-based activities.
 
 ## [**Certified Ethical Hacker (CEH)**](https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/)
 
-Granted by EC-Council. Another **beginner** certificate.
+Granted by EC-Council. Another **beginner** certificate.\
 It is perfect for people who want to make their way into penetration
 exams. The preparation level that a candidate must have is practically
 the same as that required to achieve CompTIA Security+. However, unlike
@@ -98,7 +98,7 @@ environments](https://blog.netwrix.com/2019/04/04/comptia-security-vs-sscp-cissp
 
 ## [**Certified DevSecOps Professional (CDP)**](https://www.practical-devsecops.com/certified-devsecops-professional/)
 
-Granted by Practical DevSecOps.
+Granted by Practical DevSecOps.\
 It is a beginner-intermediate certification. If most certificates are
 focused on pentesters who want to be part of a red team, the CDP is
 designed for developers to strengthen their techniques, especially those
@@ -115,7 +115,7 @@ pipeline and doing security tasks at scale."
 
 ## [**Offensive Security Certified Professional (OSCP)**](https://www.offensive-security.com/pwk-oscp/)
 
-Granted by Offensive Security.
+Granted by Offensive Security.\
 It is an **intermediate** level certification and is focused on
 practical skills. It certifies that the candidate "[demonstrates a
 comprehensive mastery and practical understanding of
@@ -133,7 +133,7 @@ last 48 hours.
 
 ## [**Certified Red Team Professional (CRTP)**](hhttps://www.pentesteracademy.com/activedirectorylab)
 
-Granted by Pentester Academy.
+Granted by Pentester Academy.\
 It is an **intermediate** level certification. In fact, the CRTP is very
 close to the OSCP in the level of complexity. To obtain it, candidates
 must do an intermediate-level exam that
@@ -150,7 +150,7 @@ certification of the triad needed to start a career within a red team.
 
 ## [**Offensive Security Wireless Attacks (OSWP)**](https://www.offensive-security.com/wifu-oswp/)
 
-Granted by Offensive Security.
+Granted by Offensive Security.\
 It is a **beginner-intermediate** exam. It is usually accomplished after
 the CEH and is designed for people who want to consolidate their careers
 as security analysts or network administrators. It is an exam that

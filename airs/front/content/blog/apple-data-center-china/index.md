@@ -222,6 +222,6 @@ translation of the old saying, **"you shall not pass\!"** Apple
 interpreted it as a possibility to strengthen its finances. Only time
 will tell us how good the decision was.
 
-We hope you have enjoyed this post\!
-At `Fluid Attacks` we look forward to hearing from you.
+We hope you have enjoyed this post!\
+At `Fluid Attacks` we look forward to hearing from you.\
 [Contact us\!](../../contact-us/)

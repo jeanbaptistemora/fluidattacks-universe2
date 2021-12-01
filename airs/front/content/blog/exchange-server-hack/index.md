@@ -181,7 +181,7 @@ with the SolarWinds supply chain attack that has affected around 18,000
 organizations worldwide. In this new indiscriminate attack, it appears
 that the number of organizations impacted is approximately 30,000. More
 recently, some authors have [even reported
-**60**](https://www.bloomberg.com/news/articles/2021-03-07/hackers-breach-thousands-of-microsoft-customers-around-the-world).
+**60,000**](https://www.bloomberg.com/news/articles/2021-03-07/hackers-breach-thousands-of-microsoft-customers-around-the-world).
 In addition to the types of organizations previously mentioned as
 victims are ["banks, credit
 unions](https://krebsonsecurity.com/2021/03/at-least-30000-u-s-organizations-newly-hacked-via-holes-in-microsofts-email-software/),

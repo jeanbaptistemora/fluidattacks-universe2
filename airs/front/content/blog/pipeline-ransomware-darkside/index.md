@@ -131,7 +131,7 @@ them were rejected by the NGO’s.
 <div class="title">
 
 Figure 3. [DarkSide
-leaks.](https://www.bloomberg.com/news/articles/2021-05-12/darkside-hackers-mint-money-with-ransomware-franchise).
+leaks.](https://www.bloomberg.com/news/articles/2021-05-12/darkside-hackers-mint-money-with-ransomware-franchise)
 
 </div>
 
