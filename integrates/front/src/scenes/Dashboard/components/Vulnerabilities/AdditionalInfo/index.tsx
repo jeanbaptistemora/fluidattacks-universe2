@@ -40,7 +40,7 @@ const LabelField: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "pl1 pr2 w-30-l w-100-m w-100-ns w-auto",
+  className: "pl1 pr0 w-30-l w-100-m w-100-ns w-auto",
 })``;
 
 const InfoField: StyledComponent<
@@ -49,7 +49,7 @@ const InfoField: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "pl1 pr2 w-70-l w-100-m w-100-ns w-auto",
+  className: "pl1 pr0 w-70-l w-100-m w-100-ns w-auto",
 })``;
 
 const Col100: StyledComponent<
@@ -58,7 +58,7 @@ const Col100: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "pl1 pr2 pb1 w-100",
+  className: "pl1 pr0 pb1 w-100",
 })``;
 
 const Col50: StyledComponent<
@@ -71,7 +71,7 @@ const Col50: StyledComponent<
 })``;
 
 const Field: StyledComponent<"p", Record<string, unknown>> = styled.p.attrs({
-  className: "ma0 mid-gray w-fit-content ws-pre-wrap ww-break-word",
+  className: "lh-title ma0 mid-gray w-fit-content ws-pre-wrap ww-break-word",
 })``;
 
 const Label: StyledComponent<
@@ -114,7 +114,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
 
   return (
     <React.StrictMode>
-      <div className={"pb1 pl1 pr2 pt2 w-100"}>
+      <div className={"pb1 pt2 w-100"}>
         <Col100>
           <Status>
             <b>
@@ -126,7 +126,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
           <b>{t("searchFindings.tabVuln.vulnTable.location")}</b>
         </Col100>
         <div className={"flex flex-wrap pb0"}>
-          <div className={"pl1 pr2 pb0 w-100"}>
+          <div className={"pl1 pr0 pb0 w-100"}>
             <Field>{vulnerability.where}</Field>
             {_.isEmpty(vulnerability.stream) ? undefined : (
               <Field>{vulnerability.stream}</Field>
@@ -134,14 +134,14 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
           </div>
         </div>
         <OuterRow>
-          <div className={"pl1 pr2 w-10-l w-100-m w-100-ns"}>
+          <div className={"pl1 pr0 w-10-l w-100-m w-100-ns"}>
             <Label>
               {t(
                 `searchFindings.tabVuln.vulnTable.specificType.${vulnerability.vulnerabilityType}`
               )}
             </Label>
           </div>
-          <div className={"pl1 pr2 w-90-l w-100-m w-100-ns"}>
+          <div className={"pl1 pr0 w-90-l w-100-m w-100-ns"}>
             <Field>{vulnerability.specific}</Field>
           </div>
         </OuterRow>
@@ -208,7 +208,15 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 </Label>
               </LabelField>
               <InfoField>
-                <Value value={vulnerability.treatmentManager} />
+                <p
+                  className={
+                    "f5 lh-title ma0 mid-gray pr1-l tr-l tl-m tl-ns truncate"
+                  }
+                >
+                  {_.isEmpty(vulnerability.treatmentManager)
+                    ? t("searchFindings.tabVuln.notApplicable")
+                    : vulnerability.treatmentManager}
+                </p>
               </InfoField>
             </Row>
             <Row>
@@ -276,7 +284,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <InfoField>
                   <p
                     className={
-                      "ma0 mid-gray pr2-l tr-l tl-m tl-ns ws-pre-wrap ww-break-word"
+                      "lh-title ma0 mid-gray pr1-l tr-l tl-m tl-ns ws-pre-wrap ww-break-word"
                     }
                   >
                     {commitFormatter(vulnerability.commitHash)}
@@ -320,12 +328,12 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <LabelField>
                 <Label>{t("searchFindings.tabDescription.zeroRisk")}</Label>
               </LabelField>
-              <div className={"pl1 pr2 w-70-l w-100-m w-100-ns mr"}>
+              <div className={"pl1 pr0 w-70-l w-100-m w-100-ns mr"}>
                 {_.isEmpty(vulnerability.zeroRisk) ? (
                   <Value value={vulnerability.zeroRisk} />
                 ) : (
                   <div className={"tr-l tl-m tl-ns"}>
-                    <p className={"dib f5 ma0 mid-gray pr2-l"}>
+                    <p className={"dib f5 ma0 mid-gray pr1-l"}>
                       <PointStatus status={vulnerability.zeroRisk} />
                     </p>
                   </div>

@@ -27,9 +27,7 @@ export const TrackingTreatment: React.FC<IHistoricTreatment> = ({
           <span>{date.split(" ")[0]}</span>
         </div>
         <div className={styles.content}>
-          <p
-            className={"f5 fw6 mb1 mt0 w-fit-content ws-pre-wrap ww-break-word"}
-          >
+          <p className={"f5 fw6 mb1 mt0 ws-pre-wrap ww-break-word"}>
             {t(formatDropdownField(treatment)) +
               (isPendingToApproval
                 ? t("searchFindings.tabDescription.treatment.pendingApproval")
