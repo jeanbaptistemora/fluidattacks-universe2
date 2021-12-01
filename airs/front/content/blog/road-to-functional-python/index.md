@@ -159,7 +159,7 @@ integer_list = [7, 8, 9]
 map(lambda x: x + 1,integer_list) # [8, 9, 10]
 ```
 
-## Run Forrest, Run
+## Run Forrest, Run!
 
 We are now next to world-class athletes and we can learn a lot from
 them. One of the most prominent is

@@ -208,7 +208,7 @@ purposes, here’s a list with some cracking software:
 
 - [Ophcrack](https://ophcrack.sourceforge.io/)
 
-## Check your passwords
+## Check your passwords!
 
 At `Fluid Attacks` we’re interested in `IT` security, and as [Julian
 Arango](../do-not-read/) said once:

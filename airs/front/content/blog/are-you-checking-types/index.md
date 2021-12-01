@@ -116,7 +116,7 @@ sequence by non-int of type 'str'
 Now you can cry. Your apple sales business went bankrupt by simply
 changing the type of input variables.
 
-## Oh, the irony
+## Oh, the irony!
 
 Dear reader, if you’re a pythonista who doesn’t allow yourself to be
 surprised so easily, you may be saying: *"Wait, what? Python is a

@@ -31,7 +31,7 @@ that Chinese Apple users face potential abuses and intrusions into
 privacy by the Chinese government. In this post, we explain why they say
 so and what the controversy consists of.
 
-## Hey China, think different
+## Hey China, think different!
 
 This Apple-China project has been underway for more than three years, as
 [in 2017, Apple signed a
