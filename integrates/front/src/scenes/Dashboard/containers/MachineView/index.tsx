@@ -129,20 +129,22 @@ const MachineView: React.FC = (): JSX.Element => {
     },
   ];
 
-  const tableDataset: ITableRow[] = data.finding.machineJobs.map(
-    (job: IFindingMachineJob): ITableRow => ({
-      duration:
-        job.startedAt === null || job.stoppedAt === null
-          ? -1
-          : parseFloat(job.stoppedAt) - parseFloat(job.startedAt),
-      priority: job.queue.endsWith("_soon")
-        ? translate.t("searchFindings.tabMachine.priorityHigh")
-        : translate.t("searchFindings.tabMachine.priorityNormal"),
-      rootNickname: job.rootNickname,
-      startedAt: job.startedAt === null ? -1 : parseFloat(job.startedAt),
-      status: job.status,
-    })
-  );
+  const tableDataset: ITableRow[] = _.isUndefined(data.finding.machineJobs)
+    ? []
+    : data.finding.machineJobs.map(
+        (job: IFindingMachineJob): ITableRow => ({
+          duration:
+            job.startedAt === null || job.stoppedAt === null
+              ? -1
+              : parseFloat(job.stoppedAt) - parseFloat(job.startedAt),
+          priority: job.queue.endsWith("_soon")
+            ? translate.t("searchFindings.tabMachine.priorityHigh")
+            : translate.t("searchFindings.tabMachine.priorityNormal"),
+          rootNickname: job.rootNickname,
+          startedAt: job.startedAt === null ? -1 : parseFloat(job.startedAt),
+          status: job.status,
+        })
+      );
 
   const submitJobOnClick = (rootNickname: string): void => {
     void submitMachineJob({ variables: { findingId, rootNickname } });
