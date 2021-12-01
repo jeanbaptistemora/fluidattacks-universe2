@@ -11,6 +11,7 @@ from tap_dynamo.auth import (
 )
 from typing import (
     Any,
+    Dict,
     Optional,
 )
 
@@ -21,17 +22,17 @@ class ScanArgs:
     consistent_read: bool
     segment: int
     total_segments: int
-    start_key: Optional[Any]
+    start_key: Optional[FrozenDict[str, str]]
 
     def to_dict(self) -> FrozenDict[str, Any]:
-        data = {
+        data: Dict[str, Any] = {
             "Limit": self.limit,
             "ConsistentRead": self.consistent_read,
             "Segment": self.segment,
             "TotalSegments": self.total_segments,
         }
         if self.start_key:
-            data["ExclusiveStartKey"] = self.start_key
+            data["ExclusiveStartKey"] = dict(self.start_key)
         return FrozenDict(data)
 
 

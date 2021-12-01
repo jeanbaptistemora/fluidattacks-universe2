@@ -7,6 +7,7 @@ closure:
   python-dateutil: 2.8.2
   returns: 0.16.0
   s3transfer: 0.5.0
+  simplejson: 3.17.6
   six: 1.16.0
   typing-extensions: 3.10.0.2
   urllib3: 1.26.7
@@ -59,6 +60,36 @@ links:
   - name: s3transfer-0.5.0.tar.gz
     sha256: 0k6sc956yrrv9b4laa0r79jhxajpyxr21jcd1ka8m1n53lz85vah
     url: https://files.pythonhosted.org/packages/88/ef/4d1b3f52ae20a7e72151fde5c9f254cd83f8a49047351f34006e517e1655/s3transfer-0.5.0.tar.gz
+  - name: simplejson-3.17.6-cp38-cp38-macosx_10_9_universal2.whl
+    sha256: 1qbyy7l8wm2igazngd3d08bxm31njcr3kmf3kyxsqisjjypp11h6
+    url: https://files.pythonhosted.org/packages/dc/23/f580502e18d957d59f401bb2b4d879d4c2a16620164d923907d3163c0e98/simplejson-3.17.6-cp38-cp38-macosx_10_9_universal2.whl
+  - name: simplejson-3.17.6-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 18y6lkkb8n70dzj644h64z04v3rk32i7pksrsa6v4b67y1d1672d
+    url: https://files.pythonhosted.org/packages/1f/cb/ac4cf3d72a5922658852acff8e25054da10e0f578402a5cd6d0affde3033/simplejson-3.17.6-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: simplejson-3.17.6-cp38-cp38-macosx_11_0_arm64.whl
+    sha256: 152zmndnmscfbj6wa3zhkj45ls1150avmjs34pklbzqhm56p1zi3
+    url: https://files.pythonhosted.org/packages/5e/d0/554c6448dbb09ee62f046a8f52dd44336d6930709721774ac3182a9c60ea/simplejson-3.17.6-cp38-cp38-macosx_11_0_arm64.whl
+  - name: simplejson-3.17.6-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 10dw4c12m0jbhfgbwiax4jxiy34hxlh4mwby31szvh8vxlppci7l
+    url: https://files.pythonhosted.org/packages/5e/fe/c77f74bdfbf25d3cdd9ce3c6742e6cb64026c1a72fde3467b7974c996701/simplejson-3.17.6-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: simplejson-3.17.6-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
+    sha256: 178x1bmw36551ai0ifwhan4vkcppsy4mwni4nfwnx6lsgk9v87k8
+    url: https://files.pythonhosted.org/packages/8f/f9/e4ee2d5af8ee9ee00a0f96f231e98480280da54580fd8477ea58d8566577/simplejson-3.17.6-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
+  - name: simplejson-3.17.6-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+    sha256: 1aq717i6qqblyqigpnyl7nchxdba9lrpwi0ixrpx9ydlyvc0g1lf
+    url: https://files.pythonhosted.org/packages/66/f7/e2fdc6bb6b53fdbff7f63189f09a8d5e9e55660b2798203c045676c489d2/simplejson-3.17.6-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+  - name: simplejson-3.17.6-cp38-cp38-musllinux_1_1_aarch64.whl
+    sha256: 1zpnb4s7g3is2h4nymyha40vjh1rcp82v66x1r16vm09gy0mc1di
+    url: https://files.pythonhosted.org/packages/ea/dc/5cb2b96071a9c148d3aac076d92b05a175415084ec5f0427880e89a71e22/simplejson-3.17.6-cp38-cp38-musllinux_1_1_aarch64.whl
+  - name: simplejson-3.17.6-cp38-cp38-musllinux_1_1_i686.whl
+    sha256: 0fi91cprd44zc177d8niyvz3bk0niivrwafnzwj4azcqw2g8mv71
+    url: https://files.pythonhosted.org/packages/10/0e/fe30396ad211572d9127fd40e9dbe7469ac7f8bb2c6c21d4e7ebb8bbd67f/simplejson-3.17.6-cp38-cp38-musllinux_1_1_i686.whl
+  - name: simplejson-3.17.6-cp38-cp38-musllinux_1_1_x86_64.whl
+    sha256: 1gqj5sg6skhvzjjbrmpw4h3ag9186c5kxz9fy9pw16nnqz52ch8b
+    url: https://files.pythonhosted.org/packages/72/76/91d3e4c7abcb34619298e029ad0df01e018d826b89cfe3ae8f0737411368/simplejson-3.17.6-cp38-cp38-musllinux_1_1_x86_64.whl
+  - name: simplejson-3.17.6.tar.gz
+    sha256: 19pqqn01y6qmhhv8q6dh4p1acav49kl923kklnns2qxz5a6h766g
+    url: https://files.pythonhosted.org/packages/7a/47/c7cc3d4ed15f09917838a2fb4e1759eafb6d2f37ebf7043af984d8b36cf7/simplejson-3.17.6.tar.gz
   - name: six-1.16.0-py2.py3-none-any.whl
     sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
     url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl

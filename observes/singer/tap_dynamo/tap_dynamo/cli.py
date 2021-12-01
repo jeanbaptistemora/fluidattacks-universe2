@@ -35,7 +35,7 @@ def stream(
     _conf = Maybe.from_optional(conf)
     tables = _conf.map(
         lambda c: JsonFactory.load(c)["tables"].to_list_of(str)
-    ).value_or([Maybe.from_optional(table).unwrap()])
+    ).or_else_call(lambda: [Maybe.from_optional(table).unwrap()])
     client = new_client(creds)
     return stream_tables(client, tuple(tables))
 

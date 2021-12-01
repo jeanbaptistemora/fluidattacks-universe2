@@ -1,4 +1,3 @@
-import json
 from purity.v1 import (
     FrozenDict,
     FrozenList,
@@ -16,6 +15,7 @@ from purity.v1.pure_iter.transform.io import (
 from returns.io import (
     IO,
 )
+import simplejson  # type: ignore
 from singer_io.singer2 import (
     SingerEmitter,
     SingerRecord,
@@ -76,7 +76,7 @@ def response_to_dpage(scan_response: ScanResponse) -> Optional[PageData]:
         return None
 
     last_key: Optional[Dict[str, Any]] = response.get("LastEvaluatedKey", None)
-    data = json.dumps(response["Items"])
+    data = simplejson.dumps(response)
     with tempfile.NamedTemporaryFile(mode="w+", delete=False) as file:
         file.write(data)
         if last_key:
@@ -124,19 +124,19 @@ def extract_segment(
 
 
 def to_singer(page: PageData) -> FrozenList[SingerRecord]:
-    page.file.seek(0)
-    data = JsonFactory.load(page.file)
-    return tuple(
-        SingerRecord(page.t_segment.table_name, item.to_json())
-        for item in data["Items"].to_list()
-    )
+    with open(page.file.name) as file:
+        data = JsonFactory.load(file)
+        return tuple(
+            SingerRecord(page.t_segment.table_name, item.to_json())
+            for item in data["Items"].to_list()
+        )
 
 
 def stream_tables(client: Client, tables: FrozenList[str]) -> IO[None]:
     emitter = SingerEmitter()
     pages = chain(
         from_flist(tables)
-        .map(lambda t: extract_segment(client, TableSegment(t, 1, 1)))
+        .map(lambda t: extract_segment(client, TableSegment(t, 0, 1)))
         .map(lambda x: from_flist(x))
     )
     records = chain(pages.map(to_singer).map(lambda x: from_flist(x)))
