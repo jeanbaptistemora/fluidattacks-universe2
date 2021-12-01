@@ -327,9 +327,11 @@ def format_vulnerabilities(
     return finding
 
 
-def format_where(where: str, vulnerabilities: List[Dict[str, str]]) -> str:
+def format_where(
+    where: str, vulnerabilities: Tuple[Vulnerability, ...]
+) -> str:
     for vuln in vulnerabilities:
-        where = f'{where}{vuln.get("where")} ({vuln.get("specific")})\n'
+        where = f"{where}{vuln.where} ({vuln.specific})\n"
     return where
 
 

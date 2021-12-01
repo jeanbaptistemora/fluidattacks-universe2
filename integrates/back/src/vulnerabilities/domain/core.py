@@ -1,4 +1,3 @@
-# pylint: disable=too-many-lines
 import aioboto3
 from aioextensions import (
     collect,
@@ -344,11 +343,13 @@ async def get_grouped_vulnerabilities_info(
         grouped_ports_vulnerabilities = tuple(
             map(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
-                    where=grouped_vulns_info["where"],
-                    specific=grouped_vulns_info["specific"],
-                    commit_hash=grouped_vulns_info.get("commit_hash"),
+                    where=grouped_vulns_info.where,
+                    specific=grouped_vulns_info.specific,
+                    commit_hash=grouped_vulns_info.commit,
                 ),
-                vulns_utils.group_specific(ports_vulnerabilities, "ports"),
+                vulns_utils.group_specific_new(
+                    ports_vulnerabilities, VulnerabilityType.PORTS
+                ),
             )
         )
         where = vulns_utils.format_where(where, ports_vulnerabilities)
@@ -357,11 +358,13 @@ async def get_grouped_vulnerabilities_info(
         grouped_lines_vulnerabilities = tuple(
             map(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
-                    where=grouped_vulns_info["where"],
-                    specific=grouped_vulns_info["specific"],
-                    commit_hash=grouped_vulns_info.get("commit_hash"),
+                    where=grouped_vulns_info.where,
+                    specific=grouped_vulns_info.specific,
+                    commit_hash=grouped_vulns_info.commit,
                 ),
-                vulns_utils.group_specific(lines_vulnerabilities, "lines"),
+                vulns_utils.group_specific_new(
+                    lines_vulnerabilities, VulnerabilityType.LINES
+                ),
             )
         )
         where = vulns_utils.format_where(where, lines_vulnerabilities)
@@ -370,11 +373,13 @@ async def get_grouped_vulnerabilities_info(
         grouped_inputs_vulnerabilities = tuple(
             map(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
-                    where=grouped_vulns_info["where"],
-                    specific=grouped_vulns_info["specific"],
-                    commit_hash=grouped_vulns_info.get("commit_hash"),
+                    where=grouped_vulns_info.where,
+                    specific=grouped_vulns_info.specific,
+                    commit_hash=grouped_vulns_info.commit,
                 ),
-                vulns_utils.group_specific(inputs_vulnerabilities, "inputs"),
+                vulns_utils.group_specific_new(
+                    inputs_vulnerabilities, VulnerabilityType.INPUTS
+                ),
             )
         )
         where = vulns_utils.format_where(where, inputs_vulnerabilities)
@@ -391,36 +396,23 @@ async def get_grouped_vulnerabilities_info(
 async def get_open_vulnerabilities_specific_by_type(
     loaders: Any,
     finding_id: str,
-) -> Dict[str, Tuple[Dict[str, str], ...]]:
-    finding_vulns_loader = loaders.finding_vulns_nzr_typed
-    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
-        finding_id
-    )
+) -> Dict[str, Tuple[Vulnerability, ...]]:
+    vulns: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_nzr_typed.load(finding_id)
     open_vulns = vulns_utils.filter_open_vulns(vulns)
     ports_vulns = tuple(
-        {
-            "where": vuln.where,
-            "specific": vuln.specific,
-            "commit_hash": "",
-        }
+        vuln
         for vuln in open_vulns
         if vuln.type == vulns_enums.VulnerabilityType.PORTS
     )
     lines_vulns = tuple(
-        {
-            "where": vuln.where,
-            "specific": vuln.specific,
-            "commit_hash": vuln.commit if vuln.commit else "",
-        }
+        vuln
         for vuln in open_vulns
         if vuln.type == vulns_enums.VulnerabilityType.LINES
     )
     inputs_vulns = tuple(
-        {
-            "where": vuln.where,
-            "specific": vuln.specific,
-            "commit_hash": "",
-        }
+        vuln
         for vuln in open_vulns
         if vuln.type == vulns_enums.VulnerabilityType.INPUTS
     )
