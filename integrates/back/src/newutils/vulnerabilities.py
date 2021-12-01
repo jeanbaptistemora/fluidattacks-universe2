@@ -140,16 +140,6 @@ def filter_no_treatment_vulns(
 
 
 def filter_non_deleted(
-    vulnerabilities: List[Dict[str, Any]],
-) -> List[Dict[str, Any]]:
-    return [
-        vuln
-        for vuln in vulnerabilities
-        if vuln["historic_state"][-1]["state"] != "DELETED"
-    ]
-
-
-def filter_non_deleted_new(
     vulnerabilities: Tuple[Vulnerability, ...],
 ) -> Tuple[Vulnerability, ...]:
     return tuple(
@@ -160,19 +150,6 @@ def filter_non_deleted_new(
 
 
 def filter_open_vulns(
-    vulnerabilities: List[Dict[str, Any]],
-) -> List[Dict[str, Any]]:
-    return [
-        vuln
-        for vuln in vulnerabilities
-        if cast(HistoricType, vuln.get("historic_state", [{}]))[-1].get(
-            "state"
-        )
-        == "open"
-    ]
-
-
-def filter_open_vulns_new(
     vulnerabilities: Tuple[Vulnerability, ...],
 ) -> Tuple[Vulnerability, ...]:
     return tuple(
@@ -302,7 +279,7 @@ def filter_historic_date(
     historic: Tuple[VulnerabilityTreatment, ...],
     min_date: datetime,
 ) -> Tuple[VulnerabilityTreatment, ...]:
-    """Filter historics since a given date"""
+    """Filter historics since a given date."""
     return tuple(
         entry
         for entry in historic
@@ -779,7 +756,7 @@ def get_total_treatment_date(
 def get_last_requested_reattack_date(
     historic: Tuple[VulnerabilityVerification, ...],
 ) -> Optional[str]:
-    """Get last requested reattack date in ISO8601 UTC format"""
+    """Get last requested reattack date in ISO8601 UTC format."""
     return next(
         (
             verification.modified_date
@@ -793,7 +770,7 @@ def get_last_requested_reattack_date(
 def get_last_reattack_date(
     historic: Tuple[VulnerabilityVerification, ...],
 ) -> Optional[str]:
-    """Get last reattack date in ISO8601 UTC format"""
+    """Get last reattack date in ISO8601 UTC format."""
     return next(
         (
             verification.modified_date
@@ -809,7 +786,7 @@ def get_total_reattacks_stats(  # pylint: disable=too-many-locals
     historics: Tuple[Tuple[VulnerabilityVerification, ...], ...],
     min_date: datetime,
 ) -> Dict[str, Union[int, str]]:
-    """Get the total reattacks of all the vulns"""
+    """Get the total reattacks of all the vulns."""
     default_date: datetime = datetime_utils.get_from_str(
         datetime_utils.DEFAULT_STR
     )

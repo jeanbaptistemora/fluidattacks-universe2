@@ -8,7 +8,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils.vulnerabilities import (
-    filter_non_deleted_new,
+    filter_non_deleted,
     filter_non_zero_risk,
 )
 from roots.types import (
@@ -26,4 +26,4 @@ async def resolve(
     root_vulns = await loaders.root_vulns_typed.load(
         (parent.group_name, parent.nickname)
     )
-    return list(filter_non_zero_risk(filter_non_deleted_new(root_vulns)))
+    return list(filter_non_zero_risk(filter_non_deleted(root_vulns)))

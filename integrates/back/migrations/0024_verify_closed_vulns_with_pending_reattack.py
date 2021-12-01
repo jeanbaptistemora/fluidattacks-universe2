@@ -115,7 +115,7 @@ async def verify_closed_vulnerabilities(
 ) -> None:
     coroutines: List[Awaitable[bool]] = []
     finding = await findings_dal.get_finding(finding_id)
-    vulnerabilities = await vulns_domain.get_by_ids(closed_vulns)
+    vulnerabilities = await vulns_domain.get_by_ids_old(closed_vulns)
     tzn = pytz.timezone(TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime("%Y-%m-%d %H:%M:%S")
     comment_id = int(round(time() * 1000))

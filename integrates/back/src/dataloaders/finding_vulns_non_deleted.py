@@ -69,6 +69,6 @@ class FindingVulnsNonDeletedTypedLoader(DataLoader):
     ) -> Tuple[Tuple[Vulnerability, ...], ...]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
         return tuple(
-            vulns_utils.filter_non_deleted_new(finding_vulns)
+            vulns_utils.filter_non_deleted(finding_vulns)
             for finding_vulns in findings_vulns
         )

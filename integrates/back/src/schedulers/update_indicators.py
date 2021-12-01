@@ -11,9 +11,6 @@ from calendar import (
 from collections import (
     OrderedDict,
 )
-from custom_types import (
-    Historic as HistoricType,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -49,7 +46,6 @@ import logging
 import logging.config
 from newutils import (
     datetime as datetime_utils,
-    findings as findings_utils,
     vulnerabilities as vulns_utils,
 )
 from pandas import (
@@ -608,33 +604,6 @@ def get_by_time_range(
         and not (
             min_date
             and datetime.fromisoformat(historic_state[0].modified_date)
-            < datetime_utils.get_from_str(min_date)
-        )
-    ):
-        return VulnerabilityStatusByTimeRange(
-            vulnerabilities=1, cvssf=vulns_utils.get_cvssf(severity)
-        )
-    return VulnerabilityStatusByTimeRange(
-        vulnerabilities=0, cvssf=Decimal("0.0")
-    )
-
-
-def get_closed_vulnerabilities(
-    historic_state: HistoricType,
-    severity: Decimal,
-    last_day: str,
-    min_date: Optional[str] = None,
-) -> VulnerabilityStatusByTimeRange:
-    states = findings_utils.filter_by_date(
-        historic_state, datetime_utils.get_from_str(last_day)
-    )
-    if (
-        states
-        and states[-1]["date"] <= last_day
-        and states[-1]["state"] == "closed"
-        and not (
-            min_date
-            and datetime_utils.get_from_str(historic_state[0]["date"])
             < datetime_utils.get_from_str(min_date)
         )
     ):

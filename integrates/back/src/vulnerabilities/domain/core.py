@@ -302,13 +302,6 @@ async def get_by_vulnerabilities_ids(
     return vulnerabilities
 
 
-async def get_by_ids(vulns_ids: List[str]) -> List[Dict[str, FindingType]]:
-    result: List[Dict[str, FindingType]] = await collect(
-        [get(vuln_id) for vuln_id in vulns_ids]
-    )
-    return result
-
-
 async def get_grouped_vulnerabilities_info(
     loaders: Any,
     finding_id: str,
@@ -385,7 +378,7 @@ async def get_open_vulnerabilities_specific_by_type(
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
-    open_vulns = vulns_utils.filter_open_vulns_new(vulns)
+    open_vulns = vulns_utils.filter_open_vulns(vulns)
     ports_vulns = tuple(
         {
             "where": vuln.where,

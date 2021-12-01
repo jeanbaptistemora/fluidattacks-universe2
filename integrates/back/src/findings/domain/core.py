@@ -237,7 +237,7 @@ async def get_finding_open_age(loaders: Any, finding_id: str) -> int:
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
-    open_vulns = vulns_utils.filter_open_vulns_new(vulns)
+    open_vulns = vulns_utils.filter_open_vulns(vulns)
     vulns_historic_loader: DataLoader = loaders.vulnerability_historic_state
     vulns_historic_state: Tuple[
         Tuple[VulnerabilityState, ...]
@@ -333,7 +333,7 @@ async def get_open_vulnerabilities(loaders: Any, finding_id: str) -> int:
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
-    return len(vulns_utils.filter_open_vulns_new(vulns))
+    return len(vulns_utils.filter_open_vulns(vulns))
 
 
 async def _is_pending_verification(loaders: Any, finding_id: str) -> bool:
@@ -385,7 +385,7 @@ async def get_status(loaders: Any, finding_id: str) -> str:
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
-    open_vulns: Tuple[Vulnerability, ...] = vulns_utils.filter_open_vulns_new(
+    open_vulns: Tuple[Vulnerability, ...] = vulns_utils.filter_open_vulns(
         vulns
     )
     return "open" if open_vulns else "closed"
@@ -462,7 +462,7 @@ async def get_treatment_summary(
 ) -> Treatments:
     finding_vulns_loader = loaders.finding_vulns_nzr_typed
     vulnerabilities = await finding_vulns_loader.load(finding_id)
-    open_vulnerabilities = vulns_utils.filter_open_vulns_new(vulnerabilities)
+    open_vulnerabilities = vulns_utils.filter_open_vulns(vulnerabilities)
     return vulns_domain.get_treatments_count(open_vulnerabilities)
 
 
@@ -473,7 +473,7 @@ async def _get_wheres(
     finding_vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
-    open_vulns = vulns_utils.filter_open_vulns_new(finding_vulns)
+    open_vulns = vulns_utils.filter_open_vulns(finding_vulns)
     wheres: List[str] = sorted(set(vuln.where for vuln in open_vulns))
     if limit:
         wheres = wheres[:limit]
@@ -797,7 +797,7 @@ async def get_oldest_no_treatment(
     vulns = await finding_vulns_loader.load_many_chained(
         [finding.id for finding in findings]
     )
-    open_vulns = vulns_utils.filter_open_vulns_new(vulns)
+    open_vulns = vulns_utils.filter_open_vulns(vulns)
     no_treatment_vulns = vulns_utils.filter_no_treatment_vulns(open_vulns)
 
     if not no_treatment_vulns:
@@ -832,7 +832,7 @@ async def get_oldest_open_vulnerability_report_date(
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
-    open_vulns = vulns_utils.filter_open_vulns_new(vulns)
+    open_vulns = vulns_utils.filter_open_vulns(vulns)
     vulns_historic_loader: DataLoader = loaders.vulnerability_historic_state
     vulns_historic_state: Tuple[
         Tuple[VulnerabilityState, ...]
@@ -866,6 +866,6 @@ async def get_vulnerabilities_to_reattack(
     finding_id: str,
 ) -> Tuple[Vulnerability, ...]:
     finding_vulns = await loaders.finding_vulns_nzr_typed.load(finding_id)
-    return vulns_utils.filter_open_vulns_new(
+    return vulns_utils.filter_open_vulns(
         vulns_utils.filter_remediated(finding_vulns)
     )
