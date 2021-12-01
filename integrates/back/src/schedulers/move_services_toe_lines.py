@@ -54,8 +54,6 @@ from typing import (
 )
 
 # Constants
-DEFAULT_RISK_LEVEL = -1
-
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
@@ -118,14 +116,6 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
         )
     }
     repo_services_toe_lines = {
-        filename: services_toe_lines._replace(
-            sorts_risk_level=DEFAULT_RISK_LEVEL
-        )
-        if services_toe_lines.sorts_risk_level == 0
-        else services_toe_lines
-        for filename, services_toe_lines in repo_services_toe_lines.items()
-    }
-    repo_services_toe_lines = {
         filename: services_toe_lines._replace(tested_date="")
         if services_toe_lines.tested_date == datetime_utils.DEFAULT_ISO_STR
         else services_toe_lines
@@ -144,9 +134,6 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                         repo_services_toe_lines[filename].tested_date,
                         toe_lines.modified_date,
                     ),
-                    sorts_risk_level=repo_services_toe_lines[
-                        filename
-                    ].sorts_risk_level,
                 ),
             )
             for filename, toe_lines in repo_toe_lines.items()
@@ -156,7 +143,6 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                 toe_lines.attacked_at,
                 toe_lines.attacked_lines,
                 toe_lines.first_attack_at,
-                toe_lines.sorts_risk_level,
             )
             != (
                 repo_services_toe_lines[filename].comments,
@@ -168,7 +154,6 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                     toe_lines.modified_date,
                 ),
                 repo_services_toe_lines[filename].tested_date,
-                repo_services_toe_lines[filename].sorts_risk_level,
             )
         )
     )
@@ -187,7 +172,6 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                     loc=services_toe_lines.loc,
                     modified_commit=services_toe_lines.modified_commit,
                     modified_date=services_toe_lines.modified_date,
-                    sorts_risk_level=services_toe_lines.sorts_risk_level,
                     be_present=False,
                     seen_at=services_toe_lines.tested_date,
                 ),

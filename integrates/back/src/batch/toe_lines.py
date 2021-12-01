@@ -235,7 +235,6 @@ async def get_present_toe_lines_to_add(
                 loc=last_loc,
                 modified_commit=last_commit_info.hash,
                 modified_date=last_commit_info.modified_date,
-                sorts_risk_level=-1,
             ),
         )
         for (filename, last_commit_info, last_loc,) in zip(

@@ -13,10 +13,10 @@ class ToeLinesAttributesToAdd(NamedTuple):
     loc: int
     modified_commit: str
     modified_date: str
-    sorts_risk_level: int
     be_present: bool = True
     be_present_until: Optional[str] = None
     seen_at: Optional[str] = None
+    sorts_risk_level: int = -1
 
 
 class ToeLinesAttributesToUpdate(NamedTuple):
