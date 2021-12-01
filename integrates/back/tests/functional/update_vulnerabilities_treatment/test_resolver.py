@@ -1,4 +1,5 @@
 from . import (
+    get_vulnerability,
     put_mutation,
 )
 from freezegun.api import (  # type: ignore
@@ -49,6 +50,15 @@ async def test_update_vulnerabilities_treatment(
     )
     assert "errors" not in result
     assert result["data"]["updateVulnerabilitiesTreatment"]["success"]
+    vulnerability: Dict[str, Any] = await get_vulnerability(
+        user=email, vulnerability_id=vulnerability
+    )
+    assert (
+        vulnerability["data"]["vulnerability"]["historicTreatment"][-1][
+            "treatmentManager"
+        ]
+        == assigned
+    )
 
 
 @pytest.mark.asyncio

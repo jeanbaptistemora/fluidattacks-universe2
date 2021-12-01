@@ -51,3 +51,36 @@ async def put_mutation(
         stakeholder=user,
         context=get_new_context(),
     )
+
+
+async def get_vulnerability(
+    *,
+    user: str,
+    vulnerability_id: str,
+) -> Dict[str, Any]:
+    query: str = """
+        query GetVulnerability ($vulnerabilityId: String!) {
+            vulnerability(uuid: $vulnerabilityId) {
+                currentState
+                historicTreatment{
+                    date
+                    treatment
+                    treatmentManager
+                }
+                historicVerification{
+                    date
+                    status
+                }
+                id
+            }
+        }
+    """
+    data: Dict[str, Any] = {
+        "query": query,
+        "variables": {"vulnerabilityId": vulnerability_id},
+    }
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )
