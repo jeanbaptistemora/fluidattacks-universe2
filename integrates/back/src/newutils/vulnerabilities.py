@@ -299,64 +299,6 @@ def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
 
 
 def format_vulnerabilities(
-    vulnerabilities: List[Dict[str, FindingType]]
-) -> Dict[str, List[FindingType]]:
-    """Format vulnerabilitites."""
-    finding: Dict[str, List[FindingType]] = {
-        "ports": [],
-        "lines": [],
-        "inputs": [],
-    }
-    vulns_types = ["ports", "lines", "inputs"]
-    vuln_values = {
-        "ports": {
-            "where": "host",
-            "specific": "port",
-        },
-        "lines": {
-            "where": "path",
-            "specific": "line",
-        },
-        "inputs": {
-            "where": "url",
-            "specific": "field",
-        },
-    }
-    for vuln in vulnerabilities:
-        all_states = cast(
-            List[Dict[str, FindingType]], vuln.get("historic_state")
-        )
-        current_state = all_states[-1].get("state")
-        vuln_type = str(vuln.get("vuln_type", ""))
-        if vuln_type in vulns_types:
-            finding[vuln_type].append(
-                {
-                    vuln_values[vuln_type]["where"]: (
-                        html.unescape(vuln.get("where"))  # type: ignore
-                    ),
-                    vuln_values[vuln_type]["specific"]: (
-                        html.unescape(vuln.get("specific"))  # type: ignore
-                    ),
-                    "state": str(current_state),
-                }
-            )
-            for attr in ("commit_hash", "repo_nickname"):
-                if vuln.get(attr):
-                    finding[vuln_type][-1][attr] = vuln[attr]
-        else:
-            LOGGER.error(
-                "Vulnerability does not have the right type",
-                extra={
-                    "extra": {
-                        "vuln_uuid": vuln.get("UUID"),
-                        "finding_id": vuln.get("finding_id"),
-                    }
-                },
-            )
-    return finding
-
-
-def format_vulnerabilities_new(
     vulnerabilities: Tuple[Vulnerability, ...]
 ) -> Dict[str, List[Dict[str, str]]]:
     finding: Dict[str, List[Dict[str, str]]] = {

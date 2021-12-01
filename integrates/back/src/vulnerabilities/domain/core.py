@@ -468,7 +468,7 @@ async def get_vulnerabilities_by_type(
 ) -> Dict[str, List[Dict[str, str]]]:
     """Get vulnerabilities group by type."""
     vulnerabilities = await loaders.finding_vulns_nzr_typed.load(finding_id)
-    vulnerabilities_formatted = vulns_utils.format_vulnerabilities_new(
+    vulnerabilities_formatted = vulns_utils.format_vulnerabilities(
         vulnerabilities
     )
     return vulnerabilities_formatted
@@ -783,7 +783,7 @@ async def should_send_update_treatment(
     translations = {"IN_PROGRESS": "In Progress"}
     if treatment in translations:
         vulns_grouped = group_vulnerabilities_new(updated_vulns)
-        vulns_data = vulns_utils.format_vulnerabilities_new(vulns_grouped)
+        vulns_data = vulns_utils.format_vulnerabilities(vulns_grouped)
         mail_content = get_updated_manager_mail_content(vulns_data)
         schedule(
             vulns_mail.send_mail_updated_treatment(
