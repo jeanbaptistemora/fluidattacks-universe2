@@ -124,3 +124,9 @@ class AWSSecretsManagerSecret(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSLaunchTemplate(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int

@@ -12,6 +12,7 @@ from aws.model import (
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
     AWSInstance,
+    AWSLaunchTemplate,
     AWSLbTargetGroup,
     AWSRdsCluster,
     AWSRdsClusterInstance,
@@ -352,6 +353,16 @@ def iter_aws_dynambodb_table(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_dynamodb_table")
     for bucket in iterator:
         yield AWSDynamoDBTable(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_launch_template(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_launch_template")
+    for bucket in iterator:
+        yield AWSLaunchTemplate(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,
