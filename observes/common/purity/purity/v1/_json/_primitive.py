@@ -5,6 +5,9 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
+from decimal import (
+    Decimal,
+)
 from typing import (
     Any,
     Optional,
@@ -18,26 +21,37 @@ from typing_extensions import (
 
 
 class InvalidType(Exception):
-    pass
+    def __init__(
+        self,
+        caller: str,
+        expected: str,
+        item: Any,
+    ):
+        super().__init__(
+            f"{caller} expected `{expected}` not `{str(type(item))}`"
+        )
 
 
-Primitive = Union[str, int, float, bool, None]
+Primitive = Union[str, int, float, Decimal, bool, None]
 PrimitiveTypes = Union[
     Type[str],
     Type[int],
     Type[float],
+    Type[Decimal],
     Type[bool],
     Type[None],
 ]
-PrimitiveTVar = TypeVar("PrimitiveTVar", str, int, float, bool, Type[None])
-NotNonePrimTvar = TypeVar("NotNonePrimTvar", str, int, float, bool)
+PrimitiveTVar = TypeVar(
+    "PrimitiveTVar", str, int, float, Decimal, bool, Type[None]
+)
+NotNonePrimTvar = TypeVar("NotNonePrimTvar", str, int, float, Decimal, bool)
 
 
 @dataclass(frozen=True)
 class PrimitiveFactory:
     @staticmethod
     def is_primitive(raw: Any) -> TypeGuard[Primitive]:
-        primitives = (str, int, float, bool, type(None))
+        primitives = (str, int, float, bool, Decimal, type(None))
         if isinstance(raw, primitives):
             return True
         return False
@@ -48,7 +62,7 @@ class PrimitiveFactory:
     ) -> PrimitiveTVar:
         if isinstance(raw, prim_type):
             return raw
-        raise InvalidType(f"Expected {prim_type}; got {type(raw)}")
+        raise InvalidType("to_primitive", str(prim_type), raw)
 
     @staticmethod
     def to_opt_primitive(
@@ -56,4 +70,4 @@ class PrimitiveFactory:
     ) -> Optional[NotNonePrimTvar]:
         if raw is None or isinstance(raw, prim_type):
             return raw
-        raise InvalidType(f"Expected {prim_type} | None; got {type(raw)}")
+        raise InvalidType("to_opt_primitive", f"{prim_type} | None", raw)

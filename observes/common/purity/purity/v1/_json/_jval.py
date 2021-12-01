@@ -41,21 +41,19 @@ class JsonValue:
     def to_primitive(self, prim_type: Type[PrimitiveTVar]) -> PrimitiveTVar:
         if isinstance(self.value, prim_type):
             return self.value
-        raise InvalidType(f"Expected {prim_type}; got {type(self.value)}")
+        raise InvalidType("to_primitive", str(prim_type), self.value)
 
     def to_list_of(
         self, prim_type: Type[PrimitiveTVar]
     ) -> List[PrimitiveTVar]:
         if isinstance(self.value, list):
             return [item.to_primitive(prim_type) for item in self.value]
-        raise InvalidType(
-            f"Expected List[{prim_type}]; got {type(self.value)}"
-        )
+        raise InvalidType("to_list_of", f"List[{prim_type}]", self.value)
 
     def to_list(self) -> List[JsonValue]:
         if isinstance(self.value, list):
             return self.value
-        raise InvalidType(f"Expected List[JsonValue]; got {type(self.value)}")
+        raise InvalidType("to_list", "List[JsonValue]", self.value)
 
     def to_opt_list(self) -> Optional[List[JsonValue]]:
         return None if self.value is None else self.to_list()
@@ -68,16 +66,12 @@ class JsonValue:
                 key: val.to_primitive(prim_type)
                 for key, val in self.value.items()
             }
-        raise InvalidType(
-            f"Expected Dict[str, JsonValue]; got {type(self.value)}"
-        )
+        raise InvalidType("to_dict_of", "Dict[str, JsonValue]", self.value)
 
     def to_json(self) -> Dict[str, JsonValue]:
         if isinstance(self.value, dict):
             return self.value
-        raise InvalidType(
-            f"Expected Dict[str, JsonValue]; got {type(self.value)}"
-        )
+        raise InvalidType("to_json", "Dict[str, JsonValue]", self.value)
 
 
 @dataclass(frozen=True)
@@ -103,4 +97,4 @@ class JsonValFactory:
         if isinstance(raw, list):
             checked_list = [cls.from_any(item) for item in raw]
             return JsonValue(checked_list)
-        raise InvalidType(f"Expected unfold(JsonValue); got {type(raw)} ")
+        raise InvalidType("from_any", "unfold(JsonValue)", raw)

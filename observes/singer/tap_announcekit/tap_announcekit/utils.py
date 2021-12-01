@@ -41,7 +41,7 @@ class CastUtils:
     def to_datetime(raw: Any) -> datetime:
         if isinstance(raw, datetime):
             return raw
-        raise InvalidType(f"{type(raw)} expected datetime")
+        raise InvalidType("to_datetime", "datetime", raw)
 
     @classmethod
     def to_opt_dt(cls, raw: Any) -> Optional[datetime]:
@@ -55,10 +55,10 @@ class CastUtils:
     def to_list(raw: Any) -> List[Any]:
         if isinstance(raw, list):
             return raw
-        raise InvalidType(f"{type(raw)} expected List[Any]")
+        raise InvalidType("to_list", "List[Any]", raw)
 
     @staticmethod
     def to_flist(raw: Any, convert: Transform[Any, _T]) -> FrozenList[_T]:
         if isinstance(raw, (tuple, list)):
             return tuple(convert(i) for i in raw)
-        raise InvalidType(f"{type(raw)} expected List[Any]")
+        raise InvalidType("to_flist", "List[Any]", raw)

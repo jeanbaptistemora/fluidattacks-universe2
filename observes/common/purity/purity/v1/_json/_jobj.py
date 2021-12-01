@@ -8,7 +8,6 @@ from dataclasses import (
 from deprecated import (  # type: ignore
     deprecated,
 )
-import json
 from purity.v1._json._jval import (
     JsonValFactory,
     JsonValue,
@@ -17,6 +16,7 @@ from purity.v1._json._primitive import (
     InvalidType,
     Primitive,
 )
+import simplejson  # type: ignore
 from typing import (
     Any,
     cast,
@@ -37,11 +37,11 @@ class DictFactory:
     # assumptions
     @classmethod
     def loads(cls, raw_json: str) -> Dict[str, Any]:
-        return cast(Dict[str, Any], json.loads(raw_json))
+        return cast(Dict[str, Any], simplejson.loads(raw_json))
 
     @classmethod
     def load(cls, json_file: IO_FILE[str]) -> Dict[str, Any]:
-        return cast(Dict[str, Any], json.load(json_file))
+        return cast(Dict[str, Any], simplejson.load(json_file))
 
     @classmethod
     def from_json(cls, json_obj: JsonObj) -> Dict[str, Any]:
@@ -59,14 +59,14 @@ class JsonFactory:
     def build_json_list(cls, raw: Any) -> List[JsonObj]:
         if isinstance(raw, list):
             return [cls.from_any(item) for item in raw]
-        raise InvalidType(f"Expected List[Any]; got {type(raw)}")
+        raise InvalidType("build_json_list", "List[Any]", raw)
 
     @classmethod
     def from_dict(cls, raw: Dict[str, Any]) -> JsonObj:
         result = JsonValFactory.from_any(raw).unfold()
         if isinstance(result, dict):
             return result
-        raise UnexpectedResult("build_json not returned a JsonObj")
+        raise InvalidType("from_dict", "JsonObj", result)
 
     @classmethod
     def from_prim_dict(cls, raw: Dict[str, Primitive]) -> JsonObj:
@@ -75,7 +75,7 @@ class JsonFactory:
     @classmethod
     def from_any(cls, raw: Any) -> JsonObj:
         if not isinstance(raw, dict):
-            raise InvalidType("build_json expects a dict instance")
+            raise InvalidType("from_any", "Dict[Any]", raw)
         return cls.from_dict(raw)
 
     @classmethod
