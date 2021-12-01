@@ -13318,30 +13318,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (mocha v5.2.0) [
    88 |     ""node-notifier"": ""5.4.2"",
       ^ Col 0
 "
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (mocha v5.2.0) [github.com/mochajs/mocha/pull/3686],78,937,skims,011. Use of software with known vulnerabilities,Use of mocha at version 5.2.0 with github.com/mochajs/mocha/pull/3686 in namespace/skims/test/data/lib_path/f011/package.json,"
-   68 |     ""jsrsasign"": ""8.0.0"",
-   69 |     ""jszip"": ""3.6.0"",
-   70 |     ""just-extend"": ""3.0.0"",
-   71 |     ""locutus"": ""2.0.11"",
-   72 |     ""lodash"": ""0.*"",
-   73 |     ""macaddress"": ""0.2.8"",
-   74 |     ""marked"": ""0.3.6"",
-   75 |     ""mem"": ""1.1.0"",
-   76 |     ""merge"": ""1.2.0"",
-   77 |     ""merge-deep"": ""3.0.2"",
->  78 |     ""mocha"": ""5.2.0"",
-   79 |     ""moment"": ""2.9.0"",
-   80 |     ""mongoose"": ""4.0.0"",
-   81 |     ""morgan"": ""1.9.0"",
-   82 |     ""mysql"": ""2.18.1"",
-   83 |     ""netmask"": ""1.0.6"",
-   84 |     ""ng-packagr"": ""12.2.2"",
-   85 |     ""ngx-bootstrap"": ""6.2.0"",
-   86 |     ""no-case"": ""2.3.1"",
-   87 |     ""node-forge"": ""0.9.0"",
-   88 |     ""node-notifier"": ""5.4.2"",
-      ^ Col 0
-"
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (moment v2.9.0) [CVE-2017-18214],79,937,skims,011. Use of software with known vulnerabilities,Use of moment at version 2.9.0 with CVE-2017-18214 in namespace/skims/test/data/lib_path/f011/package.json,"
    69 |     ""jszip"": ""3.6.0"",
    70 |     ""just-extend"": ""3.0.0"",
@@ -14351,30 +14327,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (npm v6.0.0) [GH
       ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (npm-registry-fetch v4.0.3) [SNYK-JS-NPMREGISTRYFETCH-575432],94,937,skims,011. Use of software with known vulnerabilities,Use of npm-registry-fetch at version 4.0.3 with SNYK-JS-NPMREGISTRYFETCH-575432 in namespace/skims/test/data/lib_path/f011/package.json,"
-   84 |     ""ng-packagr"": ""12.2.2"",
-   85 |     ""ngx-bootstrap"": ""6.2.0"",
-   86 |     ""no-case"": ""2.3.1"",
-   87 |     ""node-forge"": ""0.9.0"",
-   88 |     ""node-notifier"": ""5.4.2"",
-   89 |     ""node-sass"": ""^5.0.0"",
-   90 |     ""node.extend"": ""1.0.8"",
-   91 |     ""nodemailer"": ""2.7.4"",
-   92 |     ""normalize-url"": ""4.3.0"",
-   93 |     ""npm"": ""6.0.0"",
->  94 |     ""npm-registry-fetch"": ""4.0.3"",
-   95 |     ""object-path"": ""0.11.4"",
-   96 |     ""openssl"": ""1.1.1"",
-   97 |     ""path-parse"": ""1.0.6"",
-   98 |     ""pathval"": ""1.1.0"",
-   99 |     ""postcss"": ""7.0.0"",
-  100 |     ""prismjs"": ""1.20.0"",
-  101 |     ""qs"": ""0.4.2"",
-  102 |     ""randomatic"": ""2.5.5"",
-  103 |     ""react-adal"": ""0.4.22"",
-  104 |     ""react-dev-utils"": ""8.0.0"",
-      ^ Col 0
-"
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (npm-registry-fetch v4.0.3) [github.com/npm/npm-registry-fetch/commit/18bf9b97fb1deecdba01ffb05580370846255c88],94,937,skims,011. Use of software with known vulnerabilities,Use of npm-registry-fetch at version 4.0.3 with github.com/npm/npm-registry-fetch/commit/18bf9b97fb1deecdba01ffb05580370846255c88 in namespace/skims/test/data/lib_path/f011/package.json,"
    84 |     ""ng-packagr"": ""12.2.2"",
    85 |     ""ngx-bootstrap"": ""6.2.0"",
    86 |     ""no-case"": ""2.3.1"",

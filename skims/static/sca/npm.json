@@ -2595,8 +2595,7 @@
   },
   "mocha": {
     "GMS-2019-7": "<6.0.0",
-    "SNYK-JS-MOCHA-561476": "<6.0.0",
-    "github.com/mochajs/mocha/pull/3686": "<6.0.0"
+    "SNYK-JS-MOCHA-561476": "<6.0.0"
   },
   "mock2easy": {
     "CVE-2020-7697": ">=0"
@@ -2666,7 +2665,7 @@
   "ms": {
     "CVE-2015-8315": "<=0.7.0",
     "GMS-2013-5": "0.5.1",
-    "github.com/vercel/ms/pull/89/commits/305f2ddcd4eff7cc7c518aca6bb2b2d2daad8fef": ">=0.7.1 <2.0.0"
+    "npm:ms:20170412": ">=0.7.1 <2.0.0"
   },
   "msgpack": {
     "CVE-2021-23410": ">=0"
@@ -3032,8 +3031,7 @@
     "CVE-2020-7614": "<=0.0.12"
   },
   "npm-registry-fetch": {
-    "SNYK-JS-NPMREGISTRYFETCH-575432": "<4.0.5 || >=5.0.0 <8.1.1",
-    "github.com/npm/npm-registry-fetch/commit/18bf9b97fb1deecdba01ffb05580370846255c88": "<11.0.0"
+    "SNYK-JS-NPMREGISTRYFETCH-575432": "<4.0.5 || >=5.0.0 <8.1.1"
   },
   "npm-script-demo": {
     "CVE-2017-16128": ">=0",
