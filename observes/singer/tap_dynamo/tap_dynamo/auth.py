@@ -9,7 +9,7 @@ from purity.v1 import (
     JsonFactory,
 )
 from typing import (
-    IO as IOFile,
+    IO as FILE,
 )
 
 
@@ -20,7 +20,7 @@ class Creds:
     region: str
 
     @staticmethod
-    def from_file(file: IOFile[str]) -> Creds:
+    def from_file(file: FILE[str]) -> Creds:
         data = JsonFactory.load(file)
         return Creds(
             data["AWS_ACCESS_KEY_ID"].to_primitive(str),

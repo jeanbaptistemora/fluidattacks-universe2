@@ -3,7 +3,6 @@ from dataclasses import (
     dataclass,
 )
 from purity.v1 import (
-    DictFactory,
     FrozenDict,
 )
 from tap_dynamo.auth import (

@@ -29,7 +29,7 @@ from typing import (
     Any,
     Callable,
     Dict,
-    IO as IOFile,
+    IO as FILE,
     List,
     NamedTuple,
     Optional,
@@ -44,7 +44,7 @@ class TableSegment(NamedTuple):
 
 class PageData(NamedTuple):
     t_segment: TableSegment
-    file: IOFile[str]
+    file: FILE[str]
     exclusive_start_key: Optional[FrozenDict[str, Any]]
 
 
@@ -124,7 +124,7 @@ def extract_segment(
 
 
 def to_singer(page: PageData) -> FrozenList[SingerRecord]:
-    with open(page.file.name) as file:
+    with open(page.file.name, encoding="utf-8") as file:
         data = JsonFactory.load(file)
         return tuple(
             SingerRecord(page.t_segment.table_name, item.to_json())
@@ -133,6 +133,7 @@ def to_singer(page: PageData) -> FrozenList[SingerRecord]:
 
 
 def stream_tables(client: Client, tables: FrozenList[str]) -> IO[None]:
+    # pylint: disable=unnecessary-lambda
     emitter = SingerEmitter()
     pages = chain(
         from_flist(tables)
