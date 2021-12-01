@@ -40,6 +40,7 @@ interface ICustomSearchProps {
   isCustomSearchEnabled: boolean;
   customSearchDefault: string;
   onUpdateCustomSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  position?: "left" | "right";
 }
 
 interface ICustomFiltersProps {

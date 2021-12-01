@@ -30,6 +30,7 @@ import { ExportCSVButtonWrapper } from "components/DataTableNext/exportCSVButton
 import style from "components/DataTableNext/index.css";
 import { SizePerPageRenderer } from "components/DataTableNext/sizePerPageRenderer";
 import type {
+  ICustomSearchProps,
   IFilterProps,
   ITableWrapperProps,
 } from "components/DataTableNext/types";
@@ -39,7 +40,6 @@ import {
   ButtonToolbarLeft,
   ButtonToolbarRight,
   ButtonToolbarRow,
-  ControlLabel,
   Filters,
   InputDateRange,
   InputNumber,
@@ -93,8 +93,14 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     onUpdateEnableCustomFilter,
     resultSize,
   } = customFilters ?? {};
-  const { customSearchDefault, isCustomSearchEnabled, onUpdateCustomSearch } =
-    customSearch ?? {};
+  const {
+    customSearchDefault,
+    isCustomSearchEnabled,
+    onUpdateCustomSearch,
+    position,
+  } = customSearch ?? {};
+  const searchPosition: ICustomSearchProps["position"] =
+    position === undefined || position === "left" ? "left" : "right";
   const { t } = useTranslation();
 
   function handleUpdateEnableFilter(): void {
@@ -327,7 +333,8 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                   </ButtonGroup>
                 )}
                 {!_.isUndefined(isCustomSearchEnabled) &&
-                  isCustomSearchEnabled && (
+                  isCustomSearchEnabled &&
+                  searchPosition === "left" && (
                     <ButtonGroup>
                       <SearchContainer>
                         <SearchText
@@ -339,9 +346,25 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                     </ButtonGroup>
                   )}
               </ButtonToolbarLeft>
-              {extraButtonsRight === undefined ? undefined : (
+              {extraButtonsRight === undefined &&
+              isCustomSearchEnabled === false ? undefined : (
                 <ButtonToolbarRight>
                   <ButtonGroup>{extraButtonsRight}</ButtonGroup>
+                  {searchPosition === "right" ? (
+                    <ButtonGroup>
+                      <div
+                        className={
+                          "nt1-l nt0 pl3-l pl3-m pl2 pt1 pt0-m pt0-l w-100"
+                        }
+                      >
+                        <SearchText
+                          defaultValue={customSearchDefault ?? ""}
+                          onChange={onUpdateCustomSearch}
+                          placeholder={t("dataTableNext.search")}
+                        />
+                      </div>
+                    </ButtonGroup>
+                  ) : undefined}
                 </ButtonToolbarRight>
               )}
             </TableOptionsColBtn>
@@ -376,11 +399,11 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         )}
       </div>
       {resultSize && (
-        <ControlLabel>
+        <div className={"dib fw4 mb0"}>
           {`${t("dataTableNext.filterRes1")}: ${resultSize.current} ${t(
             "dataTableNext.filterRes2"
           )} ${resultSize.total}`}
-        </ControlLabel>
+        </div>
       )}
       <BootstrapTable
         {...baseProps}

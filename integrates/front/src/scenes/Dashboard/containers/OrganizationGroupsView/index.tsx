@@ -376,6 +376,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                       filterOrganizationGroupsTable.searchText,
                     isCustomSearchEnabled: true,
                     onUpdateCustomSearch: onSearchTextChange,
+                    position: "right",
                   }}
                   dataset={resultDataset}
                   defaultSorted={{ dataField: "name", order: "asc" }}
