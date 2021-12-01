@@ -1,4 +1,5 @@
 from .core import (
+    add_tags,
     close_by_exclusion,
     confirm_vulnerabilities_zero_risk,
     get,
@@ -43,6 +44,7 @@ from .verification import (
 
 __all__ = [
     # core
+    "add_tags",
     "close_by_exclusion",
     "confirm_vulnerabilities_zero_risk",
     "get",

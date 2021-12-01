@@ -154,6 +154,23 @@ async def confirm_vulnerabilities_zero_risk(
     return True
 
 
+async def add_tags(
+    vulnerability: Vulnerability,
+    tags: List[str],
+) -> None:
+    if not tags:
+        return
+    if vulnerability.tags:
+        tags.extend(vulnerability.tags)
+    await vulns_dal.update_metadata(
+        finding_id=vulnerability.finding_id,
+        vulnerability_id=vulnerability.id,
+        metadata=VulnerabilityMetadataToUpdate(
+            tags=sorted(list(set(tags))),
+        ),
+    )
+
+
 async def _remove_all_tags(
     vulnerability: Vulnerability,
 ) -> None:
