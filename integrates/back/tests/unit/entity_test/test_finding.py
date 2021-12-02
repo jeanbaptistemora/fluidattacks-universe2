@@ -109,7 +109,7 @@ async def test_finding() -> None:
             "date": "2020-01-03",
             "accepted": 0,
             "acceptedUndefined": 0,
-            "manager": "",
+            "assigned": "",
         }
     ]
     query = """{
@@ -122,11 +122,11 @@ async def test_finding() -> None:
           tracking {
             accepted
             acceptedUndefined
+            assigned
             closed
             cycle
             date
             justification
-            manager
             open
           }
           records
