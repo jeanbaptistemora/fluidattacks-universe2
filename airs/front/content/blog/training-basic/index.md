@@ -41,7 +41,7 @@ surprise, he wasn’t that enthusiastic.
     allocating too much energy looking for the right paper or the proper
     journal to support the choice of your methods, which is probably
     already outdated compared to alternative sources of information.
-    This is even more pronounced in cybersecurity. + +
+    This is even more pronounced in cybersecurity.
 
 2. Another aspect was that the academic settings weren’t fun enough for
     me. I enjoy learning about technology because I can apply my skills
@@ -85,7 +85,7 @@ job?**
 
 1. What I’ve done is learning online through some of the many platforms
     available. I have earned some certifications that are being demanded
-    by organizations, like `AWS`, `GCP`, or `Kubernetes`. + +
+    by organizations, like `AWS`, `GCP`, or `Kubernetes`.
 
 2. Sometimes I pick a topic I don’t know, set a goal, and start
     browsing web resources. I train myself around specific tasks that
@@ -100,7 +100,7 @@ it…​**
     jobs just because they don’t look for resources online. They might
     say that they need to speak to an expert. Also, these experts many
     times just google things out. It’s more of a mindset, rather than an
-    inability. + +
+    inability.
 
 2. I work building secure `IT` infrastructure using tools like
     `Terraform` and `GCP`. I like applying software development
@@ -159,7 +159,7 @@ better?**
     so simple to avoid, that for a competent cybersecurity professional
     is almost unthinkable to find them. The problems with these
     weaknesses, if not identified in a development phase, is that they
-    might not be easily fixed when the software is already deployed. + +
+    might not be easily fixed when the software is already deployed.
 
 2. Perhaps, someday, a software solution could detect automatically
     that kind of problems involving human judgment in the elicitation of

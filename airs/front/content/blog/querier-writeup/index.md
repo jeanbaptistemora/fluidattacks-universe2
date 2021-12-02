@@ -230,7 +230,7 @@ python mssqlclient.py -windows-auth QUERIER/mssql-svc:corporate568@10.10.10.125
 Figure 10. xp_cmdshell disabled
 
 </div>
-mdlint
+
 </div>
 
 ``` bash

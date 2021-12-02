@@ -81,6 +81,8 @@ new technology is to replace old technology and thus remain competitive,
 but security also plays an important role in this field, since it is the
 second most relevant reason companies invest in `IT`.
 
+**Source:**[[1]](#r1)
+
 > "One in four enterprises (1,000+ employees) are increasing 2020 IT
 > spend due to a recent security incident."
 

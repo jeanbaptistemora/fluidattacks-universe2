@@ -154,12 +154,9 @@ property](http://www.beyondnuclear.org/security/2014/5/22/chinese-military-cyber
 
 Want to read similar stories? - [American Medical Collection Agency
 (`AMCA`)](https://www.bloomberg.com/news/articles/2019-06-17/american-medical-collection-agency-parent-files-for-bankruptcy)
-
-- [Mossak Fonseca](https://www.wired.co.uk/article/panama-papers-mossack-fonseca-website-security-problems)
-
-- [Colorado Timberline](https://www.scmagazine.com/home/security-news/colorado-firm-claims-ransomware-attack-behind-closure/)
-
-- [Code Spaces](https://www.infoworld.com/article/2608076/murder-in-the-amazon-cloud.html)
+[- Mossak Fonseca](https://www.wired.co.uk/article/panama-papers-mossack-fonseca-website-security-problems)
+[- Colorado Timberline](https://www.scmagazine.com/home/security-news/colorado-firm-claims-ransomware-attack-behind-closure/)
+[- Code Spaces](https://www.infoworld.com/article/2608076/murder-in-the-amazon-cloud.html)
 
 ## Concluding remarks: a massive risk for SMBs that can be better managed
 

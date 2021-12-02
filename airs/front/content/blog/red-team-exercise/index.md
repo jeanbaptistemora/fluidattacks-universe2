@@ -185,6 +185,8 @@ security defense, but those are not unique strategies. As mentioned in
 [Help Net
 Security:](https://www.helpnetsecurity.com/2015/02/10/kill-chain-30-update-the-cyber-kill-chain-for-better-defense/)
 
+<div class="blog-questions">
+
 1. "Security professionals have differing opinions on the effectiveness
     of the kill chain as a defense model. Some love it, pointing out how
     several successful infosec teams use it, while others think it’s
@@ -192,6 +194,8 @@ Security:](https://www.helpnetsecurity.com/2015/02/10/kill-chain-30-update-the-c
     I think there is truth to both views, so I’d like to propose three
     simple steps to make the kill chain even better, let’s call it `Kill
     Chain 3.0`."
+
+</div>
 
 Therefore, Kill Chain is not the only option. You can also adapt your
 attack [strategy](https://en.wikipedia.org/wiki/Military_strategy).

@@ -53,7 +53,7 @@ what should they stop doing?**
     decision arguing cybersecurity and information risks. But the
     reality is that public cloud providers have better practices
     compared to the typical organization. I would expect that debate to
-    end soon. + +
+    end soon.
 
 2. Second, people should start learning to code. Everything is shifting
     towards coding. We have software-defined networks, infrastructure as
@@ -82,7 +82,7 @@ start and stop doing?**
     entity trying to show what is not OK. Cybersecurity professionals
     **should be those guiding businesses in how to do stuff in a secure
     way** instead of being perceived as those saying *‘it can’t be done
-    that way’*. + +
+    that way’*.
 
 2. `DevOps` teams solve some issues `IT` *siloed* teams usually have.
     What if `DevOps` teams go further by including security
@@ -124,7 +124,7 @@ them or do it too late?**
     to comply with some regulations. Most people don’t care that their
     software is unsafe. Those responsible for coding blame other people
     or wash their hands, knowing future issues will be fixed by a
-    different developer down the line. + +
+    different developer down the line.
 
 2. When accountability disappears, businesses sooner or later are
     forced to face setbacks. Newer costs might appear by detecting
@@ -154,7 +154,7 @@ Lock](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/lea
     your information and digital assets. It is worrying that there is no
     concrete solution to malware and ransomware yet. The hope for some
     people are potential `ML-based` solutions [like those tested at
-    `CERN`](../hack-cern/) by our friend Andrés. + +
+    `CERN`](../hack-cern/) by our friend Andrés.
 
 2. Another misconception is the notion people have about our field.
     Cybersecurity is not about detecting weaknesses. It is the opposite:
@@ -169,7 +169,6 @@ behavioral perspective, and why?**
     huge impact, like getting caught by a phishing attack. There are
     other behaviors you and I have discussed like not fixing weaknesses,
     deploying unhardened servers or program without security practices.
-    + +
 
 2. Is hard for me to identify a broad reason why people behave as they
     do. But allow me to suggest this: a good way to move groups of

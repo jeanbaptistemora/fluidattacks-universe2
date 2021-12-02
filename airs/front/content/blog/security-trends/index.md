@@ -64,10 +64,7 @@ tutorials](https://www.youtube.com/watch?v=6JFP_gUIZZY) about them.
 If you’re part of the industry, you aren’t safe either, since `PLCs`,
 `SCADA` systems, smart sensors, and drives are also `IoT` devices that
 can be compromised as a result of a `Mirai Botnet` attack. This may be
-discouraging, even more so i#
-
-## f we consider that in upcoming years, the
-
+discouraging, even more so if we consider that in upcoming years, the
 amount of `IoT` devices will increase considerably. We can, however,
 mitigate some risks now through system hardening, and something as
 simple as changing the default credentials as well as using [secure

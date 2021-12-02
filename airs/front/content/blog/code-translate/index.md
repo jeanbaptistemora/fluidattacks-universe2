@@ -161,7 +161,7 @@ with `Java` source code. Different methods (right) are compared using
 the F1 score (see discussion in our [last article](../further-code2vec/)
 for details, but keep in mind this score balances how much is actually
 found and how much escapes). The one on the right does the same for the
-`C`\</literal\> captioning application, this time comparing the
+`C` captioning application, this time comparing the
 bilingual evaluation understudy (`BLEU`) scores, which are specific to
 machine translation. Clearly, for both tasks, `code2seq` beats the
 current state of the art.
