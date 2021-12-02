@@ -84,6 +84,7 @@ interface ITableProps {
 interface IHeaderConfig extends Omit<ColumnDescription, "text" | "width"> {
   dataField: string;
   header: string;
+  omit?: boolean;
   visible?: boolean;
   width?: string;
   wordBreak?: "break-all" | "break-word" | "keep-all" | "normal";

@@ -59,13 +59,20 @@ export const DataTableNext: React.FC<ITableProps> = (
         : false
     );
   }
+  const nonOmittedHeaders = headers.filter(
+    (header): boolean => _.isUndefined(header.omit) || !header.omit
+  );
 
   return (
     <div className={style.wFull} id={id}>
-      {(!_.isEmpty(dataset) || !_.isEmpty(headers)) && (
+      {(!_.isEmpty(dataset) || !_.isEmpty(nonOmittedHeaders)) && (
         <ToolkitProvider
           columnToggle={columnToggle}
-          columns={customizeColumns(headers, dataset, isFilterEnabled)}
+          columns={customizeColumns(
+            nonOmittedHeaders,
+            dataset,
+            isFilterEnabled
+          )}
           data={datasetWithUniqueKeys}
           exportCSV={{ fileName: csvFilename }}
           keyField={"uniqueId"}
