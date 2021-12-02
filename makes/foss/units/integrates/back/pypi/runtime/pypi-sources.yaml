@@ -23,7 +23,6 @@ closure:
   boto3: 1.12.32
   boto3-type-annotations: 0.3.1
   botocore: 1.15.32
-  bugsnag: 4.0.1
   cachetools: 4.2.4
   certifi: 2021.10.8
   cffi: 1.15.0
@@ -111,14 +110,13 @@ closure:
   starlette: 0.13.8
   tracers: 21.8.6876
   types-aiofiles: 0.7.0
-  typing-extensions: 4.0.0
+  typing-extensions: 4.0.1
   urllib3: 1.25.11
   uvicorn: 0.15.0
   uvloop: 0.16.0
   watchgod: "0.7"
   watchtower: 0.7.3
   webencodings: 0.5.1
-  webob: 1.8.7
   websockets: "10.1"
   wrapt: 1.13.3
   yarl: 1.7.2
@@ -289,12 +287,6 @@ links:
   - name: botocore-1.15.32.tar.gz
     sha256: 0vgwsccqyv2bn7f8arhnwpylr1dy6bc8n9q58046aas5xq0rda1y
     url: https://files.pythonhosted.org/packages/80/38/b2fb224d0b74a48c14f997be0511d677f5f4e16523e0b971120a1b6604a7/botocore-1.15.32.tar.gz
-  - name: bugsnag-4.0.1-py3-none-any.whl
-    sha256: 1acs2yg2a35rj3vasmixbnb2gnl13k3x2j8gxc3z1z9hqa8v026p
-    url: https://files.pythonhosted.org/packages/73/c8/e35a57867d30eec3917103d69041426b825fd17ec0f143daa26e2b178f6c/bugsnag-4.0.1-py3-none-any.whl
-  - name: bugsnag-4.0.1.tar.gz
-    sha256: 1k7saxkvdl2z1rr0pd3a3a9x9lkbk2w77z6qcqdq0vradipiihh1
-    url: https://files.pythonhosted.org/packages/af/6f/9ff71c226e1e69c271c8c7dd2091aea8d0d0de48ab08ad6019fda6e43792/bugsnag-4.0.1.tar.gz
   - name: cachetools-4.2.4-py3-none-any.whl
     sha256: 1lgji50pgcbigi9k0xd316rmz3qsy9bidfy7yzzpxafjnwy1v5wj
     url: https://files.pythonhosted.org/packages/ea/c1/4740af52db75e6dbdd57fc7e9478439815bbac549c1c05881be27d19a17d/cachetools-4.2.4-py3-none-any.whl
@@ -1003,12 +995,12 @@ links:
   - name: types-aiofiles-0.7.0.tar.gz
     sha256: 1qy73fhkvx8l2bbj0p0f7xsw7sp1cc4vvd24cz3g7z78iv6smjgi
     url: https://files.pythonhosted.org/packages/75/cb/ea3cf132b9a5c8703af7514f3a0098a07e6a831ece419135f7c0d4f48a5d/types-aiofiles-0.7.0.tar.gz
-  - name: typing_extensions-4.0.0-py3-none-any.whl
-    sha256: 1n93f1kqnk9k32c0wh44105kgfza2lii4ngrxb4kxq92idlh95w2
-    url: https://files.pythonhosted.org/packages/17/61/32c3ab8951142e061587d957226b5683d1387fb22d95b4f69186d92616d1/typing_extensions-4.0.0-py3-none-any.whl
-  - name: typing_extensions-4.0.0.tar.gz
-    sha256: 1v97bpa829yjd2jxif449n0v0vfk2s88clcsd2rsjrj8w3j81prc
-    url: https://files.pythonhosted.org/packages/1a/23/748b0c9a5578110b31580c8d2643319adcb3ec91f601b50a955051b51f1d/typing_extensions-4.0.0.tar.gz
+  - name: typing_extensions-4.0.1-py3-none-any.whl
+    sha256: 0fwx7nbx73jjm5rvbmc631q4xgk8r1z4r1h82m0c184hq9d1w03z
+    url: https://files.pythonhosted.org/packages/05/e4/baf0031e39cf545f0c9edd5b1a2ea12609b7fcba2d58e118b11753d68cf0/typing_extensions-4.0.1-py3-none-any.whl
+  - name: typing_extensions-4.0.1.tar.gz
+    sha256: 03ka3fb2ilxw4d93japj5rlyh8agf6p8vd5gavn4bya9l7g9382c
+    url: https://files.pythonhosted.org/packages/0d/4a/60ba3706797b878016f16edc5fbaf1e222109e38d0fa4d7d9312cb53f8dd/typing_extensions-4.0.1.tar.gz
   - name: urllib3-1.25.11-py2.py3-none-any.whl
     sha256: 0pnxjyc33d162wrxmk285av9x44h9sqpzzhbzl7gmzpk9fz1ycpm
     url: https://files.pythonhosted.org/packages/56/aa/4ef5aa67a9a62505db124a5cb5262332d1d4153462eb8fd89c9fa41e5d92/urllib3-1.25.11-py2.py3-none-any.whl
@@ -1054,12 +1046,6 @@ links:
   - name: webencodings-0.5.1.tar.gz
     sha256: 08qrgrc4hrximb2gqnl69g01s93rhf2842jfxdjljc1dbwj1qsmk
     url: https://files.pythonhosted.org/packages/0b/02/ae6ceac1baeda530866a85075641cec12989bd8d31af6d5ab4a3e8c92f47/webencodings-0.5.1.tar.gz
-  - name: WebOb-1.8.7-py2.py3-none-any.whl
-    sha256: 16zqij909ys74l0fq6wcq8hf8q0rldf8nvwm7gx18719b41y7akk
-    url: https://files.pythonhosted.org/packages/62/9c/e94a9982e9f31fc35cf46cdc543a6c2c26cb7174635b5fd25b0bbc6a7bc0/WebOb-1.8.7-py2.py3-none-any.whl
-  - name: WebOb-1.8.7.tar.gz
-    sha256: 08y3y377s370nzv8wsnbxm8h69n28px49w28wjnwyng53cagakmn
-    url: https://files.pythonhosted.org/packages/c7/45/ee5f034fb4ebe3236fa49e5a4fcbc54444dd22ecf33079cf56f9606d479d/WebOb-1.8.7.tar.gz
   - name: websockets-10.1-cp39-cp39-macosx_10_9_universal2.whl
     sha256: 128snqfiv951z9bs5p1nq4k0h9pfdyxxgsdz9p3jgbp5kv32vayx
     url: https://files.pythonhosted.org/packages/50/6d/6728d41f21cb1a46a3896f3b368f6f1e73a997f2ebcf9b1913b4f40e74c4/websockets-10.1-cp39-cp39-macosx_10_9_universal2.whl
