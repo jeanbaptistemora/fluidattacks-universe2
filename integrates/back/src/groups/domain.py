@@ -1022,7 +1022,7 @@ async def get_mean_remediate_non_treated_severity_cvssf(
     findings_vulns: Tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulns_typed.load_many_chained(group_findings_ids)
-    non_confirmed_zr_vulns = vulns_utils.filter_non_confirmed_zero_risk_new(
+    non_confirmed_zr_vulns = vulns_utils.filter_non_confirmed_zero_risk(
         findings_vulns
     )
     non_accepted_undefined_vulns = tuple(
@@ -1102,7 +1102,7 @@ async def get_mean_remediate_non_treated_severity(
     findings_vulns: Tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulns_typed.load_many_chained(group_findings_ids)
-    non_confirmed_zr_vulns = vulns_utils.filter_non_confirmed_zero_risk_new(
+    non_confirmed_zr_vulns = vulns_utils.filter_non_confirmed_zero_risk(
         findings_vulns
     )
     non_accepted_undefined_vulns = tuple(

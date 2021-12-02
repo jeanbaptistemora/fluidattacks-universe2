@@ -14,7 +14,6 @@ from decimal import (
     Decimal,
 )
 from newutils.vulnerabilities import (
-    get_last_status,
     is_reattack_requested,
 )
 from typing import (
@@ -24,18 +23,11 @@ from typing import (
 )
 
 
-def get_efficacy(vuln: Dict[str, Finding]) -> Decimal:
-    cycles: int = get_reattack_cycles(vuln)
-    if cycles and get_last_status(vuln) == "closed":
-        return Decimal(100 / cycles).quantize(Decimal("0.01"))
-    return Decimal(0)
-
-
-def get_efficacy_new(
+def get_efficacy(
     historic: Tuple[VulnerabilityVerification, ...],
     vuln: Vulnerability,
 ) -> Decimal:
-    cycles: int = get_reattack_cycles_new(historic)
+    cycles: int = get_reattack_cycles(historic)
     if cycles and vuln.state.status == VulnerabilityStateStatus.CLOSED:
         return Decimal(100 / cycles).quantize(Decimal("0.01"))
     return Decimal(0)
@@ -64,18 +56,7 @@ def get_last_requested_reattack_date(vuln: Dict[str, Finding]) -> str:
     return ""
 
 
-def get_reattack_cycles(vuln: Dict[str, Finding]) -> int:
-    historic_verification = get_historic_verification(vuln)
-    return len(
-        [
-            verification
-            for verification in historic_verification
-            if verification["status"] == "REQUESTED"
-        ]
-    )
-
-
-def get_reattack_cycles_new(
+def get_reattack_cycles(
     historic: Tuple[VulnerabilityVerification, ...]
 ) -> int:
     return len(

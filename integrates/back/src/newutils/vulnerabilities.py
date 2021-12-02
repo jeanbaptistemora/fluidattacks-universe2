@@ -1,5 +1,3 @@
-# pylint:disable=too-many-lines
-
 from . import (
     datetime as datetime_utils,
 )
@@ -171,33 +169,7 @@ def filter_closed_vulns(
     )
 
 
-def filter_confirmed_zero_risk(
-    vulnerabilities: List[Dict[str, FindingType]],
-) -> List[Dict[str, FindingType]]:
-    return [
-        vulnerability
-        for vulnerability in vulnerabilities
-        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
-            -1
-        ].get("status", "")
-        == "CONFIRMED"
-    ]
-
-
 def filter_non_confirmed_zero_risk(
-    vulnerabilities: List[Dict[str, Any]],
-) -> List[Dict[str, Any]]:
-    return [
-        vulnerability
-        for vulnerability in vulnerabilities
-        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
-            -1
-        ].get("status", "")
-        != "CONFIRMED"
-    ]
-
-
-def filter_non_confirmed_zero_risk_new(
     vulnerabilities: Tuple[Vulnerability, ...],
 ) -> Tuple[Vulnerability, ...]:
     return tuple(
@@ -207,32 +179,6 @@ def filter_non_confirmed_zero_risk_new(
         or vulnerability.zero_risk.status
         != VulnerabilityZeroRiskStatus.CONFIRMED
     )
-
-
-def filter_requested_zero_risk(
-    vulnerabilities: List[Dict[str, FindingType]],
-) -> List[Dict[str, FindingType]]:
-    return [
-        vulnerability
-        for vulnerability in vulnerabilities
-        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
-            -1
-        ].get("status", "")
-        == "REQUESTED"
-    ]
-
-
-def filter_non_requested_zero_risk(
-    vulnerabilities: List[Dict[str, Any]],
-) -> List[Dict[str, Any]]:
-    return [
-        vulnerability
-        for vulnerability in vulnerabilities
-        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
-            -1
-        ].get("status", "")
-        != "REQUESTED"
-    ]
 
 
 def filter_zero_risk(
