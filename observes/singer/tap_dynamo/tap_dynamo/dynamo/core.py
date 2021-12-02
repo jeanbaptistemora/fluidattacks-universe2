@@ -16,13 +16,15 @@ from purity.v1 import (
     FrozenList,
 )
 from typing import (
-    Set,
-    Type,
+    FrozenSet,
     Union,
 )
 
-Scalar = Union[str, int, Decimal, Binary, bool, Type[None]]
-DynamoSet = Union[Set[str], Set[int], Set[Decimal], Set[Binary]]
+Scalar = Union[str, int, Decimal, Binary, bool, None]
+SetScalar = Union[str, int, Decimal, Binary]
+DynamoSet = Union[
+    FrozenSet[str], FrozenSet[int], FrozenSet[Decimal], FrozenSet[Binary]
+]
 
 
 @dataclass(frozen=True)
