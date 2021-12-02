@@ -57,20 +57,22 @@ Windows Systems. You can read more about Andrés in his [academic
 profile](https://iri-wiki.uni-frankfurt.de/cms/?q=node/90),[blog](https://iri-wiki.uni-frankfurt.de/cms/?q=node/90)
 or [Twitter account](https://twitter.com/kuronosec).
 
-- ***What is your doctoral thesis about?***
+<div class="blog-questions">
 
-  “It is about creating a security monitoring system for the
-  [`ALICE`](https://home.cern/science/experiments/alice) computational
-  grid. `ALICE` is one of the major `LHC` experiments. The grid is
-  made up of computer centers interconnected around the world that
-  allow scientists to run applications for analyzing data obtained
-  from particle collisions inside `ALICE`. My project is composed of a
-  software framework that isolates applications scientists use in a
-  sandbox. Then, it collects information about the behavior those
-  applications, classifying them as normal or malicious using Machine
-  Learning (`ML`). And finally, it allows performing actions upon
-  detection of malicious behavior, such as sending alerts or stopping
-  their execution.”
+**What is your doctoral thesis about?**
+
+1. “It is about creating a security monitoring system for the
+    [`ALICE`](https://home.cern/science/experiments/alice) computational
+    grid. `ALICE` is one of the major `LHC` experiments. The grid is
+    made up of computer centers interconnected around the world that
+    allow scientists to run applications for analyzing data obtained
+    from particle collisions inside `ALICE`. My project is composed of a
+    software framework that isolates applications scientists use in a
+    sandbox. Then, it collects information about the behavior those
+    applications, classifying them as normal or malicious using Machine
+    Learning (`ML`). And finally, it allows performing actions upon
+    detection of malicious behavior, such as sending alerts or stopping
+    their execution.”
 
 That’s amazing. Researching protecting such a tremendous scientific
 *“device”* is undoubtedly a huge challenge. Andrés has been featured
@@ -80,16 +82,16 @@ He told us that the `CERN`, owner of the `LHC`, is a constant target for
 cyber attacks and that this is not surprising: many `CERN` systems are
 exposed to the Internet. We wanted to know more about `ML` in his work…​
 
-- ***Tell us a bit about how ML contributes to the framework you
-  developed***
+**Tell us a bit about how ML contributes to the framework you
+  developed**
 
-  “I used two `ML` models. The first performs a classification of
-  applications into malicious and non-malicious. The other generates
-  synthetic attacks to improve the training of the first.
-  I used thousands of examples of typical applications as well as
-  `Linux` malware for training and testing both models. My framework
-  managed to identify malicious software with an accuracy of `99%` and
-  less than `0.06%` of false positives.”
+1. “I used two `ML` models. The first performs a classification of
+    applications into malicious and non-malicious. The other generates
+    synthetic attacks to improve the training of the first.
+    I used thousands of examples of typical applications as well as
+    `Linux` malware for training and testing both models. My framework
+    managed to identify malicious software with an accuracy of `99%` and
+    less than `0.06%` of false positives.”
 
 Impressive. We see a link to what we shared days ago on
 [antifragility](../seek-chaos/) and this cutting-edge work. By constant
@@ -117,14 +119,14 @@ Figure 2. Gomez Ramirez, et. al. (2018) Proposed Arhuaco design architecture.
 
 Now, we turn to more general security-related issues with him.
 
-- **In your opinion, what trends in cybersecurity we should pay
+**In your opinion, what trends in cybersecurity we should pay
   more attention to?**
 
-  “I think of three relevant topics:
+1. “I think of three relevant topics:
 
     - One is the use of Artificial Intelligence (`AI`) for both attack
       detection as well as for vulnerability detection. I focused on
-      the former in my doctoral research. + +
+      the former in my doctoral research.
 
     - Another is the implementation of cryptographic techniques to
       increase reliance in execution environments, so user privacy is
@@ -135,7 +137,7 @@ Now, we turn to more general security-related issues with him.
       encrypted data and finally, the user deciphers the results. No
       one (especially potential attackers) has access to plain,
       actionable data. Homomorphic encryption is used, for instance,
-      in blockchain-based applications. + +
+      in blockchain-based applications.
 
     - The last trend is the emergence of computer systems designed
       from formal mathematical models which, in theory, are
@@ -149,14 +151,14 @@ definitely a focus of research for us. Although we haven’t yet got dirty
 developing `ML` or `AI` artifacts, is something very likely to happen
 soon.
 
-- ***What threats are worth "having on the radar"?***
+**What threats are worth "having on the radar"?**
 
-  “In general, with the rise of `AI`, I believe we will start to see
-  more attacks that learn automatically from the environment where
-  they are carried out. Attacks on *"Internet of Things"* (`IoT`)
-  devices have also wreaked havoc in recent months. Finally, the
-  leakage of sensitive user data is becoming more problematic as time
-  passes on.”
+1. “In general, with the rise of `AI`, I believe we will start to see
+    more attacks that learn automatically from the environment where
+    they are carried out. Attacks on *"Internet of Things"* (`IoT`)
+    devices have also wreaked havoc in recent months. Finally, the
+    leakage of sensitive user data is becoming more problematic as time
+    passes on.”
 
 `IoT` weaknesses and leakage of sensitive information are well under our
 scope. We provide [Continuous
@@ -173,14 +175,14 @@ help you.
 
 We continue our conversation with Andrés.
 
-- ***What do you think is a persistent problem within
-  organizations?***
+**What do you think is a persistent problem within
+  organizations?**
 
-  “I would say there are still many companies receiving well-intended
-  warnings from third parties concerning security holes in their
-  systems. But, instead of taking a good skill in fixing the problems
-  and thanking the contributions, what they do is threaten or sue the
-  guy pointing to the risk.”
+1. “I would say there are still many companies receiving well-intended
+    warnings from third parties concerning security holes in their
+    systems. But, instead of taking a good skill in fixing the problems
+    and thanking the contributions, what they do is threaten or sue the
+    guy pointing to the risk.”
 
 This is a sensitive topic and a critique. We know that some companies
 foster this kind of actions in what is called Big Bounty programs, with
@@ -191,20 +193,22 @@ is a topic worth discussing in more depth in the future.
 
 We want to conclude this post with two quick questions to Andrés:
 
-- ***Where should companies focus their learning efforts to
-  improve their risk management?***
+**Where should companies focus their learning efforts to
+  improve their risk management?**
 
-  “Organizations should adopt a data-driven strategy and invest in
-  automation. They should also invest in research to stay relevant in
-  a continuously changing field.”
+1. “Organizations should adopt a data-driven strategy and invest in
+    automation. They should also invest in research to stay relevant in
+    a continuously changing field.”
 
-- ***Do you expect any further development based on your doctoral
-  thesis?***
+**Do you expect any further development based on your doctoral
+  thesis?**
 
-  “I am exploring to go further with the framework. The idea is to
-  push what has been developed so far in a research stage into a
-  commercial product that can be put to work in different
-  organizations.”
+1. “I am exploring to go further with the framework. The idea is to
+    push what has been developed so far in a research stage into a
+    commercial product that can be put to work in different
+    organizations.”
+
+</div>
 
 We hope you liked this post in which we shared some experiences and
 opinions with Andrés. We would love to hear from you on these topics.
