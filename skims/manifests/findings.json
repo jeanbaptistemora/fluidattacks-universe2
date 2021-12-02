@@ -503,6 +503,14 @@
       "title": "256. Lack of protection against deletion - RDS"
     }
   },
+  "F258": {
+    "EN": {
+      "title": "258. Lack of protection against deletion - ELB"
+    },
+    "ES": {
+      "title": "258. Lack of protection against deletion - ELB"
+    }
+  },
   "F259": {
     "EN": {
       "title": "259. Lack of protection against deletion - DynamoDB"

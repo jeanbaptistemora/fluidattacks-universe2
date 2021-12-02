@@ -1,0 +1,44 @@
+F258.title:
+  en: >
+    Lack of protection against deletion - ELB
+  es: >
+    Lack of protection against deletion - ELB
+F258.description:
+  en: >
+    The current configuration of Elastic Load Balancing
+    has no Deletion Protection safety feature enabled.
+  es: >
+    La configuración actual de Elastic Load Balancing
+    no tiene activada la función de seguridad de
+    protección contra el borrado.
+F258.impact:
+  en: |
+    - AWS load balancers can be accidentally deleted.
+
+    - Load-balanced environments remain unsafe.
+
+    - Intentional  or accidental deletion of data integrity.
+  es: >
+    - Los balanceadores de carga de AWS pueden
+    ser eliminados accidentalmente.
+
+    - Los entornos con equilibrio de carga
+    siguen siendo inseguros.
+
+    - Eliminación intencionada o accidental de la
+    integridad de los datos.
+F258.recommendation:
+  en: >
+    Check the Deletion Protection configuration attribute
+    value inside attributes section and enable it.
+  es: >
+    Compruebe el valor del atributo Configuración de
+    Protección contra el borrado dentro de la sección
+    de atributos y actívelo.
+F258.threat:
+  en: >
+    Attacker with access to the AWS console that
+    modifies or deletes information.
+  es: >
+    Atacante con acceso a la consola de AWS
+    que modifica o borra información.
