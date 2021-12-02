@@ -13,10 +13,10 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
 
 
 def evaluate(args: SymbolicEvalArgs) -> bool:
-    m_attr = args.graph.nodes[args.n_id]
-    m_attr["danger"] = args.generic(args.fork_n_id(m_attr["parameters_id"]))
+    pl_id = args.graph.nodes[args.n_id]["parameters_id"]
+    args.evaluation[args.n_id] = args.generic(args.fork_n_id(pl_id))
 
     if finding_evaluator := FINDING_EVALUATORS.get(args.finding):
-        m_attr["danger"] = finding_evaluator(args)
+        args.evaluation[args.n_id] = finding_evaluator(args)
 
-    return m_attr["danger"]
+    return args.evaluation[args.n_id]

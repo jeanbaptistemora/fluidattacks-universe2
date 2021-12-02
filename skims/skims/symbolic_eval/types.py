@@ -8,6 +8,7 @@ from model.graph_model import (
 from typing import (
     Any,
     Callable,
+    Dict,
     List,
     NamedTuple,
 )
@@ -21,6 +22,7 @@ class SymbolicEvalArgs(NamedTuple):
     generic: Callable[[SYMBOLIC_EVAL_ARGS], bool]
     language: GraphLanguage
     finding: FindingEnum
+    evaluation: Dict[str, bool]
     graph: Graph
     path: Path
     n_id: str
@@ -30,10 +32,16 @@ class SymbolicEvalArgs(NamedTuple):
             generic=self.generic,
             language=self.language,
             finding=self.finding,
+            evaluation=self.evaluation,
             graph=self.graph,
             path=self.path,
             n_id=n_id,
         )
+
+    def fork(self, **attrs: Any) -> SYMBOLIC_EVAL_ARGS:
+        params = self._asdict()
+        params.update(attrs)
+        return SymbolicEvalArgs(**params)
 
 
 Analyzer = Callable[[GraphLanguage, Graph], None]

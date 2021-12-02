@@ -17,9 +17,9 @@ def evaluate(args: SymbolicEvalArgs) -> bool:
     d_l_expr = args.generic(args.fork_n_id(op_attr["left_id"]))
     d_r_expr = args.generic(args.fork_n_id(op_attr["right_id"]))
 
-    args.graph.nodes[args.n_id]["danger"] = d_l_expr or d_r_expr
+    args.evaluation[args.n_id] = d_l_expr or d_r_expr
 
     if finding_evaluator := FINDING_EVALUATORS.get(args.finding):
-        args.graph.nodes[args.n_id]["danger"] = finding_evaluator(args)
+        args.evaluation[args.n_id] = finding_evaluator(args)
 
-    return args.graph.nodes[args.n_id]["danger"]
+    return args.evaluation[args.n_id]
