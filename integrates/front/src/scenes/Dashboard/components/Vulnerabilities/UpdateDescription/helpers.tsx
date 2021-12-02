@@ -155,7 +155,7 @@ const validMutationsHelper = (
 
 const handleUpdateVulnTreatmentError = (updateError: unknown): void => {
   if (_.includes(String(updateError), "Invalid treatment manager")) {
-    msgError(translate.t("groupAlerts.invalidTreatmentMgr"));
+    msgError(translate.t("groupAlerts.invalidAssigned"));
   } else if (
     _.includes(
       String(updateError),

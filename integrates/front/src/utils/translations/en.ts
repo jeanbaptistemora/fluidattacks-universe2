@@ -796,6 +796,7 @@ export const enTranslations: ResourceKey = {
     fileUpdated: "File updated ;)",
     groupInfoUpdated: "Group information updated successfully",
     invalid: "is invalid",
+    invalidAssigned: "Please select an assigned user",
     invalidCannotModifyNicknameWhenClosing:
       "Invalid, you cannot change the nickname while closing",
     invalidDate:
@@ -804,7 +805,6 @@ export const enTranslations: ResourceKey = {
     invalidSchema: "The uploaded file does not match the schema",
     invalidSpecific: "Invalid field/line/port",
     invalidStructure: "The provided file has a wrong structure",
-    invalidTreatmentMgr: "Please select a treatment manager",
     key: "Key",
     noFileSelected: "No file selected",
     noFileUpdate: "Failed to update the file",
@@ -1321,6 +1321,7 @@ export const enTranslations: ResourceKey = {
       approve: "Approve",
       approveAll: "Approve all",
       approveAllVulns: "Approve all pending vulnerabilities",
+      assigned: "Assigned",
       attackVectors: {
         text: "Impacts",
         tooltip:
@@ -1445,7 +1446,6 @@ export const enTranslations: ResourceKey = {
       treatmentDate: "Treatment Date",
       treatmentHistoric: "Historic Treatment",
       treatmentJust: "Treatment justification",
-      treatmentMgr: "Treatment manager",
       updateVulnerabilities: "Update Vulnerabilities",
       updateVulnerabilitiesTooltip:
         "Modify the existing vulnerabilities using the selected yaml file",
@@ -2090,13 +2090,13 @@ export const enTranslations: ResourceKey = {
     tabTracking: {
       accepted: "Temporally accepted",
       acceptedUndefined: "Permanently accepted",
+      assigned: "Assigned:",
       closed: "Closed",
       cycle: "Cycle",
       effectiveness: "Effectiveness",
       found: "Found",
       inProgress: "In progress",
       justification: "Justification:",
-      manager: "Manager:",
       new: "New",
       open: "Open",
       pending: "Pending",
@@ -2216,6 +2216,7 @@ export const enTranslations: ResourceKey = {
         "Filter vulnerabilities based on permanently accepted treatment acceptances",
       verified: "Verified",
       vulnTable: {
+        assigned: "Assigned",
         currentTreatment: "Current",
         cycles: "Cycles",
         dateTooltip: "Filter vulnerabilities based on the report date",
@@ -2243,7 +2244,6 @@ export const enTranslations: ResourceKey = {
         treatmentDate: "Date",
         treatmentExpiration: "Expiration",
         treatmentJustification: "Justification",
-        treatmentManager: "Manager",
         treatments: "Treatments",
         treatmentsTooltip:
           "Filter vulnerabilities based on the treatment they were given",

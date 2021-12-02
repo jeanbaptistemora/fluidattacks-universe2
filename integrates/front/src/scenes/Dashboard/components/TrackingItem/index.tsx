@@ -85,7 +85,7 @@ const trackingItem: React.FC<ITrackingItemProps> = (
                   </TrackingLabel>
                 )}
                 <TrackingLabel>
-                  {translate.t("searchFindings.tabTracking.manager")}
+                  {translate.t("searchFindings.tabTracking.assigned")}
                   &nbsp;{manager}
                 </TrackingLabel>
               </React.Fragment>

@@ -29,7 +29,7 @@ const TreatmentManagerField: React.FC<ITreatmentManagerFieldProps> = ({
         <EditableField
           component={FormikDropdown}
           currentValue={_.get(lastTreatment, "treatmentManager", "")}
-          label={translate.t("searchFindings.tabDescription.treatmentMgr")}
+          label={translate.t("searchFindings.tabDescription.assigned")}
           name={"treatmentManager"}
           renderAsEditable={canUpdateVulnsTreatment}
           type={"text"}

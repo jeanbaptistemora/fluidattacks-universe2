@@ -203,9 +203,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
             </Row>
             <Row>
               <LabelField>
-                <Label>
-                  {t("searchFindings.tabVuln.vulnTable.treatmentManager")}
-                </Label>
+                <Label>{t("searchFindings.tabVuln.vulnTable.assigned")}</Label>
               </LabelField>
               <InfoField>
                 <p

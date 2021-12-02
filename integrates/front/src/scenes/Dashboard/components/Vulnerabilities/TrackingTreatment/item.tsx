@@ -36,7 +36,7 @@ export const TrackingTreatment: React.FC<IHistoricTreatment> = ({
           {(_.isNull(treatmentManager) && _.isNull(user)) ||
           treatment === "NEW" ? undefined : (
             <TrackingLabel>
-              {t("searchFindings.tabTracking.manager")}
+              {t("searchFindings.tabTracking.assigned")}
               &nbsp;{_.isEmpty(treatmentManager) ? user : treatmentManager}
             </TrackingLabel>
           )}
