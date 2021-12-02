@@ -27,10 +27,10 @@ async def put_mutation(
         ) {
             updateVulnerabilitiesTreatment(
                 acceptanceDate: "2021-03-31 19:45:11",
+                assigned: $assigned,
                 findingId: $findingId,
                 justification: "test of update vulns treatment justification",
                 treatment: $treatment,
-                treatmentManager: $assigned,
                 vulnerabilityId: $vulnerabilityId
             ) {
             success
@@ -63,6 +63,7 @@ async def get_vulnerability(
             vulnerability(uuid: $vulnerabilityId) {
                 currentState
                 historicTreatment{
+                    assigned
                     date
                     treatment
                     treatmentManager

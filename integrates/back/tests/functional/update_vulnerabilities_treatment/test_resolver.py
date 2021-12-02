@@ -59,6 +59,12 @@ async def test_update_vulnerabilities_treatment(
         ]
         == assigned
     )
+    assert (
+        vulnerability["data"]["vulnerability"]["historicTreatment"][-1][
+            "assigned"
+        ]
+        == assigned
+    )
 
 
 @pytest.mark.asyncio
