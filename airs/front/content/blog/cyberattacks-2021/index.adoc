@@ -3,7 +3,7 @@
 :page-subtitle: Here's what happened this year, in case you missed it
 :page-category: attacks
 :page-tags: cybersecurity, software, vulnerability, company, exploit, credential
-:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1638452358/blog/cyberattacks-2021/cover_cyberattacks.webp
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1638463448/blog/cyberattacks-2021/cover_cyberattacks.webp
 :page-alt: Photo by Anil Xavier on Unsplash
 :page-description: Supply chain attacks, ransomware and data leaks: We give you a short summary of the major cyberattacks of 2021.
 :page-keywords: Supply Chain Attack, Ransomware, Leak, Trends, Solarwinds, Software, Darkside, Ethical Hacking, Pentesting
