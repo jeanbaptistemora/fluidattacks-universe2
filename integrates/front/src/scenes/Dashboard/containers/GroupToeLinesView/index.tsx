@@ -1,5 +1,7 @@
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import moment from "moment";
@@ -19,13 +21,27 @@ import type {
   IToeLinesData,
   IToeLinesEdge,
 } from "scenes/Dashboard/containers/GroupToeLinesView/types";
+import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 
 const GroupToeLinesView: React.FC = (): JSX.Element => {
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canGetAttackedAt: boolean = permissions.can(
+    "api_resolvers_toe_lines_attacked_at_resolve"
+  );
+  const canGetAttackedLines: boolean = permissions.can(
+    "api_resolvers_toe_lines_attacked_lines_resolve"
+  );
+  const canGetBePresentUntil: boolean = permissions.can(
+    "api_resolvers_toe_lines_be_present_until_resolve"
+  );
+  const canGetComments: boolean = permissions.can(
+    "api_resolvers_toe_lines_comments_resolve"
+  );
+  const canSeeCoverage: boolean = permissions.can("see_toe_lines_coverage");
   const { groupName } = useParams<{ groupName: string }>();
-
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
   >(
@@ -125,6 +141,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       filter: dateFilter({}),
       formatter: formatDate,
       header: translate.t("group.toe.lines.bePresentUntil"),
+      omit: !canGetBePresentUntil,
       onSort,
       visible: checkedItems.bePresentUntil,
       width: "5%",
@@ -150,6 +167,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       dataField: "coverage",
       formatter: formatPercentage,
       header: translate.t("group.toe.lines.coverage"),
+      omit: !canSeeCoverage || !canGetAttackedLines,
       onSort,
       visible: checkedItems.coverage,
       width: "2.5%",
@@ -166,6 +184,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       align: "center",
       dataField: "attackedLines",
       header: translate.t("group.toe.lines.attackedLines"),
+      omit: !canGetAttackedLines,
       onSort,
       visible: checkedItems.attackedLines,
       width: "8%",
@@ -202,6 +221,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       filter: dateFilter({}),
       formatter: formatDate,
       header: translate.t("group.toe.lines.attackedAt"),
+      omit: !canGetAttackedAt,
       onSort,
       visible: checkedItems.attackedAt,
       width: "5%",
@@ -220,6 +240,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       align: "left",
       dataField: "comments",
       header: translate.t("group.toe.lines.comments"),
+      omit: !canGetComments,
       onSort,
       visible: checkedItems.comments,
       width: "15%",
@@ -244,7 +265,14 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
         Logger.error("Couldn't load group toe lines", error);
       });
     },
-    variables: { first: 300, groupName },
+    variables: {
+      canGetAttackedAt,
+      canGetAttackedLines,
+      canGetBePresentUntil,
+      canGetComments,
+      first: 300,
+      groupName,
+    },
   });
   const pageInfo =
     data === undefined ? undefined : data.group.toeLines.pageInfo;
@@ -292,7 +320,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   }
 
   const initialSort: string = JSON.stringify({
-    dataField: "filename",
+    dataField: "rootNickname",
     order: "asc",
   });
 

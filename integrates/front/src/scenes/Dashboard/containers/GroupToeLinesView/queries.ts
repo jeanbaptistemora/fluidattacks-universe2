@@ -6,6 +6,10 @@ const GET_TOE_LINES: DocumentNode = gql`
     $groupName: String!
     $after: String
     $bePresent: Boolean
+    $canGetAttackedAt: Boolean!
+    $canGetAttackedLines: Boolean!
+    $canGetBePresentUntil: Boolean!
+    $canGetComments: Boolean!
     $first: Int
   ) {
     group(groupName: $groupName) {
@@ -13,15 +17,13 @@ const GET_TOE_LINES: DocumentNode = gql`
       toeLines(bePresent: $bePresent, after: $after, first: $first) {
         edges {
           node {
-            attackedAt
-            attackedBy
-            attackedLines
+            attackedAt @include(if: $canGetAttackedAt)
+            attackedLines @include(if: $canGetAttackedLines)
             bePresent
-            bePresentUntil
-            comments
+            bePresentUntil @include(if: $canGetBePresentUntil)
+            comments @include(if: $canGetComments)
             commitAuthor
             filename
-            firstAttackAt
             loc
             modifiedCommit
             modifiedDate

@@ -1,5 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
+import { PureAbility } from "@casl/ability";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
@@ -12,6 +13,7 @@ import { GET_TOE_LINES } from "./queries";
 import { GroupToeLinesView } from ".";
 import { DataTableNext } from "components/DataTableNext";
 import type { ITableProps } from "components/DataTableNext/types";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("GroupToeLinesView", (): void => {
   it("should return a function", (): void => {
@@ -25,7 +27,14 @@ describe("GroupToeLinesView", (): void => {
     const mockedToeLines: MockedResponse = {
       request: {
         query: GET_TOE_LINES,
-        variables: { first: 300, groupName: "unittesting" },
+        variables: {
+          canGetAttackedAt: true,
+          canGetAttackedLines: true,
+          canGetBePresentUntil: true,
+          canGetComments: true,
+          first: 300,
+          groupName: "unittesting",
+        },
       },
       result: {
         data: {
@@ -87,13 +96,22 @@ describe("GroupToeLinesView", (): void => {
         },
       },
     };
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_resolvers_toe_lines_attacked_at_resolve" },
+      { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
+      { action: "api_resolvers_toe_lines_be_present_until_resolve" },
+      { action: "api_resolvers_toe_lines_comments_resolve" },
+      { action: "see_toe_lines_coverage" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
         <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
-          <Route
-            component={GroupToeLinesView}
-            path={"/:groupName/surface/lines"}
-          />
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupToeLinesView}
+              path={"/:groupName/surface/lines"}
+            />
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </MemoryRouter>
     );
@@ -125,20 +143,6 @@ describe("GroupToeLinesView", (): void => {
     );
     expect(firstRow.text()).toStrictEqual(
       [
-        "Yes",
-        "product",
-        "50%",
-        "8",
-        "4",
-        "2020-11-15",
-        "983466z",
-        "2021-02-20",
-        "comment 1",
-      ].join("")
-    );
-
-    expect(secondRow.text()).toStrictEqual(
-      [
         "No",
         "integrates_1",
         "70%",
@@ -148,6 +152,19 @@ describe("GroupToeLinesView", (): void => {
         "273412t",
         "",
         "comment 2",
+      ].join("")
+    );
+    expect(secondRow.text()).toStrictEqual(
+      [
+        "Yes",
+        "product",
+        "50%",
+        "8",
+        "4",
+        "2020-11-15",
+        "983466z",
+        "2021-02-20",
+        "comment 1",
       ].join("")
     );
   });
