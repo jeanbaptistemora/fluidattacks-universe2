@@ -172,10 +172,10 @@ legitimate ones.
 Some users fail to distinguish between legitimate and fraudulent `URLs`,
 and as [Dhamija, Tygar, and Hearst
 (2006)](http://people.ischool.berkeley.edu/~tygar/papers/Phishing/why_phishing_works.pdf)
-illustrate, they may take www.ebay-members-security.com as belonging to
-www.ebay.com. Or they may be misled by character substitutions such as
-www.paypai.com, and www.paypa1.com, instead of the original
-www.paypal.com.
+illustrate, they may take w<span>ww.ebay-members-security.com as belonging to
+w<span>ww.ebay.com. Or they may be misled by character substitutions such as
+w<span>ww.paypai.com, and w<span>ww.paypa1.com, instead of the original
+w<span>ww.paypal.com.
 
 Many users do not know or do not understand how the security indicators
 in web browsers work. As with the closed padlock icon, in this case in

@@ -153,7 +153,7 @@ dictionary that maps sequences of dice rolls to actual english words
 like this:
 
 **Some words from a [`Diceware`
-dictionary](http://world.std.com/~reinhold/dicewarewordlist.pdf)..**
+dictionary](http://world.std.com/~reinhold/dicewarewordlist.pdf).**
 
 ``` text
     26114 -> code

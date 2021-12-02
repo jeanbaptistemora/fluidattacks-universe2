@@ -66,7 +66,7 @@ code.
 
 For example:
 
-**Add integers method in Python..**
+**Add integers method in Python.**
 
 ``` Python
 def add_integers(a, b):
@@ -79,7 +79,7 @@ At first sight, the function seems fine. It works as expected, but it
 has a huge problem. In the following example, we’ll use the same
 \\add\_integers\\ method, but we’ll make a change.
 
-**Adding strings..**
+**Adding strings.**
 
 ``` Python
 add_integers('2', '3')  #  '23'
@@ -93,7 +93,7 @@ I know this doesn’t say much, but I’ll show you the destructive
 potential of this feature with another example using the same
 [*add\_integers*](#adding-integers) function:
 
-**A more complex application with no variable typing..**
+**A more complex application with no variable typing.**
 
 ``` Python
 def taxes_calculation(apple_price, taxes_rate):
@@ -145,7 +145,7 @@ We already know why we shouldn’t let the interpreter choose what type of
 variable we’re working with. It may sound a little laborious to have to
 type each variable, but this task is easy in Python 3:
 
-**Add integers method with typed variables..**
+**Add integers method with typed variables.**
 
 ``` python
 def add_integers (a: int , b: int) -> int:
@@ -156,7 +156,7 @@ add_integers(2 , 3) # 5
 
 Let’s see if this solves the problem:
 
-**The cruel reality..**
+**The cruel reality.**
 
 ``` python
 add_integers('2', '3') # '23'
@@ -178,7 +178,7 @@ the code.
 
 You can use the following command to install mypy in Python 3:
 
-**Mypy installation..**
+**Mypy installation.**
 
 ``` bash
 python3 -m pip install mypy
@@ -187,7 +187,7 @@ python3 -m pip install mypy
 Now, we just have to make sure that the code we want to check is saved
 in a script and then run the following command:
 
-**Command to use mypy..**
+**Command to use mypy.**
 
 ``` bash
 python3 -m mypy name_of_my_file.py
@@ -196,7 +196,7 @@ python3 -m mypy name_of_my_file.py
 Let’s go back to the example of \<\<\\adding-integers\\\>\> and save it
 in a script called *add\_integer\_method.py*. Now we use mypy:
 
-**Using mypy in a known script..**
+**Using mypy in a known script.**
 
 ``` bash
 python3 -m mypy  add_integer_method.py
@@ -207,7 +207,7 @@ If there’s no output when running the command, the code is correct and
 can be executed. Now we add the \<\<\\adding-strings, adding strings
 example\\\>\> to the file and run mypy again:
 
-**Warnings..**
+**Warnings.**
 
 ``` bash
 $ python3 -m mypy  add_integer_method.py

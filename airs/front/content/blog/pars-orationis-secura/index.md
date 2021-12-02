@@ -59,7 +59,7 @@ Every time we load the page, the current entries in the blog are
 
 The source code for such a page is like this:
 
-**Adapted from `bWAPP`. Braces and loads of lines removed..**
+**Adapted from `bWAPP`. Braces and loads of lines removed.**
 
 ``` php
 <?php

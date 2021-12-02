@@ -290,7 +290,7 @@ with that page so we can try to fix it. The source code for the page
 simply takes the `GET` parameter `page`, and displays it.
 
 **Adapted from bWAPP code. Some lines and brackets omitted for
-clarity..**
+clarity.**
 
 ``` php
 $file = $_GET["page"];

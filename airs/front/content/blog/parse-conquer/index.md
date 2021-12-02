@@ -70,7 +70,7 @@ function does.
 
 **java.py. See
 [Gitlab](https://gitlab.com/fluidattacks/asserts/blob/master/fluidasserts/lang/java.py#L395)
-for rest of code..**
+for rest of code.**
 
 ``` python
 from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas, Or,
@@ -169,7 +169,7 @@ unpredictable behavior in the application if they were carelessly
 uncommented, depending on who has access to the code.
 
 **From `fluidasserts.helper.lang` module. See full code in
-[Gitlab](https://gitlab.com/fluidattacks/asserts/blob/master/fluidasserts/helper/lang.py)..**
+[Gitlab](https://gitlab.com/fluidattacks/asserts/blob/master/fluidasserts/helper/lang.py).**
 
 ``` python
 def _get_match_lines(grammar: ParserElement, code_file: str,  # noqa

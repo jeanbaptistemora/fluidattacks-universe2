@@ -56,7 +56,7 @@ information in the output. You can look at the following example showing
 a difference between functional and imperative:
 
 **Javascript function for multiply 2 integers, imperative and functional
-approximation..**
+approximation.**
 
 ``` javascript
 // Multiply function in an imperative way.
