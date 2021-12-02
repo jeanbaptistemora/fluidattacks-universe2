@@ -26,7 +26,7 @@ describe("VulnComponent", (): void => {
       currentStateCapitalized: "Open",
       cycles: "1",
       efficacy: "0",
-      externalBugTrackingSystem: "",
+      externalBugTrackingSystem: undefined,
       historicTreatment: [
         {
           acceptanceDate: "",
@@ -63,7 +63,7 @@ describe("VulnComponent", (): void => {
       currentStateCapitalized: "Closed",
       cycles: "1",
       efficacy: "100",
-      externalBugTrackingSystem: "",
+      externalBugTrackingSystem: undefined,
       historicTreatment: [
         {
           acceptanceDate: "",
@@ -102,7 +102,7 @@ describe("VulnComponent", (): void => {
       currentStateCapitalized: "Open",
       cycles: "1",
       efficacy: "0",
-      externalBugTrackingSystem: "",
+      externalBugTrackingSystem: undefined,
       historicTreatment: [
         {
           acceptanceDate: "",

@@ -56,7 +56,7 @@ describe("TrackingTreatment", (): void => {
     currentStateCapitalized: "Open",
     cycles: "1",
     efficacy: "0",
-    externalBugTrackingSystem: "",
+    externalBugTrackingSystem: undefined,
     historicTreatment: [...historicTreatment],
     id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
     lastReattackDate: moment()

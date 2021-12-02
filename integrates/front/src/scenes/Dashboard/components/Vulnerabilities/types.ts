@@ -10,7 +10,7 @@ interface IVulnRowAttr {
   currentStateCapitalized: "Closed" | "Open";
   cycles: string;
   efficacy: string;
-  externalBugTrackingSystem: string;
+  externalBugTrackingSystem?: string;
   hacker?: string;
   historicTreatment: IHistoricTreatment[];
   id: string;
@@ -48,7 +48,7 @@ interface IDownloadVulnerabilitiesResultAttr {
 
 interface IVulnDataTypeAttr {
   currentState: "closed" | "open";
-  externalBugTrackingSystem: string;
+  externalBugTrackingSystem?: string;
   historicTreatment: IHistoricTreatment[];
   id: string;
   severity: string;
@@ -79,7 +79,7 @@ interface IVulnComponentProps {
 
 interface IUpdateTreatmentVulnerabilityForm {
   acceptanceDate?: string;
-  externalBugTrackingSystem: string;
+  externalBugTrackingSystem?: string;
   justification?: string;
   severity?: string;
   tag?: string;

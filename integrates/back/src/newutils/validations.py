@@ -24,6 +24,7 @@ from newutils import (
 import re
 from typing import (
     List,
+    Optional,
     Set,
     Tuple,
 )
@@ -52,8 +53,8 @@ def validate_fields(fields: List[str]) -> None:
             check_field(field, regex)
 
 
-def validate_url(url: str) -> None:
-    clean_url: str = url
+def validate_url(url: Optional[str]) -> None:
+    clean_url: str = url if url is not None else ""
     encoded_chars_whitelist: List[str] = ["%20"]
     for encoded_char in encoded_chars_whitelist:
         clean_url = clean_url.replace(encoded_char, "")

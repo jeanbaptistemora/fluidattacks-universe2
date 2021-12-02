@@ -43,7 +43,7 @@ describe("Update Description component", (): void => {
   const vulns: IVulnDataTypeAttr[] = [
     {
       currentState: "open",
-      externalBugTrackingSystem: "",
+      externalBugTrackingSystem: undefined,
       historicTreatment: [
         {
           date: "",
@@ -81,7 +81,7 @@ describe("Update Description component", (): void => {
             currentState: "open",
             cycles: "0",
             efficacy: "0",
-            externalBugTrackingSystem: "",
+            externalBugTrackingSystem: undefined,
             findingId: "480857698",
             historicTreatment: [],
             id: "",
@@ -149,7 +149,7 @@ describe("Update Description component", (): void => {
     const vulnerabilities: IVulnDataTypeAttr[] = [
       {
         currentState: "open",
-        externalBugTrackingSystem: "",
+        externalBugTrackingSystem: undefined,
         historicTreatment: [treatment],
         id: "test_one",
         severity: "",
@@ -160,7 +160,7 @@ describe("Update Description component", (): void => {
       },
       {
         currentState: "open",
-        externalBugTrackingSystem: "",
+        externalBugTrackingSystem: undefined,
         historicTreatment: [treatment],
         id: "test_two",
         severity: "",
@@ -449,7 +449,7 @@ describe("Update Description component", (): void => {
     const vulnsToUpdate: IVulnDataTypeAttr[] = [
       {
         currentState: "open",
-        externalBugTrackingSystem: "",
+        externalBugTrackingSystem: undefined,
         historicTreatment: [],
         id: "test1",
         severity: "",
@@ -460,7 +460,7 @@ describe("Update Description component", (): void => {
       },
       {
         currentState: "open",
-        externalBugTrackingSystem: "",
+        externalBugTrackingSystem: undefined,
         historicTreatment: [],
         id: "test2",
         severity: "",
@@ -589,7 +589,7 @@ describe("Update Description component", (): void => {
     const vulnsToUpdate: IVulnDataTypeAttr[] = [
       {
         currentState: "open",
-        externalBugTrackingSystem: "",
+        externalBugTrackingSystem: undefined,
         historicTreatment: [],
         id: "test",
         severity: "",

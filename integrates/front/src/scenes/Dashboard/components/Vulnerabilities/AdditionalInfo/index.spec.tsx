@@ -19,7 +19,7 @@ describe("AdditionalInfo", (): void => {
     currentStateCapitalized: "Open",
     cycles: "1",
     efficacy: "0",
-    externalBugTrackingSystem: "",
+    externalBugTrackingSystem: undefined,
     historicTreatment: [
       {
         acceptanceDate: "",
