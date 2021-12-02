@@ -56,7 +56,6 @@ from newutils.datetime import (
 )
 from operator import (
     attrgetter,
-    itemgetter,
 )
 from settings import (
     LOGGING,
@@ -102,15 +101,7 @@ def is_accepted_undefined_vulnerability(
     )
 
 
-def is_reattack_requested(vuln: Dict[str, Any]) -> bool:
-    historic_verification = vuln.get("historic_verification", [{}])
-    if historic_verification:
-        last_historic = historic_verification[-1]
-        return last_historic.get("status", "") == "REQUESTED"
-    return False
-
-
-def is_reattack_requested_new(vulnerability: Vulnerability) -> bool:
+def is_reattack_requested(vulnerability: Vulnerability) -> bool:
     return bool(
         vulnerability.verification
         and vulnerability.verification.status
@@ -474,7 +465,7 @@ def group_specific(
     vulns: Tuple[Vulnerability, ...], vuln_type: VulnerabilityType
 ) -> Tuple[Vulnerability, ...]:
     """Group vulnerabilities by its specific field."""
-    sorted_by_where = sort_vulnerabilities_new(vulns)
+    sorted_by_where = sort_vulnerabilities(vulns)
     grouped_vulns = []
     for key, group_iter in itertools.groupby(
         sorted_by_where,
@@ -504,13 +495,7 @@ def group_specific(
     return tuple(grouped_vulns)
 
 
-def sort_vulnerabilities(item: List[Dict[str, str]]) -> List[Dict[str, str]]:
-    """Sort a vulnerability by its where field."""
-    sorted_item = sorted(item, key=itemgetter("where"))
-    return sorted_item
-
-
-def sort_vulnerabilities_new(
+def sort_vulnerabilities(
     item: Tuple[Vulnerability, ...]
 ) -> Tuple[Vulnerability, ...]:
     """Sort a vulnerability by its where field."""

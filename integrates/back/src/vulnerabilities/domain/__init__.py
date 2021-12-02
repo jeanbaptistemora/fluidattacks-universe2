@@ -34,8 +34,6 @@ from .treatment import (
 )
 from .verification import (
     get_efficacy,
-    get_last_reattack_date,
-    get_last_requested_reattack_date,
     get_reattack_cycles,
 )
 
@@ -74,7 +72,5 @@ __all__ = [
     "validate_treatment_change",
     # verification
     "get_efficacy",
-    "get_last_reattack_date",
-    "get_last_requested_reattack_date",
     "get_reattack_cycles",
 ]

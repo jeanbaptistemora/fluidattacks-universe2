@@ -913,5 +913,5 @@ async def close_by_exclusion(
                 justification=StateRemovalJustification.EXCLUSION,
             ),
         )
-        if vulns_utils.is_reattack_requested_new(vulnerability):
+        if vulns_utils.is_reattack_requested(vulnerability):
             await verify_vulnerability(vulnerability)
