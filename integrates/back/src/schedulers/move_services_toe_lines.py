@@ -21,6 +21,7 @@ from db_model.services_toe_lines.types import (
 )
 from db_model.toe_lines.types import (
     RootToeLinesRequest,
+    ToeLines,
 )
 from decorators import (
     retry_on_exceptions,
@@ -96,6 +97,19 @@ def _get_attacked_lines(
     return attacked_lines
 
 
+def _get_seen_at(
+    services_toe_lines: ServicesToeLines,
+    toe_lines: ToeLines,
+) -> str:
+    return (
+        services_toe_lines.tested_date
+        if services_toe_lines.tested_date
+        and datetime.fromisoformat(services_toe_lines.tested_date)
+        < datetime.fromisoformat(toe_lines.seen_at)
+        else toe_lines.seen_at
+    )
+
+
 @retry_on_exceptions(
     exceptions=(ToeLinesAlreadyUpdated,),
     sleep_seconds=10,
@@ -134,8 +148,9 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                         repo_services_toe_lines[filename].tested_date,
                         toe_lines.modified_date,
                     ),
-                    seen_at=repo_services_toe_lines[filename].tested_date
-                    or toe_lines.seen_at,
+                    seen_at=_get_seen_at(
+                        repo_services_toe_lines[filename], toe_lines
+                    ),
                 ),
             )
             for filename, toe_lines in repo_toe_lines.items()
@@ -157,8 +172,7 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                     toe_lines.modified_date,
                 ),
                 repo_services_toe_lines[filename].tested_date,
-                repo_services_toe_lines[filename].tested_date
-                or toe_lines.seen_at,
+                _get_seen_at(repo_services_toe_lines[filename], toe_lines),
             )
         )
     )

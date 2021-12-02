@@ -95,6 +95,11 @@ async def update(
         else 0
     )
     be_present_until = _get_optional_be_present_until(attributes.be_present)
+    seen_at = (
+        attributes.seen_at
+        if attributes.seen_at is None
+        else attributes.seen_at or current_value.seen_at
+    )
     metadata = ToeLinesMetadataToUpdate(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
@@ -107,7 +112,7 @@ async def update(
         loc=attributes.loc,
         modified_commit=attributes.modified_commit,
         modified_date=attributes.modified_date,
-        seen_at=attributes.seen_at,
+        seen_at=seen_at,
         sorts_risk_level=attributes.sorts_risk_level,
     )
     await toe_lines_model.update_metadata(
