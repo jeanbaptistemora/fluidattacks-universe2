@@ -194,7 +194,7 @@ Twitch link:https://blog.twitch.tv/en/2021/10/15/updates-on-the-twitch-security-
 that the leaker got their way in
 by exploiting an error in a server configuration change.
 
-Don't let your guard down!
+== Don't let your guard down!
 
 There you have it.
 The cyberattacks mentioned here definitely show the importance
