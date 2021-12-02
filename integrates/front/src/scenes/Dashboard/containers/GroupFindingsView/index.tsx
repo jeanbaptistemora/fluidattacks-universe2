@@ -75,7 +75,6 @@ interface IDataResult {
 
 interface IFilterSet {
   age: string;
-  currentStatus: string;
   currentTreatment: string;
   lastReport: string;
   reattack: string;
@@ -137,7 +136,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       "filterGroupFindingsTableSet",
       {
         age: "",
-        currentStatus: "open",
         currentTreatment: "",
         lastReport: "",
         reattack: "",
@@ -149,6 +147,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       },
       localStorage
     );
+  const [
+    filterGroupFindingsCurrentStatus,
+    setFilterGroupFindingsCurrentStatus,
+  ] = useStoredState<Record<string, string>>(
+    "groupFindingsCurrentStatus",
+    { currentStatus: "open" },
+    localStorage
+  );
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const openDeleteModal: () => void = useCallback((): void => {
     setDeleteModalOpen(true);
@@ -326,8 +332,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     event.persist();
-    setFilterGroupFindingsTable(
-      (value): IFilterSet => ({
+    setFilterGroupFindingsCurrentStatus(
+      (value): Record<string, string> => ({
         ...value,
         currentStatus: event.target.value,
       })
@@ -335,7 +341,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   }
   const filterCurrentStatusFindings: IFindingAttr[] = filterSelect(
     findings,
-    filterGroupFindingsTable.currentStatus,
+    filterGroupFindingsCurrentStatus.currentStatus,
     "state"
   );
 
@@ -591,7 +597,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: filterGroupFindingsTable.currentStatus,
+      defaultValue: filterGroupFindingsCurrentStatus.currentStatus,
       onChangeSelect: onStatusChange,
       placeholder: "Status",
       selectOptions: {

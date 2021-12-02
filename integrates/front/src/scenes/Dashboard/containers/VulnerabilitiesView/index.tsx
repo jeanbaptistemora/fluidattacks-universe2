@@ -89,7 +89,14 @@ export const VulnsView: React.FC = (): JSX.Element => {
       },
       localStorage
     );
-
+  const [
+    filterGroupFindingsCurrentStatus,
+    setFilterGroupFindingsCurrentStatus,
+  ] = useStoredState<Record<string, string>>(
+    "groupFindingsCurrentStatus",
+    { currentStatus: "open" },
+    localStorage
+  );
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
   }, [isCustomFilterEnabled, setCustomFilterEnabled]);
@@ -235,8 +242,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
 
   function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     event.persist();
-    setFilterVulnerabilitiesTable(
-      (value): IFilterSet => ({
+    setFilterGroupFindingsCurrentStatus(
+      (value): Record<string, string> => ({
         ...value,
         currentStatus: event.target.value,
       })
@@ -244,7 +251,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
   }
   const filterCurrentStatusVulnerabilities: IVulnRowAttr[] = filterSelect(
     vulnerabilities,
-    filterVulnerabilitiesTable.currentStatus,
+    filterGroupFindingsCurrentStatus.currentStatus,
     "currentState"
   );
 
@@ -373,7 +380,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
       type: "select",
     },
     {
-      defaultValue: filterVulnerabilitiesTable.currentStatus,
+      defaultValue: filterGroupFindingsCurrentStatus.currentStatus,
       onChangeSelect: onStatusChange,
       placeholder: "Status",
       selectOptions: {
