@@ -1,0 +1,25 @@
+F333.title:
+  en: >
+    Insecure service configuration - EC2
+  es: >
+    Insecure service configuration - EC2
+F333.description:
+  en: >
+    The EC2 instance does not define the API termination resource which by
+    default is set to false, allowing it to be terminated or stopped at any
+    time from the AWS console, the client or the API.
+  es: >
+    La instancia de EC2 no define el recurso API termination que por defecto se
+    establece en false, lo que permite que esta pueda ser terminada o detenida
+    en cualquier momento desde la consola de AWS, el cliente o el API.
+F333.impact:
+  en: Disrupt critical operations on the EC2 instance.
+  es: Interrumpir operaciones críticas en la instancia de EC2.
+F333.recommendation:
+  en: Securely configure the EC2 instance by disabling the API termination
+      resource.
+  es: Configurar de manera segura la instancia de EC2 deshabilitando el recurso
+      API termination.
+F333.threat:
+  en: Internet attacker with access to the AWS console.
+  es: Atacante en internet con acceso a la consola de AWS.

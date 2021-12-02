@@ -535,6 +535,14 @@
       "title": "325. Excessive privileges - Wildcards"
     }
   },
+  "F333": {
+    "EN": {
+      "title": "333. Insecure service configuration - EC2"
+    },
+    "ES": {
+      "title": "333. Insecure service configuration - EC2"
+    }
+  },
   "F335": {
     "EN": {
       "title": "335. Insecure service configuration - Bucket"
