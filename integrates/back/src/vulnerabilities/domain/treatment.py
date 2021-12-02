@@ -20,12 +20,12 @@ from custom_exceptions import (
 )
 from custom_types import (
     Datetime,
-    Historic,
 )
 from datetime import (
     datetime,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityAcceptanceStatus,
     VulnerabilityTreatmentStatus,
 )
 from db_model.vulnerabilities.types import (
@@ -231,43 +231,61 @@ def get_treatment_change(
     return None
 
 
-async def handle_vuln_acceptance(
+async def _handle_vulnerability_acceptance(
     *,
     finding_id: str,
-    new_treatments: Historic,
-    vuln: Vulnerability,
+    new_treatment: VulnerabilityTreatment,
+    vulnerability: Vulnerability,
     historic_treatment: Tuple[VulnerabilityTreatment, ...],
-) -> bool:
+) -> None:
+    treatments_to_add: Tuple[VulnerabilityTreatment, ...] = tuple()
     if (
         historic_treatment
-        and new_treatments[-1].get("acceptance_status") == "APPROVED"
-        and vuln.treatment
-        and vuln.treatment.manager
+        and new_treatment.acceptance_status
+        == VulnerabilityAcceptanceStatus.APPROVED
+        and vulnerability.treatment
+        and vulnerability.treatment.manager
     ):
-        new_treatments[-1]["treatment_manager"] = vuln.treatment.manager
-
-    if new_treatments[-1].get("acceptance_status") == "REJECTED":
+        treatments_to_add = (
+            new_treatment._replace(manager=vulnerability.treatment.manager),
+        )
+    elif (
+        new_treatment.acceptance_status
+        == VulnerabilityAcceptanceStatus.REJECTED
+    ):
+        # Calculate a new date to avoid duplicating keys in the historic
+        second_date = datetime_utils.get_as_utc_iso_format(
+            datetime_utils.get_plus_delta(
+                datetime.fromisoformat(new_treatment.modified_date),
+                seconds=1,
+            )
+        )
         if len(historic_treatment) > 1:
-            new_treatments.append(
-                vulns_utils.format_vulnerability_treatment_item(
-                    historic_treatment[-2]
-                )
+            treatments_to_add = (
+                new_treatment,
+                historic_treatment[-2]._replace(
+                    modified_date=second_date,
+                ),
             )
         else:
-            new_treatments.append(
-                {
-                    "treatment": "NEW",
-                    "date": datetime_utils.get_now_as_str(),
-                    "user": new_treatments[-1]["user"],
-                }
+            treatments_to_add = (
+                new_treatment,
+                VulnerabilityTreatment(
+                    modified_date=second_date,
+                    status=VulnerabilityTreatmentStatus.NEW,
+                    modified_by=new_treatment.modified_by,
+                ),
             )
 
-    await vulns_dal.append(
-        finding_id=finding_id,
-        vulnerability_id=vuln.id,
-        elements={"historic_treatment": new_treatments},
-    )
-    return True
+    if treatments_to_add:
+        # Use for-await as update order is relevant for typed vuln
+        for treatment in treatments_to_add:
+            await vulns_dal.update_treatment(
+                current_value=vulnerability.treatment,
+                finding_id=finding_id,
+                vulnerability_id=vulnerability.id,
+                treatment=treatment,
+            )
 
 
 async def handle_vulnerabilities_acceptance(
@@ -278,11 +296,11 @@ async def handle_vulnerabilities_acceptance(
     justification: str,
     rejected_vulns: List[str],
     user_email: str,
-) -> bool:
+) -> None:
     validations.validate_field_length(justification, 5000)
     validations.validate_fields([justification])
-    today = datetime_utils.get_now_as_str()
-    coroutines: List[Awaitable[bool]] = []
+    today = datetime_utils.get_iso_date()
+    coroutines: List[Awaitable[None]] = []
 
     all_vulns: Tuple[
         Vulnerability, ...
@@ -301,20 +319,20 @@ async def handle_vulnerabilities_acceptance(
     for vuln in vulnerabilities:
         validate_acceptance(vuln)
 
-    new_treatment = {
-        "treatment": "ACCEPTED_UNDEFINED",
-        "justification": justification,
-        "user": user_email,
-        "date": today,
-    }
     if rejected_vulns:
-        treatments = [{**new_treatment, "acceptance_status": "REJECTED"}]
+        rejected_treatment = VulnerabilityTreatment(
+            acceptance_status=VulnerabilityAcceptanceStatus.REJECTED,
+            justification=justification,
+            modified_date=today,
+            modified_by=user_email,
+            status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+        )
         coroutines.extend(
             [
-                handle_vuln_acceptance(
+                _handle_vulnerability_acceptance(
                     finding_id=finding_id,
-                    new_treatments=treatments,
-                    vuln=vuln,
+                    new_treatment=rejected_treatment,
+                    vulnerability=vuln,
                     historic_treatment=historic_treatment,
                 )
                 for vuln, historic_treatment in zip(vulnerabilities, historics)
@@ -322,20 +340,26 @@ async def handle_vulnerabilities_acceptance(
             ]
         )
     if accepted_vulns:
-        treatments = [{**new_treatment, "acceptance_status": "APPROVED"}]
+        approved_treatment = VulnerabilityTreatment(
+            acceptance_status=VulnerabilityAcceptanceStatus.APPROVED,
+            justification=justification,
+            modified_date=today,
+            modified_by=user_email,
+            status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+        )
         coroutines.extend(
             [
-                handle_vuln_acceptance(
+                _handle_vulnerability_acceptance(
                     finding_id=finding_id,
-                    new_treatments=treatments,
-                    vuln=vuln,
+                    new_treatment=approved_treatment,
+                    vulnerability=vuln,
                     historic_treatment=historic_treatment,
                 )
                 for vuln, historic_treatment in zip(vulnerabilities, historics)
                 if vuln.id in accepted_vulns
             ]
         )
-    return all(await collect(coroutines))
+    await collect(coroutines)
 
 
 async def send_treatment_change_mail(

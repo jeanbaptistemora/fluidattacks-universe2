@@ -63,7 +63,7 @@ async def mutate(
         )
         user_info = await token_utils.get_jwt_content(info.context)
         email: str = user_info["user_email"]
-        success: bool = await handle_vulnerabilities_acceptance(
+        await handle_vulnerabilities_acceptance(
             loaders=info.context.loaders,
             accepted_vulns=accepted_vulnerabilities,
             finding_id=finding_id,
@@ -71,20 +71,19 @@ async def mutate(
             rejected_vulns=rejected_vulnerabilities,
             user_email=email,
         )
-        if success:
-            redis_del_by_deps_soon(
-                "handle_vulnerabilities_acceptance",
-                finding_id=finding_id,
-            )
-            await update_unreliable_indicators_by_deps(
-                EntityDependency.handle_vulnerabilities_acceptance,
-                finding_id=finding_id,
-            )
-            logs_utils.cloudwatch_log(
-                info.context,
-                "Security: Handled vulnerabilities acceptance in finding "
-                f"{finding_id}",
-            )
+        redis_del_by_deps_soon(
+            "handle_vulnerabilities_acceptance",
+            finding_id=finding_id,
+        )
+        await update_unreliable_indicators_by_deps(
+            EntityDependency.handle_vulnerabilities_acceptance,
+            finding_id=finding_id,
+        )
+        logs_utils.cloudwatch_log(
+            info.context,
+            "Security: Handled vulnerabilities acceptance in finding "
+            f"{finding_id}",
+        )
 
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
@@ -94,4 +93,4 @@ async def mutate(
         )
         raise
 
-    return SimplePayload(success=success)
+    return SimplePayload(success=True)
