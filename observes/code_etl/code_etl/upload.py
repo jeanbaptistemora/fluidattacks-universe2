@@ -71,7 +71,7 @@ INSERT_QUERY = f"""
     INSERT INTO {SCHEMA_NAME}.commits (
         author_email, author_name, authored_at,
         committer_email, committer_name, committed_at,
-        hash, message, summary,
+        hash, fa_hash, message, summary,
         total_insertions, total_deletions,
         total_lines, total_files,
 
@@ -80,7 +80,7 @@ INSERT_QUERY = f"""
     SELECT
         %(author_email)s, %(author_name)s, %(authored_at)s,
         %(committer_email)s, %(committer_name)s, %(committed_at)s,
-        %(hash)s, %(message)s, %(summary)s,
+        %(hash)s, %(fa_hash)s, %(message)s, %(summary)s,
         %(total_insertions)s, %(total_deletions)s,
         %(total_lines)s, %(total_files)s,
 
@@ -356,6 +356,7 @@ async def initialize() -> None:
                         committer_name VARCHAR(256),
                         committed_at TIMESTAMPTZ,
                         hash VARCHAR(40),
+                        fa_hash CHAR(64),
                         message VARCHAR(4096),
                         summary VARCHAR(256),
                         total_insertions INTEGER,

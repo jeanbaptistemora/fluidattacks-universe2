@@ -87,6 +87,7 @@ class CommitDataAdapters:
             committer_name=_truncate_bytes(data.committer.name, 0, 256),
             committed_at=data.committed_at,
             hash=id_obj.hash,
+            fa_hash=id_obj.fa_hash,
             message=_truncate_bytes(data.message, 0, 4096),
             summary=_truncate_bytes(data.summary, 0, 256),
             total_insertions=data.deltas.total_insertions,
