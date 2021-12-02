@@ -3525,7 +3525,6 @@
     "CVE-2017-16026": ">2.51.0 <=2.67.0 || >=2.2.6 <2.47.0",
     "CVE-2018-18074": "<2.20.0",
     "GMS-2016-8": ">2.51.0 <=2.67.0 || >=2.2.6 <2.47.0",
-    "github.com/request/request/pull/3385": "<=2.88.2",
     "npmjs.com/advisories/309": ">2.2.5 <2.68.0"
   },
   "require-directory": {},
@@ -3721,7 +3720,7 @@
   },
   "semver-regex": {
     "CVE-2021-3795": "<3.1.3 || >=4.0.0 <4.0.1",
-    "https://github.com/sindresorhus/semver-regex/commit/6baf2cc1d470c2fb63666bdebeef06822be7ba8c": "<4.0.2"
+    "SNYK-JS-SEMVERREGEX-1047770": "<3.1.2"
   },
   "sencisho": {
     "CVE-2017-16092": "<=0.3.3",
@@ -4112,7 +4111,6 @@
   "superagent": {
     "CVE-2017-16129": "<3.7.0",
     "GMS-2017-222": "<3.7.0",
-    "github.com/visionmedia/superagent/issues/1309": "<3.8.1",
     "npm:superagent:20181108": "<3.8.1",
     "npmjs.com/advisories/479": "<3.7.0"
   },
@@ -4274,7 +4272,7 @@
     "CVE-2017-15010": "<=2.3.2",
     "GMS-2016-49": ">=0.9.7 <=2.2.2",
     "GMS-2017-210": "<2.3.3",
-    "github.com/salesforce/tough-cookie/issues/92": "<2.3.3"
+    "npm:tough-cookie:20170905": "<2.3.3"
   },
   "trailing-slash": {
     "CVE-2021-23387": "<2.0.1"
@@ -4393,8 +4391,7 @@
   "useragent": {
     "CVE-2017-16030": "<=2.1.12",
     "GMS-2017-108": "<2.1.12",
-    "SNYK-JS-USERAGENT-174737": "<=2.3.0",
-    "https://github.com/3rd-Eden/useragent/pull/140": "<=2.3.0"
+    "SNYK-JS-USERAGENT-174737": "<=2.3.0"
   },
   "utahcityfinder": {
     "CVE-2017-16173": "=0.0.1",
@@ -4475,7 +4472,7 @@
   },
   "webpack-dev-server": {
     "CVE-2018-14732": "<3.1.6",
-    "github.com/webpack/webpack-dev-server/issues/1445": ">=2.0.0 <2.11.4 || >=3.0.0 <3.1.11",
+    "SNYK-JS-WEBPACKDEVSERVER-72405": "<3.1.11",
     "npmjs.com/advisories/725": ">=2.0.0 <2.11.4 || >=3.0.0 <3.1.11"
   },
   "webpack-sources": {},
@@ -4577,7 +4574,7 @@
     "CVE-2021-32012": "=0.16.9",
     "CVE-2021-32013": "=0.16.9",
     "CVE-2021-32014": "=0.16.9",
-    "github.com/SheetJS/sheetjs/issues/1904": "<=0.16.9"
+    "SNYK-JS-XLSX-585898": "<0.16.0"
   },
   "xmldom": {
     "CVE-2021-21366": "<0.5.0",

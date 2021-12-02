@@ -15574,30 +15574,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (request v2.9.0)
   116 |     ""stringstream"": ""0.0.5"",
       ^ Col 0
 ",_check_npm_package_json
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (request v2.9.0) [github.com/request/request/pull/3385],106,937,skims,011. Use of software with known vulnerabilities,Use of request at version 2.9.0 with github.com/request/request/pull/3385 in namespace/skims/test/data/lib_path/f011/package.json,"
-   96 |     ""openssl"": ""1.1.1"",
-   97 |     ""path-parse"": ""1.0.6"",
-   98 |     ""pathval"": ""1.1.0"",
-   99 |     ""postcss"": ""7.0.0"",
-  100 |     ""prismjs"": ""1.20.0"",
-  101 |     ""qs"": ""0.4.2"",
-  102 |     ""randomatic"": ""2.5.5"",
-  103 |     ""react-adal"": ""0.4.22"",
-  104 |     ""react-dev-utils"": ""8.0.0"",
-  105 |     ""redis"": ""2.8.0"",
-> 106 |     ""request"": ""2.9.0"",
-  107 |     ""semver"": ""4.3.1"",
-  108 |     ""semver-regex"": ""2.0.0"",
-  109 |     ""serverless-offline"": ""3.3.0"",
-  110 |     ""set-getter"": ""0.1.0"",
-  111 |     ""sheetjs"": ""0.16.9"",
-  112 |     ""socket.io"": ""2.3.0"",
-  113 |     ""socket.io-parser"": ""3.4.0"",
-  114 |     ""sshpk"": ""1.13.1"",
-  115 |     ""ssri"": ""6.0.1"",
-  116 |     ""stringstream"": ""0.0.5"",
-      ^ Col 0
-",_check_npm_package_json
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (request v2.9.0) [npmjs.com/advisories/309],106,937,skims,011. Use of software with known vulnerabilities,Use of request at version 2.9.0 with npmjs.com/advisories/309 in namespace/skims/test/data/lib_path/f011/package.json,"
    96 |     ""openssl"": ""1.1.1"",
    97 |     ""path-parse"": ""1.0.6"",
@@ -15694,7 +15670,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (semver-regex v2
   118 |     ""subtext"": ""4.4.1"",
       ^ Col 0
 ",_check_npm_package_json
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (semver-regex v2.0.0) [https://github.com/sindresorhus/semver-regex/commit/6baf2cc1d470c2fb63666bdebeef06822be7ba8c],108,937,skims,011. Use of software with known vulnerabilities,Use of semver-regex at version 2.0.0 with https://github.com/sindresorhus/semver-regex/commit/6baf2cc1d470c2fb63666bdebeef06822be7ba8c in namespace/skims/test/data/lib_path/f011/package.json,"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (semver-regex v2.0.0) [SNYK-JS-SEMVERREGEX-1047770],108,937,skims,011. Use of software with known vulnerabilities,Use of semver-regex at version 2.0.0 with SNYK-JS-SEMVERREGEX-1047770 in namespace/skims/test/data/lib_path/f011/package.json,"
    98 |     ""pathval"": ""1.1.0"",
    99 |     ""postcss"": ""7.0.0"",
   100 |     ""prismjs"": ""1.20.0"",
@@ -16870,30 +16846,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (useragent v2.3.
   140 |     ""xmldom"": ""0.4.0""
       ^ Col 0
 ",_check_npm_package_json
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (useragent v2.3.0) [https://github.com/3rd-Eden/useragent/pull/140],130,937,skims,011. Use of software with known vulnerabilities,Use of useragent at version 2.3.0 with https://github.com/3rd-Eden/useragent/pull/140 in namespace/skims/test/data/lib_path/f011/package.json,"
-  120 |     ""through"": ""2.3.6"",
-  121 |     ""trim"": ""1.0.1"",
-  122 |     ""trim-newlines"": ""1.0.0"",
-  123 |     ""tunnel-agent"": ""0.4.3"",
-  124 |     ""ua-parser"": ""0.7.20"",
-  125 |     ""ua-parser-js"": ""0.7.12"",
-  126 |     ""uglify-js"": ""2.5.0"",
-  127 |     ""underscore"": ""1.12.0"",
-  128 |     ""urijs"": ""1.19.2"",
-  129 |     ""url-parse"": ""1.4.7"",
-> 130 |     ""useragent"": ""2.3.0"",
-  131 |     ""utils-extend"": ""1.0.8"",
-  132 |     ""ws"": ""0.8.1"",
-  133 |     ""xcode"": ""3.0.1"",
-  134 |     ""xlsx"": ""0.15.5"",
-  135 |     ""xmldom"": ""0.4.0"",
-  136 |     ""xmlhttprequest-ssl"": ""1.5.4"",
-  137 |     ""y18n"": ""4.0.0""
-  138 |   },
-  139 |   ""devDependencies"": {
-  140 |     ""xmldom"": ""0.4.0""
-      ^ Col 0
-",_check_npm_package_json
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (utils-extend v1.0.8) [CVE-2020-8147],131,937,skims,011. Use of software with known vulnerabilities,Use of utils-extend at version 1.0.8 with CVE-2020-8147 in namespace/skims/test/data/lib_path/f011/package.json,"
   121 |     ""trim"": ""1.0.1"",
   122 |     ""trim-newlines"": ""1.0.0"",
@@ -17110,7 +17062,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xcode v3.0.1) [
   142 | }
       ^ Col 0
 ",_check_npm_package_json
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xlsx v0.15.5) [github.com/SheetJS/sheetjs/issues/1904],134,937,skims,011. Use of software with known vulnerabilities,Use of xlsx at version 0.15.5 with github.com/SheetJS/sheetjs/issues/1904 in namespace/skims/test/data/lib_path/f011/package.json,"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (xlsx v0.15.5) [SNYK-JS-XLSX-585898],134,937,skims,011. Use of software with known vulnerabilities,Use of xlsx at version 0.15.5 with SNYK-JS-XLSX-585898 in namespace/skims/test/data/lib_path/f011/package.json,"
   122 |     ""trim-newlines"": ""1.0.0"",
   123 |     ""tunnel-agent"": ""0.4.3"",
   124 |     ""ua-parser"": ""0.7.20"",
