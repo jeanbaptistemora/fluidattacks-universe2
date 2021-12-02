@@ -2,19 +2,15 @@ from .event import (
     EventLoader,
 )
 from .finding_vulns import (
-    FindingVulnsLoader,
     FindingVulnsTypedLoader,
 )
 from .finding_vulns_non_deleted import (
-    FindingVulnsNonDeletedLoader,
     FindingVulnsNonDeletedTypedLoader,
 )
 from .finding_vulns_non_zero_risk import (
-    FindingVulnsNonZeroRiskLoader,
     FindingVulnsNonZeroRiskTypedLoader,
 )
 from .finding_vulns_only_zero_risk import (
-    FindingVulnsOnlyZeroRiskLoader,
     FindingVulnsOnlyZeroRiskTypedLoader,
 )
 from .group import (
@@ -93,13 +89,9 @@ class Dataloaders(NamedTuple):
     finding: FindingLoader
     finding_historic_state: FindingHistoricStateLoader
     finding_historic_verification: FindingHistoricVerificationLoader
-    finding_vulns: FindingVulnsNonDeletedLoader  # All vulns except deleted
     finding_vulns_typed: FindingVulnsNonDeletedTypedLoader  # Migration
-    finding_vulns_all: FindingVulnsLoader  # All vulns
     finding_vulns_all_typed: FindingVulnsTypedLoader  # Migration
-    finding_vulns_nzr: FindingVulnsNonZeroRiskLoader
     finding_vulns_nzr_typed: FindingVulnsNonZeroRiskTypedLoader  # Migration
-    finding_vulns_zr: FindingVulnsOnlyZeroRiskLoader
     finding_vulns_zr_typed: FindingVulnsOnlyZeroRiskTypedLoader
     group: GroupLoader
     group_drafts: GroupDraftsLoader
@@ -148,10 +140,6 @@ def get_new_context() -> Dataloaders:
     group_findings_loader = GroupFindingsLoader(
         group_drafts_and_findings_loader
     )
-    finding_vulns_loader = FindingVulnsLoader()
-    finding_vulns_non_deleted_loader = FindingVulnsNonDeletedLoader(
-        finding_vulns_loader
-    )
     vulnerability_loader = VulnerabilityLoader()
 
     # Migration
@@ -171,15 +159,9 @@ def get_new_context() -> Dataloaders:
         finding_historic_state=FindingHistoricStateLoader(),
         finding_historic_verification=(FindingHistoricVerificationLoader()),
         finding=FindingLoader(),
-        finding_vulns=finding_vulns_non_deleted_loader,
         finding_vulns_typed=finding_vulns_non_deleted_typed_loader,
-        finding_vulns_all=finding_vulns_loader,
         finding_vulns_all_typed=finding_vulns_typed_loader,
-        finding_vulns_nzr=FindingVulnsNonZeroRiskLoader(
-            finding_vulns_non_deleted_loader
-        ),
         finding_vulns_nzr_typed=finding_vulns_nzr_typed_loader,
-        finding_vulns_zr=FindingVulnsOnlyZeroRiskLoader(finding_vulns_loader),
         finding_vulns_zr_typed=finding_vulns_zr_typed_loader,
         group=GroupLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
