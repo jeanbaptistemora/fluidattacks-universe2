@@ -180,31 +180,6 @@ async def get_by_finding(
     return await dynamodb_ops.query(TABLE_NAME, query_attrs)
 
 
-async def get_vulnerabilities_async(
-    finding_id: str,
-    table: aioboto3.session.Session.client,
-    should_list_deleted: bool = False,
-) -> List[Dict[str, FindingType]]:
-    """Get vulnerabilities of the given finding"""
-    query_attrs = {"KeyConditionExpression": Key("finding_id").eq(finding_id)}
-    response = await table.query(**query_attrs)
-    vulns = response.get("Items", [])
-    while "LastEvaluatedKey" in response:
-        query_attrs.update(
-            {"ExclusiveStartKey": response.get("LastEvaluatedKey")}
-        )
-        response = await table.query(**query_attrs)
-        vulns += response.get("Items", [])
-    return [
-        vuln
-        for vuln in vulns
-        if (
-            vuln.get("historic_state", [{}])[-1].get("state") != "DELETED"
-            or should_list_deleted
-        )
-    ]
-
-
 async def get_vulnerability_by_id(
     vulnerability_uuid: str,
     table: aioboto3.session.Session.client,

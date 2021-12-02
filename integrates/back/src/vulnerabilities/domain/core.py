@@ -1,4 +1,3 @@
-import aioboto3
 from aioextensions import (
     collect,
     schedule,
@@ -81,7 +80,6 @@ from typing import (
     cast,
     Counter,
     Dict,
-    Iterable,
     List,
     Optional,
     Set,
@@ -444,17 +442,6 @@ def get_treatments_count(
     )
 
 
-async def get_vulnerabilities_async(
-    finding_id: str,
-    table: aioboto3.session.Session.client,
-    should_list_deleted: bool = False,
-) -> List[Dict[str, FindingType]]:
-    vulnerabilities = await vulns_dal.get_vulnerabilities_async(
-        finding_id, table, should_list_deleted
-    )
-    return [vulns_utils.format_data(vuln) for vuln in vulnerabilities]
-
-
 async def get_vulnerabilities_by_type(
     loaders: Any, finding_id: str
 ) -> Dict[str, List[Dict[str, str]]]:
@@ -520,36 +507,6 @@ def group_vulnerabilities(
             )
             result_vulns.extend(grouped_vulns)
     return tuple(result_vulns)
-
-
-async def list_vulnerabilities_async(
-    finding_ids: List[str],
-    should_list_deleted: bool = False,
-    include_requested_zero_risk: bool = False,
-    include_confirmed_zero_risk: bool = False,
-) -> List[Dict[str, FindingType]]:
-    """Retrieves all vulnerabilities for the requested findings"""
-    vulns: List[Dict[str, FindingType]] = []
-    async with AsyncExitStack() as stack:
-        resource = await stack.enter_async_context(start_context())
-        table = await resource.Table(vulns_dal.TABLE_NAME)
-        vulns = await collect(
-            [
-                get_vulnerabilities_async(
-                    finding_id, table, should_list_deleted
-                )
-                for finding_id in finding_ids
-            ]
-        )
-
-    result: List[Dict[str, FindingType]] = []
-    for result_list in vulns:
-        result.extend(cast(Iterable[Dict[str, FindingType]], result_list))
-    if not include_requested_zero_risk:
-        result = vulns_utils.filter_non_requested_zero_risk(result)
-    if not include_confirmed_zero_risk:
-        result = vulns_utils.filter_non_confirmed_zero_risk(result)
-    return result
 
 
 async def mask_vulnerability(
