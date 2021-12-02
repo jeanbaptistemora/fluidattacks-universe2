@@ -10,6 +10,7 @@ from dataclasses import (
 from git.objects import (
     Commit,
 )
+import hashlib
 from purity.v1 import (
     PrimitiveFactory,
 )
@@ -26,11 +27,27 @@ def _truncate_bytes(string: str, start: int, end: int) -> str:
     return string.encode()[start:end].decode()
 
 
+def _gen_fa_hash(commit: CommitData) -> str:
+    fa_hash = hashlib.sha256()
+    fa_hash.update(bytes(commit.author.name, "utf-8"))
+    fa_hash.update(bytes(commit.author.email, "utf-8"))
+    fa_hash.update(bytes(commit.authored_at.isoformat(), "utf-8"))
+
+    fa_hash.update(bytes(commit.committer.name, "utf-8"))
+    fa_hash.update(bytes(commit.committer.email, "utf-8"))
+    fa_hash.update(bytes(commit.committed_at.isoformat(), "utf-8"))
+
+    fa_hash.update(bytes(str(commit.deltas.total_insertions), "utf-8"))
+    fa_hash.update(bytes(str(commit.deltas.total_deletions), "utf-8"))
+    fa_hash.update(bytes(str(commit.deltas.total_lines), "utf-8"))
+    fa_hash.update(bytes(str(commit.deltas.total_files), "utf-8"))
+    return fa_hash.hexdigest()
+
+
 @dataclass(frozen=True)
 class CommitDataFactory:
     @staticmethod
     def from_commit(commit: Commit) -> Tuple[CommitId, CommitData]:
-        _id = CommitId(commit.hexsha)
         author = User(
             _to_prim(commit.author.name, str),
             _to_prim(commit.author.email, str),
@@ -54,6 +71,7 @@ class CommitDataFactory:
             str(commit.summary),
             deltas,
         )
+        _id = CommitId(commit.hexsha, _gen_fa_hash(data))
         return (_id, data)
 
 

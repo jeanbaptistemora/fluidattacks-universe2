@@ -10,6 +10,7 @@ from datetime import (
 class CommitId:
     # relative id respect to repo
     hash: str
+    fa_hash: str
 
 
 @dataclass(frozen=True)
