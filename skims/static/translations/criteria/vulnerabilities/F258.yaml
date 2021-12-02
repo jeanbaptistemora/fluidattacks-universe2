@@ -1,3 +1,6 @@
+src.lib_path.f258.elb2_has_not_deletion_protection:
+  en: The deletion_protection.enabled property must be enabled
+  es: La propiedad deletion_protection.enabled debe estar habilitada
 F258.title:
   en: >
     Lack of protection against deletion - ELB
