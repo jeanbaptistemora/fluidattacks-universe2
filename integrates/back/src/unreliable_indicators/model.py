@@ -21,6 +21,7 @@ ENTITIES = {
         attrs={
             EntityAttr.closed_vulnerabilities: dict(
                 dependencies={
+                    EntityDependency.deactivate_root,
                     EntityDependency.remove_vulnerability,
                     EntityDependency.upload_file,
                     EntityDependency.verify_vulnerabilities_request,
@@ -28,6 +29,7 @@ ENTITIES = {
             ),
             EntityAttr.is_verified: dict(
                 dependencies={
+                    EntityDependency.deactivate_root,
                     EntityDependency.reject_vulnerabilities_zero_risk,
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_verification,
@@ -38,6 +40,7 @@ ENTITIES = {
             ),
             EntityAttr.newest_vulnerability_report_date: dict(
                 dependencies={
+                    EntityDependency.deactivate_root,
                     EntityDependency.reject_vulnerabilities_zero_risk,
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_zero_risk,
@@ -47,6 +50,7 @@ ENTITIES = {
             ),
             EntityAttr.oldest_open_vulnerability_report_date: dict(
                 dependencies={
+                    EntityDependency.deactivate_root,
                     EntityDependency.reject_vulnerabilities_zero_risk,
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_zero_risk,
@@ -56,6 +60,7 @@ ENTITIES = {
             ),
             EntityAttr.oldest_vulnerability_report_date: dict(
                 dependencies={
+                    EntityDependency.deactivate_root,
                     EntityDependency.reject_vulnerabilities_zero_risk,
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_zero_risk,
@@ -65,6 +70,7 @@ ENTITIES = {
             ),
             EntityAttr.open_vulnerabilities: dict(
                 dependencies={
+                    EntityDependency.deactivate_root,
                     EntityDependency.reject_vulnerabilities_zero_risk,
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_zero_risk,
@@ -74,6 +80,7 @@ ENTITIES = {
             ),
             EntityAttr.status: dict(
                 dependencies={
+                    EntityDependency.deactivate_root,
                     EntityDependency.reject_vulnerabilities_zero_risk,
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_zero_risk,
@@ -83,6 +90,7 @@ ENTITIES = {
             ),
             EntityAttr.treatment_summary: dict(
                 dependencies={
+                    EntityDependency.deactivate_root,
                     EntityDependency.handle_vulnerabilities_acceptance,
                     EntityDependency.reject_vulnerabilities_zero_risk,
                     EntityDependency.remove_vulnerability,
@@ -95,6 +103,7 @@ ENTITIES = {
             ),
             EntityAttr.where: dict(
                 dependencies={
+                    EntityDependency.deactivate_root,
                     EntityDependency.reject_vulnerabilities_zero_risk,
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_zero_risk,

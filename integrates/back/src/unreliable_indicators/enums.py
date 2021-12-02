@@ -27,6 +27,7 @@ class EntityAttr(Enum):
 
 
 class EntityDependency(Enum):
+    deactivate_root: str = "deactivate_root"
     handle_vulnerabilities_acceptance: str = (
         "handle_vulnerabilities_acceptance"
     )

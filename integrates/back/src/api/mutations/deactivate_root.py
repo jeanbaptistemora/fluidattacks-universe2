@@ -21,6 +21,9 @@ from db_model.roots.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -51,6 +54,13 @@ from roots import (
 from typing import (
     Any,
     Dict,
+    Tuple,
+)
+from unreliable_indicators.enums import (
+    EntityDependency,
+)
+from unreliable_indicators.operations import (
+    update_unreliable_indicators_by_deps,
 )
 from vulnerabilities import (
     domain as vulns_domain,
@@ -78,9 +88,9 @@ async def deactivate_root(
         if user_role
         in {"customeradmin", "group_manager", "resourcer", "system_owner"}
     ]
-    root_vulns = await loaders.root_vulns_typed.load(
-        (group_name, root.state.nickname)
-    )
+    root_vulns: Tuple[
+        Vulnerability, ...
+    ] = await loaders.root_vulns_typed.load((group_name, root.state.nickname))
     root_vulns_nzr = filter_non_zero_risk(filter_non_deleted(root_vulns))
     sast_vulns = [
         vuln for vuln in root_vulns_nzr if vuln.type == VulnerabilityType.LINES
@@ -113,6 +123,15 @@ async def deactivate_root(
             subject=user_email,
             additional_info=root.state.nickname,
         )
+    await collect(
+        tuple(
+            update_unreliable_indicators_by_deps(
+                EntityDependency.deactivate_root,
+                finding_id=finding_id,
+            )
+            for finding_id in {vuln.finding_id for vuln in root_vulns}
+        )
+    )
     await groups_mail.send_mail_deactivated_root(
         email_to=email_list,
         group_name=group_name,
