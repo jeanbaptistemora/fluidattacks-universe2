@@ -30,6 +30,7 @@
     }
 
     h3 {
+      display: inline;
       font-size: 32px;
       font-weight: 700;
       color: #2e2e38;
@@ -183,19 +184,19 @@
       <div class="numbers">
         <div>
           {%- if group_age['oldest_age'] >= 60 %}
-            <h3>{{ (group_age['oldest_age'] * 0.032855)|round(1, 'common') }} months</h3>
+            <h3>{{ (group_age['oldest_age'] * 0.032855)|round(1, 'common') }}</h3><strong> months</strong>
             <p><strong>{{ group_age['oldest_group'] }}</strong> is the <strong>oldest</strong> among your subscribed groups</p>
           {%- else %}
-            <h3>{{ group_age['oldest_age'] }} days</h3>
+            <h3>{{ group_age['oldest_age'] }}</h3><strong> days</strong>
             <p><strong>{{ group_age['oldest_group'] }}</strong> is the <strong>oldest</strong> among your subscribed groups</p>
           {%- endif %}
         </div>
         <div>
           {%- if group_age['youngest_age'] >= 60 %}
-            <h3>{{ (group_age['youngest_age'] * 0.032855)|round(1, 'common') }} months</h3>
+            <h3>{{ (group_age['youngest_age'] * 0.032855)|round(1, 'common') }}</h3><strong> months</strong>
             <p><strong>{{ group_age['newest_group'] }}</strong> is the <strong>newest</strong> among your subscribed groups</p>
           {%- else %}
-            <h3>{{ group_age['youngest_age'] }} days</h3>
+            <h3>{{ group_age['youngest_age'] }}</h3><strong> days</strong>
             <p><strong>{{ group_age['newest_group'] }}</strong> is the <strong>newest</strong> among your subscribed groups</p>
           {%- endif %}
         </div>
@@ -213,19 +214,19 @@
       <div class="numbers">
         <div>
           {%- if remediation_time['max'] >= 60 %}
-            <h3>{{ (remediation_time['max'] * 0.032855)|round(1, 'common') }} months</h3>
+            <h3>{{ (remediation_time['max'] * 0.032855)|round(1, 'common') }}</h3><strong> months</strong>
             <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>highest</strong> mean remediation time</p>
           {%- else %}
-            <h3>{{ remediation_time['max'] }} days</h3>
+            <h3>{{ remediation_time['max'] }}</h3><strong> days</strong>
             <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>highest</strong> mean remediation time</p>
           {%- endif %}
         </div>
         <div>
           {%- if remediation_time['min'] >= 60 %}
-            <h3>{{ (remediation_time['min'] * 0.032855)|round(1, 'common') }} months</h3>
+            <h3>{{ (remediation_time['min'] * 0.032855)|round(1, 'common') }}</h3><strong> months</strong>
             <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>lowest</strong> mean remediation time</p>
           {%- else %}
-            <h3>{{ remediation_time['min'] }} days</h3>
+            <h3>{{ remediation_time['min'] }}</h3><strong> days</strong>
             <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>lowest</strong> mean remediation time</p>
           {%- endif %}
         </div>
@@ -238,10 +239,10 @@
         </div>
         <div>
           {%- if remediation_time['max'] >= 60 %}
-            <h3>{{ (remediation_time['max'] * 0.032855)|round(1, 'common') }} months</h3>
+            <h3>{{ (remediation_time['max'] * 0.032855)|round(1, 'common') }}</h3><strong> months</strong>
             <p>Mean remediation time at <strong>{{ remediation_time['max_group'] }}</strong></p>
           {%- else %}
-            <h3>{{ remediation_time['max'] }} days</h3>
+            <h3>{{ remediation_time['max'] }}</h3><strong> days</strong>
             <p>Mean remediation time at <strong>{{ remediation_time['max_group'] }}</strong></p>
           {%- endif %}
         </div>
@@ -401,7 +402,7 @@
         {%- if treatments['temporary_applied'] > 0 %}
           <div class="first-row">
             <span style="font-weight: 700;">Temporary treatments applied at group</span>
-            <span style="font-weight: 700;float: right;"># applied</span>
+            <span style="font-weight: 700;float: right;">Total</span>
           </div>
           {%- if 'groups_temporary' in treatments %}
             {%- for group in treatments['groups_temporary'] %}
@@ -425,7 +426,7 @@
         {%- if treatments['permanent_requested'] > 0 %}
           <div class="first-row">
             <span style="font-weight: 700;">Permanent treatments requested at group</span>
-            <span style="font-weight: 700;float: right;"># requested</span>
+            <span style="font-weight: 700;float: right;">Total</span>
           </div>
           {%- if 'groups_permanent_requested' in treatments %}
             {%- for group in treatments['groups_permanent_requested'] %}
@@ -449,7 +450,7 @@
         {%- if treatments['permanent_approved'] > 0 %}
           <div class="first-row">
             <span style="font-weight: 700;">Permanent treatments approved at group</span>
-            <span style="font-weight: 700;float: right;"># approved</span>
+            <span style="font-weight: 700;float: right;">Total</span>
           </div>
           {%- if 'groups_permanent_approved' in treatments %}
             {%- for group in treatments['groups_permanent_approved'] %}
