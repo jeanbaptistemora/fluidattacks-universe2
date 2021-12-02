@@ -12550,54 +12550,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [
   38 |       <groupId>org.springframework.security</groupId>
      ^ Col 0
 ",_check_maven_pom_xml
-F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp],22,937,skims,011. Use of software with known vulnerabilities,Use of junit:junit at version 4.12 with github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp in namespace/skims/test/data/lib_path/f011/pom.xml,"
-  12 |     <mockito.version>2.0.31-beta</mockito.version>
-  13 |     <slf4j.version>1.7.12</slf4j.version>
-  14 |     <logback.version>1.1.3</logback.version>
-  15 |     <atlassian.maven.version>4.0.4</atlassian.maven.version>
-  16 |     <apache.camel.version>2.6.0</apache.camel.version>
-  17 |   </properties>
-  18 |   <dependencies>
-  19 |     <dependency>
-  20 |       <groupId>junit</groupId>
-  21 |       <artifactId>junit</artifactId>
-> 22 |       <version>4.12</version>
-  23 |       <scope>test</scope>
-  24 |     </dependency>
-  25 |     <dependency>
-  26 |       <groupId>junit</groupId>
-  27 |       <artifactId>junit</artifactId>
-  28 |       <version>${junit.version}</version>
-  29 |       <scope>test</scope>
-  30 |     </dependency>
-  31 |     <dependency>
-  32 |       <groupId>org.springframework.security</groupId>
-     ^ Col 0
-",_check_maven_pom_xml
-F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp],28,937,skims,011. Use of software with known vulnerabilities,Use of junit:junit at version 4.12 with github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp in namespace/skims/test/data/lib_path/f011/pom.xml,"
-  18 |   <dependencies>
-  19 |     <dependency>
-  20 |       <groupId>junit</groupId>
-  21 |       <artifactId>junit</artifactId>
-  22 |       <version>4.12</version>
-  23 |       <scope>test</scope>
-  24 |     </dependency>
-  25 |     <dependency>
-  26 |       <groupId>junit</groupId>
-  27 |       <artifactId>junit</artifactId>
-> 28 |       <version>${junit.version}</version>
-  29 |       <scope>test</scope>
-  30 |     </dependency>
-  31 |     <dependency>
-  32 |       <groupId>org.springframework.security</groupId>
-  33 |       <artifactId>spring-security-core</artifactId>
-  34 |       <version>${spring.version}</version>
-  35 |       <scope>test</scope>
-  36 |     </dependency>
-  37 |     <dependency>
-  38 |       <groupId>org.springframework.security</groupId>
-     ^ Col 0
-",_check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (just-extend v3.0.0) [CVE-2018-16489],70,937,skims,011. Use of software with known vulnerabilities,Use of just-extend at version 3.0.0 with CVE-2018-16489 in namespace/skims/test/data/lib_path/f011/package.json,"
    60 |     ""is-my-json-valid"": ""2.16.0"",
    61 |     ""is-svg"": ""3.0.0"",

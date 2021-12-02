@@ -236,7 +236,7 @@
     "CVE-2018-20164": ">=0 <1.4.1"
   },
   "com.google.code.gson:gson": {
-    "github.com/google/gson/pull/1991": ">=2.0.0 <2.8.9"
+    "SNYK-JAVA-COMGOOGLECODEGSON-1730327": "<2.8.9"
   },
   "com.google.crypto.tink:tink": {
     "CVE-2020-8929": ">=0 <1.5",
@@ -271,8 +271,8 @@
     "GHSA-hf44-3mx6-vhhw": ">=2.0 <2.4"
   },
   "com.h2database:h2": {
-    "github.com/h2database/h2database/issues/1225": ">=1.0.0 <1.4.197",
-    "github.com/h2database/h2database/issues/3195": ">=0"
+    "SNYK-JAVA-COMH2DATABASE-31685": "<1.4.197",
+    "SNYK-JAVA-COMH2DATABASE-1769238": ">=0"
   },
   "com.hazelcast:hazelcast": {
     "CVE-2020-26168": ">=4.0 <4.0.3"
@@ -890,8 +890,7 @@
   },
   "junit:junit": {
     "CVE-2020-15250": ">=4.7 <4.13.1",
-    "GHSA-269g-pwp5-87pp": ">=4.7 <4.13.1",
-    "github.com/junit-team/junit4/security/advisories/GHSA-269g-pwp5-87pp": ">=4.7.0 <4.13.1"
+    "GHSA-269g-pwp5-87pp": ">=4.7 <4.13.1"
   },
   "log4j:log4j": {
     "CVE-2017-5645": ">=2.0 <=2.0.2 || >=2.1 <=2.4.1 || >=2.5 <=2.6.2 || >=2.7 <=2.8.1",
@@ -3469,7 +3468,7 @@
   },
   "org.quartz-scheduler:quartz": {
     "CVE-2019-13990": ">=0 <=2.3.1",
-    "github.com/quartz-scheduler/quartz/issues/467": ">=2.0.0 <2.3.2"
+    "SNYK-JAVA-ORGQUARTZSCHEDULER-461170": ">=2.0.0 <2.3.2"
   },
   "org.restlet.jee:org.restlet": {
     "CVE-2017-14868": ">=0 <2.3.11",
@@ -3590,7 +3589,7 @@
     "CVE-2016-5007": ">=3.2.0.release <4.1.1.release",
     "CVE-2016-9879": ">=3.2.0.release <3.2.10.release || >=4.0.0.release <4.1.4.release || >=4.2.0.release <4.2.1.release",
     "CVE-2018-1199": ">=4.1.0.release <4.1.5.release || >=4.2.0.release <4.2.4.release || >=5.0.0.release <5.0.3.release",
-    "github.com/spring-projects/spring-security/issues/9291": ">=5.0.0 <5.2.9 || >=5.3.0 <5.3.7 || >=5.4.0 <5.4.3"
+    "SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-1290497": ">=5.0.0 <5.2.9 || >=5.3.0 <5.3.7 || >=5.4.0 <5.4.3"
   },
   "org.springframework.social:spring-social-core": {
     "CVE-2015-5258": ">=1.0-alpha0 <=1.0.3.release || >=1.1-alpha0 <=1.1.2.release"
@@ -3607,7 +3606,7 @@
     "CVE-2010-1622": ">=2.5.0 <2.5.6 || >=3.0.0 <3.0.3"
   },
   "org.springframework:spring-context": {
-    "github.com/spring-projects/spring-framework/issues/17469": ">=3.2.13 <3.2.14 || >=4.1.6 <4.1.7"
+    "SNYK-JAVA-ORGSPRINGFRAMEWORK-31323": ">=3.2.13 <3.2.14 || >=4.1.6 <4.1.7"
   },
   "org.springframework:spring-context-support": {},
   "org.springframework:spring-core": {
@@ -3681,7 +3680,7 @@
     "CVE-2020-5397": ">=5.2.0 <5.2.3",
     "CVE-2020-5398": ">=5.0.0 <5.0.16 || >=5.1.0 <=5.1.13 || >=5.2.0 <5.2.3",
     "CVE-2020-5421": ">=0 <=4.2.9 || >=4.3.0 <=4.3.28 || >=5.0.0 <=5.0.18 || >=5.1.0 <=5.1.17 || >=5.2.0 <=5.2.8",
-    "github.com/spring-projects/spring-framework/issues/12435": ">=3.0.0 <3.0.6.release"
+    "SNYK-JAVA-ORGSPRINGFRAMEWORK-31512": ">=3.0.0 <3.0.6.release"
   },
   "org.springframework:spring-websocket": {
     "CVE-2015-0201": ">=4.1.0.release <4.1.5.release",
