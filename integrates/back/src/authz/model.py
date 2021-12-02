@@ -647,7 +647,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_attacked_lines_resolve",
             "api_resolvers_toe_lines_be_present_until_resolve",
             "api_resolvers_toe_lines_comments_resolve",
-            "api_resolvers_toe_lines_commit_author_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
         },
         tags={
@@ -666,7 +665,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_attacked_lines_resolve",
             "api_resolvers_toe_lines_be_present_until_resolve",
             "api_resolvers_toe_lines_comments_resolve",
-            "api_resolvers_toe_lines_commit_author_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
         },
         tags={
@@ -687,7 +685,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_attacked_lines_resolve",
             "api_resolvers_toe_lines_be_present_until_resolve",
             "api_resolvers_toe_lines_comments_resolve",
-            "api_resolvers_toe_lines_commit_author_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
         },
         tags={
@@ -706,7 +703,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_attacked_lines_resolve",
             "api_resolvers_toe_lines_be_present_until_resolve",
             "api_resolvers_toe_lines_comments_resolve",
-            "api_resolvers_toe_lines_commit_author_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
         },
         tags={
@@ -725,7 +721,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_attacked_lines_resolve",
             "api_resolvers_toe_lines_be_present_until_resolve",
             "api_resolvers_toe_lines_comments_resolve",
-            "api_resolvers_toe_lines_commit_author_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
         },
         tags={
@@ -744,7 +739,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_attacked_lines_resolve",
             "api_resolvers_toe_lines_be_present_until_resolve",
             "api_resolvers_toe_lines_comments_resolve",
-            "api_resolvers_toe_lines_commit_author_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
         },
         tags={
@@ -765,7 +759,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_attacked_lines_resolve",
             "api_resolvers_toe_lines_be_present_until_resolve",
             "api_resolvers_toe_lines_comments_resolve",
-            "api_resolvers_toe_lines_commit_author_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
         },
         tags={
@@ -784,7 +777,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_attacked_lines_resolve",
             "api_resolvers_toe_lines_be_present_until_resolve",
             "api_resolvers_toe_lines_comments_resolve",
-            "api_resolvers_toe_lines_commit_author_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
         },
         tags={
@@ -803,7 +795,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_attacked_lines_resolve",
             "api_resolvers_toe_lines_be_present_until_resolve",
             "api_resolvers_toe_lines_comments_resolve",
-            "api_resolvers_toe_lines_commit_author_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
         },
         tags={
@@ -822,7 +813,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_attacked_lines_resolve",
             "api_resolvers_toe_lines_be_present_until_resolve",
             "api_resolvers_toe_lines_comments_resolve",
-            "api_resolvers_toe_lines_commit_author_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
         },
         tags={

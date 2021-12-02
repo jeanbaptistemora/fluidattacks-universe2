@@ -36,6 +36,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       bePresent: true,
       bePresentUntil: false,
       comments: true,
+      commitAuthor: false,
       coverage: true,
       filename: false,
       loc: true,
@@ -189,6 +190,14 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
+      dataField: "commitAuthor",
+      header: translate.t("group.toe.lines.commitAuthor"),
+      onSort,
+      visible: checkedItems.commitAuthor,
+      width: "5%",
+    },
+    {
+      align: "center",
       dataField: "attackedAt",
       filter: dateFilter({}),
       formatter: formatDate,
@@ -235,7 +244,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
         Logger.error("Couldn't load group toe lines", error);
       });
     },
-    variables: { groupName },
+    variables: { first: 300, groupName },
   });
   const pageInfo =
     data === undefined ? undefined : data.group.toeLines.pageInfo;
@@ -259,7 +268,9 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   useEffect((): void => {
     if (!_.isUndefined(pageInfo)) {
       if (pageInfo.hasNextPage) {
-        void fetchMore({ variables: { after: pageInfo.endCursor } });
+        void fetchMore({
+          variables: { after: pageInfo.endCursor, first: 1200 },
+        });
       }
     }
   }, [pageInfo, fetchMore]);

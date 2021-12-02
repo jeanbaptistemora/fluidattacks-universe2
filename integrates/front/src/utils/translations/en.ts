@@ -746,6 +746,7 @@ export const enTranslations: ResourceKey = {
         bePresent: "Be present",
         bePresentUntil: "Be present until",
         comments: "Comments",
+        commitAuthor: "Commit author",
         coverage: "Coverage",
         filename: "Filename",
         loc: "LOC",

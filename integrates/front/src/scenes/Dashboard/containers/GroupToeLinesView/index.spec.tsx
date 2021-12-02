@@ -25,7 +25,7 @@ describe("GroupToeLinesView", (): void => {
     const mockedToeLines: MockedResponse = {
       request: {
         query: GET_TOE_LINES,
-        variables: { groupName: "unittesting" },
+        variables: { first: 300, groupName: "unittesting" },
       },
       result: {
         data: {
