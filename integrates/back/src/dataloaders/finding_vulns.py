@@ -24,18 +24,31 @@ from vulnerabilities import (
 
 async def _get_vulnerabilities_by_finding(
     finding_id: str,
-) -> Tuple[Vulnerability, ...]:
+) -> List[VulnerabilityType]:
     items: List[VulnerabilityType] = await vulns_dal.get_by_finding(
         finding_id=finding_id
     )
-    return tuple(map(format_vulnerability, items))
+    return items
 
 
 class FindingVulnsTypedLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    def __init__(self, vuln_loader: DataLoader) -> None:
+        super().__init__()
+        self.vuln_loader = vuln_loader
+
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, finding_ids: List[str]
     ) -> Tuple[Tuple[Vulnerability, ...], ...]:
-        return await collect(
+        vulns = await collect(
             tuple(map(_get_vulnerabilities_by_finding, finding_ids))
         )
+        result = []
+        for finding_vulns in vulns:
+            formatted = []
+            for vuln in finding_vulns:
+                self.vuln_loader.prime(vuln["UUID"], vuln)
+                formatted.append(format_vulnerability(vuln))
+            result.append(tuple(formatted))
+
+        return tuple(result)

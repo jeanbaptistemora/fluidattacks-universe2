@@ -143,7 +143,7 @@ def get_new_context() -> Dataloaders:
     vulnerability_loader = VulnerabilityLoader()
 
     # Migration
-    finding_vulns_typed_loader = FindingVulnsTypedLoader()
+    finding_vulns_typed_loader = FindingVulnsTypedLoader(vulnerability_loader)
     finding_vulns_non_deleted_typed_loader = FindingVulnsNonDeletedTypedLoader(
         finding_vulns_typed_loader
     )
