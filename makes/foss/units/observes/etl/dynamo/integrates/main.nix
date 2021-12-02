@@ -5,6 +5,7 @@
 }:
 let
   onAws = outputs."/computeOnAwsBatch/observesDynamoTableEtl";
+  onAws2 = outputs."/computeOnAwsBatch/observesDynamoV2TableEtl";
 in
 makeScript {
   searchPaths = {
@@ -19,6 +20,7 @@ makeScript {
   };
   replace = {
     __argSendTableETL__ = "${onAws}/bin/${onAws.name}";
+    __argSendTableETL2__ = "${onAws2}/bin/${onAws2.name}";
   };
   name = "observes-etl-dynamo-integrates";
   entrypoint = ./entrypoint.sh;
