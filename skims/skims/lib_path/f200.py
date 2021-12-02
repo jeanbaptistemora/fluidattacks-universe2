@@ -5,6 +5,7 @@ from aws.model import (
     AWSCloudfrontDistribution,
     AWSCTrail,
     AWSElb,
+    AWSElbV2,
     AWSS3Bucket,
 )
 from lib_path.common import (
@@ -28,6 +29,7 @@ from parse_cfn.loader import (
 from parse_cfn.structure import (
     iter_cloudfront_distributions,
     iter_cloudtrail_trail,
+    iter_elb2_load_balancers,
     iter_elb_load_balancers,
     iter_s3_buckets,
 )
@@ -103,6 +105,36 @@ def _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
             )
         elif access_log.raw in FALSE_OPTIONS:
             yield access_log
+
+
+def _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
+    file_ext: str,
+    load_balancers_iterator: Iterator[Union[AWSElbV2, Node]],
+) -> Iterator[Union[AWSElbV2, Node]]:
+    for elb in load_balancers_iterator:
+        attrs = get_node_by_keys(elb, ["LoadBalancerAttributes"])
+        if not isinstance(attrs, Node):
+            yield AWSElbV2(
+                column=elb.start_column,
+                data=elb.data,
+                line=get_line_by_extension(elb.start_line, file_ext),
+            )
+        else:
+            key_vals = [
+                attr
+                for attr in attrs.data
+                if attr.raw["Key"] == "access_logs.s3.enabled"
+            ]
+            if key_vals:
+                key = key_vals[0]
+                if key.raw["Value"] in FALSE_OPTIONS:
+                    yield key.inner["Value"]
+            else:
+                yield AWSElbV2(
+                    column=attrs.start_column,
+                    data=attrs.data,
+                    line=get_line_by_extension(attrs.start_line, file_ext),
+                )
 
 
 def _has_logging_disabled_iterate_vulnerabilities(
@@ -242,6 +274,29 @@ def _cfn_elb_has_access_logging_disabled(
     )
 
 
+def _cfn_elb2_has_access_logs_s3_disabled(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F200_CWE},
+        description_key="src.lib_path.f200.elb2_has_access_logs_s3_disabled",
+        finding=_FINDING_F200,
+        iterator=get_aws_iterator(
+            _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
+                file_ext=file_ext,
+                load_balancers_iterator=iter_elb2_load_balancers(
+                    template=template
+                ),
+            )
+        ),
+        path=path,
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -323,6 +378,24 @@ async def cfn_elb_has_access_logging_disabled(
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _cfn_elb_has_access_logging_disabled,
+        content=content,
+        file_ext=file_ext,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_elb2_has_access_logs_s3_disabled(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_elb2_has_access_logs_s3_disabled,
         content=content,
         file_ext=file_ext,
         path=path,

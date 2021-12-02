@@ -1,3 +1,6 @@
+src.lib_path.f200.elb2_has_access_logs_s3_disabled:
+  en: The access_logs.s3.enabled property must be enabled
+  es: La propiedad access_logs.s3.enabled debe estar habilitada
 src.lib_path.f200.elb_has_access_logging_disabled:
   en: The AccessLoggingPolicy property must be enabled
   es: La propiedad AccessLoggingPolicy debe estar habilitada
