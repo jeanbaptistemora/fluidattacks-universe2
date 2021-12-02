@@ -114,12 +114,12 @@ course. So I used the following to sharpen the skills:
     - [GTER command exploitation](../vulnserver-gter/)
 
     - [GTER command exploitation without
-    egghunter](../vulnserver-gter-no-egghunter/)
+      egghunter](../vulnserver-gter-no-egghunter/)
 
     - [KSTET command exploitation](../vulnserver-kstet/)
 
     - [KSTET command exploitation
-    alternative](../vulnserver-kstet-alternative/)
+      alternative](../vulnserver-kstet-alternative/)
 
     - [LTER command exploitation](../vulnserver-lter-seh/)
 

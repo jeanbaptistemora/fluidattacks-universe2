@@ -18,7 +18,7 @@ name: Jonathan Armas
 about1: Systems Engineer, OSCP - Security+
 about2: '"Be formless, shapeless like water" Bruce Lee'
 source: https://unsplash.com/photos/BINLgyrG_fI
----
+---devsecops-concept/
 
 Many web applications request outside services for data, configurations,
 updates, among others. This is beneficial for the developers and
@@ -272,7 +272,8 @@ Figure 3. ssrf vulnerable
 
 Now we have several options to work with.
 
-- Reflected XSS
+- **Reflected XSS**
+
   Let’s create an `SVG` image in our kali machine with an `XSS`
   payload and then serve it on a local `Python` server:
 
@@ -317,7 +318,8 @@ Figure 4. SSRF to XSS result
 
 </div>
 
-- Bypassing controls
+- **Bypassing controls**
+
   As we saw earlier, we could not access the admin section of the
   server; this can be bypassed with this vulnerability:
 
@@ -342,7 +344,8 @@ Figure 5. SSRF to admin result
 If the server had some local HTTP servers like a `mongodb` database, we
 could bypass the access controls with this vulnerability.
 
-- Information disclosure
+- **Information disclosure**
+
   We can use `file://` to get internal files:
 
 **file usage.**
@@ -379,7 +382,8 @@ data:
 This is useful when we find another vulnerable server or service,
 because we can send data to it and maybe even execute commands.
 
-- Port enumeration
+- **Port enumeration**
+
   .port enum
 
 <!-- end list -->
@@ -398,7 +402,8 @@ because we can send data to it and maybe even execute commands.
     ...
 ```
 
-- Cloud goodies
+- **Cloud goodies**
+
   If the target uses `Amazon EC2` or `Google Cloud`, then you can
   request metadata from them:
 

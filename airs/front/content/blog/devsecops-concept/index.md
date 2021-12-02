@@ -45,7 +45,7 @@ Ok, that information might be enough. See you in the next post\!
 
 <div class="title">
 
-Figure 1. Huh? ([imgur.com](https://i.imgur.com/YezxAlA.png).)
+Figure 1. Huh? (Taken from [imgur.com](https://i.imgur.com/YezxAlA.png).)
 
 </div>
 

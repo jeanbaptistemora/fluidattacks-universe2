@@ -35,9 +35,7 @@ like `JMP ESP` (or any other register pointing to our shellcode). We
 then place a shellcode on the stack, which is finally executed when the
 `JMP ESP` is performed.
 
-When we perf#
-
-orm a `JMP ESP` (or any other general-purpose register), the
+When we perform a `JMP ESP` (or any other general-purpose register), the
 program expects to find **instructions** in the address pointed to
 `ESP`. With `DEP`, we can’t execute instructions on the stack, but we
 still control the execution flow.

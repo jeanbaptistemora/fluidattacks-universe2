@@ -265,8 +265,9 @@ load the debugging symbols:
 
 </div>
 
-To check if everything’s working, type `x /f nt!Create*Process`. This
-will list all the functions in the `NT` module that contain `Create` and
+To check if everything’s working,
+type <code>x /f nt!<b>Create*Process</b></code>.
+This will list all the functions in the `NT` module that contain `Create` and
 `Process`.
 
 <div class="imgblock">
