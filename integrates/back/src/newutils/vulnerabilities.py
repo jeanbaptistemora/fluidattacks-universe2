@@ -661,29 +661,6 @@ def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
 
 
 def get_treatment_from_org_finding_policy(
-    *, current_day: str, user_email: str
-) -> List[Dict[str, str]]:
-    return [
-        {
-            "treatment": "ACCEPTED_UNDEFINED",
-            "justification": "From organization findings policy",
-            "user": user_email,
-            "date": current_day,
-            "treatment_manager": user_email,
-            "acceptance_status": "SUBMITTED",
-        },
-        {
-            "treatment": "ACCEPTED_UNDEFINED",
-            "justification": "From organization findings policy",
-            "user": user_email,
-            "date": current_day,
-            "treatment_manager": user_email,
-            "acceptance_status": "APPROVED",
-        },
-    ]
-
-
-def get_treatment_from_org_finding_policy_new(
     *, modified_date: str, user_email: str
 ) -> Tuple[VulnerabilityTreatment, VulnerabilityTreatment]:
     return (

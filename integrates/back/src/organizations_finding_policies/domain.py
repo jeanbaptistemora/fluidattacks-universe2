@@ -16,9 +16,6 @@ from custom_exceptions import (
     PolicyAlreadyHandled,
     RepeatedFindingNamePolicy,
 )
-from custom_types import (
-    Finding as FindingType,
-)
 from db_model.findings.types import (
     Finding,
 )
@@ -28,6 +25,7 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityTreatment,
 )
 from dynamodb.types import (
     OrgFindingPolicyItem,
@@ -48,7 +46,6 @@ from redis_cluster.operations import (
 )
 from typing import (
     Any,
-    Dict,
     List,
     Optional,
     Set,
@@ -227,7 +224,9 @@ async def update_finding_policy_in_groups(
 
     if not findings_ids:
         return
-    vulns = await loaders.finding_vulns_nzr.load_many_chained(findings_ids)
+    vulns: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_nzr_typed.load_many_chained(findings_ids)
 
     await _apply_finding_policy(
         findings_ids=findings_ids,
@@ -240,12 +239,12 @@ async def update_finding_policy_in_groups(
 
 async def _apply_finding_policy(
     findings_ids: List[str],
-    vulns: List[Dict[str, FindingType]],
+    vulns: Tuple[Vulnerability, ...],
     status: str,
     user_email: str,
     tags: Set[str],
 ) -> None:
-    current_day: str = datetime_utils.get_now_as_str()
+    current_day: str = datetime_utils.get_iso_date()
     if status not in {"APPROVED", "INACTIVE"}:
         return
     if status == "APPROVED":
@@ -284,27 +283,6 @@ async def _apply_finding_policy(
 async def _add_accepted_treatment(
     *,
     current_day: str,
-    vulns: List[Dict[str, FindingType]],
-    user_email: str,
-) -> None:
-    vulns_to_update = [
-        vuln
-        for vuln in vulns
-        if vuln["historic_treatment"][-1]["treatment"] != "ACCEPTED_UNDEFINED"
-        and vuln["current_state"] == "open"
-    ]
-    new_treatments = vulns_utils.get_treatment_from_org_finding_policy(
-        current_day=current_day, user_email=user_email
-    )
-    await _update_treatment_in_org_groups(
-        new_treatments=new_treatments,
-        vulns_to_update=vulns_to_update,
-    )
-
-
-async def add_accepted_treatment_new(
-    *,
-    current_day: str,
     vulns: Tuple[Vulnerability, ...],
     user_email: str,
 ) -> None:
@@ -318,7 +296,7 @@ async def add_accepted_treatment_new(
     (
         acceptance_submitted,
         acceptance_approved,
-    ) = vulns_utils.get_treatment_from_org_finding_policy_new(
+    ) = vulns_utils.get_treatment_from_org_finding_policy(
         modified_date=current_day, user_email=user_email
     )
     await collect(
@@ -348,31 +326,8 @@ async def add_accepted_treatment_new(
 
 
 async def _add_tags_to_vulnerabilities(
-    *, vulns: List[Dict[str, FindingType]], tags: Set[str]
-) -> None:
-    if not tags:
-        return
-
-    new_tags = [
-        {*{tag.strip() for tag in vuln["tag"].split(", ")}, *tags}
-        for vuln in vulns
-    ]
-    await collect(
-        [
-            vulns_dal.update(
-                vuln["finding_id"],
-                vuln["UUID"],
-                {"tag": set(filter(None, new_tag))},
-            )
-            for vuln, new_tag in zip(vulns, new_tags)
-        ],
-        workers=20,
-    )
-
-
-async def add_tags_to_vulnerabilities_new(
     *,
-    vulnerabilities: Tuple[Vulnerability, ...],
+    vulns: Tuple[Vulnerability, ...],
     tags: Set[str],
 ) -> None:
     if not tags:
@@ -380,7 +335,7 @@ async def add_tags_to_vulnerabilities_new(
     await collect(
         [
             vulns_domain.add_tags(vulnerability=vuln, tags=list(tags))
-            for vuln in vulnerabilities
+            for vuln in vulns
         ],
         workers=20,
     )
@@ -389,47 +344,27 @@ async def add_tags_to_vulnerabilities_new(
 async def _add_new_treatment(
     *,
     current_day: str,
-    vulns: List[Dict[str, FindingType]],
+    vulns: Tuple[Vulnerability, ...],
     user_email: str,
 ) -> None:
     vulns_to_update = [
         vuln
         for vuln in vulns
-        if vuln["historic_treatment"][-1]["treatment"] != "NEW"
+        if vuln.treatment.status != VulnerabilityTreatmentStatus.NEW
     ]
-    new_treatments = [
-        {
-            "date": current_day,
-            "treatment": "NEW",
-            "user": user_email,
-        }
-    ]
-    await _update_treatment_in_org_groups(
-        new_treatments=new_treatments,
-        vulns_to_update=vulns_to_update,
-    )
-
-
-async def _update_treatment_in_org_groups(
-    *,
-    new_treatments: List[Dict[str, str]],
-    vulns_to_update: List[Dict[str, FindingType]],
-) -> None:
-    historics_treatments = [
-        [*vuln["historic_treatment"], *new_treatments]
-        for vuln in vulns_to_update
-    ]
-
     await collect(
         [
-            vulns_dal.update(
-                vuln["finding_id"],
-                vuln["UUID"],
-                {"historic_treatment": historic_treatment},
+            vulns_dal.update_treatment(
+                current_value=vuln.treatment,
+                finding_id=vuln.finding_id,
+                vulnerability_id=vuln.id,
+                treatment=VulnerabilityTreatment(
+                    modified_date=current_day,
+                    status=VulnerabilityTreatmentStatus.NEW,
+                    modified_by=user_email,
+                ),
             )
-            for vuln, historic_treatment in zip(
-                vulns_to_update, historics_treatments
-            )
+            for vuln in vulns_to_update
         ],
         workers=20,
     )

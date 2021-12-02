@@ -886,7 +886,7 @@ async def update_metadata_and_state(
             != VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
         ):
             treatment_to_update = (
-                vulns_utils.get_treatment_from_org_finding_policy_new(
+                vulns_utils.get_treatment_from_org_finding_policy(
                     modified_date=new_state.modified_date,
                     user_email=finding_policy.state.modified_by,
                 )
