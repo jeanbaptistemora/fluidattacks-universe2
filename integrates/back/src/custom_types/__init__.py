@@ -95,6 +95,7 @@ Tracking = TypedDict(
         "in_progress": int,
         "accepted": int,
         "accepted_undefined": int,
+        "assigned": str,
         "manager": str,
         "justification": str,
     },

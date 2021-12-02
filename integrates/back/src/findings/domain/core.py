@@ -450,6 +450,7 @@ def get_tracking_vulnerabilities(
                 action.times if action.action == "ACCEPTED_UNDEFINED" else 0
             ),
             manager=action.manager,
+            assigned=action.manager,
             justification=action.justification,
         )
         for index, action in enumerate(tracking_actions)

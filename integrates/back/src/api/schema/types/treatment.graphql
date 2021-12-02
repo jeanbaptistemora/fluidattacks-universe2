@@ -12,7 +12,7 @@ type Treatment {
   justification: String
   "Treatment status"
   treatment: String
-  "Manager"
+  "Assigned"
   treatmentManager: String @deprecated(reason: """This field will
     be removed after 2022/05/02. Use `Assigned` instead.""")
   "User"

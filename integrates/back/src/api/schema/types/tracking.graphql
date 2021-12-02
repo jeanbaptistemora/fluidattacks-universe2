@@ -4,6 +4,8 @@ type Tracking {
   accepted: Int
   "Number of permanently accepted vulnerabilities in this cycle"
   acceptedUndefined: Int
+  "Email address of the user who is assigned"
+  assigned: String
   "Number of closed vulnerabilities in this cycle"
   closed: Int
   "Cycle number"
@@ -12,8 +14,9 @@ type Tracking {
   date: String
   "Treatment change justification"
   justification: String
-  "Email of the person requesting the treatment change(s)"
-  manager: String
+  "Assigned"
+  manager: String @deprecated(reason: """This field will
+    be removed after 2022/05/02. Use `Assigned` instead.""")
   "Number of open vulnerabilities in this cycle"
   open: Int
 }
