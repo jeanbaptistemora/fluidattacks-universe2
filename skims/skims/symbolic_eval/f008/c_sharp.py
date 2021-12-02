@@ -9,7 +9,7 @@ from symbolic_eval.evaluate import (
     evaluate,
 )
 from symbolic_eval.utils import (
-    get_paths,
+    get_backward_paths,
     search_method_invocation,
 )
 
@@ -19,7 +19,7 @@ def analyze(graph: Graph) -> None:
     language = GraphLanguage.CSHARP
 
     for n_id in search_method_invocation(graph, {"AddHeader", "Write"}):
-        for path in get_paths(graph, n_id):
+        for path in get_backward_paths(graph, n_id):
             if evaluate(language, finding, graph, path, n_id):
                 print(path, n_id)
 

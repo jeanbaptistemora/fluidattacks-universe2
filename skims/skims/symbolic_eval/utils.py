@@ -23,7 +23,7 @@ def iter_ast(graph: Graph, n_id: str, strict: bool = False) -> Iterator[str]:
         yield from iter_ast(graph, c_id)
 
 
-def iter_paths(graph: Graph, cfg_n_id: str) -> Iterator[Path]:
+def iter_backward_paths(graph: Graph, cfg_n_id: str) -> Iterator[Path]:
     path = [cfg_n_id]
     parents = g.pred_cfg(graph, cfg_n_id)
 
@@ -31,12 +31,41 @@ def iter_paths(graph: Graph, cfg_n_id: str) -> Iterator[Path]:
         yield path
 
     for parent in parents:
-        for sub_path in get_paths(graph, parent):
+        for sub_path in iter_backward_paths(graph, parent):
             yield path + sub_path
 
 
-def get_paths(graph: Graph, n_id: str) -> Iterator[Path]:
-    yield from iter_paths(graph, g.lookup_first_cfg_parent(graph, n_id))
+def get_backward_paths(graph: Graph, n_id: str) -> Iterator[Path]:
+    cfg_id = g.lookup_first_cfg_parent(graph, n_id)
+    yield from iter_backward_paths(graph, cfg_id)
+
+
+def iter_forward_paths(graph: Graph, cfg_id: str) -> Iterator[Path]:
+    path = [cfg_id]
+    childs = g.adj_cfg(graph, cfg_id)
+
+    if not childs:
+        yield path
+
+    for child in childs:
+        for sub_path in iter_forward_paths(graph, child):
+            yield path + sub_path
+
+
+def get_forward_paths(graph: Graph, n_id: str) -> Iterator[Path]:
+    cfg_id = g.lookup_first_cfg_parent(graph, n_id)
+    yield from iter_forward_paths(graph, cfg_id)
+
+
+def invert_path(path: Path) -> Path:
+    inv_path = path.copy()
+    inv_path.reverse()
+    return inv_path
+
+
+def get_inv_forward_paths(graph: Graph, n_id: str) -> Iterator[Path]:
+    for path in get_forward_paths(graph, n_id):
+        yield invert_path(path)
 
 
 def filter_ast(
