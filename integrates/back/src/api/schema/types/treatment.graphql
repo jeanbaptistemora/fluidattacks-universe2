@@ -4,6 +4,8 @@ type Treatment {
   acceptanceDate: String
   "Acceptance status"
   acceptanceStatus: String
+  "Email address of the user who is assigned"
+  assigned: String
   "Date"
   date: String
   "Justification"
@@ -11,7 +13,8 @@ type Treatment {
   "Treatment status"
   treatment: String
   "Manager"
-  treatmentManager: String
+  treatmentManager: String @deprecated(reason: """This field will
+    be removed after 2022/05/02. Use `Assigned` instead.""")
   "User"
   user: String
 }

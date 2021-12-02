@@ -1013,6 +1013,7 @@ def format_vulnerability_treatment_item(
     if treatment.acceptance_status:
         item["acceptance_status"] = treatment.acceptance_status.value
     if treatment.manager:
+        item["assigned"] = treatment.manager
         item["treatment_manager"] = treatment.manager
     return item
 

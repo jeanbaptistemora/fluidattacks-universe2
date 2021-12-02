@@ -877,13 +877,15 @@ type Mutation {
   updateVulnerabilitiesTreatment(
     "Temporarily accepted until"
     acceptanceDate: String
+    "Email address of the user who is assigned"
+    assigned: String
     "Identifier of the Finding that contains the Vulnerability to update"
     findingId: String!
     "Justification for the updated treatment"
     justification: String!
     "New designated treatment for the Vulnerability"
     treatment: UpdateClientDescriptionTreatment!
-    "Email address of the user who is updating the treatment"
+    "Deprecated. Use `assigned` instead"
     treatmentManager: String
     "Identifier of the Vulnerability to update"
     vulnerabilityId: ID!

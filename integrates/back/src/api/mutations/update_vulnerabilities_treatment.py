@@ -26,6 +26,9 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    duplicate_dict_keys,
+)
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
@@ -62,6 +65,11 @@ async def mutate(
         group_loader = info.context.loaders.group
         group = await group_loader.load(group_name)
         severity_score = findings_domain.get_severity_score(finding.severity)
+        if parameters.get("assigned"):
+            parameters = duplicate_dict_keys(
+                parameters, "assigned", "treatment_manager"
+            )
+            del parameters["assigned"]
         success: bool = await vulns_domain.update_vulnerabilities_treatment(
             loaders=info.context.loaders,
             finding_id=finding_id,
