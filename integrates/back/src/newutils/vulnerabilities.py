@@ -525,57 +525,6 @@ def get_specific(value: Dict[str, str]) -> int:
 
 
 def group_specific(
-    specific: List[Dict[str, str]], vuln_type: str
-) -> List[Dict[str, FindingType]]:
-    """Group vulnerabilities by its specific field."""
-    sorted_specific = sort_vulnerabilities(specific)
-    lines = []
-    vuln_keys = ["historic_state", "vuln_type", "UUID", "finding_id"]
-    for key, group in itertools.groupby(
-        sorted_specific,
-        key=lambda x: (
-            x["where"],
-            x["commit_hash"],
-        ),
-    ):
-        vuln_info = list(group)
-        if vuln_type == "inputs":
-            specific_grouped: List[Union[int, str]] = [
-                i.get("specific", "") for i in vuln_info
-            ]
-            dictlines: Dict[str, FindingType] = {
-                "where": key[0],
-                "specific": ",".join(cast(List[str], specific_grouped)),
-            }
-        else:
-            specific_grouped = [get_specific(i) for i in vuln_info]
-            specific_grouped.sort()
-            dictlines = {
-                "where": key[0],
-                "specific": get_ranges(cast(List[int], specific_grouped)),
-                "commit_hash": str(
-                    cast(Dict[str, FindingType], vuln_info[0])["commit_hash"]
-                )[0:7],
-            }
-        if vuln_info and all(
-            key_vuln in vuln_info[0] for key_vuln in vuln_keys
-        ):
-            dictlines.update(
-                {
-                    key_vuln: cast(Dict[str, FindingType], vuln_info[0]).get(
-                        key_vuln
-                    )
-                    for key_vuln in vuln_keys
-                }
-            )
-        else:
-            # Vulnerability doesn't have more attributes.
-            pass
-        lines.append(dictlines)
-    return lines
-
-
-def group_specific_new(
     vulns: Tuple[Vulnerability, ...], vuln_type: VulnerabilityType
 ) -> Tuple[Vulnerability, ...]:
     """Group vulnerabilities by its specific field."""

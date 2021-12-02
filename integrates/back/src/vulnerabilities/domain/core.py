@@ -347,7 +347,7 @@ async def get_grouped_vulnerabilities_info(
                     specific=grouped_vulns_info.specific,
                     commit_hash=grouped_vulns_info.commit,
                 ),
-                vulns_utils.group_specific_new(
+                vulns_utils.group_specific(
                     ports_vulnerabilities, VulnerabilityType.PORTS
                 ),
             )
@@ -362,7 +362,7 @@ async def get_grouped_vulnerabilities_info(
                     specific=grouped_vulns_info.specific,
                     commit_hash=grouped_vulns_info.commit,
                 ),
-                vulns_utils.group_specific_new(
+                vulns_utils.group_specific(
                     lines_vulnerabilities, VulnerabilityType.LINES
                 ),
             )
@@ -377,7 +377,7 @@ async def get_grouped_vulnerabilities_info(
                     specific=grouped_vulns_info.specific,
                     commit_hash=grouped_vulns_info.commit,
                 ),
-                vulns_utils.group_specific_new(
+                vulns_utils.group_specific(
                     inputs_vulnerabilities, VulnerabilityType.INPUTS
                 ),
             )
@@ -514,7 +514,7 @@ def group_vulnerabilities(
 
     for vuln_type in vuln_types:
         for vuln_state in vuln_states:
-            grouped_vulns = vulns_utils.group_specific_new(
+            grouped_vulns = vulns_utils.group_specific(
                 tuple(total_vulnerabilities[vuln_type][vuln_state]),
                 vuln_type,
             )
