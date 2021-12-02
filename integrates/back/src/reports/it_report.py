@@ -331,7 +331,7 @@ class ITReport:
                 current_treatment.justification or EMPTY
             ),
             "Current Treatment expiration Moment": current_treatment_exp_date,
-            "Current Treatment manager": current_treatment.manager or EMPTY,
+            "Current Assigned": current_treatment.manager or EMPTY,
         }
         first_treatment_data = {
             "First Treatment": format_treatment(first_treatment_state.status),
@@ -342,7 +342,7 @@ class ITReport:
                 first_treatment_state.justification or EMPTY
             ),
             "First Treatment expiration Moment": first_treatment_exp_date,
-            "First Treatment manager": first_treatment_state.manager or EMPTY,
+            "First Assigned": first_treatment_state.manager or EMPTY,
         }
         for key, value in current_treatment_data.items():
             self.row_values[self.vulnerability[key]] = (

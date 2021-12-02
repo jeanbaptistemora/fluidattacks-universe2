@@ -78,7 +78,7 @@ class GroupVulnsReportHeader(GenericHeader):
         label="First Treatment expiration Moment", width=40
     )
     FIRST_TREATMENT_MANAGER: ColumnConfig = ColumnConfig(
-        label="First Treatment manager", width=35
+        label="First Assigned", width=35
     )
     CURRENT_TREATMENT: ColumnConfig = ColumnConfig(
         label="Current Treatment", width=20
@@ -93,7 +93,7 @@ class GroupVulnsReportHeader(GenericHeader):
         label="Current Treatment expiration Moment", width=40
     )
     CURRENT_TREATMENT_MANAGER: ColumnConfig = ColumnConfig(
-        label="Current Treatment manager", width=35
+        label="Current Assigned", width=35
     )
     PENDING_REATTACK: ColumnConfig = ColumnConfig(
         label="Pending Reattack", width=25
