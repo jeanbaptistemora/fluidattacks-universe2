@@ -16,16 +16,22 @@ def _remove_nix_hash(path: str) -> str:
 def remove_nix_hash(
     notification: Notification,
 ) -> None:
-    notification.exceptions = [
-        {
-            **exception,
-            "stacktrace": [
-                {**trace, "file": _remove_nix_hash(trace["file"])}
-                for trace in exception["stacktrace"]
-            ],
-        }
-        for exception in notification.exceptions
-    ]
+    try:
+        notification.exceptions = [
+            {
+                **exception,
+                "stacktrace": [
+                    {**trace, "file": _remove_nix_hash(trace["file"])}
+                    for trace in exception["stacktrace"]
+                ],
+            }
+            for exception in notification.exceptions
+        ]
+    except AttributeError:
+        notification.stacktrace = [
+            {**trace, "file": _remove_nix_hash(trace["file"])}
+            for trace in notification.stacktrace
+        ]
 
 
 def add_batch_metadata(
