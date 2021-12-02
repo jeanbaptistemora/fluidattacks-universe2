@@ -7,10 +7,21 @@ from ariadne.utils import (
 from custom_types import (
     SimplePayload,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityAcceptanceStatus,
+    VulnerabilityStateStatus,
+    VulnerabilityVerificationStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_login,
+)
+from findings import (
+    domain as findings_domain,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -57,7 +68,54 @@ async def mutate(
             user_info=user_info,
             justification=justification,
         )
+        email: str = user_info["user_email"]
+        reattack_just = "Reattack cancelled due to zero risk request"
+        treatment_just = "Treatment change cancelled due to zero risk request"
+        finding_vulns_loader = info.context.loaders.finding_vulns_all_typed
+        vulns_info: List[Vulnerability] = [
+            vuln
+            for vuln in await finding_vulns_loader.load(finding_id)
+            if vuln.id in vulnerabilities
+        ]
+        reattacked_vulns = [
+            vuln.id
+            for vuln in vulns_info
+            if (
+                vuln.verification
+                and vuln.verification.status
+                == VulnerabilityVerificationStatus.REQUESTED
+                and vuln.state.status != VulnerabilityStateStatus.CLOSED
+            )
+        ]
+        treatment_changed_vulns = [
+            vuln.id
+            for vuln in vulns_info
+            if (
+                vuln.treatment
+                and vuln.treatment.acceptance_status
+                == VulnerabilityAcceptanceStatus.SUBMITTED
+            )
+        ]
         if success:
+            if reattacked_vulns:
+                await findings_domain.verify_vulnerabilities(
+                    context=info.context,
+                    finding_id=finding_id,
+                    user_info=user_info,
+                    justification=reattack_just,
+                    open_vulns_ids=reattacked_vulns,
+                    closed_vulns_ids=[],
+                    vulns_to_close_from_file=[],
+                )
+            if treatment_changed_vulns:
+                await vulns_domain.handle_vulnerabilities_acceptance(
+                    loaders=info.context.loaders,
+                    accepted_vulns=[],
+                    finding_id=finding_id,
+                    justification=treatment_just,
+                    rejected_vulns=treatment_changed_vulns,
+                    user_email=email,
+                )
             await redis_del_by_deps(
                 "request_vulnerabilities_zero_risk",
                 finding_id=finding_id,
