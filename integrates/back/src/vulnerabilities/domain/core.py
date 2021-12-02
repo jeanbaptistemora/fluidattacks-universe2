@@ -343,7 +343,9 @@ async def get_grouped_vulnerabilities_info(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
                     where=grouped_vulns_info.where,
                     specific=grouped_vulns_info.specific,
-                    commit_hash=grouped_vulns_info.commit,
+                    commit_hash=grouped_vulns_info.commit
+                    if grouped_vulns_info.commit is not None
+                    else "",
                 ),
                 vulns_utils.group_specific(
                     ports_vulnerabilities, VulnerabilityType.PORTS
@@ -358,7 +360,9 @@ async def get_grouped_vulnerabilities_info(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
                     where=grouped_vulns_info.where,
                     specific=grouped_vulns_info.specific,
-                    commit_hash=grouped_vulns_info.commit,
+                    commit_hash=grouped_vulns_info.commit
+                    if grouped_vulns_info.commit is not None
+                    else "",
                 ),
                 vulns_utils.group_specific(
                     lines_vulnerabilities, VulnerabilityType.LINES
@@ -373,7 +377,9 @@ async def get_grouped_vulnerabilities_info(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
                     where=grouped_vulns_info.where,
                     specific=grouped_vulns_info.specific,
-                    commit_hash=grouped_vulns_info.commit,
+                    commit_hash=grouped_vulns_info.commit
+                    if grouped_vulns_info.commit is not None
+                    else "",
                 ),
                 vulns_utils.group_specific(
                     inputs_vulnerabilities, VulnerabilityType.INPUTS
