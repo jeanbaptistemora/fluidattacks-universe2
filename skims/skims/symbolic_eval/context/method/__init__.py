@@ -1,6 +1,9 @@
 from model.graph_model import (
     Graph,
 )
+from symbolic_eval.context.method import (
+    symbol_lookup,
+)
 from symbolic_eval.context.method.types import (
     Solver,
     SolverArgs,
@@ -13,7 +16,9 @@ from typing import (
     Optional,
 )
 
-SOLVERS: Dict[str, Solver] = {}
+SOLVERS: Dict[str, Solver] = {
+    "SymbolLookup": symbol_lookup.solve,
+}
 
 
 def generic(args: SolverArgs) -> Optional[str]:
