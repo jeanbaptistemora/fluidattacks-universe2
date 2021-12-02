@@ -70,13 +70,20 @@ def paginate_table(
     return ScanResponse(t_segment=table_segment, response=result)
 
 
+class SetEncoder(simplejson.JSONEncoder):
+    def default(self, o: Any) -> Any:
+        if isinstance(o, set):
+            return list(o)
+        return simplejson.JSONEncoder.default(self, o)
+
+
 def response_to_dpage(scan_response: ScanResponse) -> Optional[PageData]:
     response = dict(scan_response.response)
     if response.get("Count") == 0:
         return None
 
     last_key: Optional[Dict[str, Any]] = response.get("LastEvaluatedKey", None)
-    data = simplejson.dumps(response)
+    data = simplejson.dumps(response, cls=SetEncoder)
     with tempfile.NamedTemporaryFile(mode="w+", delete=False) as file:
         file.write(data)
         if last_key:
