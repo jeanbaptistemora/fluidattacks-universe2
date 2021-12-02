@@ -78,6 +78,12 @@ class AWSElb(NamedTuple):
     line: int
 
 
+class AWSElbV2(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int
+
+
 class AWSLbTargetGroup(NamedTuple):
     column: int
     data: List[Any]
