@@ -448,6 +448,14 @@ async def analyze(
                     template=template,
                 )
             )
+            coroutines.append(
+                cfn_elb2_has_access_logs_s3_disabled(
+                    content=content,
+                    file_ext=file_extension,
+                    path=path,
+                    template=template,
+                )
+            )
     if file_extension in EXTENSIONS_TERRAFORM:
         content = await content_generator()
         model = await load_terraform(stream=content, default=[])

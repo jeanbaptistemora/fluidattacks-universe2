@@ -8475,6 +8475,150 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_trails_not_multiregion.ya
   25 |   }
      ^ Col 0
 ",_cfn_trails_not_multiregion
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,19,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,"
+   9 |         Value: True
+  10 |       - Key: ""access_logs.s3.bucket""
+  11 |         Value: ""bk""
+  12 |   LoadBalancer2:
+  13 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  14 |     Properties:
+  15 |       Name: ""test-Application-Load-Balancer""
+  16 |       IpAddressType: String
+  17 |       LoadBalancerAttributes:
+  18 |       - Key: ""access_logs.s3.enabled""
+> 19 |         Value: False
+  20 |       - Key: ""access_logs.s3.bucket""
+  21 |         Value: ""bk""
+  22 |   LoadBalancer3:
+  23 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  24 |     Properties:
+  25 |       Name: ""test-Application-Load-Balancer""
+  26 |       IpAddressType: String
+  27 |       LoadBalancerAttributes:
+  28 |       - Key: ""access_logs.s3.bucket""
+  29 |         Value: ""bk""
+     ^ Col 0
+",_cfn_elb2_has_access_logs_s3_disabled
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,32,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,"
+  14 |     Properties:
+  15 |       Name: ""test-Application-Load-Balancer""
+  16 |       IpAddressType: String
+  17 |       LoadBalancerAttributes:
+  18 |       - Key: ""access_logs.s3.enabled""
+  19 |         Value: False
+  20 |       - Key: ""access_logs.s3.bucket""
+  21 |         Value: ""bk""
+  22 |   LoadBalancer3:
+  23 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  24 |     Properties:
+  25 |       Name: ""test-Application-Load-Balancer""
+  26 |       IpAddressType: String
+  27 |       LoadBalancerAttributes:
+  28 |       - Key: ""access_logs.s3.bucket""
+  29 |         Value: ""bk""
+  30 |   LoadBalancer4:
+  31 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+> 32 |     Properties:
+  33 |       Name: ""test-Application-Load-Balancer""
+  34 |       IpAddressType: String
+     ^ Col 0
+",_cfn_elb2_has_access_logs_s3_disabled
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,27,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,"
+  14 |     Properties:
+  15 |       Name: ""test-Application-Load-Balancer""
+  16 |       IpAddressType: String
+  17 |       LoadBalancerAttributes:
+  18 |       - Key: ""access_logs.s3.enabled""
+  19 |         Value: False
+  20 |       - Key: ""access_logs.s3.bucket""
+  21 |         Value: ""bk""
+  22 |   LoadBalancer3:
+  23 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  24 |     Properties:
+  25 |       Name: ""test-Application-Load-Balancer""
+  26 |       IpAddressType: String
+> 27 |       LoadBalancerAttributes:
+  28 |       - Key: ""access_logs.s3.bucket""
+  29 |         Value: ""bk""
+  30 |   LoadBalancer4:
+  31 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  32 |     Properties:
+  33 |       Name: ""test-Application-Load-Balancer""
+  34 |       IpAddressType: String
+     ^ Col 0
+",_cfn_elb2_has_access_logs_s3_disabled
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,28,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
+  18 |       }
+  19 |     },
+  20 |     ""LoadBalancer2"": {
+  21 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  22 |       ""Properties"": {
+  23 |         ""Name"": ""test-Application-Load-Balancer"",
+  24 |         ""IpAddressType"": ""String"",
+  25 |         ""LoadBalancerAttributes"": [
+  26 |           {
+  27 |             ""Key"": ""access_logs.s3.enabled"",
+> 28 |             ""Value"": false
+  29 |           },
+  30 |           {
+  31 |             ""Key"": ""access_logs.s3.bucket"",
+  32 |             ""Value"": ""bk""
+  33 |           }
+  34 |         ]
+  35 |       }
+  36 |     },
+  37 |     ""LoadBalancer3"": {
+  38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+     ^ Col 0
+",_cfn_elb2_has_access_logs_s3_disabled
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,42,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
+  32 |         ""Value"": ""bk""
+  33 |       }
+  34 |     ]
+  35 |   }
+  36 | },
+  37 | ""LoadBalancer3"": {
+  38 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  39 |   ""Properties"": {
+  40 |     ""Name"": ""test-Application-Load-Balancer"",
+  41 |     ""IpAddressType"": ""String"",
+> 42 |     ""LoadBalancerAttributes"": [
+  43 |       {
+  44 |         ""Key"": ""access_logs.s3.bucket"",
+  45 |         ""Value"": ""bk""
+  46 |       }
+  47 |     ]
+  48 |   }
+  49 | },
+  50 | ""LoadBalancer4"": {
+  51 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  52 |   ""Properties"": {
+     ^ Col 4
+",_cfn_elb2_has_access_logs_s3_disabled
+F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,52,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
+  38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  39 |       ""Properties"": {
+  40 |         ""Name"": ""test-Application-Load-Balancer"",
+  41 |         ""IpAddressType"": ""String"",
+  42 |         ""LoadBalancerAttributes"": [
+  43 |           {
+  44 |             ""Key"": ""access_logs.s3.bucket"",
+  45 |             ""Value"": ""bk""
+  46 |           }
+  47 |         ]
+  48 |       }
+  49 |     },
+  50 |     ""LoadBalancer4"": {
+  51 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+> 52 |       ""Properties"": {
+  53 |         ""Name"": ""test-Application-Load-Balancer"",
+  54 |         ""IpAddressType"": ""String""
+  55 |       }
+  56 |     }
+  57 |   }
+  58 | }
+     ^ Col 0
+",_cfn_elb2_has_access_logs_s3_disabled
 F004,lines,namespace/skims/test/data/lib_path/f004/test.cs,16,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in namespace/skims/test/data/lib_path/f004/test.cs","
    5 | {
