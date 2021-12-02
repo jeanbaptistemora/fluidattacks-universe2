@@ -89,6 +89,46 @@ describe("FindingContent", (): void => {
     },
   };
 
+  const removeFindingMock: Readonly<MockedResponse> = {
+    request: {
+      query: GET_FINDING_HEADER,
+      variables: {
+        canGetHistoricState: true,
+        findingId: "438679960",
+      },
+    },
+    result: {
+      data: {
+        finding: {
+          closedVulns: 0,
+          historicState: [
+            {
+              analyst: "someone@fluidattacks.com",
+              date: "2019-10-31 10:00:53",
+              state: "CREATED",
+            },
+          ],
+          id: "438679960",
+          openVulns: 3,
+          releaseDate: null,
+          reportDate: "2017-12-04 09:04:13",
+          severityScore: 2.6,
+          state: "open",
+          title: "050. Guessed weak credentials",
+          tracking: [
+            {
+              closed: 0,
+              cycle: 0,
+              date: "2019-08-30",
+              effectiveness: 0,
+              open: 1,
+            },
+          ],
+        },
+      },
+    },
+  };
+
   const draftMock: Readonly<MockedResponse> = {
     request: {
       query: GET_FINDING_HEADER,
@@ -110,7 +150,7 @@ describe("FindingContent", (): void => {
           ],
           id: "438679960",
           openVulns: 3,
-          releaseDate: undefined,
+          releaseDate: null,
           reportDate: "2017-12-04 09:04:13",
           severityScore: 2.6,
           state: "open",
@@ -161,6 +201,8 @@ describe("FindingContent", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
+    jest.clearAllMocks();
+
     const wrapper: ShallowWrapper = shallow(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider addTypename={false} mocks={[findingMock]}>
@@ -180,6 +222,8 @@ describe("FindingContent", (): void => {
 
   it("should render header", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_resolvers_finding_historic_state_resolve" },
@@ -206,6 +250,8 @@ describe("FindingContent", (): void => {
 
   it("should render unsubmitted draft actions", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_resolvers_finding_historic_state_resolve" },
@@ -240,6 +286,8 @@ describe("FindingContent", (): void => {
 
   it("should prompt delete justification", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_resolvers_finding_historic_state_resolve" },
@@ -285,6 +333,8 @@ describe("FindingContent", (): void => {
 
   it("should submit draft", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     const submitMutationMock: Readonly<MockedResponse> = {
       request: {
@@ -351,6 +401,8 @@ describe("FindingContent", (): void => {
   it("should handle submit errors", async (): Promise<void> => {
     expect.hasAssertions();
 
+    jest.clearAllMocks();
+
     const submitErrorMock: Readonly<MockedResponse> = {
       request: {
         query: SUBMIT_DRAFT_MUTATION,
@@ -403,11 +455,13 @@ describe("FindingContent", (): void => {
       await wait(0);
     });
 
-    expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+    expect(msgError).toHaveBeenCalledTimes(4);
   });
 
   it("should approve draft", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     const approveMutationMock: Readonly<MockedResponse> = {
       request: {
@@ -489,6 +543,8 @@ describe("FindingContent", (): void => {
   it("should handle approval errors", async (): Promise<void> => {
     expect.hasAssertions();
 
+    jest.clearAllMocks();
+
     const approveErrorMock: Readonly<MockedResponse> = {
       request: {
         query: APPROVE_DRAFT_MUTATION,
@@ -554,11 +610,13 @@ describe("FindingContent", (): void => {
       await wait(0);
     });
 
-    expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+    expect(msgError).toHaveBeenCalledTimes(4);
   });
 
   it("should reject draft", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     const rejectMutationMock: Readonly<MockedResponse> = {
       request: {
@@ -640,6 +698,8 @@ describe("FindingContent", (): void => {
   it("should handle rejection errors", async (): Promise<void> => {
     expect.hasAssertions();
 
+    jest.clearAllMocks();
+
     const rejectErrorMock: Readonly<MockedResponse> = {
       request: {
         query: REJECT_DRAFT_MUTATION,
@@ -675,9 +735,21 @@ describe("FindingContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
+
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(
+          wrapper
+            .find("findingContent")
+            .at(0)
+            .find("Button")
+            .filterWhere((element: ReactWrapper): boolean =>
+              element.text().includes("Reject")
+            )
+        ).toHaveLength(1);
+      });
     });
     const rejectButton: ReactWrapper = wrapper
       .find("findingContent")
@@ -688,27 +760,35 @@ describe("FindingContent", (): void => {
       );
     rejectButton.simulate("click");
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(
+          wrapper.find("findingActions").find("Modal").first()
+        ).toHaveLength(1);
+      });
     });
+
     const confirmDialog: ReactWrapper = wrapper
       .find("findingActions")
       .find("Modal")
-      .at(0);
-
-    expect(confirmDialog).toHaveLength(1);
-
+      .first();
     const proceedButton: ReactWrapper = confirmDialog.find("Button").at(1);
+    const numberOfErrors: number = 3;
     proceedButton.simulate("click");
     await act(async (): Promise<void> => {
-      await wait(0);
-    });
+      await waitForExpect((): void => {
+        wrapper.update();
 
-    expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+        expect(msgError).toHaveBeenCalledTimes(numberOfErrors);
+      });
+    });
   });
 
   it("should delete finding", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     const deleteMutationMock: Readonly<MockedResponse> = {
       request: {
@@ -735,7 +815,7 @@ describe("FindingContent", (): void => {
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider
           addTypename={false}
-          mocks={[findingMock, deleteMutationMock]}
+          mocks={[removeFindingMock, deleteMutationMock]}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <Route
@@ -752,23 +832,40 @@ describe("FindingContent", (): void => {
     });
     const deleteButton: ReactWrapper = wrapper.find("button").at(0);
 
-    expect(deleteButton).toHaveLength(0);
+    expect(deleteButton).toHaveLength(1);
+
+    deleteButton.simulate("click");
+    wrapper.update();
 
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper.find("Modal").first()).toHaveLength(1);
+      });
     });
-    await act(async (): Promise<void> => {
-      const delay = 150;
-      await wait(delay);
-      wrapper.update();
+    wrapper.find("select").simulate("change", {
+      target: { name: "justification", value: "DUPLICATED" },
     });
 
-    expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+    const justificationForm: ReactWrapper = wrapper
+      .find("Formik")
+      .find({ name: "removeFinding" });
+    justificationForm.simulate("submit");
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(msgSuccess).toHaveBeenCalledTimes(1);
+      });
+    });
   });
 
   it("should handle deletion errors", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     const deleteMutationMock: Readonly<MockedResponse> = {
       request: {
@@ -791,7 +888,7 @@ describe("FindingContent", (): void => {
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider
           addTypename={false}
-          mocks={[findingMock, deleteMutationMock]}
+          mocks={[removeFindingMock, deleteMutationMock]}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <Route
@@ -808,16 +905,32 @@ describe("FindingContent", (): void => {
     });
     const deleteButton: ReactWrapper = wrapper.find("button").at(0);
 
-    expect(deleteButton).toHaveLength(0);
+    expect(deleteButton).toHaveLength(1);
+
+    deleteButton.simulate("click");
 
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-    await act(async (): Promise<void> => {
-      await wait(0);
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper.find("Modal").first()).toHaveLength(1);
+      });
     });
 
-    expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+    wrapper.find("select").simulate("change", {
+      target: { name: "justification", value: "DUPLICATED" },
+    });
+    const justificationForm: ReactWrapper = wrapper
+      .find("Formik")
+      .find({ name: "removeFinding" });
+    justificationForm.simulate("submit");
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(msgError).toHaveBeenCalledTimes(1);
+      });
+    });
   });
 });
