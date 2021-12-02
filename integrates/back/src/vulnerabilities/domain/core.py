@@ -490,45 +490,6 @@ async def get_vulnerabilities_file(
 
 
 def group_vulnerabilities(
-    vulnerabilities: List[Dict[str, FindingType]]
-) -> List[FindingType]:
-    """Group vulnerabilities by specific field."""
-    vuln_types = ["lines", "ports", "inputs"]
-    vuln_states = ["open", "closed"]
-    total_vulnerabilities: Dict[str, Dict[str, FindingType]] = {}
-    result_vulns: List[FindingType] = []
-    for vuln_type in vuln_types:
-        total_vulnerabilities[vuln_type] = {}
-        for vuln_state in vuln_states:
-            total_vulnerabilities[vuln_type][vuln_state] = []
-
-    for vuln in vulnerabilities:
-        all_states = cast(
-            List[Dict[str, FindingType]], vuln.get("historic_state", [{}])
-        )
-        current_state = str(all_states[-1].get("state", ""))
-        vuln_type = str(vuln.get("vuln_type", ""))
-        cast(
-            List[Dict[str, FindingType]],
-            total_vulnerabilities[vuln_type][current_state],
-        ).append(vuln)
-
-    for vuln_type in vuln_types:
-        for vuln_state in vuln_states:
-            vulns_grouped = cast(
-                Iterable[FindingType],
-                vulns_utils.group_specific(
-                    cast(
-                        List[str], total_vulnerabilities[vuln_type][vuln_state]
-                    ),
-                    vuln_type,
-                ),
-            )
-            result_vulns.extend(vulns_grouped)
-    return result_vulns
-
-
-def group_vulnerabilities_new(
     vulnerabilities: Tuple[Vulnerability, ...]
 ) -> Tuple[Vulnerability, ...]:
     """Group vulnerabilities by specific field."""
@@ -774,7 +735,7 @@ async def should_send_update_treatment(
 ) -> None:
     translations = {"IN_PROGRESS": "In Progress"}
     if treatment in translations:
-        vulns_grouped = group_vulnerabilities_new(updated_vulns)
+        vulns_grouped = group_vulnerabilities(updated_vulns)
         vulns_data = vulns_utils.format_vulnerabilities(vulns_grouped)
         mail_content = get_updated_manager_mail_content(vulns_data)
         schedule(
