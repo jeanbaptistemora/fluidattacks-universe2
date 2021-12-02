@@ -22,7 +22,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    82 |   finally
    83 |   {
       ^ Col 10
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_02.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_02.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -46,7 +46,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_03.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_03.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -70,7 +70,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_04.cs,91,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_04.cs,"
    81 |   {
    82 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -94,7 +94,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
   100 |   finally
   101 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_05.cs,90,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_05.cs,"
    80 |   {
    81 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -118,7 +118,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    99 |   finally
   100 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_06.cs,89,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_06.cs,"
    79 |   {
    80 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -142,7 +142,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    98 |   finally
    99 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_07.cs,89,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_07.cs,"
    79 |   {
    80 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -166,7 +166,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    98 |   finally
    99 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_08.cs,97,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_08.cs,"
    87 |   {
    88 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -190,7 +190,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
   106 |   finally
   107 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_09.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_09.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -214,7 +214,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_10.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_10.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -238,7 +238,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_11.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_11.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -262,7 +262,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_12.cs,83,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_12.cs,"
    73 |   {
    74 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -286,7 +286,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    92 |   finally
    93 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_13.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_13.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -310,7 +310,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_14.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_14.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -334,7 +334,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_15.cs,86,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_15.cs,"
    76 |   {
    77 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -358,7 +358,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    95 |   finally
    96 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_16.cs,79,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_16.cs,"
    69 |   {
    70 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -382,7 +382,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    88 |   finally
    89 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_17.cs,79,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_17.cs,"
    69 |   {
    70 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -406,7 +406,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    88 |   finally
    89 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_31.cs,79,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_31.cs,"
    69 |   {
    70 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -430,7 +430,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    88 |   finally
    89 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_42.cs,79,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_CommandText_42.cs,"
    69 |   {
    70 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -454,7 +454,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    88 |   finally
    89 |   {
       ^ Col 10
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_01.cs,67,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_01.cs,"
    57 |         int? result = null;
    58 |         try
@@ -478,7 +478,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    76 |                 }
    77 |             }
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_02.cs,78,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_02.cs,"
    68 |         int? result = null;
    69 |         try
@@ -502,7 +502,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    87 |                 }
    88 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_03.cs,78,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_03.cs,"
    68 |         int? result = null;
    69 |         try
@@ -526,7 +526,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    87 |                 }
    88 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_04.cs,85,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_04.cs,"
    75 |         int? result = null;
    76 |         try
@@ -550,7 +550,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    94 |                 }
    95 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_05.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_05.cs,"
    74 |         int? result = null;
    75 |         try
@@ -574,7 +574,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    93 |                 }
    94 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_06.cs,83,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_06.cs,"
    73 |         int? result = null;
    74 |         try
@@ -598,7 +598,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    92 |                 }
    93 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_07.cs,83,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_07.cs,"
    73 |         int? result = null;
    74 |         try
@@ -622,7 +622,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    92 |                 }
    93 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_08.cs,91,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_08.cs,"
    81 |         int? result = null;
    82 |         try
@@ -646,7 +646,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
   100 |                 }
   101 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_09.cs,78,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_09.cs,"
    68 |         int? result = null;
    69 |         try
@@ -670,7 +670,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    87 |                 }
    88 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_10.cs,78,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_10.cs,"
    68 |         int? result = null;
    69 |         try
@@ -694,7 +694,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    87 |                 }
    88 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_11.cs,78,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_11.cs,"
    68 |         int? result = null;
    69 |         try
@@ -718,7 +718,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    87 |                 }
    88 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_12.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_12.cs,"
    67 |         int? result = null;
    68 |         try
@@ -742,7 +742,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    86 |                 }
    87 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_13.cs,78,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_13.cs,"
    68 |         int? result = null;
    69 |         try
@@ -766,7 +766,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    87 |                 }
    88 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_14.cs,78,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_14.cs,"
    68 |         int? result = null;
    69 |         try
@@ -790,7 +790,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    87 |                 }
    88 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_15.cs,80,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_15.cs,"
    70 |         int? result = null;
    71 |         try
@@ -814,7 +814,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    89 |                 }
    90 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_16.cs,73,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_16.cs,"
    63 |         int? result = null;
    64 |         try
@@ -838,7 +838,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    82 |                 }
    83 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_17.cs,73,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_17.cs,"
    63 |         int? result = null;
    64 |         try
@@ -862,7 +862,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    82 |                 }
    83 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_31.cs,73,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_31.cs,"
    63 |         int? result = null;
    64 |         try
@@ -886,7 +886,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    82 |                 }
    83 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_42.cs,73,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteNonQuery_42.cs,"
    63 |         int? result = null;
    64 |         try
@@ -910,7 +910,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    82 |                 }
    83 |             }
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_01.cs,66,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_01.cs,"
    56 |
    57 | ry
@@ -934,7 +934,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    75 |
    76 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 9
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_02.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_02.cs,"
    67 |
    68 | ry
@@ -958,7 +958,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    86 |
    87 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_03.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_03.cs,"
    67 |
    68 | ry
@@ -982,7 +982,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    86 |
    87 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_04.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_04.cs,"
    74 |
    75 | ry
@@ -1006,7 +1006,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    93 |
    94 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_05.cs,83,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_05.cs,"
    73 |
    74 | ry
@@ -1030,7 +1030,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    92 |
    93 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_06.cs,82,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_06.cs,"
    72 |
    73 | ry
@@ -1054,7 +1054,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    91 |
    92 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_07.cs,82,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_07.cs,"
    72 |
    73 | ry
@@ -1078,7 +1078,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    91 |
    92 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_08.cs,90,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_08.cs,"
    80 |
    81 | ry
@@ -1102,7 +1102,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    99 |
   100 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_09.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_09.cs,"
    67 |
    68 | ry
@@ -1126,7 +1126,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    86 |
    87 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_10.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_10.cs,"
    67 |
    68 | ry
@@ -1150,7 +1150,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    86 |
    87 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_11.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_11.cs,"
    67 |
    68 | ry
@@ -1174,7 +1174,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    86 |
    87 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_12.cs,76,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_12.cs,"
    66 |
    67 | ry
@@ -1198,7 +1198,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    85 |
    86 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_13.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_13.cs,"
    67 |
    68 | ry
@@ -1222,7 +1222,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    86 |
    87 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_14.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_14.cs,"
    67 |
    68 | ry
@@ -1246,7 +1246,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    86 |
    87 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_15.cs,79,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_15.cs,"
    69 | 7:
    70 | ry
@@ -1270,7 +1270,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    88 |
    89 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_16.cs,72,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_16.cs,"
    62 |
    63 | ry
@@ -1294,7 +1294,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    81 |
    82 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_17.cs,72,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_17.cs,"
    62 |
    63 | ry
@@ -1318,7 +1318,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    81 |
    82 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_31.cs,72,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_31.cs,"
    62 | tring data = dataCopy;
    63 | ry
@@ -1342,7 +1342,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    81 |
    82 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_42.cs,72,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Connect_tcp_ExecuteScalar_42.cs,"
    62 | tring data = BadSource(req, resp);
    63 | ry
@@ -1366,7 +1366,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_C
    81 |
    82 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 9
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_01.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_01.cs,"
    67 |   {
    68 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1390,7 +1390,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    86 |   finally
    87 |   {
       ^ Col 10
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_02.cs,88,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_02.cs,"
    78 |   {
    79 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1414,7 +1414,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    97 |   finally
    98 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_03.cs,88,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_03.cs,"
    78 |   {
    79 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1438,7 +1438,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    97 |   finally
    98 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_04.cs,95,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_04.cs,"
    85 |   {
    86 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1462,7 +1462,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
   104 |   finally
   105 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_05.cs,94,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_05.cs,"
    84 |   {
    85 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1486,7 +1486,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
   103 |   finally
   104 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_06.cs,93,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_06.cs,"
    83 |   {
    84 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1510,7 +1510,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
   102 |   finally
   103 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_07.cs,93,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_07.cs,"
    83 |   {
    84 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1534,7 +1534,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
   102 |   finally
   103 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_08.cs,101,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_08.cs,"
    91 |   {
    92 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1558,7 +1558,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
   110 |   finally
   111 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_09.cs,88,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_09.cs,"
    78 |   {
    79 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1582,7 +1582,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    97 |   finally
    98 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_10.cs,88,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_10.cs,"
    78 |   {
    79 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1606,7 +1606,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    97 |   finally
    98 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_11.cs,88,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_11.cs,"
    78 |   {
    79 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1630,7 +1630,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    97 |   finally
    98 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_12.cs,87,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_12.cs,"
    77 |   {
    78 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1654,7 +1654,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    96 |   finally
    97 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_13.cs,88,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_13.cs,"
    78 |   {
    79 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1678,7 +1678,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    97 |   finally
    98 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_14.cs,88,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_14.cs,"
    78 |   {
    79 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1702,7 +1702,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    97 |   finally
    98 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_15.cs,90,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_15.cs,"
    80 |   {
    81 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1726,7 +1726,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    99 |   finally
   100 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_16.cs,83,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_16.cs,"
    73 |   {
    74 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1750,7 +1750,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    92 |   finally
    93 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_17.cs,83,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_17.cs,"
    73 |   {
    74 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1774,7 +1774,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    92 |   finally
    93 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_31.cs,83,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_31.cs,"
    73 |   {
    74 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1798,7 +1798,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    92 |   finally
    93 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_42.cs,83,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_CommandText_42.cs,"
    73 |   {
    74 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -1822,7 +1822,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    92 |   finally
    93 |   {
       ^ Col 10
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_01.cs,71,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_01.cs,"
    61 |         int? result = null;
    62 |         try
@@ -1846,7 +1846,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    80 |                 }
    81 |             }
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_02.cs,82,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_02.cs,"
    72 |         int? result = null;
    73 |         try
@@ -1870,7 +1870,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    91 |                 }
    92 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_03.cs,82,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_03.cs,"
    72 |         int? result = null;
    73 |         try
@@ -1894,7 +1894,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    91 |                 }
    92 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_04.cs,89,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_04.cs,"
    79 |         int? result = null;
    80 |         try
@@ -1918,7 +1918,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    98 |                 }
    99 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_05.cs,88,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_05.cs,"
    78 |         int? result = null;
    79 |         try
@@ -1942,7 +1942,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    97 |                 }
    98 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_06.cs,87,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_06.cs,"
    77 |         int? result = null;
    78 |         try
@@ -1966,7 +1966,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    96 |                 }
    97 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_07.cs,87,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_07.cs,"
    77 |         int? result = null;
    78 |         try
@@ -1990,7 +1990,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    96 |                 }
    97 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_08.cs,95,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_08.cs,"
    85 |         int? result = null;
    86 |         try
@@ -2014,7 +2014,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
   104 |                 }
   105 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_09.cs,82,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_09.cs,"
    72 |         int? result = null;
    73 |         try
@@ -2038,7 +2038,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    91 |                 }
    92 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_10.cs,82,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_10.cs,"
    72 |         int? result = null;
    73 |         try
@@ -2062,7 +2062,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    91 |                 }
    92 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_11.cs,82,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_11.cs,"
    72 |         int? result = null;
    73 |         try
@@ -2086,7 +2086,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    91 |                 }
    92 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_12.cs,81,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_12.cs,"
    71 |         int? result = null;
    72 |         try
@@ -2110,7 +2110,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    90 |                 }
    91 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_13.cs,82,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_13.cs,"
    72 |         int? result = null;
    73 |         try
@@ -2134,7 +2134,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    91 |                 }
    92 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_14.cs,82,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_14.cs,"
    72 |         int? result = null;
    73 |         try
@@ -2158,7 +2158,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    91 |                 }
    92 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_15.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_15.cs,"
    74 |         int? result = null;
    75 |         try
@@ -2182,7 +2182,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    93 |                 }
    94 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_16.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_16.cs,"
    67 |         int? result = null;
    68 |         try
@@ -2206,7 +2206,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    86 |                 }
    87 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_17.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_17.cs,"
    67 |         int? result = null;
    68 |         try
@@ -2230,7 +2230,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    86 |                 }
    87 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_31.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_31.cs,"
    67 |         int? result = null;
    68 |         try
@@ -2254,7 +2254,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    86 |                 }
    87 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_42.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteNonQuery_42.cs,"
    67 |         int? result = null;
    68 |         try
@@ -2278,7 +2278,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    86 |                 }
    87 |             }
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_01.cs,70,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_01.cs,"
    60 |
    61 | ry
@@ -2302,7 +2302,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    79 |
    80 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 9
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_02.cs,81,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_02.cs,"
    71 |
    72 | ry
@@ -2326,7 +2326,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    90 |
    91 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_03.cs,81,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_03.cs,"
    71 |
    72 | ry
@@ -2350,7 +2350,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    90 |
    91 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_04.cs,88,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_04.cs,"
    78 |
    79 | ry
@@ -2374,7 +2374,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    97 |
    98 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_05.cs,87,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_05.cs,"
    77 |
    78 | ry
@@ -2398,7 +2398,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    96 |
    97 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_06.cs,86,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_06.cs,"
    76 |
    77 | ry
@@ -2422,7 +2422,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    95 |
    96 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_07.cs,86,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_07.cs,"
    76 |
    77 | ry
@@ -2446,7 +2446,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    95 |
    96 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_08.cs,94,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_08.cs,"
    84 |
    85 | ry
@@ -2470,7 +2470,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
   103 |
   104 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_09.cs,81,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_09.cs,"
    71 |
    72 | ry
@@ -2494,7 +2494,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    90 |
    91 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_10.cs,81,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_10.cs,"
    71 |
    72 | ry
@@ -2518,7 +2518,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    90 |
    91 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_11.cs,81,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_11.cs,"
    71 |
    72 | ry
@@ -2542,7 +2542,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    90 |
    91 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_12.cs,80,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_12.cs,"
    70 |
    71 | ry
@@ -2566,7 +2566,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    89 |
    90 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_13.cs,81,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_13.cs,"
    71 |
    72 | ry
@@ -2590,7 +2590,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    90 |
    91 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_14.cs,81,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_14.cs,"
    71 |
    72 | ry
@@ -2614,7 +2614,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    90 |
    91 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_15.cs,83,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_15.cs,"
    73 | 7:
    74 | ry
@@ -2638,7 +2638,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    92 |
    93 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_16.cs,76,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_16.cs,"
    66 |
    67 | ry
@@ -2662,7 +2662,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    85 |
    86 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_17.cs,76,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_17.cs,"
    66 |
    67 | ry
@@ -2686,7 +2686,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    85 |
    86 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_31.cs,76,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_31.cs,"
    66 | tring data = dataCopy;
    67 | ry
@@ -2710,7 +2710,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    85 |
    86 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_42.cs,76,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Database_ExecuteScalar_42.cs,"
    66 | tring data = BadSource(req, resp);
    67 | ry
@@ -2734,7 +2734,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_D
    85 |
    86 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 9
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_01.cs,60,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_01.cs,"
    50 |   {
    51 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -2758,7 +2758,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    69 |   finally
    70 |   {
       ^ Col 10
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_02.cs,71,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_02.cs,"
    61 |   {
    62 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -2782,7 +2782,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    80 |   finally
    81 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_03.cs,71,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_03.cs,"
    61 |   {
    62 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -2806,7 +2806,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    80 |   finally
    81 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_04.cs,78,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_04.cs,"
    68 |   {
    69 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -2830,7 +2830,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    87 |   finally
    88 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_05.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_05.cs,"
    67 |   {
    68 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -2854,7 +2854,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    86 |   finally
    87 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_06.cs,76,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_06.cs,"
    66 |   {
    67 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -2878,7 +2878,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    85 |   finally
    86 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_07.cs,76,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_07.cs,"
    66 |   {
    67 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -2902,7 +2902,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    85 |   finally
    86 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_08.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_08.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -2926,7 +2926,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_09.cs,71,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_09.cs,"
    61 |   {
    62 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -2950,7 +2950,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    80 |   finally
    81 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_10.cs,71,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_10.cs,"
    61 |   {
    62 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -2974,7 +2974,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    80 |   finally
    81 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_11.cs,71,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_11.cs,"
    61 |   {
    62 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -2998,7 +2998,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    80 |   finally
    81 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_12.cs,70,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_12.cs,"
    60 |   {
    61 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -3022,7 +3022,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    79 |   finally
    80 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_13.cs,71,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_13.cs,"
    61 |   {
    62 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -3046,7 +3046,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    80 |   finally
    81 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_14.cs,71,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_14.cs,"
    61 |   {
    62 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -3070,7 +3070,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    80 |   finally
    81 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_15.cs,73,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_15.cs,"
    63 |   {
    64 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -3094,7 +3094,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    82 |   finally
    83 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_16.cs,66,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_16.cs,"
    56 |   {
    57 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -3118,7 +3118,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    75 |   finally
    76 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_17.cs,66,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_17.cs,"
    56 |   {
    57 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -3142,7 +3142,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    75 |   finally
    76 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_31.cs,66,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_31.cs,"
    56 |   {
    57 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -3166,7 +3166,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    75 |   finally
    76 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_42.cs,66,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_CommandText_42.cs,"
    56 |   {
    57 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -3190,7 +3190,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    75 |   finally
    76 |   {
       ^ Col 10
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_01.cs,54,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_01.cs,"
    44 |         int? result = null;
    45 |         try
@@ -3214,7 +3214,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    63 |                 }
    64 |             }
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_02.cs,65,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_02.cs,"
    55 |         int? result = null;
    56 |         try
@@ -3238,7 +3238,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    74 |                 }
    75 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_03.cs,65,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_03.cs,"
    55 |         int? result = null;
    56 |         try
@@ -3262,7 +3262,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    74 |                 }
    75 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_04.cs,72,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_04.cs,"
    62 |         int? result = null;
    63 |         try
@@ -3286,7 +3286,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    81 |                 }
    82 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_05.cs,71,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_05.cs,"
    61 |         int? result = null;
    62 |         try
@@ -3310,7 +3310,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    80 |                 }
    81 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_06.cs,70,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_06.cs,"
    60 |         int? result = null;
    61 |         try
@@ -3334,7 +3334,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    79 |                 }
    80 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_07.cs,70,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_07.cs,"
    60 |         int? result = null;
    61 |         try
@@ -3358,7 +3358,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    79 |                 }
    80 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_08.cs,78,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_08.cs,"
    68 |         int? result = null;
    69 |         try
@@ -3382,7 +3382,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    87 |                 }
    88 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_09.cs,65,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_09.cs,"
    55 |         int? result = null;
    56 |         try
@@ -3406,7 +3406,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    74 |                 }
    75 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_10.cs,65,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_10.cs,"
    55 |         int? result = null;
    56 |         try
@@ -3430,7 +3430,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    74 |                 }
    75 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_11.cs,65,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_11.cs,"
    55 |         int? result = null;
    56 |         try
@@ -3454,7 +3454,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    74 |                 }
    75 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_12.cs,64,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_12.cs,"
    54 |         int? result = null;
    55 |         try
@@ -3478,7 +3478,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    73 |                 }
    74 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_13.cs,65,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_13.cs,"
    55 |         int? result = null;
    56 |         try
@@ -3502,7 +3502,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    74 |                 }
    75 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_14.cs,65,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_14.cs,"
    55 |         int? result = null;
    56 |         try
@@ -3526,7 +3526,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    74 |                 }
    75 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_15.cs,67,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_15.cs,"
    57 |         int? result = null;
    58 |         try
@@ -3550,7 +3550,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    76 |                 }
    77 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_16.cs,60,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_16.cs,"
    50 |         int? result = null;
    51 |         try
@@ -3574,7 +3574,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    69 |                 }
    70 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_17.cs,60,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_17.cs,"
    50 |         int? result = null;
    51 |         try
@@ -3598,7 +3598,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    69 |                 }
    70 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_31.cs,60,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_31.cs,"
    50 |         int? result = null;
    51 |         try
@@ -3622,7 +3622,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    69 |                 }
    70 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_42.cs,60,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteNonQuery_42.cs,"
    50 |         int? result = null;
    51 |         try
@@ -3646,7 +3646,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    69 |                 }
    70 |             }
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_01.cs,53,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_01.cs,"
    43 |
    44 | ry
@@ -3670,7 +3670,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    62 |
    63 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 9
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_02.cs,64,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_02.cs,"
    54 |
    55 | ry
@@ -3694,7 +3694,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    73 |
    74 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_03.cs,64,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_03.cs,"
    54 |
    55 | ry
@@ -3718,7 +3718,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    73 |
    74 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_04.cs,71,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_04.cs,"
    61 |
    62 | ry
@@ -3742,7 +3742,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    80 |
    81 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_05.cs,70,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_05.cs,"
    60 |
    61 | ry
@@ -3766,7 +3766,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    79 |
    80 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_06.cs,69,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_06.cs,"
    59 |
    60 | ry
@@ -3790,7 +3790,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    78 |
    79 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_07.cs,69,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_07.cs,"
    59 |
    60 | ry
@@ -3814,7 +3814,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    78 |
    79 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_08.cs,77,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_08.cs,"
    67 |
    68 | ry
@@ -3838,7 +3838,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    86 |
    87 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_09.cs,64,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_09.cs,"
    54 |
    55 | ry
@@ -3862,7 +3862,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    73 |
    74 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_10.cs,64,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_10.cs,"
    54 |
    55 | ry
@@ -3886,7 +3886,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    73 |
    74 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_11.cs,64,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_11.cs,"
    54 |
    55 | ry
@@ -3910,7 +3910,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    73 |
    74 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_12.cs,63,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_12.cs,"
    53 |
    54 | ry
@@ -3934,7 +3934,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    72 |
    73 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_13.cs,64,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_13.cs,"
    54 |
    55 | ry
@@ -3958,7 +3958,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    73 |
    74 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_14.cs,64,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_14.cs,"
    54 |
    55 | ry
@@ -3982,7 +3982,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    73 |
    74 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_15.cs,66,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_15.cs,"
    56 | 7:
    57 | ry
@@ -4006,7 +4006,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    75 |
    76 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_16.cs,59,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_16.cs,"
    49 |
    50 | ry
@@ -4030,7 +4030,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    68 |
    69 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_17.cs,59,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_17.cs,"
    49 |
    50 | ry
@@ -4054,7 +4054,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    68 |
    69 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_31.cs,59,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_31.cs,"
    49 | tring data = dataCopy;
    50 | ry
@@ -4078,7 +4078,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    68 |
    69 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_42.cs,59,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Get_Cookies_Web_ExecuteScalar_42.cs,"
    49 | tring data = BadSource(req, resp);
    50 | ry
@@ -4102,7 +4102,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_G
    68 |
    69 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 9
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_01.cs,90,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_01.cs,"
    80 |   {
    81 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4126,7 +4126,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
    99 |   finally
   100 |   {
       ^ Col 10
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_02.cs,101,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_02.cs,"
    91 |   {
    92 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4150,7 +4150,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   110 |   finally
   111 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_03.cs,101,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_03.cs,"
    91 |   {
    92 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4174,7 +4174,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   110 |   finally
   111 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_04.cs,108,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_04.cs,"
    98 |   {
    99 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4198,7 +4198,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   117 |   finally
   118 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_05.cs,107,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_05.cs,"
    97 |   {
    98 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4222,7 +4222,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   116 |   finally
   117 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_06.cs,106,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_06.cs,"
    96 |   {
    97 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4246,7 +4246,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   115 |   finally
   116 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_07.cs,106,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_07.cs,"
    96 |   {
    97 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4270,7 +4270,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   115 |   finally
   116 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_08.cs,114,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_08.cs,"
   104 |   {
   105 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4294,7 +4294,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   123 |   finally
   124 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_09.cs,101,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_09.cs,"
    91 |   {
    92 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4318,7 +4318,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   110 |   finally
   111 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_10.cs,101,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_10.cs,"
    91 |   {
    92 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4342,7 +4342,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   110 |   finally
   111 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_11.cs,101,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_11.cs,"
    91 |   {
    92 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4366,7 +4366,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   110 |   finally
   111 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_12.cs,100,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_12.cs,"
    90 |   {
    91 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4390,7 +4390,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   109 |   finally
   110 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_13.cs,101,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_13.cs,"
    91 |   {
    92 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4414,7 +4414,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   110 |   finally
   111 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_14.cs,101,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_14.cs,"
    91 |   {
    92 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4438,7 +4438,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   110 |   finally
   111 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_15.cs,103,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_15.cs,"
    93 |   {
    94 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4462,7 +4462,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   112 |   finally
   113 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_16.cs,96,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_16.cs,"
    86 |   {
    87 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4486,7 +4486,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   105 |   finally
   106 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_17.cs,96,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_17.cs,"
    86 |   {
    87 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4510,7 +4510,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   105 |   finally
   106 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_31.cs,96,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_31.cs,"
    86 |   {
    87 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4534,7 +4534,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   105 |   finally
   106 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_42.cs,96,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_CommandText_42.cs,"
    86 |   {
    87 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -4558,7 +4558,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   105 |   finally
   106 |   {
       ^ Col 10
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_01.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_01.cs,"
    74 |         int? result = null;
    75 |         try
@@ -4582,7 +4582,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
    93 |                 }
    94 |             }
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_02.cs,95,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_02.cs,"
    85 |         int? result = null;
    86 |         try
@@ -4606,7 +4606,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   104 |                 }
   105 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_03.cs,95,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_03.cs,"
    85 |         int? result = null;
    86 |         try
@@ -4630,7 +4630,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   104 |                 }
   105 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_04.cs,102,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_04.cs,"
    92 |         int? result = null;
    93 |         try
@@ -4654,7 +4654,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   111 |                 }
   112 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_05.cs,101,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_05.cs,"
    91 |         int? result = null;
    92 |         try
@@ -4678,7 +4678,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   110 |                 }
   111 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_06.cs,100,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_06.cs,"
    90 |         int? result = null;
    91 |         try
@@ -4702,7 +4702,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   109 |                 }
   110 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_07.cs,100,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_07.cs,"
    90 |         int? result = null;
    91 |         try
@@ -4726,7 +4726,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   109 |                 }
   110 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_08.cs,108,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_08.cs,"
    98 |         int? result = null;
    99 |         try
@@ -4750,7 +4750,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   117 |                 }
   118 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_09.cs,95,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_09.cs,"
    85 |         int? result = null;
    86 |         try
@@ -4774,7 +4774,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   104 |                 }
   105 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_10.cs,95,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_10.cs,"
    85 |         int? result = null;
    86 |         try
@@ -4798,7 +4798,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   104 |                 }
   105 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_11.cs,95,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_11.cs,"
    85 |         int? result = null;
    86 |         try
@@ -4822,7 +4822,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   104 |                 }
   105 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_12.cs,94,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_12.cs,"
    84 |         int? result = null;
    85 |         try
@@ -4846,7 +4846,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   103 |                 }
   104 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_13.cs,95,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_13.cs,"
    85 |         int? result = null;
    86 |         try
@@ -4870,7 +4870,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   104 |                 }
   105 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_14.cs,95,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_14.cs,"
    85 |         int? result = null;
    86 |         try
@@ -4894,7 +4894,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   104 |                 }
   105 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_15.cs,97,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_15.cs,"
    87 |         int? result = null;
    88 |         try
@@ -4918,7 +4918,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   106 |                 }
   107 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_16.cs,90,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_16.cs,"
    80 |         int? result = null;
    81 |         try
@@ -4942,7 +4942,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
    99 |                 }
   100 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_17.cs,90,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_17.cs,"
    80 |         int? result = null;
    81 |         try
@@ -4966,7 +4966,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
    99 |                 }
   100 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_31.cs,90,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_31.cs,"
    80 |         int? result = null;
    81 |         try
@@ -4990,7 +4990,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
    99 |                 }
   100 |             }
       ^ Col 4
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_42.cs,90,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteNonQuery_42.cs,"
    80 |         int? result = null;
    81 |         try
@@ -5014,7 +5014,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
    99 |                 }
   100 |             }
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_01.cs,83,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_01.cs,"
    73 |
    74 | ry
@@ -5038,7 +5038,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
    92 |
    93 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 9
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_02.cs,94,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_02.cs,"
    84 |
    85 | ry
@@ -5062,7 +5062,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   103 |
   104 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_03.cs,94,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_03.cs,"
    84 |
    85 | ry
@@ -5086,7 +5086,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   103 |
   104 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_04.cs,101,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_04.cs,"
    91 |
    92 | ry
@@ -5110,7 +5110,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   110 |
   111 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_05.cs,100,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_05.cs,"
    90 |
    91 | ry
@@ -5134,7 +5134,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   109 |
   110 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_06.cs,99,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_06.cs,"
    89 |
    90 | ry
@@ -5158,7 +5158,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   108 |
   109 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_07.cs,99,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_07.cs,"
    89 |
    90 | ry
@@ -5182,7 +5182,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   108 |
   109 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_08.cs,107,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_08.cs,"
    97 |
    98 | ry
@@ -5206,7 +5206,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   116 |
   117 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_09.cs,94,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_09.cs,"
    84 |
    85 | ry
@@ -5230,7 +5230,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   103 |
   104 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_10.cs,94,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_10.cs,"
    84 |
    85 | ry
@@ -5254,7 +5254,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   103 |
   104 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_11.cs,94,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_11.cs,"
    84 |
    85 | ry
@@ -5278,7 +5278,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   103 |
   104 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_12.cs,93,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_12.cs,"
    83 |
    84 | ry
@@ -5302,7 +5302,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   102 |
   103 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_13.cs,94,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_13.cs,"
    84 |
    85 | ry
@@ -5326,7 +5326,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   103 |
   104 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_14.cs,94,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_14.cs,"
    84 |
    85 | ry
@@ -5350,7 +5350,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   103 |
   104 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_15.cs,96,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_15.cs,"
    86 | 7:
    87 | ry
@@ -5374,7 +5374,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
   105 |
   106 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_16.cs,89,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_16.cs,"
    79 |
    80 | ry
@@ -5398,7 +5398,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
    98 |
    99 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_17.cs,89,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_17.cs,"
    79 |
    80 | ry
@@ -5422,7 +5422,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
    98 |
    99 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_31.cs,89,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_31.cs,"
    79 | tring data = dataCopy;
    80 | ry
@@ -5446,7 +5446,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
    98 |
    99 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 13
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_42.cs,89,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_Listen_tcp_ExecuteScalar_42.cs,"
    79 | tring data = BadSource(req, resp);
    80 | ry
@@ -5470,7 +5470,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_L
    98 |
    99 |    IO.Logger.Log(NLog.LogLevel.Warn, ""Error getting database connection"", exceptSql);
       ^ Col 9
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_01.cs,73,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_01.cs,"
    63 |   {
    64 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5494,7 +5494,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    82 |   finally
    83 |   {
       ^ Col 10
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_02.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_02.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5518,7 +5518,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_03.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_03.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5542,7 +5542,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_04.cs,91,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_04.cs,"
    81 |   {
    82 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5566,7 +5566,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
   100 |   finally
   101 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_05.cs,90,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_05.cs,"
    80 |   {
    81 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5590,7 +5590,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    99 |   finally
   100 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_06.cs,89,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_06.cs,"
    79 |   {
    80 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5614,7 +5614,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    98 |   finally
    99 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_07.cs,89,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_07.cs,"
    79 |   {
    80 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5638,7 +5638,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    98 |   finally
    99 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_08.cs,97,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_08.cs,"
    87 |   {
    88 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5662,7 +5662,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
   106 |   finally
   107 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_09.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_09.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5686,7 +5686,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_10.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_10.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5710,7 +5710,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_11.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_11.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5734,7 +5734,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_12.cs,83,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_12.cs,"
    73 |   {
    74 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5758,7 +5758,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    92 |   finally
    93 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_13.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_13.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5782,7 +5782,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_14.cs,84,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_14.cs,"
    74 |   {
    75 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5806,7 +5806,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    93 |   finally
    94 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_15.cs,86,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_15.cs,"
    76 |   {
    77 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5830,7 +5830,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    95 |   finally
    96 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_16.cs,79,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_16.cs,"
    69 |   {
    70 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5854,7 +5854,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    88 |   finally
    89 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_17.cs,79,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_17.cs,"
    69 |   {
    70 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5878,7 +5878,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    88 |   finally
    89 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_31.cs,79,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_31.cs,"
    69 |   {
    70 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5902,7 +5902,7 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    88 |   finally
    89 |   {
       ^ Col 14
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_42.cs,79,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_NetClient_CommandText_42.cs,"
    69 |   {
    70 |       using (SqlConnection dbConnection = IO.GetDBConnection())
@@ -5926,4 +5926,4 @@ F001,lines,NIST/src/testcases/CWE89_SQL_Injection/s01/CWE89_SQL_Injection__Web_N
    88 |   finally
    89 |   {
       ^ Col 10
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax

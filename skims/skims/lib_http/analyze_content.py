@@ -16,6 +16,9 @@ from model import (
 from model.core_model import (
     FindingEnum,
 )
+from pathlib import (
+    Path,
+)
 from types import (
     FrameType,
 )
@@ -75,9 +78,9 @@ def build_vulnerabilities(
     finding: core_model.FindingEnum,
     ctx: ContentCheckCtx,
 ) -> core_model.Vulnerabilities:
-    source_method = cast(
+    source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
-    ).f_code.co_name
+    ).f_code
     return tuple(
         core_model.Vulnerability(
             finding=finding,
@@ -98,7 +101,9 @@ def build_vulnerabilities(
                         line=location.line,
                     ),
                 ),
-                source_method=source_method,
+                source_method=(
+                    f"{Path(source.co_filename).stem}.{source.co_name}"
+                ),
             ),
         )
         for location in locations

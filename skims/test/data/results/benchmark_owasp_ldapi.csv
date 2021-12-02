@@ -23,7 +23,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.j
    78 |      ""LDAP query results:<br>""
    79 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java,60,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java","
   50 |
@@ -48,7 +48,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.j
   69 |
   70 | r>""
      ^ Col 51
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00044.java,63,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00044.java","
   53 |
@@ -73,7 +73,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00044.j
   72 |
   73 | r>""
      ^ Col 51
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00630.java,83,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00630.java","
    73 |   String base = ""ou=users,ou=system"";
@@ -98,7 +98,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00630.j
    92 |     response.getWriter().println(
    93 |      ""LDAP query results:<br>""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00694.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00694.java","
   54 |
@@ -123,7 +123,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00694.j
   73 |
   74 | r>""
      ^ Col 51
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00695.java,69,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00695.java","
    59 |
@@ -148,7 +148,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00695.j
    78 |
    79 | r>""
       ^ Col 51
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00947.java,76,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00947.java","
    66 |
@@ -173,7 +173,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00947.j
    85 |
    86 | r>""
       ^ Col 51
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00959.java,78,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00959.java","
    68 |   String base = ""ou=users,ou=system"";
@@ -198,7 +198,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00959.j
    87 |      ""LDAP query results:<br>""
    88 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01023.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01023.java","
    54 |
@@ -223,7 +223,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01023.j
    73 |
    74 | r>""
       ^ Col 51
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01241.java,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01241.java","
    51 |   String base = ""ou=users,ou=system"";
@@ -248,7 +248,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01241.j
    70 |      ""LDAP query results:<br>""
    71 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01242.java,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01242.java","
    51 |   String base = ""ou=users,ou=system"";
@@ -273,7 +273,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01242.j
    70 |      ""LDAP query results:<br>""
    71 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01243.java,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01243.java","
    51 |   String base = ""ou=users,ou=system"";
@@ -298,7 +298,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01243.j
    70 |     response.getWriter().println(
    71 |      ""LDAP query results:<br>""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01326.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01326.java","
    54 |
@@ -323,7 +323,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01326.j
    73 |
    74 | r>""
       ^ Col 51
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01490.java,60,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01490.java","
    50 |
@@ -348,7 +348,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01490.j
    69 |
    70 | r>""
       ^ Col 51
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01501.java,62,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01501.java","
    52 |   String base = ""ou=users,ou=system"";
@@ -373,7 +373,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01501.j
    71 |     response.getWriter().println(
    72 |      ""LDAP query results:<br>""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01568.java,62,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01568.java","
    52 |
@@ -398,7 +398,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01568.j
    71 |
    72 | r>""
       ^ Col 51
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01831.java,76,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01831.java","
    66 |
@@ -423,7 +423,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01831.j
    85 |
    86 | r>""
       ^ Col 51
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01832.java,76,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01832.java","
    66 |
@@ -448,7 +448,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01832.j
    85 |
    86 | r>""
       ^ Col 51
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01902.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01902.java","
    54 |
@@ -473,7 +473,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01902.j
    73 |
    74 | r>""
       ^ Col 51
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02036.java,68,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02036.java","
    58 |   String base = ""ou=users,ou=system"";
@@ -498,7 +498,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02036.j
    77 |      ""LDAP query results:<br>""
    78 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02037.java,68,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02037.java","
    58 |   String base = ""ou=users,ou=system"";
@@ -523,7 +523,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02037.j
    77 |      ""LDAP query results:<br>""
    78 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02196.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02196.java","
    54 |
@@ -548,7 +548,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02196.j
    73 |
    74 | r>""
       ^ Col 51
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02208.java,66,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02208.java","
    56 |   String base = ""ou=users,ou=system"";
@@ -573,7 +573,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02208.j
    75 |      ""LDAP query results:<br>""
    76 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02299.java,73,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02299.java","
    63 |
@@ -598,7 +598,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02299.j
    82 |
    83 | r>""
       ^ Col 51
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02305.java,75,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02305.java","
    65 |   String base = ""ou=users,ou=system"";
@@ -623,7 +623,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02305.j
    84 |      ""LDAP query results:<br>""
    85 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02306.java,75,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02306.java","
    65 |   String base = ""ou=users,ou=system"";
@@ -648,7 +648,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02306.j
    84 |     response.getWriter().println(
    85 |      ""LDAP query results:<br>""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02472.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02472.java","
    54 |   String base = ""ou=users,ou=system"";
@@ -673,4 +673,4 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02472.j
    73 |      ""LDAP query results:<br>""
    74 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax

@@ -22,7 +22,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.j
   62 | Incompatible UI for the InputStream source.""
   63 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00070.java,74,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00070.java,"
    64 |
    65 |
@@ -46,7 +46,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00070.j
    83 | Incompatible UI for the InputStream source.""
    84 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00071.java,74,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00071.java,"
    64 |
    65 |
@@ -70,7 +70,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00071.j
    83 | Incompatible UI for the InputStream source.""
    84 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00073.java,87,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00073.java,"
    77 |
    78 |
@@ -94,7 +94,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00073.j
    96 | Incompatible UI for the InputStream source.""
    97 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,"
    57 |  > 200 ? ""This should never happen"" : param;
    58 |
@@ -118,7 +118,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.j
    76 | o.InputStream) inputParam).read(strInput);
    77 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,"
    59 |
    60 |
@@ -142,7 +142,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.j
    78 | ter().println(
    79 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,"
    65 | "", ""another-Value""); // put some stuff in the collection
    66 | 3848.get(""keyB-13848""); // get it back out
@@ -166,7 +166,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.j
    84 | o.InputStream) inputParam).read(strInput);
    85 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,77,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,"
    67 |
    68 |
@@ -190,7 +190,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.j
    86 | ter().println(
    87 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,"
    58 | "", ""another-Value""); // put some stuff in the collection
    59 | 2712.get(""keyB-42712""); // get it back out
@@ -214,7 +214,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.j
    77 | o.InputStream) inputParam).read(strInput);
    78 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,"
    60 |
    61 |
@@ -238,7 +238,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.j
    79 | ter().println(
    80 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,"
    54 | z11795 = new StringBuilder(param);
    55 | 11795.append(""_SafeStuff"").toString();
@@ -262,7 +262,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.j
    73 | o.InputStream) inputParam).read(strInput);
    74 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,"
    56 |
    57 |
@@ -286,7 +286,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.j
    75 | ter().println(
    76 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00268.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00268.java,"
    54 |
    55 |
@@ -310,7 +310,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00268.j
    73 | Incompatible UI for the InputStream source.""
    74 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00269.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00269.java,"
    54 |
    55 |
@@ -334,7 +334,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00269.j
    73 | Incompatible UI for the InputStream source.""
    74 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00272.java,77,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00272.java,"
    67 |
    68 |
@@ -358,7 +358,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00272.j
    86 | Incompatible UI for the InputStream source.""
    87 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,55,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,"
   45 |
   46 | m bar = param;
@@ -382,7 +382,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.j
   64 | o.InputStream) inputParam).read(strInput);
   65 |
      ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,"
   47 |
   48 |
@@ -406,7 +406,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.j
   66 | ter().println(
   67 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
      ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00371.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00371.java,"
   47 |
   48 |
@@ -430,7 +430,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00371.j
   66 | Incompatible UI for the InputStream source.""
   67 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00372.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00372.java,"
   47 |
   48 |
@@ -454,7 +454,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00372.j
   66 | Incompatible UI for the InputStream source.""
   67 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,"
    61 | get(0); // get the param value
    62 |
@@ -478,7 +478,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.j
    80 | o.InputStream) inputParam).read(strInput);
    81 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,"
    63 |
    64 |
@@ -502,7 +502,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.j
    82 | ter().println(
    83 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00464.java,59,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00464.java,"
   49 |
   50 |
@@ -526,7 +526,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00464.j
   68 | Incompatible UI for the InputStream source.""
   69 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00465.java,59,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00465.java,"
   49 |
   50 |
@@ -550,7 +550,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00465.j
   68 | Incompatible UI for the InputStream source.""
   69 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,"
    65 | "", ""another-Value""); // put some stuff in the collection
    66 | 8098.get(""keyB-38098""); // get it back out
@@ -574,7 +574,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.j
    84 | o.InputStream) inputParam).read(strInput);
    85 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,77,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,"
    67 |
    68 |
@@ -598,7 +598,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.j
    86 | ter().println(
    87 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00532.java,78,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00532.java,"
    68 | 9""); // get it back out
    69 | gth()-1); // extract most of it
@@ -622,7 +622,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00532.j
    87 | Incompatible UI for the InputStream source.""
    88 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00533.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00533.java,"
    65 |
    66 |
@@ -646,7 +646,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00533.j
    84 | Incompatible UI for the InputStream source.""
    85 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00534.java,84,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00534.java,"
    74 |
    75 |
@@ -670,7 +670,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00534.j
    93 | Incompatible UI for the InputStream source.""
    94 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00536.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00536.java,"
    60 |
    61 |
@@ -694,7 +694,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00536.j
    79 | Incompatible UI for the InputStream source.""
    80 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00537.java,65,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00537.java,"
    55 |
    56 |
@@ -718,7 +718,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00537.j
    74 | Incompatible UI for the InputStream source.""
    75 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,58,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,"
    48 | z28895 = new StringBuilder(param);
    49 | 28895.append(""_SafeStuff"").toString();
@@ -742,7 +742,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.j
    67 | o.InputStream) inputParam).read(strInput);
    68 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,60,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,"
    50 |
    51 |
@@ -766,7 +766,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.j
    69 | ter().println(
    70 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00634.java,62,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00634.java,"
    52 |
    53 |
@@ -790,7 +790,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00634.j
    71 | Incompatible UI for the InputStream source.""
    72 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00635.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00635.java,"
   42 |
   43 | est scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
@@ -814,7 +814,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00635.j
   61 | Incompatible UI for the InputStream source.""
   62 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00636.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00636.java,"
   42 |
   43 | est scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
@@ -838,7 +838,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00636.j
   61 | Incompatible UI for the InputStream source.""
   62 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00637.java,58,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00637.java,"
   48 |
   49 |
@@ -862,7 +862,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00637.j
   67 | Incompatible UI for the InputStream source.""
   68 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,"
    59 | get(0); // get the param value
    60 |
@@ -886,7 +886,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.j
    78 | o.InputStream) inputParam).read(strInput);
    79 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,"
    61 |
    62 |
@@ -910,7 +910,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.j
    80 | ter().println(
    81 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,62,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,"
    52 | bstring(0,param.length()-1);
    53 |
@@ -934,7 +934,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.j
    71 | o.InputStream) inputParam).read(strInput);
    72 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,"
    54 |
    55 |
@@ -958,7 +958,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.j
    73 | ter().println(
    74 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00705.java,60,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00705.java,"
    50 |
    51 | ew java.util.HashMap<String,Object>();
@@ -982,7 +982,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00705.j
    69 | Incompatible UI for the InputStream source.""
    70 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00708.java,55,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00708.java,"
   45 |
   46 |
@@ -1006,7 +1006,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00708.j
   64 | Incompatible UI for the InputStream source.""
   65 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.java,"
    59 |
    60 |
@@ -1030,7 +1030,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.j
    78 | Incompatible UI for the InputStream source.""
    79 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00790.java,65,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00790.java,"
    55 |
    56 | amval.length(), ampersandLoc);
@@ -1054,7 +1054,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00790.j
    74 | Incompatible UI for the InputStream source.""
    75 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00794.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00794.java,"
    58 | F-8"");
    59 |
@@ -1078,7 +1078,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00794.j
    77 | Incompatible UI for the InputStream source.""
    78 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,"
    59 | k.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
    60 | .doSomething(f51118); // reflection
@@ -1102,7 +1102,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.j
    78 | o.InputStream) inputParam).read(strInput);
    79 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,"
    61 |
    62 |
@@ -1126,7 +1126,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.j
    80 | ter().println(
    81 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,"
    65 |
    66 |
@@ -1150,7 +1150,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.j
    84 | o.InputStream) inputParam).read(strInput);
    85 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,77,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,"
    67 |
    68 |
@@ -1174,7 +1174,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.j
    86 | ter().println(
    87 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00870.java,51,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00870.java,"
   41 | F-8"");
   42 |
@@ -1198,7 +1198,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00870.j
   60 | Incompatible UI for the InputStream source.""
   61 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00871.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00871.java,"
   46 |
   47 |
@@ -1222,7 +1222,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00871.j
   65 | Incompatible UI for the InputStream source.""
   66 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00872.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00872.java,"
   42 |
   43 | est scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
@@ -1246,7 +1246,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00872.j
   61 | Incompatible UI for the InputStream source.""
   62 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.java,"
    56 | st00961"")) {
    57 | ie.getValue(), ""UTF-8"");
@@ -1270,7 +1270,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.j
    75 | Incompatible UI for the InputStream source.""
    76 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00963.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00963.java,"
    56 | st00963"")) {
    57 | ie.getValue(), ""UTF-8"");
@@ -1294,7 +1294,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00963.j
    75 | Incompatible UI for the InputStream source.""
    76 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01038.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01038.java,"
    44 | = null) {
    45 | 8"");
@@ -1318,7 +1318,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01038.j
    63 | Incompatible UI for the InputStream source.""
    64 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.java,"
    53 | ()) {
    54 |
@@ -1342,7 +1342,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.j
    72 | Incompatible UI for the InputStream source.""
    73 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01165.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01165.java,"
    46 | s()) {
    47 | first element
@@ -1366,7 +1366,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01165.j
    65 | Incompatible UI for the InputStream source.""
    66 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01166.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01166.java,"
    46 | s()) {
    47 | first element
@@ -1390,7 +1390,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01166.j
    65 | Incompatible UI for the InputStream source.""
    66 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01167.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01167.java,"
    46 | s()) {
    47 | first element
@@ -1414,7 +1414,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01167.j
    65 | Incompatible UI for the InputStream source.""
    66 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,"
    44 |  param = """";
    45 |
@@ -1438,7 +1438,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.j
    63 | o.InputStream) inputParam).read(strInput);
    64 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,"
    46 | est().doSomething(request, param);
    47 |
@@ -1462,7 +1462,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.j
    65 | ter().println(
    66 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01246.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01246.java,"
    39 |
    40 |  HttpServletResponse response) throws ServletException, IOException {
@@ -1486,7 +1486,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01246.j
    58 | Incompatible UI for the InputStream source.""
    59 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01247.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01247.java,"
    39 |
    40 |  HttpServletResponse response) throws ServletException, IOException {
@@ -1510,7 +1510,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01247.j
    58 | Incompatible UI for the InputStream source.""
    59 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.java,"
    44 |
    45 |
@@ -1534,7 +1534,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.j
    63 | Incompatible UI for the InputStream source.""
    64 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01334.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01334.java,"
    44 |
    45 |
@@ -1558,7 +1558,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01334.j
    63 | Incompatible UI for the InputStream source.""
    64 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01411.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01411.java,"
    53 |
    54 |
@@ -1582,7 +1582,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01411.j
    72 | Incompatible UI for the InputStream source.""
    73 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,55,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,"
    45 |  param = """";
    46 |
@@ -1606,7 +1606,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.j
    64 | o.InputStream) inputParam).read(strInput);
    65 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,"
    47 | est().doSomething(request, param);
    48 |
@@ -1630,7 +1630,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.j
    66 | ter().println(
    67 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01504.java,50,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01504.java,"
    40 |  HttpServletResponse response) throws ServletException, IOException {
    41 | F-8"");
@@ -1654,7 +1654,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01504.j
    59 | Incompatible UI for the InputStream source.""
    60 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01577.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01577.java,"
    42 |
    43 | ""BenchmarkTest01577"");
@@ -1678,7 +1678,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01577.j
    61 | Incompatible UI for the InputStream source.""
    62 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.java,"
    53 |  of the query string and if so, trim off what comes after.
    54 | aramLoc);
@@ -1702,7 +1702,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.j
    72 | Incompatible UI for the InputStream source.""
    73 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01650.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01650.java,"
    53 |  of the query string and if so, trim off what comes after.
    54 | aramLoc);
@@ -1726,7 +1726,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01650.j
    72 | Incompatible UI for the InputStream source.""
    73 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01651.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01651.java,"
    53 |  of the query string and if so, trim off what comes after.
    54 | aramLoc);
@@ -1750,7 +1750,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01651.j
    72 | Incompatible UI for the InputStream source.""
    73 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01653.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01653.java,"
    53 |  of the query string and if so, trim off what comes after.
    54 | aramLoc);
@@ -1774,7 +1774,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01653.j
    72 | Incompatible UI for the InputStream source.""
    73 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,"
    44 | .getTheValue(""BenchmarkTest01757"");
    45 |
@@ -1798,7 +1798,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.j
    63 | o.InputStream) inputParam).read(strInput);
    64 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,"
    46 | est().doSomething(request, param);
    47 |
@@ -1822,7 +1822,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.j
    65 | ter().println(
    66 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01761.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01761.java,"
    39 |
    40 |  HttpServletResponse response) throws ServletException, IOException {
@@ -1846,7 +1846,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01761.j
    58 | Incompatible UI for the InputStream source.""
    59 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,"
    61 |
    62 |
@@ -1870,7 +1870,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.j
    80 | o.InputStream) inputParam).read(strInput);
    81 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,"
    63 | ething(request, param);
    64 |
@@ -1894,7 +1894,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.j
    82 | ter().println(
    83 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,"
    61 |
    62 |
@@ -1918,7 +1918,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.j
    80 | o.InputStream) inputParam).read(strInput);
    81 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,"
    63 | ething(request, param);
    64 |
@@ -1942,7 +1942,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.j
    82 | ter().println(
    83 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,"
    61 |
    62 |
@@ -1966,7 +1966,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.j
    80 | o.InputStream) inputParam).read(strInput);
    81 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,"
    63 | ething(request, param);
    64 |
@@ -1990,7 +1990,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.j
    82 | ter().println(
    83 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,59,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,"
    49 | RLDecoder.decode(param, ""UTF-8"");
    50 |
@@ -2014,7 +2014,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.j
    68 | o.InputStream) inputParam).read(strInput);
    69 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,61,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,"
    51 | ething(request, param);
    52 |
@@ -2038,7 +2038,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.j
    70 | ter().println(
    71 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.java,"
    46 | s()) {
    47 | first element
@@ -2062,7 +2062,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.j
    65 | Incompatible UI for the InputStream source.""
    66 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,"
    44 |  param = """";
    45 |
@@ -2086,7 +2086,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.j
    63 | o.InputStream) inputParam).read(strInput);
    64 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,"
    46 | ething(request, param);
    47 |
@@ -2110,7 +2110,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.j
    65 | ter().println(
    66 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.java,"
    44 |
    45 |
@@ -2134,7 +2134,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.j
    63 | Incompatible UI for the InputStream source.""
    64 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02212.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02212.java,"
    44 |
    45 |
@@ -2158,7 +2158,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02212.j
    63 | Incompatible UI for the InputStream source.""
    64 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02213.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02213.java,"
    44 |
    45 |
@@ -2182,7 +2182,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02213.j
    63 | Incompatible UI for the InputStream source.""
    64 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02217.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02217.java,"
    44 |
    45 |
@@ -2206,7 +2206,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02217.j
    63 | Incompatible UI for the InputStream source.""
    64 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,"
    58 |
    59 |
@@ -2230,7 +2230,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.j
    77 | o.InputStream) inputParam).read(strInput);
    78 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,"
    60 | ething(request, param);
    61 |
@@ -2254,7 +2254,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.j
    79 | ter().println(
    80 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02308.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02308.java,"
    53 |
    54 |
@@ -2278,7 +2278,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02308.j
    72 | Incompatible UI for the InputStream source.""
    73 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02311.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02311.java,"
    53 |
    54 |
@@ -2302,7 +2302,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02311.j
    72 | Incompatible UI for the InputStream source.""
    73 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,55,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,"
    45 |  param = """";
    46 |
@@ -2326,7 +2326,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.j
    64 | o.InputStream) inputParam).read(strInput);
    65 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,"
    47 | ething(request, param);
    48 |
@@ -2350,7 +2350,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.j
    66 | ter().println(
    67 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02386.java,50,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02386.java,"
    40 |  HttpServletResponse response) throws ServletException, IOException {
    41 | F-8"");
@@ -2374,7 +2374,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02386.j
    59 | Incompatible UI for the InputStream source.""
    60 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02387.java,50,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02387.java,"
   40 |  HttpServletResponse response) throws ServletException, IOException {
   41 | F-8"");
@@ -2398,7 +2398,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02387.j
   59 | Incompatible UI for the InputStream source.""
   60 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02388.java,50,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02388.java,"
    40 |  HttpServletResponse response) throws ServletException, IOException {
    41 | F-8"");
@@ -2422,7 +2422,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02388.j
    59 | Incompatible UI for the InputStream source.""
    60 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.java,"
    42 |
    43 | ""BenchmarkTest02474"");
@@ -2446,7 +2446,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.j
    61 | Incompatible UI for the InputStream source.""
    62 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02475.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02475.java,"
    42 |
    43 | ""BenchmarkTest02475"");
@@ -2470,7 +2470,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02475.j
    61 | Incompatible UI for the InputStream source.""
    62 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02476.java,52,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02476.java,"
   42 |
   43 | ""BenchmarkTest02476"");
@@ -2494,7 +2494,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02476.j
   61 | Incompatible UI for the InputStream source.""
   62 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.java,"
    53 |  of the query string and if so, trim off what comes after.
    54 | aramLoc);
@@ -2518,7 +2518,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.j
    72 | Incompatible UI for the InputStream source.""
    73 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02574.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02574.java,"
    53 |  of the query string and if so, trim off what comes after.
    54 | aramLoc);
@@ -2542,7 +2542,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02574.j
    72 | Incompatible UI for the InputStream source.""
    73 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02575.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02575.java,"
    53 |  of the query string and if so, trim off what comes after.
    54 | aramLoc);
@@ -2566,7 +2566,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02575.j
    72 | Incompatible UI for the InputStream source.""
    73 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,"
    44 | .getTheValue(""BenchmarkTest02670"");
    45 |
@@ -2590,7 +2590,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.j
    63 | o.InputStream) inputParam).read(strInput);
    64 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,"
    46 | ething(request, param);
    47 |
@@ -2614,7 +2614,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.j
    65 | ter().println(
    66 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,"
    44 | .getTheValue(""BenchmarkTest02671"");
    45 |
@@ -2638,7 +2638,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.j
    63 | o.InputStream) inputParam).read(strInput);
    64 |
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,"
    46 | ething(request, param);
    47 |
@@ -2662,7 +2662,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.j
    65 | ter().println(
    66 | equires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 20
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02674.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02674.java,"
    39 |
    40 |  HttpServletResponse response) throws ServletException, IOException {
@@ -2686,7 +2686,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02674.j
    58 | Incompatible UI for the InputStream source.""
    59 |
       ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02675.java,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02675.java,"
   39 |
   40 |  HttpServletResponse response) throws ServletException, IOException {
@@ -2710,7 +2710,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02675.j
   58 | Incompatible UI for the InputStream source.""
   59 |
      ^ Col 47
-",java_insecure_hash
+",java.java_insecure_hash
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00003.java,70,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00003.java","
    60 | eak;
@@ -2735,7 +2735,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00003.j
    79 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    80 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00029.java,58,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00029.java","
   48 | ng[] values = map.get(""BenchmarkTest00029"");
@@ -2760,7 +2760,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00029.j
   67 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   68 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.java,53,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.java","
   43 |
@@ -2785,7 +2785,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.j
   62 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   63 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00070.java,74,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00070.java","
    64 | g bar;
@@ -2810,7 +2810,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00070.j
    83 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    84 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00071.java,74,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00071.java","
    64 | g bar;
@@ -2835,7 +2835,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00071.j
    83 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    84 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00073.java,87,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00073.java","
    77 | e 'D':
@@ -2860,7 +2860,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00073.j
    96 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    97 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00074.java,76,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00074.java","
    66 | 790.put(""keyA-98790"", ""a-Value""); // put some stuff in the collection
@@ -2885,7 +2885,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00074.j
    85 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    86 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,67,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java","
    57 |   bar = (7*42) - num > 200 ? ""This should never happen"" : param;
@@ -2910,7 +2910,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.j
    76 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    77 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,69,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java","
    59 |
@@ -2935,7 +2935,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.j
    78 |      response.getWriter().println(
    79 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00143.java,78,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00143.java","
    68 | ault:
@@ -2960,7 +2960,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00143.j
    87 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    88 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,75,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java","
    65 |   map13848.put(""keyC"", ""another-Value""); // put some stuff in the collection
@@ -2985,7 +2985,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.j
    84 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    85 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,77,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java","
    67 |
@@ -3010,7 +3010,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.j
    86 |      response.getWriter().println(
    87 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00226.java,74,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00226.java","
    64 | 895.put(""keyB-56895"", param); // put it in a collection
@@ -3035,7 +3035,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00226.j
    83 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    84 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00227.java,82,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00227.java","
    72 | g f15913 = e15913.split("" "")[0]; // split it on a space
@@ -3060,7 +3060,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00227.j
    91 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    92 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,68,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java","
    58 |   map42712.put(""keyC"", ""another-Value""); // put some stuff in the collection
@@ -3085,7 +3085,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.j
    77 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    78 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,70,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java","
    60 |
@@ -3110,7 +3110,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.j
    79 |      response.getWriter().println(
    80 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,64,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java","
    54 |   StringBuilder sbxyz11795 = new StringBuilder(param);
@@ -3135,7 +3135,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.j
    73 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    74 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,66,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java","
    56 |
@@ -3160,7 +3160,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.j
    75 |      response.getWriter().println(
    76 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00268.java,64,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00268.java","
    54 | g bar;
@@ -3185,7 +3185,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00268.j
    73 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    74 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00269.java,64,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00269.java","
    54 | g bar;
@@ -3210,7 +3210,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00269.j
    73 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    74 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00272.java,77,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00272.java","
    67 | e 'D':
@@ -3235,7 +3235,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00272.j
    86 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    87 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00273.java,71,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00273.java","
    61 | esList.remove(0); // remove the 1st safe value
@@ -3260,7 +3260,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00273.j
    80 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    81 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00274.java,61,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00274.java","
   51 |  = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -3285,7 +3285,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00274.j
   70 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   71 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,55,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java","
   45 |
@@ -3310,7 +3310,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.j
   64 |     int i = ((java.io.InputStream) inputParam).read(strInput);
   65 |     if (i == -1) {
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,57,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java","
   47 |
@@ -3335,7 +3335,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.j
   66 |      response.getWriter().println(
   67 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00371.java,57,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00371.java","
   47 | g bar;
@@ -3360,7 +3360,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00371.j
   66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   67 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00372.java,57,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00372.java","
   47 | g bar;
@@ -3385,7 +3385,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00372.j
   66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   67 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00374.java,55,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00374.java","
   45 |
@@ -3410,7 +3410,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00374.j
   64 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   65 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,71,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java","
    61 |    bar = valuesList.get(0); // get the param value
@@ -3435,7 +3435,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.j
    80 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    81 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,73,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java","
    63 |
@@ -3460,7 +3460,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.j
    82 |      response.getWriter().println(
    83 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00464.java,59,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00464.java","
   49 |
@@ -3485,7 +3485,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00464.j
   68 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   69 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00465.java,59,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00465.java","
   49 |
@@ -3510,7 +3510,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00465.j
   68 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   69 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,75,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java","
    65 |   map38098.put(""keyC"", ""another-Value""); // put some stuff in the collection
@@ -3535,7 +3535,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.j
    84 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    85 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,77,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java","
    67 |
@@ -3560,7 +3560,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.j
    86 |      response.getWriter().println(
    87 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00532.java,78,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00532.java","
    68 | g c25409 = (String)map25409.get(""key25409""); // get it back out
@@ -3585,7 +3585,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00532.j
    87 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    88 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00533.java,75,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00533.java","
    65 | esList.add( param );
@@ -3610,7 +3610,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00533.j
    84 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    85 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00534.java,84,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00534.java","
    74 | e 'D':
@@ -3635,7 +3635,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00534.j
    93 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    94 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00536.java,70,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00536.java","
    60 |
@@ -3660,7 +3660,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00536.j
    79 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    80 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00537.java,65,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00537.java","
    55 |
@@ -3685,7 +3685,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00537.j
    74 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    75 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,58,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java","
    48 |   StringBuilder sbxyz28895 = new StringBuilder(param);
@@ -3710,7 +3710,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.j
    67 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    68 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,60,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java","
    50 |
@@ -3735,7 +3735,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.j
    69 |      response.getWriter().println(
    70 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00634.java,62,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00634.java","
    52 | esList.add( param );
@@ -3760,7 +3760,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00634.j
    71 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    72 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00635.java,52,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00635.java","
   42 |
@@ -3785,7 +3785,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00635.j
   61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   62 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00636.java,52,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00636.java","
   42 |
@@ -3810,7 +3810,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00636.j
   61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   62 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00637.java,58,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00637.java","
   48 | g bar;
@@ -3835,7 +3835,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00637.j
   67 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   68 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00638.java,55,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00638.java","
   45 | aram == null) param = """";
@@ -3860,7 +3860,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00638.j
   64 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   65 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,69,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java","
    59 |    bar = valuesList.get(0); // get the param value
@@ -3885,7 +3885,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.j
    78 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    79 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,71,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java","
    61 |
@@ -3910,7 +3910,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.j
    80 |      response.getWriter().println(
    81 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,62,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java","
    52 |       bar = param.substring(0,param.length()-1);
@@ -3935,7 +3935,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.j
    71 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    72 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,64,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java","
    54 |
@@ -3960,7 +3960,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.j
    73 |      response.getWriter().println(
    74 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00705.java,60,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00705.java","
    50 | g bar = ""safe!"";
@@ -3985,7 +3985,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00705.j
    69 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    70 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00708.java,55,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00708.java","
   45 | alues != null && values.length > 0)
@@ -4010,7 +4010,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00708.j
   64 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   65 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00710.java,57,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00710.java","
   47 | param = """";
@@ -4035,7 +4035,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00710.j
   66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   67 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.java,69,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.java","
    59 |
@@ -4060,7 +4060,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.j
    78 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    79 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00790.java,65,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00790.java","
    55 | mpersandLoc != -1) {
@@ -4085,7 +4085,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00790.j
    74 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    75 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00794.java,68,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00794.java","
    58 |  = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -4110,7 +4110,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00794.j
    77 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    78 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00796.java,73,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00796.java","
    63 | 213.put(""keyA-72213"", ""a-Value""); // put some stuff in the collection
@@ -4135,7 +4135,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00796.j
    82 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    83 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00797.java,72,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00797.java","
    62 | aram != null && param.length() > 1) {
@@ -4160,7 +4160,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00797.j
    81 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    82 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,69,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java","
    59 |   org.owasp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
@@ -4185,7 +4185,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.j
    78 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    79 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,71,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java","
    61 |
@@ -4210,7 +4210,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.j
    80 |      response.getWriter().println(
    81 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,75,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java","
    65 |           break;
@@ -4235,7 +4235,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.j
    84 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    85 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,77,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java","
    67 |
@@ -4260,7 +4260,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.j
    86 |      response.getWriter().println(
    87 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00870.java,51,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00870.java","
   41 | nse.setContentType(""text/html;charset=UTF-8"");
@@ -4285,7 +4285,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00870.j
   60 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   61 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00871.java,56,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00871.java","
   46 |
@@ -4310,7 +4310,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00871.j
   65 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   66 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00872.java,52,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00872.java","
   42 |
@@ -4335,7 +4335,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00872.j
   61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   62 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00875.java,64,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00875.java","
    54 | esList.remove(0); // remove the 1st safe value
@@ -4360,7 +4360,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00875.j
    73 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    74 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00876.java,60,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00876.java","
   50 | um = 106;
@@ -4385,7 +4385,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00876.j
   69 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   70 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.java,66,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.java","
    56 | (theCookie.getName().equals(""BenchmarkTest00961"")) {
@@ -4410,7 +4410,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.j
    75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    76 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00963.java,66,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00963.java","
    56 | (theCookie.getName().equals(""BenchmarkTest00963"")) {
@@ -4435,7 +4435,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00963.j
    75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    76 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01038.java,54,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01038.java","
    44 | equest.getHeader(""BenchmarkTest01038"") != null) {
@@ -4460,7 +4460,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01038.j
    63 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    64 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01041.java,57,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01041.java","
    47 |
@@ -4485,7 +4485,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01041.j
    66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    67 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01042.java,57,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01042.java","
    47 |
@@ -4510,7 +4510,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01042.j
    66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    67 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01043.java,57,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01043.java","
    47 |
@@ -4535,7 +4535,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01043.j
    66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    67 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01044.java,57,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01044.java","
    47 |
@@ -4560,7 +4560,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01044.j
    66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    67 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.java,63,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.java","
    53 | values != null && values.hasMoreElements()) {
@@ -4585,7 +4585,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.j
    72 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    73 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01124.java,66,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01124.java","
    56 |
@@ -4610,7 +4610,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01124.j
    75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    76 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01165.java,56,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01165.java","
    46 | eaders != null && headers.hasMoreElements()) {
@@ -4635,7 +4635,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01165.j
    65 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    66 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01166.java,56,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01166.java","
    46 | eaders != null && headers.hasMoreElements()) {
@@ -4660,7 +4660,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01166.j
    65 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    66 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01167.java,56,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01167.java","
    46 | eaders != null && headers.hasMoreElements()) {
@@ -4685,7 +4685,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01167.j
    65 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    66 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01168.java,59,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01168.java","
    49 |
@@ -4710,7 +4710,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01168.j
    68 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    69 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,54,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java","
    44 |   if (param == null) param = """";
@@ -4735,7 +4735,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.j
    63 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    64 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,56,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java","
    46 |   String bar = new Test().doSomething(request, param);
@@ -4760,7 +4760,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.j
    65 |      response.getWriter().println(
    66 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01246.java,49,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01246.java","
    39 | ide
@@ -4785,7 +4785,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01246.j
    58 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    59 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01247.java,49,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01247.java","
    39 | ide
@@ -4810,7 +4810,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01247.j
    58 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    59 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01248.java,52,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01248.java","
    42 |
@@ -4835,7 +4835,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01248.j
    61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    62 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.java,54,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.java","
    44 | g param = """";
@@ -4860,7 +4860,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.j
    63 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    64 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01334.java,54,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01334.java","
    44 | g param = """";
@@ -4885,7 +4885,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01334.j
    63 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    64 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01411.java,63,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01411.java","
    53 | aram = name;
@@ -4910,7 +4910,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01411.j
    72 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    73 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01414.java,66,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01414.java","
    56 |
@@ -4935,7 +4935,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01414.j
    75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    76 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01415.java,66,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01415.java","
    56 |
@@ -4960,7 +4960,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01415.j
    75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    76 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01416.java,66,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01416.java","
    56 |
@@ -4985,7 +4985,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01416.j
    75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    76 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,55,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java","
    45 |   if (param == null) param = """";
@@ -5010,7 +5010,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.j
    64 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    65 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,57,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java","
    47 |   String bar = new Test().doSomething(request, param);
@@ -5035,7 +5035,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.j
    66 |      response.getWriter().println(
    67 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01504.java,50,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01504.java","
    40 |  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -5060,7 +5060,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01504.j
    59 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    60 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01577.java,52,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01577.java","
    42 |
@@ -5085,7 +5085,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01577.j
    61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    62 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01579.java,55,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01579.java","
    45 | alues != null && values.length > 0)
@@ -5110,7 +5110,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01579.j
    64 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    65 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01580.java,55,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01580.java","
    45 | alues != null && values.length > 0)
@@ -5135,7 +5135,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01580.j
    64 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    65 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.java,63,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.java","
    53 | d then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -5160,7 +5160,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.j
    72 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    73 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01650.java,63,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01650.java","
    53 | d then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -5185,7 +5185,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01650.j
    72 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    73 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01651.java,63,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01651.java","
    53 | d then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -5210,7 +5210,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01651.j
    72 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    73 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01653.java,63,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01653.java","
    53 | d then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -5235,7 +5235,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01653.j
    72 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    73 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01654.java,66,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01654.java","
    56 | m = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
@@ -5260,7 +5260,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01654.j
    75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    76 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,54,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java","
    44 |   String param = scr.getTheValue(""BenchmarkTest01757"");
@@ -5285,7 +5285,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.j
    63 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    64 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,56,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java","
    46 |   String bar = new Test().doSomething(request, param);
@@ -5310,7 +5310,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.j
    65 |      response.getWriter().println(
    66 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01761.java,49,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01761.java","
    39 | ide
@@ -5335,7 +5335,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01761.j
    58 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    59 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01765.java,52,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01765.java","
    42 |
@@ -5360,7 +5360,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01765.j
    61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    62 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01766.java,52,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01766.java","
    42 |
@@ -5385,7 +5385,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01766.j
    61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    62 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,71,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java","
    61 |   }
@@ -5410,7 +5410,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.j
    80 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    81 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,73,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java","
    63 |   String bar = doSomething(request, param);
@@ -5435,7 +5435,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.j
    82 |      response.getWriter().println(
    83 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,71,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java","
    61 |   }
@@ -5460,7 +5460,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.j
    80 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    81 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,73,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java","
    63 |   String bar = doSomething(request, param);
@@ -5485,7 +5485,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.j
    82 |      response.getWriter().println(
    83 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,71,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java","
    61 |   }
@@ -5510,7 +5510,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.j
    80 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    81 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,73,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java","
    63 |   String bar = doSomething(request, param);
@@ -5535,7 +5535,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.j
    82 |      response.getWriter().println(
    83 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,59,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java","
    49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -5560,7 +5560,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.j
    68 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    69 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,61,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java","
    51 |   String bar = doSomething(request, param);
@@ -5585,7 +5585,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.j
    70 |      response.getWriter().println(
    71 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01996.java,66,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01996.java","
    56 |
@@ -5610,7 +5610,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01996.j
    75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    76 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01997.java,66,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01997.java","
    56 |
@@ -5635,7 +5635,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01997.j
    75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    76 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.java,56,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.java","
    46 | eaders != null && headers.hasMoreElements()) {
@@ -5660,7 +5660,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.j
    65 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    66 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,54,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java","
    44 |   if (param == null) param = """";
@@ -5685,7 +5685,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.j
    63 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    64 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,56,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java","
    46 |   String bar = doSomething(request, param);
@@ -5710,7 +5710,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.j
    65 |      response.getWriter().println(
    66 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02121.java,52,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02121.java","
    42 |
@@ -5735,7 +5735,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02121.j
    61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    62 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.java,54,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.java","
    44 | g param = """";
@@ -5760,7 +5760,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.j
    63 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    64 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02212.java,54,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02212.java","
    44 | g param = """";
@@ -5785,7 +5785,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02212.j
    63 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    64 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02213.java,54,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02213.java","
    44 | g param = """";
@@ -5810,7 +5810,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02213.j
    63 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    64 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02217.java,54,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02217.java","
    44 | g param = """";
@@ -5835,7 +5835,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02217.j
    63 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    64 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02219.java,57,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02219.java","
    47 | values != null) param = values[0];
@@ -5860,7 +5860,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02219.j
    66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    67 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,68,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java","
    58 |   }
@@ -5885,7 +5885,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.j
    77 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    78 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,70,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java","
    60 |   String bar = doSomething(request, param);
@@ -5910,7 +5910,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.j
    79 |      response.getWriter().println(
    80 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02308.java,63,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02308.java","
    53 | aram = name;
@@ -5935,7 +5935,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02308.j
    72 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    73 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02311.java,63,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02311.java","
    53 | aram = name;
@@ -5960,7 +5960,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02311.j
    72 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    73 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,55,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java","
    45 |   if (param == null) param = """";
@@ -5985,7 +5985,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.j
    64 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    65 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,57,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java","
    47 |   String bar = doSomething(request, param);
@@ -6010,7 +6010,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.j
    66 |      response.getWriter().println(
    67 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02386.java,50,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02386.java","
    40 |  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -6035,7 +6035,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02386.j
    59 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    60 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02387.java,50,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02387.java","
   40 |  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -6060,7 +6060,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02387.j
   59 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   60 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02388.java,50,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02388.java","
    40 |  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -6085,7 +6085,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02388.j
    59 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    60 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02391.java,53,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02391.java","
   43 | wasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
@@ -6110,7 +6110,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02391.j
   62 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   63 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02392.java,53,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02392.java","
    43 | wasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
@@ -6135,7 +6135,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02392.j
    62 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    63 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02393.java,53,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02393.java","
    43 | wasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
@@ -6160,7 +6160,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02393.j
    62 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    63 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.java,52,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.java","
    42 |
@@ -6185,7 +6185,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.j
    61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    62 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02475.java,52,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02475.java","
    42 |
@@ -6210,7 +6210,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02475.j
    61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    62 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02476.java,52,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02476.java","
   42 |
@@ -6235,7 +6235,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02476.j
   61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   62 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02478.java,55,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02478.java","
    45 | alues != null && values.length > 0)
@@ -6260,7 +6260,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02478.j
    64 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    65 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.java,63,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.java","
    53 | d then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -6285,7 +6285,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.j
    72 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    73 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02574.java,63,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02574.java","
    53 | d then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -6310,7 +6310,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02574.j
    72 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    73 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02575.java,63,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02575.java","
    53 | d then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -6335,7 +6335,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02575.j
    72 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    73 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02577.java,66,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02577.java","
    56 | m = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
@@ -6360,7 +6360,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02577.j
    75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    76 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,54,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java","
    44 |   String param = scr.getTheValue(""BenchmarkTest02670"");
@@ -6385,7 +6385,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.j
    63 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    64 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,56,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java","
    46 |   String bar = doSomething(request, param);
@@ -6410,7 +6410,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.j
    65 |      response.getWriter().println(
    66 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,54,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java","
    44 |   String param = scr.getTheValue(""BenchmarkTest02671"");
@@ -6435,7 +6435,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.j
    63 |     int i = ((java.io.InputStream) inputParam).read(strInput);
    64 |     if (i == -1) {
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,56,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java","
    46 |   String bar = doSomething(request, param);
@@ -6460,7 +6460,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.j
    65 |      response.getWriter().println(
    66 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02674.java,49,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02674.java","
    39 | ide
@@ -6485,7 +6485,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02674.j
    58 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    59 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02675.java,49,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02675.java","
   39 | ide
@@ -6510,7 +6510,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02675.j
   58 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   59 |
      ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02677.java,52,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02677.java","
    42 |
@@ -6535,4 +6535,4 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02677.j
    61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    62 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax

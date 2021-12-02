@@ -26,6 +26,9 @@ from model import (
 from multidict import (
     MultiDict,
 )
+from pathlib import (
+    Path,
+)
 from types import (
     FrameType,
 )
@@ -81,9 +84,9 @@ def _create_vulns(
     header: Optional[Header],
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
-    source_method = cast(
+    source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
-    ).f_code.co_name
+    ).f_code
     return tuple(
         core_model.Vulnerability(
             finding=finding,
@@ -103,7 +106,9 @@ def _create_vulns(
                     value=location.identifier,
                     headers=ctx.url_ctx.headers_raw,
                 ),
-                source_method=source_method,
+                source_method=(
+                    f"{Path(source.co_filename).stem}.{source.co_name}"
+                ),
             ),
         )
         for location in locations.locations

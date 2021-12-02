@@ -21,7 +21,7 @@ F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciph
   19 | ------------------------------Conclusion-------------------------------
   20 | server accepts connections with weak ciphers
      ^ Col 0
-",_weak_ciphers_allowed
+",analyze_protocol._weak_ciphers_allowed
 F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciphers,310,"home,socket-send,socket-response",052. Insecure encryption algorithm,server accepts connections with weak ciphers,"
    1 | Server: localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1
@@ -44,7 +44,7 @@ F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciph
   19 | ------------------------------Conclusion-------------------------------
   20 | server accepts connections with weak ciphers
      ^ Col 0
-",_weak_ciphers_allowed
+",analyze_protocol._weak_ciphers_allowed
 F133,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
    1 | Server: localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1
@@ -66,7 +66,7 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
   18 | ------------------------------Conclusion-------------------------------
   19 | server refuses connections with PFS support
      ^ Col 0
-",_pfs_disabled
+",analyze_protocol._pfs_disabled
 F133,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
    1 | Server: localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1
@@ -88,7 +88,7 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
   18 | ------------------------------Conclusion-------------------------------
   19 | server refuses connections with PFS support
      ^ Col 0
-",_pfs_disabled
+",analyze_protocol._pfs_disabled
 F016,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.0,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,server accepts connections with TLSv1.0,"
    1 | Server: localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1
@@ -111,7 +111,7 @@ F016,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.0,3
   19 | ------------------------------Conclusion-------------------------------
   20 | server accepts connections with TLSv1.0
      ^ Col 0
-",_tlsv1_enabled
+",analyze_protocol._tlsv1_enabled
 F016,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.1,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,server accepts connections with TLSv1.1,"
    1 | Server: localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1
@@ -134,7 +134,7 @@ F016,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.1,3
   19 | ------------------------------Conclusion-------------------------------
   20 | server accepts connections with TLSv1.1
      ^ Col 0
-",_tlsv1_1_enabled
+",analyze_protocol._tlsv1_1_enabled
 F016,inputs,localhost:4446 (namespace),server refuses connections with TLSv1.2 or TLSv1.3,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,server refuses connections with TLSv1.2 or TLSv1.3,"
    1 | Server: localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1
@@ -152,7 +152,7 @@ F016,inputs,localhost:4446 (namespace),server refuses connections with TLSv1.2 o
   14 | ------------------------------Conclusion-------------------------------
   15 | server refuses connections with TLSv1.2 or TLSv1.3
      ^ Col 0
-",_tlsv1_2_or_higher_disabled
+",analyze_protocol._tlsv1_2_or_higher_disabled
 F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers that supports CBC,757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,server accepts connections with ciphers that supports CBC,"
    1 | Server: localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1
@@ -175,7 +175,7 @@ F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers t
   19 | ------------------------------Conclusion-------------------------------
   20 | server accepts connections with ciphers that supports CBC
      ^ Col 0
-",_cbc_enabled
+",analyze_protocol._cbc_enabled
 F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers that supports CBC,757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,server accepts connections with ciphers that supports CBC,"
    1 | Server: localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1
@@ -198,4 +198,4 @@ F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers t
   19 | ------------------------------Conclusion-------------------------------
   20 | server accepts connections with ciphers that supports CBC
      ^ Col 0
-",_cbc_enabled
+",analyze_protocol._cbc_enabled

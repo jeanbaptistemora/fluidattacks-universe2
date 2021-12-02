@@ -33,6 +33,9 @@ from metaloaders.model import (
 from model import (
     core_model,
 )
+from pathlib import (
+    Path,
+)
 from pyparsing import (
     alphanums,
     alphas,
@@ -138,9 +141,9 @@ def get_vulnerabilities_blocking(
     path: str,
     wrap: bool = False,
 ) -> core_model.Vulnerabilities:
-    source_method = cast(
+    source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
-    ).f_code.co_name
+    ).f_code
     results: core_model.Vulnerabilities = tuple(
         core_model.Vulnerability(
             finding=finding,
@@ -161,7 +164,9 @@ def get_vulnerabilities_blocking(
                         wrap=wrap,
                     ),
                 ),
-                source_method=source_method,
+                source_method=(
+                    f"{Path(source.co_filename).stem}.{source.co_name}"
+                ),
             ),
         )
         for match in get_matching_lines_blocking(
@@ -181,9 +186,9 @@ def get_vulnerabilities_from_iterator_blocking(
     iterator: Iterator[Tuple[int, int]],
     path: str,
 ) -> core_model.Vulnerabilities:
-    source_method = cast(
+    source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
-    ).f_code.co_name
+    ).f_code
     results: core_model.Vulnerabilities = tuple(
         core_model.Vulnerability(
             finding=finding,
@@ -200,7 +205,9 @@ def get_vulnerabilities_from_iterator_blocking(
                     content=content,
                     viewport=SnippetViewport(column=column_no, line=line_no),
                 ),
-                source_method=source_method,
+                source_method=(
+                    f"{Path(source.co_filename).stem}.{source.co_name}"
+                ),
             ),
         )
         for line_no, column_no in iterator
@@ -265,9 +272,9 @@ def translate_dependencies_to_vulnerabilities(
     path: str,
     platform: core_model.Platform,
 ) -> core_model.Vulnerabilities:
-    source_method = cast(
+    source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
-    ).f_code.co_name
+    ).f_code
     results: core_model.Vulnerabilities = tuple(
         core_model.Vulnerability(
             finding=finding,
@@ -300,7 +307,9 @@ def translate_dependencies_to_vulnerabilities(
                         line=product["line"],
                     ),
                 ),
-                source_method=source_method,
+                source_method=(
+                    f"{Path(source.co_filename).stem}.{source.co_name}"
+                ),
             ),
         )
         for product, version in dependencies

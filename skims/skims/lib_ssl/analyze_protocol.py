@@ -37,6 +37,9 @@ from lib_ssl.types import (
 from model import (
     core_model,
 )
+from pathlib import (
+    Path,
+)
 from types import (
     FrameType,
 )
@@ -90,9 +93,9 @@ def tls_connect(
 def _create_core_vulns(
     ssl_vulnerabilities: List[SSLVulnerability],
 ) -> core_model.Vulnerabilities:
-    source_method = cast(
+    source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
-    ).f_code.co_name
+    ).f_code
     return tuple(
         core_model.Vulnerability(
             finding=ssl_vulnerability.finding,
@@ -109,7 +112,9 @@ def _create_core_vulns(
                     locale=CTX.config.language,
                     ssl_vulnerability=ssl_vulnerability,
                 ),
-                source_method=source_method,
+                source_method=(
+                    f"{Path(source.co_filename).stem}.{source.co_name}"
+                ),
             ),
         )
         for ssl_vulnerability in ssl_vulnerabilities

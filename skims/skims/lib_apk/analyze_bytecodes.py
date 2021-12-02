@@ -20,6 +20,9 @@ from model import (
 from operator import (
     attrgetter,
 )
+from pathlib import (
+    Path,
+)
 import textwrap
 from types import (
     FrameType,
@@ -78,9 +81,9 @@ def _create_vulns(
     finding: core_model.FindingEnum,
     locations: Locations,
 ) -> core_model.Vulnerabilities:
-    source_method = cast(
+    source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
-    ).f_code.co_name
+    ).f_code
     return tuple(
         core_model.Vulnerability(
             finding=finding,
@@ -94,7 +97,9 @@ def _create_vulns(
                 cwe=(finding.value.cwe,),
                 description=location.description,
                 snippet=location.snippet,
-                source_method=source_method,
+                source_method=(
+                    f"{Path(source.co_filename).stem}.{source.co_name}"
+                ),
             ),
         )
         for location in locations.locations

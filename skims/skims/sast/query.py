@@ -7,6 +7,9 @@ from model import (
     graph_model,
 )
 import os
+from pathlib import (
+    Path,
+)
 from sast_symbolic_evaluation.evaluate import (
     get_all_possible_syntax_steps,
     get_possible_syntax_steps_for_finding,
@@ -93,9 +96,9 @@ def get_vulnerabilities_from_n_ids(
     finding: core_model.FindingEnum,
     graph_shard_nodes: graph_model.GraphShardNodes,
 ) -> core_model.Vulnerabilities:
-    source_method = cast(
+    source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
-    ).f_code.co_name
+    ).f_code
     return tuple(
         get_vulnerability_from_n_id(
             cwe=cwe,
@@ -104,7 +107,9 @@ def get_vulnerabilities_from_n_ids(
             finding=finding,
             graph_shard=graph_shard,
             n_id=n_id,
-            source_method=source_method,
+            source_method=(
+                f"{Path(source.co_filename).stem}.{source.co_name}"
+            ),
         )
         for graph_shard, n_id in graph_shard_nodes
     )

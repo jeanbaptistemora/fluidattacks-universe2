@@ -23,7 +23,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00013.j
   60 |
   61 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00014.java,58,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00014.java","
   41 |   // some code
@@ -48,7 +48,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00014.j
   60 |
   61 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00030.java,56,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00030.java","
   39 |  @Override
@@ -73,7 +73,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00030.j
   58 |
   59 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00036.java,67,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00036.java","
   51 |    if (values != null) {
@@ -98,7 +98,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00036.j
   70 |
   71 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00041.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00041.java","
   38 |
@@ -123,7 +123,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00041.j
   57 |
   58 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00047.java,65,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00047.java","
   48 |   if (queryString != null) paramLoc = queryString.indexOf(paramval);
@@ -148,7 +148,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00047.j
   67 |
   68 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00048.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00048.java","
   47 |   int paramLoc = -1;
@@ -173,7 +173,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00048.j
   66 |
   67 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00049.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00049.java","
   47 |   int paramLoc = -1;
@@ -198,7 +198,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00049.j
   66 |
   67 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00144.java,67,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00144.java","
   50 |
@@ -223,7 +223,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00144.j
   69 |
   70 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00145.java,62,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00145.java","
   45 |    param = request.getHeader(""Referer"");
@@ -248,7 +248,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00145.j
   64 |
   65 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00146.java,61,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00146.java","
   44 |   if (request.getHeader(""Referer"") != null) {
@@ -273,7 +273,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00146.j
   63 |
   64 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00148.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00148.java","
   46 |   }
@@ -298,7 +298,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00148.j
   65 |
   66 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00149.java,58,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00149.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -323,7 +323,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00149.j
   60 |
   61 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00150.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00150.java","
   46 |   }
@@ -348,7 +348,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00150.j
   65 |
   66 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00152.java,75,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00152.java","
   58 |     case 'A':
@@ -373,7 +373,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00152.j
   77 |
   78 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00153.java,61,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00153.java","
   44 |   if (request.getHeader(""Referer"") != null) {
@@ -398,7 +398,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00153.j
   63 |
   64 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00154.java,75,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00154.java","
   58 |     case 'A':
@@ -423,7 +423,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00154.j
   77 |
   78 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00155.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00155.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -448,7 +448,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00155.j
   59 |
   60 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00156.java,66,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00156.java","
   49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -473,7 +473,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00156.j
   68 |
   69 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00157.java,62,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00157.java","
   45 |    param = request.getHeader(""Referer"");
@@ -498,7 +498,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00157.j
   64 |
   65 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00276.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00276.java","
   47 |    param = headers.nextElement(); // just grab first element
@@ -523,7 +523,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00276.j
   66 |
   67 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00279.java,68,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00279.java","
   51 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -548,7 +548,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00279.j
   70 |
   71 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00280.java,77,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00280.java","
   60 |     case 'A':
@@ -573,7 +573,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00280.j
   79 |
   80 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00284.java,58,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00284.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -598,7 +598,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00284.j
   60 |
   61 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00287.java,61,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00287.java","
   45 |
@@ -623,7 +623,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00287.j
   64 |
   65 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00290.java,59,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00290.java","
   42 |
@@ -648,7 +648,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00290.j
   61 |
   62 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00291.java,61,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00291.java","
   44 |   java.util.Enumeration<String> headers = request.getHeaders(""Referer"");
@@ -673,7 +673,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00291.j
   63 |
   64 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00292.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00292.java","
   48 |   }
@@ -698,7 +698,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00292.j
   67 |
   68 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00301.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00301.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -723,7 +723,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00301.j
   65 |
   66 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00375.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00375.java","
   36 |   doPost(request, response);
@@ -748,7 +748,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00375.j
   55 |
   56 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00376.java,58,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00376.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -773,7 +773,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00376.j
   60 |
   61 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00378.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00378.java","
   36 |   doPost(request, response);
@@ -798,7 +798,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00378.j
   55 |
   56 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00380.java,70,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00380.java","
   53 |     case 'A':
@@ -823,7 +823,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00380.j
   72 |
   73 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00382.java,62,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00382.java","
   45 |
@@ -848,7 +848,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00382.j
   64 |
   65 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00383.java,65,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00383.java","
   48 |   String a2196 = param; //assign
@@ -873,7 +873,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00383.j
   67 |
   68 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00384.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00384.java","
   36 |   doPost(request, response);
@@ -898,7 +898,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00384.j
   55 |
   56 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00385.java,65,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00385.java","
   48 |   String a21475 = param; //assign
@@ -923,7 +923,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00385.j
   67 |
   68 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00387.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00387.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -948,7 +948,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00387.j
   59 |
   60 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00388.java,52,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00388.java","
   35 |  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -973,7 +973,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00388.j
   54 |
   55 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00390.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00390.java","
   38 |
@@ -998,7 +998,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00390.j
   57 |
   58 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00392.java,58,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00392.java","
   42 |
@@ -1023,7 +1023,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00392.j
   61 |
   62 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00395.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00395.java","
   39 |  @Override
@@ -1048,7 +1048,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00395.j
   58 |
   59 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00467.java,62,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00467.java","
   45 |   if (!map.isEmpty()) {
@@ -1073,7 +1073,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00467.j
   64 |
   65 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00472.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00472.java","
   46 |    String[] values = map.get(""BenchmarkTest00472"");
@@ -1098,7 +1098,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00472.j
   65 |
   66 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00473.java,61,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00473.java","
   44 |   String param = """";
@@ -1123,7 +1123,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00473.j
   63 |
   64 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00475.java,62,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00475.java","
   45 |   if (!map.isEmpty()) {
@@ -1148,7 +1148,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00475.j
   64 |
   65 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00477.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00477.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1173,7 +1173,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00477.j
   59 |
   60 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00478.java,60,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00478.java","
   43 |   java.util.Map<String,String[]> map = request.getParameterMap();
@@ -1198,7 +1198,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00478.j
   62 |
   63 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00492.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00492.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1223,7 +1223,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00492.j
   59 |
   60 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00541.java,70,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00541.java","
   53 |       param = name;
@@ -1248,7 +1248,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00541.j
   72 |
   73 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00542.java,85,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00542.java","
   68 |           bar = param;
@@ -1273,7 +1273,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00542.j
   87 |
   88 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00543.java,76,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00543.java","
   59 |
@@ -1298,7 +1298,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00543.j
   78 |
   79 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00547.java,67,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00547.java","
   50 |     for(int i=0;i<values.length && flag; i++){
@@ -1323,7 +1323,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00547.j
   69 |
   70 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00549.java,71,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00549.java","
   54 |          flag = false;
@@ -1348,7 +1348,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00549.j
   73 |
   74 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00551.java,65,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00551.java","
   48 |    String[] values = request.getParameterValues(name);
@@ -1373,7 +1373,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00551.j
   67 |
   68 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00552.java,70,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00552.java","
   53 |       param = name;
@@ -1398,7 +1398,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00552.j
   72 |
   73 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00554.java,71,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00554.java","
   54 |          flag = false;
@@ -1423,7 +1423,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00554.j
   73 |
   74 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00555.java,71,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00555.java","
   54 |          flag = false;
@@ -1448,7 +1448,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00555.j
   73 |
   74 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00557.java,69,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00557.java","
   53 |       param = name;
@@ -1473,7 +1473,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00557.j
   72 |
   73 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00642.java,62,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00642.java","
   45 |   if (param == null) param = """";
@@ -1498,7 +1498,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00642.j
   64 |
   65 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00643.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00643.java","
   36 |   doPost(request, response);
@@ -1523,7 +1523,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00643.j
   55 |
   56 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00644.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00644.java","
   36 |   doPost(request, response);
@@ -1548,7 +1548,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00644.j
   55 |
   56 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00645.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00645.java","
   37 |  }
@@ -1573,7 +1573,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00645.j
   56 |
   57 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00651.java,61,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00651.java","
   45 |   if (param == null) param = """";
@@ -1598,7 +1598,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00651.j
   64 |
   65 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00656.java,58,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00656.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -1623,7 +1623,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00656.j
   60 |
   61 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00711.java,67,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00711.java","
   51 |   if (param != null) {
@@ -1648,7 +1648,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00711.j
   70 |
   71 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00715.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00715.java","
   38 |
@@ -1673,7 +1673,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00715.j
   57 |
   58 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00719.java,56,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00719.java","
   39 |  @Override
@@ -1698,7 +1698,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00719.j
   58 |
   59 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00720.java,74,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00720.java","
   57 |           bar = param;
@@ -1723,7 +1723,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00720.j
   76 |
   77 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00721.java,65,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00721.java","
   48 |
@@ -1748,7 +1748,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00721.j
   67 |
   68 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00724.java,73,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00724.java","
   56 |     case 'A':
@@ -1773,7 +1773,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00724.j
   75 |
   76 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00725.java,67,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00725.java","
   50 |   // Chain a bunch of propagators in sequence
@@ -1798,7 +1798,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00725.j
   69 |
   70 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00727.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00727.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1823,7 +1823,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00727.j
   59 |
   60 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00728.java,60,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00728.java","
   43 |   String[] values = request.getParameterValues(""BenchmarkTest00728"");
@@ -1848,7 +1848,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00728.j
   62 |
   63 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00729.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00729.java","
   38 |
@@ -1873,7 +1873,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00729.j
   57 |
   58 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00737.java,67,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00737.java","
   50 |   // Chain a bunch of propagators in sequence
@@ -1898,7 +1898,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00737.j
   69 |
   70 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00800.java,85,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00800.java","
   68 |           bar = param;
@@ -1923,7 +1923,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00800.j
   87 |
   88 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00801.java,66,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00801.java","
   49 |    return;
@@ -1948,7 +1948,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00801.j
   68 |
   69 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00802.java,69,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00802.java","
   52 |   String param = queryString.substring(paramLoc + paramval.length()); // 1st assume ""BenchmarkTest00802"" param is last pa
@@ -1973,7 +1973,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00802.j
   71 |
   72 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00803.java,65,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00803.java","
   48 |    response.getWriter().println(""getQueryString() couldn't find expected parameter '"" + ""BenchmarkTest00803"" + ""' in quer
@@ -1998,7 +1998,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00803.j
   67 |
   68 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00804.java,66,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00804.java","
   49 |    return;
@@ -2023,7 +2023,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00804.j
   68 |
   69 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00805.java,78,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00805.java","
   61 |   // Chain a bunch of propagators in sequence
@@ -2048,7 +2048,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00805.j
   80 |
   81 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00806.java,76,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00806.java","
   59 |
@@ -2073,7 +2073,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00806.j
   78 |
   79 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00807.java,67,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00807.java","
   50 |   }
@@ -2098,7 +2098,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00807.j
   69 |
   70 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00809.java,72,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00809.java","
   55 |   if (ampersandLoc != -1) {
@@ -2123,7 +2123,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00809.j
   74 |
   75 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00810.java,66,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00810.java","
   49 |    return;
@@ -2148,7 +2148,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00810.j
   68 |
   69 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00811.java,84,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00811.java","
   67 |     case 'A':
@@ -2173,7 +2173,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00811.j
   86 |
   87 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00822.java,71,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00822.java","
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -2198,7 +2198,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00822.j
   73 |
   74 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01046.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01046.java","
   47 |
@@ -2223,7 +2223,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01046.j
   66 |   String bar = ""safe!"";
   67 |   java.util.HashMap<String,Object> map95803 = new java.util.HashMap<String,Object>();
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01047.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01047.java","
   47 |
@@ -2248,7 +2248,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01047.j
   66 |   String bar = param;
   67 |   if (param != null && param.length() > 1) {
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01049.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01049.java","
   45 |    param = request.getHeader(""Referer"");
@@ -2273,7 +2273,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01049.j
   64 |   if (param != null) {
   65 |    java.util.List<String> valuesList = new java.util.ArrayList<String>( );
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01050.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01050.java","
   44 |   if (request.getHeader(""Referer"") != null) {
@@ -2298,7 +2298,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01050.j
   63 |   String bar = sbxyz75528.append(""_SafeStuff"").toString();
   64 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01055.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01055.java","
   44 |   if (request.getHeader(""Referer"") != null) {
@@ -2323,7 +2323,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01055.j
   63 |   if (param != null) {
   64 |    java.util.List<String> valuesList = new java.util.ArrayList<String>( );
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01056.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01056.java","
   47 |
@@ -2348,7 +2348,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01056.j
   66 |   String bar;
   67 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01057.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01057.java","
   44 |   if (request.getHeader(""Referer"") != null) {
@@ -2373,7 +2373,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01057.j
   63 |
   64 |   // Simple ? condition that assigns param to bar on false condition
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01063.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01063.java","
   44 |   if (request.getHeader(""Referer"") != null) {
@@ -2398,7 +2398,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01063.j
   63 |   String a92400 = param; //assign
   64 |   StringBuilder b92400 = new StringBuilder(a92400);  // stick in stringbuilder
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01171.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01171.java","
   47 |    param = headers.nextElement(); // just grab first element
@@ -2423,7 +2423,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01171.j
   66 |   if (param != null && param.length() > 1) {
   67 |       StringBuilder sbxyz83647 = new StringBuilder(param);
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01172.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01172.java","
   47 |    param = headers.nextElement(); // just grab first element
@@ -2448,7 +2448,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01172.j
   66 |   java.util.HashMap<String,Object> map35084 = new java.util.HashMap<String,Object>();
   67 |   map35084.put(""keyA-35084"", ""a-Value""); // put some stuff in the collection
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01173.java,56,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01173.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -2473,7 +2473,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01173.j
   65 |   if (param != null) {
   66 |    java.util.List<String> valuesList = new java.util.ArrayList<String>( );
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01174.java,56,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01174.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -2498,7 +2498,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01174.j
   65 |   if (param != null && param.length() > 1) {
   66 |       bar = param.substring(0,param.length()-1);
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01177.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01177.java","
   47 |    param = headers.nextElement(); // just grab first element
@@ -2523,7 +2523,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01177.j
   66 |   String guess = ""ABC"";
   67 |   char switchTarget = guess.charAt(2);
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01178.java,56,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01178.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -2548,7 +2548,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01178.j
   65 |   String bar = sbxyz69428.append(""_SafeStuff"").toString();
   66 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01179.java,56,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01179.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -2573,7 +2573,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01179.j
   65 |   if (param != null) bar = param.split("" "")[0];
   66 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01181.java,56,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01181.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -2598,7 +2598,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01181.j
   65 |   if (param != null) {
   66 |    bar = new String( org.apache.commons.codec.binary.Base64.decodeBase64(
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01253.java,50,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01253.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -2623,7 +2623,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01253.j
   59 |   java.util.HashMap<String,Object> map15481 = new java.util.HashMap<String,Object>();
   60 |   map15481.put(""keyA-15481"", ""a-Value""); // put some stuff in the collection
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01254.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01254.java","
   39 |  @Override
@@ -2648,7 +2648,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01254.j
   58 |   String a23874 = param; //assign
   59 |   StringBuilder b23874 = new StringBuilder(a23874);  // stick in stringbuilder
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01257.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01257.java","
   39 |  @Override
@@ -2673,7 +2673,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01257.j
   58 |   String bar = thing.doSomething(param);
   59 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01258.java,50,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01258.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -2698,7 +2698,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01258.j
   59 |   if (param != null) {
   60 |    bar = new String( org.apache.commons.codec.binary.Base64.decodeBase64(
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01259.java,50,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01259.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -2723,7 +2723,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01259.j
   59 |   java.util.HashMap<String,Object> map26093 = new java.util.HashMap<String,Object>();
   60 |   map26093.put(""keyA-26093"", ""a-Value""); // put some stuff in the collection
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01260.java,50,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01260.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -2748,7 +2748,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01260.j
   59 |   if (param != null) bar = param.split("" "")[0];
   60 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01261.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01261.java","
   39 |  @Override
@@ -2773,7 +2773,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01261.j
   58 |   String a34194 = param; //assign
   59 |   StringBuilder b34194 = new StringBuilder(a34194);  // stick in stringbuilder
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01262.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01262.java","
   39 |  @Override
@@ -2798,7 +2798,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01262.j
   58 |   if (param != null && param.length() > 1) {
   59 |       bar = param.substring(0,param.length()-1);
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01263.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01263.java","
   39 |  @Override
@@ -2823,7 +2823,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01263.j
   58 |   String guess = ""ABC"";
   59 |   char switchTarget = guess.charAt(2);
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01266.java,52,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01266.java","
   42 |
@@ -2848,7 +2848,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01266.j
   61 |   String bar = """";
   62 |   if (param != null) bar = param.split("" "")[0];
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01267.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01267.java","
   39 |  @Override
@@ -2873,7 +2873,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01267.j
   58 |   java.util.HashMap<String,Object> map53210 = new java.util.HashMap<String,Object>();
   59 |   map53210.put(""keyA-53210"", ""a-Value""); // put some stuff in the collection
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01268.java,52,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01268.java","
   42 |
@@ -2898,7 +2898,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01268.j
   61 |   // Chain a bunch of propagators in sequence
   62 |   String a92384 = param; //assign
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01284.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01284.java","
   39 |  @Override
@@ -2923,7 +2923,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01284.j
   58 |   if (param != null) {
   59 |    java.util.List<String> valuesList = new java.util.ArrayList<String>( );
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01335.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01335.java","
   47 |    if (values != null) param = values[0];
@@ -2948,7 +2948,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01335.j
   66 |   String bar = ""safe!"";
   67 |   java.util.HashMap<String,Object> map45376 = new java.util.HashMap<String,Object>();
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01337.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01337.java","
   45 |   if (!map.isEmpty()) {
@@ -2973,7 +2973,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01337.j
   64 |   String bar = sbxyz24804.append(""_SafeStuff"").toString();
   65 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01346.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01346.java","
   44 |   String param = """";
@@ -2998,7 +2998,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01346.j
   63 |   String guess = ""ABC"";
   64 |   char switchTarget = guess.charAt(2);
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01347.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01347.java","
   44 |   String param = """";
@@ -3023,7 +3023,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01347.j
   63 |   String a81561 = param; //assign
   64 |   StringBuilder b81561 = new StringBuilder(a81561);  // stick in stringbuilder
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01349.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01349.java","
   44 |   String param = """";
@@ -3048,7 +3048,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01349.j
   63 |   String bar = sbxyz63030.append(""_SafeStuff"").toString();
   64 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01350.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01350.java","
   47 |    if (values != null) param = values[0];
@@ -3073,7 +3073,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01350.j
   66 |   org.owasp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
   67 |   String bar = thing.doSomething(param);
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01417.java,66,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01417.java","
   56 |     }
@@ -3098,7 +3098,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01417.j
   75 |   String bar = param;
   76 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01418.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01418.java","
   54 |          flag = false;
@@ -3123,7 +3123,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01418.j
   73 |   if (param != null) {
   74 |    bar = new String( org.apache.commons.codec.binary.Base64.decodeBase64(
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01423.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01423.java","
   54 |          flag = false;
@@ -3148,7 +3148,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01423.j
   73 |
   74 |             return bar;
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01424.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01424.java","
   54 |          flag = false;
@@ -3173,7 +3173,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01424.j
   73 |   String bar = sbxyz93549.append(""_SafeStuff"").toString();
   74 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01426.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01426.java","
   53 |       param = name;
@@ -3198,7 +3198,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01426.j
   72 |   String guess = ""ABC"";
   73 |   char switchTarget = guess.charAt(2);
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01427.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01427.java","
   53 |       param = name;
@@ -3223,7 +3223,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01427.j
   72 |
   73 |             return bar;
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01428.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01428.java","
   53 |       param = name;
@@ -3248,7 +3248,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01428.j
   72 |
   73 |             return bar;
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01429.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01429.java","
   53 |       param = name;
@@ -3273,7 +3273,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01429.j
   72 |   String guess = ""ABC"";
   73 |   char switchTarget = guess.charAt(2);
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01437.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01437.java","
   53 |       param = name;
@@ -3298,7 +3298,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01437.j
   72 |   if (param != null) {
   73 |    java.util.List<String> valuesList = new java.util.ArrayList<String>( );
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01438.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01438.java","
   53 |       param = name;
@@ -3323,7 +3323,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01438.j
   72 |   String a32762 = param; //assign
   73 |   StringBuilder b32762 = new StringBuilder(a32762);  // stick in stringbuilder
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01505.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01505.java","
   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
@@ -3348,7 +3348,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01505.j
   62 |   String bar;
   63 |   String guess = ""ABC"";
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01506.java,51,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01506.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -3373,7 +3373,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01506.j
   60 |   String bar = thing.doSomething(param);
   61 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01507.java,51,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01507.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -3398,7 +3398,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01507.j
   60 |
   61 |   // Simple if statement that assigns param to bar on true condition
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01509.java,50,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01509.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -3423,7 +3423,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01509.j
   59 |   if (param != null) bar = param.split("" "")[0];
   60 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01510.java,51,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01510.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -3448,7 +3448,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01510.j
   60 |   String bar = thing.doSomething(param);
   61 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01511.java,51,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01511.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -3473,7 +3473,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01511.j
   60 |   String guess = ""ABC"";
   61 |   char switchTarget = guess.charAt(2);
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01512.java,51,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01512.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -3498,7 +3498,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01512.j
   60 |   if (param != null && param.length() > 1) {
   61 |       StringBuilder sbxyz76583 = new StringBuilder(param);
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01525.java,50,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01525.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -3523,7 +3523,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01525.j
   59 |   if (param != null && param.length() > 1) {
   60 |       StringBuilder sbxyz67457 = new StringBuilder(param);
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01583.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01583.java","
   45 |   if (values != null && values.length > 0)
@@ -3548,7 +3548,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01583.j
   64 |   StringBuilder sbxyz82559 = new StringBuilder(param);
   65 |   String bar = sbxyz82559.append(""_SafeStuff"").toString();
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01584.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01584.java","
   43 |   String[] values = request.getParameterValues(""BenchmarkTest01584"");
@@ -3573,7 +3573,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01584.j
   62 |
   63 |   // Simple if statement that assigns param to bar on true condition
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01587.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01587.java","
   43 |   String[] values = request.getParameterValues(""BenchmarkTest01587"");
@@ -3598,7 +3598,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01587.j
   62 |
   63 |   // Simple ? condition that assigns param to bar on false condition
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01589.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01589.java","
   43 |   String[] values = request.getParameterValues(""BenchmarkTest01589"");
@@ -3623,7 +3623,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01589.j
   62 |   String guess = ""ABC"";
   63 |   char switchTarget = guess.charAt(2);
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01590.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01590.java","
   43 |   String[] values = request.getParameterValues(""BenchmarkTest01590"");
@@ -3648,7 +3648,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01590.j
   62 |
   63 |             return bar;
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01592.java,52,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01592.java","
   42 |
@@ -3673,7 +3673,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01592.j
   61 |
   62 |   // Simple ? condition that assigns param to bar on false condition
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01594.java,52,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01594.java","
   42 |
@@ -3698,7 +3698,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01594.j
   61 |   String bar = sbxyz51154.append(""_SafeStuff"").toString();
   62 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01596.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01596.java","
   45 |   if (values != null && values.length > 0)
@@ -3723,7 +3723,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01596.j
   64 |   String bar = """";
   65 |   if (param != null) bar = param.split("" "")[0];
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01597.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01597.java","
   45 |   if (values != null && values.length > 0)
@@ -3748,7 +3748,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01597.j
   64 |   StringBuilder sbxyz81751 = new StringBuilder(param);
   65 |   String bar = sbxyz81751.append(""_SafeStuff"").toString();
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01598.java,52,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01598.java","
   42 |
@@ -3773,7 +3773,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01598.j
   61 |   String a75770 = param; //assign
   62 |   StringBuilder b75770 = new StringBuilder(a75770);  // stick in stringbuilder
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01657.java,66,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01657.java","
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
@@ -3798,7 +3798,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01657.j
   75 |   String bar = param;
   76 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01658.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01658.java","
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -3823,7 +3823,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01658.j
   73 |
   74 |             return bar;
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01660.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01660.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -3848,7 +3848,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01660.j
   72 |   String bar = thing.doSomething(param);
   73 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01662.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01662.java","
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -3873,7 +3873,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01662.j
   73 |   if (param != null) {
   74 |    bar = new String( org.apache.commons.codec.binary.Base64.decodeBase64(
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01665.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01665.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -3898,7 +3898,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01665.j
   72 |   String bar = sbxyz55941.append(""_SafeStuff"").toString();
   73 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01666.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01666.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -3923,7 +3923,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01666.j
   72 |   if (param != null && param.length() > 1) {
   73 |       StringBuilder sbxyz41549 = new StringBuilder(param);
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01667.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01667.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -3948,7 +3948,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01667.j
   72 |   java.util.HashMap<String,Object> map96771 = new java.util.HashMap<String,Object>();
   73 |   map96771.put(""keyA-96771"", ""a-Value""); // put some stuff in the collection
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01670.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01670.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -3973,7 +3973,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01670.j
   72 |
   73 |             return bar;
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01916.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01916.java","
   44 |   if (request.getHeader(""Referer"") != null) {
@@ -3998,7 +3998,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01916.j
   63 |   return bar;
   64 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01919.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01919.java","
   45 |    param = request.getHeader(""Referer"");
@@ -4023,7 +4023,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01919.j
   64 |   int num = 196;
   65 |   if ( (500/42) + num > 200 )
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01920.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01920.java","
   45 |    param = request.getHeader(""Referer"");
@@ -4048,7 +4048,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01920.j
   64 |    valuesList.add(""safe"");
   65 |    valuesList.add( param );
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01921.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01921.java","
   45 |    param = request.getHeader(""Referer"");
@@ -4073,7 +4073,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01921.j
   64 |
   65 |   // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01922.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01922.java","
   45 |    param = request.getHeader(""Referer"");
@@ -4098,7 +4098,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01922.j
   64 |    valuesList.add(""safe"");
   65 |    valuesList.add( param );
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01923.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01923.java","
   45 |    param = request.getHeader(""Referer"");
@@ -4123,7 +4123,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01923.j
   64 |   return bar;
   65 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01925.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01925.java","
   44 |   if (request.getHeader(""Referer"") != null) {
@@ -4148,7 +4148,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01925.j
   63 |       bar = sbxyz28389.replace(param.length()-""Z"".length(), param.length(),""Z"").toString();
   64 |   }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01926.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01926.java","
   44 |   if (request.getHeader(""Referer"") != null) {
@@ -4173,7 +4173,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01926.j
   63 |   int num = 196;
   64 |   if ( (500/42) + num > 200 )
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01927.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01927.java","
   44 |   if (request.getHeader(""Referer"") != null) {
@@ -4198,7 +4198,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01927.j
   63 |    org.apache.commons.codec.binary.Base64.encodeBase64( param.getBytes() ) ));
   64 |   }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02046.java,56,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02046.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -4223,7 +4223,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02046.j
   65 |   map81510.put(""keyB-81510"", param); // put it in a collection
   66 |   map81510.put(""keyC"", ""another-Value""); // put some stuff in the collection
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02047.java,56,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02047.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -4248,7 +4248,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02047.j
   65 |   int num = 196;
   66 |   if ( (500/42) + num > 200 )
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02050.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02050.java","
   47 |    param = headers.nextElement(); // just grab first element
@@ -4273,7 +4273,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02050.j
   66 |   int num = 196;
   67 |   if ( (500/42) + num > 200 )
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02051.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02051.java","
   47 |    param = headers.nextElement(); // just grab first element
@@ -4298,7 +4298,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02051.j
   66 |   int num = 106;
   67 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02054.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02054.java","
   47 |    param = headers.nextElement(); // just grab first element
@@ -4323,7 +4323,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02054.j
   66 |   return bar;
   67 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02055.java,56,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02055.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -4348,7 +4348,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02055.j
   65 |   return bar;
   66 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02056.java,56,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02056.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
@@ -4373,7 +4373,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02056.j
   65 |   map88820.put(""keyB-88820"", param); // put it in a collection
   66 |   map88820.put(""keyC"", ""another-Value""); // put some stuff in the collection
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02057.java,59,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02057.java","
   49 |
@@ -4398,7 +4398,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02057.j
   68 |   char switchTarget = guess.charAt(2);
   69 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02123.java,50,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02123.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -4423,7 +4423,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02123.j
   59 |   return bar;
   60 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02124.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02124.java","
   39 |  @Override
@@ -4448,7 +4448,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02124.j
   58 |       bar = sbxyz69250.replace(param.length()-""Z"".length(), param.length(),""Z"").toString();
   59 |   }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02126.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02126.java","
   39 |  @Override
@@ -4473,7 +4473,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02126.j
   58 |   b64181.append("" SafeStuff""); // append some safe content
   59 |   b64181.replace(b64181.length()-""Chars"".length(),b64181.length(),""Chars""); //replace some of the end content
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02127.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02127.java","
   39 |  @Override
@@ -4498,7 +4498,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02127.j
   58 |   int num = 196;
   59 |   if ( (500/42) + num > 200 )
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02128.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02128.java","
   39 |  @Override
@@ -4523,7 +4523,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02128.j
   58 |   }
   59 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02129.java,50,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02129.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -4548,7 +4548,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02129.j
   59 |   return bar;
   60 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02130.java,50,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02130.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -4573,7 +4573,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02130.j
   59 |   return bar;
   60 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02131.java,50,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02131.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -4598,7 +4598,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02131.j
   59 |   }
   60 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02132.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02132.java","
   39 |  @Override
@@ -4623,7 +4623,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02132.j
   58 |   b76744.append("" SafeStuff""); // append some safe content
   59 |   b76744.replace(b76744.length()-""Chars"".length(),b76744.length(),""Chars""); //replace some of the end content
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02133.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02133.java","
   39 |  @Override
@@ -4648,7 +4648,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02133.j
   58 |   int num = 106;
   59 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02134.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02134.java","
   39 |  @Override
@@ -4673,7 +4673,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02134.j
   58 |   }
   59 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02136.java,52,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02136.java","
   42 |
@@ -4698,7 +4698,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02136.j
   61 |   // Simple ? condition that assigns param to bar on false condition
   62 |   int num = 106;
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02145.java,49,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02145.java","
   39 |  @Override
@@ -4723,7 +4723,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02145.j
   58 |   b32743.append("" SafeStuff""); // append some safe content
   59 |   b32743.replace(b32743.length()-""Chars"".length(),b32743.length(),""Chars""); //replace some of the end content
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02221.java,57,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02221.java","
   47 |    if (values != null) param = values[0];
@@ -4748,7 +4748,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02221.j
   66 |       StringBuilder sbxyz71523 = new StringBuilder(param);
   67 |       bar = sbxyz71523.replace(param.length()-""Z"".length(), param.length(),""Z"").toString();
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02223.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02223.java","
   45 |   if (!map.isEmpty()) {
@@ -4773,7 +4773,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02223.j
   64 |   return bar;
   65 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02224.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02224.java","
   45 |   if (!map.isEmpty()) {
@@ -4798,7 +4798,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02224.j
   64 |   int num = 196;
   65 |   if ( (500/42) + num > 200 )
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02225.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02225.java","
   45 |   if (!map.isEmpty()) {
@@ -4823,7 +4823,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02225.j
   64 |   map73885.put(""keyB-73885"", param); // put it in a collection
   65 |   map73885.put(""keyC"", ""another-Value""); // put some stuff in the collection
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02227.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02227.java","
   44 |   String param = """";
@@ -4848,7 +4848,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02227.j
   63 |   return bar;
   64 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02228.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02228.java","
   44 |   String param = """";
@@ -4873,7 +4873,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02228.j
   63 |   return bar;
   64 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02230.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02230.java","
   45 |   if (!map.isEmpty()) {
@@ -4898,7 +4898,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02230.j
   64 |       bar = sbxyz51189.replace(param.length()-""Z"".length(), param.length(),""Z"").toString();
   65 |   }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02232.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02232.java","
   45 |   if (!map.isEmpty()) {
@@ -4923,7 +4923,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02232.j
   64 |  }
   65 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02234.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02234.java","
   45 |   if (!map.isEmpty()) {
@@ -4948,7 +4948,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02234.j
   64 |   return bar;
   65 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02241.java,54,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02241.java","
   44 |   String param = """";
@@ -4973,7 +4973,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02241.j
   63 |
   64 |   // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02314.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02314.java","
   54 |          flag = false;
@@ -4998,7 +4998,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02314.j
   73 |   int num = 106;
   74 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02315.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02315.java","
   54 |          flag = false;
@@ -5023,7 +5023,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02315.j
   73 |  }
   74 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02316.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02316.java","
   54 |          flag = false;
@@ -5048,7 +5048,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02316.j
   73 |   return bar;
   74 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02317.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02317.java","
   54 |          flag = false;
@@ -5073,7 +5073,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02317.j
   73 |   int num = 196;
   74 |   if ( (500/42) + num > 200 )
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02321.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02321.java","
   54 |          flag = false;
@@ -5098,7 +5098,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02321.j
   73 |   b32510.append("" SafeStuff""); // append some safe content
   74 |   b32510.replace(b32510.length()-""Chars"".length(),b32510.length(),""Chars""); //replace some of the end content
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02322.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02322.java","
   54 |          flag = false;
@@ -5123,7 +5123,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02322.j
   73 |   int num = 106;
   74 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02323.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02323.java","
   54 |          flag = false;
@@ -5148,7 +5148,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02323.j
   73 |   return bar;
   74 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02324.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02324.java","
   54 |          flag = false;
@@ -5173,7 +5173,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02324.j
   73 |       bar = sbxyz12198.replace(param.length()-""Z"".length(), param.length(),""Z"").toString();
   74 |   }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02326.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02326.java","
   53 |       param = name;
@@ -5198,7 +5198,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02326.j
   72 |    org.apache.commons.codec.binary.Base64.encodeBase64( param.getBytes() ) ));
   73 |   }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02327.java,66,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02327.java","
   56 |     }
@@ -5223,7 +5223,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02327.j
   75 |    java.util.List<String> valuesList = new java.util.ArrayList<String>( );
   76 |    valuesList.add(""safe"");
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02328.java,66,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02328.java","
   56 |     }
@@ -5248,7 +5248,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02328.j
   75 |   return bar;
   76 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02332.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02332.java","
   53 |       param = name;
@@ -5273,7 +5273,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02332.j
   72 |   int num = 106;
   73 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02395.java,51,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02395.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -5298,7 +5298,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02395.j
   60 |   }
   61 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02396.java,51,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02396.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -5323,7 +5323,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02396.j
   60 |   b53479.append("" SafeStuff""); // append some safe content
   61 |   b53479.replace(b53479.length()-""Chars"".length(),b53479.length(),""Chars""); //replace some of the end content
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02397.java,51,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02397.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -5348,7 +5348,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02397.j
   60 |   }
   61 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02399.java,50,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02399.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -5373,7 +5373,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02399.j
   59 |
   60 |   // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02400.java,51,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02400.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -5398,7 +5398,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02400.j
   60 |   return bar;
   61 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02402.java,51,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02402.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -5423,7 +5423,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02402.j
   60 |   map55396.put(""keyB-55396"", param); // put it in a collection
   61 |   map55396.put(""keyC"", ""another-Value""); // put some stuff in the collection
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02403.java,51,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02403.java","
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -5448,7 +5448,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02403.j
   60 |   b34270.append("" SafeStuff""); // append some safe content
   61 |   b34270.replace(b34270.length()-""Chars"".length(),b34270.length(),""Chars""); //replace some of the end content
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02405.java,50,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02405.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -5473,7 +5473,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02405.j
   59 |   return bar;
   60 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02407.java,50,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02407.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -5498,7 +5498,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02407.j
   59 |       bar = sbxyz58438.replace(param.length()-""Z"".length(), param.length(),""Z"").toString();
   60 |   }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02409.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02409.java","
   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
@@ -5523,7 +5523,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02409.j
   62 |    java.util.List<String> valuesList = new java.util.ArrayList<String>( );
   63 |    valuesList.add(""safe"");
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02410.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02410.java","
   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
@@ -5548,7 +5548,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02410.j
   62 |
   63 |   return bar;
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02480.java,52,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02480.java","
   42 |
@@ -5573,7 +5573,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02480.j
   61 |   int num = 106;
   62 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02483.java,52,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02483.java","
   42 |
@@ -5598,7 +5598,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02483.j
   61 |  }
   62 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02486.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02486.java","
   43 |   String[] values = request.getParameterValues(""BenchmarkTest02486"");
@@ -5623,7 +5623,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02486.j
   62 |       bar = sbxyz61588.replace(param.length()-""Z"".length(), param.length(),""Z"").toString();
   63 |   }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02487.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02487.java","
   43 |   String[] values = request.getParameterValues(""BenchmarkTest02487"");
@@ -5648,7 +5648,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02487.j
   62 |   return bar;
   63 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02489.java,53,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02489.java","
   43 |   String[] values = request.getParameterValues(""BenchmarkTest02489"");
@@ -5673,7 +5673,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02489.j
   62 |  }
   63 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02493.java,55,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02493.java","
   45 |   if (values != null && values.length > 0)
@@ -5698,7 +5698,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02493.j
   64 |   map4720.put(""keyA-4720"", ""a-Value""); // put some stuff in the collection
   65 |   map4720.put(""keyB-4720"", param); // put it in a collection
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02494.java,52,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02494.java","
   42 |
@@ -5723,7 +5723,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02494.j
   61 |       bar = sbxyz57919.replace(param.length()-""Z"".length(), param.length(),""Z"").toString();
   62 |   }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02578.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02578.java","
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -5748,7 +5748,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02578.j
   73 |   int num = 106;
   74 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02579.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02579.java","
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -5773,7 +5773,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02579.j
   73 |   return bar;
   74 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02580.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02580.java","
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -5798,7 +5798,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02580.j
   73 |   return bar;
   74 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02582.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02582.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -5823,7 +5823,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02582.j
   72 |   return bar;
   73 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02583.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02583.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -5848,7 +5848,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02583.j
   72 |  }
   73 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02584.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02584.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -5873,7 +5873,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02584.j
   72 |   return bar;
   73 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02585.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02585.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -5898,7 +5898,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02585.j
   72 |   }
   73 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02586.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02586.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -5923,7 +5923,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02586.j
   72 |
   73 |   // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02587.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02587.java","
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -5948,7 +5948,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02587.j
   73 |   b93081.append("" SafeStuff""); // append some safe content
   74 |   b93081.replace(b93081.length()-""Chars"".length(),b93081.length(),""Chars""); //replace some of the end content
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02588.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02588.java","
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -5973,7 +5973,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02588.j
   73 |   b1227.append("" SafeStuff""); // append some safe content
   74 |   b1227.replace(b1227.length()-""Chars"".length(),b1227.length(),""Chars""); //replace some of the end content
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02591.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02591.java","
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -5998,7 +5998,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02591.j
   73 |   return bar;
   74 |  }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02592.java,64,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02592.java","
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -6023,7 +6023,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02592.j
   73 |       bar = sbxyz52014.replace(param.length()-""Z"".length(), param.length(),""Z"").toString();
   74 |   }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02595.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02595.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -6048,7 +6048,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02595.j
   72 |
   73 |   // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02597.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02597.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -6073,7 +6073,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02597.j
   72 |       bar = sbxyz19350.replace(param.length()-""Z"".length(), param.length(),""Z"").toString();
   73 |   }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02598.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02598.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -6098,7 +6098,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02598.j
   72 |   int num = 106;
   73 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02600.java,66,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02600.java","
   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
@@ -6123,7 +6123,7 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02600.j
   75 |   // Simple ? condition that assigns param to bar on false condition
   76 |   int num = 106;
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02608.java,63,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02608.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -6148,4 +6148,4 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02608.j
   72 |  }
   73 | }
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax

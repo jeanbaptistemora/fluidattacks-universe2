@@ -23,7 +23,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.j
   79 |     ""Error parsing XPath input: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar) + ""'""
   80 |    );
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java,67,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java","
   57 |    java.io.FileInputStream file = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""emp
@@ -48,7 +48,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.j
   76 |     ""Error parsing XPath input: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar) + ""'""
   77 |    );
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00607.java,76,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00607.java","
   66 |    java.io.FileInputStream file = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""emp
@@ -73,7 +73,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00607.j
   85 |     ""Error parsing XPath input: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar) + ""'""
   86 |    );
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01223.java,66,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01223.java","
    56 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
@@ -98,7 +98,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01223.j
    75 |  ""<br/>""
    76 |
       ^ Col 29
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01224.java,66,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01224.java","
    56 |    java.io.FileInputStream file = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""emp
@@ -123,7 +123,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01224.j
    75 |     ""Error parsing XPath input: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar) + ""'""
    76 |    );
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01316.java,59,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01316.java","
   49 |    java.io.FileInputStream file = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""emp
@@ -148,7 +148,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01316.j
   68 |     ""Error parsing XPath input: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar) + ""'""
   69 |    );
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01478.java,73,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01478.java","
    63 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
@@ -173,7 +173,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01478.j
    82 |  ""<br/>""
    83 |
       ^ Col 29
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01561.java,60,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01561.java","
   50 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
@@ -198,7 +198,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01561.j
   69 |  ""<br/>""
   70 |
      ^ Col 29
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01734.java,73,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01734.java","
    63 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
@@ -223,7 +223,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01734.j
    82 |  ""<br/>""
    83 |
       ^ Col 29
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01736.java,73,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01736.java","
    63 |    java.io.FileInputStream file = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""emp
@@ -248,7 +248,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01736.j
    82 |     ""Error parsing XPath input: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar) + ""'""
    83 |    );
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01892.java,76,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01892.java","
    66 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
@@ -273,7 +273,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01892.j
    85 |  ""<br/>""
    86 |
       ^ Col 29
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01894.java,76,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01894.java","
    66 |    java.io.FileInputStream file = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""emp
@@ -298,7 +298,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01894.j
    85 |     ""Error parsing XPath input: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar) + ""'""
    86 |    );
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01974.java,64,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01974.java","
   54 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
@@ -323,7 +323,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01974.j
   73 |  ""<br/>""
   74 |
      ^ Col 29
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02100.java,66,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02100.java","
    56 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
@@ -348,7 +348,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02100.j
    75 |  ""<br/>""
    76 |
       ^ Col 29
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02189.java,59,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02189.java","
   49 | le = new java.io.FileInputStream(org.owasp.benchmark.helpers.Utils.getFileFromClasspath(""employees.xml"", this.getClass().
@@ -373,4 +373,4 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02189.j
   68 |  ""<br/>""
   69 |
      ^ Col 29
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax

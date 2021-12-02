@@ -23,7 +23,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
    97 |
    98 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_02.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_02.cs","
    89 |      string password = tokens[1];
@@ -48,7 +48,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   108 | ing data;
   109 | (false)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_03.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_03.cs","
    89 |      string password = tokens[1];
@@ -73,7 +73,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   108 | ing data;
   109 | (5!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_04.cs,106,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_04.cs","
    96 |      string password = tokens[1];
@@ -98,7 +98,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   115 | ing data;
   116 | (PRIVATE_CONST_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_05.cs,105,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_05.cs","
    95 |      string password = tokens[1];
@@ -123,7 +123,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   114 | ing data;
   115 | (privateFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_06.cs,104,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_06.cs","
    94 |      string password = tokens[1];
@@ -148,7 +148,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   113 | ing data;
   114 | (PRIVATE_CONST_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_07.cs,104,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_07.cs","
    94 |      string password = tokens[1];
@@ -173,7 +173,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   113 | ing data;
   114 | (privateFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_08.cs,112,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_08.cs","
   102 |      string password = tokens[1];
@@ -198,7 +198,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   121 | ing data;
   122 | (PrivateReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_09.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_09.cs","
    89 |      string password = tokens[1];
@@ -223,7 +223,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   108 | ing data;
   109 | (IO.STATIC_READONLY_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_10.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_10.cs","
    89 |      string password = tokens[1];
@@ -248,7 +248,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   108 | ing data;
   109 | (IO.staticFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_11.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_11.cs","
    89 |      string password = tokens[1];
@@ -273,7 +273,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   108 | ing data;
   109 | (IO.StaticReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_12.cs,98,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_12.cs","
    88 |      string password = tokens[1];
@@ -298,7 +298,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   107 |      xmlFile = ""..\\..\\CWE643_Xpath_Injection__Helper.xml"";
   108 |  }
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_13.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_13.cs","
    89 |      string password = tokens[1];
@@ -323,7 +323,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   108 | ing data;
   109 | (IO.STATIC_READONLY_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_14.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_14.cs","
    89 |      string password = tokens[1];
@@ -348,7 +348,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   108 | ing data;
   109 | (IO.staticFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_15.cs,101,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_15.cs","
    91 |      string password = tokens[1];
@@ -373,7 +373,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   110 | itbad
   111 | OOD)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_16.cs,94,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_16.cs","
    84 |      string password = tokens[1];
@@ -398,7 +398,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   103 |
   104 | ing data;
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_17.cs,94,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_17.cs","
    84 |      string password = tokens[1];
@@ -423,7 +423,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   103 | ing data;
   104 | FIX: Use a hardcoded string */
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_31.cs,94,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Connect_tcp_31.cs","
    84 |      string password = tokens[1];
@@ -448,7 +448,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Con
   103 | dB2G();
   104 |
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_01.cs,93,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_01.cs","
    83 |      string password = tokens[1];
@@ -473,7 +473,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   102 |
   103 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_02.cs,104,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_02.cs","
    94 |      string password = tokens[1];
@@ -498,7 +498,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   113 | ing data;
   114 | (false)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_03.cs,104,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_03.cs","
    94 |      string password = tokens[1];
@@ -523,7 +523,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   113 | ing data;
   114 | (5!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_04.cs,111,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_04.cs","
   101 |      string password = tokens[1];
@@ -548,7 +548,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   120 | ing data;
   121 | (PRIVATE_CONST_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_05.cs,110,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_05.cs","
   100 |      string password = tokens[1];
@@ -573,7 +573,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   119 | ing data;
   120 | (privateFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_06.cs,109,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_06.cs","
    99 |      string password = tokens[1];
@@ -598,7 +598,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   118 | ing data;
   119 | (PRIVATE_CONST_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_07.cs,109,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_07.cs","
    99 |      string password = tokens[1];
@@ -623,7 +623,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   118 | ing data;
   119 | (privateFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_08.cs,117,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_08.cs","
   107 |      string password = tokens[1];
@@ -648,7 +648,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   126 | ing data;
   127 | (PrivateReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_09.cs,104,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_09.cs","
    94 |      string password = tokens[1];
@@ -673,7 +673,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   113 | ing data;
   114 | (IO.STATIC_READONLY_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_10.cs,104,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_10.cs","
    94 |      string password = tokens[1];
@@ -698,7 +698,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   113 | ing data;
   114 | (IO.staticFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_11.cs,104,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_11.cs","
    94 |      string password = tokens[1];
@@ -723,7 +723,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   113 | ing data;
   114 | (IO.StaticReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_12.cs,103,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_12.cs","
    93 |      string password = tokens[1];
@@ -748,7 +748,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   112 |      xmlFile = ""..\\..\\CWE643_Xpath_Injection__Helper.xml"";
   113 |  }
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_13.cs,104,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_13.cs","
    94 |      string password = tokens[1];
@@ -773,7 +773,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   113 | ing data;
   114 | (IO.STATIC_READONLY_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_14.cs,104,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_14.cs","
    94 |      string password = tokens[1];
@@ -798,7 +798,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   113 | ing data;
   114 | (IO.staticFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_15.cs,106,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_15.cs","
    96 |      string password = tokens[1];
@@ -823,7 +823,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   115 | itbad
   116 | OOD)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_16.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_16.cs","
    89 |      string password = tokens[1];
@@ -848,7 +848,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   108 |
   109 | ing data;
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_17.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_17.cs","
    89 |      string password = tokens[1];
@@ -873,7 +873,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   108 | ing data;
   109 | FIX: Use a hardcoded string */
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_31.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Database_31.cs","
    89 |      string password = tokens[1];
@@ -898,7 +898,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Dat
   108 | dB2G();
   109 |
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_01.cs,67,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_01.cs","
    57 |      string password = tokens[1];
@@ -923,7 +923,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    76 |
    77 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_02.cs,78,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_02.cs","
    68 |      string password = tokens[1];
@@ -948,7 +948,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    87 | ing data;
    88 | (false)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_03.cs,78,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_03.cs","
    68 |      string password = tokens[1];
@@ -973,7 +973,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    87 | ing data;
    88 | (5!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_04.cs,85,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_04.cs","
    75 |      string password = tokens[1];
@@ -998,7 +998,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    94 | ing data;
    95 | (PRIVATE_CONST_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_05.cs,84,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_05.cs","
    74 |      string password = tokens[1];
@@ -1023,7 +1023,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    93 | ing data;
    94 | (privateFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_06.cs,83,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_06.cs","
    73 |      string password = tokens[1];
@@ -1048,7 +1048,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    92 | ing data;
    93 | (PRIVATE_CONST_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_07.cs,83,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_07.cs","
    73 |      string password = tokens[1];
@@ -1073,7 +1073,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    92 | ing data;
    93 | (privateFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_08.cs,91,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_08.cs","
    81 |      string password = tokens[1];
@@ -1098,7 +1098,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
   100 | ing data;
   101 | (PrivateReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_09.cs,78,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_09.cs","
    68 |      string password = tokens[1];
@@ -1123,7 +1123,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    87 | ing data;
    88 | (IO.STATIC_READONLY_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_10.cs,78,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_10.cs","
    68 |      string password = tokens[1];
@@ -1148,7 +1148,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    87 | ing data;
    88 | (IO.staticFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_11.cs,78,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_11.cs","
    68 |      string password = tokens[1];
@@ -1173,7 +1173,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    87 | ing data;
    88 | (IO.StaticReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_12.cs,77,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_12.cs","
    67 |      string password = tokens[1];
@@ -1198,7 +1198,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    86 |      xmlFile = ""..\\..\\CWE643_Xpath_Injection__Helper.xml"";
    87 |  }
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_13.cs,78,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_13.cs","
    68 |      string password = tokens[1];
@@ -1223,7 +1223,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    87 | ing data;
    88 | (IO.STATIC_READONLY_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_14.cs,78,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_14.cs","
    68 |      string password = tokens[1];
@@ -1248,7 +1248,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    87 | ing data;
    88 | (IO.staticFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_15.cs,80,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_15.cs","
    70 |      string password = tokens[1];
@@ -1273,7 +1273,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    89 | itbad
    90 | OOD)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_16.cs,73,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_16.cs","
    63 |      string password = tokens[1];
@@ -1298,7 +1298,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    82 |
    83 | ing data;
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_17.cs,73,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_17.cs","
    63 |      string password = tokens[1];
@@ -1323,7 +1323,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    82 | ing data;
    83 | FIX: Use a hardcoded string */
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_31.cs,73,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Environment_31.cs","
    63 |      string password = tokens[1];
@@ -1348,7 +1348,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Env
    82 | dB2G();
    83 |
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_01.cs,75,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_01.cs","
    65 |      string password = tokens[1];
@@ -1373,7 +1373,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
    84 |
    85 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_02.cs,86,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_02.cs","
    76 |      string password = tokens[1];
@@ -1398,7 +1398,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
    95 | ing data;
    96 | (false)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_03.cs,86,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_03.cs","
    76 |      string password = tokens[1];
@@ -1423,7 +1423,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
    95 | ing data;
    96 | (5!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_04.cs,93,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_04.cs","
    83 |      string password = tokens[1];
@@ -1448,7 +1448,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
   102 | ing data;
   103 | (PRIVATE_CONST_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_05.cs,92,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_05.cs","
    82 |      string password = tokens[1];
@@ -1473,7 +1473,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
   101 | ing data;
   102 | (privateFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_06.cs,91,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_06.cs","
    81 |      string password = tokens[1];
@@ -1498,7 +1498,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
   100 | ing data;
   101 | (PRIVATE_CONST_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_07.cs,91,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_07.cs","
    81 |      string password = tokens[1];
@@ -1523,7 +1523,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
   100 | ing data;
   101 | (privateFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_08.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_08.cs","
    89 |      string password = tokens[1];
@@ -1548,7 +1548,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
   108 | ing data;
   109 | (PrivateReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_09.cs,86,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_09.cs","
    76 |      string password = tokens[1];
@@ -1573,7 +1573,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
    95 | ing data;
    96 | (IO.STATIC_READONLY_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_10.cs,86,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_10.cs","
    76 |      string password = tokens[1];
@@ -1598,7 +1598,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
    95 | ing data;
    96 | (IO.staticFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_11.cs,86,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_11.cs","
    76 |      string password = tokens[1];
@@ -1623,7 +1623,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
    95 | ing data;
    96 | (IO.StaticReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_12.cs,85,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_12.cs","
    75 |      string password = tokens[1];
@@ -1648,7 +1648,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
    94 |      xmlFile = ""..\\..\\CWE643_Xpath_Injection__Helper.xml"";
    95 |  }
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_13.cs,86,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_13.cs","
    76 |      string password = tokens[1];
@@ -1673,7 +1673,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
    95 | ing data;
    96 | (IO.STATIC_READONLY_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_14.cs,86,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_14.cs","
    76 |      string password = tokens[1];
@@ -1698,7 +1698,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
    95 | ing data;
    96 | (IO.staticFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_15.cs,88,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_15.cs","
    78 |      string password = tokens[1];
@@ -1723,7 +1723,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
    97 | itbad
    98 | OOD)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_16.cs,81,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_16.cs","
    71 |      string password = tokens[1];
@@ -1748,7 +1748,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
    90 |
    91 | ing data;
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_17.cs,81,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_17.cs","
    71 |      string password = tokens[1];
@@ -1773,7 +1773,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
    90 | ing data;
    91 | FIX: Use a hardcoded string */
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_31.cs,81,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_31.cs","
    71 |      string password = tokens[1];
@@ -1798,7 +1798,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
    90 | dB2G(req, resp);
    91 |
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_42.cs,81,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get_Cookies_Web_42.cs","
    71 |      string password = tokens[1];
@@ -1823,7 +1823,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Get
    90 |  /* FIX: Use a hardcoded string */
    91 |  data = ""foo"";
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_01.cs,105,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_01.cs","
    95 |      string password = tokens[1];
@@ -1848,7 +1848,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   114 |
   115 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_02.cs,116,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_02.cs","
   106 |      string password = tokens[1];
@@ -1873,7 +1873,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   125 | ing data;
   126 | (false)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_03.cs,116,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_03.cs","
   106 |      string password = tokens[1];
@@ -1898,7 +1898,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   125 | ing data;
   126 | (5!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_04.cs,123,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_04.cs","
   113 |      string password = tokens[1];
@@ -1923,7 +1923,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   132 | ing data;
   133 | (PRIVATE_CONST_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_05.cs,122,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_05.cs","
   112 |      string password = tokens[1];
@@ -1948,7 +1948,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   131 | ing data;
   132 | (privateFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_06.cs,121,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_06.cs","
   111 |      string password = tokens[1];
@@ -1973,7 +1973,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   130 | ing data;
   131 | (PRIVATE_CONST_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_07.cs,121,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_07.cs","
   111 |      string password = tokens[1];
@@ -1998,7 +1998,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   130 | ing data;
   131 | (privateFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_08.cs,129,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_08.cs","
   119 |      string password = tokens[1];
@@ -2023,7 +2023,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   138 | ing data;
   139 | (PrivateReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_09.cs,116,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_09.cs","
   106 |      string password = tokens[1];
@@ -2048,7 +2048,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   125 | ing data;
   126 | (IO.STATIC_READONLY_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_10.cs,116,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_10.cs","
   106 |      string password = tokens[1];
@@ -2073,7 +2073,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   125 | ing data;
   126 | (IO.staticFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_11.cs,116,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_11.cs","
   106 |      string password = tokens[1];
@@ -2098,7 +2098,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   125 | ing data;
   126 | (IO.StaticReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_12.cs,115,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_12.cs","
   105 |      string password = tokens[1];
@@ -2123,7 +2123,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   124 |      xmlFile = ""..\\..\\CWE643_Xpath_Injection__Helper.xml"";
   125 |  }
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_13.cs,116,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_13.cs","
   106 |      string password = tokens[1];
@@ -2148,7 +2148,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   125 | ing data;
   126 | (IO.STATIC_READONLY_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_14.cs,116,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_14.cs","
   106 |      string password = tokens[1];
@@ -2173,7 +2173,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   125 | ing data;
   126 | (IO.staticFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_15.cs,118,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_15.cs","
   108 |      string password = tokens[1];
@@ -2198,7 +2198,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   127 | itbad
   128 | OOD)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_16.cs,111,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_16.cs","
   101 |      string password = tokens[1];
@@ -2223,7 +2223,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   120 |
   121 | ing data;
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_17.cs,111,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_17.cs","
   101 |      string password = tokens[1];
@@ -2248,7 +2248,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   120 | ing data;
   121 | FIX: Use a hardcoded string */
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_31.cs,111,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Listen_tcp_31.cs","
   101 |      string password = tokens[1];
@@ -2273,7 +2273,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Lis
   120 | dB2G();
   121 |
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_01.cs,88,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_01.cs","
    78 |      string password = tokens[1];
@@ -2298,7 +2298,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
    97 |
    98 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_02.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_02.cs","
    89 |      string password = tokens[1];
@@ -2323,7 +2323,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   108 | ing data;
   109 | (false)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_03.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_03.cs","
    89 |      string password = tokens[1];
@@ -2348,7 +2348,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   108 | ing data;
   109 | (5!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_04.cs,106,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_04.cs","
    96 |      string password = tokens[1];
@@ -2373,7 +2373,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   115 | ing data;
   116 | (PRIVATE_CONST_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_05.cs,105,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_05.cs","
    95 |      string password = tokens[1];
@@ -2398,7 +2398,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   114 | ing data;
   115 | (privateFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_06.cs,104,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_06.cs","
    94 |      string password = tokens[1];
@@ -2423,7 +2423,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   113 | ing data;
   114 | (PRIVATE_CONST_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_07.cs,104,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_07.cs","
    94 |      string password = tokens[1];
@@ -2448,7 +2448,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   113 | ing data;
   114 | (privateFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_08.cs,112,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_08.cs","
   102 |      string password = tokens[1];
@@ -2473,7 +2473,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   121 | ing data;
   122 | (PrivateReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_09.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_09.cs","
    89 |      string password = tokens[1];
@@ -2498,7 +2498,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   108 | ing data;
   109 | (IO.STATIC_READONLY_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_10.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_10.cs","
    89 |      string password = tokens[1];
@@ -2523,7 +2523,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   108 | ing data;
   109 | (IO.staticFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_11.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_11.cs","
    89 |      string password = tokens[1];
@@ -2548,7 +2548,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   108 | ing data;
   109 | (IO.StaticReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_12.cs,98,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_12.cs","
    88 |      string password = tokens[1];
@@ -2573,7 +2573,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   107 |      xmlFile = ""..\\..\\CWE643_Xpath_Injection__Helper.xml"";
   108 |  }
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_13.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_13.cs","
    89 |      string password = tokens[1];
@@ -2598,7 +2598,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   108 | ing data;
   109 | (IO.STATIC_READONLY_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_14.cs,99,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_14.cs","
    89 |      string password = tokens[1];
@@ -2623,7 +2623,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   108 | ing data;
   109 | (IO.staticFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_15.cs,101,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_15.cs","
    91 |      string password = tokens[1];
@@ -2648,7 +2648,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   110 | itbad
   111 | OOD)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_16.cs,94,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_16.cs","
    84 |      string password = tokens[1];
@@ -2673,7 +2673,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   103 |
   104 | ing data;
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_17.cs,94,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_17.cs","
    84 |      string password = tokens[1];
@@ -2698,7 +2698,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   103 | ing data;
   104 | FIX: Use a hardcoded string */
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_31.cs,94,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__NetClient_31.cs","
    84 |      string password = tokens[1];
@@ -2723,7 +2723,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Net
   103 | dB2G();
   104 |
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_01.cs,67,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_01.cs","
    57 |      string password = tokens[1];
@@ -2748,7 +2748,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    76 |
    77 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_02.cs,78,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_02.cs","
    68 |      string password = tokens[1];
@@ -2773,7 +2773,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    87 | ing data;
    88 | (false)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_03.cs,78,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_03.cs","
    68 |      string password = tokens[1];
@@ -2798,7 +2798,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    87 | ing data;
    88 | (5!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_04.cs,85,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_04.cs","
    75 |      string password = tokens[1];
@@ -2823,7 +2823,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    94 | ing data;
    95 | (PRIVATE_CONST_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_05.cs,84,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_05.cs","
    74 |      string password = tokens[1];
@@ -2848,7 +2848,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    93 | ing data;
    94 | (privateFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_06.cs,83,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_06.cs","
    73 |      string password = tokens[1];
@@ -2873,7 +2873,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    92 | ing data;
    93 | (PRIVATE_CONST_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_07.cs,83,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_07.cs","
    73 |      string password = tokens[1];
@@ -2898,7 +2898,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    92 | ing data;
    93 | (privateFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_08.cs,91,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_08.cs","
    81 |      string password = tokens[1];
@@ -2923,7 +2923,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
   100 | ing data;
   101 | (PrivateReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_09.cs,78,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_09.cs","
    68 |      string password = tokens[1];
@@ -2948,7 +2948,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    87 | ing data;
    88 | (IO.STATIC_READONLY_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_10.cs,78,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_10.cs","
    68 |      string password = tokens[1];
@@ -2973,7 +2973,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    87 | ing data;
    88 | (IO.staticFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_11.cs,78,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_11.cs","
    68 |      string password = tokens[1];
@@ -2998,7 +2998,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    87 | ing data;
    88 | (IO.StaticReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_12.cs,77,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_12.cs","
    67 |      string password = tokens[1];
@@ -3023,7 +3023,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    86 |      xmlFile = ""..\\..\\CWE643_Xpath_Injection__Helper.xml"";
    87 |  }
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_13.cs,78,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_13.cs","
    68 |      string password = tokens[1];
@@ -3048,7 +3048,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    87 | ing data;
    88 | (IO.STATIC_READONLY_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_14.cs,78,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_14.cs","
    68 |      string password = tokens[1];
@@ -3073,7 +3073,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    87 | ing data;
    88 | (IO.staticFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_15.cs,80,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_15.cs","
    70 |      string password = tokens[1];
@@ -3098,7 +3098,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    89 | itbad
    90 | OOD)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_16.cs,73,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_16.cs","
    63 |      string password = tokens[1];
@@ -3123,7 +3123,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    82 |
    83 | ing data;
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_17.cs,73,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_17.cs","
    63 |      string password = tokens[1];
@@ -3148,7 +3148,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    82 | ing data;
    83 | FIX: Use a hardcoded string */
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_31.cs,73,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_31.cs","
    63 |      string password = tokens[1];
@@ -3173,7 +3173,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    82 | dB2G(req, resp);
    83 |
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_42.cs,73,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Params_Get_Web_42.cs","
    63 |      string password = tokens[1];
@@ -3198,7 +3198,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Par
    82 |  /* FIX: Use a hardcoded string */
    83 |  data = ""foo"";
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_01.cs,73,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_01.cs","
    63 |      string password = tokens[1];
@@ -3223,7 +3223,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    82 |
    83 |
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_02.cs,84,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_02.cs","
    74 |      string password = tokens[1];
@@ -3248,7 +3248,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    93 | ing data;
    94 | (false)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_03.cs,84,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_03.cs","
    74 |      string password = tokens[1];
@@ -3273,7 +3273,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    93 | ing data;
    94 | (5!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_04.cs,91,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_04.cs","
    81 |      string password = tokens[1];
@@ -3298,7 +3298,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
   100 | ing data;
   101 | (PRIVATE_CONST_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_05.cs,90,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_05.cs","
    80 |      string password = tokens[1];
@@ -3323,7 +3323,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    99 | ing data;
   100 | (privateFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_06.cs,89,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_06.cs","
    79 |      string password = tokens[1];
@@ -3348,7 +3348,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    98 | ing data;
    99 | (PRIVATE_CONST_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_07.cs,89,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_07.cs","
    79 |      string password = tokens[1];
@@ -3373,7 +3373,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    98 | ing data;
    99 | (privateFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_08.cs,97,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_08.cs","
    87 |      string password = tokens[1];
@@ -3398,7 +3398,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
   106 | ing data;
   107 | (PrivateReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_09.cs,84,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_09.cs","
    74 |      string password = tokens[1];
@@ -3423,7 +3423,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    93 | ing data;
    94 | (IO.STATIC_READONLY_FALSE)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_10.cs,84,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_10.cs","
    74 |      string password = tokens[1];
@@ -3448,7 +3448,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    93 | ing data;
    94 | (IO.staticFalse)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_11.cs,84,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_11.cs","
    74 |      string password = tokens[1];
@@ -3473,7 +3473,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    93 | ing data;
    94 | (IO.StaticReturnsFalse())
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_12.cs,83,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_12.cs","
    73 |      string password = tokens[1];
@@ -3498,7 +3498,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    92 |      xmlFile = ""..\\..\\CWE643_Xpath_Injection__Helper.xml"";
    93 |  }
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_13.cs,84,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_13.cs","
    74 |      string password = tokens[1];
@@ -3523,7 +3523,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    93 | ing data;
    94 | (IO.STATIC_READONLY_FIVE!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_14.cs,84,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_14.cs","
    74 |      string password = tokens[1];
@@ -3548,7 +3548,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    93 | ing data;
    94 | (IO.staticFive!=5)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_15.cs,86,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_15.cs","
    76 |      string password = tokens[1];
@@ -3573,7 +3573,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    95 | itbad
    96 | OOD)
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_16.cs,79,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_16.cs","
    69 |      string password = tokens[1];
@@ -3598,7 +3598,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    88 |
    89 | ing data;
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_17.cs,79,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_17.cs","
    69 |      string password = tokens[1];
@@ -3623,7 +3623,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    88 | ing data;
    89 | FIX: Use a hardcoded string */
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_31.cs,79,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_31.cs","
    69 |      string password = tokens[1];
@@ -3648,7 +3648,7 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    88 | dB2G(req, resp);
    89 |
       ^ Col 11
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_42.cs,79,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
  in NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__QueryString_Web_42.cs","
    69 |      string password = tokens[1];
@@ -3673,4 +3673,4 @@ F021,lines,NIST/src/testcases/CWE643_Xpath_Injection/CWE643_Xpath_Injection__Que
    88 |  /* FIX: Use a hardcoded string */
    89 |  data = ""foo"";
       ^ Col 7
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax

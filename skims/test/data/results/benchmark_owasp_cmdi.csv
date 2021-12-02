@@ -23,7 +23,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00006.j
   77 |  }
   78 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00007.java,61,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00007.java","
   51 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -48,7 +48,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00007.j
   70 |  }
   71 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00015.java,70,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00015.java","
   60 |          argList.add(""cmd.exe"");
@@ -73,7 +73,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00015.j
   79 |  }
   80 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00017.java,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00017.java","
   55 |
@@ -98,7 +98,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00017.j
   74 |  }
   75 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00077.java,98,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00077.java","
    88 |   String osName = System.getProperty(""os.name"");
@@ -123,7 +123,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00077.j
   107 |  }
   108 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00091.java,74,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00091.java","
   64 |   String bar = param;
@@ -148,7 +148,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00091.j
   83 |  }
   84 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00092.java,93,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00092.java","
    83 |   }
@@ -173,7 +173,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00092.j
   102 |  }
   103 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00159.java,68,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00159.java","
   58 |   String osName = System.getProperty(""os.name"");
@@ -198,7 +198,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00159.j
   77 |  }
   78 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00172.java,67,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00172.java","
   57 |   bar = (String)map59408.get(""keyB-59408""); // get it back out
@@ -223,7 +223,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00172.j
   76 |  }
   77 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00173.java,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00173.java","
   56 |   map68097.put(""keyC"", ""another-Value""); // put some stuff in the collection
@@ -248,7 +248,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00173.j
   75 |  }
   76 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00174.java,62,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00174.java","
   52 |   org.owasp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
@@ -273,7 +273,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00174.j
   71 |  }
   72 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00176.java,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00176.java","
   55 |   String cmd = """";
@@ -298,7 +298,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00176.j
   74 |  }
   75 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00293.java,75,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00293.java","
   65 |          argList.add(""cmd.exe"");
@@ -323,7 +323,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00293.j
   84 |  }
   85 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00294.java,75,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00294.java","
   65 |   String osName = System.getProperty(""os.name"");
@@ -348,7 +348,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00294.j
   84 |  }
   85 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00295.java,75,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00295.java","
   65 |   String osName = System.getProperty(""os.name"");
@@ -373,7 +373,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00295.j
   84 |  }
   85 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00302.java,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00302.java","
   62 |
@@ -398,7 +398,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00302.j
   81 |  }
   82 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00303.java,82,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00303.java","
   72 |         } else {
@@ -423,7 +423,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00303.j
   91 |  }
   92 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00304.java,90,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00304.java","
    80 |          a2 = ""-c"";
@@ -448,7 +448,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00304.j
    99 |  }
   100 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00306.java,70,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00306.java","
   60 |   else bar = ""This should never happen"";
@@ -473,7 +473,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00306.j
   79 |  }
   80 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00311.java,80,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00311.java","
   70 |     default:
@@ -498,7 +498,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00311.j
   89 |  }
   90 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00407.java,83,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00407.java","
   73 |          a2 = ""-c"";
@@ -523,7 +523,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00407.j
   92 |  }
   93 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00409.java,92,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00409.java","
    82 |          a2 = ""-c"";
@@ -548,7 +548,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00409.j
   101 |  }
   102 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00480.java,75,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00480.java","
   65 |          argList.add(""cmd.exe"");
@@ -573,7 +573,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00480.j
   84 |  }
   85 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00495.java,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00495.java","
   62 |   }
@@ -598,7 +598,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00495.j
   81 |  }
   82 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00496.java,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00496.java","
   56 |   }
@@ -623,7 +623,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00496.j
   75 |  }
   76 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00497.java,81,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00497.java","
   71 |   }
@@ -648,7 +648,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00497.j
   90 |  }
   91 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00498.java,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00498.java","
   56 |   }
@@ -673,7 +673,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00498.j
   75 |  }
   76 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00499.java,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00499.java","
   55 |   String cmd = """";
@@ -698,7 +698,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00499.j
   74 |  }
   75 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00500.java,71,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00500.java","
   61 |   String cmd = """";
@@ -723,7 +723,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00500.j
   80 |  }
   81 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00567.java,77,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00567.java","
   67 |
@@ -748,7 +748,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00567.j
   86 |  }
   87 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00568.java,88,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00568.java","
   78 |          a2 = ""-c"";
@@ -773,7 +773,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00568.j
   97 |  }
   98 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00573.java,70,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00573.java","
   60 |
@@ -798,7 +798,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00573.j
   79 |  }
   80 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00574.java,76,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00574.java","
   66 |   bar = (7*42) - num > 200 ? ""This should never happen"" : param;
@@ -823,7 +823,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00574.j
   85 |  }
   86 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00575.java,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00575.java","
   74 |   String cmd = """";
@@ -848,7 +848,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00575.j
   93 |  }
   94 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00576.java,75,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00576.java","
   65 |   String cmd = """";
@@ -873,7 +873,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00576.j
   84 |  }
   85 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00731.java,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00731.java","
   55 |   String osName = System.getProperty(""os.name"");
@@ -898,7 +898,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00731.j
   74 |  }
   75 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00740.java,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00740.java","
   55 |   bar = (String)map87432.get(""keyB-87432""); // get it back out
@@ -923,7 +923,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00740.j
   74 |  }
   75 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00815.java,78,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00815.java","
   68 |          a1 = ""cmd.exe"";
@@ -948,7 +948,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00815.j
   87 |  }
   88 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00816.java,83,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00816.java","
   73 |          a1 = ""cmd.exe"";
@@ -973,7 +973,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00816.j
   92 |  }
   93 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00823.java,81,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00823.java","
   71 |   }
@@ -998,7 +998,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00823.j
   90 |  }
   91 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00824.java,92,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00824.java","
    82 |          a2 = ""-c"";
@@ -1023,7 +1023,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00824.j
   101 |  }
   102 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00825.java,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00825.java","
   62 |   String bar = thing.doSomething(param);
@@ -1048,7 +1048,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00825.j
   81 |  }
   82 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00968.java,77,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00968.java","
   67 |   String osName = System.getProperty(""os.name"");
@@ -1073,7 +1073,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00968.j
   86 |  }  // end doPost
   87 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00979.java,88,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00979.java","
    78 |          a2 = ""-c"";
@@ -1098,7 +1098,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00979.j
    97 |  }  // end doPost
    98 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00981.java,88,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00981.java","
    78 |          a2 = ""-c"";
@@ -1123,7 +1123,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00981.j
    97 |  }  // end doPost
    98 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00983.java,71,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00983.java","
   61 |   }
@@ -1148,7 +1148,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00983.j
   80 |  }  // end doPost
   81 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01064.java,62,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01064.java","
   52 |
@@ -1173,7 +1173,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01064.j
   71 |  }  // end doPost
   72 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01066.java,60,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01066.java","
   50 |
@@ -1198,7 +1198,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01066.j
   69 |  }  // end doPost
   70 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01190.java,62,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01190.java","
   52 |
@@ -1223,7 +1223,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01190.j
   71 |  }  // end doPost
   72 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01191.java,62,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01191.java","
   52 |
@@ -1248,7 +1248,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01191.j
   71 |  }  // end doPost
   72 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01192.java,62,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01192.java","
   52 |
@@ -1273,7 +1273,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01192.j
   71 |  }  // end doPost
   72 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01194.java,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01194.java","
    55 |   String cmd = """";
@@ -1298,7 +1298,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01194.j
    74 |  }  // end doPost
    75 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01270.java,60,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01270.java","
   50 |   String osName = System.getProperty(""os.name"");
@@ -1323,7 +1323,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01270.j
   69 |  }  // end doPost
   70 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01285.java,57,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01285.java","
   47 |
@@ -1348,7 +1348,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01285.j
   66 |  }  // end doPost
   67 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01286.java,69,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01286.java","
    59 |         } else {
@@ -1373,7 +1373,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01286.j
    78 |  }  // end doPost
    79 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01287.java,55,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01287.java","
   45 |
@@ -1398,7 +1398,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01287.j
   64 |  }  // end doPost
   65 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01288.java,55,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01288.java","
   45 |
@@ -1423,7 +1423,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01288.j
   64 |  }  // end doPost
   65 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01360.java,62,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01360.java","
    52 |
@@ -1448,7 +1448,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01360.j
    71 |  }  // end doPost
    72 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01361.java,60,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01361.java","
   50 |
@@ -1473,7 +1473,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01361.j
   69 |  }  // end doPost
   70 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01362.java,76,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01362.java","
    66 |          a2 = ""-c"";
@@ -1498,7 +1498,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01362.j
    85 |  }  // end doPost
    86 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01363.java,59,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01363.java","
   49 |
@@ -1523,7 +1523,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01363.j
   68 |  }  // end doPost
   69 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01430.java,74,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01430.java","
    64 |   String osName = System.getProperty(""os.name"");
@@ -1548,7 +1548,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01430.j
    83 |  }  // end doPost
    84 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01441.java,83,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01441.java","
    73 |         } else {
@@ -1573,7 +1573,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01441.j
    92 |  }  // end doPost
    93 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01442.java,69,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01442.java","
    59 |
@@ -1598,7 +1598,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01442.j
    78 |  }  // end doPost
    79 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01446.java,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01446.java","
   62 |   String cmd = """";
@@ -1623,7 +1623,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01446.j
   81 |  }  // end doPost
   82 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01517.java,61,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01517.java","
   51 |   String osName = System.getProperty(""os.name"");
@@ -1648,7 +1648,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01517.j
   70 |  }  // end doPost
   71 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01531.java,56,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01531.java","
   46 |
@@ -1673,7 +1673,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01531.j
   65 |  }  // end doPost
   66 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01533.java,53,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01533.java","
   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
@@ -1698,7 +1698,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01533.j
   62 |  }  // end doPost
   63 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01601.java,63,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01601.java","
   53 |   String osName = System.getProperty(""os.name"");
@@ -1723,7 +1723,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01601.j
   72 |  }  // end doPost
   73 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01609.java,61,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01609.java","
   51 |   String cmd = """";
@@ -1748,7 +1748,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01609.j
   70 |  }  // end doPost
   71 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01610.java,61,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01610.java","
   51 |   String cmd = """";
@@ -1773,7 +1773,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01610.j
   70 |  }  // end doPost
   71 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01673.java,74,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01673.java","
   64 |   String osName = System.getProperty(""os.name"");
@@ -1798,7 +1798,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01673.j
   83 |  }  // end doPost
   84 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01674.java,74,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01674.java","
   64 |   String osName = System.getProperty(""os.name"");
@@ -1823,7 +1823,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01674.j
   83 |  }  // end doPost
   84 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01685.java,85,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01685.java","
    75 |          a2 = ""-c"";
@@ -1848,7 +1848,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01685.j
    94 |  }  // end doPost
    95 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01689.java,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01689.java","
    62 |   String cmd = """";
@@ -1873,7 +1873,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01689.j
    81 |  }  // end doPost
    82 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01690.java,68,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01690.java","
   58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -1898,7 +1898,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01690.j
   77 |  }  // end doPost
   78 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01691.java,68,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01691.java","
    58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -1923,7 +1923,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01691.j
    77 |  }  // end doPost
    78 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01850.java,77,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01850.java","
    67 |   String osName = System.getProperty(""os.name"");
@@ -1948,7 +1948,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01850.j
    86 |  }  // end doPost
    87 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01851.java,77,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01851.java","
    67 |   String osName = System.getProperty(""os.name"");
@@ -1973,7 +1973,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01851.j
    86 |  }  // end doPost
    87 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01852.java,77,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01852.java","
    67 |   String osName = System.getProperty(""os.name"");
@@ -1998,7 +1998,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01852.j
    86 |  }  // end doPost
    87 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01864.java,75,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01864.java","
   65 |   String cmd = """";
@@ -2023,7 +2023,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01864.j
   84 |  }  // end doPost
   85 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01928.java,67,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01928.java","
    57 |          argList.add(""cmd.exe"");
@@ -2048,7 +2048,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01928.j
    76 |  }  // end doPost
    77 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01929.java,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01929.java","
   55 |   String osName = System.getProperty(""os.name"");
@@ -2073,7 +2073,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01929.j
   74 |  }  // end doPost
   75 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01936.java,62,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01936.java","
   52 |
@@ -2098,7 +2098,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01936.j
   71 |  }  // end doPost
   72 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01938.java,76,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01938.java","
    66 |          a2 = ""-c"";
@@ -2123,7 +2123,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01938.j
    85 |  }  // end doPost
    86 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01940.java,63,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01940.java","
   53 |   String cmd = """";
@@ -2148,7 +2148,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01940.j
   72 |  }  // end doPost
   73 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01942.java,63,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01942.java","
   53 |   String cmd = """";
@@ -2173,7 +2173,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01942.j
   72 |  }  // end doPost
   73 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01944.java,63,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01944.java","
    53 |   String cmd = """";
@@ -2198,7 +2198,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01944.j
    72 |  }  // end doPost
    73 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02059.java,67,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02059.java","
   57 |   String osName = System.getProperty(""os.name"");
@@ -2223,7 +2223,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02059.j
   76 |  }  // end doPost
   77 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02070.java,59,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02070.java","
   49 |
@@ -2248,7 +2248,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02070.j
   68 |  }  // end doPost
   69 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02137.java,62,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02137.java","
   52 |          argList.add(""cmd.exe"");
@@ -2273,7 +2273,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02137.j
   71 |  }  // end doPost
   72 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02146.java,57,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02146.java","
   47 |
@@ -2298,7 +2298,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02146.j
   66 |  }  // end doPost
   67 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02147.java,57,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02147.java","
   47 |
@@ -2323,7 +2323,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02147.j
   66 |  }  // end doPost
   67 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02150.java,71,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02150.java","
    61 |          a2 = ""-c"";
@@ -2348,7 +2348,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02150.j
    80 |  }  // end doPost
    81 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02151.java,71,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02151.java","
   61 |          a2 = ""-c"";
@@ -2373,7 +2373,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02151.j
   80 |  }  // end doPost
   81 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02152.java,71,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02152.java","
   61 |          a2 = ""-c"";
@@ -2398,7 +2398,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02152.j
   80 |  }  // end doPost
   81 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02154.java,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02154.java","
   48 |   String cmd = """";
@@ -2423,7 +2423,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02154.j
   67 |  }  // end doPost
   68 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02155.java,52,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02155.java","
   42 |
@@ -2448,7 +2448,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02155.j
   61 |  }  // end doPost
   62 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02243.java,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02243.java","
   55 |   String osName = System.getProperty(""os.name"");
@@ -2473,7 +2473,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02243.j
   74 |  }  // end doPost
   75 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02244.java,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02244.java","
   55 |   String osName = System.getProperty(""os.name"");
@@ -2498,7 +2498,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02244.j
   74 |  }  // end doPost
   75 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02249.java,62,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02249.java","
   52 |
@@ -2523,7 +2523,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02249.j
   71 |  }  // end doPost
   72 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02250.java,62,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02250.java","
   52 |
@@ -2548,7 +2548,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02250.j
   71 |  }  // end doPost
   72 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02251.java,74,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02251.java","
   64 |         } else {
@@ -2573,7 +2573,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02251.j
   83 |  }  // end doPost
   84 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02333.java,76,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02333.java","
   66 |          argList.add(""cmd.exe"");
@@ -2598,7 +2598,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02333.j
   85 |  }  // end doPost
   86 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02334.java,76,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02334.java","
    66 |          argList.add(""cmd.exe"");
@@ -2623,7 +2623,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02334.j
    85 |  }  // end doPost
    86 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02342.java,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02342.java","
   62 |   String cmd = """";
@@ -2648,7 +2648,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02342.j
   81 |  }  // end doPost
   82 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02343.java,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02343.java","
   62 |   String cmd = """";
@@ -2673,7 +2673,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02343.j
   81 |  }  // end doPost
   82 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02344.java,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02344.java","
   56 |     }
@@ -2698,7 +2698,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02344.j
   75 |  }  // end doPost
   76 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02411.java,63,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02411.java","
   53 |          a1 = ""cmd.exe"";
@@ -2723,7 +2723,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02411.j
   72 |  }  // end doPost
   73 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02412.java,63,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02412.java","
   53 |          a1 = ""cmd.exe"";
@@ -2748,7 +2748,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02412.j
   72 |  }  // end doPost
   73 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02414.java,61,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02414.java","
   51 |   String osName = System.getProperty(""os.name"");
@@ -2773,7 +2773,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02414.j
   70 |  }  // end doPost
   71 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02429.java,70,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02429.java","
   60 |         } else {
@@ -2798,7 +2798,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02429.j
   79 |  }  // end doPost
   80 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02430.java,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02430.java","
   62 |          a2 = ""-c"";
@@ -2823,7 +2823,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02430.j
   81 |  }  // end doPost
   82 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02431.java,56,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02431.java","
   46 |
@@ -2848,7 +2848,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02431.j
   65 |  }  // end doPost
   66 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02432.java,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02432.java","
   62 |          a2 = ""-c"";
@@ -2873,7 +2873,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02432.j
   81 |  }  // end doPost
   82 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02433.java,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02433.java","
   62 |          a2 = ""-c"";
@@ -2898,7 +2898,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02433.j
   81 |  }  // end doPost
   82 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02496.java,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02496.java","
   55 |          a1 = ""cmd.exe"";
@@ -2923,7 +2923,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02496.j
   74 |  }  // end doPost
   75 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02511.java,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02511.java","
   48 |
@@ -2948,7 +2948,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02511.j
   67 |  }  // end doPost
   68 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02512.java,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02512.java","
   48 |
@@ -2973,7 +2973,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02512.j
   67 |  }  // end doPost
   68 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02514.java,57,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02514.java","
   47 |   else param = """";
@@ -2998,7 +2998,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02514.j
   66 |  }  // end doPost
   67 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02515.java,57,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02515.java","
   47 |   else param = """";
@@ -3023,7 +3023,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02515.j
   66 |  }  // end doPost
   67 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02516.java,55,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02516.java","
   45 |   if (values != null && values.length > 0)
@@ -3048,7 +3048,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02516.j
   64 |  }  // end doPost
   65 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02517.java,55,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02517.java","
   45 |   if (values != null && values.length > 0)
@@ -3073,7 +3073,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02517.j
   64 |  }  // end doPost
   65 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02611.java,85,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02611.java","
    75 |          a2 = ""-c"";
@@ -3098,7 +3098,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02611.j
    94 |  }  // end doPost
    95 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02612.java,69,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02612.java","
   59 |
@@ -3123,7 +3123,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02612.j
   78 |  }  // end doPost
   79 |
      ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02613.java,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02613.java","
    56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
@@ -3148,4 +3148,4 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02613.j
    75 |  }  // end doPost
    76 |
       ^ Col 0
-",get_vulnerabilities_from_syntax
+",query.get_vulnerabilities_from_syntax
