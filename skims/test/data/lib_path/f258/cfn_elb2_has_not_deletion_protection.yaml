@@ -1,0 +1,34 @@
+Resources:
+  LoadBalancer1:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: "test-Application-Load-Balancer"
+      IpAddressType: String
+      LoadBalancerAttributes:
+      - Key: "deletion_protection.enabled"
+        Value: True
+      - Key: "access_logs.s3.bucket"
+        Value: "bk"
+  LoadBalancer2:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: "test-Application-Load-Balancer"
+      IpAddressType: String
+      LoadBalancerAttributes:
+      - Key: "deletion_protection.enabled"
+        Value: False
+      - Key: "access_logs.s3.bucket"
+        Value: "bk"
+  LoadBalancer3:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: "test-Application-Load-Balancer"
+      IpAddressType: String
+      LoadBalancerAttributes:
+      - Key: "access_logs.s3.bucket"
+        Value: "bk"
+  LoadBalancer4:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: "test-Application-Load-Balancer"
+      IpAddressType: String

@@ -6734,6 +6734,342 @@ F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_rec
   51 |         ]
      ^ Col 0
 ",_cfn_has_not_point_in_time_recovery
+F258,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,7,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,"
+   1 | Resources:
+   2 |   LoadBalancer1:
+   3 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+   4 |     Properties:
+   5 |       Name: ""test-Application-Load-Balancer""
+   6 |       IpAddressType: String
+>  7 |       LoadBalancerAttributes:
+   8 |       - Key: ""access_logs.s3.enabled""
+   9 |         Value: True
+  10 |       - Key: ""access_logs.s3.bucket""
+  11 |         Value: ""bk""
+  12 |   LoadBalancer2:
+  13 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  14 |     Properties:
+  15 |       Name: ""test-Application-Load-Balancer""
+  16 |       IpAddressType: String
+  17 |       LoadBalancerAttributes:
+  18 |       - Key: ""access_logs.s3.enabled""
+  19 |         Value: False
+  20 |       - Key: ""access_logs.s3.bucket""
+  21 |         Value: ""bk""
+     ^ Col 0
+",_cfn_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,17,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,"
+   7 |       LoadBalancerAttributes:
+   8 |       - Key: ""access_logs.s3.enabled""
+   9 |         Value: True
+  10 |       - Key: ""access_logs.s3.bucket""
+  11 |         Value: ""bk""
+  12 |   LoadBalancer2:
+  13 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  14 |     Properties:
+  15 |       Name: ""test-Application-Load-Balancer""
+  16 |       IpAddressType: String
+> 17 |       LoadBalancerAttributes:
+  18 |       - Key: ""access_logs.s3.enabled""
+  19 |         Value: False
+  20 |       - Key: ""access_logs.s3.bucket""
+  21 |         Value: ""bk""
+  22 |   LoadBalancer3:
+  23 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  24 |     Properties:
+  25 |       Name: ""test-Application-Load-Balancer""
+  26 |       IpAddressType: String
+  27 |       LoadBalancerAttributes:
+     ^ Col 0
+",_cfn_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,32,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,"
+  14 |     Properties:
+  15 |       Name: ""test-Application-Load-Balancer""
+  16 |       IpAddressType: String
+  17 |       LoadBalancerAttributes:
+  18 |       - Key: ""access_logs.s3.enabled""
+  19 |         Value: False
+  20 |       - Key: ""access_logs.s3.bucket""
+  21 |         Value: ""bk""
+  22 |   LoadBalancer3:
+  23 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  24 |     Properties:
+  25 |       Name: ""test-Application-Load-Balancer""
+  26 |       IpAddressType: String
+  27 |       LoadBalancerAttributes:
+  28 |       - Key: ""access_logs.s3.bucket""
+  29 |         Value: ""bk""
+  30 |   LoadBalancer4:
+  31 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+> 32 |     Properties:
+  33 |       Name: ""test-Application-Load-Balancer""
+  34 |       IpAddressType: String
+     ^ Col 0
+",_cfn_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,27,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,"
+  14 |     Properties:
+  15 |       Name: ""test-Application-Load-Balancer""
+  16 |       IpAddressType: String
+  17 |       LoadBalancerAttributes:
+  18 |       - Key: ""access_logs.s3.enabled""
+  19 |         Value: False
+  20 |       - Key: ""access_logs.s3.bucket""
+  21 |         Value: ""bk""
+  22 |   LoadBalancer3:
+  23 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  24 |     Properties:
+  25 |       Name: ""test-Application-Load-Balancer""
+  26 |       IpAddressType: String
+> 27 |       LoadBalancerAttributes:
+  28 |       - Key: ""access_logs.s3.bucket""
+  29 |         Value: ""bk""
+  30 |   LoadBalancer4:
+  31 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  32 |     Properties:
+  33 |       Name: ""test-Application-Load-Balancer""
+  34 |       IpAddressType: String
+     ^ Col 0
+",_cfn_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,8,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
+   1 |
+   2 | esources"": {
+   3 | ""LoadBalancer1"": {
+   4 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+   5 |   ""Properties"": {
+   6 |     ""Name"": ""test-Application-Load-Balancer"",
+   7 |     ""IpAddressType"": ""String"",
+>  8 |     ""LoadBalancerAttributes"": [
+   9 |       {
+  10 |         ""Key"": ""access_logs.s3.enabled"",
+  11 |         ""Value"": true
+  12 |       },
+  13 |       {
+  14 |         ""Key"": ""access_logs.s3.bucket"",
+  15 |         ""Value"": ""bk""
+  16 |       }
+  17 |     ]
+  18 |   }
+  19 | },
+  20 | ""LoadBalancer2"": {
+  21 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+     ^ Col 4
+",_cfn_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,25,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
+  15 |         ""Value"": ""bk""
+  16 |       }
+  17 |     ]
+  18 |   }
+  19 | },
+  20 | ""LoadBalancer2"": {
+  21 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  22 |   ""Properties"": {
+  23 |     ""Name"": ""test-Application-Load-Balancer"",
+  24 |     ""IpAddressType"": ""String"",
+> 25 |     ""LoadBalancerAttributes"": [
+  26 |       {
+  27 |         ""Key"": ""access_logs.s3.enabled"",
+  28 |         ""Value"": false
+  29 |       },
+  30 |       {
+  31 |         ""Key"": ""access_logs.s3.bucket"",
+  32 |         ""Value"": ""bk""
+  33 |       }
+  34 |     ]
+  35 |   }
+     ^ Col 4
+",_cfn_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,42,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
+  32 |         ""Value"": ""bk""
+  33 |       }
+  34 |     ]
+  35 |   }
+  36 | },
+  37 | ""LoadBalancer3"": {
+  38 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  39 |   ""Properties"": {
+  40 |     ""Name"": ""test-Application-Load-Balancer"",
+  41 |     ""IpAddressType"": ""String"",
+> 42 |     ""LoadBalancerAttributes"": [
+  43 |       {
+  44 |         ""Key"": ""access_logs.s3.bucket"",
+  45 |         ""Value"": ""bk""
+  46 |       }
+  47 |     ]
+  48 |   }
+  49 | },
+  50 | ""LoadBalancer4"": {
+  51 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  52 |   ""Properties"": {
+     ^ Col 4
+",_cfn_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,52,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
+  38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  39 |       ""Properties"": {
+  40 |         ""Name"": ""test-Application-Load-Balancer"",
+  41 |         ""IpAddressType"": ""String"",
+  42 |         ""LoadBalancerAttributes"": [
+  43 |           {
+  44 |             ""Key"": ""access_logs.s3.bucket"",
+  45 |             ""Value"": ""bk""
+  46 |           }
+  47 |         ]
+  48 |       }
+  49 |     },
+  50 |     ""LoadBalancer4"": {
+  51 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+> 52 |       ""Properties"": {
+  53 |         ""Name"": ""test-Application-Load-Balancer"",
+  54 |         ""IpAddressType"": ""String""
+  55 |       }
+  56 |     }
+  57 |   }
+  58 | }
+     ^ Col 0
+",_cfn_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,19,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
+   9 |         Value: True
+  10 |       - Key: ""access_logs.s3.bucket""
+  11 |         Value: ""bk""
+  12 |   LoadBalancer2:
+  13 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  14 |     Properties:
+  15 |       Name: ""test-Application-Load-Balancer""
+  16 |       IpAddressType: String
+  17 |       LoadBalancerAttributes:
+  18 |       - Key: ""deletion_protection.enabled""
+> 19 |         Value: False
+  20 |       - Key: ""access_logs.s3.bucket""
+  21 |         Value: ""bk""
+  22 |   LoadBalancer3:
+  23 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  24 |     Properties:
+  25 |       Name: ""test-Application-Load-Balancer""
+  26 |       IpAddressType: String
+  27 |       LoadBalancerAttributes:
+  28 |       - Key: ""access_logs.s3.bucket""
+  29 |         Value: ""bk""
+     ^ Col 0
+",_cfn_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,32,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
+  14 |     Properties:
+  15 |       Name: ""test-Application-Load-Balancer""
+  16 |       IpAddressType: String
+  17 |       LoadBalancerAttributes:
+  18 |       - Key: ""deletion_protection.enabled""
+  19 |         Value: False
+  20 |       - Key: ""access_logs.s3.bucket""
+  21 |         Value: ""bk""
+  22 |   LoadBalancer3:
+  23 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  24 |     Properties:
+  25 |       Name: ""test-Application-Load-Balancer""
+  26 |       IpAddressType: String
+  27 |       LoadBalancerAttributes:
+  28 |       - Key: ""access_logs.s3.bucket""
+  29 |         Value: ""bk""
+  30 |   LoadBalancer4:
+  31 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+> 32 |     Properties:
+  33 |       Name: ""test-Application-Load-Balancer""
+  34 |       IpAddressType: String
+     ^ Col 0
+",_cfn_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,27,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
+  14 |     Properties:
+  15 |       Name: ""test-Application-Load-Balancer""
+  16 |       IpAddressType: String
+  17 |       LoadBalancerAttributes:
+  18 |       - Key: ""deletion_protection.enabled""
+  19 |         Value: False
+  20 |       - Key: ""access_logs.s3.bucket""
+  21 |         Value: ""bk""
+  22 |   LoadBalancer3:
+  23 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  24 |     Properties:
+  25 |       Name: ""test-Application-Load-Balancer""
+  26 |       IpAddressType: String
+> 27 |       LoadBalancerAttributes:
+  28 |       - Key: ""access_logs.s3.bucket""
+  29 |         Value: ""bk""
+  30 |   LoadBalancer4:
+  31 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  32 |     Properties:
+  33 |       Name: ""test-Application-Load-Balancer""
+  34 |       IpAddressType: String
+     ^ Col 0
+",_cfn_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,28,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
+  18 |       }
+  19 |     },
+  20 |     ""LoadBalancer2"": {
+  21 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  22 |       ""Properties"": {
+  23 |         ""Name"": ""test-Application-Load-Balancer"",
+  24 |         ""IpAddressType"": ""String"",
+  25 |         ""LoadBalancerAttributes"": [
+  26 |           {
+  27 |             ""Key"": ""deletion_protection.enabled"",
+> 28 |             ""Value"": false
+  29 |           },
+  30 |           {
+  31 |             ""Key"": ""access_logs.s3.bucket"",
+  32 |             ""Value"": ""bk""
+  33 |           }
+  34 |         ]
+  35 |       }
+  36 |     },
+  37 |     ""LoadBalancer3"": {
+  38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+     ^ Col 0
+",_cfn_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,42,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
+  32 |         ""Value"": ""bk""
+  33 |       }
+  34 |     ]
+  35 |   }
+  36 | },
+  37 | ""LoadBalancer3"": {
+  38 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  39 |   ""Properties"": {
+  40 |     ""Name"": ""test-Application-Load-Balancer"",
+  41 |     ""IpAddressType"": ""String"",
+> 42 |     ""LoadBalancerAttributes"": [
+  43 |       {
+  44 |         ""Key"": ""access_logs.s3.bucket"",
+  45 |         ""Value"": ""bk""
+  46 |       }
+  47 |     ]
+  48 |   }
+  49 | },
+  50 | ""LoadBalancer4"": {
+  51 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  52 |   ""Properties"": {
+     ^ Col 4
+",_cfn_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,52,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
+  38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  39 |       ""Properties"": {
+  40 |         ""Name"": ""test-Application-Load-Balancer"",
+  41 |         ""IpAddressType"": ""String"",
+  42 |         ""LoadBalancerAttributes"": [
+  43 |           {
+  44 |             ""Key"": ""access_logs.s3.bucket"",
+  45 |             ""Value"": ""bk""
+  46 |           }
+  47 |         ]
+  48 |       }
+  49 |     },
+  50 |     ""LoadBalancer4"": {
+  51 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+> 52 |       ""Properties"": {
+  53 |         ""Name"": ""test-Application-Load-Balancer"",
+  54 |         ""IpAddressType"": ""String""
+  55 |       }
+  56 |     }
+  57 |   }
+  58 | }
+     ^ Col 0
+",_cfn_elb2_has_not_deletion_protection
 F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,2,478,skims,073. Improper authorization control for web services - RDS,Improper authorization control for web services - RDS in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
    1 | resource ""aws_db_instance"" ""default"" {
 >  2 |   publicly_accessible  = true
@@ -8596,6 +8932,198 @@ F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_d
      ^ Col 4
 ",_cfn_elb2_has_access_logs_s3_disabled
 F200,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,52,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
+  38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  39 |       ""Properties"": {
+  40 |         ""Name"": ""test-Application-Load-Balancer"",
+  41 |         ""IpAddressType"": ""String"",
+  42 |         ""LoadBalancerAttributes"": [
+  43 |           {
+  44 |             ""Key"": ""access_logs.s3.bucket"",
+  45 |             ""Value"": ""bk""
+  46 |           }
+  47 |         ]
+  48 |       }
+  49 |     },
+  50 |     ""LoadBalancer4"": {
+  51 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+> 52 |       ""Properties"": {
+  53 |         ""Name"": ""test-Application-Load-Balancer"",
+  54 |         ""IpAddressType"": ""String""
+  55 |       }
+  56 |     }
+  57 |   }
+  58 | }
+     ^ Col 0
+",_cfn_elb2_has_access_logs_s3_disabled
+F200,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,7,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
+   1 | Resources:
+   2 |   LoadBalancer1:
+   3 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+   4 |     Properties:
+   5 |       Name: ""test-Application-Load-Balancer""
+   6 |       IpAddressType: String
+>  7 |       LoadBalancerAttributes:
+   8 |       - Key: ""deletion_protection.enabled""
+   9 |         Value: True
+  10 |       - Key: ""access_logs.s3.bucket""
+  11 |         Value: ""bk""
+  12 |   LoadBalancer2:
+  13 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  14 |     Properties:
+  15 |       Name: ""test-Application-Load-Balancer""
+  16 |       IpAddressType: String
+  17 |       LoadBalancerAttributes:
+  18 |       - Key: ""deletion_protection.enabled""
+  19 |         Value: False
+  20 |       - Key: ""access_logs.s3.bucket""
+  21 |         Value: ""bk""
+     ^ Col 0
+",_cfn_elb2_has_access_logs_s3_disabled
+F200,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,17,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
+   7 |       LoadBalancerAttributes:
+   8 |       - Key: ""deletion_protection.enabled""
+   9 |         Value: True
+  10 |       - Key: ""access_logs.s3.bucket""
+  11 |         Value: ""bk""
+  12 |   LoadBalancer2:
+  13 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  14 |     Properties:
+  15 |       Name: ""test-Application-Load-Balancer""
+  16 |       IpAddressType: String
+> 17 |       LoadBalancerAttributes:
+  18 |       - Key: ""deletion_protection.enabled""
+  19 |         Value: False
+  20 |       - Key: ""access_logs.s3.bucket""
+  21 |         Value: ""bk""
+  22 |   LoadBalancer3:
+  23 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  24 |     Properties:
+  25 |       Name: ""test-Application-Load-Balancer""
+  26 |       IpAddressType: String
+  27 |       LoadBalancerAttributes:
+     ^ Col 0
+",_cfn_elb2_has_access_logs_s3_disabled
+F200,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,32,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
+  14 |     Properties:
+  15 |       Name: ""test-Application-Load-Balancer""
+  16 |       IpAddressType: String
+  17 |       LoadBalancerAttributes:
+  18 |       - Key: ""deletion_protection.enabled""
+  19 |         Value: False
+  20 |       - Key: ""access_logs.s3.bucket""
+  21 |         Value: ""bk""
+  22 |   LoadBalancer3:
+  23 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  24 |     Properties:
+  25 |       Name: ""test-Application-Load-Balancer""
+  26 |       IpAddressType: String
+  27 |       LoadBalancerAttributes:
+  28 |       - Key: ""access_logs.s3.bucket""
+  29 |         Value: ""bk""
+  30 |   LoadBalancer4:
+  31 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+> 32 |     Properties:
+  33 |       Name: ""test-Application-Load-Balancer""
+  34 |       IpAddressType: String
+     ^ Col 0
+",_cfn_elb2_has_access_logs_s3_disabled
+F200,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,27,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
+  14 |     Properties:
+  15 |       Name: ""test-Application-Load-Balancer""
+  16 |       IpAddressType: String
+  17 |       LoadBalancerAttributes:
+  18 |       - Key: ""deletion_protection.enabled""
+  19 |         Value: False
+  20 |       - Key: ""access_logs.s3.bucket""
+  21 |         Value: ""bk""
+  22 |   LoadBalancer3:
+  23 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  24 |     Properties:
+  25 |       Name: ""test-Application-Load-Balancer""
+  26 |       IpAddressType: String
+> 27 |       LoadBalancerAttributes:
+  28 |       - Key: ""access_logs.s3.bucket""
+  29 |         Value: ""bk""
+  30 |   LoadBalancer4:
+  31 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  32 |     Properties:
+  33 |       Name: ""test-Application-Load-Balancer""
+  34 |       IpAddressType: String
+     ^ Col 0
+",_cfn_elb2_has_access_logs_s3_disabled
+F200,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,8,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
+   1 |
+   2 | esources"": {
+   3 | ""LoadBalancer1"": {
+   4 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+   5 |   ""Properties"": {
+   6 |     ""Name"": ""test-Application-Load-Balancer"",
+   7 |     ""IpAddressType"": ""String"",
+>  8 |     ""LoadBalancerAttributes"": [
+   9 |       {
+  10 |         ""Key"": ""deletion_protection.enabled"",
+  11 |         ""Value"": true
+  12 |       },
+  13 |       {
+  14 |         ""Key"": ""access_logs.s3.bucket"",
+  15 |         ""Value"": ""bk""
+  16 |       }
+  17 |     ]
+  18 |   }
+  19 | },
+  20 | ""LoadBalancer2"": {
+  21 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+     ^ Col 4
+",_cfn_elb2_has_access_logs_s3_disabled
+F200,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,25,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
+  15 |         ""Value"": ""bk""
+  16 |       }
+  17 |     ]
+  18 |   }
+  19 | },
+  20 | ""LoadBalancer2"": {
+  21 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  22 |   ""Properties"": {
+  23 |     ""Name"": ""test-Application-Load-Balancer"",
+  24 |     ""IpAddressType"": ""String"",
+> 25 |     ""LoadBalancerAttributes"": [
+  26 |       {
+  27 |         ""Key"": ""deletion_protection.enabled"",
+  28 |         ""Value"": false
+  29 |       },
+  30 |       {
+  31 |         ""Key"": ""access_logs.s3.bucket"",
+  32 |         ""Value"": ""bk""
+  33 |       }
+  34 |     ]
+  35 |   }
+     ^ Col 4
+",_cfn_elb2_has_access_logs_s3_disabled
+F200,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,42,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
+  32 |         ""Value"": ""bk""
+  33 |       }
+  34 |     ]
+  35 |   }
+  36 | },
+  37 | ""LoadBalancer3"": {
+  38 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  39 |   ""Properties"": {
+  40 |     ""Name"": ""test-Application-Load-Balancer"",
+  41 |     ""IpAddressType"": ""String"",
+> 42 |     ""LoadBalancerAttributes"": [
+  43 |       {
+  44 |         ""Key"": ""access_logs.s3.bucket"",
+  45 |         ""Value"": ""bk""
+  46 |       }
+  47 |     ]
+  48 |   }
+  49 | },
+  50 | ""LoadBalancer4"": {
+  51 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  52 |   ""Properties"": {
+     ^ Col 4
+",_cfn_elb2_has_access_logs_s3_disabled
+F200,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,52,778,skims,200. Traceability loss,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
   38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
   39 |       ""Properties"": {
   40 |         ""Name"": ""test-Application-Load-Balancer"",
