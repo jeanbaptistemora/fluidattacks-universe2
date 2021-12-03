@@ -115,7 +115,7 @@ def test_group_forces(
         "Click on an execution to see more details",
         timeout,
     )
-    assert "There is no data to display" in driver.page_source
+    assert "Identifier" in driver.page_source
 
 
 def test_group_scope_repositories(
