@@ -59,15 +59,6 @@ def test_has_not_an_iam_instance_profile():
     assert ec2.has_not_an_iam_instance_profile(NOT_EXISTS).is_unknown()
 
 
-def test_has_not_termination_protection():
-    """test ec2.has_not_termination_protection."""
-    result = ec2.has_not_termination_protection(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2
-    assert ec2.has_not_termination_protection(SAFE).is_closed()
-    assert ec2.has_not_termination_protection(NOT_EXISTS).is_unknown()
-
-
 def test_is_associate_public_ip_address_enabled():
     """test ec2.is_associate_public_ip_address_enabled."""
     result = ec2.is_associate_public_ip_address_enabled(VULN)
