@@ -24,7 +24,7 @@ clients, unbeknown to an "auditor" in black robes - aka Poodle - paying
 attention to this situation. One day the "auditor" undercover, tells the
 vendor he will only offer gas with less octanage, thus his pipes should
 met certain old requeriments, ignorant of the situation he downgrades
-it’s pipes standards until the "auditor" agrees on it.
+it’s pipes standards until the "auditor" agrees on it.\
 Next day, the "auditor" goes to the station, disguised as a client and
 ask the vendor to refill his car, next he reveals himself telling the
 vendor that he knows what he is doing plus that he has outdated pipes
@@ -55,8 +55,8 @@ Figure 1. Black poodle
 ## Techninal introduction
 
 The Padding Oracle On Downgraded Legacy Encryption SSL 3.0 (POODLE v3),
-it is a protocol vulnerability on `Secure Socket Layer (SSL 3.0)`, which
-can make any \*Transport Layer Secure (TLS)\*\` version to fallback to
+it is a protocol vulnerability on <code><b>Secure Socket Layer</b> (SSL 3.0)</code>,
+which can make any \*Transport Layer Secure (TLS)\*\` version to fallback to
 \`(SSL 3.0) plus it takes advantage on weak encryption using a mechanism
 to check message authencity using **Cipher Block Chaining Message
 Authentication Code (CBC-MAC)**, allowing an attacker to steal cookies

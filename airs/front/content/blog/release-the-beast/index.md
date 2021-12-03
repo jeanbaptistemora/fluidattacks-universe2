@@ -185,13 +185,15 @@ sent is fragmented into blocks of length less than or equal to
 
 Which is then processed and sent as follow:
 
+**Unencrypted Portion:**
+
 1. Message type (8 bits);
 
 2. Major/minor version number (16 bits);
 
 3. Length counter(16 bits);
 
-<!-- end list -->
+**Encrypted Portion:**
 
 1. Plaintext fragment (\< = 2<sup>14</sup> bytes);
 
@@ -254,7 +256,7 @@ Figure 7. Output
 But performing the packet injection rigth there would throw an output
 not worth considering, because `TLS` will `XOR` the injected plaintext
 with the previous residue `CBC`, - The next CBC is just a supossition,
-for the sake of not extending the example -
+for the sake of not extending the example -\
 as seen here:
 
 <div class="imgblock">
@@ -378,7 +380,7 @@ When the attacker has predicted it, it can act in two ways:
 
 2. Determine the value of the block. Notice, that this values on the
     stream ranges from 256 characters in ASCII, plus 8 bytes per block,
-    which means 256<sup>8</sup> possibilities.
+    which means 256<sup>8</sup> possibilities.\
     Of course fewer, if special characters are removed and other
     advanced mechanisms are used, which are out of the scope here.
 
