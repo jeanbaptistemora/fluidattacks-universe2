@@ -104,6 +104,9 @@
     "CVE-2020-17054": ">=1.11.0 <1.11.23",
     "CVE-2020-17131": ">=0 <1.11.0"
   },
+  "microsoft.identitymodel.tokens": {
+    "SNYK-DOTNET-MICROSOFTIDENTITYMODELTOKENS-60016": "<5.1.1"
+  },
   "nasm": {
     "CVE-2020-18974": ">=2.15 <=2.15.05",
     "CVE-2020-24241": "2.15",
@@ -134,6 +137,12 @@
   "sharpcompress": {
     "CVE-2021-39208": ">=0 <0.29.0",
     "GHSA-jp7f-grcv-6mjf": ">=0 <0.29.0"
+  },
+  "system.net.websockets.client": {
+    "CVE-2017-0247": "4.0.0 || 4.3.0",
+    "CVE-2017-0249": "4.0.0 || 4.3.0",
+    "CVE-2017-0256": "4.0.0 || 4.3.0",
+    "SNYK-DOTNET-SYSTEMNETWEBSOCKETSCLIENT-60102": "<4.0.1 || >=4.3 <4.3.1"
   },
   "tinymce": {
     "CVE-2020-12648": ">=0 <4.9.11 || >=5.0.0 <5.4.1",
