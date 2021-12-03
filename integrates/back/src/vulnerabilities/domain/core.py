@@ -246,19 +246,6 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     return False
 
 
-async def get(vuln_id: str) -> Dict[str, FindingType]:
-    vuln = await vulns_dal.get(vuln_id)
-    if not vuln:
-        raise VulnNotFound()
-    first_vuln = cast(Dict[str, List[Dict[str, str]]], vuln[0])
-    if (
-        first_vuln.get("historic_state", [{}])[-1].get("state", "")
-        == "DELETED"
-    ):
-        raise VulnNotFound()
-    return vuln[0]
-
-
 async def get_by_finding(
     finding_id: str, vuln_id: str
 ) -> Dict[str, FindingType]:
