@@ -5,6 +5,7 @@ import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import wait from "waait";
+import waitForExpect from "wait-for-expect";
 
 import { GlobalConfigModal } from "scenes/Dashboard/components/Navbar/UserProfile/GlobalConfigModal";
 import {
@@ -127,36 +128,47 @@ describe("Global configuration modal", (): void => {
     );
 
     await act(async (): Promise<void> => {
-      const delay = 50;
-      await wait(delay);
-      wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        const configLabel: ReactWrapper = wrapper
+          .find({
+            id: "config-digest-label",
+          })
+          .first();
+
+        expect(wrapper).toHaveLength(1);
+        expect(configLabel).toHaveLength(1);
+        expect(
+          wrapper
+            .find({
+              name: "config-digest-switch",
+            })
+            .prop("checked")
+        ).toBe(true);
+        expect(wrapper.find("#config-confirm").first().prop("disabled")).toBe(
+          true
+        );
+      });
     });
 
-    const configLabel: ReactWrapper = wrapper
+    wrapper
       .find({
-        id: "config-digest-label",
+        name: "config-digest-switch",
       })
-      .first();
-    const configSwitch: ReactWrapper = wrapper.find({
-      name: "config-digest-switch",
-    });
-    const confirmButton: ReactWrapper = wrapper.find("#config-confirm").first();
-
-    expect(wrapper).toHaveLength(1);
-    expect(configLabel).toHaveLength(1);
-    expect(configSwitch.prop("checked")).toBe(true);
-    expect(confirmButton.prop("disabled")).toBe(true);
-
-    configSwitch.simulate("click");
-    confirmButton.simulate("click");
+      .simulate("click");
+    wrapper.find("#config-confirm").first().simulate("click");
     wrapper.find("form").simulate("submit");
 
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
+      await waitForExpect((): void => {
+        wrapper.update();
 
-    expect(confirmButton.prop("disabled")).toBe(true);
+        expect(wrapper.find("#config-confirm").first().prop("disabled")).toBe(
+          true
+        );
+      });
+    });
   });
 
   it("should render comments subscription option", async (): Promise<void> => {
