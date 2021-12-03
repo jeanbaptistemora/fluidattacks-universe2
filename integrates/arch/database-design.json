@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Nov 19, 2021, 02:58 PM",
+    "DateLastModified": "Dec 03, 2021, 09:26 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -477,6 +477,18 @@
         {
           "AttributeName": "sk_2",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "start_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "end_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "findings_executed",
+          "AttributeType": "L"
         }
       ],
       "TableFacets": [
@@ -8452,6 +8464,52 @@
             "modified_date",
             "modified_by",
             "comment_id"
+          ]
+        },
+        {
+          "FacetName": "machine_git_root_execution_new",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#uuid",
+            "SortKeyAlias": "MACHINE#job_id"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+              },
+              "sk": {
+                "S": "MACHINE#5504e9ed-8e43-486d-830b-c495086d84c1"
+              },
+              "exit_code": {
+                "S": "0"
+              },
+              "queue_date": {
+                "S": "2020-11-19T13:37:10+00:00"
+              },
+              "start_date": {
+                "S": "2020-11-19T13:45:10+00:00"
+              },
+              "end_date": {
+                "S": "2020-11-19T13:59:10+00:00"
+              },
+              "findings_executed": {
+                "L": [
+                  {
+                    "S": "F001"
+                  },
+                  {
+                    "S": "F002"
+                  }
+                ]
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "exit_code",
+            "queue_date",
+            "start_date",
+            "end_date",
+            "findings_executed"
           ]
         }
       ],
