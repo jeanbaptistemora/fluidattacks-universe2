@@ -20,4 +20,4 @@ LANGUAGE_EVALUATORS: Dict[GraphLanguage, Evaluator] = {
 def evaluate(args: SymbolicEvalArgs) -> bool:
     if language_evaluator := LANGUAGE_EVALUATORS.get(args.language):
         return language_evaluator(args)
-    return args.graph.nodes[args.n_id]["danger"]
+    return args.evaluation[args.n_id]
