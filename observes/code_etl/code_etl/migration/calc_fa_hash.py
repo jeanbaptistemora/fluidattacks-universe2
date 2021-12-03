@@ -13,6 +13,11 @@ from datetime import (
 )
 from postgres_client.client import (
     Client,
+    ClientFactory,
+)
+from postgres_client.connection import (
+    Credentials,
+    DatabaseID,
 )
 from postgres_client.ids import (
     SchemaID,
@@ -90,7 +95,7 @@ def calc_hash(client: Client, schema: SchemaID) -> IO[None]:
             total_files,
             namespace,
             repository,
-            hash,
+            hash
         FROM {schema}.commits WHERE fa_hash IS NULL
         """,
         SqlArgs(identifiers={"schema": schema.name}),
@@ -103,3 +108,8 @@ def calc_hash(client: Client, schema: SchemaID) -> IO[None]:
         if len(items) == 0:
             break
     return IO(None)
+
+
+def start(db_id: DatabaseID, creds: Credentials, schema: SchemaID) -> IO[None]:
+    client = ClientFactory().from_creds(db_id, creds)
+    return calc_hash(client, schema)

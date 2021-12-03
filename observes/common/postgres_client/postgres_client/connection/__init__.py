@@ -2,6 +2,9 @@ from __future__ import (
     annotations,
 )
 
+from dataclasses import (
+    dataclass,
+)
 from deprecated import (  # type: ignore
     deprecated,
 )
@@ -14,13 +17,15 @@ from typing import (
 )
 
 
-class DatabaseID(NamedTuple):
+@dataclass(frozen=True)
+class DatabaseID:
     db_name: str
     host: str
     port: int
 
 
-class Credentials(NamedTuple):
+@dataclass(frozen=True)
+class Credentials:
     user: str
     password: str
 

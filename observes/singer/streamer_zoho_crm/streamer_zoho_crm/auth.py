@@ -89,9 +89,9 @@ def to_db_credentials(
     auth = json.load(auth_file)
     auth["db_name"] = auth["dbname"]
     db_id_raw = dict(
-        filter(lambda x: x[0] in DatabaseID._fields, auth.items())
+        filter(lambda x: x[0] in DatabaseID.__annotations__, auth.items())
     )
     creds_raw = dict(
-        filter(lambda x: x[0] in DbCredentials._fields, auth.items())
+        filter(lambda x: x[0] in DbCredentials.__annotations__, auth.items())
     )
     return (DatabaseID(**db_id_raw), DbCredentials(**creds_raw))

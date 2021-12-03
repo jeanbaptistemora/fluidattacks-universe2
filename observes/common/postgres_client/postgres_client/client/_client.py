@@ -32,10 +32,10 @@ def _extract_conf_info(auth_file: IO[str]) -> Tuple[DatabaseID, Credentials]:
     auth = json.load(auth_file)
     auth["db_name"] = auth["dbname"]
     db_id_raw = dict(
-        filter(lambda x: x[0] in DatabaseID._fields, auth.items())
+        filter(lambda x: x[0] in DatabaseID.__annotations__, auth.items())
     )
     creds_raw = dict(
-        filter(lambda x: x[0] in Credentials._fields, auth.items())
+        filter(lambda x: x[0] in Credentials.__annotations__, auth.items())
     )
     return (DatabaseID(**db_id_raw), Credentials(**creds_raw))
 

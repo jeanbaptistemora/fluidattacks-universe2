@@ -5,14 +5,25 @@ from code_etl import (
     compute_bills as bills,
     upload,
 )
+from code_etl.migration import (
+    calc_fa_hash,
+)
 from os.path import (
     abspath,
+)
+from postgres_client.connection.decoder import (
+    creds_from_str,
+    id_from_str,
+)
+from postgres_client.ids import (
+    SchemaID,
 )
 from returns.maybe import (
     Maybe,
 )
 import sys
 from typing import (
+    IO as FILE,
     Iterator,
     Optional,
     Tuple,
@@ -69,6 +80,27 @@ def upload_code(
     sys.exit(0 if success else 1)
 
 
+@click.command()
+@click.option("--db-id", type=click.File("r"), required=True)
+@click.option("--creds", type=click.File("r"), required=True)
+@click.option("--schema", type=str, required=True)
+def calculate_fa_hash(db_id: FILE[str], creds: FILE[str], schema: str) -> None:
+    calc_fa_hash.start(
+        id_from_str(db_id.read()),
+        creds_from_str(creds.read()),
+        SchemaID(schema),
+    )
+
+
+@click.group()
+def migration() -> None:
+    # main cli group
+    pass
+
+
+migration.add_command(calculate_fa_hash)
+
+
 @click.group()
 def main() -> None:
     # main cli group
@@ -78,3 +110,4 @@ def main() -> None:
 main.add_command(amend_authors)
 main.add_command(compute_bills)
 main.add_command(upload_code)
+main.add_command(migration)
