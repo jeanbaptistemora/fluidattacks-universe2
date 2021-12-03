@@ -37,7 +37,7 @@ from vulnerabilities import (
 
 
 async def reset_group_expired_accepted_findings(
-    loaders: Dataloaders, group_name: str, today: str
+    loaders: Dataloaders, group_name: str, today: datetime
 ) -> None:
     group_findings: Tuple[Finding] = await loaders.group_findings.load(
         group_name
@@ -50,7 +50,7 @@ async def reset_group_expired_accepted_findings(
     for vuln in vulns:
         finding_id = vuln.finding_id
         is_accepted_expired = (
-            vuln.treatment.accepted_until < today
+            datetime.fromisoformat(vuln.treatment.accepted_until) < today
             if vuln.treatment and vuln.treatment.accepted_until
             else False
         )
@@ -64,7 +64,7 @@ async def reset_group_expired_accepted_findings(
                 datetime.fromisoformat(vuln.treatment.modified_date),
                 days=5,
             )
-            <= datetime_utils.get_from_str(today)
+            <= today
         )
         if is_accepted_expired or is_undefined_accepted_expired:
             findings_to_update.add(finding_id)
@@ -74,7 +74,7 @@ async def reset_group_expired_accepted_findings(
                 updated_values=updated_values,
                 vuln=vuln,
                 user_email=vuln.treatment.modified_by,
-                date=datetime_utils.get_as_str(datetime_utils.get_now()),
+                date=datetime_utils.get_iso_date(),
             )
 
     await collect(
@@ -89,8 +89,8 @@ async def reset_group_expired_accepted_findings(
 
 
 async def reset_expired_accepted_findings() -> None:
-    """Update treatment if acceptance date expires"""
-    today = datetime_utils.get_now_as_str()
+    """Update treatment if acceptance date expires."""
+    today: datetime = datetime_utils.get_now()
     loaders: Dataloaders = get_new_context()
     groups = await groups_domain.get_active_groups()
     await collect(
