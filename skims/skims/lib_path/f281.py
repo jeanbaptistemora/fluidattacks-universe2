@@ -182,5 +182,13 @@ async def analyze(
                     template=template,
                 )
             )
+            coroutines.append(
+                cfn_elb2_uses_insecure_port(
+                    content=content,
+                    file_ext=file_extension,
+                    path=path,
+                    template=template,
+                )
+            )
 
     return coroutines

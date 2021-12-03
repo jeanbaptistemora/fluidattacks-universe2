@@ -1,0 +1,35 @@
+Resources:
+  ELBv2targetGroup1:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: false
+      Name: MyTargets
+      Port: 443
+      TargetType: ip
+      Targets:
+      - Id: [ MyLambdaFunction, Arn ]
+  ELBv2targetGroup2:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: false
+      Name: MyTargets
+      Port: 80
+      TargetType: lambda
+      Targets:
+      - Id: [ MyLambdaFunction, Arn ]
+  ELBv2targetGroup3:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: false
+      Name: MyTargets
+      Port: 80
+      Targets:
+      - Id: [ MyLambdaFunction, Arn ]
+  ELBv2targetGroup4:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: false
+      Name: MyTargets
+      TargetType: lambda
+      Targets:
+      - Id: [ MyLambdaFunction, Arn ]

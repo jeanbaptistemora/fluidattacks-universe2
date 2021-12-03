@@ -6052,6 +6052,102 @@ F080,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,1,311,skims,080. B
   21 |   }
      ^ Col 0
 ",f080._terraform_unencrypted_buckets
+F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,16,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,"
+   6 |       Name: MyTargets
+   7 |       Port: 443
+   8 |       TargetType: ip
+   9 |       Targets:
+  10 |       - Id: [ MyLambdaFunction, Arn ]
+  11 |   ELBv2targetGroup2:
+  12 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  13 |     Properties:
+  14 |       HealthCheckEnabled: false
+  15 |       Name: MyTargets
+> 16 |       Port: 80
+  17 |       TargetType: lambda
+  18 |       Targets:
+  19 |       - Id: [ MyLambdaFunction, Arn ]
+  20 |   ELBv2targetGroup3:
+  21 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  22 |     Properties:
+  23 |       HealthCheckEnabled: false
+  24 |       Name: MyTargets
+  25 |       Port: 80
+  26 |       Targets:
+     ^ Col 0
+",f281._cfn_elb2_uses_insecure_port
+F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,30,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,"
+  15 |       Name: MyTargets
+  16 |       Port: 80
+  17 |       TargetType: lambda
+  18 |       Targets:
+  19 |       - Id: [ MyLambdaFunction, Arn ]
+  20 |   ELBv2targetGroup3:
+  21 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  22 |     Properties:
+  23 |       HealthCheckEnabled: false
+  24 |       Name: MyTargets
+  25 |       Port: 80
+  26 |       Targets:
+  27 |       - Id: [ MyLambdaFunction, Arn ]
+  28 |   ELBv2targetGroup4:
+  29 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+> 30 |     Properties:
+  31 |       HealthCheckEnabled: false
+  32 |       Name: MyTargets
+  33 |       TargetType: lambda
+  34 |       Targets:
+  35 |       - Id: [ MyLambdaFunction, Arn ]
+     ^ Col 0
+",f281._cfn_elb2_uses_insecure_port
+F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,25,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,"
+  15 |             ]
+  16 |           }
+  17 |         ]
+  18 |       }
+  19 |     },
+  20 |     ""ELBv2targetGroup2"": {
+  21 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+  22 |       ""Properties"": {
+  23 |         ""HealthCheckEnabled"": false,
+  24 |         ""Name"": ""MyTargets"",
+> 25 |         ""Port"": 80,
+  26 |         ""TargetType"": ""lambda"",
+  27 |         ""Targets"": [
+  28 |           {
+  29 |             ""Id"": [
+  30 |               ""MyLambdaFunction"",
+  31 |               ""Arn""
+  32 |             ]
+  33 |           }
+  34 |         ]
+  35 |       }
+     ^ Col 0
+",f281._cfn_elb2_uses_insecure_port
+F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,55,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,"
+  45 |             ""Id"": [
+  46 |               ""MyLambdaFunction"",
+  47 |               ""Arn""
+  48 |             ]
+  49 |           }
+  50 |         ]
+  51 |       }
+  52 |     },
+  53 |     ""ELBv2targetGroup4"": {
+  54 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+> 55 |       ""Properties"": {
+  56 |         ""HealthCheckEnabled"": false,
+  57 |         ""Name"": ""MyTargets"",
+  58 |         ""TargetType"": ""lambda"",
+  59 |         ""Targets"": [
+  60 |           {
+  61 |             ""Id"": [
+  62 |               ""MyLambdaFunction"",
+  63 |               ""Arn""
+  64 |             ]
+  65 |           }
+     ^ Col 0
+",f281._cfn_elb2_uses_insecure_port
 F250,lines,namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml,25,313,skims,250. Non-encrypted hard drives,"FileSystem must be encrypted with a KmsKeyId
  in namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml","
   15 |         AutoImportPolicy: ""NEW""
