@@ -11,6 +11,7 @@ from authz import (
 import base64
 from context import (
     FI_ENVIRONMENT,
+    FI_MAIL_CUSTOMER_SUCCESS,
     FI_MAIL_REVIEWERS,
     FI_TEST_PROJECTS,
 )
@@ -675,11 +676,13 @@ async def get_users_subscribed_to_consult(
             for recipient in recipients
         ]
     )
-
-    return [
+    suscribed_recipients = [
         recipient
         for recipient, is_user_subscribed in zip(
             recipients, are_users_subscribed
         )
         if is_user_subscribed
     ]
+    customer_success_recipients = FI_MAIL_CUSTOMER_SUCCESS.split(",")
+
+    return [*suscribed_recipients, *customer_success_recipients]
