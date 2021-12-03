@@ -23,6 +23,7 @@ from db_model.roots.types import (
     IPRootMetadata,
     IPRootState,
     RootItem,
+    RootMachineExecutionItem,
     RootState,
     URLRootItem,
     URLRootMetadata,
@@ -39,6 +40,7 @@ from notifications import (
 from organizations import (
     domain as orgs_domain,
 )
+import pytz  # type: ignore
 import re
 from roots import (
     dal as roots_dal,
@@ -50,6 +52,9 @@ from roots.types import (
     IPRoot,
     Root,
     URLRoot,
+)
+from settings.various import (
+    TIME_ZONE,
 )
 from typing import (
     Any,
@@ -876,3 +881,23 @@ async def move_root(
     )
 
     return new_root_id
+
+
+async def add_machine_execution(
+    root_id: str,
+    job_id: str,
+    **kwargs: Any,
+) -> bool:
+    tzn = pytz.timezone(TIME_ZONE)
+    queue_date = kwargs.pop("queue_date").astimezone(tzn)
+    start_date = kwargs.pop("start_date").astimezone(tzn)
+    end_date = kwargs.pop("end_date").astimezone(tzn)
+    execution = RootMachineExecutionItem(
+        job_id=job_id,
+        exit_code=kwargs.pop("exit_code", "0"),
+        queue_date=datetime_utils.get_as_str(queue_date),
+        start_date=datetime_utils.get_as_str(start_date),
+        end_date=datetime_utils.get_as_str(end_date),
+        findings_executed=kwargs.pop("findings_executed", []),
+    )
+    return await roots_model.add_machine_execution(root_id, execution)

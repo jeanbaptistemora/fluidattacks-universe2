@@ -27,7 +27,7 @@ closure:
   certifi: 2021.10.8
   cffi: 1.15.0
   chardet: 4.0.0
-  charset-normalizer: 2.0.8
+  charset-normalizer: 2.0.9
   click: 8.0.3
   cloudmersive-virus-api-client: 3.0.5
   colorama: 0.4.3
@@ -110,6 +110,7 @@ closure:
   starlette: 0.13.8
   tracers: 21.8.6876
   types-aiofiles: 0.7.0
+  types-pytz: 2021.3.1
   typing-extensions: 4.0.1
   urllib3: 1.25.11
   uvicorn: 0.15.0
@@ -329,12 +330,12 @@ links:
   - name: chardet-4.0.0.tar.gz
     sha256: 1ykr04qyhgpc0h5b7dhqw4g92b1xv7ki2ky910mhy4mlbnhm6vqd
     url: https://files.pythonhosted.org/packages/ee/2d/9cdc2b527e127b4c9db64b86647d567985940ac3698eeabc7ffaccb4ea61/chardet-4.0.0.tar.gz
-  - name: charset_normalizer-2.0.8-py3-none-any.whl
-    sha256: 01a4akxgg54ycqpdwbn3mjz704lqqa24dwzpr12677a94nrdxz43
-    url: https://files.pythonhosted.org/packages/c8/27/141554fc0f42c05dd318fbb0be0e3e018da686544a3ff452762e49ccac58/charset_normalizer-2.0.8-py3-none-any.whl
-  - name: charset-normalizer-2.0.8.tar.gz
-    sha256: 1c0pm73vk5z23jbgdx19zjqnnlvyh5zdjlx4sy67f1l5k86j8pkk
-    url: https://files.pythonhosted.org/packages/2f/39/5d8ff929409113e9ff402e405a7c7880ab1fa6f118a4ab72443976a01711/charset-normalizer-2.0.8.tar.gz
+  - name: charset_normalizer-2.0.9-py3-none-any.whl
+    sha256: 089pvy5xah5sg22q7myfz43bscvc9rk6bz6p56gbxd9d884smv0y
+    url: https://files.pythonhosted.org/packages/47/84/b06f6729fac8108c5fa3e13cde19b0b3de66ba5538c325496dbe39f5ff8e/charset_normalizer-2.0.9-py3-none-any.whl
+  - name: charset-normalizer-2.0.9.tar.gz
+    sha256: 0b5ac6p3acr0caqjzr22fc3dzfnm7m7333y2x7ngvvblx3l87f5h
+    url: https://files.pythonhosted.org/packages/68/e4/e014e7360fc6d1ccc507fe0b563b4646d00e0d4f9beec4975026dd15850b/charset-normalizer-2.0.9.tar.gz
   - name: click-8.0.3-py3-none-any.whl
     sha256: 1wwfa6j4490kd2qawk68a4ikf8nbj6gjynazdc5v9bmdjmj4cgrm
     url: https://files.pythonhosted.org/packages/48/58/c8aa6a8e62cc75f39fee1092c45d6b6ba684122697d7ce7d53f64f98a129/click-8.0.3-py3-none-any.whl
@@ -995,6 +996,12 @@ links:
   - name: types-aiofiles-0.7.0.tar.gz
     sha256: 1qy73fhkvx8l2bbj0p0f7xsw7sp1cc4vvd24cz3g7z78iv6smjgi
     url: https://files.pythonhosted.org/packages/75/cb/ea3cf132b9a5c8703af7514f3a0098a07e6a831ece419135f7c0d4f48a5d/types-aiofiles-0.7.0.tar.gz
+  - name: types_pytz-2021.3.1-py3-none-any.whl
+    sha256: 01hn44wifgpbbyf5pzcl0jxfrjnbc5cf8i604678sxjb1640d2nm
+    url: https://files.pythonhosted.org/packages/2c/73/3fdea009520e7c005f59b1872873b141cfa23dbde26ffc6813114cffabd1/types_pytz-2021.3.1-py3-none-any.whl
+  - name: types-pytz-2021.3.1.tar.gz
+    sha256: 1dvf5b3ixm8vqhlvh03756n5zm9qlvrrnyhqbxav3lzcxzrpgzfz
+    url: https://files.pythonhosted.org/packages/5e/d2/e3d284bf5ff664b39c2836101f2e9dc0ea558cfa3e0d0b60289baf354f8e/types-pytz-2021.3.1.tar.gz
   - name: typing_extensions-4.0.1-py3-none-any.whl
     sha256: 0fwx7nbx73jjm5rvbmc631q4xgk8r1z4r1h82m0c184hq9d1w03z
     url: https://files.pythonhosted.org/packages/05/e4/baf0031e39cf545f0c9edd5b1a2ea12609b7fcba2d58e118b11753d68cf0/typing_extensions-4.0.1-py3-none-any.whl

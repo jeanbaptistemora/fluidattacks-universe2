@@ -61,6 +61,7 @@ social-auth-core: 3.3.3
 starlette: 0.13.8
 tracers: 21.8.6876
 types-aiofiles: 0.7.0
+types-pytz: 2021.3.1
 uvicorn:
   version: 0.15.0
   extras:

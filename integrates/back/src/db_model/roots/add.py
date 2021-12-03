@@ -1,9 +1,14 @@
+import botocore
+from contextlib import (
+    suppress,
+)
 from db_model import (
     TABLE,
 )
 from db_model.roots.types import (
     GitRootItem,
     RootItem,
+    RootMachineExecutionItem,
 )
 from dynamodb import (
     historics,
@@ -65,3 +70,30 @@ async def add(*, root: RootItem) -> None:
         )
     else:
         await operations.batch_write_item(items=items, table=TABLE)
+
+
+async def add_machine_execution(
+    root_id: str,
+    execution: RootMachineExecutionItem,
+) -> bool:
+    key_structure = TABLE.primary_key
+    machine_execution_key = keys.build_key(
+        facet=TABLE.facets["machine_git_root_execution_new"],
+        values={"uuid": root_id, "job_id": execution.job_id},
+    )
+    machine_exectution = {
+        key_structure.partition_key: machine_execution_key.partition_key,
+        key_structure.sort_key: machine_execution_key.sort_key,
+        "exit_code": execution.exit_code,
+        "queue_date": execution.queue_date,
+        "start_date": execution.start_date,
+        "end_date": execution.end_date,
+        "findings_executed": execution.findings_executed,
+    }
+    with suppress(botocore.exceptions.ClientError):
+        await operations.batch_write_item(
+            items=(machine_exectution,), table=TABLE
+        )
+        return True
+
+    return False

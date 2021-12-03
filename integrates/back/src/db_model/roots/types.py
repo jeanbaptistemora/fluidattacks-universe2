@@ -106,3 +106,12 @@ class RootState(NamedTuple):
     other: Optional[str]
     reason: Optional[str]
     status: str
+
+
+class RootMachineExecutionItem(NamedTuple):
+    job_id: str
+    exit_code: str
+    queue_date: str
+    start_date: str
+    end_date: str
+    findings_executed: List[str]
