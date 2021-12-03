@@ -6148,6 +6148,198 @@ F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.y
   65 |           }
      ^ Col 0
 ",f281._cfn_elb2_uses_insecure_port
+F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,4,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
+   1 | Resources:
+   2 |   ELBv2targetGroup1:
+   3 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+>  4 |     Properties:
+   5 |       HealthCheckEnabled: false
+   6 |       Name: MyTargets
+   7 |       Protocol: HTTPS
+   8 |       TargetType: ip
+   9 |       Targets:
+  10 |       - Id: [ MyLambdaFunction, Arn ]
+  11 |   ELBv2targetGroup2:
+  12 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  13 |     Properties:
+  14 |       HealthCheckEnabled: false
+  15 |       Name: MyTargets
+  16 |       Protocol: HTTP
+  17 |       TargetType: lambda
+  18 |       Targets:
+  19 |       - Id: [ MyLambdaFunction, Arn ]
+  20 |   ELBv2targetGroup3:
+  21 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+     ^ Col 0
+",f281._cfn_elb2_uses_insecure_port
+F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,13,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
+   3 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+   4 |     Properties:
+   5 |       HealthCheckEnabled: false
+   6 |       Name: MyTargets
+   7 |       Protocol: HTTPS
+   8 |       TargetType: ip
+   9 |       Targets:
+  10 |       - Id: [ MyLambdaFunction, Arn ]
+  11 |   ELBv2targetGroup2:
+  12 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+> 13 |     Properties:
+  14 |       HealthCheckEnabled: false
+  15 |       Name: MyTargets
+  16 |       Protocol: HTTP
+  17 |       TargetType: lambda
+  18 |       Targets:
+  19 |       - Id: [ MyLambdaFunction, Arn ]
+  20 |   ELBv2targetGroup3:
+  21 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  22 |     Properties:
+  23 |       HealthCheckEnabled: false
+     ^ Col 0
+",f281._cfn_elb2_uses_insecure_port
+F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,22,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
+  12 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  13 |     Properties:
+  14 |       HealthCheckEnabled: false
+  15 |       Name: MyTargets
+  16 |       Protocol: HTTP
+  17 |       TargetType: lambda
+  18 |       Targets:
+  19 |       - Id: [ MyLambdaFunction, Arn ]
+  20 |   ELBv2targetGroup3:
+  21 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+> 22 |     Properties:
+  23 |       HealthCheckEnabled: false
+  24 |       Name: MyTargets
+  25 |       Protocol: HTTP
+  26 |       TargetType: ip
+  27 |       Targets:
+  28 |       - Id: [ MyLambdaFunction, Arn ]
+  29 |   ELBv2targetGroup4:
+  30 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  31 |     Properties:
+  32 |       HealthCheckEnabled: false
+     ^ Col 0
+",f281._cfn_elb2_uses_insecure_port
+F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,39,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
+  24 |       Name: MyTargets
+  25 |       Protocol: HTTP
+  26 |       TargetType: ip
+  27 |       Targets:
+  28 |       - Id: [ MyLambdaFunction, Arn ]
+  29 |   ELBv2targetGroup4:
+  30 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  31 |     Properties:
+  32 |       HealthCheckEnabled: false
+  33 |       Name: MyTargets
+  34 |       Protocol: HTTP
+  35 |       Targets:
+  36 |       - Id: [ MyLambdaFunction, Arn ]
+  37 |   ELBv2targetGroup5:
+  38 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+> 39 |     Properties:
+  40 |       HealthCheckEnabled: false
+  41 |       Name: MyTargets
+  42 |       TargetType: lambda
+  43 |       Targets:
+  44 |       - Id: [ MyLambdaFunction, Arn ]
+     ^ Col 0
+",f281._cfn_elb2_uses_insecure_port
+F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,5,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""ELBv2targetGroup1"": {
+   4 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+>  5 |       ""Properties"": {
+   6 |         ""HealthCheckEnabled"": false,
+   7 |         ""Name"": ""MyTargets"",
+   8 |         ""Protocol"": ""HTTPS"",
+   9 |         ""TargetType"": ""ip"",
+  10 |         ""Targets"": [
+  11 |           {
+  12 |             ""Id"": [
+  13 |               ""MyLambdaFunction"",
+  14 |               ""Arn""
+  15 |             ]
+  16 |           }
+  17 |         ]
+  18 |       }
+  19 |     },
+  20 |     ""ELBv2targetGroup2"": {
+  21 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+     ^ Col 0
+",f281._cfn_elb2_uses_insecure_port
+F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,22,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
+  12 |             ""Id"": [
+  13 |               ""MyLambdaFunction"",
+  14 |               ""Arn""
+  15 |             ]
+  16 |           }
+  17 |         ]
+  18 |       }
+  19 |     },
+  20 |     ""ELBv2targetGroup2"": {
+  21 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+> 22 |       ""Properties"": {
+  23 |         ""HealthCheckEnabled"": false,
+  24 |         ""Name"": ""MyTargets"",
+  25 |         ""Protocol"": ""HTTP"",
+  26 |         ""TargetType"": ""lambda"",
+  27 |         ""Targets"": [
+  28 |           {
+  29 |             ""Id"": [
+  30 |               ""MyLambdaFunction"",
+  31 |               ""Arn""
+  32 |             ]
+     ^ Col 0
+",f281._cfn_elb2_uses_insecure_port
+F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,39,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
+  29 |             ""Id"": [
+  30 |               ""MyLambdaFunction"",
+  31 |               ""Arn""
+  32 |             ]
+  33 |           }
+  34 |         ]
+  35 |       }
+  36 |     },
+  37 |     ""ELBv2targetGroup3"": {
+  38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+> 39 |       ""Properties"": {
+  40 |         ""HealthCheckEnabled"": false,
+  41 |         ""Name"": ""MyTargets"",
+  42 |         ""Protocol"": ""HTTP"",
+  43 |         ""TargetType"": ""ip"",
+  44 |         ""Targets"": [
+  45 |           {
+  46 |             ""Id"": [
+  47 |               ""MyLambdaFunction"",
+  48 |               ""Arn""
+  49 |             ]
+     ^ Col 0
+",f281._cfn_elb2_uses_insecure_port
+F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,72,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
+  62 |             ""Id"": [
+  63 |               ""MyLambdaFunction"",
+  64 |               ""Arn""
+  65 |             ]
+  66 |           }
+  67 |         ]
+  68 |       }
+  69 |     },
+  70 |     ""ELBv2targetGroup5"": {
+  71 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+> 72 |       ""Properties"": {
+  73 |         ""HealthCheckEnabled"": false,
+  74 |         ""Name"": ""MyTargets"",
+  75 |         ""TargetType"": ""lambda"",
+  76 |         ""Targets"": [
+  77 |           {
+  78 |             ""Id"": [
+  79 |               ""MyLambdaFunction"",
+  80 |               ""Arn""
+  81 |             ]
+  82 |           }
+     ^ Col 0
+",f281._cfn_elb2_uses_insecure_port
 F250,lines,namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml,25,313,skims,250. Non-encrypted hard drives,"FileSystem must be encrypted with a KmsKeyId
  in namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml","
   15 |         AutoImportPolicy: ""NEW""
@@ -7579,6 +7771,198 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Ins
   22 | }
      ^ Col 0
 ",c_sharp.insecurely_generated_cookies
+F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,4,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,"
+   1 | Resources:
+   2 |   ELBv2targetGroup1:
+   3 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+>  4 |     Properties:
+   5 |       HealthCheckEnabled: false
+   6 |       Name: MyTargets
+   7 |       Port: 443
+   8 |       TargetType: ip
+   9 |       Targets:
+  10 |       - Id: [ MyLambdaFunction, Arn ]
+  11 |   ELBv2targetGroup2:
+  12 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  13 |     Properties:
+  14 |       HealthCheckEnabled: false
+  15 |       Name: MyTargets
+  16 |       Port: 80
+  17 |       TargetType: lambda
+  18 |       Targets:
+  19 |       - Id: [ MyLambdaFunction, Arn ]
+  20 |   ELBv2targetGroup3:
+  21 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+     ^ Col 0
+",f372._cfn_elb2_uses_insecure_protocol
+F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,22,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,"
+  12 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  13 |     Properties:
+  14 |       HealthCheckEnabled: false
+  15 |       Name: MyTargets
+  16 |       Port: 80
+  17 |       TargetType: lambda
+  18 |       Targets:
+  19 |       - Id: [ MyLambdaFunction, Arn ]
+  20 |   ELBv2targetGroup3:
+  21 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+> 22 |     Properties:
+  23 |       HealthCheckEnabled: false
+  24 |       Name: MyTargets
+  25 |       Port: 80
+  26 |       Targets:
+  27 |       - Id: [ MyLambdaFunction, Arn ]
+  28 |   ELBv2targetGroup4:
+  29 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  30 |     Properties:
+  31 |       HealthCheckEnabled: false
+  32 |       Name: MyTargets
+     ^ Col 0
+",f372._cfn_elb2_uses_insecure_protocol
+F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,5,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""ELBv2targetGroup1"": {
+   4 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+>  5 |       ""Properties"": {
+   6 |         ""HealthCheckEnabled"": false,
+   7 |         ""Name"": ""MyTargets"",
+   8 |         ""Port"": 443,
+   9 |         ""TargetType"": ""ip"",
+  10 |         ""Targets"": [
+  11 |           {
+  12 |             ""Id"": [
+  13 |               ""MyLambdaFunction"",
+  14 |               ""Arn""
+  15 |             ]
+  16 |           }
+  17 |         ]
+  18 |       }
+  19 |     },
+  20 |     ""ELBv2targetGroup2"": {
+  21 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+     ^ Col 0
+",f372._cfn_elb2_uses_insecure_protocol
+F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,39,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,"
+  29 |             ""Id"": [
+  30 |               ""MyLambdaFunction"",
+  31 |               ""Arn""
+  32 |             ]
+  33 |           }
+  34 |         ]
+  35 |       }
+  36 |     },
+  37 |     ""ELBv2targetGroup3"": {
+  38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+> 39 |       ""Properties"": {
+  40 |         ""HealthCheckEnabled"": false,
+  41 |         ""Name"": ""MyTargets"",
+  42 |         ""Port"": 80,
+  43 |         ""Targets"": [
+  44 |           {
+  45 |             ""Id"": [
+  46 |               ""MyLambdaFunction"",
+  47 |               ""Arn""
+  48 |             ]
+  49 |           }
+     ^ Col 0
+",f372._cfn_elb2_uses_insecure_protocol
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,25,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
+  15 |       Name: MyTargets
+  16 |       Protocol: HTTP
+  17 |       TargetType: lambda
+  18 |       Targets:
+  19 |       - Id: [ MyLambdaFunction, Arn ]
+  20 |   ELBv2targetGroup3:
+  21 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  22 |     Properties:
+  23 |       HealthCheckEnabled: false
+  24 |       Name: MyTargets
+> 25 |       Protocol: HTTP
+  26 |       TargetType: ip
+  27 |       Targets:
+  28 |       - Id: [ MyLambdaFunction, Arn ]
+  29 |   ELBv2targetGroup4:
+  30 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  31 |     Properties:
+  32 |       HealthCheckEnabled: false
+  33 |       Name: MyTargets
+  34 |       Protocol: HTTP
+  35 |       Targets:
+     ^ Col 0
+",f372._cfn_elb2_uses_insecure_protocol
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,34,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
+  24 |       Name: MyTargets
+  25 |       Protocol: HTTP
+  26 |       TargetType: ip
+  27 |       Targets:
+  28 |       - Id: [ MyLambdaFunction, Arn ]
+  29 |   ELBv2targetGroup4:
+  30 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  31 |     Properties:
+  32 |       HealthCheckEnabled: false
+  33 |       Name: MyTargets
+> 34 |       Protocol: HTTP
+  35 |       Targets:
+  36 |       - Id: [ MyLambdaFunction, Arn ]
+  37 |   ELBv2targetGroup5:
+  38 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  39 |     Properties:
+  40 |       HealthCheckEnabled: false
+  41 |       Name: MyTargets
+  42 |       TargetType: lambda
+  43 |       Targets:
+  44 |       - Id: [ MyLambdaFunction, Arn ]
+     ^ Col 0
+",f372._cfn_elb2_uses_insecure_protocol
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,42,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
+  32 |             ]
+  33 |           }
+  34 |         ]
+  35 |       }
+  36 |     },
+  37 |     ""ELBv2targetGroup3"": {
+  38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+  39 |       ""Properties"": {
+  40 |         ""HealthCheckEnabled"": false,
+  41 |         ""Name"": ""MyTargets"",
+> 42 |         ""Protocol"": ""HTTP"",
+  43 |         ""TargetType"": ""ip"",
+  44 |         ""Targets"": [
+  45 |           {
+  46 |             ""Id"": [
+  47 |               ""MyLambdaFunction"",
+  48 |               ""Arn""
+  49 |             ]
+  50 |           }
+  51 |         ]
+  52 |       }
+     ^ Col 0
+",f372._cfn_elb2_uses_insecure_protocol
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,59,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
+  49 |             ]
+  50 |           }
+  51 |         ]
+  52 |       }
+  53 |     },
+  54 |     ""ELBv2targetGroup4"": {
+  55 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+  56 |       ""Properties"": {
+  57 |         ""HealthCheckEnabled"": false,
+  58 |         ""Name"": ""MyTargets"",
+> 59 |         ""Protocol"": ""HTTP"",
+  60 |         ""Targets"": [
+  61 |           {
+  62 |             ""Id"": [
+  63 |               ""MyLambdaFunction"",
+  64 |               ""Arn""
+  65 |             ]
+  66 |           }
+  67 |         ]
+  68 |       }
+  69 |     },
+     ^ Col 0
+",f372._cfn_elb2_uses_insecure_protocol
 F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,13,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
    3 |   Type: AWS::CloudFront::Distribution
    4 |   Properties:

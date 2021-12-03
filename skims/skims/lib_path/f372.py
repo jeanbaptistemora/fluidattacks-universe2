@@ -232,7 +232,7 @@ async def tfm_serves_content_over_http(
     )
 
 
-# @CACHE_ETERNALLY
+@CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
 async def cfn_elb2_uses_insecure_protocol(
@@ -266,6 +266,14 @@ async def analyze(
             coroutines.append(
                 cfn_serves_content_over_http(
                     content=content,
+                    path=path,
+                    template=template,
+                )
+            )
+            coroutines.append(
+                cfn_elb2_uses_insecure_protocol(
+                    content=content,
+                    file_ext=file_extension,
                     path=path,
                     template=template,
                 )
