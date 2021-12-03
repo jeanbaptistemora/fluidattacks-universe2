@@ -2909,6 +2909,29 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/web/check-forces-output:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: true
+  needs:
+    - /integrates/back/deploy/dev
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/web/check-forces-output
+  stage: post-deploy
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/web/check-schema-changes:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true

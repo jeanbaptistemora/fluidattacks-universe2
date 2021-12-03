@@ -543,6 +543,14 @@ in
           };
         }
         {
+          output = "/integrates/web/check-forces-output";
+          gitlabExtra = gitlabPostDeployDev // {
+            needs = [
+              "/integrates/back/deploy/dev"
+            ];
+          };
+        }
+        {
           output = "/lintPython/dirOfModules/integrates";
           gitlabExtra = gitlabLint;
         }
