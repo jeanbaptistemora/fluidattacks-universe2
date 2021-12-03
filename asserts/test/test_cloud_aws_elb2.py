@@ -32,13 +32,6 @@ def no_connection():
         os.environ.pop("HTTPS_PROXY", None)
 
 
-def test_has_not_deletion_protection_open():
-    """Test elb2.has_not_deletion_protection."""
-    assert elb2.has_not_deletion_protection(
-        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
-    ).is_open()
-
-
 def test_has_access_logging_disabled_open():
     """Test elb2.has_access_logging_disabled."""
     assert elb2.has_access_logging_disabled(

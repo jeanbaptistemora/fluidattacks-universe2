@@ -1009,9 +1009,6 @@ def exec_cloudformation_package(
             "ec2.has_unrestricted_ip_protocols",
             "ec2.has_unrestricted_ports",
         ],
-        ("elb2", "ELBv2 (Elastic Load Balancing v2)"): [
-            "elb2.has_not_deletion_protection",
-        ],
         ("iam", "IAM (Identity and Access Management)"): [
             "iam.has_privileges_over_iam",
             "iam.has_wildcard_resource_on_write_action",

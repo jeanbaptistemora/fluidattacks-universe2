@@ -8,7 +8,6 @@ from fluidasserts import (
 from fluidasserts.cloud.aws.cloudformation import (
     _get_result_as_tuple,
     get_graph,
-    get_predecessor,
     get_resources,
     get_templates,
     Vulnerability,
@@ -29,77 +28,6 @@ from typing import (
     Set,
     Tuple,
 )
-
-
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError)
-def has_not_deletion_protection(
-    path: str, exclude: Optional[List[str]] = None
-) -> tuple:
-    """
-    Check if ``LoadBalancers`` have **Deletion Protection**.
-
-    :param path: Location of CloudFormation's template file.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if *deletion_protection.enabled** attribute in the
-                **LoadBalancerAttributes** section is not set or **false**.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    vulnerabilities: list = []
-    graph: DiGraph = get_graph(path, exclude)
-    templates = get_templates(graph, path, exclude)
-    balancers = get_resources(
-        graph,
-        map(lambda x: x[0], templates),
-        {"AWS", "ElasticLoadBalancingV2", "LoadBalancer"},
-    )
-    attributes = get_resources(
-        graph, balancers, "LoadBalancerAttributes", depth=3
-    )
-    for attr in attributes:
-        template = graph.nodes[
-            get_predecessor(graph, attr, "CloudFormationTemplate")
-        ]
-        resource = graph.nodes[get_predecessor(graph, attr, "LoadBalancer")]
-        keys = [
-            node
-            for node in get_resources(graph, attr, "Key", depth=3)
-            if graph.nodes[node]["value"] == "deletion_protection.enabled"
-        ]
-        vulnerable = True
-        if keys:
-            key = keys[0]
-            father = list(graph.predecessors(key))[0]
-            value = [
-                node
-                for node in get_resources(graph, father, "Value")
-                if graph.nodes[node]["value"] == "false"
-            ]
-            if not value:
-                vulnerable = False
-        if vulnerable:
-            vulnerabilities.append(
-                Vulnerability(
-                    path=template["path"],
-                    entity=(
-                        f"AWS::ElasticLoadBalancingV2::LoadBalancer"
-                        f"/LoadBalancerAttributes"
-                        f"/deletion_protection.enabled"
-                        f"/false"
-                    ),
-                    identifier=resource["name"],
-                    line=graph.nodes[value[0]]["line"],
-                    reason="has not deletion protection",
-                )
-            )
-
-    return _get_result_as_tuple(
-        vulnerabilities=vulnerabilities,
-        msg_open="Elastic Load Balancers have not deletion protection",
-        msg_closed="Elastic Load Balancers have deletion protection",
-    )
 
 
 @api(risk=LOW, kind=SAST)
