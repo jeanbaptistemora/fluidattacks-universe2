@@ -42,6 +42,7 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 describe("Update Description component", (): void => {
   const vulns: IVulnDataTypeAttr[] = [
     {
+      assigned: "",
       currentState: "open",
       externalBugTrackingSystem: undefined,
       historicTreatment: [
@@ -56,7 +57,6 @@ describe("Update Description component", (): void => {
       severity: "2",
       specific: "",
       tag: "one",
-      treatmentManager: "",
       where: "",
     },
   ];
@@ -148,6 +148,7 @@ describe("Update Description component", (): void => {
 
     const vulnerabilities: IVulnDataTypeAttr[] = [
       {
+        assigned: "",
         currentState: "open",
         externalBugTrackingSystem: undefined,
         historicTreatment: [treatment],
@@ -155,10 +156,10 @@ describe("Update Description component", (): void => {
         severity: "",
         specific: "",
         tag: "one",
-        treatmentManager: "",
         where: "",
       },
       {
+        assigned: "",
         currentState: "open",
         externalBugTrackingSystem: undefined,
         historicTreatment: [treatment],
@@ -166,7 +167,6 @@ describe("Update Description component", (): void => {
         severity: "",
         specific: "",
         tag: "one",
-        treatmentManager: "",
         where: "",
       },
     ];
@@ -420,6 +420,7 @@ describe("Update Description component", (): void => {
     };
     const mutationVariables: Dictionary<boolean | number | string> = {
       acceptanceDate: "",
+      assigned: "manager_test@test.test",
       externalBugTrackingSystem: "http://test.t",
       findingId: "422286126",
       isVulnInfoChanged: true,
@@ -428,7 +429,6 @@ describe("Update Description component", (): void => {
       severity: 2,
       tag: "one",
       treatment: "IN_PROGRESS",
-      treatmentManager: "manager_test@test.test",
     };
     const mocksMutation: MockedResponse[] = [
       {
@@ -448,6 +448,7 @@ describe("Update Description component", (): void => {
     ];
     const vulnsToUpdate: IVulnDataTypeAttr[] = [
       {
+        assigned: "",
         currentState: "open",
         externalBugTrackingSystem: undefined,
         historicTreatment: [],
@@ -455,10 +456,10 @@ describe("Update Description component", (): void => {
         severity: "",
         specific: "",
         tag: "one",
-        treatmentManager: "",
         where: "",
       },
       {
+        assigned: "",
         currentState: "open",
         externalBugTrackingSystem: undefined,
         historicTreatment: [],
@@ -466,7 +467,6 @@ describe("Update Description component", (): void => {
         severity: "",
         specific: "",
         tag: "one",
-        treatmentManager: "",
         where: "",
       },
     ];
@@ -527,11 +527,11 @@ describe("Update Description component", (): void => {
     vulnLevel
       .at(0)
       .simulate("change", { target: { name: "severity", value: "2" } });
-    const treatmentManager: ReactWrapper = wrapper
-      .find({ name: "treatmentManager" })
+    const assigned: ReactWrapper = wrapper
+      .find({ name: "assigned" })
       .find("select");
-    treatmentManager.at(0).simulate("change", {
-      target: { name: "treatmentManager", value: "manager_test@test.test" },
+    assigned.at(0).simulate("change", {
+      target: { name: "assigned", value: "manager_test@test.test" },
     });
     await act(async (): Promise<void> => {
       await wait(0);
@@ -588,6 +588,7 @@ describe("Update Description component", (): void => {
     };
     const vulnsToUpdate: IVulnDataTypeAttr[] = [
       {
+        assigned: "",
         currentState: "open",
         externalBugTrackingSystem: undefined,
         historicTreatment: [],
@@ -595,7 +596,6 @@ describe("Update Description component", (): void => {
         severity: "",
         specific: "",
         tag: "one",
-        treatmentManager: "",
         where: "",
       },
     ];

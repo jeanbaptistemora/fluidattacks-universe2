@@ -14,6 +14,7 @@ import { formatVulnerabilities } from "scenes/Dashboard/components/Vulnerabiliti
 describe("AdditionalInfo", (): void => {
   const numberOfDays: number = 5;
   const mockVuln: IVulnRowAttr = {
+    assigned: "assigned-user-4",
     commitHash: "",
     currentState: "open",
     currentStateCapitalized: "Open",
@@ -24,10 +25,10 @@ describe("AdditionalInfo", (): void => {
       {
         acceptanceDate: "",
         acceptanceStatus: "",
+        assigned: "assigned-user-4",
         date: "2019-07-05 09:56:40",
         justification: "test progress justification",
         treatment: "IN PROGRESS",
-        treatmentManager: "treatment-manager-4",
         user: "usertreatment@test.test",
       },
     ],
@@ -46,7 +47,6 @@ describe("AdditionalInfo", (): void => {
     treatment: "IN PROGRESS",
     treatmentChanges: 1,
     treatmentDate: "2019-07-05 09:56:40",
-    treatmentManager: "treatment-manager-4",
     verification: "Verified",
     vulnerabilityType: "lines",
     where: "https://example.com/lines",
