@@ -10,8 +10,6 @@ def build_throw_node(
     args.syntax_graph.add_node(
         args.n_id,
         expression_id=expression_id,
-        danger=False,
-        evaluated=False,
         label_type="ThrowStatement",
     )
 

@@ -10,8 +10,6 @@ def build_object_creation_node(
         args.n_id,
         name=name,
         arguments_id=arguments_id,
-        danger=False,
-        evaluated=False,
         label_type="ObjectCreation",
     )
 

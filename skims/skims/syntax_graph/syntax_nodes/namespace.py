@@ -10,8 +10,6 @@ def build_namespace_node(
         args.n_id,
         name=name,
         block_id=block_id,
-        danger=False,
-        evaluated=False,
         label_type="Namespace",
     )
 

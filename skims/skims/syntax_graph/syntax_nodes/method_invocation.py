@@ -11,8 +11,6 @@ def build_method_invocation_node(
         expression=expr,
         expression_id=expr_id,
         arguments_id=arguments_id,
-        danger=False,
-        evaluated=False,
         label_type="MethodInvocation",
     )
 

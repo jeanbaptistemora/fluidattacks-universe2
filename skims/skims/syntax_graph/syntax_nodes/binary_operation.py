@@ -11,8 +11,6 @@ def build_binary_operation_node(
         operator=operator,
         left_id=left_id,
         right_id=right_id,
-        danger=False,
-        evaluated=False,
         label_type="BinaryOperation",
     )
 

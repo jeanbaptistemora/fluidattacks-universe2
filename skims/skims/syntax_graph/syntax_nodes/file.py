@@ -9,8 +9,6 @@ from typing import (
 def build_file_node(args: SyntaxGraphArgs, c_ids: Iterator[str]) -> str:
     args.syntax_graph.add_node(
         args.n_id,
-        danger=False,
-        evaluated=False,
         label_type="File",
     )
 

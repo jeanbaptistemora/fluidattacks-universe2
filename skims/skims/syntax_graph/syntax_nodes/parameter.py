@@ -14,8 +14,6 @@ def build_parameter_node(
         args.n_id,
         variable=variable,
         variable_type=variable_type,
-        danger=False,
-        evaluated=False,
         label_type="Parameter",
     )
 
