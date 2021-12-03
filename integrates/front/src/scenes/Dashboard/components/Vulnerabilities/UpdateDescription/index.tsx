@@ -126,6 +126,7 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
               initialValues={{
                 acceptanceDate: lastTreatment.acceptanceDate,
                 acceptanceStatus: lastTreatment.acceptanceStatus,
+                assigned: lastTreatment.assigned,
                 date: lastTreatment.date,
                 externalBugTrackingSystem:
                   groupExternalBugTrackingSystem(vulnerabilities),
@@ -133,7 +134,6 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
                 severity: groupVulnLevel(vulnerabilities),
                 tag: _.join(_.intersection(...vulnsTags), ","),
                 treatment: lastTreatment.treatment.replace("NEW", ""),
-                treatmentManager: lastTreatment.treatmentManager,
                 user: lastTreatment.user,
               }}
               name={"editTreatmentVulnerability"}

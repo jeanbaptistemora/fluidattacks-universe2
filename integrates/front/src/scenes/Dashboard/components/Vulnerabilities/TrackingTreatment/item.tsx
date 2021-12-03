@@ -13,7 +13,7 @@ export const TrackingTreatment: React.FC<IHistoricTreatment> = ({
   date,
   justification,
   treatment,
-  treatmentManager,
+  assigned,
   user,
 }: IHistoricTreatment): JSX.Element => {
   const { t } = useTranslation();
@@ -33,11 +33,11 @@ export const TrackingTreatment: React.FC<IHistoricTreatment> = ({
                 ? t("searchFindings.tabDescription.treatment.pendingApproval")
                 : "")}
           </p>
-          {(_.isNull(treatmentManager) && _.isNull(user)) ||
+          {(_.isNull(assigned) && _.isNull(user)) ||
           treatment === "NEW" ? undefined : (
             <TrackingLabel>
               {t("searchFindings.tabTracking.assigned")}
-              &nbsp;{_.isEmpty(treatmentManager) ? user : treatmentManager}
+              &nbsp;{_.isEmpty(assigned) ? user : assigned}
             </TrackingLabel>
           )}
           {_.isEmpty(justification) ? undefined : (

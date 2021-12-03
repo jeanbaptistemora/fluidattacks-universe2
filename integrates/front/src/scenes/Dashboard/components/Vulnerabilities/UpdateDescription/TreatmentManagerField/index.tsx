@@ -28,9 +28,9 @@ const TreatmentManagerField: React.FC<ITreatmentManagerFieldProps> = ({
       isAcceptedUndefinedSelected ? (
         <EditableField
           component={FormikDropdown}
-          currentValue={_.get(lastTreatment, "treatmentManager", "")}
+          currentValue={_.get(lastTreatment, "assigned", "")}
           label={translate.t("searchFindings.tabDescription.assigned")}
-          name={"treatmentManager"}
+          name={"assigned"}
           renderAsEditable={canUpdateVulnsTreatment}
           type={"text"}
         >

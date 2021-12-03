@@ -4,7 +4,7 @@ interface IHistoricTreatment {
   date: string;
   justification?: string;
   treatment: string;
-  treatmentManager?: string;
+  assigned?: string;
   user: string;
 }
 

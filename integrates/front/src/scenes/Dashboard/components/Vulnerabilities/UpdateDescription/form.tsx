@@ -141,7 +141,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     ).length === 0;
   const isTreatmentValuesPristine: boolean =
     diffs.filter((diff: string): boolean =>
-      ["acceptanceDate", "treatment", "treatmentManager"].includes(diff)
+      ["acceptanceDate", "treatment", "assigned"].includes(diff)
     ).length === 0;
   const isTreatmentPristine = isTheFormPristine(
     isTreatmentValuesPristine,

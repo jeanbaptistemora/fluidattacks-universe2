@@ -6,7 +6,7 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     $findingId: String!
     $severity: Int
     $tag: String
-    $treatmentManager: String
+    $assigned: String
     $vulnerabilityId: ID!
     $externalBugTrackingSystem: String
     $acceptanceDate: String
@@ -29,7 +29,7 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
       findingId: $findingId
       justification: $justification
       treatment: $treatment
-      treatmentManager: $treatmentManager
+      assigned: $assigned
       vulnerabilityId: $vulnerabilityId
     ) @include(if: $isVulnTreatmentChanged) {
       success

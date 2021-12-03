@@ -26,7 +26,7 @@ interface IVulnRowAttr {
   treatment: string;
   treatmentChanges: number;
   treatmentDate: string;
-  treatmentManager: string;
+  assigned: string;
   verification: string;
   vulnerabilityType: string;
   where: string;
@@ -54,7 +54,7 @@ interface IVulnDataTypeAttr {
   severity: string;
   specific: string;
   tag: string;
-  treatmentManager: string;
+  assigned: string;
   where: string;
 }
 
@@ -84,7 +84,7 @@ interface IUpdateTreatmentVulnerabilityForm {
   severity?: string;
   tag?: string;
   treatment: string;
-  treatmentManager?: string;
+  assigned?: string;
 }
 
 interface IVulnerabilityModalValues

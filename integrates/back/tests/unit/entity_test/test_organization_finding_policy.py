@@ -201,7 +201,7 @@ async def test_handle_organization_finding_policy_acceptance() -> None:
         vulns[0]["historicTreatment"][-1]["treatment"] == "ACCEPTED_UNDEFINED"
     )
     assert vulns[0]["historicTreatment"][-1]["user"] == approver_user
-    assert vulns[0]["tag"] == ",".join(tags)
+    assert vulns[0]["tag"] == ", ".join(tags)
 
 
 @pytest.mark.changes_db

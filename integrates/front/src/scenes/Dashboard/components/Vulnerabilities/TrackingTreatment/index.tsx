@@ -84,11 +84,11 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
                 <TrackingTreatment
                   acceptanceDate={treatment.acceptanceDate}
                   acceptanceStatus={treatment.acceptanceStatus}
+                  assigned={treatment.assigned}
                   date={treatment.date}
                   justification={treatment.justification}
                   key={index.toString()}
                   treatment={treatment.treatment.replace(" ", "_")}
-                  treatmentManager={treatment.treatmentManager}
                   user={treatment.user}
                 />
               )

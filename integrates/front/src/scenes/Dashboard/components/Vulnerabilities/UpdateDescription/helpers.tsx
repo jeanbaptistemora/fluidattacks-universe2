@@ -65,6 +65,9 @@ const getResults = async (
             updateVuln({
               variables: {
                 acceptanceDate: dataTreatment.acceptanceDate,
+                assigned: _.isEmpty(dataTreatment.assigned)
+                  ? undefined
+                  : dataTreatment.assigned,
                 externalBugTrackingSystem:
                   dataTreatment.externalBugTrackingSystem,
                 findingId,
@@ -78,9 +81,6 @@ const getResults = async (
                 treatment: isTreatmentPristine
                   ? "IN_PROGRESS"
                   : dataTreatment.treatment,
-                treatmentManager: _.isEmpty(dataTreatment.treatmentManager)
-                  ? undefined
-                  : dataTreatment.treatmentManager,
                 vulnerabilityId: vuln.id,
               },
             })

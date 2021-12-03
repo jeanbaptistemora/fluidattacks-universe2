@@ -121,6 +121,7 @@ const formatVulnerabilities: (
 
     return {
       ...vulnerability,
+      assigned: isVulnOpen ? (lastTreatment.assigned as string) : "-",
       currentStateCapitalized: _.capitalize(
         vulnerability.currentState
       ) as IVulnRowAttr["currentStateCapitalized"],
@@ -132,9 +133,6 @@ const formatVulnerabilities: (
       treatment: isVulnOpen ? treatmentLabel : "-",
       treatmentChanges,
       treatmentDate: isVulnOpen ? lastTreatment.date.split(" ")[0] : "-",
-      treatmentManager: isVulnOpen
-        ? (lastTreatment.treatmentManager as string)
-        : "-",
       verification: shouldDisplayVerification ? verification : "",
       vulnerabilityType: translate.t(
         `searchFindings.tabVuln.vulnTable.vulnerabilityType.${vulnerability.vulnerabilityType}`

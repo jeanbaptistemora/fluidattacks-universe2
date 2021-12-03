@@ -6,10 +6,10 @@ import type { IHistoricTreatment } from "scenes/Dashboard/containers/Description
 const emptyTreatment: IHistoricTreatment = {
   acceptanceDate: "",
   acceptanceStatus: "",
+  assigned: "",
   date: "",
   justification: "",
   treatment: "",
-  treatmentManager: "",
   user: "",
 };
 

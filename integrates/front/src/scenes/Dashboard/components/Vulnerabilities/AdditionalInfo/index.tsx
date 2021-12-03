@@ -211,9 +211,9 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                     "f5 lh-title ma0 mid-gray pr1-l tr-l tl-m tl-ns truncate"
                   }
                 >
-                  {_.isEmpty(vulnerability.treatmentManager)
+                  {_.isEmpty(vulnerability.assigned)
                     ? t("searchFindings.tabVuln.notApplicable")
-                    : vulnerability.treatmentManager}
+                    : vulnerability.assigned}
                 </p>
               </InfoField>
             </Row>

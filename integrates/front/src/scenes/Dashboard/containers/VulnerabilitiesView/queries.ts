@@ -17,7 +17,7 @@ const VULNS_FRAGMENT: DocumentNode = gql`
       justification
       user
       treatment
-      treatmentManager
+      assigned
     }
     id
     lastReattackDate
