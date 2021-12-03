@@ -74,7 +74,6 @@ async def reset_group_expired_accepted_findings(
                 updated_values=updated_values,
                 vuln=vuln,
                 user_email=vuln.treatment.modified_by,
-                date=datetime_utils.get_iso_date(),
             )
 
     await collect(

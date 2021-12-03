@@ -39,7 +39,6 @@ from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
     validations,
-    vulnerabilities as vulns_utils,
 )
 from newutils.datetime import (
     convert_to_iso_str,
@@ -182,27 +181,19 @@ async def add_vulnerability_treatment(
     updated_values: Dict[str, str],
     vuln: Vulnerability,
     user_email: str,
-    date: str,
 ) -> bool:
-    updated_values = vulns_utils.update_treatment_values(updated_values)
     new_status = VulnerabilityTreatmentStatus[updated_values["treatment"]]
-    justification: Optional[str] = updated_values.get("justification")
-    if new_status != VulnerabilityTreatmentStatus.NEW and justification:
-        validations.validate_fields([justification])
-        validations.validate_field_length(justification, 5000)
     treatment_to_add = VulnerabilityTreatment(
-        acceptance_status=VulnerabilityAcceptanceStatus[
-            updated_values["acceptance_status"]
-        ]
+        acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED
         if new_status == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
         else None,
         accepted_until=convert_to_iso_str(updated_values["acceptance_date"])
         if new_status == VulnerabilityTreatmentStatus.ACCEPTED
         else None,
-        justification=justification,
+        justification=updated_values.get("justification"),
         manager=updated_values.get("treatment_manager") or user_email,
         modified_by=user_email,
-        modified_date=convert_to_iso_str(date),
+        modified_date=datetime_utils.get_iso_date(),
         status=new_status,
     )
     await vulns_dal.update_treatment(
@@ -402,7 +393,6 @@ async def update_vulnerabilities_treatment(
     vulnerability_id: str,
     group_name: str,
 ) -> bool:
-    success: bool = False
     if (
         updated_values.get("treatment") in {"ACCEPTED_UNDEFINED", "ACCEPTED"}
         and "treatment_manager" not in updated_values
@@ -415,7 +405,6 @@ async def update_vulnerabilities_treatment(
     vulnerability = next(
         iter(vuln for vuln in vulnerabilities if vuln.id == vulnerability_id)
     )
-    today = datetime_utils.get_now_as_str()
     if (
         "acceptance_date" in updated_values
         and updated_values.get("acceptance_date")
@@ -438,27 +427,31 @@ async def update_vulnerabilities_treatment(
         )
 
     validations.validate_fields(list(updated_values.values()))
-    if compare_historic_treatments(vulnerability.treatment, updated_values):
-        historic_treatment = (
-            await loaders.vulnerability_historic_treatment.load(
-                vulnerability.id
-            )
+    if updated_values["treatment"] != "NEW":
+        validations.validate_fields([updated_values["justification"]])
+        validations.validate_field_length(
+            updated_values["justification"], 5000
         )
-        if await validate_treatment_change(
-            finding_severity,
-            historic_treatment,
-            loaders,
-            organization_id,
-            updated_values,
-        ):
-            success = await add_vulnerability_treatment(
-                finding_id=finding_id,
-                updated_values=updated_values,
-                vuln=vulnerability,
-                user_email=user_email,
-                date=today,
-            )
-    else:
+    if not compare_historic_treatments(
+        vulnerability.treatment, updated_values
+    ):
         raise SameValues()
 
-    return success
+    historic_treatment = await loaders.vulnerability_historic_treatment.load(
+        vulnerability.id
+    )
+    if not await validate_treatment_change(
+        finding_severity,
+        historic_treatment,
+        loaders,
+        organization_id,
+        updated_values,
+    ):
+        return False
+
+    return await add_vulnerability_treatment(
+        finding_id=finding_id,
+        updated_values=updated_values,
+        vuln=vulnerability,
+        user_email=user_email,
+    )

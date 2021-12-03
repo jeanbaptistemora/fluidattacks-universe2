@@ -44,7 +44,7 @@ from vulnerabilities import (
     dal as vulns_dal,
 )
 from vulnerabilities.domain import (
-    add_vulnerability_treatment,
+    add_vulnerability_treatment_old,
     list_vulnerabilities_async,
 )
 
@@ -72,7 +72,7 @@ async def _copy_historic_treatment(  # noqa: MC0001
                         current_treatment[
                             "treatment_manager"
                         ] = treatment_manager
-                    await add_vulnerability_treatment(
+                    await add_vulnerability_treatment_old(
                         finding_id=finding_id,
                         updated_values=current_treatment,
                         vuln=vuln,

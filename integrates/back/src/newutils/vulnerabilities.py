@@ -527,21 +527,6 @@ def ungroup_specific(specific: str) -> List[str]:
     return specific_values
 
 
-def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
-    if updated_values["treatment"] == "NEW":
-        updated_values["acceptance_date"] = ""
-    elif updated_values["treatment"] == "ACCEPTED_UNDEFINED":
-        updated_values["acceptance_status"] = "SUBMITTED"
-        days = [
-            datetime_utils.get_now_plus_delta(days=x + 1) for x in range(5)
-        ]
-        weekend_days = sum(1 for day in days if day.weekday() >= 5)
-        updated_values["acceptance_date"] = datetime_utils.get_as_str(
-            datetime_utils.get_now_plus_delta(days=5 + weekend_days)
-        )
-    return updated_values
-
-
 def get_treatment_from_org_finding_policy(
     *, modified_date: str, user_email: str
 ) -> Tuple[VulnerabilityTreatment, VulnerabilityTreatment]:
