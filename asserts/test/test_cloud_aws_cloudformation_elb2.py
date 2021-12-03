@@ -24,15 +24,6 @@ def test_has_not_deletion_protection():
     assert elb2.has_not_deletion_protection(NOT_EXISTS).is_unknown()
 
 
-def test_uses_insecure_port():
-    """test elb2.uses_insecure_port."""
-    result = elb2.uses_insecure_port(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 1
-    assert elb2.uses_insecure_port(SAFE).is_closed()
-    assert elb2.uses_insecure_port(NOT_EXISTS).is_unknown()
-
-
 def test_uses_insecure_protocol():
     """test elb2.uses_insecure_protocol."""
     result = elb2.uses_insecure_protocol(VULN)
