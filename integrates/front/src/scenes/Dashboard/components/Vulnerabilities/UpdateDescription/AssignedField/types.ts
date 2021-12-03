@@ -1,6 +1,6 @@
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
-interface ITreatmentManagerFieldProps {
+interface IAssignedFieldProps {
   isAcceptedSelected: boolean;
   isAcceptedUndefinedSelected: boolean;
   isInProgressSelected: boolean;
@@ -8,4 +8,4 @@ interface ITreatmentManagerFieldProps {
   userEmails: string[];
 }
 
-export { ITreatmentManagerFieldProps };
+export { IAssignedFieldProps };

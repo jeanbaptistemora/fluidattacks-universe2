@@ -13,11 +13,11 @@ const VULNS_FRAGMENT: DocumentNode = gql`
     historicTreatment {
       acceptanceDate
       acceptanceStatus
+      assigned
       date
       justification
       user
       treatment
-      assigned
     }
     id
     lastReattackDate

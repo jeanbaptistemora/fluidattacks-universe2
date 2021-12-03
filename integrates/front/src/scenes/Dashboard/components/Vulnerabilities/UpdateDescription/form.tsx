@@ -10,6 +10,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 
 import { AcceptanceDateField } from "./AcceptanceDateField";
 import { AcceptanceUserField } from "./AcceptanceUserField";
+import { AssignedField } from "./AssignedField";
 import { ExternalBtsField } from "./ExternalBtsField";
 import {
   dataTreatmentTrackHelper,
@@ -29,7 +30,6 @@ import { JustificationField } from "./JustificationField";
 import { SeverityField } from "./SeverityField";
 import { TagField } from "./TagField";
 import { TreatmentField } from "./TreatmentField";
-import { TreatmentManagerField } from "./TreatmentManagerField";
 
 import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
 import { UpdateDescriptionContext } from "../VulnerabilityModal/context";
@@ -388,7 +388,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             />
           </Col50>
           <Col50>
-            <TreatmentManagerField
+            <AssignedField
               isAcceptedSelected={isAcceptedSelected}
               isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
               isInProgressSelected={isInProgressSelected}

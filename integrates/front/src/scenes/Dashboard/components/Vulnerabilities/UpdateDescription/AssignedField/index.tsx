@@ -3,19 +3,19 @@ import { useAbility } from "@casl/react";
 import _ from "lodash";
 import React from "react";
 
-import type { ITreatmentManagerFieldProps } from "./types";
+import type { IAssignedFieldProps } from "./types";
 
 import { authzPermissionsContext } from "utils/authz/config";
 import { EditableField, FormikDropdown } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 
-const TreatmentManagerField: React.FC<ITreatmentManagerFieldProps> = ({
+const AssignedField: React.FC<IAssignedFieldProps> = ({
   isAcceptedSelected,
   isAcceptedUndefinedSelected,
   isInProgressSelected,
   lastTreatment,
   userEmails,
-}: ITreatmentManagerFieldProps): JSX.Element => {
+}: IAssignedFieldProps): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulnerabilities_treatment_mutate"
@@ -48,4 +48,4 @@ const TreatmentManagerField: React.FC<ITreatmentManagerFieldProps> = ({
   );
 };
 
-export { TreatmentManagerField };
+export { AssignedField };
