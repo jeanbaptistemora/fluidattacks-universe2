@@ -1,4 +1,7 @@
 {
+  "ajaxcontroltoolkit": {
+    "CVE-2015-4670": "<=15.0"
+  },
   "bootstrap": {
     "CVE-2016-10735": ">=3.0.0 <3.4.0",
     "CVE-2018-14040": "<3.4.0 || >=4.0.0 <4.1.2",
@@ -104,6 +107,10 @@
     "CVE-2020-17054": ">=1.11.0 <1.11.23",
     "CVE-2020-17131": ">=0 <1.11.0"
   },
+  "microsoft.identitymodel.clients.activedirectory": {
+    "CVE-2019-1258": ">=5.0.0 <=5.1.1",
+    "GHSA-xc6x-cq47-9chw": ">=5.0.0 <=5.1.1"
+  },
   "microsoft.identitymodel.tokens": {
     "SNYK-DOTNET-MICROSOFTIDENTITYMODELTOKENS-60016": "<5.1.1"
   },
@@ -127,6 +134,9 @@
     "CVE-2021-33767": ">=0 <0.17.1",
     "GHSA-525h-wxcc-f66m": ">=0 <0.12.0",
     "GHSA-7wjx-wcwg-w999": ">=0 <0.10.0"
+  },
+  "popper.js": {
+    "CVE-2005-1870": "1.41_r2"
   },
   "powershell": {
     "CVE-2020-1108": "7.0"
