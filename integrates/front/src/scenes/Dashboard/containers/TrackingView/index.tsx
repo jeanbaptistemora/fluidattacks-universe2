@@ -68,12 +68,12 @@ const TrackingView: React.FC = (): JSX.Element => {
                   <TrackingItem
                     accepted={closing.accepted}
                     acceptedUndefined={closing.acceptedUndefined}
+                    assigned={closing.manager}
                     closed={closing.closed}
                     cycle={closing.cycle}
                     date={closing.date}
                     justification={closing.justification}
                     key={closing.cycle}
-                    manager={closing.manager}
                     open={closing.open}
                   />
                 )

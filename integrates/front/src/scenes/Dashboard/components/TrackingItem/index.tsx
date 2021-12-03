@@ -8,11 +8,11 @@ import { translate } from "utils/translations/translate";
 interface ITrackingItemProps {
   accepted: number;
   acceptedUndefined?: number;
+  assigned?: string;
   closed: number;
   cycle: number;
   date: string;
   justification?: string;
-  manager?: string;
   open: number;
 }
 
@@ -22,11 +22,11 @@ const trackingItem: React.FC<ITrackingItemProps> = (
   const {
     accepted,
     acceptedUndefined,
+    assigned,
     closed,
     cycle,
     date,
     justification,
-    manager,
     open,
   } = props;
 
@@ -86,7 +86,7 @@ const trackingItem: React.FC<ITrackingItemProps> = (
                 )}
                 <TrackingLabel>
                   {translate.t("searchFindings.tabTracking.assigned")}
-                  &nbsp;{manager}
+                  &nbsp;{assigned}
                 </TrackingLabel>
               </React.Fragment>
             )}

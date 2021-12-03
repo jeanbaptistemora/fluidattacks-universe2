@@ -17,11 +17,11 @@ describe("TrackingItem", (): void => {
       <TrackingItem
         accepted={1}
         acceptedUndefined={0}
+        assigned={"testmanager@test.test"}
         closed={0}
         cycle={1}
         date={"2019-01-17"}
         justification={"test justification temporarily accepted"}
-        manager={"testmanager@test.test"}
         open={1}
       />
     );
