@@ -610,8 +610,9 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
+    min_v_id: SSLVersionId = min(tls_versions)
 
-    if len(tls_versions) < 2:
+    if min_v_id == SSLVersionId.tlsv1_2 or len(tls_versions) < 2:
         return tuple()
 
     suites: List[SSLSuiteInfo] = [
@@ -644,8 +645,6 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         SSLCipherSuite.RSA_WITH_AES_128_CBC_SHA.value,
         SSLSpecialSuite.FALLBACK_SCSV.value,
     ]
-
-    min_v_id: SSLVersionId = min(tls_versions)
 
     en_intention = (
         "Perform a request with the lower TLS version supported by the\n"
