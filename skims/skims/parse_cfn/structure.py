@@ -205,6 +205,17 @@ def iter_elb2_load_balancers(template: Node) -> Iterator[Node]:
     )
 
 
+def iter_elb2_load_target_groups(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::ElasticLoadBalancingV2::TargetGroup",
+            exact=True,
+        )
+    )
+
+
 def iter_kms_keys(template: Node) -> Iterator[Node]:
     yield from (
         props
