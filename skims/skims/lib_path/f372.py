@@ -3,11 +3,13 @@ from aioextensions import (
 )
 from aws.model import (
     AWSCloudfrontDistribution,
+    AWSElbV2,
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
     get_aws_iterator,
+    get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
@@ -22,6 +24,7 @@ from parse_cfn.loader import (
 )
 from parse_cfn.structure import (
     iter_cloudfront_distributions,
+    iter_elb2_load_target_groups,
 )
 from parse_hcl2.loader import (
     load as load_terraform,
@@ -43,6 +46,7 @@ from typing import (
     Union,
 )
 from utils.function import (
+    get_node_by_keys,
     TIMEOUT_1MIN,
 )
 
@@ -112,6 +116,27 @@ def tfm_content_over_http_iterate_vulnerabilities(
                         yield attr
 
 
+def _cfn_elb2_uses_insecure_protocol_iterate_vulnerabilities(
+    file_ext: str,
+    t_groups_iterator: Iterator[Union[AWSElbV2, Node]],
+) -> Iterator[Union[AWSElbV2, Node]]:
+    for t_group in t_groups_iterator:
+        unsafe_protos = ("HTTP",)
+        protocol = t_group.raw.get("Protocol", "HTTP")
+        t_type = t_group.raw.get("TargetType", "")
+        is_proto_required = t_type != "lambda"
+        if is_proto_required and protocol in unsafe_protos:
+            proto_node = get_node_by_keys(t_group, ["Protocol"])
+            if isinstance(proto_node, Node):
+                yield proto_node
+            else:
+                yield AWSElbV2(
+                    column=t_group.start_column,
+                    data=t_group.data,
+                    line=get_line_by_extension(t_group.start_line, file_ext),
+                )
+
+
 def _cfn_serves_content_over_http(
     content: str,
     path: str,
@@ -152,6 +177,29 @@ def _tfm_serves_content_over_http(
     )
 
 
+def _cfn_elb2_uses_insecure_protocol(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F372_CWE},
+        description_key="src.lib_path.f372.elb2_uses_insecure_protocol",
+        finding=_FINDING_F372,
+        iterator=get_aws_iterator(
+            _cfn_elb2_uses_insecure_protocol_iterate_vulnerabilities(
+                file_ext=file_ext,
+                t_groups_iterator=iter_elb2_load_target_groups(
+                    template=template
+                ),
+            )
+        ),
+        path=path,
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -181,6 +229,24 @@ async def tfm_serves_content_over_http(
         content=content,
         path=path,
         model=model,
+    )
+
+
+# @CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_elb2_uses_insecure_protocol(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_elb2_uses_insecure_protocol,
+        content=content,
+        file_ext=file_ext,
+        path=path,
+        template=template,
     )
 
 
