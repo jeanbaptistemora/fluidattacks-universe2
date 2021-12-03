@@ -10387,7 +10387,10 @@
       should not be the same as the
       private password.
     impact: >
-      Attacker in intranet.
+      Get access to the private keys of the
+      debugging certificates to test the
+      application and understand its operation
+      to generate new attack vectors.
     recommendation: >
       Implement good security practices
       against Keystore containers.
@@ -10397,12 +10400,7 @@
 
       - Change default passwords.
     threat: >
-      If an attacker gets access to the
-      Keystore, he will be able to obtain
-      the private keys of the debugging
-      certificates and thus be able to test
-      and debug the application to understand
-      its operation and create new attack vectors.
+      Authenticated attacker from intranet.
   es:
     title: Insecure service configuration - Keystore
     description: >
@@ -10423,7 +10421,10 @@
       - Las contraseñas de acceso al Keystore
       no debe ser igual al private password.
     impact: >
-      Atacante en intranet.
+      Obtener las llaves privadas de los
+      certificados de depuración para probar
+      la aplicación y entender su funcionamiento
+      para así generar nuevos vectores de ataque.
     recommendation: >
       Implementar las buentas prácticas de
       seguridad frente a contenedor Keystore.
@@ -10433,13 +10434,7 @@
 
       - Cambiar contraseñas por defecto.
     threat: >
-      Si un atacante consigue acceso al
-      Keystore podrá obtener las llaves
-      privadas de los certificados de
-      depuración pudiendo así probar y
-      depurar la aplicación para comprender
-      su funcionamiento y crear nuevos
-      vectores de ataque.
+      Atacante autenticado desde intranet.
   category: Abuse Functionality
   score:
     base:
