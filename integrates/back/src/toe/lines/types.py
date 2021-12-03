@@ -26,6 +26,7 @@ class ToeLinesAttributesToUpdate(NamedTuple):
     be_present: Optional[bool] = None
     comments: Optional[str] = None
     commit_author: Optional[str] = None
+    first_attack_at: Optional[str] = None
     loc: Optional[int] = None
     modified_commit: Optional[str] = None
     modified_date: Optional[str] = None

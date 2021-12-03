@@ -79,19 +79,23 @@ async def update(
     current_value: ToeLines,
     attributes: ToeLinesAttributesToUpdate,
 ) -> None:
-    attacked_at = attributes.attacked_at or current_value.attacked_at
-    modified_date = attributes.modified_date or current_value.modified_date
+    last_attacked_at = attributes.attacked_at or current_value.attacked_at
+    last_modified_date = (
+        attributes.modified_date or current_value.modified_date
+    )
     first_attack_at = (
-        attributes.attacked_at
+        attributes.first_attack_at
+        if attributes.first_attack_at is not None
+        else attributes.attacked_at
         if not current_value.first_attack_at and attributes.attacked_at
         else None
     )
     attacked_lines = (
         attributes.attacked_lines or current_value.attacked_lines
         if attributes.attacked_lines != 0
-        and attacked_at
-        and datetime.fromisoformat(modified_date)
-        <= datetime.fromisoformat(attacked_at)
+        and last_attacked_at
+        and datetime.fromisoformat(last_modified_date)
+        <= datetime.fromisoformat(last_attacked_at)
         else 0
     )
     be_present_until = _get_optional_be_present_until(attributes.be_present)

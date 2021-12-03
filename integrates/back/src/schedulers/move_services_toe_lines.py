@@ -111,6 +111,20 @@ def _get_attacked_lines(
     return attacked_lines
 
 
+def _get_first_attack_at(
+    services_toe_lines: ServicesToeLines,
+    toe_lines: ToeLines,
+) -> str:
+    return (
+        services_toe_lines.tested_date
+        if services_toe_lines.tested_date
+        and toe_lines.first_attack_at
+        and datetime.fromisoformat(services_toe_lines.tested_date)
+        < datetime.fromisoformat(toe_lines.first_attack_at)
+        else toe_lines.first_attack_at or services_toe_lines.tested_date
+    )
+
+
 def _get_seen_at(
     services_toe_lines: ServicesToeLines,
     toe_lines: ToeLines,
@@ -165,6 +179,9 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                             repo_services_toe_lines[filename], toe_lines
                         ),
                     ),
+                    first_attack_at=_get_first_attack_at(
+                        repo_services_toe_lines[filename], toe_lines
+                    ),
                     seen_at=_get_seen_at(
                         repo_services_toe_lines[filename], toe_lines
                     ),
@@ -189,7 +206,9 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                         repo_services_toe_lines[filename], toe_lines
                     ),
                 ),
-                repo_services_toe_lines[filename].tested_date,
+                _get_first_attack_at(
+                    repo_services_toe_lines[filename], toe_lines
+                ),
                 _get_seen_at(repo_services_toe_lines[filename], toe_lines),
             )
         )
