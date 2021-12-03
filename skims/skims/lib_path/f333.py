@@ -38,7 +38,7 @@ _FINDING_F333 = core_model.FindingEnum.F333
 _FINDING_F333_CWE = _FINDING_F333.value.cwe
 
 
-def ec2_not_termination_protection_iterate_vulnerabilities(
+def ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
     buckets_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
     for bucket in buckets_iterator:
@@ -52,7 +52,24 @@ def ec2_not_termination_protection_iterate_vulnerabilities(
                 yield elem
 
 
-def _ec2_not_termination_protection(
+def ec2_has_not_termination_protection_iterate_vulnerabilities(
+    buckets_iterator: Iterator[Any],
+) -> Iterator[Union[Any, Node]]:
+    for bucket in buckets_iterator:
+        protection_attr = False
+        for elem in bucket.data:
+            if (
+                isinstance(elem, Attribute)
+                and elem.key == "disable_api_termination"
+            ):
+                protection_attr = True
+                if elem.val is False:
+                    yield elem
+        if not protection_attr:
+            yield bucket
+
+
+def _ec2_has_terminate_shutdown_behavior(
     content: str,
     path: str,
     model: Any,
@@ -63,7 +80,26 @@ def _ec2_not_termination_protection(
         description_key="src.lib_path.f372.serves_content_over_http",
         finding=_FINDING_F333,
         iterator=get_aws_iterator(
-            ec2_not_termination_protection_iterate_vulnerabilities(
+            ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
+                buckets_iterator=iter_aws_launch_template(model=model)
+            )
+        ),
+        path=path,
+    )
+
+
+def _ec2_has_not_termination_protection(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F333_CWE},
+        description_key="src.lib_path.f372.serves_content_over_http",
+        finding=_FINDING_F333,
+        iterator=get_aws_iterator(
+            ec2_has_not_termination_protection_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_launch_template(model=model)
             )
         ),
@@ -73,13 +109,28 @@ def _ec2_not_termination_protection(
 
 @SHIELD
 @TIMEOUT_1MIN
-async def ec2_not_termination_protection(
+async def ec2_has_terminate_shutdown_behavior(
     content: str,
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
     return await in_process(
-        _ec2_not_termination_protection,
+        _ec2_has_terminate_shutdown_behavior,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
+@SHIELD
+@TIMEOUT_1MIN
+async def ec2_has_not_termination_protection(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _ec2_has_not_termination_protection,
         content=content,
         path=path,
         model=model,
@@ -98,7 +149,14 @@ async def analyze(
         content = await content_generator()
         model = await load_terraform(stream=content, default=[])
         coroutines.append(
-            ec2_not_termination_protection(
+            ec2_has_terminate_shutdown_behavior(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
+        coroutines.append(
+            ec2_has_not_termination_protection(
                 content=content,
                 path=path,
                 model=model,
