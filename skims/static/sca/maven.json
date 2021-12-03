@@ -271,8 +271,8 @@
     "GHSA-hf44-3mx6-vhhw": ">=2.0 <2.4"
   },
   "com.h2database:h2": {
-    "SNYK-JAVA-COMH2DATABASE-31685": "<1.4.197",
-    "SNYK-JAVA-COMH2DATABASE-1769238": ">=0"
+    "SNYK-JAVA-COMH2DATABASE-1769238": ">=0",
+    "SNYK-JAVA-COMH2DATABASE-31685": "<1.4.197"
   },
   "com.hazelcast:hazelcast": {
     "CVE-2020-26168": ">=4.0 <4.0.3"

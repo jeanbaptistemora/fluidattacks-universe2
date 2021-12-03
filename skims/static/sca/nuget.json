@@ -37,6 +37,9 @@
   "i18n": {
     "CVE-2020-7791": ">=0 <2.1.15"
   },
+  "jquery.validation": {
+    "SNYK-DOTNET-JQUERYVALIDATION-1056869": "<1.19.3"
+  },
   "kentico.libraries": {
     "CVE-2021-27581": "5.5"
   },
@@ -59,6 +62,9 @@
     "CVE-2018-8171": "5.2"
   },
   "microsoft.aspnet.webapi.client": {
+    "ALEPH-2018005": "5.2.6"
+  },
+  "microsoft.aspnet.webapi.core": {
     "ALEPH-2018005": "5.2.6"
   },
   "microsoft.aspnet.webpages": {
