@@ -27,7 +27,7 @@ def _truncate_bytes(string: str, start: int, end: int) -> str:
     return string.encode()[start:end].decode()
 
 
-def _gen_fa_hash(commit: CommitData) -> str:
+def gen_fa_hash(commit: CommitData) -> str:
     fa_hash = hashlib.sha256()
     fa_hash.update(bytes(commit.author.name, "utf-8"))
     fa_hash.update(bytes(commit.author.email, "utf-8"))
@@ -71,7 +71,7 @@ class CommitDataFactory:
             str(commit.summary),
             deltas,
         )
-        _id = CommitId(commit.hexsha, _gen_fa_hash(data))
+        _id = CommitId(commit.hexsha, gen_fa_hash(data))
         return (_id, data)
 
 
