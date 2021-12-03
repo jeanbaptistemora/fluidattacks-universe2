@@ -33,6 +33,7 @@ describe("GroupToeLinesView", (): void => {
           canGetAttackedLines: true,
           canGetBePresentUntil: true,
           canGetComments: true,
+          canGetFirstAttackAt: true,
           first: 300,
           groupName: "unittesting",
         },
@@ -103,6 +104,7 @@ describe("GroupToeLinesView", (): void => {
       { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
       { action: "api_resolvers_toe_lines_be_present_until_resolve" },
       { action: "api_resolvers_toe_lines_comments_resolve" },
+      { action: "api_resolvers_toe_lines_first_attack_at_resolve" },
       { action: "see_toe_lines_coverage" },
     ]);
     const wrapper: ReactWrapper = mount(

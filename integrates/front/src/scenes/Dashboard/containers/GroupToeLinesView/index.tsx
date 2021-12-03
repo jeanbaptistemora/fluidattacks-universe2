@@ -43,6 +43,9 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   const canGetComments: boolean = permissions.can(
     "api_resolvers_toe_lines_comments_resolve"
   );
+  const canGetFirstAttackAt: boolean = permissions.can(
+    "api_resolvers_toe_lines_first_attack_at_resolve"
+  );
   const canSeeCoverage: boolean = permissions.can("see_toe_lines_coverage");
   const { groupName } = useParams<{ groupName: string }>();
   const [checkedItems, setCheckedItems] = useStoredState<
@@ -59,6 +62,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       commitAuthor: false,
       coverage: true,
       filename: false,
+      firstAttackAt: false,
       loc: true,
       modifiedCommit: true,
       modifiedDate: true,
@@ -241,6 +245,17 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
+      dataField: "firstAttackAt",
+      filter: dateFilter({}),
+      formatter: formatDate,
+      header: translate.t("group.toe.lines.firstAttackAt"),
+      omit: !canGetFirstAttackAt,
+      onSort,
+      visible: checkedItems.firstAttackAt,
+      width: "5%",
+    },
+    {
+      align: "center",
       dataField: "seenAt",
       filter: dateFilter({}),
       formatter: formatDate,
@@ -284,6 +299,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       canGetAttackedLines,
       canGetBePresentUntil,
       canGetComments,
+      canGetFirstAttackAt,
       first: 300,
       groupName,
     },

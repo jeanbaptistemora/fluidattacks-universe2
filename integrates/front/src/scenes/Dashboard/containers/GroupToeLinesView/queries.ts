@@ -11,6 +11,7 @@ const GET_TOE_LINES: DocumentNode = gql`
     $canGetAttackedLines: Boolean!
     $canGetBePresentUntil: Boolean!
     $canGetComments: Boolean!
+    $canGetFirstAttackAt: Boolean!
     $first: Int
   ) {
     group(groupName: $groupName) {
@@ -26,6 +27,7 @@ const GET_TOE_LINES: DocumentNode = gql`
             comments @include(if: $canGetComments)
             commitAuthor
             filename
+            firstAttackAt @include(if: $canGetFirstAttackAt)
             loc
             modifiedCommit
             modifiedDate

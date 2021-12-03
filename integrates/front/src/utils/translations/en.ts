@@ -750,6 +750,7 @@ export const enTranslations: ResourceKey = {
         commitAuthor: "Commit author",
         coverage: "Coverage",
         filename: "Filename",
+        firstAttackAt: "First attack at",
         loc: "LOC",
         modifiedCommit: "Modified commit",
         modifiedDate: "Modified date",
