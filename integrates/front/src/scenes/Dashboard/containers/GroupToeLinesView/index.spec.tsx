@@ -29,6 +29,7 @@ describe("GroupToeLinesView", (): void => {
         query: GET_TOE_LINES,
         variables: {
           canGetAttackedAt: true,
+          canGetAttackedBy: true,
           canGetAttackedLines: true,
           canGetBePresentUntil: true,
           canGetComments: true,
@@ -98,6 +99,7 @@ describe("GroupToeLinesView", (): void => {
     };
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_resolvers_toe_lines_attacked_at_resolve" },
+      { action: "api_resolvers_toe_lines_attacked_by_resolve" },
       { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
       { action: "api_resolvers_toe_lines_be_present_until_resolve" },
       { action: "api_resolvers_toe_lines_comments_resolve" },

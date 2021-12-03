@@ -31,6 +31,9 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   const canGetAttackedAt: boolean = permissions.can(
     "api_resolvers_toe_lines_attacked_at_resolve"
   );
+  const canGetAttackedBy: boolean = permissions.can(
+    "api_resolvers_toe_lines_attacked_by_resolve"
+  );
   const canGetAttackedLines: boolean = permissions.can(
     "api_resolvers_toe_lines_attacked_lines_resolve"
   );
@@ -48,6 +51,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     "toeLinesTableSet",
     {
       attackedAt: true,
+      attackedBy: false,
       attackedLines: true,
       bePresent: true,
       bePresentUntil: false,
@@ -228,6 +232,15 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
+      dataField: "attackedBy",
+      header: translate.t("group.toe.lines.attackedBy"),
+      omit: !canGetAttackedBy,
+      onSort,
+      visible: checkedItems.attackedBy,
+      width: "5%",
+    },
+    {
+      align: "center",
       dataField: "seenAt",
       filter: dateFilter({}),
       formatter: formatDate,
@@ -267,6 +280,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     },
     variables: {
       canGetAttackedAt,
+      canGetAttackedBy,
       canGetAttackedLines,
       canGetBePresentUntil,
       canGetComments,

@@ -7,6 +7,7 @@ const GET_TOE_LINES: DocumentNode = gql`
     $after: String
     $bePresent: Boolean
     $canGetAttackedAt: Boolean!
+    $canGetAttackedBy: Boolean!
     $canGetAttackedLines: Boolean!
     $canGetBePresentUntil: Boolean!
     $canGetComments: Boolean!
@@ -18,6 +19,7 @@ const GET_TOE_LINES: DocumentNode = gql`
         edges {
           node {
             attackedAt @include(if: $canGetAttackedAt)
+            attackedBy @include(if: $canGetAttackedBy)
             attackedLines @include(if: $canGetAttackedLines)
             bePresent
             bePresentUntil @include(if: $canGetBePresentUntil)

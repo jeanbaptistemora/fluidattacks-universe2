@@ -742,6 +742,7 @@ export const enTranslations: ResourceKey = {
       },
       lines: {
         attackedAt: "Attacked at",
+        attackedBy: "Attacked by",
         attackedLines: "Attacked lines",
         bePresent: "Be present",
         bePresentUntil: "Be present until",
