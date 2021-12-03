@@ -1048,9 +1048,9 @@ export const enTranslations: ResourceKey = {
           acceptanceSeverityRange:
             "Temporal CVSS 3.1 score range between which a finding can be accepted",
           maxAcceptanceDays:
-            "Maximum number of calendar days a finding can be temporally accepted",
+            "Maximum number of calendar days a finding can be temporarily accepted",
           maxNumberAcceptances:
-            "Maximum number of times a finding can be temporally accepted",
+            "Maximum number of times a finding can be temporarily accepted",
         },
         policy: "Policy",
         recommended: {
@@ -2088,7 +2088,7 @@ export const enTranslations: ResourceKey = {
       },
     },
     tabTracking: {
-      accepted: "Temporally accepted",
+      accepted: "temporarily accepted",
       acceptedUndefined: "Permanently accepted",
       assigned: "Assigned:",
       closed: "Closed",
@@ -2104,12 +2104,12 @@ export const enTranslations: ResourceKey = {
       tabTitle: "Tracking",
       tooltip:
         "Evolution of the finding over time: historical records, open/closed vulnerabilities, " +
-        "and temporally/permanently accepted treatments",
+        "and temporarily/permanently accepted treatments",
       treatment: "Treatment",
       vulnerabilitiesAcceptedTreatment:
-        "{{count}} vulnerabilities were accepted temporally",
+        "{{count}} vulnerabilities were temporarily accepted",
       vulnerabilitiesAcceptedUndefinedTreatment:
-        "{{count}} vulnerabilities were accepted permanently",
+        "{{count}} vulnerabilities were permanently accepted",
       vulnerabilitiesClosed: "Vulnerabilities closed:",
       vulnerabilitiesFound: "Vulnerabilities found:",
     },

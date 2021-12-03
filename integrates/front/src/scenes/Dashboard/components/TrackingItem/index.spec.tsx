@@ -20,7 +20,7 @@ describe("TrackingItem", (): void => {
         closed={0}
         cycle={1}
         date={"2019-01-17"}
-        justification={"test justification temporally accepted"}
+        justification={"test justification temporarily accepted"}
         manager={"testmanager@test.test"}
         open={1}
       />
@@ -31,7 +31,7 @@ describe("TrackingItem", (): void => {
     expect(wrapper.text()).toContain("Cycle: 1,");
     expect(wrapper.text()).toContain("Vulnerabilities found:\u00a01");
     expect(wrapper.text()).toContain(
-      "Justification:\u00a0test justification temporally accepted"
+      "Justification:\u00a0test justification temporarily accepted"
     );
   });
 
