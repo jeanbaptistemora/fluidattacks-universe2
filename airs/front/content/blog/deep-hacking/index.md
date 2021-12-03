@@ -208,4 +208,4 @@ academic and security communities, or, at least, by [us](../../).
 1. Z. Li, D. Zou, Shouhuai X., H. Jin, Y. Zhu and Z. Chen (2018).
     *SySeVR: A framework for using deep learning to detect software
     vulnerabilities*. [`arXiv:1807.06756
-    [cs.LG`](https://arxiv.org/pdf/1807.06756.pdf)\</literal\>\]
+    [cs.LG`](https://arxiv.org/pdf/1807.06756.pdf)]
