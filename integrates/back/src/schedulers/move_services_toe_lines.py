@@ -79,19 +79,33 @@ def _get_group_name(tmpdirname: str, lines_csv_path: str) -> str:
     return group_match.groups("1")[0]
 
 
+def _get_attacked_at(
+    services_toe_lines: ServicesToeLines,
+    toe_lines: ToeLines,
+) -> str:
+    return (
+        services_toe_lines.tested_date
+        if services_toe_lines.tested_date
+        and toe_lines.attacked_at
+        and datetime.fromisoformat(services_toe_lines.tested_date)
+        > datetime.fromisoformat(toe_lines.attacked_at)
+        else toe_lines.attacked_at or services_toe_lines.tested_date
+    )
+
+
 def _get_attacked_lines(
     new_attacked_lines: int,
-    current_attacked_lines: int,
-    attacked_at: str,
-    modified_date: str,
+    toe_lines: ToeLines,
+    new_attacked_at: str,
 ) -> int:
     attacked_lines = (
-        new_attacked_lines or current_attacked_lines
-        if new_attacked_lines != 0
-        and attacked_at
-        and modified_date
-        and datetime.fromisoformat(modified_date)
-        <= datetime.fromisoformat(attacked_at)
+        toe_lines.attacked_lines
+        if new_attacked_at == toe_lines.attacked_at
+        else new_attacked_lines
+        if new_attacked_at
+        and toe_lines.modified_date
+        and datetime.fromisoformat(toe_lines.modified_date)
+        <= datetime.fromisoformat(new_attacked_at)
         else 0
     )
     return attacked_lines
@@ -141,12 +155,15 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                 toe_lines,
                 ToeLinesAttributesToUpdate(
                     comments=repo_services_toe_lines[filename].comments,
-                    attacked_at=repo_services_toe_lines[filename].tested_date,
+                    attacked_at=_get_attacked_at(
+                        repo_services_toe_lines[filename], toe_lines
+                    ),
                     attacked_lines=_get_attacked_lines(
                         repo_services_toe_lines[filename].tested_lines,
-                        toe_lines.attacked_lines,
-                        repo_services_toe_lines[filename].tested_date,
-                        toe_lines.modified_date,
+                        toe_lines,
+                        _get_attacked_at(
+                            repo_services_toe_lines[filename], toe_lines
+                        ),
                     ),
                     seen_at=_get_seen_at(
                         repo_services_toe_lines[filename], toe_lines
@@ -164,12 +181,13 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
             )
             != (
                 repo_services_toe_lines[filename].comments,
-                repo_services_toe_lines[filename].tested_date,
+                _get_attacked_at(repo_services_toe_lines[filename], toe_lines),
                 _get_attacked_lines(
                     repo_services_toe_lines[filename].tested_lines,
-                    toe_lines.attacked_lines,
-                    repo_services_toe_lines[filename].tested_date,
-                    toe_lines.modified_date,
+                    toe_lines,
+                    _get_attacked_at(
+                        repo_services_toe_lines[filename], toe_lines
+                    ),
                 ),
                 repo_services_toe_lines[filename].tested_date,
                 _get_seen_at(repo_services_toe_lines[filename], toe_lines),
