@@ -41,6 +41,9 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
+from newutils.datetime import (
+    convert_to_iso_str,
+)
 from newutils.utils import (
     get_key_or_fallback,
 )
@@ -182,34 +185,31 @@ async def add_vulnerability_treatment(
     date: str,
 ) -> bool:
     updated_values = vulns_utils.update_treatment_values(updated_values)
-    new_treatment = updated_values["treatment"]
-    new_state = {
-        "date": date,
-        "treatment": new_treatment,
-    }
-
-    if user_email:
-        new_state["user"] = user_email
-        new_state["treatment_manager"] = user_email
-    if "treatment_manager" in updated_values:
-        new_state["assigned"] = updated_values["treatment_manager"]
-        new_state["treatment_manager"] = updated_values["treatment_manager"]
-    if new_treatment != "NEW":
-        validations.validate_fields([updated_values["justification"]])
-        validations.validate_field_length(
-            updated_values["justification"], 5000
-        )
-        new_state["justification"] = updated_values["justification"]
-
-    if new_treatment == "ACCEPTED":
-        new_state["acceptance_date"] = updated_values["acceptance_date"]
-    elif new_treatment == "ACCEPTED_UNDEFINED":
-        new_state["acceptance_status"] = updated_values["acceptance_status"]
-
-    await vulns_dal.append(
+    new_status = VulnerabilityTreatmentStatus[updated_values["treatment"]]
+    justification: Optional[str] = updated_values.get("justification")
+    if new_status != VulnerabilityTreatmentStatus.NEW and justification:
+        validations.validate_fields([justification])
+        validations.validate_field_length(justification, 5000)
+    treatment_to_add = VulnerabilityTreatment(
+        acceptance_status=VulnerabilityAcceptanceStatus[
+            updated_values["acceptance_status"]
+        ]
+        if new_status == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+        else None,
+        accepted_until=convert_to_iso_str(updated_values["acceptance_date"])
+        if new_status == VulnerabilityTreatmentStatus.ACCEPTED
+        else None,
+        justification=justification,
+        manager=updated_values.get("treatment_manager") or user_email,
+        modified_by=user_email,
+        modified_date=convert_to_iso_str(date),
+        status=new_status,
+    )
+    await vulns_dal.update_treatment(
+        current_value=vuln.treatment,
         finding_id=finding_id,
         vulnerability_id=vuln.id,
-        elements={"historic_treatment": (new_state,)},
+        treatment=treatment_to_add,
     )
     return True
 
