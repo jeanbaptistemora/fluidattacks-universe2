@@ -277,7 +277,7 @@ an unsafe deserialization method. The query text reflects just this
 idea:
 
 **See [Finding Unsafe Deserialization with
-QL.](https://lgtm.com/blog/finding_unsafe_deserialization_with_ql).**
+QL](https://lgtm.com/blog/finding_unsafe_deserialization_with_ql).**
 
 ``` sql
 from ContentTypeHandlerInput source, UnsafeDeserializationSink sink
@@ -289,6 +289,7 @@ Again, this is not the full query. See the [`lgtm`
 blog](https://lgtm.com/blog/apache_struts_CVE-2017-9805) entry on this
 discovery.
 
+---
 `Semmle` has thus made into a reality what was deemed impossible time
 and again for 30 years: bring data analysis techniques and source code
 analysis together. This powerful combination has already paid off for

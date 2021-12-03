@@ -183,7 +183,7 @@ To illustrate this, let us compare some typical authentication policies:
 
 <div class="tc">
 
-**Authentication policy comparison**
+**Table 1. Authentication policy comparison**
 
 </div>
 

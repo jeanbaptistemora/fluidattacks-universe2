@@ -404,4 +404,4 @@ still need to work further on the template definition, so stay tuned.
 
 ## Appendix: full feature
 
-local-file-inclusion.feature\[here\]
+local-file-inclusion.feature [here](./local-file-inclusion.feature)

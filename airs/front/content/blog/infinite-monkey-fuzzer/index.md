@@ -281,6 +281,7 @@ high-profile ones like `bash`, the `X server`, `curl`, and the `Linux
 kernel`. See \`AFL’s [\`\`bug-o-rama trophy
 case''](http://lcamtuf.coredump.cx/afl/#bugs).
 
+---
 So there you have it: as promised, a more in-depth follow-up to our
 [initial invitation to fuzzing](../fuzzy-bugs-online/). According to
 \`AFL’s father, this technique is both very powerful and
