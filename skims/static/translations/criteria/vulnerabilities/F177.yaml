@@ -1,0 +1,31 @@
+F177.title:
+  en: >
+    Insecure service configuration - Security Groups
+  es: >
+    Insecure service configuration - Security Groups
+F177.description:
+  en: >
+    EC2 Security Groups are not explicitly defined.
+    Security Group input/output rules are not defined.
+  es: >
+    No se definen explicitamente los Security Groups de EC2.
+    No se definen las reglas de entrada/salida de los Security Group.
+F177.impact:
+  en: >
+    - Extract information from the server without proper consent.
+    - Creating holes to gain remote access.
+  es: >
+    - Extraer información del servidor sin el consentimiento adecuado.
+    - Crear agujeros para tener acceso remoto.
+F177.recommendation:
+  en: >
+    Securely configure the vulnerable service by explicitly defining the
+    Security Groups.
+  es: >
+    Configurar de manera segura el servicio vulnerable definiendo
+    explicitamente los Security Groups.
+F177.threat:
+  en: >
+    Anonymous attacker with access to an EC2 instance from an internal network.
+  es: >
+    Atacante anónimo con acceso a una instancia de EC2 desde una red interna.

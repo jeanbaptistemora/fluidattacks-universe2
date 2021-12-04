@@ -439,6 +439,14 @@
       "title": "160. Excessive privileges - Temporary Files"
     }
   },
+  "F177": {
+    "EN": {
+      "title": "177. Insecure service configuration - Security Groups"
+    },
+    "ES": {
+      "title": "177. Insecure service configuration - Security Groups"
+    }
+  },
   "F200": {
     "EN": {
       "title": "200. Traceability loss"
