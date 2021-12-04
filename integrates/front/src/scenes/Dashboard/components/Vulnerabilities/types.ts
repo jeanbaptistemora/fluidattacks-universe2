@@ -14,7 +14,7 @@ interface IVulnRowAttr {
   hacker?: string;
   historicTreatment: IHistoricTreatment[];
   id: string;
-  lastReattackDate: string;
+  lastReattackDate?: string;
   lastReattackRequester: string;
   lastRequestedReattackDate: string;
   remediated: boolean;
