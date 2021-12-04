@@ -77,7 +77,7 @@ def _ec2_has_terminate_shutdown_behavior(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F333_CWE},
-        description_key="src.lib_path.f372.serves_content_over_http",
+        description_key="F333.title",
         finding=_FINDING_F333,
         iterator=get_aws_iterator(
             ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
@@ -96,7 +96,7 @@ def _ec2_has_not_termination_protection(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F333_CWE},
-        description_key="src.lib_path.f372.serves_content_over_http",
+        description_key="F333.title",
         finding=_FINDING_F333,
         iterator=get_aws_iterator(
             ec2_has_not_termination_protection_iterate_vulnerabilities(

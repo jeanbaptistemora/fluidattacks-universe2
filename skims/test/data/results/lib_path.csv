@@ -429,7 +429,8 @@ F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,25,16,skims,134.
   35 |         var SecPolicyBuilder = new CorsPolicyBuilder();
      ^ Col 4
 ",c_sharp.insecure_cors
-F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,26,16,skims,333. Insecure service configuration - EC2,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f333/ec2_test.tf,"
+F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,26,16,skims,333. Insecure service configuration - EC2,"Insecure service configuration - EC2
+ in namespace/skims/test/data/lib_path/f333/ec2_test.tf","
   16 |
   17 |   cpu_options {
   18 |     core_count       = 4
@@ -453,7 +454,8 @@ F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,26,16,skims,333. 
   36 |   }
      ^ Col 0
 ",f333._ec2_has_not_termination_protection
-F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,44,16,skims,333. Insecure service configuration - EC2,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f333/ec2_test.tf,"
+F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,44,16,skims,333. Insecure service configuration - EC2,"Insecure service configuration - EC2
+ in namespace/skims/test/data/lib_path/f333/ec2_test.tf","
   34 |   elastic_inference_accelerator {
   35 |     type = ""eia1.medium""
   36 |   }
