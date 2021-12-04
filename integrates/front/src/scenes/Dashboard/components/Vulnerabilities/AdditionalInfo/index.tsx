@@ -285,7 +285,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                       "lh-title ma0 mid-gray pr1-l tr-l tl-m tl-ns ws-pre-wrap ww-break-word"
                     }
                   >
-                    {commitFormatter(vulnerability.commitHash)}
+                    {commitFormatter(vulnerability.commitHash as string)}
                   </p>
                 </InfoField>
               </Row>

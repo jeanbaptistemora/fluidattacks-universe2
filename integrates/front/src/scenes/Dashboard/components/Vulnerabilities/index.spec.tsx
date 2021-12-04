@@ -22,7 +22,7 @@ describe("VulnComponent", (): void => {
   const mocks: IVulnRowAttr[] = [
     {
       assigned: "",
-      commitHash: "",
+      commitHash: undefined,
       currentState: "open",
       currentStateCapitalized: "Open",
       cycles: "1",
@@ -59,7 +59,7 @@ describe("VulnComponent", (): void => {
     },
     {
       assigned: "",
-      commitHash: "",
+      commitHash: undefined,
       currentState: "closed",
       currentStateCapitalized: "Closed",
       cycles: "1",
@@ -98,7 +98,7 @@ describe("VulnComponent", (): void => {
     },
     {
       assigned: "assigned-user-4",
-      commitHash: "",
+      commitHash: undefined,
       currentState: "open",
       currentStateCapitalized: "Open",
       cycles: "1",

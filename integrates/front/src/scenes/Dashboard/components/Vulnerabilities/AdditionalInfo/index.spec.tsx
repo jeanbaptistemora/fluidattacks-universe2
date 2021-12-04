@@ -15,7 +15,7 @@ describe("AdditionalInfo", (): void => {
   const numberOfDays: number = 5;
   const mockVuln: IVulnRowAttr = {
     assigned: "assigned-user-4",
-    commitHash: "",
+    commitHash: undefined,
     currentState: "open",
     currentStateCapitalized: "Open",
     cycles: "1",

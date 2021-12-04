@@ -36,7 +36,7 @@ describe("VulnerabilitiesView", (): void => {
           vulnerabilities: [
             {
               __typename: "Vulnerability",
-              commitHash: "",
+              commitHash: undefined,
               currentState: "open",
               cycles: "",
               efficacy: "",
@@ -72,7 +72,7 @@ describe("VulnerabilitiesView", (): void => {
             },
             {
               __typename: "Vulnerability",
-              commitHash: "",
+              commitHash: undefined,
               currentState: "open",
               cycles: "",
               efficacy: "",
@@ -110,7 +110,7 @@ describe("VulnerabilitiesView", (): void => {
           zeroRisk: [
             {
               __typename: "Vulnerability",
-              commitHash: "",
+              commitHash: undefined,
               currentState: "open",
               cycles: "",
               efficacy: "",

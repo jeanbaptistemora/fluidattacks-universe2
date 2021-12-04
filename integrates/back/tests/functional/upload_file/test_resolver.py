@@ -16,7 +16,7 @@ async def _get_vulns(finding_id: str) -> List[Dict[str, Any]]:
     return sorted(
         (
             dict(
-                commit_hash=vuln.get("commit_hash", ""),
+                commit_hash=vuln.get("commit_hash", None),
                 repo_nickname=vuln.get("repo_nickname", ""),
                 specific=vuln.get("specific", ""),
                 stream=vuln.get("stream", None),
@@ -47,14 +47,6 @@ async def test_upload_file(populate: bool, email: str) -> None:
     assert result["data"]["uploadFile"]["success"]
     assert await _get_vulns(finding_id) == [
         {
-            "commit_hash": "",
-            "repo_nickname": "product",
-            "specific": "phone",
-            "stream": "home,blog,articulo",
-            "type": "inputs",
-            "where": "https://example.com",
-        },
-        {
             "commit_hash": "111111111111111111111111111111111111111f",
             "repo_nickname": "product",
             "specific": "1",
@@ -77,6 +69,14 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "stream": None,
             "type": "lines",
             "where": "product/path/to/file3.ext",
+        },
+        {
+            "commit_hash": None,
+            "repo_nickname": "product",
+            "specific": "phone",
+            "stream": "home,blog,articulo",
+            "type": "inputs",
+            "where": "https://example.com",
         },
     ]
 
