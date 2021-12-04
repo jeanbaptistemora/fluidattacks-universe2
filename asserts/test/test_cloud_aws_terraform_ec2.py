@@ -66,12 +66,3 @@ def test_is_associate_public_ip_address_enabled():
     assert result.get_vulns_number() == 2
     assert ec2.is_associate_public_ip_address_enabled(SAFE).is_closed()
     assert ec2.is_associate_public_ip_address_enabled(NOT_EXISTS).is_unknown()
-
-
-def test_uses_default_security_group():
-    """test ec2.uses_default_security_group."""
-    result = ec2.uses_default_security_group(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2
-    assert ec2.uses_default_security_group(SAFE).is_closed()
-    assert ec2.uses_default_security_group(NOT_EXISTS).is_unknown()
