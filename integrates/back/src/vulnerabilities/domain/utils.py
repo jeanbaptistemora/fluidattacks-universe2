@@ -76,6 +76,7 @@ def compare_historic_treatments(
     )
     date_changed = (
         "acceptance_date" in new_state
+        and bool(new_state.get("acceptance_date"))
         and last_state.accepted_until
         and datetime.fromisoformat(last_state.accepted_until)
         != datetime_utils.get_from_str(new_state["acceptance_date"])

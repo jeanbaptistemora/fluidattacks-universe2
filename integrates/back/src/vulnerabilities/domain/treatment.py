@@ -182,7 +182,9 @@ async def add_vulnerability_treatment(
     vuln: Vulnerability,
     user_email: str,
 ) -> bool:
-    new_status = VulnerabilityTreatmentStatus[updated_values["treatment"]]
+    new_status = VulnerabilityTreatmentStatus[
+        updated_values["treatment"].replace(" ", "_").upper()
+    ]
     treatment_to_add = VulnerabilityTreatment(
         acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED
         if new_status == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED

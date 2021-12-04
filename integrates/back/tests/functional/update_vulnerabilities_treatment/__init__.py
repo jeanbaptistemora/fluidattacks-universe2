@@ -17,16 +17,18 @@ async def put_mutation(
     vulnerability: str,
     treatment: str,
     assigned: str,
+    acceptance_date: str,
 ) -> Dict[str, Any]:
     query = """
         mutation UpdateTreatment(
             $findingId: String!,
             $treatment: UpdateClientDescriptionTreatment!,
             $assigned: String,
-            $vulnerabilityId: ID!
+            $vulnerabilityId: ID!,
+            $acceptanceDate: String,
         ) {
             updateVulnerabilitiesTreatment(
-                acceptanceDate: "2021-03-31 19:45:11",
+                acceptanceDate: $acceptanceDate,
                 assigned: $assigned,
                 findingId: $findingId,
                 justification: "test of update vulns treatment justification",
@@ -40,6 +42,7 @@ async def put_mutation(
     data: Dict[str, Any] = {
         "query": query,
         "variables": {
+            "acceptanceDate": acceptance_date,
             "findingId": finding,
             "treatment": treatment,
             "assigned": assigned,
