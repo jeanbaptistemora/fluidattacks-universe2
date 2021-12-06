@@ -32,7 +32,10 @@ def _get_invocation_eval(
     invocation_eval: Dict[str, bool] = {}
 
     al_id = graph.nodes[mi_id]["arguments_id"]
-    pl_id = graph.nodes[md_id]["parameters_id"]
+    pl_id = graph.nodes[md_id].get("parameters_id")
+
+    if not pl_id:
+        raise BadMethodInvocation(f"No parameters in {md_id} for call {mi_id}")
 
     p_ids = g.adj_ast(graph, pl_id)
     a_ids = g.adj_ast(graph, al_id)
