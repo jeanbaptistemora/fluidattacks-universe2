@@ -16,7 +16,7 @@ function migration {
       "${namespace}" \
       --db-id "${db}" \
       --creds "${creds}" \
-      --schema "code_test"
+      --schema "code"
 }
 
 migration "${@}"
