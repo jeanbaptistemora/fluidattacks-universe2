@@ -51,3 +51,7 @@ Evaluator = Callable[[SymbolicEvalArgs], bool]
 
 class MissingSymbolicEval(Exception):
     pass
+
+
+class BadMethodInvocation(Exception):
+    pass

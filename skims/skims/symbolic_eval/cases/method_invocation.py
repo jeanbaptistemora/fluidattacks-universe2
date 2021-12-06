@@ -1,10 +1,14 @@
 from model.core_model import (
     FindingEnum,
 )
+from model.graph_model import (
+    Graph,
+)
 from symbolic_eval.context.method import (
     solve_invocation,
 )
 from symbolic_eval.types import (
+    BadMethodInvocation,
     Evaluator,
     SymbolicEvalArgs,
 )
@@ -22,6 +26,28 @@ from utils import (
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
 
 
+def _get_invocation_eval(
+    graph: Graph, evaluation: Dict[str, bool], md_id: str, mi_id: str
+) -> Dict[str, bool]:
+    invocation_eval: Dict[str, bool] = {}
+
+    al_id = graph.nodes[mi_id]["arguments_id"]
+    pl_id = graph.nodes[md_id]["parameters_id"]
+
+    p_ids = g.adj_ast(graph, pl_id)
+    a_ids = g.adj_ast(graph, al_id)
+
+    if len(p_ids) != len(a_ids):
+        raise BadMethodInvocation(
+            f"Can not assign parameters in {pl_id} with arguments in {al_id}"
+        )
+
+    for p_id, a_id in zip(p_ids, a_ids):
+        invocation_eval[p_id] = evaluation[a_id]
+
+    return invocation_eval
+
+
 def evaluate(args: SymbolicEvalArgs) -> bool:
     expr_id = args.graph.nodes[args.n_id]["expression_id"]
     al_id = args.graph.nodes[args.n_id]["arguments_id"]
@@ -29,14 +55,13 @@ def evaluate(args: SymbolicEvalArgs) -> bool:
     d_arguments = args.generic(args.fork_n_id(al_id))
 
     if md_id := solve_invocation(args.graph, args.path, expr_id):
-        invoc_eval = {}
-        graph = args.graph
-
-        pl_id = graph.nodes[md_id]["parameters_id"]
-        for p_id, a_id in zip(
-            g.adj_ast(graph, pl_id), g.adj_ast(graph, al_id)
-        ):
-            invoc_eval[p_id] = args.evaluation[a_id]
+        try:
+            invoc_eval = _get_invocation_eval(
+                args.graph, args.evaluation, md_id, mi_id=args.n_id
+            )
+        except BadMethodInvocation as error:
+            print(error)
+            invoc_eval = {}
 
         eb_id = args.graph.nodes[md_id]["block_id"]
 
