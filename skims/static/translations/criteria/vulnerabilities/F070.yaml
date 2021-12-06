@@ -1,3 +1,6 @@
+src.lib_path.f070.elb2_uses_insecure_security_policy:
+  en: Listener uses unsafe security policy
+  es: El Listener usa una política de seguridad insegura
 F070.title:
   en: >
     Insecure service configuration - ELB
