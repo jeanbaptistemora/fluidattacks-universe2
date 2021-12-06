@@ -141,16 +141,6 @@ async def delete(uuid: str, finding_id: str) -> bool:
     return resp
 
 
-async def get(vuln_uuid: str) -> List[Dict[str, FindingType]]:
-    """Get a vulnerability by only its UUID."""
-    hash_key = "UUID"
-    query_attrs = {
-        "IndexName": "gsi_uuid",
-        "KeyConditionExpression": Key(hash_key).eq(vuln_uuid),
-    }
-    return await dynamodb_ops.query(TABLE_NAME, query_attrs)
-
-
 async def get_by_finding(
     finding_id: str,
     vuln_type: str = "",
