@@ -89,7 +89,7 @@ async def test_finding() -> None:
             }
         ],
         "tag": "",
-        "severity": "",
+        "severity": None,
         "remediated": False,
         "verification": "",
         "historicVerification": [],

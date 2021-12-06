@@ -19,7 +19,7 @@ interface IVulnRowAttr {
   lastRequestedReattackDate?: string;
   remediated: boolean;
   reportDate: string;
-  severity: string;
+  severity?: string;
   specific: string;
   stream?: string;
   tag: string;
@@ -51,7 +51,7 @@ interface IVulnDataTypeAttr {
   externalBugTrackingSystem?: string;
   historicTreatment: IHistoricTreatment[];
   id: string;
-  severity: string;
+  severity?: string;
   specific: string;
   tag: string;
   assigned: string;

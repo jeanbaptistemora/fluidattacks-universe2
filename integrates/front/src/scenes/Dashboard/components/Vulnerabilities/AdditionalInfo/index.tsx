@@ -305,7 +305,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 </Label>
               </LabelField>
               <InfoField>
-                <Value value={vulnerability.severity} />
+                <Value value={vulnerability.severity ?? ""} />
               </InfoField>
             </Row>
           </Col50>
