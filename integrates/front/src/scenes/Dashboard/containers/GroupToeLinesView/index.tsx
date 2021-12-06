@@ -324,7 +324,8 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
     toeLinesAttr.loc === 0 ? 1 : toeLinesAttr.attackedLines / toeLinesAttr.loc;
   const getDaysToAttack = (toeLinesAttr: IToeLinesAttr): number =>
-    _.isEmpty(toeLinesAttr.attackedAt)
+    _.isEmpty(toeLinesAttr.attackedAt) ||
+    moment(toeLinesAttr.modifiedDate) > moment(toeLinesAttr.attackedAt)
       ? moment().diff(moment(toeLinesAttr.modifiedDate), "days")
       : moment(toeLinesAttr.attackedAt).diff(
           moment(toeLinesAttr.modifiedDate),
