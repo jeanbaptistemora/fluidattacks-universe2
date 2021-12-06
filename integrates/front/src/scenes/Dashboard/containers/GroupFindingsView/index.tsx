@@ -465,7 +465,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     setFilterGroupFindingsTable(
       (value): IFilterSet => ({
         ...value,
-        releaseDate: { ...value.releaseDate, min: event.currentTarget.value },
+        releaseDate: { ...value.releaseDate, min: event.target.value },
       })
     );
   };
@@ -477,7 +477,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     setFilterGroupFindingsTable(
       (value): IFilterSet => ({
         ...value,
-        releaseDate: { ...value.releaseDate, max: event.currentTarget.value },
+        releaseDate: { ...value.releaseDate, max: event.target.value },
       })
     );
   };
