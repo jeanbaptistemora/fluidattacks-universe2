@@ -1,29 +1,46 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 import pytest
 from typing import (
     Any,
     Dict,
     List,
-)
-from vulnerabilities import (
-    dal as vulns_dal,
+    Tuple,
 )
 
 
-async def _get_vulns(finding_id: str) -> List[Dict[str, Any]]:
+async def _get_vulns(
+    loaders: Dataloaders, finding_id: str
+) -> List[Dict[str, Any]]:
+    finding_vulns: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_typed.load(finding_id)
     return sorted(
         (
             dict(
-                commit_hash=vuln.get("commit_hash", None),
-                repo_nickname=vuln.get("repo_nickname", ""),
-                specific=vuln.get("specific", ""),
-                stream=vuln.get("stream", None),
-                type=vuln.get("vuln_type", ""),
-                where=vuln.get("where", ""),
+                commit_hash=vuln.commit,
+                repo_nickname=vuln.repo,
+                specific=vuln.specific,
+                state_status=vuln.state.status.value,
+                stream=vuln.stream,
+                treatment_status=vuln.treatment.status.value
+                if vuln.treatment
+                else None,
+                type=vuln.type.value,
+                verification_status=vuln.verification.status.value
+                if vuln.verification
+                else None,
+                where=vuln.where,
             )
-            for vuln in await vulns_dal.get_by_finding(finding_id)
+            for vuln in finding_vulns
         ),
         key=str,
     )
@@ -41,41 +58,54 @@ async def _get_vulns(finding_id: str) -> List[Dict[str, Any]]:
 )
 async def test_upload_file(populate: bool, email: str) -> None:
     assert populate
+    loaders: Dataloaders = get_new_context()
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     result: Dict[str, Any] = await get_result(user=email, finding=finding_id)
     assert "errors" not in result
     assert result["data"]["uploadFile"]["success"]
-    assert await _get_vulns(finding_id) == [
+    assert await _get_vulns(loaders, finding_id) == [
         {
             "commit_hash": "111111111111111111111111111111111111111f",
             "repo_nickname": "product",
             "specific": "1",
+            "state_status": "OPEN",
             "stream": None,
-            "type": "lines",
+            "treatment_status": "NEW",
+            "type": "LINES",
+            "verification_status": None,
             "where": "product/test/1",
         },
         {
             "commit_hash": "5b5c92105b5c92105b5c92105b5c92105b5c9210",
             "repo_nickname": "product",
             "specific": "123",
+            "state_status": "OPEN",
             "stream": None,
-            "type": "lines",
+            "treatment_status": "NEW",
+            "type": "LINES",
+            "verification_status": None,
             "where": "product/path/to/file1.ext",
         },
         {
-            "commit_hash": "e17059d1e17059d1e17059d1e17059d1e17059d1",
+            "commit_hash": None,
             "repo_nickname": "product",
-            "specific": "345",
+            "specific": "8080",
+            "state_status": "OPEN",
             "stream": None,
-            "type": "lines",
-            "where": "product/path/to/file3.ext",
+            "treatment_status": "NEW",
+            "type": "PORTS",
+            "verification_status": None,
+            "where": "https://example.com",
         },
         {
             "commit_hash": None,
             "repo_nickname": "product",
             "specific": "phone",
-            "stream": "home,blog,articulo",
-            "type": "inputs",
+            "state_status": "OPEN",
+            "stream": ["home", "blog", "articulo"],
+            "treatment_status": "NEW",
+            "type": "INPUTS",
+            "verification_status": None,
             "where": "https://example.com",
         },
     ]

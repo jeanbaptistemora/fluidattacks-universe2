@@ -10,11 +10,6 @@ lines:
   path: product/path/to/file1.ext
   state: open
   repo_nickname: product
-- line: '345'
-  commit_hash: e17059d1e17059d1e17059d1e17059d1e17059d1
-  path: product/path/to/file3.ext
-  state: open
-  repo_nickname: product
 - line: "1"
   path: product/test/1
   repo_nickname: product
@@ -25,3 +20,8 @@ lines:
   repo_nickname: product
   state: open
   commit_hash: 111111111111111111111111111111111111111f
+ports:
+- host: 'https://example.com'
+  port: '8080'
+  state: open
+  repo_nickname: product
