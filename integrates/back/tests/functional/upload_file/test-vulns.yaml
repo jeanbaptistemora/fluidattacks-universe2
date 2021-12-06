@@ -25,3 +25,11 @@ ports:
   port: '8080'
   state: open
   repo_nickname: product
+- host: '192.168.1.44'
+  port: '4444'
+  state: open
+  repo_nickname: product
+- host: '192.168.1.45'
+  port: '4545'
+  state: open
+  repo_nickname: product

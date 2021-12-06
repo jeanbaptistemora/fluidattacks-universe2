@@ -182,5 +182,65 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
             ),
         ),
+        "vulnerabilities": [
+            {
+                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
+                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                "historic_state": [
+                    {
+                        "date": "2021-01-01 19:45:11",
+                        "analyst": "hacker@gmail.com",
+                        "source": "asm",
+                        "state": "open",
+                    },
+                ],
+                "historic_treatment": [
+                    {
+                        "date": "2021-01-01 19:45:11",
+                        "treatment": "NEW",
+                    },
+                ],
+                "historic_verification": [
+                    {
+                        "date": "2021-01-01 20:45:11",
+                        "status": "REQUESTED",
+                    },
+                ],
+                "vuln_type": "ports",
+                # FP: local testing
+                "where": "192.168.1.44",  # NOSONAR
+                "specific": "4444",
+                "repo_nickname": "product",
+            },
+            {
+                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
+                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce9",
+                "historic_state": [
+                    {
+                        "date": "2021-01-01 19:45:11",
+                        "analyst": "hacker@gmail.com",
+                        "source": "asm",
+                        "state": "open",
+                    },
+                ],
+                "historic_treatment": [
+                    {
+                        "date": "2021-01-01 19:45:11",
+                        "treatment": "NEW",
+                    },
+                ],
+                "historic_verification": [
+                    {
+                        "date": "2021-01-01 20:45:11",
+                        "status": "REQUESTED",
+                    },
+                ],
+                "vuln_type": "ports",
+                # FP: local testing
+                "where": "192.168.1.45",  # NOSONAR
+                "specific": "4545",
+                "repo_nickname": "product",
+            },
+        ],
     }
     return await db.populate({**generic_data["db_data"], **data})
