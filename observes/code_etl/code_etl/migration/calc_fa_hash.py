@@ -90,9 +90,9 @@ def _calc_id(raw: FrozenList[Any]) -> CommitDataId:
             ),
         )
         _id = CommitDataId(
-            _assert_str(raw[11]),
             _assert_str(raw[12]),
-            CommitId(_assert_str(raw[13]), gen_fa_hash(data)),
+            _assert_str(raw[13]),
+            CommitId(_assert_str(raw[14]), gen_fa_hash(data)),
         )
         return _id
     except TypeError as err:
