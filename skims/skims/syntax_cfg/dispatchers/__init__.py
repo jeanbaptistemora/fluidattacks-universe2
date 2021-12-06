@@ -1,6 +1,7 @@
 from syntax_cfg.dispatchers import (
     connect_to_block,
     connect_to_next,
+    end_node,
     if_node,
     multi_path,
     step_by_step,
@@ -45,5 +46,11 @@ DISPATCHERS: Dispatchers = (
             "VariableDeclaration",
         },
         cfg_builder=connect_to_next.build,
+    ),
+    Dispatcher(
+        applicable_types={
+            "Import",
+        },
+        cfg_builder=end_node.build,
     ),
 )
