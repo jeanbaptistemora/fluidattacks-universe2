@@ -26,6 +26,7 @@ from syntax_graph.syntax_readers.common import (
     execution_block as common_execution_block,
     identifier as common_identifier,
     null_literal as common_null_literal,
+    number_literal as common_number_literal,
     string_literal as common_string_literal,
 )
 from syntax_graph.types import (
@@ -141,6 +142,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "null_literal",
         },
         syntax_reader=common_null_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "integer_literal",
+        },
+        syntax_reader=common_number_literal.reader,
     ),
     Dispatcher(
         applicable_types={
