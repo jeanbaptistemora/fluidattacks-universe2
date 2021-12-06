@@ -76,6 +76,19 @@ def tfm_rds_no_deletion_protection_iterate_vulnerabilities(
             yield bucket
 
 
+def tfm_db_has_not_automated_backups_iterate_vulnerabilities(
+    buckets_iterator: Iterator[Any],
+) -> Iterator[Union[Any, Node]]:
+    for bucket in buckets_iterator:
+        for elem in bucket.data:
+            if (
+                isinstance(elem, Attribute)
+                and elem.key == "backup_retention_period"
+                and elem.val == 0
+            ):
+                yield elem
+
+
 def tfm_rds_has_not_automated_backups_iterate_vulnerabilities(
     buckets_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
@@ -127,6 +140,25 @@ def _tfm_rds_no_deletion_protection(
     )
 
 
+def _tfm_db_has_not_automated_backups(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F256_CWE},
+        description_key="F256.title",
+        finding=_FINDING_F256,
+        iterator=get_aws_iterator(
+            tfm_db_has_not_automated_backups_iterate_vulnerabilities(
+                buckets_iterator=iter_aws_db_instance(model=model)
+            )
+        ),
+        path=path,
+    )
+
+
 def _tfm_rds_has_not_automated_backups(
     content: str,
     path: str,
@@ -139,7 +171,7 @@ def _tfm_rds_has_not_automated_backups(
         finding=_FINDING_F256,
         iterator=get_aws_iterator(
             tfm_rds_has_not_automated_backups_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_db_instance(model=model)
+                buckets_iterator=iter_aws_rds_cluster(model=model)
             )
         ),
         path=path,
@@ -172,6 +204,22 @@ async def tfm_rds_no_deletion_protection(
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _tfm_rds_no_deletion_protection,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_db_has_not_automated_backups(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_db_has_not_automated_backups,
         content=content,
         path=path,
         model=model,
@@ -214,6 +262,13 @@ async def analyze(
         )
         coroutines.append(
             tfm_rds_no_deletion_protection(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
+        coroutines.append(
+            tfm_db_has_not_automated_backups(
                 content=content,
                 path=path,
                 model=model,

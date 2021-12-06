@@ -8473,6 +8473,18 @@ F109,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,1,681,sk
   13 | }
      ^ Col 0
 ",f109._tfm_db_cluster_inside_subnet
+F109,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Unrestricted access between network segments - RDS in namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,"
+> 1 | resource ""aws_rds_cluster"" ""default"" {
+  2 |   cluster_identifier      = ""aurora-cluster-demo""
+  3 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
+  4 |   database_name           = ""mydb""
+  5 |   master_username         = ""foo""
+  6 |   master_password         = ""bar""
+  7 |   backup_retention_period = 0
+  8 |   preferred_backup_window = ""07:00-09:00""
+  9 | }
+    ^ Col 0
+",f109._tfm_rds_instance_inside_subnet
 F256,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
  in namespace/skims/test/data/lib_path/f109/subnet_test.tf","
    2 |   publicly_accessible  = false
@@ -8564,7 +8576,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,10,693,s
   12 |   skip_final_snapshot     = true
   13 | }
      ^ Col 0
-",f256._tfm_rds_has_not_automated_backups
+",f256._tfm_db_has_not_automated_backups
 F256,lines,namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,3,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
  in namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf","
   1 | resource ""aws_rds_cluster"" ""example"" {
@@ -8575,6 +8587,32 @@ F256,lines,namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,3,693,ski
   6 |   master_password      = ""barbarbarbar""
   7 |   master_username      = ""foo""
   8 |   skip_final_snapshot  = true
+  9 | }
+    ^ Col 0
+",f256._tfm_rds_no_deletion_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,7,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
+ in namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf","
+  1 | resource ""aws_rds_cluster"" ""default"" {
+  2 |   cluster_identifier      = ""aurora-cluster-demo""
+  3 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
+  4 |   database_name           = ""mydb""
+  5 |   master_username         = ""foo""
+  6 |   master_password         = ""bar""
+> 7 |   backup_retention_period = 0
+  8 |   preferred_backup_window = ""07:00-09:00""
+  9 | }
+    ^ Col 0
+",f256._tfm_rds_has_not_automated_backups
+F256,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
+ in namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf","
+> 1 | resource ""aws_rds_cluster"" ""default"" {
+  2 |   cluster_identifier      = ""aurora-cluster-demo""
+  3 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
+  4 |   database_name           = ""mydb""
+  5 |   master_username         = ""foo""
+  6 |   master_password         = ""bar""
+  7 |   backup_retention_period = 0
+  8 |   preferred_backup_window = ""07:00-09:00""
   9 | }
     ^ Col 0
 ",f256._tfm_rds_no_deletion_protection
