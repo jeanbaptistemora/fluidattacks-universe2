@@ -241,11 +241,12 @@ describe("FindingContent", (): void => {
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
+      await waitForExpect((): void => {
+        wrapper.update();
 
-    expect(wrapper.text()).toContain("050. Guessed weak credentials");
+        expect(wrapper.text()).toContain("050. Guessed weak credentials");
+      });
+    });
   });
 
   it("should render unsubmitted draft actions", async (): Promise<void> => {
@@ -295,7 +296,7 @@ describe("FindingContent", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <MockedProvider addTypename={false} mocks={[findingMock]}>
+        <MockedProvider addTypename={false} mocks={[removeFindingMock]}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <Route
               component={FindingContent}
@@ -306,28 +307,35 @@ describe("FindingContent", (): void => {
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-    const deleteButton: ReactWrapper = wrapper.find("button").at(0);
+      await waitForExpect((): void => {
+        wrapper.update();
 
-    expect(deleteButton).toHaveLength(0);
+        expect(wrapper.find("button").at(0)).toHaveLength(1);
+      });
+    });
+
+    const deleteButton: ReactWrapper = wrapper.find("button").at(0);
+    deleteButton.simulate("click");
 
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
+      await waitForExpect((): void => {
+        wrapper.update();
 
+        expect(wrapper.find("Modal").find("button").at(0)).toHaveLength(1);
+      });
+    });
     const cancelButton: ReactWrapper = wrapper
       .find("Modal")
       .find("button")
       .at(0);
 
-    expect(cancelButton).toHaveLength(0);
-
+    cancelButton.simulate("click");
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper.find("Modal").find("button").at(0)).toHaveLength(0);
+      });
     });
   });
 
@@ -827,15 +835,14 @@ describe("FindingContent", (): void => {
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper.find("button").at(0)).toHaveLength(1);
+      });
     });
     const deleteButton: ReactWrapper = wrapper.find("button").at(0);
-
-    expect(deleteButton).toHaveLength(1);
-
     deleteButton.simulate("click");
-    wrapper.update();
 
     await act(async (): Promise<void> => {
       await waitForExpect((): void => {
@@ -900,13 +907,14 @@ describe("FindingContent", (): void => {
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper.find("button").at(0)).toHaveLength(1);
+      });
     });
+
     const deleteButton: ReactWrapper = wrapper.find("button").at(0);
-
-    expect(deleteButton).toHaveLength(1);
-
     deleteButton.simulate("click");
 
     await act(async (): Promise<void> => {
