@@ -723,6 +723,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     # we will just keep them open or close them
     # in either case, their historic_verification is updated to VERIFIED
     finding_loader = context.loaders.finding
+    finding_loader.clear(finding_id)
     finding: Finding = await finding_loader.load(finding_id)
     if not operation_can_be_executed(context, finding.title):
         raise MachineCanNotOperate()
