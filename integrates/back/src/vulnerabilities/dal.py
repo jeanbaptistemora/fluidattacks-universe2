@@ -10,6 +10,7 @@ from context import (
     FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET,
 )
 from custom_exceptions import (
+    UnavailabilityError,
     VulnNotFound,
 )
 from custom_types import (
@@ -125,7 +126,7 @@ async def create_new(
         return await dynamodb_ops.put_item(TABLE_NAME, item)
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
-    return False
+        raise UnavailabilityError() from ex
 
 
 async def delete(uuid: str, finding_id: str) -> bool:
@@ -207,7 +208,6 @@ async def sign_url(vuln_file_name: str) -> str:
 async def update(
     finding_id: str, vuln_id: str, data: Dict[str, FindingType]
 ) -> bool:
-    success = False
     set_expression = ""
     remove_expression = ""
     expression_names = {}
@@ -238,10 +238,10 @@ async def update(
     if expression_names:
         update_attrs.update({"ExpressionAttributeNames": expression_names})
     try:
-        success = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
+        return await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
-    return success
+        raise UnavailabilityError() from ex
 
 
 async def append(

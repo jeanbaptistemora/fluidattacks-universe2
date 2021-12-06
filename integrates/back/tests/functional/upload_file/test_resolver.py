@@ -101,7 +101,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "commit_hash": None,
             "repo_nickname": "product",
             "specific": "4545",
-            "state_status": "OPEN",
+            "state_status": "CLOSED",
             "stream": None,
             "treatment_status": "NEW",
             "type": "PORTS",

@@ -31,5 +31,5 @@ ports:
   repo_nickname: product
 - host: '192.168.1.45'
   port: '4545'
-  state: open
+  state: closed
   repo_nickname: product
