@@ -650,6 +650,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_comments_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
             "see_toe_lines_coverage",
+            "see_toe_lines_days_to_attack",
         },
         tags={
             *GROUP_LEVEL_ROLES["admin"]["tags"],
@@ -669,6 +670,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_comments_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
             "see_toe_lines_coverage",
+            "see_toe_lines_days_to_attack",
         },
         tags={
             *GROUP_LEVEL_ROLES["hacker"]["tags"],
@@ -690,6 +692,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_comments_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
             "see_toe_lines_coverage",
+            "see_toe_lines_days_to_attack",
         },
         tags={
             *GROUP_LEVEL_ROLES["reattacker"]["tags"],
@@ -709,6 +712,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_comments_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
             "see_toe_lines_coverage",
+            "see_toe_lines_days_to_attack",
         },
         tags={
             *GROUP_LEVEL_ROLES["customer"]["tags"],
@@ -728,6 +732,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_comments_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
             "see_toe_lines_coverage",
+            "see_toe_lines_days_to_attack",
         },
         tags={
             *GROUP_LEVEL_ROLES["customeradmin"]["tags"],
@@ -747,6 +752,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_comments_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
             "see_toe_lines_coverage",
+            "see_toe_lines_days_to_attack",
         },
         tags={
             *GROUP_LEVEL_ROLES["executive"]["tags"],
@@ -768,6 +774,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_comments_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
             "see_toe_lines_coverage",
+            "see_toe_lines_days_to_attack",
         },
         tags={
             *GROUP_LEVEL_ROLES["system_owner"]["tags"],
@@ -788,6 +795,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_comments_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
             "see_toe_lines_coverage",
+            "see_toe_lines_days_to_attack",
         },
         tags={
             *GROUP_LEVEL_ROLES["resourcer"]["tags"],
@@ -807,6 +815,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_comments_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
             "see_toe_lines_coverage",
+            "see_toe_lines_days_to_attack",
         },
         tags={
             *GROUP_LEVEL_ROLES["reviewer"]["tags"],
@@ -826,6 +835,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_toe_lines_comments_resolve",
             "api_resolvers_toe_lines_first_attack_at_resolve",
             "see_toe_lines_coverage",
+            "see_toe_lines_days_to_attack",
         },
         tags={
             *GROUP_LEVEL_ROLES["architect"]["tags"],

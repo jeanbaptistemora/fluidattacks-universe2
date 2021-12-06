@@ -749,6 +749,7 @@ export const enTranslations: ResourceKey = {
         comments: "Comments",
         commitAuthor: "Commit author",
         coverage: "Coverage",
+        daysToAttack: "Days to attack",
         filename: "Filename",
         firstAttackAt: "First attack at",
         loc: "LOC",

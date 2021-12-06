@@ -47,6 +47,9 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     "api_resolvers_toe_lines_first_attack_at_resolve"
   );
   const canSeeCoverage: boolean = permissions.can("see_toe_lines_coverage");
+  const canSeeDaysToAttack: boolean = permissions.can(
+    "see_toe_lines_days_to_attack"
+  );
   const { groupName } = useParams<{ groupName: string }>();
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
@@ -61,6 +64,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       comments: true,
       commitAuthor: false,
       coverage: true,
+      daysToAttack: false,
       filename: false,
       firstAttackAt: false,
       loc: true,
@@ -225,6 +229,15 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
+      dataField: "daysToAttack",
+      header: translate.t("group.toe.lines.daysToAttack"),
+      omit: !canSeeDaysToAttack || !canGetAttackedAt,
+      onSort,
+      visible: checkedItems.daysToAttack,
+      width: "5%",
+    },
+    {
+      align: "center",
       dataField: "attackedAt",
       filter: dateFilter({}),
       formatter: formatDate,
@@ -310,6 +323,13 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     data === undefined ? [] : data.group.toeLines.edges;
   const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
     toeLinesAttr.loc === 0 ? 1 : toeLinesAttr.attackedLines / toeLinesAttr.loc;
+  const getDaysToAttack = (toeLinesAttr: IToeLinesAttr): number =>
+    _.isEmpty(toeLinesAttr.attackedAt)
+      ? moment().diff(moment(toeLinesAttr.modifiedDate), "days")
+      : moment(toeLinesAttr.attackedAt).diff(
+          moment(toeLinesAttr.modifiedDate),
+          "days"
+        );
   const getSortsRiskLevel = (toeLinesAttr: IToeLinesAttr): string =>
     toeLinesAttr.sortsRiskLevel >= 0
       ? `${toeLinesAttr.sortsRiskLevel.toString()} %`
@@ -318,6 +338,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     ({ node }): IToeLinesData => ({
       ...node,
       coverage: getCoverage(node),
+      daysToAttack: getDaysToAttack(node),
       modifiedCommit: commitFormatter(node.modifiedCommit),
       rootNickname: node.root.nickname,
       sortsRiskLevel: getSortsRiskLevel(node),

@@ -41,6 +41,7 @@ interface IToeLinesData {
   comments: string;
   commitAuthor: string;
   coverage: number;
+  daysToAttack: number;
   filename: string;
   firstAttackAt: string;
   loc: number;
