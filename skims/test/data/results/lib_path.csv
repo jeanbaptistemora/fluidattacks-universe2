@@ -13219,6 +13219,54 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (is-svg v3.0.0) 
    71 |     ""locutus"": ""2.0.11"",
       ^ Col 0
 ",f011_npm_package_json._check_npm_package_json
+F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (jQuery v3.4.1) [CVE-2020-11022],9,937,skims,011. Use of software with known vulnerabilities,Use of jQuery at version 3.4.1 with CVE-2020-11022 in namespace/skims/test/data/lib_path/f011/packages.config,"
+   1 | <?xml version=""1.0"" encoding=""utf-8""?>
+   2 | <packages>
+   3 |   <package id=""ClosedXML"" version=""0.94.2"" targetFramework=""net45"" requireReinstallation=""true"" />
+   4 |   <package id=""DocumentFormat.OpenXml"" version=""2.7.2"" targetFramework=""net45"" requireReinstallation=""true"" />
+   5 |   <package id=""ExcelDataReader"" version=""3.6.0"" targetFramework=""net45"" />
+   6 |   <package id=""ExcelDataReader.DataSet"" version=""3.6.0"" targetFramework=""net45"" />
+   7 |   <package id=""ExcelNumberFormat"" version=""1.0.3"" targetFramework=""net45"" />
+   8 |   <package id=""FastMember"" version=""1.3.0"" targetFramework=""net45"" />
+>  9 |   <package id=""jQuery"" version=""3.4.1"" targetFramework=""net45"" />
+  10 |   <package id=""Logs.Management"" version=""1.0.3"" targetFramework=""net472"" />
+  11 |   <package id=""Microsoft.Azure.Amqp"" version=""2.4.9"" targetFramework=""net472"" />
+  12 |   <package id=""Microsoft.Azure.ServiceBus"" version=""5.1.1"" targetFramework=""net472"" />
+  13 |   <package id=""Microsoft.Azure.Services.AppAuthentication"" version=""1.0.3"" targetFramework=""net472"" />
+  14 |   <package id=""Microsoft.IdentityModel.Clients.ActiveDirectory"" version=""3.14.2"" targetFramework=""net472"" />
+  15 |   <package id=""Microsoft.IdentityModel.JsonWebTokens"" version=""5.4.0"" targetFramework=""net472"" />
+  16 |   <package id=""Microsoft.IdentityModel.Logging"" version=""5.4.0"" targetFramework=""net472"" />
+  17 |   <package id=""Microsoft.IdentityModel.Tokens"" version=""5.4.0"" targetFramework=""net472"" />
+  18 |   <package id=""Microsoft.Rest.ClientRuntime"" version=""2.3.18"" targetFramework=""net472"" />
+  19 |   <package id=""Microsoft.Rest.ClientRuntime.Azure"" version=""3.3.18"" targetFramework=""net472"" />
+  20 |   <package id=""Newtonsoft.Json"" version=""12.0.3"" targetFramework=""net472"" />
+  21 |   <package id=""System.Diagnostics.DiagnosticSource"" version=""4.5.1"" targetFramework=""net472"" />
+     ^ Col 0
+",f011_nuget_packages_config._check_nuget_packages_config
+F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (jQuery v3.4.1) [CVE-2020-11023],9,937,skims,011. Use of software with known vulnerabilities,Use of jQuery at version 3.4.1 with CVE-2020-11023 in namespace/skims/test/data/lib_path/f011/packages.config,"
+   1 | <?xml version=""1.0"" encoding=""utf-8""?>
+   2 | <packages>
+   3 |   <package id=""ClosedXML"" version=""0.94.2"" targetFramework=""net45"" requireReinstallation=""true"" />
+   4 |   <package id=""DocumentFormat.OpenXml"" version=""2.7.2"" targetFramework=""net45"" requireReinstallation=""true"" />
+   5 |   <package id=""ExcelDataReader"" version=""3.6.0"" targetFramework=""net45"" />
+   6 |   <package id=""ExcelDataReader.DataSet"" version=""3.6.0"" targetFramework=""net45"" />
+   7 |   <package id=""ExcelNumberFormat"" version=""1.0.3"" targetFramework=""net45"" />
+   8 |   <package id=""FastMember"" version=""1.3.0"" targetFramework=""net45"" />
+>  9 |   <package id=""jQuery"" version=""3.4.1"" targetFramework=""net45"" />
+  10 |   <package id=""Logs.Management"" version=""1.0.3"" targetFramework=""net472"" />
+  11 |   <package id=""Microsoft.Azure.Amqp"" version=""2.4.9"" targetFramework=""net472"" />
+  12 |   <package id=""Microsoft.Azure.ServiceBus"" version=""5.1.1"" targetFramework=""net472"" />
+  13 |   <package id=""Microsoft.Azure.Services.AppAuthentication"" version=""1.0.3"" targetFramework=""net472"" />
+  14 |   <package id=""Microsoft.IdentityModel.Clients.ActiveDirectory"" version=""3.14.2"" targetFramework=""net472"" />
+  15 |   <package id=""Microsoft.IdentityModel.JsonWebTokens"" version=""5.4.0"" targetFramework=""net472"" />
+  16 |   <package id=""Microsoft.IdentityModel.Logging"" version=""5.4.0"" targetFramework=""net472"" />
+  17 |   <package id=""Microsoft.IdentityModel.Tokens"" version=""5.4.0"" targetFramework=""net472"" />
+  18 |   <package id=""Microsoft.Rest.ClientRuntime"" version=""2.3.18"" targetFramework=""net472"" />
+  19 |   <package id=""Microsoft.Rest.ClientRuntime.Azure"" version=""3.3.18"" targetFramework=""net472"" />
+  20 |   <package id=""Newtonsoft.Json"" version=""12.0.3"" targetFramework=""net472"" />
+  21 |   <package id=""System.Diagnostics.DiagnosticSource"" version=""4.5.1"" targetFramework=""net472"" />
+     ^ Col 0
+",f011_nuget_packages_config._check_nuget_packages_config
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jasmine-core v2.99.1) [npm:jasmine-core:20180216],62,937,skims,011. Use of software with known vulnerabilities,Use of jasmine-core at version 2.99.1 with npm:jasmine-core:20180216 in namespace/skims/test/data/lib_path/f011/package.json,"
    52 |     ""http-auth"": ""3.1.3"",
    53 |     ""http-proxy"": ""1.17.0"",
