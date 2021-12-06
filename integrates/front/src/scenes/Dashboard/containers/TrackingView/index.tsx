@@ -16,11 +16,11 @@ import { translate } from "utils/translations/translate";
 interface ITracking {
   accepted: number;
   acceptedUndefined?: number;
+  assigned?: string;
   closed: number;
   cycle: number;
   date: string;
   justification?: string;
-  manager?: string;
   open: number;
 }
 
@@ -68,7 +68,7 @@ const TrackingView: React.FC = (): JSX.Element => {
                   <TrackingItem
                     accepted={closing.accepted}
                     acceptedUndefined={closing.acceptedUndefined}
-                    assigned={closing.manager}
+                    assigned={closing.assigned}
                     closed={closing.closed}
                     cycle={closing.cycle}
                     date={closing.date}

@@ -7,11 +7,11 @@ export const GET_FINDING_TRACKING: DocumentNode = gql`
       tracking {
         accepted
         acceptedUndefined
+        assigned
         closed
         cycle
         date
         justification
-        manager
         open
       }
       id
