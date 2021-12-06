@@ -3917,6 +3917,102 @@ F070,lines,namespace/skims/test/data/lib_path/f070/lb_test.tf,3,266,skims,070. I
   6 | }
     ^ Col 0
 ",f070._tfm_lb_target_group_insecure_port
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,33,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
+  23 |          RedirectConfig:
+  24 |            Protocol: ""HTTPS""
+  25 |            Port: 443
+  26 |            Host: ""#{host}""
+  27 |            Path: ""/#{path}""
+  28 |            Query: ""#{query}""
+  29 |            StatusCode: ""HTTP_301""
+  30 |      LoadBalancerArn: myLoadBalancer
+  31 |      Port: 80
+  32 |      Protocol: ""HTTP""
+> 33 |      SslPolicy: ELBSecurityPolicy-TLS-1-2-2017-01
+  34 |   listener3:
+  35 |    Type: ""AWS::ElasticLoadBalancingV2::Listener""
+  36 |    Properties:
+  37 |      DefaultActions:
+  38 |        - Type: ""redirect""
+  39 |          RedirectConfig:
+  40 |            Protocol: ""HTTPS""
+  41 |            Port: 443
+  42 |            Host: ""#{host}""
+  43 |            Path: ""/#{path}""
+     ^ Col 0
+",f070._cfn_elb2_uses_insecure_security_policy
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,36,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
+  26 |            Host: ""#{host}""
+  27 |            Path: ""/#{path}""
+  28 |            Query: ""#{query}""
+  29 |            StatusCode: ""HTTP_301""
+  30 |      LoadBalancerArn: myLoadBalancer
+  31 |      Port: 80
+  32 |      Protocol: ""HTTP""
+  33 |      SslPolicy: ELBSecurityPolicy-TLS-1-2-2017-01
+  34 |   listener3:
+  35 |    Type: ""AWS::ElasticLoadBalancingV2::Listener""
+> 36 |    Properties:
+  37 |      DefaultActions:
+  38 |        - Type: ""redirect""
+  39 |          RedirectConfig:
+  40 |            Protocol: ""HTTPS""
+  41 |            Port: 443
+  42 |            Host: ""#{host}""
+  43 |            Path: ""/#{path}""
+  44 |            Query: ""#{query}""
+  45 |            StatusCode: ""HTTP_301""
+  46 |      LoadBalancerArn: myLoadBalancer
+     ^ Col 0
+",f070._cfn_elb2_uses_insecure_security_policy
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,44,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,"
+  34 |               ""Host"": ""#{host}"",
+  35 |               ""Path"": ""/#{path}"",
+  36 |               ""Query"": ""#{query}"",
+  37 |               ""StatusCode"": ""HTTP_301""
+  38 |             }
+  39 |           }
+  40 |         ],
+  41 |         ""LoadBalancerArn"": ""myLoadBalancer"",
+  42 |         ""Port"": 80,
+  43 |         ""Protocol"": ""HTTP"",
+> 44 |         ""SslPolicy"": ""ELBSecurityPolicy-TLS-1-2-2017-01""
+  45 |       }
+  46 |     },
+  47 |     ""listener3"": {
+  48 |       ""Type"": ""AWS::ElasticLoadBalancingV2::Listener"",
+  49 |       ""Properties"": {
+  50 |         ""DefaultActions"": [
+  51 |           {
+  52 |             ""Type"": ""redirect"",
+  53 |             ""RedirectConfig"": {
+  54 |               ""Protocol"": ""HTTPS"",
+     ^ Col 0
+",f070._cfn_elb2_uses_insecure_security_policy
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,49,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,"
+  39 |           }
+  40 |         ],
+  41 |         ""LoadBalancerArn"": ""myLoadBalancer"",
+  42 |         ""Port"": 80,
+  43 |         ""Protocol"": ""HTTP"",
+  44 |         ""SslPolicy"": ""ELBSecurityPolicy-TLS-1-2-2017-01""
+  45 |       }
+  46 |     },
+  47 |     ""listener3"": {
+  48 |       ""Type"": ""AWS::ElasticLoadBalancingV2::Listener"",
+> 49 |       ""Properties"": {
+  50 |         ""DefaultActions"": [
+  51 |           {
+  52 |             ""Type"": ""redirect"",
+  53 |             ""RedirectConfig"": {
+  54 |               ""Protocol"": ""HTTPS"",
+  55 |               ""Port"": 443,
+  56 |               ""Host"": ""#{host}"",
+  57 |               ""Path"": ""/#{path}"",
+  58 |               ""Query"": ""#{query}"",
+  59 |               ""StatusCode"": ""HTTP_301""
+     ^ Col 0
+",f070._cfn_elb2_uses_insecure_security_policy
 F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,4,310 + 327,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
   1 | ibm.mq.use_ssl=true
   2 | ibm.mq.use_ssl=false
