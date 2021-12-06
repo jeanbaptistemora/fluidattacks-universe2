@@ -16,6 +16,7 @@ from api.mutations import (
     add_group_consult,
     add_group_tags,
     add_ip_root,
+    add_machine_execution,
     add_organization,
     add_organization_finding_policy,
     add_push_token,
@@ -102,6 +103,7 @@ MUTATION.set_field("addFilesToDb", add_files_to_db.mutate)
 MUTATION.set_field("addFindingConsult", add_finding_consult.mutate)
 MUTATION.set_field("addForcesExecution", add_forces_execution.mutate)
 MUTATION.set_field("addGitRoot", add_git_root.mutate)
+MUTATION.set_field("addMachineExecution", add_machine_execution.mutate)
 MUTATION.set_field("addGroup", add_group.mutate)
 MUTATION.set_field("addGroupConsult", add_group_consult.mutate)
 MUTATION.set_field("addGroupTags", add_group_tags.mutate)

@@ -1,4 +1,5 @@
 import authz
+import boto3
 from custom_exceptions import (
     HasVulns,
     InvalidParameter,
@@ -10,6 +11,7 @@ from custom_exceptions import (
 from custom_types import (
     Group,
 )
+import dateutil.parser  # type: ignore
 from db_model import (
     roots as roots_model,
 )
@@ -888,9 +890,18 @@ async def add_machine_execution(
     job_id: str,
     **kwargs: Any,
 ) -> bool:
+    client = boto3.client("batch")
     tzn = pytz.timezone(TIME_ZONE)
-    queue_date = kwargs.pop("queue_date").astimezone(tzn)
+
+    response = client.describe_jobs(jobs=[job_id])
+    jobs = response.get("jobs", [])
+
     start_date = kwargs.pop("start_date").astimezone(tzn)
+    queue_date = (
+        dateutil.parser.parse(jobs[0]["createdAt"]).astimezone(tzn)
+        if jobs
+        else start_date
+    )
     end_date = kwargs.pop("end_date").astimezone(tzn)
     execution = RootMachineExecutionItem(
         job_id=job_id,

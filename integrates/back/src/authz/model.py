@@ -996,6 +996,7 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS[
 USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
+            "api_mutations_add_machine_execution_mutate",
             "api_mutations_add_group_mutate",
             "api_mutations_add_organization_mutate",
             "api_mutations_add_stakeholder_mutate",

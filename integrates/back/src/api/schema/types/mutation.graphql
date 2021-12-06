@@ -227,6 +227,24 @@ type Mutation {
     port: Int!
   ): AddRootPayload!
 
+  "Adds an machine execution to git root"
+  addMachineExecution(
+    "Name of the group the root is associated with"
+    groupName: String!
+    "Nickname of the root"
+    rootNickname: String!
+    "Id of the job in aws batch"
+    jobId: ID!
+    "Exit code of the execution"
+    exitCode: String!
+    "Date when the job was started"
+    startDate: DateTime!
+    "when the job was stopped"
+    endDate: DateTime!
+    "Findings executed in the job"
+    findingsExecuted: [String]
+  ):SimplePayload!
+
   "Adds a new Organization"
   addOrganization(
     "Name of the new Organization. Must come from an Internal Names whitelist"
