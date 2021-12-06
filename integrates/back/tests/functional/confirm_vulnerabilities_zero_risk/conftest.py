@@ -18,6 +18,18 @@ from db_model.findings.types import (
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
+    VulnerabilityType,
+    VulnerabilityZeroRiskStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityState,
+    VulnerabilityTreatment,
+    VulnerabilityZeroRisk,
+)
 from decimal import (
     Decimal,
 )
@@ -153,148 +165,125 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
             },
         ],
-        "vulnerabilities": [
+        "vulnerabilities_typed": [
             {
-                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce10",
-                "historic_state": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "analyst": "hacker@gmail.com",
-                        "source": "asm",
-                        "state": "open",
-                    },
-                ],
-                "historic_treatment": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "treatment": "NEW",
-                    },
-                ],
-                "historic_zero_risk": [
-                    {
-                        "comment_id": "123456",
-                        "date": "2018-09-28 10:32:58",
-                        "email": "requested@zr.com",
-                        "status": "REQUESTED",
-                    },
-                ],
-                "vuln_type": "ports",
-                # FP: local testing
-                "where": "192.168.1.20",  # NOSONAR
-                "specific": "9999",
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce10",
+                    specific="9999",
+                    state=VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    where="192.168.1.20",
+                    zero_risk=VulnerabilityZeroRisk(
+                        comment_id="123456",
+                        modified_by="requested@zr.com",
+                        modified_date="2018-09-28T15:32:58+00:00",
+                        status=VulnerabilityZeroRiskStatus.REQUESTED,
+                    ),
+                ),
             },
             {
-                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce11",
-                "historic_state": [
-                    {
-                        "date": "2019-04-07 19:45:11",
-                        "analyst": "hacker@gmail.com",
-                        "source": "asm",
-                        "state": "open",
-                    },
-                ],
-                "historic_treatment": [
-                    {
-                        "date": "2019-04-07 19:45:11",
-                        "treatment": "NEW",
-                    },
-                ],
-                "historic_zero_risk": [
-                    {
-                        "comment_id": "123456",
-                        "date": "2018-09-28 10:32:58",
-                        "email": "requested@zr.com",
-                        "status": "REQUESTED",
-                    },
-                ],
-                "vuln_type": "ports",
-                # FP: local testing
-                "where": "192.168.1.20",  # NOSONAR
-                "specific": "9999",
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce11",
+                    specific="9999",
+                    state=VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    where="192.168.1.20",
+                    zero_risk=VulnerabilityZeroRisk(
+                        comment_id="123456",
+                        modified_by="requested@zr.com",
+                        modified_date="2018-09-28T15:32:58+00:00",
+                        status=VulnerabilityZeroRiskStatus.REQUESTED,
+                    ),
+                ),
             },
             {
-                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce12",
-                "historic_state": [
-                    {
-                        "date": "2020-04-07 19:45:11",
-                        "analyst": "hacker@gmail.com",
-                        "source": "asm",
-                        "state": "open",
-                    },
-                ],
-                "historic_treatment": [
-                    {
-                        "date": "2020-04-07 19:45:11",
-                        "treatment": "NEW",
-                    },
-                ],
-                "historic_zero_risk": [
-                    {
-                        "comment_id": "123456",
-                        "date": "2018-09-28 10:32:58",
-                        "email": "requested@zr.com",
-                        "status": "REQUESTED",
-                    },
-                ],
-                "vuln_type": "ports",
-                # FP: local testing
-                "where": "192.168.1.20",  # NOSONAR
-                "specific": "9999",
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce12",
+                    specific="9999",
+                    state=VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    where="192.168.1.20",
+                    zero_risk=VulnerabilityZeroRisk(
+                        comment_id="123456",
+                        modified_by="requested@zr.com",
+                        modified_date="2018-09-28T15:32:58+00:00",
+                        status=VulnerabilityZeroRiskStatus.REQUESTED,
+                    ),
+                ),
             },
             {
-                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce13",
-                "historic_state": [
-                    {
-                        "date": "2021-04-07 19:45:11",
-                        "analyst": "hacker@gmail.com",
-                        "source": "integrates",
-                        "state": "open",
-                    },
-                ],
-                "historic_treatment": [
-                    {
-                        "date": "2021-04-07 19:45:11",
-                        "treatment": "NEW",
-                    },
-                ],
-                "historic_zero_risk": [
-                    {
-                        "comment_id": "123456",
-                        "date": "2018-09-28 10:32:58",
-                        "email": "requested@zr.com",
-                        "status": "REQUESTED",
-                    },
-                ],
-                "vuln_type": "ports",
-                # FP: local testing
-                "where": "192.168.1.20",  # NOSONAR
-                "specific": "9999",
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce13",
+                    specific="9999",
+                    state=VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    where="192.168.1.20",
+                    zero_risk=VulnerabilityZeroRisk(
+                        comment_id="123456",
+                        modified_by="requested@zr.com",
+                        modified_date="2018-09-28T15:32:58+00:00",
+                        status=VulnerabilityZeroRiskStatus.REQUESTED,
+                    ),
+                ),
             },
             {
-                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce14",
-                "historic_state": [
-                    {
-                        "date": "2021-04-07 19:45:11",
-                        "analyst": "hacker@gmail.com",
-                        "source": "integrates",
-                        "state": "open",
-                    },
-                ],
-                "historic_treatment": [
-                    {
-                        "date": "2021-04-07 19:45:11",
-                        "treatment": "NEW",
-                    },
-                ],
-                "vuln_type": "ports",
-                # FP: local testing
-                "where": "192.168.1.20",  # NOSONAR
-                "specific": "14",
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce14",
+                    specific="14",
+                    state=VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    where="192.168.1.20",
+                ),
             },
         ],
     }
