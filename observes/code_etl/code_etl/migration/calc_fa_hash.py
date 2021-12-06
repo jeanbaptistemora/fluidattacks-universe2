@@ -55,19 +55,44 @@ class RawDecodeError(Exception):
         )
 
 
+def _assert_datetime(raw: Any) -> datetime:
+    if isinstance(raw, datetime):
+        return raw
+    raise TypeError("Not a datetime obj")
+
+
+def _assert_str(raw: Any) -> str:
+    if isinstance(raw, str):
+        return raw
+    raise TypeError("Not a str obj")
+
+
+def _assert_int(raw: Any) -> int:
+    if isinstance(raw, int):
+        return raw
+    raise TypeError("Not a int obj")
+
+
 def _calc_id(raw: FrozenList[Any]) -> CommitDataId:
     try:
         data = CommitData(
-            User(raw[0], raw[1]),
-            datetime.fromisoformat(raw[2]),
-            User(raw[3], raw[4]),
-            datetime.fromisoformat(raw[5]),
-            raw[6],
-            raw[7],
-            Deltas(raw[8], raw[9], raw[10], raw[11]),
+            User(_assert_str(raw[0]), _assert_str(raw[1])),
+            _assert_datetime(_assert_str(raw[2])),
+            User(_assert_str(raw[3]), _assert_str(raw[4])),
+            _assert_datetime(raw[5]),
+            _assert_str(raw[6]),
+            _assert_str(raw[7]),
+            Deltas(
+                _assert_int(raw[8]),
+                _assert_int(raw[9]),
+                _assert_int(raw[10]),
+                _assert_int(raw[11]),
+            ),
         )
         _id = CommitDataId(
-            raw[11], raw[12], CommitId(raw[13], gen_fa_hash(data))
+            _assert_str(raw[11]),
+            _assert_str(raw[12]),
+            CommitId(_assert_str(raw[13]), gen_fa_hash(data)),
         )
         return _id
     except TypeError as err:
