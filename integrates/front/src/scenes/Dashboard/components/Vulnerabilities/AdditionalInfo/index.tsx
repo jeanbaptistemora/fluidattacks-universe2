@@ -159,7 +159,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 </Label>
               </LabelField>
               <InfoField>
-                <Value value={vulnerability.lastRequestedReattackDate} />
+                <Value value={vulnerability.lastRequestedReattackDate ?? ""} />
               </InfoField>
             </Row>
             <Row>

@@ -42,7 +42,7 @@ describe("VulnComponent", (): void => {
       id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
       lastReattackDate: undefined,
       lastReattackRequester: "testrequester@test.com",
-      lastRequestedReattackDate: "",
+      lastRequestedReattackDate: undefined,
       remediated: true,
       reportDate: "",
       severity: "3",
@@ -81,7 +81,7 @@ describe("VulnComponent", (): void => {
         .subtract(numberOfDays, "days")
         .format("YYYY-MM-DD hh:mm:ss"),
       lastReattackRequester: "",
-      lastRequestedReattackDate: "",
+      lastRequestedReattackDate: undefined,
       remediated: false,
       reportDate: "",
       severity: "1",
@@ -120,7 +120,7 @@ describe("VulnComponent", (): void => {
         .subtract(numberOfDaysOldThanAWeek, "days")
         .format("YYYY-MM-DD hh:mm:ss"),
       lastReattackRequester: "",
-      lastRequestedReattackDate: "",
+      lastRequestedReattackDate: undefined,
       remediated: false,
       reportDate: "",
       severity: "1",

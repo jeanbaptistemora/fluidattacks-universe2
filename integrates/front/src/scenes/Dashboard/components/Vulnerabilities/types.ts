@@ -16,7 +16,7 @@ interface IVulnRowAttr {
   id: string;
   lastReattackDate?: string;
   lastReattackRequester: string;
-  lastRequestedReattackDate: string;
+  lastRequestedReattackDate?: string;
   remediated: boolean;
   reportDate: string;
   severity: string;

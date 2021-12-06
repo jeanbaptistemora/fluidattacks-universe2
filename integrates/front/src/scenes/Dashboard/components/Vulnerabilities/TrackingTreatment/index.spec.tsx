@@ -64,7 +64,7 @@ describe("TrackingTreatment", (): void => {
       .subtract(numberOfDays, "days")
       .format("YYYY-MM-DD hh:mm:ss"),
     lastReattackRequester: "",
-    lastRequestedReattackDate: "",
+    lastRequestedReattackDate: undefined,
     remediated: false,
     reportDate: "",
     severity: "1",
