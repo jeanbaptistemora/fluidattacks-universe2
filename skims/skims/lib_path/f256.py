@@ -84,7 +84,7 @@ def tfm_db_has_not_automated_backups_iterate_vulnerabilities(
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "backup_retention_period"
-                and elem.val == 0
+                and elem.val in (0, "0")
             ):
                 yield elem
 
@@ -97,7 +97,7 @@ def tfm_rds_has_not_automated_backups_iterate_vulnerabilities(
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "backup_retention_period"
-                and elem.val == 0
+                and elem.val in (0, "0")
             ):
                 yield elem
 
