@@ -17,6 +17,16 @@ from db_model.findings.types import (
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
+    VulnerabilityType,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityState,
+    VulnerabilityTreatment,
+)
 from decimal import (
     Decimal,
 )
@@ -182,48 +192,48 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
             },
         ],
-        "vulnerabilities": [
+        "vulnerabilities_typed": [
             {
-                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce8",
-                "historic_state": [
-                    {
-                        "date": "2018-04-07 19:45:14",
-                        "analyst": generic_data["global_vars"]["hacker_email"],
-                        "source": "asm",
-                        "state": "closed",
-                    },
-                ],
-                "historic_treatment": [
-                    {
-                        "date": "2018-04-07 19:45:15",
-                        "treatment": "NEW",
-                    },
-                ],
-                "vuln_type": "ports",
-                "where": "192.168.1.20",
-                "specific": "9999",
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                    specific="9999",
+                    state=VulnerabilityState(
+                        modified_by=generic_data["global_vars"][
+                            "hacker_email"
+                        ],
+                        modified_date="2018-04-08T00:45:14+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.CLOSED,
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:15+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    where="192.168.1.20",
+                )
             },
             {
-                "finding_id": "475041520",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce8",
-                "historic_state": [
-                    {
-                        "date": "2018-04-07 19:45:14",
-                        "analyst": generic_data["global_vars"]["hacker_email"],
-                        "source": "asm",
-                        "state": "closed",
-                    },
-                ],
-                "historic_treatment": [
-                    {
-                        "date": "2018-04-07 19:45:15",
-                        "treatment": "NEW",
-                    },
-                ],
-                "vuln_type": "ports",
-                "where": "192.168.1.20",
-                "specific": "9999",
+                "vulnerability": Vulnerability(
+                    finding_id="475041520",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                    specific="9999",
+                    state=VulnerabilityState(
+                        modified_by=generic_data["global_vars"][
+                            "hacker_email"
+                        ],
+                        modified_date="2018-04-08T00:45:14+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.CLOSED,
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:15+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    where="192.168.1.20",
+                )
             },
         ],
     }

@@ -324,6 +324,21 @@ async def populate_vulnerabilities(data: List[Any]) -> bool:
     return all(await collect(coroutines))
 
 
+async def populate_vulnerabilities_typed(data: List[Dict[str, Any]]) -> bool:
+    coroutines = [
+        dal_vulns.create_new(
+            vulnerability=vulnerability["vulnerability"],
+            historic_state=vulnerability.get("historic_state"),
+            historic_treatment=vulnerability.get("historic_treatment"),
+            historic_verification=vulnerability.get("historic_verification"),
+            historic_zero_risk=vulnerability.get("historic_zero_risk"),
+        )
+        for vulnerability in data
+    ]
+
+    return all(await collect(coroutines))
+
+
 async def populate_roots(data: Tuple[RootItem, ...]) -> bool:
     await collect(tuple(roots_model.add(root=root) for root in data))
 
