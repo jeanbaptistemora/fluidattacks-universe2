@@ -18,7 +18,7 @@ from parse_hcl2.loader import (
 )
 from parse_hcl2.structure import (
     iter_aws_db_instance,
-    iter_aws_rds_cluster_instance,
+    iter_aws_rds_cluster,
 )
 from parse_hcl2.tokens import (
     Attribute,
@@ -103,7 +103,7 @@ def _tfm_rds_instance_inside_subnet(
         finding=_FINDING_F109,
         iterator=get_aws_iterator(
             tfm_rds_instance_inside_subnet_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_rds_cluster_instance(model=model)
+                buckets_iterator=iter_aws_rds_cluster(model=model)
             )
         ),
         path=path,
