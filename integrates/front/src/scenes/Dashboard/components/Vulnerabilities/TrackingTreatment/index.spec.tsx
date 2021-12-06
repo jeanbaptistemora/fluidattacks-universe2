@@ -51,7 +51,7 @@ describe("TrackingTreatment", (): void => {
     },
   ];
   const mockVuln1: IVulnRowAttr = {
-    assigned: "treatment-manager-4",
+    assigned: "assigned-treatment-4",
     commitHash: undefined,
     currentState: "open",
     currentStateCapitalized: "Open",

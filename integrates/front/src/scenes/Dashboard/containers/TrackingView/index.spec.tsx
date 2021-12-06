@@ -24,6 +24,7 @@ describe("TrackingView", (): void => {
             {
               accepted: 0,
               acceptedUndefined: 0,
+              assigned: null,
               closed: 0,
               cycle: 0,
               date: "2018-09-28",
@@ -32,11 +33,11 @@ describe("TrackingView", (): void => {
             {
               accepted: 1,
               acceptedUndefined: 0,
+              assgined: "test@test.test",
               closed: 0,
               cycle: 1,
               date: "2019-01-08",
               justification: "test justification accepted treatment",
-              manager: "test@test.test",
               open: 0,
             },
           ],
