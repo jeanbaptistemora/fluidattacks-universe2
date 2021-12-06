@@ -77,7 +77,7 @@ def update_query(schema: SchemaID, cid: CommitDataId) -> Query:
     )
 
 
-def calc_hash(client: Client, schema: SchemaID) -> IO[None]:
+def calc_hash(client: Client, schema: SchemaID, namespace: str) -> IO[None]:
     query = Query(
         """
         SELECT
@@ -96,9 +96,11 @@ def calc_hash(client: Client, schema: SchemaID) -> IO[None]:
             namespace,
             repository,
             hash
-        FROM {schema}.commits WHERE fa_hash IS NULL
+        FROM {schema}.commits WHERE
+            fa_hash IS NULL
+            and namespace = %(namespace)s
         """,
-        SqlArgs(identifiers={"schema": schema.name}),
+        SqlArgs({"namespace": namespace}, {"schema": schema.name}),
     )
     client.cursor.execute_query(query)
     while True:
@@ -110,6 +112,8 @@ def calc_hash(client: Client, schema: SchemaID) -> IO[None]:
     return IO(None)
 
 
-def start(db_id: DatabaseID, creds: Credentials, schema: SchemaID) -> IO[None]:
+def start(
+    db_id: DatabaseID, creds: Credentials, schema: SchemaID, namespace: str
+) -> IO[None]:
     client = ClientFactory().from_creds(db_id, creds)
-    return calc_hash(client, schema)
+    return calc_hash(client, schema, namespace)

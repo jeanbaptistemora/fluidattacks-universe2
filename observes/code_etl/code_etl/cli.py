@@ -81,14 +81,18 @@ def upload_code(
 
 
 @click.command()
+@click.argument("namespace", type=str)
 @click.option("--db-id", type=click.File("r"), required=True)
 @click.option("--creds", type=click.File("r"), required=True)
 @click.option("--schema", type=str, required=True)
-def calculate_fa_hash(db_id: FILE[str], creds: FILE[str], schema: str) -> None:
+def calculate_fa_hash(
+    namespace: str, db_id: FILE[str], creds: FILE[str], schema: str
+) -> None:
     calc_fa_hash.start(
         id_from_str(db_id.read()),
         creds_from_str(creds.read()),
         SchemaID(schema),
+        namespace,
     )
 
 
