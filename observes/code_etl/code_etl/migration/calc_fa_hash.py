@@ -77,7 +77,7 @@ def _calc_id(raw: FrozenList[Any]) -> CommitDataId:
     try:
         data = CommitData(
             User(_assert_str(raw[0]), _assert_str(raw[1])),
-            _assert_datetime(_assert_str(raw[2])),
+            _assert_datetime(raw[2]),
             User(_assert_str(raw[3]), _assert_str(raw[4])),
             _assert_datetime(raw[5]),
             _assert_str(raw[6]),
