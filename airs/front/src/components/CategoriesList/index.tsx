@@ -15,19 +15,19 @@ import { countCoincidences } from "../../utils/utilities";
 const CategoriesList: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query CategoriesList {
-      allAsciidoc(
+      allMarkdownRemark(
         filter: {
           fields: { slug: { regex: "/blog/" } }
-          pageAttributes: { image: { regex: "" } }
+          frontmatter: { image: { regex: "" } }
         }
-        sort: { fields: pageAttributes___date, order: DESC }
+        sort: { fields: frontmatter___date, order: DESC }
       ) {
         edges {
           node {
             fields {
               slug
             }
-            pageAttributes {
+            frontmatter {
               category
             }
           }
@@ -36,8 +36,8 @@ const CategoriesList: React.FC = (): JSX.Element => {
     }
   `);
 
-  const categoriesListRaw = data.allAsciidoc.edges.map(
-    (edge): string => edge.node.pageAttributes.category
+  const categoriesListRaw = data.allMarkdownRemark.edges.map(
+    (edge): string => edge.node.frontmatter.category
   );
 
   const categoriesSet = new Set(categoriesListRaw);

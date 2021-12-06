@@ -25,7 +25,7 @@ import {
 } from "../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
-const DefaultPage: React.FC<IQueryData> = ({
+const MdDefaultPage: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
@@ -33,7 +33,6 @@ const DefaultPage: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { title } = data.asciidoc.document;
   const {
     banner,
     description,
@@ -41,7 +40,8 @@ const DefaultPage: React.FC<IQueryData> = ({
     slug,
     subtext,
     subtitle,
-  } = data.asciidoc.pageAttributes;
+    title,
+  } = data.markdownRemark.frontmatter;
 
   const hasBanner: boolean = typeof banner === "string";
   const isCareers: boolean = slug === "careers/";
@@ -82,7 +82,7 @@ const DefaultPage: React.FC<IQueryData> = ({
             <ArticleContainer
               className={"internal"}
               dangerouslySetInnerHTML={{
-                __html: data.asciidoc.html,
+                __html: data.markdownRemark.html,
               }}
             />
           </PageArticle>
@@ -92,22 +92,22 @@ const DefaultPage: React.FC<IQueryData> = ({
   );
 };
 
-export default DefaultPage;
+export default MdDefaultPage;
 
 export const query: void = graphql`
   query PageArticleBySlug($slug: String!) {
-    asciidoc(fields: { slug: { eq: $slug } }) {
-      document {
-        title
-      }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
         slug
       }
-      pageAttributes {
+      frontmatter {
+        banner
         description
         keywords
         slug
+        subtext
+        title
         subtitle
       }
     }

@@ -18,22 +18,19 @@ const BlogAuthorList: React.FC<{ authorName: string }> = ({
 }): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query BlogAuthorList {
-      allAsciidoc(
+      allMarkdownRemark(
         filter: {
           fields: { slug: { regex: "/blog/" } }
-          pageAttributes: { image: { regex: "" } }
+          frontmatter: { image: { regex: "" } }
         }
-        sort: { fields: pageAttributes___date, order: DESC }
+        sort: { fields: frontmatter___date, order: DESC }
       ) {
         edges {
           node {
             fields {
               slug
             }
-            document {
-              title
-            }
-            pageAttributes {
+            frontmatter {
               alt
               author
               category
@@ -44,6 +41,7 @@ const BlogAuthorList: React.FC<{ authorName: string }> = ({
               image
               spanish
               subtitle
+              title
             }
           }
         }
@@ -51,9 +49,8 @@ const BlogAuthorList: React.FC<{ authorName: string }> = ({
     }
   `);
 
-  const posts: INodes[] = data.allAsciidoc.edges.filter(
-    (edge): boolean =>
-      stringToUri(edge.node.pageAttributes.author) === authorName
+  const posts: INodes[] = data.allMarkdownRemark.edges.filter(
+    (edge): boolean => stringToUri(edge.node.frontmatter.author) === authorName
   );
 
   const postsPerPage = 12;
@@ -92,7 +89,8 @@ const BlogAuthorList: React.FC<{ authorName: string }> = ({
             slug,
             spanish,
             subtitle,
-          } = post.node.pageAttributes;
+            title,
+          } = post.node.frontmatter;
 
           return spanish === "yes" ? undefined : (
             <BlogCard
@@ -101,9 +99,9 @@ const BlogAuthorList: React.FC<{ authorName: string }> = ({
               date={date}
               description={description}
               image={image}
-              key={post.node.document.title}
+              key={title}
               subtitle={subtitle}
-              title={post.node.document.title}
+              title={title}
             />
           );
         })}

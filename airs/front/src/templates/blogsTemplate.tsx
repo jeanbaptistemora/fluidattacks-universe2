@@ -12,7 +12,7 @@
 import { Link, graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { decode } from "he";
-import moment from "moment";
+import { utc } from "moment";
 import React from "react";
 
 import { BlogFooter } from "../components/BlogFooter";
@@ -42,7 +42,6 @@ const BlogsIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { title } = data.asciidoc.document;
   const {
     alt,
     author,
@@ -54,10 +53,11 @@ const BlogsIndex: React.FC<IQueryData> = ({
     slug,
     subtitle,
     tags,
+    title,
     writer,
-  } = data.asciidoc.pageAttributes;
+  } = data.markdownRemark.frontmatter;
   const taglist: string[] = tags.split(", ");
-  const fDate = moment(date).format("MMMM DD, YYYY");
+  const fDate = utc(date.toLocaleString()).format("LL");
 
   return (
     <React.Fragment>
@@ -106,7 +106,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
               <div
                 className={"lh-2"}
                 dangerouslySetInnerHTML={{
-                  __html: data.asciidoc.html,
+                  __html: data.markdownRemark.html,
                 }}
               />
               <div className={"pt3"}>
@@ -149,15 +149,12 @@ export default BlogsIndex;
 
 export const query: void = graphql`
   query BlogsPages($slug: String!) {
-    asciidoc(fields: { slug: { eq: $slug } }) {
-      document {
-        title
-      }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
         slug
       }
-      pageAttributes {
+      frontmatter {
         alt
         author
         category
@@ -169,6 +166,7 @@ export const query: void = graphql`
         subtitle
         tags
         writer
+        title
       }
     }
   }

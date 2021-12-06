@@ -13,22 +13,19 @@ import { BlogPageArticle } from "../../styles/styledComponents";
 export const BlogsList: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query BlogsList {
-      allAsciidoc(
+      allMarkdownRemark(
         filter: {
           fields: { slug: { regex: "/blog/" } }
-          pageAttributes: { image: { regex: "" } }
+          frontmatter: { image: { regex: "" } }
         }
-        sort: { fields: pageAttributes___date, order: DESC }
+        sort: { fields: frontmatter___date, order: DESC }
       ) {
         edges {
           node {
             fields {
               slug
             }
-            document {
-              title
-            }
-            pageAttributes {
+            frontmatter {
               alt
               date
               slug
@@ -36,6 +33,7 @@ export const BlogsList: React.FC = (): JSX.Element => {
               image
               spanish
               subtitle
+              title
             }
           }
         }
@@ -43,7 +41,7 @@ export const BlogsList: React.FC = (): JSX.Element => {
     }
   `);
 
-  const posts: INodes[] = data.allAsciidoc.edges;
+  const posts: INodes[] = data.allMarkdownRemark.edges;
 
   const postsPerPage = 12;
   // eslint-disable-next-line fp/no-let
@@ -82,7 +80,8 @@ export const BlogsList: React.FC = (): JSX.Element => {
               slug,
               spanish,
               subtitle,
-            } = post.node.pageAttributes;
+              title,
+            } = post.node.frontmatter;
 
             return spanish === "yes" ? undefined : (
               <BlogCard
@@ -91,9 +90,9 @@ export const BlogsList: React.FC = (): JSX.Element => {
                 date={date}
                 description={description}
                 image={image}
-                key={post.node.document.title}
+                key={title}
                 subtitle={subtitle}
-                title={post.node.document.title}
+                title={title}
               />
             );
           })}

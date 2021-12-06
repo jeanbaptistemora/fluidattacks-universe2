@@ -4,7 +4,6 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 
 const defaultTemplate = path.resolve(`./src/templates/pageArticle.tsx`);
 const blogsTemplate = path.resolve(`./src/templates/blogsTemplate.tsx`);
-const mdDefaultTemplate = path.resolve(`./src/templates/mdPageArticle.tsx`);
 
 const setTemplate = (template) =>
   path.resolve(`./src/templates/${template}Template.tsx`);
@@ -17,49 +16,10 @@ const PageMaker = (createPage) => {
     createTemplatePage(posts) {
       _.each(posts, (post) => {
         if (post.node.fields.slug.startsWith("/pages/")) {
-          if (post.node.pageAttributes.template == null) {
-            createPage({
-              path: `${post.node.pageAttributes.slug}`,
-              component: defaultTemplate,
-              context: {
-                id: post.node.id,
-                slug: `/pages/${post.node.pageAttributes.slug}`,
-              },
-            });
-          } else {
-            createPage({
-              path: `${post.node.pageAttributes.slug}`,
-              component: setTemplate(post.node.pageAttributes.template),
-              context: {
-                id: post.node.id,
-                slug: `/pages/${post.node.pageAttributes.slug}`,
-              },
-            });
-          }
-        } else if (post.node.fields.slug.startsWith("/blog/")) {
-          createPage({
-            path: `/blog/${post.node.pageAttributes.slug}`,
-            component: blogsTemplate,
-            context: {
-              id: post.node.id,
-              slug: `/blog/${post.node.pageAttributes.slug}`,
-            },
-          });
-        }
-      });
-    },
-  };
-};
-
-const MdPageMaker = (createPage) => {
-  return {
-    createTemplatePage(posts) {
-      _.each(posts, (post) => {
-        if (post.node.fields.slug.startsWith("/pages/")) {
           if (post.node.frontmatter.template == null) {
             createPage({
               path: `${post.node.frontmatter.slug}`,
-              component: mdDefaultTemplate,
+              component: defaultTemplate,
               context: {
                 id: post.node.id,
                 slug: `/pages/${post.node.frontmatter.slug}`,
@@ -75,6 +35,15 @@ const MdPageMaker = (createPage) => {
               },
             });
           }
+        } else if (post.node.fields.slug.startsWith("/blog/")) {
+          createPage({
+            path: `/blog/${post.node.frontmatter.slug}`,
+            component: blogsTemplate,
+            context: {
+              id: post.node.id,
+              slug: `/blog/${post.node.frontmatter.slug}`,
+            },
+          });
         }
       });
     },
@@ -88,9 +57,9 @@ const createTagPages = (createPage, posts) => {
   posts.map((post) => {
     if (
       post.node.fields.slug.startsWith("/blog/") &&
-      post.node.pageAttributes.tags
+      post.node.frontmatter.tags
     ) {
-      tags.push(post.node.pageAttributes.tags.split(", "));
+      tags.push(post.node.frontmatter.tags.split(", "));
     }
   });
 
@@ -114,9 +83,9 @@ const createCategoryPages = (createPage, posts) => {
   posts.map((post) => {
     if (
       post.node.fields.slug.startsWith("/blog/") &&
-      post.node.pageAttributes.category
+      post.node.frontmatter.category
     ) {
-      categories.push(post.node.pageAttributes.category.toLowerCase());
+      categories.push(post.node.frontmatter.category.toLowerCase());
     }
   });
 
@@ -138,10 +107,10 @@ const createAuthorPages = (createPage, posts) => {
   posts.map((post) => {
     if (
       post.node.fields.slug.startsWith("/blog/") &&
-      post.node.pageAttributes.author
+      post.node.frontmatter.author
     ) {
       authors.push(
-        post.node.pageAttributes.author
+        post.node.frontmatter.author
           .toLowerCase()
           .replace(" ", "-")
           .normalize("NFD")
@@ -163,7 +132,6 @@ const createAuthorPages = (createPage, posts) => {
 
 exports.createPages = ({ graphql, actions: { createPage } }) => {
   const pageMaker = PageMaker(createPage);
-  const mdPageMaker = MdPageMaker(createPage);
   // The “graphql” function allows us to run arbitrary
   // queries against the local Drupal graphql schema. Think of
   // it like the site has a built-in database constructed
@@ -171,23 +139,6 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
   return graphql(
     `
       {
-        allAsciidoc(limit: 2000) {
-          edges {
-            node {
-              id
-              fields {
-                slug
-              }
-              pageAttributes {
-                slug
-                tags
-                category
-                author
-                writer
-              }
-            }
-          }
-        }
         allMarkdownRemark(limit: 2000) {
           edges {
             node {
@@ -197,6 +148,10 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
               }
               frontmatter {
                 slug
+                tags
+                category
+                author
+                writer
                 template
               }
             }
@@ -209,11 +164,9 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
       throw result.errors;
     }
 
-    const posts = result.data.allAsciidoc.edges;
-    const mDposts = result.data.allMarkdownRemark.edges;
+    const posts = result.data.allMarkdownRemark.edges;
 
     pageMaker.createTemplatePage(posts);
-    mdPageMaker.createTemplatePage(mDposts);
     createTagPages(createPage, posts);
     createAuthorPages(createPage, posts);
     createCategoryPages(createPage, posts);

@@ -12,39 +12,22 @@ import {
 } from "../../styles/styledComponents";
 import { countCoincidences } from "../../utils/utilities";
 
-interface IData {
-  allAsciidoc: {
-    edges: [
-      {
-        node: {
-          fields: {
-            slug: string;
-          };
-          pageAttributes: {
-            tags: string;
-          };
-        };
-      }
-    ];
-  };
-}
-
 const TagsList: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query TagsList {
-      allAsciidoc(
+      allMarkdownRemark(
         filter: {
           fields: { slug: { regex: "/blog/" } }
-          pageAttributes: { image: { regex: "" } }
+          frontmatter: { image: { regex: "" } }
         }
-        sort: { fields: pageAttributes___date, order: DESC }
+        sort: { fields: frontmatter___date, order: DESC }
       ) {
         edges {
           node {
             fields {
               slug
             }
-            pageAttributes {
+            frontmatter {
               tags
             }
           }
@@ -53,8 +36,8 @@ const TagsList: React.FC = (): JSX.Element => {
     }
   `);
 
-  const tagsListRaw = data.allAsciidoc.edges
-    .map((edge): string[] => edge.node.pageAttributes.tags.split(", "))
+  const tagsListRaw = data.allMarkdownRemark.edges
+    .map((edge): string[] => edge.node.frontmatter.tags.split(", "))
     .flat();
 
   const tagsSet = new Set(tagsListRaw);

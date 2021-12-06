@@ -3,7 +3,7 @@
 /* eslint @typescript-eslint/no-magic-numbers:0 */
 import { Link } from "gatsby";
 import { decode } from "he";
-import moment from "moment";
+import { utc } from "moment";
 import React from "react";
 
 import {
@@ -36,7 +36,7 @@ export const BlogCard: React.FC<IProps> = ({
   subtitle,
   title,
 }: IProps): JSX.Element => {
-  const fDate = moment(date).format("MMMM DD, YYYY");
+  const fDate = utc(date.toLocaleString()).format("LL");
 
   return (
     <MainBlogCard>

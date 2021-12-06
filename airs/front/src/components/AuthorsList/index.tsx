@@ -16,19 +16,19 @@ import { countCoincidences, stringToUri } from "../../utils/utilities";
 const AuthorsList: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query AuthorsList {
-      allAsciidoc(
+      allMarkdownRemark(
         filter: {
           fields: { slug: { regex: "/blog/" } }
-          pageAttributes: { image: { regex: "" } }
+          frontmatter: { image: { regex: "" } }
         }
-        sort: { fields: pageAttributes___date, order: DESC }
+        sort: { fields: frontmatter___date, order: DESC }
       ) {
         edges {
           node {
             fields {
               slug
             }
-            pageAttributes {
+            frontmatter {
               author
             }
           }
@@ -37,8 +37,8 @@ const AuthorsList: React.FC = (): JSX.Element => {
     }
   `);
 
-  const authorsListRaw = data.allAsciidoc.edges.map(
-    (edge): string => edge.node.pageAttributes.author
+  const authorsListRaw = data.allMarkdownRemark.edges.map(
+    (edge): string => edge.node.frontmatter.author
   );
 
   const authorsSet = new Set(authorsListRaw);

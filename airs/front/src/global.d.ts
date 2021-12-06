@@ -51,8 +51,12 @@ interface IQueryData {
       };
       frontmatter: {
         advise: string;
+        alt: string;
+        author: string;
         authors: string;
         banner: string;
+        category: string;
+        certificationid: string;
         certificationsindex: string;
         clientsindex: string;
         codename: string;
@@ -65,11 +69,13 @@ interface IQueryData {
         keywords: string;
         partnersindex: string;
         phrase: string;
+        product: string;
         slug: string;
         solution: string;
         subtext: string;
         subtitle: string;
         product: string;
+        tags: string;
         template: string;
         title: string;
         writer: string;
@@ -190,10 +196,7 @@ interface INodes {
     fields: {
       slug: string;
     };
-    document: {
-      title: string;
-    };
-    pageAttributes: {
+    frontmatter: {
       alt: string;
       author: string;
       category: string;
@@ -205,6 +208,7 @@ interface INodes {
       spanish: string;
       subtitle: string;
       tags: string;
+      title: string;
     };
   };
 }

@@ -17,22 +17,19 @@ const BlogTagList: React.FC<{ tagName: string }> = ({
 }): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query BlogTagList {
-      allAsciidoc(
+      allMarkdownRemark(
         filter: {
           fields: { slug: { regex: "/blog/" } }
-          pageAttributes: { image: { regex: "" } }
+          frontmatter: { image: { regex: "" } }
         }
-        sort: { fields: pageAttributes___date, order: DESC }
+        sort: { fields: frontmatter___date, order: DESC }
       ) {
         edges {
           node {
             fields {
               slug
             }
-            document {
-              title
-            }
-            pageAttributes {
+            frontmatter {
               alt
               author
               category
@@ -43,6 +40,7 @@ const BlogTagList: React.FC<{ tagName: string }> = ({
               image
               spanish
               subtitle
+              title
             }
           }
         }
@@ -50,8 +48,8 @@ const BlogTagList: React.FC<{ tagName: string }> = ({
     }
   `);
 
-  const posts: INodes[] = data.allAsciidoc.edges.filter((edge): boolean =>
-    edge.node.pageAttributes.tags.includes(tagName)
+  const posts: INodes[] = data.allMarkdownRemark.edges.filter((edge): boolean =>
+    edge.node.frontmatter.tags.includes(tagName)
   );
 
   const postsPerPage = 12;
@@ -90,7 +88,8 @@ const BlogTagList: React.FC<{ tagName: string }> = ({
             slug,
             spanish,
             subtitle,
-          } = post.node.pageAttributes;
+            title,
+          } = post.node.frontmatter;
 
           return spanish === "yes" ? undefined : (
             <BlogCard
@@ -99,9 +98,9 @@ const BlogTagList: React.FC<{ tagName: string }> = ({
               date={date}
               description={description}
               image={image}
-              key={post.node.document.title}
+              key={title}
               subtitle={subtitle}
-              title={post.node.document.title}
+              title={title}
             />
           );
         })}
