@@ -19,6 +19,19 @@ from db_model.findings.types import (
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityAcceptanceStatus,
+    VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
+    VulnerabilityType,
+    VulnerabilityVerificationStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityState,
+    VulnerabilityTreatment,
+    VulnerabilityVerification,
+)
 from decimal import (
     Decimal,
 )
@@ -140,138 +153,134 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
             },
         ],
-        "vulnerabilities": [
+        "vulnerabilities_typed": [
             {
-                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce8",
-                "historic_state": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "analyst": "hacker@gmail.com",
-                        "source": "asm",
-                        "state": "open",
-                    },
-                ],
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                    specific="9999",
+                    state=VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    verification=VulnerabilityVerification(
+                        comment_id="",
+                        modified_by="",
+                        modified_date="2018-04-09T00:45:11+00:00",
+                        status=VulnerabilityVerificationStatus.REQUESTED,
+                    ),
+                    where="192.168.1.20",
+                ),
                 "historic_treatment": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "treatment": "NEW",
-                    },
-                    {
-                        "date": "2018-04-08 19:45:11",
-                        "treatment": "ACCEPTED_UNDEFINED",
-                        "acceptance_status": "SUBMITTED",
-                    },
+                    VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    VulnerabilityTreatment(
+                        modified_date="2018-04-09T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+                        acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
+                    ),
                 ],
-                "historic_verification": [
-                    {
-                        "date": "2018-04-08 19:45:11",
-                        "status": "REQUESTED",
-                    },
-                ],
-                "vuln_type": "ports",
-                # FP: local testing
-                "where": "192.168.1.20",  # NOSONAR
-                "specific": "9999",
             },
             {
-                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce9",
-                "historic_state": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "analyst": "hacker@gmail.com",
-                        "source": "asm",
-                        "state": "open",
-                    },
-                ],
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce9",
+                    specific="9999",
+                    state=VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    verification=VulnerabilityVerification(
+                        comment_id="",
+                        modified_by="",
+                        modified_date="2018-04-09T00:45:11+00:00",
+                        status=VulnerabilityVerificationStatus.REQUESTED,
+                    ),
+                    where="192.168.1.20",
+                ),
                 "historic_treatment": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "treatment": "NEW",
-                    },
-                    {
-                        "date": "2018-04-08 19:45:11",
-                        "treatment": "ACCEPTED_UNDEFINED",
-                        "acceptance_status": "SUBMITTED",
-                    },
+                    VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    VulnerabilityTreatment(
+                        modified_date="2018-04-09T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+                        acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
+                    ),
                 ],
-                "historic_verification": [
-                    {
-                        "date": "2018-04-08 19:45:11",
-                        "status": "REQUESTED",
-                    },
-                ],
-                "vuln_type": "ports",
-                # FP: local testing
-                "where": "192.168.1.20",  # NOSONAR
-                "specific": "9999",
             },
             {
-                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdc10",
-                "historic_state": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "analyst": "hacker@gmail.com",
-                        "source": "asm",
-                        "state": "open",
-                    },
-                ],
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdc10",
+                    specific="9999",
+                    state=VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    verification=VulnerabilityVerification(
+                        comment_id="",
+                        modified_by="",
+                        modified_date="2018-04-09T00:45:11+00:00",
+                        status=VulnerabilityVerificationStatus.REQUESTED,
+                    ),
+                    where="192.168.1.20",
+                ),
                 "historic_treatment": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "treatment": "NEW",
-                    },
-                    {
-                        "date": "2018-04-08 19:45:11",
-                        "treatment": "ACCEPTED_UNDEFINED",
-                        "acceptance_status": "SUBMITTED",
-                    },
+                    VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    VulnerabilityTreatment(
+                        modified_date="2018-04-09T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+                        acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
+                    ),
                 ],
-                "historic_verification": [
-                    {
-                        "date": "2018-04-08 19:45:11",
-                        "status": "REQUESTED",
-                    },
-                ],
-                "vuln_type": "ports",
-                # FP: local testing
-                "where": "192.168.1.20",  # NOSONAR
-                "specific": "9999",
             },
             {
-                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdc11",
-                "historic_state": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "analyst": "hacker@gmail.com",
-                        "source": "asm",
-                        "state": "open",
-                    },
-                ],
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdc11",
+                    specific="9999",
+                    state=VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    verification=VulnerabilityVerification(
+                        comment_id="",
+                        modified_by="",
+                        modified_date="2018-04-09T00:45:11+00:00",
+                        status=VulnerabilityVerificationStatus.REQUESTED,
+                    ),
+                    where="192.168.1.20",
+                ),
                 "historic_treatment": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "treatment": "NEW",
-                    },
-                    {
-                        "date": "2018-04-08 19:45:11",
-                        "treatment": "ACCEPTED_UNDEFINED",
-                        "acceptance_status": "SUBMITTED",
-                    },
+                    VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    VulnerabilityTreatment(
+                        modified_date="2018-04-09T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+                        acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
+                    ),
                 ],
-                "historic_verification": [
-                    {
-                        "date": "2018-04-08 19:45:11",
-                        "status": "REQUESTED",
-                    },
-                ],
-                "vuln_type": "ports",
-                # FP: local testing
-                "where": "192.168.1.20",  # NOSONAR
-                "specific": "9999",
             },
         ],
     }
