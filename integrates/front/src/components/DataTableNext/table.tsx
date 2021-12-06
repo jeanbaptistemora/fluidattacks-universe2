@@ -90,6 +90,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   const {
     customFiltersProps,
     isCustomFilterEnabled,
+    oneRowMessage = false,
     onUpdateEnableCustomFilter,
     resultSize,
   } = customFilters ?? {};
@@ -332,6 +333,15 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                     </TooltipWrapper>
                   </ButtonGroup>
                 )}
+                {resultSize && oneRowMessage && (
+                  <ButtonGroup>
+                    <div className={"flex items-end justify-end ma0 ml2 pa0"}>
+                      {`${t("dataTableNext.filterRes1")}: ${
+                        resultSize.current
+                      } ${t("dataTableNext.filterRes2")} ${resultSize.total}`}
+                    </div>
+                  </ButtonGroup>
+                )}
                 {!_.isUndefined(isCustomSearchEnabled) &&
                   isCustomSearchEnabled &&
                   searchPosition === "left" && (
@@ -398,7 +408,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           </TableOptionsColBar>
         )}
       </div>
-      {resultSize && (
+      {resultSize && !oneRowMessage && (
         <div className={"dib fw4 mb0"}>
           {`${t("dataTableNext.filterRes1")}: ${resultSize.current} ${t(
             "dataTableNext.filterRes2"

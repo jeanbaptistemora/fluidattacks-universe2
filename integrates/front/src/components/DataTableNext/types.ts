@@ -47,6 +47,7 @@ interface ICustomFiltersProps {
   customFiltersProps: IFilterProps[];
   isCustomFilterEnabled: boolean;
   onUpdateEnableCustomFilter: () => void;
+  oneRowMessage?: boolean;
   resultSize?: {
     current: number;
     total: number;
