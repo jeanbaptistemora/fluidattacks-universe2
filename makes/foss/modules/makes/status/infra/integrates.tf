@@ -14,9 +14,9 @@ resource "checkly_check" "integrates_web" {
 
   script = <<-EOF
     const assert = require("chai").assert;
-    const puppeteer = require("puppeteer");
+    const playwright = require("playwright");
 
-    const browser = await puppeteer.launch();
+    const browser = await playwright.chromium.launch();
     const page = await browser.newPage();
     await page.goto("https://app.fluidattacks.com");
     const title = await page.title();
@@ -34,7 +34,7 @@ resource "checkly_check" "integrates_api" {
   double_check              = true
   ssl_check                 = true
   use_global_alert_settings = false
-  runtime_id                = "2021.06"
+  runtime_id                = "2021.10"
   group_id                  = checkly_check_group.fluidattacks.id
   group_order               = 4
 

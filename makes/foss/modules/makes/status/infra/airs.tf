@@ -14,9 +14,9 @@ resource "checkly_check" "airs" {
 
   script = <<-EOF
     const assert = require("chai").assert;
-    const puppeteer = require("puppeteer");
+    const playwright = require("playwright");
 
-    const browser = await puppeteer.launch();
+    const browser = await playwright.chromium.launch();
     const page = await browser.newPage();
     await page.goto("https://fluidattacks.com/");
     const title = await page.title();
