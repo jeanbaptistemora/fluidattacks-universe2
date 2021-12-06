@@ -27,6 +27,18 @@ from db_model.roots.types import (
     GitRootState,
     MachineGitRootExecution,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
+    VulnerabilityType,
+    VulnerabilityVerificationStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityState,
+    VulnerabilityTreatment,
+    VulnerabilityVerification,
+)
 from decimal import (
     Decimal,
 )
@@ -182,64 +194,58 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
             ),
         ),
-        "vulnerabilities": [
+        "vulnerabilities_typed": [
             {
-                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce8",
-                "historic_state": [
-                    {
-                        "date": "2021-01-01 19:45:11",
-                        "analyst": "hacker@gmail.com",
-                        "source": "asm",
-                        "state": "open",
-                    },
-                ],
-                "historic_treatment": [
-                    {
-                        "date": "2021-01-01 19:45:11",
-                        "treatment": "NEW",
-                    },
-                ],
-                "historic_verification": [
-                    {
-                        "date": "2021-01-01 20:45:11",
-                        "status": "REQUESTED",
-                    },
-                ],
-                "vuln_type": "ports",
-                # FP: local testing
-                "where": "192.168.1.44",  # NOSONAR
-                "specific": "4444",
-                "repo_nickname": "product",
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                    repo="product",
+                    specific="4444",
+                    state=VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    verification=VulnerabilityVerification(
+                        comment_id="",
+                        modified_by="",
+                        modified_date="2018-04-08T01:45:11+00:00",
+                        status=VulnerabilityVerificationStatus.REQUESTED,
+                    ),
+                    where="192.168.1.44",
+                ),
             },
             {
-                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce9",
-                "historic_state": [
-                    {
-                        "date": "2021-01-01 19:45:11",
-                        "analyst": "hacker@gmail.com",
-                        "source": "asm",
-                        "state": "open",
-                    },
-                ],
-                "historic_treatment": [
-                    {
-                        "date": "2021-01-01 19:45:11",
-                        "treatment": "NEW",
-                    },
-                ],
-                "historic_verification": [
-                    {
-                        "date": "2021-01-01 20:45:11",
-                        "status": "REQUESTED",
-                    },
-                ],
-                "vuln_type": "ports",
-                # FP: local testing
-                "where": "192.168.1.45",  # NOSONAR
-                "specific": "4545",
-                "repo_nickname": "product",
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce9",
+                    repo="product",
+                    specific="4545",
+                    state=VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    verification=VulnerabilityVerification(
+                        comment_id="",
+                        modified_by="",
+                        modified_date="2018-04-08T01:45:11+00:00",
+                        status=VulnerabilityVerificationStatus.REQUESTED,
+                    ),
+                    where="192.168.1.45",
+                ),
             },
         ],
     }
