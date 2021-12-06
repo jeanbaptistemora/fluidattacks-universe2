@@ -101,7 +101,7 @@ describe("VulnerabilitiesView", (): void => {
               stream: undefined,
               tag: "tag-3",
               treatmentDate: "2020-07-05 09:56:40",
-              verification: "",
+              verification: undefined,
               vulnerabilityType: "lines",
               where: "https://example.com/tests",
               zeroRisk: "",

@@ -91,7 +91,7 @@ async def test_finding() -> None:
         "tag": "",
         "severity": None,
         "remediated": False,
-        "verification": "",
+        "verification": None,
         "historicVerification": [],
         "historicZeroRisk": [],
         "currentState": "open",

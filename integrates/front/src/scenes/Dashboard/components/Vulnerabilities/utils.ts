@@ -108,7 +108,7 @@ const formatVulnerabilities: (
     const verification: string =
       vulnerability.verification === "Verified"
         ? `${vulnerability.verification} (${vulnerability.currentState})`
-        : vulnerability.verification;
+        : (vulnerability.verification as string);
     const shouldDisplayVerification: boolean =
       !_.isEmpty(vulnerability.lastReattackDate) &&
       vulnerability.verification === "Verified"

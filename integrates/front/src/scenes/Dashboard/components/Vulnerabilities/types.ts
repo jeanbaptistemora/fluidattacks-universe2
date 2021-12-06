@@ -27,7 +27,7 @@ interface IVulnRowAttr {
   treatmentChanges: number;
   treatmentDate: string;
   assigned: string;
-  verification: string;
+  verification?: string;
   vulnerabilityType: string;
   where: string;
   zeroRisk: string;
