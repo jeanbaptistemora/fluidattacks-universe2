@@ -16,14 +16,14 @@ F258.description:
     protección contra el borrado.
 F258.impact:
   en: |
-    - AWS load balancers can be accidentally deleted.
+    - Delete AWS load balancers causing service unavailability.
 
     - Load-balanced environments remain unsafe.
 
     - Intentional  or accidental deletion of data integrity.
   es: >
-    - Los balanceadores de carga de AWS pueden
-    ser eliminados accidentalmente.
+    - Eliminar permanente los balanceadores de carga causando indisponibilidad
+    del servicio.
 
     - Los entornos con equilibrio de carga
     siguen siendo inseguros.
@@ -40,8 +40,8 @@ F258.recommendation:
     de atributos y actívelo.
 F258.threat:
   en: >
-    Attacker with access to the AWS console that
-    modifies or deletes information.
+    Authenticated attacker from the Internet with access to AWS configurations
+    who modifies or deletes information.
   es: >
-    Atacante con acceso a la consola de AWS
+    Atacante autenticado desde Internet con acceso a las configuraciones de AWS
     que modifica o borra información.
