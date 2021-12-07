@@ -236,9 +236,9 @@ type Mutation {
     "Id of the job in aws batch"
     jobId: ID!
     "Date when the job was started"
-    startDate: DateTime!
+    startedAt: DateTime!
     "when the job was stopped"
-    endDate: DateTime!
+    stoppedAt: DateTime!
     "Findings executed in the job"
     findingsExecuted: [String]
   ):SimplePayload!

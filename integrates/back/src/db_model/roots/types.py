@@ -110,7 +110,7 @@ class RootState(NamedTuple):
 
 class RootMachineExecutionItem(NamedTuple):
     job_id: str
-    queue_date: str
-    start_date: str
-    end_date: str
+    created_at: str
+    started_at: str
+    stopped_at: str
     findings_executed: List[str]

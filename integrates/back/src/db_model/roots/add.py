@@ -84,9 +84,9 @@ async def add_machine_execution(
     machine_exectution = {
         key_structure.partition_key: machine_execution_key.partition_key,
         key_structure.sort_key: machine_execution_key.sort_key,
-        "queue_date": execution.queue_date,
-        "start_date": execution.start_date,
-        "end_date": execution.end_date,
+        "created_at": execution.created_at,
+        "started_at": execution.started_at,
+        "stopped_at": execution.stopped_at,
         "findings_executed": execution.findings_executed,
     }
     with suppress(botocore.exceptions.ClientError):

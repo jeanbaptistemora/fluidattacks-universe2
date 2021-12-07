@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 03, 2021, 09:26 AM",
+    "DateLastModified": "Dec 07, 2021, 04:49 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -479,16 +479,20 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "start_date",
+          "AttributeName": "started_at",
           "AttributeType": "S"
         },
         {
-          "AttributeName": "end_date",
+          "AttributeName": "stopped_at",
           "AttributeType": "S"
         },
         {
           "AttributeName": "findings_executed",
           "AttributeType": "L"
+        },
+        {
+          "AttributeName": "created_at",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -8483,13 +8487,10 @@
               "exit_code": {
                 "S": "0"
               },
-              "queue_date": {
-                "S": "2020-11-19T13:37:10+00:00"
-              },
-              "start_date": {
+              "started_at": {
                 "S": "2020-11-19T13:45:10+00:00"
               },
-              "end_date": {
+              "stopped_at": {
                 "S": "2020-11-19T13:59:10+00:00"
               },
               "findings_executed": {
@@ -8501,15 +8502,18 @@
                     "S": "F002"
                   }
                 ]
+              },
+              "created_at": {
+                "S": "2020-11-19T13:37:10+00:00"
               }
             }
           ],
           "NonKeyAttributes": [
             "exit_code",
-            "queue_date",
-            "start_date",
-            "end_date",
-            "findings_executed"
+            "started_at",
+            "stopped_at",
+            "findings_executed",
+            "created_at"
           ]
         }
       ],

@@ -929,8 +929,8 @@ async def do_add_execution(
                     rootNickname: $root,
                     groupName: $group_name,
                     jobId: $job_id,
-                    startDate: $start_date,
-                    endDate: $end_date,
+                    startedAt: $start_date,
+                    stoppedAt: $end_date,
                     findingsExecuted: $findings_executed
                 ) {
                     success

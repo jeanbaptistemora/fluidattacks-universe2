@@ -896,18 +896,18 @@ async def add_machine_execution(
     response = client.describe_jobs(jobs=[job_id])
     jobs = response.get("jobs", [])
 
-    start_date = kwargs.pop("start_date").astimezone(tzn)
+    start_date = kwargs.pop("started_at").astimezone(tzn)
     queue_date = (
         dateutil.parser.parse(jobs[0]["createdAt"]).astimezone(tzn)
         if jobs
         else start_date
     )
-    end_date = kwargs.pop("end_date").astimezone(tzn)
+    end_date = kwargs.pop("stopped_at").astimezone(tzn)
     execution = RootMachineExecutionItem(
         job_id=job_id,
-        queue_date=datetime_utils.get_as_str(queue_date),
-        start_date=datetime_utils.get_as_str(start_date),
-        end_date=datetime_utils.get_as_str(end_date),
+        created_at=datetime_utils.get_as_str(queue_date),
+        started_at=datetime_utils.get_as_str(start_date),
+        stopped_at=datetime_utils.get_as_str(end_date),
         findings_executed=kwargs.pop("findings_executed", []),
     )
     return await roots_model.add_machine_execution(root_id, execution)
