@@ -81,7 +81,6 @@ def tfm_db_no_point_in_time_recovery_iterate_vulnerabilities(
             key="point_in_time_recovery",
             body=bucket.data,
         ):
-            print(recovery)
             if recovery_attr := get_block_attribute(
                 block=recovery, key="enabled"
             ):

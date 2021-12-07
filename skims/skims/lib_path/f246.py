@@ -18,12 +18,10 @@ from parse_hcl2.loader import (
 )
 from parse_hcl2.structure import (
     iter_aws_db_instance,
+    iter_aws_rds_cluster,
 )
 from parse_hcl2.tokens import (
     Attribute,
-)
-from state.cache import (
-    CACHE_ETERNALLY,
 )
 from typing import (
     Any,
@@ -45,16 +43,50 @@ def tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
     buckets_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
     for bucket in buckets_iterator:
+        protection_attr = False
         for elem in bucket.data:
-            if (
-                isinstance(elem, Attribute)
-                and elem.key == "storage_encrypted"
-                and elem.val is False
-            ):
-                yield elem
+            if isinstance(elem, Attribute) and elem.key == "storage_encrypted":
+                protection_attr = True
+                if elem.val is False:
+                    yield elem
+        if not protection_attr:
+            yield bucket
+
+
+def tfm_db_has_unencrypted_storage_iterate_vulnerabilities(
+    buckets_iterator: Iterator[Any],
+) -> Iterator[Union[Any, Node]]:
+    for bucket in buckets_iterator:
+        protection_attr = False
+        for elem in bucket.data:
+            if isinstance(elem, Attribute) and elem.key == "storage_encrypted":
+                protection_attr = True
+                if elem.val is False:
+                    yield elem
+        if not protection_attr:
+            yield bucket
 
 
 def _tfm_rds_has_unencrypted_storage(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F246_CWE},
+        description_key="F246.title",
+        finding=_FINDING_F246,
+        iterator=get_aws_iterator(
+            tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
+                buckets_iterator=iter_aws_rds_cluster(model=model)
+            )
+        ),
+        path=path,
+    )
+
+
+def _tfm_db_has_unencrypted_storage(
     content: str,
     path: str,
     model: Any,
@@ -73,7 +105,6 @@ def _tfm_rds_has_unencrypted_storage(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
 async def tfm_rds_has_unencrypted_storage(
@@ -83,6 +114,21 @@ async def tfm_rds_has_unencrypted_storage(
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _tfm_rds_has_unencrypted_storage,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_db_has_unencrypted_storage(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_db_has_unencrypted_storage,
         content=content,
         path=path,
         model=model,
@@ -102,6 +148,13 @@ async def analyze(
         model = await load_terraform(stream=content, default=[])
         coroutines.append(
             tfm_rds_has_unencrypted_storage(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
+        coroutines.append(
+            tfm_db_has_unencrypted_storage(
                 content=content,
                 path=path,
                 model=model,
