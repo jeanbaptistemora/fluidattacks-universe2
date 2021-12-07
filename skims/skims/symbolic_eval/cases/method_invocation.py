@@ -31,8 +31,11 @@ def _get_invocation_eval(
 ) -> Dict[str, bool]:
     invocation_eval: Dict[str, bool] = {}
 
-    al_id = graph.nodes[mi_id]["arguments_id"]
+    al_id = graph.nodes[mi_id].get("arguments_id")
     pl_id = graph.nodes[md_id].get("parameters_id")
+
+    if not al_id:
+        raise BadMethodInvocation(f"No aguments in {mi_id} to use in {md_id}")
 
     if not pl_id:
         raise BadMethodInvocation(f"No parameters in {md_id} for call {mi_id}")
@@ -52,11 +55,12 @@ def _get_invocation_eval(
 
 
 def evaluate(args: SymbolicEvalArgs) -> bool:
+    if al_id := args.graph.nodes[args.n_id].get("arguments_id"):
+        d_arguments = args.generic(args.fork_n_id(al_id))
+    else:
+        d_arguments = False
+
     expr_id = args.graph.nodes[args.n_id]["expression_id"]
-    al_id = args.graph.nodes[args.n_id]["arguments_id"]
-
-    d_arguments = args.generic(args.fork_n_id(al_id))
-
     if md_id := solve_invocation(args.graph, args.path, expr_id):
         try:
             invoc_eval = _get_invocation_eval(
