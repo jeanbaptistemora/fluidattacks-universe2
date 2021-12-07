@@ -362,7 +362,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
             },
         ],
-        "vulnerabilities_typed": [
+        "vulnerabilities": [
             {
                 "vulnerability": Vulnerability(
                     finding_id="475041521",

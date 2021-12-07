@@ -300,31 +300,7 @@ async def populate_vulnerabilities_new(data: List[Dict[str, Any]]) -> bool:
     return True
 
 
-async def populate_vulnerabilities(data: List[Any]) -> bool:
-    coroutines: List[Awaitable[bool]] = []
-    coroutines.extend(
-        [
-            dal_vulns.create(
-                vulnerability,
-            )
-            for vulnerability in data
-        ]
-    )
-    coroutines.extend(
-        [
-            dal_vulns.update(
-                vulnerability["finding_id"],
-                vulnerability["UUID"],
-                {"historic_zero_risk": vulnerability["historic_zero_risk"]},
-            )
-            for vulnerability in data
-            if vulnerability.get("historic_zero_risk")
-        ]
-    )
-    return all(await collect(coroutines))
-
-
-async def populate_vulnerabilities_typed(data: List[Dict[str, Any]]) -> bool:
+async def populate_vulnerabilities(data: List[Dict[str, Any]]) -> bool:
     coroutines = [
         dal_vulns.create_new(
             vulnerability=vulnerability["vulnerability"],
