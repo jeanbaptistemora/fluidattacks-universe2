@@ -51,6 +51,7 @@ from toe.lines.types import (
 )
 from typing import (
     cast,
+    Optional,
     Tuple,
 )
 
@@ -82,21 +83,22 @@ def _get_group_name(tmpdirname: str, lines_csv_path: str) -> str:
 def _get_attacked_at(
     services_toe_lines: ServicesToeLines,
     toe_lines: ToeLines,
-) -> str:
+) -> datetime:
     return (
-        services_toe_lines.tested_date
+        datetime.fromisoformat(services_toe_lines.tested_date)
         if services_toe_lines.tested_date
         and toe_lines.attacked_at
         and datetime.fromisoformat(services_toe_lines.tested_date)
-        > datetime.fromisoformat(toe_lines.attacked_at)
-        else toe_lines.attacked_at or services_toe_lines.tested_date
+        > toe_lines.attacked_at
+        else toe_lines.attacked_at
+        or datetime.fromisoformat(services_toe_lines.tested_date)
     )
 
 
 def _get_attacked_lines(
     new_attacked_lines: int,
     toe_lines: ToeLines,
-    new_attacked_at: str,
+    new_attacked_at: datetime,
 ) -> int:
     attacked_lines = (
         toe_lines.attacked_lines
@@ -104,8 +106,7 @@ def _get_attacked_lines(
         else new_attacked_lines
         if new_attacked_at
         and toe_lines.modified_date
-        and datetime.fromisoformat(toe_lines.modified_date)
-        <= datetime.fromisoformat(new_attacked_at)
+        and toe_lines.modified_date <= new_attacked_at
         else 0
     )
     return attacked_lines
@@ -114,23 +115,24 @@ def _get_attacked_lines(
 def _get_first_attack_at(
     services_toe_lines: ServicesToeLines,
     toe_lines: ToeLines,
-) -> str:
+) -> datetime:
     return (
-        services_toe_lines.tested_date
+        datetime.fromisoformat(services_toe_lines.tested_date)
         if services_toe_lines.tested_date
         and toe_lines.first_attack_at
         and datetime.fromisoformat(services_toe_lines.tested_date)
         < datetime.fromisoformat(toe_lines.first_attack_at)
-        else toe_lines.first_attack_at or services_toe_lines.tested_date
+        else toe_lines.first_attack_at
+        or datetime.fromisoformat(services_toe_lines.tested_date)
     )
 
 
 def _get_seen_at(
     services_toe_lines: ServicesToeLines,
     toe_lines: ToeLines,
-) -> str:
+) -> Optional[datetime]:
     return (
-        services_toe_lines.tested_date
+        datetime.fromisoformat(services_toe_lines.tested_date)
         if services_toe_lines.tested_date
         and datetime.fromisoformat(services_toe_lines.tested_date)
         < datetime.fromisoformat(toe_lines.seen_at)
@@ -220,16 +222,26 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                 root_id,
                 filename,
                 ToeLinesAttributesToAdd(
-                    attacked_at=services_toe_lines.tested_date,
+                    attacked_at=datetime.fromisoformat(
+                        services_toe_lines.tested_date
+                    )
+                    if services_toe_lines.tested_date
+                    else None,
                     attacked_by="",
                     attacked_lines=services_toe_lines.tested_lines,
                     comments=services_toe_lines.comments,
                     commit_author="",
                     loc=services_toe_lines.loc,
                     modified_commit=services_toe_lines.modified_commit,
-                    modified_date=services_toe_lines.modified_date,
+                    modified_date=datetime.fromisoformat(
+                        services_toe_lines.modified_date
+                    ),
                     be_present=False,
-                    seen_at=services_toe_lines.tested_date,
+                    seen_at=datetime.fromisoformat(
+                        services_toe_lines.tested_date
+                    )
+                    if services_toe_lines.tested_date
+                    else None,
                 ),
             )
             for filename, services_toe_lines in repo_services_toe_lines.items()

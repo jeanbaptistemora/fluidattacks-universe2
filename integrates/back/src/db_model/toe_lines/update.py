@@ -11,6 +11,12 @@ from boto3.dynamodb.conditions import (
 from custom_exceptions import (
     ToeLinesAlreadyUpdated,
 )
+from datetime import (
+    datetime,
+)
+from db_model import (
+    utils as db_model_utils,
+)
 from db_model.toe_lines.utils import (
     format_toe_lines_item,
 )
@@ -23,6 +29,10 @@ from dynamodb.exceptions import (
 )
 from dynamodb.model import (
     TABLE,
+)
+from typing import (
+    Dict,
+    Union,
 )
 
 
@@ -57,11 +67,16 @@ async def update_metadata(
         gsi_2_index,
         current_value,
     )
-    metadata_item = {
-        key: value
+    metadata_item: Dict[str, Union[str, datetime]] = {
+        key: db_model_utils.get_date_as_utc_iso_format(value)
+        if isinstance(value, datetime)
+        else value
         for key, value in metadata._asdict().items()
-        if value is not None
+        if value is not None and key not in {"clean_be_present_until"}
     }
+    if metadata.clean_be_present_until:
+        metadata_item["be_present_until"] = ""
+
     conditions = (
         Attr(attr_name).eq(current_value_item[attr_name])
         for attr_name in metadata_item

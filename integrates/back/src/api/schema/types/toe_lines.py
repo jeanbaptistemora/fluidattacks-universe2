@@ -5,7 +5,9 @@ from api.resolvers.toe_lines import (
     be_present_until,
     comments,
     first_attack_at,
+    modified_date,
     root,
+    seen_at,
 )
 from ariadne import (
     ObjectType,
@@ -18,4 +20,6 @@ TOELINES.set_field("attackedLines", attacked_lines.resolve)
 TOELINES.set_field("bePresentUntil", be_present_until.resolve)
 TOELINES.set_field("comments", comments.resolve)
 TOELINES.set_field("firstAttackAt", first_attack_at.resolve)
+TOELINES.set_field("modifiedDate", modified_date.resolve)
+TOELINES.set_field("seenAt", seen_at.resolve)
 TOELINES.set_field("root", root.resolve)

@@ -23,7 +23,7 @@ from typing import (
 class CommitInfo(NamedTuple):
     hash: str
     author: str
-    modified_date: str
+    modified_date: datetime
 
 
 def clone_services_repository(path: str) -> None:
@@ -75,9 +75,7 @@ async def get_last_commit_info(repo: Repo, filename: str) -> CommitInfo:
     return CommitInfo(
         hash=git_log[0],
         author=git_log[1],
-        modified_date=datetime_utils.get_as_utc_iso_format(
-            datetime.fromisoformat(git_log[2])
-        ),
+        modified_date=datetime.fromisoformat(git_log[2]),
     )
 
 

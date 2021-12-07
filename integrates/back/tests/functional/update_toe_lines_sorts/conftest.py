@@ -1,6 +1,9 @@
 from back.tests import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRootCloning,
@@ -133,57 +136,77 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         ),
         "toe_lines": (
             ToeLines(
-                attacked_at="2021-01-20T05:00:00+00:00",
+                attacked_at=datetime.fromisoformat(
+                    "2021-01-20T05:00:00+00:00"
+                ),
                 attacked_by="test@test.com",
                 attacked_lines=23,
                 be_present=False,
-                be_present_until="2021-01-19T15:41:04+00:00",
+                be_present_until=datetime.fromisoformat(
+                    "2021-01-19T15:41:04+00:00"
+                ),
                 comments="comment 1",
                 commit_author="customer1@gmail.com",
                 filename="test/test#.config",
-                first_attack_at="2020-01-19T15:41:04+00:00",
+                first_attack_at=datetime.fromisoformat(
+                    "2020-01-19T15:41:04+00:00"
+                ),
                 group_name="group1",
                 loc=4324,
                 modified_commit="273412t",
-                modified_date="2020-11-16T15:41:04+00:00",
+                modified_date=datetime.fromisoformat(
+                    "2020-11-16T15:41:04+00:00"
+                ),
                 root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                seen_at="2020-01-01T15:41:04+00:00",
+                seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
                 sorts_risk_level=0,
             ),
             ToeLines(
-                attacked_at="2021-02-20T05:00:00+00:00",
+                attacked_at=datetime.fromisoformat(
+                    "2021-02-20T05:00:00+00:00"
+                ),
                 attacked_by="test2@test.com",
                 attacked_lines=4,
                 be_present=True,
-                be_present_until="",
+                be_present_until=None,
                 comments="comment 2",
                 commit_author="customer2@gmail.com",
                 filename="test2/test.sh",
-                first_attack_at="2020-02-19T15:41:04+00:00",
+                first_attack_at=datetime.fromisoformat(
+                    "2020-02-19T15:41:04+00:00"
+                ),
                 group_name="group1",
                 loc=8,
                 modified_commit="983466z",
-                modified_date="2020-11-15T15:41:04+00:00",
+                modified_date=datetime.fromisoformat(
+                    "2020-11-15T15:41:04+00:00"
+                ),
                 root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                seen_at="2020-02-01T15:41:04+00:00",
+                seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
                 sorts_risk_level=0,
             ),
             ToeLines(
-                attacked_at="2021-01-20T05:00:00+00:00",
+                attacked_at=datetime.fromisoformat(
+                    "2021-01-20T05:00:00+00:00"
+                ),
                 attacked_by="test3@test.com",
                 attacked_lines=120,
                 be_present=True,
-                be_present_until="",
+                be_present_until=None,
                 comments="comment 3",
                 commit_author="customer3@gmail.com",
                 filename="test3/test.config",
-                first_attack_at="2020-01-14T15:41:04+00:00",
+                first_attack_at=datetime.fromisoformat(
+                    "2020-01-14T15:41:04+00:00"
+                ),
                 group_name="group1",
                 loc=243,
                 modified_commit="g545435i",
-                modified_date="2020-11-16T15:41:04+00:00",
+                modified_date=datetime.fromisoformat(
+                    "2020-11-16T15:41:04+00:00"
+                ),
                 root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                seen_at="2019-01-01T15:41:04+00:00",
+                seen_at=datetime.fromisoformat("2019-01-01T15:41:04+00:00"),
                 sorts_risk_level=0,
             ),
         ),

@@ -20,20 +20,10 @@ from typing import (
 )
 
 
-def _get_be_present_until(
-    be_present: bool,
-) -> str:
-    return datetime_utils.get_iso_date() if be_present is False else ""
-
-
 def _get_optional_be_present_until(
-    optional_be_present: Optional[bool],
-) -> Optional[str]:
-    return (
-        None
-        if optional_be_present is None
-        else _get_be_present_until(optional_be_present)
-    )
+    be_present: bool,
+) -> Optional[datetime]:
+    return datetime_utils.get_utc_now() if be_present is False else None
 
 
 async def add(
@@ -46,12 +36,12 @@ async def add(
         attributes.attacked_lines
         if attributes.attacked_at
         and attributes.modified_date
-        and datetime.fromisoformat(attributes.attacked_at)
-        <= datetime.fromisoformat(attributes.modified_date)
+        and attributes.attacked_at <= attributes.modified_date
         else 0
     )
-    be_present_until = attributes.be_present_until or _get_be_present_until(
-        attributes.be_present
+    be_present_until = (
+        attributes.be_present_until
+        or _get_optional_be_present_until(attributes.be_present)
     )
     first_attack_at = attributes.attacked_at
     toe_lines = ToeLines(
@@ -69,7 +59,7 @@ async def add(
         modified_commit=attributes.modified_commit,
         modified_date=attributes.modified_date,
         root_id=root_id,
-        seen_at=attributes.seen_at or datetime_utils.get_iso_date(),
+        seen_at=attributes.seen_at or datetime_utils.get_utc_now(),
         sorts_risk_level=attributes.sorts_risk_level,
     )
     await toe_lines_model.add(toe_lines=toe_lines)
@@ -94,11 +84,14 @@ async def update(
         attributes.attacked_lines or current_value.attacked_lines
         if attributes.attacked_lines != 0
         and last_attacked_at
-        and datetime.fromisoformat(last_modified_date)
-        <= datetime.fromisoformat(last_attacked_at)
+        and last_modified_date <= last_attacked_at
         else 0
     )
-    be_present_until = _get_optional_be_present_until(attributes.be_present)
+    be_present_until = (
+        None
+        if attributes.be_present is None
+        else _get_optional_be_present_until(attributes.be_present)
+    )
     seen_at = (
         attributes.seen_at
         if attributes.seen_at is None
@@ -118,6 +111,8 @@ async def update(
         modified_date=attributes.modified_date,
         seen_at=seen_at,
         sorts_risk_level=attributes.sorts_risk_level,
+        clean_be_present_until=attributes.be_present is not None
+        and be_present_until is None,
     )
     await toe_lines_model.update_metadata(
         current_value=current_value,

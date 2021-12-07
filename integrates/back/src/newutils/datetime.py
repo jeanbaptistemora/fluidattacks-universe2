@@ -50,6 +50,10 @@ def get_now(zone: str = TIME_ZONE) -> datetime:
     return datetime.now(tz=pytz.timezone(zone))
 
 
+def get_utc_now() -> datetime:
+    return get_now(zone="UTC")
+
+
 def get_now_as_str(zone: str = TIME_ZONE) -> str:
     return get_as_str(get_now(zone))
 

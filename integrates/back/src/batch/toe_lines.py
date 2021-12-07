@@ -227,7 +227,7 @@ async def get_present_toe_lines_to_add(
         (
             filename,
             ToeLinesAttributesToAdd(
-                attacked_at="",
+                attacked_at=None,
                 attacked_by="",
                 attacked_lines=0,
                 commit_author=last_commit_info.author,

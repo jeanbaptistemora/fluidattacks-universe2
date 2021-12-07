@@ -1,6 +1,9 @@
 from dataloaders import (
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.toe_lines.types import (
     ToeLines,
     ToeLinesRequest,
@@ -30,14 +33,14 @@ async def test_add() -> None:
     root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
     filename = "product/test/new#.new"
     attributes = ToeLinesAttributesToAdd(
-        attacked_at="2020-08-01T05:00:00+00:00",
+        attacked_at=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
         attacked_by="hacker@test.com",
         attacked_lines=433,
         comments="comment test",
         commit_author="customer@gmail.com",
         loc=1000,
         modified_commit="983466z",
-        modified_date="2019-08-01T05:00:00+00:00",
+        modified_date=datetime.fromisoformat("2019-08-01T05:00:00+00:00"),
         sorts_risk_level=100,
     )
     await toe_lines_domain.add(group_name, root_id, filename, attributes)
@@ -48,21 +51,21 @@ async def test_add() -> None:
         )
     )
     assert toe_lines == ToeLines(
-        attacked_at="2020-08-01T05:00:00+00:00",
+        attacked_at=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
         attacked_by="hacker@test.com",
         attacked_lines=0,
         be_present=True,
-        be_present_until="",
+        be_present_until=None,
         comments="comment test",
         commit_author="customer@gmail.com",
         filename="product/test/new#.new",
-        first_attack_at="2020-08-01T05:00:00+00:00",
+        first_attack_at=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
         group_name="unittesting",
         loc=1000,
         modified_commit="983466z",
-        modified_date="2019-08-01T05:00:00+00:00",
+        modified_date=datetime.fromisoformat("2019-08-01T05:00:00+00:00"),
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
-        seen_at="2018-08-01T05:00:00+00:00",
+        seen_at=datetime.fromisoformat("2018-08-01T05:00:00+00:00"),
         sorts_risk_level=100,
     )
 
@@ -80,15 +83,15 @@ async def test_update() -> None:
         )
     )
     attributes = ToeLinesAttributesToUpdate(
-        attacked_at="2022-08-01T05:00:00+00:00",
+        attacked_at=datetime.fromisoformat("2022-08-01T05:00:00+00:00"),
         attacked_by="hacker2@test.com",
         attacked_lines=434,
         comments="comment test 2",
         commit_author="customer2@gmail.com",
         loc=1111,
         modified_commit="993466z",
-        modified_date="2020-08-01T05:00:00+00:00",
-        seen_at="2019-08-01T05:00:00+00:00",
+        modified_date=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
+        seen_at=datetime.fromisoformat("2019-08-01T05:00:00+00:00"),
         sorts_risk_level=50,
     )
     await toe_lines_domain.update(current_value, attributes)
@@ -99,20 +102,20 @@ async def test_update() -> None:
         )
     )
     assert toe_lines == ToeLines(
-        attacked_at="2022-08-01T05:00:00+00:00",
+        attacked_at=datetime.fromisoformat("2022-08-01T05:00:00+00:00"),
         attacked_by="hacker2@test.com",
         attacked_lines=434,
         be_present=True,
-        be_present_until="",
+        be_present_until=None,
         comments="comment test 2",
         commit_author="customer2@gmail.com",
         filename="product/test/new#.new",
-        first_attack_at="2020-08-01T05:00:00+00:00",
+        first_attack_at=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
         group_name="unittesting",
         loc=1111,
         modified_commit="993466z",
-        modified_date="2020-08-01T05:00:00+00:00",
+        modified_date=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
-        seen_at="2019-08-01T05:00:00+00:00",
+        seen_at=datetime.fromisoformat("2019-08-01T05:00:00+00:00"),
         sorts_risk_level=50,
     )
