@@ -241,7 +241,8 @@ async def request_health_check(
         subject=f"[ASM] Health Check requested: {group_name}",
         description=f"""
             You are receiving this email because you have requested a health
-            check for a repository through ASM by Fluid Attacks.
+            check for a repository in {group_name.capitalize()} group
+            through ASM by Fluid Attacks.
 
             Here are the details of the repository:
             - URL: {repo_url}
