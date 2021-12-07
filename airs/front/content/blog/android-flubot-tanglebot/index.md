@@ -120,6 +120,8 @@ Figure 2. Permissions requested by TangleBot. Source:
 
 </div>
 
+</div>
+
 From the user’s side of the story, they have surrendered their device
 configuration settings, functionalities and information to TangleBot.
 Now, from the attacker’s side, it’s a matter of communicating with the
