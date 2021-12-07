@@ -235,8 +235,6 @@ type Mutation {
     rootNickname: String!
     "Id of the job in aws batch"
     jobId: ID!
-    "Exit code of the execution"
-    exitCode: String!
     "Date when the job was started"
     startDate: DateTime!
     "when the job was stopped"

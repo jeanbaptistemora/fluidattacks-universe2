@@ -84,7 +84,6 @@ async def add_machine_execution(
     machine_exectution = {
         key_structure.partition_key: machine_execution_key.partition_key,
         key_structure.sort_key: machine_execution_key.sort_key,
-        "exit_code": execution.exit_code,
         "queue_date": execution.queue_date,
         "start_date": execution.start_date,
         "end_date": execution.end_date,

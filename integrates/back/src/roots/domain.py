@@ -905,7 +905,6 @@ async def add_machine_execution(
     end_date = kwargs.pop("end_date").astimezone(tzn)
     execution = RootMachineExecutionItem(
         job_id=job_id,
-        exit_code=kwargs.pop("exit_code", "0"),
         queue_date=datetime_utils.get_as_str(queue_date),
         start_date=datetime_utils.get_as_str(start_date),
         end_date=datetime_utils.get_as_str(end_date),

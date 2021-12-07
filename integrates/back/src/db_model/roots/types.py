@@ -110,7 +110,6 @@ class RootState(NamedTuple):
 
 class RootMachineExecutionItem(NamedTuple):
     job_id: str
-    exit_code: str
     queue_date: str
     start_date: str
     end_date: str
