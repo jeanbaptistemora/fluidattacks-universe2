@@ -9,4 +9,11 @@ interface IOrganizationPermission {
   };
 }
 
-export { IOrganizationContent, IOrganizationPermission };
+interface IGetOrganizationId {
+  organizationId: {
+    id: string;
+    name: string;
+  };
+}
+
+export { IGetOrganizationId, IOrganizationContent, IOrganizationPermission };

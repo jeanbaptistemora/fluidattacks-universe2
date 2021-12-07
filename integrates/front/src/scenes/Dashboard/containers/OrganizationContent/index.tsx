@@ -24,6 +24,7 @@ import {
   GET_USER_PORTFOLIOS,
 } from "scenes/Dashboard/containers/OrganizationContent/queries";
 import type {
+  IGetOrganizationId,
   IOrganizationContent,
   IOrganizationPermission,
 } from "scenes/Dashboard/containers/OrganizationContent/types";
@@ -63,17 +64,20 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
   useEffect(onOrganizationChange, [organizationName, permissions]);
 
   // GraphQL Operations
-  const { data: basicData } = useQuery(GET_ORGANIZATION_ID, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred fetching organization ID", error);
-      });
-    },
-    variables: {
-      organizationName: organizationName.toLowerCase(),
-    },
-  });
+  const { data: basicData } = useQuery<IGetOrganizationId>(
+    GET_ORGANIZATION_ID,
+    {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred fetching organization ID", error);
+        });
+      },
+      variables: {
+        organizationName: organizationName.toLowerCase(),
+      },
+    }
+  );
 
   const { data: portfoliosData } = useQuery(GET_USER_PORTFOLIOS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
