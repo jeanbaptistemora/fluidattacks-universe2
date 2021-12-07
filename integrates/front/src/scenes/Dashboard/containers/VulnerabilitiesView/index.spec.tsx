@@ -68,7 +68,7 @@ describe("VulnerabilitiesView", (): void => {
               verification: "Requested",
               vulnerabilityType: "inputs",
               where: "https://example.com/inputs",
-              zeroRisk: "",
+              zeroRisk: undefined,
             },
             {
               __typename: "Vulnerability",
@@ -104,7 +104,7 @@ describe("VulnerabilitiesView", (): void => {
               verification: undefined,
               vulnerabilityType: "lines",
               where: "https://example.com/tests",
-              zeroRisk: "",
+              zeroRisk: undefined,
             },
           ],
           zeroRisk: [

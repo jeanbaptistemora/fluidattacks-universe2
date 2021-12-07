@@ -328,11 +328,11 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               </LabelField>
               <div className={"pl1 pr0 w-70-l w-100-m w-100-ns mr"}>
                 {_.isEmpty(vulnerability.zeroRisk) ? (
-                  <Value value={vulnerability.zeroRisk} />
+                  <Value value={vulnerability.zeroRisk ?? ""} />
                 ) : (
                   <div className={"tr-l tl-m tl-ns"}>
                     <p className={"dib f5 ma0 mid-gray pr1-l"}>
-                      <PointStatus status={vulnerability.zeroRisk} />
+                      <PointStatus status={vulnerability.zeroRisk as string} />
                     </p>
                   </div>
                 )}

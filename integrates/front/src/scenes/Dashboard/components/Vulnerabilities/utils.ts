@@ -143,7 +143,7 @@ const formatVulnerabilities: (
 function filterZeroRisk(vulnerabilities: IVulnRowAttr[]): IVulnRowAttr[] {
   return vulnerabilities.filter(
     (vuln: IVulnRowAttr): boolean =>
-      vuln.zeroRisk === "" || vuln.zeroRisk === "Rejected"
+      _.isEmpty(vuln.zeroRisk) || vuln.zeroRisk === "Rejected"
   );
 }
 

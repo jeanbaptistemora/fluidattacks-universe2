@@ -50,7 +50,7 @@ describe("AdditionalInfo", (): void => {
     verification: "Verified",
     vulnerabilityType: "lines",
     where: "https://example.com/lines",
-    zeroRisk: "",
+    zeroRisk: undefined,
   };
 
   it("should return a function", (): void => {

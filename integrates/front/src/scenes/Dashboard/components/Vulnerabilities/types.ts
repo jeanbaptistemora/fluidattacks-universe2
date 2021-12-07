@@ -30,7 +30,7 @@ interface IVulnRowAttr {
   verification?: string;
   vulnerabilityType: string;
   where: string;
-  zeroRisk: string;
+  zeroRisk?: string;
 }
 
 interface IUploadVulnerabilitiesResultAttr {

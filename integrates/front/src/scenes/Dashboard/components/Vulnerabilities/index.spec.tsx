@@ -94,7 +94,7 @@ describe("VulnComponent", (): void => {
       verification: "Verified",
       vulnerabilityType: "lines",
       where: "https://example.com/lines",
-      zeroRisk: "",
+      zeroRisk: undefined,
     },
     {
       assigned: "assigned-user-4",
@@ -133,7 +133,7 @@ describe("VulnComponent", (): void => {
       verification: "Verified",
       vulnerabilityType: "lines",
       where: "https://example.com/lines",
-      zeroRisk: "",
+      zeroRisk: undefined,
     },
   ];
 

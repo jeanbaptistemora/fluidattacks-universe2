@@ -95,7 +95,7 @@ describe("Update Description component", (): void => {
             verification: undefined,
             vulnerabilityType: "",
             where: "",
-            zeroRisk: "",
+            zeroRisk: undefined,
           },
         },
         group: {

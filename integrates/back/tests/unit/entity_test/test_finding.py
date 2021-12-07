@@ -98,7 +98,7 @@ async def test_finding() -> None:
         "hacker": "unittest@fluidattacks.com",
         "source": "asm",
         "vulnerabilityType": "lines",
-        "zeroRisk": "",
+        "zeroRisk": None,
     }
     expected_tracking = [
         {
