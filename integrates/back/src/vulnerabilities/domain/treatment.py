@@ -3,8 +3,8 @@ from .core import (
 )
 from .utils import (
     compare_historic_treatments,
+    get_valid_assigned,
     validate_acceptance,
-    validate_treatment_manager,
 )
 from aioextensions import (
     collect,
@@ -395,10 +395,7 @@ async def update_vulnerabilities_treatment(
     vulnerability_id: str,
     group_name: str,
 ) -> bool:
-    if (
-        updated_values.get("treatment") in {"ACCEPTED_UNDEFINED", "ACCEPTED"}
-        and "treatment_manager" not in updated_values
-    ):
+    if "treatment_manager" not in updated_values:
         updated_values["treatment_manager"] = user_email
 
     vulnerabilities: Tuple[
@@ -420,8 +417,8 @@ async def update_vulnerabilities_treatment(
 
     if "treatment_manager" in updated_values:
         role: str = await authz.get_group_level_role(user_email, group_name)
-        updated_values["treatment_manager"] = await validate_treatment_manager(
-            treatment_manager=updated_values["treatment_manager"],
+        updated_values["treatment_manager"] = await get_valid_assigned(
+            assigned=updated_values["treatment_manager"],
             is_customer_admin=role
             in {"customeradmin", "system_owner", "group_manager"},
             user_email=user_email,

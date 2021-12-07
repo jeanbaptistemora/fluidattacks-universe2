@@ -1,7 +1,7 @@
 import authz
 from custom_exceptions import (
     AcceptanceNotRequested,
-    InvalidTreatmentManager,
+    InvalidAssigned,
 )
 from datetime import (
     datetime,
@@ -93,19 +93,19 @@ def validate_acceptance(vuln: Vulnerability) -> None:
         raise AcceptanceNotRequested()
 
 
-async def validate_treatment_manager(
+async def get_valid_assigned(
     *,
-    treatment_manager: str,
+    assigned: str,
     is_customer_admin: bool,
     user_email: str,
     group_name: str,
 ) -> str:
     if not is_customer_admin:
-        treatment_manager = user_email
-    enforcer = await authz.get_group_level_enforcer(treatment_manager)
+        assigned = user_email
+    enforcer = await authz.get_group_level_enforcer(assigned)
     if not enforcer(group_name, "valid_treatment_manager"):
-        raise InvalidTreatmentManager()
-    return treatment_manager
+        raise InvalidAssigned()
+    return assigned
 
 
 async def get_root_nicknames_for_skims(

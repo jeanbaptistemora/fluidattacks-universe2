@@ -678,13 +678,12 @@ class InvalidStateStatus(CustomBaseException):
         super(InvalidStateStatus, self).__init__(msg)
 
 
-class InvalidTreatmentManager(CustomBaseException):
-    """Exception to control if treatment manager is valid"""
+class InvalidAssigned(CustomBaseException):
+    """Exception to control if assigned user is valid"""
 
     def __init__(self) -> None:
-        """Constructor"""
-        msg = "Invalid treatment manager"
-        super(InvalidTreatmentManager, self).__init__(msg)
+        msg = "Assigned not valid"
+        super(InvalidAssigned, self).__init__(msg)
 
 
 class InvalidUserProvided(CustomBaseException):
