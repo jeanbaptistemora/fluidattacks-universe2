@@ -100,6 +100,7 @@ def format_vulnerability(
         finding_id=metadata["finding_id"],
         hash=metadata.get("hash", None),
         repo=metadata.get("repo", None),
+        skims_method=metadata.get("skims_method", None),
         specific=metadata["specific"],
         state=state,
         stream=metadata.get("stream", None),

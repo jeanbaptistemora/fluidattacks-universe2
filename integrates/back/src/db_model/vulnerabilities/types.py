@@ -61,6 +61,7 @@ class Vulnerability(NamedTuple):
     custom_severity: Optional[int] = None
     hash: Optional[int] = None
     repo: Optional[str] = None
+    skims_method: Optional[str] = None
     stream: Optional[List[str]] = None
     tags: Optional[List[str]] = None
     treatment: Optional[VulnerabilityTreatment] = None
@@ -74,6 +75,7 @@ class VulnerabilityMetadataToUpdate(NamedTuple):
     custom_severity: Optional[int] = None
     hash: Optional[int] = None
     repo: Optional[str] = None
+    skims_method: Optional[str] = None
     specific: Optional[str] = None
     stream: Optional[List[str]] = None
     tags: Optional[List[str]] = None

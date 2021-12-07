@@ -829,6 +829,7 @@ def format_vulnerability_metadata_item(
     item = {
         "external_bts": metadata.bug_tracking_system_url,
         "commit_hash": metadata.commit,
+        "skims_method": metadata.skims_method,
         "severity": metadata.custom_severity,
         "repo_nickname": metadata.repo,
         "specific": metadata.specific,
@@ -907,7 +908,7 @@ def format_vulnerability_zero_risk_item(
     return item
 
 
-def format_vulnerability_item(
+def format_vulnerability_item(  # noqa: MC0001
     vulnerability: Vulnerability,
 ) -> Item:
     item = {
@@ -929,6 +930,8 @@ def format_vulnerability_item(
         item["external_bts"] = vulnerability.bug_tracking_system_url
     if vulnerability.repo:
         item["repo_nickname"] = vulnerability.repo
+    if vulnerability.skims_method:
+        item["skims_method"] = vulnerability.skims_method
     if vulnerability.stream:
         item["stream"] = ",".join(vulnerability.stream)
     if vulnerability.tags:

@@ -32,6 +32,7 @@ async def add(*, vulnerability: Vulnerability) -> None:
         "hash": vulnerability.hash,
         "id": vulnerability.id,
         "repo": vulnerability.repo,
+        "skims_method": vulnerability.skims_method,
         "specific": vulnerability.specific,
         "stream": vulnerability.stream,
         "tags": vulnerability.tags,
