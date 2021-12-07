@@ -52,6 +52,8 @@ type GitRoot implements IRoot {
       after 2022/02/03. Use `lastStateStatusUpdate`.
       """
     )
+  "MAchine executions for the root"
+  machineExecutions: [MachineExecution]
   "Nickname for the repository"
   nickname: String!
   "Services toe lines for the repository"

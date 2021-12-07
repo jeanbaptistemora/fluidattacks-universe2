@@ -27,6 +27,7 @@ from db_model.roots.types import (
     IPRootState,
     MachineGitRootExecution,
     RootItem,
+    RootMachineExecutionItem,
     RootState,
     URLRootItem,
     URLRootMetadata,
@@ -300,4 +301,42 @@ class RootStatesLoader(DataLoader):
     ) -> Tuple[Tuple[RootState, ...], ...]:
         return await collect(
             _get_historic_state(root_id=root_id) for root_id in root_ids
+        )
+
+
+async def _get_machine_executions(
+    *, root_id: str
+) -> Tuple[RootMachineExecutionItem, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["machine_git_root_execution_new"],
+        values={"uuid": root_id},
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["machine_git_root_execution_new"],),
+        table=TABLE,
+    )
+    return tuple(
+        RootMachineExecutionItem(
+            job_id=item["sk"].split("#")[-1],
+            queue_date=item["queue_date"],
+            start_date=item["start_date"],
+            end_date=item["end_date"],
+            findings_executed=item["findings_executed"],
+        )
+        for item in response.items
+    )
+
+
+class RootMachineExecutionsLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, root_ids: List[str]
+    ) -> Tuple[Tuple[RootState, ...], ...]:
+        return await collect(
+            _get_machine_executions(root_id=root_id) for root_id in root_ids
         )

@@ -1,0 +1,17 @@
+"""MachineJob type definition"""
+type MachineExecution {
+  "Unix timestamp of the job creation"
+  createdAt: DateTime!
+  "Identifier of the Machine job"
+  id: String!
+  "Job name"
+  name: String!
+  "Queue in which Machine was executed"
+  queue: String!
+  "Starting time of the job"
+  startedAt: DateTime!
+  "Stopping time of the job"
+  stoppedAt: DateTime!
+  "Findings executed in the job"
+  findingsExecuted: [String]
+}

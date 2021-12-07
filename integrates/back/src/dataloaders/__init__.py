@@ -54,6 +54,7 @@ from db_model.findings.get import (
 from db_model.roots.get import (
     GroupRootsLoader,
     RootLoader,
+    RootMachineExecutionsLoader,
     RootStatesLoader,
 )
 from db_model.services_toe_lines.get import (
@@ -107,6 +108,7 @@ class Dataloaders(NamedTuple):
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
     root: RootLoader
+    root_machine_executions: RootMachineExecutionsLoader
     root_states: RootStatesLoader
     root_services_toe_lines: RootServicesToeLinesLoader
     root_toe_lines: RootToeLinesLoader
@@ -179,6 +181,7 @@ def get_new_context() -> Dataloaders:
         root=RootLoader(),
         root_services_toe_lines=RootServicesToeLinesLoader(),
         root_states=RootStatesLoader(),
+        root_machine_executions=RootMachineExecutionsLoader(),
         root_toe_lines=RootToeLinesLoader(),
         root_vulns_typed=RootVulnsTypedLoader(group_findings_loader),
         toe_lines=ToeLinesLoader(),
