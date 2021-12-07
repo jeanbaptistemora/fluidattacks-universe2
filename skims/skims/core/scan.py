@@ -5,6 +5,12 @@ from core.persist import (
     persist,
 )
 import csv
+from datetime import (
+    datetime,
+)
+from integrates.domain import (
+    do_add_skims_execution,
+)
 from lib_apk.analyze import (
     analyze as analyze_apk,
 )
@@ -61,6 +67,7 @@ async def execute_skims(token: Optional[str]) -> bool:
     :rtype: bool
     """
     success: bool = True
+    start_date = datetime.utcnow()
     CTX.value_to_add = value_model.ValueToAdd(MANAGER.dict())
 
     stores: Dict[core_model.FindingEnum, EphemeralStore] = {
@@ -95,6 +102,16 @@ async def execute_skims(token: Optional[str]) -> bool:
             stores=stores,
             token=token,
         )
+        end_date = datetime.utcnow()
+        if batch_job_id := os.environ.get("AWS_BATCH_JOB_ID"):
+            await do_add_skims_execution(
+                root=CTX.config.namespace,
+                group_name=CTX.config.group,
+                job_id=batch_job_id,
+                start_date=start_date,
+                end_date=end_date,
+                findings_executed=list(x.name for x in CTX.config.checks),
+            )
     else:
         success = True
         await log(

@@ -1,4 +1,8 @@
+from datetime import (
+    datetime,
+)
 from integrates.dal import (
+    do_add_execution,
     do_approve_draft,
     do_create_draft,
     do_delete_finding,
@@ -269,3 +273,21 @@ async def do_release_finding(
             success = success and await do_approve_draft(finding_id=finding_id)
 
     return success
+
+
+async def do_add_skims_execution(  # pylint: disable=too-many-arguments
+    root: str,
+    group_name: str,
+    job_id: str,
+    start_date: datetime,
+    end_date: datetime,
+    findings_executed: Tuple[str, ...],
+) -> bool:
+    return await do_add_execution(
+        root=root,
+        group_name=group_name,
+        job_id=job_id,
+        start_date=start_date.isoformat(),
+        end_date=end_date.isoformat(),
+        findings_executed=findings_executed,
+    )

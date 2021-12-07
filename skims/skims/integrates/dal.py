@@ -903,3 +903,54 @@ async def do_verify_request_vuln(
         raise RetryAndFinallyReturn(success)
 
     return success
+
+
+@SHIELD
+async def do_add_execution(
+    *,
+    root: str,
+    group_name: str,
+    job_id: str,
+    start_date: str,
+    end_date: str,
+    findings_executed: Tuple[str, ...],
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation SkimsDoAddMachineExecution(
+                $root: String!
+                $group_name: String!
+                $job_id: ID!
+                $start_date: DateTime!
+                $end_date: DateTime !
+                $findings_executed: [String]!
+            ) {
+                addMachineExecution(
+                    rootNickname: $root,
+                    groupName: $group_name,
+                    jobId: $job_id,
+                    startDate: $start_date,
+                    endDate: $end_date,
+                    findingsExecuted: $findings_executed
+                ) {
+                    success
+                }
+            }
+        """,
+        operation="SkimsDoAddMachineExecution",
+        variables=dict(
+            root=root,
+            group_name=group_name,
+            job_id=job_id,
+            start_date=start_date,
+            end_date=end_date,
+            findings_executed=findings_executed,
+        ),
+    )
+
+    success: bool = result["data"]["addMachineExecution"]["success"]
+
+    if not success:
+        raise RetryAndFinallyReturn(success)
+
+    return success
