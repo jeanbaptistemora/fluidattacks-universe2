@@ -34,7 +34,6 @@ import { translate } from "utils/translations/translate";
 interface IFilterSet {
   groupName: string;
   machine: string;
-  searchText: string;
   service: string;
   squad: string;
   subscription: string;
@@ -125,13 +124,13 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("organizationGroupsCustomFilters", false);
 
+  const [searchTextFilter, setSearchTextFilter] = useState("");
   const [filterOrganizationGroupsTable, setFilterOrganizationGroupsTable] =
     useStoredState(
       "filterOrganizationGroupset",
       {
         groupName: "",
         machine: "",
-        searchText: "",
         service: "",
         squad: "",
         subscription: "",
@@ -193,17 +192,11 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    event.persist();
-    setFilterOrganizationGroupsTable(
-      (value): IFilterSet => ({
-        ...value,
-        searchText: event.target.value,
-      })
-    );
+    setSearchTextFilter(event.target.value);
   }
   const filterSearchTextDataset: IGroupData[] = filterSearchText(
     dataset,
-    filterOrganizationGroupsTable.searchText
+    searchTextFilter
   );
 
   function onGroupNameChange(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -373,8 +366,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                     },
                   }}
                   customSearch={{
-                    customSearchDefault:
-                      filterOrganizationGroupsTable.searchText,
+                    customSearchDefault: searchTextFilter,
                     isCustomSearchEnabled: true,
                     onUpdateCustomSearch: onSearchTextChange,
                     position: "right",

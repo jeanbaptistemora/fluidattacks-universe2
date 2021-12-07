@@ -79,7 +79,6 @@ interface IFilterSet {
   lastReport: string;
   reattack: string;
   releaseDate: { max: string; min: string };
-  searchText: string;
   severity: { max: string; min: string };
   type: string;
   where: string;
@@ -131,6 +130,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     useStoredState<boolean>("findingsCustomFilters", false);
   const [isRunning, setRunning] = useState(false);
   const [selectedFindings, setSelectedFindings] = useState<IFindingAttr[]>([]);
+
+  const [searchTextFilter, setSearchTextFilter] = useState("");
   const [filterGroupFindingsTable, setFilterGroupFindingsTable] =
     useStoredState<IFilterSet>(
       "filterGroupFindingsTableSet",
@@ -140,7 +141,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         lastReport: "",
         reattack: "",
         releaseDate: { max: "", min: "" },
-        searchText: "",
         severity: { max: "", min: "" },
         type: "",
         where: "",
@@ -317,17 +317,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    event.persist();
-    setFilterGroupFindingsTable(
-      (value): IFilterSet => ({
-        ...value,
-        searchText: event.target.value,
-      })
-    );
+    setSearchTextFilter(event.target.value);
   }
   const filterSearchtextFindings: IFindingAttr[] = filterSearchText(
     findings,
-    filterGroupFindingsTable.searchText
+    searchTextFilter
   );
 
   function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
@@ -697,7 +691,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
             },
           }}
           customSearch={{
-            customSearchDefault: filterGroupFindingsTable.searchText,
+            customSearchDefault: searchTextFilter,
             isCustomSearchEnabled: true,
             onUpdateCustomSearch: onSearchTextChange,
           }}

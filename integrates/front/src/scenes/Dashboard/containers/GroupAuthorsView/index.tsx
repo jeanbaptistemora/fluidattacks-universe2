@@ -29,7 +29,6 @@ interface IFilterSet {
   author: string;
   groupsContributed: string;
   repository: string;
-  searchText: string;
 }
 
 const GroupAuthorsView: React.FC = (): JSX.Element => {
@@ -46,6 +45,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("groupAuthorsFilters", false);
 
+  const [searchTextFilter, setSearchTextFilter] = useState("");
   const [filterAuthorsTable, setFilterAuthorsTable] =
     useStoredState<IFilterSet>(
       "filterGroupAuthorsSet",
@@ -53,7 +53,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
         author: "",
         groupsContributed: "",
         repository: "",
-        searchText: "",
       },
       localStorage
     );
@@ -144,17 +143,11 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    event.persist();
-    setFilterAuthorsTable(
-      (value): IFilterSet => ({
-        ...value,
-        searchText: event.target.value,
-      })
-    );
+    setSearchTextFilter(event.target.value);
   }
   const filterSearchtextDataset: IBillAuthor[] = filterSearchText(
     dataset,
-    filterAuthorsTable.searchText
+    searchTextFilter
   );
 
   function onAuthorChange(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -276,7 +269,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
           },
         }}
         customSearch={{
-          customSearchDefault: filterAuthorsTable.searchText,
+          customSearchDefault: searchTextFilter,
           isCustomSearchEnabled: true,
           onUpdateCustomSearch: onSearchTextChange,
         }}

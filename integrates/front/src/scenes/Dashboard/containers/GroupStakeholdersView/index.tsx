@@ -51,7 +51,6 @@ import { translate } from "utils/translations/translate";
 interface IFilterSet {
   invitation: string;
   role: string;
-  searchText: string;
 }
 const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
@@ -78,13 +77,13 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("groupStakeholdersFilters", false);
 
+  const [searchTextFilter, setSearchTextFilter] = useState("");
   const [filterGroupStakeholdersTable, setFilterGroupStakeholdersTable] =
     useStoredState<IFilterSet>(
       "filterGroupStakeholderSet",
       {
         invitation: "",
         role: "",
-        searchText: "",
       },
       localStorage
     );
@@ -315,18 +314,12 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    event.persist();
-    setFilterGroupStakeholdersTable(
-      (value): IFilterSet => ({
-        ...value,
-        searchText: event.target.value,
-      })
-    );
+    setSearchTextFilter(event.target.value);
   }
 
   const filterSearchtextStakeHolders: IStakeholderDataSet[] = filterSearchText(
     stakeholdersList,
-    filterGroupStakeholdersTable.searchText
+    searchTextFilter
   );
 
   function onRoleChange(event: React.ChangeEvent<HTMLSelectElement>): void {
@@ -422,8 +415,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                     },
                   }}
                   customSearch={{
-                    customSearchDefault:
-                      filterGroupStakeholdersTable.searchText,
+                    customSearchDefault: searchTextFilter,
                     isCustomSearchEnabled: true,
                     onUpdateCustomSearch: onSearchTextChange,
                   }}

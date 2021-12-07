@@ -56,7 +56,6 @@ interface IGitRootsProps {
 interface IFilterSet {
   branch: string;
   nickname: string;
-  searchText: string;
   state: string;
   status: string;
 }
@@ -123,13 +122,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("rootsCustomFilters", false);
 
+  const [searchTextFilter, setSearchTextFilter] = useState("");
   const [filterGroupScopeTable, setFilterGroupScopeTable] =
     useStoredState<IFilterSet>(
       "filterGroupScopeSet",
       {
         branch: "",
         nickname: "",
-        searchText: "",
         state: "",
         status: "",
       },
@@ -251,17 +250,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    event.persist();
-    setFilterGroupScopeTable(
-      (value): IFilterSet => ({
-        ...value,
-        searchText: event.target.value,
-      })
-    );
+    setSearchTextFilter(event.target.value);
   }
   const filterSearchTextRoots: IGitRootAttr[] = filterSearchText(
     roots,
-    filterGroupScopeTable.searchText
+    searchTextFilter
   );
 
   function onNicknameChange(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -413,7 +406,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   },
                 }}
                 customSearch={{
-                  customSearchDefault: filterGroupScopeTable.searchText,
+                  customSearchDefault: searchTextFilter,
                   isCustomSearchEnabled: true,
                   onUpdateCustomSearch: onSearchTextChange,
                 }}

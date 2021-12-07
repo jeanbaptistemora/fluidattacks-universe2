@@ -36,7 +36,6 @@ import { translate } from "utils/translations/translate";
 interface IFilterSet {
   dateRange: { max: string; min: string };
   repository: string;
-  searchText: string;
   status: string;
   strictness: string;
   type: string;
@@ -78,13 +77,13 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("groupForcesCustomFilters", false);
 
+  const [searchTextFilter, setSearchTextFilter] = useState("");
   const [filterGroupForcesTable, setFilterGroupForcesTable] =
     useStoredState<IFilterSet>(
       "filterGroupForcesSet",
       {
         dateRange: { max: "", min: "" },
         repository: "",
-        searchText: "",
         status: "",
         strictness: "",
         type: "",
@@ -261,17 +260,11 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    event.persist();
-    setFilterGroupForcesTable(
-      (value): IFilterSet => ({
-        ...value,
-        searchText: event.target.value,
-      })
-    );
+    setSearchTextFilter(event.target.value);
   }
   const filterSearchTextExecutions: IExecution[] = filterSearchText(
     executions,
-    filterGroupForcesTable.searchText
+    searchTextFilter
   );
 
   function onDateMaxChange(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -446,7 +439,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
           },
         }}
         customSearch={{
-          customSearchDefault: filterGroupForcesTable.searchText,
+          customSearchDefault: searchTextFilter,
           isCustomSearchEnabled: true,
           onUpdateCustomSearch: onSearchTextChange,
         }}

@@ -47,7 +47,6 @@ import { msgError } from "utils/notifications";
 interface IFilterSet {
   currentStatus: string;
   reportDateRange: { max: string; min: string };
-  searchText: string;
   status: string;
   tag: string;
   treatment: string;
@@ -74,13 +73,13 @@ export const VulnsView: React.FC = (): JSX.Element => {
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("locationsCustomFilters", false);
 
+  const [searchTextFilter, setSearchTextFilter] = useState("");
   const [filterVulnerabilitiesTable, setFilterVulnerabilitiesTable] =
     useStoredState(
       "filterVulnerabilitiesSet",
       {
         currentStatus: "",
         reportDateRange: { max: "", min: "" },
-        searchText: "",
         status: "open",
         tag: "",
         treatment: "",
@@ -169,17 +168,11 @@ export const VulnsView: React.FC = (): JSX.Element => {
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    event.persist();
-    setFilterVulnerabilitiesTable(
-      (value): IFilterSet => ({
-        ...value,
-        searchText: event.target.value,
-      })
-    );
+    setSearchTextFilter(event.target.value);
   }
   const filterSearchTextVulnerabilities: IVulnRowAttr[] = filterSearchText(
     vulnerabilities,
-    filterVulnerabilitiesTable.searchText
+    searchTextFilter
   );
 
   function onTreatmentChange(
@@ -443,7 +436,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   },
                 }}
                 customSearch={{
-                  customSearchDefault: filterVulnerabilitiesTable.searchText,
+                  customSearchDefault: searchTextFilter,
                   isCustomSearchEnabled: true,
                   onUpdateCustomSearch: onSearchTextChange,
                 }}

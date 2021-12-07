@@ -72,7 +72,6 @@ interface IFilterSet {
   afectComps: string;
   closingDateRange: { max: string; min: string };
   dateRange: { max: string; min: string };
-  searchText: string;
   status: string;
   type: string;
 }
@@ -87,6 +86,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("groupEventsFilters", false);
 
+  const [searchTextFilter, setSearchTextFilter] = useState("");
   const [filterGroupEventsTable, setFilterGroupEventsTable] =
     useStoredState<IFilterSet>(
       "filterGroupEventsSet",
@@ -97,7 +97,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         afectComps: "",
         closingDateRange: { max: "", min: "" },
         dateRange: { max: "", min: "" },
-        searchText: "",
         status: "",
         type: "",
       },
@@ -358,17 +357,11 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    event.persist();
-    setFilterGroupEventsTable(
-      (value): IFilterSet => ({
-        ...value,
-        searchText: event.target.value,
-      })
-    );
+    setSearchTextFilter(event.target.value);
   }
   const filterSearchtextResult: IEventConfig[] = filterSearchText(
     dataset,
-    filterGroupEventsTable.searchText
+    searchTextFilter
   );
 
   function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
@@ -649,7 +642,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
             },
           }}
           customSearch={{
-            customSearchDefault: filterGroupEventsTable.searchText,
+            customSearchDefault: searchTextFilter,
             isCustomSearchEnabled: true,
             onUpdateCustomSearch: onSearchTextChange,
           }}
