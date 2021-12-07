@@ -18482,6 +18482,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (url-parse v1.4.
   139 |   ""devDependencies"": {
       ^ Col 0
 ",f011_npm_package_json._check_npm_package_json
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (url-parse v1.4.7) [SNYK-JS-URLPARSE-1078283],129,937,skims,011. Use of software with known vulnerabilities,Use of url-parse at version 1.4.7 with SNYK-JS-URLPARSE-1078283 in namespace/skims/test/data/lib_path/f011/package.json,"
+  119 |     ""tar"": ""2.2.1"",
+  120 |     ""through"": ""2.3.6"",
+  121 |     ""trim"": ""1.0.1"",
+  122 |     ""trim-newlines"": ""1.0.0"",
+  123 |     ""tunnel-agent"": ""0.4.3"",
+  124 |     ""ua-parser"": ""0.7.20"",
+  125 |     ""ua-parser-js"": ""0.7.12"",
+  126 |     ""uglify-js"": ""2.5.0"",
+  127 |     ""underscore"": ""1.12.0"",
+  128 |     ""urijs"": ""1.19.2"",
+> 129 |     ""url-parse"": ""1.4.7"",
+  130 |     ""useragent"": ""2.3.0"",
+  131 |     ""utils-extend"": ""1.0.8"",
+  132 |     ""ws"": ""0.8.1"",
+  133 |     ""xcode"": ""3.0.1"",
+  134 |     ""xlsx"": ""0.15.5"",
+  135 |     ""xmldom"": ""0.4.0"",
+  136 |     ""xmlhttprequest-ssl"": ""1.5.4"",
+  137 |     ""y18n"": ""4.0.0""
+  138 |   },
+  139 |   ""devDependencies"": {
+      ^ Col 0
+",f011_npm_package_json._check_npm_package_json
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (useragent v2.3.0) [SNYK-JS-USERAGENT-174737],130,937,skims,011. Use of software with known vulnerabilities,Use of useragent at version 2.3.0 with SNYK-JS-USERAGENT-174737 in namespace/skims/test/data/lib_path/f011/package.json,"
   120 |     ""through"": ""2.3.6"",
   121 |     ""trim"": ""1.0.1"",
