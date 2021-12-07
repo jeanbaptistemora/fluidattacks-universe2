@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "fluidanalytics" {
   }
 
   tags = {
-    "Name"            = "docs.fluidattacks.com"
+    "Name"            = "fluidanalytics"
     "management:area" = "cost"
     "management:type" = "product"
   }
