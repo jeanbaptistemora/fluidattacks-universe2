@@ -15,33 +15,15 @@ F258.description:
     no tiene activada la función de seguridad de
     protección contra el borrado.
 F258.impact:
-  en: |
-    - Delete AWS load balancers causing service unavailability.
-
-    - Load-balanced environments remain unsafe.
-
-    - Intentional  or accidental deletion of data integrity.
+  en: Delete AWS load balancers causing service unavailability.
   es: >
-    - Eliminar permanente los balanceadores de carga causando indisponibilidad
+    Eliminar permanente los balanceadores de carga causando indisponibilidad
     del servicio.
-
-    - Los entornos con equilibrio de carga
-    siguen siendo inseguros.
-
-    - Eliminación intencionada o accidental de la
-    integridad de los datos.
 F258.recommendation:
-  en: >
-    Check the Deletion Protection configuration attribute
-    value inside attributes section and enable it.
-  es: >
-    Compruebe el valor del atributo Configuración de
-    Protección contra el borrado dentro de la sección
-    de atributos y actívelo.
+  en: Activate delete protection for all ELB instances.
+  es: Activar la protección contra borrado en todas las instancias de ELB.
 F258.threat:
   en: >
     Authenticated attacker from the Internet with access to AWS configurations
-    who modifies or deletes information.
   es: >
-    Atacante autenticado desde Internet con acceso a las configuraciones de AWS
-    que modifica o borra información.
+    Atacante autenticado desde Internet con acceso a configuraciones de AWS.
