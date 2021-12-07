@@ -30,7 +30,9 @@ data "aws_iam_policy_document" "prod-policy-data" {
       "s3:Put*",
     ]
     resources = [
-      "arn:aws:s3:::observes.*"
+      "arn:aws:s3:::fluidanalytics",
+      "arn:aws:s3:::fluidanalytics/*",
+      "arn:aws:s3:::observes.*",
     ]
   }
   statement {
