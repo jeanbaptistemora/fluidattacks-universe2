@@ -22,6 +22,7 @@ import {
   UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/EvidenceView/queries";
 import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/RecordsView/queries";
+import type { IGetFindingRecords } from "scenes/Dashboard/containers/RecordsView/types";
 import globalStyle from "styles/global.css";
 import {
   ButtonToolbarRow,
@@ -64,7 +65,7 @@ const RecordsView: React.FC = (): JSX.Element => {
     Logger.warning("An error occurred removing records", removeError);
   };
 
-  const { data, refetch } = useQuery(GET_FINDING_RECORDS, {
+  const { data, refetch } = useQuery<IGetFindingRecords>(GET_FINDING_RECORDS, {
     onError: handleErrors,
     variables: { findingId },
   });
@@ -189,7 +190,6 @@ const RecordsView: React.FC = (): JSX.Element => {
             )}
           </Formik>
         ) : undefined}
-        {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
         {isEditing && !_.isEmpty(JSON.parse(data.finding.records)) ? (
           <Row>
             {/* eslint-disable-next-line react/forbid-component-props */}
@@ -207,7 +207,6 @@ const RecordsView: React.FC = (): JSX.Element => {
           </Row>
         ) : undefined}
         <RowCenter>
-          {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
           {_.isEmpty(JSON.parse(data.finding.records)) ? (
             <div className={globalStyle["no-data"]}>
               <FontAwesomeIcon icon={faList} size={"3x"} />
@@ -216,7 +215,6 @@ const RecordsView: React.FC = (): JSX.Element => {
           ) : (
             <DataTableNext
               bordered={true}
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
               dataset={JSON.parse(data.finding.records)}
               exportCsv={false}
               headers={[]}
