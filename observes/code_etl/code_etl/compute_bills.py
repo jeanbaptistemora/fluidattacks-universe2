@@ -5,7 +5,6 @@ import argparse
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
     db_cursor,
-    get_log,
 )
 import csv
 from datetime import (
@@ -15,6 +14,7 @@ from functools import (
     lru_cache,
 )
 import json
+import logging
 from operator import (
     itemgetter,
 )
@@ -46,7 +46,7 @@ SELECT_ALL: str = """
         TO_CHAR(seen_at, 'YYYY-MM') = %(seen_at)s
         AND hash != %(hash)s
 """
-LOG = get_log(__name__)
+LOG = logging.getLogger(__name__)
 
 # Types
 MonthData = Dict[str, Dict[str, List[Any]]]

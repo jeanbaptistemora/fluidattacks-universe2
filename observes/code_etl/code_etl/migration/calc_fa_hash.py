@@ -11,6 +11,7 @@ from code_etl.objs import (
 from datetime import (
     datetime,
 )
+import logging
 from postgres_client.client import (
     Client,
     ClientFactory,
@@ -41,6 +42,8 @@ from returns.unsafe import (
 from typing import (
     Any,
 )
+
+LOG = logging.getLogger(__name__)
 
 
 class RawDecodeError(Exception):
@@ -105,6 +108,7 @@ def _try_calc_id(raw: FrozenList[Any]) -> Maybe[CommitDataId]:
 
 
 def update_query(schema: SchemaID, cid: CommitDataId) -> Query:
+    LOG.debug("updating commit %s", cid.hash.hash)
     return Query(
         """
         UPDATE {schema}.commits
@@ -152,14 +156,35 @@ def calc_hash(client: Client, schema: SchemaID, namespace: str) -> IO[None]:
         """,
         SqlArgs({"namespace": namespace}, {"schema": schema.name}),
     )
+    total_query = Query(
+        """
+        SELECT COUNT(*)
+        FROM {schema}.commits WHERE
+            fa_hash IS NULL
+            and namespace = %(namespace)s
+        """,
+        SqlArgs({"namespace": namespace}, {"schema": schema.name}),
+    )
+    client.cursor.execute_query(total_query)
+    pkg_items = 2000
+    total = _assert_int(unsafe_perform_io(client.cursor.fetch_one())[0])
     client.cursor.execute_query(query)
+    count = 0
     while True:
-        items = unsafe_perform_io(client.cursor.fetch_many(2000))
+        if total == 0:
+            LOG.info("No items")
+            break
+        items = unsafe_perform_io(client.cursor.fetch_many(pkg_items))
         for item in items:
             _try_calc_id(item).map(
                 lambda c: client.cursor.execute_query(update_query(schema, c))
             )
+            count = count + 1
+            LOG.info(
+                "migrating %s/%s [%s%%]", count, total, (count * 100) // total
+            )
         if len(items) == 0:
+            LOG.info("END. No more packages")
             break
     return IO(None)
 

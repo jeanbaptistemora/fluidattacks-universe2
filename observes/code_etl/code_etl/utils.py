@@ -18,7 +18,6 @@ from psycopg2.extensions import (
     cursor as cursor_cls,
     ISOLATION_LEVEL_AUTOCOMMIT,
 )
-import sys
 from typing import (
     Any,
     Iterator,
@@ -27,25 +26,7 @@ from typing import (
 COMMIT_HASH_SENTINEL: str = "-" * 40
 DATE_SENTINEL: datetime = datetime.utcfromtimestamp(0)
 DATE_NOW: datetime = datetime.utcnow()
-
-# Logging
 LOG = logging.getLogger(__name__)
-LOG.setLevel(logging.DEBUG)
-LOG.addHandler(logging.StreamHandler())
-LOG.handlers[0].setFormatter(logging.Formatter("[%(levelname)s] %(message)s"))
-
-
-def get_log(name: str, min_lvl: int = logging.INFO) -> logging.Logger:
-    logger_format: str = "[%(levelname)s] %(message)s"
-    logger_formatter: logging.Formatter = logging.Formatter(logger_format)
-
-    logger_handler: logging.Handler = logging.StreamHandler(sys.stderr)
-    logger_handler.setFormatter(logger_formatter)
-
-    logger: logging.Logger = logging.getLogger(name)
-    logger.setLevel(min_lvl)
-    logger.addHandler(logger_handler)
-    return logger
 
 
 def log_sync(level: str, msg: str, *args: Any) -> None:
