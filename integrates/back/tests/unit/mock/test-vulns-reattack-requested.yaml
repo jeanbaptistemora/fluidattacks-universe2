@@ -1,0 +1,11 @@
+lines:
+- line: '123'
+  commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
+  path: product/path/to/file1.ext
+  state: open
+  repo_nickname: product
+- line: '890'
+  commit_hash: fffff9c8eac80d60cfba7322791c0a9b19efffff
+  path: product/path/to/escape.txt
+  state: closed
+  repo_nickname: product
