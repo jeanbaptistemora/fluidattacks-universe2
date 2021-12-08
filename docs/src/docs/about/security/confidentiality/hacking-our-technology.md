@@ -16,7 +16,7 @@ of comprehensive
 [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/).
 
 All our development projects run
-[Continuous Integration](https://fluidattacks.com/about/security/#CI)
+[Continuous Integration](https://docs.fluidattacks.com/about/security/integrity/developing-integrity#continuous-integration)
 pipelines,
 including exploits and strict linters,
 to ensure that
