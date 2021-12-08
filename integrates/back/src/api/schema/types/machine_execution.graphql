@@ -2,6 +2,8 @@
 type MachineExecution {
   "Unix timestamp of the job creation"
   createdAt: DateTime!
+  "Findings executed in the job"
+  findingsExecuted: [String]
   "Identifier of the Machine job"
   id: String!
   "Job name"
@@ -12,6 +14,4 @@ type MachineExecution {
   startedAt: DateTime!
   "Stopping time of the job"
   stoppedAt: DateTime!
-  "Findings executed in the job"
-  findingsExecuted: [String]
 }
