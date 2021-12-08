@@ -7,10 +7,6 @@ from db_model.vulnerabilities.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils.vulnerabilities import (
-    filter_non_deleted,
-    filter_non_zero_risk,
-)
 from roots.types import (
     Root,
 )

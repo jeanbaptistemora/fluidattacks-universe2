@@ -15,7 +15,7 @@ import {
   validTextField,
 } from "utils/validations";
 
-const MAX_TREATMENT_JUSTIFICATION_LENGTH: number = 5000;
+const MAX_TREATMENT_JUSTIFICATION_LENGTH: number = 10000;
 const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(
   MAX_TREATMENT_JUSTIFICATION_LENGTH
 );

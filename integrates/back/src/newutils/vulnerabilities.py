@@ -792,7 +792,7 @@ def validate_reattack_requested(
 
 def validate_justification_length(justification: str) -> None:
     """Validate justification length."""
-    max_justification_length = 5000
+    max_justification_length = 10000
     if len(justification) > max_justification_length:
         raise InvalidJustificationMaxLength(max_justification_length)
 

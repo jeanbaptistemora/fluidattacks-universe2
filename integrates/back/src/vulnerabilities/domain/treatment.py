@@ -290,7 +290,7 @@ async def handle_vulnerabilities_acceptance(
     rejected_vulns: List[str],
     user_email: str,
 ) -> None:
-    validations.validate_field_length(justification, 5000)
+    validations.validate_field_length(justification, 10000)
     validations.validate_fields([justification])
     today = datetime_utils.get_iso_date()
     coroutines: List[Awaitable[None]] = []
@@ -429,7 +429,7 @@ async def update_vulnerabilities_treatment(
     if updated_values["treatment"] != "NEW":
         validations.validate_fields([updated_values["justification"]])
         validations.validate_field_length(
-            updated_values["justification"], 5000
+            updated_values["justification"], 10000
         )
     if not compare_historic_treatments(
         vulnerability.treatment, updated_values
