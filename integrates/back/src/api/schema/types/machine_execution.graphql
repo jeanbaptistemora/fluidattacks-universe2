@@ -5,7 +5,7 @@ type MachineExecution {
   "Findings executed in the job"
   findingsExecuted: [String]
   "Identifier of the Machine job"
-  id: String!
+  jobId: String!
   "Job name"
   name: String!
   "Queue in which Machine was executed"

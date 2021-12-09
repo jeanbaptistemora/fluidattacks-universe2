@@ -323,9 +323,9 @@ async def _get_machine_executions(
     return tuple(
         RootMachineExecutionItem(
             job_id=item["sk"].split("#")[-1],
-            queue_date=item["queue_date"],
-            start_date=item["start_date"],
-            end_date=item["end_date"],
+            created_at=item["created_at"],
+            started_at=item["started_at"],
+            stopped_at=item["stopped_at"],
             findings_executed=item["findings_executed"],
         )
         for item in response.items
