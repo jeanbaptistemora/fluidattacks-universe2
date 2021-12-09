@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-member-access
---- Needed annotations as DB queries use "any" type
-*/
 import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faFile, faImage } from "@fortawesome/free-solid-svg-icons";
@@ -30,6 +27,7 @@ import {
   REMOVE_EVIDENCE_MUTATION,
   UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/EventEvidenceView/queries";
+import type { IGetEventEvidences } from "scenes/Dashboard/containers/EventEvidenceView/types";
 import globalStyle from "styles/global.css";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -56,16 +54,19 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
   const [lightboxIndex, setLightboxIndex] = useState(-1);
 
   // GraphQL operations
-  const { data, networkStatus, refetch } = useQuery(GET_EVENT_EVIDENCES, {
-    notifyOnNetworkStatusChange: true,
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred loading event evidences", error);
-      });
-    },
-    variables: { eventId },
-  });
+  const { data, networkStatus, refetch } = useQuery<IGetEventEvidences>(
+    GET_EVENT_EVIDENCES,
+    {
+      notifyOnNetworkStatusChange: true,
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred loading event evidences", error);
+        });
+      },
+      variables: { eventId },
+    }
+  );
   const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
 
   const [downloadEvidence] = useMutation(DOWNLOAD_FILE_MUTATION, {
@@ -115,14 +116,6 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     }
   }, [isEditing, isRefetching]);
 
-  const handleDownload: () => void = (): void => {
-    if (!isEditing) {
-      void downloadEvidence({
-        variables: { eventId, fileName: data.event.evidenceFile },
-      });
-    }
-  };
-
   const removeImage: () => void = useCallback((): void => {
     setEditing(false);
     void removeEvidence({ variables: { eventId, evidenceType: "IMAGE" } });
@@ -133,11 +126,17 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     void removeEvidence({ variables: { eventId, evidenceType: "FILE" } });
   }, [eventId, removeEvidence]);
 
-  // If the data is undefined, it will return true anyway
-  if (_.isEmpty(data)) {
+  if (_.isEmpty(data) || _.isUndefined(data)) {
     return <div />;
   }
 
+  const handleDownload: () => void = (): void => {
+    if (!isEditing) {
+      void downloadEvidence({
+        variables: { eventId, fileName: data.event.evidenceFile },
+      });
+    }
+  };
   const showEmpty: boolean = _.isEmpty(data.event.evidence) || isRefetching;
   const MAX_FILE_SIZE = 10;
   const maxFileSize: FieldValidator = isValidFileSize(MAX_FILE_SIZE);
