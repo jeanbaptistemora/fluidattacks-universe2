@@ -112,6 +112,23 @@ def _get_attacked_lines(
     return attacked_lines
 
 
+def _get_comments(
+    new_comments: str,
+    toe_lines: ToeLines,
+    new_attacked_at: datetime,
+) -> str:
+    comments = (
+        toe_lines.comments
+        if new_attacked_at == toe_lines.attacked_at
+        else new_comments
+        if new_attacked_at
+        and toe_lines.attacked_at
+        and toe_lines.attacked_at < new_attacked_at
+        else ""
+    )
+    return comments
+
+
 def _get_first_attack_at(
     services_toe_lines: ServicesToeLines,
     toe_lines: ToeLines,
@@ -170,7 +187,13 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
             toe_lines_update(
                 toe_lines,
                 ToeLinesAttributesToUpdate(
-                    comments=repo_services_toe_lines[filename].comments,
+                    comments=_get_comments(
+                        repo_services_toe_lines[filename].comments,
+                        toe_lines,
+                        _get_attacked_at(
+                            repo_services_toe_lines[filename], toe_lines
+                        ),
+                    ),
                     attacked_at=_get_attacked_at(
                         repo_services_toe_lines[filename], toe_lines
                     ),
@@ -199,7 +222,13 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                 toe_lines.seen_at,
             )
             != (
-                repo_services_toe_lines[filename].comments,
+                _get_comments(
+                    repo_services_toe_lines[filename].comments,
+                    toe_lines,
+                    _get_attacked_at(
+                        repo_services_toe_lines[filename], toe_lines
+                    ),
+                ),
                 _get_attacked_at(repo_services_toe_lines[filename], toe_lines),
                 _get_attacked_lines(
                     repo_services_toe_lines[filename].tested_lines,
