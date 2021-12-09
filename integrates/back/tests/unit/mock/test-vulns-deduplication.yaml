@@ -1,0 +1,27 @@
+inputs:
+- field: phone
+  state: open
+  repo_nickname: product
+  url: https://duplicated_where.com
+  stream: home,blog,articulo
+- field: phone
+  state: open
+  repo_nickname: product
+  url: https://duplicated_where.com
+  stream: home,info,contact_us
+lines:
+- line: '678'
+  commit_hash: 111111111111111111111111111111111111111f
+  path: product/path/to/file678.txt
+  state: open
+  repo_nickname: product
+- line: '678'
+  path: product/path/to/file678.txt
+  repo_nickname: product
+  state: open
+  commit_hash: 000000000000000000000000000000000000000f
+- line: "678"
+  path: product/path/to/file678.txt
+  repo_nickname: product
+  state: open
+  commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
