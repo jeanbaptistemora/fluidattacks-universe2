@@ -388,6 +388,16 @@ resource "aws_batch_job_definition" "skims_process_group" {
   }
 }
 
+resource "aws_cloudwatch_log_group" "job" {
+  name = "/aws/batch/job"
+
+  tags = {
+    "Name"            = "job"
+    "management:area" = "cost"
+    "management:type" = "product"
+  }
+}
+
 resource "aws_cloudwatch_log_group" "skims" {
   name = "skims"
 
