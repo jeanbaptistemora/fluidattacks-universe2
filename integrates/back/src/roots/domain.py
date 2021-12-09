@@ -11,6 +11,9 @@ from custom_exceptions import (
 from custom_types import (
     Group,
 )
+from datetime import (
+    datetime,
+)
 import dateutil.parser  # type: ignore
 from db_model import (
     roots as roots_model,
@@ -730,7 +733,14 @@ async def update_root_state(
 def get_root_id_by_nickname(
     nickname: str, group_roots: Tuple[RootItem, ...]
 ) -> str:
-    for root in group_roots:
+    # There are roots with the same nickname
+    # then It is going to take the last modified root
+    sorted_roots = sorted(
+        group_roots,
+        key=lambda root: datetime.fromisoformat(root.state.modified_date),
+        reverse=True,
+    )
+    for root in sorted_roots:
         if isinstance(root, GitRootItem) and root.state.nickname == nickname:
             return root.id
 

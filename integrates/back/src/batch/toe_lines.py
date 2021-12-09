@@ -21,6 +21,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.roots.types import (
     GitRootItem,
     RootItem,
@@ -508,18 +511,26 @@ async def refresh_root_repo_toe_lines(
 ) -> None:
     loaders = get_new_context()
     roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
+    # There are roots with the same nickname
+    # then it is going to take the last modified root
+    sorted_roots = sorted(
+        roots,
+        key=lambda root: datetime.fromisoformat(root.state.modified_date),
+    )
     active_root_repos = {
         root.state.nickname: root
-        for root in roots
+        for root in sorted_roots
         if isinstance(root, GitRootItem) and root.state.status == "ACTIVE"
     }
-    inactive_root_repos = {
-        root.state.nickname: root
-        for root in roots
+    # Deactivate all the toe lines for all the inactive roots
+    # with the same nickname
+    inactive_root_repos = tuple(
+        root
+        for root in sorted_roots
         if isinstance(root, GitRootItem)
         and root.state.status == "INACTIVE"
         and root.state.nickname not in active_root_repos
-    }
+    )
     active_root_repos_to_proccess = tuple(
         root_repo
         for root_repo in active_root_repos.values()
@@ -532,7 +543,7 @@ async def refresh_root_repo_toe_lines(
         )
     inactive_root_repos_to_proccess = tuple(
         root_repo
-        for root_repo in inactive_root_repos.values()
+        for root_repo in inactive_root_repos
         if not optional_repo_nickname
         or root_repo.state.nickname == optional_repo_nickname
     )
