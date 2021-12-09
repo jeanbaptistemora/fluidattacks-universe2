@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 09, 2021, 04:44 PM",
+    "DateLastModified": "Dec 09, 2021, 05:21 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -553,7 +553,10 @@
             "name",
             "legal_remember",
             "email"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "organization_membership",
@@ -580,7 +583,10 @@
           "NonKeyAttributes": [
             "role",
             "subscription_period"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "group_membership",
@@ -611,7 +617,10 @@
             "role",
             "responsibility",
             "subscription_period"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "available_group_names",
@@ -634,7 +643,10 @@
           ],
           "NonKeyAttributes": [
             "name"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "available_org_names",
@@ -657,7 +669,10 @@
           ],
           "NonKeyAttributes": [
             "name"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "organization_metadata",
@@ -680,7 +695,10 @@
           ],
           "NonKeyAttributes": [
             "name"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "organization_historic_state",
@@ -724,7 +742,10 @@
             "settings",
             "modified_date",
             "modified_by"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "group_metadata",
@@ -756,7 +777,10 @@
             "description",
             "language",
             "agent_token"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "group_historic_state",
@@ -817,7 +841,10 @@
             "modified_date",
             "modified_by",
             "files"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "group_comment",
@@ -869,7 +896,10 @@
             "modified_by",
             "parent_id",
             "content"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "forces_execution",
@@ -934,7 +964,10 @@
             "repo",
             "strictness",
             "results"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "event_metadata",
@@ -985,7 +1018,10 @@
             "blocking_hours_expected",
             "affected_components",
             "accessibility"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "event_historic_state",
@@ -1024,7 +1060,10 @@
             "modified_by",
             "evidences",
             "blocking_hours"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "event_comment",
@@ -1056,7 +1095,10 @@
             "modified_by",
             "parent_id",
             "content"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "git_root_metadata",
@@ -1090,7 +1132,10 @@
           ],
           "NonKeyAttributes": [
             "type"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "git_root_state",
@@ -1203,7 +1248,10 @@
             "modified_by",
             "nickname",
             "other"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "git_root_historic_state",
@@ -1323,7 +1371,10 @@
             "modified_by",
             "nickname",
             "other"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "git_root_cloning",
@@ -1371,7 +1422,10 @@
             "status",
             "reason",
             "modified_date"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "git_root_historic_cloning",
@@ -1419,7 +1473,10 @@
             "status",
             "reason",
             "modified_date"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "ip_root_metadata",
@@ -1442,7 +1499,10 @@
           ],
           "NonKeyAttributes": [
             "type"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "ip_root_state",
@@ -1487,7 +1547,10 @@
             "address",
             "port",
             "other"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "ip_root_historic_state",
@@ -1532,7 +1595,10 @@
             "address",
             "port",
             "other"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "url_root_metadata",
@@ -1555,7 +1621,10 @@
           ],
           "NonKeyAttributes": [
             "type"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "url_root_state",
@@ -1608,7 +1677,10 @@
             "path",
             "protocol",
             "other"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "url_root_historic_state",
@@ -1661,7 +1733,10 @@
             "path",
             "protocol",
             "other"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "root_services_toe_lines",
@@ -1737,7 +1812,10 @@
             "tested_date",
             "tested_lines",
             "sorts_risk_level"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "toe_lines_metadata",
@@ -1890,7 +1968,10 @@
             "be_present_until",
             "pk_2",
             "sk_2"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "root_toe_input",
@@ -2009,7 +2090,10 @@
             "component",
             "entry_point",
             "unreliable_root_id"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "machine_git_root_execution",
@@ -2037,7 +2121,10 @@
             "queue_date",
             "job_id",
             "finding_code"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "org_finding_policy_metadata",
@@ -2049,7 +2136,10 @@
           "NonKeyAttributes": [
             "name",
             "tags"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "org_finding_policy_state",
@@ -2062,7 +2152,10 @@
             "status",
             "modified_date",
             "modified_by"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "org_finding_policy_historic_state",
@@ -2075,7 +2168,10 @@
             "status",
             "modified_date",
             "modified_by"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding_id",
@@ -2220,7 +2316,10 @@
                 "S": "FIN_ID"
               }
             }
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding_metadata",
@@ -4726,7 +4825,10 @@
             "group_name",
             "severity",
             "attack_vector_description"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding_state",
@@ -5133,7 +5235,10 @@
             "modified_by",
             "source",
             "justification"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding_approval",
@@ -5379,7 +5484,10 @@
             "modified_by",
             "source",
             "justification"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding_creation",
@@ -5786,7 +5894,10 @@
             "modified_by",
             "source",
             "justification"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding_submission",
@@ -6101,7 +6212,10 @@
             "modified_by",
             "source",
             "justification"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding_historic_state",
@@ -7060,7 +7174,10 @@
             "modified_by",
             "source",
             "justification"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding_verification",
@@ -7127,7 +7244,10 @@
             "modified_by",
             "comment_id",
             "vulnerability_ids"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding_historic_verification",
@@ -7272,7 +7392,10 @@
             "modified_by",
             "comment_id",
             "vulnerability_ids"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding_unreliable_indicators",
@@ -8108,7 +8231,10 @@
             "unreliable_newest_vulnerability_report_date",
             "unreliable_oldest_open_vulnerability_report_date",
             "unreliable_oldest_vulnerability_report_date"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "removed_finding_metadata",
@@ -8116,7 +8242,10 @@
             "PartitionKeyAlias": "REMOVED#FIN#id",
             "SortKeyAlias": "GROUP#group_name"
           },
-          "TableData": []
+          "TableData": [],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability_metadata",
@@ -8984,7 +9113,10 @@
             "stream",
             "hash",
             "custom_severity"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability_historic_state",
@@ -9012,6 +9144,1189 @@
               "source": {
                 "S": "SKIMS"
               }
+            },
+            {
+              "pk": {
+                "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
+              },
+              "sk": {
+                "S": "STATE#2019-04-08T00:45:15+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-04-08T00:45:15+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
+              },
+              "sk": {
+                "S": "STATE#2019-08-07T13:45:48+00:00"
+              },
+              "status": {
+                "S": "CLOSED"
+              },
+              "modified_date": {
+                "S": "2019-08-07T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6"
+              },
+              "sk": {
+                "S": "STATE#2019-04-08T00:45:15+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-04-08T00:45:15+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T14:58:38+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-13T14:58:38+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#5c689459-64c2-4687-9fef-e5f2dd3c710c"
+              },
+              "sk": {
+                "S": "STATE#2019-04-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "CLOSED"
+              },
+              "modified_date": {
+                "S": "2019-04-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#a8c0ff07-bb21-4cd5-bb9f-4d716fc69320"
+              },
+              "sk": {
+                "S": "STATE#2019-04-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-04-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+              },
+              "sk": {
+                "S": "STATE#2020-01-03T17:46:10+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2020-01-03T17:46:10+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0"
+              },
+              "sk": {
+                "S": "STATE#2020-09-09T21:01:26+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2020-09-09T21:01:26+00:00"
+              },
+              "modified_by": {
+                "S": "test@unittesting.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#15375781-31f2-4953-ac77-f31134225747"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T13:17:41+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-13T13:17:41+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#1c644e88-b7a2-498b-b248-c3d367629982"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#4ed30d35-33a5-44ba-af44-6cb253be053b"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#5291f6fa-b296-4e89-a760-798ce56f17d0"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#57e5c1ec-5956-40e9-8e30-284033c1140d"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#587c40de-09a0-4d85-a9f9-eaa46aa895d7"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T22:00:56+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-13T22:00:56+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#5afb9a49-a359-48ce-80ee-79c145919275"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T14:58:38+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-13T14:58:38+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#5ed5c3c0-9064-41f5-8ef2-5e1eeee62955"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T20:37:59+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-13T20:37:59+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#72bb8607-c259-4781-9599-185aac02b3cc"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T16:03:21+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-13T16:03:21+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#72bb8607-c259-4781-9599-185aac02b3cc"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T16:05:05+00:00"
+              },
+              "status": {
+                "S": "CLOSED"
+              },
+              "modified_date": {
+                "S": "2019-09-13T16:05:05+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#759aaf00-34ee-4609-aec6-7f857c470eff"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#81db1fad-c329-4356-a5eb-9ad9b0d75a7e"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T13:59:20+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-13T13:59:20+00:00"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#8226e222-8128-438d-a9b7-93eeb93a36b3"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T15:00:03+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-13T15:00:03+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#8226e222-8128-438d-a9b7-93eeb93a36b3"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T15:09:02+00:00"
+              },
+              "status": {
+                "S": "CLOSED"
+              },
+              "modified_date": {
+                "S": "2019-09-13T15:09:02+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#95068fdd-80ca-4eb2-8311-b16b63a61f05"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
+              },
+              "sk": {
+                "S": "STATE#2019-12-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-12-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
+              },
+              "sk": {
+                "S": "STATE#2020-02-19T15:42:04+00:00"
+              },
+              "status": {
+                "S": "CLOSED"
+              },
+              "modified_date": {
+                "S": "2020-02-19T15:42:04+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#987a6d71-d23c-40db-ad98-bfccf60660ed"
+              },
+              "sk": {
+                "S": "STATE#2019-09-16T21:01:24+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-16T21:01:24+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#aa6a9d70-618b-4ab0-b280-d627ce311200"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#ab25380d-dfe1-4cde-aefd-acca6990d6aa"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#ae16f325-a492-482b-a7a1-6285e8057480"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#b16ed89e-668d-42d6-add1-73535bb0e083"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#bac162ff-5c2a-4a96-9b77-fd7020976160"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#bf818399-b331-4fa4-b335-98548e037378"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T15:53:05+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-13T15:53:05+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#bf818399-b331-4fa4-b335-98548e037378"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T16:28:20+00:00"
+              },
+              "status": {
+                "S": "CLOSED"
+              },
+              "modified_date": {
+                "S": "2019-09-13T16:28:20+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#c8161719-5ac8-45ba-a3fb-ab69ea39ddcb"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#d212a841-7d48-4cb6-b776-cccc2845c383"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#d4d4c6a0-3d51-42cf-b93f-4c503f67d72d"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T20:19:17+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-13T20:19:17+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#f2d577b4-855b-41fc-a844-2b96f797775c"
+              },
+              "sk": {
+                "S": "STATE#2019-08-30T14:30:13+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-08-30T14:30:13+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#fc01759b-0f2f-4e4e-9e24-5c27c91d574b"
+              },
+              "sk": {
+                "S": "STATE#2019-09-16T20:02:17+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-16T20:02:17+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#feabfd52-0b0f-405e-bf6a-e9a224af6726"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T14:03:05+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-13T14:03:05+00:00"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#feabfd52-0b0f-405e-bf6a-e9a224af6726"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T14:03:06+00:00"
+              },
+              "status": {
+                "S": "CLOSED"
+              },
+              "modified_date": {
+                "S": "2019-09-13T14:03:05+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#09afd608-aa53-4bbc-9094-0076181fa0ea"
+              },
+              "sk": {
+                "S": "STATE#2019-09-13T14:58:38+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-13T14:58:38+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#e248e8e0-0323-41c7-bc02-4ee61d09f9c4"
+              },
+              "sk": {
+                "S": "STATE#2019-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6f023c26-5x10-4ded-aa27-xx563c2206ax"
+              },
+              "sk": {
+                "S": "STATE#2019-10-15T16:04:14+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-10-15T16:04:14+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6f023c26-5x10-4ded-aa27-xx563c2206ax"
+              },
+              "sk": {
+                "S": "STATE#2019-11-02T20:59:16+00:00"
+              },
+              "status": {
+                "S": "DELETED"
+              },
+              "modified_date": {
+                "S": "2019-11-02T20:59:16+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "FALSE_POSITIVE"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98e"
+              },
+              "sk": {
+                "S": "STATE#2019-01-15T15:43:39+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-01-15T15:43:39+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#242f848c-148a-4028-8e36-c7d995502590"
+              },
+              "sk": {
+                "S": "STATE#2019-01-15T16:04:14+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-01-15T16:04:14+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#242f848c-148a-4028-8e36-c7d995502590"
+              },
+              "sk": {
+                "S": "STATE#2019-01-15T20:59:16+00:00"
+              },
+              "status": {
+                "S": "CLOSED"
+              },
+              "modified_date": {
+                "S": "2019-01-15T20:59:16+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465"
+              },
+              "sk": {
+                "S": "STATE#2019-01-16T13:47:07+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-01-16T13:47:07+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6"
+              },
+              "sk": {
+                "S": "STATE#2019-01-16T13:47:07+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-01-16T13:47:07+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab"
+              },
+              "sk": {
+                "S": "STATE#2019-01-15T16:04:14+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-01-15T16:04:14+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab"
+              },
+              "sk": {
+                "S": "STATE#2019-01-15T20:59:16+00:00"
+              },
+              "status": {
+                "S": "CLOSED"
+              },
+              "modified_date": {
+                "S": "2019-01-15T20:59:16+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f"
+              },
+              "sk": {
+                "S": "STATE#2019-01-15T15:43:39+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-01-15T15:43:39+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6192c72f-2e10-4259-9207-717b2d90d8d2"
+              },
+              "sk": {
+                "S": "STATE#2018-11-27T19:54:08+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2018-11-27T19:54:08+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6192c72f-2e10-4259-9207-717b2d90d8d2"
+              },
+              "sk": {
+                "S": "STATE#2019-01-10T20:06:22+00:00"
+              },
+              "status": {
+                "S": "CLOSED"
+              },
+              "modified_date": {
+                "S": "2019-01-10T20:06:22+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6192c72f-2e10-4259-9207-717b2d90d8d2"
+              },
+              "sk": {
+                "S": "STATE#2019-01-10T20:15:42+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2019-01-10T20:15:42+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6192c72f-2e10-4259-9207-717b2d90d8d2"
+              },
+              "sk": {
+                "S": "STATE#2019-09-16T14:40:37+00:00"
+              },
+              "status": {
+                "S": "CLOSED"
+              },
+              "modified_date": {
+                "S": "2019-09-16T14:40:37+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#afb345f6-9319-416a-b174-0201d7cd3822"
+              },
+              "sk": {
+                "S": "STATE#2020-09-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2020-09-12T13:45:48+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              }
             }
           ],
           "NonKeyAttributes": [
@@ -9020,7 +10335,10 @@
             "modified_by",
             "source",
             "justification"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability_historic_treatment",
@@ -9055,7 +10373,10 @@
             "manager",
             "justification",
             "acceptance_status"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability_historic_verification",
@@ -9087,7 +10408,10 @@
             "modified_date",
             "modified_by",
             "comment_id"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability_historic_zero_risk",
@@ -9142,7 +10466,10 @@
             "modified_date",
             "modified_by",
             "comment_id"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability_state",
@@ -9178,7 +10505,10 @@
             "modified_by",
             "source",
             "justification"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability_treatment",
@@ -9213,7 +10543,10 @@
             "manager",
             "justification",
             "acceptance_status"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability_verification",
@@ -9240,7 +10573,10 @@
           "NonKeyAttributes": [
             "status",
             "modified_date"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability_zero_risk",
@@ -9275,7 +10611,10 @@
             "modified_date",
             "modified_by",
             "comment_id"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "machine_git_root_execution_new",
@@ -9321,7 +10660,10 @@
             "stopped_at",
             "findings_executed",
             "created_at"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         }
       ],
       "GlobalSecondaryIndexes": [
