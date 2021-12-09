@@ -27,6 +27,7 @@ import {
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/queries";
 import type {
   IAddStakeholderAttrs,
+  IGetOrganizationStakeholders,
   IOrganizationStakeholders,
   IRemoveStakeholderAttrs,
   IStakeholderAttrs,
@@ -122,9 +123,8 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
   }, []);
 
   // GraphQL Operations
-  const { data, refetch: refetchStakeholders } = useQuery(
-    GET_ORGANIZATION_STAKEHOLDERS,
-    {
+  const { data, refetch: refetchStakeholders } =
+    useQuery<IGetOrganizationStakeholders>(GET_ORGANIZATION_STAKEHOLDERS, {
       notifyOnNetworkStatusChange: true,
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
@@ -136,8 +136,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
         });
       },
       variables: { organizationId },
-    }
-  );
+    });
 
   const [grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IAddStakeholderAttrs): void => {
@@ -254,7 +253,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
   const stakeholdersList: IStakeholderAttrs[] =
     _.isUndefined(data) || _.isEmpty(data)
       ? []
-      : data.organization.stakeholders; // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      : data.organization.stakeholders;
 
   const filterSearchtextResult: IStakeholderAttrs[] = filterSearchText(
     stakeholdersList,

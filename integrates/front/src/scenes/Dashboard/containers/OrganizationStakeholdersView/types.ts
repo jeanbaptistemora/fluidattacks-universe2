@@ -11,6 +11,13 @@ interface IAddStakeholderAttrs {
   };
 }
 
+interface IGetOrganizationStakeholders {
+  organization: {
+    name: string;
+    stakeholders: IStakeholderAttrs[];
+  };
+}
+
 interface IUpdateStakeholderAttrs {
   updateOrganizationStakeholder: {
     modifiedStakeholder: {
@@ -39,13 +46,12 @@ interface IStakeholderAttrs {
   email: string;
   firstLogin: string;
   lastLogin: ILastLogin;
-  organization: string;
-  responsibility: string;
   role: string;
 }
 
 export {
   IAddStakeholderAttrs,
+  IGetOrganizationStakeholders,
   IUpdateStakeholderAttrs,
   IOrganizationStakeholders,
   IRemoveStakeholderAttrs,

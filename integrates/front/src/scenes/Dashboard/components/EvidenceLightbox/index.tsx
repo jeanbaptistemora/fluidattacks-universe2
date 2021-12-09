@@ -53,8 +53,7 @@ const EvidenceLightbox: React.FC<IEvidenceLightboxProps> = (
       reactModalStyle={{ overlay: { zIndex: "1200" } }}
     />
   ) : (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <React.Fragment />
+    <React.StrictMode />
   );
 };
 
