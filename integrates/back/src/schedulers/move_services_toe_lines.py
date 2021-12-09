@@ -83,7 +83,7 @@ def _get_group_name(tmpdirname: str, lines_csv_path: str) -> str:
 def _get_attacked_at(
     services_toe_lines: ServicesToeLines,
     toe_lines: ToeLines,
-) -> datetime:
+) -> Optional[datetime]:
     return (
         datetime.fromisoformat(services_toe_lines.tested_date)
         if services_toe_lines.tested_date
@@ -91,14 +91,17 @@ def _get_attacked_at(
         and datetime.fromisoformat(services_toe_lines.tested_date)
         > toe_lines.attacked_at
         else toe_lines.attacked_at
-        or datetime.fromisoformat(services_toe_lines.tested_date)
+        if toe_lines.attacked_at is not None
+        else datetime.fromisoformat(services_toe_lines.tested_date)
+        if services_toe_lines.tested_date
+        else None
     )
 
 
 def _get_attacked_lines(
     new_attacked_lines: int,
     toe_lines: ToeLines,
-    new_attacked_at: datetime,
+    new_attacked_at: Optional[datetime],
 ) -> int:
     attacked_lines = (
         toe_lines.attacked_lines
@@ -115,7 +118,7 @@ def _get_attacked_lines(
 def _get_comments(
     new_comments: str,
     toe_lines: ToeLines,
-    new_attacked_at: datetime,
+    new_attacked_at: Optional[datetime],
 ) -> str:
     comments = (
         toe_lines.comments
@@ -132,7 +135,7 @@ def _get_comments(
 def _get_first_attack_at(
     services_toe_lines: ServicesToeLines,
     toe_lines: ToeLines,
-) -> datetime:
+) -> Optional[datetime]:
     return (
         datetime.fromisoformat(services_toe_lines.tested_date)
         if services_toe_lines.tested_date
@@ -140,14 +143,17 @@ def _get_first_attack_at(
         and datetime.fromisoformat(services_toe_lines.tested_date)
         < toe_lines.first_attack_at
         else toe_lines.first_attack_at
-        or datetime.fromisoformat(services_toe_lines.tested_date)
+        if toe_lines.attacked_at is not None
+        else datetime.fromisoformat(services_toe_lines.tested_date)
+        if services_toe_lines.tested_date
+        else None
     )
 
 
 def _get_seen_at(
     services_toe_lines: ServicesToeLines,
     toe_lines: ToeLines,
-) -> Optional[datetime]:
+) -> datetime:
     return (
         datetime.fromisoformat(services_toe_lines.tested_date)
         if services_toe_lines.tested_date
