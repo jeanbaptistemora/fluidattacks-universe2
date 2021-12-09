@@ -131,7 +131,7 @@ const dataTreatmentTrackHelper = (
   if (dataTreatment.tag !== undefined) {
     track("AddVulnerabilityTag");
   }
-  if (dataTreatment.severity !== undefined) {
+  if (!_.isEmpty(dataTreatment.severity)) {
     track("AddVulnerabilityLevel");
   }
 };

@@ -9,7 +9,7 @@ interface IHeaderQueryResult {
     }[];
     id: string;
     openVulns: number;
-    releaseDate?: string;
+    releaseDate: string | null;
     severityScore: number;
     state: "closed" | "default" | "open";
     title: string;

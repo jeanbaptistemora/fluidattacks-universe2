@@ -20,7 +20,7 @@ interface IFindingAttr {
   openAge: number;
   openVulnerabilities: number;
   name: string;
-  releaseDate?: string;
+  releaseDate: string | null;
   remediated: string;
   severityScore: number;
   state: string;
@@ -43,7 +43,7 @@ interface IFindingData {
   openAge: number;
   openVulnerabilities: number;
   name: string;
-  releaseDate?: string;
+  releaseDate: string | null;
   remediated: string;
   severityScore: number;
   state: string;

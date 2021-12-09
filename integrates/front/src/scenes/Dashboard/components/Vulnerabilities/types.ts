@@ -5,32 +5,32 @@ import type {
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
 interface IVulnRowAttr {
-  commitHash?: string | null;
+  commitHash: string | null;
   currentState: "closed" | "open";
   currentStateCapitalized: "Closed" | "Open";
   cycles: string;
   efficacy: string;
-  externalBugTrackingSystem?: string | null;
+  externalBugTrackingSystem: string | null;
   hacker?: string;
   historicTreatment: IHistoricTreatment[];
   id: string;
-  lastReattackDate?: string | null;
+  lastReattackDate: string | null;
   lastReattackRequester: string;
-  lastRequestedReattackDate?: string | null;
+  lastRequestedReattackDate: string | null;
   remediated: boolean;
   reportDate: string;
-  severity?: string;
+  severity: string | null;
   specific: string;
-  stream?: string | null;
+  stream: string | null;
   tag: string;
   treatment: string;
   treatmentChanges: number;
   treatmentDate: string;
   assigned: string;
-  verification?: string;
+  verification: string | null;
   vulnerabilityType: string;
   where: string;
-  zeroRisk?: string | null;
+  zeroRisk: string | null;
 }
 
 interface IUploadVulnerabilitiesResultAttr {
@@ -48,10 +48,10 @@ interface IDownloadVulnerabilitiesResultAttr {
 
 interface IVulnDataTypeAttr {
   currentState: "closed" | "open";
-  externalBugTrackingSystem?: string | null;
+  externalBugTrackingSystem: string | null;
   historicTreatment: IHistoricTreatment[];
   id: string;
-  severity?: string | null;
+  severity: string | null;
   specific: string;
   tag: string;
   assigned: string;
@@ -79,9 +79,9 @@ interface IVulnComponentProps {
 
 interface IUpdateTreatmentVulnerabilityForm {
   acceptanceDate?: string;
-  externalBugTrackingSystem?: string;
+  externalBugTrackingSystem: string | null;
   justification?: string;
-  severity?: string | null;
+  severity: string | null;
   tag?: string;
   treatment: string;
   assigned?: string;
