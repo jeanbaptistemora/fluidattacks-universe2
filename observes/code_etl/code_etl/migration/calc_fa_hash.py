@@ -29,6 +29,13 @@ from postgres_client.query import (
 )
 from purity.v1 import (
     FrozenList,
+    PureIter,
+)
+from purity.v1.pure_iter.factory import (
+    pure_map,
+)
+from purity.v1.pure_iter.transform import (
+    filter_maybe,
 )
 from returns.io import (
     IO,
@@ -107,8 +114,7 @@ def _try_calc_id(raw: FrozenList[Any]) -> Maybe[CommitDataId]:
     return _raw.map(_calc_id)
 
 
-def update_query(schema: SchemaID, cid: CommitDataId) -> Query:
-    LOG.debug("updating commit %s", cid.hash.hash)
+def update_query(schema: SchemaID) -> Query:
     return Query(
         """
         UPDATE {schema}.commits
@@ -120,18 +126,14 @@ def update_query(schema: SchemaID, cid: CommitDataId) -> Query:
             and repository = %(repository)s
         """,
         SqlArgs(
-            {
-                "fa_hash": cid.hash.fa_hash,
-                "hash": cid.hash.hash,
-                "namespace": cid.namespace,
-                "repository": cid.repository,
-            },
-            {"schema": schema.name},
+            identifiers={"schema": schema.name},
         ),
     )
 
 
-def calc_hash(client: Client, schema: SchemaID, namespace: str) -> IO[None]:
+def calc_hash(
+    client: Client, client_2: Client, schema: SchemaID, namespace: str
+) -> IO[None]:
     query = Query(
         """
         SELECT
@@ -175,14 +177,25 @@ def calc_hash(client: Client, schema: SchemaID, namespace: str) -> IO[None]:
             LOG.info("No items")
             break
         items = unsafe_perform_io(client.cursor.fetch_many(pkg_items))
-        for item in items:
-            _try_calc_id(item).map(
-                lambda c: client.cursor.execute_query(update_query(schema, c))
+        data: PureIter[CommitDataId] = filter_maybe(
+            pure_map(_try_calc_id, items)
+        )
+        args = data.map(
+            lambda cid: SqlArgs(
+                {
+                    "fa_hash": cid.hash.fa_hash,
+                    "hash": cid.hash.hash,
+                    "namespace": cid.namespace,
+                    "repository": cid.repository,
+                }
             )
-            count = count + 1
-            LOG.info(
-                "migrating %s/%s [%s%%]", count, total, (count * 100) // total
-            )
+        )
+        LOG.info("%s items will be updated", len(tuple(data)))
+        client_2.cursor.execute_batch(update_query(schema), list(args))
+        count = count + len(items)
+        LOG.info(
+            "Migration %s/%s [%s%%]", count, total, (count * 100) // total
+        )
         if len(items) == 0:
             LOG.info("END. No more packages")
             break
@@ -193,4 +206,5 @@ def start(
     db_id: DatabaseID, creds: Credentials, schema: SchemaID, namespace: str
 ) -> IO[None]:
     client = ClientFactory().from_creds(db_id, creds)
-    return calc_hash(client, schema, namespace)
+    client2 = ClientFactory().from_creds(db_id, creds)
+    return calc_hash(client, client2, schema, namespace)
