@@ -44,7 +44,7 @@ describe("Update Description component", (): void => {
     {
       assigned: "",
       currentState: "open",
-      externalBugTrackingSystem: undefined,
+      externalBugTrackingSystem: null,
       historicTreatment: [
         {
           date: "",
@@ -81,7 +81,7 @@ describe("Update Description component", (): void => {
             currentState: "open",
             cycles: "0",
             efficacy: "0",
-            externalBugTrackingSystem: undefined,
+            externalBugTrackingSystem: null,
             findingId: "480857698",
             historicTreatment: [],
             id: "",
@@ -119,8 +119,8 @@ describe("Update Description component", (): void => {
           closedVulns: 0,
           id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
           openVulns: 0,
-          releaseDate: undefined,
-          reportDate: undefined,
+          releaseDate: null,
+          reportDate: null,
           severityScore: 1,
           state: "default",
           title: "",
@@ -150,7 +150,7 @@ describe("Update Description component", (): void => {
       {
         assigned: "",
         currentState: "open",
-        externalBugTrackingSystem: undefined,
+        externalBugTrackingSystem: null,
         historicTreatment: [treatment],
         id: "test_one",
         severity: undefined,
@@ -161,7 +161,7 @@ describe("Update Description component", (): void => {
       {
         assigned: "",
         currentState: "open",
-        externalBugTrackingSystem: undefined,
+        externalBugTrackingSystem: null,
         historicTreatment: [treatment],
         id: "test_two",
         severity: undefined,
@@ -450,7 +450,7 @@ describe("Update Description component", (): void => {
       {
         assigned: "",
         currentState: "open",
-        externalBugTrackingSystem: undefined,
+        externalBugTrackingSystem: null,
         historicTreatment: [],
         id: "test1",
         severity: undefined,
@@ -461,7 +461,7 @@ describe("Update Description component", (): void => {
       {
         assigned: "",
         currentState: "open",
-        externalBugTrackingSystem: undefined,
+        externalBugTrackingSystem: null,
         historicTreatment: [],
         id: "test2",
         severity: undefined,
@@ -590,7 +590,7 @@ describe("Update Description component", (): void => {
       {
         assigned: "",
         currentState: "open",
-        externalBugTrackingSystem: undefined,
+        externalBugTrackingSystem: null,
         historicTreatment: [],
         id: "test",
         severity: undefined,

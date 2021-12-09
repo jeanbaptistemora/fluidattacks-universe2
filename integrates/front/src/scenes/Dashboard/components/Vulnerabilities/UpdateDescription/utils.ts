@@ -24,10 +24,9 @@ const groupExternalBugTrackingSystem: (
 ) => string = (vulnerabilities: IVulnDataTypeAttr[]): string => {
   const bts: string = vulnerabilities.reduce(
     (acc: string, vuln: IVulnDataTypeAttr): string =>
-      _.isEmpty(vuln.externalBugTrackingSystem) ||
-      vuln.externalBugTrackingSystem === undefined
+      _.isEmpty(vuln.externalBugTrackingSystem)
         ? acc
-        : vuln.externalBugTrackingSystem,
+        : (vuln.externalBugTrackingSystem as string),
     ""
   );
 

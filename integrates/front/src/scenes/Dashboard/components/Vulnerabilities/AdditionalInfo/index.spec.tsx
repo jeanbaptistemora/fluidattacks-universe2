@@ -20,7 +20,7 @@ describe("AdditionalInfo", (): void => {
     currentStateCapitalized: "Open",
     cycles: "1",
     efficacy: "0",
-    externalBugTrackingSystem: undefined,
+    externalBugTrackingSystem: null,
     historicTreatment: [
       {
         acceptanceDate: "",
@@ -42,7 +42,7 @@ describe("AdditionalInfo", (): void => {
     reportDate: "",
     severity: "1",
     specific: "specific-3",
-    stream: undefined,
+    stream: null,
     tag: "tag-7, tag-8",
     treatment: "IN PROGRESS",
     treatmentChanges: 1,

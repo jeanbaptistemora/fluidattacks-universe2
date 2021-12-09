@@ -57,7 +57,7 @@ describe("TrackingTreatment", (): void => {
     currentStateCapitalized: "Open",
     cycles: "1",
     efficacy: "0",
-    externalBugTrackingSystem: undefined,
+    externalBugTrackingSystem: null,
     historicTreatment: [...historicTreatment],
     id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
     lastReattackDate: moment()
@@ -69,7 +69,7 @@ describe("TrackingTreatment", (): void => {
     reportDate: "",
     severity: "1",
     specific: "specific-3",
-    stream: undefined,
+    stream: null,
     tag: "tag-7, tag-8",
     treatment: "IN PROGRESS",
     treatmentChanges: 1,

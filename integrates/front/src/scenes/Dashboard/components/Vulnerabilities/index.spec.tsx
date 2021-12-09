@@ -27,7 +27,7 @@ describe("VulnComponent", (): void => {
       currentStateCapitalized: "Open",
       cycles: "1",
       efficacy: "0",
-      externalBugTrackingSystem: undefined,
+      externalBugTrackingSystem: null,
       historicTreatment: [
         {
           acceptanceDate: "",
@@ -47,7 +47,7 @@ describe("VulnComponent", (): void => {
       reportDate: "",
       severity: "3",
       specific: "specific-1",
-      stream: undefined,
+      stream: null,
       tag: "tag-1, tag-2",
       treatment: "",
       treatmentChanges: 1,
@@ -64,7 +64,7 @@ describe("VulnComponent", (): void => {
       currentStateCapitalized: "Closed",
       cycles: "1",
       efficacy: "100",
-      externalBugTrackingSystem: undefined,
+      externalBugTrackingSystem: null,
       historicTreatment: [
         {
           acceptanceDate: "",
@@ -86,7 +86,7 @@ describe("VulnComponent", (): void => {
       reportDate: "",
       severity: "1",
       specific: "specific-2",
-      stream: undefined,
+      stream: null,
       tag: "tag-5, tag-6",
       treatment: "",
       treatmentChanges: 1,
@@ -103,7 +103,7 @@ describe("VulnComponent", (): void => {
       currentStateCapitalized: "Open",
       cycles: "1",
       efficacy: "0",
-      externalBugTrackingSystem: undefined,
+      externalBugTrackingSystem: null,
       historicTreatment: [
         {
           acceptanceDate: "",
@@ -125,7 +125,7 @@ describe("VulnComponent", (): void => {
       reportDate: "",
       severity: "1",
       specific: "specific-3",
-      stream: undefined,
+      stream: null,
       tag: "tag-7, tag-8",
       treatment: "IN PROGRESS",
       treatmentChanges: 1,

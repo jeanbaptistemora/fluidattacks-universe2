@@ -108,7 +108,7 @@ describe("GroupDraftsView", (): void => {
                 id: "507046047",
                 isExploitable: true,
                 openVulnerabilities: 0,
-                releaseDate: undefined,
+                releaseDate: null,
                 reportDate: "2019-05-23 21:19:29",
                 severityScore: 7.9,
                 title: "008. Reflected cross-site scripting (XSS)",

@@ -107,7 +107,7 @@ describe("Finding Description", (): void => {
     id: "413372600",
     openVulnerabilities: 0,
     recommendation: "Use good security practices and standards",
-    releaseDate: undefined,
+    releaseDate: null,
     requirements: "REQ.0265. System must restrict access",
     sorts: "No",
     state: "open",

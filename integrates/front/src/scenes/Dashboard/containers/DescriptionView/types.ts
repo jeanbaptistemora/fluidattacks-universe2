@@ -16,7 +16,7 @@ interface IFinding {
   id: string;
   openVulnerabilities: number;
   recommendation: string;
-  releaseDate?: string;
+  releaseDate?: string | null;
   requirements: string;
   sorts: string;
   state: "closed" | "open";
