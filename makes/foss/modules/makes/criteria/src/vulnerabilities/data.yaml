@@ -17256,10 +17256,10 @@
     impact: >
       Obtain the internal IP of the server.
     recommendation: >
-      Eliminar los servicios web que
-      exponen información técnica.
+      Remove web services that expose
+      technical information.
     threat: >
-      Anonymous user from the internet.
+      Anonymous attacker from the Internet.
   es:
     title: Technical information leak - IPs
     description: >
@@ -17268,10 +17268,10 @@
     impact: >
       Obtener la IP interna del servidor.
     recommendation: >
-      Remove web services that exposes
-      technical information.
+      Eliminar los servicios web que exponen
+      información técnica.
     threat: >
-      Usuario anónimo de Internet.
+      Atacante anónimo desde Internet.
   category: Collect Information
   score:
     base:
