@@ -240,7 +240,7 @@ type Mutation {
     "when the job was stopped"
     stoppedAt: DateTime!
     "Findings executed in the job"
-    findingsExecuted: [String]
+    findingsExecuted: [MachineFindingResultInput]
   ):SimplePayload!
 
   "Adds a new Organization"

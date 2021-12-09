@@ -913,7 +913,7 @@ async def do_add_execution(
     job_id: str,
     start_date: str,
     end_date: str,
-    findings_executed: Tuple[str, ...],
+    findings_executed: Tuple[Dict[str, Dict[str, int]], ...],
 ) -> bool:
     result = await _execute(
         query="""

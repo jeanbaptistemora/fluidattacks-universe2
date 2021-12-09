@@ -21,3 +21,11 @@ input ExploitResultInput {
   "Execution specific"
   who: String
 }
+
+"Machine finding result definition"
+input MachineFindingResultInput {
+  "Finding code of the execution"
+  finding: String!
+  "Vulnerabilities found for finding"
+  open: Int!
+}

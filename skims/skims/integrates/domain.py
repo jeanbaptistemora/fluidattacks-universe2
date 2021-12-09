@@ -281,7 +281,7 @@ async def do_add_skims_execution(  # pylint: disable=too-many-arguments
     job_id: str,
     start_date: datetime,
     end_date: datetime,
-    findings_executed: Tuple[str, ...],
+    findings_executed: Tuple[Dict[str, Dict[str, int]], ...],
 ) -> bool:
     return await do_add_execution(
         root=root,
