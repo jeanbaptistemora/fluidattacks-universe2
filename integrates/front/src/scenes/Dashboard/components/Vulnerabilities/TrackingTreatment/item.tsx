@@ -19,6 +19,8 @@ export const TrackingTreatment: React.FC<IHistoricTreatment> = ({
   const { t } = useTranslation();
   const isPendingToApproval: boolean =
     treatment === "ACCEPTED_UNDEFINED" && acceptanceStatus !== "APPROVED";
+  const assignedUser: string =
+    _.isEmpty(assigned) || assigned === undefined ? user : assigned;
 
   return (
     <React.StrictMode>
@@ -37,7 +39,7 @@ export const TrackingTreatment: React.FC<IHistoricTreatment> = ({
           treatment === "NEW" ? undefined : (
             <TrackingLabel>
               {t("searchFindings.tabTracking.assigned")}
-              &nbsp;{_.isEmpty(assigned) ? user : assigned}
+              &nbsp;{assignedUser}
             </TrackingLabel>
           )}
           {_.isEmpty(justification) ? undefined : (
