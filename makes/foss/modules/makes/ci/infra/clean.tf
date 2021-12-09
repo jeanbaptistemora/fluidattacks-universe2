@@ -66,7 +66,7 @@ resource "aws_iam_role" "autoscaling-clean" {
 
   tags = {
     "Name"            = "autoscaling-clean"
-    "management:area" = "cost"
+    "management:area" = "innovation"
     "management:type" = "product"
   }
 }
@@ -90,7 +90,7 @@ resource "aws_lambda_function" "autoscaling-clean" {
 
   tags = {
     "Name"            = "autoscaling-clean"
-    "management:area" = "cost"
+    "management:area" = "innovation"
     "management:type" = "product"
   }
 }
@@ -102,7 +102,7 @@ resource "aws_cloudwatch_event_rule" "every-hour" {
 
   tags = {
     "Name"            = "every--hour"
-    "management:area" = "cost"
+    "management:area" = "innovation"
     "management:type" = "product"
   }
 }
@@ -127,4 +127,14 @@ resource "aws_lambda_permission" "autoscaling-clean-every-hour" {
   function_name = aws_lambda_function.autoscaling-clean.function_name
   principal     = "events.amazonaws.com"
   source_arn    = aws_cloudwatch_event_rule.every-hour.arn
+}
+
+resource "aws_cloudwatch_log_group" "autoscaling-clean" {
+  name = "/aws/lambda/autoscaling-clean"
+
+  tags = {
+    "Name"            = "autoscaling-clean"
+    "management:area" = "innovation"
+    "management:type" = "product"
+  }
 }
