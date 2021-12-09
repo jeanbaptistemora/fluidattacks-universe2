@@ -28,6 +28,7 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
+    token as token_utils,
 )
 from toe.lines import (
     domain as toe_lines_domain,
@@ -58,6 +59,8 @@ async def mutate(  # pylint: disable=too-many-arguments
     root_id: str,
 ) -> SimplePayloadType:
     try:
+        user_info = await token_utils.get_jwt_content(info.context)
+        user_email: str = user_info["user_email"]
         loaders: Dataloaders = info.context.loaders
         toe_lines: Tuple[ToeLines, ...] = await loaders.toe_lines.load_many(
             [
@@ -73,6 +76,7 @@ async def mutate(  # pylint: disable=too-many-arguments
                     curren_value,
                     ToeLinesAttributesToUpdate(
                         attacked_at=attacked_at,
+                        attacked_by=user_email,
                         attacked_lines=attacked_lines,
                         comments=comments,
                     ),
