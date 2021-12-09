@@ -576,8 +576,6 @@ async def request_verification(vulnerability: Vulnerability) -> bool:
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
         verification=VulnerabilityVerification(
-            comment_id="",
-            modified_by="",
             modified_date=datetime_utils.get_iso_date(),
             status=VulnerabilityVerificationStatus.REQUESTED,
         ),
@@ -855,8 +853,6 @@ async def verify_vulnerability(vulnerability: Vulnerability) -> bool:
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
         verification=VulnerabilityVerification(
-            comment_id="",
-            modified_by="",
             modified_date=datetime_utils.get_iso_date(),
             status=VulnerabilityVerificationStatus.VERIFIED,
         ),

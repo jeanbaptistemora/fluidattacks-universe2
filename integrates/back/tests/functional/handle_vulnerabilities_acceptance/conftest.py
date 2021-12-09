@@ -167,8 +167,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     verification=VulnerabilityVerification(
-                        comment_id="",
-                        modified_by="",
                         modified_date="2018-04-09T00:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
@@ -199,8 +197,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     verification=VulnerabilityVerification(
-                        comment_id="",
-                        modified_by="",
                         modified_date="2018-04-09T00:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
@@ -231,8 +227,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     verification=VulnerabilityVerification(
-                        comment_id="",
-                        modified_by="",
                         modified_date="2018-04-09T00:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
@@ -263,8 +257,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     verification=VulnerabilityVerification(
-                        comment_id="",
-                        modified_by="",
                         modified_date="2018-04-09T00:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),

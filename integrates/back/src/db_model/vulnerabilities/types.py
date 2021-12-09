@@ -36,8 +36,6 @@ class VulnerabilityTreatment(NamedTuple):
 
 
 class VulnerabilityVerification(NamedTuple):
-    comment_id: str
-    modified_by: str
     modified_date: str
     status: VulnerabilityVerificationStatus
 

@@ -81,8 +81,6 @@ def format_vulnerability_verification(
     verification: Dict[str, str]
 ) -> VulnerabilityVerification:
     return VulnerabilityVerification(
-        comment_id="",
-        modified_by="",
         modified_date=convert_to_iso_str(verification["date"]),
         status=VulnerabilityVerificationStatus(verification["status"]),
     )
