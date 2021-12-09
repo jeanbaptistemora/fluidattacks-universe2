@@ -258,3 +258,15 @@ def iter_secret_manager_secrets(template: Node) -> Iterator[Node]:
             exact=True,
         )
     )
+
+
+def iter_rds_clusters_and_instances(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::RDS::DBCluster",
+            "AWS::RDS::DBInstance",
+            exact=True,
+        )
+    )
