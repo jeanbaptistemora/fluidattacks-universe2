@@ -86,7 +86,7 @@ describe("Update Description component", (): void => {
             historicTreatment: [],
             id: "",
             lastReattackRequester: "",
-            lastRequestedReattackDate: undefined,
+            lastRequestedReattackDate: null,
             remediated: false,
             reportDate: "",
             severity: undefined,

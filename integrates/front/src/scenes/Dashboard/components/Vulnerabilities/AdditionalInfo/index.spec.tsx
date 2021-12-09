@@ -15,7 +15,7 @@ describe("AdditionalInfo", (): void => {
   const numberOfDays: number = 5;
   const mockVuln: IVulnRowAttr = {
     assigned: "assigned-user-4",
-    commitHash: undefined,
+    commitHash: null,
     currentState: "open",
     currentStateCapitalized: "Open",
     cycles: "1",
@@ -37,7 +37,7 @@ describe("AdditionalInfo", (): void => {
       .subtract(numberOfDays, "days")
       .format("YYYY-MM-DD hh:mm:ss"),
     lastReattackRequester: "",
-    lastRequestedReattackDate: undefined,
+    lastRequestedReattackDate: null,
     remediated: false,
     reportDate: "",
     severity: "1",

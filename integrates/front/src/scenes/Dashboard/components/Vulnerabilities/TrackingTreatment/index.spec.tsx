@@ -52,7 +52,7 @@ describe("TrackingTreatment", (): void => {
   ];
   const mockVuln1: IVulnRowAttr = {
     assigned: "assigned-treatment-4",
-    commitHash: undefined,
+    commitHash: null,
     currentState: "open",
     currentStateCapitalized: "Open",
     cycles: "1",
@@ -64,7 +64,7 @@ describe("TrackingTreatment", (): void => {
       .subtract(numberOfDays, "days")
       .format("YYYY-MM-DD hh:mm:ss"),
     lastReattackRequester: "",
-    lastRequestedReattackDate: undefined,
+    lastRequestedReattackDate: null,
     remediated: false,
     reportDate: "",
     severity: "1",

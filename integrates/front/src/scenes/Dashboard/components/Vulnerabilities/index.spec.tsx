@@ -22,7 +22,7 @@ describe("VulnComponent", (): void => {
   const mocks: IVulnRowAttr[] = [
     {
       assigned: "",
-      commitHash: undefined,
+      commitHash: null,
       currentState: "open",
       currentStateCapitalized: "Open",
       cycles: "1",
@@ -40,9 +40,9 @@ describe("VulnComponent", (): void => {
         },
       ],
       id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
-      lastReattackDate: undefined,
+      lastReattackDate: null,
       lastReattackRequester: "testrequester@test.com",
-      lastRequestedReattackDate: undefined,
+      lastRequestedReattackDate: null,
       remediated: true,
       reportDate: "",
       severity: "3",
@@ -59,7 +59,7 @@ describe("VulnComponent", (): void => {
     },
     {
       assigned: "",
-      commitHash: undefined,
+      commitHash: null,
       currentState: "closed",
       currentStateCapitalized: "Closed",
       cycles: "1",
@@ -81,7 +81,7 @@ describe("VulnComponent", (): void => {
         .subtract(numberOfDays, "days")
         .format("YYYY-MM-DD hh:mm:ss"),
       lastReattackRequester: "",
-      lastRequestedReattackDate: undefined,
+      lastRequestedReattackDate: null,
       remediated: false,
       reportDate: "",
       severity: "1",
@@ -98,7 +98,7 @@ describe("VulnComponent", (): void => {
     },
     {
       assigned: "assigned-user-4",
-      commitHash: undefined,
+      commitHash: null,
       currentState: "open",
       currentStateCapitalized: "Open",
       cycles: "1",
@@ -120,7 +120,7 @@ describe("VulnComponent", (): void => {
         .subtract(numberOfDaysOldThanAWeek, "days")
         .format("YYYY-MM-DD hh:mm:ss"),
       lastReattackRequester: "",
-      lastRequestedReattackDate: undefined,
+      lastRequestedReattackDate: null,
       remediated: false,
       reportDate: "",
       severity: "1",
