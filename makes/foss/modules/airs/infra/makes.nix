@@ -6,7 +6,7 @@
     modules = {
       airsInfra = {
         setup = [
-          outputs."/secretsForAwsFromEnv/airsProd"
+          outputs."/secretsForAwsFromEnv/prodAirs"
           outputs."/secretsForEnvFromSops/airsInfraProd"
           outputs."/secretsForTerraformFromEnv/airsInfra"
         ];

@@ -5,9 +5,9 @@
     ./pipeline/makes.nix
   ];
   secretsForAwsFromEnv = {
-    airsProd = {
-      accessKeyId = "AIRS_PROD_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "AIRS_PROD_AWS_SECRET_ACCESS_KEY";
+    prodAirs = {
+      accessKeyId = "PROD_AIRS_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "PROD_AIRS_AWS_SECRET_ACCESS_KEY";
     };
   };
   lintMarkdown = {

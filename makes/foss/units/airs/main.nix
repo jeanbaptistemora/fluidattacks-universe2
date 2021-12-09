@@ -8,7 +8,7 @@ makeScript {
     __argAirsBuild__ = outputs."/airs/build";
     __argAirsDevelopment__ = outputs."/airs/config/development";
     __argSecretsAwsDev__ = outputs."/secretsForAwsFromEnv/dev";
-    __argSecretsAwsProd__ = outputs."/secretsForAwsFromEnv/airsProd";
+    __argSecretsAwsProd__ = outputs."/secretsForAwsFromEnv/prodAirs";
   };
   name = "airs";
   searchPaths = {

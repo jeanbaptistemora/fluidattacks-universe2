@@ -25,6 +25,8 @@ data "aws_iam_policy_document" "key_prod" {
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/airs_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_airs",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/web-prod",
       ]
     }
@@ -57,6 +59,8 @@ data "aws_iam_policy_document" "key_prod" {
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/airs_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_airs",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/web-prod",
       ]
     }
@@ -80,6 +84,8 @@ data "aws_iam_policy_document" "key_prod" {
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/airs_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_airs",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/web-prod",
       ]
     }
@@ -149,6 +155,8 @@ data "aws_iam_policy_document" "key_dev" {
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/airs_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_airs",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/web-prod",
       ]
@@ -183,6 +191,8 @@ data "aws_iam_policy_document" "key_dev" {
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/airs_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_airs",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/web-prod",
       ]
@@ -208,6 +218,8 @@ data "aws_iam_policy_document" "key_dev" {
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/airs_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_airs",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/web-prod",
       ]
