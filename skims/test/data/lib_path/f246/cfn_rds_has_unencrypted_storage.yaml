@@ -1,0 +1,90 @@
+Resources:
+  RDSCluster1:
+    Properties:
+      DBClusterParameterGroupName:
+        Ref: RDSDBClusterParameterGroup
+      DBSubnetGroupName:
+        Ref: DBSubnetGroup
+      Engine: aurora
+      MasterUserPassword:
+        Ref: password
+      MasterUsername:
+        Ref: username
+      StorageEncrypted: True
+    Type: "AWS::RDS::DBCluster"
+  RDSDBInstance1:
+    Properties:
+      AvailabilityZone:
+        Fn::GetAtt:
+          - Subnet1
+          - AvailabilityZone
+      DBClusterIdentifier:
+        Ref: RDSCluster
+      DBInstanceClass: db.r3.xlarge
+      DBParameterGroupName:
+        Ref: RDSDBParameterGroup
+      DBSubnetGroupName:
+        Ref: DBSubnetGroup
+      Engine: aurora
+      PubliclyAccessible: "true"
+      StorageEncrypted: True
+    Type: "AWS::RDS::DBInstance"
+  RDSCluster2:
+    Properties:
+      DBClusterParameterGroupName:
+        Ref: RDSDBClusterParameterGroup
+      DBSubnetGroupName:
+        Ref: DBSubnetGroup
+      Engine: aurora
+      MasterUserPassword:
+        Ref: password
+      MasterUsername:
+        Ref: username
+      StorageEncrypted: False
+    Type: "AWS::RDS::DBCluster"
+  RDSDBInstance2:
+    Properties:
+      AvailabilityZone:
+        Fn::GetAtt:
+          - Subnet1
+          - AvailabilityZone
+      DBClusterIdentifier:
+        Ref: RDSCluster
+      DBInstanceClass: db.r3.xlarge
+      DBParameterGroupName:
+        Ref: RDSDBParameterGroup
+      DBSubnetGroupName:
+        Ref: DBSubnetGroup
+      Engine: aurora
+      PubliclyAccessible: "true"
+      StorageEncrypted: False
+    Type: "AWS::RDS::DBInstance"
+  RDSCluster3:
+    Properties:
+      DBClusterParameterGroupName:
+        Ref: RDSDBClusterParameterGroup
+      DBSubnetGroupName:
+        Ref: DBSubnetGroup
+      Engine: aurora
+      MasterUserPassword:
+        Ref: password
+      MasterUsername:
+        Ref: username
+    Type: "AWS::RDS::DBCluster"
+  RDSDBInstance3:
+    Properties:
+      AvailabilityZone:
+        Fn::GetAtt:
+          - Subnet1
+          - AvailabilityZone
+      DBClusterIdentifier:
+        Ref: RDSCluster
+      DBInstanceClass: db.r3.xlarge
+      DBParameterGroupName:
+        Ref: RDSDBParameterGroup
+      DBSubnetGroupName:
+        Ref: DBSubnetGroup
+      Engine: aurora
+      PubliclyAccessible: "true"
+    Type: "AWS::RDS::DBInstance"
+
