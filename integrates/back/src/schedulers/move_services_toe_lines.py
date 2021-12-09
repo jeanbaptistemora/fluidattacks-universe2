@@ -210,6 +210,7 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                     seen_at=_get_seen_at(
                         repo_services_toe_lines[filename], toe_lines
                     ),
+                    is_moving_toe_lines=True,
                 ),
             )
             for filename, toe_lines in repo_toe_lines.items()

@@ -2,6 +2,9 @@ from .types import (
     ToeLinesAttributesToAdd,
     ToeLinesAttributesToUpdate,
 )
+from custom_exceptions import (
+    ToeLinesNotPresent,
+)
 from datetime import (
     datetime,
 )
@@ -69,6 +72,13 @@ async def update(
     current_value: ToeLines,
     attributes: ToeLinesAttributesToUpdate,
 ) -> None:
+    if (
+        attributes.is_moving_toe_lines is False
+        and attributes.be_present is None
+        and current_value.be_present is False
+    ):
+        raise ToeLinesNotPresent()
+
     last_attacked_at = attributes.attacked_at or current_value.attacked_at
     last_modified_date = (
         attributes.modified_date or current_value.modified_date

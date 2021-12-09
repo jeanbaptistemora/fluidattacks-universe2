@@ -961,3 +961,9 @@ class HasActiveRoots(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - This group has active roots"
         super(HasActiveRoots, self).__init__(msg)
+
+
+class ToeLinesNotPresent(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The toe lines is not present"
+        super(ToeLinesNotPresent, self).__init__(msg)
