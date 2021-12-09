@@ -71,7 +71,7 @@ async def test_add() -> None:
 
 
 @pytest.mark.changes_db
-@freeze_time("2020-08-01T05:00:00+00:00")
+@freeze_time("2022-08-01T05:00:00+00:00")
 async def test_update() -> None:
     group_name = "unittesting"
     root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
@@ -83,7 +83,7 @@ async def test_update() -> None:
         )
     )
     attributes = ToeLinesAttributesToUpdate(
-        attacked_at=datetime.fromisoformat("2022-08-01T05:00:00+00:00"),
+        attacked_at=datetime.fromisoformat("2021-08-01T05:00:00+00:00"),
         attacked_by="hacker2@test.com",
         attacked_lines=434,
         comments="comment test 2",
@@ -102,7 +102,7 @@ async def test_update() -> None:
         )
     )
     assert toe_lines == ToeLines(
-        attacked_at=datetime.fromisoformat("2022-08-01T05:00:00+00:00"),
+        attacked_at=datetime.fromisoformat("2021-08-01T05:00:00+00:00"),
         attacked_by="hacker2@test.com",
         attacked_lines=434,
         be_present=True,

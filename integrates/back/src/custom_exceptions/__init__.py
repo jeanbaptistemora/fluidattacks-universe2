@@ -967,3 +967,12 @@ class ToeLinesNotPresent(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The toe lines is not present"
         super(ToeLinesNotPresent, self).__init__(msg)
+
+
+class InvalidToeLinesAttackAt(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - The attack time must be between the previous "
+            "attack and the current time"
+        )
+        super(InvalidToeLinesAttackAt, self).__init__(msg)

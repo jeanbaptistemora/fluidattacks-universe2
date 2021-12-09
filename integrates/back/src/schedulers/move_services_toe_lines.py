@@ -138,7 +138,7 @@ def _get_first_attack_at(
         if services_toe_lines.tested_date
         and toe_lines.first_attack_at
         and datetime.fromisoformat(services_toe_lines.tested_date)
-        < datetime.fromisoformat(toe_lines.first_attack_at)
+        < toe_lines.first_attack_at
         else toe_lines.first_attack_at
         or datetime.fromisoformat(services_toe_lines.tested_date)
     )
@@ -152,7 +152,7 @@ def _get_seen_at(
         datetime.fromisoformat(services_toe_lines.tested_date)
         if services_toe_lines.tested_date
         and datetime.fromisoformat(services_toe_lines.tested_date)
-        < datetime.fromisoformat(toe_lines.seen_at)
+        < toe_lines.seen_at
         else toe_lines.seen_at
     )
 
