@@ -7,6 +7,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "3.53.0"
     }
+    gitlab = {
+      source  = "gitlabhq/gitlab"
+      version = "3.7.0"
+    }
   }
 
   backend "s3" {

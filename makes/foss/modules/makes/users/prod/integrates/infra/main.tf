@@ -10,6 +10,10 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "2.20.0"
     }
+    gitlab = {
+      source  = "gitlabhq/gitlab"
+      version = "3.7.0"
+    }
   }
 
   backend "s3" {

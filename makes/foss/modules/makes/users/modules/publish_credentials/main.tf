@@ -9,7 +9,6 @@ terraform {
   }
 }
 
-variable "gitlab_token" {}
 variable "key_1" {}
 variable "key_2" {}
 variable "prefix" {}
@@ -17,11 +16,6 @@ variable "protected" {}
 variable "project_id" {
   default = "20741933" # product
 }
-
-provider "gitlab" {
-  token = var.gitlab_token
-}
-
 
 resource "time_static" "key_1_created_at" {
   rfc3339 = var.key_1.create_date

@@ -10,6 +10,10 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "2.25.0"
     }
+    gitlab = {
+      source  = "gitlabhq/gitlab"
+      version = "3.7.0"
+    }
   }
 
   backend "s3" {
@@ -37,21 +41,37 @@ module "cloudflare" {
   policy = local.cloudflare
 }
 
+provider "gitlab" {
+  alias = "product"
+  token = var.gitlab_token
+}
+
+provider "gitlab" {
+  alias = "services"
+  token = var.gitlab_token_services
+}
+
 module "publish_credentials" {
-  source       = "../../modules/publish_credentials"
-  gitlab_token = var.gitlab_token
-  key_1        = module.aws.keys.1
-  key_2        = module.aws.keys.2
-  prefix       = "DEV"
-  protected    = false
+  source    = "../../modules/publish_credentials"
+  key_1     = module.aws.keys.1
+  key_2     = module.aws.keys.2
+  prefix    = "DEV"
+  protected = false
+
+  providers = {
+    gitlab = gitlab.product
+  }
 }
 
 module "publish_credentials_services" {
-  source       = "../../modules/publish_credentials"
-  gitlab_token = var.gitlab_token_services
-  key_1        = module.aws.keys.1
-  key_2        = module.aws.keys.2
-  prefix       = "DEV"
-  project_id   = "4603023"
-  protected    = false
+  source     = "../../modules/publish_credentials"
+  key_1      = module.aws.keys.1
+  key_2      = module.aws.keys.2
+  prefix     = "DEV"
+  project_id = "4603023"
+  protected  = false
+
+  providers = {
+    gitlab = gitlab.services
+  }
 }
