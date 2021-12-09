@@ -34,6 +34,12 @@ def filter_opt(items: PureIter[Optional[_I]]) -> PureIter[_I]:
     return PureIter(draft)
 
 
+def filter_maybe(items: PureIter[Maybe[_I]]) -> PureIter[_I]:
+    _items = items.map(lambda x: x.value_or(None))
+    draft = _PureIter(Patch(lambda: iter(IterableFactory.filter_none(_items))))
+    return PureIter(draft)
+
+
 def until_none(items: PureIter[Optional[_I]]) -> PureIter[_I]:
     draft = _PureIter(Patch(lambda: iter(IterableFactory.until_none(items))))
     return PureIter(draft)
