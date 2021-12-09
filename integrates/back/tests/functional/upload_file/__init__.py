@@ -18,6 +18,7 @@ async def get_result(
     *,
     user: str,
     finding: str,
+    yaml_file_name: str,
 ) -> Dict[str, Any]:
     query: str = """
             mutation UploadFileMutation(
@@ -32,7 +33,7 @@ async def get_result(
             }
         """
     path: str = os.path.dirname(os.path.abspath(__file__))
-    filename: str = f"{path}/test-vulns.yaml"
+    filename: str = f"{path}/{yaml_file_name}"
     with open(filename, "rb") as test_file:
         uploaded_file: UploadFile = UploadFile(
             test_file.name, test_file, "text/x-yaml"

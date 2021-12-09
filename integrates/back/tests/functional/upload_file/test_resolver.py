@@ -1,6 +1,9 @@
 from . import (
     get_result,
 )
+from custom_exceptions import (
+    InvalidNewVulnState,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -67,7 +70,12 @@ async def test_upload_file(populate: bool, email: str) -> None:
     assert populate
     loaders: Dataloaders = get_new_context()
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: Dict[str, Any] = await get_result(user=email, finding=finding_id)
+    file_name = "test-vulns.yaml"
+    result: Dict[str, Any] = await get_result(
+        user=email,
+        finding=finding_id,
+        yaml_file_name=file_name,
+    )
     assert "errors" not in result
     assert result["data"]["uploadFile"]["success"]
     assert await _get_vulns(loaders, finding_id) == [
@@ -185,9 +193,39 @@ async def test_upload_file(populate: bool, email: str) -> None:
         ["executive@gmail.com"],
     ],
 )
-async def test_upload_file_fail(populate: bool, email: str) -> None:
+async def test_upload_file_access_denied_error(
+    populate: bool, email: str
+) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: Dict[str, Any] = await get_result(user=email, finding=finding_id)
+    file_name = "test-vulns.yaml"
+    result: Dict[str, Any] = await get_result(
+        user=email,
+        finding=finding_id,
+        yaml_file_name=file_name,
+    )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("upload_file")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+        ["hacker@gmail.com"],
+        ["reattacker@gmail.com"],
+    ],
+)
+async def test_upload_new_closed_error(populate: bool, email: str) -> None:
+    assert populate
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
+    file_name = "test-vulns-new-closed-error.yaml"
+    result: Dict[str, Any] = await get_result(
+        user=email,
+        finding=finding_id,
+        yaml_file_name=file_name,
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == InvalidNewVulnState.msg
