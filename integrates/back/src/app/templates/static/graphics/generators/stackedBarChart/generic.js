@@ -3,40 +3,23 @@
 const defaultPaddingRatio = 0.05;
 
 function render(dataDocument, height, width) {
+  function getTooltipValue(id, index, maxPercentageValues) {
+    if (maxPercentageValues[id][index] === '') {
+      return '';
+    }
+
+    return `${ parseFloat(maxPercentageValues[id][index]) } %`;
+  }
+
   if (dataDocument.percentageValues && dataDocument.maxPercentageValues) {
     const { percentageValues, maxPercentageValues } = dataDocument;
-
-    dataDocument.tooltip.format.value = (_datum, _r, id, index) => {
-      const tooltipValue = `${ parseFloat(percentageValues[id][index]) } %`;
-
-      return tooltipValue;
-    };
+    dataDocument.tooltip.format.value = (_datum, _r, id, index) =>
+      `${ parseFloat(percentageValues[id][index]) } %`;
 
     dataDocument.data.labels.format = {
-      Accepted: (_datum, id, index) => {
-        if (maxPercentageValues[id][index] === '') {
-          return '';
-        }
-        const labelValue = `${ parseFloat(maxPercentageValues[id][index]) } %`;
-
-        return labelValue;
-      },
-      Closed: (_datum, id, index) => {
-        if (maxPercentageValues[id][index] === '') {
-          return '';
-        }
-        const labelValue = `${ parseFloat(maxPercentageValues[id][index]) } %`;
-
-        return labelValue;
-      },
-      Open: (_datum, id, index) => {
-        if (maxPercentageValues[id][index] === '') {
-          return '';
-        }
-        const labelValue = `${ parseFloat(maxPercentageValues[id][index]) } %`;
-
-        return labelValue;
-      },
+      Accepted: (_datum, id, index) => getTooltipValue(id, index, maxPercentageValues),
+      Closed: (_datum, id, index) => getTooltipValue(id, index, maxPercentageValues),
+      Open: (_datum, id, index) => getTooltipValue(id, index, maxPercentageValues),
     };
   }
 
