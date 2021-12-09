@@ -8,12 +8,22 @@ from dataclasses import (
 from decimal import (
     Decimal,
 )
+from purity.v2.json.primitive import (
+    factory,
+)
+from purity.v2.json.primitive.core import (
+    NotNonePrimTvar,
+    Primitive,
+    PrimitiveTVar,
+    PrimitiveTypes,
+)
+from returns.functions import (
+    raise_exception,
+)
 from typing import (
     Any,
     Optional,
     Type,
-    TypeVar,
-    Union,
 )
 from typing_extensions import (
     TypeGuard,
@@ -32,21 +42,6 @@ class InvalidType(Exception):
         )
 
 
-Primitive = Union[str, int, float, Decimal, bool, None]
-PrimitiveTypes = Union[
-    Type[str],
-    Type[int],
-    Type[float],
-    Type[Decimal],
-    Type[bool],
-    Type[None],
-]
-PrimitiveTVar = TypeVar(
-    "PrimitiveTVar", str, int, float, Decimal, bool, Type[None]
-)
-NotNonePrimTvar = TypeVar("NotNonePrimTvar", str, int, float, Decimal, bool)
-
-
 @dataclass(frozen=True)
 class PrimitiveFactory:
     @staticmethod
@@ -60,14 +55,24 @@ class PrimitiveFactory:
     def to_primitive(
         cls, raw: Any, prim_type: Type[PrimitiveTVar]
     ) -> PrimitiveTVar:
-        if isinstance(raw, prim_type):
-            return raw
-        raise InvalidType("to_primitive", str(prim_type), raw)
+        return (
+            factory.to_primitive(raw, prim_type).lash(raise_exception).unwrap()
+        )
 
     @staticmethod
     def to_opt_primitive(
         raw: Any, prim_type: Type[NotNonePrimTvar]
     ) -> Optional[NotNonePrimTvar]:
-        if raw is None or isinstance(raw, prim_type):
-            return raw
-        raise InvalidType("to_opt_primitive", f"{prim_type} | None", raw)
+        return (
+            factory.to_opt_primitive(raw, prim_type)
+            .lash(raise_exception)
+            .unwrap()
+        )
+
+
+__all__ = [
+    "Primitive",
+    "PrimitiveTypes",
+    "PrimitiveTVar",
+    "NotNonePrimTvar",
+]
