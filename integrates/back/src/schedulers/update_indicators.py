@@ -391,8 +391,8 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
 
     if vulns_nzr:
         first_day, last_day = get_first_dates(historic_states)
-        first_day_last_week = get_last_vulnerabilities_date(vulns_nzr)
-        while first_day <= first_day_last_week:
+        first_day_last_month = get_last_vulnerabilities_date(vulns_nzr)
+        while first_day <= first_day_last_month:
             result_vulns_by_month: VulnerabilitiesStatusByTimeRange = (
                 get_status_vulns_by_time_range(
                     vulnerabilities_severity=vulnerabilities_severity,
@@ -403,7 +403,7 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
                     min_date=None,
                 )
             )
-            result_cvssf_by_week: CvssfExposureByTimeRange = (
+            result_cvssf_by_month: CvssfExposureByTimeRange = (
                 get_exposed_cvssf_by_time_range(
                     vulnerabilities_severity=vulnerabilities_severity,
                     vulnerabilities_historic_states=historic_states,
@@ -412,7 +412,7 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
             )
             found += result_vulns_by_month.found_vulnerabilities
             found_cvssf += result_vulns_by_month.found_cvssf
-            week_dates = create_date(first_day)
+            month_dates = create_date(first_day)
             if any(
                 [
                     result_vulns_by_month.found_vulnerabilities,
@@ -420,7 +420,7 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
                     closed != result_vulns_by_month.closed_vulnerabilities,
                 ]
             ):
-                all_registers[week_dates] = {
+                all_registers[month_dates] = {
                     "found": Decimal(found),
                     "closed": Decimal(
                         result_vulns_by_month.closed_vulnerabilities
@@ -438,7 +438,7 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
                         - result_vulns_by_month.accepted_vulnerabilities
                     ),
                 }
-                all_registers_cvsff[week_dates] = {
+                all_registers_cvsff[month_dates] = {
                     "found": found_cvssf.quantize(Decimal("0.1")),
                     "closed": result_vulns_by_month.closed_cvssf.quantize(
                         Decimal("0.1")
@@ -458,27 +458,29 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
                 }
 
             if exposed_cvssf != (
-                result_cvssf_by_week.low
-                + result_cvssf_by_week.medium
-                + result_cvssf_by_week.high
-                + result_cvssf_by_week.critical
+                result_cvssf_by_month.low
+                + result_cvssf_by_month.medium
+                + result_cvssf_by_month.high
+                + result_cvssf_by_month.critical
             ):
-                all_registers_exposed_cvsff[week_dates] = {
-                    "low": result_cvssf_by_week.low.quantize(Decimal("0.1")),
-                    "medium": result_cvssf_by_week.medium.quantize(
+                all_registers_exposed_cvsff[month_dates] = {
+                    "low": result_cvssf_by_month.low.quantize(Decimal("0.1")),
+                    "medium": result_cvssf_by_month.medium.quantize(
                         Decimal("0.1")
                     ),
-                    "high": result_cvssf_by_week.high.quantize(Decimal("0.1")),
-                    "critical": result_cvssf_by_week.critical.quantize(
+                    "high": result_cvssf_by_month.high.quantize(
+                        Decimal("0.1")
+                    ),
+                    "critical": result_cvssf_by_month.critical.quantize(
                         Decimal("0.1")
                     ),
                 }
 
             exposed_cvssf = (
-                result_cvssf_by_week.low
-                + result_cvssf_by_week.medium
-                + result_cvssf_by_week.high
-                + result_cvssf_by_week.critical
+                result_cvssf_by_month.low
+                + result_cvssf_by_month.medium
+                + result_cvssf_by_month.high
+                + result_cvssf_by_month.critical
             )
 
             accepted = result_vulns_by_month.accepted_vulnerabilities
@@ -883,7 +885,7 @@ def get_status_vulns_by_time_range(
     ]
     vulnerabilities_accepted = [
         get_accepted_vulns(
-            historic_state, historic_treatment, severity, first_day, min_date
+            historic_state, historic_treatment, severity, last_day, min_date
         )
         for historic_state, historic_treatment, severity in zip(
             vulnerabilities_historic_states,
@@ -942,21 +944,25 @@ def get_found_vulnerabilities(
     first_day: str,
     last_day: str,
 ) -> VulnerabilityStatusByTimeRange:
+    found = VulnerabilityStatusByTimeRange(
+        vulnerabilities=0, cvssf=Decimal("0.0")
+    )
     if (
         first_day <= historic_state[-1].modified_date <= last_day
         and historic_state[-1].status == VulnerabilityStateStatus.DELETED
     ):
-        return VulnerabilityStatusByTimeRange(
-            vulnerabilities=-1,
-            cvssf=(vulns_utils.get_cvssf(severity) * Decimal("-1.0")),
+        found = VulnerabilityStatusByTimeRange(
+            vulnerabilities=found.vulnerabilities - 1,
+            cvssf=found.cvssf
+            + (vulns_utils.get_cvssf(severity) * Decimal("-1.0")),
         )
     if first_day <= historic_state[0].modified_date <= last_day:
-        return VulnerabilityStatusByTimeRange(
-            vulnerabilities=1, cvssf=vulns_utils.get_cvssf(severity)
+        found = VulnerabilityStatusByTimeRange(
+            vulnerabilities=found.vulnerabilities + 1,
+            cvssf=found.cvssf + vulns_utils.get_cvssf(severity),
         )
-    return VulnerabilityStatusByTimeRange(
-        vulnerabilities=0, cvssf=Decimal("0.0")
-    )
+
+    return found
 
 
 def get_severity_level(severity: Decimal) -> str:

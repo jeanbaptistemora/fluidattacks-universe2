@@ -110,13 +110,13 @@ async def test_get_status_vulns_by_time_range() -> None:
         first_day=first_day,
         last_day=last_day,
     )
-    expected_output = {"found": 8, "accepted": 2, "closed": 2}
+    expected_output = {"found": 4, "accepted": 2, "closed": 1}
     output = {
         "found": test_data.found_vulnerabilities,
         "accepted": test_data.accepted_vulnerabilities,
         "closed": test_data.closed_vulnerabilities,
     }
-    assert sorted(output) == sorted(expected_output)
+    assert sorted(output.items()) == sorted(expected_output.items())
 
 
 def test_create_weekly_date() -> None:
