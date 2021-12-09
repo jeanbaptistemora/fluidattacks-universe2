@@ -8160,6 +8160,818 @@
               "custom_severity": {
                 "N": "99"
               }
+            },
+            {
+              "pk": {
+                "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
+              },
+              "sk": {
+                "S": "FIN#988493279"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.20"
+              },
+              "specific": {
+                "S": "9999"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6"
+              },
+              "sk": {
+                "S": "FIN#988493279"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.19"
+              },
+              "specific": {
+                "S": "8888"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea"
+              },
+              "sk": {
+                "S": "FIN#475041513"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.105"
+              },
+              "specific": {
+                "S": "3636"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#5c689459-64c2-4687-9fef-e5f2dd3c710c"
+              },
+              "sk": {
+                "S": "FIN#475041513"
+              },
+              "type": {
+                "S": "LINES"
+              },
+              "where": {
+                "S": "product/path/to/file1.ext"
+              },
+              "specific": {
+                "S": "123345"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#a8c0ff07-bb21-4cd5-bb9f-4d716fc69320"
+              },
+              "sk": {
+                "S": "FIN#475041513"
+              },
+              "type": {
+                "S": "LINES"
+              },
+              "where": {
+                "S": "path/to/file4.ext"
+              },
+              "specific": {
+                "S": "564"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+              },
+              "sk": {
+                "S": "FIN#422286126"
+              },
+              "type": {
+                "S": "LINES"
+              },
+              "where": {
+                "S": "test/data/lib_path/f060/csharp.cs"
+              },
+              "specific": {
+                "S": "12"
+              },
+              "commit": {
+                "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0"
+              },
+              "sk": {
+                "S": "FIN#422286126"
+              },
+              "type": {
+                "S": "INPUTS"
+              },
+              "where": {
+                "S": "https://example.com"
+              },
+              "specific": {
+                "S": "phone"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#15375781-31f2-4953-ac77-f31134225747"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.101"
+              },
+              "specific": {
+                "S": "333"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#1c644e88-b7a2-498b-b248-c3d367629982"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.12"
+              },
+              "specific": {
+                "S": "1111"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.4"
+              },
+              "specific": {
+                "S": "3333"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.17"
+              },
+              "specific": {
+                "S": "6666"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#4ed30d35-33a5-44ba-af44-6cb253be053b"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.15"
+              },
+              "specific": {
+                "S": "4444"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#5291f6fa-b296-4e89-a760-798ce56f17d0"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.6"
+              },
+              "specific": {
+                "S": "5555"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#57e5c1ec-5956-40e9-8e30-284033c1140d"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.10"
+              },
+              "specific": {
+                "S": "9999"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#587c40de-09a0-4d85-a9f9-eaa46aa895d7"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.112"
+              },
+              "specific": {
+                "S": "1111"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#5afb9a49-a359-48ce-80ee-79c145919275"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.105"
+              },
+              "specific": {
+                "S": "333"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#5ed5c3c0-9064-41f5-8ef2-5e1eeee62955"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.111"
+              },
+              "specific": {
+                "S": "1111"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#72bb8607-c259-4781-9599-185aac02b3cc"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.101"
+              },
+              "specific": {
+                "S": "4444"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#759aaf00-34ee-4609-aec6-7f857c470eff"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.5"
+              },
+              "specific": {
+                "S": "4444"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#81db1fad-c329-4356-a5eb-9ad9b0d75a7e"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.104"
+              },
+              "specific": {
+                "S": "333"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#8226e222-8128-438d-a9b7-93eeb93a36b3"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.107"
+              },
+              "specific": {
+                "S": "333"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#95068fdd-80ca-4eb2-8311-b16b63a61f05"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.9"
+              },
+              "specific": {
+                "S": "8888"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
+              },
+              "sk": {
+                "S": "FIN#818828206"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.29"
+              },
+              "specific": {
+                "S": "3333"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#987a6d71-d23c-40db-ad98-bfccf60660ed"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.122"
+              },
+              "specific": {
+                "S": "888"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#aa6a9d70-618b-4ab0-b280-d627ce311200"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.7"
+              },
+              "specific": {
+                "S": "6666"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#ab25380d-dfe1-4cde-aefd-acca6990d6aa"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.2"
+              },
+              "specific": {
+                "S": "1111"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#ae16f325-a492-482b-a7a1-6285e8057480"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.3"
+              },
+              "specific": {
+                "S": "2222"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#b16ed89e-668d-42d6-add1-73535bb0e083"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.13"
+              },
+              "specific": {
+                "S": "2222"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#bac162ff-5c2a-4a96-9b77-fd7020976160"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.8"
+              },
+              "specific": {
+                "S": "7777"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#bf818399-b331-4fa4-b335-98548e037378"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.109"
+              },
+              "specific": {
+                "S": "333"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#c8161719-5ac8-45ba-a3fb-ab69ea39ddcb"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.16"
+              },
+              "specific": {
+                "S": "5555"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#d212a841-7d48-4cb6-b776-cccc2845c383"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.14"
+              },
+              "specific": {
+                "S": "3333"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#d4d4c6a0-3d51-42cf-b93f-4c503f67d72d"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.108"
+              },
+              "specific": {
+                "S": "333"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#f2d577b4-855b-41fc-a844-2b96f797775c"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "INPUTS"
+              },
+              "where": {
+                "S": "testing"
+              },
+              "specific": {
+                "S": "asserts"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#fc01759b-0f2f-4e4e-9e24-5c27c91d574b"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.113"
+              },
+              "specific": {
+                "S": "1111"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#feabfd52-0b0f-405e-bf6a-e9a224af6726"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.103"
+              },
+              "specific": {
+                "S": "333"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#09afd608-aa53-4bbc-9094-0076181fa0ea"
+              },
+              "sk": {
+                "S": "FIN#463461507"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.105"
+              },
+              "specific": {
+                "S": "3636"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#e248e8e0-0323-41c7-bc02-4ee61d09f9c4"
+              },
+              "sk": {
+                "S": "FIN#463461507"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.18"
+              },
+              "specific": {
+                "S": "7777"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6f023c26-5x10-4ded-aa27-xx563c2206ax"
+              },
+              "sk": {
+                "S": "FIN#560175507"
+              },
+              "type": {
+                "S": "LINES"
+              },
+              "where": {
+                "S": "product/path/to/file1.ext"
+              },
+              "specific": {
+                "S": "123345"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98e"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "type": {
+                "S": "LINES"
+              },
+              "where": {
+                "S": "path/to/file2.ext"
+              },
+              "specific": {
+                "S": "12"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#242f848c-148a-4028-8e36-c7d995502590"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "type": {
+                "S": "LINES"
+              },
+              "where": {
+                "S": "path/to/file2.ext"
+              },
+              "specific": {
+                "S": "12456"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "type": {
+                "S": "LINES"
+              },
+              "where": {
+                "S": "product/path/to/file3.ext"
+              },
+              "specific": {
+                "S": "345"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "type": {
+                "S": "LINES"
+              },
+              "where": {
+                "S": "path/to/file4.ext"
+              },
+              "specific": {
+                "S": "564"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test1"
+                  },
+                  {
+                    "S": "test2"
+                  }
+                ]
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "type": {
+                "S": "LINES"
+              },
+              "where": {
+                "S": "product/path/to/file1.ext"
+              },
+              "specific": {
+                "S": "123345"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "type": {
+                "S": "LINES"
+              },
+              "where": {
+                "S": "product/path/to/file1.ext"
+              },
+              "specific": {
+                "S": "123"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6192c72f-2e10-4259-9207-717b2d90d8d2"
+              },
+              "sk": {
+                "S": "FIN#457497316"
+              },
+              "type": {
+                "S": "INPUTS"
+              },
+              "where": {
+                "S": "https://10.1.1.1/"
+              },
+              "specific": {
+                "S": "userToken"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#afb345f6-9319-416a-b174-0201d7cd3822"
+              },
+              "sk": {
+                "S": "FIN#457497318"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.9"
+              },
+              "specific": {
+                "S": "6666"
+              }
             }
           ],
           "NonKeyAttributes": [
