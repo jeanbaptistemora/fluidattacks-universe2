@@ -77,7 +77,6 @@ from time import (
 )
 from typing import (
     Any,
-    cast,
     Counter,
     Dict,
     List,
@@ -244,21 +243,6 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
         )
         return True
     return False
-
-
-async def get_by_finding(
-    finding_id: str, vuln_id: str
-) -> Dict[str, FindingType]:
-    vuln = await vulns_dal.get_by_finding(finding_id, uuid=vuln_id)
-    first_vuln = cast(Dict[str, List[Dict[str, str]]], vuln[0])
-    if not vuln:
-        raise VulnNotFound()
-    if (
-        first_vuln.get("historic_state", [{}])[-1].get("state", "")
-        == "DELETED"
-    ):
-        raise VulnNotFound()
-    return vuln[0]
 
 
 async def get_by_finding_and_vuln_ids(
