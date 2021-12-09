@@ -10,6 +10,10 @@ from postgres_client.connection import (
 )
 from postgres_client.query import (
     Query,
+    SqlArgs,
+)
+from psycopg2 import (
+    extras,
 )
 from returns.io import (
     impure,
@@ -53,6 +57,11 @@ class Cursor(NamedTuple):
     def execute_queries(self, queries: List[Query]) -> IO[None]:
         for query in queries:
             self.execute_query(query)
+        return IO(None)
+
+    def execute_batch(self, query: Query, args: List[SqlArgs]) -> IO[None]:
+        _args = [a.values for a in args]
+        extras.execute_batch(self.db_cursor, query.query, _args)
         return IO(None)
 
     def fetch_all(self) -> IO[Iterator[Tuple[Any, ...]]]:
