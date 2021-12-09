@@ -1,3 +1,6 @@
+src.lib_path.f246.rds_has_unencrypted_storage:
+  en: StorageEncrypted property should be enabled
+  es: La propiedad StorageEncrypted debería estar habilitada
 F246.title:
   en: >
     Non-encrypted confidential information - DB
