@@ -4,9 +4,6 @@ from aiodataloader import (
 from aioextensions import (
     collect,
 )
-from custom_types import (
-    Vulnerability as VulnerabilityType,
-)
 from dataloaders.utils import (
     format_vulnerability,
 )
@@ -14,6 +11,8 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
 )
 from typing import (
+    Any,
+    Dict,
     List,
     Tuple,
 )
@@ -24,8 +23,8 @@ from vulnerabilities import (
 
 async def _get_vulnerabilities_by_finding(
     finding_id: str,
-) -> List[VulnerabilityType]:
-    items: List[VulnerabilityType] = await vulns_dal.get_by_finding(
+) -> List[Dict[str, Any]]:
+    items: List[Dict[str, Any]] = await vulns_dal.get_by_finding(
         finding_id=finding_id
     )
     return items

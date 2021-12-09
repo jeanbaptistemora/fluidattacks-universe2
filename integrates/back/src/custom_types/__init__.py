@@ -69,7 +69,6 @@ Me = Dict[str, Union[bool, str, List[Union[Group, Tag, str]]]]
 GroupAccess = Dict[str, Union[bool, int, str, Invitation, None]]
 Resource = Dict[str, Union[object, str, Historic]]
 Resources = Dict[str, Union[str, List[Resource]]]
-Vulnerability = Dict[str, Union[bool, str, Historic, List[str]]]
 SignedUrl = Dict[str, Union[str, str]]
 
 Action = NamedTuple(
