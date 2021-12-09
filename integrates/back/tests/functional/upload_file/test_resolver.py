@@ -5,6 +5,13 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.enums import (
+    Source,
+)
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityType,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -111,6 +118,28 @@ async def test_upload_file(populate: bool, email: str) -> None:
         {
             "commit_hash": None,
             "repo_nickname": "product",
+            "specific": "4646",
+            "state_status": "CLOSED",
+            "stream": None,
+            "treatment_status": "NEW",
+            "type": "PORTS",
+            "verification_status": "VERIFIED",
+            "where": "192.168.1.46",
+        },
+        {
+            "commit_hash": None,
+            "repo_nickname": "product",
+            "specific": "4646",
+            "state_status": "OPEN",
+            "stream": None,
+            "treatment_status": "NEW",
+            "type": "PORTS",
+            "verification_status": None,
+            "where": "192.168.1.46",
+        },
+        {
+            "commit_hash": None,
+            "repo_nickname": "product",
             "specific": "8080",
             "state_status": "OPEN",
             "stream": None,
@@ -131,6 +160,17 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "where": "https://example.com",
         },
     ]
+
+    escaper_vuln: Vulnerability = next(
+        vuln
+        for vuln in await loaders.finding_vulns_typed.load(finding_id)
+        if vuln.specific == "4646"
+        and vuln.where == "192.168.1.46"
+        and vuln.type == VulnerabilityType.PORTS
+        and vuln.state.status == VulnerabilityStateStatus.OPEN
+    )
+    assert escaper_vuln.state.source == Source.ESCAPE
+    assert escaper_vuln.state.modified_by == "escaper@gmail.com"
 
 
 @pytest.mark.asyncio

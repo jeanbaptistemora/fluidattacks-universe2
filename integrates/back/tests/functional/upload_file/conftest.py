@@ -247,6 +247,60 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     where="192.168.1.45",
                 ),
             },
+            {
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdcea",
+                    repo="product",
+                    specific="4646",
+                    state=VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:11+01:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.CLOSED,
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    verification=VulnerabilityVerification(
+                        comment_id="",
+                        modified_by="",
+                        modified_date="2018-04-08T01:45:11+01:00",
+                        status=VulnerabilityVerificationStatus.VERIFIED,
+                    ),
+                    where="192.168.1.46",
+                ),
+                "historic_state": [
+                    VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:11+01:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.CLOSED,
+                    ),
+                ],
+                "historic_verification": [
+                    VulnerabilityVerification(
+                        comment_id="",
+                        modified_by="",
+                        modified_date="2018-04-08T01:45:11+00:00",
+                        status=VulnerabilityVerificationStatus.REQUESTED,
+                    ),
+                    VulnerabilityVerification(
+                        comment_id="",
+                        modified_by="",
+                        modified_date="2018-04-08T01:45:11+01:00",
+                        status=VulnerabilityVerificationStatus.VERIFIED,
+                    ),
+                ],
+            },
         ],
     }
     return await db.populate({**generic_data["db_data"], **data})

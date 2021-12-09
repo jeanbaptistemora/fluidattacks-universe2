@@ -33,3 +33,9 @@ ports:
   port: '4545'
   state: closed
   repo_nickname: product
+- host: '192.168.1.46'
+  port: '4646'
+  state: open
+  repo_nickname: product
+  source: 'escape'
+  escaper: 'escaper@gmail.com'
