@@ -68,7 +68,7 @@ describe("VulnerabilitiesView", (): void => {
               verification: "Requested",
               vulnerabilityType: "inputs",
               where: "https://example.com/inputs",
-              zeroRisk: undefined,
+              zeroRisk: null,
             },
             {
               __typename: "Vulnerability",
@@ -101,10 +101,10 @@ describe("VulnerabilitiesView", (): void => {
               stream: null,
               tag: "tag-3",
               treatmentDate: "2020-07-05 09:56:40",
-              verification: undefined,
+              verification: null,
               vulnerabilityType: "lines",
               where: "https://example.com/tests",
-              zeroRisk: undefined,
+              zeroRisk: null,
             },
           ],
           zeroRisk: [

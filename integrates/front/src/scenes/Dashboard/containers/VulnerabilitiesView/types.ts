@@ -25,7 +25,7 @@ interface IVulnerabilitiesAttr {
   id: string;
   specific: string;
   where: string;
-  zeroRisk?: string;
+  zeroRisk?: string | null;
 }
 
 export {

@@ -30,7 +30,7 @@ interface IVulnRowAttr {
   verification?: string;
   vulnerabilityType: string;
   where: string;
-  zeroRisk?: string;
+  zeroRisk?: string | null;
 }
 
 interface IUploadVulnerabilitiesResultAttr {
@@ -51,7 +51,7 @@ interface IVulnDataTypeAttr {
   externalBugTrackingSystem?: string | null;
   historicTreatment: IHistoricTreatment[];
   id: string;
-  severity?: string;
+  severity?: string | null;
   specific: string;
   tag: string;
   assigned: string;
@@ -81,7 +81,7 @@ interface IUpdateTreatmentVulnerabilityForm {
   acceptanceDate?: string;
   externalBugTrackingSystem?: string;
   justification?: string;
-  severity?: string;
+  severity?: string | null;
   tag?: string;
   treatment: string;
   assigned?: string;

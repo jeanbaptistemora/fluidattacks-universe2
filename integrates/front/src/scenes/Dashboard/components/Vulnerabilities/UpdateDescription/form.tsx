@@ -308,8 +308,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
 
   function isEmpty(formObject: IUpdateTreatmentVulnerabilityForm): boolean {
     return _.values(formObject).every(
-      (objectValue: string | undefined): boolean =>
-        objectValue === undefined || objectValue === ""
+      (objectValue: string | null | undefined): boolean =>
+        _.isEmpty(objectValue)
     );
   }
 
