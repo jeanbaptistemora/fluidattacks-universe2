@@ -2,6 +2,7 @@ from purity.v1 import (
     FrozenDict,
     FrozenList,
     JsonFactory,
+    PureIter,
 )
 from purity.v1.pure_iter.factory import (
     from_flist,
@@ -142,10 +143,12 @@ def to_singer(page: PageData) -> FrozenList[SingerRecord]:
 def stream_tables(client: Client, tables: FrozenList[str]) -> IO[None]:
     # pylint: disable=unnecessary-lambda
     emitter = SingerEmitter()
-    pages = chain(
+    pages: PureIter[PageData] = chain(
         from_flist(tables)
         .map(lambda t: extract_segment(client, TableSegment(t, 0, 1)))
         .map(lambda x: from_flist(x))
     )
-    records = chain(pages.map(to_singer).map(lambda x: from_flist(x)))
+    records: PureIter[SingerRecord] = chain(
+        pages.map(to_singer).map(lambda x: from_flist(x))
+    )
     return consume(records.map(emitter.emit))

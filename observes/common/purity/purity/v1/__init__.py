@@ -1,10 +1,6 @@
 from purity.v1._flatten import (
     Flattener,
 )
-from purity.v1._frozen import (
-    FrozenDict,
-    FrozenList,
-)
 from purity.v1._json._jobj import (
     DictFactory,
     JsonFactory,
@@ -34,6 +30,10 @@ from purity.v1._transform import (
 )
 from purity.v1.pure_iter import (
     PureIter,
+)
+from purity.v2.frozen import (
+    FrozenDict,
+    FrozenList,
 )
 
 __all__ = [

@@ -1,7 +1,7 @@
 from dataclasses import (
     dataclass,
 )
-from purity.v1._frozen import (
+from purity.v2.frozen import (
     FrozenList,
 )
 from returns.converters import (

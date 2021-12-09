@@ -5,15 +5,15 @@ from __future__ import (
 from itertools import (
     count,
 )
-from purity.v1._frozen import (
-    FrozenList,
-)
 from purity.v1._patch import (
     Patch,
 )
 from purity.v1.pure_iter._obj import (
     _PureIter,
     PureIter,
+)
+from purity.v2.frozen import (
+    FrozenList,
 )
 from typing import (
     Callable,

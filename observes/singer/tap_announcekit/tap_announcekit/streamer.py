@@ -8,6 +8,7 @@ from enum import (
 from purity.v1 import (
     Flattener,
     FrozenDict,
+    PureIter,
 )
 from purity.v1.pure_iter.factory import (
     from_flist,
@@ -105,7 +106,7 @@ class Streamer(_Streamer):
 
     @property
     def stream_map(self) -> FrozenDict[SupportedStream, Stream[Any]]:
-        projs = from_flist((self.proj,))
+        projs: PureIter[ProjectId] = from_flist((self.proj,))
         streams = {
             SupportedStream.PROJECTS: ProjectStreams(
                 self.client, SupportedStream.PROJECTS.value
