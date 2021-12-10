@@ -7,11 +7,11 @@ locals {
         Effect = "Allow"
         Action = ["*"]
         Resource = [
-          "arn:aws:s3:::fluidattacks.com",
-          "arn:aws:s3:::fluidattacks.com/*",
-          "arn:aws:s3:::fluidattacks-terraform-states-prod/airs*",
-          "arn:aws:s3:::web.eph.fluidattacks.com",
-          "arn:aws:s3:::web.eph.fluidattacks.com/*",
+          "arn:aws:s3:::docs.fluidattacks.com",
+          "arn:aws:s3:::docs.fluidattacks.com/*",
+          "arn:aws:s3:::docs-dev.fluidattacks.com",
+          "arn:aws:s3:::docs-dev.fluidattacks.com/*",
+          "arn:aws:s3:::fluidattacks-terraform-states-prod/docs*",
         ]
       },
       {
