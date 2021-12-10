@@ -3,13 +3,13 @@ from enum import (
 )
 
 
-class Source(Enum):
+class Source(str, Enum):
     ASM: str = "ASM"
     ESCAPE: str = "ESCAPE"
     MACHINE: str = "MACHINE"
 
 
-class StateRemovalJustification(Enum):
+class StateRemovalJustification(str, Enum):
     DUPLICATED: str = "DUPLICATED"
     EXCLUSION: str = "EXCLUSION"
     FALSE_POSITIVE: str = "FALSE_POSITIVE"

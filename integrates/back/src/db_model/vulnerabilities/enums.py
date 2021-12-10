@@ -3,38 +3,38 @@ from enum import (
 )
 
 
-class VulnerabilityType(Enum):
+class VulnerabilityType(str, Enum):
     INPUTS: str = "INPUTS"
     LINES: str = "LINES"
     PORTS: str = "PORTS"
 
 
-class VulnerabilityStateStatus(Enum):
+class VulnerabilityStateStatus(str, Enum):
     CLOSED: str = "CLOSED"
     DELETED: str = "DELETED"
     OPEN: str = "OPEN"
 
 
-class VulnerabilityTreatmentStatus(Enum):
+class VulnerabilityTreatmentStatus(str, Enum):
     ACCEPTED: str = "ACCEPTED"
     ACCEPTED_UNDEFINED: str = "ACCEPTED_UNDEFINED"
     IN_PROGRESS: str = "IN_PROGRESS"
     NEW: str = "NEW"
 
 
-class VulnerabilityAcceptanceStatus(Enum):
+class VulnerabilityAcceptanceStatus(str, Enum):
     APPROVED: str = "APPROVED"
     REJECTED: str = "REJECTED"
     SUBMITTED: str = "SUBMITTED"
 
 
-class VulnerabilityVerificationStatus(Enum):
+class VulnerabilityVerificationStatus(str, Enum):
     MASKED: str = "MASKED"
     REQUESTED: str = "REQUESTED"
     VERIFIED: str = "VERIFIED"
 
 
-class VulnerabilityZeroRiskStatus(Enum):
+class VulnerabilityZeroRiskStatus(str, Enum):
     CONFIRMED: str = "CONFIRMED"
     REJECTED: str = "REJECTED"
     REQUESTED: str = "REQUESTED"
