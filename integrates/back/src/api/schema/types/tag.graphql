@@ -1,7 +1,7 @@
 "Tag type definition"
 type Tag {
   "Groups where the tag is present"
-  groups: [Group]
+  groups: [Group!]
   """Days since last remediation of a vulnerability in the groups where the tag
   is present"""
   lastClosedVulnerability: Float
@@ -35,6 +35,6 @@ type Tag {
   "Organization where the tag is present"
   organization: String
   "Groups where the tag is present"
-  projects: [Group] @deprecated(reason: """This field will
+  projects: [Group!] @deprecated(reason: """This field will
     be removed after 2022/01/13. Use `groups` instead.""")
 }

@@ -14,7 +14,7 @@ type Treatment {
   treatment: String
   "Assigned"
   treatmentManager: String @deprecated(reason: """This field will
-    be removed after 2022/05/02. Use `Assigned` instead.""")
+    be removed after 2022/05/02. Use `assigned` instead.""")
   "User"
   user: String
 }

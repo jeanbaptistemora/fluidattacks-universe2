@@ -1,11 +1,11 @@
 "TreatmentSummary type definition"
 type TreatmentSummary {
   "Number of vulnerabilities in accepted status"
-  accepted: Int
+  accepted: Int!
   "Number of vulnerabilities in accepted undefined status"
-  acceptedUndefined: Int
+  acceptedUndefined: Int!
   "Number of vulnerabilities in progress status"
-  inProgress: Int
+  inProgress: Int!
   "Number of vulnerabilities in new status"
-  new: Int
+  new: Int!
 }

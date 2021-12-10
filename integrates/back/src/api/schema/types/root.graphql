@@ -52,7 +52,7 @@ type GitRoot implements IRoot {
       after 2022/02/03. Use `lastStateStatusUpdate`.
       """
     )
-  "MAchine executions for the root"
+  "Machine executions for the root"
   machineExecutions: [MachineExecution]
   "Nickname for the repository"
   nickname: String!
