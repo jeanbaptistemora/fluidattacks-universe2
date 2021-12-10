@@ -1,21 +1,18 @@
 const pageQuery = `{
-  pages: allAsciidoc(
+  pages: allMarkdownRemark(
     filter: {fields: {slug: {regex: ""}}}
   ) {
     edges {
       node {
         id
-        document {
-          title
-        }
         fields {
           slug
         }
-        pageAttributes {
+        frontmatter {
           author
           description
           keywords
-          slug
+          title
         }
       }
     }
@@ -23,14 +20,12 @@ const pageQuery = `{
 }`;
 
 function pageToAlgoliaRecord({
-  node: { id, document, fields, pageAttributes, ...rest },
+  node: { id, fields, frontmatter, ...rest },
 }) {
   return {
     objectID: id,
-    ...document,
-    ...id,
     ...fields,
-    pageAttributes,
+    ...frontmatter,
     ...rest,
   };
 }
