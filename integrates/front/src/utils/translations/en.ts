@@ -2415,6 +2415,7 @@ export const enTranslations: ResourceKey = {
       "can only have Hackers provided by Fluid Attacks",
     numeric: "This field can only contain numbers",
     oneOf: "This field must be one of the suggested values",
+    positive: "The number must be greater than 0",
     requireNickname: "Nickname already exist",
     required: "Required field",
     someRequired: "Select at least one value",
