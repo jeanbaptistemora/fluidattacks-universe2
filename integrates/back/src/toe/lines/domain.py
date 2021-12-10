@@ -99,6 +99,7 @@ async def update(
         if (
             attributes.attacked_at <= current_value.attacked_at
             or attributes.attacked_at > datetime_utils.get_utc_now()
+            or attributes.attacked_at < current_value.seen_at
         ):
             raise InvalidToeLinesAttackAt()
 
@@ -127,6 +128,8 @@ async def update(
         and last_modified_date <= last_attacked_at
         else 0
     )
+    print("attributes", attributes)
+    print("attacked lines", attacked_lines)
     be_present_until = (
         None
         if attributes.be_present is None
