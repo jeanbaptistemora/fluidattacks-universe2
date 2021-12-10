@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 10, 2021, 09:42 AM",
+    "DateLastModified": "Dec 10, 2021, 01:46 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -497,6 +497,26 @@
         {
           "AttributeName": "queue",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "skims_method",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "state",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "treatment",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "verification",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "zero_risk",
+          "AttributeType": "M"
         }
       ],
       "TableFacets": [
@@ -8273,6 +8293,44 @@
               },
               "specific": {
                 "S": "9999"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "CLOSED"
+                  },
+                  "modified_date": {
+                    "S": "2019-08-07T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "ACCEPTED"
+                  },
+                  "modified_date": {
+                    "S": "2020-11-08T00:59:06+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "accepted_until": {
+                    "S": "2021-04-08T00:59:06+00:00"
+                  },
+                  "manager": {
+                    "S": "integratescustomer@gmail.com"
+                  },
+                  "justification": {
+                    "S": "test justification temporarily accepted"
+                  }
+                }
               }
             },
             {
@@ -8290,6 +8348,44 @@
               },
               "specific": {
                 "S": "8888"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-04-08T00:45:15+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "ACCEPTED_UNDEFINED"
+                  },
+                  "modified_date": {
+                    "S": "2020-10-08T00:59:06+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "manager": {
+                    "S": "integratesuser@gmail.com"
+                  },
+                  "justification": {
+                    "S": "Observations about permanently accepted"
+                  },
+                  "acceptance_status": {
+                    "S": "APPROVED"
+                  }
+                }
               }
             },
             {
@@ -8307,6 +8403,51 @@
               },
               "specific": {
                 "S": "3636"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T14:58:38+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T14:58:38+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
+              },
+              "zero_risk": {
+                "M": {
+                  "status": {
+                    "S": "CONFIRMED"
+                  },
+                  "modified_date": {
+                    "S": "2020-09-09T21:01:26+00:00"
+                  },
+                  "modified_by": {
+                    "S": "test@gmail.com"
+                  },
+                  "comment_id": {
+                    "S": "123456"
+                  }
+                }
               }
             },
             {
@@ -8324,6 +8465,35 @@
               },
               "specific": {
                 "S": "123345"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "CLOSED"
+                  },
+                  "modified_date": {
+                    "S": "2019-04-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-04-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8341,6 +8511,35 @@
               },
               "specific": {
                 "S": "564"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-04-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-04-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8353,14 +8552,49 @@
               "type": {
                 "S": "LINES"
               },
-              "commit": {
-                "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
-              },
               "where": {
                 "S": "test/data/lib_path/f060/csharp.cs"
               },
               "specific": {
                 "S": "12"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2020-01-03T17:46:10+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "IN_PROGRESS"
+                  },
+                  "modified_date": {
+                    "S": "2020-01-03T17:46:10+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "manager": {
+                    "S": "integratescustomer@gmail.com"
+                  },
+                  "justification": {
+                    "S": "test justification"
+                  }
+                }
+              },
+              "commit": {
+                "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
               }
             },
             {
@@ -8378,6 +8612,57 @@
               },
               "specific": {
                 "S": "phone"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2020-09-09T21:01:26+00:00"
+                  },
+                  "modified_by": {
+                    "S": "test@unittesting.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "IN_PROGRESS"
+                  },
+                  "modified_date": {
+                    "S": "2020-11-23T17:46:10+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "manager": {
+                    "S": "integratesuser@gmail.com"
+                  },
+                  "justification": {
+                    "S": "This is a treatment justification"
+                  }
+                }
+              },
+              "zero_risk": {
+                "M": {
+                  "status": {
+                    "S": "CONFIRMED"
+                  },
+                  "modified_date": {
+                    "S": "2020-09-09T21:01:26+00:00"
+                  },
+                  "modified_by": {
+                    "S": "test@gmail.com"
+                  },
+                  "comment_id": {
+                    "S": "123456"
+                  }
+                }
               }
             },
             {
@@ -8395,6 +8680,45 @@
               },
               "specific": {
                 "S": "333"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T13:17:41+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T13:17:41+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
+              },
+              "verification": {
+                "M": {
+                  "status": {
+                    "S": "VERIFIED"
+                  },
+                  "modified_date": {
+                    "S": "2020-02-19T15:41:04+00:00"
+                  }
+                }
               }
             },
             {
@@ -8412,6 +8736,35 @@
               },
               "specific": {
                 "S": "1111"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8429,6 +8782,35 @@
               },
               "specific": {
                 "S": "3333"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8446,6 +8828,35 @@
               },
               "specific": {
                 "S": "6666"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8463,6 +8874,35 @@
               },
               "specific": {
                 "S": "4444"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8480,6 +8920,35 @@
               },
               "specific": {
                 "S": "5555"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8497,6 +8966,35 @@
               },
               "specific": {
                 "S": "9999"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8514,6 +9012,45 @@
               },
               "specific": {
                 "S": "1111"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T22:00:56+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T22:00:56+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
+              },
+              "verification": {
+                "M": {
+                  "status": {
+                    "S": "REQUESTED"
+                  },
+                  "modified_date": {
+                    "S": "2020-02-19T15:41:04+00:00"
+                  }
+                }
               }
             },
             {
@@ -8531,6 +9068,35 @@
               },
               "specific": {
                 "S": "333"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T14:58:38+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T14:58:38+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8548,6 +9114,35 @@
               },
               "specific": {
                 "S": "1111"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T20:37:59+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T20:37:59+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8565,6 +9160,35 @@
               },
               "specific": {
                 "S": "4444"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "CLOSED"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T16:05:05+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T16:03:21+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8582,6 +9206,35 @@
               },
               "specific": {
                 "S": "4444"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8599,6 +9252,35 @@
               },
               "specific": {
                 "S": "333"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T13:59:20+00:00"
+                  },
+                  "modified_by": {
+                    "S": "__adminEmail__"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T13:59:20+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8616,6 +9298,35 @@
               },
               "specific": {
                 "S": "333"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "CLOSED"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T15:09:02+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T15:00:03+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8633,6 +9344,35 @@
               },
               "specific": {
                 "S": "8888"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8650,6 +9390,45 @@
               },
               "specific": {
                 "S": "3333"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "CLOSED"
+                  },
+                  "modified_date": {
+                    "S": "2020-02-19T15:42:04+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-12-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
+              },
+              "verification": {
+                "M": {
+                  "status": {
+                    "S": "VERIFIED"
+                  },
+                  "modified_date": {
+                    "S": "2020-02-19T15:41:04+00:00"
+                  }
+                }
               }
             },
             {
@@ -8667,6 +9446,35 @@
               },
               "specific": {
                 "S": "888"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-16T21:01:24+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-16T21:01:24+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8684,6 +9492,35 @@
               },
               "specific": {
                 "S": "6666"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8701,6 +9538,35 @@
               },
               "specific": {
                 "S": "1111"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8718,6 +9584,35 @@
               },
               "specific": {
                 "S": "2222"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8735,6 +9630,35 @@
               },
               "specific": {
                 "S": "2222"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8752,6 +9676,35 @@
               },
               "specific": {
                 "S": "7777"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8769,6 +9722,35 @@
               },
               "specific": {
                 "S": "333"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "CLOSED"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T16:28:20+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T15:53:05+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8786,6 +9768,35 @@
               },
               "specific": {
                 "S": "5555"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8803,6 +9814,35 @@
               },
               "specific": {
                 "S": "3333"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8820,6 +9860,35 @@
               },
               "specific": {
                 "S": "333"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T20:19:17+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T20:19:17+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8837,6 +9906,35 @@
               },
               "specific": {
                 "S": "asserts"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-08-30T14:30:13+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-08-30T14:30:13+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8854,6 +9952,35 @@
               },
               "specific": {
                 "S": "1111"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-16T20:02:17+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-16T20:02:17+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8871,6 +9998,35 @@
               },
               "specific": {
                 "S": "333"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "CLOSED"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T14:03:05+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T14:03:05+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8888,6 +10044,35 @@
               },
               "specific": {
                 "S": "3636"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T14:58:38+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T14:58:38+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8905,6 +10090,44 @@
               },
               "specific": {
                 "S": "7777"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "ACCEPTED"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "accepted_until": {
+                    "S": "2021-01-16T17:46:10+00:00"
+                  },
+                  "manager": {
+                    "S": "integratesuser@gmail.com"
+                  },
+                  "justification": {
+                    "S": "accepted justification"
+                  }
+                }
               }
             },
             {
@@ -8922,6 +10145,38 @@
               },
               "specific": {
                 "S": "123345"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "DELETED"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-02T20:59:16+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  },
+                  "justification": {
+                    "S": "FALSE_POSITIVE"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-10-15T16:04:14+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8939,6 +10194,44 @@
               },
               "specific": {
                 "S": "12"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-01-15T15:43:39+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "ACCEPTED"
+                  },
+                  "modified_date": {
+                    "S": "2019-01-15T15:43:39+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "accepted_until": {
+                    "S": "2021-01-16T17:46:10+00:00"
+                  },
+                  "manager": {
+                    "S": "integratesuser@gmail.com"
+                  },
+                  "justification": {
+                    "S": "This is a treatment justification test"
+                  }
+                }
               }
             },
             {
@@ -8956,6 +10249,35 @@
               },
               "specific": {
                 "S": "12456"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "CLOSED"
+                  },
+                  "modified_date": {
+                    "S": "2019-01-15T20:59:16+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-01-15T16:04:14+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -8973,6 +10295,61 @@
               },
               "specific": {
                 "S": "345"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-01-16T13:47:07+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2019-01-16T13:47:07+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
+              },
+              "verification": {
+                "M": {
+                  "status": {
+                    "S": "REQUESTED"
+                  },
+                  "modified_date": {
+                    "S": "2020-02-19T15:41:04+00:00"
+                  }
+                }
+              },
+              "zero_risk": {
+                "M": {
+                  "status": {
+                    "S": "REQUESTED"
+                  },
+                  "modified_date": {
+                    "S": "2018-09-28T15:32:58+00:00"
+                  },
+                  "modified_by": {
+                    "S": "test@gmail.com"
+                  },
+                  "comment_id": {
+                    "S": "123456"
+                  }
+                }
               }
             },
             {
@@ -8985,6 +10362,66 @@
               "type": {
                 "S": "LINES"
               },
+              "where": {
+                "S": "path/to/file4.ext"
+              },
+              "specific": {
+                "S": "564"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-01-16T13:47:07+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "ACCEPTED"
+                  },
+                  "modified_date": {
+                    "S": "2020-10-13T17:46:10+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "accepted_until": {
+                    "S": "2021-01-16T17:46:10+00:00"
+                  },
+                  "manager": {
+                    "S": "integratesuser@gmail.com"
+                  },
+                  "justification": {
+                    "S": "This is a treatment justification test"
+                  }
+                }
+              },
+              "zero_risk": {
+                "M": {
+                  "status": {
+                    "S": "REQUESTED"
+                  },
+                  "modified_date": {
+                    "S": "2018-09-28T15:32:58+00:00"
+                  },
+                  "modified_by": {
+                    "S": "test@gmail.com"
+                  },
+                  "comment_id": {
+                    "S": "123456"
+                  }
+                }
+              },
               "tags": {
                 "L": [
                   {
@@ -8994,12 +10431,6 @@
                     "S": "test2"
                   }
                 ]
-              },
-              "where": {
-                "S": "path/to/file4.ext"
-              },
-              "specific": {
-                "S": "564"
               }
             },
             {
@@ -9017,6 +10448,60 @@
               },
               "specific": {
                 "S": "123345"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "CLOSED"
+                  },
+                  "modified_date": {
+                    "S": "2019-01-15T20:59:16+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "ACCEPTED"
+                  },
+                  "modified_date": {
+                    "S": "2020-10-13T17:46:10+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "accepted_until": {
+                    "S": "2021-01-16T17:46:10+00:00"
+                  },
+                  "manager": {
+                    "S": "integratesuser@gmail.com"
+                  },
+                  "justification": {
+                    "S": "This is a treatment justification test"
+                  }
+                }
+              },
+              "zero_risk": {
+                "M": {
+                  "status": {
+                    "S": "REQUESTED"
+                  },
+                  "modified_date": {
+                    "S": "2018-09-28T15:32:58+00:00"
+                  },
+                  "modified_by": {
+                    "S": "test@gmail.com"
+                  },
+                  "comment_id": {
+                    "S": "123456"
+                  }
+                }
               }
             },
             {
@@ -9034,6 +10519,70 @@
               },
               "specific": {
                 "S": "123"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2019-01-15T15:43:39+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "ACCEPTED"
+                  },
+                  "modified_date": {
+                    "S": "2020-10-13T17:46:10+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "accepted_until": {
+                    "S": "2021-01-16T17:46:10+00:00"
+                  },
+                  "manager": {
+                    "S": "integratescustomer@gmail.com"
+                  },
+                  "justification": {
+                    "S": "This is a treatment justification test"
+                  }
+                }
+              },
+              "verification": {
+                "M": {
+                  "status": {
+                    "S": "REQUESTED"
+                  },
+                  "modified_date": {
+                    "S": "2020-02-19T15:41:04+00:00"
+                  }
+                }
+              },
+              "zero_risk": {
+                "M": {
+                  "status": {
+                    "S": "REQUESTED"
+                  },
+                  "modified_date": {
+                    "S": "2018-09-28T15:32:58+00:00"
+                  },
+                  "modified_by": {
+                    "S": "test@gmail.com"
+                  },
+                  "comment_id": {
+                    "S": "123456"
+                  }
+                }
               }
             },
             {
@@ -9051,6 +10600,35 @@
               },
               "specific": {
                 "S": "userToken"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "CLOSED"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-16T14:40:37+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2018-11-27T19:54:08+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             },
             {
@@ -9068,6 +10646,35 @@
               },
               "specific": {
                 "S": "6666"
+              },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "OPEN"
+                  },
+                  "modified_date": {
+                    "S": "2020-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "status": {
+                    "S": "NEW"
+                  },
+                  "modified_date": {
+                    "S": "2020-09-12T13:45:48+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  }
+                }
               }
             }
           ],
@@ -9080,7 +10687,12 @@
             "specific",
             "stream",
             "hash",
-            "custom_severity"
+            "custom_severity",
+            "skims_method",
+            "state",
+            "treatment",
+            "verification",
+            "zero_risk"
           ],
           "DataAccess": {
             "MySql": {}
@@ -11575,951 +13187,7 @@
             "PartitionKeyAlias": "VULN#id#STATE",
             "SortKeyAlias": "FIN#finding_id"
           },
-          "TableData": [
-            {
-              "pk": {
-                "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec#STATE"
-              },
-              "sk": {
-                "S": "FIN#988493279"
-              },
-              "status": {
-                "S": "CLOSED"
-              },
-              "modified_date": {
-                "S": "2019-08-07T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6#STATE"
-              },
-              "sk": {
-                "S": "FIN#988493279"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-04-08T00:45:15+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea#STATE"
-              },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-13T14:58:38+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#5c689459-64c2-4687-9fef-e5f2dd3c710c#STATE"
-              },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "status": {
-                "S": "CLOSED"
-              },
-              "modified_date": {
-                "S": "2019-04-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#a8c0ff07-bb21-4cd5-bb9f-4d716fc69320#STATE"
-              },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-04-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z#STATE"
-              },
-              "sk": {
-                "S": "FIN#422286126"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2020-01-03T17:46:10+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0#STATE"
-              },
-              "sk": {
-                "S": "FIN#422286126"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2020-09-09T21:01:26+00:00"
-              },
-              "modified_by": {
-                "S": "test@unittesting.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#15375781-31f2-4953-ac77-f31134225747#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-13T13:17:41+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#1c644e88-b7a2-498b-b248-c3d367629982#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#4ed30d35-33a5-44ba-af44-6cb253be053b#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#5291f6fa-b296-4e89-a760-798ce56f17d0#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#57e5c1ec-5956-40e9-8e30-284033c1140d#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#587c40de-09a0-4d85-a9f9-eaa46aa895d7#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-13T22:00:56+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#5afb9a49-a359-48ce-80ee-79c145919275#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-13T14:58:38+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#5ed5c3c0-9064-41f5-8ef2-5e1eeee62955#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-13T20:37:59+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#72bb8607-c259-4781-9599-185aac02b3cc#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "CLOSED"
-              },
-              "modified_date": {
-                "S": "2019-09-13T16:05:05+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#759aaf00-34ee-4609-aec6-7f857c470eff#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#81db1fad-c329-4356-a5eb-9ad9b0d75a7e#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-13T13:59:20+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#8226e222-8128-438d-a9b7-93eeb93a36b3#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "CLOSED"
-              },
-              "modified_date": {
-                "S": "2019-09-13T15:09:02+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#95068fdd-80ca-4eb2-8311-b16b63a61f05#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4#STATE"
-              },
-              "sk": {
-                "S": "FIN#818828206"
-              },
-              "status": {
-                "S": "CLOSED"
-              },
-              "modified_date": {
-                "S": "2020-02-19T15:42:04+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#987a6d71-d23c-40db-ad98-bfccf60660ed#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-16T21:01:24+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#aa6a9d70-618b-4ab0-b280-d627ce311200#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#ab25380d-dfe1-4cde-aefd-acca6990d6aa#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#ae16f325-a492-482b-a7a1-6285e8057480#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#b16ed89e-668d-42d6-add1-73535bb0e083#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#bac162ff-5c2a-4a96-9b77-fd7020976160#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#bf818399-b331-4fa4-b335-98548e037378#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "CLOSED"
-              },
-              "modified_date": {
-                "S": "2019-09-13T16:28:20+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#c8161719-5ac8-45ba-a3fb-ab69ea39ddcb#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#d212a841-7d48-4cb6-b776-cccc2845c383#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#d4d4c6a0-3d51-42cf-b93f-4c503f67d72d#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-13T20:19:17+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#f2d577b4-855b-41fc-a844-2b96f797775c#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-08-30T14:30:13+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#fc01759b-0f2f-4e4e-9e24-5c27c91d574b#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-16T20:02:17+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#feabfd52-0b0f-405e-bf6a-e9a224af6726#STATE"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "CLOSED"
-              },
-              "modified_date": {
-                "S": "2019-09-13T14:03:06+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#09afd608-aa53-4bbc-9094-0076181fa0ea#STATE"
-              },
-              "sk": {
-                "S": "FIN#463461507"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-13T14:58:38+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#e248e8e0-0323-41c7-bc02-4ee61d09f9c4#STATE"
-              },
-              "sk": {
-                "S": "FIN#463461507"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#6f023c26-5x10-4ded-aa27-xx563c2206ax#STATE"
-              },
-              "sk": {
-                "S": "FIN#560175507"
-              },
-              "status": {
-                "S": "DELETED"
-              },
-              "modified_date": {
-                "S": "2019-11-02T20:59:16+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              },
-              "justification": {
-                "S": "FALSE_POSITIVE"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98e#STATE"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-01-15T15:43:39+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#242f848c-148a-4028-8e36-c7d995502590#STATE"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "CLOSED"
-              },
-              "modified_date": {
-                "S": "2019-01-15T20:59:16+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465#STATE"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-01-16T13:47:07+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6#STATE"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-01-16T13:47:07+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab#STATE"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "CLOSED"
-              },
-              "modified_date": {
-                "S": "2019-01-15T20:59:16+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f#STATE"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-01-15T15:43:39+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#6192c72f-2e10-4259-9207-717b2d90d8d2#STATE"
-              },
-              "sk": {
-                "S": "FIN#457497316"
-              },
-              "status": {
-                "S": "CLOSED"
-              },
-              "modified_date": {
-                "S": "2019-09-16T14:40:37+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#afb345f6-9319-416a-b174-0201d7cd3822#STATE"
-              },
-              "sk": {
-                "S": "FIN#457497318"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2020-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            }
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
             "status",
             "modified_date",
@@ -12537,882 +13205,7 @@
             "PartitionKeyAlias": "VULN#id#TREATMENT",
             "SortKeyAlias": "FIN#finding_id"
           },
-          "TableData": [
-            {
-              "pk": {
-                "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#988493279"
-              },
-              "status": {
-                "S": "ACCEPTED"
-              },
-              "modified_date": {
-                "S": "2020-11-08T00:59:06+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              },
-              "accepted_until": {
-                "S": "2021-04-08T00:59:06+00:00"
-              },
-              "manager": {
-                "S": "integratescustomer@gmail.com"
-              },
-              "justification": {
-                "S": "test justification temporarily accepted"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#988493279"
-              },
-              "status": {
-                "S": "ACCEPTED_UNDEFINED"
-              },
-              "modified_date": {
-                "S": "2020-10-08T00:59:06+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              },
-              "manager": {
-                "S": "integratesuser@gmail.com"
-              },
-              "justification": {
-                "S": "Observations about permanently accepted"
-              },
-              "acceptance_status": {
-                "S": "APPROVED"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-13T14:58:38+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#5c689459-64c2-4687-9fef-e5f2dd3c710c#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-04-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#a8c0ff07-bb21-4cd5-bb9f-4d716fc69320#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-04-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#422286126"
-              },
-              "status": {
-                "S": "IN_PROGRESS"
-              },
-              "modified_date": {
-                "S": "2020-01-03T17:46:10+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              },
-              "manager": {
-                "S": "integratescustomer@gmail.com"
-              },
-              "justification": {
-                "S": "test justification"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#422286126"
-              },
-              "status": {
-                "S": "IN_PROGRESS"
-              },
-              "modified_date": {
-                "S": "2020-11-23T17:46:10+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              },
-              "manager": {
-                "S": "integratesuser@gmail.com"
-              },
-              "justification": {
-                "S": "This is a treatment justification"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#15375781-31f2-4953-ac77-f31134225747#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-13T13:17:41+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#1c644e88-b7a2-498b-b248-c3d367629982#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#4ed30d35-33a5-44ba-af44-6cb253be053b#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#5291f6fa-b296-4e89-a760-798ce56f17d0#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#57e5c1ec-5956-40e9-8e30-284033c1140d#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#587c40de-09a0-4d85-a9f9-eaa46aa895d7#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-13T22:00:56+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#5afb9a49-a359-48ce-80ee-79c145919275#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-13T14:58:38+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#5ed5c3c0-9064-41f5-8ef2-5e1eeee62955#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-13T20:37:59+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#72bb8607-c259-4781-9599-185aac02b3cc#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-13T16:03:21+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#759aaf00-34ee-4609-aec6-7f857c470eff#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#81db1fad-c329-4356-a5eb-9ad9b0d75a7e#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-13T13:59:20+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#8226e222-8128-438d-a9b7-93eeb93a36b3#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-13T15:00:03+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#95068fdd-80ca-4eb2-8311-b16b63a61f05#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#818828206"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-12-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#987a6d71-d23c-40db-ad98-bfccf60660ed#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-16T21:01:24+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#aa6a9d70-618b-4ab0-b280-d627ce311200#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#ab25380d-dfe1-4cde-aefd-acca6990d6aa#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#ae16f325-a492-482b-a7a1-6285e8057480#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#b16ed89e-668d-42d6-add1-73535bb0e083#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#bac162ff-5c2a-4a96-9b77-fd7020976160#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#bf818399-b331-4fa4-b335-98548e037378#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-13T15:53:05+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#c8161719-5ac8-45ba-a3fb-ab69ea39ddcb#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#d212a841-7d48-4cb6-b776-cccc2845c383#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#d4d4c6a0-3d51-42cf-b93f-4c503f67d72d#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-13T20:19:17+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#f2d577b4-855b-41fc-a844-2b96f797775c#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-08-30T14:30:13+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#fc01759b-0f2f-4e4e-9e24-5c27c91d574b#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-16T20:02:17+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#feabfd52-0b0f-405e-bf6a-e9a224af6726#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-13T14:03:05+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#09afd608-aa53-4bbc-9094-0076181fa0ea#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#463461507"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-09-13T14:58:38+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#e248e8e0-0323-41c7-bc02-4ee61d09f9c4#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#463461507"
-              },
-              "status": {
-                "S": "ACCEPTED"
-              },
-              "modified_date": {
-                "S": "2019-09-13T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              },
-              "accepted_until": {
-                "S": "2021-01-16T17:46:10+00:00"
-              },
-              "manager": {
-                "S": "integratesuser@gmail.com"
-              },
-              "justification": {
-                "S": "accepted justification"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#6f023c26-5x10-4ded-aa27-xx563c2206ax#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#560175507"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-10-15T16:04:14+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98e#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "ACCEPTED"
-              },
-              "modified_date": {
-                "S": "2019-01-15T15:43:39+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              },
-              "accepted_until": {
-                "S": "2021-01-16T17:46:10+00:00"
-              },
-              "manager": {
-                "S": "integratesuser@gmail.com"
-              },
-              "justification": {
-                "S": "This is a treatment justification test"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#242f848c-148a-4028-8e36-c7d995502590#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-01-15T16:04:14+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-01-16T13:47:07+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "ACCEPTED"
-              },
-              "modified_date": {
-                "S": "2020-10-13T17:46:10+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              },
-              "accepted_until": {
-                "S": "2021-01-16T17:46:10+00:00"
-              },
-              "manager": {
-                "S": "integratesuser@gmail.com"
-              },
-              "justification": {
-                "S": "This is a treatment justification test"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "ACCEPTED"
-              },
-              "modified_date": {
-                "S": "2020-10-13T17:46:10+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              },
-              "accepted_until": {
-                "S": "2021-01-16T17:46:10+00:00"
-              },
-              "manager": {
-                "S": "integratesuser@gmail.com"
-              },
-              "justification": {
-                "S": "This is a treatment justification test"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "ACCEPTED"
-              },
-              "modified_date": {
-                "S": "2020-10-13T17:46:10+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              },
-              "accepted_until": {
-                "S": "2021-01-16T17:46:10+00:00"
-              },
-              "manager": {
-                "S": "integratescustomer@gmail.com"
-              },
-              "justification": {
-                "S": "This is a treatment justification test"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#6192c72f-2e10-4259-9207-717b2d90d8d2#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#457497316"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2018-11-27T19:54:08+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#afb345f6-9319-416a-b174-0201d7cd3822#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#457497318"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2020-09-12T13:45:48+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
-              }
-            }
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
             "status",
             "modified_date",
@@ -13432,78 +13225,7 @@
             "PartitionKeyAlias": "VULN#id#VERIFICATION",
             "SortKeyAlias": "FIN#finding_id"
           },
-          "TableData": [
-            {
-              "pk": {
-                "S": "VULN#15375781-31f2-4953-ac77-f31134225747#VERIFICATION"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "VERIFIED"
-              },
-              "modified_date": {
-                "S": "2020-02-19T15:41:04+00:00"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#587c40de-09a0-4d85-a9f9-eaa46aa895d7#VERIFICATION"
-              },
-              "sk": {
-                "S": "FIN#436992569"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2020-02-19T15:41:04+00:00"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4#VERIFICATION"
-              },
-              "sk": {
-                "S": "FIN#818828206"
-              },
-              "status": {
-                "S": "VERIFIED"
-              },
-              "modified_date": {
-                "S": "2020-02-19T15:41:04+00:00"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465#VERIFICATION"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2020-02-19T15:41:04+00:00"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f#VERIFICATION"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2020-02-19T15:41:04+00:00"
-              }
-            }
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
             "status",
             "modified_date"
@@ -13518,128 +13240,7 @@
             "PartitionKeyAlias": "VULN#id#ZERORISK",
             "SortKeyAlias": "FIN#finding_id"
           },
-          "TableData": [
-            {
-              "pk": {
-                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea#ZERORISK"
-              },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "status": {
-                "S": "CONFIRMED"
-              },
-              "modified_date": {
-                "S": "2020-09-09T21:01:26+00:00"
-              },
-              "modified_by": {
-                "S": "test@gmail.com"
-              },
-              "comment_id": {
-                "S": "123456"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0#ZERORISK"
-              },
-              "sk": {
-                "S": "FIN#422286126"
-              },
-              "status": {
-                "S": "CONFIRMED"
-              },
-              "modified_date": {
-                "S": "2020-09-09T21:01:26+00:00"
-              },
-              "modified_by": {
-                "S": "test@gmail.com"
-              },
-              "comment_id": {
-                "S": "123456"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465#ZERORISK"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2018-09-28T15:32:58+00:00"
-              },
-              "modified_by": {
-                "S": "test@gmail.com"
-              },
-              "comment_id": {
-                "S": "123456"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6#ZERORISK"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2018-09-28T15:32:58+00:00"
-              },
-              "modified_by": {
-                "S": "test@gmail.com"
-              },
-              "comment_id": {
-                "S": "123456"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab#ZERORISK"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2018-09-28T15:32:58+00:00"
-              },
-              "modified_by": {
-                "S": "test@gmail.com"
-              },
-              "comment_id": {
-                "S": "123456"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f#ZERORISK"
-              },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2018-09-28T15:32:58+00:00"
-              },
-              "modified_by": {
-                "S": "test@gmail.com"
-              },
-              "comment_id": {
-                "S": "123456"
-              }
-            }
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
             "status",
             "modified_date",
@@ -13695,13 +13296,13 @@
             }
           ],
           "NonKeyAttributes": [
+            "name",
             "exit_code",
             "started_at",
             "stopped_at",
             "findings_executed",
             "created_at",
-            "queue",
-            "name"
+            "queue"
           ],
           "DataAccess": {
             "MySql": {}
