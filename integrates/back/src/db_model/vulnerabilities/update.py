@@ -9,7 +9,6 @@ from .types import (
     VulnerabilityZeroRisk,
 )
 from .utils import (
-    format_treatment_item,
     format_verification_item,
     format_zero_risk_item,
 )
@@ -48,9 +47,8 @@ async def update_metadata(
         values={"finding_id": finding_id, "id": vulnerability_id},
     )
     vulnerability_item = json.loads(json.dumps(metadata))
-    condition_expression = Attr(key_structure.partition_key).exists()
     await operations.update_item(
-        condition_expression=condition_expression,
+        condition_expression=Attr(key_structure.partition_key).exists(),
         item=vulnerability_item,
         key=vulnerability_key,
         table=TABLE,
@@ -70,10 +68,7 @@ async def update_state(
     try:
         vulnerability_key = keys.build_key(
             facet=TABLE.facets["vulnerability_metadata"],
-            values={
-                "finding_id": finding_id,
-                "id": vulnerability_id,
-            },
+            values={"finding_id": finding_id, "id": vulnerability_id},
         )
         vulnerability_item = {"state": state_item}
         await operations.update_item(
@@ -90,10 +85,7 @@ async def update_state(
 
     state_key = keys.build_key(
         facet=TABLE.facets["vulnerability_historic_state"],
-        values={
-            "id": vulnerability_id,
-            "iso8601utc": state.modified_date,
-        },
+        values={"id": vulnerability_id, "iso8601utc": state.modified_date},
     )
     historic_state_item = {
         key_structure.partition_key: state_key.partition_key,
@@ -114,33 +106,43 @@ async def update_treatment(
     treatment: VulnerabilityTreatment,
     vulnerability_id: str,
 ) -> None:
-    items = []
     key_structure = TABLE.primary_key
-    treatment_item = format_treatment_item(treatment)
-    latest, historic = historics.build_historic(
-        attributes=treatment_item,
-        historic_facet=TABLE.facets["vulnerability_historic_treatment"],
-        key_structure=key_structure,
-        key_values={
-            "finding_id": finding_id,
-            "iso8601utc": treatment.modified_date,
-            "id": vulnerability_id,
-        },
-        latest_facet=TABLE.facets["vulnerability_treatment"],
-    )
+    treatment_item = json.loads(json.dumps(treatment))
+
     try:
-        await operations.put_item(
+        vulnerability_key = keys.build_key(
+            facet=TABLE.facets["vulnerability_metadata"],
+            values={"finding_id": finding_id, "id": vulnerability_id},
+        )
+        vulnerability_item = {"treatment": treatment_item}
+        await operations.update_item(
             condition_expression=(
-                Attr("modified_date").eq(current_value.modified_date)
+                Attr("state.status").ne(VulnerabilityStateStatus.DELETED.value)
+                & Attr("treatment.modified_date").eq(
+                    current_value.modified_date
+                )
             ),
-            facet=TABLE.facets["vulnerability_treatment"],
-            item=latest,
+            item=vulnerability_item,
+            key=vulnerability_key,
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:
         raise VulnNotFound() from ex
-    items.append(historic)
-    await operations.batch_write_item(items=tuple(items), table=TABLE)
+
+    treatment_key = keys.build_key(
+        facet=TABLE.facets["vulnerability_historic_treatment"],
+        values={"id": vulnerability_id, "iso8601utc": treatment.modified_date},
+    )
+    historic_treatment_item = {
+        key_structure.partition_key: treatment_key.partition_key,
+        key_structure.sort_key: treatment_key.sort_key,
+        **treatment_item,
+    }
+    await operations.put_item(
+        facet=TABLE.facets["vulnerability_historic_treatment"],
+        item=historic_treatment_item,
+        table=TABLE,
+    )
 
 
 async def update_verification(
