@@ -5,6 +5,7 @@ from aws.model import (
     AWSRdsCluster,
 )
 from lib_path.common import (
+    EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -16,6 +17,9 @@ from metaloaders.model import (
 )
 from model import (
     core_model,
+)
+from parse_cfn.loader import (
+    load_templates,
 )
 from parse_cfn.structure import (
     iter_rds_clusters_and_instances,
@@ -176,7 +180,7 @@ async def tfm_db_instance_publicly_accessible(
     )
 
 
-# @CACHE_ETERNALLY
+@CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
 async def cfn_rds_is_publicly_accessible(
@@ -200,6 +204,18 @@ async def analyze(
     **_: None,
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
+    if file_extension in EXTENSIONS_CLOUDFORMATION:
+        content = await content_generator()
+        async for template in load_templates(
+            content=content, fmt=file_extension
+        ):
+            coroutines.append(
+                cfn_rds_is_publicly_accessible(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
     if file_extension in EXTENSIONS_TERRAFORM:
         content = await content_generator()
         model = await load_terraform(stream=content, default=[])

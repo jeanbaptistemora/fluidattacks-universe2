@@ -6418,6 +6418,198 @@ F080,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,1,311,skims,080. B
   21 |   }
      ^ Col 0
 ",f080._terraform_unencrypted_buckets
+F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,43,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
+  33 |     Properties:
+  34 |       DBClusterParameterGroupName:
+  35 |         Ref: RDSDBClusterParameterGroup
+  36 |       DBSubnetGroupName:
+  37 |         Ref: DBSubnetGroup
+  38 |       Engine: aurora
+  39 |       MasterUserPassword:
+  40 |         Ref: password
+  41 |       MasterUsername:
+  42 |         Ref: username
+> 43 |       StorageEncrypted: False
+  44 |     Type: ""AWS::RDS::DBCluster""
+  45 |   RDSDBInstance2:
+  46 |     Properties:
+  47 |       AvailabilityZone:
+  48 |         Fn::GetAtt:
+  49 |           - Subnet1
+  50 |           - AvailabilityZone
+  51 |       DBClusterIdentifier:
+  52 |         Ref: RDSCluster
+  53 |       DBInstanceClass: db.r3.xlarge
+     ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,60,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
+  50 |           - AvailabilityZone
+  51 |       DBClusterIdentifier:
+  52 |         Ref: RDSCluster
+  53 |       DBInstanceClass: db.r3.xlarge
+  54 |       DBParameterGroupName:
+  55 |         Ref: RDSDBParameterGroup
+  56 |       DBSubnetGroupName:
+  57 |         Ref: DBSubnetGroup
+  58 |       Engine: aurora
+  59 |       PubliclyAccessible: False
+> 60 |       StorageEncrypted: False
+  61 |     Type: ""AWS::RDS::DBInstance""
+  62 |   RDSCluster3:
+  63 |     Properties:
+  64 |       DBClusterParameterGroupName:
+  65 |         Ref: RDSDBClusterParameterGroup
+  66 |       DBSubnetGroupName:
+  67 |         Ref: DBSubnetGroup
+  68 |       Engine: aurora
+  69 |       MasterUserPassword:
+  70 |         Ref: password
+     ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,63,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
+  53 |       DBInstanceClass: db.r3.xlarge
+  54 |       DBParameterGroupName:
+  55 |         Ref: RDSDBParameterGroup
+  56 |       DBSubnetGroupName:
+  57 |         Ref: DBSubnetGroup
+  58 |       Engine: aurora
+  59 |       PubliclyAccessible: False
+  60 |       StorageEncrypted: False
+  61 |     Type: ""AWS::RDS::DBInstance""
+  62 |   RDSCluster3:
+> 63 |     Properties:
+  64 |       DBClusterParameterGroupName:
+  65 |         Ref: RDSDBClusterParameterGroup
+  66 |       DBSubnetGroupName:
+  67 |         Ref: DBSubnetGroup
+  68 |       Engine: aurora
+  69 |       MasterUserPassword:
+  70 |         Ref: password
+  71 |       MasterUsername:
+  72 |         Ref: username
+  73 |     Type: ""AWS::RDS::DBCluster""
+     ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,75,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
+  65 |         Ref: RDSDBClusterParameterGroup
+  66 |       DBSubnetGroupName:
+  67 |         Ref: DBSubnetGroup
+  68 |       Engine: aurora
+  69 |       MasterUserPassword:
+  70 |         Ref: password
+  71 |       MasterUsername:
+  72 |         Ref: username
+  73 |     Type: ""AWS::RDS::DBCluster""
+  74 |   RDSDBInstance3:
+> 75 |     Properties:
+  76 |       AvailabilityZone:
+  77 |         Fn::GetAtt:
+  78 |           - Subnet1
+  79 |           - AvailabilityZone
+  80 |       DBClusterIdentifier:
+  81 |         Ref: RDSCluster
+  82 |       DBInstanceClass: db.r3.xlarge
+  83 |       DBParameterGroupName:
+  84 |         Ref: RDSDBParameterGroup
+  85 |       DBSubnetGroupName:
+     ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,61,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
+   51 |         ""DBSubnetGroupName"": {
+   52 |           ""Ref"": ""DBSubnetGroup""
+   53 |         },
+   54 |         ""Engine"": ""aurora"",
+   55 |         ""MasterUserPassword"": {
+   56 |           ""Ref"": ""password""
+   57 |         },
+   58 |         ""MasterUsername"": {
+   59 |           ""Ref"": ""username""
+   60 |         },
+>  61 |         ""StorageEncrypted"": false
+   62 |       },
+   63 |       ""Type"": ""AWS::RDS::DBCluster""
+   64 |     },
+   65 |     ""RDSDBInstance2"": {
+   66 |       ""Properties"": {
+   67 |         ""AvailabilityZone"": {
+   68 |           ""Fn::GetAtt"": [
+   69 |             ""Subnet1"",
+   70 |             ""AvailabilityZone""
+   71 |           ]
+      ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,85,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
+   75 |         },
+   76 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+   77 |         ""DBParameterGroupName"": {
+   78 |           ""Ref"": ""RDSDBParameterGroup""
+   79 |         },
+   80 |         ""DBSubnetGroupName"": {
+   81 |           ""Ref"": ""DBSubnetGroup""
+   82 |         },
+   83 |         ""Engine"": ""aurora"",
+   84 |         ""PubliclyAccessible"": false,
+>  85 |         ""StorageEncrypted"": false
+   86 |       },
+   87 |       ""Type"": ""AWS::RDS::DBInstance""
+   88 |     },
+   89 |     ""RDSCluster3"": {
+   90 |       ""Properties"": {
+   91 |         ""DBClusterParameterGroupName"": {
+   92 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   93 |         },
+   94 |         ""DBSubnetGroupName"": {
+   95 |           ""Ref"": ""DBSubnetGroup""
+      ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,90,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
+   80 |         ""DBSubnetGroupName"": {
+   81 |           ""Ref"": ""DBSubnetGroup""
+   82 |         },
+   83 |         ""Engine"": ""aurora"",
+   84 |         ""PubliclyAccessible"": false,
+   85 |         ""StorageEncrypted"": false
+   86 |       },
+   87 |       ""Type"": ""AWS::RDS::DBInstance""
+   88 |     },
+   89 |     ""RDSCluster3"": {
+>  90 |       ""Properties"": {
+   91 |         ""DBClusterParameterGroupName"": {
+   92 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   93 |         },
+   94 |         ""DBSubnetGroupName"": {
+   95 |           ""Ref"": ""DBSubnetGroup""
+   96 |         },
+   97 |         ""Engine"": ""aurora"",
+   98 |         ""MasterUserPassword"": {
+   99 |           ""Ref"": ""password""
+  100 |         },
+      ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,108,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
+   98 |         ""MasterUserPassword"": {
+   99 |           ""Ref"": ""password""
+  100 |         },
+  101 |         ""MasterUsername"": {
+  102 |           ""Ref"": ""username""
+  103 |         }
+  104 |       },
+  105 |       ""Type"": ""AWS::RDS::DBCluster""
+  106 |     },
+  107 |     ""RDSDBInstance3"": {
+> 108 |       ""Properties"": {
+  109 |         ""AvailabilityZone"": {
+  110 |           ""Fn::GetAtt"": [
+  111 |             ""Subnet1"",
+  112 |             ""AvailabilityZone""
+  113 |           ]
+  114 |         },
+  115 |         ""DBClusterIdentifier"": {
+  116 |           ""Ref"": ""RDSCluster""
+  117 |         },
+  118 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+      ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,43,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
   33 |     Properties:
   34 |       DBClusterParameterGroupName:
@@ -8219,6 +8411,342 @@ F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,17,4
   27 |   availability_zones  = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
      ^ Col 0
 ",f073._tfm_db_instance_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,29,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
+  19 |           - Subnet1
+  20 |           - AvailabilityZone
+  21 |       DBClusterIdentifier:
+  22 |         Ref: RDSCluster
+  23 |       DBInstanceClass: db.r3.xlarge
+  24 |       DBParameterGroupName:
+  25 |         Ref: RDSDBParameterGroup
+  26 |       DBSubnetGroupName:
+  27 |         Ref: DBSubnetGroup
+  28 |       Engine: aurora
+> 29 |       PubliclyAccessible: ""true""
+  30 |       StorageEncrypted: True
+  31 |     Type: ""AWS::RDS::DBInstance""
+  32 |   RDSCluster2:
+  33 |     Properties:
+  34 |       DBClusterParameterGroupName:
+  35 |         Ref: RDSDBClusterParameterGroup
+  36 |       DBSubnetGroupName:
+  37 |         Ref: DBSubnetGroup
+  38 |       Engine: aurora
+  39 |       MasterUserPassword:
+     ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,41,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
+   31 |           ""Ref"": ""RDSCluster""
+   32 |         },
+   33 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+   34 |         ""DBParameterGroupName"": {
+   35 |           ""Ref"": ""RDSDBParameterGroup""
+   36 |         },
+   37 |         ""DBSubnetGroupName"": {
+   38 |           ""Ref"": ""DBSubnetGroup""
+   39 |         },
+   40 |         ""Engine"": ""aurora"",
+>  41 |         ""PubliclyAccessible"": ""true"",
+   42 |         ""StorageEncrypted"": true
+   43 |       },
+   44 |       ""Type"": ""AWS::RDS::DBInstance""
+   45 |     },
+   46 |     ""RDSCluster2"": {
+   47 |       ""Properties"": {
+   48 |         ""DBClusterParameterGroupName"": {
+   49 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   50 |         },
+   51 |         ""DBSubnetGroupName"": {
+      ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,29,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+  19 |           - Subnet1
+  20 |           - AvailabilityZone
+  21 |       DBClusterIdentifier:
+  22 |         Ref: RDSCluster
+  23 |       DBInstanceClass: db.r3.xlarge
+  24 |       DBParameterGroupName:
+  25 |         Ref: RDSDBParameterGroup
+  26 |       DBSubnetGroupName:
+  27 |         Ref: DBSubnetGroup
+  28 |       Engine: aurora
+> 29 |       PubliclyAccessible: ""true""
+  30 |       StorageEncrypted: True
+  31 |     Type: ""AWS::RDS::DBInstance""
+  32 |   RDSCluster2:
+  33 |     Properties:
+  34 |       DBClusterParameterGroupName:
+  35 |         Ref: RDSDBClusterParameterGroup
+  36 |       DBSubnetGroupName:
+  37 |         Ref: DBSubnetGroup
+  38 |       Engine: aurora
+  39 |       MasterUserPassword:
+     ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,59,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+  49 |           - Subnet1
+  50 |           - AvailabilityZone
+  51 |       DBClusterIdentifier:
+  52 |         Ref: RDSCluster
+  53 |       DBInstanceClass: db.r3.xlarge
+  54 |       DBParameterGroupName:
+  55 |         Ref: RDSDBParameterGroup
+  56 |       DBSubnetGroupName:
+  57 |         Ref: DBSubnetGroup
+  58 |       Engine: aurora
+> 59 |       PubliclyAccessible: ""true""
+  60 |       StorageEncrypted: False
+  61 |     Type: ""AWS::RDS::DBInstance""
+  62 |   RDSCluster3:
+  63 |     Properties:
+  64 |       DBClusterParameterGroupName:
+  65 |         Ref: RDSDBClusterParameterGroup
+  66 |       DBSubnetGroupName:
+  67 |         Ref: DBSubnetGroup
+  68 |       Engine: aurora
+  69 |       MasterUserPassword:
+     ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,88,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+  70 |         Ref: password
+  71 |       MasterUsername:
+  72 |         Ref: username
+  73 |     Type: ""AWS::RDS::DBCluster""
+  74 |   RDSDBInstance3:
+  75 |     Properties:
+  76 |       AvailabilityZone:
+  77 |         Fn::GetAtt:
+  78 |           - Subnet1
+  79 |           - AvailabilityZone
+  80 |       DBClusterIdentifier:
+  81 |         Ref: RDSCluster
+  82 |       DBInstanceClass: db.r3.xlarge
+  83 |       DBParameterGroupName:
+  84 |         Ref: RDSDBParameterGroup
+  85 |       DBSubnetGroupName:
+  86 |         Ref: DBSubnetGroup
+  87 |       Engine: aurora
+> 88 |       PubliclyAccessible: ""true""
+  89 |     Type: ""AWS::RDS::DBInstance""
+  90 |
+     ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,41,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+   31 |           ""Ref"": ""RDSCluster""
+   32 |         },
+   33 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+   34 |         ""DBParameterGroupName"": {
+   35 |           ""Ref"": ""RDSDBParameterGroup""
+   36 |         },
+   37 |         ""DBSubnetGroupName"": {
+   38 |           ""Ref"": ""DBSubnetGroup""
+   39 |         },
+   40 |         ""Engine"": ""aurora"",
+>  41 |         ""PubliclyAccessible"": ""true"",
+   42 |         ""StorageEncrypted"": true
+   43 |       },
+   44 |       ""Type"": ""AWS::RDS::DBInstance""
+   45 |     },
+   46 |     ""RDSCluster2"": {
+   47 |       ""Properties"": {
+   48 |         ""DBClusterParameterGroupName"": {
+   49 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   50 |         },
+   51 |         ""DBSubnetGroupName"": {
+      ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,84,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+   74 |           ""Ref"": ""RDSCluster""
+   75 |         },
+   76 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+   77 |         ""DBParameterGroupName"": {
+   78 |           ""Ref"": ""RDSDBParameterGroup""
+   79 |         },
+   80 |         ""DBSubnetGroupName"": {
+   81 |           ""Ref"": ""DBSubnetGroup""
+   82 |         },
+   83 |         ""Engine"": ""aurora"",
+>  84 |         ""PubliclyAccessible"": ""true"",
+   85 |         ""StorageEncrypted"": false
+   86 |       },
+   87 |       ""Type"": ""AWS::RDS::DBInstance""
+   88 |     },
+   89 |     ""RDSCluster3"": {
+   90 |       ""Properties"": {
+   91 |         ""DBClusterParameterGroupName"": {
+   92 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   93 |         },
+   94 |         ""DBSubnetGroupName"": {
+      ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,126,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+  111 |             ""Subnet1"",
+  112 |             ""AvailabilityZone""
+  113 |           ]
+  114 |         },
+  115 |         ""DBClusterIdentifier"": {
+  116 |           ""Ref"": ""RDSCluster""
+  117 |         },
+  118 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+  119 |         ""DBParameterGroupName"": {
+  120 |           ""Ref"": ""RDSDBParameterGroup""
+  121 |         },
+  122 |         ""DBSubnetGroupName"": {
+  123 |           ""Ref"": ""DBSubnetGroup""
+  124 |         },
+  125 |         ""Engine"": ""aurora"",
+> 126 |         ""PubliclyAccessible"": ""true""
+  127 |       },
+  128 |       ""Type"": ""AWS::RDS::DBInstance""
+  129 |     }
+  130 |   }
+  131 | }
+      ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,31,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+  21 |           - Subnet1
+  22 |           - AvailabilityZone
+  23 |       DBClusterIdentifier:
+  24 |         Ref: RDSCluster
+  25 |       DBInstanceClass: db.r3.xlarge
+  26 |       DBParameterGroupName:
+  27 |         Ref: RDSDBParameterGroup
+  28 |       DBSubnetGroupName:
+  29 |         Ref: DBSubnetGroup
+  30 |       Engine: aurora
+> 31 |       PubliclyAccessible: ""true""
+  32 |       StorageEncrypted: True
+  33 |     Type: ""AWS::RDS::DBInstance""
+  34 |   RDSCluster2:
+  35 |     Properties:
+  36 |       BackupRetentionPeriod: 0
+  37 |       DBClusterParameterGroupName:
+  38 |         Ref: RDSDBClusterParameterGroup
+  39 |       DBSubnetGroupName:
+  40 |         Ref: DBSubnetGroup
+  41 |       Engine: aurora
+     ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,63,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+  53 |           - Subnet1
+  54 |           - AvailabilityZone
+  55 |       DBClusterIdentifier:
+  56 |         Ref: RDSCluster
+  57 |       DBInstanceClass: db.r3.xlarge
+  58 |       DBParameterGroupName:
+  59 |         Ref: RDSDBParameterGroup
+  60 |       DBSubnetGroupName:
+  61 |         Ref: DBSubnetGroup
+  62 |       Engine: aurora
+> 63 |       PubliclyAccessible: ""true""
+  64 |       StorageEncrypted: False
+  65 |     Type: ""AWS::RDS::DBInstance""
+  66 |   RDSCluster3:
+  67 |     Properties:
+  68 |       DBClusterParameterGroupName:
+  69 |         Ref: RDSDBClusterParameterGroup
+  70 |       DBSubnetGroupName:
+  71 |         Ref: DBSubnetGroup
+  72 |       Engine: aurora
+  73 |       MasterUserPassword:
+     ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,92,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+  74 |         Ref: password
+  75 |       MasterUsername:
+  76 |         Ref: username
+  77 |     Type: ""AWS::RDS::DBCluster""
+  78 |   RDSDBInstance3:
+  79 |     Properties:
+  80 |       AvailabilityZone:
+  81 |         Fn::GetAtt:
+  82 |           - Subnet1
+  83 |           - AvailabilityZone
+  84 |       DBClusterIdentifier:
+  85 |         Ref: RDSCluster
+  86 |       DBInstanceClass: db.r3.xlarge
+  87 |       DBParameterGroupName:
+  88 |         Ref: RDSDBParameterGroup
+  89 |       DBSubnetGroupName:
+  90 |         Ref: DBSubnetGroup
+  91 |       Engine: aurora
+> 92 |       PubliclyAccessible: ""true""
+  93 |     Type: ""AWS::RDS::DBInstance""
+  94 |
+     ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,43,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+   33 |           ""Ref"": ""RDSCluster""
+   34 |         },
+   35 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+   36 |         ""DBParameterGroupName"": {
+   37 |           ""Ref"": ""RDSDBParameterGroup""
+   38 |         },
+   39 |         ""DBSubnetGroupName"": {
+   40 |           ""Ref"": ""DBSubnetGroup""
+   41 |         },
+   42 |         ""Engine"": ""aurora"",
+>  43 |         ""PubliclyAccessible"": ""true"",
+   44 |         ""StorageEncrypted"": true
+   45 |       },
+   46 |       ""Type"": ""AWS::RDS::DBInstance""
+   47 |     },
+   48 |     ""RDSCluster2"": {
+   49 |       ""Properties"": {
+   50 |         ""BackupRetentionPeriod"": 0,
+   51 |         ""DBClusterParameterGroupName"": {
+   52 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   53 |         },
+      ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,88,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+   78 |           ""Ref"": ""RDSCluster""
+   79 |         },
+   80 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+   81 |         ""DBParameterGroupName"": {
+   82 |           ""Ref"": ""RDSDBParameterGroup""
+   83 |         },
+   84 |         ""DBSubnetGroupName"": {
+   85 |           ""Ref"": ""DBSubnetGroup""
+   86 |         },
+   87 |         ""Engine"": ""aurora"",
+>  88 |         ""PubliclyAccessible"": ""true"",
+   89 |         ""StorageEncrypted"": false
+   90 |       },
+   91 |       ""Type"": ""AWS::RDS::DBInstance""
+   92 |     },
+   93 |     ""RDSCluster3"": {
+   94 |       ""Properties"": {
+   95 |         ""DBClusterParameterGroupName"": {
+   96 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   97 |         },
+   98 |         ""DBSubnetGroupName"": {
+      ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,130,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+  115 |             ""Subnet1"",
+  116 |             ""AvailabilityZone""
+  117 |           ]
+  118 |         },
+  119 |         ""DBClusterIdentifier"": {
+  120 |           ""Ref"": ""RDSCluster""
+  121 |         },
+  122 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+  123 |         ""DBParameterGroupName"": {
+  124 |           ""Ref"": ""RDSDBParameterGroup""
+  125 |         },
+  126 |         ""DBSubnetGroupName"": {
+  127 |           ""Ref"": ""DBSubnetGroup""
+  128 |         },
+  129 |         ""Engine"": ""aurora"",
+> 130 |         ""PubliclyAccessible"": ""true""
+  131 |       },
+  132 |       ""Type"": ""AWS::RDS::DBInstance""
+  133 |     }
+  134 |   }
+  135 | }
+      ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
 F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Insecure deserialization,"Insecure deserialization
  in namespace/skims/test/data/lib_root/f096/test.cs","
    1 | em.Runtime.Serialization.Formatters.Binary;
