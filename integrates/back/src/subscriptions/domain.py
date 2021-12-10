@@ -13,7 +13,6 @@ from context import (
     FI_ENVIRONMENT,
     FI_MAIL_CUSTOMER_SUCCESS,
     FI_MAIL_REVIEWERS,
-    FI_MAIL_SUBSCRIPTIONS_TEST,
     FI_TEST_PROJECTS,
 )
 from custom_exceptions import (
@@ -389,35 +388,18 @@ def _should_process_event(
     """
     bot_time = bot_time.replace(minute=0)
     bot_time_hour: int = bot_time.hour
-    bot_time_day: int = bot_time.day
     bot_time_weekday: int = bot_time.weekday()
-
     event_frequency = event_frequency.lower()
 
     success: bool = (
-        (
-            # Tuesday to Saturday @ 9 GMT
-            report_entity.lower() == "digest"
-            and bot_time_hour == 9
-            and 1 <= bot_time_weekday <= 5
-        )
-        or (
-            # First of month @ 10 GMT
-            event_frequency == "monthly"
-            and bot_time_hour == 10
-            and bot_time_day == 1
-        )
-        or (
-            # Mondays @ 10 GMT
-            event_frequency == "weekly"
-            and bot_time_hour == 10
-            and bot_time_weekday == 0
-        )
-        or (
-            # @ any hour
-            event_frequency
-            == "hourly"
-        )
+        # Tuesday to Saturday @ 9 GMT
+        report_entity.lower() == "digest"
+        and bot_time_hour == 9
+        and 1 <= bot_time_weekday <= 5
+    ) or (
+        # @ any hour
+        event_frequency
+        == "hourly"
     )
 
     return success
@@ -691,7 +673,6 @@ async def trigger_subscriptions_analytics() -> None:
         if str(subscription["sk"]["entity"]).lower() != "comments"
         and str(subscription["sk"]["entity"]).lower() != "digest"
         and _period_to_frequency(period=subscription["period"]) == frequency
-        and FI_MAIL_SUBSCRIPTIONS_TEST == subscription["pk"]["email"]
     ]
     LOGGER_CONSOLE.info(
         "- subscriptions loaded",
