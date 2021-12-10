@@ -90,9 +90,7 @@ async def get_finding_policy_by_name(
         (
             fin_policy
             for fin_policy in await get_finding_policies(org_name=org_name)
-            if fin_policy.metadata.name.split(".")[0]
-            .lower()
-            .endswith(finding_name)
+            if fin_policy.metadata.name.lower().endswith(finding_name.lower())
         ),
         None,
     )
@@ -107,8 +105,7 @@ async def add_finding_policy(
 ) -> None:
     validate_finding_name(finding_name)
     finding_policy = await get_finding_policy_by_name(
-        org_name=org_name,
-        finding_name=finding_name.split(".")[0].lower(),
+        org_name=org_name, finding_name=finding_name.lower()
     )
     if finding_policy:
         raise RepeatedFindingNamePolicy()
@@ -219,7 +216,7 @@ async def update_finding_policy_in_groups(
     findings_ids: List[str] = [
         finding.id
         for finding in findings
-        if finding_name.lower().endswith(finding.title.split(".")[0].lower())
+        if finding_name.lower().endswith(finding.title.lower())
     ]
 
     if not findings_ids:

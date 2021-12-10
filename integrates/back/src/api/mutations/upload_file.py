@@ -71,7 +71,7 @@ async def mutate(
         )
         finding_policy = await policies_domain.get_finding_policy_by_name(
             org_name=organization["name"],
-            finding_name=finding.title.split(".")[0].lower(),
+            finding_name=finding.title.lower(),
         )
         if file_input and allowed_mime_type:
             success = await vuln_files_domain.upload_file(

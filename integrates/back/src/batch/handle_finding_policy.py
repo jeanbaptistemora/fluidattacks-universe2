@@ -83,7 +83,7 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
         loader = get_new_context()
         groups: List[Group] = await loader.group.load_many(organization_groups)
         groups_filtered = groups_domain.filter_active_groups(groups)
-        finding_name: str = finding_policy.metadata.name.split(".")[0].lower()
+        finding_name: str = finding_policy.metadata.name.lower()
         await update_finding_policy_in_groups(
             finding_name=finding_name,
             loaders=loader,
