@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 10, 2021, 01:46 PM",
+    "DateLastModified": "Dec 10, 2021, 01:56 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -13171,76 +13171,6 @@
               }
             }
           ],
-          "NonKeyAttributes": [
-            "status",
-            "modified_date",
-            "modified_by",
-            "comment_id"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "vulnerability_state",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#id#STATE",
-            "SortKeyAlias": "FIN#finding_id"
-          },
-          "TableData": [],
-          "NonKeyAttributes": [
-            "status",
-            "modified_date",
-            "modified_by",
-            "source",
-            "justification"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "vulnerability_treatment",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#id#TREATMENT",
-            "SortKeyAlias": "FIN#finding_id"
-          },
-          "TableData": [],
-          "NonKeyAttributes": [
-            "status",
-            "modified_date",
-            "modified_by",
-            "accepted_until",
-            "manager",
-            "justification",
-            "acceptance_status"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "vulnerability_verification",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#id#VERIFICATION",
-            "SortKeyAlias": "FIN#finding_id"
-          },
-          "TableData": [],
-          "NonKeyAttributes": [
-            "status",
-            "modified_date"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "vulnerability_zero_risk",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#id#ZERORISK",
-            "SortKeyAlias": "FIN#finding_id"
-          },
-          "TableData": [],
           "NonKeyAttributes": [
             "status",
             "modified_date",

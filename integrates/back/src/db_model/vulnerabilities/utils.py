@@ -90,13 +90,6 @@ def format_verification(item: Item) -> VulnerabilityVerification:
     )
 
 
-def format_verification_item(state: VulnerabilityVerification) -> Item:
-    return {
-        "modified_date": state.modified_date,
-        "status": state.status.value,
-    }
-
-
 def format_zero_risk(item: Item) -> VulnerabilityZeroRisk:
     return VulnerabilityZeroRisk(
         comment_id=item["comment_id"],
@@ -104,12 +97,3 @@ def format_zero_risk(item: Item) -> VulnerabilityZeroRisk:
         modified_date=item["modified_date"],
         status=VulnerabilityZeroRiskStatus[item["status"]],
     )
-
-
-def format_zero_risk_item(state: VulnerabilityZeroRisk) -> Item:
-    return {
-        "comment_id": state.comment_id,
-        "modified_by": state.modified_by,
-        "modified_date": state.modified_date,
-        "status": state.status.value,
-    }

@@ -38,10 +38,6 @@ function main {
     vulnerability_historic_treatment
     vulnerability_historic_verification
     vulnerability_historic_zero_risk
-    vulnerability_state
-    vulnerability_treatment
-    vulnerability_verification
-    vulnerability_zero_risk
   )
   local facets=''
 

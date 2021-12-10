@@ -8,10 +8,6 @@ from .types import (
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
-from .utils import (
-    format_verification_item,
-    format_zero_risk_item,
-)
 from boto3.dynamodb.conditions import (
     Attr,
 )
@@ -22,7 +18,6 @@ from db_model import (
     TABLE,
 )
 from dynamodb import (
-    historics,
     keys,
     operations,
 )
@@ -152,35 +147,51 @@ async def update_verification(
     vulnerability_id: str,
     verification: VulnerabilityVerification,
 ) -> None:
-    items = []
     key_structure = TABLE.primary_key
-    verification_item = format_verification_item(verification)
-    latest, historic = historics.build_historic(
-        attributes=verification_item,
-        historic_facet=TABLE.facets["vulnerability_historic_verification"],
-        key_structure=key_structure,
-        key_values={
-            "finding_id": finding_id,
-            "iso8601utc": verification.modified_date,
-            "id": vulnerability_id,
-        },
-        latest_facet=TABLE.facets["vulnerability_verification"],
-    )
+    verification_item = json.loads(json.dumps(verification))
+
     try:
-        await operations.put_item(
+        vulnerability_key = keys.build_key(
+            facet=TABLE.facets["vulnerability_metadata"],
+            values={"finding_id": finding_id, "id": vulnerability_id},
+        )
+        vulnerability_item = {"verification": verification_item}
+        base_condition = Attr("state.status").ne(
+            VulnerabilityStateStatus.DELETED.value
+        )
+        await operations.update_item(
             condition_expression=(
-                Attr("modified_date").eq(current_value.modified_date)
+                base_condition
+                & Attr("verification.modified_date").eq(
+                    current_value.modified_date
+                )
                 if current_value
-                else None
+                else base_condition
             ),
-            facet=TABLE.facets["vulnerability_verification"],
-            item=latest,
+            item=vulnerability_item,
+            key=vulnerability_key,
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:
         raise VulnNotFound() from ex
-    items.append(historic)
-    await operations.batch_write_item(items=tuple(items), table=TABLE)
+
+    verification_key = keys.build_key(
+        facet=TABLE.facets["vulnerability_historic_verification"],
+        values={
+            "id": vulnerability_id,
+            "iso8601utc": verification.modified_date,
+        },
+    )
+    historic_verification_item = {
+        key_structure.partition_key: verification_key.partition_key,
+        key_structure.sort_key: verification_key.sort_key,
+        **verification_item,
+    }
+    await operations.put_item(
+        facet=TABLE.facets["vulnerability_historic_verification"],
+        item=historic_verification_item,
+        table=TABLE,
+    )
 
 
 async def update_zero_risk(
@@ -190,32 +201,48 @@ async def update_zero_risk(
     vulnerability_id: str,
     zero_risk: VulnerabilityZeroRisk,
 ) -> None:
-    items = []
     key_structure = TABLE.primary_key
-    zero_risk_item = format_zero_risk_item(zero_risk)
-    latest, historic = historics.build_historic(
-        attributes=zero_risk_item,
-        historic_facet=TABLE.facets["vulnerability_historic_zero_risk"],
-        key_structure=key_structure,
-        key_values={
-            "finding_id": finding_id,
-            "iso8601utc": zero_risk.modified_date,
-            "id": vulnerability_id,
-        },
-        latest_facet=TABLE.facets["vulnerability_zero_risk"],
-    )
+    zero_risk_item = json.loads(json.dumps(zero_risk))
+
     try:
-        await operations.put_item(
+        vulnerability_key = keys.build_key(
+            facet=TABLE.facets["vulnerability_metadata"],
+            values={"finding_id": finding_id, "id": vulnerability_id},
+        )
+        vulnerability_item = {"zero_risk": zero_risk_item}
+        base_condition = Attr("state.status").ne(
+            VulnerabilityStateStatus.DELETED.value
+        )
+        await operations.update_item(
             condition_expression=(
-                Attr("modified_date").eq(current_value.modified_date)
+                base_condition
+                & Attr("zero_risk.modified_date").eq(
+                    current_value.modified_date
+                )
                 if current_value
-                else None
+                else base_condition
             ),
-            facet=TABLE.facets["vulnerability_zero_risk"],
-            item=latest,
+            item=vulnerability_item,
+            key=vulnerability_key,
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:
         raise VulnNotFound() from ex
-    items.append(historic)
-    await operations.batch_write_item(items=tuple(items), table=TABLE)
+
+    zero_risk_key = keys.build_key(
+        facet=TABLE.facets["vulnerability_historic_zero_risk"],
+        values={
+            "id": vulnerability_id,
+            "iso8601utc": zero_risk.modified_date,
+        },
+    )
+    historic_zero_risk_item = {
+        key_structure.partition_key: zero_risk_key.partition_key,
+        key_structure.sort_key: zero_risk_key.sort_key,
+        **zero_risk_item,
+    }
+    await operations.put_item(
+        facet=TABLE.facets["vulnerability_historic_zero_risk"],
+        item=historic_zero_risk_item,
+        table=TABLE,
+    )
