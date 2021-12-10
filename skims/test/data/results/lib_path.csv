@@ -6610,6 +6610,198 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
   118 |         ""DBInstanceClass"": ""db.r3.xlarge"",
       ^ Col 0
 ",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,46,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+  36 |       BackupRetentionPeriod: 0
+  37 |       DBClusterParameterGroupName:
+  38 |         Ref: RDSDBClusterParameterGroup
+  39 |       DBSubnetGroupName:
+  40 |         Ref: DBSubnetGroup
+  41 |       Engine: aurora
+  42 |       MasterUserPassword:
+  43 |         Ref: password
+  44 |       MasterUsername:
+  45 |         Ref: username
+> 46 |       StorageEncrypted: False
+  47 |     Type: ""AWS::RDS::DBCluster""
+  48 |   RDSDBInstance2:
+  49 |     Properties:
+  50 |       BackupRetentionPeriod: 0
+  51 |       AvailabilityZone:
+  52 |         Fn::GetAtt:
+  53 |           - Subnet1
+  54 |           - AvailabilityZone
+  55 |       DBClusterIdentifier:
+  56 |         Ref: RDSCluster
+     ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,64,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+  54 |           - AvailabilityZone
+  55 |       DBClusterIdentifier:
+  56 |         Ref: RDSCluster
+  57 |       DBInstanceClass: db.r3.xlarge
+  58 |       DBParameterGroupName:
+  59 |         Ref: RDSDBParameterGroup
+  60 |       DBSubnetGroupName:
+  61 |         Ref: DBSubnetGroup
+  62 |       Engine: aurora
+  63 |       PubliclyAccessible: ""true""
+> 64 |       StorageEncrypted: False
+  65 |     Type: ""AWS::RDS::DBInstance""
+  66 |   RDSCluster3:
+  67 |     Properties:
+  68 |       DBClusterParameterGroupName:
+  69 |         Ref: RDSDBClusterParameterGroup
+  70 |       DBSubnetGroupName:
+  71 |         Ref: DBSubnetGroup
+  72 |       Engine: aurora
+  73 |       MasterUserPassword:
+  74 |         Ref: password
+     ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,67,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+  57 |       DBInstanceClass: db.r3.xlarge
+  58 |       DBParameterGroupName:
+  59 |         Ref: RDSDBParameterGroup
+  60 |       DBSubnetGroupName:
+  61 |         Ref: DBSubnetGroup
+  62 |       Engine: aurora
+  63 |       PubliclyAccessible: ""true""
+  64 |       StorageEncrypted: False
+  65 |     Type: ""AWS::RDS::DBInstance""
+  66 |   RDSCluster3:
+> 67 |     Properties:
+  68 |       DBClusterParameterGroupName:
+  69 |         Ref: RDSDBClusterParameterGroup
+  70 |       DBSubnetGroupName:
+  71 |         Ref: DBSubnetGroup
+  72 |       Engine: aurora
+  73 |       MasterUserPassword:
+  74 |         Ref: password
+  75 |       MasterUsername:
+  76 |         Ref: username
+  77 |     Type: ""AWS::RDS::DBCluster""
+     ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,79,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+  69 |         Ref: RDSDBClusterParameterGroup
+  70 |       DBSubnetGroupName:
+  71 |         Ref: DBSubnetGroup
+  72 |       Engine: aurora
+  73 |       MasterUserPassword:
+  74 |         Ref: password
+  75 |       MasterUsername:
+  76 |         Ref: username
+  77 |     Type: ""AWS::RDS::DBCluster""
+  78 |   RDSDBInstance3:
+> 79 |     Properties:
+  80 |       AvailabilityZone:
+  81 |         Fn::GetAtt:
+  82 |           - Subnet1
+  83 |           - AvailabilityZone
+  84 |       DBClusterIdentifier:
+  85 |         Ref: RDSCluster
+  86 |       DBInstanceClass: db.r3.xlarge
+  87 |       DBParameterGroupName:
+  88 |         Ref: RDSDBParameterGroup
+  89 |       DBSubnetGroupName:
+     ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,64,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+   54 |         ""DBSubnetGroupName"": {
+   55 |           ""Ref"": ""DBSubnetGroup""
+   56 |         },
+   57 |         ""Engine"": ""aurora"",
+   58 |         ""MasterUserPassword"": {
+   59 |           ""Ref"": ""password""
+   60 |         },
+   61 |         ""MasterUsername"": {
+   62 |           ""Ref"": ""username""
+   63 |         },
+>  64 |         ""StorageEncrypted"": false
+   65 |       },
+   66 |       ""Type"": ""AWS::RDS::DBCluster""
+   67 |     },
+   68 |     ""RDSDBInstance2"": {
+   69 |       ""Properties"": {
+   70 |         ""BackupRetentionPeriod"": 0,
+   71 |         ""AvailabilityZone"": {
+   72 |           ""Fn::GetAtt"": [
+   73 |             ""Subnet1"",
+   74 |             ""AvailabilityZone""
+      ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,89,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+   79 |         },
+   80 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+   81 |         ""DBParameterGroupName"": {
+   82 |           ""Ref"": ""RDSDBParameterGroup""
+   83 |         },
+   84 |         ""DBSubnetGroupName"": {
+   85 |           ""Ref"": ""DBSubnetGroup""
+   86 |         },
+   87 |         ""Engine"": ""aurora"",
+   88 |         ""PubliclyAccessible"": ""true"",
+>  89 |         ""StorageEncrypted"": false
+   90 |       },
+   91 |       ""Type"": ""AWS::RDS::DBInstance""
+   92 |     },
+   93 |     ""RDSCluster3"": {
+   94 |       ""Properties"": {
+   95 |         ""DBClusterParameterGroupName"": {
+   96 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   97 |         },
+   98 |         ""DBSubnetGroupName"": {
+   99 |           ""Ref"": ""DBSubnetGroup""
+      ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,94,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+   84 |         ""DBSubnetGroupName"": {
+   85 |           ""Ref"": ""DBSubnetGroup""
+   86 |         },
+   87 |         ""Engine"": ""aurora"",
+   88 |         ""PubliclyAccessible"": ""true"",
+   89 |         ""StorageEncrypted"": false
+   90 |       },
+   91 |       ""Type"": ""AWS::RDS::DBInstance""
+   92 |     },
+   93 |     ""RDSCluster3"": {
+>  94 |       ""Properties"": {
+   95 |         ""DBClusterParameterGroupName"": {
+   96 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   97 |         },
+   98 |         ""DBSubnetGroupName"": {
+   99 |           ""Ref"": ""DBSubnetGroup""
+  100 |         },
+  101 |         ""Engine"": ""aurora"",
+  102 |         ""MasterUserPassword"": {
+  103 |           ""Ref"": ""password""
+  104 |         },
+      ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,112,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+  102 |         ""MasterUserPassword"": {
+  103 |           ""Ref"": ""password""
+  104 |         },
+  105 |         ""MasterUsername"": {
+  106 |           ""Ref"": ""username""
+  107 |         }
+  108 |       },
+  109 |       ""Type"": ""AWS::RDS::DBCluster""
+  110 |     },
+  111 |     ""RDSDBInstance3"": {
+> 112 |       ""Properties"": {
+  113 |         ""AvailabilityZone"": {
+  114 |           ""Fn::GetAtt"": [
+  115 |             ""Subnet1"",
+  116 |             ""AvailabilityZone""
+  117 |           ]
+  118 |         },
+  119 |         ""DBClusterIdentifier"": {
+  120 |           ""Ref"": ""RDSCluster""
+  121 |         },
+  122 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+      ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
 F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,16,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,"
    6 |       Name: MyTargets
    7 |       Port: 443
@@ -8933,6 +9125,102 @@ F109,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,681,s
   9 | }
     ^ Col 0
 ",f109._tfm_rds_instance_inside_subnet
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,36,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+  26 |       DBParameterGroupName:
+  27 |         Ref: RDSDBParameterGroup
+  28 |       DBSubnetGroupName:
+  29 |         Ref: DBSubnetGroup
+  30 |       Engine: aurora
+  31 |       PubliclyAccessible: ""true""
+  32 |       StorageEncrypted: True
+  33 |     Type: ""AWS::RDS::DBInstance""
+  34 |   RDSCluster2:
+  35 |     Properties:
+> 36 |       BackupRetentionPeriod: 0
+  37 |       DBClusterParameterGroupName:
+  38 |         Ref: RDSDBClusterParameterGroup
+  39 |       DBSubnetGroupName:
+  40 |         Ref: DBSubnetGroup
+  41 |       Engine: aurora
+  42 |       MasterUserPassword:
+  43 |         Ref: password
+  44 |       MasterUsername:
+  45 |         Ref: username
+  46 |       StorageEncrypted: False
+     ^ Col 0
+",f256._cfn_rds_has_not_automated_backups
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,50,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+  40 |         Ref: DBSubnetGroup
+  41 |       Engine: aurora
+  42 |       MasterUserPassword:
+  43 |         Ref: password
+  44 |       MasterUsername:
+  45 |         Ref: username
+  46 |       StorageEncrypted: False
+  47 |     Type: ""AWS::RDS::DBCluster""
+  48 |   RDSDBInstance2:
+  49 |     Properties:
+> 50 |       BackupRetentionPeriod: 0
+  51 |       AvailabilityZone:
+  52 |         Fn::GetAtt:
+  53 |           - Subnet1
+  54 |           - AvailabilityZone
+  55 |       DBClusterIdentifier:
+  56 |         Ref: RDSCluster
+  57 |       DBInstanceClass: db.r3.xlarge
+  58 |       DBParameterGroupName:
+  59 |         Ref: RDSDBParameterGroup
+  60 |       DBSubnetGroupName:
+     ^ Col 0
+",f256._cfn_rds_has_not_automated_backups
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,50,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+   40 |        ""Ref"": ""DBSubnetGroup""
+   41 |      },
+   42 |      ""Engine"": ""aurora"",
+   43 |      ""PubliclyAccessible"": ""true"",
+   44 |      ""StorageEncrypted"": true
+   45 |    },
+   46 |    ""Type"": ""AWS::RDS::DBInstance""
+   47 |  },
+   48 |  ""RDSCluster2"": {
+   49 |    ""Properties"": {
+>  50 |      ""BackupRetentionPeriod"": 0,
+   51 |      ""DBClusterParameterGroupName"": {
+   52 |        ""Ref"": ""RDSDBClusterParameterGroup""
+   53 |      },
+   54 |      ""DBSubnetGroupName"": {
+   55 |        ""Ref"": ""DBSubnetGroup""
+   56 |      },
+   57 |      ""Engine"": ""aurora"",
+   58 |      ""MasterUserPassword"": {
+   59 |        ""Ref"": ""password""
+   60 |      },
+      ^ Col 3
+",f256._cfn_rds_has_not_automated_backups
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,70,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+   60 |      },
+   61 |      ""MasterUsername"": {
+   62 |        ""Ref"": ""username""
+   63 |      },
+   64 |      ""StorageEncrypted"": false
+   65 |    },
+   66 |    ""Type"": ""AWS::RDS::DBCluster""
+   67 |  },
+   68 |  ""RDSDBInstance2"": {
+   69 |    ""Properties"": {
+>  70 |      ""BackupRetentionPeriod"": 0,
+   71 |      ""AvailabilityZone"": {
+   72 |        ""Fn::GetAtt"": [
+   73 |          ""Subnet1"",
+   74 |          ""AvailabilityZone""
+   75 |        ]
+   76 |      },
+   77 |      ""DBClusterIdentifier"": {
+   78 |        ""Ref"": ""RDSCluster""
+   79 |      },
+   80 |      ""DBInstanceClass"": ""db.r3.xlarge"",
+      ^ Col 3
+",f256._cfn_rds_has_not_automated_backups
 F256,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
  in namespace/skims/test/data/lib_path/f109/subnet_test.tf","
    2 |   publicly_accessible  = false
