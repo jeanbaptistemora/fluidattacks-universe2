@@ -509,6 +509,25 @@ in
           "toe_inputs_etl"
           "services_toe_lines_etl"
         ])
+        ++ (builtins.map
+        (frequency: {
+          args = [ "prod" frequency ];
+          output = "/integrates/subscriptions/analytics";
+          gitlabExtra = schedulerTemplate // {
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "integrates_subscriptions_analytics_${frequency}_prod_schedule")
+              (gitlabCi.rules.always)
+            ];
+            tags = [ "autoscaling-large" ];
+          };
+        })
+        [
+          "daily"
+          "hourly"
+          "monthly"
+          "weekly"
+        ])
         ++ [
         {
           output = "/integrates/secrets/lint";
@@ -522,18 +541,6 @@ in
             rules = gitlabOnlyDev;
             stage = "subscriptions";
             tags = [ "autoscaling" ];
-          };
-        }
-        {
-          args = [ "prod" ];
-          output = "/integrates/subscriptions/analytics-daily";
-          gitlabExtra = schedulerTemplate // {
-            rules = [
-              (gitlabCi.rules.schedules)
-              (gitlabCi.rules.varIsDefined "integrates_subscriptions_analytics_daily_prod_schedule")
-              (gitlabCi.rules.always)
-            ];
-            tags = [ "autoscaling-large" ];
           };
         }
         {

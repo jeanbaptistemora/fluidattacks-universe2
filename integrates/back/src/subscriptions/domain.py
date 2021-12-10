@@ -13,10 +13,12 @@ from context import (
     FI_ENVIRONMENT,
     FI_MAIL_CUSTOMER_SUCCESS,
     FI_MAIL_REVIEWERS,
+    FI_MAIL_SUBSCRIPTIONS_TEST,
     FI_TEST_PROJECTS,
 )
 from custom_exceptions import (
     SnapshotNotFound,
+    UnableToProcessSubscription,
     UnableToSendMail,
 )
 from custom_types import (
@@ -65,6 +67,7 @@ from subscriptions import (
 from subscriptions.dal import (
     NumericType,
 )
+import sys
 from tags import (
     domain as tags_domain,
 )
@@ -667,8 +670,19 @@ async def _process_subscription_analytics(
         )
 
 
-async def trigger_subscriptions_analytics_daily() -> None:
-    """Schedule cron: Monday to Friday @ 10:00 UTC (5:00 GMT-5)."""
+async def trigger_subscriptions_analytics() -> None:
+    """Process subscriptions given a frequency from a related scheduler."""
+    # Hourly:  Supported but not in use by any subscription
+    # Daily:   Monday to Friday @ 10:00 UTC (5:00 GMT-5)
+    # Weekly:  Mondays @ 10:00 UTC (5:00 GMT-5)
+    # Monthly: First of month @ 10:00 UTC (5:00 GMT-5)
+    frequency: str = str(sys.argv[2]).upper()
+    if frequency not in {"DAILY", "HOURLY", "MONTHLY", "WEEKLY"}:
+        LOGGER_ERRORS.error(
+            "Wrong parameters for trigger", extra={"extra": {"args": sys.argv}}
+        )
+        raise UnableToProcessSubscription()
+
     subscriptions = [
         subscription
         for subscription in await get_subscriptions_to_entity_report(
@@ -676,11 +690,12 @@ async def trigger_subscriptions_analytics_daily() -> None:
         )
         if str(subscription["sk"]["entity"]).lower() != "comments"
         and str(subscription["sk"]["entity"]).lower() != "digest"
-        and _period_to_frequency(period=subscription["period"]) == "DAILY"
+        and _period_to_frequency(period=subscription["period"]) == frequency
+        and FI_MAIL_SUBSCRIPTIONS_TEST == subscription["pk"]["email"]
     ]
     LOGGER_CONSOLE.info(
         "- subscriptions loaded",
-        extra={"extra": {"length": len(subscriptions), "period": "DAILY"}},
+        extra={"extra": {"length": len(subscriptions), "period": frequency}},
     )
     await collect(
         _process_subscription_analytics(subscription)

@@ -77,6 +77,10 @@ class SnapshotNotFound(_SingleMessageException):
     msg: str = "Snapshot not found in analytics bucket"
 
 
+class UnableToProcessSubscription(_SingleMessageException):
+    msg: str = "Unable to process subscription to entity report"
+
+
 class UnableToSkimsQueue(_SingleMessageException):
     msg: str = "Unable to queue a verification request"
 

@@ -2908,7 +2908,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/subscriptions/analytics-daily__prod:
+/integrates/subscriptions/analytics__prod__daily:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
@@ -2919,7 +2919,61 @@
       when: never
     - when: always
   script:
-    - m . /integrates/subscriptions/analytics-daily 'prod'
+    - m . /integrates/subscriptions/analytics 'prod' 'daily'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/integrates/subscriptions/analytics__prod__hourly:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_subscriptions_analytics_hourly_prod_schedule == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/subscriptions/analytics 'prod' 'hourly'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/integrates/subscriptions/analytics__prod__monthly:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_subscriptions_analytics_monthly_prod_schedule == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/subscriptions/analytics 'prod' 'monthly'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/integrates/subscriptions/analytics__prod__weekly:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_subscriptions_analytics_weekly_prod_schedule == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/subscriptions/analytics 'prod' 'weekly'
   stage: scheduler
   tags:
     - autoscaling-large
