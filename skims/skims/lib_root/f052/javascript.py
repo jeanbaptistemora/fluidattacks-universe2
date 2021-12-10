@@ -86,8 +86,8 @@ def _test_crypto_js(
     invocation_step: SyntaxStepMethodInvocation,
 ) -> Iterator[Vulnerability]:
     _methods = [
-        ("crypto-js", "DES", "encrypt"),
-        ("crypto-js", "RC4", "encrypt"),
+        ("crypto-js", "DES.encrypt"),
+        ("crypto-js", "RC4.encrypt"),
     ]
     methods = set(
         chain.from_iterable(build_attr_paths(*method) for method in _methods)
