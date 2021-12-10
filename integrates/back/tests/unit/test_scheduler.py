@@ -116,7 +116,20 @@ async def test_get_status_vulns_by_time_range() -> None:
         "accepted": test_data.accepted_vulnerabilities,
         "closed": test_data.closed_vulnerabilities,
     }
+    expected_output_cvssf = {
+        "found": Decimal("51.534"),
+        "accepted": Decimal("25.767"),
+        "closed": Decimal("1.516"),
+    }
+    output_cvssf = {
+        "found": test_data.found_cvssf,
+        "accepted": test_data.accepted_cvssf,
+        "closed": test_data.closed_cvssf,
+    }
     assert sorted(output.items()) == sorted(expected_output.items())
+    assert sorted(output_cvssf.items()) == sorted(
+        expected_output_cvssf.items()
+    )
 
 
 def test_create_weekly_date() -> None:

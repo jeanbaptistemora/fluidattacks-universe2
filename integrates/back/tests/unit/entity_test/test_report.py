@@ -83,22 +83,42 @@ async def test_finding_report() -> None:
             }
         }
     """
+    unit_query_data = """
+        query test {
+            report(
+                groupName: "unittesting",
+                reportType: DATA) {
+                success
+            }
+        }
+    """
     data_pdf = {"query": query_pdf}
     data_xls = {"query": query_xls}
     data_data = {"query": query_data}
+    unit_data_data = {"query": unit_query_data}
     request = await create_dummy_session("integratesmanager@gmail.com")
     request = apply_context_attrs(request)
     _, result_pdf = await graphql(SCHEMA, data_pdf, context_value=request)
     _, result_xls = await graphql(SCHEMA, data_xls, context_value=request)
     _, result_data = await graphql(SCHEMA, data_data, context_value=request)
+    _, unit_result_data = await graphql(
+        SCHEMA, unit_data_data, context_value=request
+    )
     assert all(
         "success" in result["data"]["report"]
         and result["data"]["report"]["success"]
-        for result in [result_xls, result_data, result_pdf]
+        for result in [result_xls, result_data, result_pdf, unit_result_data]
     )
     assert (
         await _run(
             entity="oneshottest",
+            additional_info="DATA",
+        )
+        == 0
+    )
+    assert (
+        await _run(
+            entity="unittesting",
             additional_info="DATA",
         )
         == 0
