@@ -15896,7 +15896,7 @@
       details: __empty__
 "266":
   en:
-    title: Excessive Privieleges - Docker
+    title: Excessive Privileges - Docker
     description: >
       The containers executed in the application
       do not properly restrict the privileges of the users,
@@ -15953,7 +15953,7 @@
       details: https://docs.docker.com/engine/reference/builder/#user
 "267":
   en:
-    title: Excessive Privieleges - Kubernetes
+    title: Excessive Privileges - Kubernetes
     description: >
       Kubernetes default configuration
       is overly permissive,
