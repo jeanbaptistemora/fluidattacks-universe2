@@ -3,7 +3,7 @@
 from itertools import (
     chain,
 )
-from purity.v1.pure_iter._obj import (
+from purity.v2.pure_iter.core import (
     PureIter,
 )
 from returns.io import (

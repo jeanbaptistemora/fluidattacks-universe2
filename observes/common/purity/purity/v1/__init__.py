@@ -18,9 +18,6 @@ from purity.v1._json._primitive import (
     PrimitiveTVar,
     PrimitiveTypes,
 )
-from purity.v1._patch import (
-    Patch,
-)
 from purity.v1._temp_file import (
     OpenStrFile,
     TempFile,
@@ -30,6 +27,9 @@ from purity.v1._transform import (
 )
 from purity.v1.pure_iter import (
     PureIter,
+)
+from purity.v2._patch import (
+    Patch,
 )
 from purity.v2.frozen import (
     FrozenDict,

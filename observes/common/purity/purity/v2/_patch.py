@@ -6,15 +6,15 @@ from typing import (
     TypeVar,
 )
 
-_DataTVar = TypeVar("_DataTVar")
+_T = TypeVar("_T")
 
 
 @dataclass(frozen=True)
-class Patch(Generic[_DataTVar]):
+class Patch(Generic[_T]):
     # patch for https://github.com/python/mypy/issues/5485
     # upgrading mypy where the fix is included will deprecate this
-    inner: _DataTVar
+    inner: _T
 
     @property
-    def unwrap(self) -> _DataTVar:
+    def unwrap(self) -> _T:
         return self.inner

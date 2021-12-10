@@ -2,18 +2,9 @@ from __future__ import (
     annotations,
 )
 
-from dataclasses import (
-    dataclass,
-)
-from deprecated import (  # type: ignore
-    deprecated,
-)
 from purity.v2.frozen import (
     FrozenDict,
     FrozenList,
-)
-from purity.v2.json import (
-    value,
 )
 from purity.v2.json.errors import (
     invalid_type,
@@ -44,7 +35,6 @@ from typing import (
     cast,
     Dict,
     IO as IO_FILE,
-    List,
 )
 
 JsonObj = FrozenDict[str, JsonValue]

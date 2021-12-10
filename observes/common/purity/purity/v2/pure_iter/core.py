@@ -6,7 +6,7 @@ from dataclasses import (
     dataclass,
 )
 import more_itertools
-from purity.v1._patch import (
+from purity.v2._patch import (
     Patch,
 )
 from returns.primitives.hkt import (

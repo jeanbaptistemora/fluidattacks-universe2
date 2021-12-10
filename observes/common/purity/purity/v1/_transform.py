@@ -5,7 +5,7 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
-from purity.v1._patch import (
+from purity.v2._patch import (
     Patch,
 )
 from returns.primitives.hkt import (

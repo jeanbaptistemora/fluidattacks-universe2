@@ -1,13 +1,13 @@
 from collections import (
     deque,
 )
-from purity.v1._patch import (
-    Patch,
-)
 from purity.v1.pure_iter._iter_factory import (
     IterableFactoryIO,
 )
-from purity.v1.pure_iter._obj import (
+from purity.v2._patch import (
+    Patch,
+)
+from purity.v2.pure_iter.core import (
     _PureIter,
     PureIter,
 )
