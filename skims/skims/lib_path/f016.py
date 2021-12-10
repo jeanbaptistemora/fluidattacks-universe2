@@ -34,6 +34,12 @@ from parse_hcl2.loader import (
 from parse_hcl2.structure.aws import (
     iter_aws_cloudfront_distribution,
 )
+from parse_hcl2.structure.azure import (
+    iter_azurerm_storage_account,
+)
+from parse_hcl2.tokens import (
+    Attribute,
+)
 from state.cache import (
     CACHE_ETERNALLY,
 )
@@ -136,6 +142,20 @@ def tfm_aws_content_over_insecure_protocols_iterate_vulnerabilities(
                         yield ssl_prot
 
 
+def tfm_azure_content_over_insecure_protocols_iterate_vulnerabilities(
+    buckets_iterator: Iterator[Union[AWSCloudfrontDistribution, Node]]
+) -> Iterator[Union[Any, Node]]:
+    for bucket in buckets_iterator:
+        protocol_attr = False
+        for elem in bucket.data:
+            if isinstance(elem, Attribute) and elem.key == "min_tls_version":
+                protocol_attr = True
+                if elem.val in ("TLS1_0", "TLS1_1"):
+                    yield elem
+        if not protocol_attr:
+            yield bucket
+
+
 def _cfn_serves_content_over_insecure_protocols(
     content: str,
     path: str,
@@ -180,6 +200,27 @@ def _tfm_aws_serves_content_over_insecure_protocols(
     )
 
 
+def _tfm_azure_serves_content_over_insecure_protocols(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F016_CWE},
+        description_key=(
+            "src.lib_path.f016.serves_content_over_insecure_protocols"
+        ),
+        finding=_FINDING_F016,
+        iterator=get_cloud_iterator(
+            tfm_azure_content_over_insecure_protocols_iterate_vulnerabilities(
+                buckets_iterator=iter_azurerm_storage_account(model=model)
+            )
+        ),
+        path=path,
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -206,6 +247,22 @@ async def tfm_aws_serves_content_over_insecure_protocols(
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _tfm_aws_serves_content_over_insecure_protocols,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_azure_serves_content_over_insecure_protocols(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_azure_serves_content_over_insecure_protocols,
         content=content,
         path=path,
         model=model,
@@ -242,5 +299,11 @@ async def analyze(
                 model=model,
             )
         )
-
+        coroutines.append(
+            tfm_azure_serves_content_over_insecure_protocols(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
     return coroutines
