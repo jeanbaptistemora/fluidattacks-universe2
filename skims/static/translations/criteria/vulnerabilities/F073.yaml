@@ -1,3 +1,6 @@
+src.lib_path.f073.rds_is_publicly_accessible:
+  en: RDS instance should not be publicly accessible
+  es: La instancia de RDS no debería ser accesible publicamente
 F073.title:
   en: Improper authorization control for web services - RDS
   es: Improper authorization control for web services - RDS

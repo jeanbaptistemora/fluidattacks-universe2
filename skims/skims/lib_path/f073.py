@@ -1,17 +1,24 @@
 from aioextensions import (
     in_process,
 )
+from aws.model import (
+    AWSRdsCluster,
+)
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
+    TRUE_OPTIONS,
 )
 from metaloaders.model import (
     Node,
 )
 from model import (
     core_model,
+)
+from parse_cfn.structure import (
+    iter_rds_clusters_and_instances,
 )
 from parse_hcl2.loader import (
     load as load_terraform,
@@ -35,6 +42,7 @@ from typing import (
     Union,
 )
 from utils.function import (
+    get_node_by_keys,
     TIMEOUT_1MIN,
 )
 
@@ -66,6 +74,15 @@ def tfm_db_instance_publicly_accessible_iterate_vulnerabilities(
                 and elem.val is True
             ):
                 yield elem
+
+
+def _cfn_rds_is_publicly_accessible_iterate_vulnerabilities(
+    rds_iterator: Iterator[Union[AWSRdsCluster, Node]],
+) -> Iterator[Union[AWSRdsCluster, Node]]:
+    for rds_res in rds_iterator:
+        publicy_acc = get_node_by_keys(rds_res, ["PubliclyAccessible"])
+        if isinstance(publicy_acc, Node) and publicy_acc.raw in TRUE_OPTIONS:
+            yield publicy_acc
 
 
 def _tfm_db_cluster_publicly_accessible(
@@ -106,6 +123,27 @@ def _tfm_db_instance_publicly_accessible(
     )
 
 
+def _cfn_rds_is_publicly_accessible(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F073_CWE},
+        description_key="src.lib_path.f073.rds_is_publicly_accessible",
+        finding=_FINDING_F073,
+        iterator=get_cloud_iterator(
+            _cfn_rds_is_publicly_accessible_iterate_vulnerabilities(
+                rds_iterator=iter_rds_clusters_and_instances(
+                    template=template
+                ),
+            )
+        ),
+        path=path,
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -135,6 +173,22 @@ async def tfm_db_instance_publicly_accessible(
         content=content,
         path=path,
         model=model,
+    )
+
+
+# @CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_rds_is_publicly_accessible(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_rds_is_publicly_accessible,
+        content=content,
+        path=path,
+        template=template,
     )
 
 
