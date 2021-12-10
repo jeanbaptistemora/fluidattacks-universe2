@@ -35,7 +35,7 @@
           outputs."/secretsForEnvFromSops/makesUsersProd"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
-        resources = [ "aws_iam_access_key.dev_1" ];
+        resources = [ "module.aws.aws_iam_access_key._1" ];
         reDeploy = true;
         src = "/makes/foss/modules/makes/users/prod/docs/infra";
         version = "1.0";
@@ -46,7 +46,7 @@
           outputs."/secretsForEnvFromSops/makesUsersProd"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
-        resources = [ "aws_iam_access_key.dev_2" ];
+        resources = [ "module.aws.aws_iam_access_key._2" ];
         reDeploy = true;
         src = "/makes/foss/modules/makes/users/prod/docs/infra";
         version = "1.0";
