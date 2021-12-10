@@ -71,6 +71,9 @@
                   "justification": {
                     "S": "test justification temporarily accepted"
                   },
+                  "assigned": {
+                    "S": "integratescustomer@gmail.com"
+                  },
                   "acceptance_date": {
                     "S": "2021-04-07 19:59:06"
                   },
@@ -145,6 +148,9 @@
                   "treatment": {
                     "S": "ACCEPTED_UNDEFINED"
                   },
+                  "assigned": {
+                    "S": "integratesuser@gmail.com"
+                  },
                   "justification": {
                     "S": "test justification permanently accepted"
                   },
@@ -175,6 +181,9 @@
                   },
                   "acceptance_status": {
                     "S": "APPROVED"
+                  },
+                  "assigned": {
+                    "S": "integratesuser@gmail.com"
                   }
                 }
               }
@@ -441,6 +450,9 @@
                   "treatment_manager": {
                     "S": "integratescustomer@gmail.com"
                   },
+                  "assigned": {
+                    "S": "integratescustomer@gmail.com"
+                  },
                   "user": {
                     "S": "integratesuser@gmail.com"
                   }
@@ -520,6 +532,9 @@
                   },
                   "user": {
                     "S": "integratescustomer@gmail.com"
+                  },
+                  "assigned": {
+                    "S": "integratesuser@gmail.com"
                   }
                 }
               }
