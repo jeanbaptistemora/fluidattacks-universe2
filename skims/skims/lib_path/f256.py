@@ -3,7 +3,7 @@ from aioextensions import (
 )
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
@@ -112,7 +112,7 @@ def _tfm_db_no_deletion_protection(
         cwe={_FINDING_F256_CWE},
         description_key="F256.title",
         finding=_FINDING_F256,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_db_no_deletion_protection_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_db_instance(model=model)
             )
@@ -131,7 +131,7 @@ def _tfm_rds_no_deletion_protection(
         cwe={_FINDING_F256_CWE},
         description_key="F256.title",
         finding=_FINDING_F256,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_rds_no_deletion_protection_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_rds_cluster(model=model)
             )
@@ -150,7 +150,7 @@ def _tfm_db_has_not_automated_backups(
         cwe={_FINDING_F256_CWE},
         description_key="F256.title",
         finding=_FINDING_F256,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_db_has_not_automated_backups_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_db_instance(model=model)
             )
@@ -169,7 +169,7 @@ def _tfm_rds_has_not_automated_backups(
         cwe={_FINDING_F256_CWE},
         description_key="F256.title",
         finding=_FINDING_F256,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_rds_has_not_automated_backups_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_rds_cluster(model=model)
             )

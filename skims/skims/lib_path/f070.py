@@ -7,7 +7,7 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
@@ -100,7 +100,7 @@ def _tfm_lb_target_group_insecure_port(
         cwe={_FINDING_F070_CWE},
         description_key="F070.title",
         finding=_FINDING_F070,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_lb_target_group_insecure_port_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_lb_target_group(model=model)
             )
@@ -120,7 +120,7 @@ def _cfn_elb2_uses_insecure_security_policy(
         cwe={_FINDING_F070_CWE},
         description_key="src.lib_path.f070.elb2_uses_insecure_security_policy",
         finding=_FINDING_F070,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_elb2_uses_insecure_security_policy_iterate_vulnerabilities(
                 file_ext=file_ext,
                 listeners_iterator=iter_elb2_load_listeners(template=template),

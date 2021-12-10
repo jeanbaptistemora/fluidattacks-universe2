@@ -6,7 +6,7 @@ from aws.model import (
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
@@ -70,7 +70,7 @@ def _cfn_kms_key_has_master_keys_exposed_to_everyone(
             "src.lib_path.f325.kms_key_has_master_keys_exposed_to_everyone"
         ),
         finding=_FINDING_F325,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_kms_key_has_master_keys_exposed_to_everyone_iter_vulns(
                 keys_iterator=iter_kms_keys(template=template),
             )

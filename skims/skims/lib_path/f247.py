@@ -8,7 +8,7 @@ from aws.model import (
 )
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
@@ -134,7 +134,7 @@ def _tfm_fsx_unencrypted_volumes(
         cwe={_FINDING_F247_CWE},
         description_key="F247.title",
         finding=_FINDING_F247,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_fsx_unencrypted_volumes_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_fsx_windows_file_system(model=model)
             )
@@ -153,7 +153,7 @@ def _tfm_ebs_unencrypted_volumes(
         cwe={_FINDING_F247_CWE},
         description_key="F247.title",
         finding=_FINDING_F247,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_ebs_unencrypted_volumes_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_ebs_volume(model=model)
             )
@@ -172,7 +172,7 @@ def _tfm_ec2_unencrypted_volumes(
         cwe={_FINDING_F247_CWE},
         description_key="F247.title",
         finding=_FINDING_F247,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_ec2_unencrypted_volumes_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_instance(model=model)
             )
@@ -191,7 +191,7 @@ def _tfm_ebs_unencrypted_by_default(
         cwe={_FINDING_F247_CWE},
         description_key="F247.title",
         finding=_FINDING_F247,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_ebs_unencrypted_by_default_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_ebs_encryption_by_default(
                     model=model

@@ -6,7 +6,7 @@ from aws.model import (
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
@@ -72,7 +72,7 @@ def _cfn_log_files_not_validated(
         cwe={_FINDING_F091_CWE},
         description_key="src.lib_path.f091.cfn_log_files_not_validated",
         finding=_FINDING_F091,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             cfn_log_files_not_validated_iterate_vulnerabilities(
                 file_ext=file_ext,
                 trails_iterator=iter_cloudtrail_trail(template=template),

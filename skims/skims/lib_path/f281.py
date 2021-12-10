@@ -8,7 +8,7 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     FALSE_OPTIONS,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
@@ -96,7 +96,7 @@ def _cfn_bucket_policy_has_secure_transport(
         cwe={_FINDING_F281_CWE},
         description_key="src.lib_path.f281.bucket_policy_has_secure_transport",
         finding=_FINDING_F281,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_bucket_policy_has_secure_transport_iterate_vulnerabilities(
                 policies_iterator=iter_s3_bucket_policies(template=template),
             )
@@ -116,7 +116,7 @@ def _cfn_elb2_uses_insecure_port(
         cwe={_FINDING_F281_CWE},
         description_key="src.lib_path.f281.elb2_uses_insecure_port",
         finding=_FINDING_F281,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_elb2_uses_insecure_port_iterate_vulnerabilities(
                 file_ext=file_ext,
                 t_groups_iterator=iter_elb2_load_target_groups(

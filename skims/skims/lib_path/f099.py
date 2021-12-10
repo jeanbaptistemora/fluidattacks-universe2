@@ -7,7 +7,7 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     FALSE_OPTIONS,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
@@ -72,7 +72,7 @@ def _cfn_bucket_policy_has_server_side_encryption_disabled(
             "src.lib_path.f099.bckp_has_server_side_encryption_disabled"
         ),
         finding=_FINDING_F099,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_bucket_policy_has_server_side_encryption_disabled_iter_vulns(
                 policies_iterator=iter_s3_bucket_policies(template=template),
             )

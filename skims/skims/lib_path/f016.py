@@ -7,7 +7,7 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
@@ -153,7 +153,7 @@ def _cfn_serves_content_over_insecure_protocols(
             "src.lib_path.f016.serves_content_over_insecure_protocols"
         ),
         finding=_FINDING_F016,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             cfn_content_over_insecure_protocols_iterate_vulnerabilities(
                 distributions_iterator=iter_cloudfront_distributions(
                     template=template
@@ -176,7 +176,7 @@ def _tfm_serves_content_over_insecure_protocols(
             "src.lib_path.f016.serves_content_over_insecure_protocols"
         ),
         finding=_FINDING_F016,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_content_over_insecure_protocols_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_cloudfront_distribution(model=model)
             )

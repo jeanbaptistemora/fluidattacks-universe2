@@ -1,27 +1,4 @@
 import ast
-from aws.model import (
-    AWSCloudfrontDistribution,
-    AWSCTrail,
-    AWSDbInstance,
-    AWSDynamoDBTable,
-    AWSEbsEncryptionByDefault,
-    AWSEbsVolume,
-    AWSElb,
-    AWSElbV2,
-    AWSFSxFileSystem,
-    AWSFsxWindowsFileSystem,
-    AWSIamManagedPolicyArns,
-    AWSIamPolicyStatement,
-    AWSInstance,
-    AWSKmsKey,
-    AWSLaunchTemplate,
-    AWSLbTargetGroup,
-    AWSRdsCluster,
-    AWSRdsClusterInstance,
-    AWSS3Acl,
-    AWSS3Bucket,
-    AWSSecretsManagerSecret,
-)
 from frozendict import (  # type: ignore
     frozendict,
 )
@@ -227,33 +204,8 @@ def get_line_by_extension(line: int, file_ext: str) -> int:
     return line - 1 if file_ext in EXTENSIONS_YAML else line
 
 
-def get_aws_iterator(
-    statements_iterator: Iterator[
-        Union[
-            AWSCTrail,
-            AWSDynamoDBTable,
-            AWSEbsEncryptionByDefault,
-            AWSIamManagedPolicyArns,
-            AWSIamPolicyStatement,
-            AWSKmsKey,
-            AWSS3Acl,
-            AWSS3Bucket,
-            AWSCloudfrontDistribution,
-            AWSFSxFileSystem,
-            AWSFsxWindowsFileSystem,
-            AWSEbsVolume,
-            AWSInstance,
-            AWSElb,
-            AWSElbV2,
-            AWSLaunchTemplate,
-            AWSLbTargetGroup,
-            AWSDbInstance,
-            AWSRdsCluster,
-            AWSRdsClusterInstance,
-            AWSSecretsManagerSecret,
-            Node,
-        ]
-    ],
+def get_cloud_iterator(
+    statements_iterator: Iterator[Any],
 ) -> Iterator[Tuple[int, int]]:
     return (
         (

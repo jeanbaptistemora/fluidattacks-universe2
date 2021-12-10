@@ -3,7 +3,7 @@ from aioextensions import (
 )
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
@@ -78,7 +78,7 @@ def _tfm_db_cluster_publicly_accessible(
         cwe={_FINDING_F073_CWE},
         description_key="F073.title",
         finding=_FINDING_F073,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_db_cluster_publicly_accessible_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_db_instance(model=model)
             )
@@ -97,7 +97,7 @@ def _tfm_db_instance_publicly_accessible(
         cwe={_FINDING_F073_CWE},
         description_key="F073.title",
         finding=_FINDING_F073,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_db_instance_publicly_accessible_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_rds_cluster_instance(model=model)
             )

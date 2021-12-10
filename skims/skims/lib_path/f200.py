@@ -12,7 +12,7 @@ from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
     FALSE_OPTIONS,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
@@ -179,7 +179,7 @@ def _tfm_elb_logging_disabled(
         cwe={_FINDING_F200_CWE},
         description_key="src.lib_path.f200.has_logging_disabled",
         finding=_FINDING_F200,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_elb_logging_disabled_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_elb(model=model)
             )
@@ -199,7 +199,7 @@ def _cfn_has_logging_disabled(
         cwe={_FINDING_F200_CWE},
         description_key="src.lib_path.f200.has_logging_disabled",
         finding=_FINDING_F200,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _has_logging_disabled_iterate_vulnerabilities(
                 file_ext=file_ext,
                 distributions_iterator=iter_cloudfront_distributions(
@@ -222,7 +222,7 @@ def _cfn_bucket_has_access_logging_disabled(
         cwe={_FINDING_F200_CWE},
         description_key="src.lib_path.f200.has_logging_disabled",
         finding=_FINDING_F200,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_bucket_has_access_logging_disabled_iterate_vulnerabilities(
                 file_ext=file_ext,
                 buckets_iterator=iter_s3_buckets(template=template),
@@ -243,7 +243,7 @@ def _cfn_trails_not_multiregion(
         cwe={_FINDING_F200_CWE},
         description_key="src.lib_path.f200.trails_not_multiregion",
         finding=_FINDING_F200,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_trails_not_multiregion_iterate_vulnerabilities(
                 file_ext=file_ext,
                 trails_iterator=iter_cloudtrail_trail(template=template),
@@ -264,7 +264,7 @@ def _cfn_elb_has_access_logging_disabled(
         cwe={_FINDING_F200_CWE},
         description_key="src.lib_path.f200.elb_has_access_logging_disabled",
         finding=_FINDING_F200,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
                 file_ext=file_ext,
                 load_balancers_iterator=iter_elb_load_balancers(
@@ -287,7 +287,7 @@ def _cfn_elb2_has_access_logs_s3_disabled(
         cwe={_FINDING_F200_CWE},
         description_key="src.lib_path.f200.elb2_has_access_logs_s3_disabled",
         finding=_FINDING_F200,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
                 file_ext=file_ext,
                 load_balancers_iterator=iter_elb2_load_balancers(

@@ -7,7 +7,7 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     FALSE_OPTIONS,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
@@ -73,7 +73,7 @@ def _cfn_kms_key_is_key_rotation_absent_or_disabled(
             "src.lib_path.f396.kms_key_is_key_rotation_absent_or_disabled"
         ),
         finding=_FINDING_F396,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_kms_key_is_key_rotation_absent_or_disabled_iter_vulns(
                 file_ext=file_ext,
                 keys_iterator=iter_kms_keys(template=template),

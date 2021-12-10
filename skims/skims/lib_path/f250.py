@@ -6,7 +6,7 @@ from aws.model import (
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
@@ -68,7 +68,7 @@ def _cfn_fsx_has_unencrypted_volumes(
         cwe={_FINDING_F250_CWE},
         description_key="src.lib_path.f250.fsx_has_unencrypted_volumes",
         finding=_FINDING_F250,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_fsx_has_unencrypted_volumes_iter_vulns(
                 file_ext=file_ext,
                 fsx_iterator=iter_fsx_file_systems(template=template),

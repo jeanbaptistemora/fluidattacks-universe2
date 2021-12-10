@@ -7,7 +7,7 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
@@ -111,7 +111,7 @@ def _tfm_rds_has_unencrypted_storage(
         cwe={_FINDING_F246_CWE},
         description_key="F246.title",
         finding=_FINDING_F246,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_rds_cluster(model=model)
             )
@@ -130,7 +130,7 @@ def _tfm_db_has_unencrypted_storage(
         cwe={_FINDING_F246_CWE},
         description_key="F246.title",
         finding=_FINDING_F246,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_db_instance(model=model)
             )
@@ -150,7 +150,7 @@ def _cfn_rds_has_unencrypted_storage(
         cwe={_FINDING_F246_CWE},
         description_key="src.lib_path.f246.rds_has_unencrypted_storage",
         finding=_FINDING_F246,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_rds_has_unencrypted_storage_iterate_vulnerabilities(
                 file_ext=file_ext,
                 rds_iterator=iter_rds_clusters_and_instances(

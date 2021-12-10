@@ -7,7 +7,7 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     FALSE_OPTIONS,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
@@ -85,7 +85,7 @@ def _cfn_elb2_has_not_deletion_protection(
         cwe={_FINDING_F258_CWE},
         description_key="src.lib_path.f258.elb2_has_not_deletion_protection",
         finding=_FINDING_F258,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_elb2_has_not_deletion_protection_iterate_vulnerabilities(
                 file_ext=file_ext,
                 load_balancers_iterator=iter_elb2_load_balancers(

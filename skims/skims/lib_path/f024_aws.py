@@ -11,7 +11,7 @@ from ipaddress import (
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
@@ -105,7 +105,7 @@ def _cfn_instances_without_profile(
         cwe={_FINDING_F024_CWE},
         description_key="src.lib_path.f024_aws.instances_without_profile",
         finding=_FINDING_F024,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _instances_without_role_iter_vulns(
                 instaces_iterator=iter_ec2_instances(template=template)
             )
@@ -124,7 +124,7 @@ def _cfn_groups_without_egress(
         cwe={_FINDING_F024_CWE},
         description_key="src.lib_path.f024_aws.security_group_without_egress",
         finding=_FINDING_F024,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _groups_without_egress_iter_vulnerabilities(
                 groups_iterators=iter_ec2_security_groups(template=template)
             )
@@ -143,7 +143,7 @@ def _cnf_unrestricted_cidrs(
         cwe={_FINDING_F024_CWE},
         description_key="src.lib_path.f024_aws.unrestricted_cidrs",
         finding=_FINDING_F024,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cidr_iter_vulnerabilities(
                 rules_iterator=iter_ec2_ingress_egress(
                     template=template,
@@ -247,7 +247,7 @@ def _cnf_unrestricted_ports(
         cwe={_FINDING_F024_CWE},
         description_key="src.lib_path.f024_aws.unrestricted_ports",
         finding=_FINDING_F024,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _range_port_iter_vulnerabilities(
                 rules_iterator=iter_ec2_ingress_egress(
                     template=template,
@@ -270,7 +270,7 @@ def _cfn_unrestricted_ip_protocols(
         cwe={_FINDING_F024_CWE},
         description_key="src.lib_path.f024_aws.unrestricted_protocols",
         finding=_FINDING_F024,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _protocol_iter_vulnerabilities(
                 rules_iterator=iter_ec2_ingress_egress(
                     template=template,
@@ -293,7 +293,7 @@ def _cfn_allows_anyone_to_admin_ports(
         cwe={_FINDING_F024_CWE},
         description_key="src.lib_path.f024_aws.allows_anyone_to_admin_ports",
         finding=_FINDING_F024,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_iter_vulnerable_admin_ports(
                 rules_iterator=iter_ec2_ingress_egress(
                     template=template,

@@ -7,7 +7,7 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
@@ -105,7 +105,7 @@ def _cfn_has_not_point_in_time_recovery(
         cwe={_FINDING_F259_CWE},
         description_key="src.lib_path.f259.has_not_point_in_time_recovery",
         finding=_FINDING_F259,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             cfn_has_not_point_in_time_recovery_iterate_vulnerabilities(
                 file_ext=file_ext,
                 tables_iterator=iter_dynamodb_table(template=template),
@@ -125,7 +125,7 @@ def _tfm_db_no_point_in_time_recovery(
         cwe={_FINDING_F259_CWE},
         description_key="F259.title",
         finding=_FINDING_F259,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_db_no_point_in_time_recovery_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_dynambodb_table(model=model)
             )

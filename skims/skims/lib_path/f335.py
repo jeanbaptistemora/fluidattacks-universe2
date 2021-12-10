@@ -8,7 +8,7 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
@@ -103,7 +103,7 @@ def _tfm_s3_not_private_access(
         cwe={_FINDING_F335_CWE},
         description_key="F335.title",
         finding=_FINDING_F335,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             tfm_s3_not_private_access_iterate_vulnerabilities(
                 buckets_iterator=iter_s3_buckets(model=model)
             )
@@ -122,7 +122,7 @@ def _cfn_public_buckets(
         cwe={_FINDING_F335_CWE},
         description_key="F335.title",
         finding=_FINDING_F335,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _public_buckets_iterate_vulnerabilities(
                 buckets_iterator=cfn_iter_s3_buckets(template=template)
             )

@@ -8,7 +8,7 @@ from aws.model import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
@@ -135,7 +135,7 @@ def _cfn_unencrypted_volumes(
         cwe={_FINDING_F080_CWE},
         description_key="src.lib_path.f080_aws.unencrypted_volumes",
         finding=_FINDING_F080,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _unencrypted_volume_iterate_vulnerabilities(
                 volumes_iterator=_iter_ec2_volumes(template=template)
             )
@@ -155,7 +155,7 @@ def _cfn_unencrypted_buckets(
         cwe={_FINDING_F080_CWE},
         description_key="src.lib_path.f080_aws.unencrypted_buckets",
         finding=_FINDING_F080,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _cfn_unencrypted_buckets_iterate_vulnerabilities(
                 file_ext=file_ext,
                 buckets_iterator=iter_s3_buckets(template=template),
@@ -175,7 +175,7 @@ def _terraform_unencrypted_buckets(
         cwe={_FINDING_F080_CWE},
         description_key="src.lib_path.f080_aws.unencrypted_buckets",
         finding=_FINDING_F080,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _unencrypted_buckets_iterate_vulnerabilities(
                 buckets_iterator=terraform_iter_s3_buckets(model=model)
             )
@@ -194,7 +194,7 @@ def _terraform_public_buckets(
         cwe={_FINDING_F080_CWE},
         description_key="src.lib_path.f080_aws.unencrypted_buckets",
         finding=_FINDING_F080,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             _public_buckets_iterate_vulnerabilities(
                 buckets_iterator=terraform_iter_s3_buckets(model=model)
             )

@@ -3,7 +3,7 @@ from aioextensions import (
 )
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
-    get_aws_iterator,
+    get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
@@ -79,7 +79,7 @@ def _ec2_has_terminate_shutdown_behavior(
         cwe={_FINDING_F333_CWE},
         description_key="F333.title",
         finding=_FINDING_F333,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_launch_template(model=model)
             )
@@ -98,7 +98,7 @@ def _ec2_has_not_termination_protection(
         cwe={_FINDING_F333_CWE},
         description_key="F333.title",
         finding=_FINDING_F333,
-        iterator=get_aws_iterator(
+        iterator=get_cloud_iterator(
             ec2_has_not_termination_protection_iterate_vulnerabilities(
                 buckets_iterator=iter_aws_launch_template(model=model)
             )
