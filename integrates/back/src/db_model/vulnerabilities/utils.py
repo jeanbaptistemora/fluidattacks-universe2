@@ -67,18 +67,6 @@ def format_state(item: Item) -> VulnerabilityState:
     )
 
 
-def format_state_item(state: VulnerabilityState) -> Item:
-    return {
-        "justification": state.justification.value
-        if state.justification
-        else None,
-        "modified_by": state.modified_by,
-        "modified_date": state.modified_date,
-        "source": state.source.value,
-        "status": state.status.value,
-    }
-
-
 def format_treatment(item: Item) -> VulnerabilityTreatment:
     return VulnerabilityTreatment(
         accepted_until=item.get("accepted_until", None),

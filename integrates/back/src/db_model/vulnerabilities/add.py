@@ -15,19 +15,19 @@ async def add(*, vulnerability: Vulnerability) -> None:
     items = []
     key_structure = TABLE.primary_key
 
-    metadata_key = keys.build_key(
+    vulnerability_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
         values={
             "finding_id": vulnerability.finding_id,
             "id": vulnerability.id,
         },
     )
-    initial_metadata = {
-        key_structure.partition_key: metadata_key.partition_key,
-        key_structure.sort_key: metadata_key.sort_key,
+    vulnerability_item = {
+        key_structure.partition_key: vulnerability_key.partition_key,
+        key_structure.sort_key: vulnerability_key.sort_key,
         **json.loads(json.dumps(vulnerability)),
     }
-    items.append(initial_metadata)
+    items.append(vulnerability_item)
 
     state_key = keys.build_key(
         facet=TABLE.facets["vulnerability_historic_state"],
@@ -36,12 +36,12 @@ async def add(*, vulnerability: Vulnerability) -> None:
             "iso8601utc": vulnerability.state.modified_date,
         },
     )
-    historic_state = {
+    historic_state_item = {
         key_structure.partition_key: state_key.partition_key,
         key_structure.sort_key: state_key.sort_key,
         **json.loads(json.dumps(vulnerability.state)),
     }
-    items.extend(historic_state)
+    items.extend(historic_state_item)
 
     if vulnerability.treatment:
         treatment_key = keys.build_key(
@@ -51,12 +51,12 @@ async def add(*, vulnerability: Vulnerability) -> None:
                 "iso8601utc": vulnerability.state.modified_date,
             },
         )
-        historic_treatment = {
+        historic_treatment_item = {
             key_structure.partition_key: treatment_key.partition_key,
             key_structure.sort_key: treatment_key.sort_key,
             **json.loads(json.dumps(vulnerability.treatment)),
         }
-        items.append(historic_treatment)
+        items.append(historic_treatment_item)
 
     if vulnerability.verification:
         verification_key = keys.build_key(
@@ -66,12 +66,12 @@ async def add(*, vulnerability: Vulnerability) -> None:
                 "iso8601utc": vulnerability.state.modified_date,
             },
         )
-        historic_verification = {
+        historic_verification_item = {
             key_structure.partition_key: verification_key.partition_key,
             key_structure.sort_key: verification_key.sort_key,
             **json.loads(json.dumps(vulnerability.verification)),
         }
-        items.append(historic_verification)
+        items.append(historic_verification_item)
 
     if vulnerability.zero_risk:
         zero_risk_key = keys.build_key(
@@ -81,11 +81,11 @@ async def add(*, vulnerability: Vulnerability) -> None:
                 "iso8601utc": vulnerability.state.modified_date,
             },
         )
-        historic_zero_risk = {
+        historic_zero_risk_item = {
             key_structure.partition_key: zero_risk_key.partition_key,
             key_structure.sort_key: zero_risk_key.sort_key,
             **json.loads(json.dumps(vulnerability.zero_risk)),
         }
-        items.append(historic_zero_risk)
+        items.append(historic_zero_risk_item)
 
     await operations.batch_write_item(items=tuple(items), table=TABLE)
