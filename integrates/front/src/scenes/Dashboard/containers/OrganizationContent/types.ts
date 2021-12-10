@@ -16,4 +16,21 @@ interface IGetOrganizationId {
   };
 }
 
-export { IGetOrganizationId, IOrganizationContent, IOrganizationPermission };
+interface IGetUserPortfolios {
+  me: {
+    tags: {
+      name: string;
+      groups: {
+        name: string;
+      }[];
+    }[];
+    userEmail: string;
+  };
+}
+
+export {
+  IGetOrganizationId,
+  IGetUserPortfolios,
+  IOrganizationContent,
+  IOrganizationPermission,
+};

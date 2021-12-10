@@ -54,22 +54,28 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   }, []);
 
   // GraphQL operations
-  const { data, refetch: refetchGroups } = useQuery(GET_ORGANIZATION_GROUPS, {
-    onCompleted: (paramData: IGetOrganizationGroups): void => {
-      if (_.isEmpty(paramData.organization.groups)) {
-        Logger.warning("Empty groups", document.location.pathname);
-      }
-    },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred loading organization groups", error);
-      });
-    },
-    variables: {
-      organizationId,
-    },
-  });
+  const { data, refetch: refetchGroups } = useQuery<IGetOrganizationGroups>(
+    GET_ORGANIZATION_GROUPS,
+    {
+      onCompleted: (paramData: IGetOrganizationGroups): void => {
+        if (_.isEmpty(paramData.organization.groups)) {
+          Logger.warning("Empty groups", document.location.pathname);
+        }
+      },
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning(
+            "An error occurred loading organization groups",
+            error
+          );
+        });
+      },
+      variables: {
+        organizationId,
+      },
+    }
+  );
 
   // State management
   const closeNewGroupModal: () => void = useCallback((): void => {

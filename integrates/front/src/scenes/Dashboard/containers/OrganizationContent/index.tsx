@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access -- DB queries use "any" type */
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type {
@@ -25,6 +24,7 @@ import {
 } from "scenes/Dashboard/containers/OrganizationContent/queries";
 import type {
   IGetOrganizationId,
+  IGetUserPortfolios,
   IOrganizationContent,
   IOrganizationPermission,
 } from "scenes/Dashboard/containers/OrganizationContent/types";
@@ -79,18 +79,21 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
     }
   );
 
-  const { data: portfoliosData } = useQuery(GET_USER_PORTFOLIOS, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred fetching user portfolios", error);
-      });
-    },
-    skip: basicData === undefined,
-    variables: {
-      organizationId: basicData?.organizationId.id,
-    },
-  });
+  const { data: portfoliosData } = useQuery<IGetUserPortfolios>(
+    GET_USER_PORTFOLIOS,
+    {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred fetching user portfolios", error);
+        });
+      },
+      skip: basicData === undefined,
+      variables: {
+        organizationId: basicData?.organizationId.id,
+      },
+    }
+  );
 
   useQuery(GET_ORG_LEVEL_PERMISSIONS, {
     onCompleted: (permData: IOrganizationPermission): void => {
@@ -130,10 +133,6 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
     return <div />;
   }
 
-  const isPortfolioData: boolean = !(
-    _.isUndefined(portfoliosData) || _.isEmpty(portfoliosData)
-  );
-
   return (
     <React.StrictMode>
       <div>
@@ -155,7 +154,9 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   title={translate.t("organization.tabs.groups.text")}
                   tooltip={translate.t("organization.tabs.groups.tooltip")}
                 />
-                {isPortfolioData && portfoliosData.me.tags.length > 0 ? (
+                {!_.isUndefined(portfoliosData) &&
+                !_.isEmpty(portfoliosData) &&
+                portfoliosData.me.tags.length > 0 ? (
                   <ContentTab
                     icon={"icon pe-7s-display2"}
                     id={"portfoliosTab"}
@@ -198,7 +199,12 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                 </Route>
                 <Route exact={true} path={`${path}/portfolios`}>
                   <OrganizationPortfolios
-                    portfolios={isPortfolioData ? portfoliosData.me.tags : []}
+                    portfolios={
+                      !_.isUndefined(portfoliosData) &&
+                      !_.isEmpty(portfoliosData)
+                        ? portfoliosData.me.tags
+                        : []
+                    }
                   />
                 </Route>
                 <Route exact={true} path={`${path}/stakeholders`}>
