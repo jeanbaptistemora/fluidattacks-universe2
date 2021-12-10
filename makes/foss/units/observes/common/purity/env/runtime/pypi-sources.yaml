@@ -1,23 +1,25 @@
 closure:
-  deprecated: 1.2.12
-  more-itertools: 8.10.0
+  deprecated: 1.2.13
+  more-itertools: 8.12.0
   returns: 0.16.0
   simplejson: 3.17.6
+  types-deprecated: 1.2.3
+  types-simplejson: 3.17.2
   typing-extensions: 3.10.0.2
   wrapt: 1.13.3
 links:
-  - name: Deprecated-1.2.12-py2.py3-none-any.whl
-    sha256: 0wf7zz42ksvy2d6r00hpksdrcbk4z2jf1p8a6gl6dg5mnrljsi88
-    url: https://files.pythonhosted.org/packages/fb/73/994edfcba74443146c84b91921fcc269374354118d4f452fb0c54c1cbb12/Deprecated-1.2.12-py2.py3-none-any.whl
-  - name: Deprecated-1.2.12.tar.gz
-    sha256: 18dwgmp3dx5x9qyivmkpj6iqvq6liwh31vw18j3nia9ig7gf4bbd
-    url: https://files.pythonhosted.org/packages/52/ab/30ae1f10e27385b3d2a4120b8edbcb187ba9ae2c4daf811f4f823aa4f0e2/Deprecated-1.2.12.tar.gz
-  - name: more_itertools-8.10.0-py3-none-any.whl
-    sha256: 0hzsfvr5203fyqkzvbqi048nh1zvxd5lcpxh5lrvl60pai2srpan
-    url: https://files.pythonhosted.org/packages/e0/1f/9cd11889680dc55a3612a277c8310def3f2bfc7159f12fcb647e32350380/more_itertools-8.10.0-py3-none-any.whl
-  - name: more-itertools-8.10.0.tar.gz
-    sha256: 07zlfk269ihlyb66i4rl4i65046bswdahr4xhla3hyfzn6zcmsqx
-    url: https://files.pythonhosted.org/packages/8a/f7/93cf3c81629c95f6f40e509f7cd63985a6ddd829181a66c1c8ef101e55f2/more-itertools-8.10.0.tar.gz
+  - name: Deprecated-1.2.13-py2.py3-none-any.whl
+    sha256: 0vf7fvqcmf3swqlqz7v2fnza0chlaljcb4sxg6lyxif82hz6wxb4
+    url: https://files.pythonhosted.org/packages/51/6a/c3a0408646408f7283b7bc550c30a32cc791181ec4618592eec13e066ce3/Deprecated-1.2.13-py2.py3-none-any.whl
+  - name: Deprecated-1.2.13.tar.gz
+    sha256: 13g38k775idw46qds0b9kqzxah8xm4vgb2h2p8j1rhwhv8sm7b23
+    url: https://files.pythonhosted.org/packages/c8/d1/e412abc2a358a6b9334250629565fe12697ca1cdee4826239eddf944ddd0/Deprecated-1.2.13.tar.gz
+  - name: more_itertools-8.12.0-py3-none-any.whl
+    sha256: 12v8190sp0v0ganjgab8x6iyd8bxmn1z6kic39k75zfz8acxvrj3
+    url: https://files.pythonhosted.org/packages/e5/c3/48e2c81038f57e8caab9a6e6fb6c2fc23536c59b092abefc447e6b5d1903/more_itertools-8.12.0-py3-none-any.whl
+  - name: more-itertools-8.12.0.tar.gz
+    sha256: 0r30gwj7s37afnqyrkxkjxxq59449vxqv7nm1n85ym2zy13avikx
+    url: https://files.pythonhosted.org/packages/dc/b5/c216ffeace7b89b7387fe08e1b39a07c6da38ea82c60e2e630dd5883813b/more-itertools-8.12.0.tar.gz
   - name: returns-0.16.0-py3-none-any.whl
     sha256: 0amw125x7wnf6gqlfga4y29wjy48xlscxdk96kdcian5p3vl8x9v
     url: https://files.pythonhosted.org/packages/ff/e6/c66f2dfd12cd47e0efb54c0aefd35f0bbad0242fbaefe52310ebf71f010b/returns-0.16.0-py3-none-any.whl
@@ -54,6 +56,18 @@ links:
   - name: simplejson-3.17.6.tar.gz
     sha256: 19pqqn01y6qmhhv8q6dh4p1acav49kl923kklnns2qxz5a6h766g
     url: https://files.pythonhosted.org/packages/7a/47/c7cc3d4ed15f09917838a2fb4e1759eafb6d2f37ebf7043af984d8b36cf7/simplejson-3.17.6.tar.gz
+  - name: types_Deprecated-1.2.3-py3-none-any.whl
+    sha256: 0cv74i0q46fcphsd73wx42rghqslai1fz5c57507pcfqwbj4gdga
+    url: https://files.pythonhosted.org/packages/b7/9f/1658b5f70cd1baa1bb7f396711c7f832df8213aed7521a2e46dca5cb98b6/types_Deprecated-1.2.3-py3-none-any.whl
+  - name: types-Deprecated-1.2.3.tar.gz
+    sha256: 1q44bl1b4j3phs4m64dcajmzzjc8v2b04qbc87yg8inpmb9lja4m
+    url: https://files.pythonhosted.org/packages/d3/03/585395788c96f03da32b0f7931a9f6137ee0716bb310a0a3e8e93f9240d6/types-Deprecated-1.2.3.tar.gz
+  - name: types_simplejson-3.17.2-py3-none-any.whl
+    sha256: 03vsxic5gam5dkynsmp5vrv3km1sgp3yzam2qww71f4ba5fpbsm1
+    url: https://files.pythonhosted.org/packages/e4/c9/d20ee2d87a1e53aae55aea7a76765785467131e5f73af4f101ee92d78bf3/types_simplejson-3.17.2-py3-none-any.whl
+  - name: types-simplejson-3.17.2.tar.gz
+    sha256: 1yvbidv0n7khhxaxpb3xxlprq2y4km8689k7aamrd4f660g5mvip
+    url: https://files.pythonhosted.org/packages/24/5c/ac26358956e83d305634c7061d34d39da749f7446d9600111b241a882663/types-simplejson-3.17.2.tar.gz
   - name: typing_extensions-3.10.0.2-py3-none-any.whl
     sha256: 0d0s8knd86ldzfygnrj7mwbrhh31rjmksqfhxi3b25p5zpd5xlpi
     url: https://files.pythonhosted.org/packages/74/60/18783336cc7fcdd95dae91d73477830aa53f5d3181ae4fe20491d7fc3199/typing_extensions-3.10.0.2-py3-none-any.whl
