@@ -24,10 +24,8 @@ data "aws_iam_policy_document" "key_prod" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/airs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_airs",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/web-prod",
       ]
     }
     actions = [
@@ -58,10 +56,8 @@ data "aws_iam_policy_document" "key_prod" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/airs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_airs",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/web-prod",
       ]
     }
     actions = [
@@ -83,10 +79,8 @@ data "aws_iam_policy_document" "key_prod" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/airs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_airs",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/web-prod",
       ]
     }
     actions = [
@@ -152,13 +146,11 @@ data "aws_iam_policy_document" "key_dev" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/airs_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_airs",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/web-prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
       ]
     }
     actions = [
@@ -188,13 +180,11 @@ data "aws_iam_policy_document" "key_dev" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/airs_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_airs",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/web-prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
       ]
     }
     actions = [
@@ -215,13 +205,11 @@ data "aws_iam_policy_document" "key_dev" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/airs_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_airs",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/web-prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_airs",
       ]
     }
     actions = [
