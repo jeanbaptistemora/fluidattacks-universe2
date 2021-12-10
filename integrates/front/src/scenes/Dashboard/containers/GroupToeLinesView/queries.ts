@@ -32,6 +32,7 @@ const GET_TOE_LINES: DocumentNode = gql`
             modifiedCommit
             modifiedDate
             root {
+              id
               nickname
             }
             seenAt

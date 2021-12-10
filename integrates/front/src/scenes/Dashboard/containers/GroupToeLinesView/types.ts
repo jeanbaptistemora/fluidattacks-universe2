@@ -29,6 +29,7 @@ interface IToeLinesAttr {
 }
 
 interface IGitRootAttr {
+  id: string;
   nickname: string;
 }
 
@@ -49,6 +50,7 @@ interface IToeLinesData {
   modifiedDate: string;
   root: IGitRootAttr;
   rootNickname: string;
+  rootId: string;
   seenAt: string;
   sortsRiskLevel: string;
 }

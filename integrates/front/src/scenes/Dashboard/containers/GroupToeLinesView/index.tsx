@@ -341,6 +341,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       coverage: getCoverage(node),
       daysToAttack: getDaysToAttack(node),
       modifiedCommit: commitFormatter(node.modifiedCommit),
+      rootId: node.root.id,
       rootNickname: node.root.nickname,
       sortsRiskLevel: getSortsRiskLevel(node),
     })

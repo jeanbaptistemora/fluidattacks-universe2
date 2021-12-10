@@ -128,8 +128,6 @@ async def update(
         and last_modified_date <= last_attacked_at
         else 0
     )
-    print("attributes", attributes)
-    print("attacked lines", attacked_lines)
     be_present_until = (
         None
         if attributes.be_present is None

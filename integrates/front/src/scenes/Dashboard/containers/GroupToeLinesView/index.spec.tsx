@@ -61,6 +61,7 @@ describe("GroupToeLinesView", (): void => {
                     modifiedCommit: "983466z",
                     modifiedDate: "2020-11-15T15:41:04+00:00",
                     root: {
+                      id: "63298a73-9dff-46cf-b42d-9b2f01a56690",
                       nickname: "product",
                     },
                     seenAt: "2020-02-01T15:41:04+00:00",
@@ -82,6 +83,7 @@ describe("GroupToeLinesView", (): void => {
                     modifiedCommit: "273412t",
                     modifiedDate: "2020-11-16T15:41:04+00:00",
                     root: {
+                      id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                       nickname: "integrates_1",
                     },
                     seenAt: "2020-01-01T15:41:04+00:00",
