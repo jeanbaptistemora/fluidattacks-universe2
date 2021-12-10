@@ -7130,7 +7130,7 @@ F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,1,319,skims,0
   19 | sonar.host.url=http://localhost:9000
      ^ Col 0
 ",f022._java_properties_unencrypted_transport
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,16,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,16,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
    6 |         Enabled: 'true'
    7 |         DefaultCacheBehavior:
    8 |           TargetOriginId: def1
@@ -7154,7 +7154,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   26 |           TargetOriginId: def2
      ^ Col 0
 ",f016._cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,17,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,17,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
    7 |         DefaultCacheBehavior:
    8 |           TargetOriginId: def1
    9 |           ForwardedValues:
@@ -7178,7 +7178,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   27 |           ForwardedValues:
      ^ Col 0
 ",f016._cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,18,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,18,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
    8 |           TargetOriginId: def1
    9 |           ForwardedValues:
   10 |             QueryString: 'false'
@@ -7202,7 +7202,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   28 |             QueryString: 'false'
      ^ Col 0
 ",f016._cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,32,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,32,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
   12 |           Forward: all
   13 |     Origins:
   14 |     - CustomOriginConfig:
@@ -7226,7 +7226,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
 > 32 |       MinimumProtocolVersion: TLSv1
      ^ Col 4
 ",f016._cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,21,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,21,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
   11 |               ""QueryString"": ""false"",
   12 |               ""Cookies"": {
   13 |                 ""Forward"": ""all""
@@ -7250,7 +7250,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   31 |     },
      ^ Col 0
 ",f016._cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,22,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,22,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
   12 |               ""Cookies"": {
   13 |                 ""Forward"": ""all""
   14 |               }
@@ -7274,7 +7274,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   32 |     ""distribution2"": {
      ^ Col 0
 ",f016._cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,23,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,23,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
   13 |                 ""Forward"": ""all""
   14 |               }
   15 |             }
@@ -7298,7 +7298,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   33 |       ""Type"": ""AWS::CloudFront::Distribution"",
      ^ Col 0
 ",f016._cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,47,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,47,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
   33 | ype"": ""AWS::CloudFront::Distribution"",
   34 | roperties"": {
   35 | ""DistributionConfig"": {
@@ -7322,7 +7322,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   53 |
      ^ Col 8
 ",f016._cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,9,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS in namespace/skims/test/data/lib_path/f016/test.tf,"
+F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,9,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol in namespace/skims/test/data/lib_path/f016/test.tf,"
    1 | resource ""aws_cloudfront_distribution"" ""my_distribution"" {
    2 |
    3 |   origin {
@@ -7346,7 +7346,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,9,326,skims,016. Inse
   21 |     prefix          = ""myprefix""
      ^ Col 0
 ",f016._tfm_aws_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,26,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS in namespace/skims/test/data/lib_path/f016/test.tf,"
+F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,26,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol in namespace/skims/test/data/lib_path/f016/test.tf,"
    8 |       origin_protocol_policy = ""match-viewer""
    9 |       origin_ssl_protocols   = [""TLSv1"", ""TLSv1.1"", ""TLSv1.2""]
   10 |     }
