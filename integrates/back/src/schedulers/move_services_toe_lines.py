@@ -112,6 +112,8 @@ def _get_attacked_lines(
         and toe_lines.modified_date <= new_attacked_at
         else 0
     )
+    if attacked_lines > toe_lines.loc:
+        attacked_lines = toe_lines.loc
     return attacked_lines
 
 

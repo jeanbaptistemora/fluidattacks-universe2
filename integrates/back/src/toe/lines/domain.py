@@ -4,6 +4,7 @@ from .types import (
 )
 from custom_exceptions import (
     InvalidToeLinesAttackAt,
+    InvalidToeLinesAttackedLines,
     ToeLinesNotPresent,
 )
 from datetime import (
@@ -90,6 +91,13 @@ async def update(
             or attributes.attacked_at > datetime_utils.get_utc_now()
         ):
             raise InvalidToeLinesAttackAt()
+
+    if (
+        attributes.is_moving_toe_lines is False
+        and attributes.attacked_lines is not None
+        and not (1 <= attributes.attacked_lines <= current_value.loc)
+    ):
+        raise InvalidToeLinesAttackedLines()
 
     last_attacked_at = attributes.attacked_at or current_value.attacked_at
     last_modified_date = (
