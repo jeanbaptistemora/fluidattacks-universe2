@@ -13,7 +13,6 @@ from context import (
     FI_ENVIRONMENT,
     FI_MAIL_CUSTOMER_SUCCESS,
     FI_MAIL_REVIEWERS,
-    FI_MAIL_SUBSCRIPTIONS_TEST,
     FI_TEST_PROJECTS,
 )
 from custom_exceptions import (
@@ -412,14 +411,6 @@ def _should_process_event(
             and bot_time_weekday == 0
         )
         or (
-            # Monday to Friday @ 10 GMT
-            event_frequency == "daily"
-            and bot_time_hour == 10
-            and bot_time_weekday <= 4
-            and report_entity.lower() != "digest"
-            and report_entity.lower() != "comments"
-        )
-        or (
             # @ any hour
             event_frequency
             == "hourly"
@@ -686,7 +677,6 @@ async def trigger_subscriptions_analytics_daily() -> None:
         if str(subscription["sk"]["entity"]).lower() != "comments"
         and str(subscription["sk"]["entity"]).lower() != "digest"
         and _period_to_frequency(period=subscription["period"]) == "DAILY"
-        and FI_MAIL_SUBSCRIPTIONS_TEST == subscription["pk"]["email"]
     ]
     LOGGER_CONSOLE.info(
         "- subscriptions loaded",
