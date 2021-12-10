@@ -1018,7 +1018,6 @@ def exec_cloudformation_package(
             "iam.missing_role_based_security",
         ],
         ("rds", "RDS (Relational Database Service)"): [
-            "rds.has_not_automated_backups",
             "rds.has_not_termination_protection",
             "rds.is_not_inside_a_db_subnet_group",
             "rds.is_publicly_accessible",
