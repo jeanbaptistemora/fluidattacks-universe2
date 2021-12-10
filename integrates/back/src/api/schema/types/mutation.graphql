@@ -885,7 +885,7 @@ type Mutation {
     "Id of the root containing the ToE lines to be updated"
     rootId: String!
     "Number of lines that have been attacked"
-    attackedLines: Int!
+    attackedLines: Int
     "The time when the attacked was performed"
     attackedAt: DateTime!
     "Comments related with the attack"

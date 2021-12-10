@@ -37,6 +37,7 @@ from toe.lines.types import (
     ToeLinesAttributesToUpdate,
 )
 from typing import (
+    Any,
     List,
     Tuple,
 )
@@ -51,12 +52,12 @@ from typing import (
 async def mutate(  # pylint: disable=too-many-arguments
     _parent: None,
     info: GraphQLResolveInfo,
-    attacked_lines: int,
     attacked_at: str,
     comments: str,
     filenames: List[str],
     group_name: str,
     root_id: str,
+    **kwargs: Any,
 ) -> SimplePayloadType:
     try:
         user_info = await token_utils.get_jwt_content(info.context)
@@ -77,7 +78,9 @@ async def mutate(  # pylint: disable=too-many-arguments
                     ToeLinesAttributesToUpdate(
                         attacked_at=attacked_at,
                         attacked_by=user_email,
-                        attacked_lines=attacked_lines,
+                        attacked_lines=kwargs.get(
+                            "attacked_lines", curren_value.loc
+                        ),
                         comments=comments,
                     ),
                 )
