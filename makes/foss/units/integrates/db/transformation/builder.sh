@@ -33,6 +33,15 @@ function main {
     finding_submission
     finding_unreliable_indicators
     finding_verification
+    vulnerability_metadata
+    vulnerability_historic_state
+    vulnerability_historic_treatment
+    vulnerability_historic_verification
+    vulnerability_historic_zero_risk
+    vulnerability_state
+    vulnerability_treatment
+    vulnerability_verification
+    vulnerability_zero_risk
   )
   local facets=''
 
@@ -52,11 +61,6 @@ function main {
     done \
     && rm "${STATE_PATH}/${TMP_ITEMS}"
   echo "[INFO] Admin email: ${email}" \
-    && sed "s/2020-09-04.*/$(date -u +%Y-%m-%dT%H:%M:%S.000000%z)\"/g" \
-      < "${envDbData}/forces.json" \
-    | sed "s/33e5d863252940edbfb144ede56d56cf/aaa/g" \
-      | sed "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \
-        > "${STATE_PATH}/forces.now.json" \
     && for data in "${envDbData}/"*'.json'; do
       sed "s/__adminEmail__/${email}/g" "${data}" \
         > "${STATE_PATH}/$(basename "${data}")"

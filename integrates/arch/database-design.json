@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 10, 2021, 09:28 AM",
+    "DateLastModified": "Dec 10, 2021, 09:42 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -8260,42 +8260,6 @@
           "TableData": [
             {
               "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "type": {
-                "S": "LINES"
-              },
-              "tags": {
-                "L": [
-                  {
-                    "S": "tag1"
-                  },
-                  {
-                    "S": "tag2"
-                  }
-                ]
-              },
-              "commit": {
-                "S": "aacab599cec1dba8d8cb3d6f94832b9a0c903f76"
-              },
-              "where": {
-                "S": "test/data/lib_path/f073/Test.cs"
-              },
-              "specific": {
-                "S": "44"
-              },
-              "hash": {
-                "N": "-5062864885113993914"
-              },
-              "custom_severity": {
-                "N": "99"
-              }
-            },
-            {
-              "pk": {
                 "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
               },
               "sk": {
@@ -8389,14 +8353,14 @@
               "type": {
                 "S": "LINES"
               },
+              "commit": {
+                "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
+              },
               "where": {
                 "S": "test/data/lib_path/f060/csharp.cs"
               },
               "specific": {
                 "S": "12"
-              },
-              "commit": {
-                "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
               }
             },
             {
@@ -9021,12 +8985,6 @@
               "type": {
                 "S": "LINES"
               },
-              "where": {
-                "S": "path/to/file4.ext"
-              },
-              "specific": {
-                "S": "564"
-              },
               "tags": {
                 "L": [
                   {
@@ -9036,6 +8994,12 @@
                     "S": "test2"
                   }
                 ]
+              },
+              "where": {
+                "S": "path/to/file4.ext"
+              },
+              "specific": {
+                "S": "564"
               }
             },
             {
@@ -9129,26 +9093,6 @@
             "SortKeyAlias": "STATE#iso8601utc"
           },
           "TableData": [
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "sk": {
-                "S": "STATE#2021-02-15T14:01:16Z"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "source": {
-                "S": "SKIMS"
-              }
-            },
             {
               "pk": {
                 "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
@@ -10353,23 +10297,6 @@
           "TableData": [
             {
               "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "sk": {
-                "S": "TREATMENT#2021-02-15T14:01:16Z"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              }
-            },
-            {
-              "pk": {
                 "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
               },
               "sk": {
@@ -11359,20 +11286,6 @@
           "TableData": [
             {
               "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "sk": {
-                "S": "VERIFICATION#2021-02-15T14:01:16Z"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              }
-            },
-            {
-              "pk": {
                 "S": "VULN#15375781-31f2-4953-ac77-f31134225747"
               },
               "sk": {
@@ -11485,46 +11398,6 @@
             "SortKeyAlias": "ZERORISK#iso8601utc"
           },
           "TableData": [
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "sk": {
-                "S": "ZERORISK#2021-03-30T15:30:00Z"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2021-03-30T15:30:00Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "comment_id": {
-                "S": "1558048727999"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "sk": {
-                "S": "ZERORISK#2021-04-01T11:30:00Z"
-              },
-              "status": {
-                "S": "REJECTED"
-              },
-              "modified_date": {
-                "S": "2021-04-01T11:30:00Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "comment_id": {
-                "S": "1558048728000"
-              }
-            },
             {
               "pk": {
                 "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea"
@@ -11703,26 +11576,6 @@
             "SortKeyAlias": "FIN#finding_id"
           },
           "TableData": [
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#STATE"
-              },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "source": {
-                "S": "SKIMS"
-              }
-            },
             {
               "pk": {
                 "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec#STATE"
@@ -12687,23 +12540,6 @@
           "TableData": [
             {
               "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#TREATMENT"
-              },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              }
-            },
-            {
-              "pk": {
                 "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec#TREATMENT"
               },
               "sk": {
@@ -13599,20 +13435,6 @@
           "TableData": [
             {
               "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#VERIFICATION"
-              },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              }
-            },
-            {
-              "pk": {
                 "S": "VULN#15375781-31f2-4953-ac77-f31134225747#VERIFICATION"
               },
               "sk": {
@@ -13697,26 +13519,6 @@
             "SortKeyAlias": "FIN#finding_id"
           },
           "TableData": [
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#ZERORISK"
-              },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "status": {
-                "S": "REJECTED"
-              },
-              "modified_date": {
-                "S": "2021-04-01T11:30:00Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "comment_id": {
-                "S": "1558048728000"
-              }
-            },
             {
               "pk": {
                 "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea#ZERORISK"
