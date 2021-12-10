@@ -15,6 +15,21 @@ locals {
         ]
       },
       {
+        Sid    = "kmsRead"
+        Effect = "Allow"
+        Action = [
+          "kms:CreateAlias",
+          "kms:CreateKey",
+          "kms:Describe*",
+          "kms:Get*",
+          "kms:List*",
+          "kms:TagResource",
+          "kms:UntagResource",
+          "kms:UpdateAlias",
+        ]
+        Resource = ["*"]
+      },
+      {
         Sid    = "kmsWrite"
         Effect = "Allow"
         Action = ["*"]

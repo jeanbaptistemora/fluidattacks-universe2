@@ -1,23 +1,3 @@
-# Airs
-
-resource "aws_iam_role" "airs_prod" {
-  name                 = "airs_prod"
-  assume_role_policy   = data.aws_iam_policy_document.okta-assume-role-policy-data.json
-  max_session_duration = "32400"
-
-  tags = {
-    "Name"            = "airs_prod"
-    "management:area" = "cost"
-    "management:type" = "product"
-  }
-}
-
-resource "aws_iam_role_policy_attachment" "airs_prod" {
-  role       = aws_iam_role.airs_prod.name
-  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/web-prod-policy"
-}
-
-
 # Docs
 
 resource "aws_iam_role" "docs_prod" {
