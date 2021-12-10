@@ -21,12 +21,10 @@ data "aws_iam_policy_document" "key-forces-dev" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user_provision/forces_prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_forces",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_forces",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_forces",
       ]
     }
     actions = [
@@ -56,12 +54,10 @@ data "aws_iam_policy_document" "key-forces-dev" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user_provision/forces_prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_forces",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_forces",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_forces",
       ]
     }
     actions = [
@@ -81,12 +77,10 @@ data "aws_iam_policy_document" "key-forces-dev" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user_provision/forces_prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_forces",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_forces",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_forces",
       ]
     }
     actions = [
@@ -107,12 +101,10 @@ data "aws_iam_policy_document" "key-forces-dev" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user_provision/forces_prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_forces",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_forces",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_forces",
       ]
     }
     actions = [

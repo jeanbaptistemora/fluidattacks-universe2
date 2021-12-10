@@ -5,7 +5,7 @@
   deployTerraform = {
     modules = {
       forces = {
-        setup = [ outputs."/secretsForAwsFromEnv/forcesProd" ];
+        setup = [ outputs."/secretsForAwsFromEnv/prodForces" ];
         src = "/forces/infra";
         version = "1.0";
       };
