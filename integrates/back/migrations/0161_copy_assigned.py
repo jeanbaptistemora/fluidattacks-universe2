@@ -2,8 +2,8 @@
 """
 This migration aims to copy treatment_manager to assigned.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2021-12-10 at 10:04:54 UTC
+Finalization Time:  2021-12-10 at 12:40:59 UTC
 """
 
 from aioextensions import (
@@ -39,7 +39,7 @@ from vulnerabilities.dal import (
     update,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def copy_assigned(*, vulnerability: Dict[str, Any]) -> None:
