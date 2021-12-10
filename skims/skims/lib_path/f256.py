@@ -1,6 +1,9 @@
 from aioextensions import (
     in_process,
 )
+from aws.model import (
+    AWSRdsCluster,
+)
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     get_cloud_iterator,
@@ -12,6 +15,9 @@ from metaloaders.model import (
 )
 from model import (
     core_model,
+)
+from parse_cfn.structure import (
+    iter_rds_clusters_and_instances,
 )
 from parse_hcl2.loader import (
     load as load_terraform,
@@ -35,6 +41,7 @@ from typing import (
     Union,
 )
 from utils.function import (
+    get_node_by_keys,
     TIMEOUT_1MIN,
 )
 
@@ -100,6 +107,15 @@ def tfm_rds_has_not_automated_backups_iterate_vulnerabilities(
                 and elem.val in (0, "0")
             ):
                 yield elem
+
+
+def _cfn_rds_has_not_automated_backups_iterate_vulnerabilities(
+    rds_iterator: Iterator[Union[AWSRdsCluster, Node]],
+) -> Iterator[Union[AWSRdsCluster, Node]]:
+    for rds_res in rds_iterator:
+        ret_period = get_node_by_keys(rds_res, ["BackupRetentionPeriod"])
+        if isinstance(ret_period, Node) and ret_period.raw in (0, "0"):
+            yield ret_period
 
 
 def _tfm_db_no_deletion_protection(
@@ -178,6 +194,27 @@ def _tfm_rds_has_not_automated_backups(
     )
 
 
+def _cfn_rds_has_not_automated_backups(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F256_CWE},
+        description_key="src.lib_path.f256.rds_has_not_automated_backups",
+        finding=_FINDING_F256,
+        iterator=get_cloud_iterator(
+            _cfn_rds_has_not_automated_backups_iterate_vulnerabilities(
+                rds_iterator=iter_rds_clusters_and_instances(
+                    template=template
+                ),
+            )
+        ),
+        path=path,
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -239,6 +276,22 @@ async def tfm_rds_has_not_automated_backups(
         content=content,
         path=path,
         model=model,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_rds_has_not_automated_backups(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_rds_has_not_automated_backups,
+        content=content,
+        path=path,
+        template=template,
     )
 
 

@@ -1,3 +1,6 @@
+src.lib_path.f256.rds_has_not_automated_backups:
+  en: BackupRetentionPeriod property should not be 0
+  es: La propiedad BackupRetentionPeriod no debería ser 0
 F256.title:
   en: >
     Lack of protection against deletion - RDS
