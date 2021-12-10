@@ -28,7 +28,7 @@ from parse_cfn.structure import (
 from parse_hcl2.loader import (
     load as load_terraform,
 )
-from parse_hcl2.structure import (
+from parse_hcl2.structure.aws import (
     iter_aws_db_instance,
     iter_aws_rds_cluster,
 )

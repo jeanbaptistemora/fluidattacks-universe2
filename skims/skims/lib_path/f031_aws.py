@@ -37,7 +37,7 @@ from parse_cfn.structure import (
 from parse_hcl2.loader import (
     load as load_terraform,
 )
-from parse_hcl2.structure import (
+from parse_hcl2.structure.aws import (
     iterate_iam_policy_documents as terraform_iterate_iam_policy_documents,
     iterate_managed_policy_arns as terraform_iterate_managed_policy_arns,
 )

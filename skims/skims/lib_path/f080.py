@@ -26,12 +26,14 @@ from parse_cfn.structure import (
     iter_s3_buckets,
     iterate_resources,
 )
+from parse_hcl2.common import (
+    get_argument,
+    get_attribute,
+)
 from parse_hcl2.loader import (
     load as load_terraform,
 )
-from parse_hcl2.structure import (
-    get_argument,
-    get_attribute,
+from parse_hcl2.structure.aws import (
     iter_s3_buckets as terraform_iter_s3_buckets,
 )
 from state.cache import (

@@ -23,13 +23,15 @@ from parse_cfn.loader import (
 from parse_cfn.structure import (
     iter_cloudfront_distributions,
 )
-from parse_hcl2.loader import (
-    load as load_terraform,
-)
-from parse_hcl2.structure import (
+from parse_hcl2.common import (
     get_argument,
     get_attribute_by_block,
     get_block_attribute,
+)
+from parse_hcl2.loader import (
+    load as load_terraform,
+)
+from parse_hcl2.structure.aws import (
     iter_aws_cloudfront_distribution,
 )
 from state.cache import (

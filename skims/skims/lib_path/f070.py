@@ -27,7 +27,7 @@ from parse_cfn.structure import (
 from parse_hcl2.loader import (
     load as load_terraform,
 )
-from parse_hcl2.structure import (
+from parse_hcl2.structure.aws import (
     iter_aws_lb_target_group,
 )
 from parse_hcl2.tokens import (

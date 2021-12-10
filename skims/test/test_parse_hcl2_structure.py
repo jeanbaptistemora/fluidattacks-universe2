@@ -1,12 +1,14 @@
 from aws.model import (
     AWSIamPolicyStatement,
 )
+from parse_hcl2.common import (
+    iterate_resources,
+)
 from parse_hcl2.loader import (
     load_blocking,
 )
-from parse_hcl2.structure import (
+from parse_hcl2.structure.aws import (
     iterate_iam_policy_documents,
-    iterate_resources,
 )
 import pytest
 

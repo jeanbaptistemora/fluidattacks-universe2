@@ -18,12 +18,14 @@ from metaloaders.model import (
 from model import (
     core_model,
 )
+from parse_hcl2.common import (
+    get_argument,
+    get_block_attribute,
+)
 from parse_hcl2.loader import (
     load as load_terraform,
 )
-from parse_hcl2.structure import (
-    get_argument,
-    get_block_attribute,
+from parse_hcl2.structure.aws import (
     iter_aws_ebs_encryption_by_default,
     iter_aws_ebs_volume,
     iter_aws_fsx_windows_file_system,

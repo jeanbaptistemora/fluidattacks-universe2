@@ -33,13 +33,15 @@ from parse_cfn.structure import (
     iter_elb_load_balancers,
     iter_s3_buckets,
 )
+from parse_hcl2.common import (
+    get_argument,
+    iterate_block_attributes,
+)
 from parse_hcl2.loader import (
     load as load_terraform,
 )
-from parse_hcl2.structure import (
-    get_argument,
+from parse_hcl2.structure.aws import (
     iter_aws_elb,
-    iterate_block_attributes,
 )
 from state.cache import (
     CACHE_ETERNALLY,

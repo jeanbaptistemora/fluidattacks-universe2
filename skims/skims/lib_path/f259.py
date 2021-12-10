@@ -24,12 +24,14 @@ from parse_cfn.loader import (
 from parse_cfn.structure import (
     iter_dynamodb_table,
 )
+from parse_hcl2.common import (
+    get_argument,
+    get_block_attribute,
+)
 from parse_hcl2.loader import (
     load as load_terraform,
 )
-from parse_hcl2.structure import (
-    get_argument,
-    get_block_attribute,
+from parse_hcl2.structure.aws import (
     iter_aws_dynambodb_table,
 )
 from state.cache import (

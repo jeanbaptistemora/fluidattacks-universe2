@@ -16,7 +16,7 @@ from model import (
 from parse_hcl2.loader import (
     load as load_terraform,
 )
-from parse_hcl2.structure import (
+from parse_hcl2.structure.aws import (
     iter_aws_launch_template,
 )
 from parse_hcl2.tokens import (
