@@ -17,10 +17,6 @@ resource "aws_iam_access_key" "forces_prod_key-2" {
   user = "forces_prod"
 }
 
-provider "gitlab" {
-  token = var.gitlab_token
-}
-
 module "publish_credentials_prod" {
   source    = "../../../modules/publish_credentials"
   key_1     = aws_iam_access_key.forces_prod_key-1
