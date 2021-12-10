@@ -7345,7 +7345,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,9,326,skims,016. Inse
   20 |     bucket          = ""mylogs.s3.amazonaws.com""
   21 |     prefix          = ""myprefix""
      ^ Col 0
-",f016._tfm_serves_content_over_insecure_protocols
+",f016._tfm_aws_serves_content_over_insecure_protocols
 F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,26,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol from AWS in namespace/skims/test/data/lib_path/f016/test.tf,"
    8 |       origin_protocol_policy = ""match-viewer""
    9 |       origin_ssl_protocols   = [""TLSv1"", ""TLSv1.1"", ""TLSv1.2""]
@@ -7369,7 +7369,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,26,326,skims,016. Ins
   27 |   }
   28 | }
      ^ Col 0
-",f016._tfm_serves_content_over_insecure_protocols
+",f016._tfm_aws_serves_content_over_insecure_protocols
 F034,lines,namespace/skims/test/data/lib_path/f034/Test.java,11,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
  in namespace/skims/test/data/lib_path/f034/Test.java","
    1 |
