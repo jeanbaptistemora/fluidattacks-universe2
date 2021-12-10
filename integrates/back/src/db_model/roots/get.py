@@ -25,6 +25,7 @@ from db_model.roots.types import (
     IPRootItem,
     IPRootMetadata,
     IPRootState,
+    MachineFindingResult,
     MachineGitRootExecution,
     RootItem,
     RootMachineExecutionItem,
@@ -326,7 +327,12 @@ async def _get_machine_executions(
             created_at=item["created_at"],
             started_at=item["started_at"],
             stopped_at=item["stopped_at"],
-            findings_executed=item["findings_executed"],
+            name=item["name"],
+            queue=item["queue"],
+            findings_executed=[
+                MachineFindingResult(finding=x["finding"], open=x["open"])
+                for x in item["findings_executed"]
+            ],
         )
         for item in response.items
     )

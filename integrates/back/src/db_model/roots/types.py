@@ -108,9 +108,16 @@ class RootState(NamedTuple):
     status: str
 
 
+class MachineFindingResult(NamedTuple):
+    open: int
+    finding: str
+
+
 class RootMachineExecutionItem(NamedTuple):
     job_id: str
     created_at: str
     started_at: str
     stopped_at: str
-    findings_executed: List[str]
+    name: str
+    findings_executed: List[MachineFindingResult]
+    queue: str

@@ -88,6 +88,8 @@ async def add_machine_execution(
         "started_at": execution.started_at,
         "stopped_at": execution.stopped_at,
         "findings_executed": execution.findings_executed,
+        "queue": execution.queue,
+        "name": execution.name,
     }
     with suppress(botocore.exceptions.ClientError):
         await operations.batch_write_item(

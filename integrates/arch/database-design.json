@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 09, 2021, 06:18 PM",
+    "DateLastModified": "Dec 09, 2021, 08:55 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -492,6 +492,10 @@
         },
         {
           "AttributeName": "created_at",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "queue",
           "AttributeType": "S"
         }
       ],
@@ -12541,6 +12545,9 @@
               "sk": {
                 "S": "MACHINE#5504e9ed-8e43-486d-830b-c495086d84c1"
               },
+              "name": {
+                "S": "skims-process-unittesting"
+              },
               "exit_code": {
                 "S": "0"
               },
@@ -12562,6 +12569,9 @@
               },
               "created_at": {
                 "S": "2020-11-19T13:37:10+00:00"
+              },
+              "queue": {
+                "S": "skims_all_later"
               }
             }
           ],
@@ -12570,7 +12580,9 @@
             "started_at",
             "stopped_at",
             "findings_executed",
-            "created_at"
+            "created_at",
+            "queue",
+            "name"
           ],
           "DataAccess": {
             "MySql": {}

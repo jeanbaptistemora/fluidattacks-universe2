@@ -14,7 +14,6 @@ from custom_types import (
 from datetime import (
     datetime,
 )
-import dateutil.parser  # type: ignore
 from db_model import (
     roots as roots_model,
 )
@@ -907,14 +906,20 @@ async def add_machine_execution(
     jobs = response.get("jobs", [])
 
     start_date = kwargs.pop("started_at").astimezone(tzn)
-    queue_date = (
-        dateutil.parser.parse(jobs[0]["createdAt"]).astimezone(tzn)
-        if jobs
-        else start_date
-    )
+
+    try:
+        current_job = jobs[0]
+    except IndexError:
+        return False
+
+    queue_date = datetime.fromtimestamp(
+        int(current_job["createdAt"] / 1000)
+    ).astimezone(tzn)
     end_date = kwargs.pop("stopped_at").astimezone(tzn)
     execution = RootMachineExecutionItem(
         job_id=job_id,
+        name=current_job["jobName"],
+        queue=current_job["jobQueue"].split("/")[-1],
         created_at=datetime_utils.get_as_str(queue_date),
         started_at=datetime_utils.get_as_str(start_date),
         stopped_at=datetime_utils.get_as_str(end_date),
