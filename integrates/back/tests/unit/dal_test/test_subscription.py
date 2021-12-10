@@ -104,6 +104,20 @@ async def test_update() -> None:
             },
             "sk_meta": "entity_report",
         },
+        {
+            "period": Decimal("86400"),
+            "pk": {
+                "email": "integratesmanager@fluidattacks.com",
+                "meta": "user",
+            },
+            "pk_meta": "user",
+            "sk": {
+                "entity": "GROUP",
+                "meta": "entity_report",
+                "subject": "unittesting",
+            },
+            "sk_meta": "entity_report",
+        },
     ]
     assert await get_user_subscriptions(user_email="test_user_email",) == [
         {
@@ -163,6 +177,24 @@ async def test_update() -> None:
                 "entity": "DIGEST",
                 "meta": "entity_report",
                 "subject": "ALL_GROUPS",
+            },
+            "sk_meta": "entity_report",
+        }
+    ]
+    assert await get_user_subscriptions(
+        user_email="integratesmanager@fluidattacks.com",
+    ) == [
+        {
+            "period": Decimal("86400"),
+            "pk": {
+                "email": "integratesmanager@fluidattacks.com",
+                "meta": "user",
+            },
+            "pk_meta": "user",
+            "sk": {
+                "entity": "GROUP",
+                "meta": "entity_report",
+                "subject": "unittesting",
             },
             "sk_meta": "entity_report",
         }

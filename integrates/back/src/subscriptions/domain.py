@@ -13,6 +13,7 @@ from context import (
     FI_ENVIRONMENT,
     FI_MAIL_CUSTOMER_SUCCESS,
     FI_MAIL_REVIEWERS,
+    FI_MAIL_SUBSCRIPTIONS_TEST,
     FI_TEST_PROJECTS,
 )
 from custom_exceptions import (
@@ -654,7 +655,7 @@ async def _validate_subscription(
 async def _process_subscription_analytics(
     subscription: Dict[Any, Any],
 ) -> None:
-    if not _validate_subscription(subscription):
+    if not await _validate_subscription(subscription):
         LOGGER_CONSOLE.warning(
             "- user without access, unsubscribed",
             extra={"extra": {"subscription": subscription}},
@@ -685,6 +686,7 @@ async def trigger_subscriptions_analytics_daily() -> None:
         if str(subscription["sk"]["entity"]).lower() != "comments"
         and str(subscription["sk"]["entity"]).lower() != "digest"
         and _period_to_frequency(period=subscription["period"]) == "DAILY"
+        and FI_MAIL_SUBSCRIPTIONS_TEST == subscription["pk"]["email"]
     ]
     LOGGER_CONSOLE.info(
         "- subscriptions loaded",
