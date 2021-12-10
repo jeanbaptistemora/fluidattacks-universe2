@@ -65,6 +65,9 @@ bugsnag_utils.start_scheduler_session()
 toe_lines_add = retry_on_exceptions(
     exceptions=(UnavailabilityError,), sleep_seconds=5
 )(toe_lines_domain.add)
+toe_lines_remove = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=5
+)(toe_lines_domain.remove)
 toe_lines_update = retry_on_exceptions(
     exceptions=(UnavailabilityError,), sleep_seconds=5
 )(toe_lines_domain.update)
@@ -284,6 +287,20 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
             )
             for filename, services_toe_lines in repo_services_toe_lines.items()
             if filename not in repo_toe_lines
+        )
+    )
+    non_present_toe_lines = await loaders.root_toe_lines.load_nodes(
+        RootToeLinesRequest(
+            group_name=group_name, root_id=root_id, be_present=False
+        )
+    )
+    await collect(
+        tuple(
+            toe_lines_remove(
+                toe_lines.group_name, toe_lines.root_id, toe_lines.filename
+            )
+            for toe_lines in non_present_toe_lines
+            if not toe_lines.be_present and not toe_lines.commit_author
         )
     )
 

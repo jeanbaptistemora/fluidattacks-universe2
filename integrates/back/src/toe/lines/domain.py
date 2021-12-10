@@ -70,6 +70,16 @@ async def add(
     await toe_lines_model.add(toe_lines=toe_lines)
 
 
+async def remove(
+    group_name: str,
+    root_id: str,
+    filename: str,
+) -> None:
+    await toe_lines_model.remove(
+        group_name=group_name, root_id=root_id, filename=filename
+    )
+
+
 async def update(
     current_value: ToeLines,
     attributes: ToeLinesAttributesToUpdate,
